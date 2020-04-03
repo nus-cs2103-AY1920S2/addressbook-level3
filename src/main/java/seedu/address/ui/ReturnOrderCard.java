@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * An UI component that displays information of a {@code Order}.

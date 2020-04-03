@@ -34,7 +34,7 @@ import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.order.Order;
+import seedu.address.model.parcel.order.Order;
 
 import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonReturnOrderBookStorage;
@@ -86,7 +86,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete -o 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 

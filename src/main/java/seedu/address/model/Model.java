@@ -5,8 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.Parcel;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,18 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
     Predicate<ReturnOrder> PREDICATE_SHOW_ALL_RETURNS = unused -> true;
+
+    /** {@code Predicate} that evaluates true only when all the orders
+     *  are delivered.
+     */
+    Predicate<Order> PREDICATE_SHOW_DONE_ORDERS = Order::isDelivered;
+    Predicate<ReturnOrder> PREDICATE_SHOW_DONE_RETURNS = ReturnOrder::isDelivered;
+
+    /** {@code Predicate} that evaluates true only when all the orders
+     *  are not delivered.
+     */
+    Predicate<Order> PREDICATE_SHOW_UNDONE_ORDERS = order -> !order.isDelivered();
+    Predicate<ReturnOrder> PREDICATE_SHOW_UNDONE_RETURNS = order -> !order.isDelivered();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,7 +68,14 @@ public interface Model {
     ReadOnlyOrderBook getOrderBook();
 
     /**
-     * Returns true if a person with the same identity as {@code order} exists in the order book.
+     * Returns true if a parcel exist.
+     * @return boolean representing the parcel existence.
+     */
+    boolean hasParcel(Parcel parcel);
+
+    /**
+     * Returns true if a Order with the same identity as {@code order} exists in the order book.
+     * @param order
      */
     boolean hasOrder(Order order);
 
@@ -83,12 +103,6 @@ public interface Model {
      * The order must exist in the order book.
      */
     void deliverOrder(Order target);
-
-    /**
-     * Used to mark a given order as undelivered.
-     * The order must exist in the order book.
-     */
-    void renewDeliveryStatus(Order target);
 
     /**
      * Returns the user prefs' return order book file path.

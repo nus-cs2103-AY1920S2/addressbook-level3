@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.text.DecimalFormat;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -15,11 +17,10 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.logic.Logic;
-import seedu.address.model.order.Order;
-
-
-
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * The Show Window. Displays the statistics regarding the orders that
@@ -30,23 +31,45 @@ import seedu.address.model.order.Order;
  */
 public class ShowWindow extends UiPart<Stage> {
 
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+    private static final LocalDate dateNow = LocalDate.now();
     private static final Logger logger = LogsCenter.getLogger(ClearWindow.class);
     private static final String FXML = "ShowWindow.fxml";
 
-    private FilteredList<Order> fullList;
-    private List<Order> tempOrderList;
+    private List<Order> orderList;
+    private List<Order> deliveredList;
+
+    private List<ReturnOrder> returnList;
+    private List<ReturnOrder> returnedList;
+
+    private Logic logic;
 
     @FXML
-    private PieChart piechart;
+    private PieChart deliveryPieChart;
 
     @FXML
-    private Label doneorders;
+    private PieChart returnPieChart;
 
     @FXML
-    private Label totalorders;
+    private Label doneOrders;
 
     @FXML
-    private Label totalcash;
+    private Label deliveriesToday;
+
+    @FXML
+    private Label totalCash;
+
+    @FXML
+    private Label dateToday;
+
+    @FXML
+    private Label returnedOrders;
+
+    @FXML
+    private Label toReturn;
+
+    @FXML
+    private Label totalOrders;
 
     /**
      * Create a new ShowWindow.
@@ -59,59 +82,142 @@ public class ShowWindow extends UiPart<Stage> {
 
     public ShowWindow(Logic logic) {
         this(new Stage());
-        init(logic);
+        this.logic = logic;
+        dateToday.setText(dateNow.format(dateFormatter));
+        init();
     }
 
     /**
-     * The method is responsible for adding the data values
-     * to the PieChart.
+     * The method is responsible for populating the PieChart
+     * with data values about the delivery orders assigned to the courier.
+     *
      */
-    public void addPieChartValues() {
+    public void populateDeliveryPieChart() {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Orders completed", tempOrderList.size()),
-                        new PieChart.Data("Orders not completed", fullList.size() - tempOrderList.size()));
+                        new PieChart.Data("Orders completed", deliveredList.size()),
+                        new PieChart.Data("Orders not completed", orderList.size() - deliveredList.size()));
 
-        piechart.setTitle("Orders");
-        piechart.setData(pieChartData);
+        deliveryPieChart.setTitle("Delivery Orders");
+        deliveryPieChart.setData(pieChartData);
+    }
 
-        totalcash.setText(calcEarnings());
+    /**
+     * With the LogicManager given, use it to get the lists of delivery orders.
+     * The list will be used to display the statistics of the delivery orders.
+     *
+     */
+    public void getDeliveryData() {
+        orderList = (new FilteredList<>(logic.getFilteredOrderList()))
+                .stream()
+                .filter(ListUtil::isToday)
+                .collect(Collectors.toList());
 
-        doneorders.setText(String.valueOf(tempOrderList.size()));
+        deliveredList = orderList
+                .stream()
+                .filter(Order::isDelivered)
+                .collect(Collectors.toList());
+    }
 
-        totalorders.setText(String.valueOf(fullList.size()));
+    /**
+     * Putting the data values for delivery orders into the Labels.
+     *
+     */
+    public void populateDeliveryStats() {
+        doneOrders.setText(String.valueOf(deliveredList.size()));
+        deliveriesToday.setText(String.valueOf(orderList.size()));
     }
 
     /**
      * Calculate the total earnings of the Courier.
-     * Earnings from delivering orders.
+     * The method will use a DecimalFormatter instance to convert a double
+     * into a String with two decimal places and put the value into the Label.
      *
-     * @return String The earnings as a String type.
      */
-    public String calcEarnings() {
+    public void calcEarnings() {
         DecimalFormat df2 = new DecimalFormat("$0.00");
         double sum = 0;
-        for (Order order: tempOrderList) {
+
+        for (Order order: deliveredList) {
             sum += order.getCash().getCashValue();
         }
 
-        return df2.format(sum);
+        String earnings = (sum == 0 ? "$0" : df2.format(sum));
+        totalCash.setText(earnings);
     }
 
     /**
-     * Initialize the private variable fields of
-     * ShowWindow class and call the addPieChartValues method.
+     * With the LogicManager given, use it to get the lists of return orders.
+     * The list will be used to display the statistics of the return orders.
      *
-     * @param logic pass LogicManager as a parameter.
      */
-    public void init(Logic logic) {
-        fullList = new FilteredList<>(logic.getFilteredOrderList());
-        tempOrderList = fullList
+    public void getReturnData() {
+        returnList = (new FilteredList<>(logic.getFilteredReturnOrderList()))
                 .stream()
-                .filter(Order::isDelivered)
+                .filter(ListUtil::isToday)
                 .collect(Collectors.toList());
 
-        addPieChartValues();
+        returnedList = returnList
+                .stream()
+                .filter(ReturnOrder::isDelivered)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Putting the data values for return orders into the Labels.
+     *
+     */
+    public void populateReturnStats() {
+        returnedOrders.setText(String.valueOf(returnedList.size()));
+        toReturn.setText(String.valueOf(returnList.size()));
+    }
+
+    /**
+     * Find the total orders to make today for both
+     * return orders and delivery orders.
+     *
+     */
+    public void setTotalOrders() {
+        totalOrders.setText(String.valueOf(returnList.size() + orderList.size()));
+    }
+
+    /**
+     * The method is responsible for populating the PieChart
+     * with data values about the return orders assigned to the courier.
+     *
+     */
+    public void populateReturnPieChart() {
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Orders completed", returnedList.size()),
+                        new PieChart.Data("Orders not completed", returnList.size() - returnedList.size()));
+
+        returnPieChart.setTitle("Return Orders");
+        returnPieChart.setData(pieChartData);
+    }
+
+    /**
+     * Call a series of methods in the init() method that
+     * collects all the data from the list of orders and return orders
+     * and displays it to the user through the ShowWindow.
+     *
+     */
+    public void init() {
+        // Delivery Orders
+        getDeliveryData();
+        populateDeliveryStats();
+        populateDeliveryPieChart();
+
+        // Display Earnings
+        calcEarnings();
+
+        // Return Orders
+        getReturnData();
+        populateReturnStats();
+        populateReturnPieChart();
+
+        // Total Orders
+        setTotalOrders();
     }
     /**
      * Returns true if the help window is currently being shown.

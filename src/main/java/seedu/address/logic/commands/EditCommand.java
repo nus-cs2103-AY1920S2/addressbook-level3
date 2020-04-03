@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
+import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
@@ -12,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RETURNS;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,18 +23,21 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
+import seedu.address.model.parcel.Parcel;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.order.CashOnDelivery;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Edits the details of an existing order in the order book.
@@ -59,66 +65,141 @@ public class EditCommand extends Command {
             + PREFIX_TID + "A0185837Q";
 
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
+    public static final String MESSAGE_EDIT_RETURN_ORDER_SUCCESS = "Edited Return Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the order book.";
+    public static final String MESSAGE_DUPLICATE_PARCEL = "This parcel already exists in the list.";
+    public static final String MULTIPLE_FLAGS_DETECTED = "Different flags detected, please check your input."
+        + Messages.NEWLINE + "Format example: " + COMMAND_WORD + " -o 1 n/Alex" + Messages.NEWLINE
+        + "OR " + COMMAND_WORD + " -r 1 n/Alex";
 
+    private final Flag flag;
     private final Index index;
-    private final EditOrderDescriptor editOrderDescriptor;
+    private final EditParcelDescriptor editParcelDescriptor;
 
     /**
      * @param index                of the order in the filtered order list to edit
-     * @param editOrderDescriptor details to edit the order with
+     * @param editParcelDescriptor details to edit the order with
      */
-    public EditCommand(Index index, EditOrderDescriptor editOrderDescriptor) {
+    public EditCommand(Index index, EditParcelDescriptor editParcelDescriptor, Flag flag) {
         requireNonNull(index);
-        requireNonNull(editOrderDescriptor);
+        requireNonNull(editParcelDescriptor);
 
+        this.flag = flag;
         this.index = index;
-        this.editOrderDescriptor = new EditOrderDescriptor(editOrderDescriptor);
+        this.editParcelDescriptor = new EditParcelDescriptor(editParcelDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownList = model.getFilteredOrderList();
+        List<ReturnOrder> lastReturnShownList = model.getFilteredReturnOrderList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if ((index.getZeroBased() >= lastShownList.size() && flag.equals(FLAG_ORDER_BOOK))
+            || index.getZeroBased() >= lastReturnShownList.size() && flag.equals(FLAG_RETURN_BOOK)) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToEdit = lastShownList.get(index.getZeroBased());
-        Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
-
-        if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
+        if (flag.equals(FLAG_ORDER_BOOK)) {
+            Order orderToEdit;
+            orderToEdit = lastShownList.get(index.getZeroBased());
+            Order editedOrder = createEditedOrder(orderToEdit, editParcelDescriptor);
+            return generalSetParcel(orderToEdit, editedOrder, model);
+        } else if (flag.equals(FLAG_RETURN_BOOK)) {
+            ReturnOrder returnToEdit;
+            returnToEdit = lastReturnShownList.get(index.getZeroBased());
+            ReturnOrder editedReturnOrder = createEditedReturnOrder(returnToEdit, editParcelDescriptor);
+            return generalSetParcel(returnToEdit, editedReturnOrder, model);
         }
 
-        model.setOrder(orderToEdit, editedOrder);
-        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, editedOrder));
+        throw new CommandException(Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
+
     }
 
     /**
-     * Creates and returns a {@code Order} with the details of {@code personToEdit}
-     * edited with {@code editOrderDescriptor}.
+     * Creates and returns a {@code Order} with the details of {@code orderToEdit}
+     * edited with {@code editParcelDescriptor}.
      */
-    private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
+    private static Order createEditedOrder(Order orderToEdit, EditParcelDescriptor editParcelDescriptor) {
         assert orderToEdit != null;
 
-        TransactionId updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
-        Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
-        Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
-        Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
-        Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
-        TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
-        Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
-        CashOnDelivery updatedCod = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
-        Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
-        TypeOfItem updatedType = editOrderDescriptor.getItemType().orElse(orderToEdit.getItemType());
-
+        TransactionId updatedTid = editParcelDescriptor.getTid().orElse(orderToEdit.getTid());
+        Name updatedName = editParcelDescriptor.getName().orElse(orderToEdit.getName());
+        Phone updatedPhone = editParcelDescriptor.getPhone().orElse(orderToEdit.getPhone());
+        Email updatedEmail = editParcelDescriptor.getEmail().orElse(orderToEdit.getEmail());
+        Address updatedAddress = editParcelDescriptor.getAddress().orElse(orderToEdit.getAddress());
+        TimeStamp updateTimeStamp = editParcelDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
+        Warehouse updatedWarehouse = editParcelDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
+        CashOnDelivery updatedCod = editParcelDescriptor.getCash().orElse(orderToEdit.getCash());
+        Comment updatedComment = editParcelDescriptor.getComment().orElse(orderToEdit.getComment());
+        TypeOfItem updatedType = editParcelDescriptor.getItemType().orElse(orderToEdit.getItemType());
 
         return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
                 updatedWarehouse, updatedCod, updatedComment, updatedType);
+    }
+
+    /**
+     * Creates and returns a {@code ReturnOrder} with the details of {@code returnOrderToEdit}
+     * edited with {@code editParcelDescriptor}.
+     */
+    private static ReturnOrder createEditedReturnOrder(ReturnOrder returnOrderToEdit,
+                                                  EditParcelDescriptor editParcelDescriptor) {
+        assert returnOrderToEdit != null;
+
+        TransactionId updatedTid = editParcelDescriptor.getTid().orElse(returnOrderToEdit.getTid());
+        Name updatedName = editParcelDescriptor.getName().orElse(returnOrderToEdit.getName());
+        Phone updatedPhone = editParcelDescriptor.getPhone().orElse(returnOrderToEdit.getPhone());
+        Email updatedEmail = editParcelDescriptor.getEmail().orElse(returnOrderToEdit.getEmail());
+        Address updatedAddress = editParcelDescriptor.getAddress().orElse(returnOrderToEdit.getAddress());
+        TimeStamp updateTimeStamp = editParcelDescriptor.getTimeStamp().orElse(returnOrderToEdit.getTimestamp());
+        Warehouse updatedWarehouse = editParcelDescriptor.getWarehouse().orElse(returnOrderToEdit.getWarehouse());
+        Comment updatedComment = editParcelDescriptor.getComment().orElse(returnOrderToEdit.getComment());
+        TypeOfItem updatedType = editParcelDescriptor.getItemType().orElse(returnOrderToEdit.getItemType());
+
+        return new ReturnOrder(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
+            updatedWarehouse, updatedComment, updatedType);
+    }
+
+    /**
+     * Checks if parcel is either same as before, or upon edited it is the same as another parcel.
+     *
+     * @param parcelToEdit {@code Parcel} object that is going to be edited.
+     * @param editedParcel {@code Parcel} object that has been edited.
+     * @param model {@code ModelManager} that represents the in-memory model of the order book data.
+     * @return Returns a true if the Parcel is not editable, else false.
+     * @throws CommandException Throws {@code CommandException} whenever a {@code Parcel} is duplicated.
+     */
+    private boolean isNotEditable(Parcel parcelToEdit, Parcel editedParcel, Model model) {
+        return (!parcelToEdit.isSameParcel(editedParcel) && model.hasParcel(editedParcel));
+    }
+
+    /**
+     * Act as a helper method to create different {@code CommandResult} object based on the {@code Parcel}
+     * type that has been edited.
+     *
+     * @param parcelToEdit {@code Parcel} object that is going to be edited.
+     * @param editedParcel {@code Parcel} object that has been edited.
+     * @param model {@code ModelManager} that represents the in-memory model of the order book data.
+     * @return Returns a {@code CommandResult} object representing the result of either editing an {@code Order} or
+     * {@code ReturnOrder}.
+     * @throws CommandException Throws {@code CommandException} whenever a {@code Parcel} is duplicated or if the
+     * {@code Parcel} type is invalid.
+     */
+    private CommandResult generalSetParcel(Parcel parcelToEdit, Parcel editedParcel, Model model)
+        throws CommandException {
+        if (isNotEditable(parcelToEdit, editedParcel, model)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PARCEL);
+        }
+        if (parcelToEdit instanceof Order && editedParcel instanceof Order) {
+            model.setOrder((Order) parcelToEdit, (Order) editedParcel);
+            model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+            return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, editedParcel));
+        } else if (parcelToEdit instanceof ReturnOrder && editedParcel instanceof ReturnOrder) {
+            model.setReturnOrder((ReturnOrder) parcelToEdit, (ReturnOrder) editedParcel);
+            model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
+            return new CommandResult(String.format(MESSAGE_EDIT_RETURN_ORDER_SUCCESS, editedParcel));
+        }
+        throw new CommandException("Parcel type invalid");
     }
 
     @Override
@@ -136,14 +217,14 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editOrderDescriptor.equals(e.editOrderDescriptor);
+                && editParcelDescriptor.equals(e.editParcelDescriptor);
     }
 
     /**
      * Stores the details to edit the order with. Each non-empty field value will replace the
      * corresponding field value of the order.
      */
-    public static class EditOrderDescriptor {
+    public static class EditParcelDescriptor {
         private TransactionId tid;
         private Name name;
         private Phone phone;
@@ -155,14 +236,14 @@ public class EditCommand extends Command {
         private Comment comment;
         private TypeOfItem itemType;
 
-        public EditOrderDescriptor() {
+        public EditParcelDescriptor() {
         }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditOrderDescriptor(EditOrderDescriptor toCopy) {
+        public EditParcelDescriptor(EditParcelDescriptor toCopy) {
             setTid(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -270,12 +351,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditOrderDescriptor)) {
+            if (!(other instanceof EditParcelDescriptor)) {
                 return false;
             }
 
             // state check
-            EditOrderDescriptor e = (EditOrderDescriptor) other;
+            EditParcelDescriptor e = (EditParcelDescriptor) other;
 
             return getTid().equals(e.getTid())
                     && getName().equals(e.getName())

@@ -18,10 +18,7 @@ abstract class "{abstract}\nCommand" {
 
 class ImportCommand {
     /' Fields '/
-    + {static} OT_RETURN : String
-    + {static} OT_ORDER : String
-    + {static} COMMAND_WORD : String
-    + {static} MESSAGE_USAGE : String
+
     - ordersData : List<String>
     - invalidCounter : int
     - processedOrderCounter : int
@@ -30,8 +27,32 @@ class ImportCommand {
 
     /' Methods '/
     + execute(model : Model) : CommandResult
-    + equals(Object other) : boolean
-    - printResult() : String
+    - processData(model : Model)
+    - {static} printResult() : String
 }
+
+class ParserUtil {
+    + {static} parseCsvFile(filePath : String) : List<String>
+}
+
+class CsvProcessor {
+    + {static} retrieveData(filePath : Path) : List<String>
+    - {static} processData(fileData : String) : List<String>
+    - {static} getCsvData(sentence : String) : List<String>
+}
+
+class InsertCommandParser {
+    parse(args : String) : InsertCommand
+}
+
+class ReturnCommandParser {
+    parse(args : String) : ReturnCommand
+}
+
+ImportCommand ..> InsertCommandParser
+ImportCommand ..> ReturnCommandParser
+ImportCommandParser ..down> ParserUtil
+ParserUtil ..down> CsvProcessor
+ImportCommand ..right> CsvProcessor
 ImportCommand --up|> "{abstract}\nCommand"
 @enduml

@@ -11,11 +11,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Adds a order to the order book.
@@ -69,10 +72,7 @@ public class ReturnCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (toBeCreated == null) {
-            Order orderToBeReturned = model.getOrderBook().getOrderByTransactionId(tid);
-            if (orderToBeReturned == null) {
-                throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
-            }
+            Order orderToBeReturned = getOrderByTransactionId(model);
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
             }
@@ -86,10 +86,36 @@ public class ReturnCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeCreated));
     }
 
+    /**
+     * Gets the order from the model based on its Transaction ID.
+     * @param model The current Model.
+     * @return The order taken from the order book based on the transaction id input by user.
+     * @throws CommandException
+     */
+    private Order getOrderByTransactionId(Model model) throws CommandException {
+        List<Order> ordersToBeReturned = model.getOrderBook().getOrderList()
+                .stream().filter(order -> order.getTid().equals(tid)).collect(Collectors.toList());
+        if (ordersToBeReturned.isEmpty()) {
+            throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
+        }
+        assert(ordersToBeReturned.size() <= 1);
+        Order orderToBeReturned = ordersToBeReturned.get(0);
+        return orderToBeReturned;
+    }
+
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReturnCommand // instanceof handles nulls
-                && toBeCreated.equals(((ReturnCommand) other).toBeCreated));
+        boolean shortCircuitCheck = other == this; // short circuit if same object
+        if (shortCircuitCheck) {
+            return true;
+        }
+        if (toBeCreated == null) {
+            return ((other instanceof ReturnCommand && ((ReturnCommand) other).toBeCreated == null)
+                    && tid.equals(((ReturnCommand) other).tid));
+        } else {
+            return (other instanceof ReturnCommand
+                    && (toBeCreated.equals(((ReturnCommand) other).toBeCreated))
+                    && tid.equals(((ReturnCommand) other).tid));
+        }
     }
 }

@@ -1,0 +1,83 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class DeliveredCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : DeliveredCommand
+    - onlyReturnFlagPresent(splitInputList : List<String>)
+    - onlyOrderFlagPresent(splitInputList : List<String>)
+    - indexOfReturnList(splitInputList : List<String>)
+    - indexOfOrderList(splitInputList : List<String>)
+}
+
+interface Parser<T extends Command> {
+    parse(userInput : String) : DeliveredCommand
+}
+
+abstract class Command {
+    {abstract} execute(Model model) : CommandResult
+}
+
+class DeliveredCommand extends Command {
+    /' Fields '/
+    - targetIndex : Index
+    - flag : Flag
+    - deliveredParcelDescriptor : DeliveredCommand.DeliveredParcelDescriptor
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    - {static} createDeliveredReturnOrder(returnOrderToDeliver : ReturnOrder, deliveredParcelDescriptor : DeliveredParcelDescriptor) : ReturnOrder
+    - {static} createDeliveredOrder(orderToDeliver : Order, deliveredParcelDescriptor : DeliveredParcelDescriptor) : Order
+    - isFlagForOrderList() : boolean
+    - isFlagForReturnList() : boolean
+    - isIndexValidForOrderList(model : Model) : boolean
+    - isIndexValidForReturnList(model : Model) : boolean
+    - processDeliveryOfOrder(model : Model) : CommandResult
+    - processDeliveryOfReturnOrder(model : Model) : CommandResult
+    - deliverAndUpdateOrderList(model : Model) : void
+    - deliverAndUpdateReturnList(model : Model) : void
+    - updateReturnList(model : Model) : void
+    - updateOrderList(model : Model) : void
+}
+
+interface Model <<Interface>> {
+    + getFilteredOrderList() : void
+    + setOrder(order : Order, deliveredOrder : Order) : void
+    + deliverOrder(deliveredOrder : Order) : void
+    + getFilteredReturnOrderList() : void
+    + setReturnOrder(returnOrder : ReturnOrder, deliveredReturnOrder : ReturnOrder) : void
+    + deliverReturnOrder(deliveredReturnOrder : ReturnOrder) : void
+    + updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS :Predicate<Order>) : void
+    + updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_Returns :Predicate<ReturnOrder>) : void
+
+}
+
+class Index {
+    + indexOfOrderList(splitInputList : List<String>)
+    + indexOfReturnList(splitInputList : List<String>)
+}
+
+class DeliveredParcelDescriptor {
+    /' Fields '/
+    - tid : TransactionId
+    - name : Name
+    - phone : Phone
+    - email : Email
+    - address : Address
+    - timeStamp : TimeStamp
+    - warehouse : Warehouse
+    - cod : CashOnDelivery
+    - comment : Comment
+    - itemType : TypeOfItem
+    - deliveryStatus : boolean
+}
+
+DeliveredCommand --* "1" DeliveredParcelDescriptor
+DeliveredCommandParser ..> DeliveredCommand
+DeliveredCommandParser ..> DeliveredParcelDescriptor
+DeliveredCommand ..> Model
+DeliveredCommandParser ..> Index
+DeliveredCommand --> Index
+@enduml

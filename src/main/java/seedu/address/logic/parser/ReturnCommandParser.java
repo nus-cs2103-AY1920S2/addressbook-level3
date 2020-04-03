@@ -15,16 +15,16 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -43,26 +43,46 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                         PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_TYPE,
                         PREFIX_COMMENT);
 
-        if (arePrefixesPresent(argMultimap, PREFIX_TID)
+        if (onlyTransactionIdPresent(argMultimap)) {
+            TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
+            return new ReturnCommand(null, tid);
+        }
+
+        if (anyCompulsoryPrefixMissing(argMultimap)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
+        }
+        ReturnOrder returnOrder = createReturnOrder(argMultimap);
+        TransactionId tid = returnOrder.getTid();
+        return new ReturnCommand(returnOrder, tid);
+    }
+
+    /**
+     * Checks if only the transaction id is present to trigger a different logic for the return command.
+     * {@param argMultimap}
+     */
+    private boolean onlyTransactionIdPresent(ArgumentMultimap argMultimap) {
+        return arePrefixesPresent(argMultimap, PREFIX_TID)
                 && !arePrefixesPresent(argMultimap, PREFIX_NAME)
                 && !arePrefixesPresent(argMultimap, PREFIX_ADDRESS)
                 && !arePrefixesPresent(argMultimap, PREFIX_PHONE)
                 && !arePrefixesPresent(argMultimap, PREFIX_RETURN_TIMESTAMP)
                 && !arePrefixesPresent(argMultimap, PREFIX_WAREHOUSE)
-                && !arePrefixesPresent(argMultimap, PREFIX_EMAIL)) {
-            try {
-                TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
-                return new ReturnCommand(null, tid);
-            } catch (ParseException pe) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE), pe);
-            }
-        }
-        if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                && !arePrefixesPresent(argMultimap, PREFIX_EMAIL);
+    }
+
+    private boolean anyCompulsoryPrefixMissing(ArgumentMultimap argMultimap) {
+        return !arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                 PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
-        }
+                || !argMultimap.getPreamble().isEmpty();
+    }
+
+    /**
+     * Creates a return order based on the input keyed in by the user.
+     * @param argMultimap The arguments parsed by user input.
+     * @return ReturnOrder A return order based on attributes keyed in by user.
+     * @throws ParseException An exception will be thrown if input is invalid.
+     */
+    private ReturnOrder createReturnOrder(ArgumentMultimap argMultimap) throws ParseException {
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
@@ -79,8 +99,7 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
 
         ReturnOrder returnOrder = new ReturnOrder(tid, name, phone, email, address,
                 timeStamp, warehouse, comment, type);
-
-        return new ReturnCommand(returnOrder, tid);
+        return returnOrder;
     }
 
     /**

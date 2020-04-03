@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
@@ -27,7 +28,9 @@ import java.util.Optional;
  */
 public class ArgumentMultimap {
 
-    /** Prefixes mapped to their respective arguments**/
+    /**
+     * Prefixes mapped to their respective arguments
+     **/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
@@ -72,6 +75,7 @@ public class ArgumentMultimap {
 
     /**
      * A getter method to get all the values of the ArgumentMultimap.
+     *
      * @return Returns a List of strings containing all the values of the ArgumentMultimap.
      */
     public List<String> getAllPrefixValues() {
@@ -99,8 +103,12 @@ public class ArgumentMultimap {
         return argMultimap.containsKey(PREFIX_ADDRESS);
     }
 
-    public boolean getHasTimeStamp() {
+    public boolean getHasDeliveryTimeStamp() {
         return argMultimap.containsKey(PREFIX_DELIVERY_TIMESTAMP);
+    }
+
+    public boolean getHasReturnTimeStamp() {
+        return argMultimap.containsKey(PREFIX_RETURN_TIMESTAMP);
     }
 
     public boolean getHasWarehouse() {
@@ -121,5 +129,12 @@ public class ArgumentMultimap {
 
     public boolean getHasEmail() {
         return argMultimap.containsKey(PREFIX_EMAIL);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this
+            || (obj instanceof ArgumentMultimap
+            && this.argMultimap.keySet().equals(((ArgumentMultimap) obj).argMultimap.keySet()));
     }
 }

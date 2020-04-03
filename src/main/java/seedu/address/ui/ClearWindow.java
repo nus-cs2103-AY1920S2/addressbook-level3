@@ -61,7 +61,7 @@ public class ClearWindow extends UiPart<Stage> {
      * Show the Clear Window Stage in the centre of the Screen.
      */
     public void show() {
-        logger.fine("Showing warning message to the user for clearing the order book list.");
+        logger.fine("Showing confirmation message to the user");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -98,6 +98,7 @@ public class ClearWindow extends UiPart<Stage> {
     @FXML
     private void agreeToClearOrderBookList() {
         String commandText = setCommandText();
+        logger.fine("User confirm to clear");
         try {
             CommandResult commandResult = logic.execute(commandText);
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());

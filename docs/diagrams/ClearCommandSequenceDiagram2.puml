@@ -1,0 +1,41 @@
+@startuml
+/' Sequence Diagram for import feature'/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "clearCommand:ClearCommand" as ClearCommand LOGIC_COLOR
+participant "orderBook:OrderBook" as OrderBook LOGIC_COLOR
+participant "returnOrderBook:ReturnOrderBook" as ReturnOrderBook LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+activate LogicManager
+
+group sd Execution of the Clear Command Sequence Diagram
+
+LogicManager -> ClearCommand ++ : execute(model)
+
+ClearCommand -> ClearCommand ++ : updateModel(model)
+
+create OrderBook
+ClearCommand -> OrderBook ++
+
+OrderBook --> ClearCommand -- : orderBook
+
+ClearCommand -> Model ++ : setOrderBook(orderBook)
+Model --> ClearCommand --
+
+create CommandResult
+ClearCommand -> CommandResult ++ : MESSAGE_SUCCESS_ORDER_BOOK
+
+CommandResult --> ClearCommand -- : result
+
+ClearCommand --> ClearCommand -- : result
+
+ClearCommand --> LogicManager -- : result
+
+end
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class DeleteCommand {
+    /' Fields '/
+    - targetIndex : Index
+    - listType : Flag
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    - deleteFromOrderList(model : Model) : CommandResult
+    - deleteFromReturnList(model : Model) : CommandResult
+}
+
+interface Parser<T> <<interface>> {
+    parse(userInput : String) : T
+}
+
+class DeleteCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : DeleteCommand
+    - removeFlagString(flag : Flag, str : String) : String
+    - getFlag(args : String) : Flag
+    - getFlagRegex(flag : Flag) : String
+    - hasRegex(regex : String, searchTerm : String) : boolean
+}
+
+DeleteCommandParser ..> DeleteCommand
+
+class Index {
+    /' Fields '/
+    - zeroBasedIndex : int
+    /' Methods '/
+    + getZeroBased() : int
+    + getOneBased() : int
+    + {static} fromZeroBased(zeroBasedIndex : int) : Index
+    + {static} fromOneBased(oneBasedIndex : int) : Index
+}
+
+class Flag {
+    /' Fields '/
+    - flag : String
+}
+
+class Model<<interface>> {
+    + updateFilteredOrderList(predicate : Predicate<Order>) : void
+    + updateFilteredReturnOrderList(predicate : Predicate<ReturnOrder>) : void
+}
+
+interface Predicate<T> <<interface>> {
+    + test(t : T) : boolean
+}
+
+Model ..up> Predicate
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+DeleteCommand --up|> "{abstract}\nCommand"
+DeleteCommand ..up|> Model
+DeleteCommand --left> Index
+DeleteCommand --right> Flag
+
+@enduml

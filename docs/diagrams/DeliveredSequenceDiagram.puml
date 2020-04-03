@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DeliveredCommandParser" as DeliveredCommandParser LOGIC_COLOR
+participant "d:DeliveredCommand" as DeliveredCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Order" as Order LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("delivered -o 1")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("delivered -o 1")
+activate OrderBookParser
+
+create DeliveredCommandParser
+OrderBookParser -> DeliveredCommandParser
+activate DeliveredCommandParser
+DeliveredCommandParser --> OrderBookParser
+deactivate DeliveredCommandParser
+
+OrderBookParser -> DeliveredCommandParser : parse("-o 1")
+activate DeliveredCommandParser
+
+create DeliveredCommand
+DeliveredCommandParser -> DeliveredCommand
+activate DeliveredCommand
+
+DeliveredCommand --> DeliveredCommandParser : d
+deactivate DeliveredCommand
+
+DeliveredCommandParser --> OrderBookParser : d
+deactivate DeliveredCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeliveredCommandParser -[hidden]-> OrderBookParser
+destroy DeliveredCommandParser
+
+OrderBookParser --> LogicManager : d
+deactivate OrderBookParser
+
+ref over LogicManager, Model, Order : Execution of DeliveredCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

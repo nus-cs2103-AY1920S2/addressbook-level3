@@ -1,0 +1,50 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class ClearCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : ClearCommand
+    - retrieveFlags(input: String) : HashSet<String>
+    - isValidFlag(flag: String) : boolean
+    - isInvalidFlagFormat(flag : String, flags : HashSet<String>) : boolean
+}
+
+interface Parser<T> <<interface>> {
+    parse(userInput : String) : ClearCommand
+}
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+class Model <<Interface>> {
+    + setOrderBook(orderBook : ReadOnlyOrderBook) : void
+    + setReturnOrderBook(returnOrderBook : ReadOnlyReturnOrderBook) : void
+}
+
+ClearCommandParser ..> ClearCommand
+Model ..> ReadOnlyOrderBook
+Model ..> ReadOnlyReturnOrderBook
+
+class ReadOnlyOrderBook {
+    + getOrderList() : ObservableList<Order>
+}
+
+class ReadOnlyReturnOrderBook {
+    + getReturnOrderList() : ObservableList<ReturnOrder>
+}
+
+class ClearCommand {
+    /' Fields '/
+    - flags : HashSet<String>
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    - updateModel(model : Model) : CommandResult
+}
+
+ClearCommand ..> Model
+ClearCommand --up|> "{abstract}\nCommand"
+@enduml

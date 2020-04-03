@@ -53,17 +53,17 @@ import static seedu.address.testutil.TypicalOrders.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.InsertCommand;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.order.CashOnDelivery;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
 import seedu.address.testutil.OrderBuilder;
 
 public class InsertCommandParserTest {

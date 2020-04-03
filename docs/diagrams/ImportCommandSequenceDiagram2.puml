@@ -65,7 +65,7 @@ loop until every String data in ordersData are processed
         ReturnCommand --> ReturnCommandParser -- : returnCommand
 
         ReturnCommandParser --> ImportCommand -- : returnCommand
-        AddCommandParser -[hidden]-> ImportCommand
+        ReturnCommandParser -[hidden]-> ImportCommand
         destroy ReturnCommandParser
 
         ImportCommand -> ReturnCommand ++ : execute(Model)
@@ -97,7 +97,7 @@ ImportCommand --> LogicManager -- : result
 CommandResult -[hidden]-> ImportCommand
 destroy ImportCommand
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 
 end

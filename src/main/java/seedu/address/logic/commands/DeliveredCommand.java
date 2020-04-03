@@ -12,18 +12,18 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Flag;
 import seedu.address.model.Model;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.order.CashOnDelivery;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Adds a order to the order book.
@@ -42,53 +42,33 @@ public class DeliveredCommand extends Command {
     public static final String MESSAGE_ORDER_ALREADY_DELIVERED = "This order was already delivered";
 
     private final Index targetIndex;
-    private final DeliveredCommand.DeliveredOrderDescriptor deliveredOrderDescriptor;
+    private final DeliveredParcelDescriptor deliveredParcelDescriptor;
     private final Flag flag;
 
     /**
      * @param targetIndex                of the order in the filtered order list to edit
      * @param flag to identify which list this command is targeting
-     * @param deliveredOrderDescriptor details to edit the order with
+     * @param deliveredParcelDescriptor details to edit the order with
      */
-    public DeliveredCommand(Index targetIndex, Flag flag, DeliveredOrderDescriptor deliveredOrderDescriptor) {
+    public DeliveredCommand(Index targetIndex, Flag flag, DeliveredParcelDescriptor deliveredParcelDescriptor) {
         requireNonNull(targetIndex);
         requireNonNull(flag);
-        requireNonNull(deliveredOrderDescriptor);
+        requireNonNull(deliveredParcelDescriptor);
 
         this.targetIndex = targetIndex;
         this.flag = flag;
-        this.deliveredOrderDescriptor = new DeliveredOrderDescriptor(deliveredOrderDescriptor);
+        this.deliveredParcelDescriptor = new DeliveredParcelDescriptor(deliveredParcelDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (isFlagForOrderList()) {
-            if (isIndexValidForOrderList(model)) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
-            }
-            Order orderToBeDelivered = model.getFilteredOrderList().get(targetIndex.getZeroBased());
-            if (!orderToBeDelivered.isDelivered()) {
-                deliverAndUpdateOrderList(model);
-                return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
-            } else {
-                updateOrderList(model);
-                return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
-            }
+            return processDeliveryOfOrder(model);
         } else if (isFlagForReturnList()) {
-            if (isIndexValidForReturnList(model)) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
-            }
-            ReturnOrder returnOrderToBeDelivered = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
-            if (!returnOrderToBeDelivered.isDelivered()) {
-                deliverAndUpdateReturnList(model);
-                return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
-            } else {
-                updateReturnList(model);
-                return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
-            }
+            return processDeliveryOfReturnOrder(model);
         } else {
-            return new CommandResult(String.format(MESSAGE_USAGE));
+            throw new CommandException(String.format(MESSAGE_USAGE));
         }
     }
 
@@ -113,13 +93,53 @@ public class DeliveredCommand extends Command {
     }
 
     /**
+     * Processes the input for the delivery of an order and outputs the correct CommandResult.
+     * @param model The current Model
+     * @return A CommandResult based on the order
+     * @throws CommandException CommandException thrown when user inputs an invalid index.
+     */
+    private CommandResult processDeliveryOfOrder(Model model) throws CommandException {
+        if (isIndexValidForOrderList(model)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
+        }
+        Order orderToBeDelivered = model.getFilteredOrderList().get(targetIndex.getZeroBased());
+        if (!orderToBeDelivered.isDelivered()) {
+            deliverAndUpdateOrderList(model);
+            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+        } else {
+            updateOrderList(model);
+            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
+        }
+    }
+
+    /**
+     * Processes the input for the delivery of a return order and outputs the correct CommandResult.
+     * @param model The current Model
+     * @return A CommandResult based on the return order
+     * @throws CommandException CommandException thrown when user inputs an invalid index.
+     */
+    private CommandResult processDeliveryOfReturnOrder(Model model) throws CommandException {
+        if (isIndexValidForReturnList(model)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
+        }
+        ReturnOrder returnOrderToBeDelivered = model.getFilteredReturnOrderList().get(targetIndex.getZeroBased());
+        if (!returnOrderToBeDelivered.isDelivered()) {
+            deliverAndUpdateReturnList(model);
+            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, returnOrderToBeDelivered));
+        } else {
+            updateReturnList(model);
+            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, returnOrderToBeDelivered));
+        }
+    }
+
+    /**
      * Sets the order in model as delivered and updates the entire list of orders.
-     * @param model
+     * @param model The current Model
      */
     private void deliverAndUpdateOrderList(Model model) {
         List<Order> orderList = model.getFilteredOrderList();
         Order orderToBeDelivered = orderList.get(targetIndex.getZeroBased());
-        Order editedOrder = createDeliveredOrder(orderToBeDelivered, deliveredOrderDescriptor);
+        Order editedOrder = createDeliveredOrder(orderToBeDelivered, deliveredParcelDescriptor);
         model.setOrder(orderToBeDelivered, editedOrder);
         model.deliverOrder(editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
@@ -131,13 +151,13 @@ public class DeliveredCommand extends Command {
 
     /**
      * Sets the return order in model as delivered and updates the entire list of return orders.
-     * @param model
+     * @param model The current Model
      */
     private void deliverAndUpdateReturnList(Model model) {
         List<ReturnOrder> returnOrderList = model.getFilteredReturnOrderList();
         ReturnOrder returnOrderToBeDelivered = returnOrderList.get(targetIndex.getZeroBased());
         ReturnOrder editedReturnOrder = createDeliveredReturnOrder(returnOrderToBeDelivered,
-                deliveredOrderDescriptor);
+                deliveredParcelDescriptor);
         model.setReturnOrder(returnOrderToBeDelivered, editedReturnOrder);
         model.deliverReturnOrder(editedReturnOrder);
         model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
@@ -151,20 +171,21 @@ public class DeliveredCommand extends Command {
      * Creates and returns a {@code deliveredOrder} with the details of {@code orderToDeliver}
      * edited with {@code donePersonDescriptor}.
      */
-    private static Order createDeliveredOrder(Order orderToDeliver, DeliveredOrderDescriptor deliveredOrderDescriptor) {
+    private static Order createDeliveredOrder(Order orderToDeliver,
+                                              DeliveredParcelDescriptor deliveredParcelDescriptor) {
         assert orderToDeliver != null;
 
-        TransactionId updatedTid = deliveredOrderDescriptor.getTid().orElse(orderToDeliver.getTid());
-        Name updatedName = deliveredOrderDescriptor.getName().orElse(orderToDeliver.getName());
-        Phone updatedPhone = deliveredOrderDescriptor.getPhone().orElse(orderToDeliver.getPhone());
-        Email updatedEmail = deliveredOrderDescriptor.getEmail().orElse(orderToDeliver.getEmail());
-        Address updatedAddress = deliveredOrderDescriptor.getAddress().orElse(orderToDeliver.getAddress());
-        TimeStamp updateTimeStamp = deliveredOrderDescriptor.getTimeStamp().orElse(orderToDeliver.getTimestamp());
-        Warehouse updatedWarehouse = deliveredOrderDescriptor.getWarehouse().orElse(orderToDeliver.getWarehouse());
-        CashOnDelivery updatedCod = deliveredOrderDescriptor.getCash().orElse(orderToDeliver.getCash());
-        Comment updatedComment = deliveredOrderDescriptor.getComment().orElse(orderToDeliver.getComment());
-        TypeOfItem updatedType = deliveredOrderDescriptor.getItemType().orElse(orderToDeliver.getItemType());
-        boolean updatedDeliveryStatus = deliveredOrderDescriptor.getDeliveryStatus();
+        TransactionId updatedTid = deliveredParcelDescriptor.getTid().orElse(orderToDeliver.getTid());
+        Name updatedName = deliveredParcelDescriptor.getName().orElse(orderToDeliver.getName());
+        Phone updatedPhone = deliveredParcelDescriptor.getPhone().orElse(orderToDeliver.getPhone());
+        Email updatedEmail = deliveredParcelDescriptor.getEmail().orElse(orderToDeliver.getEmail());
+        Address updatedAddress = deliveredParcelDescriptor.getAddress().orElse(orderToDeliver.getAddress());
+        TimeStamp updateTimeStamp = deliveredParcelDescriptor.getTimeStamp().orElse(orderToDeliver.getTimestamp());
+        Warehouse updatedWarehouse = deliveredParcelDescriptor.getWarehouse().orElse(orderToDeliver.getWarehouse());
+        CashOnDelivery updatedCod = deliveredParcelDescriptor.getCash().orElse(orderToDeliver.getCash());
+        Comment updatedComment = deliveredParcelDescriptor.getComment().orElse(orderToDeliver.getComment());
+        TypeOfItem updatedType = deliveredParcelDescriptor.getItemType().orElse(orderToDeliver.getItemType());
+        boolean updatedDeliveryStatus = deliveredParcelDescriptor.getDeliveryStatus();
 
         Order deliveredOrder = new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress,
                 updateTimeStamp, updatedWarehouse, updatedCod, updatedComment, updatedType);
@@ -177,20 +198,21 @@ public class DeliveredCommand extends Command {
      * edited with {@code donePersonDescriptor}.
      */
     private static ReturnOrder createDeliveredReturnOrder(ReturnOrder returnOrderToDeliver,
-                                                    DeliveredOrderDescriptor deliveredOrderDescriptor) {
+                                                    DeliveredParcelDescriptor deliveredParcelDescriptor) {
         assert returnOrderToDeliver != null;
 
-        TransactionId updatedTid = deliveredOrderDescriptor.getTid().orElse(returnOrderToDeliver.getTid());
-        Name updatedName = deliveredOrderDescriptor.getName().orElse(returnOrderToDeliver.getName());
-        Phone updatedPhone = deliveredOrderDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
-        Email updatedEmail = deliveredOrderDescriptor.getEmail().orElse(returnOrderToDeliver.getEmail());
-        Address updatedAddress = deliveredOrderDescriptor.getAddress().orElse(returnOrderToDeliver.getAddress());
-        TimeStamp updateTimeStamp = deliveredOrderDescriptor.getTimeStamp().orElse(returnOrderToDeliver.getTimestamp());
-        Warehouse updatedWarehouse = deliveredOrderDescriptor.getWarehouse().orElse(returnOrderToDeliver
+        TransactionId updatedTid = deliveredParcelDescriptor.getTid().orElse(returnOrderToDeliver.getTid());
+        Name updatedName = deliveredParcelDescriptor.getName().orElse(returnOrderToDeliver.getName());
+        Phone updatedPhone = deliveredParcelDescriptor.getPhone().orElse(returnOrderToDeliver.getPhone());
+        Email updatedEmail = deliveredParcelDescriptor.getEmail().orElse(returnOrderToDeliver.getEmail());
+        Address updatedAddress = deliveredParcelDescriptor.getAddress().orElse(returnOrderToDeliver.getAddress());
+        TimeStamp updateTimeStamp = deliveredParcelDescriptor.getTimeStamp().orElse(returnOrderToDeliver
+                .getTimestamp());
+        Warehouse updatedWarehouse = deliveredParcelDescriptor.getWarehouse().orElse(returnOrderToDeliver
                 .getWarehouse());
-        Comment updatedComment = deliveredOrderDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
-        TypeOfItem updatedType = deliveredOrderDescriptor.getItemType().orElse(returnOrderToDeliver.getItemType());
-        boolean updatedDeliveryStatus = deliveredOrderDescriptor.getDeliveryStatus();
+        Comment updatedComment = deliveredParcelDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
+        TypeOfItem updatedType = deliveredParcelDescriptor.getItemType().orElse(returnOrderToDeliver.getItemType());
+        boolean updatedDeliveryStatus = deliveredParcelDescriptor.getDeliveryStatus();
 
         ReturnOrder deliveredReturnOrder = new ReturnOrder(updatedTid, updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updateTimeStamp, updatedWarehouse, updatedComment, updatedType);
@@ -213,14 +235,14 @@ public class DeliveredCommand extends Command {
         // state check
         DeliveredCommand e = (DeliveredCommand) other;
         return targetIndex.equals(e.targetIndex)
-                && deliveredOrderDescriptor.equals(e.deliveredOrderDescriptor);
+                && deliveredParcelDescriptor.equals(e.deliveredParcelDescriptor);
     }
 
     /**
      * Stores the details to edit the order with. Each non-empty field value will replace the
      * corresponding field value of the order.
      */
-    public static class DeliveredOrderDescriptor {
+    public static class DeliveredParcelDescriptor {
         private TransactionId tid;
         private Name name;
         private Phone phone;
@@ -233,14 +255,14 @@ public class DeliveredCommand extends Command {
         private TypeOfItem itemType;
         private boolean deliveryStatus;
 
-        public DeliveredOrderDescriptor() {
+        public DeliveredParcelDescriptor() {
         }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public DeliveredOrderDescriptor(Order toCopy) {
+        public DeliveredParcelDescriptor(Order toCopy) {
             setTid(toCopy.getTid());
             setName(toCopy.getName());
             setPhone(toCopy.getPhone());
@@ -258,7 +280,7 @@ public class DeliveredCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public DeliveredOrderDescriptor(ReturnOrder toCopy) {
+        public DeliveredParcelDescriptor(ReturnOrder toCopy) {
             setTid(toCopy.getTid());
             setName(toCopy.getName());
             setPhone(toCopy.getPhone());
@@ -275,7 +297,7 @@ public class DeliveredCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public DeliveredOrderDescriptor(DeliveredOrderDescriptor toCopy) {
+        public DeliveredParcelDescriptor(DeliveredParcelDescriptor toCopy) {
             setTid(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -385,12 +407,12 @@ public class DeliveredCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof DeliveredCommand.DeliveredOrderDescriptor)) {
+            if (!(other instanceof DeliveredParcelDescriptor)) {
                 return false;
             }
 
             // state check
-            DeliveredCommand.DeliveredOrderDescriptor e = (DeliveredOrderDescriptor) other;
+            DeliveredParcelDescriptor e = (DeliveredParcelDescriptor) other;
 
             return getTid().equals(e.getTid())
                     && getName().equals(e.getName())

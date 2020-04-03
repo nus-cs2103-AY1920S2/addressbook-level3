@@ -1,61 +1,53 @@
 @startuml
-OrderContainsKeywordsPredicate -down-> ArgumentMultimap
-Command <|-- SearchCommand
-OrderContainsKeywordsPredicate <-down- SearchCommand
-OrderContainsKeywordsPredicate -[dashed]-|> Predicate
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
 
-abstract class Command {
+"{abstract}\nCommand" <|-- SearchCommand
+ReturnOrderContainsKeywordsPredicate "1" <-left- SearchCommand : returnPredicate
+ReturnOrderContainsKeywordsPredicate -[dashed]-|> Predicate
+OrderContainsKeywordsPredicate "1" <-down- SearchCommand : orderPredicate
+OrderContainsKeywordsPredicate -[dashed]left-|> Predicate
+SearchCommand .right.> Model
+SearchCommandParser .down.> SearchCommand
+
+abstract class "{abstract}\nCommand" {
     {abstract} execute(Model model) : CommandResult
 }
 
 class SearchCommand {
-'Fields of SearchCommand
-+ COMMON_WORD : String
-+ MESSAGE_USAGE : String
-- predicate : OrderContainsKeywordsPredicate
+    'Methods of SearchCommand
+    + execute(model : Model) : CommandResult
+}
 
-'Methods of SearchCommand
-+ execute(model : Model) : CommandResult
-+ equals(other : Object) : boolean
+interface Model <<interface>> {
+    + updateFilteredOrderList(predicate: Predicate<Order>) : void
+    + updateFilteredReturnOrderList(predicate: Predicate<ReturnOrder>) : void
 }
 
 class OrderContainsKeywordsPredicate<Order> {
-'Fields of OrderContainsKeywordsPredicate
-- keywords : List<String>
-- argumentMultimap : ArgumentMultimap
-- isGeneralSearch : boolean
+    'Fields of OrderContainsKeywordsPredicate
+    - keywords : List<String>
+    - argumentMultimap : ArgumentMultimap
+    - isGeneralSearch : boolean
 
-'Methods of OrderContainsKeywordsPredicate
-+ test(order : Order) : boolean
-+ equals(other : Object) : boolean
-
+    'Methods of OrderContainsKeywordsPredicate
 }
 
-interface Predicate<T> {
-'Interface Methods
-+ test(t : T) : boolean
+class ReturnOrderContainsKeywordsPredicate<Order> {
+    'Fields of ReturnOrderContainsKeywordsPredicate
+    - keywords : List<String>
+    - argumentMultimap : ArgumentMultimap
+    - isGeneralSearch : boolean
 }
 
-class ArgumentMultimap {
-'Fields of ArgumentMultimap
-- argMultimap : Map<Prefix, List<String>>
+interface Predicate<T> <<interface>> {
+    'Interface Methods
+    + test(t : T) : boolean
+}
 
-'Methods of ArgumentMultimap
-+ put(prefix : Prefix, argValue : String) : void
-+ getValue(prefix : Prefix) : Optional<String>
-+ getAllValues(prefix : Prefix) : List<String>
-+ getPreamble() : String
-+ getAllPrefixValues() : List<String>
-+ getHasTid() : boolean
-+ getHasName() : boolean
-+ getHasPhone() : boolean
-+ getHasAddress() : boolean
-+ getHasTimeStamp() : boolean
-+ getHasWarehouse() : boolean
-+ getHasCod() : boolean
-+ getHasComment() : boolean
-+ getHasItemType() : boolean
-+ getHasEmail() : boolean
+class SearchCommandParser {
+    + parse(String args) : SearchCommand
 }
 
 @enduml

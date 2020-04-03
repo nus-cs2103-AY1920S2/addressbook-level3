@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,8 +13,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.Parcel;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Represents the in-memory model of the order book data.
@@ -163,16 +166,24 @@ public class ModelManager implements Model {
         returnOrderBook.setReturnOrder(target, editedReturnOrder);
     }
 
+    //=========== Parcel state check =============================================================
+
+    @Override
+    public boolean hasParcel(Parcel parcel) {
+        requireNonNull(parcel);
+        if (parcel instanceof Order) {
+            return hasOrder((Order) parcel);
+        } else if (parcel instanceof ReturnOrder) {
+            return hasReturnOrder((ReturnOrder) parcel);
+        } else {
+            return false;
+        }
+    }
+
     //=========== Filtered Order List Accessors =============================================================
     @Override
     public void deliverOrder(Order target) {
         orderBook.deliverOrder(target);
-    }
-
-    @Override
-    public void renewDeliveryStatus(Order target) {
-        target.setDeliveryStatus(false);
-        orderBook.setDeliveryStatus(target);
     }
 
     /**
@@ -181,7 +192,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Order> getFilteredOrderList() {
-        return filteredOrders;
+        Comparator<Order> sortByTimestamp = (Order first, Order second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        };
+        return filteredOrders.sorted(sortByTimestamp);
     }
 
     @Override
@@ -198,7 +214,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
-        return filteredReturnOrders;
+        Comparator<ReturnOrder> sortByTimestamp = (ReturnOrder first, ReturnOrder second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        };
+        return filteredReturnOrders.sorted(sortByTimestamp);
     }
 
     @Override

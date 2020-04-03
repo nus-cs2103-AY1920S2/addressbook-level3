@@ -23,12 +23,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.OrderContainsKeywordsPredicate;
-import seedu.address.model.order.returnorder.ReturnOrder;
-import seedu.address.model.order.returnorder.ReturnOrderContainsKeywordsPredicate;
-import seedu.address.testutil.DeliveredOrderDescriptorBuilder;
-import seedu.address.testutil.EditOrderDescriptorBuilder;
+import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
+import seedu.address.testutil.DeliveredParcelDescriptorBuilder;
+import seedu.address.testutil.EditParcelDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -108,14 +108,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditOrderDescriptor DESC_AMY;
-    public static final EditCommand.EditOrderDescriptor DESC_BOB;
+    public static final EditCommand.EditParcelDescriptor DESC_AMY;
+    public static final EditCommand.EditParcelDescriptor DESC_BOB;
 
-    public static final DeliveredCommand.DeliveredOrderDescriptor AMY_DESC;
-    public static final DeliveredCommand.DeliveredOrderDescriptor BOB_DESC;
+    public static final DeliveredCommand.DeliveredParcelDescriptor AMY_DESC;
+    public static final DeliveredCommand.DeliveredParcelDescriptor BOB_DESC;
 
     static {
-        DESC_AMY = new EditOrderDescriptorBuilder().withTid(VALID_TID_AMY)
+        DESC_AMY = new EditParcelDescriptorBuilder().withTid(VALID_TID_AMY)
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
@@ -123,7 +123,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS).build();
-        DESC_BOB = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditParcelDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
@@ -131,7 +131,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_BOB)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_PLASTIC).build();
-        AMY_DESC = new DeliveredOrderDescriptorBuilder().withTid(VALID_TID_AMY)
+        AMY_DESC = new DeliveredParcelDescriptorBuilder().withTid(VALID_TID_AMY)
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_AMY)
@@ -139,7 +139,7 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS).build();
-        BOB_DESC = new DeliveredOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+        BOB_DESC = new DeliveredParcelDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)

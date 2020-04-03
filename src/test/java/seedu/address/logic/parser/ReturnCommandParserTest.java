@@ -32,6 +32,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_GLASS;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_PLASTIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_INSTRUCTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -50,16 +51,16 @@ import static seedu.address.testutil.TypicalReturnOrders.BOB_RETURN;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ReturnCommand;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 import seedu.address.testutil.ReturnOrderBuilder;
 
 public class ReturnCommandParserTest {
@@ -125,6 +126,9 @@ public class ReturnCommandParserTest {
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COMMENT_DESC_NIL
                 + TYPE_DESC_PLASTIC + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
+
+        // only TID present
+        assertParseSuccess(parser, TID_DESC_BOB, new ReturnCommand(null, expectedTid));
     }
 
     @Test
@@ -136,6 +140,18 @@ public class ReturnCommandParserTest {
                         + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COMMENT_DESC_NIL
                         + TYPE_DESC_PLASTIC,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
+
+        ReturnOrder expectedReturnOrderWithType = new ReturnOrderBuilder(AMY_RETURN)
+                .withItemType(VALID_TYPE_GLASS).build();
+        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                        + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + TYPE_DESC_GLASS,
+                new ReturnCommand(expectedReturnOrderWithType, expectedTid));
+
+        ReturnOrder expectedReturnOrderWithComment = new ReturnOrderBuilder(AMY_RETURN).withItemType("NIL")
+                .withComment(VALID_COMMENT_INSTRUCTION).build();
+        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                        + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COMMENT_DESC_INSTRUCTION,
+                new ReturnCommand(expectedReturnOrderWithComment, expectedTid));
     }
 
     @Test
@@ -173,6 +189,12 @@ public class ReturnCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB
                 + VALID_ADDRESS_BOB + VALID_TIMESTAMP_BOB + VALID_WAREHOUSE_BOB, expectedMessage);
+
+        // additional field besides TID - cannot trigger conversion of existing order into a return order
+        assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB, expectedMessage);
+
+        // additional field besides TID - cannot trigger conversion of existing order into a return order
+        assertParseFailure(parser, VALID_TID_BOB + VALID_ADDRESS_BOB + VALID_EMAIL_BOB, expectedMessage);
     }
 
     @Test
@@ -253,6 +275,9 @@ public class ReturnCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                         + COMMENT_DESC_NIL + TYPE_DESC_PLASTIC + TYPE_DESC_GLASS,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
     }
 }

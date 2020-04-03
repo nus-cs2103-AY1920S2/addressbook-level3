@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.InsertCommandParser;
 import seedu.address.logic.parser.ReturnCommandParser;
@@ -14,6 +16,7 @@ import seedu.address.model.Model;
  * Import the csv file in order book.
  */
 public class ImportCommand extends Command {
+
     public static final String OT_RETURN = "return";
     public static final String OT_ORDER = "order";
 
@@ -22,6 +25,8 @@ public class ImportCommand extends Command {
             + ": Import the data in .csv file into Delino\n"
             + "Parameters: fileName.csv\n"
             + "Example: " + COMMAND_WORD + " orders.csv";
+
+    private static final Logger logger = LogsCenter.getLogger(ImportCommand.class);
 
     private final List<String> ordersData;
     private int invalidCounter;
@@ -42,30 +47,41 @@ public class ImportCommand extends Command {
     public CommandResult execute(Model model) {
 
         requireNonNull(model);
+        processData(model);
+        return new CommandResult(printResult(processedOrderCounter, processedReturnOrderCounter, duplicateCounter,
+                invalidCounter));
+    }
 
+    /**
+     * Process the data, add either new order or return order into the model and increase the respective counter.
+     * @param model model to be edited if encounter order and return for order type.
+     */
+    private void processData(Model model) {
+        logger.fine("Processing the csv data...");
         for (String data : ordersData) {
             data = data.replaceAll(",", " ").stripTrailing();
             try {
                 if (data.startsWith(OT_ORDER)) {
+                    logger.fine("Passing data to InsertCommandParser for adding a new order");
                     new InsertCommandParser().parse(data.substring(5)).execute(model);
                     processedOrderCounter++;
                 } else if (data.startsWith(OT_RETURN)) {
+                    logger.fine("Passing data to ReturnCommandParser for adding a new return order");
                     new ReturnCommandParser().parse(data.substring(6)).execute(model);
                     processedReturnOrderCounter++;
                 } else {
-                    // Invalid data type
+                    logger.info("Invalid order type encountered!" + data);
+                    // Invalid order type
                     invalidCounter++;
                 }
             } catch (ParseException pe) {
+                logger.info("Failed to process the data: " + data);
                 invalidCounter++;
             } catch (CommandException ce) {
+                logger.info("Duplicate order or return order encountered: " + data);
                 duplicateCounter++;
             }
-
         }
-
-        return new CommandResult(printResult(processedOrderCounter, processedReturnOrderCounter, duplicateCounter,
-                invalidCounter));
     }
 
     /**
@@ -74,6 +90,7 @@ public class ImportCommand extends Command {
      */
     public static String printResult(int processedOrderCounter, int processedReturnOrderCounter, int duplicateCounter,
                                int invalidCounter) {
+        logger.fine("Generating the message for the user...");
         String message = processedOrderCounter + " delivery order(s) and " + processedReturnOrderCounter
                 + " return order(s) being imported.\n";
         if (duplicateCounter != 0) {
@@ -83,6 +100,7 @@ public class ImportCommand extends Command {
             message = message + invalidCounter + " invalid order(s) found!\n";
             message = message + "Please refer to the user guide for the correct format of the data in csv file.";
         }
+        logger.fine("Result of importing the file: \n" + message);
         return message;
     }
 

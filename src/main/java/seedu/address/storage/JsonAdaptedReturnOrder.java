@@ -1,27 +1,30 @@
 package seedu.address.storage;
 
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.comment.Comment;
-import seedu.address.model.itemtype.TypeOfItem;
-import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
-import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.Phone;
-import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
-import seedu.address.model.order.Warehouse;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.comment.Comment;
+import seedu.address.model.parcel.itemtype.TypeOfItem;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.parcelattributes.Address;
+import seedu.address.model.parcel.parcelattributes.Email;
+import seedu.address.model.parcel.parcelattributes.Name;
+import seedu.address.model.parcel.parcelattributes.Phone;
+import seedu.address.model.parcel.parcelattributes.TimeStamp;
+import seedu.address.model.parcel.parcelattributes.TransactionId;
+import seedu.address.model.parcel.parcelattributes.Warehouse;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Jackson-friendly version of {@link Order}.
  */
 class JsonAdaptedReturnOrder {
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Return Order's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedReturnOrder.class);
 
     private final String tid;
     private final String name;
@@ -77,11 +80,13 @@ class JsonAdaptedReturnOrder {
     }
 
     /**
-     * Converts this Jackson-friendly adapted order object into the model's {@code ReturnOrder} object.
+     * Converts this Jackson-friendly adapted return order object into the model's {@code ReturnOrder} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted order.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted return order.
      */
     public ReturnOrder toModelType() throws IllegalValueException {
+        logger.fine("Converting Json adapted return order to return order");
+
         if (tid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TransactionId.class.getSimpleName()));
@@ -124,6 +129,7 @@ class JsonAdaptedReturnOrder {
         final Address modelAddress = new Address(address);
 
         if (timeStamp == null) {
+            logger.info("Encountered null for timestamp");
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TimeStamp.class.getSimpleName()));
         }
@@ -143,9 +149,12 @@ class JsonAdaptedReturnOrder {
 
         final Comment modelComment;
         if (comment == null) {
+            logger.fine("No comment for the return order.");
             modelComment = new Comment("NIL");
         } else {
+            logger.fine("Check whether the comment is valid");
             if (!Comment.isValidComment(comment)) {
+                logger.info("Empty comment encountered");
                 throw new IllegalValueException(Comment.MESSAGE_CONSTRAINTS);
             }
             modelComment = new Comment(comment);

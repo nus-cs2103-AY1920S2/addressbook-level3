@@ -5,8 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.order.UniqueReturnOrderList;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
+import seedu.address.model.parcel.returnorder.UniqueReturnOrderList;
+
 
 /**
  * Wraps all data at the return-order-book level

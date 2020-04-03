@@ -9,14 +9,16 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Used to identify orders in the order book, return order book that belong to a given
@@ -43,25 +45,32 @@ public class NearbyCommand extends Command {
     public static final String MESSAGE_FAILURE_POSTAL_SECTOR = "Invalid postal sector given.";
     public static final String MESSAGE_FAILURE_AREA = "Invalid area given.";
 
+    private static final Logger logger = LogsCenter.getLogger(NearbyCommand.class);
     private final String searchTerm;
     private boolean isOrderListSearch;
     private boolean isReturnListSearch;
 
     public NearbyCommand(String searchTerm) {
+        logger.fine("Invoking NearbyCommand constructor");
         String validFlagRegex = "\\s*%s\\s+";
         String orderListRegex = String.format(validFlagRegex, FLAG_ORDER_BOOK.toString());
         String returnListRegex = String.format(validFlagRegex, FLAG_RETURN_BOOK.toString());
         this.isOrderListSearch = hasRegexInSearchTerm(orderListRegex, searchTerm);
         this.isReturnListSearch = hasRegexInSearchTerm(returnListRegex, searchTerm);
+
         if (this.isOrderListSearch) {
             this.searchTerm = searchTerm.replaceAll(orderListRegex, "");
+            logger.fine("Search to be done on order list");
         } else if (this.isReturnListSearch) {
             this.searchTerm = searchTerm.replaceAll(returnListRegex, "");
+            logger.fine("Search to be done on return order list");
         } else {
             this.isOrderListSearch = true;
             this.isReturnListSearch = true;
             this.searchTerm = searchTerm;
+            logger.fine("Search to be done on both lists (order list and return order list)");
         }
+        logger.fine("Exiting NearbyCommand constructor");
     }
 
     /**
@@ -72,6 +81,8 @@ public class NearbyCommand extends Command {
      * @return boolean indicating whether the given {@code regex} was found
      */
     private boolean hasRegexInSearchTerm(String regex, String searchTerm) {
+        logger.fine(String.format("Checking if given regex (%s) is a partial match in searchTerm (%s)",
+                regex, searchTerm));
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(searchTerm);
         return m.find();
@@ -83,6 +94,7 @@ public class NearbyCommand extends Command {
      * @return {@code Predicate<Order>} used for filtering orders
      */
     private Predicate<Order> getPostalSectorPredicate() {
+        logger.fine("Obtain predicate for order list based on postal sector");
         Index postalSector = Index.fromOneBased(Integer.parseInt(searchTerm));
         String location = getGeneralLocation(postalSector).get();
         List<String> matchingPostalSectors = NearbyCommandUtil.sameGeneralLocation(location);
@@ -100,6 +112,7 @@ public class NearbyCommand extends Command {
      * @return {@code Predicate<ReturnOrder>} used for filtering orders
      */
     private Predicate<ReturnOrder> getPostalSectorReturnPredicate() {
+        logger.fine("Obtain predicate for return order list based on postal sector");
         Index postalSector = Index.fromOneBased(Integer.parseInt(searchTerm));
         String location = getGeneralLocation(postalSector).get();
         List<String> matchingPostalSectors = NearbyCommandUtil.sameGeneralLocation(location);
@@ -117,6 +130,7 @@ public class NearbyCommand extends Command {
      * @return {@code Predicate<Order>} used for filtering orders
      */
     private Predicate<Order> getAreaPredicate() {
+        logger.fine("Obtain predicate for order list based on area");
         List<String> areaRegex = DistrictInfo.sameAreaRegex(searchTerm);
         return order -> {
             String orderAddress = order.getAddress().toString();
@@ -131,6 +145,7 @@ public class NearbyCommand extends Command {
      * @return {@code Predicate<ReturnOrder>} used for filtering return orders
      */
     private Predicate<ReturnOrder> getAreaReturnPredicate() {
+        logger.fine("Obtain predicate for return order list based on area");
         List<String> areaRegex = DistrictInfo.sameAreaRegex(searchTerm);
         return returnOrder -> {
             String returnOrderAddress = returnOrder.getAddress().toString();
@@ -142,25 +157,42 @@ public class NearbyCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.fine("In NearbyCommand execute method");
         if (isPostalSectorSearch()) {
-            Index postalSector = Index.fromOneBased(Integer.parseInt(searchTerm));
-            if (isValidPostalSector(postalSector)) {
-                Optional<String> generalLocation = getGeneralLocation(postalSector);
-                if (generalLocation.isEmpty()) {
-                    throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
-                }
-                showPostalSectors(model);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_POSTAL_SECTOR,
-                        generalLocation.get()));
-            }
-            throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
+            return getPostalSectorCommandResult(model);
         }
 
         if (DistrictInfo.isValidArea(searchTerm)) {
-            showArea(model);
-            return new CommandResult(String.format(MESSAGE_SUCCESS_AREA, searchTerm));
+            return getAreaCommandResult(model);
         } else {
+            logger.info("Invalid area given");
             throw new CommandException(MESSAGE_FAILURE_AREA);
+        }
+    }
+
+    /**
+     * Obtain the command result for area search.
+     */
+    private CommandResult getAreaCommandResult(Model model) {
+        showArea(model);
+        return new CommandResult(String.format(MESSAGE_SUCCESS_AREA, searchTerm));
+    }
+
+    /**
+     * Obtain the command result for postal sector search.
+     */
+    private CommandResult getPostalSectorCommandResult(Model model) throws CommandException {
+        Index postalSector = Index.fromOneBased(Integer.parseInt(searchTerm));
+        if (isValidPostalSector(postalSector)) {
+            Optional<String> generalLocation = getGeneralLocation(postalSector);
+            if (generalLocation.isEmpty()) {
+                throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
+            }
+            showPostalSectors(model);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_POSTAL_SECTOR,
+                    generalLocation.get()));
+        } else {
+            throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
         }
     }
 
@@ -200,8 +232,10 @@ public class NearbyCommand extends Command {
     private boolean isPostalSectorSearch() {
         try {
             Integer.parseInt(searchTerm);
+            logger.fine("Successfully parse argument for postal sector");
             return true;
         } catch (NumberFormatException nfe) {
+            logger.info("Unable to parse argument given for postal sector");
             return false;
         }
     }
