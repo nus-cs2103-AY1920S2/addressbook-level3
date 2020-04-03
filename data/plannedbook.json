@@ -1,42 +1,17 @@
 {
   "plannedRecipes" : [ {
     "recipes" : [ {
-      "name" : "testest",
-      "time" : "15",
-      "isFavourite" : true,
-      "grains" : [ "50.0g,  grain", "30.0g,  rice" ],
-      "vegetables" : [ ],
-      "proteins" : [ ],
-      "fruits" : [ "50.0g,  fruit" ],
-      "others" : [ ],
-      "steps" : [ "step 1", "edited step 2" ],
-      "goals" : [ ]
-    }, {
-      "name" : "Quick Carrot Daikon Stir-fry",
-      "time" : "25",
+      "name" : "Vegan Thai Green Curry Soup",
+      "time" : "35",
       "isFavourite" : false,
-      "grains" : [ "30.0g,  grain" ],
-      "vegetables" : [ "30.0g,  carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  garlic clove (smashed and chopped)", "20.0g,  ginger (julienned sliced)", "30.0g,  scallions" ],
+      "grains" : [ "200.0g,  rice vermicelli noodles" ],
+      "vegetables" : [ "1.0cup,  broccoli florets", "100.0g,  button mushrooms sliced", "10.0g,  Thai red eye bird's chili" ],
       "proteins" : [ ],
       "fruits" : [ ],
-      "others" : [ "50.0g,  other", "50.0g,  others", "1.5tbsp,  oyster sauce", "0.5tsp,  salt", "0.5tsp,  sesame oil", "1.0tbsp,  shaoxing wine", "3.0tbsp,  vegetable oil", "0.25cup,  water", "0.25tsp,  white pepper" ],
-      "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
+      "others" : [ "0.5tsp,  brown sugar", "0.25cup,  coconut milk", "2.0tsp,  oil", "1.0tsp,  Salt", "1.0tsp,  soy sauce", "1.0tbsp,  thai Green Curry Paste" ],
+      "steps" : [ "Heat oil in a saucepan. Add the vegetables (broccoli, mushroom) and saute till they turn soft. Transfer to a plate and set aside.", "In the same saucepan, add the green curry paste. Saute the curry paste for a minute.", "Add the coconut milk, brown sugar and soy sauce. Stir until the curry paste is nicely dissolved.", "Now add the vegetable stock, salt, red chillies and stir to combine.", "Bring the soup to a boil over high heat. Reduce the heat and allow the soup to simmer for 5 minutes.", "Add the vermicelli noodles and the vegetables. Simmer till the noodles are cooked.", "Turn off the heat and give soup a nice stir. Taste and adjust the seasoning and consistency accordingly. If too thick add more stock or coconut milk.", "Just before serving garnish soup with fresh herbs, crushed peanuts and juice of lemon.", "Serve Thai Green Curry Soup warm." ],
       "goals" : [ "Herbivore" ]
     } ],
-    "date" : "2020-04-03"
-  }, {
-    "recipes" : [ {
-      "name" : "testest",
-      "time" : "15",
-      "isFavourite" : true,
-      "grains" : [ "50.0g,  grain", "30.0g,  rice" ],
-      "vegetables" : [ ],
-      "proteins" : [ ],
-      "fruits" : [ "50.0g,  fruit" ],
-      "others" : [ ],
-      "steps" : [ "step 1", "edited step 2" ],
-      "goals" : [ ]
-    } ],
-    "date" : "2020-04-04"
+    "date" : "2020-05-05"
   } ]
 }
