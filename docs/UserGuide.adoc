@@ -837,9 +837,10 @@ tab as well, if you were currently on a different tab.
 
 Format: `session delete INDEX`
 
+[CAUTION]
 ====
 [horizontal]
-CAUTION: Do not confuse delete and done session commands.
+Do not confuse delete and done session commands.
 ====
 
 ====
