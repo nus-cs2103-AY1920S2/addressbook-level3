@@ -211,7 +211,6 @@ public class Coupon {
 
     /**
      * Returns a new Coupon with total usage increased by one.
-     * @return A new Coupon with total usage increased by one.
      */
     public Coupon increaseUsageByOne() {
         Usage newUsage = this.usage.increaseUsageByOne();

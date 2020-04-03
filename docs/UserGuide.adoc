@@ -200,6 +200,9 @@ image:ug_deck_chicken.png[]
 Adds a new Coupon: +
 image:ug_pgp_mala.png[]
 
+[TIP]
+If your coupon has unlimited use, set the limit of the coupon to a number less than 1! E.g. `l/0`
+
 === Editing a coupon: `edit`
 
 Edits an existing coupon in the coupon book.
@@ -233,7 +236,6 @@ Edits the savings of the 1st coupon to be 50% off.
 Edits the name of the 2nd coupon to be The Deck Nasi Ayam Hainan and
 clears all existing tags.
 
-// tag::delete[]
 === Deleting a coupon: `delete`
 
 Deletes the specified coupon from the coupon stash.
