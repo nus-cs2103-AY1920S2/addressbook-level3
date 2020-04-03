@@ -1,6 +1,5 @@
 package tatracker.logic.commands;
 
-import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.assertListCommandSuccess;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
