@@ -13,6 +13,7 @@ import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.food.Food;
+import seedu.foodiebot.model.report.Report;
 import seedu.foodiebot.model.transaction.PurchasedFood;
 
 /** The API of the Model component. */
@@ -55,13 +56,6 @@ public interface Model {
 
     /** Adds the given canteen. {@code canteen} must not already exist in the address book. */
     void addCanteen(Canteen canteen);
-
-    /**
-     * Replaces the given canteen {@code target} with {@code editedCanteen}. {@code target} must
-     * exist in the address book. The canteen identity of {@code editedCanteen} must not be the same
-     * as another existing canteen in the address book.
-     */
-    void setCanteen(Canteen target, Canteen editedCanteen);
 
     void setBudget(Budget budget);
 
@@ -134,4 +128,6 @@ public interface Model {
     void removeFavorite(Food food);
 
     void setFavoriteList(ObservableList<Food> filteredFavoriteFoodList);
+
+    Report getReport();
 }

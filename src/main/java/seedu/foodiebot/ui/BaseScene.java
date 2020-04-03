@@ -32,6 +32,7 @@ import seedu.foodiebot.logic.commands.FavoritesCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.RandomizeCommand;
 import seedu.foodiebot.logic.commands.RateCommand;
+import seedu.foodiebot.logic.commands.ReportCommand;
 import seedu.foodiebot.logic.commands.ReviewCommand;
 import seedu.foodiebot.logic.commands.TransactionsCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
@@ -41,7 +42,7 @@ import seedu.foodiebot.logic.parser.exceptions.ParseException;
 /**
  * Base class for creating a javafx scene.
  */
-abstract class BaseScene {
+public class BaseScene {
     public static final String FXML_FILE_FOLDER = "/view/";
     @FXML
     protected MenuItem helpMenuItem;
@@ -147,6 +148,7 @@ abstract class BaseScene {
         }
     }
 
+    /** Fills the stallListPanelRegion */
     @FXML
     public void handleListStalls() {
         addToListPanel(new StallsListPanel(logic.getFilteredStallList(true)));
@@ -169,12 +171,14 @@ abstract class BaseScene {
      */
     @FXML
     public void handleListFavorites() {
+        changeScene("MainScene.fxml");
+        new BaseScene(primaryStage, logic);
         extraListPanelPlaceholder = (StackPane) primaryStage.getScene().lookup(
             "#extraListPanelPlaceholder");
         if (extraListPanelPlaceholder != null) {
             extraListPanelPlaceholder.getChildren().clear();
         }
-        addToListPanel(new FoodListPanel(logic.getFilteredFavoriteFoodList(true)));
+        addToListPanel(new FoodListPanel(logic.getFilteredFavoriteFoodList(false)));
 
     }
 
@@ -213,10 +217,11 @@ abstract class BaseScene {
 
     }
 
+    /** Fills the randomize panel. */
     @FXML
     public void handleListRandomize() {
         changeScene("MainScene.fxml");
-        new MainScene(primaryStage, logic);
+        new BaseScene(primaryStage, logic);
         addToListPanel(new RandomizeListPanel(logic.getFilteredRandomizeList()));
     }
 
@@ -264,6 +269,10 @@ abstract class BaseScene {
                     && ParserContext.getCurrentStall().isPresent()) {
                     ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
                     handleListFood();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.RANDOMIZE_CONTEXT)
+                        && ParserContext.getCurrentStall().isPresent()) {
+                    ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
+                    handleListFood();
                 }
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
@@ -285,6 +294,12 @@ abstract class BaseScene {
                 break;
             case TransactionsCommand.COMMAND_WORD:
                 handleListTransactions();
+                updateResultDisplay(commandResult.getFeedbackToUser());
+                break;
+            case ReportCommand.COMMAND_WORD:
+                // VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
+                // primaryStage.getScene().setRoot(pane);
+                new ReportScene(primaryStage, logic);
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
             case BudgetCommand.COMMAND_WORD:
@@ -310,6 +325,9 @@ abstract class BaseScene {
                     break;
                 case ParserContext.CANTEEN_CONTEXT:
                     handleListStalls();
+                    break;
+                case ParserContext.RANDOMIZE_CONTEXT:
+                    handleListRandomize();
                     break;
                 case ParserContext.FAVORITE_CONTEXT:
                     switch (ParserContext.getPreviousContext()) {

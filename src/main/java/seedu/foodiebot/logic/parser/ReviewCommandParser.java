@@ -1,5 +1,8 @@
 package seedu.foodiebot.logic.parser;
 
+import static seedu.foodiebot.logic.commands.ReviewCommand.MESSAGE_FAILURE;
+import static seedu.foodiebot.logic.commands.ReviewCommand.MESSAGE_USAGE;
+
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.ReviewCommand;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
@@ -28,8 +31,8 @@ public class ReviewCommandParser implements Parser<ReviewCommand> {
             Index index = Index.fromOneBased(Integer.parseInt(enteredText[0]));
             Review review = new Review(enteredText[1]);
             return new ReviewCommand(index, review);
-        } catch (NumberFormatException e) {
-            throw new ParseException("Invalid command input!");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new ParseException(MESSAGE_FAILURE + MESSAGE_USAGE);
         }
     }
 }

@@ -2,19 +2,18 @@ package seedu.foodiebot.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
-import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.UniqueCanteenList;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.food.UniqueFoodList;
 import seedu.foodiebot.model.randomize.Randomize;
+import seedu.foodiebot.model.report.Report;
 import seedu.foodiebot.model.stall.UniqueStallList;
 import seedu.foodiebot.model.transaction.PurchasedFood;
 import seedu.foodiebot.model.transaction.PurchasedFoodList;
@@ -32,6 +31,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     private Budget budget;
     private boolean isLocationSpecified;
     private Randomize randomize;
+    private Report report;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -49,6 +49,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         budget = new Budget();
         isLocationSpecified = false;
         randomize = Randomize.checkRandomize();
+        report = new Report();
     }
 
     public FoodieBot() {}
@@ -117,26 +118,6 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     public void addCanteen(Canteen p) {
         canteens.add(p);
     }
-
-    /**
-     * Adds a canteen to the foodiebot. The canteen must not already exist in the foodiebot.
-     */
-    public void addCanteen(CanteenStub p) {
-        canteens.add(new Canteen(p.getName(), 0, 0,
-            "name", "", "", p.getTags(), "", new ArrayList<>()));
-    }
-
-    /**
-     * Replaces the given canteen {@code target} in the list with {@code editedCanteen}. {@code
-     * target} must exist in the foodiebot. The canteen identity of {@code editedCanteen} must
-     * not be the same as another existing canteen in the foodiebot.
-     */
-    public void setCanteen(Canteen target, Canteen editedCanteen) {
-        requireNonNull(editedCanteen);
-
-        canteens.setCanteen(target, editedCanteen);
-    }
-
     /**
      * Removes {@code key} from this {@code FoodieBot}. {@code key} must exist in the address
      * book.
@@ -209,6 +190,10 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         return foods.asUnmodifiableObservableList();
     }
 
+    public ObservableList<PurchasedFood> getPurchasedFoodList() {
+        return transactions.asUnmodifiableObservableList();
+    }
+
     @Override
     public ObservableList<Food> getFavoriteList() {
         return favoritedFoods.asUnmodifiableObservableList();
@@ -263,5 +248,10 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     public void setTransactionsList(ObservableList<PurchasedFood> newList) {
         transactions.removeAll();
         transactions.setFoods(newList);
+    }
+
+    @Override
+    public Report getReport() {
+        return this.report;
     }
 }

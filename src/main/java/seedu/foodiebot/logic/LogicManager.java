@@ -37,6 +37,7 @@ import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.favorites.FavoriteFood;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.randomize.Randomize;
+import seedu.foodiebot.model.report.Report;
 import seedu.foodiebot.model.transaction.PurchasedFood;
 import seedu.foodiebot.storage.Storage;
 
@@ -174,11 +175,6 @@ public class LogicManager implements Logic {
     public ObservableList<Stall> getFilteredStallList(boolean isInitialised) {
         return model.getFilteredStallList(isInitialised);
     }
-
-    public ObservableList<Stall> getFilteredStallList() {
-        return model.getFilteredStallList();
-    }
-
     @Override
     public ObservableList<Food> getFilteredFoodList(boolean isInitialised) {
         return model.getFilteredFoodList(isInitialised);
@@ -198,5 +194,11 @@ public class LogicManager implements Logic {
     public ObservableList<Stall> getFilteredRandomizeList() {
         return model.getFilteredRandomizeList();
     }
+
+    @Override
+    public Report getReport() {
+        return model.getReport();
+    }
+
 
 }

@@ -25,7 +25,8 @@ public class ReviewCommand extends Command {
                     + " "
                     + "1 This is a review.";;
     public static final String MESSAGE_SUCCESS = "You have reviewed %s: \n%s \n";
-    public static final String MESSAGE_FAILURE = "Invalid parameters!";
+    public static final String MESSAGE_FAILURE = "Invalid parameters!\n";
+    public static final String INDEX_OUT_OF_BOUNDS = "Invalid index!\n";
 
     private static final Logger logger = LogsCenter.getLogger(ReviewCommand.class);
 
@@ -45,22 +46,44 @@ public class ReviewCommand extends Command {
         model.loadFilteredTransactionsList();
 
         if (index.isPresent() && review.isPresent()) {
-            PurchasedFood food = model.getFoodieBot()
-                    .getTransactionsList()
-                    .get(index.get().getZeroBased());
+            try {
+                PurchasedFood food = model.getFoodieBot()
+                        .getTransactionsList()
+                        .get(index.get().getZeroBased());
 
-            food.setReview(review.get());
+                food.setReview(review.get());
 
-            return new CommandResult(COMMAND_WORD, String.format(
-                    MESSAGE_SUCCESS, food.getName(), food.getReview().toString()));
+                return new CommandResult(COMMAND_WORD, String.format(
+                        MESSAGE_SUCCESS, food.getName(), food.getReview().toString()));
+            } catch (IndexOutOfBoundsException oobe) {
+                throw new CommandException(MESSAGE_FAILURE + INDEX_OUT_OF_BOUNDS);
+            }
+
         } else {
-            throw new CommandException(MESSAGE_FAILURE);
+            throw new CommandException(MESSAGE_FAILURE + MESSAGE_USAGE);
         }
     }
 
     @Override
     public boolean needToSaveCommand() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ReviewCommand)) {
+            return false;
+        }
+
+        ReviewCommand otherReview = (ReviewCommand) other;
+        return otherReview.index.orElseGet(() -> Index.fromZeroBased(0))
+            .equals(index.orElseGet(() -> Index.fromZeroBased(0)))
+            && otherReview.review.orElseGet(() -> new Review(""))
+            .equals(review.orElseGet(() -> new Review("")));
     }
 
 }
