@@ -1,7 +1,5 @@
 package com.notably.view;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.logging.Logger;
 
 import com.notably.commons.GuiSettings;
@@ -74,7 +72,7 @@ public class MainWindow extends ViewPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = initializeHelpWindow(model);
+        initializeHelpWindow(model);
     }
 
     public Stage getPrimaryStage() {
@@ -149,18 +147,16 @@ public class MainWindow extends ViewPart<Stage> {
      * Creates and returns the HelpWindow component. In the process, sets a listener to ensure
      * that the Help Window is opened when activated.
      * @param model
-     * @return The HelpWindow component.
      */
-    private HelpWindow initializeHelpWindow(Model model) {
+    private void initializeHelpWindow(Model model) {
+        helpWindow = new HelpWindow();
+
         model.helpOpenProperty().addListener((Observable observable) -> {
             if (model.isHelpOpen()) {
                 handleHelp();
             }
             model.setHelpOpen(false);
         });
-        HelpWindow helpWindow = new HelpWindow();
-        requireNonNull(helpWindow);
-        return helpWindow;
     }
 
     /**
