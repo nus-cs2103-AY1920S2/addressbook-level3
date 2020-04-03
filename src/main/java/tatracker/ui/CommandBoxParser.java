@@ -24,7 +24,7 @@ public class CommandBoxParser {
     private static final Pattern FIRST_INDEX = Pattern.compile(
             "\\s*(?<index>.*)($|\\s+\\S+/.*)");
 
-    private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandBoxParser.class);
 
     static {
         logger.setLevel(Level.WARNING);
