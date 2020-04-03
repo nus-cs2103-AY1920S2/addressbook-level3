@@ -3,6 +3,7 @@ package seedu.address.model.parcel.returnorder;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
             throw new DuplicateReturnOrderException();
         }
         internalList.add(toAdd);
+        sortByTimestamp();
     }
 
     /**
@@ -69,6 +71,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
         }
 
         internalList.set(index, editedReturn);
+        sortByTimestamp();
     }
 
     /**
@@ -85,6 +88,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     public void setReturns(UniqueReturnOrderList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        sortByTimestamp();
     }
 
     /**
@@ -98,6 +102,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
         }
 
         internalList.setAll(returnOrders);
+        sortByTimestamp();
     }
 
     /**
@@ -130,6 +135,17 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Sort the return orders based on their timestamp.
+     */
+    private void sortByTimestamp() {
+        internalList.sort((ReturnOrder first, ReturnOrder second) -> {
+            LocalDateTime firstDateTime = first.getTimestamp().getOrderTimeStamp();
+            LocalDateTime secondDateTime = second.getTimestamp().getOrderTimeStamp();
+            return firstDateTime.compareTo(secondDateTime);
+        });
     }
 
     /**
