@@ -562,21 +562,42 @@ The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
 
 `edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
 
-
 The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `<<command_flags, FLAG>>` and `INDEX`. +
 `<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>`` to represent Order or Return Order respectively. +
 `INDEX` to indicate which parcel the user wants to edit. +
-The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>.
+The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>. +
+[NOTE]
+This feature allows user to edit more than one field within a command.
 
 [IMPORTANT]
 ====
-Limitation to editing time is that the user cannot edit a delivery date or return date of an order or return order respectively to a past date.
+Limitation to editing the delivery/return time is that the updated delivery date or return date must not be in the past.
 ====
-
 
 [[edit-path-execution]]
 ==== Execution paths of Edit Command
 
+.EditCommand Activity Diagram
+image::EditCommandActivityDiagram.svg[]
+
+The above figure illustrates the execution path of `edit` command when performed by the user. +
+
+Input when received, will be parsed by the `OrderBookParser`. `OrderBookParser` will check if command word matches any features command word. +
+In this feature, the command word is `edit`. If no command word is detected, a exception class should be generated for displaying of error message. `CommandException` is used in this feature to achieve that function. +
+
+Once validated, user input is once again parse and check for validity. At this step, if user have provided input not matching the valid `edit` <<what-is-edit, format>>, an exception class is thrown. +
+Furthermore, if `NEW_VALUE` is invalid an exception should be thrown as well. +
+`ParseException` class is used in this scenario.
+
+Some invalid `NEW_VALUE`: +
+1) Editing delivery date or return date to the past. +
+2) Change the transaction id of one parcel to match another parcel. +
+3) Violation of any field(s) restriction. +
+
+A correct input will prompts Delino to carry out the rest of the steps according. +
+1) Checking of the `<<command_flags, FLAG>>` +
+2) Edits the the parcel.
+3) Display edit success message.
 
 [[edit-structure]]
 ==== Structure of Edit Command
@@ -592,7 +613,16 @@ Information that are left out in this class diagram are the common messages used
 .Edit Command Sequence Diagram
 image::EditCommandSequenceDiagram.svg[]
 
-The above figure illustrates the interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`.
+The above figure illustrates the important interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`. +
+
+The handling of breaking down the user input is done in the `EditcommandParser` class which is called upon by the `OrderBookParser` after an initial check for correctness of the command input. +
+
+The `EditParcelDescriptor` class is a static class contained in the `EditCommand` class. It act as a helper class to allow the setting of all the `NEW_VALUE` to the corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` in the `EditCommandParser` class.
+The `EditParcelDescriptor` object is then passed back as a parameter to instantiate an `EditCommand`. In the diagram above, the `EditParcelDescriptor` object is named as `epd`.
+The `EditCommand` object is then passed back as `e` to the `LogicManager` which will then call the `EditCommand#execute`. This execute method mainly calls the 3 helper method, not shown, `EditCommand#createEditedOrder`/`EditComand#createEditedReturnOrder` and `EditCommand#generalSetParcel`.
+The main function of these methods are to help `EditCommand` in updating the `ObservableList` in the `Model` class which is responsible for the updating of list displayed.
+
+The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
 
 [[nearby]]
 === Nearby Feature
