@@ -39,6 +39,9 @@ public class DateUtil {
             .ofPattern("d LLLL yyyy");
     public static final DateTimeFormatter MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter.ofPattern("LLLL yyyy");
 
+
+    public static final String START_DATE_EXPIRY_DATE_CONSTRAINT = "Start Date must be before Expiry Date!";
+
     public static final int MINIMUM_YEAR = 2000;
     public static final int MAXIMUM_YEAR = 2200;
 
