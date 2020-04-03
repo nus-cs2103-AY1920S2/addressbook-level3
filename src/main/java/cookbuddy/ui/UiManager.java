@@ -55,6 +55,10 @@ public class UiManager implements Ui {
         mainWindow.defaultFill(e);
     }
 
+    public static void removeRecipe() {
+        mainWindow.fillInnerParts();
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
