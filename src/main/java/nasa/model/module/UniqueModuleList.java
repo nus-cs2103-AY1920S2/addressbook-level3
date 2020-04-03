@@ -34,8 +34,6 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Returns true if the list contains an equivalent Module as the given argument.
-     * @param toCheck Module
-     * @return boolean
      */
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
@@ -44,8 +42,6 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Returns true if the list contains an equivalent ModuleCode as the given argument.
-     * @param toCheck ModuleCode
-     * @return boolean
      */
     public boolean contains(ModuleCode toCheck) {
         requireNonNull(toCheck);
@@ -55,7 +51,6 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Adds a Module to the list.
      * The Module must not already exist in the list.
-     * @param toAdd Module
      */
     public void add(Module toAdd) {
         requireNonNull(toAdd);
@@ -68,8 +63,6 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Adds a ModuleCode to the list.
      * The ModuleCode must not already exist in the list.
-     * @param toAddCode ModuleCode
-     * @param toAddName ModuleName
      */
     public void add(ModuleCode toAddCode, ModuleName toAddName) {
         requireAllNonNull(toAddCode, toAddName);
@@ -83,8 +76,6 @@ public class UniqueModuleList implements Iterable<Module> {
      * Replaces the Module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the list.
      * The Module identity of {@code editedModule} must not be the same as another existing Module in the list.
-     * @param target Module
-     * @param editedModule Module
      */
     public void setModule(Module target, Module editedModule) {
         int index = internalList.indexOf(target);
@@ -103,8 +94,6 @@ public class UniqueModuleList implements Iterable<Module> {
      * Replaces the ModuleCode {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the list.
      * The ModuleCode identity of {@code editedModule} must not be the same as another existing Module in the list.
-     * @param target ModuleCode
-     * @param editedModule Module
      */
     public void setModule(ModuleCode target, Module editedModule) {
         int index = internalList.indexOf(getModule(target));
@@ -122,7 +111,6 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Removes the equivalent Module from the list.
      * The Module must exist in the list.
-     * @param toRemove Module
      */
     public void remove(Module toRemove) {
         requireNonNull(toRemove);
@@ -134,7 +122,6 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Removes the equivalent ModuleCode from the list.
      * The ModuleCode must exist in the list.
-     * @param toRemove ModuleCode
      */
     public void remove(ModuleCode toRemove) {
         requireNonNull(toRemove);
@@ -145,7 +132,6 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Removes the Module based on index.
-     * @param index Index
      */
     public void removeByIndex(Index index) {
         internalList.remove(index.getZeroBased());
@@ -160,7 +146,6 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Replaces the contents of this list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
-     * @param modules List
      */
     public void setModules(List<Module> modules) {
         requireAllNonNull(modules);
@@ -223,8 +208,8 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * get a particular module from the list
-     * @param module Module
-     * @return Module
+     * @param module
+     * @return
      */
     public Module getModule(Module module) {
         requireAllNonNull(module);
@@ -236,15 +221,15 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * get a particular module from the list
-     * @param moduleCode ModuleCode
-     * @return Module
+     * @param moduleCode
+     * @return
      */
     public Module getModule(ModuleCode moduleCode) {
         requireAllNonNull(moduleCode);
         return internalList.parallelStream()
                 .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
-                .orElse(null);
+                .get();
     }
 
     public ObservableList<Module> getDeepCopyList() {
@@ -259,7 +244,6 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
-     * @return ObservableList
      */
     public ObservableList<Module> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
@@ -288,8 +272,6 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Returns true if {@code modules} contains only unique modules.
-     * @param modules List
-     * @return boolean
      */
     private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size() - 1; i++) {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,6 +13,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
@@ -36,22 +36,18 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
 
-
-
-    public StatisticsPanel(ObservableList<Module> moduleObservableList) {
+    public StatisticsPanel(ObservableList<Module> moduleList) {
         super(FXML);
 
-        loadStatistics(moduleObservableList);
+        setStatistics(moduleList);
 
-        moduleObservableList.addListener(new ListChangeListener<Module>() {
+        moduleList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
-                resetStatistics();
-                loadStatistics(moduleObservableList);
-                updateStatistics(moduleObservableList);
+                setStatistics(moduleList);
             }
         });
-        updateStatistics(moduleObservableList);
+        updateStatistics(moduleList);
     }
 
 
@@ -65,44 +61,32 @@ public class StatisticsPanel extends UiPart<Region> {
             activityObservableList.addListener(new ListChangeListener<Activity>() {
                 @Override
                 public void onChanged(Change<? extends Activity> c) {
-                    resetStatistics();
-                    loadStatistics(moduleObservableList);
+                    setStatistics(moduleObservableList);
                 }
             });
         }
     }
 
-    /**
-     * Set statistics.
-     * @param moduleList
-     */
-
-    private void loadStatistics(ObservableList<Module> moduleList) {
-
+    private void setStatistics(ObservableList<Module> moduleList) {
         List<PieChart.Data> pieData = new ArrayList<>();
         for (Module module : moduleList) {
             pieData.add(new PieChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredActivityList().size()));
+                    module.getActivities().getActivityList().size()));
         }
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(pieData);
         pieChart.setData(chartData);
-        chartData.forEach(data ->
-                data.nameProperty().bind(data.pieValueProperty().getValue() > 1
-                        ? Bindings.concat(
-                                data.getName(), " - ", data.pieValueProperty().intValue(), " activities"
-                        )
-                        : Bindings.concat(
-                                data.getName(), " - ", data.pieValueProperty().intValue(), " activity"
-                        )
-                )
-        );
+        pieChart.getData().forEach(data -> {
+            String percentage = String.format("%.2f%%", (data.getPieValue() / 100));
+            Tooltip toolTip = new Tooltip(percentage);
+            Tooltip.install(data.getNode(), toolTip);
+        });
 
         //Bar chart
         XYChart.Series<String, Integer> barData = new XYChart.Series();
         for (Module module : moduleList) {
             barData.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getFilteredActivityList().size()));
+                    module.getActivities().getActivityList().size()));
         }
         barChart.setData(FXCollections.observableArrayList(barData));
 
