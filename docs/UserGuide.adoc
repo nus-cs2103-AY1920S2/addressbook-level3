@@ -186,20 +186,23 @@ A non-favourited recipe is indicated by a heart with a read outline and no fill.
 
 
 === Marking a recipe as done — `done`
-You can mark an existing recipe from *CookBuddy* as being attempted using the `done` command.
+You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that it has
+been attempted.
 
 Format: `done INDEX`
 
-Example: You can type `done 1` and *CookBuddy* will mark the recipe at index 1 as having been attempted.
+Example: You can type `done 1` and *CookBuddy* will mark the recipe at index 1 as being done, indicating that it has
+been attempted.
 
 
 === Un-Marking a recipe as done — `undo`
-You can un-mark an existing recipe from *CookBuddy* as being done, indicating that it has not been attempted, using the
-`undo` command.
+You can un-mark an existing recipe from *CookBuddy* as being done, using the`undo` command. This indicates that the
+recipe has not been attempted.
 
 Format: `undo INDEX`
 
-Example: You can type `fav 1` and *CookBuddy* will favourite the recipe at index 1.
+Example: You can type `undo 1` and *CookBuddy* will un-mark the recipe at index 1 as done, indicating that it has not
+been attempted.
 [NOTE]
 Recipes are marked as not attempted by default.
 This command is only useful if you wish to un-mark recipe that is already marked as done.
