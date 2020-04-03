@@ -1,6 +1,5 @@
 package seedu.recipe.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -9,7 +8,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -39,11 +37,7 @@ public class RecipeListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                try {
-                    setGraphic(new RecipeCard(recipe, getIndex() + 1).getRoot());
-                } catch (IOException e) {
-                    logger.warning("Failed to favourites icon : " + StringUtil.getDetails(e));
-                }
+                setGraphic(new RecipeCard(recipe, getIndex() + 1).getRoot());
             }
         }
     }

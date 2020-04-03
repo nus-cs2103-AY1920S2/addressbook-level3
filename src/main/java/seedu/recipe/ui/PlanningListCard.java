@@ -1,6 +1,5 @@
 package seedu.recipe.ui;
 
-import java.io.IOException;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -34,7 +33,7 @@ public class PlanningListCard extends UiPart<Region> {
     @FXML
     private VBox recipesBox;
 
-    public PlanningListCard(PlannedDate plannedDate, int displayedIndex) throws IOException {
+    public PlanningListCard(PlannedDate plannedDate, int displayedIndex) {
         super(FXML);
         this.plannedDateObject = plannedDate;
         this.plannedDate = plannedDate.getDate();

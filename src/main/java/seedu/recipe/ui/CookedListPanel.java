@@ -1,6 +1,5 @@
 package seedu.recipe.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -11,7 +10,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.model.cooked.Record;
 
 /**
@@ -54,11 +52,7 @@ public class CookedListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                try {
-                    setGraphic(new CookedCard(record, getIndex() + 1).getRoot());
-                } catch (IOException e) {
-                    logger.warning("Failed to load : " + StringUtil.getDetails(e));
-                }
+                setGraphic(new CookedCard(record, getIndex() + 1).getRoot());
             }
         }
     }

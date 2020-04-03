@@ -1,6 +1,5 @@
 package seedu.recipe.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -12,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.commons.util.StringUtil;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.UniquePlannedList;
@@ -71,11 +69,7 @@ public class PlanningListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                try {
-                    setGraphic(new PlanningListCard(plannedDate, getIndex() + 1).getRoot());
-                } catch (IOException e) {
-                    logger.warning("Failed to favourites icon : " + StringUtil.getDetails(e));
-                }
+                setGraphic(new PlanningListCard(plannedDate, getIndex() + 1).getRoot());
             }
         }
     }
