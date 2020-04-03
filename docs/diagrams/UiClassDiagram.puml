@@ -11,8 +11,14 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class TabPanel
+Class ModuleListPanel
+Class ActivityListPanel
+Class DeadlineCard
+Class EventCard
+Class LessonCard
+Class CalendarView
+Class StatisticsPanel
 Class StatusBarFooter
 Class CommandBox
 }
@@ -33,25 +39,40 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> TabPanel
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+TabPanel -down-> CalendarView
+TabPanel -down-> ModuleListPanel
+TabPanel -down-> StatisticsPanel
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+ModuleListPanel --|> UiPart
+StatisticsPanel --|> UiPart
+CalendarView --|> UiPart
+ModuleCard --|> UiPart
 StatusBarFooter --|> UiPart
+ActivityListPanel --|> UiPart
+DeadlineCard --|> UiPart
+EventCard --|> UiPart
+LessonCard --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
+ModuleCard ..> Model
+ModuleCard ..> ActivityListPanel
+
+ActivityListPanel -down-> DeadlineCard
+ActivityListPanel -down-> EventCard
+ActivityListPanel -down-> LessonCard
+
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ModuleListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
