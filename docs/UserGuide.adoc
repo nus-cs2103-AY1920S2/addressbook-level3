@@ -24,7 +24,7 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `iTrackPro.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your Inventory System.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790" align="center"]
@@ -259,20 +259,20 @@ Adds a specified transaction to the system. +
 Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]` +
 
 [TIP]
-The date time field [dt/] is optional, will be recorded as current local machine time if left empty. +
-The money field [m/] is optional, will be recorded as product price multiplied by quantity if left empty.
+The date time field [dt/] is optional, and will be recorded as current local machine time if left empty. +
+The money field [m/] is optional, and will be recorded as product price multiplied by quantity if left empty.
 Only need to enter if necessary (i.e. discounts on products). +
 The description field [d/] is optional, will be recorded as Null if left empty.
-Only need to enter if user want to add notes to the transaction.
+Only need to enter if user wants to add notes to the transaction.
 
 image::AddTransaction.png[width="790" align="center"]
 
 Examples:
 
 * `addt p/1 c/10 dt/2020-02-19 19:00 q/10 m/20` +
-Adds a transaction with the 1st product and the 10th customer of $20 for 10 products at 2020-02-19 19:00.
+Adds a transaction, where the 10th customer bought 10 of the 1st product for $20 at 2020-02-19 19:00.
 * `addt p/20 c/2 dt/2020-02-20 10:00 q/10 m/30 d/under discount` +
-Adds a transaction with 20th product and 2nd customer of $30 for 10 products at 2020-02-20 10:00 at an discount.
+Adds a transaction, where the 2nd customer bought 10 of the 20th product for $30 at 2020-02-20 10:00 at an discount.
 
 
 === Listing all transaction : `listt`
@@ -335,14 +335,17 @@ Format: `undot INDEX`
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+[NOTE]
+Adds the quantity in the transaction back to the product and reduces the sales of the product by transaction amount.
+
 Examples:
 
 * `listt` +
-`deletet 2` +
-Deletes the 2nd transaction in the displayed list.
+`undot 2` +
+Undo the 2nd transaction in the displayed list.
 * `findt dt/2020-01-03 16:00` +
-`deletet 1` +
-Deletes the 1st transaction in the results of the find command.
+`undot 1` +
+Undo the 1st transaction in the results of the find command.
 
 === Clearing all transactions : `cleart`
 
@@ -352,9 +355,9 @@ Format: `cleart`
 [WARNING]
 Permanently deletes all the stored transaction data in the application.
 
-=== Viewing the top-selling and worst-selling product.
+=== Viewing the top-selling and worst-selling products.
 
-Displays and updates the top-selling and worst-selling product as transactions are made. +
+Displays and updates the top-selling and worst-selling products (sorted by profit) as transactions are made. +
 
 [NOTE]
 This is a passive feature. Relaunch the window to get the updated information.
@@ -363,9 +366,12 @@ This is a passive feature. Relaunch the window to get the updated information.
 
 image::TopSellingProducts.png[align="center"]
 
-=== View the product sales and quantity histogram.
+=== Viewing the product sales and quantity histogram.
 
 Displays and updates the histogram of product sales and quantity. +
+Plots 2 graphs: +
+1. Number of products against quantity of products +
+2. Number of products against sales of products
 
 [NOTE]
 This is a passive feature. Relaunch the histogram window to udpate the plot.
@@ -373,7 +379,7 @@ This is a passive feature. Relaunch the histogram window to udpate the plot.
 
 image::ViewInventory.png[align="center"]
 
-=== Get the revenue made in a certain period : `revenue`
+=== Getting the revenue made in a certain period : `revenue`
 
 Gets the revenue made in a selected period. +
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
@@ -389,7 +395,7 @@ Example:
 * `revenue sd/2020-01-01 ed/2020-12-31` +
 Returns the revenue from Jan 1 2020 to Dec 31 2020
 
-=== Get the profit made in a certain period : `profit`
+=== Getting the profit made in a certain period : `profit`
 
 Gets the profit made in a selected period. +
 Format: `profit [sd/START_DATE] [ed/END_DATE]`
@@ -407,7 +413,7 @@ Returns the profit from Jan 1 2020 to Dec 31 2020
 
 === Setting the low-inventory threshold : `lowlimit`
 
-Sets the notification threshold & updates the bar indicator of the product. +
+Sets the notification threshold for individual product and updates the bar indicator of the product. +
 Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 
 ****
@@ -456,7 +462,7 @@ image::SalesPlot.png[align="center"]
 
 === Exiting from the program : `exit`
 
-Exit from the program. +
+Exit from the program, closes all opened windows. +
 Format: `exit`
 
 === Saving the data
@@ -483,7 +489,7 @@ The history is deleted after application closes.
 
 === Keeping track of products that are running low on stock
 
-The product list updates and sort by products that are running low on stock automatically.
+The product list updates and sort by product quantity automatically.
 
 [NOTE]
 This is a passive feature. The bar indicator beside the products' name represents visualises the remaining balance.
@@ -531,14 +537,15 @@ e.g. `listt`
 e.g. `editt 1 p/101 c/123`
 * *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
 e.g. `findt c/bob dt/2020-02-07`
-* *Deleting a transaction* : `deletet INDEX` +
+* *Undo a transaction* : `undot INDEX` +
 e.g. `findt 2020-01-03` +
-`deletet 1`
+`undot 1`
 * *Clearing all transactions* : `cleart`
 * *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE`
 * *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE`
 * *Setting the low-inventory threshold* : `lowlimit p/PRODUCT_ID t/THRESHOLD` +
 e.g. `lowlimit p/1 t/20`
 * *Predicting the sales for the next month* : `predict`
+* *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
 * *Exiting from the program* : `exit`
 * *help* : `help`

@@ -14,7 +14,7 @@ import seedu.address.model.util.Quantity;
  */
 public class NotificationWindow extends UiPart<Stage> {
 
-    public static final String NOTIFICATION_MESSAGE = "Product %s quantity low! Remaining balance: %s";
+    public static final String NOTIFICATION_MESSAGE = "Product %s quantity low!\nRemaining balance: %s";
 
     private static final Logger logger = LogsCenter.getLogger(NotificationWindow.class);
     private static final String FXML = "NotificationWindow.fxml";

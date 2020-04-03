@@ -48,9 +48,9 @@ import seedu.address.logic.parser.statistics.PlotProductSalesCommandParser;
 import seedu.address.logic.parser.statistics.ProfitCommandParser;
 import seedu.address.logic.parser.statistics.RevenueCommandParser;
 import seedu.address.logic.parser.transaction.AddTransactionCommandParser;
-import seedu.address.logic.parser.transaction.DeleteTransactionCommandParser;
 import seedu.address.logic.parser.transaction.EditTransactionCommandParser;
 import seedu.address.logic.parser.transaction.FindTransactionCommandParser;
+import seedu.address.logic.parser.transaction.UndoTransactionCommandParser;
 
 /**
  * Parses user input.
@@ -137,7 +137,7 @@ public class InventorySystemParser {
             return new ListTransactionCommand();
 
         case UndoTransactionCommand.COMMAND_WORD:
-            return new DeleteTransactionCommandParser().parse(arguments);
+            return new UndoTransactionCommandParser().parse(arguments);
 
         case ClearTransactionCommand.COMMAND_WORD:
             return new ClearTransactionCommand();

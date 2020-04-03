@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -242,11 +243,8 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        statisticsWindow.hide();
-        inventoryWindow.hide();
-        plotWindow.hide();
-        primaryStage.hide();
+        Platform.exit();
+        System.exit(0);
     }
 
     public PersonListPanel getPersonListPanel() {
