@@ -222,26 +222,6 @@ image::demo/Edit1.png[]
 .Demo for the `edit` command (after edit)
 image::demo/Edit2.png[]
 
-=== Find a note based on certain keywords: `search`
-
-If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
-*Format:* `search [-s] KEYWORD`
-
-[NOTE]
-====
-* `search` looks through *all* the notes that you have
-* Partial matches work as well!
-* Matches are case insensitive, meaning it will find the word no matter if it is in uppercase or lowercase or even mixed-case
-====
-
-==== Example: Searching for the keyword "Computer science"
-. Let's look through all the notes that we have saved, for the keyword "Computer science" +
-
-    search -s Computer science
-
-.Demo for the `search` command
-image::demo/Search.png[]
-
 === Delete a note: `delete`
 
 If you no longer need a note, or you accidentally created a wrong note, don't worry! You can always delete That note. A slash `/` character can be used to denote a filesystem-like hierarchy. +
@@ -287,6 +267,26 @@ Even if you mistype, Notably tries its best to correct the typo automatically, a
 
 .Demo for the auto-correction feature
 image::demo/Correction.png[]
+
+=== (Coming in v2.0) Find a note based on certain keywords: `search`
+
+If you need to look for a note that contain a specific keyword, use the `search` command and Notably when show you the result sorted by the number of matches in the note.  +
+*Format:* `search [-s] KEYWORD`
+
+[NOTE]
+====
+* `search` looks through *all* the notes that you have
+* Partial matches work as well!
+* Matches are case insensitive, meaning it will find the word no matter if it is in uppercase or lowercase or even mixed-case
+====
+
+==== Example: Searching for the keyword "Computer science"
+. Let's look through all the notes that we have saved, for the keyword "Computer science" +
+
+    search -s Computer science
+
+.Demo for the `search` command
+image::demo/Search.png[]
 
 == FAQ
 
