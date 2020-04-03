@@ -3,85 +3,82 @@ package seedu.recipe.model.plan;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.recipe.model.Date;
 
 /**
- * A list of planned recipes that enforces uniqueness between its elements and does not allow nulls.
- * Ensures that at any point in time, the items in the list of planned recipes each has a unique Date.
- * This means that PlannedRecipe items with the same Date must not exist in the list.
+ * A list of planned dates that enforces uniqueness between its elements and does not allow nulls.
+ * Ensures that at any point in time, the items in the list of planned dates each has a unique Date.
+ * This means that PlannedDate items with the same Date must not exist in the list.
  *
- * A planned recipe is considered unique by comparing using {@code PlannedRecipe#equals(object)}.
+ * A planned date is considered unique by comparing using {@code PlannedDate#equals(object)}.
  *
  *  Supports a minimal set of list operations.
  */
 public class UniquePlannedList {
 
-    private ObservableList<PlannedRecipe> observableList = FXCollections.observableArrayList();
-    private ObservableList<PlannedRecipe> unmodifiableObservableList = FXCollections
-            .unmodifiableObservableList(observableList);
-
-    // todo: check duplicate if it is, throw exception.
+    private ObservableList<PlannedDate> internalList = FXCollections.observableArrayList();
+    private ObservableList<PlannedDate> unmodifiableObservableList = FXCollections
+            .unmodifiableObservableList(internalList);
 
     /**
-     * Replaces the contents of this map with {@code plannedRecipes}.
-     * {@code plannedRecipes} must not contain duplicate recipes on the same date.
+     * Replaces the contents of this map with {@code plannedDates}.
+     * {@code plannedDates} must not contain duplicate recipes on the same date.
      */
-    public void setPlannedRecipes(ObservableList<PlannedRecipe> plannedRecipes) {
-        requireAllNonNull(plannedRecipes);
-        if (!plannedRecipesAreUnique(plannedRecipes)) {
+    public void setPlannedDates(ObservableList<PlannedDate> plannedDates) {
+        requireAllNonNull(plannedDates);
+        if (!plannedDatesAreUnique(plannedDates)) {
             throw new DuplicatePlannedRecipeException();
         }
 
-        if (!recipesAreUnique(plannedRecipes)) {
-            throw new DuplicatePlannedRecipeException();
-        }
-
-        observableList.clear();
-        observableList.setAll(plannedRecipes);
+        internalList.clear();
+        internalList.setAll(plannedDates);
     }
 
     /**
-     * Adds a planned recipe to the plannedRecipes list.
+     * Adds {@code plannedDate} to the list.
      */
-    public void add(PlannedRecipe plannedRecipe) {
-        requireNonNull(plannedRecipe);
-        if (observableList.contains(plannedRecipe) || hasPlannedRecipe(plannedRecipe)) {
+    public void add(PlannedDate plannedDate) {
+        requireNonNull(plannedDate);
+        if (internalList.contains(plannedDate) || hasPlannedDate(plannedDate)) {
             throw new DuplicatePlannedRecipeException();
         }
-
-        int indexOfSameDate = indexOfPlannedRecipeWithSameDate(plannedRecipe);
-        if (indexOfSameDate == -1) {
-            observableList.add(plannedRecipe);
+        Optional<PlannedDate> optionalSameDate = withSameDate(plannedDate);
+        if (optionalSameDate.isEmpty()) {
+            internalList.add(plannedDate); // planned on a new day
         } else {
-            PlannedRecipe currentPlannedRecipe = observableList.get(indexOfSameDate)
-                    .allPlannedRecipesOnOneDay(plannedRecipe);
-            observableList.set(indexOfSameDate, currentPlannedRecipe);
+            PlannedDate sameDate = optionalSameDate.get();
+            internalList.remove(sameDate);
+            sameDate = sameDate.addRecipes(plannedDate);
+            internalList.add(sameDate);
+            System.out.println("reached, internal list: " + internalList.size());
         }
     }
 
     /**
-     * Removes the planned recipe from the plannedRecipes list.
+     * Removes {@code plannedDate} from the list.
      */
-    public void remove(PlannedRecipe plannedRecipe) {
-        requireNonNull(plannedRecipe);
-        if (!observableList.remove(plannedRecipe)) {
+    public void remove(PlannedDate plannedDate) {
+        requireNonNull(plannedDate);
+        System.out.println("removing + " + plannedDate); //todo remove
+        if (!internalList.remove(plannedDate)) {
             throw new PlannedRecipeNotFoundException();
         }
     }
 
     /**
-     * Returns true if the list contains the same recipes at the planned date from {@code otherPlannedRecipe}.
+     * Returns true if the list contains the same recipes at the planned date from {@code otherPlannedDate}.
      */
-    public boolean hasPlannedRecipe(PlannedRecipe otherPlannedRecipe) {
-        if (observableList.contains(otherPlannedRecipe)) {
+    public boolean hasPlannedDate(PlannedDate otherPlannedDate) {
+        if (internalList.contains(otherPlannedDate)) {
             return true;
         }
-        for (PlannedRecipe plannedRecipe : observableList) {
-            if (plannedRecipe.hasSameRecipeInPlan(otherPlannedRecipe)) {
+        for (PlannedDate plannedDate : internalList) {
+            if (plannedDate.hasSameRecipeInPlan(otherPlannedDate)) {
                 return true;
             }
         }
@@ -89,41 +86,31 @@ public class UniquePlannedList {
     }
 
     /**
-     * Returns the index of a planned recipe with the same date as {@code otherPlannedRecipe}.
+     * Returns an optional planned date with the same date as {@code otherPlannedDate}.
+     * Returns optional empty if no such planned date exists.
      */
-    private int indexOfPlannedRecipeWithSameDate(PlannedRecipe otherPlannedRecipe) {
-        Date otherDate = otherPlannedRecipe.getDate();
-        for (int i = 0; i < observableList.size(); i++) {
-            Date currentDate = observableList.get(i).getDate();
-            if (currentDate.equals(otherDate)) {
-                return i;
-            }
-        }
-        return -1;
+    private Optional<PlannedDate> withSameDate(PlannedDate otherPlannedDate) {
+        List<PlannedDate> copyOfInternal = new ArrayList<>(internalList);
+        return copyOfInternal.stream().filter(plan -> plan.hasSameDate(otherPlannedDate)).findFirst();
     }
 
     /**
-     * Returns true if {@code plannedRecipes} contains only unique planned recipes.
+     * Returns true if {@code plannedDates} contains only unique planned dates.
      */
-    private boolean plannedRecipesAreUnique(List<PlannedRecipe> plannedRecipes) {
-        for (int i = 0; i < plannedRecipes.size() - 1; i++) {
-            for (int j = i + 1; j < plannedRecipes.size(); j++) {
-                if (plannedRecipes.get(i).equals(plannedRecipes.get(j))) {
+    private boolean plannedDatesAreUnique(List<PlannedDate> plannedDates) {
+        for (int i = 0; i < plannedDates.size() - 1; i++) {
+            if (!plannedDates.get(i).recipesAreUnique()) {
+                return false; // checks if the recipes in each plannedDate is unique
+            }
+            for (int j = i + 1; j < plannedDates.size(); j++) {
+                if (plannedDates.get(i).equals(plannedDates.get(j))) {
                     return false;
                 }
             }
         }
-        return true;
-    }
-
-    /**
-     * Returns true if all recipes in {@code plannedRecipes} contains only unique recipes.
-     */
-    public boolean recipesAreUnique(List<PlannedRecipe> plannedRecipes) {
-        for (PlannedRecipe plannedRecipe : plannedRecipes) {
-            if (!plannedRecipe.recipesAreUnique()) {
-                return false;
-            }
+        int lastItem = plannedDates.size() - 1;
+        if (lastItem > 0 && !plannedDates.get(plannedDates.size() - 1).recipesAreUnique()) {
+            return false; // checks if the recipes in the last plannedDate is unique
         }
         return true;
     }
@@ -131,21 +118,24 @@ public class UniquePlannedList {
     /**
      * Sorts the list then returns it as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<PlannedRecipe> asUnmodifiableObservableList() {
-        FXCollections.sort(observableList);
+    public ObservableList<PlannedDate> asUnmodifiableObservableList() {
+        FXCollections.sort(internalList);
         return unmodifiableObservableList;
     }
 
     @Override
     public int hashCode() {
-        return observableList.hashCode();
+        return internalList.hashCode();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePlannedList // instanceof handles nulls
-                && observableList.equals(((UniquePlannedList) other).observableList));
+                && internalList.equals(((UniquePlannedList) other).internalList));
     }
 
+    public String size() {
+        return internalList.size() + "";
+    }
 }

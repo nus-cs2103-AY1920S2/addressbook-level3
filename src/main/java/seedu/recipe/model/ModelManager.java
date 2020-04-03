@@ -16,8 +16,7 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.PlannedRecipe;
-import seedu.recipe.model.plan.ReadOnlyPlannedBook;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -33,7 +32,7 @@ public class ModelManager implements Model {
     private final MultipleBookStateManager states;
     private final CookedRecordBook cookedRecordBook;
     private final FilteredList<Record> filteredRecords;
-    private final FilteredList<PlannedRecipe> filteredPlannedRecipes;
+    private final FilteredList<PlannedDate> filteredPlannedDates;
 
 
     /**
@@ -53,7 +52,7 @@ public class ModelManager implements Model {
         this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
         this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
         this.states = new MultipleBookStateManager(recipeBook, plannedBook, cookedRecordBook);
-        filteredPlannedRecipes = new FilteredList<>(this.plannedBook.getPlannedList());
+        filteredPlannedDates = new FilteredList<>(this.plannedBook.getPlannedList());
     }
 
     public ModelManager() {
@@ -117,16 +116,19 @@ public class ModelManager implements Model {
     @Override
     public void deleteRecipe(Recipe target) {
         recipeBook.removeRecipe(target);
+        plannedBook.deleteAllRecipePlans(target);
     }
 
     @Override
     public void favouriteRecipe(Recipe target) {
         recipeBook.favouriteRecipe(target);
+        plannedBook.favouriteRecipe(target);
     }
 
     @Override
     public void unfavouriteRecipe(Recipe target) {
         recipeBook.unfavouriteRecipe(target);
+        plannedBook.unfavouriteRecipe(target);
     }
 
     @Override
@@ -139,6 +141,7 @@ public class ModelManager implements Model {
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
         recipeBook.setRecipe(target, editedRecipe);
+        plannedBook.setRecipe(target, editedRecipe);
     }
 
     @Override
@@ -214,39 +217,39 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addPlanForOneRecipe(Recipe recipe, PlannedRecipe plannedRecipe) {
-        plannedBook.addPlanForOneRecipe(recipe, plannedRecipe);
+    public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        plannedBook.addOnePlan(recipe, plannedDate);
     }
 
     @Override
-    public void addPlanForAllRecipes(List<Recipe> recipes, PlannedRecipe plannedRecipe) {
-        plannedBook.addPlanForAllRecipes(recipes, plannedRecipe);
+    public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
+        plannedBook.addAllRecipesToPlan(recipes, plannedDate);
     }
 
     @Override
-    public void deleteRecipeFromOnePlan(Recipe recipe, PlannedRecipe plannedRecipe) {
-        plannedBook.deleteRecipeFromPlannedRecipe(recipe, plannedRecipe);
+    public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        plannedBook.deleteOnePlan(recipe, plannedDate);
     }
 
     @Override
-    public void deleteAllPlansFor(Recipe recipe) {
-        plannedBook.deleteAllPlansFor(recipe);
+    public void deleteAllRecipePlans(Recipe recipe) {
+        plannedBook.deleteAllRecipePlans(recipe);
     }
 
     @Override
     public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
-        plannedBook.setRecipeInPlans(target, editedRecipe);
+        plannedBook.setRecipe(target, editedRecipe);
     }
 
     @Override
-    public ObservableList<PlannedRecipe> getFilteredPlannedList() {
-        return filteredPlannedRecipes;
+    public ObservableList<PlannedDate> getFilteredPlannedList() {
+        return filteredPlannedDates;
     }
 
     @Override
-    public void updateFilteredPlannedList(Predicate<PlannedRecipe> predicate) {
+    public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
         requireNonNull(predicate);
-        filteredPlannedRecipes.setPredicate(predicate);
+        filteredPlannedDates.setPredicate(predicate);
     }
 
 
