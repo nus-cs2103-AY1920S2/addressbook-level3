@@ -653,7 +653,7 @@ schedule edit SCHEDULED_WORKOUT_ID d/<datetime>
 
 ```
 Example use:
-schedule edit 1 d/2020-02-08T1800
+schedule edit 1 d/2020-02-08 18:00
 ```
 
 If this is successful, the following message will be displayed in the feedback display:
@@ -702,10 +702,10 @@ schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
 
 ```
 Example use:
-schedule recurring create WORKOUT_ID d/2020-03-26T1000 f/MONTHLY
+schedule recurring create WORKOUT_ID d/2020-03-26 10:00 f/MONTHLY
 ```
 
-For example, if you want to have the workout Arms Workout on a monthly basis, starting from the 26th of March 2020 at 10am, you can type `schedule recurring create WORKOUT_ID d/2020-03-26T1000 f/MONTHLY`.  If this is successful, the following message will be displayed in the feedback display:
+For example, if you want to have the workout Arms Workout on a monthly basis, starting from the 26th of March 2020 at 10am, you can type `schedule recurring create WORKOUT_ID d/2020-03-26 10:00 f/MONTHLY`.  If this is successful, the following message will be displayed in the feedback display:
 
 ```
 New recurring schedule added: Strength Workout on 2020-02-06 18:00 Monthly
