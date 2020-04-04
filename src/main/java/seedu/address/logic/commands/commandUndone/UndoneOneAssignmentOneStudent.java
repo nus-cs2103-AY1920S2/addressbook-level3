@@ -1,9 +1,8 @@
-package seedu.address.logic.commands.commandDone;
+package seedu.address.logic.commands.commandUndone;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
-import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
-import seedu.address.logic.commands.commandUndone.UndoneOneAssignmentOneStudent;
+import seedu.address.logic.commands.commandDone.DoneOneAssignmentOneStudent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.ProgressManager;
@@ -11,14 +10,14 @@ import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
 
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
-public class DoneOneAssignmentOneStudent extends DoneCommandBase {
+public class UndoneOneAssignmentOneStudent extends UndoneCommandBase {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks an assignment as done for a student. "
             + "Parameters: "
             + PREFIX_ASSIGNMENTID + "ASSIGNMENTID "
@@ -37,7 +36,7 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
      **/
     private final AssignDescriptor assignDescriptor;
 
-    public DoneOneAssignmentOneStudent(AssignDescriptor assignDescriptor) {
+    public UndoneOneAssignmentOneStudent(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
 
         this.assignDescriptor = assignDescriptor;
@@ -69,7 +68,7 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
             Assignment assignment = model.getAssignment(assignmentID);
             Student student = model.getStudent(studentID);
 
-            ProgressManager.markDoneOneProgressOfOneStudent(assignmentID, studentID);
+            ProgressManager.markUndoneOneProgressOfOneStudent(assignmentID, studentID);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     assignment.getName(), assignmentID.value,
@@ -79,6 +78,6 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
 
     @Override
     protected void generateOppositeCommand() throws CommandException {
-        oppositeCommand = new UndoneOneAssignmentOneStudent(this.assignDescriptor);
+        oppositeCommand = new DoneOneAssignmentOneStudent(this.assignDescriptor);
     }
 }

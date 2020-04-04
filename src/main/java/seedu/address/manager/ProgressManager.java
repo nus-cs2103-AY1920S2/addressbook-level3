@@ -86,4 +86,11 @@ public class ProgressManager extends BaseManager {
         ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
         postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
     }
+
+    public static void markUndoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
+        Progress targetProgress = ProgressManager.get(assignmentID, studentID);
+        targetProgress.undone();
+        ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
+        postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
+    }
 }
