@@ -5,6 +5,7 @@ import seedu.address.logic.commands.commandUnassign.UnassignAssignmentFromCourse
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelAssignment.Assignment;
@@ -60,7 +61,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             if(assigningAssignmentContainsCourse) {
                 throw new CommandException("The assignment has already been assigned already! Each assignment can only be assigned to one course.");
             } else {
-                model.assignAssignmentToCourse(AssignmentID, courseID);
+                EdgeManager.assignAssignmentToCourse(AssignmentID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,

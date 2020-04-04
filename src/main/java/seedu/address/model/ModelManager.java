@@ -72,6 +72,13 @@ public class ModelManager extends BaseManager implements Model {
   private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Assignment> extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
   private MainWindow mainWindow;
+
+  public static Model instance;
+
+  public static Model getInstance() {
+    return instance;
+  }
+
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
    */
@@ -263,47 +270,72 @@ public class ModelManager extends BaseManager implements Model {
 
 
   // ================================== FACTORY HELPERS =================================================
-  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
+
+  private Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException {
     if (obj instanceof Staff) {
-      return Arrays.asList(
-          this.staffAddressBook,
-          PREDICATE_SHOW_ALL_STAFFS,
-          filteredStaffs,
-          Constants.ENTITY_TYPE.STAFF);
+      return Constants.ENTITY_TYPE.STAFF;
     } else if (obj instanceof Student) {
-      return Arrays.asList(
-          this.studentAddressBook,
-          PREDICATE_SHOW_ALL_STUDENTS,
-          filteredStudents,
-          Constants.ENTITY_TYPE.STUDENT);
+      return Constants.ENTITY_TYPE.STUDENT;
     } else if (obj instanceof Finance) {
-      return Arrays.asList(
-          this.financeAddressBook,
-          PREDICATE_SHOW_ALL_FINANCES,
-          filteredFinances,
-          Constants.ENTITY_TYPE.FINANCE);
+      return Constants.ENTITY_TYPE.FINANCE;
     } else if (obj instanceof Course) {
-      return Arrays.asList(
-          this.courseAddressBook,
-          PREDICATE_SHOW_ALL_COURSES,
-          filteredCourses,
-          Constants.ENTITY_TYPE.COURSE);
+      return Constants.ENTITY_TYPE.COURSE;
     } else if (obj instanceof Assignment) {
-      return Arrays.asList(
-          this.assignmentAddressBook,
-          PREDICATE_SHOW_ALL_ASSIGNMENTS,
-          filteredAssignments,
-          Constants.ENTITY_TYPE.ASSIGNMENT);
+      return Constants.ENTITY_TYPE.ASSIGNMENT;
     }
     throw new CommandException(
-        "This command is accessing non-existent entity or entity not extending from ModelObject");
+            "This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
-  private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
+  private List<Object> getEntityFactory(Constants.ENTITY_TYPE type) throws CommandException {
+    if (type == Constants.ENTITY_TYPE.STAFF) {
+      return Arrays.asList(
+              this.staffAddressBook,
+              PREDICATE_SHOW_ALL_STAFFS,
+              filteredStaffs,
+              Constants.ENTITY_TYPE.STAFF);
+    } else if (type == Constants.ENTITY_TYPE.STUDENT) {
+      return Arrays.asList(
+              this.studentAddressBook,
+              PREDICATE_SHOW_ALL_STUDENTS,
+              filteredStudents,
+              Constants.ENTITY_TYPE.STUDENT);
+    } else if (type == Constants.ENTITY_TYPE.FINANCE) {
+      return Arrays.asList(
+              this.financeAddressBook,
+              PREDICATE_SHOW_ALL_FINANCES,
+              filteredFinances,
+              Constants.ENTITY_TYPE.FINANCE);
+    } else if (type == Constants.ENTITY_TYPE.COURSE) {
+      return Arrays.asList(
+              this.courseAddressBook,
+              PREDICATE_SHOW_ALL_COURSES,
+              filteredCourses,
+              Constants.ENTITY_TYPE.COURSE);
+    } else if (type == Constants.ENTITY_TYPE.ASSIGNMENT) {
+      return Arrays.asList(
+              this.assignmentAddressBook,
+              PREDICATE_SHOW_ALL_ASSIGNMENTS,
+              filteredAssignments,
+              Constants.ENTITY_TYPE.ASSIGNMENT);
+    }
+    throw new CommandException(
+            "This command is accessing non-existent entity or entity not extending from ModelObject");
+  }
+
+  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
+    return getEntityFactory(modelObjectToEntityType(obj));
+  }
+
+  public AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
     return (AddressBookGeneric) getEntityFactory(obj).get(0);
   }
 
-  private ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj)
+  public AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException {
+    return (AddressBookGeneric) getEntityFactory(type).get(0);
+  }
+
+  public ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj)
       throws CommandException {
     return (ReadOnlyAddressBookGeneric) getEntityFactory(obj).get(0);
   }
@@ -328,15 +360,10 @@ public class ModelManager extends BaseManager implements Model {
 
   }
 
-  private Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
+  public Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
     return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
   }
   // ======================================================================================================
-
-  private void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
-      Constants.ENTITY_TYPE entityType) {
-    raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
-  }
 
   // =================================== CRUD METHODS =====================================================
   public boolean has(ModelObject obj) throws CommandException {
@@ -346,6 +373,8 @@ public class ModelManager extends BaseManager implements Model {
 
   @Override
   public void delete(ModelObject obj) throws CommandException {
+    // Very important: Post this event before you really delete object
+    postDeleteEntityEvent(obj.getId(), modelObjectToEntityType(obj));
     getAddressBook(obj).remove(obj);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
     postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));

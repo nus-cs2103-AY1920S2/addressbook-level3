@@ -7,6 +7,7 @@ import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -66,7 +67,7 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
             } else if(!assigningAssignmentContainsCourse) {
                 throw new CommandException("The assignment isn't assigned to this course! :(");
             } else {
-                model.unassignAssignmentFromCourse(AssignmentID, courseID);
+                EdgeManager.unassignAssignmentFromCourse(AssignmentID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,

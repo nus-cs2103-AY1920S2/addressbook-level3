@@ -436,13 +436,7 @@ public interface Model {
 
     // ======================== FOR ASSIGN COMMANDS ============================== //
 
-    void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
-
-    void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
-
-    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
-
-  // ========================== Getters for Predicates =========================
+    // ========================== Getters for Predicates =========================
 
     public Predicate<Student> getDataStudentPredicate();
 
@@ -466,12 +460,7 @@ public interface Model {
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
+    Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
 
-    // ======================== FOR UNASSIGN COMMANDS ============================== //
-
-    void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
-
-    void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
-
-    void unassignTeacherFromCourse(ID teacherID, ID courseID) throws CommandException;
+    AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
 }
