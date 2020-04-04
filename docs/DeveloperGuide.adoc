@@ -162,7 +162,7 @@ image::LogicClassDiagram1.png[]
 *API* :
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
-In Figure 5., you can see that:
+In the figure above, you can see that:
 
 . `Logic` behaves as a Façade class between the different `TA-Tracker` components.
 . `LogicManager` is the main driver class behind the logic in `TA-Tracker`
@@ -205,7 +205,7 @@ This means that:
 
 ====
 
-In addition to Figure 5., in Figure 6. you can see that:
+In addition to Figure 6., in the figure above, you can see that:
 
 . There is a *hierarchy* of parsers, starting from `TaTrackerParser`.
 . Each group of parsers have been split into *smaller packages* (named as `X` in the diagram)
