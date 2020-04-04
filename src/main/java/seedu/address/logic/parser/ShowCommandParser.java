@@ -44,7 +44,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         // Get Module
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get();
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
             return new ShowCommand(moduleCode);
         }
 

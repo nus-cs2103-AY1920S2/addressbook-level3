@@ -47,7 +47,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: Deadlines must be added to modules taken in "
             + "the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
-            + "please specify date or add a deadline";
+            + "please specify specify name and deadline if you would like to add a task";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
             + "%1$s before semester %2$s\nPrerequisites: %3$s";
 
@@ -137,7 +137,7 @@ public class AddCommand extends Command {
                 try {
                     deadline = new Deadline(moduleCode, addTask, date, time);
                 } catch (DateTimeException e) {
-                    throw new CommandException("Invalid date or time!");
+                    throw new CommandException("Invalid date or time! Try: YYYY-MM-DD HH:mm");
                 }
             } else {
                 deadline = new Deadline(moduleCode, addTask);

@@ -27,6 +27,8 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.course.module.personal.Grade;
+import seedu.address.model.profile.course.module.personal.ModuleGrade;
 
 /**
  * Edits Profile or Module specified by user.
@@ -138,6 +140,9 @@ public class EditCommand extends Command {
                 int currentUserSemester = profileToEdit.getCurrentSemester();
                 if (oldSemester > currentUserSemester) {
                     throw new CommandException("You cannot add a grade to future semesters!");
+                }
+                if (!Grade.isValidGrade(grade)) {
+                    throw new CommandException("Error: Invalid Grade.");
                 }
                 existingModule.getPersonal().setGrade(grade);
                 profileManager.setDisplayedView(profileToEdit);
