@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.calender.Task;
@@ -34,6 +35,8 @@ public class CalenderDeadline extends UiPart<Region> {
     private Label description;
     @FXML
     private Label date;
+    @FXML
+    private FlowPane modCode;
 
     public CalenderDeadline(Task deadline, int displayedIndex) {
         super(FXML);
@@ -43,11 +46,19 @@ public class CalenderDeadline extends UiPart<Region> {
         description.setText(deadline.getDescription());
         date.setText("Deadline: " + deadline.getDate());
         if (deadline instanceof ModuleTask) {
-            System.out.println(((ModuleTask) deadline).getPriority());
-            System.out.println(deadline);
+            setModuleTask(deadline);
         }
+        category.setStyle("-fx-background-color: teal");
 
     }
+
+    private void setModuleTask(Task deadline) {
+        category.setText("School");
+        modCode.getChildren().add(new Label(((ModuleTask) deadline).getModuleRelated().toString()));
+        modCode.setStyle("-fx-background-color: teal");
+
+    }
+
 
     @Override
     public boolean equals(Object other) {
