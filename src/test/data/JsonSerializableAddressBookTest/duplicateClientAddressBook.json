@@ -1,0 +1,29 @@
+{
+  "clients": [ {
+    "name": "Alice Pauline",
+    "gender" : "",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "birthday" : "",
+    "tagged": [ "friends" ],
+    "currentWeight" : "",
+    "targetWeight" : "",
+    "height" : "",
+    "remark" : "",
+    "sports" : [ ]
+  }, {
+    "name": "Alice Pauline",
+    "gender" : "",
+    "phone": "94351253",
+    "email": "pauline@example.com",
+    "address": "4th street",
+    "birthday" : "",
+    "tagged" : [ ],
+    "currentWeight" : "",
+    "targetWeight" : "",
+    "height" : "",
+    "remark" : "",
+    "sports" : [ ]
+  } ]
+}

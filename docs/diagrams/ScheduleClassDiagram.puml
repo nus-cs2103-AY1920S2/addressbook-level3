@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+ScheduleList *--> "*" Schedule
+
+Schedule *--> "1" Day
+Schedule *--> "1" StartTime
+Schedule *--> "1" EndTime
+
+StartTime --|> Time
+EndTime --|> Time
+@enduml

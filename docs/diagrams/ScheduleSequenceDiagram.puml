@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
+participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute\n("schedule 1 day/mon st/1100 et/1200")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand\n("schedule 1 day/mon st/1100 et/1200")
+activate AddressBookParser
+
+create ScheduleCommandParser
+AddressBookParser -> ScheduleCommandParser
+activate ScheduleCommandParser
+
+ScheduleCommandParser --> AddressBookParser
+deactivate ScheduleCommandParser
+
+AddressBookParser -> ScheduleCommandParser : parse("day/mon\nst/1100 et/1200")
+activate ScheduleCommandParser
+
+create ScheduleCommand
+ScheduleCommandParser -> ScheduleCommand
+activate ScheduleCommand
+
+ScheduleCommand --> ScheduleCommandParser : s
+deactivate ScheduleCommand
+
+ScheduleCommandParser --> AddressBookParser : s
+deactivate ScheduleCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+LogicManager -> ScheduleCommand : execute()
+activate ScheduleCommand
+
+ScheduleCommand -> Model : setClient()
+activate Model
+
+Model --> ScheduleCommand:
+deactivate Model
+
+ScheduleCommand -> Model: updateFilteredClientList()
+activate Model
+
+Model --> ScheduleCommand
+deactivate Model
+
+create CommandResult
+ScheduleCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ScheduleCommand
+deactivate CommandResult
+
+ScheduleCommand --> LogicManager : result
+deactivate ScheduleCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

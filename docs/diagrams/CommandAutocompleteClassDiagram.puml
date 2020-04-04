@@ -1,0 +1,13 @@
+@startuml
+!include style.puml
+
+Package {
+    Class CommandBox UI_COLOR
+    Class AutoComplete LOGIC_COLOR
+    Class Trie MODEL_COLOR_T1
+}
+
+CommandBox "1" *-right-> AutoComplete
+AutoComplete "1" *-right-> Trie
+
+@enduml

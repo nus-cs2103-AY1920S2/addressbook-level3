@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Client *-down-> "1" PersonalBest
+Client *-up-> "1" UniqueExerciseList
+
+PersonalBestFinder -left-> PersonalBest : sets >
+PersonalBestFinder -left-> "1" Client
+PersonalBestFinder -left-> "1" UniqueExerciseList
+
+ViewCommand -up-> "1" PersonalBestFinder
+AddExerciseCommand -up-> "1" PersonalBestFinder
+DeleteExerciseCommand -left-> "1" PersonalBestFinder
+
+@enduml

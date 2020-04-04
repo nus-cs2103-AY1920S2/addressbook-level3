@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":commandBox" as ui UI_COLOR
+Participant ":commandHistory" as logic LOGIC_COLOR
+Participant ":commandHistoryState" as model MODEL_COLOR
+Participant ":commandHistoryStorage" as storage STORAGE_COLOR
+
+user -[USER_COLOR]> ui : "list-c"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : addToHistory("list-c")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : add("list-c")
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : getCurrentState()
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic : ArrayList<String> history
+deactivate model
+
+logic -[LOGIC_COLOR]> storage : saveToStorage(history)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> logic
+deactivate storage
+
+logic --[LOGIC_COLOR]> ui
+deactivate logic
+
+ui--[UI_COLOR]> user
+deactivate ui
+@enduml

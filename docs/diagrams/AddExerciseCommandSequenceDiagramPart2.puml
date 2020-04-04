@@ -1,0 +1,50 @@
+@startuml AddExerciseCommandSequenceDiagramPart2
+!include style.puml
+
+box Model MODEL_COLOR_T1
+    Participant ":UniqueExerciseList" as exerciseList MODEL_COLOR
+    Participant "curr:Exercise" as currExercise MODEL_COLOR
+    Participant "toAdd:Exercise" as toAddExercise MODEL_COLOR
+    Participant "curr:ExerciseDate" as currExerciseDate MODEL_COLOR
+    Participant "toAdd:ExerciseDate" as toAddExerciseDate MODEL_COLOR
+    Participant "curr:ExerciseDate" as currExerciseDate MODEL_COLOR
+    Participant "toAdd:ExerciseDate" as toAddExerciseDate MODEL_COLOR
+end box
+
+group addToSort
+    [-> exerciseList: addToSorted(toAdd)
+    activate exerciseList MODEL_COLOR
+
+    loop for all exercises in internalList
+
+        exerciseList -[MODEL_COLOR]> currExercise :getExerciseDate()
+        activate currExercise MODEL_COLOR
+
+        currExercise -[MODEL_COLOR]> currExerciseDate :getExerciseDate()
+        activate currExerciseDate MODEL_COLOR
+
+        currExerciseDate --[MODEL_COLOR]> currExercise : exerciseDate for curr
+        deactivate currExerciseDate
+
+        currExercise --[MODEL_COLOR]> exerciseList : exerciseDate for curr
+        deactivate currExercise
+
+        exerciseList -[MODEL_COLOR]> toAddExercise : getExerciseDate()
+        activate toAddExercise MODEL_COLOR
+
+        toAddExercise -[MODEL_COLOR]> toAddExerciseDate : getExerciseDate()
+        activate toAddExerciseDate MODEL_COLOR
+
+        toAddExerciseDate --[MODEL_COLOR]> toAddExercise : exerciseDate for toAdd
+        deactivate toAddExerciseDate
+
+        toAddExercise --[MODEL_COLOR]> exerciseList : exerciseDate for toAdd
+        deactivate toAddExercise
+
+    end
+
+    [<-- exerciseList:
+    deactivate exerciseList
+
+end
+@enduml

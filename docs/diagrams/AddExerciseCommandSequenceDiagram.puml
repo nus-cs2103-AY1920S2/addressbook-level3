@@ -1,0 +1,47 @@
+@startuml AddExerciseCommandSequenceDiagram
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+    Participant ":AddExerciseCommand" as AddExerciseCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+    Participant ":Model" as model MODEL_COLOR
+    Participant "clientToEdit:Client" as client MODEL_COLOR
+    Participant "editedClient:Client" as client2 MODEL_COLOR
+end box
+
+[-[LOGIC_COLOR]> AddExerciseCommand : execute(model)
+
+activate AddExerciseCommand LOGIC_COLOR
+AddExerciseCommand -[LOGIC_COLOR]> model : hasClientInView()
+
+activate model MODEL_COLOR
+model --[MODEL_COLOR]> AddExerciseCommand : True
+deactivate model
+
+AddExerciseCommand -[LOGIC_COLOR]> model : getClientInView()
+activate model MODEL_COLOR
+AddExerciseCommand <[MODEL_COLOR]-- model : clientToEdit
+deactivate model
+
+AddExerciseCommand -[LOGIC_COLOR]> client : getExerciseList()
+activate client MODEL_COLOR
+AddExerciseCommand <[MODEL_COLOR]-- client : exerciseList
+deactivate client
+
+activate model MODEL_COLOR
+ref over model, client
+    addToSort
+end ref
+
+AddExerciseCommand -[LOGIC_COLOR]> client2 **
+activate client2 MODEL_COLOR
+
+client2 --[MODEL_COLOR]> AddExerciseCommand : editedClient
+deactivate client2
+
+[<[LOGIC_COLOR]-- AddExerciseCommand : CommandResult
+deactivate AddExerciseCommand
+
+@enduml
