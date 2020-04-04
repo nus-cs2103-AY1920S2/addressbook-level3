@@ -1,13 +1,7 @@
 package seedu.address.logic.parser.parserAdd;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -21,9 +15,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.AssignedCourses;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
@@ -52,16 +44,17 @@ public class AddTeacherCommandParser extends AddCommandParser {
   public AddCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
         ArgumentTokenizer
-            .tokenize(args, PREFIX_NAME, PREFIX_TEACHERID, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SALARY, PREFIX_ADDRESS,
+            .tokenize(args, PREFIX_NAME, PREFIX_LEVEL, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SALARY, PREFIX_ADDRESS,
                 PREFIX_TAG);
 
-    if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LEVEL)
         || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTeacherCommand.MESSAGE_USAGE));
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+    Staff.Level level = ParserUtil.parseLevel(argMultimap.getValue(PREFIX_LEVEL).get());
     Phone phone = new Phone("Unknown");
     Email email = new Email("Unknown");
     Salary salary = new Salary("0");
@@ -78,10 +71,9 @@ public class AddTeacherCommandParser extends AddCommandParser {
     if (arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
       address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
     }
-    AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Staff teacher = new Staff(name, Staff.Level.TEACHER, phone, email, salary, address, tagList);
+    Staff teacher = new Staff(name, level, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);
   }

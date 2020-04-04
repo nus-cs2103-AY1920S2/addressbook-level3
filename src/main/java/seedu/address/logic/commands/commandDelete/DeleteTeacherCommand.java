@@ -18,10 +18,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class DeleteTeacherCommand extends DeleteCommand {
 
-  public static final String COMMAND_WORD = "delete-teacher";
+  public static final String COMMAND_WORD = "delete-staff";
 
   public static final String MESSAGE_USAGE = COMMAND_WORD
-      + ": Deletes the teacher identified by the existing ID number used in the displayed teacher list.\n"
+      + ": Deletes the staff identified by the existing ID number used in the displayed teacher list.\n"
       + "Parameters: ID (must be a positive integer)\n"
       + "Example: " + COMMAND_WORD + " 1";
 
@@ -77,7 +77,7 @@ public class DeleteTeacherCommand extends DeleteCommand {
         return staff.getId();
       }
     }
-    throw new CommandException("Cannot find this student in the list");
+    throw new CommandException("Cannot find this staff in the list");
   }
 
   // Find way to abstract this

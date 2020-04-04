@@ -8,9 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,9 +19,9 @@ import seedu.address.model.modelStaff.Staff;
  */
 public class AddTeacherCommand extends AddCommand {
 
-  public static final String COMMAND_WORD = "add-teacher";
+  public static final String COMMAND_WORD = "add-staff";
 
-  public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a teacher to the address book. "
+  public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff to the address book. "
       + "Parameters: "
       + PREFIX_NAME + "NAME "
       + PREFIX_PHONE + "PHONE "
@@ -40,14 +38,14 @@ public class AddTeacherCommand extends AddCommand {
       + PREFIX_TAG + "LovesArt "
       + PREFIX_TAG + "Friendly";
 
-  public static final String MESSAGE_SUCCESS = "New teacher added: %1$s";
-  public static final String MESSAGE_DUPLICATE_TEACHER = "This teacher already exists in the address book";
+  public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
+  public static final String MESSAGE_DUPLICATE_STAFF = "This staff already exists in the address book";
 
   private final Staff toAdd;
   private Integer index;
 
   /**
-   * Creates an AddCommand to add the specified {@code Teacher}
+   * Creates an AddCommand to add the specified {@code Staff}
    */
   public AddTeacherCommand(Staff teacher) {
     requireNonNull(teacher);
@@ -68,7 +66,7 @@ public class AddTeacherCommand extends AddCommand {
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     if (model.has(toAdd)) {
-      throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
+      throw new CommandException(MESSAGE_DUPLICATE_STAFF);
     }
 
     if (index == null) {
