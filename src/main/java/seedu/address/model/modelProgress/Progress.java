@@ -46,6 +46,15 @@ public class Progress extends ModelObject {
   public Boolean getIsDone() {
     return this.isDone;
   }
+
+  // Can be done as a toggle but this is more robust as it prevents accidental toggling from done to undone and vice versa
+  public void done() {
+    this.isDone = true;
+  }
+
+  public void undone() {
+    this.isDone = false;
+  }
   /*
   public Boolean isOverDue() {
   }

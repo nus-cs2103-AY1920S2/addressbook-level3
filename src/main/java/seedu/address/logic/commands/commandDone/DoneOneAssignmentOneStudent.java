@@ -4,13 +4,17 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
 
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 public class DoneOneAssignmentOneStudent extends DoneCommandBase {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks an assignment as done for a student. "
@@ -23,7 +27,7 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
 
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such Student that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
-    public static final String MESSAGE_INVALID_STUDENT_ASSIGNMENT = "Student does not have this assignment currently!";
+    public static final String MESSAGE_INVALID_STUDENT_ASSIGNMENT = "Student has not been assigned this assignment currently!";
     public static final String MESSAGE_SUCCESS = "Successfully marked Assignment %s (%s) as done by Student %s (%s)";
 
     /*
@@ -46,7 +50,29 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
 
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
-        return null;
+        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+
+        boolean studentExists = model.hasCourse(studentID);
+        boolean assignmentExists = model.hasAssignment(assignmentID);
+        boolean progressExists = model.hasProgress(studentID, assignmentID);
+
+        if (!studentExists) {
+            throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+        } else if (!assignmentExists) {
+            throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ID);
+        } else if (!progressExists) {
+            throw new CommandException(MESSAGE_INVALID_STUDENT_ASSIGNMENT);
+        } else {
+            Assignment assignment = model.getAssignment(assignmentID);
+            Student student = model.getStudent(studentID);
+
+            ProgressManager.markDoneOneProgressOfOneStudent(assignmentID, studentID);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    assignment.getName(), assignmentID.value,
+                    student.getName(), studentID.value));
+        }
     }
 
     @Override

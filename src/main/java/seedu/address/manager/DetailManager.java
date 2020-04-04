@@ -45,6 +45,7 @@ public class DetailManager extends BaseManager {
     public DetailManager() {
         studentDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
         IdMapping = new HashMap<Prefix, ID>();
+        instance = this;
     }
 
     public ObservableMap<String, Object> getFilteredStudentDetailsMap() {

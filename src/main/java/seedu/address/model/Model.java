@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
@@ -42,9 +43,6 @@ public interface Model {
     Predicate<Course> PREDICATE_HIDE_ALL_COURSES = unused -> false;
     Predicate<Assignment> PREDICATE_HIDE_ALL_ASSIGNMENTS = unused -> false;
     Predicate<Progress> PREDICATE_HIDE_ALL_PROGRESSES = unused -> false;
-
-
-  String COURSE_ENTITY_NAME = "course";
 
     public MainWindow getMainWindow();
 
@@ -117,7 +115,15 @@ public interface Model {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /**
+  AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
+
+  AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
+
+  ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
+
+  ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException;
+
+  /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
@@ -483,5 +489,4 @@ public interface Model {
     void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
 
     void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
-
 }
