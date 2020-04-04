@@ -388,6 +388,7 @@ Example of valid Paid Commands: +
 
 image::Ui.png[width="790"]
 
+*Additional tips and notes*
 
 [TIP]
 ====
@@ -400,7 +401,6 @@ image::Ui.png[width="790"]
 `donereceipt` command.
 * The person will automatically be removed from the list if the amount he owes you drops to $0.
 ====
-
 
 
 '''
