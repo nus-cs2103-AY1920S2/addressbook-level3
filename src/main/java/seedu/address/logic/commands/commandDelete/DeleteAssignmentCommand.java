@@ -4,37 +4,36 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
-import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
 
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
 /**
- * Deletes a assignment identified using it's displayed index from the address book.
+ * Deletes a assignment identified using it's displayed ID from the address book.
  */
 public class DeleteAssignmentCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-assignment";
 
   public static final String MESSAGE_USAGE = COMMAND_WORD
-      + ": Deletes the assignment identified by the index number used in the displayed assignment list.\n"
-      + "Parameters: INDEX (must be a positive integer)\n"
-      + "Example: " + COMMAND_WORD + " 1";
+      + ": Deletes the assignment identified by the existing ID number used in the displayed assignment list.\n"
+      + "Parameters: ID (must be a positive integer)\n"
+      + "Example: " + COMMAND_WORD + " 16100";
 
   public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "Deleted assignment: %1$s";
 
   private Index targetIndex;
-
+  private ID targetID;
   private Assignment toDelete;
 
-  public DeleteAssignmentCommand(Index targetIndex) {
-    this.targetIndex = targetIndex;
+  public DeleteAssignmentCommand(ID targetID) {
+    this.targetID = targetID;
   }
 
   public DeleteAssignmentCommand(Assignment toDelete) {
@@ -45,11 +44,13 @@ public class DeleteAssignmentCommand extends DeleteCommand {
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     List<Assignment> lastShownList = model.getFilteredAssignmentList();
     if (this.toDelete == null) {
-      if (targetIndex.getZeroBased() >= lastShownList.size()) {
-        throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
       }
-
-      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
+      this.toDelete = getAssignment(lastShownList);
+    }
+    if (this.targetID == null) {
+      this.targetID = getID(lastShownList);
     }
     if (this.targetIndex == null) {
       this.targetIndex = getIndex(lastShownList);
@@ -69,6 +70,26 @@ public class DeleteAssignmentCommand extends DeleteCommand {
       }
     }
     throw new CommandException("This id not in list");
+  }
+
+  // Find way to abstract this
+  public ID getID(List<Assignment> lastShownList) throws CommandException {
+    for (Assignment assignment : lastShownList) {
+      if (assignment.getId().equals(this.toDelete.getId())) {
+        return assignment.getId();
+      }
+    }
+    throw new CommandException("Cannot find this course in the list");
+  }
+
+  // Find way to abstract this
+  public Assignment getAssignment(List<Assignment> lastShownList) throws CommandException {
+    for (Assignment assignment : lastShownList) {
+      if (assignment.getId().equals(this.targetID)) {
+        return assignment;
+      }
+    }
+    throw new CommandException("This course ID does not exist");
   }
 
   @Override
