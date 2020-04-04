@@ -144,7 +144,7 @@ The UI contains 3 tabs:
 . the `ClaimsTab`.
 
 Each of these tabs consist of one or more List Panels (e.g. `StudentListPanel`) and its
-respective Card (e.g. `StudentCard`). In each List Panel, the the Graphics component of
+respective Card (e.g. `StudentCard`). In each List Panel, the the `Graphics` component of
 each of the List Cells is defined by the respective Card.
 
 The other 2 Tabs follow the same structure as the Class diagram above.

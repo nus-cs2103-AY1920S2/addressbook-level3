@@ -17,16 +17,25 @@ Class ReadOnlyUserPrefs
 
 Package Student {
 Class Student
-Class Email
-Class Matric
-Class Name
-Class Phone
 Class UniqueStudentList
 }
 
-Package Tag {
-Class Tag
+Package Session {
+Class Session
+Class UniqueSessionList
+Class UniqueDoneSessionList
 }
+
+Package Group {
+Class Group
+Class UniqueGroupList
+}
+
+Package Module {
+Class Module
+Class UniqueModuleList
+}
+
 }
 
 Class HiddenOutside #FFFFFF
@@ -42,15 +51,18 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 TaTracker *--> "1" UniqueStudentList
 UniqueStudentList o--> "*" Student
-Student *--> Name
-Student *--> Phone
-Student *--> Email
-Student *--> Matric
-Student *--> "*" Tag
-
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Matric
-Matric -[hidden]right-> Email
+TaTracker *--> "1" UniqueModuleList
+UniqueModuleList o--> "*" Module
+TaTracker *--> "1" UniqueGroupList
+UniqueGroupList o--> "*" Group
+TaTracker *--> "1" UniqueSessionList
+UniqueSessionList o-down-> "*" Session
+TaTracker *--> "1" UniqueDoneSessionList
+UniqueDoneSessionList o-down-> "*" Session
 
 ModelManager -->"1" Student : filtered list
+ModelManager -->"1" Module : filtered list
+ModelManager -->"1" Group : filtered list
+ModelManager -right->"1" Session : filtered list
+
 @enduml
