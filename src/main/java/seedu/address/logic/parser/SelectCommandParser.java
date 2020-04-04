@@ -8,9 +8,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
+import jdk.internal.util.xml.impl.Pair;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ID;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -30,54 +35,26 @@ public class SelectCommandParser implements Parser<SelectCommand> {
             .tokenize(args, PREFIX_STUDENTID, PREFIX_TEACHERID, PREFIX_COURSEID, PREFIX_FINANCEID,
                 PREFIX_ASSIGNMENTID);
 
-    if (argMultimap.getValue(PREFIX_STUDENTID).isPresent()) {
-      String[] nameKeywords = ParserUtil.parseString(argMultimap.getValue(PREFIX_STUDENTID).get())
-          .split("\\s+");
-      if (nameKeywords.length != 1) {
-        throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-      }
-      return new SelectCommand("STUDENT",
-         new ID(nameKeywords[0]));
-    } else if (argMultimap.getValue(PREFIX_TEACHERID).isPresent()) {
-      String[] nameKeywords = ParserUtil.parseString(argMultimap.getValue(PREFIX_TEACHERID).get())
-          .split("\\s+");
-      if (nameKeywords.length != 1) {
-        throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-      }
-      return new SelectCommand("STAFF",
-          new ID(nameKeywords[0]));
-    } else if (argMultimap.getValue(PREFIX_COURSEID).isPresent()) {
-      String[] nameKeywords = ParserUtil.parseString(argMultimap.getValue(PREFIX_COURSEID).get())
-          .split("\\s+");
-      if (nameKeywords.length != 1) {
-        throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-      }
-      return new SelectCommand("COURSE",
-          new ID(nameKeywords[0]));
-    } else if (argMultimap.getValue(PREFIX_FINANCEID).isPresent()) {
-      String[] nameKeywords = ParserUtil.parseString(argMultimap.getValue(PREFIX_FINANCEID).get())
-          .split("\\s+");
-      if (nameKeywords.length != 1) {
-        throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-      }
-      return new SelectCommand("FINANCE",
-          new ID(nameKeywords[0]));
-    } else if (argMultimap.getValue(PREFIX_ASSIGNMENTID).isPresent()) {
-      String[] nameKeywords = ParserUtil
-          .parseString(argMultimap.getValue(PREFIX_ASSIGNMENTID).get()).split("\\s+");
-      if (nameKeywords.length != 1) {
-        throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-      }
-      return new SelectCommand("ASSIGNMENT",
-          new ID(nameKeywords[0]));
-    } else {
-      throw new ParseException(
-          String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    // TODO: Check for keyword "in" exists as well
+    List<ArgumentTokenizer.PrefixPosition> positions = ArgumentTokenizer.findAllPrefixPositions(args,
+            PREFIX_STUDENTID, PREFIX_TEACHERID, PREFIX_COURSEID, PREFIX_FINANCEID,
+            PREFIX_ASSIGNMENTID);
+
+    if (positions.size() > 2 || positions.size() == 0) {
+      throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
     }
+
+    Collections.sort(positions);
+
+    List<ID> selectMetaDataIDs = new ArrayList<ID>();
+
+    for (ArgumentTokenizer.PrefixPosition position: positions) {
+      String[] nameKeywords = ParserUtil.parseString(argMultimap.getValue(position.getPrefix()).get())
+              .split("\\s+");
+      ID id = new ID(nameKeywords[0]);
+      selectMetaDataIDs.add(id);
+    }
+
+    return new SelectCommand(positions, selectMetaDataIDs);
   }
 }

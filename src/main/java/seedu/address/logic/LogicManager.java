@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -13,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.DetailManager;
 import seedu.address.manager.FinanceManager;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
@@ -37,6 +39,7 @@ public class LogicManager implements Logic {
   private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
   private final Model model;
+  private final DetailManager detailManager;
   private final Storage storage;
   private final AddressBookParser addressBookParser;
   private final UndoRedoStack undoRedoStack;
@@ -46,6 +49,7 @@ public class LogicManager implements Logic {
     this.model = model;
     this.storage = storage;
     this.undoRedoStack = new UndoRedoStack();
+    this.detailManager = new DetailManager();
     addressBookParser = new AddressBookParser();
   }
 
@@ -210,6 +214,14 @@ public class LogicManager implements Logic {
   @Override
   public void setGuiSettings(GuiSettings guiSettings) {
     model.setGuiSettings(guiSettings);
+  }
+
+
+  // ========================== Getters for view details ========================
+
+  @Override
+  public ObservableMap<String, Object> getFilteredStudentDetailsMap() {
+    return detailManager.getFilteredStudentDetailsMap();
   }
 
   // ========================== Getters for Predicates =========================

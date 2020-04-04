@@ -170,6 +170,7 @@ public class MainWindow extends UiPart<Stage> {
     courseListPanel = new CourseListPanel(logic.getFilteredCourseList(), commandBox);
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList(), commandBox);
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
+
     summaryPanel = new SummaryPanel();
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());

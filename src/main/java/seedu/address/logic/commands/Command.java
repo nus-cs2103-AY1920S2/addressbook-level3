@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.DetailManager;
+import seedu.address.manager.FinanceManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 
 /**
@@ -10,7 +13,6 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
   UndoRedoStack undoRedoStack;
-
   /**
    * Executes the command and returns the result message.
    *
