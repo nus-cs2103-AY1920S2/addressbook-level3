@@ -43,8 +43,12 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
     }
 
+    /**
+     * Checks if there is a valid index value in {@code removeFlagString}.
+     */
     private void hasIndex(String removeFlagString) throws ParseException {
         if (removeFlagString.trim().length() == 0) {
+            logger.info(String.format("Invalid arguments given for hasIndex function: %s", removeFlagString));
             throw new ParseException(MESSAGE_MISSING_INDEX);
         }
     }
