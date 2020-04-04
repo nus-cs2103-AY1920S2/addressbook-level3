@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.conditions.UserPairsConditions;
+import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
 
@@ -34,10 +35,10 @@ public class FilterUserPairsCommand implements AppCommand {
     }
 
     @Override
-    public AppCommandResult execute(AppStorage dao) {
+    public BluetoothPingsMessage execute(AppStorage dao) {
         Conditions cond = new UserPairsConditions(USER_A, USER_B);
         ArrayList resp  = dao.search(cond);
-        AppCommandResult result = new AppCommandResult("Identifying recods with User Pairs.", false);
+        BluetoothPingsMessage result = new BluetoothPingsMessage("Identifying recods with User Pairs.", false);
         result.setToDisplayList(resp);
         return result;
     }

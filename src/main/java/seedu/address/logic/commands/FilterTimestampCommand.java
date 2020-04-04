@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.conditions.TimestampConditions;
+import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
 
@@ -35,10 +36,10 @@ public class FilterTimestampCommand implements AppCommand {
     }
 
     @Override
-    public AppCommandResult execute(AppStorage dao) {
+    public BluetoothPingsMessage execute(AppStorage dao) {
         Conditions cond = new TimestampConditions(this.START_TIME, this.END_TIME);
         ArrayList resp  = dao.search(cond);
-        AppCommandResult result = new AppCommandResult("Filtered by timestamp", false);
+        BluetoothPingsMessage result = new BluetoothPingsMessage("Filtered by timestamp", false);
         result.setToDisplayList(resp);
         return result;
     }

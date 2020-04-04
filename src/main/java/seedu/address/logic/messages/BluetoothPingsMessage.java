@@ -1,17 +1,18 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.messages;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.bluetooth.BluetoothPings;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
-public class AppCommandResult {
+public class BluetoothPingsMessage implements AppMessage {
 
     private final String feedbackToUser;
-    private Boolean RENDER_FLAG;
     private ArrayList<BluetoothPings> toDisplayList;
+    private Boolean RENDER_FLAG;
 
     /** The application should exit. */
     private final boolean exit;
@@ -19,7 +20,7 @@ public class AppCommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public AppCommandResult(String feedbackToUser, boolean exit) {
+    public BluetoothPingsMessage(String feedbackToUser, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.exit = exit;
         this.RENDER_FLAG = false;
@@ -29,7 +30,7 @@ public class AppCommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public AppCommandResult(String feedbackToUser) {
+    public BluetoothPingsMessage(String feedbackToUser) {
         this(feedbackToUser, false);
     }
 
@@ -63,11 +64,11 @@ public class AppCommandResult {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AppCommandResult)) {
+        if (!(other instanceof BluetoothPingsMessage)) {
             return false;
         }
 
-        AppCommandResult otherCommandResult = (AppCommandResult) other;
+        BluetoothPingsMessage otherCommandResult = (BluetoothPingsMessage) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && exit == otherCommandResult.exit;
     }
