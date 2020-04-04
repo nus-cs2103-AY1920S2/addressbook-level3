@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -24,6 +25,7 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
+import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
@@ -213,6 +215,21 @@ public class AddCommandTest {
 
         @Override
         public void addModuleTask(ModuleTask moduleTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ModuleBook getModuleBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getSizeOfModuleTaskList(ModuleCode moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteModuleTask(ModuleCode moduleCode, Index index) {
             throw new AssertionError("This method should not be called.");
         }
 
