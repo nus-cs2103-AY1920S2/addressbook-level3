@@ -323,15 +323,36 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 === Exercise Feature --- Yong Jie
 
-The function of recording the clients' exercises is one of the main features of our application. This section provides its key implementation details.
+Recording the clients' exercises is one of the main features of our application. This section provides its key implementation details.
 
 ==== Implementation
 
 ===== Exercise class
 
-We implemented the `Exercise` class to contain the details of the exercise. An example would be the use of `ExerciseWeight` class to represent the weight of the exercise. Below shows a UML class diagram which provides further understanding of `Exercise`.
+We implemented the `Exercise` class to contain the details of the exercise.  
+
+`Exercise` comprises five attributes:
+
+* `ExerciseName`
+* `ExerciseDate`
+* `ExerciseReps`
+* `ExerciseWeight`
+* `ExerciseSets`
+
+All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`.
+
+Below shows a UML class diagram which provides further understanding of `Exercise`.
 
 image::ExerciseClassDiagram.png[]
+
+An important point to note about our implementation of `Exercise` is the method `isSameExercise`. This method is used when adding a new `Exercise`. It checks if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. //aout equals. Two `Exercise` are considered to be the same if they have the same: +
+
+* `ExerciseName`
+* `ExerciseDate`
+* `ExerciseReps`
+* `ExerciseWeight`
+
+This implementation is chosen as we felt that the user should increment the set value in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises was done on that day.
 
 ===== Exercise Commands
 

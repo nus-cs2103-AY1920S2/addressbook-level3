@@ -15,19 +15,19 @@ group addToSort
     [-> exerciseList: addToSorted(toAdd)
     activate exerciseList MODEL_COLOR
 
-    loop for all exercises in internalList
-
-        exerciseList -[MODEL_COLOR]> currExercise :getExerciseDate()
+     exerciseList -[MODEL_COLOR]> currExercise :getExerciseDate()
         activate currExercise MODEL_COLOR
 
-        currExercise -[MODEL_COLOR]> currExerciseDate :getExerciseDate()
-        activate currExerciseDate MODEL_COLOR
+    currExercise -[MODEL_COLOR]> currExerciseDate :getExerciseDate()
+    activate currExerciseDate MODEL_COLOR
 
-        currExerciseDate --[MODEL_COLOR]> currExercise : exerciseDate for curr
-        deactivate currExerciseDate
+    currExerciseDate --[MODEL_COLOR]> currExercise : exerciseDate for curr
+    deactivate currExerciseDate
 
-        currExercise --[MODEL_COLOR]> exerciseList : exerciseDate for curr
-        deactivate currExercise
+    currExercise --[MODEL_COLOR]> exerciseList : exerciseDate for curr
+    deactivate currExercise
+
+    loop for all exercises in internalList
 
         exerciseList -[MODEL_COLOR]> toAddExercise : getExerciseDate()
         activate toAddExercise MODEL_COLOR
