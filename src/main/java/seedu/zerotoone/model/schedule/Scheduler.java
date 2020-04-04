@@ -78,7 +78,7 @@ public class Scheduler {
     /**
      *
      */
-    private void populateSortedScheduledWorkoutList() {
+    public void populateSortedScheduledWorkoutList() {
         List<ScheduledWorkout> newScheduledWorkouts = scheduleList.getScheduleList().stream()
                 .map((Schedule schedule) -> schedule.getScheduledWorkout(DateTime.now()))
                 .filter(Optional::isPresent)

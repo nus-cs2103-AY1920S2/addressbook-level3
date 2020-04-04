@@ -250,6 +250,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void populateSortedScheduledWorkoutList() {
+        scheduler.populateSortedScheduledWorkoutList();
+    }
+
+    @Override
     public ReadOnlySessionList getSessionList() {
         return sessionList;
     }

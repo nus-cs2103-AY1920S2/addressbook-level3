@@ -9,9 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
-import seedu.zerotoone.model.schedule.Schedule;
-import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.schedule.SchedulerModel;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
@@ -23,7 +21,7 @@ import seedu.zerotoone.model.workout.WorkoutModel;
 /**
  * The API of the Model component.
  */
-public interface Model extends WorkoutModel {
+public interface Model extends WorkoutModel, SchedulerModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
     Predicate<Session> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
@@ -123,14 +121,6 @@ public interface Model extends WorkoutModel {
     // todo write java docs
 
     Optional<OngoingWorkout> getCurrentWorkout();
-    boolean hasSchedule(Schedule schedule);
-    void addSchedule(Schedule schedule);
-    void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule);
-    void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
-    ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
-
-
-    ScheduleList getScheduleList();
 
     ReadOnlySessionList getSessionList();
 
