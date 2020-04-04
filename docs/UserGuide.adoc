@@ -36,6 +36,10 @@ Jump to <<Getting Started>> to get started. Let's go!
 image::Ui.png[width="790"]
 Figure 1. Photo of EYLAH
 
+=== Purpose
+* This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
+to use the application to improve their lives on campus.
+
 
 === Tips on reading the User Guide
 While reading the User Guide you may encounter some symbols.
@@ -50,14 +54,12 @@ unexpected behaviour.
 This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH.
 
 `markup` - Text in markup are inputs into the EYLAH. +
+
 `[-c Calories]` - For some commands there are optional fields. Keywords placed in square brackets are optional fields. +
 (e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
 
 Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
 
-=== Purpose
-* This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
-to use the application to improve their lives on campus.
 
 == Getting Started
 
@@ -69,7 +71,7 @@ to use the application to improve their lives on campus.
 
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can type.
 .  Some example commands you can try:
 
 * `1` : enters the Diet Tracker component of EYLAH.
@@ -82,49 +84,51 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+In this section, you can find *all* the commands of EYLAH and some tips and trick you can use
+to to improve your user experience of EYLAH.
+
 |===
-|Current Features |Future Features
+|Diet Tracker | Expense Spliter
+|
 | <<additem, additem>>
-| <<export, export>>
 
+|
 | <<deleteitem, deleteitem>>
-| <<reminder, reminder>>
 
+|
 | <<listreceipt, listreceipt>>
-|
 
+|
 | <<listamount, listamount>>
-|
 
+|
 | <<paid, paid>>
-|
 
+|
 | <<donereceipt, donereceipt>>
-|
 
+|
 | <<clearreceipt, clearreceipt>>
-|
 
+|
 | <<help, help>>
-|
 
-| <<back, back>>
 |
+| <<back, back>>
 
 |===
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters are compulsory and have to be supplied by the user,
+* Words in `UPPER_CASE` are the parameters supplied by the user,
 e.g: in `additem -i ITEM -p PRICE -n NAME`.
 `NAME`, `ITEM` and `PRICE` are parameters which can decided by the user ,
-e.g:`additem -i beer tower -p 19.90 -n charlotte`.
+e.g: `additem -i beer tower -p 19.90 -n charlotte`.
 * Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
 `paid 1 3.90`.
 * Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
 (i.e. 0 times), `-n Charlotte`, `-n John Doe -n Daniel` etc.
-* Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
