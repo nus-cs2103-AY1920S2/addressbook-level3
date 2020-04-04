@@ -42,14 +42,14 @@ public class EditTeacherCommand extends Command {
       COMMAND_WORD + ": Edits the details of the staff identified "
           + "by the ID number assigned in the displayed staff list. "
           + "Existing values will be overwritten by the input values.\n"
-          + "Parameters: INDEX (must be a positive integer) "
+          + "Parameters: ID (must be an existing positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
           + "[" + PREFIX_PHONE + "PHONE] "
           + "[" + PREFIX_EMAIL + "EMAIL] "
           + "[" + PREFIX_SALARY + "SALARY] "
           + "[" + PREFIX_ADDRESS + "ADDRESS] "
           + "[" + PREFIX_TAG + "TAG]...\n"
-          + "Example: " + COMMAND_WORD + " 1 "
+          + "Example: " + COMMAND_WORD + " 16100 "
           + PREFIX_PHONE + "91234567 "
           + PREFIX_EMAIL + "johndoe@example.com";
 
