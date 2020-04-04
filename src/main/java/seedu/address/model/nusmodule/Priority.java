@@ -1,8 +1,11 @@
 package seedu.address.model.nusmodule;
 
+/**
+ * Represents the priority of certain module tasks.
+ */
 public enum Priority {
     VERYHIGH("very high", 5),
-    HIGH("high",4),
+    HIGH("high", 4),
     MEDIAN("median", 3),
     LOW("low", 2),
     VERYLOW("very low", 1);
@@ -17,6 +20,9 @@ public enum Priority {
         this.levelOfSignificance = levelOfSignificance;
     }
 
+    /**
+     * Returns if a given string is a valid priority.
+     */
     public static boolean isValidPriority(String test) {
         for (Priority p : values()) {
             if (p.levelOfSignificance == Integer.parseInt(test)) {
@@ -28,7 +34,7 @@ public enum Priority {
 
     public static Priority getPriority(String text) {
         Priority priority = null;
-        for (Priority p  : values()) {
+        for (Priority p : values()) {
             if (p.levelOfSignificance == Integer.parseInt(text)) {
                 priority = p;
             }

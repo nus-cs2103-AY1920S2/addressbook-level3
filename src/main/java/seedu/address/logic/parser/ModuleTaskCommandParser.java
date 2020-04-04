@@ -15,6 +15,9 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.Priority;
 
+/**
+ * Parses input arguments and creates a new ModuleTaskCommand object
+ */
 public class ModuleTaskCommandParser implements Parser<ModuleTaskCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ModuleTaskCommand

@@ -3,7 +3,9 @@ package seedu.address.model.nusmodule;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
+/**
+ * Represents a major in NUS.
+ */
 public class Major {
 
     public static final String MESSAGE_CONSTRAINTS =

@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.nusmodule.ModuleTask;
 
+/**
+ * Add a new module task to a specific module which is already recorded in the program.
+ */
 public class ModuleTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "moduleTask";
@@ -29,7 +32,8 @@ public class ModuleTaskCommand extends Command {
             + PREFIX_PRIORITY + "5 ";
 
     public static final String MESSAGE_SUCCESS = "New task added:  ";
-    public static final String MESSAGE_NO_SUCH_MODULE = "This module does not exist, maybe you can add the module first";
+    public static final String MESSAGE_NO_SUCH_MODULE = "This module does not exist, "
+            + "maybe you can add the module first";
 
     private final ModuleTask toAdd;
 
@@ -49,8 +53,8 @@ public class ModuleTaskCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
-       model.addModuleTask(toAdd);
-        return new CommandResult(MESSAGE_SUCCESS + " " +  toAdd);
+        model.addModuleTask(toAdd);
+        return new CommandResult(MESSAGE_SUCCESS + " " + toAdd);
     }
 
     @Override

@@ -5,6 +5,9 @@ import java.util.StringJoiner;
 
 import seedu.address.todolist.Task;
 
+/**
+ * Represents a task related to a specific module. (e.g. an assignment of module CS2103T)
+ */
 public class ModuleTask extends Task {
 
     private final ModuleCode moduleRelated;

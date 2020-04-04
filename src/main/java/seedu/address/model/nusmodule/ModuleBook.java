@@ -67,6 +67,9 @@ public class ModuleBook {
         }
     }
 
+    /**
+     * Add a new module task to a specific module recorded in our program.
+     */
     public void addModuleTask(ModuleTask moduleTask) {
         requireNonNull(moduleTask);
         for (NusModule module: modules) {

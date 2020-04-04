@@ -1,15 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES_TAKEN;
 
-import javax.xml.namespace.QName;
-
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.nusmodule.Major;
-import seedu.address.model.nusmodule.NusModule;
 
+/**
+ * Update the major the user taken in NUS.
+ */
 public class MajorCommand extends Command {
     public static final String COMMAND_WORD = "major";
 
