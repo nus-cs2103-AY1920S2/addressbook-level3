@@ -13,9 +13,10 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.session.CompletedExercise;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutModel;
@@ -26,7 +27,7 @@ import seedu.zerotoone.model.workout.WorkoutModel;
 public interface Model extends WorkoutModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
-    Predicate<CompletedExercise> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
+    Predicate<CompletedWorkout> PREDICATE_SHOW_ALL_LOGS = unused -> true;
 
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
@@ -132,16 +133,18 @@ public interface Model extends WorkoutModel {
 
     ScheduleList getScheduleList();
 
-    ReadOnlySessionList getSessionList();
-
-    ObservableList<CompletedExercise> getFilteredSessionList();
-
-    void updateFilteredSessionList(Predicate<CompletedExercise> predicate);
-
-    Path getSessionListFilePath();
 
 
-    void deleteSession(int target);
+    // -----------------------------------------------------------------------------------------
+    // Log
 
-    void setSessionListFilePath(Path sessionListFilePath);
+
+    ReadOnlyLogList getLogList();
+    void deleteLog(int target);
+
+    ObservableList<CompletedWorkout> getFilteredLogList();
+    void updateFilteredLogList(Predicate<CompletedWorkout> predicate);
+
+    Path getLogListFilePath();
+    void setLogListFilePath(Path logListFilePath);
 }

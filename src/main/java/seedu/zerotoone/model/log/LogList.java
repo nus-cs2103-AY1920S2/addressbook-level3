@@ -1,4 +1,4 @@
-package seedu.zerotoone.model.session;
+package seedu.zerotoone.model.log;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,14 +6,16 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.zerotoone.model.session.CompletedExercise;
+import seedu.zerotoone.model.session.CompletedWorkout;
 
 /**
  * Wraps all data at the session list level.
  */
-public class SessionList implements ReadOnlySessionList {
+public class LogList implements ReadOnlyLogList {
 
-    private final ObservableList<CompletedExercise> internalList;
-    private final ObservableList<CompletedExercise> internalUnmodifiableList;
+    private final ObservableList<CompletedWorkout> internalList;
+    private final ObservableList<CompletedWorkout> internalUnmodifiableList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,12 +29,12 @@ public class SessionList implements ReadOnlySessionList {
         internalUnmodifiableList = FXCollections.unmodifiableObservableList(internalList);
     }
 
-    public SessionList() {}
+    public LogList() {}
 
     /**
-     * Creates an SessionList using the Sessions in the {@code toBeCopied}
+     * Creates an LogList using the Sessions in the {@code toBeCopied}
      */
-    public SessionList(ReadOnlySessionList toBeCopied) {
+    public LogList(ReadOnlyLogList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -43,32 +45,32 @@ public class SessionList implements ReadOnlySessionList {
      * Replaces the contents of the Session list with {@code Sessions}.
      * {@code Sessions} must not contain duplicate Sessions.
      */
-    public void setSessions(List<CompletedExercise> completedExercises) {
-        requireNonNull(completedExercises);
-        internalList.setAll(completedExercises);
+    public void setCompletedWorkouts(List<CompletedWorkout> completedWorkouts) {
+        requireNonNull(completedWorkouts);
+        internalList.setAll(completedWorkouts);
     }
 
     /**
      * Resets the existing data of this {@code SessionList} with {@code newData}.
      */
-    public void resetData(ReadOnlySessionList newData) {
+    public void resetData(ReadOnlyLogList newData) {
         requireNonNull(newData);
-        setSessions(newData.getSessionList());
+        setCompletedWorkouts(newData.getLogList());
     }
 
-    //// Session-level operations
+    //// Log-level operations
     /**
-     * Adds a Session to the Session list.
+     * Adds a CompletedWorkout to the Log list.
      */
-    public void addSession(CompletedExercise completedExercise) {
-        internalList.add(completedExercise);
+    public void addCompletedWorkout(CompletedWorkout completedWorkout) {
+        internalList.add(completedWorkout);
     }
 
     /**
-     * Removes {@code key} from this {@code SessionList}.
-     * {@code key} must exist in the Session list.
+     * Removes {@code key} from this {@code LogList}.
+     * {@code key} must exist in the Log list.
      */
-    public void removeSession(int key) {
+    public void removeCompletedWorkout(int key) {
         internalList.remove(key);
     }
 
@@ -76,19 +78,19 @@ public class SessionList implements ReadOnlySessionList {
 
     @Override
     public String toString() {
-        return getSessionList().size() + " Sessions";
+        return getLogList().size() + " Logs";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<CompletedExercise> getSessionList() {
+    public ObservableList<CompletedWorkout> getLogList() {
         return internalUnmodifiableList;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof SessionList // instanceof handles nulls
-            && internalList.equals(((SessionList) other).internalList));
+            || (other instanceof LogList // instanceof handles nulls
+            && internalList.equals(((LogList) other).internalList));
     }
 }

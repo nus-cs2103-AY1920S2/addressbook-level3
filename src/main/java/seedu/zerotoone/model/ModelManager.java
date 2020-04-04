@@ -26,9 +26,9 @@ import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSetList;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.session.CompletedExercise;
-import seedu.zerotoone.model.session.SessionList;
+import seedu.zerotoone.model.log.LogList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -61,8 +61,8 @@ public class ModelManager implements Model {
     private final Scheduler scheduler;
 
     // Log
-    private final SessionList sessionList;
-    private final FilteredList<CompletedExercise> filteredCompletedExercises;
+    private final LogList logList;
+    private final FilteredList<CompletedWorkout> filteredLogList;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -71,13 +71,13 @@ public class ModelManager implements Model {
                         ReadOnlyExerciseList exerciseList,
                         ReadOnlyWorkoutList workoutList,
                         ScheduleList scheduleList,
-                        ReadOnlySessionList sessionList) {
+                        ReadOnlyLogList logList) {
         super();
         requireAllNonNull(userPrefs,
                 exerciseList,
                 workoutList,
                 scheduleList,
-                sessionList);
+                logList);
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
@@ -95,12 +95,12 @@ public class ModelManager implements Model {
         this.stopwatch = new StopWatch();
         this.ongoingSetList = new OngoingSetList();
 
-        this.sessionList = new SessionList(sessionList);
-        filteredCompletedExercises = new FilteredList<>(this.sessionList.getSessionList());
+        this.logList = new LogList(logList);
+        filteredLogList = new FilteredList<>(this.logList.getLogList());
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList(), new SessionList());
+        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList(), new LogList());
     }
 
     // -----------------------------------------------------------------------------------------
@@ -174,40 +174,49 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return filteredExercises;
+    }
+
+    @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
         filteredExercises.setPredicate(predicate);
     }
 
     // -----------------------------------------------------------------------------------------
-    // Session List
+    // Log List
 
     @Override
-    public Path getSessionListFilePath() {
+    public Path getLogListFilePath() {
         return userPrefs.getLogListFilePath();
     }
 
     @Override
-    public void deleteSession(int targetId) {
-        sessionList.removeSession(targetId);
+    public void deleteLog(int targetId) {
+        logList.removeCompletedWorkout(targetId);
     }
 
     @Override
-    public void setSessionListFilePath(Path sessionListFilePath) {
-        requireNonNull(sessionListFilePath);
-        userPrefs.setLogListFilePath(sessionListFilePath);
+    public void setLogListFilePath(Path logListFilePath) {
+        requireNonNull(logListFilePath);
+        userPrefs.setLogListFilePath(logListFilePath);
     }
 
     @Override
-    public ObservableList<Exercise> getFilteredExerciseList() {
-        return filteredExercises;
+    public ObservableList<CompletedWorkout> getFilteredLogList() {
+        return filteredLogList;
     }
 
+
     @Override
-    public void updateFilteredSessionList(Predicate<CompletedExercise> predicate) {
+    public void updateFilteredLogList(Predicate<CompletedWorkout> predicate) {
         requireNonNull(predicate);
-        filteredCompletedExercises.setPredicate(predicate);
+        filteredLogList.setPredicate(predicate);
     }
+
+    // -----------------------------------------------------------------------------------------
+    // Session List
 
     @Override
     public boolean isInSession() {
@@ -227,8 +236,7 @@ public class ModelManager implements Model {
         OngoingWorkout ongoingWorkout = this.currentWorkout.get();
         CompletedWorkout workout = ongoingWorkout.finish(currentDateTime);
         ongoingSetList.resetData(new OngoingSetList());
-        // Jiachen u need to fix this
-        // this.sessionList.addSession(session);
+        this.logList.addCompletedWorkout(workout);
         this.currentWorkout = Optional.empty();
     }
 
@@ -250,13 +258,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlySessionList getSessionList() {
-        return sessionList;
-    }
-
-    @Override
-    public ObservableList<CompletedExercise> getFilteredSessionList() {
-        return filteredCompletedExercises;
+    public ReadOnlyLogList getLogList() {
+        return logList;
     }
 
     @Override
@@ -359,7 +362,7 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
-                && sessionList.equals(other.sessionList);
+                && logList.equals(other.logList);
         // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
     }
 }

@@ -32,7 +32,7 @@ import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -276,7 +276,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public ReadOnlySessionList getSessionList() {
+        public ReadOnlyLogList getSessionList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -286,7 +286,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public void updateFilteredSessionList(Predicate<CompletedExercise> predicate) {
+        public void updateFilteredLogList(Predicate<CompletedExercise> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

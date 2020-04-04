@@ -16,7 +16,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.CompletedExercise;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
@@ -87,19 +87,21 @@ public class LogicManager implements Logic {
         return model.getExerciseListFilePath();
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Log List
     @Override
-    public ObservableList<CompletedExercise> getSessionList() {
-        return model.getSessionList().getSessionList();
+    public ObservableList<CompletedWorkout> getLogList() {
+        return model.getLogList().getLogList();
     }
 
     @Override
-    public ObservableList<CompletedExercise> getFilteredSessionList() {
-        return model.getFilteredSessionList();
+    public ObservableList<CompletedWorkout> getFilteredLogList() {
+        return model.getFilteredLogList();
     }
 
     @Override
-    public Path getSessionListFilePath() {
-        return model.getSessionListFilePath();
+    public Path getLogListFilePath() {
+        return model.getLogListFilePath();
     }
 
     // -----------------------------------------------------------------------------------------

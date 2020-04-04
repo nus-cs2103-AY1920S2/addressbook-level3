@@ -13,10 +13,10 @@ import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.ui.util.UiPart;
 
 /**
- * An UI component that displays information of a {@code Session}.
+ * An UI component that displays information of a {@code CompletedExercise}.
  */
-public class SessionCard extends UiPart<Region> {
-    private static final String FXML = "log/SessionCard.fxml";
+public class CompletedExerciseCard extends UiPart<Region> {
+    private static final String FXML = "log/CompletedExerciseCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -29,19 +29,19 @@ public class SessionCard extends UiPart<Region> {
     @javafx.fxml.FXML
     private HBox cardPane;
     @FXML
-    private Label sessionId;
+    private Label exerciseId;
     @FXML
     private Label exerciseName;
     @FXML
-    private VBox sessionSets;
+    private VBox exerciseSets;
     @FXML
     private Label startTime;
     @FXML
     private Label endTime;
 
-    public SessionCard(CompletedExercise completedExercise, int displayedIndex) {
+    public CompletedExerciseCard(CompletedExercise completedExercise, int displayedIndex) {
         super(FXML);
-        sessionId.setText(String.format("%d. ", displayedIndex));
+        exerciseId.setText(String.format("EX%d: ", displayedIndex));
         exerciseName.setText(completedExercise.getExerciseName().fullName);
         startTime.setText(DateUtil.getPrettyDateTimeString(completedExercise.getStartTime()));
         endTime.setText(DateUtil.getPrettyDateTimeString(completedExercise.getEndTime()));
@@ -49,10 +49,10 @@ public class SessionCard extends UiPart<Region> {
         List<CompletedSet> exerciseSetsList = completedExercise.getSets();
         for (int i = 0; i < exerciseSetsList.size(); i++) {
             CompletedSet completedSet = exerciseSetsList.get(i);
-            SessionSetCard sessionSetCard =
-                new SessionSetCard(i, completedSet.getNumReps().value, completedSet.getWeight().value,
+            CompletedSetCard completedSetCard =
+                new CompletedSetCard(i, completedSet.getNumReps().value, completedSet.getWeight().value,
                     completedSet.isFinished());
-            this.sessionSets.getChildren().add(sessionSetCard.getRoot());
+            this.exerciseSets.getChildren().add(completedSetCard.getRoot());
         }
     }
 
@@ -64,13 +64,13 @@ public class SessionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.zerotoone.ui.views.log.SessionCard)) {
+        if (!(other instanceof CompletedExerciseCard)) {
             return false;
         }
 
         // state check
-        seedu.zerotoone.ui.views.log.SessionCard card = (seedu.zerotoone.ui.views.log.SessionCard) other;
-        return sessionId.getText().equals(card.sessionId.getText())
+        CompletedExerciseCard card = (CompletedExerciseCard) other;
+        return exerciseId.getText().equals(card.exerciseId.getText())
             && exerciseName.getText().equals(card.exerciseName.getText());
     }
 }

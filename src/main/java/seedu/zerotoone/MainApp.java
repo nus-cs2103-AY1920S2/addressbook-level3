@@ -20,13 +20,13 @@ import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.SessionList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
+import seedu.zerotoone.model.log.LogList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.util.SampleExerciseDataUtil;
 import seedu.zerotoone.model.util.SampleScheduleDataUtil;
-import seedu.zerotoone.model.util.SampleSessionDataUtil;
+import seedu.zerotoone.model.util.SampleLogDataUtil;
 import seedu.zerotoone.model.util.SampleWorkoutDataUtil;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.WorkoutList;
@@ -36,8 +36,8 @@ import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.schedule.ScheduleListStorage;
 import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
-import seedu.zerotoone.storage.session.SessionListStorage;
-import seedu.zerotoone.storage.session.SessionListStorageManager;
+import seedu.zerotoone.storage.log.LogListStorage;
+import seedu.zerotoone.storage.log.LogListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.workout.WorkoutListStorage;
@@ -78,8 +78,8 @@ public class MainApp extends Application {
         WorkoutListStorage workoutListStorage = new WorkoutListStorageManager(userPrefs.getWorkoutListFilePath());
         // Schedule
         ScheduleListStorage scheduleListStorage = new ScheduleListStorageManager(userPrefs.getScheduleListFilePath());
-        // Session
-        SessionListStorage sessionListStorage = new SessionListStorageManager(userPrefs.getLogListFilePath());
+        // Log
+        LogListStorage logListStorage = new LogListStorageManager(userPrefs.getLogListFilePath());
 
         // -----------------------------------------------------------------------------------------
         // Common
@@ -87,7 +87,7 @@ public class MainApp extends Application {
                 exerciseListStorage,
                 workoutListStorage,
                 scheduleListStorage,
-                sessionListStorage);
+            logListStorage);
         model = initModelManager(storage, userPrefs);
         logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
@@ -109,8 +109,8 @@ public class MainApp extends Application {
         Optional<ReadOnlyWorkoutList> workoutListOptional;
         ReadOnlyWorkoutList initialWorkoutListData;
 
-        Optional<ReadOnlySessionList> sessionListOptional;
-        ReadOnlySessionList initialSessionListData;
+        Optional<ReadOnlyLogList> logListOptional;
+        ReadOnlyLogList initialLogListData;
 
         // -----------------------------------------------------------------------------------------
         // Exercise List
@@ -146,7 +146,7 @@ public class MainApp extends Application {
         // Schedule List
         try {
             scheduleListOptional = storage.readScheduleList();
-            if (!scheduleListOptional.isPresent()) {
+            if (scheduleListOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with an empty ScheduleList");
             }
             initialScheduleListData = scheduleListOptional.orElseGet(SampleScheduleDataUtil::getSampleScheduleList);
@@ -158,32 +158,34 @@ public class MainApp extends Application {
             initialScheduleListData = new ScheduleList();
         }
 
-        // Session List
+        // Log List
         try {
-            sessionListOptional = storage.readSessionList();
-            if (sessionListOptional.isEmpty()) {
+            logListOptional = storage.readLogList();
+            if (logListOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
-            initialSessionListData = sessionListOptional.orElseGet(SampleSessionDataUtil::getSampleSessionList);
+            initialLogListData = logListOptional.orElseGet(SampleLogDataUtil::getSampleLogList);
 
             try {
-                storage.saveSessionList(initialSessionListData);
+                storage.saveLogList(initialLogListData);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty SessionList");
-            initialSessionListData = new SessionList();
+            logger.warning("Data file not in the correct format. Will be starting with an empty LogList");
+            initialLogListData = new LogList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty SessionList");
-            initialSessionListData = new SessionList();
+            logger.warning("Problem while reading from the file. Will be starting with an empty LogList");
+            initialLogListData = new LogList();
         }
+
+        ;
 
         return new ModelManager(userPrefs,
                 initialExerciseListData,
                 initialWorkoutListData,
                 initialScheduleListData,
-                initialSessionListData);
+                initialLogListData);
     }
 
     private void initLogging(Config config) {

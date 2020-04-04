@@ -9,8 +9,9 @@ import java.util.function.Predicate;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.session.PredicateFilterSessionExerciseName;
+import seedu.zerotoone.model.log.PredicateFilterLogExerciseName;
 import seedu.zerotoone.model.session.CompletedExercise;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
@@ -41,11 +42,11 @@ public class FindCommand extends LogCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Predicate<CompletedExercise> predicate = session -> true;
+        Predicate<CompletedWorkout> predicate = session -> true;
 
 
         if (exerciseNameOptional.isPresent()) {
-            predicate = predicate.and(new PredicateFilterSessionExerciseName(exerciseNameOptional.get().fullName));
+            predicate = predicate.and(new PredicateFilterLogExerciseName(exerciseNameOptional.get().fullName));
         }
 
         if (startTimeOptional.isPresent()) {
@@ -58,10 +59,10 @@ public class FindCommand extends LogCommand {
 
         // todo implement workout
 
-        model.updateFilteredSessionList(predicate);
+        model.updateFilteredLogList(predicate);
 
         String outputMessage = String.format(MESSAGE_SESSIONS_LISTED_OVERVIEW,
-                model.getFilteredSessionList().size());
+                model.getFilteredLogList().size());
         return new CommandResult(outputMessage);
     }
 

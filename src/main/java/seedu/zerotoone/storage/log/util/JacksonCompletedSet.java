@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage.session.util;
+package seedu.zerotoone.storage.log.util;
 
 import java.util.regex.Pattern;
 
@@ -13,7 +13,7 @@ import seedu.zerotoone.model.session.CompletedSet;
 /**
  * Jackson-friendly version of {@link CompletedSet}.
  */
-class JacksonSessionSet {
+class JacksonCompletedSet {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "SessionSet's %s field is missing!";
     public static final String MALFORMED_BOOLEAN_MESSAGE = "SessionSet's isFinished field is incorrect!";
@@ -27,9 +27,9 @@ class JacksonSessionSet {
      * Constructs a {@code JacksonSessionSet} with the given {@code sessionSet}.
      */
     @JsonCreator
-    public JacksonSessionSet(@JsonProperty("weight") String weight,
-            @JsonProperty("numReps") String numReps,
-            @JsonProperty("isFinished") String isFinished) {
+    public JacksonCompletedSet(@JsonProperty("weight") String weight,
+                               @JsonProperty("numReps") String numReps,
+                               @JsonProperty("isFinished") String isFinished) {
         this.weight = weight;
         this.numReps = numReps;
         this.isFinished = isFinished;
@@ -38,7 +38,7 @@ class JacksonSessionSet {
     /**
      * Converts a given {@code SessionSet} into this class for Jackson use.
      */
-    public JacksonSessionSet(CompletedSet source) {
+    public JacksonCompletedSet(CompletedSet source) {
         weight = source.getWeight().value;
         numReps = source.getNumReps().value;
         isFinished = "" + source.isFinished();
