@@ -36,6 +36,19 @@ public class ProgressManager extends BaseManager {
         logger.info(test.getList().toString());
     }
 
+    // Called when unassign student from course
+    public static void removeAllAssignmentsToOneStudent(ID courseID, ID studentID) throws CommandException {
+        requireNonNull(courseID);
+        requireNonNull(studentID);
+
+        Set<ID> setOfAssignmentIDs = model.getCourse(courseID).getAssignedAssignmentsID();
+
+        for (ID assignmentID : setOfAssignmentIDs) {
+            CompositeID currProgressID = new CompositeID(assignmentID, studentID);
+            model.delete(new Progress(currProgressID));
+        }
+    }
+
     // Called by AssignAssignmentToCourse
     public static void addOneAssignmentToAllStudents(Set<ID> setOfStudentIDs, ID assignmentID) throws CommandException {
         requireNonNull(setOfStudentIDs);
