@@ -247,6 +247,9 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[]
+
 [[StudentView]]
 === Student View
 *Student View* is used to display all modules, groups and students in the TA-Tracker.
