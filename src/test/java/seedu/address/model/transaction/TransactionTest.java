@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_ONE_BAG_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_ONE_BAG_MARCH_SECOND;
-import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_TWO_BAG_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_ONE_BOOK_MARCH_FIRST;
+import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_TWO_BAG_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.BENSON_BUY_ONE_ABACUS_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.BENSON_BUY_ONE_BAG_MARCH_FIRST;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.transaction.TransactionBuilder;
 
 public class TransactionTest {

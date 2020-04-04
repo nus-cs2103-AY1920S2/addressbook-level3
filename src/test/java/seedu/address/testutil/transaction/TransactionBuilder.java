@@ -4,6 +4,7 @@ import static seedu.address.testutil.customer.TypicalPersons.ALICE;
 import static seedu.address.testutil.product.TypicalProducts.BAG;
 
 import java.util.UUID;
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
@@ -12,6 +13,9 @@ import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
+/**
+ * A utility class to help with building Transaction objects.
+ */
 public class TransactionBuilder {
 
     public static final Customer DEFAULT_CUSTOMER = ALICE;
@@ -110,6 +114,9 @@ public class TransactionBuilder {
         return this;
     }
 
+    /**
+     * Returns a transaction with the given attributes.
+     */
     public Transaction build() {
         return new Transaction(customer, product, customerId, productId, dateTime,
                 quantity, money, description);

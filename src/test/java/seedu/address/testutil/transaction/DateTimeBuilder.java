@@ -1,8 +1,8 @@
 package seedu.address.testutil.transaction;
 
-import seedu.address.model.transaction.DateTime;
-
 import java.time.LocalDateTime;
+
+import seedu.address.model.transaction.DateTime;
 
 /**
  * A utility class to help with building DateTime objects.
