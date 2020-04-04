@@ -1,14 +1,14 @@
 {
   "guiSettings" : {
-    "windowWidth" : 1000.0,
-    "windowHeight" : 800.0,
+    "windowWidth" : 1294.6666259765625,
+    "windowHeight" : 694.6666870117188,
     "windowCoordinates" : {
-      "x" : 245,
-      "y" : 36
+      "x" : -6,
+      "y" : -6
     }
   },
   "addressBookFilePath" : "data\\addressbook.json",
   "moduleListFilePath" : "/data/modulesPrereq.json",
-  "profileListFilePath" : "data/userProfiles.json",
+  "profileListFilePath" : "data\\userProfiles.json",
   "courseListFilePath" : "/data/courses.json"
 }
