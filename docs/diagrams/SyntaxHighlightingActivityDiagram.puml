@@ -65,7 +65,7 @@ else if () then ([command does not need preamble])
     endif
 else ([else])
 endif
-partition prefix_end {
+partition preamble_end {
 :Highlight invalid arguments;
 }
 stop

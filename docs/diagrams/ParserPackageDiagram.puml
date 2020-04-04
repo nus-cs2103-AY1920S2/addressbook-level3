@@ -4,39 +4,51 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR
 skinparam classBackgroundColor LOGIC_COLOR
 
+Package Parser as ParserPkg <<Rectangle>>{
+Interface Parser <<Interface>>
+
+Package Commons {}
+Package Module {}
+Package Group {}
+Package Student {}
+Package Sort {}
+Package Session {}
+Package Statistic {}
+
+Commons .down.> Parser
+Module .down.> Parser
+Group .down.> Parser
+Student .down.> Parser
+Sort .down.> Parser
+Session .down.> Parser
+Statistic .down.> Parser
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
 Package Parser <<Rectangle>>{
 Class Prefixes
 Class Prefix
 
-Package Commons {
-    Class HI1 #FFFFFF
-}
-Package Module {
-    Class HI2 #FFFFFF
-}
-Package Group {
-    Class HI3 #FFFFFF
-}
-Package Student {
-    Class HI4 #FFFFFF
-}
-Package Sort {
-    Class HI5 #FFFFFF
-}
-Package Session {
-    Class HI6 #FFFFFF
-}
-Package Statistic {
-    Class HI7 #FFFFFF
-}
+Package Commons {}
+Package Module {}
+Package Group {}
+Package Student {}
+Package Sort {}
+Package Session {}
+Package Statistic {}
 
-HI1 .down.> Prefixes
-HI2 .down.> Prefixes
-HI3 .down.> Prefixes
-HI4 .down.> Prefixes
-HI5 .down.> Prefixes
-HI6 .down.> Prefixes
-HI7 .down.> Prefixes
+Commons .down.> Prefixes
+Module .down.> Prefixes
+Group .down.> Prefixes
+Student .down.> Prefixes
+Sort .down.> Prefixes
+Session .down.> Prefixes
+Statistic .down.> Prefixes
 
 Prefixes .down.> Prefix
 @enduml
@@ -53,6 +65,57 @@ Class PrefixDetails
 Class Prefixes
 Class PrefixDictionary
 Class Prefix
+
+Interface Parser <<Interface>>
+Package X {
+    Class XCommandParser
+}
+
+Prefixes <.left. XCommandParser
+XCommandParser .up.|> Parser
+
+PrefixDictionary -left-> "*" Prefix : parameters
+PrefixDictionary -left-> "*" Prefix : optionals
+PrefixDictionary .up.> Prefixes
+PrefixDictionary -down-> "*" PrefixDetails : prefix details
+
+Prefixes .down.> Prefix
+PrefixDetails -up-> "0..1" Prefix
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor WHITE
+skinparam classHeaderBackgroundColor LOGIC_COLOR
+skinparam classBorderColor LOGIC_COLOR
+skinparam classAttributeIconSize 0
+
+Package Parser <<Rectangle>>{
+
+Class PrefixDetails {
+    - constraint : String
+    - examples : List<String>
+}
+
+Interface Predicate <<Interface>>
+PrefixDetails .> Predicate
+
+show PrefixDetails members
+hide PrefixDetails methods
+
+Class Prefixes
+Class PrefixDictionary
+Class Prefix
+
+Interface Parser <<Interface>>
+Package X {
+    Class XCommandParser
+}
+
+Prefixes <.left. XCommandParser
+XCommandParser .up.|> Parser
 
 PrefixDictionary -left-> "*" Prefix : parameters
 PrefixDictionary -left-> "*" Prefix : optionals

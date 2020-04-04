@@ -5,37 +5,61 @@ skinparam arrowColor LOGIC_COLOR
 skinparam classBackgroundColor LOGIC_COLOR
 
 Package Commands <<Rectangle>>{
-Class Command
+Class "{abstract}\nCommand" as Command
 
-Package Commons {
-    Class HI1 #FFFFFF
-}
-Package Module {
-    Class HI2 #FFFFFF
-}
-Package Group {
-    Class HI3 #FFFFFF
-}
-Package Student {
-    Class HI4 #FFFFFF
-}
-Package Sort {
-    Class HI5 #FFFFFF
-}
-Package Session {
-    Class HI6 #FFFFFF
-}
-Package Statistic {
-    Class HI7 #FFFFFF
+Package Commons {}
+Package Module {}
+Package Group {}
+Package Student {}
+Package Sort {}
+Package Session {}
+Package Statistic {}
+
+Commons .down.> Command
+Module .down.> Command
+Group .down.> Command
+Student .down.> Command
+Sort .down.> Command
+Session .down.> Command
+Statistic .down.> Command
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor WHITE
+skinparam classHeaderBackgroundColor LOGIC_COLOR
+skinparam classBorderColor LOGIC_COLOR
+skinparam classAttributeIconSize 0
+
+Package Commands <<Rectangle>>{
+Class CommandDictionary
+
+Class CommandDetails {
+    - commandWord : String
+    - subWord : String
+    - info : String
+    - usage : String
+    - example : String
 }
 
-HI1 .down.> Command
-HI2 .down.> Command
-HI3 .down.> Command
-HI4 .down.> Command
-HI5 .down.> Command
-HI6 .down.> Command
-HI7 .down.> Command
+show CommandDetails members
+hide CommandDetails methods
+
+Package X {
+    Class XCommand
+}
+
+Class CommandWords
+
+
+CommandDictionary -right-> "*" CommandDetails : command details
+XCommand -up-> "1" CommandDetails
+
+Class "{abstract}\nCommand" as Command
+XCommand -left-|> Command
+XCommand .right.> CommandWords
 @enduml
 
 @startuml
