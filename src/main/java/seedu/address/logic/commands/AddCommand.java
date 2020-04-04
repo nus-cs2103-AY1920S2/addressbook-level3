@@ -29,7 +29,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal to the module. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module or task to the module.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE "
             + PREFIX_SEMESTER + "SEMESTER "
@@ -38,11 +38,11 @@ public class AddCommand extends Command {
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 "
-            + PREFIX_SEMESTER + "4"
+            + PREFIX_SEMESTER + "4 "
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    public static final String MESSAGE_ADD_SUCCESS = "New Personal Object added: %1$s";
+    public static final String MESSAGE_ADD_SUCCESS = "New Module added: %1$s";
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: Deadlines must be added to modules taken in "
             + "the current semester";
