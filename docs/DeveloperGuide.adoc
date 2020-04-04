@@ -583,7 +583,39 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 // tag::syntaxhighlighting[]
-=== [Proposed] Syntax Highlighting feature
+=== Syntax Highlighting
+When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
+as a form of input validation.
+
+In addition, the `ResultBox` will display different messages based on the result of the syntax highlighting.
+
+==== Overview
+The following diagram shows how the Logic and UI components interact with each other to produce the highlighting.
+
+.Syntax Highlighting - Class Diagram
+image::SyntaxHighlightingClassDiagram.png[]
+
+* The `CommandBox` uses a `CommandDictionary` to search for valid commands.
+* The `CommandBox` stores a `CommandDetail` for processing the current command in the user input.
+* The `CommandBox` stores a `PrefixDictionary` containing the required argument details (`PrefixDetails`) for the current command.
+* The `CommandBox` uses a `CommandBoxUtil` to scan for valid user inputs.
+* The `CommandBox` returns feedback to the `ResultDisplay`.
+* The `ResultDisplay` displays the given feedback tas a message in the program.
+
+==== Implementation
+The following diagrams show the steps for the different types of highlighting.
+
+Here are some keywords that will be used to explain the implementation:
+
+* A `full command word` is a text that identifies a command.
+
+* An `argument` is a text that contains a `prefix` and a `value`.
+
+** The `prefix` is the text value of a `Prefix` in the Logic component.
+** The `value` is all the text following the `prefix`.
+
+* The `preamble` is the text (including whitespaces) between the end of the
+`full command word`, and the beginning of the first `argument`.
 
 The syntax highlighting feature extends the `CommandBox` in the `MainWindow` of TA-Tracker
 by colouring the font of valid command words as the user is typing. Currently, when a user
