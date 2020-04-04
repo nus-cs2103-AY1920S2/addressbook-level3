@@ -26,7 +26,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getLocalizedMessage()) + "\nFor a command "
-                            +"summary, type \"help view\"");
+                            + "summary, type \"help view\"");
         }
     }
 

@@ -43,7 +43,7 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getLocalizedMessage()) + "\nFor a command "
-                    +"summary, type \"help modify\"");
+                    + "summary, type \"help modify\"");
         }
 
         ModifyCommand.EditRecipeDescriptor editRecipeDescriptor = new ModifyCommand.EditRecipeDescriptor();
