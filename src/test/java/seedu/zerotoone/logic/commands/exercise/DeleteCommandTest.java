@@ -45,7 +45,7 @@ public class DeleteCommandTest {
                 model.getExerciseList(),
                 model.getWorkoutList(),
                 model.getScheduleList(),
-                model.getSessionList());
+                model.getLogList());
 
         expectedModel.deleteExercise(exerciseToDelete);
 
@@ -74,7 +74,7 @@ public class DeleteCommandTest {
                 model.getExerciseList(),
                 model.getWorkoutList(),
                 model.getScheduleList(),
-                model.getSessionList());
+                model.getLogList());
 
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
