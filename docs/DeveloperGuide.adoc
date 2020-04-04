@@ -587,6 +587,8 @@ is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
 
+//tag::tssview[]
+=== Session View
 
 //tag::tssview[]
 === TSS View
@@ -603,6 +605,8 @@ image::TssModelClassDiagram.png[]
 The TaTracker model class contains a UniqueDoneSessionList which keeps track of
 all the sessions that have been marked as done. Each of the sessions are associated
 with a Module in the UniqueModuleList.
+
+The following diagram describes how TaTracker is updated when a Done Session command is entered.
 
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
