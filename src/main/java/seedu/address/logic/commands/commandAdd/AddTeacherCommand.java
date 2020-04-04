@@ -8,7 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
+import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
@@ -41,6 +44,7 @@ public class AddTeacherCommand extends AddCommand {
   public static final String MESSAGE_DUPLICATE_TEACHER = "This teacher already exists in the address book";
 
   private final Staff toAdd;
+  private Integer index;
 
   /**
    * Creates an AddCommand to add the specified {@code Teacher}
@@ -50,8 +54,14 @@ public class AddTeacherCommand extends AddCommand {
     toAdd = teacher;
   }
 
-  protected void generateOppositeCommand() throws CommandException {
+  public AddTeacherCommand(Staff teacher, Integer index) {
+    requireNonNull(teacher);
+    toAdd = teacher;
+    this.index = index;
+  }
 
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new DeleteTeacherCommand(this.toAdd);
   }
 
   @Override
@@ -61,7 +71,11 @@ public class AddTeacherCommand extends AddCommand {
       throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
     }
 
-    model.add(toAdd);
+    if (index == null) {
+      model.add(toAdd);
+    } else {
+      model.addAtIndex(toAdd, index);
+    }
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
