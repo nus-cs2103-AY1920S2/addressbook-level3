@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -44,8 +45,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_ADD_SUCCESS = "New Module added: %1$s";
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
-    public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: Deadlines must be added to modules taken in "
-            + "the current semester";
+    public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: You can only add tasks to modules that "
+            + "are already added in the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
             + "please specify specify name and deadline if you would like to add a task";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
@@ -88,7 +89,15 @@ public class AddCommand extends Command {
         }
         Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
-        Module moduleToAdd = moduleManager.getModule(toAdd);
+        Module moduleToAdd = null;
+        try {
+            // throws error if module code does not exist! DO NOT REMOVE!
+            if (moduleManager.hasModule(toAdd)) {
+                moduleToAdd = moduleManager.getModule(toAdd);
+            }
+        } catch (ParseException e) {
+            throw new CommandException(e.getMessage());
+        }
         int semesterOfModule = 0;
 
         // Check whether this module has been added to Profile semester HashMap
@@ -112,7 +121,7 @@ public class AddCommand extends Command {
             }
         } else { // Module does not exist
             if (addSemester == 0) {
-                throw new CommandException("Error: Please specify semester.");
+                throw new CommandException("Error: Please add this module to a semester first.");
             }
             // Create Personal object
             personal = new Personal();
@@ -126,9 +135,21 @@ public class AddCommand extends Command {
         }
         if (addTask != null) {
             // Check if the deadline is added to a module in the current semester
-            if (addSemester != currentSemester) {
+            if (semesterOfModule != currentSemester && addSemester != currentSemester) {
+                //throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
+            if (hasModule && semesterOfModule != currentSemester) {
+                // This module has been added but it is not in current semester
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
             }
+            if (!hasModule && addSemester != currentSemester) {
+                /*
+                 This module has not been added anywhere
+                 and semester given by user does not match current semester
+                 */
+                throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
+
             Deadline deadline;
             String moduleCode = toAdd.toString();
             if (addDeadlineString != null) {
