@@ -36,8 +36,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits Profile or Module specified by user.\n"
-            + "Parameters to edit Profile: "
+            + ": Edits a profile or module specified by user.\n"
+            + "Parameters to edit a profile: "
             + PREFIX_NAME + "NAME "
             + "(" + PREFIX_COURSE_NAME + "COURSE) "
             + "(" + PREFIX_CURRENT_SEMESTER + "CURRENT_SEMESTER) "
@@ -46,8 +46,8 @@ public class EditCommand extends Command {
             + PREFIX_NAME + "John "
             + "(" + PREFIX_COURSE_NAME + "Computer Science) "
             + "(" + PREFIX_CURRENT_SEMESTER + "4) "
-            + "(" + PREFIX_SPEC + "Theory and ALgorithm) "
-            + "Parameters to edit Module: "
+            + "(" + PREFIX_SPEC + "Algorithms & Theory) "
+            + "Parameters to edit a module: "
             + PREFIX_MODULE + "MODULE "
             + "(" + PREFIX_SEMESTER + "SEMESTER) "
             + "(" + PREFIX_GRADE + "GRADE) "
