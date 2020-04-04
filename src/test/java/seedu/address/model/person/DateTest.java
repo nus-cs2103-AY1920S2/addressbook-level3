@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-public class DeadlineTest {
+public class DateTest {
     @Test
-    public void isValidDeadline() {
+    public void isValidDate() {
         // null deadline
         assertThrows(NullPointerException.class, () -> Deadline.isValidDeadline(null));
 

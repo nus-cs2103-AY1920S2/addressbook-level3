@@ -4,14 +4,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.CompositeIDBuilder;
 import seedu.address.model.person.ID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static seedu.address.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Progress} objects to be used in tests.

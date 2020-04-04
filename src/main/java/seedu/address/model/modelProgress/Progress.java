@@ -46,7 +46,10 @@ public class Progress extends ModelObject {
   public Boolean getIsDone() {
     return this.isDone;
   }
-
+  /*
+  public Boolean isOverDue() {
+  }
+   */
 
   @Override
   public CompositeID getId() {

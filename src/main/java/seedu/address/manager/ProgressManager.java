@@ -8,7 +8,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.CompositeIDBuilder;
 import seedu.address.model.person.ID;
 
 import java.util.HashSet;
@@ -63,8 +62,8 @@ public class ProgressManager extends BaseManager {
         return allProgressOfStudentInOneCourse;
     }
 
-    public static String getNumberOfProgressesDone(ID courseID, ID studentID) {
-        Set<Progress> allProgresses = ProgressManager.getProgress(ID courseID, ID studentID);
+    public static String getNumberOfProgressesDone(ID courseID, ID studentID) throws CommandException {
+        Set<Progress> allProgresses = ProgressManager.getProgress(courseID, studentID);
         String output = "%s : %s";
         int totalNumProgresses = allProgresses.size();
 
