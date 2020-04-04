@@ -14,7 +14,8 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 public class Deadline {
     public static final String MESSAGE_CONSTRAINTS = "Date and time field of deadline should be in the format "
             + "YYYY-MM-DD and HH:mm respectively.\n" + "Dates should be valid Gregorian calendar dates"
-            + " and time should be in 24-hour format.";
+            + " and time should be in 24-hour format.\n"
+            + "Example: 2020-04-25 18:54";
 
     protected String moduleCode;
     protected String description;
