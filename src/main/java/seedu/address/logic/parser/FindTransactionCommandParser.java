@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import seedu.address.logic.commands.FindTransactionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,7 +35,7 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
 
         // find transaction by type of transaction, name of supplier, name of good.
         // or any combination of the above
-        // if there are multiple input for name, good name, only the last input will be taken.
+        // if there are multiple input for name, good name, all inputs will be taken.
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
                 PREFIX_GOOD_NAME);
@@ -57,16 +58,10 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         }
 
         // name stores the name of supplier
-        String[] supplierNameKeywords = new String[0];
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            supplierNameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-        }
+        String[] supplierNameKeywords = setKeywords(argMultimap, PREFIX_NAME);
 
         // good name stores the name of the good
-        String[] goodNameKeywords = new String[0];
-        if (argMultimap.getValue(PREFIX_GOOD_NAME).isPresent()) {
-            goodNameKeywords = argMultimap.getValue(PREFIX_GOOD_NAME).get().split("\\s+");
-        }
+        String[] goodNameKeywords = setKeywords(argMultimap, PREFIX_GOOD_NAME);
 
         // at least one field must be provided
         if (typeOfTransaction.equals(TransactionType.EMPTY)
@@ -77,6 +72,18 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         return new FindTransactionCommand(
                 new TransactionContainKeywordsPredicate(typeOfTransaction,
                         Arrays.asList(supplierNameKeywords), Arrays.asList(goodNameKeywords)));
+    }
+
+    private String[] setKeywords(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
+        Optional<String> words = argMultimap.getValue(prefix);
+        if (words.isPresent()) {
+            if (words.get().equals("")) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTransactionCommand.EMPTY_VALUE_WITH_PREFIX));
+            }
+            return argMultimap.getValue(prefix).get().split("\\s+");
+        }
+        return new String[0];
     }
 
 }

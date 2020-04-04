@@ -15,15 +15,17 @@ import seedu.address.model.transaction.TransactionContainKeywordsPredicate;
 public class FindTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "find-t";
-    public static final String MESSAGE_NOT_FIELD_PROVIDED = "At least one conditional field must be provided.";
-    public static final String INVALID_TRANSACTION_TYPE = "Transaction type can only be 'buy' or 'sell'.";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": filters the transaction list by type of transaction, supplier's name and good's name\n"
-            + MESSAGE_NOT_FIELD_PROVIDED + "\n"
-            + "Format: " + COMMAND_WORD + "buy"
+            + "Format: " + COMMAND_WORD + " [buy] "
             + "[" + PREFIX_NAME + "] "
             + "[" + PREFIX_GOOD_NAME + "] ";
+    public static final String EMPTY_VALUE_WITH_PREFIX = "n/ or g/ is given, but the value is empty.\n"
+            + MESSAGE_USAGE;
+    public static final String INVALID_TRANSACTION_TYPE = "Transaction type can only be 'buy' or 'sell'.\n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_NOT_FIELD_PROVIDED = "At least one conditional field must be provided.\n"
+            + MESSAGE_USAGE;
 
     private TransactionContainKeywordsPredicate predicate;
 
