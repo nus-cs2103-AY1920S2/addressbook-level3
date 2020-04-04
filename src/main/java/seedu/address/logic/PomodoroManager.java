@@ -32,9 +32,10 @@ import seedu.address.ui.MainWindow;
 import seedu.address.ui.ResultDisplay;
 
 public class PomodoroManager {
-
+    
+    private Integer defaultStartTime;
     private Integer startTime;
-    private Integer restTime = 5; // 5 * 60;
+    private Integer restTime;
     private Timeline timeline;
     private Label timerLabel;
     private ResultDisplay resultDisplay;
@@ -66,8 +67,9 @@ public class PomodoroManager {
 
     private PROMPT_STATE promptState;
 
-    public PomodoroManager() {
+    public PomodoroManager(Model model) {
         promptState = PROMPT_STATE.NONE;
+        this.model = model;
     }
 
     public void setResultDisplay(ResultDisplay resultDisplay) {
@@ -78,12 +80,38 @@ public class PomodoroManager {
         this.mainWindow = mainWindow;
     }
 
+    public String getDefaultStartTimeAsString() {
+        int secondsRemaining = defaultStartTime;
+        int minutePortion = secondsRemaining / 60;
+        int secondPortion = secondsRemaining % 60;
+        return String.format(
+            "%02d:%02d", minutePortion, secondPortion);
+    }
+
+    public Integer getDefaultStartTime() {
+        return defaultStartTime;
+    }
+
+    public Integer getRestTime() {
+        return restTime;
+    }
+
+    public void setDefaultStartTime(float defaultStartTimeInMin) {
+        this.defaultStartTime = (int)(defaultStartTimeInMin * 60);
+        model.setPomodoroDefaultTime(defaultStartTimeInMin);
+    }
+
+    public void setRestTime(float restTimeInMin) {
+        this.restTime = (int)(restTimeInMin * 60);
+        model.setPomodoroRestTime(restTimeInMin);
+    }
+
     public void setTimerLabel(Label timerLabel) {
         this.timerLabel = timerLabel;
     }
 
-    public void start(float timeInMinutes) {
-        startTime = (int) (timeInMinutes * 60);
+    public void start(float time) {
+        startTime = (int) (time);
         timeSeconds = new SimpleIntegerProperty(startTime);
         configureUi();
         configureTimer();
@@ -243,7 +271,7 @@ public class PomodoroManager {
     }
 
     private void clearDoneParams() {
-        this.model = null;
+        //this.model = null;
         this.originList = null;
         this.taskIndex = -1;
     }
