@@ -136,9 +136,20 @@ public class AddCommand extends Command {
         if (addTask != null) {
             // Check if the deadline is added to a module in the current semester
             if (semesterOfModule != currentSemester && addSemester != currentSemester) {
-
+                //throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
+            if (hasModule && semesterOfModule != currentSemester) {
+                // This module has been added but it is not in current semester
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
             }
+            if (!hasModule && addSemester != currentSemester) {
+                /*
+                 This module has not been added anywhere
+                 and semester given by user does not match current semester
+                 */
+                throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
+
             Deadline deadline;
             String moduleCode = toAdd.toString();
             if (addDeadlineString != null) {
