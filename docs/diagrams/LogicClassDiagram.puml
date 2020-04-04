@@ -83,7 +83,7 @@ package Logic {
 
         XYCommandParser .down.> ArgumentMultimap
         XYCommandParser .down.> ArgumentTokenizer
-        XYCommandParser .down[#Green].> Prefixes
+        XYCommandParser .down[#Red].> Prefixes
         XYCommandParser .down.> ParserUtil
 
         ArgumentTokenizer .right.> ArgumentMultimap
@@ -104,7 +104,7 @@ package Logic {
         Command .up.> CommandResult
         XYCommand -up-|> Command
 
-        XYCommand .down[#Red].> Prefixes
+        XYCommand .down[LOGIC_COLOR_T4].> Prefixes
     }
 
     XYCommandParser .right.> XYCommand
@@ -146,5 +146,72 @@ package Logic {
     }
 
     XCommandParser .right.> XCommand
+}
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+    package Parser as ParserPkg {
+
+        Class TaTrackerParser
+        Interface Parser <<Interface>>
+
+
+        package X as ModelParser {
+            Class XCommandParser
+            Class XYCommandParser
+
+            TaTrackerParser .down.> XCommandParser
+            XCommandParser .down.> XYCommandParser
+        }
+
+        XYCommandParser .right.|> Parser
+
+        Class Prefix
+
+        Class ArgumentTokenizer
+        Class ArgumentMultimap
+
+        Class ParserUtil
+
+
+        XYCommandParser .down.> ArgumentMultimap
+        XYCommandParser .down.> ArgumentTokenizer
+        XYCommandParser .down.> ParserUtil
+
+        ArgumentTokenizer .right.> ArgumentMultimap
+
+        ArgumentTokenizer .down.> Prefix
+        ParserUtil .down.> Prefix
+
+    }
+
+    package Commands as ModelCommand {
+        package X {
+            Class XYCommand
+        }
+
+        Class Prefixes #RED
+
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        Command .up.> CommandResult
+        XYCommand -up-|> Command
+
+        XYCommand .down[LOGIC_COLOR_T4].> Prefixes
+    }
+
+    XYCommandParser .down[#RED].> Prefixes
+
+    Prefixes -right[hidden]- ParserUtil
+    Prefixes -down-> "*" Prefix
+
+    XYCommandParser .right.> XYCommand
 }
 @enduml
