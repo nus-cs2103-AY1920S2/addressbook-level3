@@ -3,12 +3,11 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.ScrollPane?>
-<!--<?import javafx.scene.control.Label?>-->
 
 <ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane styleClass="pane-with-border" HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="60.0" />
         </columnConstraints>
 
         <StackedBarChart fx:id="stackedBarChart" GridPane.columnIndex="0">
@@ -19,9 +18,6 @@
                 <NumberAxis fx:id="yAxis" side="LEFT" />
             </yAxis>
         </StackedBarChart>
-
-<!--        <Label text="Expenditure by Category's" GridPane.columnIndex="1" />-->
         <PieChart fx:id="pieChart" GridPane.columnIndex="1"/>
-
     </GridPane>
 </ScrollPane>

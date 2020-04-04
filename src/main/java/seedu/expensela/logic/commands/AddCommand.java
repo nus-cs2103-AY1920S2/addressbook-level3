@@ -11,7 +11,11 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
+import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
+
+import java.util.Arrays;
 
 /**
  * Adds a transaction to the expensela.
@@ -52,12 +56,13 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.setFilter(new Filter(null, null));
+
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
         model.addTransaction(toAdd);
+        model.setFilter(new Filter(new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())), new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth()))));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
