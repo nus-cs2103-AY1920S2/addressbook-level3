@@ -140,8 +140,9 @@ public class OrderBookParserTest {
 
     @Test
     public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        HelpCommand helpCommand = new HelpCommand();
+        helpCommand.setValidity(true);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD).equals(helpCommand));
     }
 
     @Test
