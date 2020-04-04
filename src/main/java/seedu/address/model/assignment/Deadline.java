@@ -67,7 +67,7 @@ public class Deadline {
     public static boolean hasDeadlinePassed(String testDeadline) {
         LocalDateTime dateTime = LocalDateTime.parse(testDeadline, inputFormat);
 
-        if (dateTime.compareTo(LocalDateTime.now(ZoneId.of("Singapore"))) < 0) {
+        if (dateTime.isBefore(LocalDateTime.now(ZoneId.of("Singapore")))) {
             return true;
         } else {
             return false;

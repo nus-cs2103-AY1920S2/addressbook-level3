@@ -18,8 +18,8 @@ import seedu.address.model.assignment.WorkloadComparator;
 public class ListAssignmentCommandParser implements Parser<ListAssignmentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ListAssignmentCommand
+     * and returns an ListAssignmentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ListAssignmentCommand parse(String args) throws ParseException {

@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Deadline;
+import seedu.address.model.assignment.Status;
 import seedu.address.model.assignment.Title;
 import seedu.address.model.assignment.Workload;
 import seedu.address.model.event.Duration;
@@ -384,5 +385,22 @@ public class ParserUtil {
         String trimmedPlace = place.trim(); // there is no invalid value for place.
 
         return new Place(trimmedPlace);
+    }
+
+    /**
+     * Parses a {@code String status} into a {@code Status}.
+     * Leading and training whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Status} is invalid.
+     */
+    public static Status parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+
+        if (!Status.isValidStatus(trimmedStatus)) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Status(trimmedStatus);
     }
 }

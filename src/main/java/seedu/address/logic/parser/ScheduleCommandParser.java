@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parsers input for the new schedule command.
  */
-public class ScheduleCommandParser {
+public class ScheduleCommandParser implements Parser<ScheduleCommand> {
     public static final String VALIDATION_REGEX = "^\\d*[1-9]\\d*$";
 
     /**

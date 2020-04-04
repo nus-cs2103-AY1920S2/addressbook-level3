@@ -28,6 +28,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
+    //=================  User Prefs ==========================================================
+
     /**
      * Clears all data
      */
@@ -62,6 +64,8 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
+
+    //=================  Address Book ==========================================================
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
@@ -159,6 +163,8 @@ public interface Model {
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
+    //=================  Schoolwork Tracker ==========================================================
+
     /**
      * Replaces scheduler data with the data in {@code scheduler}.
      */
@@ -191,9 +197,12 @@ public interface Model {
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
 
     /**
-     * Calculates the schedule for the upcoming numDays (today inclusive).
+     * Deletes the given assignment.
+     * Assignment must exist in the Schoolwork Tracker.
      */
-    void calculateScheduleIntensity(int numDays);
+    void deleteAssignment(Assignment assignmentToDelete);
+
+    //=================  Filtered Assignment List Accessors ==================================================
 
     /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
@@ -203,6 +212,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+
+    //=================  Event Book ==========================================================================
 
     /**
      * Replaces EventSchedule data with the data in {@code eventSchedule}.
@@ -231,6 +242,8 @@ public interface Model {
     /** Sorts the event schedule by the filter */
     void sortEvent(Comparator<Event> comparator);
 
+    //=================  Filtered Event List Accessors =======================================================
+
     /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
 
@@ -240,7 +253,7 @@ public interface Model {
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
-    //=========== Filtered Bday List Accessors ====================================================================
+    //=========== Bday List Accessors ====================================================================
 
     /**
      * Returns an unmodifiable view of the list of contacts with birthdays in the next 5 days.
@@ -248,6 +261,11 @@ public interface Model {
     ObservableList<Person> getBdayListResult();
 
     //=========== Schedule Visual Accessors =======================================================================
+
+    /**
+     * Calculates the schedule for the upcoming numDays (today inclusive).
+     */
+    void calculateScheduleIntensity(int numDays);
 
     /**
      * Returns an unmodifiable view of the user's upcoming schedule for the next n days (today inclusive).

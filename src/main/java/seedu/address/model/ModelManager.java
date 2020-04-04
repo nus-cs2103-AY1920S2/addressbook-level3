@@ -39,7 +39,6 @@ public class ModelManager implements Model {
     private FilteredList<Restaurant> filteredRestaurants;
     private FilteredList<Assignment> filteredAssignments;
     private FilteredList<Event> filteredEvents;
-    private FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -189,6 +188,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Assignment> getAssignmentList() {
         return filteredAssignments;
+    }
+
+    @Override
+    public void deleteAssignment(Assignment target) {
+        scheduler.removeAssignment(target);
     }
 
     //=========== Event Schedule ================================================================================
@@ -431,7 +435,6 @@ public class ModelManager implements Model {
         filteredRestaurants = this.currentModel.getFilteredRestaurants();
         filteredAssignments = this.currentModel.getFilteredAssignments();
         filteredEvents = this.currentModel.getFilteredEvents();
-        bdayList = this.currentModel.getBdayList();
     }
 
     /**
