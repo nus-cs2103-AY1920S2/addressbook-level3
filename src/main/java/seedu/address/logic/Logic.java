@@ -168,6 +168,8 @@ public interface Logic {
   // ========================= Getters for Details View ======================
   ObservableMap<String, Object> getFilteredStudentDetailsMap();
 
+  ObservableMap<String, Object> getFilteredCourseDetailsMap();
+
   // ========================== Getters for Predicates =========================
 
   public Predicate<Student> getDataStudentPredicate();

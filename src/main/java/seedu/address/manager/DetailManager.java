@@ -45,11 +45,13 @@ public class DetailManager extends BaseManager {
     // Detail Manager will have ObservableLists that LogicManager will also contain.
 
     private ObservableMap<String, Object> studentDetailsMap;
+    private ObservableMap<String, Object> courseDetailsMap;
 
     HashMap<Prefix, ID> IdMapping;
 
     public DetailManager() {
         studentDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
+        courseDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
         initializeStudentDetailsMap();
         IdMapping = new HashMap<Prefix, ID>();
         instance = this;
@@ -72,6 +74,10 @@ public class DetailManager extends BaseManager {
         return this.studentDetailsMap;
     }
 
+    public ObservableMap<String, Object> getFilteredCourseDetailsMap() {
+        return this.courseDetailsMap;
+    }
+
     // Select commands will update the observable lists here
     public void updateType(List<ArgumentTokenizer.PrefixPosition> positions,
                          List<ID> selectMetaDataIDs) {
@@ -92,7 +98,13 @@ public class DetailManager extends BaseManager {
             }
 
         } else if (positions.get(0).getPrefix().equals(PREFIX_COURSEID)) {
-            return TYPE.COURSE_DETAILS;
+            if (positions.size() == 1) {
+                return TYPE.COURSE_DETAILS;
+            }
+
+            if (positions.get(1).getPrefix().equals(PREFIX_STUDENTID)) {
+                return TYPE.COURSE_STUDENT_DETAILS;
+            }
         }
         return TYPE.COURSE_DETAILS;
     }
@@ -105,6 +117,11 @@ public class DetailManager extends BaseManager {
         } else if (type.equals(TYPE.STUDENT_COURSE_DETAILS)) {
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
             updateProgressStudentCourse(IdMapping.get(PREFIX_STUDENTID), IdMapping.get(PREFIX_COURSEID));
+        } else if (type.equals(TYPE.COURSE_DETAILS)) {
+            updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
+        } else if (type.equals(TYPE.COURSE_STUDENT_DETAILS)) {
+            updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
+            updateProgressCourseStudent(IdMapping.get(PREFIX_COURSEID), IdMapping.get(PREFIX_STUDENTID));
         }
     }
 
@@ -143,5 +160,37 @@ public class DetailManager extends BaseManager {
 
 
     // ###############  Update course details map ###########################################################
+    public void updateCourseDetailsMap(ID courseID) throws CommandException {
+        Course course = (Course)model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        courseDetailsMap.put("details", course);
+
+        ObservableList<HashMap> students = FXCollections.observableArrayList();
+        Set<ID> studentIDs = course.getAssignedStudentsID();
+        for (ID studentID: studentIDs) {
+            HashMap<String, Object> studentDetail = new HashMap<String, Object>();
+            studentDetail.put("info", (Student)model.getAddressBook(Constants.ENTITY_TYPE.STUDENT).get(studentID));
+            studentDetail.put("progress_list",
+                    FXCollections.observableArrayList(new ArrayList<Progress>()));
+            studentDetail.put("number_of_done_progress", ProgressManager.getNumberOfProgressesDone(courseID, studentID));
+            students.add(studentDetail);
+        }
+        courseDetailsMap.put("students", students);
+    }
+
+    public void updateProgressCourseStudent(ID courseID, ID studentID) throws CommandException {
+        for (HashMap<String, Object> studentDetail: (ObservableList<HashMap>)courseDetailsMap.get("students")) {
+            Student student = (Student)studentDetail.get("info");
+            if (student.getId().equals(studentID)) {
+                studentDetail.put("progress_list",
+                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+            } else {
+                studentDetail.put("progress_list",
+                        FXCollections.observableArrayList(new ArrayList<Progress>()));
+            }
+        }
+    }
+    // #######################################################################################################
+
+
 
 }

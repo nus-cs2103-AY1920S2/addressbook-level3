@@ -50,12 +50,6 @@ public class StudentDetailedPanel extends UiPart<Region> {
   public StudentDetailedPanel(ObservableMap<String, Object> studentMap, CommandBox commandBox) {
     super(FXML);
     this.commandBox = commandBox;
-    Student student = (Student) studentMap.get("details");
-    ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
-    filteredStudents.add(student);
-
-
-
     studentMap.addListener(new MapChangeListener<String, Object>() {
       @Override
       public void onChanged(MapChangeListener.Change<? extends String, ? extends Object> change) {
