@@ -15,6 +15,7 @@ import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.ui.util.UiPart;
+import seedu.zerotoone.ui.util.ViewType;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
@@ -174,6 +175,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            this.switchViews(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -191,6 +193,36 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Switches the UI views based on the command.
+     * @param commandText the full user input string.
+     * @throws ParseException if the user input does not conform to command format.
+     */
+    private void switchViews(String commandText) throws ParseException {
+        ViewType viewType = logic.getViewType(commandText);
+
+        switch (viewType) {
+        case SESSION_VIEW:
+            tabPanePlaceHolder.getSelectionModel().select(0);
+            break;
+        case EXERCISE_VIEW:
+            tabPanePlaceHolder.getSelectionModel().select(1);
+            break;
+        case WORKOUT_VIEW:
+            tabPanePlaceHolder.getSelectionModel().select(2);
+            break;
+        case SCHEDULE_VIEW:
+            tabPanePlaceHolder.getSelectionModel().select(3);
+            break;
+        case LOG_VIEW:
+            tabPanePlaceHolder.getSelectionModel().select(4);
+            break;
+        default:
+            tabPanePlaceHolder.getSelectionModel().select(0);
+            break;
         }
     }
 }
