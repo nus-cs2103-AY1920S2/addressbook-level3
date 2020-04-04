@@ -39,7 +39,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditTeacherCommand extends Command {
 
-  public static final String COMMAND_WORD = "edit-teacher";
+  public static final String COMMAND_WORD = "edit-staff";
 
   public static final String MESSAGE_USAGE =
       COMMAND_WORD + ": Edits the details of the teacher identified "
@@ -59,7 +59,7 @@ public class EditTeacherCommand extends Command {
           + PREFIX_PHONE + "91234567 "
           + PREFIX_EMAIL + "johndoe@example.com";
 
-  public static final String MESSAGE_EDIT_TEACHER_SUCCESS = "Edited Teacher: %1$s";
+  public static final String MESSAGE_EDIT_TEACHER_SUCCESS = "Edited Staff: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_TEACHER = "This teacher already exists in the address book.";
 
@@ -67,8 +67,8 @@ public class EditTeacherCommand extends Command {
   private final EditTeacherDescriptor editTeacherDescriptor;
 
   /**
-   * @param index                 of the teacher in the filtered teacher list to edit
-   * @param editTeacherDescriptor details to edit the teacher with
+   * @param index                 of the teacher in the filtered staff list to edit
+   * @param editTeacherDescriptor details to edit the staff with
    */
   public EditTeacherCommand(Index index, EditTeacherDescriptor editTeacherDescriptor) {
     requireNonNull(index);
@@ -106,7 +106,7 @@ public class EditTeacherCommand extends Command {
     List<Staff> lastShownList = model.getFilteredStaffList();
 
     if (index.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
+      throw new CommandException(Messages.MESSAGE_INVALID_STAFF_DISPLAYED_ID);
     }
 
     Staff teacherToEdit = lastShownList.get(index.getZeroBased());

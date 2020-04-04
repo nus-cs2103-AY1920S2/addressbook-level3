@@ -15,6 +15,8 @@ import seedu.address.model.modelStudent.Student;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.uiStudent.StudentVeryDetailedCard;
+import seedu.address.ui.uiCourse.CourseDetailedCard;
+import seedu.address.ui.uiStudent.StudentCard;
 
 /**
  * Panel containing the list of courses.

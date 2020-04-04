@@ -33,6 +33,8 @@ public class Staff extends ModelObject {
     TEACHER,
     ADMIN
   }
+  public static final String MESSAGE_CONSTRAINTS =
+          "Level should only be either teacher or admin, and it should not be blank";
   // Identity fields
   private final Name name;
   private final ID id;
@@ -120,6 +122,11 @@ public class Staff extends ModelObject {
     } else {
       return false;
     }
+  }
+
+  public static boolean isValidLevel(String test) {
+    String testTrimmed = test.toUpperCase().trim();
+    return testTrimmed.equals(String.valueOf(Level.ADMIN)) || testTrimmed.equals(String.valueOf(Level.TEACHER));
   }
 
   /**
@@ -320,9 +327,9 @@ public class Staff extends ModelObject {
     final StringBuilder builder = new StringBuilder();
     String title = "";
     if (isTeacher()) {
-      title = "Teacher ";
+      title = "(Teacher)";
     } else {
-      title = "Admin ";
+      title = "(Admin)";
     }
     builder.append(title);
     builder.append(" Name: ").append(getName());

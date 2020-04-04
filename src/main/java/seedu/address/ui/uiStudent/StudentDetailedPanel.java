@@ -3,7 +3,9 @@ package seedu.address.ui.uiStudent;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -16,6 +18,8 @@ import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.uiCourse.CourseVeryDetailedCard;
 
+import javax.swing.text.AttributeSet;
+
 /**
  * Panel containing the list of students.
  */
@@ -26,10 +30,10 @@ public class StudentDetailedPanel extends UiPart<Region> {
   private CommandBox commandBox;
 
   @FXML
-  private ListView<Student> studentDetailedView;
+  public ListView<Student> studentDetailedView;
 
   @FXML
-  private ListView<HashMap> courseListView;
+  public ListView<HashMap> courseListView;
 
 
   //    {
@@ -43,16 +47,35 @@ public class StudentDetailedPanel extends UiPart<Region> {
 //      ]
 //    }
 
-  public StudentDetailedPanel(HashMap<String, Object> studentMap, CommandBox commandBox) {
+  public StudentDetailedPanel(ObservableMap<String, Object> studentMap, CommandBox commandBox) {
     super(FXML);
     this.commandBox = commandBox;
     Student student = (Student) studentMap.get("details");
     ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
     filteredStudents.add(student);
+
+
+
+    studentMap.addListener(new MapChangeListener<String, Object>() {
+      @Override
+      public void onChanged(MapChangeListener.Change<? extends String, ? extends Object> change) {
+        ObservableMap<String, Object> newStudentMap = (ObservableMap<String, Object>)change.getMap();
+        updateDetailView(newStudentMap);
+        updateCoursesView(newStudentMap);
+      }
+    });
+  }
+
+  private void updateDetailView(ObservableMap<String, Object> newStudentMap) {
+    Student student = (Student) newStudentMap.get("details");
+    ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
+    filteredStudents.add(student);
     studentDetailedView.setItems(filteredStudents);
     studentDetailedView.setCellFactory(listView -> new StudentListViewCell());
+  }
 
-    courseListView.setItems((ObservableList<HashMap>) studentMap.get("courses"));
+  private void updateCoursesView(ObservableMap<String, Object> newStudentMap) {
+    courseListView.setItems((ObservableList<HashMap>) newStudentMap.get("courses"));
     courseListView.setCellFactory(listView -> new CourseListViewCell());
   }
 

@@ -41,6 +41,7 @@ import seedu.address.ui.uiFinance.FinanceDetailedPanel;
 import seedu.address.ui.uiFinance.FinanceListPanel;
 import seedu.address.ui.uiStaff.StaffDetailedPanel;
 import seedu.address.ui.uiStaff.StaffListPanel;
+import seedu.address.ui.uiCourse.CourseDetailedPanel;
 import seedu.address.ui.uiStudent.StudentDetailedPanel;
 import seedu.address.ui.uiStudent.StudentListPanel;
 
@@ -210,55 +211,33 @@ public class MainWindow extends UiPart<Stage> {
 //      ]
 //    }
 
-    studentDetailedPanel = new StudentDetailedPanel(new HashMap<String, Object>(), commandBox);
+    studentDetailedPanel = new StudentDetailedPanel(logic.getFilteredStudentDetailsMap(), commandBox);
     staffDetailedPanel = new StaffDetailedPanel(new HashMap<String, Object>(), commandBox);
     courseDetailedPanel = new CourseDetailedPanel(new HashMap<String, Object>(), commandBox);
     financeDetailedPanel = new FinanceDetailedPanel(new HashMap<String, Object>(), commandBox);
     assignmentDetailedPanel = new AssignmentDetailedPanel(new HashMap<String, Object>(), commandBox);
 
-    //Name name, ID id, Amount amount, ID assignedStaffID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
-    HashMap<String, Object> courseDetailsMap = new HashMap<>();
-    Name name = new Name("Java");
-    ID id = new ID("11");
-    Amount amount = new Amount("99");
-    ID assignedStaffID = new ID("10");
-
-    Set<ID> assignedStudentsID = new HashSet<ID>();
-    assignedStudentsID.add(new ID("12"));
-    assignedStudentsID.add(new ID("13"));
-
-    Set<ID> assignedAssignmentsID = new HashSet<ID>();
-    assignedAssignmentsID.add(new ID("21"));
-    assignedAssignmentsID.add(new ID("22"));
-
-    Set<ID> assignedCourses = new HashSet<ID>();
-    assignedCourses.add(new ID("11"));
-    assignedCourses.add(new ID("12"));
-
-    Set<Tag> assignedTags = new HashSet<Tag>();
-    assignedTags.add(new Tag("Cool"));
-    assignedTags.add(new Tag("CS"));
-
-    Course fakeCourse = new Course(name, id, amount, assignedStaffID, assignedStudentsID, assignedAssignmentsID, assignedTags);
-    fakeCourse.processAssignedStaff((FilteredList<Staff>) logic.getFilteredStaffList());
-    courseDetailsMap.put("details", fakeCourse);
-    ObservableList<Student> filteredStudent = logic.getFilteredStudentList();
-    ObservableList<HashMap> courseMap = FXCollections.observableArrayList();
-    for (Student student : filteredStudent) {
-      HashMap<String, Object> m = new HashMap<>();
-      ObservableList<Progress> progressList = FXCollections.observableArrayList();
-      for (int i = 1; i <= 10; i++){
-        CompositeID compositeID = new CompositeID(new ID(String.valueOf(i)), new ID("11"));
-        Progress progress = new Progress(compositeID);
-        progressList.add(progress);
-      }
-      m.put("info", student);
-      m.put("progress_list", progressList);
-      m.put("number_of_done_progress", 3);
-      courseMap.add(m);
-    }
-    courseDetailsMap.put("students", courseMap);
-    courseDetailedPanel = new CourseDetailedPanel( courseDetailsMap, commandBox);
+//    Set<ID> assignedCourses = new HashSet<ID>();
+//    assignedCourses.add(new ID("11"));
+//    assignedCourses.add(new ID("12"));
+//    Set<Tag> assignedTags = new HashSet<Tag>();
+//    assignedTags.add(new Tag("Cool"));
+//    assignedTags.add(new Tag("CS"));
+//    Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
+//    fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
+//    studentDetailsMap.put("details", fakeStudent);
+//    ObservableList<Course> filteredCourses = logic.getFilteredCourseList();
+//    ObservableList<HashMap> courseMap = FXCollections.observableArrayList();
+//    for (Course course : filteredCourses) {
+//      HashMap<String, Object> m = new HashMap<>();
+//      ObservableList<Progress> progressList = FXCollections.observableArrayList();
+//      m.put("info", course);
+//      m.put("progress_list", progressList);
+//      m.put("number_of_done_progress", 3);
+//      courseMap.add(m);
+//    }
+//    studentDetailsMap.put("courses", courseMap);
+//    studentDetailedPanel = new StudentDetailedPanel(studentDetailsMap, commandBox);
 
     dataListPanelPlaceholder.getChildren().add(courseListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(courseDetailedPanel.getRoot());

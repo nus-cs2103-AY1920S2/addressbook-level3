@@ -33,7 +33,24 @@ public class ProgressManager extends BaseManager {
         }
 
         ReadOnlyAddressBookGeneric<Progress> test =  model.getProgressAddressBook();
+        postDataStorageChangeEvent(
+                model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+                Constants.ENTITY_TYPE.PROGRESS
+        );
         logger.info(test.getList().toString());
+    }
+
+    // Called when unassign student from course
+    public static void removeAllAssignmentsToOneStudent(ID courseID, ID studentID) throws CommandException {
+        requireNonNull(courseID);
+        requireNonNull(studentID);
+
+        Set<ID> setOfAssignmentIDs = model.getCourse(courseID).getAssignedAssignmentsID();
+
+        for (ID assignmentID : setOfAssignmentIDs) {
+            CompositeID currProgressID = new CompositeID(assignmentID, studentID);
+            model.delete(new Progress(currProgressID));
+        }
     }
 
     // Called by AssignAssignmentToCourse
@@ -45,6 +62,10 @@ public class ProgressManager extends BaseManager {
             CompositeID currProgressID = new CompositeID(assignmentID, studentID);
             model.add(new Progress(currProgressID));
         }
+        postDataStorageChangeEvent(
+            model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+            Constants.ENTITY_TYPE.PROGRESS
+        );
     }
 
     private static Progress get(ID assignmentID, ID studentID) throws CommandException {
@@ -52,23 +73,32 @@ public class ProgressManager extends BaseManager {
     }
 
     public static Set<Progress> getProgress(ID courseID, ID studentID) throws CommandException {
-        Set<Progress> allProgressOfStudentInOneCourse = new HashSet<>();
+        Set<Progress> allProgressOfOneStudentInOneCourse = new HashSet<>();
 
         Set<ID> setOfAssignmentIDs = model.getCourse(courseID).getAssignedAssignmentsID();
 
         for (ID assignmentID : setOfAssignmentIDs) {
             Progress curr = get(assignmentID, studentID);
-            allProgressOfStudentInOneCourse.add(curr);
+            allProgressOfOneStudentInOneCourse.add(curr);
         }
 
-        return allProgressOfStudentInOneCourse;
+        return allProgressOfOneStudentInOneCourse;
     }
 
-    public static String getNumberOfProgressesDone(ID courseID, ID studentID) throws CommandException {
-        Set<Progress> allProgresses = ProgressManager.getProgress(courseID, studentID);
-        String output = "%s : %s";
-        int totalNumProgresses = allProgresses.size();
+    public static Set<Progress> getAllProgressOfOneCourse(ID courseID) throws CommandException {
+        Set<Progress> allProgressOfStudentsInOneCourse = new HashSet<>();
 
+        Set<ID> setOfStudentIDs = model.getCourse(courseID).getAssignedStudentsID();
+
+        for (ID studentID : setOfStudentIDs) {
+            allProgressOfStudentsInOneCourse.addAll(getProgress(courseID, studentID));
+        }
+
+        return allProgressOfStudentsInOneCourse;
+    }
+
+    public static Integer getNumberOfProgressesDone(ID courseID, ID studentID) throws CommandException {
+        Set<Progress> allProgresses = ProgressManager.getProgress(courseID, studentID);
         int doneCount = 0;
 
         for (Progress progress : allProgresses) {
@@ -77,7 +107,7 @@ public class ProgressManager extends BaseManager {
             }
         }
 
-        return String.format(output, doneCount, totalNumProgresses);
+        return doneCount;
     }
 
     public static void markDoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {

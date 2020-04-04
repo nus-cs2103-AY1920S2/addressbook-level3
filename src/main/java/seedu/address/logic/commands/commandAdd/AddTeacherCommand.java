@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
@@ -19,9 +20,9 @@ import seedu.address.model.modelStaff.Staff;
  */
 public class AddTeacherCommand extends AddCommand {
 
-  public static final String COMMAND_WORD = "add-teacher";
+  public static final String COMMAND_WORD = "add-staff";
 
-  public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a teacher to the address book. "
+  public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff to the address book. "
       + "Parameters: "
       + PREFIX_NAME + "NAME "
       + PREFIX_GENDER + "GENDER "
@@ -40,31 +41,42 @@ public class AddTeacherCommand extends AddCommand {
       + PREFIX_TAG + "LovesArt "
       + PREFIX_TAG + "Friendly";
 
-  public static final String MESSAGE_SUCCESS = "New teacher added: %1$s";
-  public static final String MESSAGE_DUPLICATE_TEACHER = "This teacher already exists in the address book";
+  public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
+  public static final String MESSAGE_DUPLICATE_STAFF = "This staff already exists in the address book";
 
   private final Staff toAdd;
+  private Integer index;
 
   /**
-   * Creates an AddCommand to add the specified {@code Teacher}
+   * Creates an AddCommand to add the specified {@code Staff}
    */
   public AddTeacherCommand(Staff teacher) {
     requireNonNull(teacher);
     toAdd = teacher;
   }
 
-  protected void generateOppositeCommand() throws CommandException {
+  public AddTeacherCommand(Staff teacher, Integer index) {
+    requireNonNull(teacher);
+    toAdd = teacher;
+    this.index = index;
+  }
 
+  protected void generateOppositeCommand() throws CommandException {
+    oppositeCommand = new DeleteTeacherCommand(this.toAdd);
   }
 
   @Override
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     if (model.has(toAdd)) {
-      throw new CommandException(MESSAGE_DUPLICATE_TEACHER);
+      throw new CommandException(MESSAGE_DUPLICATE_STAFF);
     }
 
-    model.add(toAdd);
+    if (index == null) {
+      model.add(toAdd);
+    } else {
+      model.addAtIndex(toAdd, index);
+    }
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
