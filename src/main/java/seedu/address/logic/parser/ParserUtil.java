@@ -144,7 +144,7 @@ public class ParserUtil {
      */
     public static CourseName parseCourseName(String courseName) throws ParseException {
         requireNonNull(courseName);
-        String trimmedCourseName = courseName.trim();
+        String trimmedCourseName = courseName.trim().toUpperCase();
         if (trimmedCourseName.equals("")) {
             throw new ParseException(MESSAGE_MISSING_COURSE);
         }
