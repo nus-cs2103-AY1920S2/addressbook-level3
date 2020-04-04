@@ -357,27 +357,36 @@ In this section, you will learn more about the `paid` command, how to use it and
 
 *Summary: `paid` subtracts the amount a Person owes you.*
 
-===== How to use the Paid Command
+*How to use the Paid Command*
 
-Format: +
+Format of Paid Command: +
 `paid INDEX [AMOUNT]` +
 
-Example: +
+[NOTE]
+====
+* `INDEX` is a compulsory field that must be stated. Instead of typing a Person's name,
+you can type his/her index thus saving you time and effort.
+
+* `AMOUNT` is an optional field. It refers to the amount paid by that Person. Leaving this field
+empty is equivalent to the Person paying you the full amount he owes you.
+
+* `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+====
+
+Example of valid Paid Commands: +
 `paid 2` +
 `paid 2 3.90`
 
 [TIP]
 ====
 * Use `listamount` command to find the index of the person who paid you.
-* Leaving the amount empty is equivalent to paying the full amount. As seen in `paid 2` above.
 ====
 
 [NOTE]
 ====
 * You will only be able to use this command after you have marked the receipt as done using the
 `donereceipt` command.
-* The person will automatically be removed from the list if the amount owed is $0.
-* Price can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+* The person will automatically be removed from the list if the amount he owes you drops to $0.
 ====
 
 
