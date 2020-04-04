@@ -7,19 +7,22 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>> {
-package TSS {
-class TSS
-class TotalEarnings
-class TotalHours
-class Rate
+package Session {
+class Session
+class UniqueDoneSessionList
+}
+package Module {
+class Module
+class UniqueModuleList
 }
 }
 
 Class HiddenOutside #FFFFFF
 
-TaTracker *--> "1" TSS
-TSS *-->"1" TotalEarnings
-TSS *-->"1" TotalHours
-TSS *-->"1" Rate
+TaTracker --> "1 " UniqueDoneSessionList
+UniqueModuleList -up-> "*" Module
+Module -up-> "1  " UniqueDoneSessionList
+UniqueDoneSessionList --> "*" Session
+
 
 @enduml

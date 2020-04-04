@@ -600,10 +600,9 @@ functioning of the TSS view.
 .TSS View - Class Diagram
 image::TssModelClassDiagram.png[]
 
-The TaTracker model class contains a TSS which helps it keep track of the total
-hours the user is associated with. Each TSS contains the TotalHours of all the
-done sessions, a rate which represents how much the user is paid per hour and
-the total earnings of the user.
+The TaTracker model class contains a UniqueDoneSessionList which keeps track of
+all the sessions that have been marked as done. Each of the sessions are associated
+with a Module in the UniqueModuleList.
 
 .TSS View - Activity Diagram
 image::TssActivityDiagram.png[]
