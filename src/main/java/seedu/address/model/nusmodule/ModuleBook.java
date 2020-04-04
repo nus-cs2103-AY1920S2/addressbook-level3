@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 
 /**
  * Wraps all module-related data at the module-book level
@@ -51,6 +52,17 @@ public class ModuleBook {
         this.modulesTakenList.remove(index);
     }
 
+    public NusModule getModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        NusModule result = null;
+        for (NusModule module: modules) {
+            if (module.getModuleCode().equals(moduleCode)) {
+                result = module;
+            }
+        }
+        return result;
+    }
+
     /**
      * Updates the grade of the {@code NusModule} that has the same module code as given from this {@code ModuleBook}.
      * such nus module must exist in the module book.
@@ -79,6 +91,12 @@ public class ModuleBook {
         }
     }
 
+    public void deleteModuleTask(ModuleCode moduleCode, Index index) {
+        requireNonNull(moduleCode);
+        requireNonNull(index);
+        getModule(moduleCode).getTasks().remove(index);
+    }
+
     public void setMajor(Major major) {
         requireNonNull(major);
         this.majorTaken = major;
@@ -105,5 +123,9 @@ public class ModuleBook {
     public double getCap() {
         Capulator capulator = new Capulator(modules);
         return capulator.calculateCap();
+    }
+
+    public int getSizeOfModuleTaskList(ModuleCode moduleCode) {
+        return getModule(moduleCode).getTasks().size();
     }
 }

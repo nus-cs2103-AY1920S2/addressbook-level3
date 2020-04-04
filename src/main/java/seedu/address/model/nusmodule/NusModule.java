@@ -31,6 +31,10 @@ public class NusModule {
         tasks.add(task);
     }
 
+    public List<ModuleTask> getTasks() {
+        return this.tasks;
+    }
+
     public double getGradePoint() {
         return this.grade.get().getPoint();
     }

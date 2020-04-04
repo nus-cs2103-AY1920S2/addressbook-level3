@@ -5,10 +5,12 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
+import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
@@ -148,6 +150,12 @@ public interface Model {
     void updateMajor(Major major);
 
     ObservableList<NusModule> getModulesListTaken();
+
+    ModuleBook getModuleBook();
+
+    int getSizeOfModuleTaskList(ModuleCode moduleCode);
+
+    void deleteModuleTask(ModuleCode moduleCode, Index index);
 
     void updateModulesListTaken(Predicate<NusModule> predicate);
 

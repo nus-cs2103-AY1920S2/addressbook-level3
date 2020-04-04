@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
@@ -203,6 +204,21 @@ public class ModelManager implements Model {
     public void updateModulesListTaken(Predicate<NusModule> predicate) {
         requireNonNull(predicate);
         moduleListTaken.setPredicate(predicate);
+    }
+
+    @Override
+    public ModuleBook getModuleBook() {
+        return this.moduleBook;
+    }
+
+    @Override
+    public int getSizeOfModuleTaskList(ModuleCode moduleCode) {
+        return moduleBook.getSizeOfModuleTaskList(moduleCode);
+    }
+
+    @Override
+    public void deleteModuleTask(ModuleCode moduleCode, Index index) {
+        moduleBook.deleteModuleTask(moduleCode, index);
     }
 
     @Override
