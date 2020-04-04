@@ -5,7 +5,7 @@ start
 if () then ([The session exists at the specified index])
   :TotalHours in TaTracker is incremented based on the
   duration of the session;
-  :TotalEarnings in TaTracker is calculated based on the
+  :TotalEarnings in UI is calculated based on the
   rate input by the user (TotalEarnings = TotalHours * Rate);
   :Session is added to UniqueDoneSessionList;
 

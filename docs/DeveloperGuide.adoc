@@ -604,14 +604,8 @@ The TaTracker model class contains a UniqueDoneSessionList which keeps track of
 all the sessions that have been marked as done. Each of the sessions are associated
 with a Module in the UniqueModuleList.
 
-.TSS View - Activity Diagram
+.Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
-
-1. A DoneSessionCommand is called,
-2. TotalHours is incremented according to the duration of the completed session.
-3. The duration of the completed session is calculated by subtracting StartDateTime
-of the session from EndDateTime and then rounding up the value to a whole.
-4. TotalEarnings is calculated by multiplying TotalHours with Rate
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
