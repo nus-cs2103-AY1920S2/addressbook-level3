@@ -121,7 +121,7 @@ public class AddCommand extends Command {
             }
         } else { // Module does not exist
             if (addSemester == 0) {
-                throw new CommandException("Error: Please specify semester.");
+                throw new CommandException("Error: Please add this module to a semester first.");
             }
             // Create Personal object
             personal = new Personal();
@@ -135,7 +135,8 @@ public class AddCommand extends Command {
         }
         if (addTask != null) {
             // Check if the deadline is added to a module in the current semester
-            if (addSemester != currentSemester) {
+            if (semesterOfModule != currentSemester && addSemester != currentSemester) {
+
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
             }
             Deadline deadline;
