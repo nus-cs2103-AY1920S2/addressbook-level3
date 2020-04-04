@@ -21,6 +21,7 @@ public class CreateCommand extends ScheduleCommand {
     public static final String MESSAGE_USAGE = "Usage: schedule create WORKOUT_ID d/<dateTime>";
     public static final String MESSAGE_SUCCESS = "New schedule added: %1$s";
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists";
+    public static final String MESSAGE_DATETIME_IN_THE_PAST = "Datetime provided is in the past";
 
     private final Index workoutId;
     private final DateTime dateTime;
@@ -37,6 +38,10 @@ public class CreateCommand extends ScheduleCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (!DateTime.isDateEqualOrLaterThanToday(dateTime)) {
+            throw new CommandException(MESSAGE_DATETIME_IN_THE_PAST);
+        }
+
         requireNonNull(model);
         List<Workout> lastShownList = model.getFilteredWorkoutList();
 

@@ -15,15 +15,15 @@ public class SampleScheduleDataUtil {
         Schedule[] schedules = new Schedule[3];
 
         // Schedule 1
-        DateTime scheduleOneDateTime = new DateTime("2020-02-29 13:00");
+        DateTime scheduleOneDateTime = new DateTime("2020-05-11 13:00");
         schedules[0] = new OneTimeSchedule(workouts[0], scheduleOneDateTime);
 
         // Schedule 2
-        DateTime scheduleTwoDateTime = new DateTime("2020-04-01 23:00");
+        DateTime scheduleTwoDateTime = new DateTime("2020-05-05 23:00");
         schedules[1] = new OneTimeSchedule(workouts[1], scheduleTwoDateTime);
 
         // Schedule 3
-        DateTime scheduleThreeDateTime = new DateTime("2021-09-29 12:00");
+        DateTime scheduleThreeDateTime = new DateTime("2021-05-15 12:00");
         schedules[2] = new OneTimeSchedule(workouts[2], scheduleThreeDateTime);
         return schedules;
     }

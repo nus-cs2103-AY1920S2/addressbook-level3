@@ -6,17 +6,19 @@ import static seedu.zerotoone.commons.util.AppUtil.checkArgument;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * STEPH_TODO_JAVADOC
  */
 public class DateTime implements Comparable<DateTime> {
 
-    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm";
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+    public static final String DATE_TIME_PATTERN = "uuuu-MM-dd HH:mm";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern(DATE_TIME_PATTERN).withResolverStyle(ResolverStyle.STRICT);
 
     public static final String MESSAGE_CONSTRAINTS =
-            String.format("DateTime must be in the format %1$s.", DATE_TIME_PATTERN);
+            String.format("Datetime must be valid and in the format %1$s.", DATE_TIME_PATTERN);
 
     private final LocalDateTime localDateTime;
 
@@ -42,6 +44,30 @@ public class DateTime implements Comparable<DateTime> {
             return false;
         }
         return true;
+    }
+
+    /**
+     *
+     * @param dateTime
+     * @return
+     */
+    public static Boolean isDateEqualOrLaterThanToday(DateTime dateTime) {
+        DateTime now = getNow();
+        return dateTime.isDateEqualOrLaterThan(now);
+    }
+
+    /**
+     *
+     * @param other
+     * @return
+     */
+    public Boolean isDateEqualOrLaterThan(DateTime other) {
+        return this.localDateTime.getYear() >= other.localDateTime.getYear()
+            && this.localDateTime.getDayOfYear() >= other.localDateTime.getDayOfYear();
+    }
+
+    private static DateTime getNow() {
+        return new DateTime(LocalDateTime.now().format(DATE_TIME_FORMATTER));
     }
 
     @Override
