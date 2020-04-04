@@ -1,6 +1,9 @@
 package seedu.address.model.nusmodule;
 
+import java.util.List;
 import java.util.Optional;
+
+import seedu.address.searcher.Module;
 
 
 /**
@@ -11,12 +14,25 @@ public class NusModule {
     public final int modularCredit;
     private boolean isTaking;
     private Optional<Grade> grade;
+    private List<ModuleTask> tasks;
+    private final Module moduleInfo;
 
-    public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking, Optional<Grade> grade) {
+    public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking,
+                     Optional<Grade> grade, List<ModuleTask> tasks, Module moduleInfo) {
         this.moduleCode = moduleCode;
         this.modularCredit = modularCredit;
         this.isTaking = isTaking;
         this.grade = grade;
+        this.tasks = tasks;
+        this.moduleInfo = moduleInfo;
+    }
+
+    public void addTask(ModuleTask task) {
+        tasks.add(task);
+    }
+
+    public List<ModuleTask> getTasks() {
+        return this.tasks;
     }
 
     public double getGradePoint() {
@@ -33,6 +49,10 @@ public class NusModule {
 
     public ModuleCode getModuleCode() {
         return this.moduleCode;
+    }
+
+    public Module getModuleInfo() {
+        return this.moduleInfo;
     }
 
     @Override

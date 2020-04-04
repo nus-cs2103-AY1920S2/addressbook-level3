@@ -13,13 +13,11 @@ import seedu.address.ui.CalenderPanel;
  * Adds a deadline.
  */
 
-public class DeleteDeadlineCommand extends Command {
-
-    public static final String COMMAND_WORD = "deadlineDelete";
+public class DeleteDeadlineCommand extends DeleteTaskCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete deadline. Format of input should be:"
-            + " deadlineDelete index/{num} "
-            + "Example: deadlineDelete index/2";
+            + " taskDelete index/{num} "
+            + "Example: taskDelete index/2";
 
     public static final String MESSAGE_SUCCESS = "Deadline Deleted: ";
     public static final String MESSAGE_FAIL = "No such deadline exists";
@@ -29,7 +27,7 @@ public class DeleteDeadlineCommand extends Command {
 
     private final Task deadlineToDelete;
 
-    public DeleteDeadlineCommand (Task deadlineToDelete) {
+    public DeleteDeadlineCommand(Task deadlineToDelete) {
         requireNonNull(deadlineToDelete);
         this.deadlineToDelete = deadlineToDelete;
     }

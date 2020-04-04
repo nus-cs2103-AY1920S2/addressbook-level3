@@ -11,12 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.Major;
 import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.todolist.Task;
@@ -201,6 +204,31 @@ public class ModelManager implements Model {
     public void updateModulesListTaken(Predicate<NusModule> predicate) {
         requireNonNull(predicate);
         moduleListTaken.setPredicate(predicate);
+    }
+
+    @Override
+    public ModuleBook getModuleBook() {
+        return this.moduleBook;
+    }
+
+    @Override
+    public int getSizeOfModuleTaskList(ModuleCode moduleCode) {
+        return moduleBook.getSizeOfModuleTaskList(moduleCode);
+    }
+
+    @Override
+    public void deleteModuleTask(ModuleCode moduleCode, Index index) {
+        moduleBook.deleteModuleTask(moduleCode, index);
+    }
+
+    @Override
+    public void addModuleTask(ModuleTask moduleTask) {
+        moduleBook.addModuleTask(moduleTask);
+    }
+
+    @Override
+    public void updateMajor(Major major) {
+        moduleBook.setMajor(major);
     }
 
     //=========== Filtered Person List Accessors =============================================================
