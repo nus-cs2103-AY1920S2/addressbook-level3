@@ -191,6 +191,11 @@ public class ModelManager implements Model {
         return filteredAssignments;
     }
 
+    @Override
+    public void deleteAssignment(Assignment target){
+        scheduler.removeAssignment(target);
+    }
+
     //=========== Event Schedule ================================================================================
 
     @Override

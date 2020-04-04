@@ -28,7 +28,7 @@ public class HelpCommand extends Command {
             + "4. " + RedoCommand.COMMAND_WORD + ": " + RedoCommand.COMMAND_FUNCTION + "\n"
             + "5. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
             + "6. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "\n"
+            + "\nAddress Book Commands:\n"
             + "7. " + AddCommand.COMMAND_WORD + ": " + AddCommand.COMMAND_FUNCTION + "\n"
             + "8. " + DeleteCommand.COMMAND_WORD + ": " + DeleteCommand.COMMAND_FUNCTION + "\n"
             + "9. " + EditCommand.COMMAND_WORD + ": " + EditCommand.COMMAND_FUNCTION + "\n"
@@ -41,20 +41,20 @@ public class HelpCommand extends Command {
             + "16. " + ListCommand.COMMAND_WORD + ": " + ListCommand.COMMAND_FUNCTION + "\n"
             + "17. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
             + "18. " + ShowBirthdayCommand.COMMAND_WORD + ": " + ShowBirthdayCommand.COMMAND_FUNCTION + "\n"
-            + "\n"
+            + "\nRestaurant Book Commands:\n"
             + "19. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "20. " + DeleteRestaurantCommand.COMMAND_WORD + ": " + DeleteRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "21. " + AddRestaurantNoteCommand.COMMAND_WORD + ": " + AddRestaurantNoteCommand.COMMAND_FUNCTION + "\n"
             + "22. " + VisitedRestaurantCommand.COMMAND_WORD + ": " + VisitedRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "23. " + ListRestaurantCommand.COMMAND_WORD + ": " + ListRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "24. " + "(rt)search [Coming Soon]\n"
-            + "\n"
+            + "\nSchoolwork Tracker Commands:\n"
             + "25. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "26. " + "(st)delete [Coming Soon]\n"
+            + "26. " + DeleteAssignmentCommand.COMMAND_WORD + ": " + DeleteAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "27. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "28. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
             + "29. " + ScheduleCommand.COMMAND_WORD + ": " + ScheduleCommand.COMMAND_FUNCTION + "\n"
-            + "\n"
+            + "\nEvent Book Commands:\n"
             + "30. " + AddEventCommand.COMMAND_WORD + ": " + AddEventCommand.COMMAND_FUNCTION + "\n"
             + "31. " + ListEventCommand.COMMAND_WORD + ": " + ListEventCommand.COMMAND_FUNCTION + "\n";
 
@@ -104,7 +104,7 @@ public class HelpCommand extends Command {
         commands.add("23. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("24. " + "Coming Soon" + "\n");
         commands.add("25. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("26. " + "Coming Soon" + "\n");
+        commands.add("26. " + DeleteAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("27. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("28. " + DoneCommand.MESSAGE_USAGE + "\n");
         commands.add("29. " + ScheduleCommand.MESSAGE_USAGE + "\n");
