@@ -147,7 +147,7 @@
     -fx-text-fill: white;
 }
 
-#exerciseId, #exerciseName, #workoutId, #workoutName {
+#exerciseId, #exerciseName, #workoutId, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName {
     -fx-font-family: "Open Sans Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: salmon;
@@ -162,6 +162,10 @@
     -fx-text-fill: white;
 }
 
+#dateTime {
+    -fx-padding: 4px 0px 0px 0px;
+}
+
 .cell_big_label {
     -fx-font-family: "Open Sans Semibold";
     -fx-font-size: 16px;
@@ -169,7 +173,7 @@
 }
 
 .cell_small_label {
-    -fx-font-family: "Open Sans";
+    -fx-font-family: "Open Sans Regular";
     -fx-font-size: 13px;
 }
 
