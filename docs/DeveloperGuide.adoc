@@ -257,7 +257,7 @@ Students are a part of *groups* and groups are a part of *modules*.
 The following class diagram shows how different classes are related in the
 functioning of the `Student View`.
 
-.Module View - Class Diagram
+.Student View - Class Diagram
 image::ModuleModelClassDiagram.png[]
 
 The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
