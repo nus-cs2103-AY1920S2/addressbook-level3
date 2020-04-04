@@ -917,8 +917,8 @@ provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to b
 * Please include a whitespace in between the keyword & transaction id or keyword & the attributes aforementioned. +
 i.e. `return` `tid/123abcd` +
  or +
-`return` `tid/123abcd` `n/weijie` `a/blk 32 clementi road` `p/92123412`
-`w/Jurong warehouse` `rts/2020-04-05`
+`return` `tid/A999999` `n/John Doe` `p/98765432` `a/311 Clementi Ave 2 #02-25` `e/johndoe@gmail.com`
+`rts/2020-05-05 1500` `w/5 Toh Guan Rd E #02-30 S608831` `c/NIL` `type/glass`
 ====
 
 [[return-examples]]

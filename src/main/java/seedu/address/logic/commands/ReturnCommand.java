@@ -29,7 +29,7 @@ public class ReturnCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns an order and adds it to the returns book. "
             + "Parameters: "
-            + PREFIX_TID + "TRANSACTION_ID"
+            + PREFIX_TID + "TRANSACTION_ID "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -43,10 +43,10 @@ public class ReturnCommand extends Command {
             + PREFIX_TID + "A999999 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_ADDRESS + "311 Clementi Ave 2 #02-25 "
             + PREFIX_EMAIL + "johndoe@gmail.com "
-            + PREFIX_RETURN_TIMESTAMP + "2019-12-02 1500 "
-            + PREFIX_WAREHOUSE + "5 Toh Guan Rd E, #02-30 S608831 "
+            + PREFIX_RETURN_TIMESTAMP + "2020-05-05 1500 "
+            + PREFIX_WAREHOUSE + "5 Toh Guan Rd E #02-30 S608831 "
             + PREFIX_COMMENT + "NIL "
             + PREFIX_TYPE + "glass";
 
