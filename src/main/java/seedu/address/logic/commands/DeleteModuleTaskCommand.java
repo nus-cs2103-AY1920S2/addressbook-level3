@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.nusmodule.ModuleCode;
 
+/**
+ * Deletes a task of certain module identified using it's displayed index from the module book.
+ */
 public class DeleteModuleTaskCommand extends DeleteTaskCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete a module task "

@@ -91,6 +91,9 @@ public class ModuleBook {
         }
     }
 
+    /**
+     * Delete a module task in a specific module recorded in our program.
+     */
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         requireNonNull(moduleCode);
         requireNonNull(index);
