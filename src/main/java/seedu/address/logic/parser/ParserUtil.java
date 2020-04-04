@@ -25,7 +25,7 @@ import seedu.address.model.profile.course.module.personal.Grade;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_SEMESTER = "Semester is not a valid integer.";
+    public static final String MESSAGE_INVALID_SEMESTER = "Please input a positive integer as current semester!";
 
 
     /**
@@ -130,7 +130,7 @@ public class ParserUtil {
     public static String parseDeadline(String deadline) throws ParseException {
         String trimmedDeadline = deadline.trim();
         String[] dateTime = trimmedDeadline.split(" ");
-        if (!Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
+        if (dateTime.length < 2 || !Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
             throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
         }
         return trimmedDeadline;

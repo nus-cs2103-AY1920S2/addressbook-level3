@@ -39,8 +39,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
             if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
-                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-                System.out.println("here");
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)
+                    && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
 
@@ -56,20 +56,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             String newDeadline = null;
 
             if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-                String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
-                if (!ParserUtil.isInteger(semester)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-                }
-                intSemester = Integer.parseInt(semester);
+                intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
             }
+
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
                 grade = argMultimap.getValue(PREFIX_GRADE).get();
             }
+
+            // Reject when deadline is given but task name not given
+            if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                throw new ParseException("Error: Please provide the name of the task you are trying to edit.");
+            }
+
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
                 oldTask = argMultimap.getValue(PREFIX_TASK).get();
                 if (!arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
                         && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
-                    throw new ParseException("Error: Please specify which edits to make to this task.");
+                    throw new ParseException("Error: Please specify a new task name or deadline to be edited.");
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
                     newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();
@@ -80,7 +84,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
             return new EditCommand(moduleCode, intSemester, grade, oldTask, newTask, newDeadline);
         } else { // EDIT PROFILE
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
+
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            } else if (!arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
                     && !arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)
                     && !arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -98,11 +105,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)) {
-                String currentSemesterString = argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get();
-                if (!ParserUtil.isInteger(currentSemesterString)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-                }
-                currentSemester = Integer.parseInt(currentSemesterString);
+                currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
                 specialisation = argMultimap.getValue(PREFIX_SPEC).get();
