@@ -181,4 +181,7 @@ public class EditPersonDescriptor {
                 && getRemarks().equals(e.getRemarks())
                 && getTags().equals(e.getTags());
     }
+
+    public void deleteTags(Set<Tag> tags) {
+    }
 }
