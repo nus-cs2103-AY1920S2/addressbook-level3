@@ -291,4 +291,36 @@ A: Download the jar in the other computer and copy the entire data folder over t
 
 == Command Summary
 
-The following section gives a quick summary of all the commands you can use in CookBuddy.
+The following section gives a quick summary of all the commands you can use in CookBuddy arranged in an alphabetical order.
+
+* `count`: *Counts the total number of recipes stored in CookBuddy*
+
+* `delete *INDEX*`: *Deletes the recipe at given `INDEX`*
+
+* `done *INDEX*`: *Marks the recipe at given `INDEX` as `done`*
+
+* `exit`: *Exits CookBuddy*
+
+* `fav *INDEX*`: *Favourites the recipe at given `INDEX`*
+
+* `find [n/NAME [...]] [ing/INGREDIENT [...]]`: *Finds an existing recipe with the given parameter from CookBuddy*
+
+* `help`: *Lists all the commands recognised by CookBuddy*
+
+* `help [COMMAND]`: *Displays how to use the `COMMAND` command*
+
+* `list`: *Lists all the recipes*
+
+* `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...]] [cal/CALORIES] [s/SERVING_SIZE]
+[r/RATING] [t/TAG [, ...]]`: *Modifies the given parameter(s) of the recipe*
+
+* `new *n/NAME* *ing/INGREDIENT, QUANTITY* [; ...] *ins/INSTRUCTION* [; ...] [cal/CALORIES] [s/SERVING_SIZE]
+[r/RATING] [t/TAG [, ...]]`: *Adds a new recipe*
+
+* `reset`: *Removes all the recipes from CookBuddy*
+
+* `undo *INDEX*`: *Undoes the recipe at given `INDEX`*
+
+* `unfav *INDEX*`: *UnFavourites the recipe at given `INDEX`*
+
+* `view *INDEX*`: *Displays the recipe at given `INDEX` on CookBuddy*
