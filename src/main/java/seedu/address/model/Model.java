@@ -157,6 +157,8 @@ public interface Model {
 
     void deleteModuleTask(ModuleCode moduleCode, Index index);
 
+    void doneModuleTask(ModuleCode moduleCode, Index index);
+
     void updateModulesListTaken(Predicate<NusModule> predicate);
 
     //=========== Deadline ==================================================================================

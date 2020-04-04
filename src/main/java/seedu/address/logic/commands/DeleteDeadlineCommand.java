@@ -15,10 +15,6 @@ import seedu.address.ui.CalenderPanel;
 
 public class DeleteDeadlineCommand extends DeleteTaskCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete deadline. Format of input should be:"
-            + " taskDelete index/{num} "
-            + "Example: taskDelete index/2";
-
     public static final String MESSAGE_SUCCESS = "Deadline Deleted: ";
     public static final String MESSAGE_FAIL = "No such deadline exists";
 
