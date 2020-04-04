@@ -43,7 +43,7 @@ public class PersonCardBday extends UiPart<Region> {
         super(FXML);
         this.person = person;
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        phone.setText("Phone: " + person.getPhone().value);
 
         birthday.setStyle("-fx-text-fill: #000");
         if (LocalDate.parse(person.getBirthday().birthday, inputFormat).compareTo(LocalDate.now()) == 0) {
@@ -70,7 +70,7 @@ public class PersonCardBday extends UiPart<Region> {
             }
             i++;
         }
-        remark.setText(remarkValue);
+        remark.setText("Remarks: " + remarkValue);
     }
 
     @Override
