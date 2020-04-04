@@ -110,7 +110,7 @@
           <Insets left="15.0" />
         </padding>
       </HBox>
-      <ListView fx:id="progressListView" VBox.vgrow="ALWAYS" />
+      <ListView id="detailedPanel" fx:id="progressListView" VBox.vgrow="ALWAYS" />
       <padding>
         <Insets bottom="5.0" top="5.0" />
       </padding>

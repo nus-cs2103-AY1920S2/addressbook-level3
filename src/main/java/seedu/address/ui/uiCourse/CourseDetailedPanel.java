@@ -9,10 +9,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
+import seedu.address.ui.uiStudent.StudentVeryDetailedCard;
 import seedu.address.ui.uiCourse.CourseDetailedCard;
 import seedu.address.ui.uiStudent.StudentCard;
 
@@ -29,13 +31,18 @@ public class CourseDetailedPanel extends UiPart<Region> {
   private ListView<Course> courseDetailedView;
 
   @FXML
-  private ListView<Student> studentListView;
+  private ListView<HashMap> studentListView;
 
-//  Map: key -> value
-//  {
-//    "details": Course
-//    "student": [StudentDetail]
-//  }
+  //    {
+//      "details": Course,
+//      "students": [
+//          {
+//            "info": Student,
+//            "progress_list": [Progress],
+//            "number_of_done_progress": Integer,
+//          }
+//      ]
+//    }
 
   public CourseDetailedPanel(HashMap<String, Object> courseMap, CommandBox commandBox) {
     super(FXML);
@@ -46,7 +53,7 @@ public class CourseDetailedPanel extends UiPart<Region> {
     courseDetailedView.setItems(filteredCourses);
     courseDetailedView.setCellFactory(listView -> new CourseListViewCell());
 
-    studentListView.setItems((ObservableList<Student>) courseMap.get("students"));
+    studentListView.setItems((ObservableList<HashMap>) courseMap.get("students"));
     studentListView.setCellFactory(listView -> new StudentListViewCell());
   }
 
@@ -73,17 +80,20 @@ public class CourseDetailedPanel extends UiPart<Region> {
    * Custom {@code ListCell} that displays the graphics of a {@code Student} using a {@code
    * StudentCard}.
    */
-  class StudentListViewCell extends ListCell<Student> {
+  class StudentListViewCell extends ListCell<HashMap> {
 
     @Override
-    protected void updateItem(Student student, boolean empty) {
-      super.updateItem(student, empty);
+    protected void updateItem(HashMap studentMap, boolean empty) {
+      super.updateItem(studentMap, empty);
 
-      if (empty || student == null) {
+      if (empty || studentMap == null) {
         setGraphic(null);
         setText(null);
       } else {
-        setGraphic(new StudentCard(student, commandBox,getIndex() + 1).getRoot());
+        Student thisStudent = (Student) studentMap.get("info");
+        ObservableList<Progress> progressList = (ObservableList<Progress>) studentMap.get("progress_list");
+        int noOfDoneProgress = (int) studentMap.get("number_of_done_progress");
+        setGraphic(new StudentVeryDetailedCard(thisStudent, progressList, noOfDoneProgress, commandBox,getIndex() + 1).getRoot());
       }
     }
   }
