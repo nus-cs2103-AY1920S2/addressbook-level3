@@ -1,6 +1,7 @@
-package seedu.address.todolist;
+package seedu.address.calender;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 
 public class Task {
     private static ObservableList<Task> deadlineTaskList;
+    private static HashMap<String, ArrayList<Task>> deadlineTaskHashMap = new HashMap<>();
     private String description;
     private boolean isDone;
 
@@ -49,6 +51,44 @@ public class Task {
         return description;
     }
 
+    public static void addTaskPerDate(String date, Task task) {
+        if (!deadlineTaskHashMap.containsKey(date)) {
+            deadlineTaskHashMap.put(date, new ArrayList<>());
+            deadlineTaskHashMap.get(date).add(task);
+
+        } else {
+            deadlineTaskHashMap.get(date).add(task);
+        }
+    }
+
+    public static void removeTaskPerDate(String date, Task task) {
+        deadlineTaskHashMap.get(date).remove(task);
+
+
+    }
+
+    /**
+     * Returns whether a specific date have any task present.
+     * @param date
+     * @return
+     */
+    public static boolean isTaskPresent(String date) {
+
+        if (!deadlineTaskHashMap.containsKey(date)) {
+            return false;
+        } else {
+            if (deadlineTaskHashMap.get(date).size() <= 0) {
+                return false;
+            }
+        }
+        return true;
+
+
+    }
+
+    public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
+        return deadlineTaskHashMap;
+    }
     /**
      *
      * @return status icon of tick as task is marked as done

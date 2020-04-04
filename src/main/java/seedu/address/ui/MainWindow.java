@@ -273,6 +273,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            showSelectedTab(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -290,5 +291,20 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+
+    private void showSelectedTab(String commandText) {
+
+        // diary = 0, modplan = 1, addbook = 2, calender = 3, notes = 4, profile = 5
+
+        String tabName = commandText.split(" ")[0];
+        if (tabName.equals("notes")) {
+
+            tabPane.getSelectionModel().select(4);
+        } else if(tabName.equals("")) {
+
+        }
+
     }
 }

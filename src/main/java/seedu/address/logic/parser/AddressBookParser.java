@@ -120,6 +120,7 @@ public class AddressBookParser {
         case MajorCommand.COMMAND_WORD:
             return new MajorCommandParser().parse(arguments);
 
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

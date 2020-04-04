@@ -124,6 +124,7 @@ A person can have any number of tags (including 0)
 * Only the name is searched.
 * Only full words will be matched e.g. Han will not match Hans
 * Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
+* After a find operation, use `list` to get back the original list for address book.
 ****
 
 - Examples:
@@ -266,13 +267,15 @@ Allows you to create notes from the application, making it easier for you to fin
 ==== Note Taking: `notes`
 
 - Allows for users to create documents for notes, organise their notes in folders.
-Default location is set to user's desktop.
+Default location is set to
+`/User/<ACCOUNT NAME>` for mac
+`C:\Users\<ACCOUNT NAME>` for windows
 
 - Format: `notes ops/COMMAND loc/DIRECTORY`
 
-a.	`notes ops/list loc/NUS/`: shows content in usr/Desktop/NUS/ folder, content will be updated in the UI
-b.	`notes ops/open loc/test.doc`: Opens the file test.doc at usr/Desktop, if file is not present, error message will be shown.
-c.	`notes ops/create loc/test.doc`: Creates the file test.doc at usr/Desktop, if file is already present, error message will be shown.
+a.	`notes ops/list loc/NUS/`: shows content in usr/NUS/ folder, content will be updated in the UI
+b.	`notes ops/open loc/Desktop/test.doc`: Opens the file test.doc at usr/Desktop, if file is not present, error message will be shown.
+c.	`notes ops/create loc/Desktop/test.doc`: Creates the file test.doc at usr/Desktop, if file is already present, error message will be shown.
 
 == Command Summary
 
@@ -309,8 +312,8 @@ e.g. `diary weather 1 SUNNY`
 e.g. `diary emotion 1 HAPPY`
 * todo : todo DESCRIPTION
 e.g. `todo water plants`
-* deadline : deadline DESCRIPTION /by DD-MM-YYYY HHMM
-e.g. `deadline Finish homework /by 30-03-2020 1800`
+* deadline : deadlineAdd DESCRIPTION /by DD-MM-YYYY HHMM
+e.g. `deadlineAdd Finish homework /by 30-03-2020 1800`
 * mymodplan: mymodplan
 ** mymodplan add MODULE CODE
 e.g. `mymodplan add CS2103T`

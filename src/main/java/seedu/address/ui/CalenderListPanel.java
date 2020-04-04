@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Panel containing the list of persons.
@@ -32,6 +32,16 @@ public class CalenderListPanel extends UiPart<Region> {
     class DeadlineListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task deadline, boolean empty) {
+            for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
+                calenderDate.setCircleNotVisible();
+                System.out.println("setting");
+            }
+            for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
+                if (Task.isTaskPresent(calenderDate.getDate())) {
+                    calenderDate.setCircleVisible();
+                    System.out.println("here");
+                }
+            }
             super.updateItem(deadline, empty);
             if (empty || deadline == null) {
                 setGraphic(null);
@@ -39,35 +49,11 @@ public class CalenderListPanel extends UiPart<Region> {
 
             } else {
                 setGraphic(new CalenderDeadline(deadline, getIndex() + 1).getRoot());
-                System.out.println("Else");
-                String[] date = deadline.getDate().split("-");
-                int year = Integer.parseInt(date[2]);
-                String day = date[0];
-                int month = Integer.parseInt(date[1]);
 
-                /** problem with setting circle to not visible
-                 *  is that this else runs random number of time, so you dont know how many count to --
-                 */
-                System.out.println(CalenderPanel.getYear());
-                System.out.println(CalenderPanel.getCurrentMonth());
-                if (CalenderPanel.getYear() == year
-                        && CalenderPanel.getCurrentMonth() == month) {
-                    CalenderDate calenderDate = CalenderPanel.getCalenderDatesArrayList()
-                            .get(Integer.parseInt(day) - 1);
 
-                    calenderDate.setCircleVisible();
-                    calenderDate.increaseCount();
-                }
             }
         }
 
-        private void setCircleNotVisible() {
-            for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
-                if (calenderDate.getCount() == 0) {
-                    calenderDate.setCircleNotVisible();
-                }
-            }
-        }
     }
 
 }

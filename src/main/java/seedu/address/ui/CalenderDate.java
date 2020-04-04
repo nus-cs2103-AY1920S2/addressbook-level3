@@ -15,7 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 public class CalenderDate extends UiPart<Region> {
     private static final String FXML = "CalenderDate.fxml";
     private final Logger logger = LogsCenter.getLogger(CalenderDate.class);
-    private int count = 0;
+
 
     private String date;
     private String day;
@@ -28,12 +28,13 @@ public class CalenderDate extends UiPart<Region> {
 
 
 
-    public CalenderDate(String date, String day) {
+    public CalenderDate(String date, int day) {
 
         super(FXML);
         this.date = date;
-        this.day = day;
-        calenderDate.setText(date);
+        this.day = "" + day;
+
+        calenderDate.setText(this.day);
         setCircleNotVisible();
         setCssStyles();
     }
@@ -48,17 +49,10 @@ public class CalenderDate extends UiPart<Region> {
 
     }
 
-    public void increaseCount() {
-        count++;
+    public String getDate() {
+        return this.date;
     }
 
-    public void decreaseCount() {
-        count--;
-    }
-
-    public int getCount() {
-        return this.count;
-    }
 
     public void setCircleVisible() {
         circle.setVisible(true);

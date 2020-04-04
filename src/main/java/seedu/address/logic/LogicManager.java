@@ -19,7 +19,7 @@ import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * The main LogicManager of the app.

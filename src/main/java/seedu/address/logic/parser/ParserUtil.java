@@ -19,9 +19,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.todolist.Deadline;
-import seedu.address.todolist.Task;
-import seedu.address.todolist.ToDo;
+import seedu.address.calender.Deadline;
+import seedu.address.calender.Task;
+import seedu.address.calender.ToDo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

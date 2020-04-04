@@ -3,7 +3,7 @@ package seedu.address.model.nusmodule;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Represents a task related to a specific module. (e.g. an assignment of module CS2103T)

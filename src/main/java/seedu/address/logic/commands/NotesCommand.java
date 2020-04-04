@@ -21,7 +21,7 @@ public class NotesCommand extends Command {
 
     public static final String COMMAND_WORD = "notes";
     public static final String HOME_DIRECTORY = System.getProperty("user.home");
-
+    public static String CURRENT_DIRECTORY = HOME_DIRECTORY;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allows for creating, deleting and opening of new file "
             + "Parameters: "
             + PREFIX_NOTES_OPERATION + "OPERATION "
@@ -36,13 +36,14 @@ public class NotesCommand extends Command {
 
     private static final String MESSAGE_CREATE_SUCCESS = "File is successfully created at ";
     private static final String MESSAGE_CREATE_FAIL = "File is unable to be created at ";
+    private static final String MESSAGE_CREATE_DUPLICATE = "File already exists";
     private static final String MESSAGE_NOTHING_HAPPENED = "Nothing Happened ";
     private static final String MESSAGE_MAKEDIR_SUCCESSFUL = "Directory is successfully created ";
     private static final String MESSAGE_MAKEDIR_UNSUCCESSFUL = "Directory is unable to be created ";
 
     private static final String MESSAGE_LISTED_DIR = "Listed Directory at ";
-    private static final String MESSAGE_LISTED_DIR_FAIL = "Unable to list directory at ";
-    private static final String DUMMY_TEST = "Dummy test ";
+    private static final String MESSAGE_NOT_DIR = " is not a directory";
+    private static final String MESSAGE_NOT_EXIST = " does not exist";
 
 
 
@@ -88,17 +89,32 @@ public class NotesCommand extends Command {
      * @return a CommandResult based on whether the operation succeed or failed.
      */
     public CommandResult createDoc(String path) {
-        String currentDirectory = path.split("/")[0];
         String pathName = HOME_DIRECTORY + File.separatorChar + path;
+        buildDirectoryName(pathName); // Build the CurrentDirectory name
         File myFile = new File(pathName);
+        if (myFile.exists() == true) {
+            return new CommandResult(MESSAGE_CREATE_DUPLICATE);
+        }
         try {
             myFile.createNewFile();
-            Notes.setList(listfilesArray(currentDirectory));
+            Notes.setList(listfilesArray(CURRENT_DIRECTORY));
             return new CommandResult(MESSAGE_CREATE_SUCCESS + pathName);
         } catch (IOException ex) {
             return new CommandResult(MESSAGE_CREATE_FAIL + pathName);
 
         }
+
+    }
+
+    public void buildDirectoryName(String pathName) {
+
+        String[] splittedDirectoryName = pathName.split(File.separator);
+        String newDirectory = "";
+        for (int i = 0; i < splittedDirectoryName.length - 1; i++) {
+            newDirectory += splittedDirectoryName[i] + File.separator;
+        }
+        CURRENT_DIRECTORY = newDirectory;
+        Notes.setCurrentDirectory("Current Directory: " + CURRENT_DIRECTORY);
 
     }
 
@@ -110,9 +126,10 @@ public class NotesCommand extends Command {
     public CommandResult createFolder(String path) {
         String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
+        CURRENT_DIRECTORY = pathName;
 
         if (myFile.mkdir()) { // return true if directory is created
-            Notes.setList(listfilesArray(path));
+            Notes.setList(listfilesArray(CURRENT_DIRECTORY));
             return new CommandResult(MESSAGE_MAKEDIR_SUCCESSFUL + pathName);
         } else {
             return new CommandResult(MESSAGE_MAKEDIR_UNSUCCESSFUL + pathName);
@@ -128,6 +145,12 @@ public class NotesCommand extends Command {
     public CommandResult listFiles(String path) {
         String pathName = HOME_DIRECTORY + File.separatorChar + path;
         File myFile = new File(pathName);
+        if (myFile.exists() == false) {
+            return new CommandResult(pathName + MESSAGE_NOT_EXIST);
+        }
+        if (myFile.isDirectory() == false) {
+            return new CommandResult(pathName + MESSAGE_NOT_DIR);
+        }
         ArrayList<Notes> filesArrayList = new ArrayList<>();
 
         File[] allFiles = myFile.listFiles();
@@ -152,8 +175,7 @@ public class NotesCommand extends Command {
      */
     private ArrayList<Notes> listfilesArray(String path) {
 
-        String pathName = HOME_DIRECTORY + File.separatorChar + path;
-        File myFile = new File(pathName);
+        File myFile = new File(path);
         ArrayList<Notes> filesArrayList = new ArrayList<>();
 
         File[] allFiles = myFile.listFiles();

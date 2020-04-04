@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Parses input arguments and creates a new AddCommand object
