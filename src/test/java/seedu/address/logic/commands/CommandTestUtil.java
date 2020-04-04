@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_TASK2 = "Introduction to TCP";
     public static final String VALID_TAG_MA1521 = "MA1521";
     public static final String VALID_TAG_HELP = "HELP";
+    public static final String VALID_REMINDER = "15/03/21@16:07";
 
     public static final String NAME_DESC_TASK1 = " " + PREFIX_NAME + VALID_NAME_TASK1;
     public static final String NAME_DESC_TASK2 = " " + PREFIX_NAME + VALID_NAME_TASK2;
@@ -41,6 +43,7 @@ public class CommandTestUtil {
             " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK2;
     public static final String TAG_DESC_HELP = " " + PREFIX_TAG + VALID_TAG_HELP;
     public static final String TAG_DESC_MA1521 = " " + PREFIX_TAG + VALID_TAG_MA1521;
+    public static final String REMINDER = " " + PREFIX_REMINDER + VALID_REMINDER;
 
     public static final String INVALID_NAME_DESC =
             " " + PREFIX_NAME + "math&"; // '&' not allowed in names
@@ -48,6 +51,8 @@ public class CommandTestUtil {
             " " + PREFIX_PRIORITY + "99"; // any number not 1,2 or 3 not allowed in priority
     public static final String INVALID_TAG_DESC =
             " " + PREFIX_TAG + "tricky*"; // '*' not allowed in tags
+        public static final String INVALID_REMINDER = " " + PREFIX_REMINDER + "15/03/20@@@16:07"; // invalid date
+        public static final String INVALID_REMINDER_PAST = " " + PREFIX_REMINDER + "15/03/20@16:07"; // invalid date
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -57,7 +62,7 @@ public class CommandTestUtil {
 
     static {
         DESC_TASK1 =
-                new EditTaskDescriptorBuilder()
+                new EditTaskDescriptorBuilder() //KIV might need to change this to include reminder
                         .withName(VALID_NAME_TASK1)
                         .withPriority(VALID_PRIORITY_TASK1)
                         .withDescription(VALID_DESCRIPTION_TASK1)

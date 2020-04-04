@@ -14,6 +14,8 @@ public class Reminder implements Comparable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Reminder should be in format DD/MM/YY@HH:mm eg 04/11/20@10:30";
+    public static final String MESSAGE_CONSTRAINTS_PAST = 
+            "Operation would result in invalid reminder due to time set being in the past.";
     public static final DateTimeFormatter stringFormatter =
             DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
     private final LocalDateTime reminderDateTime;

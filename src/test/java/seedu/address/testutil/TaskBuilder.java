@@ -37,7 +37,7 @@ public class TaskBuilder {
         tags = new HashSet<>();
     }
 
-    /** Initializes the PersonBuilder with the data of {@code taskToCopy}. */
+    /** Initializes the TaskBuilder with the data of {@code taskToCopy}. */
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
         priority = taskToCopy.getPriority();
