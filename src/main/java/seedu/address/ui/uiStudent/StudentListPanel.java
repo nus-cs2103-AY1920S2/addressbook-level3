@@ -23,7 +23,6 @@ public class StudentListPanel extends UiPart<Region> {
   @FXML
   private ListView<Student> studentListView;
 
-
   public StudentListPanel(ObservableList<Student> studentList, CommandBox commandBox) {
     super(FXML);
     this.commandBox = commandBox;

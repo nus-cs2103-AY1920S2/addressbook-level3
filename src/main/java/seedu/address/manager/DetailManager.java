@@ -12,6 +12,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -94,13 +95,22 @@ public class DetailManager extends BaseManager {
 
         if (type.equals(TYPE.STUDENT_DETAILS)) {
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
-        } else if
+        }
     }
 
     // ################# Update student details map ##################################################3
     public void updateStudentDetailsMap(ID studentID) throws CommandException {
         Student student = (Student)model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
         studentDetailsMap.put("details", student);
+
+        ArrayList<Object> courses = new ArrayList<Object>();
+        Set<ID> courseIDs = student.getAssignedCoursesID();
+        for (ID courseID: courseIDs) {
+            Course course = model.getCourseAddressBook()
+            HashMap<String, Object> courseDetail = new HashMap<String, Object>();
+            ArrayList<Progress> progressList = new ArrayList<Progress>();
+            courseDetail.put("info", course)
+        }
     }
 
     public void updateStudentDetailsMap(ID studentID, ID courseID) throws CommandException {

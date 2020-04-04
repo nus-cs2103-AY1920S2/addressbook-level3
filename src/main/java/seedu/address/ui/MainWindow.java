@@ -208,33 +208,33 @@ public class MainWindow extends UiPart<Stage> {
 //    }
     HashMap<String, Object> studentDetailsMap = new HashMap<>();
 
-    studentDetailedPanel = new StudentDetailedPanel(new HashMap<String, Object>(), commandBox);
+    studentDetailedPanel = new StudentDetailedPanel(logic.getFilteredStudentDetailsMap(), commandBox);
     staffDetailedPanel = new StaffDetailedPanel(new HashMap<String, Object>(), commandBox);
     courseDetailedPanel = new CourseDetailedPanel(new HashMap<String, Object>(), commandBox);
     financeDetailedPanel = new FinanceDetailedPanel(new HashMap<String, Object>(), commandBox);
     assignmentDetailedPanel = new AssignmentDetailedPanel(new HashMap<String, Object>(), commandBox);
 
-    Set<ID> assignedCourses = new HashSet<ID>();
-    assignedCourses.add(new ID("11"));
-    assignedCourses.add(new ID("12"));
-    Set<Tag> assignedTags = new HashSet<Tag>();
-    assignedTags.add(new Tag("Cool"));
-    assignedTags.add(new Tag("CS"));
-    Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
-    fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
-    studentDetailsMap.put("details", fakeStudent);
-    ObservableList<Course> filteredCourses = logic.getFilteredCourseList();
-    ObservableList<HashMap> courseMap = FXCollections.observableArrayList();
-    for (Course course : filteredCourses) {
-      HashMap<String, Object> m = new HashMap<>();
-      ObservableList<Progress> progressList = FXCollections.observableArrayList();
-      m.put("info", course);
-      m.put("progress_list", progressList);
-      m.put("number_of_done_progress", 3);
-      courseMap.add(m);
-    }
-    studentDetailsMap.put("courses", courseMap);
-    studentDetailedPanel = new StudentDetailedPanel( studentDetailsMap, commandBox);
+//    Set<ID> assignedCourses = new HashSet<ID>();
+//    assignedCourses.add(new ID("11"));
+//    assignedCourses.add(new ID("12"));
+//    Set<Tag> assignedTags = new HashSet<Tag>();
+//    assignedTags.add(new Tag("Cool"));
+//    assignedTags.add(new Tag("CS"));
+//    Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
+//    fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
+//    studentDetailsMap.put("details", fakeStudent);
+//    ObservableList<Course> filteredCourses = logic.getFilteredCourseList();
+//    ObservableList<HashMap> courseMap = FXCollections.observableArrayList();
+//    for (Course course : filteredCourses) {
+//      HashMap<String, Object> m = new HashMap<>();
+//      ObservableList<Progress> progressList = FXCollections.observableArrayList();
+//      m.put("info", course);
+//      m.put("progress_list", progressList);
+//      m.put("number_of_done_progress", 3);
+//      courseMap.add(m);
+//    }
+//    studentDetailsMap.put("courses", courseMap);
+//    studentDetailedPanel = new StudentDetailedPanel(studentDetailsMap, commandBox);
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(studentDetailedPanel.getRoot());
