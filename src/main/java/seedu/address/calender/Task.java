@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.nusmodule.Priority;
 
 
 /**
@@ -19,6 +20,7 @@ public class Task {
     private static HashMap<String, ArrayList<Task>> deadlineTaskHashMap = new HashMap<>();
     private String description;
     private boolean isDone;
+    protected Priority priority;
 
 
     /**
@@ -129,4 +131,32 @@ public class Task {
     public String toString() {
         return description;
     }
+
+    /**
+     * Check whether a date is valid.
+     * @param date format of the date
+     * @return true if it is a valid date.
+     */
+    public static boolean isValidDate(String date) {
+
+        try {
+            String[] splittedDate = date.split("-");
+            int month = Integer.parseInt(splittedDate[1]);
+            int day = Integer.parseInt(splittedDate[0]);
+
+            if (month < 1 || month > 12) {
+                return false;
+            }
+
+            if (day < 1 || day > 31) {
+                return false;
+            }
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+
+    }
+
 }

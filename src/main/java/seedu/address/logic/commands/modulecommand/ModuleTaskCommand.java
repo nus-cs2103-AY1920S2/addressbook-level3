@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETASK_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
+import seedu.address.calender.Task;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,7 +30,7 @@ public class ModuleTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_DESC + "Tutorial 08 "
             + PREFIX_MODULE_CODE + "CS2030 "
-            + PREFIX_MODULETASK_TIMING + "2020-01-02 "
+            + PREFIX_MODULETASK_TIMING + "30-04-2020 "
             + PREFIX_PRIORITY + "5 ";
 
     public static final String MESSAGE_SUCCESS = "New task added:  ";
@@ -52,7 +54,10 @@ public class ModuleTaskCommand extends Command {
         if (!model.hasModule(toAdd.getModuleRelated())) {
             throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
-
+        Task.getDeadlineTaskList().add(toAdd);
+        Task.addTaskPerDate(toAdd.getDate(), toAdd);
+        System.out.println(toAdd.getDate());
+        model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         model.addModuleTask(toAdd);
         return new CommandResult(MESSAGE_SUCCESS + " " + toAdd);
     }
