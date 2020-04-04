@@ -61,7 +61,7 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
 
         if (argMultimap.getValue(PREFIX_IMAGEFILEPATH).isPresent()) {
             editRecipeDescriptor
-                .setImageFilePath(ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_IMAGEFILEPATH).get()));
+                .setImageFilePath(ParserUtil.parsePhotoFilePath(argMultimap.getValue(PREFIX_IMAGEFILEPATH).get()));
         }
 
         if (argMultimap.getValue(PREFIX_SERVING).isPresent()) {

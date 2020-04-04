@@ -27,7 +27,7 @@ repositories {
 
 checkstyle {
     toolVersion = '8.1'
-//    ignoreFailures = true;
+    // ignoreFailures = true;
 }
 
 jacocoTestReport {

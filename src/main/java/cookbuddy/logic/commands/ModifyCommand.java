@@ -26,10 +26,10 @@ import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Photograph;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
@@ -114,7 +114,7 @@ public class ModifyCommand extends Command {
         IngredientList updatedIngredients = editRecipeDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
         InstructionList updatedInstructions =
             editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
-        Image updatedImage = editRecipeDescriptor.getImageFilePath().orElse(recipeToEdit.getImageFilePath());
+        Photograph updatedImage = editRecipeDescriptor.getImageFilePath().orElse(recipeToEdit.getPhotograph());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
@@ -152,7 +152,7 @@ public class ModifyCommand extends Command {
         private Name name;
         private IngredientList ingredients;
         private InstructionList instructions;
-        private Image imageFilePath;
+        private Photograph imageFilePath;
         private Calorie calorie;
         private Serving serving;
         private Rating rating;
@@ -210,11 +210,11 @@ public class ModifyCommand extends Command {
             this.instructions = instructions;
         }
 
-        public Optional<Image> getImageFilePath() {
+        public Optional<Photograph> getImageFilePath() {
             return Optional.ofNullable(imageFilePath);
         }
 
-        public void setImageFilePath(Image imageFilePath) {
+        public void setImageFilePath(Photograph imageFilePath) {
             this.imageFilePath = imageFilePath;
         }
 

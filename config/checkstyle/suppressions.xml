@@ -6,4 +6,5 @@
 
 <suppressions>
   <suppress checks="JavadocType" files=".*Test\.java"/>
+  <suppress checks="AbbreviationAsWordInName|MemberName" files="ImageUtil.java"/>
 </suppressions>

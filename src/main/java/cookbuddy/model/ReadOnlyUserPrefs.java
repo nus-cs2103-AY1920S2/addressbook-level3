@@ -13,6 +13,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getDataFilePath();
 
-    Path getRecipeImagePath();
+    Path getImagesPath();
 
 }
