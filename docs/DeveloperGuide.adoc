@@ -752,7 +752,7 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 
 7. The updated filtered session list will be displayed to the user.
 
-images:: session done activity diagram
+image::RecurringSessionsActivityDiagram.png[]
 
 [[Implementation-Navigation]]
 === Filter Command
@@ -799,7 +799,7 @@ group code given by the user.
 Module code is a compulsory parameter for user.
 
 
-images:: [sequence diagram]
+image::FilterStudentSequenceDiagram.png[]
 
 Given below is an example scenario where the user enters a command to filter students.
 
@@ -844,7 +844,7 @@ in a session, it will be filtered.
 If none of the keywords supplied by the user appears in any sessions, a `CommandException`
 will be shown.
 
-images:: class diagram
+image::FindCommandClassDiagram.png[]
 
 *Filter under Claims View*
 

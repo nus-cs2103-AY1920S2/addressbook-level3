@@ -1,15 +1,17 @@
 @startuml
 start
-:User executes AddSession Command with -r flag;
+:User executes `session done` Command;
 
-:Creates an Session and a RescheduleSession;
+:Checks the recurring period of the session;
 
-if () then ([given Session endDateTime is over])
-    :Updates the current Session to the next Session;
+if () then ([recurring period > 0])
+    :Creates a new Session with the updated date;
 
 else ([else])
 endif
 
+:Remove the current session from session view;
+:Current session added under Claims view;
 :Shows user the added Session;
 
 stop

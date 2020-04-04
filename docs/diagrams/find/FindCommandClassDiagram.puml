@@ -13,7 +13,7 @@ interface Parser {
 
 class FindCommand
 
-class FindKeywordDescriptor
+class DoneSessionPredicate
 
 class FindCommandParser
 
@@ -21,8 +21,8 @@ Command <|.. FindCommand
 
 Parser <|-- FindCommandParser
 
-FindKeywordDescriptor <.. FindCommand
-FindKeywordDescriptor <.. FindCommandParser
+DoneSessionPredicate <.. FindCommand
+DoneSessionPredicate <.. FindCommandParser
 
 
 @enduml

@@ -1,0 +1,76 @@
+@startuml
+
+box Logic
+participant ":LogicManager" as LogicManager
+participant ":TaTrackerParser" as TaTrackerParser
+participant ":StudentCommandParser" as StudentCommandParser
+participant ":FilterStudentViewCommandParser" as FilterStudentViewCommandParser
+participant "d:FilterStudentViewCommand" as FilterStudentViewCommand
+participant ":CommandResult" as CommandResult
+end box
+
+box Model
+participant ":Model" as Model
+end box
+
+[-> LogicManager : execute("student filter m/cs2103t g/g06")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("student filter m/cs2103t g/g06")
+activate TaTrackerParser
+
+create StudentCommandParser
+TaTrackerParser -> StudentCommandParser: StudentCommandParser()
+activate StudentCommandParser
+
+StudentCommandParser --> TaTrackerParser
+deactivate StudentCommandParser
+
+TaTrackerParser -> StudentCommandParser : parse("filter m/cs2103t g/g06")
+activate StudentCommandParser
+
+create FilterStudentViewCommand
+FilterStudentViewCommandParser -> FilterStudentViewCommand : FilterStudentViewCommand(m, g)
+activate FilterStudentViewCommand
+FilterStudentViewCommand --> FilterStudentViewCommandParser
+deactivate FilterStudentViewCommand
+
+FilterStudentViewCommandParser --> StudentCommandParser : d
+deactivate FilterStudentViewCommandParser
+FilterStudentViewCommandParser -[hidden]-> StudentCommandParser
+destroy FilterStudentViewCommandParser
+
+StudentCommandParser --> TaTrackerParser : d
+deactivate StudentCommandParser
+StudentCommandParser -[hidden]-> TaTrackerParser
+destroy StudentCommandParser
+
+TaTrackerParser --> LogicManager : d
+deactivate TaTrackerParser
+
+LogicManager -> FilterStudentViewCommand : execute()
+activate FilterStudentViewCommand
+
+FilterStudentViewCommand -> Model : hasModule("cs2103t")
+activate Model
+Model --> FilterStudentViewCommand : true
+
+FilterStudentViewCommand -> Model : hasGroup("g06", "cs2103t")
+Model --> FilterStudentViewCommand : true
+
+DeleteGroupCommand -> Model : setFilteredStudentList(cs2103t, g06);
+Model --> FilterStudentViewCommand
+deactivate Model
+
+create CommandResult
+FilterStudentViewCommand -> CommandResult : CommandResult()
+activate CommandResult
+CommandResult --> FilterStudentViewCommand
+deactivate CommandResult
+
+DeleteGroupCommand --> LogicManager : result
+deactivate FilterStudentViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
