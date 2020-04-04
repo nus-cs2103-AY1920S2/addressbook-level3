@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import com.fasterxml.jackson.databind.util.ClassUtil;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -17,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -31,9 +34,9 @@ public class EditAssignmentCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Edits the details of the identified assignment "
-                    + "by the index number used in the displayed assignment list. "
+                    + "by the ID number assigned to it, which shown in the displayed assignment list. "
                     + "Existing values will be overwritten by the input values.\n"
-                    + "Parameters: INDEX (must be a positive integer) "
+                    + "Parameters: ID (must be an existing positive integer) "
                     + "[" + PREFIX_NAME + "NAME] "
                     + "[" + PREFIX_DEADLINE + "DEADLINE] "
                     + "[" + PREFIX_TAG + "TAG]...\n"
@@ -44,18 +47,18 @@ public class EditAssignmentCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This Assignment already exists in the address book.";
 
-    private final Index index;
+    private final ID targetID;
     private final EditAssignmentDescriptor editAssignmentDescriptor;
 
     /**
-     * @param index                 of the Assignment in the filtered Assignment list to edit
+     * @param id                 of the Assignment in the filtered Assignment list to edit
      * @param editAssignmentDescriptor details to edit the Assignment with
      */
-    public EditAssignmentCommand(Index index, EditAssignmentDescriptor editAssignmentDescriptor) {
-        requireNonNull(index);
+    public EditAssignmentCommand(ID id, EditAssignmentDescriptor editAssignmentDescriptor) {
+        requireNonNull(id);
         requireNonNull(editAssignmentDescriptor);
 
-        this.index = index;
+        this.targetID = id;
         this.editAssignmentDescriptor = new EditAssignmentDescriptor(editAssignmentDescriptor);
     }
 
@@ -68,11 +71,14 @@ public class EditAssignmentCommand extends Command {
         assert AssignmentToEdit != null;
 
         Name updatedName = editAssignmentDescriptor.getName().orElse(AssignmentToEdit.getName());
-        ID updatedID = AssignmentToEdit.getId();
+
         Deadline updatedDeadline = editAssignmentDescriptor.getDeadline().orElse(AssignmentToEdit.getDeadline());
         Set<Tag> updatedTags = editAssignmentDescriptor.getTags().orElse(AssignmentToEdit.getTags());
 
-        return new Assignment(updatedName, updatedID, updatedDeadline, updatedTags);
+        // fields that cannot edit
+        ID id = AssignmentToEdit.getId();
+        ID courseAssignedID = AssignmentToEdit.getAssignedCourseID();
+        return new Assignment(updatedName, id, courseAssignedID, updatedDeadline, updatedTags);
     }
 
     @Override
@@ -80,11 +86,11 @@ public class EditAssignmentCommand extends Command {
         requireNonNull(model);
         List<Assignment> lastShownList = model.getFilteredAssignmentList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (!ID.isValidId(targetID.toString())) {
             throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
         }
 
-        Assignment AssignmentToEdit = lastShownList.get(index.getZeroBased());
+        Assignment AssignmentToEdit = getAssignment(lastShownList);
         Assignment editedAssignment = createEditedAssignment(AssignmentToEdit, editAssignmentDescriptor);
 
         if (!AssignmentToEdit.weakEquals(editedAssignment) && model.has(editedAssignment)) {
@@ -94,6 +100,16 @@ public class EditAssignmentCommand extends Command {
         model.set(AssignmentToEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment));
+    }
+
+    // Find way to abstract this
+    public Assignment getAssignment(List<Assignment> lastShownList) throws CommandException {
+        for (Assignment assignment : lastShownList) {
+            if (assignment.getId().equals(this.targetID)) {
+                return assignment;
+            }
+        }
+        throw new CommandException("This staff ID does not exist");
     }
 
     @Override
@@ -110,7 +126,7 @@ public class EditAssignmentCommand extends Command {
 
         // state check
         EditAssignmentCommand e = (EditAssignmentCommand) other;
-        return index.equals(e.index)
+        return targetID.equals(e.targetID)
                 && editAssignmentDescriptor.equals(e.editAssignmentDescriptor);
     }
 
