@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
-/** Adds a task to the address book. */
+/** Adds a task to the task list. */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";

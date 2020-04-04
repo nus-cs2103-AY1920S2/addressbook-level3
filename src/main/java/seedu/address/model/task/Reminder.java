@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import seedu.address.model.task.exceptions.InvalidReminderException;
 
 /**
- * Represents a Task's reminder number in the address book. Guarantees: immutable; is valid as
+ * Represents a Task's reminder number in the task list. Guarantees: immutable; is valid as
  * declared in {@link #isValidReminder(String)}
  */
 public class Reminder implements Comparable {

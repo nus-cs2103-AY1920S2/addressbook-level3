@@ -102,11 +102,11 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code
+     * Returns a {@code ModelManager} with the data from {@code storage}'s task list and {@code
      * userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book
-     * is not found, or an empty address book will be used instead if errors occur when reading
-     * {@code storage}'s address book.
+     * The data from the sample task list will be used instead if {@code storage}'s task list
+     * is not found, or an empty task list will be used instead if errors occur when reading
+     * {@code storage}'s task list.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> taskListOptional;

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 import seedu.address.model.TaskList;
 
-/** Clears the address book. */
+/** Clears the task list. */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";

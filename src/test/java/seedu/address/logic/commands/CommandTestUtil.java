@@ -105,7 +105,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered task list and selected task in {@code actualModel} remain
+     * - the task list, filtered task list and selected task in {@code actualModel} remain
      * unchanged
      */
     public static void assertCommandFailure(
@@ -122,7 +122,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the task at the given {@code
-     * targetIndex} in the {@code model}'s address book.
+     * targetIndex} in the {@code model}'s task list.
      */
     public static void showTaskAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());

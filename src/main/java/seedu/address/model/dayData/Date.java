@@ -10,7 +10,7 @@ import java.time.format.ResolverStyle;
 import java.util.Locale;
 
 /**
- * Represents a DayDaya's date in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a DayDaya's date in the task list. Guarantees: immutable; is valid as declared in
  * {@link #isValidDate(String)}
  */
 public class Date {

@@ -22,7 +22,7 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 
-/** Deletes a task identified using it's displayed index from the address book. */
+/** Deletes a task identified using it's displayed index from the task list. */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
