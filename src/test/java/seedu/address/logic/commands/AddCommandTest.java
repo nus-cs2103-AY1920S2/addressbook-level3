@@ -81,9 +81,9 @@ public class AddCommandTest {
         deadline = VALID_DEADLINE_BOB;
     }
 
+    // No module code added, user inputs "add m/"
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
-        // Null module code
         assertThrows(NullPointerException.class, () ->
                 new AddCommand(null, semester, grade, task, deadline));
     }

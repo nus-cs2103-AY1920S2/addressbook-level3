@@ -94,7 +94,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
-                courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
+                courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get().toUpperCase());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)) {
                 String currentSemesterString = argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get();
