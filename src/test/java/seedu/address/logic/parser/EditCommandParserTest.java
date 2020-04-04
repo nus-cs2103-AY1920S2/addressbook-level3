@@ -1,9 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_FLAG;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER;
+import static seedu.address.commons.core.Messages.NEWLINE;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COD_DESC_AMY;
@@ -70,7 +73,6 @@ public class EditCommandParserTest {
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private static final Flag ORDER_FLAG = CliSyntax.FLAG_ORDER_BOOK;
-    private static final Flag RETURN_FLAG = CliSyntax.FLAG_RETURN_BOOK;
     private static final String ORDER_FLAG_INPUT = CliSyntax.FLAG_ORDER_BOOK.getFlag() + " ";
     private static final String RETURN_FLAG_INPUT = CliSyntax.FLAG_RETURN_BOOK.getFlag() + " ";
 
@@ -79,16 +81,24 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, ORDER_FLAG_INPUT + VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ORDER_FLAG_INPUT + NAME_DESC_AMY,
+            String.format(MESSAGE_MISSING_INDEX + NEWLINE + EditCommand.MESSAGE_USAGE));
 
         // no field specified
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "1",
+            String.format(EditCommand.MESSAGE_NOT_EDITED, EditCommand.MESSAGE_USAGE));
 
         // no index and no field specified
-        assertParseFailure(parser, ORDER_FLAG_INPUT, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ORDER_FLAG_INPUT,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // missing flags
-        assertParseFailure(parser, VALID_ADDRESS_AMY, MESSAGE_MISSING_FLAG);
+        assertParseFailure(parser, VALID_ADDRESS_AMY,
+            MESSAGE_MISSING_FLAG + NEWLINE + EditCommand.MESSAGE_USAGE);
+
+        // no input
+        assertParseFailure(parser, "",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -120,16 +130,20 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "-5" + NAME_DESC_AMY,
+            String.format(ParserUtil.MESSAGE_INVALID_INDEX + NEWLINE + EditCommand.MESSAGE_USAGE));
 
         // zero index
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "0" + NAME_DESC_AMY,
+            String.format(ParserUtil.MESSAGE_INVALID_INDEX + NEWLINE + EditCommand.MESSAGE_USAGE));
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "1 some random string",
+            String.format(MESSAGE_INVALID_PREAMBLE + NEWLINE + EditCommand.MESSAGE_USAGE));
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, ORDER_FLAG_INPUT + "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, ORDER_FLAG_INPUT + "1 i/ string",
+            String.format(MESSAGE_INVALID_PREAMBLE + NEWLINE + EditCommand.MESSAGE_USAGE));
     }
 
     @Test

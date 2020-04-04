@@ -20,5 +20,7 @@ public class Messages {
         "There is no cash on delivery field in Return order please check your input.";
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%d order(s) listed!";
     public static final String MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW = "%d return order(s) listed!";
-
+    public static final String MESSAGE_MISSING_INDEX = "Please provide an index!";
+    public static final String MESSAGE_INVALID_PREAMBLE = "Please make sure there is no value between "
+        + "the flag and the valid prefixes!";
 }
