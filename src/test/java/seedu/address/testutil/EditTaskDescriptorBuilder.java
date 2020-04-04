@@ -8,7 +8,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.exceptions.InvalidReminderException;
 
 /** A utility class to help with building EditPersonDescriptor objects. */
 public class EditTaskDescriptorBuilder {
@@ -23,7 +25,10 @@ public class EditTaskDescriptorBuilder {
         this.descriptor = new EditTaskDescriptor(descriptor);
     }
 
-    /** Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details */
+    /**
+     * Returns an {@code EditPersonDescriptor} with fields containing
+     * {@code person}'s details
+     */
     public EditTaskDescriptorBuilder(Task task) {
         descriptor = new EditTaskDescriptor();
         descriptor.setName(task.getName());
@@ -32,19 +37,28 @@ public class EditTaskDescriptorBuilder {
         descriptor.setTags(task.getTags());
     }
 
-    /** Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building. */
+    /**
+     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are
+     * building.
+     */
     public EditTaskDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
 
-    /** Sets the {@code Priority} of the {@code EditPersonDescriptor} that we are building. */
+    /**
+     * Sets the {@code Priority} of the {@code EditPersonDescriptor} that we are
+     * building.
+     */
     public EditTaskDescriptorBuilder withPriority(String priority) {
         descriptor.setPriority(new Priority(priority));
         return this;
     }
 
-    /** Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building. */
+    /**
+     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are
+     * building.
+     */
     public EditTaskDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
         return this;
@@ -57,6 +71,15 @@ public class EditTaskDescriptorBuilder {
     public EditTaskDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    public EditTaskDescriptorBuilder withReminder(String reminder) {
+        try {
+            descriptor.setReminder(new Reminder(reminder));
+        } catch (InvalidReminderException e) {
+            return this;
+        }
         return this;
     }
 

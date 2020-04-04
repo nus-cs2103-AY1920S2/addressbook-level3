@@ -18,6 +18,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMINDER;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMINDER;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMINDER_PAST;
+import static seedu.address.logic.commands.CommandTestUtil.REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -32,6 +36,7 @@ import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -109,6 +114,12 @@ public class EditCommandParserTest {
                 parser,
                 "1" + INVALID_NAME_DESC + VALID_DESCRIPTION_TASK1 + VALID_PRIORITY_TASK1,
                 Name.MESSAGE_CONSTRAINTS);
+        
+        // reminders, for invalid and for reminders set in the past
+        assertParseFailure(
+                        parser, "1" + INVALID_REMINDER, Reminder.MESSAGE_CONSTRAINTS);
+        assertParseFailure(
+                        parser, "1" + INVALID_REMINDER_PAST, Reminder.MESSAGE_CONSTRAINTS_PAST);
     }
 
     @Test
@@ -120,7 +131,8 @@ public class EditCommandParserTest {
                         + TAG_DESC_MA1521
                         + DESCRIPTION_DESC_TASK1
                         + NAME_DESC_TASK1
-                        + TAG_DESC_HELP;
+                        + TAG_DESC_HELP
+                        + REMINDER;
 
         EditTaskDescriptor descriptor =
                 new EditTaskDescriptorBuilder()
@@ -128,6 +140,7 @@ public class EditCommandParserTest {
                         .withPriority(VALID_PRIORITY_TASK2)
                         .withDescription(VALID_DESCRIPTION_TASK1)
                         .withTags(VALID_TAG_MA1521, VALID_TAG_HELP)
+                        .withReminder(VALID_REMINDER)
                         .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -172,6 +185,13 @@ public class EditCommandParserTest {
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_HELP;
         descriptor = new EditTaskDescriptorBuilder().withTags(VALID_TAG_HELP).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // reminder
+        userInput = targetIndex.getOneBased() + REMINDER;
+        descriptor =
+                new EditTaskDescriptorBuilder().withReminder(VALID_REMINDER).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
