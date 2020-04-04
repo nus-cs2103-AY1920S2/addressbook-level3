@@ -60,6 +60,8 @@ public class StudentVeryDetailedCard extends UiPart<Region> {
     studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
     assignedCourses.setText(student.getAssignedCoursesWithNames());
+    noOfDoneProgress.setText(String.valueOf(progress));
+
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
