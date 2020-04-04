@@ -388,7 +388,8 @@ Example of valid Paid Commands: +
 
 image::Ui.png[width="790"]
 
-*Additional tips and notes*
+
+*Additional tips and notes for Paid Command*
 
 [TIP]
 ====
