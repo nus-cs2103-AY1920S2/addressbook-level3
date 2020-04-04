@@ -617,49 +617,57 @@ Here are some keywords that will be used to explain the implementation:
 * The `preamble` is the text (including whitespaces) between the end of the
 `full command word`, and the beginning of the first `argument`.
 
-The syntax highlighting feature extends the `CommandBox` in the `MainWindow` of TA-Tracker
-by colouring the font of valid command words as the user is typing. Currently, when a user
-inputs an invalid command, the `CommandBox` highlights the entire command in red. This feature
-will improve on this existing feature by changing the highlighting to be in real-time,
-and on a per word basis.
+[NOTE]
+====
+Due to the limitations of PlantUML, some of the diagrams may not appear as expected.
 
-==== Proposed Implementation of the Syntax Highlighting feature
+In particular, there are issues with representing alternate paths in PlantUML BETA Activity Diagrams
 
-When the user inputs a command in the `CommandBox`, the `CommandBox` will be highlight the following:
+For example:
 
-1. All valid command words. If a command word has more than one word,
-then the syntax highlighting will only appear when all of these words are in the `CommandBox`.
+. They split into multiple diamonds, instead of all originating from the same diamond.
+. They do not converge at a single diamond, and instead skips it altogether.
+. They cannot join other branches.
 
-2. All valid prefixes for each current command.
+In particular, the biggest limitation was the third issue.
+To overcome this, you will see multiple end nodes in some of the diagrams.
+Please assume that they all converge into a single diamond before reaching the end node.
 
-3. The values of each valid prefix, if they are valid.
+====
 
-In order to keep track of all commands and parameters, the `CommandDictionary`
-will store these information in a `Set`. To support the storage of all commands,
-each command should have a class variable named `COMMAND_WORD`.
+===== Step 1. Highlighting a new input
+When a new input is entered in the `CommandBox`,
+the syntax highlighting will be reapplied to the entire input.
 
-A `CommandBox` has a `TextField` that the user inputs to.
-To detect whether the user has changed their command input,
-the CommandBox registers an event listener that is triggered whenever
-the value within the `TextField` has changed.
+The following activity diagram explains how the `full command word` is highlighted,
+up until the beginning of the `preamble`.
 
-In the following diagrams, the `CommandBox` behaves as an input buffer that that listens to keyboard inputs.
+.Step 1 - Highlighting a new input
+image::SyntaxHighlightingActivityDiagram1.png[]
 
-.Syntax Highlighting - Full Activity Diagram
-image::SyntaxHighlighting.png[]
+Here is the purpose of each partition in the above diagram:
 
-1. `CommandBox` listens to events that change the value in its `TextField` component.
+* `blank` +
+When there is no input,
+the `ResultBox` should not show anything.
 
-2. User inputs a character +
-(in other words, the user changes the value stored in the `TextField` of the `CommandBox`).
+* `invalid` +
+When there is no matching `full command word`,
+the `ResultBox` should indicate that a wrong command is entered.
 
-3. CommandBox reads the new `user input` (value) in the `TextField`.
+* `valid` +
+When there is a matching `full command word`,
+change the highlighting rules for the new command.
 
-4. If the `user input` has a command word that exists in the `CommandDictionary`
-(i.e. a valid command word), highlight it.
+* `no_arguments` +
+When `full command word` has just been entered,
+the `ResultBox` should indicate that a correct command has been entered.
 
-    a. While the `user input` has prefixes that exists in the `CommandDictionary`,
-    (i.e. any valid prefixes), highlight them.
+* `has_arguments` +
+After processing the `full command word`,
+proceed to step 2. +
++
+NOTE: There should be a rake symbol next to the only activity in this partition.
 
         . For each prefix, if it has a valid value in the `user input`,
         (i.e. the prefix value is valid), highlight it.
