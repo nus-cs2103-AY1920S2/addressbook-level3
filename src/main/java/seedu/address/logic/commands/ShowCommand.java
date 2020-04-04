@@ -152,6 +152,6 @@ public class ShowCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ShowCommand // instanceof handles nulls
-                && toShow.equals(((ShowCommand) other).toShow));
+                && toParse.equals(((ShowCommand) other).toParse));
     }
 }
