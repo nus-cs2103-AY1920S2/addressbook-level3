@@ -49,9 +49,9 @@ ModuleCard -down-|> UiPart
 GroupListPanel -down-|> UiPart
 GroupCard -down-|> UiPart
 
-StudentCard .up.> Model
-ModuleCard .up.> Model
-GroupCard .up.> Model
+StudentCard .down.> Model
+ModuleCard .down.> Model
+GroupCard .down..> Model
 UiManager -up-> Logic
 MainWindow -up-> Logic
 
