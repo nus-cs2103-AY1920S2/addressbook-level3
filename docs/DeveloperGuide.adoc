@@ -193,16 +193,6 @@ image::LogicClassDiagram2.png[]
 * `Prefixes` contains some `Prefix` constants that are shared among classes in the *Logic component*.
 * The *red arrow* shows that each command knows about the `Prefix` constants stored in `Prefixes`.
 
-========
-In future versions, `Prefixes` will be stored in the *Commands* package,
-since each command will need to know all the `Prefix` that they are using.
-
-This means that:
-
-* The command parsers will obtain all the required `Prefix` from the respective command.
-* The *green arrow* can be removed indicating that the command parsers no longer need information in `Prefixes`.
-========
-
 ====
 
 In addition to Figure 6., in the figure above, you can see that:
@@ -221,17 +211,17 @@ This feedback includes:
 
 ====
 [horizontal]
-In most cases, there are two levels of parsing before a command is created +
+In most cases, there are *two levels* of parsing before a command is created +
 (i.e. `XCommandParser` passes the parsing to `XYCommandParser`).
 
-However there are some cases where only one level of parsing is needed +
+However there are some cases where only *one level* of parsing is needed +
 (e.g. for the `help`, `report`, and `exit` commands).
 
 .Skipping the second layer of parsers
-image::LogicClassDiagram3.png[]
+image::LogicClassDiagram3.png[,500]
 
 These command parsers will immediately create the respective `Command`,
-skipping the second layer of parsers (indicated by the red arrow in Figure 6.).
+*skipping the second layer* of parsers (represented by the *red arrow* in the figure above).
 ====
 
 ==== Overview of Commands
@@ -246,7 +236,7 @@ These packages depend on the `Command` class since they contain commands that in
 In addition, the following diagram shows the information that a command should have.
 
 .Internal structure of all commands
-image::CommandsPackageDiagram2.png[]
+image::CommandsPackageDiagram2.png[,500]
 
 . In each package, all commands should have their own `CommandDetails`.
 . `CommandDetails` store all the information that each command should have, +
@@ -271,7 +261,7 @@ These packages depend on the `Parser` interface since they contain command parse
 In addition, the following diagram shows the information that a command parser should have.
 
 .Internal structure of all command parsers
-image::ParserPackageDiagram2.png[]
+image::ParserPackageDiagram2.png[,300]
 
 . All command parsers use some `Prefix` constants defined in `Prefixes`.
 . `PrefixDetails` adds more information to a `Prefix` +
@@ -284,15 +274,6 @@ image::ParserPackageDiagram2.png[]
 . The `PrefixDictionary` is used for:
 * *syntax highlighting*, and
 * listing information in the *help window*
-
-====
-The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
-while the *parsers* do not store any `PrefixDetails`. Instead, they use a number of `Prefix` objects to
-parse user inputs. This is because they do not need the extra information stored in `PrefixDetails`.
-
-`PrefixDetails` adds more information to a `Prefix` instead of extending it.
-Therefore, it can be detached from the command parsers without changing the `Prefix` constants in `Prefixes`.
-====
 
 ==== Example Logic Sequence
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
@@ -309,6 +290,43 @@ destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
 ====
+
+==== Design Considerations
+
+===== Rationale behind `PrefixDetails` not inheriting from the `Prefix` class
+The following diagrams compare the structure of commands and their respective parsers.
+
+[.clearfix]
+--
+[.left]
+.Structure of a command parser
+image::ParserPackageDiagram2.png[,300]
+[.left]
+.Structure of a command
+image::CommandsPackageDiagram2.png[,500]
+--
+
+The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
+while the *parsers* do not store any `PrefixDetails`. Instead, they use a number of `Prefix` objects to
+parse user inputs. This is because they do not need the extra information stored in `PrefixDetails`.
+
+`PrefixDetails` adds more information to a `Prefix` instead of extending it.
+Therefore, it can be detached from the command parsers without changing the `Prefix` constants in `Prefixes`.
+
+===== Moving `Prefixes` to the *Commands* package
+
+In future versions, `Prefixes` could be stored in the *Commands* package,
+since each command will need to know all the `Prefix` that they are using.
+
+The following diagram shows how the command parsers can obtain all the required `Prefix` from the respective command.
+
+.Improving the Logic component
+image::LogicClassDiagram4.png[,500]
+
+In the diagram above:
+
+* The *red arrow* will be removed to show that the command parsers no longer need information in `Prefixes`.
+* `Prefixes` will be moved into the *commands* package.
 
 [[Design-Model]]
 === Model component
@@ -779,13 +797,25 @@ of the session from EndDateTime and then rounding up the value to a whole.
 When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
 as a form of input validation.
 
-In addition, the `ResultBox` will display different messages based on the result of the syntax highlighting.
+In addition, the `ResultDisplay` will display different messages based on the result of the syntax highlighting.
+
+The following shows how the`CommandBox` and `ResultDisplay` appear in the `MainWindow` of `TA-Tracker`
+
+.The `CommandBox` and the `ResultDisplay` in `TA-Tracker`
+image::syntax-highlighting/SH-CommandBox.png[]
+
+In the figure above:
+
+* There is a user input highlighted in `green` in the `CommandBox`
+* There is a message in `white` showing in the `ResultDisplay`
+* The command being entered is `session edit`
+* There are three arguments: `date`, `start time`, and `end time`.
 
 ==== Overview
 The following diagram shows how the Logic and UI components interact with each other to produce the highlighting.
 
 .Syntax Highlighting - Class Diagram
-image::SyntaxHighlightingClassDiagram.png[]
+image::SyntaxHighlightingClassDiagram.png[
 
 * The `CommandBox` uses a `CommandDictionary` to search for valid commands.
 * The `CommandBox` stores a `CommandDetail` for processing the current command in the user input.
