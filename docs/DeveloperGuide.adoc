@@ -669,10 +669,59 @@ proceed to step 2. +
 +
 NOTE: There should be a rake symbol next to the only activity in this partition.
 
-        . For each prefix, if it has a valid value in the `user input`,
-        (i.e. the prefix value is valid), highlight it.
+===== Step 2. Highlighting the preamble
+After verifying that the new input has a `full command word`,
+the highlighting will also need to be reapplied to the `preamble` and `arguments`.
 
-When the user inputs the `ENTER` key, the user input is executed and the syntax highlighting is removed.
+The following activity diagram explains how the `preamble` is highlighted,
+up until the beginning of the first `argument`.
+
+.Step 2 - Highlighting the preamble
+image::SyntaxHighlightingActivityDiagram2.png[]
+
+Here is the purpose of each partition in the above diagram:
+
+* `whitespaces` +
+Inputs that have trailing whitespaces will be handled separately.
+
+* `many_whitespaces` +
+When there are more than two trailing whitespaces,
+the `ResultBox` should reshow how to use the command.
+
+* `preamble_error` +
+When the input has a `preamble` that the command does not need,
+the `ResultBox` should indicate that a wrong command is entered.
+
+* `preamble_end` +
+After processing the `preamble`,
+proceed to step 3. +
++
+NOTE: There should be a rake symbol next to the only activity in this partition.
+
+===== Step 3. Highlighting the remaining arguments
+After verifying that the `preamble` is valid for the given `full command word`,
+the highlighting will need to be reapplied to each `argument` in the remaining user input.
+
+The following activity diagram explains how each `argument` is highlighted,
+up until end of the user input.
+
+.Step 3 - Highlighting the remaining arguments
+image::SyntaxHighlightingActivityDiagram3.png[]
+
+Here is the purpose of each partition in the above diagram:
+
+* `wrong` +
+When the command does not need the given `argument`,
+the `ResultBox` should reshow how to use the command.
+
+* `invalid` +
+When the `argument` cannot have the given `value`,
+the `ResultBox` should show how to use the `argument`.
+
+* `valid` +
+After processing the current `argument`,
+the `ResultBox` will still show how to use the argument in case the `argument`
+can have spaces.
 
 ==== Design Considerations
 
