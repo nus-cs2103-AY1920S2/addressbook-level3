@@ -260,6 +260,8 @@ BMI is calculated based off the stored height and weight in this instance.
 * `bmi -h 172 -w 65.5` +
 Calculate BMI based on the input height and weight values.
 
+'''
+
 === Expense Splitter : `split`
 Splitting the items' cost with friends. All you have to do is add the item,
 price and the names involved in splitting that item and EYLAH will
@@ -284,6 +286,7 @@ Example: +
 Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
+'''
 
 [[deleteitem]]
 ==== Deleting an item: `deleteitem`
@@ -299,6 +302,8 @@ Use `listreceipt` to view your item indices before deletion.
 Example: +
 `deleteitem 3`
 
+'''
+
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
@@ -311,6 +316,8 @@ Format: +
 Example: +
 `listreceipt`
 
+'''
+
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
@@ -321,6 +328,8 @@ Format: +
 
 Example: +
 `listamount`
+
+'''
 
 [[paid]]
 ==== Paying money: `paid`
@@ -352,6 +361,9 @@ Example: +
 * Price can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
+
+
+'''
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
@@ -370,6 +382,8 @@ Example: +
 or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
 ====
+
+'''
 
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
