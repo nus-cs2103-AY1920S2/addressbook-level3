@@ -13,12 +13,8 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
             + "Tag/Quantity, Name\n"
             + "For example, to enter 50g of Broccoli, the format is iv/50g, Broccoli";
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%/',-]+$+";
 
+    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%/',-]+$+";
 
     protected String ingredientName;
     protected Quantity quantity;

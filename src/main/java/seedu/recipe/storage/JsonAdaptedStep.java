@@ -25,7 +25,7 @@ public class JsonAdaptedStep {
      * Converts a given {@code Step} into this class for Jackson use.
      */
     public JsonAdaptedStep(Step source) {
-        step = source.value;
+        step = source.toString();
     }
 
     @JsonValue

@@ -164,8 +164,10 @@ Lists all the recipes present in the database. +
 Format: `list`
 
 === Find a recipe: `find`
-Searches for an existing recipe using the name that you have specified. +
-Format: `find` [recipe name]
+Searches for existing recipes by their names using the keyword(s) that you have specified. +
+Format: `find` </strict> [keyword] <keyword>...
+
+// TODO
 
 === Add a recipe: `add`
 Adds a recipe to the recipe book +
