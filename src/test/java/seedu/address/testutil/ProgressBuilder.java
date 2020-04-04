@@ -25,7 +25,7 @@ public class ProgressBuilder {
     private Boolean isDone;
 
     public ProgressBuilder() throws CommandException {
-        this.id = new CompositeIDBuilder().addAssignmentID(new ID(DEFAULT_AID)).addStudentID(new ID(DEFAULT_SID)).createCompositeID();
+        this.id = new CompositeID(new ID(DEFAULT_AID), new ID(DEFAULT_SID));
         this.isDone = Boolean.valueOf(DEFAULT_ISDONE);
     }
 

@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +25,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -190,9 +193,10 @@ public class MainWindow extends UiPart<Stage> {
     courseListPanel = new CourseListPanel(logic.getFilteredCourseList(), commandBox);
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList(), commandBox);
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
+
     summaryPanel = new SummaryPanel();
 
-//    {
+    //    {
 //      "details": Student,
 //      "courses": [
 //          {
@@ -219,7 +223,17 @@ public class MainWindow extends UiPart<Stage> {
     Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
     fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
     studentDetailsMap.put("details", fakeStudent);
-    studentDetailsMap.put("courses", logic.getFilteredCourseList());
+    ObservableList<Course> filteredCourses = logic.getFilteredCourseList();
+    ObservableList<HashMap> courseMap = FXCollections.observableArrayList();
+    for (Course course : filteredCourses) {
+      HashMap<String, Object> m = new HashMap<>();
+      ObservableList<Progress> progressList = FXCollections.observableArrayList();
+      m.put("info", course);
+      m.put("progress_list", progressList);
+      m.put("number_of_done_progress", 3);
+      courseMap.add(m);
+    }
+    studentDetailsMap.put("courses", courseMap);
     studentDetailedPanel = new StudentDetailedPanel( studentDetailsMap, commandBox);
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());

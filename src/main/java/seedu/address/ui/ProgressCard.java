@@ -39,9 +39,13 @@ public class ProgressCard extends UiPart<Region> {
     super(FXML);
     this.progress = progress;
     this.commandBox = commandBox;
-    id1.setText(progress.getName().fullName);
-    id.setText(displayedIndex + ". ");
-    progressID.setText(progress.getId().value);
+    sid.setText(progress.getId().getStudentID().value);
+    aid.setText(progress.getId().getAssignmentID().value);
+    if (progress.getIsDone()) {
+      isDone.setText("Done");
+    } else {
+      isDone.setText("Not Done");
+    }
   }
 
   @Override
@@ -58,14 +62,8 @@ public class ProgressCard extends UiPart<Region> {
 
     // state check
     ProgressCard card = (ProgressCard) other;
-    return progressID.getText().equals(card.progressID.getText())
+    return sid.getText().equals(card.sid.getText())
+        && aid.getText().equals(card.aid.getText())
         && progress.equals(card.progress);
-  }
-
-  @FXML
-  private void selectProgress(){
-    String selectedProgressID = progressID.getText();
-    String commandText = "select cid/" + selectedProgressID;
-    commandBox.runCommand(commandText, "COURSE");
   }
 }

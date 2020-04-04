@@ -10,10 +10,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
-import seedu.address.ui.uiCourse.CourseCard;
+import seedu.address.ui.uiCourse.CourseVeryDetailedCard;
 
 /**
  * Panel containing the list of students.
@@ -28,13 +29,24 @@ public class StudentDetailedPanel extends UiPart<Region> {
   private ListView<Student> studentDetailedView;
 
   @FXML
-  private ListView<Course> courseListView;
+  private ListView<HashMap> courseListView;
 
 //  Map: key -> value
 //  {
 //    "details": Student
 //    "course": [CourseDetail]
 //  }
+
+  //    {
+//      "details": Student,
+//      "courses": [
+//          {
+//            "info": Course,
+//            "progress_list": [Progress],
+//            "number_of_done_progress": Integer,
+//          }
+//      ]
+//    }
 
   public StudentDetailedPanel(HashMap<String, Object> studentMap, CommandBox commandBox) {
     super(FXML);
@@ -45,7 +57,7 @@ public class StudentDetailedPanel extends UiPart<Region> {
     studentDetailedView.setItems(filteredStudents);
     studentDetailedView.setCellFactory(listView -> new StudentListViewCell());
 
-    courseListView.setItems((ObservableList<Course>) studentMap.get("courses"));
+    courseListView.setItems((ObservableList<HashMap>) studentMap.get("courses"));
     courseListView.setCellFactory(listView -> new CourseListViewCell());
   }
 
@@ -72,17 +84,20 @@ public class StudentDetailedPanel extends UiPart<Region> {
    * Custom {@code ListCell} that displays the graphics of a {@code Course} using a {@code
    * CourseCard}.
    */
-  class CourseListViewCell extends ListCell<Course> {
+  class CourseListViewCell extends ListCell<HashMap> {
 
     @Override
-    protected void updateItem(Course course, boolean empty) {
-      super.updateItem(course, empty);
+    protected void updateItem(HashMap courseMap, boolean empty) {
+      super.updateItem(courseMap, empty);
 
-      if (empty || course == null) {
+      if (empty || courseMap == null) {
         setGraphic(null);
         setText(null);
       } else {
-        setGraphic(new CourseCard(course, commandBox,getIndex() + 1).getRoot());
+        Course thisCourse = (Course) courseMap.get("info");
+        ObservableList<Progress> progressList = (ObservableList<Progress>) courseMap.get("progress_list");
+        int noOfDoneProgress = (int) courseMap.get("number_of_done_progress");
+        setGraphic(new CourseVeryDetailedCard(thisCourse, progressList, noOfDoneProgress, commandBox,getIndex() + 1).getRoot());
       }
     }
   }

@@ -21,10 +21,6 @@ public class AssignCommandFactory {
                 "\n3. Assigning an assignment to a course " +
                 PREFIX_COURSEID + " " + PREFIX_ASSIGNMENTID;
 
-
-        Prefix[] prefixes = assignDescriptor.getType();
-
-
         AssignCommandBase outputCommand = null;
 
         if ( AssignTeacherToCourseCommand.isValidDescriptor(assignDescriptor)) {
@@ -38,7 +34,6 @@ public class AssignCommandFactory {
                 outputCommand = new AssignAssignmentToCourseCommand(assignDescriptor);
             }
         else {
-            // Thrown when there is no valid assignment such as Teachers -> Students
             throw new ParseException(ASSIGNMENT_FAILURE_MESSAGE);
         }
 

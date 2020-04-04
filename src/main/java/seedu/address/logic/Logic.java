@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -163,6 +164,9 @@ public interface Logic {
    * Set the user prefs' GUI settings.
    */
   void setGuiSettings(GuiSettings guiSettings);
+
+  // ========================= Getters for Details View ======================
+  ObservableMap<String, Object> getFilteredStudentDetailsMap();
 
   // ========================== Getters for Predicates =========================
 

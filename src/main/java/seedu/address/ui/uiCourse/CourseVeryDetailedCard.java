@@ -14,6 +14,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.ProgressCard;
 import seedu.address.ui.UiPart;
 
 /**
@@ -21,7 +22,7 @@ import seedu.address.ui.UiPart;
  */
 public class CourseVeryDetailedCard extends UiPart<Region> {
 
-  private static final String FXML = "CourseListDetailedCard.fxml";
+  private static final String FXML = "CourseListVeryDetailedCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -51,19 +52,22 @@ public class CourseVeryDetailedCard extends UiPart<Region> {
   @FXML
   private Label amount;
   @FXML
+  private Label noOfDoneProgress;
+  @FXML
   private FlowPane tags;
   @FXML
   private ListView<Progress> progressListView;
 
   private CommandBox commandBox;
 
-  public CourseVeryDetailedCard(Course course, ObservableList<Progress> progressList, CommandBox commandBox, int displayedIndex) {
+  public CourseVeryDetailedCard(Course course, ObservableList<Progress> progressList, int progress, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.course = course;
     this.commandBox = commandBox;
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
+    noOfDoneProgress.setText(String.valueOf(progress));
 
     Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
     String assignmentsStrings = "None";
@@ -99,7 +103,7 @@ public class CourseVeryDetailedCard extends UiPart<Region> {
         setGraphic(null);
         setText(null);
       } else {
-        setGraphic(new CourseCard(course, commandBox,getIndex() + 1).getRoot());
+        setGraphic(new ProgressCard(progress, commandBox,getIndex() + 1).getRoot());
       }
     }
   }

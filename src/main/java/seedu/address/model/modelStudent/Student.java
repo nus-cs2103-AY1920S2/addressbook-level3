@@ -74,8 +74,6 @@ public class Student extends ModelObject {
     }
   }
 
-
-
   /**
    * Returns an immutable ID set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
