@@ -31,11 +31,6 @@ public class StudentDetailedPanel extends UiPart<Region> {
   @FXML
   private ListView<HashMap> courseListView;
 
-//  Map: key -> value
-//  {
-//    "details": Student
-//    "course": [CourseDetail]
-//  }
 
   //    {
 //      "details": Student,
