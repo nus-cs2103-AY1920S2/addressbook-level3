@@ -28,7 +28,6 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
-import seedu.address.model.profile.course.module.personal.ModuleGrade;
 
 /**
  * Edits Profile or Module specified by user.

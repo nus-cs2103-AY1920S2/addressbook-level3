@@ -56,7 +56,8 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         // Get Course
         if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
-            CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get().toUpperCase());
+            CourseName courseName = ParserUtil.parseCourseName(
+                    argMultimap.getValue(PREFIX_COURSE_NAME).get().toUpperCase());
             return new ShowCommand(courseName); // returns CourseName
         }
 

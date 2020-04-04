@@ -136,7 +136,7 @@ public class AddCommandTest {
         } catch (CommandException e) {
             fail();
         }*/
-        
+
         assertTrue(module.getPersonal().getStatus().equals(initialStatus)); // Check if status is the same
         boolean sameGrade = (module.getPersonal().getGrade() == null && initialGrade == null)
                 || (module.getPersonal().getGrade() != null && initialGrade != null
