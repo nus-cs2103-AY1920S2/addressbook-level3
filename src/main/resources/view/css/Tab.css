@@ -1,7 +1,7 @@
 .tab-pane {
     -fx-margin: 0 -15 0 5;
     -fx-padding: 0 0 0 7;
-    -fx-background-color: #383838;
+    -fx-background-color: #313133;
     -fx-alignment: CENTER;
 }
 
@@ -14,15 +14,15 @@
 }
 
 .tab-header-background {
-    -fx-background-color: #383838;
+    -fx-background-color: #313133;
 }
 
 
 .tab {
-    -fx-background-color: #383838;
+    -fx-background-color: #313133;
     -fx-padding: 11 0 13 0;
-    -fx-border-width: 1px 1.5px 1.5px 1px;
-    -fx-border-color: #383838 #e5e5e5 #e5e5e5 #383838;
+    -fx-border-width: 1px 1.5px 2px 1px;
+    -fx-border-color: #313133 #e5e5e5 #e5e5e5 #313133;
     -fx-min-width: 100px;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -38,8 +38,8 @@
 }
 
 .tab:selected {
-    -fx-border-width: 1px 1.5px 1.5px 1px;
-    -fx-border-color: #383838 #e5e5e5 salmon #383838;
+    -fx-border-width: 1px 1.5px 2px 1px;
+    -fx-border-color: #313133 #e5e5e5 salmon #313133;
 }
 
 .tab:selected .tab-label {
@@ -56,11 +56,11 @@
 }
 
 #logTab {
-    -fx-border-width: 1px 1px 1.5px 0px;
-    -fx-border-color: #383838 #383838 #e5e5e5 #e5e5e5;
+    -fx-border-width: 1px 1px 2px 0px;
+    -fx-border-color: #313133 #313133 #e5e5e5 #e5e5e5;
 }
 
 #logTab:selected {
-    -fx-border-width: 1px 1px 1.5px 0px;
-    -fx-border-color: #383838 #383838 salmon #e5e5e5;
+    -fx-border-width: 1px 1px 2px 0px;
+    -fx-border-color: #313133 #313133 salmon #e5e5e5;
 }

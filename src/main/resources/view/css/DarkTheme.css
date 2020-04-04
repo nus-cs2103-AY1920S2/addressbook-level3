@@ -14,7 +14,7 @@
 }
 
 @font-face {
-    font-family: 'Open Sans Semibold';
+    font-family: 'Open Sans SemiBold';
     src: url('./../../fonts/OpenSans-SemiBold.ttf');
 }
 
@@ -30,14 +30,14 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Open Sans SemiBold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Open Sans SemiBold";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -51,7 +51,7 @@
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Open Sans SemiBold";
 }
 
 .tab-pane {
@@ -127,7 +127,7 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #38383a;
+    -fx-background-color: #3c3c3e;
 }
 
 .list-cell:filled:odd {
@@ -148,27 +148,8 @@
     -fx-text-fill: white;
 }
 
-#exerciseId, #exerciseName, #workoutId, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName {
-    -fx-font-family: "Open Sans Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #FFA372;
-    -fx-padding: 3px 0px 6px 0px;
-}
-
-#exerciseSetCard .label {
-    -fx-padding: 4px 0px 0px 0px;
-}
-
-#workoutExerciseCard .label {
-    -fx-text-fill: white;
-}
-
-#dateTime {
-    -fx-padding: 4px 0px 0px 0px;
-}
-
 .cell_big_label {
-    -fx-font-family: "Open Sans Semibold";
+    -fx-font-family: "Open Sans SemiBold";
     -fx-font-size: 16px;
     -fx-text-fill: #fff;
 }
@@ -270,7 +251,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1a1a1a;
-    -fx-font-family: "Open Sans Regular", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Open Sans Regular", "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -382,6 +363,25 @@
 
 #commandBoxPlaceholder {
     -fx-background-color: #0F4472;
+}
+
+#exerciseId, #exerciseName, #workoutId, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName {
+    -fx-font-family: "Open Sans SemiBold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #FFA372;
+    -fx-padding: 3px 0px 6px 0px;
+}
+
+#exerciseSetCard .label {
+    -fx-padding: 4px 0px 0px 0px;
+}
+
+#workoutExerciseCard .label {
+    -fx-text-fill: white;
+}
+
+#dateTime {
+    -fx-padding: 4px 0px 0px 0px;
 }
 
 #filterField, #personListPanel, #personWebpage {
