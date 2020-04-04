@@ -46,11 +46,16 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
             title = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
-        AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
+        AbsolutePath uncorrectedPath;
+        try {
+            uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
+        } catch (ParseException pe) {
+            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+        }
         Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 
         return correctedPath
             .map(path -> new OpenSuggestionCommand(path, title))
-            .orElseThrow(() -> new ParseException("Invalid path"));
+            .orElseThrow(() -> new ParseException("Cannot open \"" + title + "\". Invalid path."));
     }
 }

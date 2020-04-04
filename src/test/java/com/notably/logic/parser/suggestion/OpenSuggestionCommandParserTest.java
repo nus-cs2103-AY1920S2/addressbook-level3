@@ -85,7 +85,9 @@ public class OpenSuggestionCommandParserTest {
 
     @Test
     public void parse_uncorrectedPath_throwsParseException() {
-        assertParseFailure(openSuggestionCommandParser, " -t randomBlock", "Invalid path");
+        String title = "randomBlock";
+        assertParseFailure(openSuggestionCommandParser, " -t " + title,
+            "Cannot open \"" + title + "\". Invalid path.");
     }
 
     @Test
