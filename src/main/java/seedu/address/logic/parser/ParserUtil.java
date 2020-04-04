@@ -70,14 +70,14 @@ public class ParserUtil {
      */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
-        String trimmedModuleCode = moduleCode.trim();
-        if (moduleCode.equals("")) {
+        String formattedModuleCode = moduleCode.trim().toUpperCase();
+        if (formattedModuleCode.equals("")) {
             throw new ParseException(MESSAGE_MISSING_MODULE);
         }
-        if (!ModuleCode.isValidCode(moduleCode)) {
+        if (!ModuleCode.isValidCode(formattedModuleCode)) {
             throw new ParseException(MESSAGE_INVALID_MODULE);
         }
-        return new ModuleCode(trimmedModuleCode);
+        return new ModuleCode(formattedModuleCode);
     }
 
     /**
@@ -155,26 +155,6 @@ public class ParserUtil {
         }
         return new CourseName(trimmedCourseName);
     }
-
-//    /**
-//     * Parses a {@code String specialisationName} into a {@code FocusArea}.
-//     * Leading and trailing whitespaces will be trimmed.
-//     *
-//     * @throws ParseException if the given {@code specialisationName} is invalid.
-//     */
-//    public static FocusArea parseSpecialisation(CourseName courseName, String specialisationName)
-//            throws ParseException {
-//        requireNonNull(specialisationName);
-//        String trimmedSpecialisation = specialisationName.trim().toUpperCase();
-//        if (trimmedSpecialisation.equals("")) {
-//            throw new ParseException(MESSAGE_MISSING_SPECIALISATION);
-//        }
-//        if (!FocusArea.isValid(courseName, trimmedSpecialisation)) {
-//            System.out.println(trimmedSpecialisation);
-//            throw new ParseException(String.format(MESSAGE_INVALID_SPECIALISATION, NewCommand.MESSAGE_USAGE));
-//        }
-//        return new FocusArea(trimmedSpecialisation);
-//    }
 
     /**
      * Parses a {@code String focusArea}.
