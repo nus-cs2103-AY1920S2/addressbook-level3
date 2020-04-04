@@ -106,7 +106,7 @@ public class AddTransactionCommand extends Command {
         }
 
         model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+        model.updateFilteredProductList();
 
         int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
 

@@ -30,6 +30,10 @@ public class ModelManager implements Model {
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<Transaction> filteredTransactions;
 
+    private Predicate<Customer> customerPredicate;
+    private Predicate<Product> productPredicate;
+    private Predicate<Transaction> transactionPredicate;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -206,6 +210,12 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+        customerPredicate = predicate;
+    }
+
+    @Override
+    public void updateFilteredCustomerList() {
+        filteredCustomers.setPredicate(customerPredicate);
     }
 
     @Override
@@ -213,7 +223,10 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredProducts.setPredicate(PREDICATE_SHOW_ALL_PRODUCTS);
         int fullProductListSize = getFilteredProductList().size();
+
         filteredProducts.setPredicate(predicate);
+        productPredicate = predicate;
+
         SortedList<Product> sortedProduct = new SortedList<>(filteredProducts);
         sortedProduct.comparatorProperty().set((o1, o2) -> {
             if (o1.getProgress() - o2.getProgress() > 0) {
@@ -225,14 +238,26 @@ public class ModelManager implements Model {
             }
         });
         if (sortedProduct.size() == fullProductListSize) {
+
             inventorySystem.setProducts(sortedProduct);
         }
+    }
+
+    @Override
+    public void updateFilteredProductList() {
+        filteredProducts.setPredicate(productPredicate);
     }
 
     @Override
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
+        transactionPredicate = predicate;
+    }
+
+    @Override
+    public void updateFilteredTransactionList() {
+        filteredTransactions.setPredicate(transactionPredicate);
     }
 
     @Override
