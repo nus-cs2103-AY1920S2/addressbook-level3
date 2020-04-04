@@ -725,58 +725,29 @@ can have spaces.
 
 ==== Design Considerations
 
-===== Aspect #1: How to execute syntax highlighting in real-time
+===== Aspect #1: Executing the syntax highlighting in real-time
+The current implementation reapplies the highlighting whenever the user input changes.
+When no input is changed, the program will idle.
 
-When the user is typing their command, the `CommandBox` will need to highlight all valid command words, prefixes, and parameters.
-
-[width="100%",cols="33%,<33%,<35%",options="header",]
-|=====================
-| Solution | Pros | Cons
-
-| **Alternative 1 (current choice)** +
-Register an event listener in `CommandBox` that triggers when the command text in it changes.
-| Will have improved performance as the program can idle.
-| Requires careful implementation of JavaFX events and event listeners.
-
-| **Alternative 2** +
-Constantly update the syntax highlighting (in an infinite loop) when the user input is not blank.
-| Simplest implementation, for example using a constantly running update loop.
-| May have performance issues, since the update loop will be running even when the `CommandBox` is inactive.
-
-| **Alternative 3** +
-Subscribe to a application-wide update loop in a modified TA-Tracker.
-| Allows integration of other real-time features, such as application notifications.
-| Requires major refactoring in TA-Tracker for the large-scale update loop.
-
-|=====================
+In contrast, having an infinite loop can achieve the same highlighting,
+but the program cannot idle and will consume memory when in use.
 
 ===== Aspect #2: Range of syntax highlighting
+The current implementation uses three colours for the syntax highlighting.
 
-Which inputs should the syntax highlighting be limited to. There are three types of inputs:
-invalid, valid and unknown inputs.
+The following colours are used:
 
-[width="100%",cols="33%,<33%,<35%",options="header",]
-|=====================
-| Solution | Pros | Cons
+* `Red` - invalid input
+* `Green` - valid input
+* `White` - the default font colour for the `CommandBox` input
 
-| **Alternative 1 (current choice)** +
-Highlight valid inputs in green
-| User only need to know that their input is correct.
-| Valid inputs may be obscured due to the choice of colour.
+These colours have been chosen because they are standard signalling colours used in
+everyday life. Therefore the user will be familiar with these colour signals without
+a need for an explanation.
 
-| **Alternative 2** +
-Highlight invalid inputs in red
-| User will know that they need to correct their invalid inputs.
-| Feature already exists when submitting an invalid full command.
-
-The scope of invalid inputs is too broad.
-
-| **Alternative 3** +
-All inputs
-| All inputs verified in the `CommandBox`.
-| Too many colours may confuse the user.
-
-|=====================
+Valid inputs have been highlighted in order to signal to the user that they have used
+the command correctly. An alternative would be to remove this colour though, as having too
+many flashing colours may be distracting to the user.
 // end::syntaxhighlighting[]
 
 === Logging
