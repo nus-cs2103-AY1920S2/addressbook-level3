@@ -41,6 +41,9 @@ MainWindow *-down-> SessionTab
 MainWindow *-down-> ClaimsTab
 MainWindow *-down-> StatusBarFooter
 
+CommandBox *-up-> ResultDisplay
+
+
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
