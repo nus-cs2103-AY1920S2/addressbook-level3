@@ -1564,6 +1564,7 @@ Use case ends.
 
 . `**TAT**` should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
 . A user with above average typing speed for <<regular-english-text, regular English text>> (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. A user should be able to easily see the commands that they have wrongly typed.
 . `**TAT**` should be able to run with or without internet connection.
 . `**TAT**` should work for a single user only.
 . `**TAT**` should not require user to install.
