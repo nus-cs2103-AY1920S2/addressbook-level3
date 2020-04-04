@@ -42,7 +42,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
+    protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID teacherID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
@@ -69,9 +69,14 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
             } else {
                 model.assignTeacherToCourse(teacherID, courseID);
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    foundStaff.getName().toString(), teacherID.value,
+                        foundStaff.getName().toString(), teacherID.value,
                         foundCourse.getName().toString(), courseID.value));
             }
         }
+    }
+
+    @Override
+    protected void generateOppositeCommand() throws CommandException {
+
     }
 }
