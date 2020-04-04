@@ -192,9 +192,10 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+The following diagram is a simplified view of the Storage component.
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Simplified structure of the Storage Component
+image::StorageClassDiagram1.png[]
 
 *API* : link:{repoURL}/src/main/java/tatracker/storage/Storage.java[`Storage.java`]
 
@@ -203,14 +204,25 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the TA-Tracker data in json format and read it back.
 
+==== Saved Data
+The following diagram is a breakdown of the data managed by the Storage component.
+
+.Structure of the data stored by TA-Tracker
+image::StorageClassDiagram2.png[]
+
 `TA-Tracker` saves the following data:
 
-* a list of `Module` objects representing the modules that the user is assisting.
-** each `Module` contains a list of `Session`, representing the sessions that
-the user has completed for that module.
-** each `Module` contains a list of `Group`, representing the groups that the user is
-in charge of, such as a tutorial or lab.
-** each `Group` contains a list of `Student`, representing the students enrolled in
+* a list of `Module` objects representing the modules that the user is assisting. +
++
+Within each module, there is:
+
+** a list of `Session`, representing the `done sessions` that the user has completed for that module.
+** a list of `Group`, representing the groups that the user is
+in charge of, such as a tutorial or lab. +
++
+Within each group, there is:
+
+*** a list of `Student`, representing the students enrolled in
 the respective groups.
 
 * a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
