@@ -359,7 +359,7 @@ In this section, you will learn more about the `paid` command, <<howtousepaidcom
 *Summary of Paid Command: `paid` subtracts the amount a Person owes you.*
 
 [[howtousepaidcommand]]
-*How to use the Paid Command*
+*How to use the Paid Command:*
 
 Format of Paid Command: +
 
@@ -384,7 +384,7 @@ Example of valid Paid Commands: +
 
 
 [[paidcommandexpectedoutcome]]
-*Expected outcome after using Paid Command*
+*Expected outcome after using Paid Command:*
 
 image::Ui.png[width="790"]
 
