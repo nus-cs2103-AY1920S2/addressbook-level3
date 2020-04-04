@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":NasaBookParser" as NasaBookParser LOGIC_COLOR
+participant ":StatisticsCommandParser" as StatisticsCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":StatisticsCommand" as StatisticsCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute()
+activate LogicManager
+
+LogicManager -> NasaBookParser : parseCommand(command)
+activate NasaBookParser
+
+create StatisticsCommandParser
+NasaBookParser -> StatisticsCommandParser
+activate StatisticsCommandParser
+
+StatisticsCommandParser --> NasaBookParser
+deactivate StatisticsCommandParser
+
+NasaBookParser -> StatisticsCommandParser : parse("parameters")
+activate StatisticsCommandParser
+
+StatisticsCommandParser -> ParserUtil : parseModuleCode("m/CS2030")
+activate ParserUtil
+
+ParserUtil --> StatisticsCommandParser : CS2030
+deactivate ParserUtil
+
+StatisticsCommandParser -> ParserUtil : parseTimePeriod("tp/Week")
+activate ParserUtil
+
+ParserUtil --> StatisticsCommandParser : Week
+deactivate ParserUtil
+
+StatisticsCommandParser -> ParserUtil : parseActivityType("deadline")
+activate ParserUtil
+
+
+ParserUtil --> StatisticsCommandParser : predicate
+deactivate ParserUtil
+
+create StatisticsCommand
+StatisticsCommandParser -> StatisticsCommand : new StatisticsCommand(predicate)
+
+activate StatisticsCommand
+StatisticsCommand --> StatisticsCommandParser :
+deactivate StatisticsCommand
+
+StatisticsCommandParser --> NasaBookParser :
+deactivate StatisticsCommandParser
+StatisticsCommandParser -[hidden]-> NasaBookParser
+destroy StatisticsCommandParser
+
+NasaBookParser --> LogicManager :
+
+<-- LogicManager :
+
+@enduml
