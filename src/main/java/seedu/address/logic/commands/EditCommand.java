@@ -27,6 +27,7 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.course.module.personal.Grade;
 
 /**
  * Edits Profile or Module specified by user.
@@ -56,11 +57,11 @@ public class EditCommand extends Command {
             + "(" + PREFIX_SEMESTER + "4) "
             + "(" + PREFIX_GRADE + "A+) ";
 
-    public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: ";
+    public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: %1$s";
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
 
     private boolean toEditProfile = false;
-    private Name name = null;
+    private Name profileName = null;
     private CourseName courseName = null;
     private int updatedSemester = 0;
     private String specialisation = null;
@@ -76,7 +77,7 @@ public class EditCommand extends Command {
 
     public EditCommand(Name name, CourseName courseName, int updatedSemester, String specialisation) {
         toEditProfile = true;
-        this.name = name;
+        this.profileName = name;
         this.courseName = courseName;
         this.updatedSemester = updatedSemester;
         this.specialisation = specialisation;
@@ -113,7 +114,7 @@ public class EditCommand extends Command {
 
             HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
             if (hashMap.isEmpty()) { // No modules have been added to any semester at all
-                throw new CommandException("No module data has been added to any semesters");
+                throw new CommandException("No module data has been added to any semesters.");
             }
 
             // Checks if module has been added to any semesters before
@@ -131,7 +132,7 @@ public class EditCommand extends Command {
             }
 
             if (existingModule == null) {
-                throw new CommandException("This module has not been added before");
+                throw new CommandException("This module has not been added before.");
             }
 
             if (grade != null) {
@@ -139,10 +140,13 @@ public class EditCommand extends Command {
                 if (oldSemester > currentUserSemester) {
                     throw new CommandException("You cannot add a grade to future semesters!");
                 }
+                if (!Grade.isValidGrade(grade)) {
+                    throw new CommandException("Error: Invalid Grade.");
+                }
                 existingModule.getPersonal().setGrade(grade);
                 profileManager.setDisplayedView(profileToEdit);
                 profileToEdit.updateCap();
-                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), true);
+                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), true);
 
             }
 
@@ -184,12 +188,12 @@ public class EditCommand extends Command {
                 }
             }
 
-            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, existingModule), false);
+            return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), false);
 
         } else if (toEditProfile) {
 
-            if (name != null) {
-                profileToEdit.setName(name);
+            if (profileName != null) {
+                profileToEdit.setName(profileName);
             }
             if (courseName != null) {
                 profileToEdit.setCourse(courseName);
@@ -208,7 +212,7 @@ public class EditCommand extends Command {
             profileManager.setPerson(profileToEdit, editedPerson);
             profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile), false);
+            return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, editedPerson.getName()), false);
         } else {
             throw new CommandException("Error: Edit Command cannot be executed");
         }

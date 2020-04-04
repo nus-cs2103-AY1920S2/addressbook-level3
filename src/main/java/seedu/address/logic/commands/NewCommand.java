@@ -31,7 +31,7 @@ public class NewCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New profile created: %1$s";
     public static final String MESSAGE_DUPLICATE_PROFILE = "Error: Profile with name %1$s exists. "
-            + "To add a new profile, delete the current profile.";
+            + "You can only have one profile.";
 
     private final Profile toAdd;
 
