@@ -3,6 +3,8 @@ package seedu.address.ui.uiStudent;
 import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -40,8 +42,12 @@ public class StudentDetailedCard extends UiPart<Region> {
   private Label assignedCourses;
   @FXML
   private FlowPane tags;
+  @FXML
+  private ImageView studentImage;
 
   private CommandBox commandBox;
+  Image studentGuy = new Image(getClass().getResourceAsStream("/view/ourImages/student.png"));
+  Image studentGirl = new Image(getClass().getResourceAsStream("/view/ourImages/studentGirl.png"));
 
   public StudentDetailedCard(Student student, CommandBox commandBox, int displayedIndex) {
     super(FXML);
@@ -54,6 +60,13 @@ public class StudentDetailedCard extends UiPart<Region> {
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    String gender = student.getGender().value;
+
+    if (gender.equals("m")) {
+      studentImage.setImage(studentGuy);
+    } else if (gender.equals("f")) {
+      studentImage.setImage(studentGirl);
+    }
   }
 
   @Override

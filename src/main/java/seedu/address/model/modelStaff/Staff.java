@@ -15,6 +15,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -35,6 +36,7 @@ public class Staff extends ModelObject {
   // Identity fields
   private final Name name;
   private final ID id;
+  private final Gender gender;
   private final Level level;
   private final Phone phone;
   private final Email email;
@@ -49,22 +51,13 @@ public class Staff extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Staff(Name name, ID id, Level level, Set<Tag> tags){
-    requireAllNonNull(name, id, level, tags);
-    this.name = name;
-    this.id = id;
-    this.phone = new Phone("Unknown");
-    this.email = new Email("Unknown");
-    this.level = level;
-    this.salary = new Salary("0");
-    this.address = new Address("Unknown");
-    this.tags.addAll(tags);
-  }
 
-  public Staff(Name name, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) throws ParseException {
+  public Staff(Name name, Gender gender, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags)
+      throws ParseException {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
+    this.gender = gender;
     this.level = level;
     this.phone = phone;
     this.email = email;
@@ -73,10 +66,11 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
-  public Staff(Name name, ID id, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
+  public Staff(Name name, ID id, Gender gender, Level level, Phone phone, Email email, Salary salary, Address address, Set<Tag> tags) {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
     this.id = id;
+    this.gender = gender;
     this.level = level;
     this.phone = phone;
     this.email = email;
@@ -85,10 +79,11 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
-  public Staff(Name name, ID id, Level level, Phone phone, Email email, Salary salary, Address address, Set<ID> assignedCoursesID, Set<Tag> tags) {
+  public Staff(Name name, ID id, Gender gender, Level level, Phone phone, Email email, Salary salary, Address address, Set<ID> assignedCoursesID, Set<Tag> tags) {
     requireAllNonNull(name,level, phone, email, address, tags);
     this.name = name;
     this.id = id;
+    this.gender = gender;
     this.level = level;
     this.phone = phone;
     this.email = email;
@@ -110,6 +105,13 @@ public class Staff extends ModelObject {
    */
   public ID getId() {
     return id;
+  }
+
+  /**
+   * Get Gender of a staff
+   */
+  public Gender getGender() {
+    return gender;
   }
 
   public boolean containsCourse(ID courseID) {

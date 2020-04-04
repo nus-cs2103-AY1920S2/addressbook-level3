@@ -17,7 +17,7 @@
   <GridPane HBox.hgrow="ALWAYS">
     <VBox alignment="CENTER_LEFT" minHeight="70" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT">
-        <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="staffImage" fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@ourImages/staff.png" />
           </image>

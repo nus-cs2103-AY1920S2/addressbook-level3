@@ -13,6 +13,7 @@ import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -26,6 +27,7 @@ public class Student extends ModelObject {
   // Identity fields
   private final Name name;
   private final ID id;
+  private final Gender gender;
   private Set<ID> assignedCoursesID = new HashSet<>();
   private String assignedCoursesWithNames;
   private final Set<Tag> tags = new HashSet<>();
@@ -33,26 +35,29 @@ public class Student extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Student(Name name, Set<Tag> tags) throws ParseException {
+  public Student(Name name, Gender gender,  Set<Tag> tags) throws ParseException {
     requireAllNonNull(name, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
+    this.gender = gender;
     this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 
-  public Student(Name name, ID id, Set<Tag> tags) {
+  public Student(Name name, ID id, Gender gender, Set<Tag> tags) {
     requireAllNonNull(name, id, tags);
     this.name = name;
     this.id = id;
+    this.gender = gender;
     this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 
-  public Student(Name name, ID id, Set<ID> assignedCoursesID, Set<Tag> tags) {
+  public Student(Name name, ID id, Gender gender, Set<ID> assignedCoursesID, Set<Tag> tags) {
     requireAllNonNull(name, id, tags);
     this.name = name;
     this.id = id;
+    this.gender = gender;
     this.assignedCoursesID.addAll(assignedCoursesID);
     this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
@@ -64,6 +69,13 @@ public class Student extends ModelObject {
 
   public ID getId() {
     return id;
+  }
+
+  /**
+   * Get Gender of a staff
+   */
+  public Gender getGender() {
+    return gender;
   }
 
   public boolean containsCourse(ID courseID) {

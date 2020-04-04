@@ -2,6 +2,8 @@ package seedu.address.ui.uiStaff;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStaff.Staff;
@@ -34,8 +36,12 @@ public class StaffCard extends UiPart<Region> {
   private Label id;
   @FXML
   private Label staffID;
+  @FXML
+  private ImageView staffImage;
 
   private CommandBox commandBox;
+  Image staffGuy = new Image(getClass().getResourceAsStream("/view/ourImages/staff.png"));
+  Image staffGirl = new Image(getClass().getResourceAsStream("/view/ourImages/staffGirl.png"));
 
   public StaffCard(Staff staff, CommandBox commandBox, int displayedIndex) {
     super(FXML);
@@ -44,6 +50,13 @@ public class StaffCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     staffID.setText(staff.getId().value);
     name.setText(staff.getName().fullName);
+    String gender = staff.getGender().value;
+
+    if (gender.equals("m")) {
+      staffImage.setImage(staffGuy);
+    } else if (gender.equals("f")) {
+      staffImage.setImage(staffGirl);
+    }
   }
 
   @Override
