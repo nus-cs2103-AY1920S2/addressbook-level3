@@ -41,7 +41,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get().toUpperCase());
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
             return new ShowCommand(moduleCode); // returns ModuleCode
         }
 

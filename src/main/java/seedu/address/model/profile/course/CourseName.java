@@ -19,13 +19,13 @@ public class CourseName {
      *
      * @param courseName A valid course name.
      */
-    public CourseName(String courseName) throws ParseException {
+    public CourseName(String courseName) {
         // requireAllNonNull() // to be implemented
         // checkArgument() // to be implemented
         String formattedCourse = format(courseName);
-        if (!isValid(formattedCourse)) {
+        /*if (!isValid(formattedCourse)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COURSE, NewCommand.MESSAGE_USAGE));
-        }
+        }*/
         this.courseName = formattedCourse;
     }
 
@@ -38,7 +38,7 @@ public class CourseName {
         return courseName;
     }
 
-    public boolean isValid(String courseName) {
+    public static boolean isValid(String courseName) {
         return AcceptedCourses.contains(courseName);
     }
 

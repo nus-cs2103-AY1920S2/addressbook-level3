@@ -1,15 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
-import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
-import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
-import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
-import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NAME;
-import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
+import static seedu.address.commons.core.Messages.*;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.CourseName;
@@ -142,11 +138,14 @@ public class ParserUtil {
      */
     public static CourseName parseCourseName(String courseName) throws ParseException {
         requireNonNull(courseName);
-        String trimmedSemester = courseName.trim();
-        if (trimmedSemester.equals("")) {
+        String trimmedCourseName = courseName.trim();
+        if (trimmedCourseName.equals("")) {
             throw new ParseException(MESSAGE_MISSING_COURSE);
         }
-        return new CourseName(trimmedSemester);
+        if (!CourseName.isValid(trimmedCourseName)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COURSE, NewCommand.MESSAGE_USAGE));
+        }
+        return new CourseName(trimmedCourseName);
     }
 
     /**

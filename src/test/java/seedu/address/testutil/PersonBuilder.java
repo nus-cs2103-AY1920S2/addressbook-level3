@@ -22,11 +22,7 @@ public class PersonBuilder {
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        try {
-            courseName = new CourseName(DEFAULT_COURSE_NAME);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        courseName = new CourseName(DEFAULT_COURSE_NAME);
         currentSemester = DEFAULT_CURRENT_SEMESTER;
         specialisation = DEFAULT_SPEC;
     }
@@ -50,11 +46,7 @@ public class PersonBuilder {
      * Sets the {@code Course} of the {@code Profile} that we are building.
      */
     public PersonBuilder withCourseName(String courseName) {
-        try {
-            this.courseName = new CourseName(courseName);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        this.courseName = new CourseName(courseName);
         return this;
     }
 
