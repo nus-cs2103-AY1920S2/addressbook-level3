@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.commandAssign;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -17,9 +18,12 @@ public class AssignDescriptor {
 
     public AssignDescriptor() {}
 
-    public ID getAssignID (Prefix assignEntity) {
-        // TODO: Fix this
-        return IDMapping.getOrDefault(assignEntity, new ID("1"));
+    public ID getAssignID (Prefix assignEntity) throws CommandException {
+        if (IDMapping.containsKey(assignEntity)) {
+            return IDMapping.get(assignEntity);
+        } else {
+            throw new CommandException("No ID exists for this Prefix");
+        }
     }
 
     // TODO: Throws exception

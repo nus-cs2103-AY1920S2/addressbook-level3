@@ -4,14 +4,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.CompositeIDBuilder;
 import seedu.address.model.person.ID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static seedu.address.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Progress} objects to be used in tests.
@@ -40,22 +37,22 @@ public class TypicalProgress {
 
     static {
         try {
-            CompositeID_S1_A1 = new CompositeIDBuilder().addStudentID(student1).addAssignmentID(assignment100).createCompositeID();
+            CompositeID_S1_A1 = new CompositeID(student1, assignment100);
             Progress_S1_A1 = new ProgressBuilder().withCompositeID(CompositeID_S1_A1).build();
 
-            CompositeID_S1_A2 = new CompositeIDBuilder().addStudentID(student1).addAssignmentID(assignment200).createCompositeID();
+            CompositeID_S1_A2 = new CompositeID(student1, assignment200);
             Progress_S1_A2 = new ProgressBuilder().withCompositeID(CompositeID_S1_A2).build();
 
-            CompositeID_S1_A3 = new CompositeIDBuilder().addStudentID(student1).addAssignmentID(assignment300).createCompositeID();
+            CompositeID_S1_A3 = new CompositeID(student1, assignment300);
             Progress_S1_A3 = new ProgressBuilder().withCompositeID(CompositeID_S1_A3).build();
 
-            CompositeID_S2_A1 = new CompositeIDBuilder().addStudentID(student2).addAssignmentID(assignment100).createCompositeID();
+            CompositeID_S2_A1 = new CompositeID(student2, assignment100);
             Progress_S2_A1 = new ProgressBuilder().withCompositeID(CompositeID_S2_A1).build();
 
-            CompositeID_S2_A2 = new CompositeIDBuilder().addStudentID(student2).addAssignmentID(assignment200).createCompositeID();
+            CompositeID_S2_A2 = new CompositeID(student2, assignment200);
             Progress_S2_A2 = new ProgressBuilder().withCompositeID(CompositeID_S2_A2).build();
 
-            CompositeID_S2_A3 = new CompositeIDBuilder().addStudentID(student2).addAssignmentID(assignment300).createCompositeID();
+            CompositeID_S2_A3 = new CompositeID(student2, assignment300);
             Progress_S2_A3 = new ProgressBuilder().withCompositeID(CompositeID_S2_A3).build();
         } catch (CommandException e) {
             e.printStackTrace();
