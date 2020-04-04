@@ -595,7 +595,7 @@ There are two different scenarios on how to insert the orders :
 |Scenario |Command |Result
 
 | Insert the order without a comment and no item type
-| `insert` `tid/A094844` `n/John Doe` `a/Blk 505 Tampines #10-33 S469695` `p/98761111` `e/johndoe@example.com` `dts/2020-05-20 1300` `w/Yishun` `cod/$4`
+| `insert` `tid/A094844` `n/John Doe` `a/Blk 505 Tampines #10-33 S520505` `p/98761111` `e/johndoe@example.com` `dts/2020-05-20 1300` `w/Yishun` `cod/$4`
 | You should be able to see that the order with transaction id 'A094844' will be inserted into the list of delivery orders.
 
 | Insert the order with all the order attributes including the non-compulsory ones
@@ -656,7 +656,7 @@ ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, d
 .Return data format
 |===
 ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
-`ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com`, `rts/2020-05-10 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
+`ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/Seletar S797580`,`p/91230456`, `e/aaron@example.com`, `rts/2020-05-10 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
 |===
 
 [NOTE]
