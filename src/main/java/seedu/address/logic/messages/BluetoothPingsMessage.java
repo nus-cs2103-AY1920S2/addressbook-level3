@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
-public class BluetoothPingsMessage implements AppMessage {
-
+public class BluetoothPingsMessage extends AppMessage {
     private final String feedbackToUser;
     private ArrayList<BluetoothPings> toDisplayList;
     private Boolean RENDER_FLAG;
+    public final String IDENTIFIER = "BluetoothPings";
 
     /** The application should exit. */
     private final boolean exit;
@@ -40,7 +40,9 @@ public class BluetoothPingsMessage implements AppMessage {
 
     public Boolean getRenderFlag() { return this.RENDER_FLAG; }
 
-    public ObservableList<BluetoothPings> getDisplayAsObservable() { return FXCollections.observableArrayList(this.toDisplayList); }
+    public String getIdentifier() { return this.IDENTIFIER; }
+
+    public ObservableList getDisplayAsObservable() { return FXCollections.observableArrayList(this.toDisplayList); }
 
     /**
      * A display list contains the necessary items needed to be rendered on the screen

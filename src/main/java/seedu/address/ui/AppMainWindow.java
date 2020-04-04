@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.AppLogic;
+import seedu.address.logic.messages.AppMessage;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -52,11 +53,19 @@ public class AppMainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public void renderToDisplay(BluetoothPingsMessage commandResult) {
+    public void renderToDisplay(AppMessage commandResult) {
         if (commandResult.getRenderFlag()) {
             this.bluetoothPingPanelPlaceholder.getChildren().clear();
-            this.bluetoothPingPanel = new BluetoothPingPanel(commandResult.getDisplayAsObservable());
-            this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
+            if (commandResult.getIdentifier().contains("BluetoothPings")){
+                this.bluetoothPingPanel = new BluetoothPingPanel(commandResult.getDisplayAsObservable());
+                this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
+            }
+            else if (commandResult.IDENTIFIER.contains("BluetoothPingsSummary")) {
+
+            }
+            else if (commandResult.IDENTIFIER.contains("UserList")) {
+
+            }
         }
     }
 
