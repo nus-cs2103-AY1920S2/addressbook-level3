@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -27,6 +27,7 @@ Teaching Assistants at SoC have to keep a track of:
 * students
 * students' participation marks
 * notes they have for certain students that they can later use for recommendations.
+* upcoming teaching-related sessions (of which the hours can be claimed)
 * claimable hours so that they can fill up the TSS Claims form at the end of each semester.
 
 Rather than managing this through several excel
@@ -35,14 +36,16 @@ platform.
 
 In particular, TA-Tracker is a *Command Line Interface (CLI)* application packaged
 with a *Graphical User Interface (GUI)*. This means that users are expected to interact
-with the TA-Tracker mainly through the command line, but each command executed will
+with the TA-Tracker mainly through the command line, and each command executed will
 evoke a visual response in the TA-Tracker.
 
 Any help on the development of the TA-Tracker would be greatly appreciated, and there
 are a couple of ways that you can do so:
 
-* contribute to TA-Tracker's code base by expanding its features
-** such as adding an option to enter assignment grades
+* contribute to TA-Tracker's code base by expanding its features such as:
+** adding an option to enter assignment grades
+** add students to consultations in session view
+** list all the consultations a student has attended in student view
 * help us improve test coverage
 * propose and implement improvements on current features
 
@@ -123,15 +126,26 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/tatracker/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
-`StudentTab`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the
+`StudentTab`, `StatusBarFooter` etc. The UI also contains 2 more windows, namely:
+
+. the `HelpWindow` and
+. the `StatisticsWindow`
+
+All these, including the `MainWindow`, inherit from the
 abstract `UiPart` class.
 
-.Structure of the Student Tab Component
+.Structure of the StudentTab Component
 image::StudentTabClassDiagram.png[]
 
-The UI contains 3 tabs: the StudentTab, the SessionTab and the ClaimsTab. Each of these tabs
-consist of one or more List Panels (e.g. StudentListPanel) and its respective Card (e.g. Student Card).
-In each ListPanel, the the Graphics component of each of the cells is defined by the respective Card.
+The UI contains 3 tabs:
+
+. the `StudentTab`,
+. the `SessionTab` and
+. the `ClaimsTab`.
+
+Each of these tabs consist of one or more List Panels (e.g. `StudentListPanel`) and its
+respective Card (e.g. `StudentCard`). In each List Panel, the the Graphics component of
+each of the List Cells is defined by the respective Card.
 
 The other 2 Tabs follow the same structure as the Class diagram above.
 
