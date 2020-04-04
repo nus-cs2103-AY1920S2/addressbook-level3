@@ -23,7 +23,7 @@ public class ModuleCode {
     public ModuleCode(String moduleCode) {
         // requireAllNonNull() // to be implemented
         // checkArgument() // to be implemented
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toUpperCase();
     }
 
     public static boolean isValidCode(String moduleCode) {

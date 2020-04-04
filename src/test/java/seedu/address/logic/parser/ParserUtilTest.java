@@ -1,6 +1,12 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -56,5 +62,63 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseModuleCode_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseModuleCode(null));
+    }
+
+    @Test
+    public void parseModuleCode_emptyString_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_MISSING_MODULE, () -> ParserUtil.parseModuleCode(""));
+    }
+
+    @Test
+    public void parseModuleCode_invalidValue_throwsParseException() {
+        String[] invalidModuleCodes = {"1101", "A1101", "1101X", "A1101X", "ABCDE1010", "ABC101"};
+        for (String moduleCode: invalidModuleCodes) {
+            assertThrows(ParseException.class, MESSAGE_INVALID_MODULE, () -> ParserUtil.parseModuleCode(moduleCode));
+        }
+    }
+
+    @Test
+    public void parseSemester_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSemester(null));
+    }
+
+    @Test
+    public void parseSemester_emptyString_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_MISSING_SEMESTER, () -> ParserUtil.parseSemester(""));
+    }
+
+    @Test
+    public void parseSemester_string_throwsParseException() {
+        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseSemester("abc"));
+    }
+
+    @Test
+    public void parseCourseName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCourseName(null));
+    }
+
+    @Test
+    public void parseCourseName_emptyString_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_MISSING_COURSE, () -> ParserUtil.parseCourseName(""));
+    }
+
+    @Test
+    public void parseCourseName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_COURSE, () -> ParserUtil.parseCourseName("course x"));
+    }
+
+    @Test
+    public void parseFocusArea_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFocusArea(null));
+    }
+
+    @Test
+    public void parseFocusArea_emptyString_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_MISSING_COURSE_FOCUS_AREA, () -> ParserUtil.parseFocusArea(""));
     }
 }
