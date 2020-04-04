@@ -8,8 +8,10 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.Constants.ENTITY_TYPE;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -298,5 +300,10 @@ public class StorageManager extends BaseManager implements Storage {
       // TODO: Fix this
       logger.info("STORAGE SAVE PROBLEM");
     }
+  }
+
+  @Subscribe
+  public void handleDeleteEntityEvent(DeleteEntityEvent event) {
+    EdgeManager.handleDeleteEntityEvent(event);
   }
 }

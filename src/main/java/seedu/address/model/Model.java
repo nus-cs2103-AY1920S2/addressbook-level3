@@ -4,10 +4,12 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
@@ -104,6 +106,10 @@ public interface Model {
      * Returns the AddressBook
      */
     ReadOnlyAddressBook getAddressBook();
+
+    AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
+
+    ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException;
 
     /**
      * Returns an unmodifiable view of the filtered person list
@@ -436,10 +442,6 @@ public interface Model {
 
     // ======================== FOR ASSIGN COMMANDS ============================== //
 
-    void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
-
-    void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
-
     // ========================== Getters for Predicates =========================
 
     public Predicate<Student> getDataStudentPredicate();
@@ -464,12 +466,7 @@ public interface Model {
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
-    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
+    Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
 
-    // ======================== FOR UNASSIGN COMMANDS ============================== //
-
-    void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
-
-    void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
-
+    AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
 }
