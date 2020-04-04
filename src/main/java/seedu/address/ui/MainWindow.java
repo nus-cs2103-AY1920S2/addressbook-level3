@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,6 +22,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
+import seedu.address.model.tag.Tag;
 import seedu.address.ui.uiAssignments.AssignmentDetailedPanel;
 import seedu.address.ui.uiAssignments.AssignmentListPanel;
 import seedu.address.ui.uiCourse.CourseListPanel;
@@ -194,11 +202,25 @@ public class MainWindow extends UiPart<Stage> {
 //          }
 //      ]
 //    }
+    HashMap<String, Object> studentDetailsMap = new HashMap<>();
+
     studentDetailedPanel = new StudentDetailedPanel(new HashMap<String, Object>(), commandBox);
     staffDetailedPanel = new StaffDetailedPanel(new HashMap<String, Object>(), commandBox);
     courseDetailedPanel = new CourseDetailedPanel(new HashMap<String, Object>(), commandBox);
     financeDetailedPanel = new FinanceDetailedPanel(new HashMap<String, Object>(), commandBox);
     assignmentDetailedPanel = new AssignmentDetailedPanel(new HashMap<String, Object>(), commandBox);
+
+    Set<ID> assignedCourses = new HashSet<ID>();
+    assignedCourses.add(new ID("11"));
+    assignedCourses.add(new ID("12"));
+    Set<Tag> assignedTags = new HashSet<Tag>();
+    assignedTags.add(new Tag("Cool"));
+    assignedTags.add(new Tag("CS"));
+    Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
+    fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
+    studentDetailsMap.put("details", fakeStudent);
+    studentDetailsMap.put("courses", logic.getFilteredCourseList());
+    studentDetailedPanel = new StudentDetailedPanel( studentDetailsMap, commandBox);
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(studentDetailedPanel.getRoot());
