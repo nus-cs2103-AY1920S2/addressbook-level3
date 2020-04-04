@@ -10,9 +10,9 @@ public class Messages {
 
   public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
   public static final String MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX = "The teacher index provided is invalid";
-  public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
+  public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_ID = "The student ID provided is invalid";
   public static final String MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX = "The finance index provided is invalid";
-  public static final String MESSAGE_INVALID_COURSE_DISPLAYED_INDEX = "The course index provided is invalid";
+  public static final String MESSAGE_INVALID_COURSE_DISPLAYED_ID = "The course ID provided is invalid";
   public static final String MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX = "The assignment index provided is invalid";
 
 

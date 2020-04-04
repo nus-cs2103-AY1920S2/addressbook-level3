@@ -43,7 +43,7 @@ public class DeleteStudentCommand extends DeleteCommand {
     List<Student> lastShownList = model.getFilteredStudentList();
     if (this.toDelete == null) {
       if (!ID.isValidId(targetID.toString())) {
-        throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_ID);
       }
       this.toDelete = getStudent(lastShownList);
     }

@@ -21,7 +21,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -86,7 +85,7 @@ public class EditCourseCommand extends Command {
     List<Course> lastShownList = model.getFilteredCourseList();
 
     if (index.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
+      throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_ID);
     }
 
     Course courseToEdit = lastShownList.get(index.getZeroBased());
