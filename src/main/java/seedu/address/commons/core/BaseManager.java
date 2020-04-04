@@ -18,5 +18,4 @@ public class BaseManager {
     protected void raiseEvent(BaseEvent event) {
         eventsCenterSingleton.post(event);
     }
-
 }
