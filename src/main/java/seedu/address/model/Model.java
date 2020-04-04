@@ -440,7 +440,9 @@ public interface Model {
 
     void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
 
-    // ========================== Getters for Predicates =========================
+    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
+
+  // ========================== Getters for Predicates =========================
 
     public Predicate<Student> getDataStudentPredicate();
 
@@ -464,7 +466,6 @@ public interface Model {
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
-    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
 
     // ======================== FOR UNASSIGN COMMANDS ============================== //
 
@@ -472,4 +473,5 @@ public interface Model {
 
     void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
 
+    void unassignTeacherFromCourse(ID teacherID, ID courseID) throws CommandException;
 }

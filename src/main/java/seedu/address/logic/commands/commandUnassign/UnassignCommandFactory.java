@@ -22,11 +22,10 @@ public class UnassignCommandFactory {
         Prefix[] prefixes = assignDescriptor.getType();
 
         UnassignCommandBase outputCommand = null;
-        /*
         if (AssignTeacherToCourseCommand.isValidDescriptor(assignDescriptor)) {
-                outputCommand = new AssignTeacherToCourseCommand(assignDescriptor);
+                outputCommand = new UnassignTeacherFromCourseCommand(assignDescriptor);
             }
-        else*/ if (AssignStudentToCourseCommand.isValidDescriptor(assignDescriptor)) {
+        else if (AssignStudentToCourseCommand.isValidDescriptor(assignDescriptor)) {
                 outputCommand = new UnassignStudentFromCourseCommand(assignDescriptor);
             }
 

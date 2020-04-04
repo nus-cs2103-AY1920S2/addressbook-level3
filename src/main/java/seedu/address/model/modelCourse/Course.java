@@ -110,9 +110,14 @@ public class Course extends ModelObject {
     this.assignedAssignmentsID.addAll(assignmentIDs);
   }
 
-  public void addStaff(ID staffID) throws CommandException {
-    this.assignedStaffID = staffID;
+  public boolean hasTeacher() {
+    if(this.assignedStaffID == null || this.assignedStaffID.equals(new ID(""))) {
+      return false;
+    } else {
+      return true;
+    }
   }
+
   // ================================== FOR ASSIGN COMMANDS =================================
   public boolean containsStudent(ID studentID) {
     if(assignedStudentsID.contains(studentID)) {

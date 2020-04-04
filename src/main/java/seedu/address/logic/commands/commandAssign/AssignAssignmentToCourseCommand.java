@@ -57,10 +57,8 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(AssignmentID);
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
-            if(assignedCourseContainsAssignment) {
-                throw new CommandException("This course already has the assignment assigned to it!");
-            } else if(assigningAssignmentContainsCourse) {
-                throw new CommandException("The assignment has already been assigned already!");
+            if(assigningAssignmentContainsCourse) {
+                throw new CommandException("The assignment has already been assigned already! Each assignment can only be assigned to one course.");
             } else {
                 model.assignAssignmentToCourse(AssignmentID, courseID);
 

@@ -730,7 +730,7 @@ public class ModelManager extends BaseManager implements Model {
     Course foundCourse = getCourse(courseID);
     Staff foundTeacher = getStaff(staffID);
 
-    foundCourse.addStaff(staffID);
+    foundCourse.assignStaff(staffID);
     foundTeacher.addCourse(courseID);
 
     foundCourse.processAssignedStaff(
@@ -781,6 +781,22 @@ public class ModelManager extends BaseManager implements Model {
     requireAllNonNull(foundStudent, foundStudent);
     getAddressBook(foundStudent).set(foundStudent, foundStudent);
     postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
+  }
+
+  public void unassignTeacherFromCourse(ID teacherID, ID courseID) throws CommandException {
+    Course foundCourse = getCourse(courseID);
+    Staff foundStaff = getStaff(teacherID);
+
+    foundCourse.removeStaff();
+    foundStaff.removeCourse(courseID);
+
+    requireAllNonNull(foundCourse, foundCourse);
+    getAddressBook(foundCourse).set(foundCourse, foundCourse);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
+
+    requireAllNonNull(foundStaff, foundStaff);
+    getAddressBook(foundStaff).set(foundStaff, foundStaff);
+    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStaff), getEntityType(foundStaff));
   }
 
 
