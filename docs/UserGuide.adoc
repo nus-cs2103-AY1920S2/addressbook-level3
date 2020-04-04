@@ -352,11 +352,12 @@ Example: +
 [[paid]]
 ==== Paying money: `paid`
 
-In this section, you will learn more about the `paid` command, how to use it and the possible usage scenarios of the
+In this section, you will learn more about the `paid` command, how to use it and the expected outcome after using the
 `paid` command.
 
-Summary: `paid` subtracts the amount paid by a Person.
+*Summary: `paid` subtracts the amount a Person owes you.*
 
+===== How to use the Paid Command
 
 Format: +
 `paid INDEX [AMOUNT]` +
