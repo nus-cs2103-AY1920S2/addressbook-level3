@@ -430,3 +430,9 @@
      -fx-border-top-width: 1px;
      -fx-text-fill: white;
 }
+
+#detailedPanel {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FF8989, #F7C29A);
+    -fx-text-fill: white;
+
+}
