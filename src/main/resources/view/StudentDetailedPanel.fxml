@@ -11,7 +11,7 @@
       <font>
          <Font size="36.0" />
       </font></Label>
-   <StackPane id="detailedPanel" fx:id="studentDetailedView" VBox.vgrow="ALWAYS" />
+   <ListView id="detailedPanel" fx:id="studentDetailedView" VBox.vgrow="ALWAYS" />
    <Label text="Assigned Courses">
       <font>
          <Font size="36.0" />

@@ -2,12 +2,12 @@ package seedu.address.ui.uiStudent;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStudent.Student;
@@ -25,7 +25,7 @@ public class StudentDetailedPanel extends UiPart<Region> {
   private CommandBox commandBox;
 
   @FXML
-  private StackPane studentDetailedView;
+  private ListView<Student> studentDetailedView;
 
   @FXML
   private ListView<Course> courseListView;
@@ -40,14 +40,36 @@ public class StudentDetailedPanel extends UiPart<Region> {
     super(FXML);
     this.commandBox = commandBox;
     Student student = (Student) studentMap.get("details");
-    StudentDetailedCard studentCard = new StudentDetailedCard(student, commandBox, 1);
-    studentDetailedView.getChildren().add(studentCard.getRoot());
+    ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
+    filteredStudents.add(student);
+    studentDetailedView.setItems(filteredStudents);
+    studentDetailedView.setCellFactory(listView -> new StudentListViewCell());
+
     courseListView.setItems((ObservableList<Course>) studentMap.get("courses"));
     courseListView.setCellFactory(listView -> new CourseListViewCell());
   }
 
   /**
-   * Custom {@code ListCell} that displays the graphics of a {@code Assignment} using a {@code
+   * Custom {@code ListCell} that displays the graphics of a {@code Student} using a {@code
+   * CourseCard}.
+   */
+  class StudentListViewCell extends ListCell<Student> {
+
+    @Override
+    protected void updateItem(Student student, boolean empty) {
+      super.updateItem(student, empty);
+
+      if (empty || student == null) {
+        setGraphic(null);
+        setText(null);
+      } else {
+        setGraphic(new StudentDetailedCard(student, commandBox,getIndex() + 1).getRoot());
+      }
+    }
+  }
+
+  /**
+   * Custom {@code ListCell} that displays the graphics of a {@code Course} using a {@code
    * CourseCard}.
    */
   class CourseListViewCell extends ListCell<Course> {
