@@ -36,7 +36,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     private void setHandler() {
-        this.commandTextArea.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        this.commandTextArea.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 String commandString;
@@ -47,6 +47,8 @@ public class CommandBox extends UiPart<Region> {
                         commandTextArea.setText("");
                     } catch (ParseException | CommandException e) {
                         ;
+                    } finally {
+                        keyEvent.consume();
                     }
                 }
             }
