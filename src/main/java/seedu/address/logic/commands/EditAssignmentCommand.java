@@ -16,7 +16,6 @@ import seedu.address.logic.EditAssignmentDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.assignment.TitleComparator;
 
 /**
  * Edits the details of an existing assignment in the scheduler.
@@ -75,10 +74,8 @@ public class EditAssignmentCommand extends Command {
 
         model.setAssignment(assignmentToEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-
-        model.sortAssignment(new TitleComparator());
-        return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, assignmentToEdit), false, false,
-            false, true, false, false, false, false);
+        return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, assignmentToEdit),
+            false, false, false, true, false, false, false, false);
     }
 
     @Override
