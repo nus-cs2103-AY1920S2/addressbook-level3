@@ -1,7 +1,9 @@
 package seedu.address.ui.uiStudent;
 
+import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStudent.Student;
@@ -11,9 +13,9 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Student}.
  */
-public class StudentCard extends UiPart<Region> {
+public class StudentDetailedCard extends UiPart<Region> {
 
-  private static final String FXML = "StudentListCard.fxml";
+  private static final String FXML = "StudentListDetailedCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -34,16 +36,24 @@ public class StudentCard extends UiPart<Region> {
   private Label name;
   @FXML
   private Label studentID;
+  @FXML
+  private Label assignedCourses;
+  @FXML
+  private FlowPane tags;
 
   private CommandBox commandBox;
 
-  public StudentCard(Student student, CommandBox commandBox, int displayedIndex) {
+  public StudentDetailedCard(Student student, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.student = student;
     this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
+    assignedCourses.setText(student.getAssignedCoursesWithNames());
+    student.getTags().stream()
+        .sorted(Comparator.comparing(tag -> tag.tagName))
+        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
   @Override
@@ -54,12 +64,12 @@ public class StudentCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof StudentCard)) {
+    if (!(other instanceof StudentDetailedCard)) {
       return false;
     }
 
     // state check
-    StudentCard card = (StudentCard) other;
+    StudentDetailedCard card = (StudentDetailedCard) other;
     return studentID.getText().equals(card.studentID.getText())
         && student.equals(card.student);
   }
