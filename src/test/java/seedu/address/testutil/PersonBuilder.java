@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;

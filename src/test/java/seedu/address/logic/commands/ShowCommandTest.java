@@ -3,9 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
+import static seedu.address.commons.core.Messages.*;
 import static seedu.address.logic.commands.ShowCommand.MESSAGE_SUCCESS_COURSE;
 import static seedu.address.logic.commands.ShowCommand.MESSAGE_SUCCESS_FOCUS_AREA;
 import static seedu.address.logic.commands.ShowCommand.MESSAGE_SUCCESS_MODULE;
@@ -16,10 +14,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -92,7 +91,8 @@ public class ShowCommandTest {
         ShowCommand invalidName = new ShowCommand(new Name("Mark"));
 
         assertThrows(CommandException.class, "Profile with name does not exist.", () ->
-                invalidName.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(), new ModuleManagerStub()));
+                invalidName.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStub()));
     }
 
     // No profile has been added, user inputs "show y/1"
@@ -151,32 +151,6 @@ public class ShowCommandTest {
             fail();
         }
     }
-
-    /*
-      Note that the following cases will be caught in ShowCommandParser (by ParserUtil)
-      Invalid course name, e.g. show c/course x
-      Integer course name, e.g. show c/123 (Note that the integer will be parsed as a String in ShowCommandParser)
-     */
-    /*@Test
-    public void execute_invalidCourseName_throwsCommandException() {
-        CourseName invalidCourseName = null;
-        CourseName integerCourseName = null;
-        try {
-            invalidCourseName = new CourseName("course x");
-            integerCourseName = new CourseName("123");
-        } catch (ParseException e) {
-            fail();
-        }
-        ShowCommand showCommandInvalidCourseName = new ShowCommand(invalidCourseName);
-        ShowCommand showCommandIntegerCourseName = new ShowCommand(integerCourseName);
-
-        assertThrows(CommandException.class, MESSAGE_INVALID_COURSE, () -> showCommandInvalidCourseName.execute(
-                new ProfileManagerStub(), new CourseManagerStubCs(),
-                new ModuleManagerStub()).getFeedbackToUser().equals(MESSAGE_INVALID_COURSE));
-        assertThrows(CommandException.class, MESSAGE_INVALID_COURSE, () -> showCommandIntegerCourseName.execute(
-                new ProfileManagerStub(), new CourseManagerStubCs(),
-                new ModuleManagerStub()).getFeedbackToUser().equals(MESSAGE_INVALID_COURSE));
-    }*/
 
     // No profile has been added, user inputs "show c/"
     // Note that the CommandException would have been thrown in ShowCommandParser
@@ -244,6 +218,14 @@ public class ShowCommandTest {
         } catch (CommandException e) {
             fail();
         }
+    }
+
+    // Invalid module code, e.g. show m/CS1111
+    @Test
+    public void execute_invalidModuleCode_throwsCommandException() {
+        ShowCommand invalidCommand = new ShowCommand(new ModuleCode("CS1111"));
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
+                invalidCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStubCs()));
     }
 
     private class ModuleManagerStubCs extends ModuleManagerStub {
