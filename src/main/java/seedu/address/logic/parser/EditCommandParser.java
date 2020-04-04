@@ -56,11 +56,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             String newDeadline = null;
 
             if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-                String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
-                if (!ParserUtil.isInteger(semester)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-                }
-                intSemester = Integer.parseInt(semester);
+                intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
             }
 
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
