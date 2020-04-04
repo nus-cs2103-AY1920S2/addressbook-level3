@@ -132,10 +132,12 @@ From sections 6 to 11, the following notations may be used.
 |Notation |Meaning
 
 |[ ] |Necessary field
-|< > |Optional field. e.g. `n/NAME <g/GOAL>` can be used as `n/Spicy Chicken g/Bulk like the Hulk` or as `n/Spicy Chicken`
+|< > |Optional field. e.g. `n/NAME <s/STEP>` can be used as `n/Spicy Chicken s/Step 1` or just `n/Spicy Chicken`
 |[ < > ] |At least one of the optional fields is necessary
-|… | One or more of this same field can be added. e.g. `<g/GOAL>...` can be used as `{nbsp}` (i.e. 0 times), `g/Bulk like the Hulk`, `g/Wholesome Wholemeals`, `g/Herbivore` etc.
-|image::Tip.png[] | Tip
+|… | One or more of this same field can be added. e.g. if the command specifies `<ip/PROTEIN>...`, you may either leave
+the field empty, or you may specify ≥1 protein ingredients.
+|TIP: {nbsp} | Tip
+|NOTE: {nbsp} | Things to take note of
 |===
 
 
@@ -200,9 +202,7 @@ Example: `delete 1 3 4` +
 Deletes recipe 1, 3, and 4 from the recipe book.
 
 [TIP]
-You can *delete, <<UserGuide.adoc#Favourite a recipe: `favourite`,favourite>>, or
-<<UserGuide.adoc#Unfavourite a recipe: `unfavourite`,unfavourite>>* multiple recipes at the same time
-(at least one recipe must be selected).
+You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
 
 [NOTE]
 Remember to specify recipe numbers that are within the main displayed recipes' range! Otherwise, your recipes will not
