@@ -30,29 +30,34 @@ public class ShowCommandParser implements Parser<ShowCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER, PREFIX_COURSE_NAME,
                         PREFIX_MODULE, PREFIX_FOCUS_AREA, PREFIX_NAME);
 
+        // Get Name
+        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            return new ShowCommand(name);
+        }
+
+        // Get Semester
         if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
             int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
-            return new ShowCommand(intSemester); // returns int
+            return new ShowCommand(intSemester);
         }
 
-        if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
-            CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
-            return new ShowCommand(courseName); // returns CourseName
-        }
-
+        // Get Module
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
             ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get().toUpperCase());
-            return new ShowCommand(moduleCode); // returns ModuleCode
+            return new ShowCommand(moduleCode);
         }
 
+        // Get Focus Area
         if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
             String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get());
             return new ShowCommand(focusArea); // returns String
         }
 
-        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            return new ShowCommand(name);
+        // Get Course
+        if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
+            CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
+            return new ShowCommand(courseName); // returns CourseName
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
