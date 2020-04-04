@@ -485,6 +485,8 @@ current status for each module over the past week.
 
 . The view is switched to the statistics tab to display the overalls statistics for the week.
 
+image::StatisticsLogicSequenceDiagram.png[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
