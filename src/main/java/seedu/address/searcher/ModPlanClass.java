@@ -3,8 +3,11 @@ package seedu.address.searcher;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * WIP
+ */
 public class ModPlanClass {
-    public static ArrayList<String> allMajors = new ArrayList<>(
+    private static ArrayList<String> allMajors = new ArrayList<>(
             Arrays.asList("Chinese Language", "Chinese Studies", "Japanese Studies", "Malay Studies",
                     "South Asian Studies", "Southeast Asian Studies", "English Language", "English Literature",
                     "History", "Philosophy", "Theater Studies", "Communications and New Media", "Economics",
@@ -19,8 +22,5 @@ public class ModPlanClass {
                     "Undergraduate Law Programme", "Graduate LL.B. Programme", "Medicine", "Nursing", "Music",
                     "Applied Mathematics", "Chemistry", "Computational Biology", "Data Science and Analytics",
                     "Environmental Studies in Biology", "Food Science and Technology", "Life Sciences", "Mathematics",
-                    "Pharmacy", "Pharmaceutical Science", "Physics", "Quantitative Finance", "Statistics"
-    ));
-
-    
+                    "Pharmacy", "Pharmaceutical Science", "Physics", "Quantitative Finance", "Statistics"));
 }
