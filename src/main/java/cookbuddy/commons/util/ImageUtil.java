@@ -144,10 +144,19 @@ public class ImageUtil {
         return true;
     }
 
+    /**
+     * See {@link #isPlaceHolderImage(Path)}.
+     *
+     */
     public boolean isPlaceHolderImage(String... imageFilePathStrings) {
         return isPlaceHolderImage(FileUtil.relativePathFrom(imageFilePathStrings));
     }
 
+    /**
+     * Checks if {@link imageFilePath} refers to the placeholder image.
+     * @param imageFilePath A {@link Path} where an image is stored.
+     * @return {@code true} if {@link imageFilePath} resolves to the placeholder.
+     */
     public boolean isPlaceHolderImage(Path imageFilePath) {
         return imageFilePath.compareTo(PLACEHOLDER_IMAGE_PATH) == 0
                 || imageFilePath.compareTo(FileUtil.relativePathFrom("data", "images", "placeholder")) == 0;

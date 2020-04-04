@@ -49,18 +49,12 @@ class JsonAdaptedRecipe {
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedRecipe(@JsonProperty("name") String name,
-                             @JsonProperty("ingredients") String ingredients,
-                             @JsonProperty("instructions") String instructions,
-                             @JsonProperty("filePath") Path imageFilePath,
-                             @JsonProperty("calorie") String calorie,
-                             @JsonProperty("serving") int serving,
-                             @JsonProperty("rating") int rating,
-                             @JsonProperty("difficulty") int difficulty,
-                             @JsonProperty("fav") String fav,
-                             @JsonProperty("done") String done,
-                             @JsonProperty("time") String time,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
+            @JsonProperty("instructions") String instructions, @JsonProperty("filePath") Path imageFilePath,
+            @JsonProperty("calorie") String calorie, @JsonProperty("serving") int serving,
+            @JsonProperty("rating") int rating, @JsonProperty("difficulty") int difficulty,
+            @JsonProperty("fav") String fav, @JsonProperty("done") String done, @JsonProperty("time") String time,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -145,9 +139,9 @@ class JsonAdaptedRecipe {
 
         Photograph modelPhotograph;
         try {
-            modelPhotograph = Photograph.IMAGE_UTIL.isPlaceHolderImage(FileUtil.joinPaths(imageStoragePath, imageFilePath))
-                    ? Photograph.PLACEHOLDER_PHOTOGRAPH
-                    : new Photograph(FileUtil.joinPaths(imageStoragePath, imageFilePath));
+            modelPhotograph = Photograph.IMAGE_UTIL.isPlaceHolderImage(
+                    FileUtil.joinPaths(imageStoragePath, imageFilePath)) ? Photograph.PLACEHOLDER_PHOTOGRAPH
+                            : new Photograph(FileUtil.joinPaths(imageStoragePath, imageFilePath));
         } catch (IOException e) {
             modelPhotograph = Photograph.PLACEHOLDER_PHOTOGRAPH;
         }
