@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.testutil.TypicalProgress;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
