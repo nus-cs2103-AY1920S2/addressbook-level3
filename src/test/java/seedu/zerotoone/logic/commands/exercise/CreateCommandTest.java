@@ -30,7 +30,8 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.OngoingSession;
+import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
@@ -216,6 +217,11 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ReadOnlyOngoingSetList getOngoingSetList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // -----------------------------------------------------------------------------------------
         // Session
         @Override
@@ -224,7 +230,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
+        public OngoingWorkout startSession(Workout workout, LocalDateTime currentDateTime) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -234,7 +240,7 @@ public class CreateCommandTest {
         }
 
         @Override
-        public Optional<OngoingSession> getCurrentSession() {
+        public Optional<OngoingWorkout> getCurrentWorkout() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -266,6 +272,11 @@ public class CreateCommandTest {
 
         @Override
         public ScheduleList getScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void populateSortedScheduledWorkoutList() {
             throw new AssertionError("This method should not be called.");
         }
 

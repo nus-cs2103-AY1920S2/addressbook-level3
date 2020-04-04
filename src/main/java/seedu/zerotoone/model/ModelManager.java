@@ -22,7 +22,10 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.schedule.Scheduler;
-import seedu.zerotoone.model.session.OngoingSession;
+import seedu.zerotoone.model.session.CompletedWorkout;
+import seedu.zerotoone.model.session.OngoingSetList;
+import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.session.SessionList;
@@ -50,8 +53,9 @@ public class ModelManager implements Model {
     private final FilteredList<Workout> filteredWorkouts;
 
     // Session
-    private Optional<OngoingSession> currentSession;
+    private Optional<OngoingWorkout> currentWorkout;
     private final StopWatch stopwatch;
+    private final OngoingSetList ongoingSetList;
 
     // Schedule
     private final Scheduler scheduler;
@@ -87,8 +91,9 @@ public class ModelManager implements Model {
 
         this.scheduler = new Scheduler(scheduleList);
 
-        this.currentSession = Optional.empty();
+        this.currentWorkout = Optional.empty();
         this.stopwatch = new StopWatch();
+        this.ongoingSetList = new OngoingSetList();
 
         this.sessionList = new SessionList(sessionList);
         filteredSessions = new FilteredList<>(this.sessionList.getSessionList());
@@ -206,27 +211,35 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isInSession() {
-        return this.currentSession.isPresent();
+        return this.currentWorkout.isPresent();
     }
 
     @Override
-    public OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
-        OngoingSession ongoingSession = new OngoingSession(exerciseToStart, currentDateTime);
-        this.currentSession = Optional.of(ongoingSession);
-        return ongoingSession;
+    public OngoingWorkout startSession(Workout workoutToStart, LocalDateTime currentDateTime) {
+        OngoingWorkout ongoingWorkout = new OngoingWorkout(workoutToStart, currentDateTime);
+        this.currentWorkout = Optional.of(ongoingWorkout);
+        ongoingSetList.setSessionList(ongoingWorkout.getRemainingSets());
+        return ongoingWorkout;
     }
 
     @Override
     public void stopSession(LocalDateTime currentDateTime) {
-        OngoingSession ongoingSession = this.currentSession.get();
-        Session session = ongoingSession.finish(currentDateTime);
-        this.sessionList.addSession(session);
-        this.currentSession = Optional.empty();
+        OngoingWorkout ongoingWorkout = this.currentWorkout.get();
+        CompletedWorkout workout = ongoingWorkout.finish(currentDateTime);
+        ongoingSetList.resetData(new OngoingSetList());
+        // Jiachen u need to fix this
+        // this.sessionList.addSession(session);
+        this.currentWorkout = Optional.empty();
     }
 
     @Override
-    public Optional<OngoingSession> getCurrentSession() {
-        return Optional.ofNullable(this.currentSession.orElse(null));
+    public Optional<OngoingWorkout> getCurrentWorkout() {
+        return Optional.ofNullable(this.currentWorkout.orElse(null));
+    }
+
+    @Override
+    public ReadOnlyOngoingSetList getOngoingSetList() {
+        return this.ongoingSetList;
     }
 
     // -----------------------------------------------------------------------------------------
@@ -234,6 +247,11 @@ public class ModelManager implements Model {
     @Override
     public ScheduleList getScheduleList() {
         return scheduler.getScheduleList();
+    }
+
+    @Override
+    public void populateSortedScheduledWorkoutList() {
+        scheduler.populateSortedScheduledWorkoutList();
     }
 
     @Override
@@ -245,8 +263,6 @@ public class ModelManager implements Model {
     public ObservableList<Session> getFilteredSessionList() {
         return filteredSessions;
     }
-
-
 
     @Override
     public boolean hasSchedule(Schedule schedule) {

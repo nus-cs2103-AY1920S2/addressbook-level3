@@ -9,19 +9,19 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
-import seedu.zerotoone.model.schedule.Schedule;
-import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.OngoingSession;
+import seedu.zerotoone.model.schedule.SchedulerModel;
+import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
 import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutModel;
 
 /**
  * The API of the Model component.
  */
-public interface Model extends WorkoutModel {
+public interface Model extends WorkoutModel, SchedulerModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
     Predicate<Session> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
@@ -112,21 +112,15 @@ public interface Model extends WorkoutModel {
      */
     boolean isInSession();
 
-    OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
+    OngoingWorkout startSession(Workout workoutToStart, LocalDateTime currentDateTime);
 
     void stopSession(LocalDateTime currentDateTime);
 
+    ReadOnlyOngoingSetList getOngoingSetList();
+
     // todo write java docs
 
-    Optional<OngoingSession> getCurrentSession();
-    boolean hasSchedule(Schedule schedule);
-    void addSchedule(Schedule schedule);
-    void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule);
-    void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete);
-    ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
-
-
-    ScheduleList getScheduleList();
+    Optional<OngoingWorkout> getCurrentWorkout();
 
     ReadOnlySessionList getSessionList();
 
@@ -140,7 +134,4 @@ public interface Model extends WorkoutModel {
     void deleteSession(int target);
 
     void setSessionListFilePath(Path sessionListFilePath);
-
-
-
 }

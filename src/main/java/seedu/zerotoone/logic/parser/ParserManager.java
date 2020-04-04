@@ -21,7 +21,10 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
 import seedu.zerotoone.logic.parser.log.LogCommandParser;
 import seedu.zerotoone.logic.parser.schedule.ScheduleCommandParser;
+import seedu.zerotoone.logic.parser.session.DoneCommandParser;
+import seedu.zerotoone.logic.parser.session.SkipCommandParser;
 import seedu.zerotoone.logic.parser.session.StartCommandParser;
+import seedu.zerotoone.logic.parser.session.StopCommandParser;
 import seedu.zerotoone.logic.parser.workout.WorkoutCommandParser;
 
 /**
@@ -51,13 +54,14 @@ public class ParserManager {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case StartCommand.COMMAND_WORD:
+            System.out.println(arguments);
             return new StartCommandParser().parse(arguments);
         case StopCommand.COMMAND_WORD:
-            return new StopCommand();
+            return new StopCommandParser().parse(arguments);
         case DoneCommand.COMMAND_WORD:
-            return new DoneCommand();
+            return new DoneCommandParser().parse(arguments);
         case SkipCommand.COMMAND_WORD:
-            return new SkipCommand();
+            return new SkipCommandParser().parse(arguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case HelpCommand.COMMAND_WORD:
