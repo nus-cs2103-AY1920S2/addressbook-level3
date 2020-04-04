@@ -2,7 +2,6 @@ package seedu.expensela.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -15,7 +14,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.transaction.Amount;
-import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Transaction;
 
 import javafx.scene.chart.PieChart;

@@ -3,7 +3,7 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Label?>
+<!--<?import javafx.scene.control.Label?>-->
 
 <ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane styleClass="pane-with-border" HBox.hgrow="ALWAYS">
