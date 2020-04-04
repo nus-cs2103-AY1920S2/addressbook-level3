@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SPECIALISATION;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
@@ -170,7 +170,7 @@ public class ParserUtil {
         }
         if (!FocusArea.isValid(courseName, trimmedFocusArea)) {
             System.out.println(trimmedFocusArea);
-            throw new ParseException(String.format(MESSAGE_INVALID_SPECIALISATION, NewCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COURSE_FOCUS_AREA, NewCommand.MESSAGE_USAGE));
         }
         return new FocusArea(trimmedFocusArea);
     }

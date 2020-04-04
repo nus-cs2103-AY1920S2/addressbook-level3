@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
 
 /**
  * A utility class to help with building Profile objects.
@@ -12,18 +13,18 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_COURSE_NAME = "Computer Science";
     public static final String DEFAULT_CURRENT_SEMESTER = "1";
-    public static final String DEFAULT_SPEC = "Software Engineering";
+    public static final String DEFAULT_FOCUS_AREA = "Software Engineering";
 
     private Name name;
     private CourseName courseName;
     private String currentSemester;
-    private String specialisation;
+    private FocusArea focusArea;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         courseName = new CourseName(DEFAULT_COURSE_NAME);
         currentSemester = DEFAULT_CURRENT_SEMESTER;
-        specialisation = DEFAULT_SPEC;
+        focusArea = new FocusArea(DEFAULT_FOCUS_AREA);
     }
 
     /**
@@ -58,7 +59,7 @@ public class PersonBuilder {
     }
 
     public Profile build() {
-        return new Profile(name, courseName, Integer.parseInt(currentSemester), specialisation);
+        return new Profile(name, courseName, Integer.parseInt(currentSemester), focusArea);
     }
 
 }

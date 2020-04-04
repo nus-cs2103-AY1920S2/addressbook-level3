@@ -42,9 +42,11 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.AcceptedCourses;
+import seedu.address.model.profile.course.AcceptedFocusArea;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Description;
 import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
@@ -107,7 +109,7 @@ public class AddCommandTest {
         Profile validProfile;
         validProfile = new Profile(
                 new Name("name"), new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName()), 3,
-                "spec");
+                new FocusArea(AcceptedFocusArea.ALGORITHMS_AND_THEORY.getName()));
         Module module = new Module(moduleCode, new Title("title"), new Prereqs("prereq"),
                 new Preclusions("preclusion"), new ModularCredits("4"), new Description("desc"),
                 new SemesterData(Arrays.asList("1", "2")), new PrereqTreeNode(moduleCode));
@@ -132,7 +134,7 @@ public class AddCommandTest {
         Profile validProfile;
         validProfile = new Profile(
                 new Name("name"), new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName()), 3,
-                "spec");
+                new FocusArea(AcceptedFocusArea.ALGORITHMS_AND_THEORY.getName()));
         Module module = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title("title"),
                 new Prereqs("prereq"), new Preclusions("preclusions"), new ModularCredits("4"),
                 new Description("desc"), new SemesterData(Arrays.asList("1", "2")),
