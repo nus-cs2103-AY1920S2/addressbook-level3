@@ -12,8 +12,8 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
  * Represents a Deadline in Personal.
  */
 public class Deadline {
-    public static final String MESSAGE_CONSTRAINTS = "Date and time field of deadline should be in the format: "
-            + "YYYY-MM-DD and HH:mm respectively. Dates should be valid Gregorian calendar dates"
+    public static final String MESSAGE_CONSTRAINTS = "Date and time field of deadline should be in the format "
+            + "YYYY-MM-DD and HH:mm respectively.\n" + "Dates should be valid Gregorian calendar dates"
             + " and time should be in 24-hour format.";
 
     protected String moduleCode;
