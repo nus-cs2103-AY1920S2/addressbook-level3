@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.conditions.UserIDConditions;
+import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
 
@@ -32,10 +33,10 @@ public class FilterUserIDCommand implements AppCommand {
     }
 
     @Override
-    public AppCommandResult execute(AppStorage dao) {
+    public BluetoothPingsMessage execute(AppStorage dao) {
         Conditions cond = new UserIDConditions(USER_ID);
         ArrayList resp  = dao.search(cond);
-        AppCommandResult result = new AppCommandResult("Identifying recods with User ID.", false);
+        BluetoothPingsMessage result = new BluetoothPingsMessage("Identifying recods with User ID.", false);
         result.setToDisplayList(resp);
         return result;
     }

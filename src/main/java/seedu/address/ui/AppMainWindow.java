@@ -8,7 +8,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.AppLogic;
-import seedu.address.logic.commands.AppCommandResult;
+import seedu.address.logic.messages.AppMessage;
+import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -24,6 +25,7 @@ public class AppMainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private AppLogic logic;
     private BluetoothPingPanel bluetoothPingPanel;
+    private BluetoothPingSummaryPanel bluetoothPingSummaryPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -52,11 +54,20 @@ public class AppMainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public void renderToDisplay(AppCommandResult commandResult) {
+    public void renderToDisplay(AppMessage commandResult) {
         if (commandResult.getRenderFlag()) {
             this.bluetoothPingPanelPlaceholder.getChildren().clear();
-            this.bluetoothPingPanel = new BluetoothPingPanel(commandResult.getDisplayAsObservable());
-            this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
+            if (commandResult.getIdentifier().equals("BluetoothPings")){
+                this.bluetoothPingPanel = new BluetoothPingPanel(commandResult.getDisplayAsObservable());
+                this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
+            }
+            else if (commandResult.getIdentifier().equals("BluetoothPingsSummary")) {
+                this.bluetoothPingSummaryPanel = new BluetoothPingSummaryPanel(commandResult.getDisplayAsObservable());
+                this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingSummaryPanel.getRoot());
+            }
+            else if (commandResult.getIdentifier().equals("UserList")) {
+
+            }
         }
     }
 
@@ -93,9 +104,9 @@ public class AppMainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private AppCommandResult executeCommand(String commandText) throws ParseException {
+    private AppMessage executeCommand(String commandText) throws ParseException {
         try {
-            AppCommandResult commandResult = logic.execute(commandText);
+            AppMessage commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             this.renderToDisplay(commandResult);

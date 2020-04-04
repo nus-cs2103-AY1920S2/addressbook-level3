@@ -1,17 +1,19 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.messages;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.bluetooth.BluetoothPings;
+import seedu.address.model.bluetooth.BluetoothPingsSummary;
+
 import java.util.ArrayList;
 import java.util.Objects;
+
 import static java.util.Objects.requireNonNull;
 
-public class AppCommandResult {
-
+public class BluetoothSummaryMessage extends AppMessage {
     private final String feedbackToUser;
+    private ArrayList<BluetoothPingsSummary> toDisplayList;
     private Boolean RENDER_FLAG;
-    private ArrayList<BluetoothPings> toDisplayList;
+    public final String IDENTIFIER = "BluetoothPingsSummary";
 
     /** The application should exit. */
     private final boolean exit;
@@ -19,7 +21,7 @@ public class AppCommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public AppCommandResult(String feedbackToUser, boolean exit) {
+    public BluetoothSummaryMessage(String feedbackToUser, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.exit = exit;
         this.RENDER_FLAG = false;
@@ -29,7 +31,7 @@ public class AppCommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public AppCommandResult(String feedbackToUser) {
+    public BluetoothSummaryMessage(String feedbackToUser) {
         this(feedbackToUser, false);
     }
 
@@ -39,7 +41,9 @@ public class AppCommandResult {
 
     public Boolean getRenderFlag() { return this.RENDER_FLAG; }
 
-    public ObservableList<BluetoothPings> getDisplayAsObservable() { return FXCollections.observableArrayList(this.toDisplayList); }
+    public String getIdentifier() { return this.IDENTIFIER; }
+
+    public ObservableList getDisplayAsObservable() { return FXCollections.observableArrayList(this.toDisplayList); }
 
     /**
      * A display list contains the necessary items needed to be rendered on the screen
@@ -47,7 +51,7 @@ public class AppCommandResult {
      *
      * @param displayList   List to be rendered on the screen
      */
-    public void setToDisplayList(ArrayList<BluetoothPings> displayList) {
+    public void setToDisplayList(ArrayList<BluetoothPingsSummary> displayList) {
         this.toDisplayList  = displayList;
         this.RENDER_FLAG    = true;
     }
@@ -63,11 +67,11 @@ public class AppCommandResult {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AppCommandResult)) {
+        if (!(other instanceof BluetoothPingsMessage)) {
             return false;
         }
 
-        AppCommandResult otherCommandResult = (AppCommandResult) other;
+        BluetoothSummaryMessage otherCommandResult = (BluetoothSummaryMessage) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && exit == otherCommandResult.exit;
     }
@@ -76,4 +80,5 @@ public class AppCommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, exit);
     }
+
 }
