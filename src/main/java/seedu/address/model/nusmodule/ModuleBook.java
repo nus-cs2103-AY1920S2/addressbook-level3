@@ -13,8 +13,10 @@ import javafx.collections.ObservableList;
  * Duplicates are not allowed
  */
 public class ModuleBook {
+
     private List<NusModule> modules;
     private ObservableList<NusModule> modulesTakenList;
+    private Major majorTaken;
 
     public ModuleBook() {
         this.modules = new ArrayList<>();
@@ -72,6 +74,11 @@ public class ModuleBook {
                 module.addTask(moduleTask);
             }
         }
+    }
+
+    public void setMajor(Major major) {
+        requireNonNull(major);
+        this.majorTaken = major;
     }
 
     /**

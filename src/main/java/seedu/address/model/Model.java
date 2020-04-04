@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.Major;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
@@ -143,6 +144,8 @@ public interface Model {
     double getCap();
 
     void addModuleTask(ModuleTask moduleTask);
+
+    void updateMajor(Major major);
 
     ObservableList<NusModule> getModulesListTaken();
 

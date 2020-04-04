@@ -15,6 +15,7 @@ import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.Major;
 import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
@@ -207,6 +208,11 @@ public class ModelManager implements Model {
     @Override
     public void addModuleTask(ModuleTask moduleTask) {
         moduleBook.addModuleTask(moduleTask);
+    }
+
+    @Override
+    public void updateMajor(Major major) {
+        moduleBook.setMajor(major);
     }
 
     //=========== Filtered Person List Accessors =============================================================

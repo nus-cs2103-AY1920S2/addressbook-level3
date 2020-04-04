@@ -23,7 +23,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.Major;
 import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -206,6 +208,16 @@ public class AddCommandTest {
 
         @Override
         public void gradeModule(ModuleCode moduleCode, Grade grade) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addModuleTask(ModuleTask moduleTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMajor(Major major) {
             throw new AssertionError("This method should not be called.");
         }
 
