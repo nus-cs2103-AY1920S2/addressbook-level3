@@ -1,7 +1,9 @@
 package seedu.address.ui.uiFinance;
 
+import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelFinance.Finance;
@@ -11,9 +13,9 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Finance}.
  */
-public class FinanceCard extends UiPart<Region> {
+public class FinanceDetailedCard extends UiPart<Region> {
 
-  private static final String FXML = "FinanceListCard.fxml";
+  private static final String FXML = "FinanceListDetailedCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -34,16 +36,27 @@ public class FinanceCard extends UiPart<Region> {
   private Label id;
   @FXML
   private Label financeType;
+  @FXML
+  private Label date;
+  @FXML
+  private Label amount;
+  @FXML
+  private FlowPane tags;
 
   private CommandBox commandBox;
 
-  public FinanceCard(Finance finance, CommandBox commandBox, int displayedIndex) {
+  public FinanceDetailedCard(Finance finance, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.finance = finance;
     this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     name.setText(finance.getName().fullName);
     financeType.setText(finance.getFinanceType().toString());
+    date.setText(finance.getDate().value);
+    amount.setText(finance.getAmount().value);
+    finance.getTags().stream()
+        .sorted(Comparator.comparing(tag -> tag.tagName))
+        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
   @Override
@@ -54,12 +67,12 @@ public class FinanceCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof FinanceCard)) {
+    if (!(other instanceof FinanceDetailedCard)) {
       return false;
     }
 
     // state check
-    FinanceCard card = (FinanceCard) other;
+    FinanceDetailedCard card = (FinanceDetailedCard) other;
     return id.getText().equals(card.id.getText())
         && finance.equals(card.finance);
   }

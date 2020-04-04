@@ -1,19 +1,23 @@
 package seedu.address.ui.uiCourse;
 
+import java.util.Comparator;
+import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.ID;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Assignment}.
  */
-public class CourseCard extends UiPart<Region> {
+public class CourseDetailedCard extends UiPart<Region> {
 
-  private static final String FXML = "CourseListCard.fxml";
+  private static final String FXML = "CourseListDetailedCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -34,16 +38,42 @@ public class CourseCard extends UiPart<Region> {
   private Label id;
   @FXML
   private Label courseID;
+  @FXML
+  private Label assignedStaff;
+  @FXML
+  private Label assignedStudents;
+  @FXML
+  private Label assignedAssignments;
+  @FXML
+  private Label amount;
+  @FXML
+  private FlowPane tags;
 
   private CommandBox commandBox;
 
-  public CourseCard(Course course, CommandBox commandBox, int displayedIndex) {
+  public CourseDetailedCard(Course course, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.course = course;
     this.commandBox = commandBox;
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
+
+    Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
+    String assignmentsStrings = "None";
+    if (assignmentIDS.size() > 0) {
+      assignmentsStrings = assignmentIDS.toString();
+    }
+    assignedAssignments.setText(assignmentsStrings);
+
+    course.getAssignedAssignmentsID();
+    amount.setText(course.getAmount().value);
+    assignedStaff.setText(course.getAssignedStaffWithName());
+    assignedStudents.setText(course.getAssignedStudentsWithNames());
+
+    course.getTags().stream()
+        .sorted(Comparator.comparing(tag -> tag.tagName))
+        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
   @Override
@@ -54,13 +84,14 @@ public class CourseCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof CourseCard)) {
+    if (!(other instanceof CourseDetailedCard)) {
       return false;
     }
 
     // state check
-    CourseCard card = (CourseCard) other;
+    CourseDetailedCard card = (CourseDetailedCard) other;
     return courseID.getText().equals(card.courseID.getText())
+        && amount.getText().equals(card.amount.getText())
         && course.equals(card.course);
   }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -13,71 +13,63 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox id="cardPaneAssignment" fx:id="cardPane" prefHeight="120.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneAssignment" fx:id="cardPane" prefHeight="80.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <HBox alignment="CENTER_LEFT" spacing="5">
+    <VBox alignment="CENTER_LEFT" minHeight="70" GridPane.columnIndex="0">
+      <HBox alignment="CENTER_LEFT">
         <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@ourImages/assignment.png" />
           </image>
         </ImageView>
-        <Label fx:id="id" styleClass="cell_big_label" text="\$id">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="assignmentName" styleClass="cell_big_label" text="\$first" />
+        <Line endY="69.29289245605469" startY="-8.204582214355469" stroke="#ffffff3f">
+          <rotationAxis>
+            <Point3D />
+          </rotationAxis></Line>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
+              <padding>
+                <Insets left="15.0" />
+              </padding>
+              <children>
+                <Label fx:id="id" styleClass="cell_big_label" text="\$id">
+                  <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+                </Label>
+                <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+              </children>
+            </HBox>
+            <Line endX="1000.2929077148438" startX="-100.0" stroke="#ffffff3f" />
+            <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
+              <padding>
+                <Insets left="15.0" />
+              </padding>
+              <children>
+                <Label fx:id="id1" styleClass="cell_small_label" text="Assignment ID: ">
+                  <minWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+                </Label>
+                <Label fx:id="assignmentID" styleClass="cell_small_label" text="\$assignmentID" />
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" top="5.0" />
+          </padding>
+        </VBox>
         <padding>
           <Insets left="15.0" />
         </padding>
         <opaqueInsets>
-          <Insets top="5.0" />
+          <Insets />
         </opaqueInsets>
       </HBox>
-      <Line endX="999.0" startX="-100.0" stroke="#ffffff41">
-        <VBox.margin>
-          <Insets top="5.0" />
-        </VBox.margin>
-      </Line>
-      <FlowPane fx:id="tags">
-        <padding>
-          <Insets top="5.0" />
-        </padding>
-        <VBox.margin>
-          <Insets left="15.0" />
-        </VBox.margin>
-      </FlowPane>
-      <HBox alignment="CENTER_LEFT" prefHeight="12.0" prefWidth="62.0">
-        <children>
-          <Label fx:id="assignmentID" styleClass="cell_small_label" text="\$assignmentID" />
-        </children>
-            <VBox.margin>
-               <Insets left="15.0" />
-            </VBox.margin>
-      </HBox>
-      <HBox>
-        <children>
-          <Label fx:id="assignmentDeadline" styleClass="cell_small_label" text="\$deadline" />
-        </children>
-            <VBox.margin>
-               <Insets left="15.0" />
-            </VBox.margin>
-      </HBox>
-      <HBox prefHeight="0.0" prefWidth="114.0">
-        <children>
-          <Label fx:id="assignedCourseID" styleClass="cell_small_label" text="\$courseID" />
-        </children>
-            <VBox.margin>
-               <Insets left="15.0" />
-            </VBox.margin>
-      </HBox>
-      <padding>
-        <Insets bottom="5.0" top="5.0" />
-      </padding>
       <opaqueInsets>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        <Insets />
       </opaqueInsets>
     </VBox>
     <columnConstraints>

@@ -37,7 +37,7 @@
       <children>
          <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@ourImages/specs.png" />
+               <Image url="@ourImages/staff.png" />
             </image>
          </ImageView>
          <Label fx:id="totalStaffs" prefHeight="116.0" prefWidth="342.0" text="Total Staffs: ">
@@ -51,7 +51,7 @@
       <children>
          <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@ourImages/book.png" />
+               <Image url="@ourImages/course.png" />
             </image>
          </ImageView>
          <Label fx:id="totalCourses" prefHeight="115.0" prefWidth="340.0" text="Total Courses: ">
