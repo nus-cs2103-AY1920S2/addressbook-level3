@@ -403,6 +403,8 @@ and delete items using the `deleteitem` command.
 * However, you will be unable to use the `paid` command.
 ====
 
+'''
+
 [[help]]
 ==== Display the available commands `help`
 
@@ -413,6 +415,8 @@ Format: +
 
 Example: +
 `help`
+
+'''
 
 [[back]]
 ==== Exiting split to go back to main menu `back`
@@ -425,10 +429,14 @@ Format: +
 Example: +
 `back`
 
+'''
+
 ==== Saving the data
 
 EYLAH data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+'''
 
 == FAQ
 
