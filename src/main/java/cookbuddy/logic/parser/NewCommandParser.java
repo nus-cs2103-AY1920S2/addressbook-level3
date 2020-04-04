@@ -19,10 +19,10 @@ import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Photograph;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
@@ -33,8 +33,8 @@ import cookbuddy.model.recipe.attribute.Tag;
 public class NewCommandParser implements Parser<NewCommand> {
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if none of the prefixes contains empty {@code Optional} values
+     * in the given {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
@@ -48,29 +48,27 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS,
-            PREFIX_INSTRUCTIONS, PREFIX_IMAGEFILEPATH, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING, PREFIX_DIFFICULTY,
-            PREFIX_TAG);
+                PREFIX_INSTRUCTIONS, PREFIX_IMAGEFILEPATH, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_RATING,
+                PREFIX_DIFFICULTY, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS)
-            || !argMultimap
-            .getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         IngredientList ingredients = ParserUtil.parseIngredients(argMultimap.getValue(PREFIX_INGREDIENTS).get());
         InstructionList instructions = ParserUtil.parseInstructions(argMultimap.getValue(PREFIX_INSTRUCTIONS).get());
-        Image url =
-            ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_IMAGEFILEPATH)
-                .orElse(Image.toAbsolutePath("src\\main\\resources"
-                    + "\\images\\recipe placeholder.jpg")));
+        Photograph photograph = ParserUtil.parsePhotoFilePath(argMultimap.getValue(PREFIX_IMAGEFILEPATH)
+                .orElse(Photograph.IMAGE_UTIL.PLACEHOLDER_IMAGE_PATH_STRING));
         Calorie calorie = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).orElse("0"));
         Serving serving = ParserUtil.parseServing(argMultimap.getValue(PREFIX_SERVING).orElse("1"));
         Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).orElse("0"));
         Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).orElse("0"));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getValue(PREFIX_TAG));
 
-        Recipe recipe = new Recipe(name, ingredients, instructions, url, calorie, serving, rating, difficulty, tagList);
+        Recipe recipe = new Recipe(name, ingredients, instructions, photograph, calorie, serving, rating, difficulty,
+                tagList);
 
         return new NewCommand(recipe);
     }

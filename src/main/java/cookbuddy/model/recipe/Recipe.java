@@ -11,10 +11,10 @@ import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.Done;
 import cookbuddy.model.recipe.attribute.Fav;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Photograph;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
@@ -30,7 +30,7 @@ public class Recipe {
     private final Name name;
     private final IngredientList ingredients;
     private final InstructionList instructions;
-    private final Image filePath;
+    private final Photograph photograph;
     private final Calorie calorie;
     private final Serving serving;
     private final Rating rating;
@@ -44,13 +44,13 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Image filePath,
+    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Photograph photograph,
                   Calorie calorie, Serving serving, Rating rating, Difficulty difficulty, Set<Tag> tags) {
         requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
-        this.filePath = filePath;
+        this.photograph = photograph;
         this.calorie = calorie;
         this.serving = serving;
         this.rating = rating;
@@ -70,8 +70,8 @@ public class Recipe {
         return instructions;
     }
 
-    public Image getImageFilePath() {
-        return filePath;
+    public Photograph getPhotograph() {
+        return photograph;
     }
 
     public Calorie getCalorie() {
@@ -122,7 +122,7 @@ public class Recipe {
         return otherRecipe != null && otherRecipe.getName().equals(getName())
             && otherRecipe.getIngredients().equals(getIngredients())
             && otherRecipe.getInstructions().equals(getInstructions())
-            && otherRecipe.getImageFilePath().equals(getImageFilePath());
+            && otherRecipe.getPhotograph().equals(getPhotograph());
     }
 
     public void favRecipe() {
@@ -160,8 +160,8 @@ public class Recipe {
         }
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
-            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getImageFilePath()
-            .equals(getImageFilePath())
+            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getPhotograph()
+            .equals(getPhotograph())
             && otherRecipe.getCalorie().equals(getCalorie()) && otherRecipe.getRating().equals(getRating())
             && otherRecipe.getDifficulty().equals(getDifficulty())
             && otherRecipe.getTags().equals(getTags());
@@ -170,14 +170,14 @@ public class Recipe {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions, filePath, calorie, serving, rating, difficulty, tags);
+        return Objects.hash(name, ingredients, instructions, photograph, calorie, serving, rating, difficulty, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
-            " Instructions: ").append(getInstructions()).append("Path: ").append(getImageFilePath()).append(
+            " Instructions: ").append(getInstructions()).append("Path: ").append(getPhotograph()).append(
             " Calories: ").append(getCalorie()).append(" Serving size: ").append(getServing()).append(
             " Rating: ").append(getRating()).append(" Difficulty ").append(getDifficulty()).append(
             " Tags" + ": ");

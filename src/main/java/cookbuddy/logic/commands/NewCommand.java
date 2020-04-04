@@ -37,7 +37,7 @@ public class NewCommand extends Command {
         + PREFIX_NAME + "Ham Sandwich "
         + PREFIX_INGREDIENTS + "bread, 2 slices; ham, 1 slice "
         + PREFIX_INSTRUCTIONS + "put ham between bread; eat sandwich "
-        + PREFIX_IMAGEFILEPATH + "C:\\Users\\zain_\\Downloads\\download.jpg "
+        + PREFIX_IMAGEFILEPATH + "path/to/image "
         + PREFIX_CALORIE + "169 "
         + PREFIX_SERVING + "2 "
         + PREFIX_RATING + "4 "

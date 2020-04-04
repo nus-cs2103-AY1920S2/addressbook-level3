@@ -1,13 +1,13 @@
 package cookbuddy.ui;
 
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.Instruction;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
@@ -33,10 +33,10 @@ public class RecipeView extends UiPart<Region> {
         super(FXML);
         this.recipe = recipe;
 
-        this.name.setText(recipe.getName().name);
+        this.name.setText(recipe.getName().toString());
         this.ingredients.setItems(FXCollections.observableList(this.recipe.getIngredients().asList()));
         this.instructions.setItems(FXCollections.observableList(this.recipe.getInstructions().asList()));
-        this.recipeImage.setImage(Image.getWritableImage(this.recipe));
+        this.recipeImage.setImage(new Image(this.recipe.getPhotograph().getInputStream()));
         this.ingredients.setStyle(".list-cell:empty {-fx-background-color: transparent;}");
     }
 
