@@ -39,11 +39,13 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         // Set response text
         model.setResponseText(RESPONSE_MESSAGE);
 
-        // Set suggestions
-        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
-        List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
+        if (!oldTitle.isEmpty()) {
+            // Set suggestions
+            List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
+            List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
-        model.setSuggestions(suggestions);
+            model.setSuggestions(suggestions);
+        }
     }
 
     /**
