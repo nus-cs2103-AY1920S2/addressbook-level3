@@ -3,11 +3,14 @@ package seedu.address.model.transaction;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.transaction.TypicalDateTimes.*;
+import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_FIRST_2020_10AM;
+import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_FIRST_2020_5PM;
+import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_SECOND_2020_5PM;
 
 import org.junit.jupiter.api.Test;
 
 public class DateTimeTest {
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new DateTime((String) null));
