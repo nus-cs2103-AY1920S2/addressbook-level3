@@ -1,5 +1,7 @@
 package seedu.address.model.profile.course.module.personal;
 
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
+
 import java.util.ArrayList;
 
 /**
@@ -43,8 +45,10 @@ public class DeadlineList {
         list.add(deadline);
     }
 
-    public void deleteDeadline(Deadline deadline) {
-        list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()));
+    public void deleteDeadline(Deadline deadline) throws DeadlineNotFoundException {
+        if (!list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()))) {
+            throw new DeadlineNotFoundException();
+        }
     }
 
     public Deadline getTask(String description) {

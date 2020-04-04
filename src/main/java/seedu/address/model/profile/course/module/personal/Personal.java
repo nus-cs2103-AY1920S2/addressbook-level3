@@ -1,5 +1,7 @@
 package seedu.address.model.profile.course.module.personal;
 
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
+
 import java.util.List;
 
 /**
@@ -54,7 +56,7 @@ public class Personal {
         return this.deadlineList.getList();
     }
 
-    public void deleteDeadline(Deadline deadline) {
+    public void deleteDeadline(Deadline deadline) throws DeadlineNotFoundException {
         this.deadlineList.deleteDeadline(deadline);
     }
 }

@@ -16,6 +16,7 @@ import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.exceptions.*;
 
 /**
  * Deletes a profile identified using it's displayed index from the address book.
@@ -38,6 +39,8 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Profile: %1$s";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Deleted Deadline: %1$s";
+    public static final String MESSAGE_DELETE_DEADLINE_FAILURE = "Unable to delete task: %1$s";
+
     public static final String MESSAGE_NOT_TAKING_MODULE =
             "User is currently not taking a module with module code %1$s";
 
@@ -117,10 +120,12 @@ public class DeleteCommand extends Command {
             } else { // Deleting a deadline/task
                 try {
                     profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
+                    profileManager.deleteDeadline(deleteDeadline); //delete from observablelist
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
+                } catch (DeadlineNotFoundException e) {
+                    throw new CommandException(String.format(MESSAGE_DELETE_DEADLINE_FAILURE, deleteDeadline));
                 }
-                profileManager.deleteDeadline(deleteDeadline); //delete from observablelist
                 return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline), false);
             }
         }
