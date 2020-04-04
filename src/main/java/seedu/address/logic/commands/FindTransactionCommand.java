@@ -24,7 +24,7 @@ public class FindTransactionCommand extends Command {
             + MESSAGE_USAGE;
     public static final String INVALID_TRANSACTION_TYPE = "Transaction type can only be 'buy' or 'sell'.\n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_NOT_FIELD_PROVIDED = "At least one conditional field must be provided.\n"
+    public static final String MESSAGE_NO_FIELD_PROVIDED = "At least one conditional field must be provided.\n"
             + MESSAGE_USAGE;
 
     private TransactionContainKeywordsPredicate predicate;

@@ -17,6 +17,9 @@ import seedu.address.model.transaction.TransactionContainKeywordsPredicate;
  */
 public class FindTransactionCommandParser implements Parser<FindTransactionCommand> {
 
+    public static final String BUY_KEYWORD = "buy";
+    public static final String SELL_KEYWORD = "sell";
+
     /**
      * defines the type of transaction
      */
@@ -35,27 +38,13 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
 
         // find transaction by type of transaction, name of supplier, name of good.
         // or any combination of the above
+        // more factor -> more constrain
         // if there are multiple input for name, good name, all inputs will be taken.
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
                 PREFIX_GOOD_NAME);
 
         // preamble stores the type of transaction
-        TransactionType typeOfTransaction = TransactionType.EMPTY;
-        String preamble = argMultimap.getPreamble();
-        switch (preamble.trim()) {
-        case "":
-            break;
-        case "buy":
-            typeOfTransaction = TransactionType.BUY_TRANSACTION;
-            break;
-        case "sell":
-            typeOfTransaction = TransactionType.SELL_TRANSACTION;
-            break;
-        default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindTransactionCommand.INVALID_TRANSACTION_TYPE));
-        }
+        TransactionType typeOfTransaction = parseTypeOfTransaction(argMultimap);
 
         // name stores the name of supplier
         String[] supplierNameKeywords = setKeywords(argMultimap, PREFIX_NAME);
@@ -66,7 +55,8 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         // at least one field must be provided
         if (typeOfTransaction.equals(TransactionType.EMPTY)
                 && supplierNameKeywords.length == 0 && goodNameKeywords.length == 0) {
-            throw new ParseException(FindTransactionCommand.MESSAGE_NOT_FIELD_PROVIDED);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTransactionCommand.MESSAGE_NO_FIELD_PROVIDED));
         }
 
         return new FindTransactionCommand(
@@ -74,6 +64,14 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
                         Arrays.asList(supplierNameKeywords), Arrays.asList(goodNameKeywords)));
     }
 
+    /**
+     * parses values in the prefix
+     * @param argMultimap stores the input
+     * @param prefix can be supplier name or good name
+     * @return arrays of the individual words in the input for particular prefix, if the input is empty (which means
+     * this prefix is unspecified, return an empty array
+     * @throws ParseException if the prefix is given, but the value is empty
+     */
     private String[] setKeywords(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
         Optional<String> words = argMultimap.getValue(prefix);
         if (words.isPresent()) {
@@ -84,6 +82,26 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
             return words.get().split("\\s+");
         }
         return new String[0];
+    }
+
+    /**
+     * parses type of transaction.
+     * @param argMultimap stores the input
+     * @return type of transaction: buy, sell or empty(which means the type of transaction is unspecified)
+     * @throws ParseException if the type of transaction is invalid
+     */
+    private TransactionType parseTypeOfTransaction(ArgumentMultimap argMultimap) throws ParseException {
+        switch (argMultimap.getPreamble().trim()) {
+        case "":
+            return TransactionType.EMPTY;
+        case BUY_KEYWORD:
+            return TransactionType.BUY_TRANSACTION;
+        case SELL_KEYWORD:
+            return TransactionType.SELL_TRANSACTION;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTransactionCommand.INVALID_TRANSACTION_TYPE));
+        }
     }
 
 }
