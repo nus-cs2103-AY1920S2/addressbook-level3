@@ -15,6 +15,7 @@ import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.Specialisation;
 
 /**
  * Parses input arguments and creates a new Profile Object.
@@ -48,9 +49,9 @@ public class NewCommandParser implements Parser<NewCommand> {
         CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
         int currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
 
-        String specialisation = null;
+        Specialisation specialisation = null;
         if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
-            specialisation = argMultimap.getValue(PREFIX_SPEC).get();
+            specialisation = ParserUtil.parseSpecialisation(courseName, argMultimap.getValue(PREFIX_SPEC).get());
         }
 
         Profile profile = new Profile(name, courseName, currentSemester, specialisation);

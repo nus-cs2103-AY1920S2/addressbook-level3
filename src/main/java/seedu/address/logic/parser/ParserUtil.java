@@ -3,11 +3,13 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SPECIALISATION;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SPECIALISATION;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -15,6 +17,7 @@ import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.Specialisation;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
@@ -152,6 +155,26 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_INVALID_COURSE, NewCommand.MESSAGE_USAGE));
         }
         return new CourseName(trimmedCourseName);
+    }
+
+    /**
+     * Parses a {@code String specialisationName} into a {@code Specialisation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code specialisationName} is invalid.
+     */
+    public static Specialisation parseSpecialisation(CourseName courseName, String specialisationName)
+            throws ParseException {
+        requireNonNull(specialisationName);
+        String trimmedSpecialisation = specialisationName.trim().toUpperCase();
+        if (trimmedSpecialisation.equals("")) {
+            throw new ParseException(MESSAGE_MISSING_SPECIALISATION);
+        }
+        if (!Specialisation.isValid(courseName, trimmedSpecialisation)) {
+            System.out.println(trimmedSpecialisation);
+            throw new ParseException(String.format(MESSAGE_INVALID_SPECIALISATION, NewCommand.MESSAGE_USAGE));
+        }
+        return new Specialisation(trimmedSpecialisation);
     }
 
     /**

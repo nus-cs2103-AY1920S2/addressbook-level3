@@ -8,6 +8,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_COURSE = "Error: This course is invalid or unavailable";
+    public static final String MESSAGE_INVALID_SPECIALISATION = "Error: This specialisation is invalid or unavailable, " +
+            "please check that you spelled it out fully";
     public static final String MESSAGE_INVALID_COURSE_FOCUS_AREA = "Error: This focus area is not available";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
@@ -19,5 +21,6 @@ public class Messages {
     public static final String MESSAGE_MISSING_MODULE = "Error: Please input a module code";
     public static final String MESSAGE_MISSING_SEMESTER = "Error: Please input a semester";
     public static final String MESSAGE_MISSING_NAME = "Error: Please input a name";
+    public static final String MESSAGE_MISSING_SPECIALISATION = "Error: Please input a specialisation";
 
 }

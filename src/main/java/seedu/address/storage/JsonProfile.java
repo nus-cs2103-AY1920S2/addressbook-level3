@@ -17,6 +17,7 @@ import seedu.address.model.ModuleList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.Specialisation;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -53,7 +54,7 @@ class JsonProfile {
     public JsonProfile(Profile source) {
         name = source.getName().toString();
         courseName = source.getCourseName().toString();
-        specialisation = source.getSpecialisation();
+        specialisation = source.getSpecialisationString();
         currentSemester = Integer.toString(source.getCurrentSemester());
         records = new ArrayList<>();
         for (Map.Entry<Integer, ModuleList> entry: source.getMappings()) {
@@ -93,7 +94,9 @@ class JsonProfile {
 
         Name profileName = new Name(name);
         CourseName profileCourse = new CourseName(courseName);
-        Profile profile = new Profile(profileName, profileCourse, Integer.parseInt(currentSemester), specialisation);
+        Specialisation profileSpecialisation = new Specialisation(specialisation);
+        Profile profile = new Profile(profileName, profileCourse, Integer.parseInt(currentSemester),
+                profileSpecialisation);
 
         for (JsonSemesterRecord record : records) {
             int semester = Integer.parseInt(record.getSemester());

@@ -14,6 +14,7 @@ import java.util.Set;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.Specialisation;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -27,7 +28,7 @@ public class Profile {
     // Identity fields
     private HashMap<Integer, ModuleList> semModHashMap;
     private int currentSemester = 0;
-    private String specialisation;
+    private Specialisation specialisation;
     private Name name;
     private CourseName courseName;
     private Cap cap;
@@ -35,7 +36,7 @@ public class Profile {
     /**
      * Every field must be present and not null.
      */
-    public Profile(Name name, CourseName courseName, int currentSemester, String specialisation) {
+    public Profile(Name name, CourseName courseName, int currentSemester, Specialisation specialisation) {
         requireAllNonNull(name);
         requireAllNonNull(courseName);
         requireAllNonNull(currentSemester);
@@ -80,8 +81,16 @@ public class Profile {
         return currentSemester;
     }
 
-    public String getSpecialisation() {
+    public Specialisation getSpecialisation() {
         return specialisation;
+    }
+
+    public String getSpecialisationString() {
+        if (specialisation == null) {
+            return "";
+        } else {
+            return specialisation.toString();
+        }
     }
 
     public void setName(Name name) {
@@ -96,7 +105,7 @@ public class Profile {
         this.currentSemester = currentSemester;
     }
 
-    public void setSpecialisation(String specialisation) {
+    public void setSpecialisation(Specialisation specialisation) {
         this.specialisation = specialisation;
     }
 

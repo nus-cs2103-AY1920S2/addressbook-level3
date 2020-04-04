@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SPECIALISATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
@@ -23,6 +25,7 @@ import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.Specialisation;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
@@ -64,7 +67,8 @@ public class EditCommand extends Command {
     private Name profileName = null;
     private CourseName courseName = null;
     private int updatedSemester = 0;
-    private String specialisation = null;
+    private String specialisationString = null;
+    private Specialisation specialisation = null;
 
     private boolean editModule = false;
     private ModuleCode moduleCode;
@@ -75,12 +79,12 @@ public class EditCommand extends Command {
     private String newDeadlineString = null;
     private int inSemester = 0;
 
-    public EditCommand(Name name, CourseName courseName, int updatedSemester, String specialisation) {
+    public EditCommand(Name name, CourseName courseName, int updatedSemester, String specialisationString) {
         toEditProfile = true;
         this.profileName = name;
         this.courseName = courseName;
         this.updatedSemester = updatedSemester;
-        this.specialisation = specialisation;
+        this.specialisationString = specialisationString;
     }
 
     public EditCommand(ModuleCode moduleCode, int editSemester, String grade, String oldTask, String newTask,
@@ -161,7 +165,6 @@ public class EditCommand extends Command {
                 updateStatus(profileToEdit);
             }
 
-            //TODO: edit task and deadlines
             Deadline oldDeadline = null;
             Deadline newDeadline = null;
             if (newTask != null) {
@@ -203,7 +206,13 @@ public class EditCommand extends Command {
                 updateStatus(profileToEdit);
                 profileManager.deleteDeadlineList();
             }
-            if (specialisation != null) {
+            if (specialisationString != null) {
+                CourseName courseName = profileToEdit.getCourseName();
+                try {
+                    specialisation = ParserUtil.parseSpecialisation(courseName, specialisationString);
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_INVALID_SPECIALISATION);
+                }
                 profileToEdit.setSpecialisation(specialisation);
             }
 
