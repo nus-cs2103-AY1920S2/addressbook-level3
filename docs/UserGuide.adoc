@@ -137,7 +137,7 @@ From sections 6 to 11, the following notations may be used.
 |… | One or more of this same field can be added. e.g. if the command specifies `<ip/PROTEIN>...`, you may either leave
 the field empty, or you may specify ≥1 protein ingredients.
 |💡 | Tip
-|🛈 | Things to take note of
+|ℹ️| Things to take note of
 |===
 
 
