@@ -1,0 +1,26 @@
+@startuml
+start
+:A DoneSessionCommand is called;
+
+if () then ([The session exists at the specified index])
+  :TotalHours in TaTracker is incremented based on the
+  duration of the session;
+  :TotalEarnings in TaTracker is calculated based on the
+  rate input by the user (TotalEarnings = TotalHours * Rate);
+  :Session is added to UniqueDoneSessionList;
+
+  if () then (session is recurring)
+    :A new session is created with startTime
+    and endTime are incremented accordingly;
+    :New session is added to UniqueSessionList;
+
+    else (session is not recurring)
+endif
+    :Old session is deleted from UniqueSessionList;
+
+    stop
+
+else([The session does not exist])
+  :an exception is thrown;
+stop
+@enduml
