@@ -719,13 +719,6 @@ image::TssActivityDiagram.png[]
 of the session from EndDateTime and then rounding up the value to a whole.
 4. TotalEarnings is calculated by multiplying TotalHours with Rate
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 // tag::syntaxhighlighting[]
 === Syntax Highlighting
 When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
