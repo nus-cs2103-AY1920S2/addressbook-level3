@@ -16,7 +16,7 @@ class DateTimeTest {
     }
 
     @Test
-    void isEqualOrLaterThan() {
+    void isDateEqualOrLaterThan() {
         DateTime dtOne;
         DateTime dtTwo;
 
