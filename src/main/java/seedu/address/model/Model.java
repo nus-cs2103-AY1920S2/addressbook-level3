@@ -153,7 +153,17 @@ public interface Model {
      */
     ObservableList<Transaction> filterTransaction(Predicate<Transaction> predicate);
 
+    /**
+     * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the current {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCustomerList();
 
     /**
      * Updates the filter of the filtered product list to filter by the given {@code predicate}.
@@ -161,11 +171,24 @@ public interface Model {
      */
     void updateFilteredProductList(Predicate<Product> predicate);
 
+
     /**
-     * Updates the filter of the filtered product list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered product list to filter by the current {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredProductList();
+
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    /**
+     * Updates the filter of the filtered transaction list to filter by the current {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList();
 
 
     /** Returns an unmodifiable view of the filtered product list */

@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCRIPTION;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 
@@ -22,6 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Money;
@@ -47,7 +47,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
             + PREFIX_QUANTITY + "1 "
-            + PREFIX_DATETIME + "2020-02-20 10:00 "
+            + PREFIX_DATETIME + DateTime.DEFAULT_VALUE.format(DateTime.DATE_TIME_FORMAT) + " "
             + PREFIX_MONEY + "30 "
             + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
@@ -106,7 +106,7 @@ public class AddTransactionCommand extends Command {
         }
 
         model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
+        model.updateFilteredProductList();
 
         int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
 
