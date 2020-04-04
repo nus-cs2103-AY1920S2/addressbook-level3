@@ -130,7 +130,7 @@ public class DeliveredCommandTest {
         DeliveredCommand deliveredCommand = new DeliveredCommand(outOfBoundIndex, FLAG_RETURN_BOOK,
                 new DeliveredCommand.DeliveredParcelDescriptor());
 
-        assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
+        assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
     }
 
 

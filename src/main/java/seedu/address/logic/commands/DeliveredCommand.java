@@ -100,7 +100,7 @@ public class DeliveredCommand extends Command {
      */
     private CommandResult processDeliveryOfOrder(Model model) throws CommandException {
         if (isIndexValidForOrderList(model)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX));
         }
         Order orderToBeDelivered = model.getFilteredOrderList().get(targetIndex.getZeroBased());
         if (!orderToBeDelivered.isDelivered()) {
