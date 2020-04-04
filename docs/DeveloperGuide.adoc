@@ -213,14 +213,6 @@ The `Model`,
 * these lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
-reference. This would allow `TaTracker` to only require one `Tag` object per unique
-`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
-such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
-
 [[Design-Storage]]
 === Storage component
 
@@ -301,6 +293,19 @@ and the creation of association classes which would unnecessarily complicate the
 That is why we decided to stick to our current implementation.
 
 ====
+.Structure of the Student Component
+image::StudentClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
+
+[NOTE]
+As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
+reference. This would allow `TaTracker` to only require one `Tag` object per unique
+`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
+such a model may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[]
+
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
@@ -416,6 +421,76 @@ exist, it is removed from the module.
 7. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
 
 The `group edit` command has been implemented in a similar manner.
+==== Implementation of the Student Add and Delete Commands
+
+The following sequence diagram shows the sequence of commands that take place
+between the logic and model components of the TA-Tracker when the user enters the
+command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
+
+Note: This diagram assumes that there is no student with the matric number 'A0181234G'
+pre-existing in the TA-Tracker.
+
+.Student Add - Sequence Diagram
+image::AddStudentSequenceDiagram.png[]
+
+[NOTE]
+====
+* The lifeline for `StudentCommandParser` and `AddStudentCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type student and passes the
+command to the StudentCommandParser.
+
+3. The StudentCommandParser sees that the command is of type add and passes the
+arguments to the AddStudentCommandParser.
+
+4. The AddStudentCommandParser creates a Student with the given parameters.
+
+5. The AddStudentCommandParser then creates an AddStudentCommand object and passes
+it the created module. The parser then returns the AddStudentCommand
+
+6. LogicManager calls AddStudentCommand's execute method. The AddStudentCommand object
+checks whether a student with the given matric number already exists in TA-Tracker.
+If it does, a command exception is thrown saying that a student with the matric number
+already exists in the TA-Tracker.
+
+7. If no such student exists, the student is added to the TA-Tracker.
+
+The command used to delete a student has been implemented in a similar way. The main
+difference is that the DeleteStudentCommand checks whether an object with the given
+matric number exists in the TA-Tracker. If no such student exists, a command exception
+is thrown saying that a student with the given matric number doesn't exist. If it does
+exist, the student is removed from the TA-Tracker.
+
+Note: This diagram assumes that there exists a student with the matric number 'A0181234G'
+pre-existing in the TA-Tracker.
+
+.Student Delete - Sequence Diagram
+image::DeleteStudentSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type student and passes the
+command to the StudentCommandParser.
+
+3. The StudentCommandParser sees that the command is of type delete and passes the
+arguments to the DeleteStudentCommandParser.
+
+4. The DeleteStudentCommandParser creates a Student with the given matric number
+
+5. The DeleteStudentCommandParser then creates a DeleteStudentCommand object and passes
+it the created student. The parser then returns the DeleteStudentCommand
+
+6. LogicManager calls DeleteStudentCommand's execute method. The DeleteGroupCommand object
+checks whether a student with the given matric number already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a student with the given matric number
+doesn't exist in the TA-Tracker.
+
+7. If the student exists, the DeleteStudentCommand object retrieves the student from the
+model and removes the student.
 
 ==== Implementation of the Sort Command
 
@@ -509,76 +584,6 @@ is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
 
-==== Implementation of the Student Add and Delete Commands
-
-The following sequence diagram shows the sequence of commands that take place
-between the logic and model components of the TA-Tracker when the user enters the
-command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
-
-Note: This diagram assumes that there is no student with the matric number 'A0181234G'
-pre-existing in the TA-Tracker.
-
-.Student Add - Sequence Diagram
-image::AddStudentSequenceDiagram.png[]
-
-[NOTE]
-====
-* The lifeline for `StudentCommandParser` and `AddStudentCommandParser` should end at the
-destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-====
-
-1. LogicManager uses the TATrackerParser to first parse the user command.
-
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
-
-3. The StudentCommandParser sees that the command is of type add and passes the
-arguments to the AddStudentCommandParser.
-
-4. The AddStudentCommandParser creates a Student with the given parameters.
-
-5. The AddStudentCommandParser then creates an AddStudentCommand object and passes
-it the created module. The parser then returns the AddStudentCommand
-
-6. LogicManager calls AddStudentCommand's execute method. The AddStudentCommand object
-checks whether a student with the given matric number already exists in TA-Tracker.
-If it does, a command exception is thrown saying that a student with the matric number
-already exists in the TA-Tracker.
-
-7. If no such student exists, the student is added to the TA-Tracker.
-
-The command used to delete a student has been implemented in a similar way. The main
-difference is that the DeleteStudentCommand checks whether an object with the given
-matric number exists in the TA-Tracker. If no such student exists, a command exception
-is thrown saying that a student with the given matric number doesn't exist. If it does
-exist, the student is removed from the TA-Tracker.
-
-Note: This diagram assumes that there exists a student with the matric number 'A0181234G'
-pre-existing in the TA-Tracker.
-
-.Student Delete - Sequence Diagram
-image::DeleteStudentSequenceDiagram.png[]
-
-1. LogicManager uses the TATrackerParser to first parse the user command.
-
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
-
-3. The StudentCommandParser sees that the command is of type delete and passes the
-arguments to the DeleteStudentCommandParser.
-
-4. The DeleteStudentCommandParser creates a Student with the given matric number
-
-5. The DeleteStudentCommandParser then creates a DeleteStudentCommand object and passes
-it the created student. The parser then returns the DeleteStudentCommand
-
-6. LogicManager calls DeleteStudentCommand's execute method. The DeleteGroupCommand object
-checks whether a student with the given matric number already exists in TA-Tracker.
-If it doesn't, a command exception is thrown saying that a student with the given matric number
-doesn't exist in the TA-Tracker.
-
-7. If the student exists, the DeleteStudentCommand object retrieves the student from the
-model and removes the student.
 
 //tag::tssview[]
 === TSS View
