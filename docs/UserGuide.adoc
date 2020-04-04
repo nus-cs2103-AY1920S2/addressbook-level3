@@ -896,7 +896,7 @@ Edits the session at index 1 to have:
 
 You can use this command to mark a session as done.
 
-The session will automatically appear as a new claim in the *Claims Vieww*.
+The session will automatically appear as a new claim in the *Claims View*.
 
 You will automatically be switched to the claims
 tab as well, if you were currently on a different tab.
