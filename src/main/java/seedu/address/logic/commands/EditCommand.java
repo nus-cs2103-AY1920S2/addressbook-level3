@@ -25,7 +25,7 @@ import seedu.address.model.task.Priority;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
-/** Edits the details of an existing task in the address book. */
+/** Edits the details of an existing task in the task list. */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -57,7 +57,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK =
-            "This task already exists in the address book.";
+            "This task already exists in the task list.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;

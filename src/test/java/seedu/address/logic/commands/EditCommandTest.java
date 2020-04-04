@@ -156,7 +156,7 @@ public class EditCommandTest {
     public void execute_duplicateTaskFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
-        // edit task in filtered list into a duplicate in address book
+        // edit task in filtered list into a duplicate in task list
         Task taskInList = model.getTaskList().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditCommand editCommand =
                 new EditCommand(
@@ -177,13 +177,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list, but smaller than size of
-     * address book
+     * task list
      */
     @Test
     public void execute_invalidTaskIndexFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of task list list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
 
         EditCommand editCommand =

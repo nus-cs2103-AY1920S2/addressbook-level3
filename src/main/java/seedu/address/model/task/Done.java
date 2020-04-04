@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's Done in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a Task's Done in the task list. Guarantees: immutable; is valid as declared in
  * {@link #isValidDone(String)}
  */
 public class Done implements Comparable {

@@ -97,7 +97,7 @@ public class DoneCommandTest {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
 
         Index outOfBoundIndex = INDEX_SECOND_TASK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of task list list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaskList().getTaskList().size());
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {outOfBoundIndex});
