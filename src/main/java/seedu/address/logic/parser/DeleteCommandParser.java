@@ -27,26 +27,15 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE, PREFIX_TASK);
 
-        // Delete profile
         Name name;
+        ModuleCode moduleCode;
+        Deadline task;
+
+        // Delete profile
         if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             String strName = argMultimap.getValue(PREFIX_NAME).get();
             name = ParserUtil.parseName(strName);
             return new DeleteCommand(name);
-        }
-
-        ModuleCode moduleCode;
-        Deadline task;
-
-        // Delete deadline/task
-        if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TASK)) {
-            String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
-            moduleCode = ParserUtil.parseModuleCode(strModuleCode);
-            String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
-            //System.out.println(strDeadline);
-            task = new Deadline(strModuleCode, strDeadline);
-            //System.out.println(new Deadline(strDeadline));
-            return new DeleteCommand(moduleCode, task);
         }
 
         // Delete module
@@ -56,16 +45,17 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(moduleCode);
         }
 
+        // Delete deadline/task
+        if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TASK)) {
+            String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
+            moduleCode = ParserUtil.parseModuleCode(strModuleCode);
+            String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
+            task = new Deadline(strModuleCode, strDeadline);
+            return new DeleteCommand(moduleCode, task);
+        }
+
         throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-
-        /*try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-        }*/
     }
 
     /**

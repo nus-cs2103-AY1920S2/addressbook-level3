@@ -20,7 +20,7 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 Welcome to MODdy!
 
-MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
+MODdy is a one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
 It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 This user guide aims to give you a clearer understanding on how to use MODdy as well as a summary of its features.
 
@@ -105,9 +105,12 @@ This command creates a new profile for you as shown in the figure below. You wil
 Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
 ****
+* `c/COURSE` must be a SoC course, e.g. Computer Science, Business Analytics, Information Systems, Information Security, Computer Engineering. It is *case-insensitive*.
 * Fields in brackets [] are optional.
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6>>
+* The course name entered has to be its full name. Please refer to the <<Appendix, Appendix>> for the list of courses supported
 * `cs/CURRENT_SEMESTER` must be entered as an integer, e.g. if you are currently in Year 2 Semester 1, you will enter `cs/3`
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6.>>
+
 ****
 
 .New profile created is displayed in the Profile Panel
@@ -132,7 +135,6 @@ There are *two* ways you can use the `add` command: +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
-* `m/MODULE` is case-sensitive and must be entered in capital letters
 * `y/SEMESTER_INDEX` must be entered as an integer, e.g. if you took the module in Year 2 Semester 1, you will enter `y/3`
 * As you have already specified the current semester you are currently in when creating your profile, MODdy will indicate modules added to prior semesters as *"completed"*, and modules that are added to the current semester or to future semesters are indicated as *"currently taking"* or *"planning to take"* respectively
 * `g/GRADE` is optional
@@ -386,6 +388,14 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
 
 * <<Exit, *Exit*>> : `exit`
 
+== Appendix
+
+. List of courses currently supported by MODdy
+.. Business Analytics
+.. Computer Engineering
+.. Computer Science
+.. Information Security
+.. Information Systems
 
 
 

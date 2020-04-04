@@ -27,32 +27,38 @@ public class ShowCommandParser implements Parser<ShowCommand> {
      */
     public ShowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER, PREFIX_COURSE_NAME,
-                        PREFIX_MODULE, PREFIX_FOCUS_AREA, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SEMESTER, PREFIX_MODULE,
+                        PREFIX_FOCUS_AREA, PREFIX_COURSE_NAME);
 
-        if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-            int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
-            return new ShowCommand(intSemester); // returns int
-        }
-
-        if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
-            CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
-            return new ShowCommand(courseName); // returns CourseName
-        }
-
-        if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-            return new ShowCommand(moduleCode); // returns ModuleCode
-        }
-
-        if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
-            String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get());
-            return new ShowCommand(focusArea); // returns String
-        }
-
+        // Get Name
         if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             return new ShowCommand(name);
+        }
+
+        // Get Semester
+        if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
+            int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+            return new ShowCommand(intSemester);
+        }
+
+        // Get Module
+        if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+            return new ShowCommand(moduleCode);
+        }
+
+        // Get Focus Area
+        if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
+            String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get().toUpperCase());
+            return new ShowCommand(focusArea); // returns String
+        }
+
+        // Get Course
+        if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
+            CourseName courseName = ParserUtil.parseCourseName(
+                    argMultimap.getValue(PREFIX_COURSE_NAME).get().toUpperCase());
+            return new ShowCommand(courseName); // returns CourseName
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));

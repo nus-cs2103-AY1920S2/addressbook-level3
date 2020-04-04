@@ -46,11 +46,7 @@ public class NewCommandParser implements Parser<NewCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
-        String currentSemesterString = argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get();
-        if (!ParserUtil.isInteger(currentSemesterString)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
-        }
-        int currentSemester = Integer.parseInt(currentSemesterString);
+        int currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
 
         String specialisation = null;
         if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {

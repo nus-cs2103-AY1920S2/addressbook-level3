@@ -38,44 +38,46 @@ public class ShowCommand extends Command {
             + "Module, with " + PREFIX_MODULE + "MODULE_CODE\n"
             + "Modules taken in a semester, with " + PREFIX_CURRENT_SEMESTER + "SEMESTER_NUMBER\n";
 
-    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are show below: ";
-    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are shown below: ";
-    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are show below:";
+    public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
     public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in semester are shown: "
             + "\nEnter [show m/MODULE_CODE] to find out more about the module";
-    public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
+    public static final String MESSAGE_SUCCESS_MODULE = "The details for this module are show below:";
+    public static final String MESSAGE_SUCCESS_FOCUS_AREA = "Modules in this focus area are shown below: ";
+    public static final String MESSAGE_SUCCESS_COURSE = "Course requirements for this course are show below: ";
 
 
-    private final Object itemParsed;
+
+    private final Object toParse;
     private Object toShow;
     /**
      * Creates a ShowCommand to show the specified object
      * @param itemParsed - Can be any object from this list: (Course,
      *               CourseFocusArea, Module, List of Modules in a semester)
      */
-    public ShowCommand(int intSemester) {
-        requireNonNull(intSemester);
-        this.itemParsed = intSemester;
+
+    public ShowCommand(Name name) {
+        requireNonNull(name);
+        this.toParse = name;
     }
 
-    public ShowCommand(CourseName courseName) {
-        requireNonNull(courseName);
-        this.itemParsed = courseName;
+    public ShowCommand(int intSemester) {
+        requireNonNull(intSemester);
+        this.toParse = intSemester;
     }
 
     public ShowCommand(ModuleCode moduleCode) {
         requireNonNull(moduleCode);
-        this.itemParsed = moduleCode;
+        this.toParse = moduleCode;
     }
 
     public ShowCommand(String focusArea) {
         requireNonNull(focusArea);
-        this.itemParsed = focusArea;
+        this.toParse = focusArea;
     }
 
-    public ShowCommand(Name name) {
-        requireNonNull(name);
-        this.itemParsed = name;
+    public ShowCommand(CourseName courseName) {
+        requireNonNull(courseName);
+        this.toParse = courseName;
     }
 
     @Override
@@ -87,49 +89,13 @@ public class ShowCommand extends Command {
 
         String message = "";
         try {
-            if (itemParsed instanceof CourseName) {
-
-                message = MESSAGE_SUCCESS_COURSE;
-                CourseName courseName = (CourseName) itemParsed;
-                toShow = courseManager.getCourse(courseName);
-                profileManager.setDisplayedView((Course) toShow);
-
-            } else if (itemParsed instanceof Integer) {
-
-                if (!profileManager.hasOneProfile()) {
-                    throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
-                }
-                message = MESSAGE_SUCCESS_MODULE_LIST;
-                Integer semester = (Integer) itemParsed;
-                toShow = profileManager.getFirstProfile().getModules(semester);
-                FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
-                profileManager.setDisplayedView(filteredModules);
-
-            } else if (itemParsed instanceof ModuleCode) {
-
-                message = MESSAGE_SUCCESS_MODULE;
-                ModuleCode moduleCode = (ModuleCode) itemParsed;
-                if (!moduleManager.hasModule(moduleCode)) {
-                    throw new CommandException(MESSAGE_INVALID_MODULE);
-                }
-                toShow = moduleManager.getModule(moduleCode);
-                profileManager.setDisplayedView((Module) toShow);
-
-            } else if (itemParsed instanceof String) {
-
-                message = MESSAGE_SUCCESS_FOCUS_AREA;
-                String focusArea = (String) itemParsed;
-                toShow = courseManager.getCourseFocusArea(focusArea);
-                profileManager.setDisplayedView((CourseFocusArea) toShow);
-
-            } else if (itemParsed instanceof Name) {
-
+            if (toParse instanceof Name) {
                 message = MESSAGE_SUCCESS_NAME;
 
                 if (profileManager.getFilteredPersonList().size() != 0) {
                     Profile profile = profileManager.getFirstProfile();
 
-                    if ((profile.getName().toString().toLowerCase()).equals(itemParsed.toString().toLowerCase())) {
+                    if ((profile.getName().toString().toLowerCase()).equals(toParse.toString().toLowerCase())) {
                         toShow = profile;
                         profileManager.setDisplayedView((Profile) toShow);
                     } else {
@@ -138,6 +104,41 @@ public class ShowCommand extends Command {
                 } else {
                     throw new CommandException("Profile does not exist.");
                 }
+
+            } else if (toParse instanceof Integer) {
+                if (!profileManager.hasOneProfile()) {
+                    throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
+                }
+
+                message = MESSAGE_SUCCESS_MODULE_LIST;
+                Integer semester = (Integer) toParse;
+                toShow = profileManager.getFirstProfile().getModules(semester);
+                FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
+                profileManager.setDisplayedView(filteredModules);
+
+            } else if (toParse instanceof ModuleCode) {
+                message = MESSAGE_SUCCESS_MODULE;
+                ModuleCode moduleCode = (ModuleCode) toParse;
+
+                if (!moduleManager.hasModule(moduleCode)) {
+                    throw new CommandException(MESSAGE_INVALID_MODULE);
+                }
+
+                toShow = moduleManager.getModule(moduleCode);
+                profileManager.setDisplayedView((Module) toShow);
+
+            } else if (toParse instanceof String) {
+                message = MESSAGE_SUCCESS_FOCUS_AREA;
+                String focusArea = (String) toParse;
+                toShow = courseManager.getCourseFocusArea(focusArea);
+                profileManager.setDisplayedView((CourseFocusArea) toShow);
+
+            } else if (toParse instanceof CourseName) {
+                message = MESSAGE_SUCCESS_COURSE;
+                CourseName courseName = (CourseName) toParse;
+                toShow = courseManager.getCourse(courseName);
+                profileManager.setDisplayedView((Course) toShow);
+
             }
 
             return new CommandResult(String.format(message, toShow), true);
@@ -151,6 +152,6 @@ public class ShowCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ShowCommand // instanceof handles nulls
-                && itemParsed.equals(((ShowCommand) other).itemParsed));
+                && toParse.equals(((ShowCommand) other).toParse));
     }
 }
