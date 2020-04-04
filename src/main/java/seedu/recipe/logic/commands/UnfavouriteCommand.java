@@ -36,13 +36,13 @@ public class UnfavouriteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
+
+        if (!canUnfavouriteTargetRecipes(lastShownList.size(), targetIndex)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        }
+
         StringBuilder sb = new StringBuilder().append("Removed ");
-
         for (int i = 0; i < targetIndex.length; i++) {
-            if (targetIndex[i].getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
-            }
-
             Recipe recipeToUnfavourite = lastShownList.get(targetIndex[i].getZeroBased());
             model.unfavouriteRecipe(recipeToUnfavourite);
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
@@ -54,10 +54,23 @@ public class UnfavouriteCommand extends Command {
             }
         }
         sb.append(" from favourites!");
+
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
         return new CommandResult(sb.toString());
+    }
+
+    /**
+     * Checks if the recipe that the user wishes to unfavourite exists within the recipe list.
+     */
+    private boolean canUnfavouriteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
+        for (int i = targetIndex.length - 1; i >= 0; i--) {
+            if (targetIndex[i].getOneBased() > lastShownListSize) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

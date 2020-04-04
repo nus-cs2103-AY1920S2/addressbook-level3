@@ -35,12 +35,12 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        StringBuilder sb = new StringBuilder().append("Deleted ");
 
-        if (!canDeleteTargetRecipes(lastShownList, targetIndex)) {
+        if (!canDeleteTargetRecipes(lastShownList.size(), targetIndex)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
+        StringBuilder sb = new StringBuilder().append("Deleted ");
         for (int i = 0; i < targetIndex.length; i++) {
             Index indexAfterEachDeletion = Index.fromZeroBased(targetIndex[i].getZeroBased() - i);
             Recipe recipeToDelete = lastShownList.get(indexAfterEachDeletion.getZeroBased());
@@ -62,9 +62,9 @@ public class DeleteCommand extends Command {
     /**
      * Checks if the recipe that the user wishes to delete exists within the recipe list.
      */
-    public boolean canDeleteTargetRecipes(List<Recipe> lastShownList, Index[] targetIndex) {
+    private boolean canDeleteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
         for (int i = targetIndex.length - 1; i >= 0; i--) {
-            if (targetIndex[i].getOneBased() > lastShownList.size()) {
+            if (targetIndex[i].getOneBased() > lastShownListSize) {
                 return false;
             }
         }
