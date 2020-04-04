@@ -23,7 +23,7 @@ import seedu.address.model.profile.course.module.personal.Grade;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_SEMESTER = "Semester is not a valid integer.";
+    public static final String MESSAGE_INVALID_SEMESTER = "Please input a positive integer as current semester!";
 
 
     /**
