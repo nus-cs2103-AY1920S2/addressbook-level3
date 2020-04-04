@@ -871,11 +871,17 @@ Here is the purpose of each partition in the above diagram:
 
 * `blank` +
 When there is no input,
-the `ResultBox` should not show anything.
+the `ResultDisplay` should not show anything.
+
+.Blank `ResultDisplay`
+image::syntax-highlighting/SH-1-Blank.png[,300]
 
 * `invalid` +
 When there is no matching `full command word`,
-the `ResultBox` should indicate that a wrong command is entered.
+the `ResultDisplay` should indicate that a wrong command is entered.
+
+.Invalid `full command word`
+image::syntax-highlighting/SH-1-Invalid.png[,300]
 
 * `valid` +
 When there is a matching `full command word`,
@@ -883,13 +889,19 @@ change the highlighting rules for the new command.
 
 * `no_arguments` +
 When `full command word` has just been entered,
-the `ResultBox` should indicate that a correct command has been entered.
+the `ResultDisplay` should indicate that a correct command has been entered.
+
+.`CommandBox` has no `arguments`
+image::syntax-highlighting/SH-1-NoArgs.png[,300]
 
 * `has_arguments` +
 After processing the `full command word`,
 proceed to step 2. +
 +
 NOTE: There should be a rake symbol next to the only activity in this partition.
+
+.`CommandBox` has `arguments`
+image::syntax-highlighting/SH-1-HasArgs.png[,250]
 
 ===== Step 2. Highlighting the preamble
 After verifying that the new input has a `full command word`,
@@ -906,19 +918,31 @@ Here is the purpose of each partition in the above diagram:
 * `whitespaces` +
 Inputs that have trailing whitespaces will be handled separately.
 
+.Trailing whitespace, coloured in blue for this diagram
+image::syntax-highlighting/SH-2-Space.png[,250]
+
 * `many_whitespaces` +
 When there are more than two trailing whitespaces,
-the `ResultBox` should reshow how to use the command.
+the `ResultDisplay` should reshow how to use the command.
+
+.Many trailing whitespaces, coloured in blue for this diagram
+image::syntax-highlighting/SH-2-ManySpace.png[,400]
 
 * `preamble_error` +
 When the input has a `preamble` that the command does not need,
-the `ResultBox` should indicate that a wrong command is entered.
+the `ResultDisplay` should indicate that a wrong command is entered.
+
+.Invalid `preamble` in input
+image::syntax-highlighting/SH-2-WrongPreamble.png[,350]
 
 * `preamble_end` +
 After processing the `preamble`,
 proceed to step 3. +
 +
 NOTE: There should be a rake symbol next to the only activity in this partition.
+
+.Valid `preamble` in input
+image::syntax-highlighting/SH-2-RightPreamble.png[,350]
 
 ===== Step 3. Highlighting the remaining arguments
 After verifying that the `preamble` is valid for the given `full command word`,
@@ -934,16 +958,25 @@ Here is the purpose of each partition in the above diagram:
 
 * `wrong` +
 When the command does not need the given `argument`,
-the `ResultBox` should reshow how to use the command.
+the `ResultDisplay` should reshow how to use the command.
+
+.Wrong `argument` in input
+image::syntax-highlighting/SH-3-Wrong.png[,500]
 
 * `invalid` +
 When the `argument` cannot have the given `value`,
-the `ResultBox` should show how to use the `argument`.
+the `ResultDisplay` should show how to use the `argument`.
+
+.Invalid `argument` in input
+image::syntax-highlighting/SH-3-Invalid.png[,500]
 
 * `valid` +
 After processing the current `argument`,
-the `ResultBox` will still show how to use the argument in case the `argument`
+the `ResultDisplay` will still show how to use the argument in case the `argument`
 can have spaces.
+
+.Valid `argument` in input
+image::syntax-highlighting/SH-3-Valid.png[,500]
 
 ==== Design Considerations
 
