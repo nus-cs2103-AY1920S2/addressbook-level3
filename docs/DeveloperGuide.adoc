@@ -591,7 +591,7 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 
 7. The updated filtered session list will be displayed to the user.
 
-image::RecurringSessionsActivityDiagram.png[]
+image::DoneSessionActivityDiagram.png[]
 
 //tag::tssview[]
 === TSS View
