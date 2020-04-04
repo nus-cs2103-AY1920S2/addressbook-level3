@@ -10,9 +10,28 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
+Class StatisticsWindow
 Class ResultDisplay
+
+package StudentTab {
 Class StudentListPanel
 Class StudentCard
+Class ModuleListPanel
+Class ModuleCard
+Class GroupListPanel
+Class GroupCard
+}
+
+package ClaimsTab {
+Class ModuleListPanelCopy
+Class ClaimsListPanel
+}
+
+package SessionTab {
+Class SessionListPanel
+Class SessionCard
+}
+
 Class StatusBarFooter
 Class CommandBox
 }
@@ -31,23 +50,46 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow --> StatisticsWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> StudentListPanel
+MainWindow *-down-> ModuleListPanel
+MainWindow *-down-> GroupListPanel
+MainWindow *-down-> SessionListPanel
+MainWindow *-down-> ModuleListPanelCopy
+MainWindow *-down-> ClaimsListPanel
 MainWindow *-down-> StatusBarFooter
 
 StudentListPanel -down-> StudentCard
+GroupListPanel -down-> GroupCard
+ModuleListPanel -down-> ModuleCard
+SessionListPanel -down-> SessionCard
+ModuleListPanelCopy -down-> ModuleCard
+ClaimsListPanel -down-> SessionCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 StudentListPanel --|> UiPart
+ModuleListPanel --|> UiPart
+GroupListPanel --|> UiPart
+ModuleListPanelCopy --|> UiPart
+SessionListPanel --|> UiPart
+ClaimsListPanel --|> UiPart
 StudentCard --|> UiPart
+SessionCard --|> UiPart
+ModuleCard --|> UiPart
+GroupCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+StatisticsWindow -down-|> UiPart
 
 StudentCard ..> Model
+SessionCard ..> Model
+ModuleCard ..> Model
+GroupCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
