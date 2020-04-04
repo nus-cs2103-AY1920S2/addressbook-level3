@@ -12,7 +12,7 @@ public class CompositeIDTest {
     @Test
     public void equals_sameCompositeID_success() throws CommandException {
         CompositeID first = CompositeID_S1_A1;
-        CompositeID second = new CompositeIDBuilder().addAssignmentID(assignment100).addStudentID(student1).createCompositeID();
+        CompositeID second = new CompositeID(assignment100, student1);
 
         assertTrue(first.equals(second));
     }

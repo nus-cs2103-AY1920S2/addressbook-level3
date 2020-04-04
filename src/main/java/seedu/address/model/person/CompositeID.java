@@ -1,6 +1,13 @@
 package seedu.address.model.person;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
+
 import java.util.HashMap;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
 /**
  * Represents a composite ID for objects without a field as primary key
@@ -9,11 +16,44 @@ import java.util.HashMap;
 
 
 public class CompositeID extends ID {
-    public final HashMap<String, ID> ids;
+    public final HashMap<Prefix, ID> ids;
 
-    public CompositeID(HashMap<String, ID> ids) {
+    public CompositeID(HashMap<Prefix, ID> ids) {
         this.ids = ids;
     }
+
+    public CompositeID(ID assignmentID, ID studentID) throws CommandException {
+        requireAllNonNull(assignmentID, studentID);
+        ids = new HashMap<>();
+        addAssignmentID(assignmentID);
+        addStudentID(studentID);
+    }
+
+    // no error thrown since we require for assignmentID and studentID to be non null during instantiation
+    public ID getStudentID() {
+        return ids.get(PREFIX_STUDENTID);
+    }
+
+    public ID getAssignmentID() {
+        return ids.get(PREFIX_ASSIGNMENTID);
+    }
+
+    private void addStudentID(ID studentID) throws CommandException {
+        if(ids.containsKey(PREFIX_STUDENTID)) {
+            throw new CommandException("ID_ALREADY_EXISTS");
+        } else {
+            ids.put(PREFIX_STUDENTID, studentID);
+        }
+    }
+
+    private void addAssignmentID(ID assignmentID) throws CommandException {
+        if(ids.containsKey(PREFIX_ASSIGNMENTID)) {
+            throw new CommandException("ID_ALREADY_EXISTS");
+        } else {
+            ids.put(PREFIX_ASSIGNMENTID, assignmentID);
+        }
+    }
+
 
     @Override
     public String toString() {

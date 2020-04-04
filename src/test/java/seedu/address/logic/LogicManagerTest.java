@@ -242,7 +242,7 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     /*
-    private static class JsonAssignmentAddressBookIoExceptionThrowingStub extends JsonAssignmentAddressBookStorage {
+    private static class JsonAssignmentAddressBookIoExceptionThrowingStub extends JsonProgressAddressBookStorage {
         private JsonAssignmentAddressBookIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
