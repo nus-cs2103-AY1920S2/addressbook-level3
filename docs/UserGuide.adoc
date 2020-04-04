@@ -20,7 +20,7 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 Welcome to MODdy!
 
-MODdy is an one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
+MODdy is a one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
 It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 This user guide aims to give you a clearer understanding on how to use MODdy as well as a summary of its features.
 
@@ -105,6 +105,7 @@ This command creates a new profile for you as shown in the figure below. You wil
 Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
 ****
+* `c/COURSE` must be a SoC course, e.g. Computer Science, Business Analytics, Information Systems, Information Security, Computer Engineering. It is *case-insensitive*.
 * Fields in brackets [] are optional.
 * `cs/CURRENT_SEMESTER` must be entered as an integer, e.g. if you are currently in Year 2 Semester 1, you will enter `cs/3`
 * Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6.>>
