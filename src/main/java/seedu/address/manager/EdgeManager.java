@@ -2,8 +2,10 @@ package seedu.address.manager;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.util.Constants;
+import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -13,6 +15,8 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
+import java.util.logging.Logger;
+
 
 import java.util.Set;
 
@@ -20,6 +24,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class EdgeManager extends BaseManager {
     private static Model model = ModelManager.getInstance();
+    private static final Logger logger = LogsCenter.getLogger(EdgeManager.class);
 
 
     // ========================== For Assigning of X TO Y =========================
@@ -36,6 +41,7 @@ public class EdgeManager extends BaseManager {
                 (FilteredList<Course>) model.getFilteredCourseList());
         model.updateFilteredCourseList(model.PREDICATE_SHOW_ALL_COURSES);
         model.updateFilteredStudentList(model.PREDICATE_SHOW_ALL_STUDENTS);
+
         // todo: change this after merge details-view (with different factory strategy)
         model.set(foundCourse, foundCourse);
         model.set(foundStudent, foundStudent);
@@ -44,7 +50,7 @@ public class EdgeManager extends BaseManager {
     public static void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
         Course foundCourse = model.getCourse(courseID);
         Assignment foundAssignment = model.getAssignment(assignmentID);
-
+        logger.info(foundCourse.toString());
         foundCourse.addAssignment(assignmentID);
         foundAssignment.addCourseID(courseID);
 
@@ -56,7 +62,7 @@ public class EdgeManager extends BaseManager {
         Course foundCourse = model.getCourse(courseID);
         Staff foundTeacher = model.getStaff(staffID);
 
-        foundCourse.addStaff(staffID);
+        foundCourse.assignStaff(staffID);
         foundTeacher.addCourse(courseID);
 
         foundCourse.processAssignedStaff(
@@ -78,15 +84,8 @@ public class EdgeManager extends BaseManager {
         foundCourse.removeAssignment(assignmentID);
         foundAssignment.removeCourseID(courseID);
 
-        requireAllNonNull(foundCourse, foundCourse);
-        model.getAddressBook(foundCourse).set(foundCourse, foundCourse);
-        postDataStorageChangeEvent(model.getReadOnlyAddressBook(foundCourse), model.getEntityType(foundCourse));
-
-        requireAllNonNull(foundAssignment, foundAssignment);
-        model.getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
-        postDataStorageChangeEvent(model.getReadOnlyAddressBook(foundAssignment),
-                model.getEntityType(foundAssignment));
-
+        model.set(foundCourse, foundCourse);
+        model.set(foundAssignment, foundAssignment);
     }
 
     public static void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException {
@@ -102,14 +101,19 @@ public class EdgeManager extends BaseManager {
         model.updateFilteredCourseList(model.PREDICATE_SHOW_ALL_COURSES);
         model.updateFilteredStudentList(model.PREDICATE_SHOW_ALL_STUDENTS);
 
-        requireAllNonNull(foundCourse, foundCourse);
-        model.getAddressBook(foundCourse).set(foundCourse, foundCourse);
-        postDataStorageChangeEvent(model.getReadOnlyAddressBook(foundCourse), model.getEntityType(foundCourse));
+        model.set(foundCourse, foundCourse);
+        model.set(foundStudent, foundStudent);
+    }
 
-        requireAllNonNull(foundStudent, foundStudent);
-        model.getAddressBook(foundStudent).set(foundStudent, foundStudent);
-        postDataStorageChangeEvent(model.getReadOnlyAddressBook(foundStudent), model.getEntityType(foundStudent));
+    public static void unassignTeacherFromCourse(ID teacherID, ID courseID) throws CommandException {
+        Course foundCourse = model.getCourse(courseID);
+        Staff foundStaff = model.getStaff(teacherID);
 
+        foundCourse.removeStaff();
+        foundStaff.removeCourse(courseID);
+
+        model.set(foundCourse, foundCourse);
+        model.set(foundStaff, foundStaff);
     }
 
     // =======================================================================================================

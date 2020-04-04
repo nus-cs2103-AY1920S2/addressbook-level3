@@ -5,6 +5,7 @@ import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
@@ -62,7 +63,7 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
             } else if(!assigningStaffContainsCourse) {
                 throw new CommandException("The teacher isn't even assigned to this course! :(");
             } else {
-                model.unassignTeacherFromCourse(teacherID, courseID);
+                EdgeManager.unassignTeacherFromCourse(teacherID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStaff.getName(), teacherID.value,

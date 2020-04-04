@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandUnassign.UnassignTeacherFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
@@ -57,30 +58,26 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         } else if (!staffExists) {
             throw new CommandException(MESSAGE_INVALID_STAFF_ID);
         } else {
-            EdgeManager.assignTeacherToCourse(teacherID, courseID);
-
             Staff foundStaff = model.getStaff(staffID);
             Course foundCourse = model.getCourse(courseID);
             Boolean isTeacher = foundStaff.isTeacher();
 
-            if(!isTeacher) {
+            if (!isTeacher) {
                 throw new CommandException(MESSAGE_NOT_TEACHER);
             } else {
                 boolean assignedCourseContainsTeacher = foundCourse.hasTeacher();
 
-            if(assignedCourseContainsTeacher) {
-                throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER);
-            } else if (assigningStudentContainsCourse) {
-                throw new CommandException(MESSAGE_TEACHER_ALREADY_TEACHES_COURSE);
-            } else {
-                EdgeManager.assignTeacherToCourse(teacherID, courseID);
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    foundStaff.getName().toString(), teacherID.value,
-                        foundCourse.getName().toString(), courseID.value));
+                if (assignedCourseContainsTeacher) {
+                    throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER);
+                } else {
+                    EdgeManager.assignTeacherToCourse(staffID, courseID);
+                    return new CommandResult(String.format(MESSAGE_SUCCESS,
+                            foundStaff.getName().toString(), staffID.value,
+                            foundCourse.getName().toString(), courseID.value));
+                }
             }
         }
     }
-}
 
     @Override
     protected void generateOppositeCommand() throws CommandException {

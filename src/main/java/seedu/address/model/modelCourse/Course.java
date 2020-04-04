@@ -140,7 +140,7 @@ public class Course extends ModelObject {
   }
 
     public boolean containsStaff(ID staffID) {
-      if(assignedStaffID.equals(staffID)) {
+      if(assignedStaffID != null || assignedStaffID.equals(new ID(""))) {
         return true;
       } else {
         return false;

@@ -4,10 +4,12 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelGeneric.AddressBookGeneric;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
@@ -463,4 +465,6 @@ public interface Model {
     Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
 
     AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
+
+  ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject modelObject) throws CommandException;
 }

@@ -95,10 +95,6 @@ public class ModelManager extends BaseManager implements Model {
     requireAllNonNull(staffAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
         assignmentAddressBook, progressAssignmentBook, userPrefs);
 
-    logger.info("Model Manager check:" + assignmentAddressBook.toString());
-
-    logger.info("Model Manager check:" + assignmentAddressBook.toString());
-
     logger.fine("Initializing with address book: " + studentAddressBook
         + "Initializing with staff address book: " + staffAddressBook
         + "Initializing with address address book: " + assignmentAddressBook
@@ -134,6 +130,7 @@ public class ModelManager extends BaseManager implements Model {
       staff.processAssignedCourses(filteredCourses);
     }
 
+   instance = this;
 
   }
 
@@ -723,111 +720,6 @@ public class ModelManager extends BaseManager implements Model {
     requireNonNull(predicate);
     filteredProgresses.setPredicate(predicate);
   }
-
-  // ========================== For Assigning of X TO Y =========================
-
-  public void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Student foundStudent = getStudent(studentID);
-
-    foundCourse.addStudent(studentID);
-    foundStudent.addCourse(courseID);
-    foundCourse.processAssignedStudents(
-        (FilteredList<Student>) getFilteredStudentList());
-    foundStudent.processAssignedCourses(
-        (FilteredList<Course>) getFilteredCourseList());
-    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-
-    set(foundCourse, foundCourse);
-    set(foundStudent, foundStudent);
-  }
-
-  public void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Assignment foundAssignment = getAssignment(assignmentID);
-
-    foundCourse.addAssignment(assignmentID);
-    foundAssignment.addCourseID(courseID);
-
-    set(foundCourse, foundCourse);
-    set(foundAssignment, foundAssignment);
-
-  }
-
-  public void assignTeacherToCourse(ID staffID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Staff foundTeacher = getStaff(staffID);
-
-    foundCourse.assignStaff(staffID);
-    foundTeacher.addCourse(courseID);
-
-    foundCourse.processAssignedStaff(
-        (FilteredList<Staff>) getFilteredStaffList());
-    foundTeacher.processAssignedCourses(
-        (FilteredList<Course>) getFilteredCourseList());
-    set(foundCourse, foundCourse);
-    set(foundTeacher, foundTeacher);
-  }
-
-  // ========================== For Unassigning of X FROM Y =========================
-
-  public void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Assignment foundAssignment = getAssignment(assignmentID);
-
-    foundCourse.removeAssignment(assignmentID);
-    foundAssignment.removeCourseID(courseID);
-
-    requireAllNonNull(foundCourse, foundCourse);
-    getAddressBook(foundCourse).set(foundCourse, foundCourse);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
-
-    requireAllNonNull(foundAssignment, foundAssignment);
-    getAddressBook(foundAssignment).set(foundAssignment, foundAssignment);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundAssignment),
-        getEntityType(foundAssignment));
-
-  }
-
-  public void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Student foundStudent = getStudent(studentID);
-
-    foundCourse.removeStudent(studentID);
-    foundStudent.removeCourse(courseID);
-    foundCourse.processAssignedStudents(
-        (FilteredList<Student>) getFilteredStudentList());
-    foundStudent.processAssignedCourses(
-        (FilteredList<Course>) getFilteredCourseList());
-    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-    updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-
-    requireAllNonNull(foundCourse, foundCourse);
-    getAddressBook(foundCourse).set(foundCourse, foundCourse);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
-
-    requireAllNonNull(foundStudent, foundStudent);
-    getAddressBook(foundStudent).set(foundStudent, foundStudent);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStudent), getEntityType(foundStudent));
-  }
-
-  public void unassignTeacherFromCourse(ID teacherID, ID courseID) throws CommandException {
-    Course foundCourse = getCourse(courseID);
-    Staff foundStaff = getStaff(teacherID);
-
-    foundCourse.removeStaff();
-    foundStaff.removeCourse(courseID);
-
-    requireAllNonNull(foundCourse, foundCourse);
-    getAddressBook(foundCourse).set(foundCourse, foundCourse);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundCourse), getEntityType(foundCourse));
-
-    requireAllNonNull(foundStaff, foundStaff);
-    getAddressBook(foundStaff).set(foundStaff, foundStaff);
-    postDataStorageChangeEvent(getReadOnlyAddressBook(foundStaff), getEntityType(foundStaff));
-  }
-
 
   @Override
   public boolean equals(Object obj) {
