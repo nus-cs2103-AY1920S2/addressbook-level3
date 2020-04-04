@@ -1,10 +1,5 @@
 package seedu.address.model.profile.course;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
-
-import seedu.address.logic.commands.NewCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Represents a Course's name
  * Guarantees:

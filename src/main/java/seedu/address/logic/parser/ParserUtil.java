@@ -1,7 +1,13 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NAME;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
