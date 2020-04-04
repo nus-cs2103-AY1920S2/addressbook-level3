@@ -122,7 +122,18 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/tatracker/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
+`StudentTab`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the
+abstract `UiPart` class.
+
+.Structure of the Student Tab Component
+image::StudentTabClassDiagram.png[]
+
+The UI contains 3 tabs: the StudentTab, the SessionTab and the ClaimsTab. Each of these tabs
+consist of one or more List Panels (e.g. StudentListPanel) and its respective Card (e.g. Student Card).
+In each ListPanel, the the Graphics component of each of the cells is defined by the respective Card.
+
+The other 2 Tabs follow the same structure as the Class diagram above.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/tatracker/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
