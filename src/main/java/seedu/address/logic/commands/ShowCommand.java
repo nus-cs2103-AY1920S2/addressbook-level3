@@ -53,10 +53,6 @@ public class ShowCommand extends Command {
      * @param itemParsed - Can be any object from this list: (Course,
      *               CourseFocusArea, Module, List of Modules in a semester)
      */
-    /*public ShowCommand(Object itemParsed) {
-        requireNonNull(itemParsed);
-        this.itemParsed = itemParsed;
-    }*/
     public ShowCommand(int intSemester) {
         requireNonNull(intSemester);
         this.itemParsed = intSemester;
@@ -155,6 +151,6 @@ public class ShowCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ShowCommand // instanceof handles nulls
-                && toShow.equals(((ShowCommand) other).toShow));
+                && itemParsed.equals(((ShowCommand) other).itemParsed));
     }
 }
