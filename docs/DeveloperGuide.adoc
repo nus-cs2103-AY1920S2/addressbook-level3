@@ -177,7 +177,13 @@ Step 3. Today is 23 March 2020 and the user wants to see how busy he is and whet
 
 The following sequence diagram below shows how the schedule visualisation operation works. 
 
-image::stScheduleSequenceDiagram.png[]
+image::stOverallSequenceDiagram.png[]
+
+image::stPart1.png[]
+
+image::stPart2.png[]
+
+image::stPart3.png[]
 
 Step 4. Based on the results obtained from the schedule command, the user can then decide on how to best plan his outing with his friends.
 
