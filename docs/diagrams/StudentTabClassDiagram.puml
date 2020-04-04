@@ -30,30 +30,30 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow *-right-> StudentListPanel
-MainWindow *-right-> ModuleListPanel
-MainWindow *-right-> GroupListPanel
+UiManager ..|> Ui
+UiManager --> MainWindow
+MainWindow *--> StudentListPanel
+MainWindow *--> ModuleListPanel
+MainWindow *--> GroupListPanel
 
-StudentListPanel -down-> StudentCard
-ModuleListPanel -down-> ModuleCard
-GroupListPanel -down-> GroupCard
+StudentListPanel --> StudentCard
+ModuleListPanel --> ModuleCard
+GroupListPanel --> GroupCard
 
-MainWindow -left-|> UiPart
+MainWindow -down-|> UiPart
 
-StudentListPanel --|> UiPart
+StudentListPanel -down-|> UiPart
 StudentCard -down-|> UiPart
-ModuleListPanel --|> UiPart
+ModuleListPanel -down-|> UiPart
 ModuleCard -down-|> UiPart
-GroupListPanel --|> UiPart
+GroupListPanel -down-|> UiPart
 GroupCard -down-|> UiPart
 
-StudentCard ..> Model
-ModuleCard ..> Model
-GroupCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+StudentCard .up.> Model
+ModuleCard .up.> Model
+GroupCard .up.> Model
+UiManager -up-> Logic
+MainWindow -up-> Logic
 
 MainWindow -[hidden]-|> UiPart
 @enduml
