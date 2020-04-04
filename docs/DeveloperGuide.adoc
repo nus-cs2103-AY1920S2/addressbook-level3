@@ -571,6 +571,7 @@ sessions that the user is affiliated with.
 The following class diagrams hows how different classes are related in the functioning
 of the Session View.
 
+.Class Diagram of Session View
 image::SessionModelClassDiagram.png[]
 
 The TaTracker model class contains a `UniqueSessionList` which helps keep track of
@@ -582,6 +583,7 @@ The following sequence diagram shows the sequence of commands that take place be
 the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
 `session done 1`.
 
+.Sequence Diagram for Done Session
 image::DoneSessionSequenceDiagram.png[]
 
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
@@ -602,6 +604,7 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 
 7. The updated filtered session list will be displayed to the user.
 
+.Activity Diagram for Done Session
 image::DoneSessionActivityDiagram.png[]
 
 //tag::tssview[]
@@ -788,6 +791,7 @@ This section will describe in detail the implementation of the filter command.
 
 The activity diagram below summarises what happens when a user executes the filter command :
 
+.Activity Diagram of the Filter Command
 image::FilterCommandActivityDiagram.png[]
 
 Figure 1 Activity Diagram for the Execution of Filter Command
@@ -809,7 +813,7 @@ group code given by the user.
 
 Module code is a compulsory parameter for user.
 
-
+.Sequence Diagram for Filter Student Command
 image::FilterStudentSequenceDiagram.png[]
 
 Given below is an example scenario where the user enters a command to filter students.
@@ -855,6 +859,7 @@ in a session, it will be filtered.
 If none of the keywords supplied by the user appears in any sessions, a `CommandException`
 will be shown.
 
+.Class Diagram for Filter Session Command
 image::FindCommandClassDiagram.png[]
 
 *Filter under Claims View*
