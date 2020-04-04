@@ -98,10 +98,11 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface
+and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+.Simplified Class Diagram of the Logic Component
+image::LogicClassDiagram1.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -134,24 +135,155 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+The `Logic` component of `TA-Tracker`:
+
+* processes user inputs into different `Command` objects,
+* executes these `Command` objects to interact with the `Model` component, and
+* saves data in the `Storage` component.
+
+==== Logic Structure
+The following diagram shows a simplified view of the structure of the Logic component .
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram1.png[]
 
 *API* :
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `TaTrackerParser` class to parse the user command.
-.  `TaTrackerParser` uses specialized command parsers to parse the user command.
-.. `StudentCommandParser`, `ModuleCommandParser`, `GroupCommandParser`, and `SessionCommandParser`
-parse commands that interact with the models that they are named after.
-.. Other parsers, such as `HelpCommandParser`, `SortCommandParser` and `FilterCommandParser`
-parse commands that interact with the TA-Tracker user interface.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a student).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+In Figure 5., you can see that:
 
+. `Logic` behaves as a Façade class between the different `TA-Tracker` components.
+. `LogicManager` is the main driver class behind the logic in `TA-Tracker`
+. `LogicManager` interacts with classes in the `Model` and `Storage` component.
+. `TA-Tracker` logic is organised into *commands* and *parsers*.
+. `TaTrackerParser` is the *main parser*.
+. A `Command` can interact with classes in the `Model` component.
+
+==== Logic Hierarchy
+
+The following diagram shows how the *commands* and *parsers* are organised.
+
+.Structure of commands and the hierarchy of parsers
+image::LogicClassDiagram2.png[]
+
+[NOTE]
+====
+[horizontal]
+* `X` is the category name for a group of commands +
+(e.g. `Student`, `Session`, `Module`).
+* `XY` is the category name for actions specific to a group of commands +
+(e.g. `AddStudent`, `EditSession`, `DeleteModule`).
+====
+
+[NOTE]
+====
+[horizontal]
+* `Prefixes` contains some `Prefix` constants that are shared among classes in the *Logic component*.
+* The *red arrow* shows that each command knows about the `Prefix` constants stored in `Prefixes`.
+
+========
+In future versions, `Prefixes` will be stored in the *Commands* package,
+since each command will need to know all the `Prefix` that they are using.
+
+This means that:
+
+* The command parsers will obtain all the required `Prefix` from the respective command.
+* The *green arrow* can be removed indicating that the command parsers no longer need information in `Prefixes`.
+========
+
+====
+
+In addition to Figure 5., in Figure 6. you can see that:
+
+. There is a *hierarchy* of parsers, starting from `TaTrackerParser`.
+. Each group of parsers have been split into *smaller packages* (named as `X` in the diagram)
+within the package of parsers.
+. Each `Command` has a `Parser` that creates it from a user input.
+. These `Command` classes are placed in *smaller packages* (with the same name `X`) within the package of commands.
+. A `Command` produces a `CommandResult` when executed by `LogicManager`.
+* This will modify the `Model` internally (e.g. adding a student).
+. The resulting `CommandResult` encapsulates the feedback that needs to be passed to the `Ui`. +
+This feedback includes:
+* showing messages in the `UI`, and
+* instructing the `Ui` to perform certain actions (e.g. displaying the help window).
+
+====
+[horizontal]
+In most cases, there are two levels of parsing before a command is created +
+(i.e. `XCommandParser` passes the parsing to `XYCommandParser`).
+
+However there are some cases where only one level of parsing is needed +
+(e.g. for the `help`, `report`, and `exit` commands).
+
+.Skipping the second layer of parsers
+image::LogicClassDiagram3.png[]
+
+These command parsers will immediately create the respective `Command`,
+skipping the second layer of parsers (indicated by the red arrow in Figure 6.).
+====
+
+==== Overview of Commands
+
+All *commands* have been packaged under their respective categories.
+
+.Structure of commands in different categories
+image::CommandsPackageDiagram1.png[]
+
+These packages depend on the `Command` class since they contain commands that inherit from the `Command` class (not shown above).
+
+In addition, the following diagram shows the information that a command should have.
+
+.Internal structure of all commands
+image::CommandsPackageDiagram2.png[]
+
+. In each package, all commands should have their own `CommandDetails`.
+. `CommandDetails` store all the information that each command should have, +
+(e.g. their `commandWord` and `usage` message).
+. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
+(e.g. "add", "delete", "edit").
+. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands.
+. The `CommandDictionary` is used for:
+* *syntax highlighting*, and
+* listing information in the *help window*
+
+==== Overview of Parsers
+
+In a similar way, all *parsers* have been packaged under the same respective categories.
+
+.Structure of parsers in different categories
+image::ParserPackageDiagram1.png[]
+
+These packages depend on the `Parser` interface since they contain command parsers that inherit from the `Parser` interface
+(not shown above).
+
+In addition, the following diagram shows the information that a command parser should have.
+
+.Internal structure of all command parsers
+image::ParserPackageDiagram2.png[]
+
+. All command parsers use some `Prefix` constants defined in `Prefixes`.
+. `PrefixDetails` adds more information to a `Prefix` +
+(e.g. their `constraint` message and a list of `examples`).
+. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
+. The `PrefixDictionary` stores two lists of `Prefix` objects:
+** `parameters` - a list of command parameters, and
+** `optionals` - a list of optional parameters for the same command.
+. The `PrefixDictionary` stores a list of `PrefixDetails` for all the `Prefix` objects in `parameters` and `optionals`.
+. The `PrefixDictionary` is used for:
+* *syntax highlighting*, and
+* listing information in the *help window*
+
+====
+The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
+while the *parsers* do not store any `PrefixDetails`. Instead, they use a number of `Prefix` objects to
+parse user inputs. This is because they do not need the extra information stored in `PrefixDetails`.
+
+`PrefixDetails` adds more information to a `Prefix` instead of extending it.
+Therefore, it can be detached from the command parsers without changing the `Prefix` constants in `Prefixes`.
+====
+
+==== Example Logic Sequence
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
 
 .Interactions Inside the Logic Component for the `group add m/CS2103 g/G03 t/lab` Command
