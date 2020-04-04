@@ -1,16 +1,17 @@
 @startuml
-
-box Logic
-participant ":LogicManager" as LogicManager
-participant ":TaTrackerParser" as TaTrackerParser
-participant ":StudentCommandParser" as StudentCommandParser
-participant ":FilterStudentViewCommandParser" as FilterStudentViewCommandParser
-participant "d:FilterStudentViewCommand" as FilterStudentViewCommand
-participant ":CommandResult" as CommandResult
+!include ../style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
+participant ":FilterStudentViewCommandParser" as FilterStudentViewCommandParser LOGIC_COLOR
+participant "d:FilterStudentViewCommand" as FilterStudentViewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box Model
-participant ":Model" as Model
+box Model MODEL_COLOR_T1
+participant "m:Student" as Student MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
 end box
 
 [-> LogicManager : execute("student filter m/cs2103t g/g06")
@@ -58,7 +59,7 @@ Model --> FilterStudentViewCommand : true
 FilterStudentViewCommand -> Model : hasGroup("g06", "cs2103t")
 Model --> FilterStudentViewCommand : true
 
-DeleteGroupCommand -> Model : setFilteredStudentList(cs2103t, g06);
+FilterStudentViewCommand -> Model : setFilteredStudentList(cs2103t, g06);
 Model --> FilterStudentViewCommand
 deactivate Model
 
@@ -68,7 +69,7 @@ activate CommandResult
 CommandResult --> FilterStudentViewCommand
 deactivate CommandResult
 
-DeleteGroupCommand --> LogicManager : result
+FilterStudentViewCommand --> LogicManager : result
 deactivate FilterStudentViewCommand
 
 [<--LogicManager
