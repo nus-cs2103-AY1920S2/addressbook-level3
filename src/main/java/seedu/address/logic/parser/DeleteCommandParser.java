@@ -1,13 +1,15 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_FLAG;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_INDEX;
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -19,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
     private static final Logger logger = LogsCenter.getLogger(DeleteCommandParser.class);
+    private static final String NEWLINE = System.lineSeparator();
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -30,12 +33,19 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         try {
             Flag listType = getFlag(args);
             String removeFlagString = removeFlagString(listType, args);
+            hasIndex(removeFlagString);
             Index index = ParserUtil.parseIndex(removeFlagString);
             return new DeleteCommand(index, listType);
         } catch (ParseException pe) {
             logger.info("Invalid Delete Command arguments given for parsing");
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format("%s" + NEWLINE + "%s", pe.getMessage(),
+                    DeleteCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private void hasIndex(String removeFlagString) throws ParseException {
+        if (removeFlagString.trim().length() == 0) {
+            throw new ParseException(MESSAGE_MISSING_INDEX);
         }
     }
 
@@ -46,7 +56,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         requireNonNull(flag);
         requireNonNull(str);
         String flagRegex = getFlagRegex(flag);
-        return str.replaceAll(flagRegex, "");
+        String output;
+        String[] words = str.trim().split("\\s+");
+        output = Arrays.stream(words)
+                .filter(word -> !Pattern.matches(flagRegex, word))
+                .map(word -> word + " ")
+                .collect(Collectors.joining());
+        return output.trim();
     }
 
     /**
@@ -56,16 +72,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         requireNonNull(args);
         String orderListRegex = getFlagRegex(FLAG_ORDER_BOOK);
         String returnListRegex = getFlagRegex(FLAG_RETURN_BOOK);
+        String[] argWords = args.trim().split("\\s+");
 
-        if (hasRegex(orderListRegex, args)) {
+        if (hasRegex(orderListRegex, argWords)) {
             return FLAG_ORDER_BOOK;
         }
-        if (hasRegex(returnListRegex, args)) {
+        if (hasRegex(returnListRegex, argWords)) {
             return FLAG_RETURN_BOOK;
         }
         logger.info(String.format("Invalid arguments given for getFlag function: %s", args));
-        throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        throw new ParseException(MESSAGE_MISSING_FLAG);
     }
 
     /**
@@ -73,7 +89,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     private String getFlagRegex(Flag flag) throws ParseException {
         requireNonNull(flag);
-        String regex = "\\s*%s\\s+";
+        String regex = "%s";
         if (flag.equals(FLAG_ORDER_BOOK)) {
             return String.format(regex, FLAG_ORDER_BOOK);
         }
@@ -81,18 +97,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return String.format(regex, FLAG_RETURN_BOOK);
         }
         logger.info(String.format("Invalid flag given for getFlagRegex: %s", flag.toString()));
-        throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        throw new ParseException(MESSAGE_MISSING_FLAG);
     }
 
     /**
-     * Check if the given {@code regex} is present (partial match) in the given {@code searchTerm}.
+     * Check if the given {@code regex} is present (full match) in any argument in the given {@code searchValues}.
      */
-    private boolean hasRegex(String regex, String searchTerm) {
+    private boolean hasRegex(String regex, String[] searchValues) {
         requireNonNull(regex);
-        requireNonNull(searchTerm);
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(searchTerm);
-        return m.find();
+        requireNonNull(searchValues);
+        for (String value : searchValues) {
+            if (Pattern.matches(regex, value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
