@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <StackPane fx:id="placeholder" prefHeight="45.0" prefWidth="624.0">
+   <StackPane fx:id="placeholder" prefHeight="110.0" prefWidth="1031.0">
       <children>
-         <Text fx:id="currentDirectory" fill="#cd7474" strokeType="OUTSIDE" strokeWidth="0.0" text="currentdirectory" textAlignment="CENTER" wrappingWidth="1030.982852935791" StackPane.alignment="CENTER">
+         <Label fx:id="currentDirectory" style="-fx-font-family: Noteworthy; -fx-text-fill: #cd7474; -fx-font-size: 28;" text="Label" textFill="#cd7474">
             <font>
                <Font name="Noteworthy Light" size="28.0" />
             </font>
-         </Text>
+         </Label>
       </children>
    </StackPane>
   <ListView fx:id="notesListView" prefHeight="400.0" prefWidth="795.0" VBox.vgrow="ALWAYS" />

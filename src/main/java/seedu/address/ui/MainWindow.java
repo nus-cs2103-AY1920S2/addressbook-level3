@@ -118,6 +118,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -148,6 +149,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Helper method to build image to tabs
+     *
      * @param imgPatch image path
      * @return
      */
@@ -273,7 +275,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            showSelectedTab(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -283,6 +284,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwitchTab()) {
+                showSelectedTab(commandText);
             }
 
             return commandResult;
@@ -302,8 +307,22 @@ public class MainWindow extends UiPart<Stage> {
         if (tabName.equals("notes")) {
 
             tabPane.getSelectionModel().select(4);
-        } else if(tabName.equals("")) {
 
+        } else if (tabName.equals("calender")) {
+
+            tabPane.getSelectionModel().select(0);
+        } else if (tabName.equals("addressbook")) {
+
+            tabPane.getSelectionModel().select(3);
+        } else if (tabName.equals("diary")) {
+
+            tabPane.getSelectionModel().select(1);
+        } else if (tabName.equals("profile")) {
+
+            tabPane.getSelectionModel().select(5);
+        } else if (tabName.equals("modplan")) {
+
+            tabPane.getSelectionModel().select(2);
         }
 
     }

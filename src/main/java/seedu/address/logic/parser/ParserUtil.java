@@ -133,6 +133,85 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesListoperation} is invalid.
+     */
+    public static Notes parseNotesListOperation(String path, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesListoperation} is invalid.
+     */
+    public static Notes parseNotesCreateOperation(String path, String type, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        requireNonNull(type);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        String trimmedType = type.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+        if (!Notes.isValidType(trimmedType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_TYPE);
+        }
+        return new Notes(trimmedPath, trimmedType, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesOpenoperation} is invalid.
+     */
+    public static Notes parseNotesOpenOperation(String path,  String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesOpenoperation} is invalid.
+     */
+    public static Notes parseNotesDeleteOperation(String path,  String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
      * Parses a {@code String moduleCode} into an {@code ModuleCode}.
      * Leading and trailing whitespaces will be trimmed.
      *

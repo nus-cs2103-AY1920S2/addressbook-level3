@@ -40,7 +40,7 @@ public class ModuleCard extends UiPart<Region> {
         if (!module.getGrade().isEmpty()) {
             grade.setText(module.getGrade().get().getText());
         } else {
-            grade.setText("No Grade is Entered");
+            grade.setText("");
         }
 
     }
