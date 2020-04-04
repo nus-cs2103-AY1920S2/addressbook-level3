@@ -31,42 +31,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
-import seedu.address.storage.JsonModuleListStorage;
 
 public class AddCommandParserTest {
-    private static final Logger logger = LogsCenter.getLogger(AddCommandParserTest.class);
     private AddCommandParser parser = new AddCommandParser();
-
-    public AddCommandParserTest() {
-        String moduleListFilePath = "/data/modulesPrereq.json";
-        JsonModuleListStorage modules = new JsonModuleListStorage(moduleListFilePath);
-        try {
-            Optional<ModuleList> moduleListOptional = modules.readModuleList();
-            if (!moduleListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty ModuleList");
-                new ModuleManager();
-            } else {
-                ModuleList moduleList = moduleListOptional.get();
-                new ModuleManager(moduleList);
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
-            new ModuleManager();
-        }
-    }
 
     @Test
     public void parse_allFieldsPresent_success() {
