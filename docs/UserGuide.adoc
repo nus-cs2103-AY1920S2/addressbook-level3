@@ -135,6 +135,8 @@ e.g: `additem -i beer tower -p 19.90 -n charlotte`.
 To provide help for users +
 Format: `help`
 
+'''
+
 === Diet Tracker : `diet`
 
 Tracks our daily calories intake. Add food, then calculate
