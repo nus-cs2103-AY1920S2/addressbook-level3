@@ -114,9 +114,37 @@ Includes instructions on how to travel there as well as bus services that go to 
 
 Format: `goto CANTEEN_NAME f/ CURRENT_LOCATION`
 
+Parameters:
+
+* `CANTEEN_NAME`: The canteen name
+* `CURRENT_LOCATION`: The nearest block from your current location
+
+These `CURRENT LOCATION`(s) are available for directions:
+
+* com1
+
+These `CURRENT LOCATION`(s) will be added in future releases
+(but are recognised as valid locations):
+
+* pgpr
+* uhc
+* utown
+
+
+Examples:
+
+****
+`*goto 1 f/com1*`::
+Gets the direction to the canteen at the first index from com1.
+`*goto The Deck f/com1*`::
+Gets the direction to The Deck from com1.
+****
+
 //* Suggestions for the `CANTEEN_NAME` and `CURRENT_LOCATION` field will be provided as you type.
 
 NOTE: `CANTEEN_NAME` and `CURRENT_LOCATION` field has to be one of the suggestions. Otherwise an error message will be displayed telling the user to provide a valid `CANTEEN_NAME` and `CURRENT_LOCATION`.
+
+
 
 image::wireframe/goto.png[width="700", align="left"]
 

@@ -29,6 +29,7 @@ import seedu.foodiebot.logic.commands.CommandResult;
 import seedu.foodiebot.logic.commands.DirectionsCommandResult;
 import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.FavoritesCommand;
+import seedu.foodiebot.logic.commands.GoToCanteenCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.RandomizeCommand;
 import seedu.foodiebot.logic.commands.RateCommand;
@@ -57,11 +58,14 @@ public class BaseScene {
     private StackPane commandBoxPlaceholder;
     @FXML
     private StackPane listPanelPlaceholder;
-    @FXML
-    private StackPane extraListPanelPlaceholder;
+
     private ResultDisplay resultDisplay;
     @FXML
     private StackPane resultDisplayPlaceholder;
+    @FXML
+    private VBox vbox;
+    @FXML
+    private VBox stallList;
 
     private HelpWindow helpWindow;
 
@@ -72,7 +76,7 @@ public class BaseScene {
         this.logic = logic;
         fillInnerParts();
         helpWindow = new HelpWindow();
-
+        showPinnedItem(false);
     }
 
     private static URL getFxmlFileUrl(String fxmlFileName) {
@@ -94,7 +98,7 @@ public class BaseScene {
      * @param regionUiPart
      */
     void addToExtraListPanel(UiPart<Region> regionUiPart) {
-        extraListPanelPlaceholder = (StackPane) primaryStage.getScene().lookup(
+        StackPane extraListPanelPlaceholder = (StackPane) primaryStage.getScene().lookup(
             "#extraListPanelPlaceholder");
         extraListPanelPlaceholder.getChildren().clear();
         extraListPanelPlaceholder.getChildren().add(regionUiPart.getRoot());
@@ -113,6 +117,9 @@ public class BaseScene {
         statusbarPlaceholder = (StackPane) primaryStage.getScene().lookup("#statusbarPlaceholder");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         commandBox.getCommandTextField().requestFocus();
+
+        vbox = (VBox) primaryStage.getScene().lookup("#vbox");
+        stallList = (VBox) primaryStage.getScene().lookup("#stallList");
     }
 
     void updateStatusFooter(String message) {
@@ -151,6 +158,9 @@ public class BaseScene {
     /** Fills the stallListPanelRegion */
     @FXML
     public void handleListStalls() {
+        showPinnedItem(false);
+        VBox stallList = (VBox) loadFxmlFile("PinnedItem.fxml");
+        vbox.getChildren().add(vbox.getChildren().size() - 1, stallList);
         addToListPanel(new StallsListPanel(logic.getFilteredStallList(true)));
         addToExtraListPanel(new CanteenListPanel(FXCollections.observableArrayList(
             ParserContext.getCurrentCanteen().get()), false));
@@ -173,7 +183,7 @@ public class BaseScene {
     public void handleListFavorites() {
         changeScene("MainScene.fxml");
         new BaseScene(primaryStage, logic);
-        extraListPanelPlaceholder = (StackPane) primaryStage.getScene().lookup(
+        StackPane extraListPanelPlaceholder = (StackPane) primaryStage.getScene().lookup(
             "#extraListPanelPlaceholder");
         if (extraListPanelPlaceholder != null) {
             extraListPanelPlaceholder.getChildren().clear();
@@ -193,17 +203,14 @@ public class BaseScene {
             commandResult.isLocationSpecified()
                 ? logic.getFilteredCanteenListSortedByDistance()
                 : logic.getFilteredCanteenList(), commandResult.isLocationSpecified()));
+        showPinnedItem(false);
     }
 
-    /**
-     * .
-     */
-    @FXML
-    public void handleListCanteens() {
-        changeScene("MainScene.fxml");
-        new MainScene(primaryStage, logic);
-        addToListPanel(new CanteenListPanel(
-            logic.getFilteredCanteenList(), false));
+    /** .*/
+    void showPinnedItem(boolean value) {
+        if (!value) {
+            vbox.getChildren().remove(stallList);
+        }
     }
 
     /**
@@ -235,29 +242,27 @@ public class BaseScene {
             commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
-            if (commandResult instanceof DirectionsCommandResult) {
-                //new DirectionsWindowScene(getPrimaryStage(), logic, (DirectionsCommandResult) commandResult).show();
-
-                VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
-                /* This is a negative example to load ui
-                Scene scene = new Scene(pane); // optionally specify dimensions too
-                getPrimaryStage().setScene(scene);
-                */
-                ParserContext.setCurrentContext(ParserContext.DIRECTIONS_CONTEXT);
-                primaryStage.getScene().setRoot(pane);
-                new DirectionsScene(primaryStage, logic, (DirectionsCommandResult) commandResult);
-            }
-
             switch (commandResult.commandName) {
             case ListCommand.COMMAND_WORD:
-                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
-                    handleListCanteens(commandResult);
-                    updateResultDisplay(commandResult.getFeedbackToUser());
-                } else if (ParserContext.getCurrentContext().equals(ParserContext.DIRECTIONS_CONTEXT)) {
-                    handleListCanteens(commandResult);
-                    ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
-                } else {
-                    updateResultDisplay(ParserContext.INVALID_CONTEXT_MESSAGE);
+                handleListCanteens(commandResult);
+                ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
+                updateResultDisplay(commandResult.getFeedbackToUser());
+                break;
+            case GoToCanteenCommand
+                    .COMMAND_WORD:
+                if (commandResult instanceof DirectionsCommandResult && ParserContext.getCurrentContext()
+                    .equals(ParserContext.MAIN_CONTEXT)) {
+                    //new DirectionsWindowScene(getPrimaryStage(), logic, (DirectionsCommandResult) commandResult)
+                    // .show();
+
+                    VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
+                    /* This is a negative example to load ui
+                    Scene scene = new Scene(pane); // optionally specify dimensions too
+                    getPrimaryStage().setScene(scene);
+                    */
+                    ParserContext.setCurrentContext(ParserContext.DIRECTIONS_CONTEXT);
+                    primaryStage.getScene().setRoot(pane);
+                    new DirectionsScene(primaryStage, logic, (DirectionsCommandResult) commandResult);
                 }
                 break;
             case EnterCanteenCommand.COMMAND_WORD:
@@ -297,6 +302,7 @@ public class BaseScene {
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
             case ReportCommand.COMMAND_WORD:
+                changeScene("MainScene.fxml");
                 // VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
                 // primaryStage.getScene().setRoot(pane);
                 new ReportScene(primaryStage, logic);
@@ -336,7 +342,7 @@ public class BaseScene {
                         ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
                         break;
                     default:
-                        handleListCanteens();
+                        handleListCanteens(commandResult);
                         ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
                         break;
                     }
