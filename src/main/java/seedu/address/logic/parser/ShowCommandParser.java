@@ -50,7 +50,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         // Get Focus Area
         if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
-            String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get());
+            String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get().toUpperCase());
             return new ShowCommand(focusArea); // returns String
         }
 
