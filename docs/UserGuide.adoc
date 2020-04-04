@@ -352,14 +352,17 @@ Example: +
 [[paid]]
 ==== Paying money: `paid`
 
-In this section, you will learn more about the `paid` command, how to use it and the expected outcome after using the
+In this section, you will learn more about the `paid` command, <<howtousepaidcommand,how to use it>> and the
+<<paidcommandexpectedoutcome,expected outcome>> after using the
 `paid` command.
 
-*Summary: `paid` subtracts the amount a Person owes you.*
+*Summary of Paid Command: `paid` subtracts the amount a Person owes you.*
 
+[[howtousepaidcommand]]
 *How to use the Paid Command*
 
 Format of Paid Command: +
+
 `paid INDEX [AMOUNT]` +
 
 [NOTE]
@@ -368,14 +371,23 @@ Format of Paid Command: +
 you can type his/her index thus saving you time and effort.
 
 * `AMOUNT` is an optional field. It refers to the amount paid by that Person. Leaving this field
-empty is equivalent to the Person paying you the full amount he owes you.
+empty is equivalent to the Person paying you the full amount he/she owes you.
 
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
 Example of valid Paid Commands: +
+
 `paid 2` +
-`paid 2 3.90`
+
+`paid 2 3.90` +
+
+
+[[paidcommandexpectedoutcome]]
+*Expected outcome after using Paid Command*
+
+image::Ui.png[width="790"]
+
 
 [TIP]
 ====
