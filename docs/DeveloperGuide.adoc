@@ -802,7 +802,7 @@ as a form of input validation.
 
 In addition, the `ResultDisplay` will display different messages based on the result of the syntax highlighting.
 
-The following shows how the`CommandBox` and `ResultDisplay` appear in the `MainWindow` of `TA-Tracker`
+The following shows how the `CommandBox` and `ResultDisplay` appear in the `MainWindow` of `TA-Tracker`
 
 .The `CommandBox` and the `ResultDisplay` in `TA-Tracker`
 image::syntax-highlighting/SH-CommandBox.png[]
@@ -818,7 +818,7 @@ In the figure above:
 The following diagram shows how the Logic and UI components interact with each other to produce the highlighting.
 
 .Syntax Highlighting - Class Diagram
-image::SyntaxHighlightingClassDiagram.png[
+image::SyntaxHighlightingClassDiagram.png[]
 
 * The `CommandBox` uses a `CommandDictionary` to search for valid commands.
 * The `CommandBox` stores a `CommandDetail` for processing the current command in the user input.
