@@ -2,6 +2,7 @@ package seedu.expensela.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -45,12 +46,25 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
     private void graphByCategory(ObservableList<Transaction> transactionList) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ArrayList <String> categories = new ArrayList<>();
+        ArrayList <Integer> amounts = new ArrayList<>();
         for (Transaction transaction : transactionList) {
             String category = transaction.getCategory().toString();
             Amount amount = transaction.getAmount();
             double amountDouble = amount.transactionAmount;
             int amountInteger = (int) amountDouble;
-            pieChartData.add(new PieChart.Data(category, amountInteger));
+            if (categories.contains(category)) {                    // category alr exists in categories
+                int index = categories.indexOf(category);
+                int newCategoryAmount = amountInteger + amounts.get(index);
+                amounts.add(index, newCategoryAmount);
+            } else {                                                // first time seeing the category
+                categories.add(category);
+                int index = categories.size() - 1;
+                amounts.add(index, amountInteger);
+            }
+        }
+        for (int i = 0; i < categories.size(); i++) {
+            pieChartData.add(new PieChart.Data(categories.get(i), amounts.get(i)));
         }
         pieChart.setData(pieChartData);
         pieChart.setTitle("Expense by Category");
