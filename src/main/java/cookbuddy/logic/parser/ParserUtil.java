@@ -44,7 +44,7 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
-        if(trimmedIndex.equals("")) {
+        if (trimmedIndex.equals("")) {
             throw new ParseException("No index has been provided for the command!");
         }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
