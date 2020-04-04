@@ -25,7 +25,7 @@ public class StudentAddressBook extends AddressBookGeneric<Student> {
 
   @Override
   public String toString() {
-    return objects.asUnmodifiableObservableList().size() + " teachers";
+    return objects.asUnmodifiableObservableList().size() + " students";
     // TODO: refine later
   }
 }
