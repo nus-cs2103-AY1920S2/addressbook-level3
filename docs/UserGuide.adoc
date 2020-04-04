@@ -139,6 +139,8 @@ Format: `help`
 
 Tracks our daily calories intake. Add food, then calculate
 
+'''
+
 ==== Dieting Mode `mode`
 Allows users to decide which dieting mode they want, based on the following modes: +
 
@@ -149,6 +151,8 @@ Allows users to decide which dieting mode they want, based on the following mode
 Format: `mode [-m] [-l] [-g]` +
 Example: `mode -m`
 
+'''
+
 ==== Store Height `height`
 Allows user to input their height.
 
@@ -157,6 +161,8 @@ Example: `height 172`
 
 NOTE: Height in centimetres (cm)
 
+'''
+
 ==== Store Weight `weight`
 Allows user to input their weight.
 
@@ -164,6 +170,8 @@ Format: `weight WEIGHT` +
 Example: `weight 65.7`
 
 NOTE: Weight in kilograms (kg)
+
+'''
 
 
 ==== Add food `add`
@@ -177,6 +185,8 @@ Adds food to the list.
 
 Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
+
+'''
 
 ==== List items `list`
 List food in your current diet tracker along with the total calorie count.
@@ -195,6 +205,8 @@ NOTE: Default value of list is food consumed for the day.
 
 Format: `list [-a] [-d NUMDAYS] [-t TAGNAME]` +
 Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
+
+'''
 
 ==== Delete Food Item `delete`
 
@@ -216,6 +228,8 @@ Example:
 `delete 2` +
 Deletes the 2nd row of food data from the past 7 days of food.
 
+'''
+
 ==== Editing a Food Item `edit`
 
 Allows you to edit either the Food name, or the calories.  +
@@ -233,6 +247,8 @@ Example:
 
 * `edit 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
+
+'''
 
 ==== Calculate Body Mass Index (BMI) `bmi`
 
