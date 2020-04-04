@@ -27,8 +27,8 @@ public class ShowCommandParser implements Parser<ShowCommand> {
      */
     public ShowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER, PREFIX_COURSE_NAME,
-                        PREFIX_MODULE, PREFIX_FOCUS_AREA, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SEMESTER, PREFIX_MODULE,
+                        PREFIX_FOCUS_AREA, PREFIX_COURSE_NAME);
 
         // Get Name
         if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {

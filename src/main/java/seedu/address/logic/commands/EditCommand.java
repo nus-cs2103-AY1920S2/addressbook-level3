@@ -46,7 +46,7 @@ public class EditCommand extends Command {
             + PREFIX_NAME + "John "
             + "(" + PREFIX_COURSE_NAME + "Computer Science) "
             + "(" + PREFIX_CURRENT_SEMESTER + "4) "
-            + "(" + PREFIX_SPEC + "Theory and ALgorithm) "
+            + "(" + PREFIX_SPEC + "Theory and Algorithm) "
             + "Parameters to edit Module: "
             + PREFIX_MODULE + "MODULE "
             + "(" + PREFIX_SEMESTER + "SEMESTER) "
