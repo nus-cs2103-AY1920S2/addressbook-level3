@@ -955,19 +955,17 @@ You will see the module with the specified `MOD_CODE` highlighted in the list.
 
 All completed sessions with matching module code are displayed. Keyword is case-insensitive.
 
-Format: `module filter [m/MOD_CODE]
+Format: `claims filter [m/MOD_CODE]`
 
 ====
 Example:
 
-* `module filter m/CS2103T`
+* `claims filter m/CS2103T`
 +
 All sessions in the *Claims View* with module code `CS2103T` are displayed.
 ====
 
 ==== Changing the hourly rate : `set rate`
-
-TODO: EDIT ONCE IMPLEMENTED
 
 Sets the hourly rate for the total income and claim computation.
 
@@ -1037,4 +1035,4 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 
 === Claims View
 * *Set Rate:*
-* *Filter:* `module filter m/MOD_CODE`
+* *Filter:* `claims filter m/MOD_CODE`
