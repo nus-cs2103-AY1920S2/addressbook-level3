@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,14 +12,6 @@ import seedu.address.model.nusmodule.ModuleCode;
  * Deletes a task of certain module identified using it's displayed index from the module book.
  */
 public class DeleteModuleTaskCommand extends DeleteTaskCommand {
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Delete a module task "
-            + "Parameters: "
-            + PREFIX_MODULE_CODE + "MODULE CODE "
-            + PREFIX_TASK_INDEX + "index "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE_CODE + "CS2103T "
-            + PREFIX_TASK_INDEX + "1";
 
     public static final String MESSAGE_SUCCESS = "Task Deleted: ";
 

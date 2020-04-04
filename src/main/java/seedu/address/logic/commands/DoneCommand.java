@@ -6,6 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Mark a task as done from the calendar or from certain module in profile tab.
+ */
 public abstract class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Mark deadline as done. Format of input should be:"

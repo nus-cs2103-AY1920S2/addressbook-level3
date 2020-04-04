@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.todolist.Task;
 
+/**
+ * Mark a deadline in calendar as done.
+ */
 public class DoneDeadlineCommand extends DoneCommand {
 
     public static final String MESSAGE_SUCCESS = "Deadline done: ";

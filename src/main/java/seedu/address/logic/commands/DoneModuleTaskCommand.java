@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -10,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.nusmodule.ModuleCode;
 
+/**
+ * Mark a task of certain module identified using it's displayed index from the module book as done.
+ */
 public class DoneModuleTaskCommand extends DoneCommand {
 
     public static final String MESSAGE_SUCCESS = "Task done: ";

@@ -14,6 +14,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.todolist.Task;
 
+/**
+ * Parses input arguments and creates a new DoneCommand object
+ */
 public class DoneCommandParser implements Parser<DoneCommand> {
 
     /**
