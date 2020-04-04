@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
-import jdk.internal.util.xml.impl.Pair;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ID;

@@ -185,18 +185,7 @@ public class MainWindow extends UiPart<Stage> {
 
     summaryPanel = new SummaryPanel();
 
-    HashMap<String, Object> studentDetailsMap = new HashMap<>();
-    Set<ID> assignedCourses = new HashSet<ID>();
-    assignedCourses.add(new ID("11"));
-    assignedCourses.add(new ID("12"));
-    Set<Tag> assignedTags = new HashSet<Tag>();
-    assignedTags.add(new Tag("Cool"));
-    assignedTags.add(new Tag("CS"));
-    Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
-    fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
-    studentDetailsMap.put("details", fakeStudent);
-    studentDetailsMap.put("courses", logic.getFilteredCourseList());
-    studentDetailedPanel = new StudentDetailedPanel( studentDetailsMap, commandBox);
+    studentDetailedPanel = new StudentDetailedPanel( logic.getFilteredStudentDetailsMap(), commandBox);
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(studentDetailedPanel.getRoot());

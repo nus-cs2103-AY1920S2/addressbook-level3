@@ -2,6 +2,7 @@ package seedu.address.manager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.Command;
@@ -10,13 +11,14 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
+import seedu.address.model.person.Name;
+import seedu.address.model.tag.Tag;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static seedu.address.logic.parser.CliSyntax.*;
 
@@ -24,7 +26,9 @@ import static seedu.address.logic.parser.CliSyntax.*;
 public class DetailManager extends BaseManager {
     enum TYPE {
         STUDENT_DETAILS,
-        COURSE_DETAILS
+        STUDENT_COURSE_DETAILS,
+        COURSE_DETAILS,
+        COURSE_STUDENT
     }
 
     public TYPE type;
@@ -44,7 +48,22 @@ public class DetailManager extends BaseManager {
 
     public DetailManager() {
         studentDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
+        initializeStudentDetailsMap();
         IdMapping = new HashMap<Prefix, ID>();
+        instance = this;
+    }
+
+    private void initializeStudentDetailsMap() {
+        Set<ID> assignedCourses = new HashSet<ID>();
+        assignedCourses.add(new ID("11"));
+        assignedCourses.add(new ID("12"));
+        Set<Tag> assignedTags = new HashSet<Tag>();
+        assignedTags.add(new Tag("Cool"));
+        assignedTags.add(new Tag("CS"));
+        Student fakeStudent = new Student(new Name("Tommy"), new ID("1231111111111"), assignedCourses, assignedTags);
+        fakeStudent.processAssignedCourses((FilteredList<Course>) model.getFilteredCourseList());
+        studentDetailsMap.put("details", fakeStudent);
+        studentDetailsMap.put("courses", FXCollections.observableList(new ArrayList<Course>()));
     }
 
     public ObservableMap<String, Object> getFilteredStudentDetailsMap() {
@@ -75,11 +94,22 @@ public class DetailManager extends BaseManager {
 
         if (type.equals(TYPE.STUDENT_DETAILS)) {
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
-        }
+        } else if
     }
 
+    // ################# Update student details map ##################################################3
     public void updateStudentDetailsMap(ID studentID) throws CommandException {
         Student student = (Student)model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
         studentDetailsMap.put("details", student);
     }
+
+    public void updateStudentDetailsMap(ID studentID, ID courseID) throws CommandException {
+
+    }
+
+    // #######################################################################################################
+
+
+    // ###############  Update course details map ###########################################################
+
 }
