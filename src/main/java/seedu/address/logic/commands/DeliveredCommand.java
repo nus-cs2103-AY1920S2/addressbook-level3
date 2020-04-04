@@ -141,7 +141,6 @@ public class DeliveredCommand extends Command {
         Order orderToBeDelivered = orderList.get(targetIndex.getZeroBased());
         Order editedOrder = createDeliveredOrder(orderToBeDelivered, deliveredParcelDescriptor);
         model.setOrder(orderToBeDelivered, editedOrder);
-        model.deliverOrder(editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
@@ -159,7 +158,6 @@ public class DeliveredCommand extends Command {
         ReturnOrder editedReturnOrder = createDeliveredReturnOrder(returnOrderToBeDelivered,
                 deliveredParcelDescriptor);
         model.setReturnOrder(returnOrderToBeDelivered, editedReturnOrder);
-        model.deliverReturnOrder(editedReturnOrder);
         model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
     }
 
@@ -185,11 +183,10 @@ public class DeliveredCommand extends Command {
         CashOnDelivery updatedCod = deliveredParcelDescriptor.getCash().orElse(orderToDeliver.getCash());
         Comment updatedComment = deliveredParcelDescriptor.getComment().orElse(orderToDeliver.getComment());
         TypeOfItem updatedType = deliveredParcelDescriptor.getItemType().orElse(orderToDeliver.getItemType());
-        boolean updatedDeliveryStatus = deliveredParcelDescriptor.getDeliveryStatus();
 
         Order deliveredOrder = new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress,
                 updateTimeStamp, updatedWarehouse, updatedCod, updatedComment, updatedType);
-        deliveredOrder.setDeliveryStatus(updatedDeliveryStatus);
+        deliveredOrder.setDeliveryStatus(true);
         return deliveredOrder;
     }
 
@@ -212,11 +209,10 @@ public class DeliveredCommand extends Command {
                 .getWarehouse());
         Comment updatedComment = deliveredParcelDescriptor.getComment().orElse(returnOrderToDeliver.getComment());
         TypeOfItem updatedType = deliveredParcelDescriptor.getItemType().orElse(returnOrderToDeliver.getItemType());
-        boolean updatedDeliveryStatus = deliveredParcelDescriptor.getDeliveryStatus();
 
         ReturnOrder deliveredReturnOrder = new ReturnOrder(updatedTid, updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updateTimeStamp, updatedWarehouse, updatedComment, updatedType);
-        deliveredReturnOrder.setDeliveryStatus(updatedDeliveryStatus);
+        deliveredReturnOrder.setDeliveryStatus(true);
         return deliveredReturnOrder;
     }
 

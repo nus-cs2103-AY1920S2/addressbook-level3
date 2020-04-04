@@ -133,7 +133,6 @@ public class DeliveredCommandTest {
         assertCommandFailure(deliveredCommand, model, Messages.MESSAGE_INVALID_RETURN_DISPLAYED_INDEX);
     }
 
-
     @Test
     public void execute_invalidIndexFilteredOrderList_throwsCommandException() {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
