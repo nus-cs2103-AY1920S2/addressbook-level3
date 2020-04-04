@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -49,8 +51,12 @@ public class StudentVeryDetailedCard extends UiPart<Region> {
   private FlowPane tags;
   @FXML
   private ListView<Progress> progressListView;
+  @FXML
+  private ImageView studentImage;
 
   private CommandBox commandBox;
+  Image studentGuy = new Image(getClass().getResourceAsStream("/view/ourImages/student.png"));
+  Image studentGirl = new Image(getClass().getResourceAsStream("/view/ourImages/studentGirl.png"));
 
   public StudentVeryDetailedCard(Student student, ObservableList<Progress> progressList, int progress,  CommandBox commandBox, int displayedIndex) {
     super(FXML);
@@ -65,9 +71,17 @@ public class StudentVeryDetailedCard extends UiPart<Region> {
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    String gender = student.getGender().value;
+
+    if (gender.equals("m")) {
+      studentImage.setImage(studentGuy);
+    } else if (gender.equals("f")) {
+      studentImage.setImage(studentGirl);
+    }
 
     progressListView.setItems(progressList);
     progressListView.setCellFactory(listView -> new ProgressListViewCell());
+
   }
 
   /**

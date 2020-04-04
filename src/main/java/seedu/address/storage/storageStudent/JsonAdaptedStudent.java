@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.AssignedCourses;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -23,6 +23,7 @@ class JsonAdaptedStudent {
 
   private final String name;
   private final String studentID;
+  private final String gender;
   private final List<JsonStudentAdaptedID> assignedCoursesID = new ArrayList<>();
   private final List<JsonStudentAdaptedTag> tagged = new ArrayList<>();
 
@@ -32,11 +33,13 @@ class JsonAdaptedStudent {
   @JsonCreator
   public JsonAdaptedStudent(@JsonProperty("name") String name,
       @JsonProperty("studentID") String studentID,
+      @JsonProperty("gender") String gender,
       @JsonProperty("assignedCourses") String assignedCourses,
       @JsonProperty("assignedCoursesID") List<JsonStudentAdaptedID> assignedCoursesID,
       @JsonProperty("tagged") List<JsonStudentAdaptedTag> tagged) {
     this.name = name;
     this.studentID = studentID;
+    this.gender = gender;
     if (assignedCoursesID != null) {
       this.assignedCoursesID.addAll(assignedCoursesID);
     }
@@ -51,6 +54,7 @@ class JsonAdaptedStudent {
   public JsonAdaptedStudent(Student source) {
     name = source.getName().fullName;
     studentID = source.getId().value;
+    gender = source.getGender().value;
     assignedCoursesID.addAll(source.getAssignedCoursesID().stream()
         .map(JsonStudentAdaptedID::new)
         .collect(Collectors.toList()));
@@ -84,6 +88,15 @@ class JsonAdaptedStudent {
     }
     final ID modelID = new ID(studentID);
 
+    if (gender == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
+    }
+    if (!Gender.isValidGender(gender)) {
+      throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+    }
+    final Gender modelGender = new Gender(gender);
+
     final List<ID> StudentAssignedCoursesID = new ArrayList<>();
     for (JsonStudentAdaptedID id : assignedCoursesID) {
       StudentAssignedCoursesID.add(id.toModelType());
@@ -96,7 +109,7 @@ class JsonAdaptedStudent {
     }
 
     final Set<Tag> modelTags = new HashSet<>(courseTags);
-    return new Student(modelName, modelID, modelAssignedCoursesID, modelTags);
+    return new Student(modelName, modelID, modelGender, modelAssignedCoursesID, modelTags);
   }
 
 }
