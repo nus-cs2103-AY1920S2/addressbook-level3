@@ -39,7 +39,6 @@ public class ModelManager implements Model {
     private FilteredList<Restaurant> filteredRestaurants;
     private FilteredList<Assignment> filteredAssignments;
     private FilteredList<Event> filteredEvents;
-    private FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -436,7 +435,6 @@ public class ModelManager implements Model {
         filteredRestaurants = this.currentModel.getFilteredRestaurants();
         filteredAssignments = this.currentModel.getFilteredAssignments();
         filteredEvents = this.currentModel.getFilteredEvents();
-        bdayList = this.currentModel.getBdayList();
     }
 
     /**
