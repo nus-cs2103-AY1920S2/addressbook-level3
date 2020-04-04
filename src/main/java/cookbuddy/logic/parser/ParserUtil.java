@@ -2,7 +2,7 @@ package cookbuddy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -11,16 +11,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import cookbuddy.commons.core.index.Index;
+import cookbuddy.commons.util.FileUtil;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.Difficulty;
-import cookbuddy.model.recipe.attribute.Image;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.Instruction;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Photograph;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
@@ -33,7 +35,7 @@ import cookbuddy.model.recipe.attribute.Time;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index must be a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_FILEPATH = "Image not found or invalid image path given";
+    public static final String MESSAGE_INVALID_FILEPATH = Photograph.IMAGE_UTIL.MESSAGE_CONSTRAINTS;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -111,19 +113,32 @@ public class ParserUtil {
         }
 
         return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
-            .map(Instruction::new).collect(Collectors.toList()));
+                .map(Instruction::new).collect(Collectors.toList()));
     }
 
     /**
-     * Parses a {@code String input} into an {@code Image}.
+     * Parses {@code filePathString} as a {@link Photograph}.
+     *
+     * @param filePathString The file path of a {@link Recipe}'s photo, as a
+     *                       {@link String}
+     * @return A Photograph from the file at {@code filePathString}
+     * @throws ParseException If {@code filePathString} is an invalid path, or the
+     *                        file does not exist.
      */
-    public static Image parseFilePath(String input) throws ParseException {
-        requireNonNull(input);
-        String trimmedPath = input.trim();
-        if (!Image.isValidImageFilePath(trimmedPath)) {
+    public static Photograph parsePhotoFilePath(String filePathString) throws ParseException {
+        requireNonNull(filePathString);
+        String trimmedPath = filePathString.trim().replaceAll("^['\"]*", "").replaceAll("['\"]*$", "");
+        if (!FileUtil.isValidPathString(trimmedPath)) {
             throw new ParseException(MESSAGE_INVALID_FILEPATH);
         }
-        return new Image(trimmedPath);
+        if (Photograph.IMAGE_UTIL.isPlaceHolderImage(filePathString)) {
+            return Photograph.PLACEHOLDER_PHOTOGRAPH;
+        }
+        try {
+            return new Photograph(trimmedPath);
+        } catch (IOException e) {
+            throw new ParseException(MESSAGE_INVALID_FILEPATH);
+        }
     }
 
     /**
@@ -251,7 +266,7 @@ public class ParserUtil {
         final Set<Tag> tagSet = new HashSet<>();
         if (tags.isPresent() && !tags.get().equals("")) {
             String tagsString = tags.get();
-            List<String> tagList = Arrays.asList(tagsString.split(",")).stream().map(String::trim).collect(
+            List<String> tagList = Stream.of(tagsString.split(",")).map(String::trim).collect(
                 Collectors.toList());
             for (String tagName : tagList) {
                 tagSet.add(parseTag(tagName));

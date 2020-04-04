@@ -62,7 +62,7 @@ public class RecipeCard extends UiPart<Region> {
         this.tags.setStyle("-fx-background-color: transparent;");
 
         id.setText(displayedIndex + ". ");
-        name.setText(recipe.getName().name);
+        name.setText(recipe.getName().toString());
         fav.setText(recipe.getFavStatus().toString());
         done.setText("Attempted: " + recipe.getDoneStatus().toString());
         timing.setText("\uD83D\uDD52: " + recipe.getPrepTime().toString());

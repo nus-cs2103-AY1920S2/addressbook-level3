@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import cookbuddy.commons.core.GuiSettings;
+import cookbuddy.commons.util.ImageUtil;
 
 /**
  * Represents User's preferences.
@@ -15,7 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path dataFilePath = Paths.get("data" , "recipebook.json");
-    private Path recipeImagePath = Paths.get("data", "recipes");
+    private Path recipeImagePath = ImageUtil.imageUtil().DEFAULT_STORAGE_PATH;
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -37,7 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setDataFilePath(newUserPrefs.getDataFilePath());
-        setRecipeImagePath(newUserPrefs.getRecipeImagePath());
+        setImagesPath(newUserPrefs.getImagesPath());
     }
 
 
@@ -60,11 +61,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     @Override
-    public Path getRecipeImagePath() {
+    public Path getImagesPath() {
         return recipeImagePath;
     }
 
-    public void setRecipeImagePath(Path recipeImagePath) {
+    public void setImagesPath(Path recipeImagePath) {
         requireNonNull(recipeImagePath);
         this.recipeImagePath = recipeImagePath;
     }
