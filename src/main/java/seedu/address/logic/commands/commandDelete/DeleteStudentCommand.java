@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddStudentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,7 +27,7 @@ public class DeleteStudentCommand extends DeleteCommand {
   public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
 
   private ID targetID;
-
+  private Index targetIndex;
   private Student toDelete;
 
   public DeleteStudentCommand(ID targetID) {
@@ -49,11 +50,24 @@ public class DeleteStudentCommand extends DeleteCommand {
     if (this.targetID == null) {
       this.targetID = getID(lastShownList);
     }
+    if (this.targetIndex == null) {
+      this.targetIndex = getIndex(lastShownList);
+    }
   }
 
   @Override
   protected void generateOppositeCommand() {
-    oppositeCommand = new AddStudentCommand(toDelete);
+    oppositeCommand = new AddStudentCommand(toDelete, targetIndex.getZeroBased());
+  }
+
+  // Find way to abstract this
+  public Index getIndex(List<Student> lastShownList) throws CommandException {
+    for (int i = 0; i < lastShownList.size(); i++) {
+      if (lastShownList.get(i).equals(this.toDelete)) {
+        return Index.fromZeroBased(i);
+      }
+    }
+    throw new CommandException("This id not in list");
   }
 
   // Find way to abstract this
