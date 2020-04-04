@@ -2,8 +2,10 @@ package seedu.expensela.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
@@ -13,7 +15,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Transaction;
+
+import javafx.scene.chart.PieChart;
 
 /**
  * Panel containing the bar graph to break down expenditure according to category.
@@ -31,9 +36,26 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
 
+    @FXML
+    private PieChart pieChart;
+
     public ChartAnalyticsPanel(ObservableList<Transaction> transactionList) {
         super(FXML);
         graphByWeek(transactionList);
+        graphByCategory(transactionList);
+    }
+
+    private void graphByCategory(ObservableList<Transaction> transactionList) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Transaction transaction : transactionList) {
+            String category = transaction.getCategory().toString();
+            Amount amount = transaction.getAmount();
+            double amountDouble = amount.transactionAmount;
+            int amountInteger = (int) amountDouble;
+            pieChartData.add(new PieChart.Data(category, amountInteger));
+        }
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Expense by Category");
     }
 
     /**

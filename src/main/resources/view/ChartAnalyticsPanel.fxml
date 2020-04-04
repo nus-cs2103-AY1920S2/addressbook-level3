@@ -20,6 +20,8 @@
             </yAxis>
         </StackedBarChart>
 
-        <Label text="Kim's" GridPane.columnIndex="1" />
+<!--        <Label text="Expenditure by Category's" GridPane.columnIndex="1" />-->
+        <PieChart fx:id="pieChart" GridPane.columnIndex="1"/>
+
     </GridPane>
 </ScrollPane>
