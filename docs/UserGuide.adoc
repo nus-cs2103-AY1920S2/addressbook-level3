@@ -95,13 +95,11 @@ Allows the user to return to the previous screen if one is available
 
 Format: `back`
 
-
 === Exit Command: `*exit*`
 
 Allows the user to exit the app
 
 Format: `exit`
-
 
 === List All Canteens: `*list*`
 
@@ -447,7 +445,6 @@ Only displays canteens with the asian tag.
 Only displays food that are priced at 5 or below.
 ****
 
-
 == FAQ
 *Q*: How can I update the list of canteens if there are changes to the canteens on campus? +
 *A*: You can manually download foodiebot.json file which we have published link:https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/foodiebot.json[here].
@@ -488,6 +485,7 @@ Only displays food that are priced at 5 or below.
 
 |transactions |Generates the transaction breakdown |transaction w/ 12-02-2020
 
+|filter |Show only canteens or stalls with a specified tag |filter asian
 
 
 |=======================================================================

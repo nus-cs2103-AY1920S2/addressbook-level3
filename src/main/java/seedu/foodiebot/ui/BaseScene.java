@@ -39,6 +39,8 @@ import seedu.foodiebot.logic.commands.TransactionsCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
+import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
 
 /**
  * Base class for creating a javafx scene.
@@ -66,6 +68,12 @@ public class BaseScene {
     private VBox vbox;
     @FXML
     private VBox stallList;
+
+    @FXML
+    private Label topLabel;
+
+    @FXML
+    private Label bottomLabel;
 
     private HelpWindow helpWindow;
 
@@ -158,12 +166,20 @@ public class BaseScene {
     /** Fills the stallListPanelRegion */
     @FXML
     public void handleListStalls() {
+        Canteen cureentCanteen = ParserContext.getCurrentCanteen().get();
+
         showPinnedItem(false);
         VBox stallList = (VBox) loadFxmlFile("PinnedItem.fxml");
+
+        topLabel = (Label) primaryStage.getScene().lookup("#topLabel");
+        topLabel.setText("List of Stalls in " + cureentCanteen.getName());
+
         vbox.getChildren().add(vbox.getChildren().size() - 1, stallList);
         addToListPanel(new StallsListPanel(logic.getFilteredStallList(true)));
         addToExtraListPanel(new CanteenListPanel(FXCollections.observableArrayList(
             ParserContext.getCurrentCanteen().get()), false));
+
+        bottomLabel = (Label) primaryStage.getScene().lookup("#bottomLabel");
     }
 
     /**
@@ -171,6 +187,11 @@ public class BaseScene {
      */
     @FXML
     public void handleListFood() {
+        Stall currentStall = ParserContext.getCurrentStall().get();
+        topLabel.setText("List of Foods in " + currentStall.getName());
+        bottomLabel = (Label) primaryStage.getScene().lookup("#bottomLabel");
+        bottomLabel.setText("Current Stall");
+
         addToListPanel(new FoodListPanel(logic.getFilteredFoodList(true)));
         addToExtraListPanel(new StallsListPanel(FXCollections.observableArrayList(
             ParserContext.getCurrentStall().get())));
@@ -188,6 +209,10 @@ public class BaseScene {
         if (extraListPanelPlaceholder != null) {
             extraListPanelPlaceholder.getChildren().clear();
         }
+
+        topLabel = (Label) primaryStage.getScene().lookup("#topLabel");
+        topLabel.setText("List of Favorites");
+
         addToListPanel(new FoodListPanel(logic.getFilteredFavoriteFoodList(false)));
 
     }
@@ -199,6 +224,10 @@ public class BaseScene {
     public void handleListCanteens(CommandResult commandResult) {
         changeScene("MainScene.fxml");
         new MainScene(primaryStage, logic);
+
+        topLabel = (Label) primaryStage.getScene().lookup("#topLabel");
+        topLabel.setText("List of Canteens in NUS");
+
         addToListPanel(new CanteenListPanel(
             commandResult.isLocationSpecified()
                 ? logic.getFilteredCanteenListSortedByDistance()
@@ -221,6 +250,7 @@ public class BaseScene {
     public void handleListTransactions() {
         // changeScene("MainScene.fxml");
         // new MainScene(primaryStage, logic);
+        topLabel.setText("List of Transactions");
         addToListPanel(new TransactionsPanel(logic.getFilteredTransactionsList()));
 
     }
@@ -230,6 +260,8 @@ public class BaseScene {
     public void handleListRandomize() {
         changeScene("MainScene.fxml");
         new BaseScene(primaryStage, logic);
+        topLabel = (Label) primaryStage.getScene().lookup("#topLabel");
+        topLabel.setText("List of Randomize Options");
         addToListPanel(new RandomizeListPanel(logic.getFilteredRandomizeList()));
     }
 
@@ -239,6 +271,7 @@ public class BaseScene {
     protected CommandResult executeCommand(String commandText)
         throws CommandException, ParseException, IOException {
         CommandResult commandResult = null;
+        topLabel = (Label) primaryStage.getScene().lookup("#topLabel");
         try {
             commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -326,6 +359,7 @@ public class BaseScene {
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
             case BackCommand.COMMAND_WORD:
+                topLabel.setText("");
                 switch (ParserContext.getCurrentContext()) {
                 case ParserContext.MAIN_CONTEXT:
                     handleListCanteens(commandResult);
