@@ -7,7 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.transaction.DateTime;
-import seedu.address.testutil.util.DateTimeBuilder;
+import seedu.address.testutil.transaction.DateTimeBuilder;
 
 public class RevenueCommandTest {
     @Test
