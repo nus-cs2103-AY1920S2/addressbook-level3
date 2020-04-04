@@ -10,6 +10,7 @@ import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Filter;
 
 import static seedu.expensela.ui.CategoryLabelMaker.getColouredCategoryLabel;
+import static seedu.expensela.ui.DateLabelMaker.getColouredDateLabel;
 
 /**
  * Panel containing the list of transactions.
@@ -21,10 +22,10 @@ public class FilterPanel extends UiPart<Region> {
     private final Filter filter;
 
     @FXML
-    private Label filterTypeLabel;
+    private Label filterCategoryLabel;
 
     @FXML
-    private Label filterNameLabel;
+    private Label filterMonthLabel;
 
     @FXML
     private Label colouredCategoryLabel;
@@ -32,14 +33,21 @@ public class FilterPanel extends UiPart<Region> {
     @FXML
     private FlowPane filterCategory;
 
+    @FXML
+    private Label colouredDateLabel;
+
+    @FXML
+    private FlowPane filterDateMonth;
+
     public FilterPanel(Filter filter) {
         super(FXML);
         this.filter = filter;
-        filterTypeLabel.setText("Category: ");
-        Label colouredCategoryLabel = getColouredCategoryLabel(filter.getFilterCategoryName());
-        filterCategory.getChildren().add(colouredCategoryLabel);
-        filterNameLabel.setText("Month: " + filter.getDateMonth());
-
+        filterCategoryLabel.setText("Category: ");
+//        Label colouredCategoryLabel = getColouredCategoryLabel(filter.getFilterCategoryName());
+        filterCategory.getChildren().add(getColouredCategoryLabel(filter.getFilterCategoryName()));
+        filterMonthLabel.setText("Month: ");
+//        Label colouredDateLabel = getColouredDateLabel(filter.getDateMonth());
+        filterDateMonth.getChildren().add(getColouredDateLabel(filter.getDateMonth()));
     }
 }
 
