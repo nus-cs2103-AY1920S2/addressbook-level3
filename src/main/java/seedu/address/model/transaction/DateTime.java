@@ -101,7 +101,7 @@ public class DateTime {
      */
     public static List<DateTime> populateDates(DateTime startDateTime, DateTime endDateTime) {
         List<DateTime> dateTimes = new ArrayList<>();
-        LocalDate localDate = startDateTime.value.toLocalDate().plusDays(1);
+        LocalDate localDate = startDateTime.value.toLocalDate();
         while (localDate.isBefore(endDateTime.value.toLocalDate().plusDays(1))) {
             dateTimes.add(new DateTime(localDate.atStartOfDay()));
             localDate = localDate.plusDays(1);

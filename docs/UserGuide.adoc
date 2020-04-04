@@ -449,7 +449,7 @@ This is a passive feature.
 
 === Predicting the sales for the next month : `predict`
 
-Predict sales for the next month based on sales in the previous three months +
+Predicts sales for the next month based on sales in the previous three months +
 Format: `predict`
 
 ****
@@ -458,18 +458,26 @@ Format: `predict`
 
 === Plotting sales: `plotsales`.
 
-Plot a graph with the sales of the selected product in the past week. +
+Plots a graph with the sales of the selected product in a given time period. +
 Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
 
 [NOTE]
 The start date and end date attributes are optional. If omitted, the system
 will plot the last 7 days by default.
 
+Examples:
+
+* `plotsales 1 sd/2020-02-20 10:00 ed/2020-02-28 10:01` +
+Plots a graph with the sales of the selected product between 20th Feb 10am and 28th Feb 10:01am in 2020.
+
+* `plotsales 1` +
+Plots a graph with the sales of the selected product in the past week.
+
 image::SalesPlot.png[align="center"]
 
 === Exiting from the program : `exit`
 
-Exit from the program, closes all opened windows. +
+Exits from the program, closes all opened windows. +
 Format: `exit`
 
 === Saving the data
@@ -499,7 +507,7 @@ The history is deleted after application closes.
 The product list updates and sort by product quantity automatically.
 
 [NOTE]
-This is a passive feature. The bar indicator beside the products' name represents visualises the remaining balance.
+This is a passive feature. The progress bar indicator beside the products' name represents visualises the remaining balance.
 
 image::TrackProductBalance.png[width="790" align="center"]
 

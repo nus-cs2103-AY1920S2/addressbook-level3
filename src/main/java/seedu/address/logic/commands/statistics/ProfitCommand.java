@@ -87,8 +87,8 @@ public class ProfitCommand extends Command {
             LocalDateTime transactionDateTime = transaction.getDateTime().value;
             Date transactionDate = Date.from(transactionDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
-            if (transactionDate.compareTo(startDate.value) > 0
-                    && transactionDate.compareTo(endDate.value) < 0) {
+            if (transactionDate.compareTo(startDate.value) >= 0
+                    && transactionDate.compareTo(endDate.value) <= 0) {
                 try {
                     int price = transaction.getMoney().value;
                     int quantity = transaction.getQuantity().value;

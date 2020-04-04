@@ -28,6 +28,7 @@ import seedu.address.model.util.Quantity;
  * Plot sales of a product in a given period.
  */
 public class PlotProductSalesCommand extends Command {
+
     public static final String COMMAND_WORD = "plotsales";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plots the sales of product to the screen\n"
@@ -40,6 +41,9 @@ public class PlotProductSalesCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Sales for product %1$s plotted.";
     public static final String TITLE = "Sales of %1$s between %2$s and %3$s";
+    public static final String MESSAGE_DATE_CONFLICT = "Start date must be after end date";
+    public static final String MESSAGE_NO_PRODUCT_SALES =
+            "There are no sales for %1$s during this period of time";
 
     private final Index targetIndex;
     private final DateTime startDateTime;
@@ -61,12 +65,21 @@ public class PlotProductSalesCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
         }
 
+        if (startDateTime.value.compareTo(endDateTime.value) > 0) {
+            throw new CommandException(MESSAGE_DATE_CONFLICT);
+        }
+
         Product productToPlot = lastShownList.get(targetIndex.getZeroBased());
 
         predicates.add(new ProductIdEqualsPredicate(productToPlot.getId()));
         predicates.add(new DateTimeInRangePredicate(startDateTime, endDateTime));
         Predicate<Transaction> jointPredicate = new JointTransactionPredicate(predicates);
         List<Transaction> transactions = model.filterTransaction(jointPredicate);
+
+        if (transactions.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_NO_PRODUCT_SALES,
+                    productToPlot.getDescription().value));
+        }
 
         XYChart.Series dataSeries = generateDataSeries(transactions);
 

@@ -16,12 +16,9 @@ public class DateTimeInRangePredicate implements Predicate<Transaction> {
 
     @Override
     public boolean test(Transaction transaction) {
-        return transaction.getDateTime().isAfter(
-                new DateTime(startDateTime.value.toLocalDate().atStartOfDay())
-        )
-                && transaction.getDateTime().isBefore(
-                        new DateTime(endDateTime.value.toLocalDate().plusDays(1).atStartOfDay())
-        );
+        DateTime transactionDate = transaction.getDateTime();
+        return (transactionDate.isAfter(startDateTime) || transactionDate.equals(startDateTime))
+                && (transactionDate.isBefore(endDateTime) || transactionDate.equals(endDateTime));
     }
 
     @Override
