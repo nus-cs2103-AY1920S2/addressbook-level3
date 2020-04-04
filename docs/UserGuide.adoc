@@ -132,7 +132,6 @@ There are *two* ways you can use the `add` command: +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
-* `m/MODULE` is case-sensitive and must be entered in capital letters
 * `y/SEMESTER_INDEX` must be entered as an integer, e.g. if you took the module in Year 2 Semester 1, you will enter `y/3`
 * As you have already specified the current semester you are currently in when creating your profile, MODdy will indicate modules added to prior semesters as *"completed"*, and modules that are added to the current semester or to future semesters are indicated as *"currently taking"* or *"planning to take"* respectively
 * `g/GRADE` is optional
