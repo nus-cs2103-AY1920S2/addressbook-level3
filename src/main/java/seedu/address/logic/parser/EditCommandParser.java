@@ -39,8 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
             if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
-                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-                System.out.println("here");
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK) && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
 
@@ -62,14 +61,22 @@ public class EditCommandParser implements Parser<EditCommand> {
                 }
                 intSemester = Integer.parseInt(semester);
             }
+
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
                 grade = argMultimap.getValue(PREFIX_GRADE).get();
             }
+
+            // Reject when deadline is given but task name not given
+            if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                throw new ParseException("Error: Please provide the name of the task you are trying to edit.");
+            }
+
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
                 oldTask = argMultimap.getValue(PREFIX_TASK).get();
                 if (!arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
                         && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
-                    throw new ParseException("Error: Please specify which edits to make to this task.");
+                    throw new ParseException("Error: Please specify a new task name or deadline to be edited.");
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
                     newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();
