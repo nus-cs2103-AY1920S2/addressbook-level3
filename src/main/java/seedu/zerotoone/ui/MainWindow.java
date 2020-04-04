@@ -97,8 +97,8 @@ public class MainWindow extends UiPart<Stage> {
         reportWindow = new ReportWindow();
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
-            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 24);
-            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 24);
+            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 4);
+            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 4);
         });
     }
 
