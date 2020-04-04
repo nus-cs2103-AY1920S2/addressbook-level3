@@ -13,14 +13,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -33,34 +34,33 @@ public class EditCourseCommand extends Command {
 
   public static final String MESSAGE_USAGE =
       COMMAND_WORD + ": Edits the details of the course identified "
-          + "by the index number used in the displayed course list. "
+          + "by the ID number used in the displayed course list. "
           + "Existing values will be overwritten by the input values.\n"
-          + "Parameters: INDEX (must be a positive integer) "
+          + "Parameters: ID (must be an existing positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
           + "[" + PREFIX_COURSEID + "COURSEID] "
           + "[" + PREFIX_AMOUNT + "AMOUNT] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 1 "
           + PREFIX_NAME + "Java 101 "
-          + PREFIX_COURSEID + "464 "
           + PREFIX_AMOUNT + "1000 ";
 
   public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Assignment: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_COURSE = "This course already exists in the address book.";
 
-  private final Index index;
+  private final ID targetID;
   private final EditCourseDescriptor editCourseDescriptor;
 
   /**
-   * @param index                of the course in the filtered course list to edit
+   * @param targetID                of the course in the filtered course list to edit
    * @param editCourseDescriptor details to edit the course with
    */
-  public EditCourseCommand(Index index, EditCourseDescriptor editCourseDescriptor) {
-    requireNonNull(index);
+  public EditCourseCommand(ID targetID, EditCourseDescriptor editCourseDescriptor) {
+    requireNonNull(targetID);
     requireNonNull(editCourseDescriptor);
 
-    this.index = index;
+    this.targetID = targetID;
     this.editCourseDescriptor = new EditCourseDescriptor(editCourseDescriptor);
   }
 
@@ -76,7 +76,13 @@ public class EditCourseCommand extends Command {
     Amount updatedAmount = editCourseDescriptor.getAmount().orElse(courseToEdit.getAmount());
     Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
 
-    return new Course(updatedName, courseToEdit.getId(), updatedAmount, updatedTags);
+    // fields that cannot edit
+    ID courseID = courseToEdit.getId();
+    ID assignedStaffID = courseToEdit.getAssignedStaffID();
+    Set<ID> assignedAssignmentsID = courseToEdit.getAssignedAssignmentsID();
+    Set<ID> assignedStudentsID = courseToEdit.getAssignedStudentsID();
+    return new Course(updatedName, courseID, updatedAmount,
+            assignedStaffID, assignedStudentsID, assignedAssignmentsID, updatedTags);
   }
 
   @Override
@@ -84,11 +90,11 @@ public class EditCourseCommand extends Command {
     requireNonNull(model);
     List<Course> lastShownList = model.getFilteredCourseList();
 
-    if (index.getZeroBased() >= lastShownList.size()) {
+    if (!ID.isValidId(targetID.toString())) {
       throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_ID);
     }
 
-    Course courseToEdit = lastShownList.get(index.getZeroBased());
+    Course courseToEdit = getCourse(lastShownList);
     Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
 
     if (!courseToEdit.weakEquals(editedCourse) && model.has(editedCourse)) {
@@ -98,6 +104,16 @@ public class EditCourseCommand extends Command {
     model.set(courseToEdit, editedCourse);
     model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
+  }
+
+  // Find way to abstract this
+  public Course getCourse(List<Course> lastShownList) throws CommandException {
+    for (Course course : lastShownList) {
+      if (course.getId().equals(this.targetID)) {
+        return course;
+      }
+    }
+    throw new CommandException("This course ID does not exist");
   }
 
   @Override
@@ -114,7 +130,7 @@ public class EditCourseCommand extends Command {
 
     // state check
     EditCourseCommand e = (EditCourseCommand) other;
-    return index.equals(e.index)
+    return targetID.equals(e.targetID)
         && editCourseDescriptor.equals(e.editCourseDescriptor);
   }
 

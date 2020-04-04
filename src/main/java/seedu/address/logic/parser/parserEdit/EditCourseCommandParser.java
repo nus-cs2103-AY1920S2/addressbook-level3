@@ -2,9 +2,7 @@ package seedu.address.logic.parser.parserEdit;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +16,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,12 +33,12 @@ public class EditCourseCommandParser implements Parser<EditCourseCommand> {
   public EditCourseCommand parse(String args) throws ParseException {
     requireNonNull(args);
     ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG);
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_TAG);
 
-    Index index;
+    ID id;
 
     try {
-      index = ParserUtil.parseIndex(argMultimap.getPreamble());
+      id = ParserUtil.parseID(argMultimap.getPreamble());
     } catch (ParseException pe) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCourseCommand.MESSAGE_USAGE), pe);
@@ -49,6 +48,9 @@ public class EditCourseCommandParser implements Parser<EditCourseCommand> {
     if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
       editCourseDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
     }
+    if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+      editCourseDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+    }
 
     parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCourseDescriptor::setTags);
 
@@ -56,7 +58,7 @@ public class EditCourseCommandParser implements Parser<EditCourseCommand> {
       throw new ParseException(EditCourseCommand.MESSAGE_NOT_EDITED);
     }
 
-    return new EditCourseCommand(index, editCourseDescriptor);
+    return new EditCourseCommand(id, editCourseDescriptor);
   }
 
   /**
