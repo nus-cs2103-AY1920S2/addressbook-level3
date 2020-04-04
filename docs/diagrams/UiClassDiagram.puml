@@ -58,6 +58,10 @@ StatisticsWindow -down-|> UiPart
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+StudentTab .down..> Model
+SessionTab .down.> Model
+ClaimsTab .down.> Model
+
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
