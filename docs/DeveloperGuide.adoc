@@ -98,10 +98,11 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface
+and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+.Simplified Class Diagram of the Logic Component
+image::LogicClassDiagram1.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -145,24 +146,136 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+The `Logic` component of `TA-Tracker`:
+
+* processes user inputs into different `Command` objects,
+* executes these `Command` objects to interact with the `Model` component, and
+* saves data in the `Storage` component.
+
+==== Logic Structure
+The following diagram shows a simplified view of the structure of the Logic component .
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram1.png[]
 
 *API* :
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `TaTrackerParser` class to parse the user command.
-.  `TaTrackerParser` uses specialized command parsers to parse the user command.
-.. `StudentCommandParser`, `ModuleCommandParser`, `GroupCommandParser`, and `SessionCommandParser`
-parse commands that interact with the models that they are named after.
-.. Other parsers, such as `HelpCommandParser`, `SortCommandParser` and `FilterCommandParser`
-parse commands that interact with the TA-Tracker user interface.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a student).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+In the figure above, you can see that:
 
+. `Logic` behaves as a Façade class between the different `TA-Tracker` components.
+. `LogicManager` is the main driver class behind the logic in `TA-Tracker`
+. `LogicManager` interacts with classes in the `Model` and `Storage` component.
+. `TA-Tracker` logic is organised into *commands* and *parsers*.
+. `TaTrackerParser` is the *main parser*.
+. A `Command` can interact with classes in the `Model` component.
+
+==== Logic Hierarchy
+
+The following diagram shows how the *commands* and *parsers* are organised.
+
+.Structure of commands and the hierarchy of parsers
+image::LogicClassDiagram2.png[]
+
+[NOTE]
+====
+[horizontal]
+* `X` is the category name for a group of commands +
+(e.g. `Student`, `Session`, `Module`).
+* `XY` is the category name for actions specific to a group of commands +
+(e.g. `AddStudent`, `EditSession`, `DeleteModule`).
+====
+
+[NOTE]
+====
+[horizontal]
+* `Prefixes` contains some `Prefix` constants that are shared among classes in the *Logic component*.
+* The *red arrow* shows that each command knows about the `Prefix` constants stored in `Prefixes`.
+
+====
+
+In addition to Figure 6., in the figure above, you can see that:
+
+. There is a *hierarchy* of parsers, starting from `TaTrackerParser`.
+. Each group of parsers have been split into *smaller packages* (named as `X` in the diagram)
+within the package of parsers.
+. Each `Command` has a `Parser` that creates it from a user input.
+. These `Command` classes are placed in *smaller packages* (with the same name `X`) within the package of commands.
+. A `Command` produces a `CommandResult` when executed by `LogicManager`.
+* This will modify the `Model` internally (e.g. adding a student).
+. The resulting `CommandResult` encapsulates the feedback that needs to be passed to the `Ui`. +
+This feedback includes:
+* showing messages in the `UI`, and
+* instructing the `Ui` to perform certain actions (e.g. displaying the help window).
+
+====
+[horizontal]
+In most cases, there are *two levels* of parsing before a command is created +
+(i.e. `XCommandParser` passes the parsing to `XYCommandParser`).
+
+However there are some cases where only *one level* of parsing is needed +
+(e.g. for the `help`, `report`, and `exit` commands).
+
+.Skipping the second layer of parsers
+image::LogicClassDiagram3.png[,500]
+
+These command parsers will immediately create the respective `Command`,
+*skipping the second layer* of parsers (represented by the *red arrow* in the figure above).
+====
+
+==== Overview of Commands
+
+All *commands* have been packaged under their respective categories.
+
+.Structure of commands in different categories
+image::CommandsPackageDiagram1.png[]
+
+These packages depend on the `Command` class since they contain commands that inherit from the `Command` class (not shown above).
+
+In addition, the following diagram shows the information that a command should have.
+
+.Internal structure of all commands
+image::CommandsPackageDiagram2.png[,500]
+
+. In each package, all commands should have their own `CommandDetails`.
+. `CommandDetails` store all the information that each command should have, +
+(e.g. their `commandWord` and `usage` message).
+. For their `commandWord` and `sub word`, commands may use constants in `CommandWords` to avoid repetition +
+(e.g. "add", "delete", "edit").
+. The `CommandDictionary`, stores a list of `CommandDetails` for all the commands.
+. The `CommandDictionary` is used for:
+* *syntax highlighting*, and
+* listing information in the *help window*
+
+==== Overview of Parsers
+
+In a similar way, all *parsers* have been packaged under the same respective categories.
+
+.Structure of parsers in different categories
+image::ParserPackageDiagram1.png[]
+
+These packages depend on the `Parser` interface since they contain command parsers that inherit from the `Parser` interface
+(not shown above).
+
+In addition, the following diagram shows the information that a command parser should have.
+
+.Internal structure of all command parsers
+image::ParserPackageDiagram2.png[,300]
+
+. All command parsers use some `Prefix` constants defined in `Prefixes`.
+. `PrefixDetails` adds more information to a `Prefix` +
+(e.g. their `constraint` message and a list of `examples`).
+. A `PrefixDetail` has a `Predicate` to validate the user input arguments.
+. The `PrefixDictionary` stores two lists of `Prefix` objects:
+** `parameters` - a list of command parameters, and
+** `optionals` - a list of optional parameters for the same command.
+. The `PrefixDictionary` stores a list of `PrefixDetails` for all the `Prefix` objects in `parameters` and `optionals`.
+. The `PrefixDictionary` is used for:
+* *syntax highlighting*, and
+* listing information in the *help window*
+
+==== Example Logic Sequence
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("group add m/CS2103 g/G03 t/lab")` API call.
 
 .Interactions Inside the Logic Component for the `group add m/CS2103 g/G03 t/lab` Command
@@ -177,6 +290,43 @@ destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the
 * Since the purpose of this diagram is to show the interactions within the `Logic` component,
 irrelevant interactions with the `Model` component have been omitted.
 ====
+
+==== Design Considerations
+
+===== Rationale behind `PrefixDetails` not inheriting from the `Prefix` class
+The following diagrams compare the structure of commands and their respective parsers.
+
+[.clearfix]
+--
+[.left]
+.Structure of a command parser
+image::ParserPackageDiagram2.png[,300]
+[.left]
+.Structure of a command
+image::CommandsPackageDiagram2.png[,500]
+--
+
+The difference between the *commands* and *parsers* is that the *commands* store their own `CommandDetails`,
+while the *parsers* do not store any `PrefixDetails`. Instead, they use a number of `Prefix` objects to
+parse user inputs. This is because they do not need the extra information stored in `PrefixDetails`.
+
+`PrefixDetails` adds more information to a `Prefix` instead of extending it.
+Therefore, it can be detached from the command parsers without changing the `Prefix` constants in `Prefixes`.
+
+===== Moving `Prefixes` to the *Commands* package
+
+In future versions, `Prefixes` could be stored in the *Commands* package,
+since each command will need to know all the `Prefix` that they are using.
+
+The following diagram shows how the command parsers can obtain all the required `Prefix` from the respective command.
+
+.Improving the Logic component
+image::LogicClassDiagram4.png[,500]
+
+In the diagram above:
+
+* The *red arrow* will be removed to show that the command parsers no longer need information in `Prefixes`.
+* `Prefixes` will be moved into the *commands* package.
 
 [[Design-Model]]
 === Model component
@@ -203,9 +353,10 @@ image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
+The following diagram is a simplified view of the Storage component.
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Simplified structure of the Storage Component
+image::StorageClassDiagram1.png[]
 
 *API* : link:{repoURL}/src/main/java/tatracker/storage/Storage.java[`Storage.java`]
 
@@ -214,14 +365,25 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the TA-Tracker data in json format and read it back.
 
+==== Saved Data
+The following diagram is a breakdown of the data managed by the Storage component.
+
+.Structure of the data stored by TA-Tracker
+image::StorageClassDiagram2.png[]
+
 `TA-Tracker` saves the following data:
 
-* a list of `Module` objects representing the modules that the user is assisting.
-** each `Module` contains a list of `Session`, representing the sessions that
-the user has completed for that module.
-** each `Module` contains a list of `Group`, representing the groups that the user is
-in charge of, such as a tutorial or lab.
-** each `Group` contains a list of `Student`, representing the students enrolled in
+* a list of `Module` objects representing the modules that the user is assisting. +
++
+Within each module, there is:
+
+** a list of `Session`, representing the `done sessions` that the user has completed for that module.
+** a list of `Group`, representing the groups that the user is
+in charge of, such as a tutorial or lab. +
++
+Within each group, there is:
+
+*** a list of `Student`, representing the students enrolled in
 the respective groups.
 
 * a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
@@ -633,119 +795,217 @@ image::TssActivityDiagram.png[]
 of the session from EndDateTime and then rounding up the value to a whole.
 4. TotalEarnings is calculated by multiplying TotalHours with Rate
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 // tag::syntaxhighlighting[]
-=== [Proposed] Syntax Highlighting feature
+=== Syntax Highlighting
+When a user types a command into the `CommandBox`, their inputs will be highlighted in different colours
+as a form of input validation.
 
-The syntax highlighting feature extends the `CommandBox` in the `MainWindow` of TA-Tracker
-by colouring the font of valid command words as the user is typing. Currently, when a user
-inputs an invalid command, the `CommandBox` highlights the entire command in red. This feature
-will improve on this existing feature by changing the highlighting to be in real-time,
-and on a per word basis.
+In addition, the `ResultDisplay` will display different messages based on the result of the syntax highlighting.
 
-==== Proposed Implementation of the Syntax Highlighting feature
+The following shows how the`CommandBox` and `ResultDisplay` appear in the `MainWindow` of `TA-Tracker`
 
-When the user inputs a command in the `CommandBox`, the `CommandBox` will be highlight the following:
+.The `CommandBox` and the `ResultDisplay` in `TA-Tracker`
+image::syntax-highlighting/SH-CommandBox.png[]
 
-1. All valid command words. If a command word has more than one word,
-then the syntax highlighting will only appear when all of these words are in the `CommandBox`.
+In the figure above:
 
-2. All valid prefixes for each current command.
+* There is a user input highlighted in `green` in the `CommandBox`
+* There is a message in `white` showing in the `ResultDisplay`
+* The command being entered is `session edit`
+* There are three arguments: `date`, `start time`, and `end time`.
 
-3. The values of each valid prefix, if they are valid.
+==== Overview
+The following diagram shows how the Logic and UI components interact with each other to produce the highlighting.
 
-In order to keep track of all commands and parameters, the `CommandDictionary`
-will store these information in a `Set`. To support the storage of all commands,
-each command should have a class variable named `COMMAND_WORD`.
+.Syntax Highlighting - Class Diagram
+image::SyntaxHighlightingClassDiagram.png[
 
-A `CommandBox` has a `TextField` that the user inputs to.
-To detect whether the user has changed their command input,
-the CommandBox registers an event listener that is triggered whenever
-the value within the `TextField` has changed.
+* The `CommandBox` uses a `CommandDictionary` to search for valid commands.
+* The `CommandBox` stores a `CommandDetail` for processing the current command in the user input.
+* The `CommandBox` stores a `PrefixDictionary` containing the required argument details (`PrefixDetails`) for the current command.
+* The `CommandBox` uses a `CommandBoxUtil` to scan for valid user inputs.
+* The `CommandBox` returns feedback to the `ResultDisplay`.
+* The `ResultDisplay` displays the given feedback tas a message in the program.
 
-In the following diagrams, the `CommandBox` behaves as an input buffer that that listens to keyboard inputs.
+==== Implementation
+The following diagrams show the steps for the different types of highlighting.
 
-.Syntax Highlighting - Full Activity Diagram
-image::SyntaxHighlighting.png[]
+Here are some keywords that will be used to explain the implementation:
 
-1. `CommandBox` listens to events that change the value in its `TextField` component.
+* A `full command word` is a text that identifies a command.
 
-2. User inputs a character +
-(in other words, the user changes the value stored in the `TextField` of the `CommandBox`).
+* An `argument` is a text that contains a `prefix` and a `value`.
 
-3. CommandBox reads the new `user input` (value) in the `TextField`.
+** The `prefix` is the text value of a `Prefix` in the Logic component.
+** The `value` is all the text following the `prefix`.
 
-4. If the `user input` has a command word that exists in the `CommandDictionary`
-(i.e. a valid command word), highlight it.
+* The `preamble` is the text (including whitespaces) between the end of the
+`full command word`, and the beginning of the first `argument`.
 
-    a. While the `user input` has prefixes that exists in the `CommandDictionary`,
-    (i.e. any valid prefixes), highlight them.
+[NOTE]
+====
+Due to the limitations of PlantUML, some of the diagrams may not appear as expected.
 
-        . For each prefix, if it has a valid value in the `user input`,
-        (i.e. the prefix value is valid), highlight it.
+In particular, there are issues with representing alternate paths in PlantUML BETA Activity Diagrams
 
-When the user inputs the `ENTER` key, the user input is executed and the syntax highlighting is removed.
+For example:
+
+. They split into multiple diamonds, instead of all originating from the same diamond.
+. They do not converge at a single diamond, and instead skips it altogether.
+. They cannot join other branches.
+
+In particular, the biggest limitation was the third issue.
+To overcome this, you will see multiple end nodes in some of the diagrams.
+Please assume that they all converge into a single diamond before reaching the end node.
+
+====
+
+===== Step 1. Highlighting a new input
+When a new input is entered in the `CommandBox`,
+the syntax highlighting will be reapplied to the entire input.
+
+The following activity diagram explains how the `full command word` is highlighted,
+up until the beginning of the `preamble`.
+
+.Step 1 - Highlighting a new input
+image::SyntaxHighlightingActivityDiagram1.png[]
+
+Here is the purpose of each partition in the above diagram:
+
+* `blank` +
+When there is no input,
+the `ResultDisplay` should not show anything.
+
+.Blank `ResultDisplay`
+image::syntax-highlighting/SH-1-Blank.png[,300]
+
+* `invalid` +
+When there is no matching `full command word`,
+the `ResultDisplay` should indicate that a wrong command is entered.
+
+.Invalid `full command word`
+image::syntax-highlighting/SH-1-Invalid.png[,300]
+
+* `valid` +
+When there is a matching `full command word`,
+change the highlighting rules for the new command.
+
+* `no_arguments` +
+When `full command word` has just been entered,
+the `ResultDisplay` should indicate that a correct command has been entered.
+
+.`CommandBox` has no `arguments`
+image::syntax-highlighting/SH-1-NoArgs.png[,300]
+
+* `has_arguments` +
+After processing the `full command word`,
+proceed to step 2. +
++
+NOTE: There should be a rake symbol next to the only activity in this partition.
+
+.`CommandBox` has `arguments`
+image::syntax-highlighting/SH-1-HasArgs.png[,250]
+
+===== Step 2. Highlighting the preamble
+After verifying that the new input has a `full command word`,
+the highlighting will also need to be reapplied to the `preamble` and `arguments`.
+
+The following activity diagram explains how the `preamble` is highlighted,
+up until the beginning of the first `argument`.
+
+.Step 2 - Highlighting the preamble
+image::SyntaxHighlightingActivityDiagram2.png[]
+
+Here is the purpose of each partition in the above diagram:
+
+* `whitespaces` +
+Inputs that have trailing whitespaces will be handled separately.
+
+.Trailing whitespace, coloured in blue for this diagram
+image::syntax-highlighting/SH-2-Space.png[,250]
+
+* `many_whitespaces` +
+When there are more than two trailing whitespaces,
+the `ResultDisplay` should reshow how to use the command.
+
+.Many trailing whitespaces, coloured in blue for this diagram
+image::syntax-highlighting/SH-2-ManySpace.png[,400]
+
+* `preamble_error` +
+When the input has a `preamble` that the command does not need,
+the `ResultDisplay` should indicate that a wrong command is entered.
+
+.Invalid `preamble` in input
+image::syntax-highlighting/SH-2-WrongPreamble.png[,350]
+
+* `preamble_end` +
+After processing the `preamble`,
+proceed to step 3. +
++
+NOTE: There should be a rake symbol next to the only activity in this partition.
+
+.Valid `preamble` in input
+image::syntax-highlighting/SH-2-RightPreamble.png[,350]
+
+===== Step 3. Highlighting the remaining arguments
+After verifying that the `preamble` is valid for the given `full command word`,
+the highlighting will need to be reapplied to each `argument` in the remaining user input.
+
+The following activity diagram explains how each `argument` is highlighted,
+up until end of the user input.
+
+.Step 3 - Highlighting the remaining arguments
+image::SyntaxHighlightingActivityDiagram3.png[]
+
+Here is the purpose of each partition in the above diagram:
+
+* `wrong` +
+When the command does not need the given `argument`,
+the `ResultDisplay` should reshow how to use the command.
+
+.Wrong `argument` in input
+image::syntax-highlighting/SH-3-Wrong.png[,500]
+
+* `invalid` +
+When the `argument` cannot have the given `value`,
+the `ResultDisplay` should show how to use the `argument`.
+
+.Invalid `argument` in input
+image::syntax-highlighting/SH-3-Invalid.png[,500]
+
+* `valid` +
+After processing the current `argument`,
+the `ResultDisplay` will still show how to use the argument in case the `argument`
+can have spaces.
+
+.Valid `argument` in input
+image::syntax-highlighting/SH-3-Valid.png[,500]
 
 ==== Design Considerations
 
-===== Aspect #1: How to execute syntax highlighting in real-time
+===== Aspect #1: Executing the syntax highlighting in real-time
+The current implementation reapplies the highlighting whenever the user input changes.
+When no input is changed, the program will idle.
 
-When the user is typing their command, the `CommandBox` will need to highlight all valid command words, prefixes, and parameters.
-
-[width="100%",cols="33%,<33%,<35%",options="header",]
-|=====================
-| Solution | Pros | Cons
-
-| **Alternative 1 (current choice)** +
-Register an event listener in `CommandBox` that triggers when the command text in it changes.
-| Will have improved performance as the program can idle.
-| Requires careful implementation of JavaFX events and event listeners.
-
-| **Alternative 2** +
-Constantly update the syntax highlighting (in an infinite loop) when the user input is not blank.
-| Simplest implementation, for example using a constantly running update loop.
-| May have performance issues, since the update loop will be running even when the `CommandBox` is inactive.
-
-| **Alternative 3** +
-Subscribe to a application-wide update loop in a modified TA-Tracker.
-| Allows integration of other real-time features, such as application notifications.
-| Requires major refactoring in TA-Tracker for the large-scale update loop.
-
-|=====================
+In contrast, having an infinite loop can achieve the same highlighting,
+but the program cannot idle and will consume memory when in use.
 
 ===== Aspect #2: Range of syntax highlighting
+The current implementation uses three colours for the syntax highlighting.
 
-Which inputs should the syntax highlighting be limited to. There are three types of inputs:
-invalid, valid and unknown inputs.
+The following colours are used:
 
-[width="100%",cols="33%,<33%,<35%",options="header",]
-|=====================
-| Solution | Pros | Cons
+* `Red` - invalid input
+* `Green` - valid input
+* `White` - the default font colour for the `CommandBox` input
 
-| **Alternative 1 (current choice)** +
-Highlight valid inputs in green
-| User only need to know that their input is correct.
-| Valid inputs may be obscured due to the choice of colour.
+These colours have been chosen because they are standard signalling colours used in
+everyday life. Therefore the user will be familiar with these colour signals without
+a need for an explanation.
 
-| **Alternative 2** +
-Highlight invalid inputs in red
-| User will know that they need to correct their invalid inputs.
-| Feature already exists when submitting an invalid full command.
-
-The scope of invalid inputs is too broad.
-
-| **Alternative 3** +
-All inputs
-| All inputs verified in the `CommandBox`.
-| Too many colours may confuse the user.
-
-|=====================
+Valid inputs have been highlighted in order to signal to the user that they have used
+the command correctly. An alternative would be to remove this colour though, as having too
+many flashing colours may be distracting to the user.
 // end::syntaxhighlighting[]
 
 === Logging
@@ -1526,6 +1786,7 @@ Use case ends.
 
 . `**TAT**` should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
 . A user with above average typing speed for <<regular-english-text, regular English text>> (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. A user should be able to easily see the commands that they have wrongly typed.
 . `**TAT**` should be able to run with or without internet connection.
 . `**TAT**` should work for a single user only.
 . `**TAT**` should not require user to install.
