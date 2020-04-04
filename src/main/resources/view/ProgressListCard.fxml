@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -10,11 +12,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-
 <HBox id="cardPaneProgress" fx:id="cardPane" prefHeight="80.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <VBox alignment="CENTER_LEFT" minHeight="70" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT">
+        <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@ourImages/progress.png" />
+          </image>
+        </ImageView>
         <Line endY="69.29289245605469" startY="-8.204582214355469" stroke="#ffffff3f">
           <rotationAxis>
             <Point3D />

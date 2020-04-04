@@ -11,10 +11,10 @@
       <font>
          <Font size="36.0" />
       </font></Label>
-   <ListView id="detailedPanel" fx:id="studentDetailedView" VBox.vgrow="ALWAYS" />
+   <ListView prefHeight="300" id="detailedPanel" fx:id="studentDetailedView" VBox.vgrow="ALWAYS" />
    <Label text="Assigned Courses">
       <font>
          <Font size="36.0" />
       </font></Label>
-   <ListView fx:id="courseListView" VBox.vgrow="ALWAYS" />
+   <ListView prefHeight="400" fx:id="courseListView" VBox.vgrow="ALWAYS" />
 </VBox>

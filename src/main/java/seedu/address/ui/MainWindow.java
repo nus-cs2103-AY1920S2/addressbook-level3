@@ -27,6 +27,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.CompositeID;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -178,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
   /**
    * Fills up all the placeholders of this window.
    */
-  void fillInnerParts() {
+  void fillInnerParts() throws CommandException {
     resultDisplay = new ResultDisplay();
     resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -228,6 +229,11 @@ public class MainWindow extends UiPart<Stage> {
     for (Course course : filteredCourses) {
       HashMap<String, Object> m = new HashMap<>();
       ObservableList<Progress> progressList = FXCollections.observableArrayList();
+      for (int i = 1; i <= 10; i++){
+        CompositeID compositeID = new CompositeID(new ID(String.valueOf(i)), new ID("11"));
+        Progress progress = new Progress(compositeID);
+        progressList.add(progress);
+      }
       m.put("info", course);
       m.put("progress_list", progressList);
       m.put("number_of_done_progress", 3);
