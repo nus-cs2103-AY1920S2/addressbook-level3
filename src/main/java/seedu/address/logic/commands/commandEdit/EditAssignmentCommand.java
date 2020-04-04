@@ -17,6 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -69,7 +70,7 @@ public class EditAssignmentCommand extends Command {
 
         Name updatedName = editAssignmentDescriptor.getName().orElse(AssignmentToEdit.getName());
         ID updatedID = AssignmentToEdit.getId();
-        Deadline updatedDeadline = editAssignmentDescriptor.getDeadline().orElse(AssignmentToEdit.getDeadline());
+        Date updatedDeadline = editAssignmentDescriptor.getDeadline().orElse(AssignmentToEdit.getDeadline());
         Set<Tag> updatedTags = editAssignmentDescriptor.getTags().orElse(AssignmentToEdit.getTags());
 
         return new Assignment(updatedName, updatedID, updatedDeadline, updatedTags);
@@ -122,7 +123,7 @@ public class EditAssignmentCommand extends Command {
 
         private Name name;
         private ID AssignmentID;
-        private Deadline deadline;
+        private Date deadline;
         private Set<Tag> tags;
 
         public EditAssignmentDescriptor() {
@@ -161,11 +162,11 @@ public class EditAssignmentCommand extends Command {
             this.AssignmentID = AssignmentID;
         }
 
-        public Optional<Deadline> getDeadline() {
+        public Optional<Date> getDeadline() {
             return Optional.ofNullable(deadline);
         }
 
-        public void setDeadline(Deadline deadline) {
+        public void setDeadline(Date deadline) {
             this.deadline = deadline;
         }
 

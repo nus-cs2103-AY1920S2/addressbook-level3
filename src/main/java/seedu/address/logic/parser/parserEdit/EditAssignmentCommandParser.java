@@ -49,7 +49,7 @@ public class EditAssignmentCommandParser implements Parser<EditAssignmentCommand
       editAssignmentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
     }
     if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
-      editAssignmentDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
+      editAssignmentDescriptor.setDeadline(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DEADLINE).get()));
     }
 
     parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
