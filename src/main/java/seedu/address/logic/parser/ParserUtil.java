@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
@@ -16,7 +17,7 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-  public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+  public static final String MESSAGE_INVALID_INDEX = "ID is not an existing non-zero unsigned integer in the list.";
 
   /**
    * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
@@ -45,6 +46,19 @@ public class ParserUtil {
       throw new ParseException(Name.MESSAGE_CONSTRAINTS);
     }
     return new Name(trimmedName);
+  }
+
+  public static Staff.Level parseLevel(String level) throws ParseException {
+    requireNonNull(level);
+    String trimmedLevel = level.trim().toUpperCase();
+    if (!Staff.isValidLevel(trimmedLevel)) {
+      throw new ParseException(Staff.MESSAGE_CONSTRAINTS);
+    }
+    if (trimmedLevel.equals("TEACHER")) {
+      return Staff.Level.TEACHER;
+    } else {
+      return Staff.Level.ADMIN;
+    }
   }
 
   /**

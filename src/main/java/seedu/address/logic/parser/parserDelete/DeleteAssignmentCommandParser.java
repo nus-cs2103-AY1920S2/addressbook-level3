@@ -1,9 +1,9 @@
 package seedu.address.logic.parser.parserDelete;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.ID;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -20,8 +20,8 @@ public class DeleteAssignmentCommandParser extends DeleteCommandParser {
    */
   public DeleteAssignmentCommand parse(String args) throws ParseException {
     try {
-      Index index = ParserUtil.parseIndex(args);
-      return new DeleteAssignmentCommand(index);
+      ID id = ParserUtil.parseID(args);
+      return new DeleteAssignmentCommand(id);
     } catch (ParseException pe) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAssignmentCommand.MESSAGE_USAGE), pe);

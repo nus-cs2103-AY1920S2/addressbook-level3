@@ -282,7 +282,7 @@ public class StorageManager extends BaseManager implements Storage {
   public void handleDataStorageChangeEvent(DataStorageChangeEvent event) {
     try {
       if (event.entityType == ENTITY_TYPE.COURSE) {
-        System.out.println("coirse");
+        System.out.println("course");
         saveCourseAddressBook(event.addressBook);
       } else if (event.entityType == ENTITY_TYPE.STUDENT) {
         System.out.println("student");
