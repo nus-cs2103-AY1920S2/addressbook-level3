@@ -53,14 +53,14 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String formattedName = name.trim().toLowerCase();
         if (name.equals("")) {
             throw new ParseException(MESSAGE_MISSING_NAME);
         }
-        if (!Name.isValidName(trimmedName)) {
+        if (!Name.isValidName(formattedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Name(formattedName);
     }
 
     /**
