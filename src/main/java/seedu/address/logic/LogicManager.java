@@ -1,7 +1,9 @@
 package seedu.address.logic;
 
-import java.io.IOException;
+import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -21,6 +23,7 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
 
 /**
@@ -56,12 +59,16 @@ public class LogicManager implements Logic {
 
     // Updates summary panel
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());
-    summaryPanel.updateTotalTeachers(getFilteredStaffList().size());
+    summaryPanel.updateTotalStaffs(getFilteredStaffList().size());
     summaryPanel.updateTotalCourses(getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
     summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
 
     return commandResult;
+  }
+
+  public void setMainWindow(MainWindow mainWindow){
+    model.setMainWindow(mainWindow);
   }
 
   public void setSummaryPanel(SummaryPanel summaryPanel){
@@ -99,6 +106,11 @@ public class LogicManager implements Logic {
     return model.getStaffAddressBookFilePath();
   }
 
+  @Override
+  public void updateObservedDataFilteredStaffList(Predicate<Staff> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredStaffList(predicate);
+  }
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Student> getStudentAddressBook() {
@@ -115,6 +127,11 @@ public class LogicManager implements Logic {
     return model.getStudentAddressBookFilePath();
   }
 
+  @Override
+  public void updateObservedDataFilteredStudentList(Predicate<Student> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredStudentList(predicate);
+  }
 
   ///
   @Override
@@ -130,6 +147,12 @@ public class LogicManager implements Logic {
   @Override
   public Path getCourseAddressBookFilePath() {
     return model.getCourseAddressBookFilePath();
+  }
+
+  @Override
+  public void updateObservedDataFilteredCourseList(Predicate<Course> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredCourseList(predicate);
   }
 
   ///
@@ -149,6 +172,13 @@ public class LogicManager implements Logic {
   }
 
   @Override
+  public void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredFinanceList(predicate);
+  }
+
+  ///
+  @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
     return model.getAssignmentAddressBook();
   }
@@ -163,6 +193,12 @@ public class LogicManager implements Logic {
     return model.getAssignmentAddressBookFilePath();
   }
 
+  @Override
+  public void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    model.updateObservedDataFilteredAssignmentList(predicate);
+  }
+
 
   @Override
   public GuiSettings getGuiSettings() {
@@ -173,4 +209,51 @@ public class LogicManager implements Logic {
   public void setGuiSettings(GuiSettings guiSettings) {
     model.setGuiSettings(guiSettings);
   }
+
+  // ========================== Getters for Predicates =========================
+
+  public Predicate<Student> getDataStudentPredicate() {
+    return model.getDataStudentPredicate();
+  }
+
+  public Predicate<Staff> getDataStaffPredicate() {
+    return model.getDataStaffPredicate();
+  }
+
+  public Predicate<Finance> getDataFinancePredicate() {
+    return model.getDataFinancePredicate();
+  }
+
+  public Predicate<Course> getDataCoursePredicate() {
+    return model.getDataCoursePredicate();
+  }
+
+  public Predicate<Assignment> getDataAssignmentPredicate() {
+    return model.getDataAssignmentPredicate();
+  }
+
+  public Predicate<Student> getExtraStudentPredicate() {
+    return model.getExtraStudentPredicate();
+  }
+
+  public Predicate<Staff> getExtraStaffPredicate() {
+    return model.getExtraStaffPredicate();
+  }
+
+  public Predicate<Finance> getExtraFinancePredicate() {
+    return model.getExtraFinancePredicate();
+  }
+
+  public Predicate<Course> getExtraStudentCoursePredicate() {
+    return model.getExtraStudentCoursePredicate();
+  }
+
+  public Predicate<Course> getExtraStaffCoursePredicate() {
+    return model.getExtraStaffCoursePredicate();
+  }
+
+  public Predicate<Assignment> getExtraAssignmentPredicate() {
+    return model.getExtraAssignmentPredicate();
+  }
+
 }

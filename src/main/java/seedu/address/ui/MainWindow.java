@@ -43,11 +43,13 @@ public class MainWindow extends UiPart<Stage> {
   private CourseListPanel courseListPanel;
   private FinanceListPanel financeListPanel;
   private AssignmentListPanel assignmentListPanel;
+  private SummaryPanel summaryPanel;
 
   private ResultDisplay resultDisplay;
   private HelpWindow helpWindow;
 
-  private FadeTransition ftListPanel;
+  private FadeTransition ftListPanelLeft;
+  private FadeTransition ftListPanelRight;
 
   @FXML
   private StackPane commandBoxPlaceholder;
@@ -62,10 +64,13 @@ public class MainWindow extends UiPart<Stage> {
   private StackPane dataListPanelPlaceholder;
 
   @FXML
+  private StackPane extraListPanelPlaceholder;
+
+  @FXML
   private StackPane studentListPanelPlaceholder;
 
   @FXML
-  private StackPane teacherListPanelPlaceholder;
+  private StackPane staffListPanelPlaceholder;
 
   @FXML
   private StackPane courseListPanelPlaceholder;
@@ -82,12 +87,18 @@ public class MainWindow extends UiPart<Stage> {
   @FXML
   private StackPane statusbarPlaceholder;
 
+  private double originalExtraPanelWidth;
+  private double originalExtraPanelHeight;
+
+  private String currentView;
+
   public MainWindow(Stage primaryStage, Logic logic) {
     super(FXML, primaryStage);
 
     // Set dependencies
     this.primaryStage = primaryStage;
     this.logic = logic;
+    logic.setMainWindow(this);
 
     // Configure the UI
     setWindowDefaultSize(logic.getGuiSettings());
@@ -95,6 +106,11 @@ public class MainWindow extends UiPart<Stage> {
     setAccelerators();
 
     helpWindow = new HelpWindow();
+    currentView = "STUDENT";
+  }
+
+  public String getCurrentView(){
+    return currentView;
   }
 
   public Stage getPrimaryStage() {
@@ -146,27 +162,32 @@ public class MainWindow extends UiPart<Stage> {
     StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
     statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-    CommandBox commandBox = new CommandBox(this::executeCommand);
+    CommandBox commandBox = new CommandBox(this::executeCommand, this);
     commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-    studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-    staffListPanel = new StaffListPanel(logic.getFilteredStaffList());
-    courseListPanel = new CourseListPanel(logic.getFilteredCourseList());
-    financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
-    assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+    studentListPanel = new StudentListPanel(logic.getFilteredStudentList(), commandBox);
+    staffListPanel = new StaffListPanel(logic.getFilteredStaffList(), commandBox);
+    courseListPanel = new CourseListPanel(logic.getFilteredCourseList(), commandBox);
+    financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList(), commandBox);
+    assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
+    summaryPanel = new SummaryPanel();
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
-    SummaryPanel summaryPanel = new SummaryPanel();
-    summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
+    extraListPanelPlaceholder.getChildren().add(courseListPanel.getRoot());
+    //summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
-    summaryPanel.updateTotalTeachers(logic.getFilteredStaffList().size());
+    summaryPanel.updateTotalStaffs(logic.getFilteredStaffList().size());
     summaryPanel.updateTotalCourses(logic.getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(logic.getFilteredFinanceList().size());
     summaryPanel.updateTotalAssignments(logic.getFilteredAssignmentList().size());
 
     logic.setSummaryPanel(summaryPanel);
 
-    ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
+    ftListPanelLeft = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
+    ftListPanelRight = getFadeTransition(Duration.millis(150), extraListPanelPlaceholder);
+
+    originalExtraPanelWidth = extraListPanelPlaceholder.getMaxWidth();
+    originalExtraPanelHeight = extraListPanelPlaceholder.getMaxHeight();
   }
 
   /**
@@ -194,19 +215,73 @@ public class MainWindow extends UiPart<Stage> {
   }
 
   /**
+   * Called from switch student command
+   */
+  public void callSwitchToStudent(){
+    handleSwitchToStudent();
+  }
+
+  /**
+   * Called from switch staff command
+   */
+  public void callSwitchToStaff(){
+    handleSwitchToStaff();
+  }
+
+  /**
+   * Called from switch course command
+   */
+  public void callSwitchToCourse(){
+    handleSwitchToCourse();
+  }
+
+  /**
+   * Called from switch finance command
+   */
+  public void callSwitchToFinance(){
+    handleSwitchToFinance();
+  }
+
+  /**
+   * Called from switch assignment command
+   */
+  public void callSwitchToAssignment(){
+    handleSwitchToAssignment();
+  }
+
+  /**
+   * Called from switch summary command
+   */
+  public void callSwitchToSummary(){
+    handleSwitchToSummary();
+  }
+
+  /**
    * Switch to the Person view.
    */
   @FXML
   private void handleSwitchToStudent() {
-    switchList(studentListPanel.getRoot());
+    logic.updateObservedDataFilteredStudentList(logic.getDataStudentPredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
+    //Enable extra List
+    extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
+    currentView = "STUDENT";
+    switchList(studentListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   /**
-   * Switch to the Teacher view.
+   * Switch to the Staff view.
    */
   @FXML
-  private void handleSwitchToTeacher() {
-    switchList(staffListPanel.getRoot());
+  private void handleSwitchToStaff() {
+    logic.updateObservedDataFilteredStaffList(logic.getDataStaffPredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
+    //Enable extra List
+    extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
+    currentView = "STAFF";
+    switchList(staffListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   /**
@@ -214,7 +289,13 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToCourse() {
-    switchList(courseListPanel.getRoot());
+    logic.updateObservedDataFilteredCourseList(logic.getDataCoursePredicate());
+    logic.updateObservedDataFilteredStudentList(logic.getExtraStudentPredicate());
+    //Enable extra List
+    extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
+    currentView = "COURSE";
+    switchList(courseListPanel.getRoot(), studentListPanel.getRoot());
   }
 
   /**
@@ -222,7 +303,13 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToFinance() {
-    switchList(financeListPanel.getRoot());
+    logic.updateObservedDataFilteredFinanceList(logic.getDataFinancePredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
+    //Disable extra List
+    extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    extraListPanelPlaceholder.setVisible(false);
+    currentView = "FINANCE";
+    switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
   }
 
   /**
@@ -230,7 +317,25 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToAssignment() {
-    switchList(assignmentListPanel.getRoot());
+    logic.updateObservedDataFilteredAssignmentList(logic.getDataAssignmentPredicate());
+    logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
+    //Disable extra List
+    extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    extraListPanelPlaceholder.setVisible(false);
+    currentView = "ASSIGNMENT";
+    switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
+  }
+
+  /**
+   * Switch to the Summary view.
+   */
+  @FXML
+  private void handleSwitchToSummary() {
+    //Disable extra List
+    extraListPanelPlaceholder.setMaxSize(0.0,0.0);
+    extraListPanelPlaceholder.setVisible(false);
+    currentView = "SUMMARY";
+    switchList(summaryPanel.getRoot(), courseListPanel.getRoot());
   }
 
   void show() {
@@ -262,10 +367,14 @@ public class MainWindow extends UiPart<Stage> {
   /**
    * Switch the list panel to the given region
    */
-  private void switchList(Region region) {
+  private void switchList(Region leftRegion, Region rightRegion) {
     dataListPanelPlaceholder.getChildren().clear();
-    dataListPanelPlaceholder.getChildren().add(region);
-    ftListPanel.play();
+    dataListPanelPlaceholder.getChildren().add(leftRegion);
+
+    extraListPanelPlaceholder.getChildren().clear();
+    extraListPanelPlaceholder.getChildren().add(rightRegion);
+    ftListPanelLeft.play();
+    ftListPanelRight.play();
   }
 
 
@@ -295,4 +404,5 @@ public class MainWindow extends UiPart<Stage> {
       throw e;
     }
   }
+
 }

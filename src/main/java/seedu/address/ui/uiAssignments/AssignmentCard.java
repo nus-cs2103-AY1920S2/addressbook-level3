@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -38,9 +39,12 @@ public class AssignmentCard extends UiPart<Region> {
   @FXML
   private Label assignmentDeadline;
 
-  public AssignmentCard(Assignment assignment, int displayedIndex) {
+  private CommandBox commandBox;
+
+  public AssignmentCard(Assignment assignment, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.assignment = assignment;
+    this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     assignmentID.setText("Assignment ID: " + assignment.getId().toString());
     if(assignment.isAssignedToCourse()) {
@@ -69,4 +73,5 @@ public class AssignmentCard extends UiPart<Region> {
     return id.getText().equals(card.id.getText())
         && assignment.equals(card.assignment);
   }
+
 }

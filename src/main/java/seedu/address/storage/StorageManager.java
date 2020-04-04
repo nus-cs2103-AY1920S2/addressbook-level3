@@ -1,17 +1,15 @@
 package seedu.address.storage;
 
+import com.google.common.eventbus.Subscribe;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
-
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DataStorageChangeEvent;
-import seedu.address.commons.util.Constants.ENTITY_TYPE;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.Constants.ENTITY_TYPE;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -284,8 +282,10 @@ public class StorageManager extends BaseManager implements Storage {
   public void handleDataStorageChangeEvent(DataStorageChangeEvent event) {
     try {
       if (event.entityType == ENTITY_TYPE.COURSE) {
+        System.out.println("coirse");
         saveCourseAddressBook(event.addressBook);
       } else if (event.entityType == ENTITY_TYPE.STUDENT) {
+        System.out.println("student");
         saveStudentAddressBook(event.addressBook);
       } else if (event.entityType == ENTITY_TYPE.STAFF) {
         saveStaffAddressBook(event.addressBook);

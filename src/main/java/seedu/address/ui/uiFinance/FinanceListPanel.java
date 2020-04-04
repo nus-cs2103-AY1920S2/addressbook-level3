@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
 /**
@@ -17,12 +18,14 @@ public class FinanceListPanel extends UiPart<Region> {
 
   private static final String FXML = "FinanceListPanel.fxml";
   private final Logger logger = LogsCenter.getLogger(FinanceListPanel.class);
+  private CommandBox commandBox;
 
   @FXML
   private ListView<Finance> financeListView;
 
-  public FinanceListPanel(ObservableList<Finance> financeList) {
+  public FinanceListPanel(ObservableList<Finance> financeList, CommandBox commandBox) {
     super(FXML);
+    this.commandBox = commandBox;
     financeListView.setItems(financeList);
     financeListView.setCellFactory(listView -> new FinanceListViewCell());
   }
@@ -41,7 +44,7 @@ public class FinanceListPanel extends UiPart<Region> {
         setGraphic(null);
         setText(null);
       } else {
-        setGraphic(new FinanceCard(finance, getIndex() + 1).getRoot());
+        setGraphic(new FinanceCard(finance, commandBox,getIndex() + 1).getRoot());
       }
     }
   }

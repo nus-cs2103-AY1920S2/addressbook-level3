@@ -31,7 +31,7 @@ class JsonAdaptedFinance {
   private final String amount;
   private final String courseid;
   private final String studentid;
-  private final String teacherid;
+  private final String staffid;
   private final List<JsonFinanceAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -44,7 +44,7 @@ class JsonAdaptedFinance {
       @JsonProperty("amount") String amount,
       @JsonProperty("courseid") String courseid,
       @JsonProperty("studentid") String studentid,
-      @JsonProperty("teacherid") String teacherid,
+      @JsonProperty("staffid") String staffid,
       @JsonProperty("tagged") List<JsonFinanceAdaptedTag> tagged) {
     this.name = name;
     this.financeType = financeType;
@@ -52,7 +52,7 @@ class JsonAdaptedFinance {
     this.amount = amount;
     this.courseid = courseid;
     this.studentid = studentid;
-    this.teacherid = teacherid;
+    this.staffid = staffid;
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -68,7 +68,7 @@ class JsonAdaptedFinance {
     amount = source.getAmount().value;
     courseid = source.getCourseID().value;
     studentid = source.getStudentID().value;
-    teacherid = source.getTeacherID().value;
+    staffid = source.getStaffID().value;
     tagged.addAll(source.getTags().stream()
         .map(JsonFinanceAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -140,17 +140,17 @@ class JsonAdaptedFinance {
     }
     final ID modelStudentID = new ID(studentid);
 
-    if (teacherid == null) {
+    if (staffid == null) {
       throw new IllegalValueException(
           String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
     }
-    if (!ID.isValidId(teacherid)) {
+    if (!ID.isValidId(staffid)) {
       throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
     }
-    final ID modelTeacherID = new ID(teacherid);
+    final ID modelStaffID = new ID(staffid);
 
     final Set<Tag> modelTags = new HashSet<>(financeTags);
-    return new Finance(modelName, modelFinanceType, modelDate, modelAmount, modelCourseID, modelStudentID, modelTeacherID, modelTags);
+    return new Finance(modelName, modelFinanceType, modelDate, modelAmount, modelCourseID, modelStudentID, modelStaffID, modelTags);
   }
 
 }

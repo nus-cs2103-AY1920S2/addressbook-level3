@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.AssignedStudents;
-import seedu.address.model.person.AssignedTeacher;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -46,7 +44,7 @@ public class CourseBuilder {
         name = courseToCopy.getName();
         id = courseToCopy.getId();
         amount = courseToCopy.getAmount();
-        assignedTeacher = courseToCopy.getAssignedTeacherID();
+        assignedTeacher = courseToCopy.getAssignedStaffID();
         assignedStudents = courseToCopy.getAssignedStudentsID();
         assignedAssignments = courseToCopy.getAssignedAssignmentsID();
         tags = new HashSet<>(courseToCopy.getTags());

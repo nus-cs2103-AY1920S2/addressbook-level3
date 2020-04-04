@@ -33,7 +33,7 @@ public class ID {
    * Returns true if a given string is a valid id number.
    */
   public static boolean isValidId(String test) {
-    return test.matches(VALIDATION_REGEX);
+    return test.matches(VALIDATION_REGEX) || test.equals("");
   }
 
   @Override

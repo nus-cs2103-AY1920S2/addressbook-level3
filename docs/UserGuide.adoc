@@ -13,10 +13,10 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-F10-4/main/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103-W14-1/main
 :toclevels: 3
 
-By: `Team CS2103-AY1819S1-F10-4`      Since: `Sep 2018`      Licence: `MIT`
+By: `Team CS2103-AY1920S2-CS2103-W14`      Since: `Jan 2020`      Licence: `MIT`
 
 // tag::intro[]
 == Welcome to CodeCampX
@@ -145,33 +145,88 @@ The commands in this section does not tie to any of the 5 components.
 Opens up the help window. Very useful if you are a new user. +
 Format: `help`
 
-==== Saving the data
-
-Coding Camp book data are saved in the hard disk automatically after any command that changes the data. No manual
-saving is required.
-
 ==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-==== Assigning a Student to a Course : `assign`
+==== Undo an undoable command : `undo`/Redo a redoable command : `redo`
 
+Format: `undo` or `redo`
+
+==== Assigning/Unassigning -TYPE- to a Course : `assign` or `unassign` respectively
+===== A Student to a Course : `assign` or `unassign` respectively
 Adds the Student ID to the Course ID specified. +
-Format: `add cid/COURSEID sid/STUDENTID` +
+Format: `assign cid/COURSEID sid/STUDENTID` +
 Example: `assign cid/829 sid/33`
 
-==== Assigning a Student to a Course : `assign`
+Removes the Student ID from the Course ID specified. +
+Format: `unassign cid/COURSEID sid/STUDENTID` +
+Example: `unassign cid/829 sid/33`
+
+===== A Teacher to a Course : `assign` or `unassign` respectively
 
 Adds the Teacher ID to the Course ID specified. +
-Format: `add tid/TEACHERID sid/STUDENTID` +
+Format: `assign cid/COURSEID tid/TEACHERID` +
 Example: `assign cid/829 tid/21`
+
+Removes the Teacher ID from the Course ID specified. +
+Format: `unassign cid/COURSEID tid/TEACHERID` +
+Example: `unassign cid/829 tid/21`
+
+===== An Assignment to a Course : `assign` or 'unassign' respectively
+
+Adds the Assignment ID to the Course ID specified. +
+Format: `assign cid/COURSEID aid/ASSIGNMENTID` +
+Example: `assign cid/829 aid/21`
+
+Removes the Assignment ID from the Course ID specified. +
+Format: `unassign cid/COURSEID aid/ASSIGNMENTID` +
+Example: `unassign cid/829 aid/21`
+
+==== Select a Student/Staff/Course : `select` or simply click the bar
+Selecting means to view the specified item in detail.
+As mentioned in the previous section, a course may be assigned
+student/s, a teacher, or assignment/s. When you select a course
+for example, you can view the list of students assigned in
+the list on the right.
+
+===== Select a Student:
+Views the list of courses of a student +
+Format: `select sid/STUDENTID` +
+Example: `select sid/1`
+or click the desired Student bar
+
+===== Select a Staff:
+Views the list of courses of a staff +
+Format: `select tid/STAFFID` +
+Example: `select tid/31`
+or click the desired Staff bar
+
+===== Select a Course:
+Views the list of students of a course +
+Format: `select cid/COURSEID` +
+Example: `select cid/1`
+or click the desired Course bar
+
+==== Switch between tabs : `m`, `s`, `t`, `c`, `f`, `a`
+- Switch quickly to Summary Tab : `m` or `summary`
+- Switch quickly to Student Tab : `s` or `student`
+- Switch quickly to Staff Tab : `t` or `staff`
+- Switch quickly to Course Tab : `c` or `course`
+- Switch quickly to Finance Tab : `f` or `finance`
+- Switch quickly to Assignment Tab : `a` or `assignment`
+
+==== Saving the data
+
+Coding Camp book data are saved in the hard disk automatically after any command that changes the data. No manual
+saving is required.
 
 // tag::studentmanagement[]
 
 === Student
 .Student label. The assigned courses display the course names with the course ID beside
-image::studentCourses.png[width="500"]
+image::studentTab.png[width="1000"]
 ==== Add a student: `add-student`
 
 Add a new student to the list of student +
@@ -250,7 +305,7 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 
 === Teacher
 .Teacher label. The assigned courses display the course names with the course ID beside
-image::teacherCourses.png[width="500"]
+image::teacherTab.png[width="1000"]
 ==== Add a teacher: `add-teacher`
 
 Add a new teacher to the list of teacher +
@@ -329,7 +384,7 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 
 === Course
 .Course label. The assigned teachers/students display the teacher/student names with the teacher/student ID beside
-image::courseTeachersStudents.png[width="500"]
+image::courseTab.png[width="1000"]
 ==== Add a course: `add-course`
 
 Add a new course to the list of course +
@@ -409,7 +464,7 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 
 === Finance
 .Finance labels. Index 1 is Finance Type 1, Index 2 is Finance Type 2, and Index 3 is Finance Type 3
-image::financeTypes.png[width="500"]
+image::financeTab.png[width="1000"]
 ==== Add a finance: `add-finance`
 
 Add a new finance to the list of finance
@@ -448,7 +503,7 @@ Example:
 
 * `delete-finance 1`
 ****
-* Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
+* Deletes the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -509,6 +564,67 @@ This will irrevocably clear the entire address book!! Be very careful with this 
 ====
 // end::financemanagement[]
 
+// tag::assignmentmanagement[]
+=== Assignment
+.Assignment labels.
+image::assignmentTab.png[width="1000"]
+
+==== Add an assignment: `add-assignment`
+Add a new assignment to the list of all assignments +
+Format: `add assignment n/NAME dl/DEADLINE [t/TAG]…` +
+Example:
+* `add course n/Cozmo Programming a/2000 t/Fun t/Robot`
+
+[NOTE]
+====
+`DEADLINE` must be in `YYYY - MM - DD` or `YYY - MM - DD` format else an error will be thrown.
+====
+
+==== Delete an assignment: `delete-assignment`
+Format: `delete-assignment INDEX` +
+Example:
+
+* `delete-assignment 1`
+****
+* Deletes the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+==== Edit an assignment: `edit-assignment`
+Format: `edit-assignment INDEX [n/NAME dl/DEADLINE t/TAGS]` +
+Example:
+
+* `edit-assignment 1 n/Edit Python Assignment 1`
+****
+* Edits the assignment at the specified `INDEX`. The index refers to the index number shown in the displayed course list
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided
+* Existing values will be updated to the input values
+* When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative
+* You can remove all the assignment's tags by typing `t/` without specifying any tags after it
+****
+
+==== Locating items by name: `find-assignment`
+
+Finds assignments whose names contain any of the given keywords. +
+Format: `find-assignment KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `java` will match `Java`
+* The order of the keywords does not matter. e.g. `Java Assignment` will match `Assignment Java`
+* Only the name is searched
+* Only full words will be matched e.g. `Java` will not match `Javascript`
+* Items matching at least one keyword will be returned (i.e. `OR` search). e.g. `Java Assignment` will return
+`Java Course`, `Java Code` and `Python Assignment`
+****
+
+Examples:
+
+* `find-assignment java` +
+Returns `java` and `Java Assignment`
+
+
+// end::assignmentmanagement[]
 // tag::v2.0[]
 === Upcoming Features
 [[Register-Improvement]]
@@ -562,30 +678,57 @@ contains the data of your previous *CodeCampX* folder.
 *A*: You can find all releases link:https://github.com/AY1920S2-CS2103-W14-1/main/releases[here].
 
 == Command Summary
-[width="100%",cols="10%,<45%,<45%",options="header",]
-|=======================================================================
-|COMMAND |FORMAT |EXAMPLE
+
+.Summary of command formats
+[%autowidth]
+|=====
+| *Section* | *Command* |*Format* | *Example*
+
+.1+|Help
 |*Help* |`help` |`help`
-|*Assign Student to a Course* | `add cid/COURSEID sid/STUDENTID`  |`assign cid/829 sid/33`
-|*Assign Teacher to a Course* | `add tid/TEACHERID sid/STUDENTID`  | `assign cid/829 tid/21`
+.2+|Undo/Redo
+|*Undo an undoable command* |`undo` |`undo`
+|*Redo a redoable command* |`redo` |`redo`
+.3+|Select item
+|*Select a Student* | `select sid/STUDENTID` |`select sid/1`
+|*Select a Staff* | `select tid/STAFFID` | `select tid/31`
+|*Select a Course* | `select cid/COURSEID` | `select cid/1`
+.6+|Switch tab
+|*Switch to Summary Tab* | `m` or `summary`  | `m` or `summary`
+|*Switch to Student Tab* | `s` or `student`  | `s` or `student`
+|*Switch to Staff Tab* | `t` or `staff`  | `t` or `staff`
+|*Switch to Course Tab* | `c` or `course`  | `c` or `course`
+|*Switch to Finance Tab* | `f` or `finance`  | `f` or `finance`
+|*Switch to Assignment Tab* | `a` or `assignment`  | `a` or `assignment`
+.6+|Assigning to Course
+|*Assign Student to a Course* | `assign cid/COURSEID sid/STUDENTID`  |`assign cid/829 sid/33`
+|*Assign Teacher to a Course* | `assign cid/COURSEID tid/TEACHERID`  | `assign cid/829 tid/21`
+|*Assign Assignment to a Course* | `assign cid/COURSEID aid/ASSIGNMENTID`  | `assign cid/829 aid/21`
+|*Unassign Student from a Course* | `unassign cid/COURSEID sid/STUDENTID`  |`unassign cid/829 sid/33`
+|*Unassign Teacher from a Course* | `unassign cid/COURSEID tid/TEACHERID`  | `unassign cid/829 tid/21`
+|*Unassign Assignment from a Course* | `unassign cid/COURSEID aid/ASSIGNMENTID`  | `unassign cid/829 aid/21`
+.6+|Student Commands
 |*Add Student* |`add-student n/NAME [t/TAG]…` | `add-student n/Jon Snow t/Hardworking`
 |*Delete Student* | `delete-student INDEX` | `delete-student 1`
 |*Find Student* | `find-student KEYWORD [MORE_KEYWORDS]...` | `find-student Lannister Targaryen Stark`
 |*List Student* | `list-student` | `list-student`
 | *Edit Student* | `edit-student INDEX [n/NAME] [t/TAG]…` | `edit-student 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
 | *Clear Student* | `clear-student` | `clear-student`
+.6+|Teacher Commands
 |*Add Teacher* |`add-teacher n/NAME [t/TAG]…` |`add-teacher n/Jon Snow t/Hardworking`
 |*Delete Teacher* | `delete-teacher INDEX` | `delete-teacher 1`
 |*Find Teacher* | `find-teacher KEYWORD [MORE_KEYWORDS]...` | `find-teacher Lannister Targaryen Stark`
 |*List Teacher* | `list-teacher` | `list-teacher`
 | *Edit Teacher* | `edit-teacher INDEX [n/NAME] [t/TAG]…` | `edit-teacher 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
 | *Clear Teacher* | `clear-teacher` | `clear-teacher`
+.6+|Course Commands
 |*Add Course* |`add-course n/NAME a/AMOUNT [t/TAG]…` | `add-course n/Cozmo Programming a/2000 t/Fun t/Robot`
 |*Delete Course* | `delete-course INDEX` | `delete-course 1`
 |*Find Course* | `find-course KEYWORD [MORE_KEYWORDS]...` | `find-course Java Python C`
 |*List Course* | `list-course` | `list-course`
 | *Edit Course* | `edit-course INDEX [n/NAME] [a/AMOUNT] [t/TAG]…` | `edit-course 1 n/Java Programming a/2000`
 | *Clear Course* | `clear-course` | `clear-course`
+.9+|Finance Commands
 |*Add Finance Type 1 (ft/m)* |`add-finance ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...` |`add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly`
 |*Add Finance Type 2 (ft/cs)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...` |`add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late`
 |*Add Finance Type 3 (ft/ct)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID tid/TEACHERID [t/TAG]...` |`add-finance ft/ct d/2020-12-09 cid/829 tid/21 t/Early`
@@ -594,7 +737,7 @@ contains the data of your previous *CodeCampX* folder.
 |*List Finance* | `list-finance` | `list-finance`
 |*Calculate Earnings* | `earnings` | `earnings`
 |*Calculate Expenses* | `expenses` | `expenses`
-| *Clear Finance* | `clear-finance` | `clear-finance`
+| *Clear Finance* | `clear-finance` | `clear-finance`|
 
 |=======================================================================
 

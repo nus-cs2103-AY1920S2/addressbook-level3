@@ -54,7 +54,7 @@ public class FinanceBuilder {
         amount = financeToCopy.getAmount();
         courseid = financeToCopy.getCourseID();
         studentid = financeToCopy.getStudentID();
-        teacherid = financeToCopy.getTeacherID();
+        teacherid = financeToCopy.getStaffID();
         tags = new HashSet<>(financeToCopy.getTags());
     }
 

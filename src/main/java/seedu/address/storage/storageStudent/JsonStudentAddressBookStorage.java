@@ -75,7 +75,6 @@ public class JsonStudentAddressBookStorage implements StudentAddressBookStorage 
    */
   public void saveStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook, Path filePath)
       throws IOException {
-    System.out.println("saving student");
     requireNonNull(studentAddressBook);
     requireNonNull(filePath);
 

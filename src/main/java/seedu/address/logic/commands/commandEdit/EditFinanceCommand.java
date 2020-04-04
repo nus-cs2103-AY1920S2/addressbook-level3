@@ -80,7 +80,7 @@ public class EditFinanceCommand extends Command {
     Amount updatedAmount = editFinanceDescriptor.getAmount().orElse(financeToEdit.getAmount());
     ID updatedCourseID = editFinanceDescriptor.getCourseID().orElse(financeToEdit.getCourseID());
     ID updatedStudentiD = editFinanceDescriptor.getStudentID().orElse(financeToEdit.getStudentID());
-    ID updatedTeacherID = editFinanceDescriptor.getTeacherID().orElse(financeToEdit.getTeacherID());
+    ID updatedTeacherID = editFinanceDescriptor.getTeacherID().orElse(financeToEdit.getStaffID());
     Set<Tag> updatedTags = editFinanceDescriptor.getTags().orElse(financeToEdit.getTags());
 
     return new Finance(updatedName, updatedFinanceType, updatedDate, updatedAmount, updatedCourseID, updatedStudentiD, updatedTeacherID, updatedTags);

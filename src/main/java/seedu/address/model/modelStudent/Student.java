@@ -2,8 +2,10 @@ package seedu.address.model.modelStudent;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
@@ -35,6 +37,7 @@ public class Student extends ModelObject {
     requireAllNonNull(name, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
+    this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 
@@ -81,6 +84,18 @@ public class Student extends ModelObject {
     return Collections.unmodifiableSet(assignedCoursesID);
   }
 
+  /**
+   * Get List of String of the ID
+   * @return Array of String
+   */
+  public List<String> getAssignedCoursesIDString() {
+    List<String> IDList = new ArrayList<>();
+    for (ID id : assignedCoursesID) {
+      IDList.add(id.toString());
+    }
+    return IDList;
+  }
+
   public String getAssignedCoursesWithNames(){
     return this.assignedCoursesWithNames;
   }
@@ -98,7 +113,8 @@ public class Student extends ModelObject {
           if (count == assignedCoursesID.size()) {
             comma = "";
           }
-          s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
+          s.append(courseid).append(comma);
+          //s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
         }
       }
       count++;

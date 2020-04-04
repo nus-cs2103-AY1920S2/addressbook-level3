@@ -3,7 +3,6 @@ package seedu.address.logic.commands.commandList;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FINANCES;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
@@ -12,7 +11,7 @@ import seedu.address.model.Model;
  */
 public class ListFinanceCommand extends ListCommand {
 
-  public static final String COMMAND_WORD = "list-finances";
+  public static final String COMMAND_WORD = "list-finance";
 
   public static final String MESSAGE_SUCCESS = "Listed all finances";
 

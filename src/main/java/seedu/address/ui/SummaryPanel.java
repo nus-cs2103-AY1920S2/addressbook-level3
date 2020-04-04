@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -17,7 +15,7 @@ public class SummaryPanel extends UiPart<Region> {
   private Label totalStudents;
 
   @FXML
-  private Label totalTeachers;
+  private Label totalStaffs;
 
   @FXML
   private Label totalCourses;
@@ -32,7 +30,7 @@ public class SummaryPanel extends UiPart<Region> {
   public SummaryPanel() {
     super(FXML);
     totalStudents.setText("Total Students: ");
-    totalTeachers.setText("Total Teachers: ");
+    totalStaffs.setText("Total Staffs: ");
     totalCourses.setText("Total Courses: ");
     totalFinances.setText("Total Finances: ");
     totalAssignments.setText("Total Assignments: ");
@@ -42,8 +40,8 @@ public class SummaryPanel extends UiPart<Region> {
     totalStudents.setText("Total Students: " + String.valueOf(num));
   }
 
-  public void updateTotalTeachers(int num){
-    totalTeachers.setText("Total Teachers: " + String.valueOf(num));
+  public void updateTotalStaffs(int num){
+    totalStaffs.setText("Total Staffs: " + String.valueOf(num));
   }
 
   public void updateTotalCourses(int num){

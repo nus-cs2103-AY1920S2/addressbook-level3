@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -14,6 +15,7 @@ import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
 
 /**
@@ -31,6 +33,8 @@ public interface Logic {
    */
   CommandResult execute(String commandText) throws CommandException, ParseException;
   ///
+
+  public void setMainWindow(MainWindow mainWindow);
 
   /**
    * Sets the summary panel of logic
@@ -78,6 +82,12 @@ public interface Logic {
    */
   Path getStaffAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredStaffList(Predicate<Staff> predicate);
   ///
 
   /**
@@ -97,6 +107,12 @@ public interface Logic {
    */
   Path getStudentAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredStudentList(Predicate<Student> predicate);
   ///
 
   /**
@@ -116,6 +132,12 @@ public interface Logic {
    */
   Path getFinanceAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate);
   ///
 
   /**
@@ -135,6 +157,12 @@ public interface Logic {
    */
   Path getCourseAddressBookFilePath();
 
+  /**
+   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredCourseList(Predicate<Course> predicate);
   //TODO
   /**
    * Returns the AssignmentAddressBook.
@@ -154,6 +182,13 @@ public interface Logic {
   Path getAssignmentAddressBookFilePath();
 
   /**
+   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate);
+
+  /**
    * Returns the user prefs' GUI settings.
    */
   GuiSettings getGuiSettings();
@@ -162,4 +197,28 @@ public interface Logic {
    * Set the user prefs' GUI settings.
    */
   void setGuiSettings(GuiSettings guiSettings);
+
+  // ========================== Getters for Predicates =========================
+
+  public Predicate<Student> getDataStudentPredicate();
+
+  public Predicate<Staff> getDataStaffPredicate();
+
+  public Predicate<Finance> getDataFinancePredicate();
+
+  public Predicate<Course> getDataCoursePredicate();
+
+  public Predicate<Assignment> getDataAssignmentPredicate();
+
+  public Predicate<Student> getExtraStudentPredicate();
+
+  public Predicate<Staff> getExtraStaffPredicate();
+
+  public Predicate<Finance> getExtraFinancePredicate();
+
+  public Predicate<Course> getExtraStudentCoursePredicate();
+
+  public Predicate<Course> getExtraStaffCoursePredicate();
+
+  public Predicate<Assignment> getExtraAssignmentPredicate();
 }
