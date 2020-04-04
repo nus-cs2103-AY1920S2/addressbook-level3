@@ -1,7 +1,7 @@
 .tab-pane {
     -fx-margin: 0 -15 0 5;
-    -fx-padding: 0 0 0 4;
-    -fx-background-color: derive(#383838, 20%);
+    -fx-padding: 0 0 0 7;
+    -fx-background-color: #383838;
     -fx-alignment: CENTER;
 }
 
@@ -20,9 +20,9 @@
 
 .tab {
     -fx-background-color: #383838;
-    -fx-padding: 10 0 12 0;
-    -fx-border-width: 1.5px;
-    -fx-border-color: white;
+    -fx-padding: 11 0 13 0;
+    -fx-border-width: 1px 1.5px 1.5px 1px;
+    -fx-border-color: #383838 #e5e5e5 #e5e5e5 #383838;
     -fx-min-width: 100px;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -31,15 +31,15 @@
 }
 
 .tab-label {
-    -fx-text-fill: #ebebeb;
+    -fx-text-fill: #e5e5e5;
     -fx-font-family: "Open Sans";
     -fx-font-size: 16;
     -fx-alignment: center;
 }
 
 .tab:selected {
-    -fx-border-width: 1.5px;
-    -fx-border-color: white white salmon white;
+    -fx-border-width: 1px 1.5px 1.5px 1px;
+    -fx-border-color: #383838 #e5e5e5 salmon #383838;
 }
 
 .tab:selected .tab-label {
@@ -53,4 +53,14 @@
 }
 .tab-down-button .arrow {
     -fx-padding: 0;
+}
+
+#logTab {
+    -fx-border-width: 1px 1px 1.5px 0px;
+    -fx-border-color: #383838 #383838 #e5e5e5 #e5e5e5;
+}
+
+#logTab:selected {
+    -fx-border-width: 1px 1px 1.5px 0px;
+    -fx-border-color: #383838 #383838 salmon #e5e5e5;
 }

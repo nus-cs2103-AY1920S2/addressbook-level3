@@ -144,13 +144,14 @@
 }
 
 .list-cell .label {
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: white;
 }
 
 #exerciseId, #exerciseName, #workoutId, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName {
     -fx-font-family: "Open Sans Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: salmon;
+    -fx-text-fill: #FFA372;
     -fx-padding: 3px 0px 6px 0px;
 }
 
@@ -244,7 +245,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1a1a1a, 20%);
+    -fx-background-color: #0F4C81;
 }
 
 .menu-bar .label {
@@ -337,7 +338,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1a1a1a, 50%);
+    -fx-background-color: #0F4C81;
     -fx-background-insets: 3;
 }
 
@@ -351,7 +352,7 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 1 5 1 5;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
@@ -363,24 +364,20 @@
     -fx-border-width: 0;
 }
 
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
 #commandTextField {
     -fx-background-color: #0F4472;
     -fx-background-insets: 0;
     -fx-border-width: 1px;
     -fx-border-color: #0F4472 #0F4472 #fff #0F4472;
     -fx-font-family: "Open Sans Italic";
-    -fx-font-size: 13pt;
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
 }
 
 #commandBox {
     -fx-background-color: #0F4472;
-    -fx-padding: 5px 3px 5px 3px;
+    -fx-padding: 3px 2px 4px 2px;
+
 }
 
 #commandBoxPlaceholder {
