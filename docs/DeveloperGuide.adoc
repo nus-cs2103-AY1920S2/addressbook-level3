@@ -549,6 +549,50 @@ doesn't exist in the TA-Tracker.
 7. If the student exists, the DeleteStudentCommand object retrieves the student from the
 model and removes the student.
 
+[[SessionView]]
+=== Session View
+
+Session View is the term used to characterise the different functionalities related to
+sessions that the user is affiliated with.
+
+==== Model Framework
+
+The following class diagrams hows how different classes are related in the functioning
+of the Session View.
+
+image::SessionModelClassDiagram.png[]
+
+The TaTracker model class contains a `UniqueSessionList` which helps keep track of
+all the *upcoming sessions* of the user.
+
+==== Implementation of the Session Done Command
+
+The following sequence diagram shows the sequence of commands that take place between
+the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
+`session done 1`.
+
+image::DoneSessionSequenceDiagram.png[]
+
+1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
+
+2. The `TaTrackerParser` sees that the command is a type *sessions* and passes the command
+to the `SessionCommandParser`.
+
+3. The `SessionCommandParser` sees that the command is a type of *done* and passes the
+arguments to the `DoneSessionCommandParser`.
+
+4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
+
+5. `LogicManager` calls `DoneSessionCommand#execute()` method. The `DoneSessionCommand`
+checks whether the current session called by the user has a recurring period.
+If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
+
+6. The current session will be removed from `Model#UniqueSessionList`.
+
+7. The updated filtered session list will be displayed to the user.
+
+image::RecurringSessionsActivityDiagram.png[]
+
 //tag::tssview[]
 === TSS View
 TSS view is the term used to characterise the different functionalities
@@ -709,50 +753,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-[[SessionView]]
-=== Session View
-
-Session View is the term used to characterise the different functionalities related to
-sessions that the user is affiliated with.
-
-==== Model Framework
-
-The following class diagrams hows how different classes are related in the functioning
-of the Session View.
-
-image::SessionModelClassDiagram.png[]
-
-The TaTracker model class contains a `UniqueSessionList` which helps keep track of
-all the *upcoming sessions* of the user.
-
-==== Implementation of the Session Done Command
-
-The following sequence diagram shows the sequence of commands that take place between
-the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
-`session done 1`.
-
-image::DoneSessionSequenceDiagram.png[]
-
-1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
-
-2. The `TaTrackerParser` sees that the command is a type *sessions* and passes the command
-to the `SessionCommandParser`.
-
-3. The `SessionCommandParser` sees that the command is a type of *done* and passes the
-arguments to the `DoneSessionCommandParser`.
-
-4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
-
-5. `LogicManager` calls `DoneSessionCommand#execute()` method. The `DoneSessionCommand`
-checks whether the current session called by the user has a recurring period.
-If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
-
-6. The current session will be removed from `Model#UniqueSessionList`.
-
-7. The updated filtered session list will be displayed to the user.
-
-image::RecurringSessionsActivityDiagram.png[]
 
 [[Implementation-Navigation]]
 === Filter Command
