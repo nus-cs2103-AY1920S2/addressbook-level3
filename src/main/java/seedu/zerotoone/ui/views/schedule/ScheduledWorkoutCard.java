@@ -16,6 +16,8 @@ import seedu.zerotoone.ui.util.UiPart;
 public class ScheduledWorkoutCard extends UiPart<Region> {
     private static final String FXML = "schedule/ScheduledWorkoutCard.fxml";
 
+    public final ScheduledWorkout scheduledWorkout;
+
     @javafx.fxml.FXML
     private HBox cardPane;
     @FXML
@@ -29,6 +31,7 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
 
     public ScheduledWorkoutCard(ScheduledWorkout scheduledWorkout, int displayedIndex) {
         super(FXML);
+        this.scheduledWorkout = scheduledWorkout;
         scheduledWorkoutId.setText(String.format("%d. ", displayedIndex));
         scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName());
         dateTime.setText(getPrettyDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
@@ -52,6 +55,6 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
         // state check
         ScheduledWorkoutCard card = (ScheduledWorkoutCard) other;
         return scheduledWorkoutId.getText().equals(card.scheduledWorkoutId.getText())
-                && scheduledWorkoutName.getText().equals(card.scheduledWorkoutName.getText());
+                && scheduledWorkout.equals(card.scheduledWorkout);
     }
 }
