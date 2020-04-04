@@ -22,6 +22,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
+import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Money;
@@ -47,7 +48,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
             + PREFIX_QUANTITY + "1 "
-            + PREFIX_DATETIME + "2020-02-20 10:00 "
+            + PREFIX_DATETIME + DateTime.DEFAULT_VALUE.format(DateTime.DATE_TIME_FORMAT) + " "
             + PREFIX_MONEY + "30 "
             + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
