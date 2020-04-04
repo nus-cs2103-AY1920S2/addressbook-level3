@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.NEWLINE;
 import static seedu.address.logic.parser.CliSyntax.FLAG_ORDER_BOOK;
 import static seedu.address.logic.parser.CliSyntax.FLAG_RETURN_BOOK;
 
@@ -39,7 +40,8 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
                 return new DeliveredCommand(index, FLAG_ORDER_BOOK, deliveredParcelDescriptor);
             }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage());
+            throw new ParseException(String.format("%s" + NEWLINE + "%s", pe.getMessage(),
+                    DeliveredCommand.MESSAGE_USAGE));
         }
         logger.info("Invalid arguments given for NearbyCommandParser");
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeliveredCommand.MESSAGE_USAGE));
