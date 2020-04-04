@@ -30,16 +30,19 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
         ArrayList<String> splitInputList = new ArrayList<>(Arrays.asList(trimmedArgs));
         DeliveredCommand.DeliveredParcelDescriptor deliveredParcelDescriptor =
                 new DeliveredCommand.DeliveredParcelDescriptor();
-        if (onlyReturnFlagPresent(splitInputList)) {
-            Index index = indexOfReturnList(splitInputList);
-            return new DeliveredCommand(index, FLAG_RETURN_BOOK, deliveredParcelDescriptor);
-        } else if (onlyOrderFlagPresent(splitInputList)) {
-            Index index = indexOfOrderList(splitInputList);
-            return new DeliveredCommand(index, FLAG_ORDER_BOOK, deliveredParcelDescriptor);
-        } else {
-            logger.info("Invalid arguments given for NearbyCommandParser");
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeliveredCommand.MESSAGE_USAGE));
+        try {
+            if (onlyReturnFlagPresent(splitInputList)) {
+                Index index = indexOfReturnList(splitInputList);
+                return new DeliveredCommand(index, FLAG_RETURN_BOOK, deliveredParcelDescriptor);
+            } else if (onlyOrderFlagPresent(splitInputList)) {
+                Index index = indexOfOrderList(splitInputList);
+                return new DeliveredCommand(index, FLAG_ORDER_BOOK, deliveredParcelDescriptor);
+            }
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage());
         }
+        logger.info("Invalid arguments given for NearbyCommandParser");
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeliveredCommand.MESSAGE_USAGE));
     }
 
     /**
@@ -56,10 +59,9 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
      * @param splitInputList The input list that has been split by whitespace.
      * @return The targeted index of the return order list based on user input.
      */
-    private Index indexOfReturnList(List<String> splitInputList) {
+    private Index indexOfReturnList(List<String> splitInputList) throws ParseException {
         splitInputList.remove("-r");
-        int indexAsInt = Integer.parseInt(splitInputList.get(0));
-        Index index = Index.fromOneBased(indexAsInt);
+        Index index = ParserUtil.parseIndex(splitInputList.get(0));
         return index;
     }
 
@@ -77,10 +79,9 @@ public class DeliveredCommandParser implements Parser<DeliveredCommand> {
      * @param splitInputList The input list that has been split by whitespace.
      * @return The targeted index of the order list based on user input.
      */
-    private Index indexOfOrderList(List<String> splitInputList) {
+    private Index indexOfOrderList(List<String> splitInputList) throws ParseException {
         splitInputList.remove("-o");
-        int indexAsInt = Integer.parseInt(splitInputList.get(0));
-        Index index = Index.fromOneBased(indexAsInt);
+        Index index = ParserUtil.parseIndex(splitInputList.get(0));
         return index;
     }
 }

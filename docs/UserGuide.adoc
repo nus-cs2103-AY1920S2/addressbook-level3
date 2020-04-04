@@ -960,6 +960,8 @@ For example, it can be used when the item is fragile.
 * If the parcel is an existing order, it will be removed from the order list and converted into a return order
 and added into the return order list.
 * If the parcel is a new return order, it will be created and added into the return order list.
+* All return orders will not have the `CASH_ON_DELIVERY` attribute as
+the item was already delivered and the money already was collected upon delivery.
 ====
 
 [WARNING]
@@ -973,6 +975,8 @@ and added into the return order list.
 * The `RETURN_TIMESTAMP` *must follow the yyyy-mm-dd format*
 * The `COMMENTS_BY_CUSTOMER` *is alphanumeric*
 * The `TYPE_OF_ITEM` is *alphanumeric*
+* The resulting created return order will not have the `CASH_ON_DELIVERY` field as the money
+was already collected.
 ====
 
 
