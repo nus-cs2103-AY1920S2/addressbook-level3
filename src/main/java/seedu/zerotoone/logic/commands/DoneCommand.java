@@ -9,7 +9,7 @@ import java.time.format.FormatStyle;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.session.OngoingWorkout;
-import seedu.zerotoone.model.session.SessionSet;
+import seedu.zerotoone.model.session.CompletedSet;
 
 /**
  * Completes the next up exerciseQueue in the session.
@@ -36,7 +36,7 @@ public class DoneCommand extends Command {
         LocalDateTime currentDateTime = LocalDateTime.now();
         OngoingWorkout current = model.getCurrentWorkout().get();
 
-        SessionSet set = current.done();
+        CompletedSet set = current.done();
 
         String outputMessage = String.format(MESSAGE_DONE_SET, set.toString());
 

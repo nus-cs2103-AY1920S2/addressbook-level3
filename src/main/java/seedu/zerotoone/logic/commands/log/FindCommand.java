@@ -10,7 +10,7 @@ import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.session.PredicateFilterSessionExerciseName;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
@@ -41,7 +41,7 @@ public class FindCommand extends LogCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Predicate<Session> predicate = session -> true;
+        Predicate<CompletedExercise> predicate = session -> true;
 
 
         if (exerciseNameOptional.isPresent()) {

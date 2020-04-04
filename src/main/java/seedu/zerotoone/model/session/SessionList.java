@@ -12,8 +12,8 @@ import javafx.collections.ObservableList;
  */
 public class SessionList implements ReadOnlySessionList {
 
-    private final ObservableList<Session> internalList;
-    private final ObservableList<Session> internalUnmodifiableList;
+    private final ObservableList<CompletedExercise> internalList;
+    private final ObservableList<CompletedExercise> internalUnmodifiableList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -43,9 +43,9 @@ public class SessionList implements ReadOnlySessionList {
      * Replaces the contents of the Session list with {@code Sessions}.
      * {@code Sessions} must not contain duplicate Sessions.
      */
-    public void setSessions(List<Session> sessions) {
-        requireNonNull(sessions);
-        internalList.setAll(sessions);
+    public void setSessions(List<CompletedExercise> completedExercises) {
+        requireNonNull(completedExercises);
+        internalList.setAll(completedExercises);
     }
 
     /**
@@ -60,8 +60,8 @@ public class SessionList implements ReadOnlySessionList {
     /**
      * Adds a Session to the Session list.
      */
-    public void addSession(Session session) {
-        internalList.add(session);
+    public void addSession(CompletedExercise completedExercise) {
+        internalList.add(completedExercise);
     }
 
     /**
@@ -81,7 +81,7 @@ public class SessionList implements ReadOnlySessionList {
     }
 
     @Override
-    public ObservableList<Session> getSessionList() {
+    public ObservableList<CompletedExercise> getSessionList() {
         return internalUnmodifiableList;
     }
 

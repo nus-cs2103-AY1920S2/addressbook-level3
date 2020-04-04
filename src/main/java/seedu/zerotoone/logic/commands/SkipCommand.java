@@ -8,8 +8,8 @@ import java.time.format.FormatStyle;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.OngoingWorkout;
-import seedu.zerotoone.model.session.SessionSet;
 
 /**
  * Completes the next up exerciseQueue in the session.
@@ -36,7 +36,7 @@ public class SkipCommand extends Command {
         LocalDateTime currentDateTime = LocalDateTime.now();
         OngoingWorkout current = model.getCurrentWorkout().get();
 
-        SessionSet set = current.skip();
+        CompletedSet set = current.skip();
 
         String outputMessage = String.format(MESSAGE_SKIP_SET, set.toString());
 

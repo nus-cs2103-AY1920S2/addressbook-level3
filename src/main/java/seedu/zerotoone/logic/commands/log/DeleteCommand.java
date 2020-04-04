@@ -10,7 +10,7 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedExercise;
 
 /**
  * Deletes a session identified using it's displayed index from the session list.
@@ -29,18 +29,18 @@ public class DeleteCommand extends LogCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Session> lastShownList = model.getFilteredSessionList();
+        List<CompletedExercise> lastShownList = model.getFilteredSessionList();
 
         if (sessionId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
-        Session sessionToDelete = lastShownList.get(sessionId.getZeroBased());
+        CompletedExercise completedExerciseToDelete = lastShownList.get(sessionId.getZeroBased());
         model.deleteSession(sessionId.getZeroBased());
 
         String outputMessage = String.format(MESSAGE_DELETE_SESSION_SUCCESS,
-            sessionToDelete.getExerciseName().toString(),
-            getPrettyDateTimeString(sessionToDelete.getStartTime()));
+            completedExerciseToDelete.getExerciseName().toString(),
+            getPrettyDateTimeString(completedExerciseToDelete.getStartTime()));
         return new CommandResult(outputMessage);
     }
 

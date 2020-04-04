@@ -33,7 +33,7 @@
                 </Label>
                 <Label fx:id="exerciseName" styleClass="cell_big_label"/>
             </HBox>
-            <VBox fx:id="sessionSets" />
+            <VBox fx:id="completedSets" />
             <FlowPane fx:id="tags" />
         </VBox>
         <rowConstraints>

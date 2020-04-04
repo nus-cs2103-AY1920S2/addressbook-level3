@@ -12,11 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.session.Session;
-import seedu.zerotoone.model.session.SessionSet;
+import seedu.zerotoone.model.session.CompletedSet;
+import seedu.zerotoone.model.session.CompletedExercise;
 
 /**
- * Jackson-friendly version of {@link Session}.
+ * Jackson-friendly version of {@link CompletedExercise}.
  */
 public class JacksonSession {
 
@@ -49,10 +49,10 @@ public class JacksonSession {
     /**
      * Converts a given {@code Session} into this class for Jackson use.
      */
-    public JacksonSession(Session source) {
+    public JacksonSession(CompletedExercise source) {
         exerciseName = source.getExerciseName().fullName;
-        for (SessionSet sessionSet : source.getSets()) {
-            sessionSets.add(new JacksonSessionSet(sessionSet));
+        for (CompletedSet completedSet : source.getSets()) {
+            sessionSets.add(new JacksonSessionSet(completedSet));
         }
 
         startTime = source.getStartTime().format(dateTimeFormatter);
@@ -64,7 +64,7 @@ public class JacksonSession {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted session.
      */
-    public Session toModelType() throws IllegalValueException {
+    public CompletedExercise toModelType() throws IllegalValueException {
         if (exerciseName == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -74,9 +74,9 @@ public class JacksonSession {
         }
         final ExerciseName modelSessionName = new ExerciseName(exerciseName);
 
-        final List<SessionSet> modelSessionSets = new ArrayList<>();
+        final List<CompletedSet> modelCompletedSets = new ArrayList<>();
         for (JacksonSessionSet sessionSet : sessionSets) {
-            modelSessionSets.add(sessionSet.toModelType());
+            modelCompletedSets.add(sessionSet.toModelType());
         }
 
         if (startTime == null) {
@@ -95,7 +95,7 @@ public class JacksonSession {
         } catch (DateTimeParseException exception) {
             throw new IllegalValueException(INVALID_TIME_FORMAT_MESSAGE);
         }
-        return new Session(modelSessionName, modelSessionSets, start, end);
+        return new CompletedExercise(modelSessionName, modelCompletedSets, start, end);
     }
 
 }

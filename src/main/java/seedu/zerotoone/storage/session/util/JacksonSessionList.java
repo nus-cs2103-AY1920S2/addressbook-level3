@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.SessionList;
 
 /**
@@ -46,8 +46,8 @@ public class JacksonSessionList {
     public SessionList toModelType() throws IllegalValueException {
         SessionList sessionList = new SessionList();
         for (JacksonSession jsonAdaptedSession : sessions) {
-            Session session = jsonAdaptedSession.toModelType();
-            sessionList.addSession(session);
+            CompletedExercise completedExercise = jsonAdaptedSession.toModelType();
+            sessionList.addSession(completedExercise);
         }
         return sessionList;
     }

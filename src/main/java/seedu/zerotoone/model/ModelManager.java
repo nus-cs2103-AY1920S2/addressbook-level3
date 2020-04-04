@@ -27,7 +27,7 @@ import seedu.zerotoone.model.session.OngoingSetList;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
@@ -62,7 +62,7 @@ public class ModelManager implements Model {
 
     // Log
     private final SessionList sessionList;
-    private final FilteredList<Session> filteredSessions;
+    private final FilteredList<CompletedExercise> filteredCompletedExercises;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -96,7 +96,7 @@ public class ModelManager implements Model {
         this.ongoingSetList = new OngoingSetList();
 
         this.sessionList = new SessionList(sessionList);
-        filteredSessions = new FilteredList<>(this.sessionList.getSessionList());
+        filteredCompletedExercises = new FilteredList<>(this.sessionList.getSessionList());
     }
 
     public ModelManager() {
@@ -204,9 +204,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredSessionList(Predicate<Session> predicate) {
+    public void updateFilteredSessionList(Predicate<CompletedExercise> predicate) {
         requireNonNull(predicate);
-        filteredSessions.setPredicate(predicate);
+        filteredCompletedExercises.setPredicate(predicate);
     }
 
     @Override
@@ -255,8 +255,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Session> getFilteredSessionList() {
-        return filteredSessions;
+    public ObservableList<CompletedExercise> getFilteredSessionList() {
+        return filteredCompletedExercises;
     }
 
     @Override

@@ -8,8 +8,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.zerotoone.commons.util.DateUtil;
-import seedu.zerotoone.model.session.Session;
-import seedu.zerotoone.model.session.SessionSet;
+import seedu.zerotoone.model.session.CompletedExercise;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.ui.util.UiPart;
 
 /**
@@ -39,19 +39,19 @@ public class SessionCard extends UiPart<Region> {
     @FXML
     private Label endTime;
 
-    public SessionCard(Session session, int displayedIndex) {
+    public SessionCard(CompletedExercise completedExercise, int displayedIndex) {
         super(FXML);
         sessionId.setText(String.format("%d. ", displayedIndex));
-        exerciseName.setText(session.getExerciseName().fullName);
-        startTime.setText(DateUtil.getPrettyDateTimeString(session.getStartTime()));
-        endTime.setText(DateUtil.getPrettyDateTimeString(session.getEndTime()));
+        exerciseName.setText(completedExercise.getExerciseName().fullName);
+        startTime.setText(DateUtil.getPrettyDateTimeString(completedExercise.getStartTime()));
+        endTime.setText(DateUtil.getPrettyDateTimeString(completedExercise.getEndTime()));
 
-        List<SessionSet> exerciseSetsList = session.getSets();
+        List<CompletedSet> exerciseSetsList = completedExercise.getSets();
         for (int i = 0; i < exerciseSetsList.size(); i++) {
-            SessionSet sessionSet = exerciseSetsList.get(i);
+            CompletedSet completedSet = exerciseSetsList.get(i);
             SessionSetCard sessionSetCard =
-                new SessionSetCard(i, sessionSet.getNumReps().value, sessionSet.getWeight().value,
-                    sessionSet.isFinished());
+                new SessionSetCard(i, completedSet.getNumReps().value, completedSet.getWeight().value,
+                    completedSet.isFinished());
             this.sessionSets.getChildren().add(sessionSetCard.getRoot());
         }
     }

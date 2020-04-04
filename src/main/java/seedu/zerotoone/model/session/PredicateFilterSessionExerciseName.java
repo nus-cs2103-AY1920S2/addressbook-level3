@@ -9,7 +9,7 @@ import seedu.zerotoone.commons.util.StringUtil;
 /**
  * Tests that a {@code Session}'s {@code Name} matches any of the keywords given.
  */
-public class PredicateFilterSessionExerciseName implements Predicate<Session> {
+public class PredicateFilterSessionExerciseName implements Predicate<CompletedExercise> {
     private final List<String> keywords;
 
     public PredicateFilterSessionExerciseName(String keyword) {
@@ -17,9 +17,9 @@ public class PredicateFilterSessionExerciseName implements Predicate<Session> {
     }
 
     @Override
-    public boolean test(Session session) {
+    public boolean test(CompletedExercise completedExercise) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(session.getExerciseName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(completedExercise.getExerciseName().fullName, keyword));
     }
 
     @Override

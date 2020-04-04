@@ -12,10 +12,10 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutModel;
@@ -26,7 +26,7 @@ import seedu.zerotoone.model.workout.WorkoutModel;
 public interface Model extends WorkoutModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
-    Predicate<Session> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
+    Predicate<CompletedExercise> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
 
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
@@ -134,9 +134,9 @@ public interface Model extends WorkoutModel {
 
     ReadOnlySessionList getSessionList();
 
-    ObservableList<Session> getFilteredSessionList();
+    ObservableList<CompletedExercise> getFilteredSessionList();
 
-    void updateFilteredSessionList(Predicate<Session> predicate);
+    void updateFilteredSessionList(Predicate<CompletedExercise> predicate);
 
     Path getSessionListFilePath();
 

@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
-import seedu.zerotoone.model.session.SessionSet;
+import seedu.zerotoone.model.session.CompletedSet;
 
 /**
- * Jackson-friendly version of {@link SessionSet}.
+ * Jackson-friendly version of {@link CompletedSet}.
  */
 class JacksonSessionSet {
 
@@ -38,7 +38,7 @@ class JacksonSessionSet {
     /**
      * Converts a given {@code SessionSet} into this class for Jackson use.
      */
-    public JacksonSessionSet(SessionSet source) {
+    public JacksonSessionSet(CompletedSet source) {
         weight = source.getWeight().value;
         numReps = source.getNumReps().value;
         isFinished = "" + source.isFinished();
@@ -49,7 +49,7 @@ class JacksonSessionSet {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted sessionSet.
      */
-    public SessionSet toModelType() throws IllegalValueException {
+    public CompletedSet toModelType() throws IllegalValueException {
         if (weight == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weight.class.getSimpleName()));
         } else if (!Weight.isValidWeight(weight)) {
@@ -70,7 +70,7 @@ class JacksonSessionSet {
             throw new IllegalValueException(MALFORMED_BOOLEAN_MESSAGE);
         }
 
-        return new SessionSet(modelWeight, modelNumReps, Boolean.parseBoolean(isFinished));
+        return new CompletedSet(modelWeight, modelNumReps, Boolean.parseBoolean(isFinished));
     }
 
 }
