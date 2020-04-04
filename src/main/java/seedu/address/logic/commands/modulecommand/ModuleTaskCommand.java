@@ -58,6 +58,7 @@ public class ModuleTaskCommand extends Command {
         Task.addTaskPerDate(toAdd.getDate(), toAdd);
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         model.addModuleTask(toAdd);
+        System.out.println(Task.getDeadlineTaskHashMap());
         return new CommandResult(MESSAGE_SUCCESS + " " + toAdd);
     }
 

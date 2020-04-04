@@ -64,8 +64,11 @@ public class Task {
     }
 
     public static void removeTaskPerDate(String date, Task task) {
-        deadlineTaskHashMap.get(date).remove(task);
 
+        deadlineTaskHashMap.get(date).remove(task);
+        if (deadlineTaskHashMap.get(date).size() <= 0) {
+            deadlineTaskHashMap.remove(date);
+        }
 
     }
 

@@ -14,8 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_NOTES_PATH = new Prefix("loc/");
     public static final Prefix PREFIX_NOTES_TYPE = new Prefix("type/");
     public static final Prefix PREFIX_NOTES_FILE_NAME = new Prefix("name/");
-    public static final Prefix PREFIX_NOTES_OPERATION = new Prefix("dummy/");
-
 
     public static final Prefix PREFIX_ENTRY_CONTENT = new Prefix("ec/");
     public static final Prefix PREFIX_GRADE = new Prefix("g/");

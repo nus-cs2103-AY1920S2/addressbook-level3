@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.calender.Task;
+import seedu.address.model.nusmodule.ModuleTask;
 
 /**
  * Panel containing the list of persons.
@@ -38,6 +40,12 @@ public class CalenderListPanel extends UiPart<Region> {
             for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
                 if (Task.isTaskPresent(calenderDate.getDate())) {
                     calenderDate.setCircleVisible();
+                    ArrayList<Task> allTask = Task.getDeadlineTaskHashMap().get(calenderDate.getDate());
+                    for (Task tasks : allTask) {
+                        if (tasks instanceof ModuleTask) {
+                            calenderDate.setPriorityColour(((ModuleTask) tasks).getPriority());
+                        }
+                    }
 
                 }
             }

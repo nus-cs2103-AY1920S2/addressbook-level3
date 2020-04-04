@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.nusmodule.Priority;
 
 
 /**
@@ -47,6 +48,27 @@ public class CalenderDate extends UiPart<Region> {
     public void setCircleNotVisible() {
         circle.setVisible(false);
 
+    }
+
+    /**
+     * Changes colour of the circle based on priority
+     * @param priority
+     */
+    public void setPriorityColour(Priority priority ) {
+
+        String priorityLevel = priority.toString();
+
+        if (priorityLevel.equals("Very high")) {
+            circle.setStyle("-fx-fill: red");
+        } else if (priorityLevel.equals("High")) {
+            circle.setStyle("-fx-fill: orange");
+        } else if (priorityLevel.equals("Medium")) {
+            circle.setStyle("-fx-fill: yellow");
+        } else if (priorityLevel.equals("Low")) {
+            circle.setStyle("-fx-fill: green");
+        } else if (priorityLevel.equals("Very Low")) {
+            circle.setStyle("-fx-fill: white");
+        }
     }
 
     public String getDate() {
