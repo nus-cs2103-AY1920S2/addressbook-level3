@@ -19,5 +19,6 @@ public class Messages {
     public static final String MESSAGE_MISSING_MODULE = "Error: Please input a module code";
     public static final String MESSAGE_MISSING_SEMESTER = "Error: Please input a semester";
     public static final String MESSAGE_MISSING_NAME = "Error: Please input a name";
+    public static final String MESSAGE_MISSING_FOCUS_AREA = "Error: Please input a focus area";
 
 }

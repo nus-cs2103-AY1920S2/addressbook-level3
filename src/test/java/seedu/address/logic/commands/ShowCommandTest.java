@@ -31,9 +31,11 @@ import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.AcceptedCourses;
+import seedu.address.model.profile.course.AcceptedFocusArea;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Description;
 import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
@@ -333,7 +335,8 @@ public class ShowCommandTest {
                     new PrereqTreeNode());
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("John"), new CourseName(
-                    AcceptedCourses.COMPUTER_SCIENCE.getName()), 1, "Computer Security");
+                    AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
+                    new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
             profile.addModule(1, module);
             profileList.add(profile);
             this.profileList = profileList;
@@ -350,7 +353,8 @@ public class ShowCommandTest {
         private ProfileManagerWithEmptyProfile() {
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("John"), new CourseName(
-                    AcceptedCourses.COMPUTER_SCIENCE.getName()), 1, "Computer Security");
+                    AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
+                    new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
             profileList.add(profile);
             this.profileList = profileList;
             filteredProfiles = new FilteredList<>(this.profileList);

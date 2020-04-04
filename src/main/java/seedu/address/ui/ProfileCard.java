@@ -34,7 +34,7 @@ public class ProfileCard extends UiPart<Region> {
     @FXML
     private Label curSem;
     @FXML
-    private Label specialisation;
+    private Label focusArea;
 
     public ProfileCard(Profile profile) {
         super(FXML);
@@ -42,10 +42,8 @@ public class ProfileCard extends UiPart<Region> {
         name.setText(profile.getName().fullName.toUpperCase());
         course.setText("Course: " + profile.getCourseName().toString());
         curSem.setText("Current Semester: " + profile.getCurrentSemester());
-        if (profile.getSpecialisation() != null) {
-            specialisation.setText("Specialisation: " + profile.getSpecialisation().toUpperCase());
-        } else {
-            specialisation.setText("Specialisation: -");
+        if (profile.getFocusArea() != null) {
+            focusArea.setText("Focus Area: " + profile.getFocusAreaString());
         }
     }
 

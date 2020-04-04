@@ -1,13 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
@@ -23,6 +25,7 @@ import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
@@ -42,12 +45,12 @@ public class EditCommand extends Command {
             + PREFIX_NAME + "NAME "
             + "(" + PREFIX_COURSE_NAME + "COURSE) "
             + "(" + PREFIX_CURRENT_SEMESTER + "CURRENT_SEMESTER) "
-            + "(" + PREFIX_SPEC + "SPECIALISATION) "
+            + "(" + PREFIX_FOCUS_AREA + "FOCUS_AREA) "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John "
             + "(" + PREFIX_COURSE_NAME + "Computer Science) "
             + "(" + PREFIX_CURRENT_SEMESTER + "4) "
-            + "(" + PREFIX_SPEC + "Algorithms & Theory) "
+            + "(" + PREFIX_FOCUS_AREA + "Algorithms & Theory) "
             + "Parameters to edit a module: "
             + PREFIX_MODULE + "MODULE "
             + "(" + PREFIX_SEMESTER + "SEMESTER) "
@@ -64,7 +67,8 @@ public class EditCommand extends Command {
     private Name profileName = null;
     private CourseName courseName = null;
     private int updatedSemester = 0;
-    private String specialisation = null;
+    private String focusAreaString = null;
+    private FocusArea focusArea = null;
 
     private boolean editModule = false;
     private ModuleCode moduleCode;
@@ -75,12 +79,12 @@ public class EditCommand extends Command {
     private String newDeadlineString = null;
     private int inSemester = 0;
 
-    public EditCommand(Name name, CourseName courseName, int updatedSemester, String specialisation) {
+    public EditCommand(Name name, CourseName courseName, int updatedSemester, String focusAreaString) {
         toEditProfile = true;
         this.profileName = name;
         this.courseName = courseName;
         this.updatedSemester = updatedSemester;
-        this.specialisation = specialisation;
+        this.focusAreaString = focusAreaString;
     }
 
     public EditCommand(ModuleCode moduleCode, int editSemester, String grade, String oldTask, String newTask,
@@ -161,7 +165,6 @@ public class EditCommand extends Command {
                 updateStatus(profileToEdit);
             }
 
-            //TODO: edit task and deadlines
             Deadline oldDeadline = null;
             Deadline newDeadline = null;
             if (newTask != null) {
@@ -197,14 +200,29 @@ public class EditCommand extends Command {
             }
             if (courseName != null) {
                 profileToEdit.setCourse(courseName);
+
+                // If focusArea is not edited, make sure old focusArea is valid for the new course
+                if (focusAreaString == null) {
+                    FocusArea oldFocusArea = profileToEdit.getFocusArea();
+                    if (!oldFocusArea.isValid(courseName, oldFocusArea.toString())) {
+                        focusAreaString = "UNDECIDED";
+                    }
+                }
+
             }
             if (updatedSemester != 0) {
                 profileToEdit.setCurrentSemester(updatedSemester);
                 updateStatus(profileToEdit);
                 profileManager.deleteDeadlineList();
             }
-            if (specialisation != null) {
-                profileToEdit.setSpecialisation(specialisation);
+            if (focusAreaString != null) {
+                CourseName courseName = profileToEdit.getCourseName();
+                try {
+                    focusArea = ParserUtil.parseFocusArea(courseName, focusAreaString);
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
+                }
+                profileToEdit.setFocusArea(focusArea);
             }
 
             Profile editedPerson = createEditedPerson(profileToEdit);

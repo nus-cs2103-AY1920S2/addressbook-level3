@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
@@ -15,6 +16,7 @@ import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
@@ -50,14 +52,14 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String formattedName = name.trim().toLowerCase();
         if (name.equals("")) {
             throw new ParseException(MESSAGE_MISSING_NAME);
         }
-        if (!Name.isValidName(trimmedName)) {
+        if (!Name.isValidName(formattedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Name(formattedName);
     }
 
     /**
@@ -68,14 +70,14 @@ public class ParserUtil {
      */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
-        String trimmedModuleCode = moduleCode.trim();
-        if (moduleCode.equals("")) {
+        String formattedModuleCode = moduleCode.trim().toUpperCase();
+        if (formattedModuleCode.equals("")) {
             throw new ParseException(MESSAGE_MISSING_MODULE);
         }
-        if (!ModuleCode.isValidCode(moduleCode)) {
+        if (!ModuleCode.isValidCode(formattedModuleCode)) {
             throw new ParseException(MESSAGE_INVALID_MODULE);
         }
-        return new ModuleCode(trimmedModuleCode);
+        return new ModuleCode(formattedModuleCode);
     }
 
     /**
@@ -160,12 +162,16 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code focusArea} is invalid.
      */
-    public static String parseFocusArea(String focusArea) throws ParseException {
+    public static FocusArea parseFocusArea(CourseName courseName, String focusArea) throws ParseException {
         requireNonNull(focusArea);
-        String trimmedFocusArea = focusArea.trim();
+        String trimmedFocusArea = focusArea.trim().toUpperCase();
         if (trimmedFocusArea.equals("")) {
             throw new ParseException(MESSAGE_MISSING_COURSE_FOCUS_AREA);
         }
-        return trimmedFocusArea;
+        if (!FocusArea.isValid(courseName, trimmedFocusArea)) {
+            System.out.println(trimmedFocusArea);
+            throw new ParseException(String.format(MESSAGE_INVALID_COURSE_FOCUS_AREA, NewCommand.MESSAGE_USAGE));
+        }
+        return new FocusArea(trimmedFocusArea);
     }
 }

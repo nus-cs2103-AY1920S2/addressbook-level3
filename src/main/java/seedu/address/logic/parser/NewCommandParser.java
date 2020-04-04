@@ -3,8 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 
 import java.util.stream.Stream;
 
@@ -15,6 +15,7 @@ import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
 
 /**
  * Parses input arguments and creates a new Profile Object.
@@ -37,7 +38,8 @@ public class NewCommandParser implements Parser<NewCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER,
+                        PREFIX_FOCUS_AREA);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -48,12 +50,14 @@ public class NewCommandParser implements Parser<NewCommand> {
         CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
         int currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
 
-        String specialisation = null;
-        if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
-            specialisation = argMultimap.getValue(PREFIX_SPEC).get();
+        FocusArea focusArea = null;
+        if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
+            focusArea = ParserUtil.parseFocusArea(courseName, argMultimap.getValue(PREFIX_FOCUS_AREA).get());
+        } else {
+            focusArea = ParserUtil.parseFocusArea(courseName, "UNDECIDED");
         }
 
-        Profile profile = new Profile(name, courseName, currentSemester, specialisation);
+        Profile profile = new Profile(name, courseName, currentSemester, focusArea);
 
         return new NewCommand(profile);
 

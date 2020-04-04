@@ -15,10 +15,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.course.AcceptedCourses;
+import seedu.address.model.profile.course.CourseName;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_NAME = "rachel walker";
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
@@ -114,11 +116,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseFocusArea_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseFocusArea(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFocusArea(
+                new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName()), null));
     }
 
     @Test
     public void parseFocusArea_emptyString_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_MISSING_COURSE_FOCUS_AREA, () -> ParserUtil.parseFocusArea(""));
+        assertThrows(ParseException.class, MESSAGE_MISSING_COURSE_FOCUS_AREA, () -> ParserUtil.parseFocusArea(
+                new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName()), ""));
     }
 }

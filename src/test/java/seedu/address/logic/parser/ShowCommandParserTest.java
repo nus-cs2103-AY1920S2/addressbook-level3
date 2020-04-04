@@ -48,7 +48,7 @@ public class ShowCommandParserTest {
                 new ShowCommand(focusArea.toUpperCase()));
 
         // Name field present
-        String name = "John";
+        String name = "john";
         assertParseSuccess(parser, " " + PREFIX_NAME + name, new ShowCommand(new Name(name)));
     }
 

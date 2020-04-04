@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_COURSE_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -50,7 +51,10 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         // Get Focus Area
         if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
-            String focusArea = ParserUtil.parseFocusArea(argMultimap.getValue(PREFIX_FOCUS_AREA).get().toUpperCase());
+            String focusArea = argMultimap.getValue(PREFIX_FOCUS_AREA).get().toUpperCase();
+            if (focusArea.isEmpty()) {
+                throw new ParseException(MESSAGE_MISSING_COURSE_FOCUS_AREA);
+            }
             return new ShowCommand(focusArea); // returns String
         }
 

@@ -63,7 +63,7 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-. Create your own profile using `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
+. Create your own profile using `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
 .  Some example commands you can try:
 
 * **`add`**`m/CS2103T y/1` : adds CS2103T into your list of modules under Year 1 Semester 1
@@ -102,7 +102,7 @@ image::Help.png[width="790"]
 
 This command creates a new profile for you as shown in the figure below. You will have to provide your details as parameters.
 
-Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
+Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
 
 ****
 * `c/COURSE` must be a SoC course, e.g. Computer Science, Business Analytics, Information Systems, Information Security, Computer Engineering. It is *case-insensitive*.
@@ -178,11 +178,11 @@ This command edits your profile or a module in MODdy. +
 There are *three* ways you can use the `edit` command: +
 
 ==== Edit your profile +
-Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
+Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [f/FOCUS_AREA]` +
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited
-* If you did not specify your specialisation when you created your profile, `edit s/SPECIALISATION` adds the specialisation to your profile
+* If you did not specify your focusArea when you created your profile, `edit f/FOCUS_AREA` adds the focusArea to your profile
 ****
 
 .Profile Panel is updated with new details
@@ -190,7 +190,7 @@ image::EditProfile.png[width="790"]
 
 
 TIP: `edit n/Brad c/Information Security s/Software Engineering` +
-Edits your profile name to "Brad", your course to "Information Security", and your specialisation to "Software Engineering" from what they were previously
+Edits your profile name to "Brad", your course to "Information Security", and your focusArea to "Software Engineering" from what they were previously
 
 ==== Edit a module's details in MODdy +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
@@ -359,13 +359,13 @@ Your MODdy's data are saved in the hard disk automatically after any command tha
 == Command Summary
 
 * <<Help, *Help*>> : `help`
-* <<New, *New*>> : `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]` +
+* <<New, *New*>> : `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]` +
 e.g. `new n/John c/Computer Science cs/4`
 
 * <<Add, *Add*>> : `add m/MODULE y/SEMESTER_INDEX [g/GRADE] [t/TASK] [d/DEADLINE]` +
 e.g. `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59`
 
-* <<Edit, *Edit*>> : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
+* <<Edit, *Edit*>> : `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [f/FOCUS_AREA]` +
 e.g. `edit n/Brad c/Information Security s/Software Engineering` +
 or `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]` +
 e.g. `edit m/CS2103 g/A+` +
