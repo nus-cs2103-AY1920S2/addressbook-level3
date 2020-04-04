@@ -81,7 +81,7 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTransactionCommand.EMPTY_VALUE_WITH_PREFIX));
             }
-            return argMultimap.getValue(prefix).get().split("\\s+");
+            return words.get().split("\\s+");
         }
         return new String[0];
     }

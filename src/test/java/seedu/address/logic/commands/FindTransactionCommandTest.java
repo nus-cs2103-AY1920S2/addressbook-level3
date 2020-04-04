@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.FindTransactionCommandParser.TransactionType.BUY_TRANSACTION;
@@ -19,7 +19,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -38,16 +37,16 @@ public class FindTransactionCommandTest {
     public void equals() {
         TransactionContainKeywordsPredicate firstPredicate =
                 new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                        Arrays.asList("Alice"), Arrays.asList("Apple"));
+                        Collections.singletonList("Alice"), Collections.singletonList("Apple"));
         TransactionContainKeywordsPredicate secondPredicate =
                 new TransactionContainKeywordsPredicate(SELL_TRANSACTION,
-                        Arrays.asList("Alice"), Arrays.asList("Apple"));
+                        Collections.singletonList("Alice"), Collections.singletonList("Apple"));
         TransactionContainKeywordsPredicate thirdPredicate =
                 new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                        Arrays.asList("Alice", "Bob"), Arrays.asList("Apple"));
+                        Arrays.asList("Alice", "Bob"), Collections.singletonList("Apple"));
         TransactionContainKeywordsPredicate fourthPredicate =
                 new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                        Arrays.asList("Alice"), Arrays.asList("Apple", "Banana"));
+                        Collections.singletonList("Alice"), Arrays.asList("Apple", "Banana"));
 
         FindTransactionCommand findFirstCommand = new FindTransactionCommand(firstPredicate);
         FindTransactionCommand findSecondCommand = new FindTransactionCommand(secondPredicate);
@@ -55,26 +54,26 @@ public class FindTransactionCommandTest {
         FindTransactionCommand findFourthCommand = new FindTransactionCommand(fourthPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
         FindTransactionCommand findFirstCommandCopy = new FindTransactionCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        assertEquals(findFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertNotEquals(1, findFirstCommand);
 
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
         // different type of transaction -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertNotEquals(findFirstCommand, findSecondCommand);
 
         // different supplier name list -> returns false
-        assertFalse(findFirstCommand.equals(findThirdCommand));
+        assertNotEquals(findFirstCommand, findThirdCommand);
 
         // different good name list -> returns false
-        assertFalse(findFirstCommand.equals(findFourthCommand));
+        assertNotEquals(findFirstCommand, findFourthCommand);
     }
 
     @Test
@@ -111,7 +110,7 @@ public class FindTransactionCommandTest {
     }
 
     @Test
-    public void execute_doesNotCallModelCommit() throws CommandException {
+    public void execute_doesNotCallModelCommit() {
         ModelStubCommit modelStub = new ModelStubCommit();
         new FindTransactionCommand(prepareSupplierPredicate("commit")).execute(modelStub);
 

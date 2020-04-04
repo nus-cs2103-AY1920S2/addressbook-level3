@@ -1,6 +1,8 @@
 package seedu.address.model.transaction;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.FindTransactionCommandParser.TransactionType.BUY_TRANSACTION;
 import static seedu.address.logic.parser.FindTransactionCommandParser.TransactionType.EMPTY;
@@ -47,30 +49,30 @@ public class TransactionContainKeywordsPredicateTest {
     public void equalsTest() {
 
         // same object -> returns true
-        assertTrue(BUY_PREDICATE.equals(BUY_PREDICATE));
+        assertEquals(BUY_PREDICATE, BUY_PREDICATE);
 
         // same values -> returns true
         TransactionContainKeywordsPredicate copy =
                 new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
                         EMPTY_LIST, EMPTY_LIST);
-        assertTrue(BUY_PREDICATE.equals(copy));
+        assertEquals(BUY_PREDICATE, copy);
 
         // different types -> returns false
-        assertFalse(BUY_PREDICATE.equals(1));
+        assertNotEquals(1, BUY_PREDICATE);
 
         // null -> returns false
         assertFalse(BUY_PREDICATE.equals(null));
 
         // different transaction type -> returns false
-        assertFalse(BUY_PREDICATE.equals(SELL_PREDICATE));
+        assertNotEquals(BUY_PREDICATE, SELL_PREDICATE);
 
         // different supplier names
-        assertFalse(BUY_PREDICATE.equals(new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                FIRST_SUPPLIER_LIST, EMPTY_LIST)));
+        assertNotEquals(BUY_PREDICATE, new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
+                FIRST_SUPPLIER_LIST, EMPTY_LIST));
 
         // different good names
-        assertFalse(BUY_PREDICATE.equals(new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                EMPTY_LIST, FIRST_GOOD_LIST)));
+        assertNotEquals(BUY_PREDICATE, new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
+                EMPTY_LIST, FIRST_GOOD_LIST));
     }
 
     @Test
@@ -140,18 +142,19 @@ public class TransactionContainKeywordsPredicateTest {
                 .withGood(APPLE).build()));
 
         // Non-matching supplier keyword
-        predicate = new TransactionContainKeywordsPredicate(EMPTY, Arrays.asList("James"), EMPTY_LIST);
+        predicate = new TransactionContainKeywordsPredicate(EMPTY, Collections.singletonList("James"), EMPTY_LIST);
         assertFalse(predicate.test(new BuyTransactionBuilder().withSupplier(
                 new SupplierBuilder().withName("Alice Lee").build()).build()));
 
         // only type of transaction matches, supplier name differs
-        predicate = new TransactionContainKeywordsPredicate(BUY_TRANSACTION, Arrays.asList("James"), EMPTY_LIST);
+        predicate = new TransactionContainKeywordsPredicate(BUY_TRANSACTION, Collections.singletonList("James"),
+                EMPTY_LIST);
         assertFalse(predicate.test(new BuyTransactionBuilder().withSupplier(
                 new SupplierBuilder().withName("Alice Lee").build()).build()));
 
         // supplier name and type of transaction match, good name differs
         predicate = new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                Arrays.asList("James"), Arrays.asList("Orange"));
+                Collections.singletonList("James"), Collections.singletonList("Orange"));
         assertFalse(predicate.test(new BuyTransactionBuilder()
                 .withSupplier(new SupplierBuilder().withName("Alice Lee").build())
                 .withGood(new GoodBuilder().withGoodName("Fuji Apple").build())
@@ -159,7 +162,7 @@ public class TransactionContainKeywordsPredicateTest {
 
         // suppler name and good name match, type of transaction differs
         predicate = new TransactionContainKeywordsPredicate(SELL_TRANSACTION,
-                Arrays.asList("Alice"), Arrays.asList("Apple"));
+                Collections.singletonList("Alice"), Collections.singletonList("Apple"));
         assertFalse(predicate.test(new BuyTransactionBuilder()
                 .withSupplier(new SupplierBuilder().withName("Alice Lee").build())
                 .withGood(new GoodBuilder().withGoodName("Fuji Apple").build())
@@ -167,7 +170,7 @@ public class TransactionContainKeywordsPredicateTest {
 
         // type of transaction and good name match, suppler name differs
         predicate = new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
-                Arrays.asList("Bob"), Arrays.asList("Apple"));
+                Collections.singletonList("Bob"), Collections.singletonList("Apple"));
         assertFalse(predicate.test(new BuyTransactionBuilder()
                 .withSupplier(new SupplierBuilder().withName("Alice Lee").build())
                 .withGood(new GoodBuilder().withGoodName("Fuji Apple").build())
