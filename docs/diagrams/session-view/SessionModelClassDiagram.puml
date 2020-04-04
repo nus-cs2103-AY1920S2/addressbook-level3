@@ -20,6 +20,7 @@ class UniqueModuleList
 }
 }
 
+TaTracker --> "1 " UniqueModuleList
 TaTracker --> "1 " UniqueSessionList
 
 UniqueModuleList -right-> "*" Module
