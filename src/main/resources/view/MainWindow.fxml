@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root maxHeight="600.0" minHeight="600.0" minWidth="600.0" onCloseRequest="#handleExit" title="Naggy Joel" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="600.0" minHeight="600.0" minWidth="1000.0" onCloseRequest="#handleExit" title="Naggy Joel" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -52,17 +52,17 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                       </padding>
                     </VBox>
-                   <StackPane fx:id="personListPanelPlaceholder" minHeight="162.0" minWidth="291.0" prefHeight="568.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                   <StackPane fx:id="personListPanelPlaceholder" layoutX="24.0" minHeight="162.0" minWidth="200.0" prefHeight="568.0" prefWidth="341.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane maxHeight="599.0" minHeight="450.0" minWidth="189.0" prefHeight="568.0" prefWidth="122.0" SplitPane.resizableWithParent="false">
                      <children>
-                        <VBox fx:id="personCard" minHeight="400.0" minWidth="165.0" prefHeight="568.0" prefWidth="189.33333333333334" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="personCard" minHeight="400.0" minWidth="165.0" prefHeight="568.0" prefWidth="165" styleClass="pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                           </padding>
                         </VBox>
-                        <StackPane fx:id="personListPanelPlaceholder2" layoutX="-51.0" layoutY="128.0" maxHeight="600.0" maxWidth="300.0" minHeight="556.0" minWidth="160.0" prefHeight="568.0" prefWidth="189.33333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <StackPane fx:id="personListPanelPlaceholder2" layoutX="-51.0" layoutY="128.0" maxHeight="600.0" maxWidth="300.0" minHeight="556.0" minWidth="160.0" prefHeight="568.0" prefWidth="300" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
