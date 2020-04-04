@@ -52,16 +52,28 @@ public class ProgressManager extends BaseManager {
     }
 
     public static Set<Progress> getProgress(ID courseID, ID studentID) throws CommandException {
-        Set<Progress> allProgressOfStudentInOneCourse = new HashSet<>();
+        Set<Progress> allProgressOfOneStudentInOneCourse = new HashSet<>();
 
         Set<ID> setOfAssignmentIDs = model.getCourse(courseID).getAssignedAssignmentsID();
 
         for (ID assignmentID : setOfAssignmentIDs) {
             Progress curr = get(assignmentID, studentID);
-            allProgressOfStudentInOneCourse.add(curr);
+            allProgressOfOneStudentInOneCourse.add(curr);
         }
 
-        return allProgressOfStudentInOneCourse;
+        return allProgressOfOneStudentInOneCourse;
+    }
+
+    public static Set<Progress> getAllProgressOfOneCourse(ID courseID) throws CommandException {
+        Set<Progress> allProgressOfStudentsInOneCourse = new HashSet<>();
+
+        Set<ID> setOfStudentIDs = model.getCourse(courseID).getAssignedStudentsID();
+
+        for (ID studentID : setOfStudentIDs) {
+            allProgressOfStudentsInOneCourse.addAll(getProgress(courseID, studentID));
+        }
+
+        return allProgressOfStudentsInOneCourse;
     }
 
     public static String getNumberOfProgressesDone(ID courseID, ID studentID) throws CommandException {
