@@ -26,6 +26,7 @@ import seedu.zerotoone.logic.parser.session.SkipCommandParser;
 import seedu.zerotoone.logic.parser.session.StartCommandParser;
 import seedu.zerotoone.logic.parser.session.StopCommandParser;
 import seedu.zerotoone.logic.parser.workout.WorkoutCommandParser;
+import seedu.zerotoone.ui.util.ViewType;
 
 /**
  * Parses user input.
@@ -79,4 +80,35 @@ public class ParserManager {
         }
     }
 
+    /**
+     * Parses view type for switching UI views.
+     * @param input full user input string.
+     * @return the view type.
+     * @throws ParseException if the user input does not conform the expected format.
+     */
+    public ViewType parseViewType(String input) throws ParseException {
+        final String[] command = input.trim().split(" ");
+        final String commandWord = command[0];
+
+        switch (commandWord) {
+        case "start":
+            return ViewType.SESSION_VIEW;
+
+        case "exercise":
+            return ViewType.EXERCISE_VIEW;
+
+        case "workout":
+            return ViewType.WORKOUT_VIEW;
+
+        case "schedule":
+            return ViewType.SCHEDULE_VIEW;
+
+        case "log":
+            return ViewType.LOG_VIEW;
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+
+    }
 }

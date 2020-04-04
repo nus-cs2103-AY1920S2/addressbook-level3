@@ -12,6 +12,7 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.ui.util.ViewType;
 
 /**
  * API of the Logic component
@@ -25,6 +26,14 @@ public interface Logic extends WorkoutLogic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Retrieves the view type of the command.
+     * @param commandText The command as entered by the user.
+     * @return the view type.
+     * @throws ParseException If an error occurs during parsing.
+     */
+    ViewType getViewType(String commandText) throws ParseException;
 
     // -----------------------------------------------------------------------------------------
     // Common
