@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -18,11 +19,17 @@ public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
-    @javafx.fxml.FXML
+    @FXML
     private ListView<Event> eventListView;
+
+    @FXML
+    private Label title;
 
     public EventListPanel(ObservableList<Event> eventList) {
         super(FXML);
+
+        title.setText("Upcoming events:");
+
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
