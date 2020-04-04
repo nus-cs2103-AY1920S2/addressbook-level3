@@ -1,8 +1,8 @@
 package seedu.address.model.profile.course.module.personal;
 
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
-
 import java.util.ArrayList;
+
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 /**
  * DeadlineList contains the list of deadlines and methods for the list.
@@ -45,6 +45,11 @@ public class DeadlineList {
         list.add(deadline);
     }
 
+    /**
+     * Removes Deadline {@code Deadline} specified by user
+     * @param deadline To be removed
+     * @throws DeadlineNotFoundException if the deadline cannot be found
+     */
     public void deleteDeadline(Deadline deadline) throws DeadlineNotFoundException {
         if (!list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()))) {
             throw new DeadlineNotFoundException();

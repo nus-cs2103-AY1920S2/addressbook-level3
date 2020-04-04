@@ -1,8 +1,8 @@
 package seedu.address.model.profile.course.module.personal;
 
-import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
-
 import java.util.List;
+
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 /**
  * A wrapper class to contain attributes of a Module specific to a particular student.

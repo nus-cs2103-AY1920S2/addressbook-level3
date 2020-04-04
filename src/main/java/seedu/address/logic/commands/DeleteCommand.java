@@ -16,7 +16,7 @@ import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.exceptions.*;
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 /**
  * Deletes a profile identified using it's displayed index from the address book.
