@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -10,6 +11,10 @@
       <padding>
         <Insets bottom="5" left="5" />
       </padding>
+      <minWidth>
+          <!-- Ensures that the label text is never truncated -->
+          <Region fx:constant="USE_PREF_SIZE" />
+      </minWidth>
   </Label>
   <ListView fx:id="bdayListView" VBox.vgrow="ALWAYS" />
 </VBox>
