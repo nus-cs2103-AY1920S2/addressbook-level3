@@ -99,7 +99,7 @@ Examples:
 * `(ab)add n/Akshay g/NUS`
 * `(ab)add n/Joel HH e/joel@yahoo.com.sg p/12345678 o/NUS a/Pasir Ris St. 71, Blk 123, #01-79`
 * `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 b/02-12 o/NUS`
-* `(ab)add n/ Benjamin t/CS2103`
+* `(ab)add n/Benjamin t/CS2103`
 
 ==== Deleting a person : `(ab)delete`
 
@@ -320,9 +320,9 @@ Adds a new assignment to your list of assignments and projects. +
 Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 ****
-* DEADLINE must be entered in a yyyy-mm-dd HH:mm format.
-* DEADLINE cannot be one that has already passed.
-* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment.
+* DEADLINE must be entered in a yyyy-mm-dd HH:mm format and cannot be one that has already passed.
+* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
+* You will not be able to add two assignments with both the same name and deadline.
 ****
 
 Examples:
@@ -330,13 +330,25 @@ Examples:
 * `(st)add t/CS2103 post lecture quiz d/2020-02-11 23:59 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
 
-==== [Coming Soon] Delete assignment: `(st)delete`
+==== Delete assignment: `(st)delete`
 
 Deletes an assignment. +
 Format: `(st)delete INDEX`
 
 ****
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see below).
+****
+
+==== Edits an assignment: `(st)edit`
+
+Marks an assignment as completed. +
+Format: `(st)edit INDEX [t/TITLE] [e/ESTIMATED_COMPLETION_TIME] [d/DEADLINE] [s/STATUS]`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see below).
+* DEADLINE must be entered in a yyyy-mm-dd HH:mm format and cannot be one that has already passed.
+* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
+* At least one optional field needs to be specified.
 ****
 
 ==== List current assignments: `(st)list`
@@ -346,15 +358,6 @@ Format: `(st)list [-d/DEADLINE] [-e/ESTIMATED_COMPLETION_TIME]`
 
 ****
 * Only 1 field can be specified at each time
-****
-
-==== Mark assignment as completed: `(st)done`
-
-Marks an assignment as completed. +
-Format: `(st)done INDEX`
-
-****
-* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see above).
 ****
 
 ==== Visualise the intensity of your upcoming schedule: `(st)schedule`
