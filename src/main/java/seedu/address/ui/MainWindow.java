@@ -1,11 +1,8 @@
 package seedu.address.ui;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -22,15 +19,14 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.ui.uiAssignments.AssignmentDetailedPanel;
 import seedu.address.ui.uiAssignments.AssignmentListPanel;
 import seedu.address.ui.uiCourse.CourseListPanel;
+import seedu.address.ui.uiFinance.FinanceDetailedPanel;
 import seedu.address.ui.uiFinance.FinanceListPanel;
+import seedu.address.ui.uiStaff.StaffDetailedPanel;
 import seedu.address.ui.uiStaff.StaffListPanel;
+import seedu.address.ui.uiStudent.CourseDetailedPanel;
 import seedu.address.ui.uiStudent.StudentDetailedPanel;
 import seedu.address.ui.uiStudent.StudentListPanel;
 
@@ -56,6 +52,10 @@ public class MainWindow extends UiPart<Stage> {
   private SummaryPanel summaryPanel;
 
   private StudentDetailedPanel studentDetailedPanel;
+  private StaffDetailedPanel staffDetailedPanel;
+  private CourseDetailedPanel courseDetailedPanel;
+  private FinanceDetailedPanel financeDetailedPanel;
+  private AssignmentDetailedPanel assignmentDetailedPanel;
 
   private ResultDisplay resultDisplay;
   private HelpWindow helpWindow;
@@ -184,18 +184,11 @@ public class MainWindow extends UiPart<Stage> {
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
     summaryPanel = new SummaryPanel();
 
-    HashMap<String, Object> studentDetailsMap = new HashMap<>();
-    Set<ID> assignedCourses = new HashSet<ID>();
-    assignedCourses.add(new ID("11"));
-    assignedCourses.add(new ID("12"));
-    Set<Tag> assignedTags = new HashSet<Tag>();
-    assignedTags.add(new Tag("Cool"));
-    assignedTags.add(new Tag("CS"));
-    Student fakeStudent = new Student(new Name("Tommy"), new ID("9999999999"), assignedCourses, assignedTags);
-    fakeStudent.processAssignedCourses((FilteredList<Course>) logic.getFilteredCourseList());
-    studentDetailsMap.put("details", fakeStudent);
-    studentDetailsMap.put("courses", logic.getFilteredCourseList());
-    studentDetailedPanel = new StudentDetailedPanel( studentDetailsMap, commandBox);
+    studentDetailedPanel = new StudentDetailedPanel(new HashMap<String, Object>(), commandBox);
+    staffDetailedPanel = new StaffDetailedPanel(new HashMap<String, Object>(), commandBox);
+    courseDetailedPanel = new CourseDetailedPanel(new HashMap<String, Object>(), commandBox);
+    financeDetailedPanel = new FinanceDetailedPanel(new HashMap<String, Object>(), commandBox);
+    assignmentDetailedPanel = new AssignmentDetailedPanel(new HashMap<String, Object>(), commandBox);
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     extraListPanelPlaceholder.getChildren().add(studentDetailedPanel.getRoot());
@@ -286,8 +279,6 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToStudent() {
-    logic.updateObservedDataFilteredStudentList(logic.getDataStudentPredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
@@ -300,8 +291,6 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToStaff() {
-    logic.updateObservedDataFilteredStaffList(logic.getDataStaffPredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
@@ -314,8 +303,6 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToCourse() {
-    logic.updateObservedDataFilteredCourseList(logic.getDataCoursePredicate());
-    logic.updateObservedDataFilteredStudentList(logic.getExtraStudentPredicate());
     //Enable extra List
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
@@ -328,11 +315,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToFinance() {
-    logic.updateObservedDataFilteredFinanceList(logic.getDataFinancePredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraStudentCoursePredicate());
     //Disable extra List
-    extraListPanelPlaceholder.setMaxSize(0.0,0.0);
-    extraListPanelPlaceholder.setVisible(false);
+    extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
     currentView = "FINANCE";
     switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
   }
@@ -342,11 +327,9 @@ public class MainWindow extends UiPart<Stage> {
    */
   @FXML
   private void handleSwitchToAssignment() {
-    logic.updateObservedDataFilteredAssignmentList(logic.getDataAssignmentPredicate());
-    logic.updateObservedDataFilteredCourseList(logic.getExtraStaffCoursePredicate());
     //Disable extra List
-    extraListPanelPlaceholder.setMaxSize(0.0,0.0);
-    extraListPanelPlaceholder.setVisible(false);
+    extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
+    extraListPanelPlaceholder.setVisible(true);
     currentView = "ASSIGNMENT";
     switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
   }
