@@ -34,12 +34,11 @@ public class CalenderListPanel extends UiPart<Region> {
         protected void updateItem(Task deadline, boolean empty) {
             for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
                 calenderDate.setCircleNotVisible();
-                System.out.println("setting");
             }
             for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
                 if (Task.isTaskPresent(calenderDate.getDate())) {
                     calenderDate.setCircleVisible();
-                    System.out.println("here");
+
                 }
             }
             super.updateItem(deadline, empty);
