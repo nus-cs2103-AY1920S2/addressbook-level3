@@ -12,11 +12,13 @@ public class ScheduledWorkout {
     private final Schedule schedule;
     private final Workout workoutToSchedule;
     private final DateTime dateTime;
+    private final DateTime dateTimeNow;
 
-    public ScheduledWorkout(Schedule schedule, Workout workoutToSchedule, DateTime dateTime) {
+    public ScheduledWorkout(Schedule schedule, Workout workoutToSchedule, DateTime dateTime, DateTime dateTimeNow) {
         this.schedule = schedule;
         this.workoutToSchedule = workoutToSchedule;
         this.dateTime = dateTime;
+        this.dateTimeNow = dateTimeNow;
     }
 
     public static Comparator<ScheduledWorkout> getComparator() {
@@ -38,6 +40,10 @@ public class ScheduledWorkout {
 
     public DateTime getDateTime() {
         return dateTime;
+    }
+
+    public Boolean isOutDated() {
+        return dateTime.compareTo(dateTimeNow) < 0;
     }
 
     /**

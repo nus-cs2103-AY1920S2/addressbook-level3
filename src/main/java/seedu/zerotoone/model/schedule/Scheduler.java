@@ -80,7 +80,7 @@ public class Scheduler {
      */
     private void populateSortedScheduledWorkoutList() {
         List<ScheduledWorkout> newScheduledWorkouts = scheduleList.getScheduleList().stream()
-                .map(Schedule::getScheduledWorkout)
+                .map((Schedule schedule) -> schedule.getScheduledWorkout(DateTime.now()))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .flatMap(Collection::stream)

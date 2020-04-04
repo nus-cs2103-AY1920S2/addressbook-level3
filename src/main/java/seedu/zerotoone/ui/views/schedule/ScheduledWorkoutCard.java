@@ -4,6 +4,7 @@ import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
@@ -23,12 +24,17 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
     private Label scheduledWorkoutName;
     @FXML
     private Label dateTime;
+    @FXML
+    private FlowPane tags;
 
     public ScheduledWorkoutCard(ScheduledWorkout scheduledWorkout, int displayedIndex) {
         super(FXML);
         scheduledWorkoutId.setText(String.format("%d. ", displayedIndex));
         scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName());
         dateTime.setText(getPrettyDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
+        if (scheduledWorkout.isOutDated()) {
+            tags.getChildren().add(new Label("outdated"));
+        }
     }
 
     @Override

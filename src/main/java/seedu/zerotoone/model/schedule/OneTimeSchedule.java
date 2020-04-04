@@ -1,5 +1,8 @@
 package seedu.zerotoone.model.schedule;
 
+import javax.swing.text.html.Option;
+
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +32,9 @@ public class OneTimeSchedule implements Schedule {
     }
 
     @Override
-    public Optional<List<ScheduledWorkout>> getScheduledWorkout() {
-        ScheduledWorkout scheduledWorkout = new ScheduledWorkout(this, workoutToSchedule, dateTime);
-        return Optional.of(Collections.singletonList(scheduledWorkout));
+    public Optional<List<ScheduledWorkout>> getScheduledWorkout(DateTime now) {
+        return Optional.of(
+                Collections.singletonList(new ScheduledWorkout(this, workoutToSchedule, dateTime, now)));
     }
 
     @Override
@@ -45,12 +48,12 @@ public class OneTimeSchedule implements Schedule {
         }
 
         OneTimeSchedule otherSchedule = (OneTimeSchedule) other;
-        return otherSchedule.getScheduledWorkout().equals(getScheduledWorkout())
+        return otherSchedule.workoutToSchedule.equals(workoutToSchedule)
                 && otherSchedule.getDateTime().equals(getDateTime());
     }
 
     @Override
     public String toString() {
-        return workoutToSchedule.getWorkoutName() + " on " + dateTime.toString();
+        return workoutToSchedule.getWorkoutName() + " at " + dateTime.toString();
     }
 }
