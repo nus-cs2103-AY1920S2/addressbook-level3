@@ -31,15 +31,19 @@ public interface Model {
   Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
   Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
   Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+  Predicate<Progress> PREDICATE_SHOW_ALL_PROGRESSES = unused -> true;
 
-    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
+
+  Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
     Predicate<Staff> PREDICATE_HIDE_ALL_STAFFS = unused -> false;
     Predicate<Student> PREDICATE_HIDE_ALL_STUDENTS = unused -> false;
     Predicate<Finance> PREDICATE_HIDE_ALL_FINANCES = unused -> false;
     Predicate<Course> PREDICATE_HIDE_ALL_COURSES = unused -> false;
     Predicate<Assignment> PREDICATE_HIDE_ALL_ASSIGNMENTS = unused -> false;
+    Predicate<Progress> PREDICATE_HIDE_ALL_PROGRESSES = unused -> false;
 
-    String COURSE_ENTITY_NAME = "course";
+
+  String COURSE_ENTITY_NAME = "course";
 
     public MainWindow getMainWindow();
 

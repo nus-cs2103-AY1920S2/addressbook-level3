@@ -303,6 +303,12 @@ public class ModelManager extends BaseManager implements Model {
           PREDICATE_SHOW_ALL_ASSIGNMENTS,
           filteredAssignments,
           Constants.ENTITY_TYPE.ASSIGNMENT);
+    } else if (obj instanceof Progress) {
+      return Arrays.asList(
+              this.progressAddressBook,
+              PREDICATE_SHOW_ALL_PROGRESSES,
+              filteredProgresses,
+              Constants.ENTITY_TYPE.PROGRESS);
     }
     throw new CommandException(
         "This command is accessing non-existent entity or entity not extending from ModelObject");

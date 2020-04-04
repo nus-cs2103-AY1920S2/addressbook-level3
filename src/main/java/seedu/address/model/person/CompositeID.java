@@ -1,6 +1,12 @@
 package seedu.address.model.person;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
+
 import java.util.HashMap;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
 /**
  * Represents a composite ID for objects without a field as primary key
@@ -9,10 +15,26 @@ import java.util.HashMap;
 
 
 public class CompositeID extends ID {
-    public final HashMap<String, ID> ids;
+    public final HashMap<Prefix, ID> ids;
 
-    public CompositeID(HashMap<String, ID> ids) {
+    public CompositeID(HashMap<Prefix, ID> ids) {
         this.ids = ids;
+    }
+
+    public ID getStudentID() throws CommandException {
+        if(!ids.containsKey(PREFIX_STUDENTID)) {
+            throw new CommandException("ProgressID does not contain StudentID - is invalid ProgressID!");
+        } else {
+            return ids.get(PREFIX_STUDENTID);
+        }
+   }
+
+    public ID getAssignmentID() throws CommandException {
+        if(!ids.containsKey(PREFIX_ASSIGNMENTID)) {
+            throw new CommandException("ProgressID does not contain AssignmentID - is invalid ProgressID!");
+        } else {
+            return ids.get(PREFIX_ASSIGNMENTID);
+        }
     }
 
     @Override
