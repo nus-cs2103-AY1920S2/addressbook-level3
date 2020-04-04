@@ -269,8 +269,46 @@ re-store the quantity & sales of the original product, and then
 and update the quantity & sales of the new product.
 ** Pros: Straightforward logic, not likely to create bugs.
 ** Cons: Validation checking would be very complex.
-
 // end::managetransaction[]
+
+// tag::getprofitrevenue[]
+=== Add delete/edit/clear/list/find <<customer,customer>>/<<product,product>> feature
+The manage product mechanism is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+Then the `RevenueCommandParser/ProfitCommandParser` parses the user input arguments into Command objects.
+The resulting `RevenueCommand/ProfitCommand` is executed by the LogicManager.
+The command execution calculates the revenue/profit depending on the command.
+The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
+
+The following commands are available to be parsed by InventorySystemParser:
+
+* `RevenueCommand`
+- Gets the revenue made in a selected period.
+* `ProfitCommand`
+- Gets the profit made in a selected period.
+
+The commands all inherit from superclass `Command` and require command parsers to parse the user input arguments.
+
+The following sequence diagram shows how the profit operation works:
+
+image::ProfitSequenceDiagram.png[]
+The revenue operation works in the same way as the profit operation.
+
+The following activity diagram summarizes what happens when a user executes a command that changes the customer/product list in the model:
+
+image::ProductActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How commands are executed
+
+* **Alternative 1 (current choice):** Calculate revenue/profit only when needed
+** Pros: Decreases coupling, easy to test
+** Cons: Need to keep calculating if command is frequently used (increase time complexity especially if transaction list is long)
+* **Alternative 2:** Keep track of revenue/profit in a singleton class
+** Pros: No need to calculate when revenue/profit command is executed (instead, revenue/profit is updated whenever a transaction is added or edited)
+** Cons: Hard to unit test, increase coupling
+// end::getprofitrevenue[]
 
 === Logging
 
