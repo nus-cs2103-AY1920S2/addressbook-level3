@@ -44,7 +44,7 @@ import seedu.address.logic.parser.product.DeleteProductCommandParser;
 import seedu.address.logic.parser.product.EditProductCommandParser;
 import seedu.address.logic.parser.product.FindProductCommandParser;
 import seedu.address.logic.parser.product.LowLimitCommandParser;
-import seedu.address.logic.parser.statistics.PlotProductSalesCommandParser;
+import seedu.address.logic.parser.product.PlotProductSalesCommandParser;
 import seedu.address.logic.parser.statistics.ProfitCommandParser;
 import seedu.address.logic.parser.statistics.RevenueCommandParser;
 import seedu.address.logic.parser.transaction.AddTransactionCommandParser;
