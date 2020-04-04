@@ -291,7 +291,7 @@ A: Download the jar in the other computer and copy the entire data folder over t
 
 == Command Summary
 
-The following section gives a quick summary of all the commands you can use in CookBuddy arranged in alphabetical order.
+The following section gives a quick summary of all the commands you can use in CookBuddy arranged in an alphabetical order.
 
 * `count`: *Counts the total number of recipes stored in CookBuddy*
 
