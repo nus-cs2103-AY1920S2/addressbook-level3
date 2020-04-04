@@ -204,7 +204,13 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the TA-Tracker data.
-* exposes an unmodifiable `ObservableList<Student>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes 5 unmodifiable `ObservableLists<>`:
+. `filteredStudentList`, an `ObservableList<Student>` that contains all the Students in the TA-Tracker.
+. `filteredSessionList`, an `ObservableList<Session>` that contains all the Sessions in the TA-Tracker that have not been marked as done.
+. `filteredDoneSessionList`, an `ObservableList<Session> that contains all the Sessions in the TA-Tracker that have been marked as done.
+. `filteredModuleList`, an `ObservableList<Module>` that contains all the Modules in the TA-Tracker.
+. `filteredGroupList`, an `ObservableList<Group>` that contains all the Groups in the TA-Tracker.
+* these lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
