@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCRIPTION;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
 
 import java.util.List;
 
