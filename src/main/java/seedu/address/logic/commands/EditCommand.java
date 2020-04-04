@@ -200,6 +200,15 @@ public class EditCommand extends Command {
             }
             if (courseName != null) {
                 profileToEdit.setCourse(courseName);
+
+                // If specialisation is not edited, make sure old specialisation is valid for the new course
+                if (specialisationString == null) {
+                    Specialisation oldSpecialisation = profileToEdit.getSpecialisation();
+                    if (!oldSpecialisation.isValid(courseName, oldSpecialisation.toString())) {
+                        specialisationString = "UNDECIDED";
+                    }
+                }
+
             }
             if (updatedSemester != 0) {
                 profileToEdit.setCurrentSemester(updatedSemester);

@@ -85,9 +85,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             return new EditCommand(moduleCode, intSemester, grade, oldTask, newTask, newDeadline);
         } else { // EDIT PROFILE
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-            } else if (!arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
                     && !arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)
                     && !arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

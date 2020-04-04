@@ -52,6 +52,8 @@ public class NewCommandParser implements Parser<NewCommand> {
         Specialisation specialisation = null;
         if (arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
             specialisation = ParserUtil.parseSpecialisation(courseName, argMultimap.getValue(PREFIX_SPEC).get());
+        } else {
+            specialisation = ParserUtil.parseSpecialisation(courseName, "UNDECIDED");
         }
 
         Profile profile = new Profile(name, courseName, currentSemester, specialisation);
