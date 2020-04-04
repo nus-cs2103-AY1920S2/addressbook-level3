@@ -18,7 +18,7 @@ public class ProgressBuilder {
     public static final String DEFAULT_AID = "80";
     public static final String DEFAULT_SID = "1";
 
-    public static final String DEFAULT_ISDONE = "true";
+    public static final String DEFAULT_ISDONE = "false";
 
 
     private CompositeID id;
