@@ -104,7 +104,12 @@ public interface Model {
     boolean hasStaff(ID staffID);
 
     Staff getStaff(ID staffID);
-    /**
+
+    boolean hasProgress(ID assignmentID, ID studentID) throws CommandException;
+
+    Progress getProgress(ID assignmentID, ID studentID) throws CommandException;
+
+  /**
      * Returns the AddressBook
      */
     ReadOnlyAddressBook getAddressBook();

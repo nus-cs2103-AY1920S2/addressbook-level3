@@ -1,5 +1,7 @@
 package seedu.address.model.modelProgress;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.CompositeID;
 import seedu.address.model.person.Deadline;
@@ -98,16 +100,26 @@ public class Progress extends ModelObject {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("\n")
-            .append("Progress: ")
-            .append("\n")
-            .append("Mapping: ")
-            .append(getId());
+    try {
+      ID studentID = getId().getStudentID();
+      ID assignmentID = getId().getAssignmentID();
 
-    if(isDone) {
-      builder.append("[O]");
-    } else {
-      builder.append("[X]");
+      builder.append("\n")
+              .append("StudentID: ")
+              .append(studentID.toString())
+              .append("\n")
+              .append("AssignmentID: ")
+              .append(assignmentID.toString())
+              .append("\n")
+              .append("Done: ");
+
+      if(isDone) {
+        builder.append("[O]");
+      } else {
+        builder.append("[X]");
+      }
+    } catch (CommandException e) {
+      e.printStackTrace();
     }
     return builder.toString();
   }

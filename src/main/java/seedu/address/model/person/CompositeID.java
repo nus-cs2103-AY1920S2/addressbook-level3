@@ -21,6 +21,13 @@ public class CompositeID extends ID {
         this.ids = ids;
     }
 
+    public CompositeID(ID assignmentID, ID studentID) throws CommandException {
+        ids = new HashMap<>();
+        addAssignmentID(assignmentID);
+        addStudentID(studentID);
+    }
+
+
     public ID getStudentID() throws CommandException {
         if(!ids.containsKey(PREFIX_STUDENTID)) {
             throw new CommandException("ProgressID does not contain StudentID - is invalid ProgressID!");
@@ -36,6 +43,23 @@ public class CompositeID extends ID {
             return ids.get(PREFIX_ASSIGNMENTID);
         }
     }
+
+    private void addStudentID(ID studentID) throws CommandException {
+        if(ids.containsKey(PREFIX_STUDENTID)) {
+            throw new CommandException("ID_ALREADY_EXISTS");
+        } else {
+            ids.put(PREFIX_STUDENTID, studentID);
+        }
+    }
+
+    private void addAssignmentID(ID assignmentID) throws CommandException {
+        if(ids.containsKey(PREFIX_ASSIGNMENTID)) {
+            throw new CommandException("ID_ALREADY_EXISTS");
+        } else {
+            ids.put(PREFIX_ASSIGNMENTID, assignmentID);
+        }
+    }
+
 
     @Override
     public String toString() {
