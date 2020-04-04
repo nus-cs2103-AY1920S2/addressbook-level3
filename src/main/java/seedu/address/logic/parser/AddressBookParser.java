@@ -68,9 +68,6 @@ public class AddressBookParser {
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
 
-        case DoneCommand.COMMAND_WORD:
-            return new DoneCommandParser().parse(arguments);
-
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommandParser().parse(arguments);
 

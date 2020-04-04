@@ -36,7 +36,7 @@ public class EditAssignmentDescriptor {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(title, workload, deadline);
+        return CollectionUtil.isAnyNonNull(title, workload, deadline, status);
     }
 
     public void setTitle(Title title) {
@@ -81,7 +81,7 @@ public class EditAssignmentDescriptor {
         Title updatedTitle = getTitle().orElse(assignmentToEdit.getTitle());
         Workload updatedWorkload = getWorkload().orElse(assignmentToEdit.getWorkload());
         Deadline updatedDeadline = getDeadline().orElse(assignmentToEdit.getDeadline());
-        Status updatedStatus = assignmentToEdit.getStatus();
+        Status updatedStatus = getStatus().orElse(assignmentToEdit.getStatus());
 
         return new Assignment(updatedTitle, updatedDeadline, updatedWorkload, updatedStatus);
     }
@@ -103,6 +103,7 @@ public class EditAssignmentDescriptor {
 
         return getTitle().equals(e.getTitle())
             && getWorkload().equals(e.getWorkload())
-            && getDeadline().equals(e.getDeadline());
+            && getDeadline().equals(e.getDeadline())
+            && getStatus().equals(e.getStatus());
     }
 }

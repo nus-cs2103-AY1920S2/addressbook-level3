@@ -7,7 +7,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 /**
  * Parsers input commands and creates a new EditAssignmentCommand.
@@ -21,7 +24,7 @@ public class EditAssignmentCommandParser implements Parser<EditAssignmentCommand
     public EditAssignmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DEADLINE, PREFIX_ESTHOURS);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DEADLINE, PREFIX_ESTHOURS, PREFIX_STATUS);
 
         Index index;
 
@@ -40,6 +43,9 @@ public class EditAssignmentCommandParser implements Parser<EditAssignmentCommand
         }
         if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
             editAssignmentDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            editAssignmentDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
 
         if (!editAssignmentDescriptor.isAnyFieldEdited()) {

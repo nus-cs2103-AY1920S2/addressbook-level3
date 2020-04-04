@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
@@ -24,15 +26,21 @@ public class EditAssignmentCommand extends Command {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_DEADLINE + "DEADLINE] "
-        + "[" + PREFIX_ESTHOURS + "ESTIMATED_HOURS]\n"
+        + "[" + PREFIX_ESTHOURS + "ESTIMATED_HOURS] "
+        + "[" + PREFIX_STATUS + "STATUS]\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_TITLE + "CS2103 tP"
         + PREFIX_DEADLINE + "2020-11-11 23:59"
-        + PREFIX_ESTHOURS + "5.0";
+        + PREFIX_ESTHOURS + "5.0"
+        + PREFIX_STATUS + "Completed";
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the scheduler.";
+    public static final String MESSAGE_ALREADY_DONE =
+        "This assignment has already been completed, don't try to cheat me! Good Luck!! =)";
+    public static final String MESSAGE_UPDATE_STATUS_SUCCESS =
+        "The status of %1$s have been updated! You have one less assignment now!! ^^";
 
     private final Index index;
     private final EditAssignmentDescriptor editAssignmentDescriptor;
@@ -67,6 +75,7 @@ public class EditAssignmentCommand extends Command {
 
         model.setAssignment(assignmentToEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment), false, false,
             false, true, false, false, false, false);
     }
