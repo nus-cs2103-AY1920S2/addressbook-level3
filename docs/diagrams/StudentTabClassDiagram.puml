@@ -12,6 +12,10 @@ Class MainWindow
 package StudentTab{
 Class StudentListPanel
 Class StudentCard
+Class ModuleListPanel
+Class ModuleCard
+Class GroupListPanel
+Class GroupCard
 }
 }
 
@@ -29,15 +33,25 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow *-right-> StudentListPanel
+MainWindow *-right-> ModuleListPanel
+MainWindow *-right-> GroupListPanel
 
 StudentListPanel -down-> StudentCard
+ModuleListPanel -down-> ModuleCard
+GroupListPanel -down-> GroupCard
 
 MainWindow -left-|> UiPart
 
 StudentListPanel --|> UiPart
-StudentCard -right-|> UiPart
+StudentCard -down-|> UiPart
+ModuleListPanel --|> UiPart
+ModuleCard -down-|> UiPart
+GroupListPanel --|> UiPart
+GroupCard -down-|> UiPart
 
 StudentCard ..> Model
+ModuleCard ..> Model
+GroupCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
