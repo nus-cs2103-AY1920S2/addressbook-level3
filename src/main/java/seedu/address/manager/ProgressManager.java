@@ -62,4 +62,20 @@ public class ProgressManager extends BaseManager {
 
         return allProgressOfStudentInOneCourse;
     }
+
+    public static String getNumberOfProgressesDone(ID courseID, ID studentID) {
+        Set<Progress> allProgresses = ProgressManager.getProgress(ID courseID, ID studentID);
+        String output = "%s : %s";
+        int totalNumProgresses = allProgresses.size();
+
+        int doneCount = 0;
+
+        for (Progress progress : allProgresses) {
+            if(progress.getIsDone()) {
+                doneCount++;
+            }
+        }
+
+        return String.format(output, doneCount, totalNumProgresses);
+    }
 }
