@@ -14,6 +14,7 @@ import seedu.address.logic.EditAssignmentDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.TitleComparator;
 
 import java.util.List;
 
@@ -37,10 +38,6 @@ public class EditAssignmentCommand extends Command {
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the scheduler.";
-    public static final String MESSAGE_ALREADY_DONE =
-        "This assignment has already been completed, don't try to cheat me! Good Luck!! =)";
-    public static final String MESSAGE_UPDATE_STATUS_SUCCESS =
-        "The status of %1$s have been updated! You have one less assignment now!! ^^";
 
     private final Index index;
     private final EditAssignmentDescriptor editAssignmentDescriptor;
@@ -76,7 +73,8 @@ public class EditAssignmentCommand extends Command {
         model.setAssignment(assignmentToEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment), false, false,
+        model.sortAssignment(new TitleComparator());
+        return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, assignmentToEdit), false, false,
             false, true, false, false, false, false);
     }
 

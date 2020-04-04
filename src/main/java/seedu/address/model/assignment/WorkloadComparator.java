@@ -8,9 +8,9 @@ import java.util.Comparator;
 public class WorkloadComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {
-        if (a1.getStatus().status.equals("Completed") && a2.getStatus().status.equals("Not completed")) {
+        if (a1.getStatus().status.equals(Status.ASSIGNMENT_DONE) && a2.getStatus().status.equals(Status.ASSIGNMENT_OUTSTANDING)) {
             return 1;
-        } else if (a2.getStatus().status.equals("Completed") && a1.getStatus().status.equals("Not completed")) {
+        } else if (a2.getStatus().status.equals(Status.ASSIGNMENT_DONE) && a1.getStatus().status.equals(Status.ASSIGNMENT_OUTSTANDING)) {
             return -1;
         } else {
             if (Float.parseFloat(a1.getWorkload().estHours) == Float.parseFloat(a2.getWorkload().estHours)) {

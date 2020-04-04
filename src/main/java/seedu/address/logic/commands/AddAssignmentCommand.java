@@ -8,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.TitleComparator;
+
+import java.util.Comparator;
 
 /**
  * Adds a new assignment to the Schoolwork Tracker.
@@ -48,6 +51,7 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
+        model.sortAssignment(new TitleComparator());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false,
                 false, true, false, false, false, false);
     }

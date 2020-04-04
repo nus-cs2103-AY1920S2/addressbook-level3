@@ -5,6 +5,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.TitleComparator;
 
 import java.util.List;
 
@@ -42,7 +43,9 @@ public class DeleteAssignmentCommand extends Command {
         Assignment assignmentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAssignment(assignmentToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, assignmentToDelete));
+        model.sortAssignment(new TitleComparator());
+        return new CommandResult(String.format(MESSAGE_DELETE_ASSIGNMENT_SUCCESS, assignmentToDelete), false, false,
+            false, true, false, false, false, false);
     }
 
     @Override
