@@ -12,6 +12,7 @@ import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.ExpenseLaParser;
 import seedu.expensela.logic.parser.exceptions.ParseException;
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
@@ -90,6 +91,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Path getGlobalDataFilePath() {
+        return model.getGlobalDataFilePath();
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }
@@ -100,12 +106,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Double getTotalBalance() {
+    public Balance getTotalBalance() {
         return model.getTotalBalance();
     }
 
     @Override
-    public void setTotalBalance(Double totalBalance) {
+    public void setTotalBalance(Balance totalBalance) {
         model.updateTotalBalance(totalBalance);
     }
 

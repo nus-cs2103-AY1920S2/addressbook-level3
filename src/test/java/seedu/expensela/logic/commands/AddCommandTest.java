@@ -16,8 +16,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Filter;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
@@ -113,6 +115,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getGlobalDataFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGlobalDataFilePath(Path expenseLaFilePath) {
+
+        }
+
+        @Override
         public void addTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
@@ -183,12 +195,23 @@ public class AddCommandTest {
         }
 
         @Override
-        public Double getTotalBalance() {
+        public GlobalData getGlobalData() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateTotalBalance(Double balance) {
+        public void setGlobalData(GlobalData globalData) {
+
+        }
+
+        @Override
+        public Balance getTotalBalance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void updateTotalBalance(Balance balance) {
         }
     }
 

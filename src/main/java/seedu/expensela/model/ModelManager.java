@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,16 +22,18 @@ import seedu.expensela.model.transaction.Transaction;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#.##");
 
     private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> unfilteredTransactions;
     private final Filter filter;
+    private final GlobalData globalData;
 
     /**
      * Initializes a ModelManager with the given expenseLa and userPrefs.
      */
-    public ModelManager(ReadOnlyExpenseLa expenseLa, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpenseLa expenseLa, ReadOnlyUserPrefs userPrefs, ReadOnlyGlobalData globalData) {
         super();
         requireAllNonNull(expenseLa, userPrefs);
 
@@ -40,11 +43,12 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         unfilteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         filter = this.expenseLa.getFilter();
+        this.globalData = new GlobalData(globalData);
         updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
     public ModelManager() {
-        this(new ExpenseLa(), new UserPrefs());
+        this(new ExpenseLa(), new UserPrefs(), new GlobalData());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -80,6 +84,17 @@ public class ModelManager implements Model {
     public void setExpenseLaFilePath(Path expenseLaFilePath) {
         requireNonNull(expenseLaFilePath);
         userPrefs.setExpenseLaFilePath(expenseLaFilePath);
+    }
+
+    @Override
+    public Path getGlobalDataFilePath() {
+        return userPrefs.getGlobalDataFilePath();
+    }
+
+    @Override
+    public void setGlobalDataFilePath(Path globalDataFilePath) {
+        requireNonNull(globalDataFilePath);
+        userPrefs.setGlobalDataFilePath(globalDataFilePath);
     }
 
     //=========== ExpenseLa ================================================================================
@@ -131,12 +146,16 @@ public class ModelManager implements Model {
             this.expenseLa.getMonthlyData()
                     .setIncome(new Income(Double.toString(
                             this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
-            userPrefs.setTotalBalance(userPrefs.getTotalBalance() + amount);
+            globalData.setTotalBalance(
+                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount + amount))
+            );
         } else {
             this.expenseLa.getMonthlyData()
                     .setExpense(new Expense(Double.toString(
                             this.expenseLa.getMonthlyData().getExpense().expenseAmount + amount)));
-            userPrefs.setTotalBalance(userPrefs.getTotalBalance() - amount);
+            globalData.setTotalBalance(
+                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount - amount))
+            );
         }
     }
 
@@ -183,8 +202,6 @@ public class ModelManager implements Model {
 
     }
 
-
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -201,7 +218,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return expenseLa.equals(other.expenseLa)
                 && userPrefs.equals(other.userPrefs)
-                && unfilteredTransactions.equals(other.unfilteredTransactions);
+                && unfilteredTransactions.equals(other.unfilteredTransactions)
+                && filter.equals(other.filter)
+                && globalData.equals(other.globalData);
     }
 
     //=========== Monthly Data Accessors =============================================================
@@ -235,14 +254,25 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
+    //=========== Global Data Accessors =============================================================
     @Override
-    public Double getTotalBalance() {
-        return userPrefs.getTotalBalance();
+    public GlobalData getGlobalData() {
+        return globalData;
     }
 
     @Override
-    public void updateTotalBalance(Double balance) {
-        userPrefs.setTotalBalance(balance);
+    public void setGlobalData(GlobalData globalData) {
+        this.globalData.resetData(globalData);
+    }
+
+    @Override
+    public Balance getTotalBalance() {
+        return globalData.getTotalBalance();
+    }
+
+    @Override
+    public void updateTotalBalance(Balance balance) {
+        globalData.setTotalBalance(balance);
     }
 
     //=========== Monthly Data Accessors =============================================================

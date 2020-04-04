@@ -46,6 +46,16 @@ public interface Model {
     void setExpenseLaFilePath(Path expenseLaFilePath);
 
     /**
+     * Returns the user global data file path.
+     */
+    Path getGlobalDataFilePath();
+
+    /**
+     * Sets the user global data file path.
+     */
+    void setGlobalDataFilePath(Path expenseLaFilePath);
+
+    /**
      * Replaces transaction list data with the data in {@code expenseLa}.
      */
     void setExpenseLa(ReadOnlyExpenseLa expenseLa);
@@ -104,13 +114,24 @@ public interface Model {
     void switchToggleView();
 
     /**
-     * Get Total balance of the user.
-     * @return
+     * Get Global data of the user.
+     * @return global data object
      */
-    Double getTotalBalance();
+    GlobalData getGlobalData();
+
+    /**
+     * Set Global data of the user.
+     */
+    void setGlobalData(GlobalData globalData);
+
+    /**
+     * Get Total balance of the user.
+     * @return balance object
+     */
+    Balance getTotalBalance();
 
     /**
      * Updates total balance of the user.
      */
-    void updateTotalBalance(Double balance);
+    void updateTotalBalance(Balance balance);
 }

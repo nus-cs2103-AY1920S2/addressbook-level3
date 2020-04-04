@@ -16,8 +16,8 @@ public class BudgetCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets budget to the value specified in the parameter.\n"
-            + "Parameters: b/BUDGET_AMOUNT (must be a positive with at most 2 decimal points) rc/RECURRING (yes/no)\n"
-            + "Example: " + COMMAND_WORD + " b/1000.00 rc/no";
+            + "Parameters: b/BUDGET_AMOUNT (must be a positive with at most 2 decimal points) rc/\n"
+            + "Example: " + COMMAND_WORD + " b/1000.00 rc/";
 
     public static final String MESSAGE_SUCCESS = "Budget is now set to %.2f";
 

@@ -13,6 +13,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getExpenseLaFilePath();
 
-    Double getTotalBalance();
+    Path getGlobalDataFilePath();
 
 }

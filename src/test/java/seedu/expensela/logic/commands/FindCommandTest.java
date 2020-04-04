@@ -15,6 +15,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -24,8 +25,8 @@ import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
+    private Model expectedModel = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
 
     @Test
     public void equals() {

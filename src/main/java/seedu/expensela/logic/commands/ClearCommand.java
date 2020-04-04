@@ -2,6 +2,7 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
 
@@ -18,7 +19,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setExpenseLa(new ExpenseLa());
-        model.updateTotalBalance(0.00);
+        model.updateTotalBalance(new Balance("0.00"));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
