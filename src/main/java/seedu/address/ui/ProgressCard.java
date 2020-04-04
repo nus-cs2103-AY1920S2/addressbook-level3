@@ -1,19 +1,17 @@
-package seedu.address.ui.uiAssignments;
+package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.ui.CommandBox;
-import seedu.address.ui.UiPart;
+import seedu.address.model.modelProgress.Progress;
 
 /**
  * An UI component that displays information of a {@code Assignment}.
  */
-public class AssignmentCard extends UiPart<Region> {
+public class ProgressCard extends UiPart<Region> {
 
-  private static final String FXML = "AssignmentListCard.fxml";
+  private static final String FXML = "ProgressListCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -24,26 +22,30 @@ public class AssignmentCard extends UiPart<Region> {
    * level 4</a>
    */
 
-  public final Assignment assignment;
+  public final Progress progress;
 
   @FXML
   private HBox cardPane;
   @FXML
-  private Label id;
+  private Label sid;
   @FXML
-  private Label assignmentID;
+  private Label aid;
   @FXML
-  private Label name;
+  private Label isDone;
 
   private CommandBox commandBox;
 
-  public AssignmentCard(Assignment assignment, CommandBox commandBox, int displayedIndex) {
+  public ProgressCard(Progress progress, CommandBox commandBox, int displayedIndex) {
     super(FXML);
-    this.assignment = assignment;
+    this.progress = progress;
     this.commandBox = commandBox;
-    id.setText(displayedIndex + ". ");
-    assignmentID.setText(assignment.getId().toString());
-    name.setText(assignment.getName().fullName);
+    sid.setText(progress.getId().getStudentID().value);
+    aid.setText(progress.getId().getAssignmentID().value);
+    if (progress.getIsDone()) {
+      isDone.setText("Done");
+    } else {
+      isDone.setText("Not Done");
+    }
   }
 
   @Override
@@ -54,14 +56,14 @@ public class AssignmentCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof AssignmentCard)) {
+    if (!(other instanceof ProgressCard)) {
       return false;
     }
 
     // state check
-    AssignmentCard card = (AssignmentCard) other;
-    return id.getText().equals(card.id.getText())
-        && assignment.equals(card.assignment);
+    ProgressCard card = (ProgressCard) other;
+    return sid.getText().equals(card.sid.getText())
+        && aid.getText().equals(card.aid.getText())
+        && progress.equals(card.progress);
   }
-
 }

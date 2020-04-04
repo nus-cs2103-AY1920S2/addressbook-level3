@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import static java.util.Objects.requireNonNull;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -112,11 +110,6 @@ public class LogicManager implements Logic {
     return model.getStaffAddressBookFilePath();
   }
 
-  @Override
-  public void updateObservedDataFilteredStaffList(Predicate<Staff> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredStaffList(predicate);
-  }
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Student> getStudentAddressBook() {
@@ -131,12 +124,6 @@ public class LogicManager implements Logic {
   @Override
   public Path getStudentAddressBookFilePath() {
     return model.getStudentAddressBookFilePath();
-  }
-
-  @Override
-  public void updateObservedDataFilteredStudentList(Predicate<Student> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredStudentList(predicate);
   }
 
   ///
@@ -155,12 +142,6 @@ public class LogicManager implements Logic {
     return model.getCourseAddressBookFilePath();
   }
 
-  @Override
-  public void updateObservedDataFilteredCourseList(Predicate<Course> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredCourseList(predicate);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook() {
@@ -176,13 +157,6 @@ public class LogicManager implements Logic {
   public Path getFinanceAddressBookFilePath() {
     return model.getFinanceAddressBookFilePath();
   }
-
-  @Override
-  public void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredFinanceList(predicate);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
@@ -198,13 +172,6 @@ public class LogicManager implements Logic {
   public Path getAssignmentAddressBookFilePath() {
     return model.getAssignmentAddressBookFilePath();
   }
-
-  @Override
-  public void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredAssignmentList(predicate);
-  }
-
 
   @Override
   public GuiSettings getGuiSettings() {

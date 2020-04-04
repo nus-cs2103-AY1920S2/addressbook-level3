@@ -1,7 +1,9 @@
 package seedu.address.ui.uiStaff;
 
+import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStaff.Staff;
@@ -11,9 +13,9 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Staff}.
  */
-public class StaffCard extends UiPart<Region> {
+public class StaffDetailedCard extends UiPart<Region> {
 
-  private static final String FXML = "StaffListCard.fxml";
+  private static final String FXML = "StaffListDetailedCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -34,16 +36,36 @@ public class StaffCard extends UiPart<Region> {
   private Label id;
   @FXML
   private Label staffID;
+  @FXML
+  private Label phone;
+  @FXML
+  private Label address;
+  @FXML
+  private Label email;
+  @FXML
+  private Label salary;
+  @FXML
+  private Label assignedCourses;
+  @FXML
+  private FlowPane tags;
 
   private CommandBox commandBox;
 
-  public StaffCard(Staff staff, CommandBox commandBox, int displayedIndex) {
+  public StaffDetailedCard(Staff staff, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.staff = staff;
     this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     staffID.setText(staff.getId().value);
     name.setText(staff.getName().fullName);
+    phone.setText(staff.getPhone().value);
+    address.setText(staff.getAddress().value);
+    email.setText(staff.getEmail().value);
+    assignedCourses.setText(staff.getAssignedCourses().toString());
+    salary.setText(staff.getSalary().value);
+    staff.getTags().stream()
+        .sorted(Comparator.comparing(tag -> tag.tagName))
+        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
   @Override
@@ -54,12 +76,12 @@ public class StaffCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof StaffCard)) {
+    if (!(other instanceof StaffDetailedCard)) {
       return false;
     }
 
     // state check
-    StaffCard card = (StaffCard) other;
+    StaffDetailedCard card = (StaffDetailedCard) other;
     return id.getText().equals(card.id.getText())
         && staff.equals(card.staff);
   }

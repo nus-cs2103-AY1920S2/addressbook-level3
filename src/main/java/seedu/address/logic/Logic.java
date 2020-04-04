@@ -83,12 +83,6 @@ public interface Logic {
    */
   Path getStaffAddressBookFilePath();
 
-  /**
-   * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredStaffList(Predicate<Staff> predicate);
   ///
 
   /**
@@ -107,13 +101,6 @@ public interface Logic {
    * Returns the user prefs' student address book file path.
    */
   Path getStudentAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredStudentList(Predicate<Student> predicate);
   ///
 
   /**
@@ -132,13 +119,6 @@ public interface Logic {
    * Returns the user prefs' staff address book file path.
    */
   Path getFinanceAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate);
   ///
 
   /**
@@ -157,13 +137,6 @@ public interface Logic {
    * Returns the user prefs' course address book file path.
    */
   Path getCourseAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredCourseList(Predicate<Course> predicate);
   //TODO
   /**
    * Returns the AssignmentAddressBook.
@@ -181,13 +154,6 @@ public interface Logic {
    * Returns the user prefs' course address book file path.
    */
   Path getAssignmentAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate);
 
   /**
    * Returns the user prefs' GUI settings.

@@ -2,9 +2,11 @@ package seedu.address.manager;
 
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.CompositeID;
@@ -76,5 +78,19 @@ public class ProgressManager extends BaseManager {
         }
 
         return String.format(output, doneCount, totalNumProgresses);
+    }
+
+    public static void markDoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
+        Progress targetProgress = ProgressManager.get(assignmentID, studentID);
+        targetProgress.done();
+        ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
+        postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
+    }
+
+    public static void markUndoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
+        Progress targetProgress = ProgressManager.get(assignmentID, studentID);
+        targetProgress.undone();
+        ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
+        postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
     }
 }

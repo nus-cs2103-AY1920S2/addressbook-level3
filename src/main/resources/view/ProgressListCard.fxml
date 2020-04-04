@@ -3,8 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,49 +11,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox id="cardPaneAssignment" fx:id="cardPane" prefHeight="80.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneProgress" fx:id="cardPane" prefHeight="80.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <VBox alignment="CENTER_LEFT" minHeight="70" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT">
-        <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-            <Image url="@ourImages/assignment.png" />
-          </image>
-        </ImageView>
         <Line endY="69.29289245605469" startY="-8.204582214355469" stroke="#ffffff3f">
           <rotationAxis>
             <Point3D />
           </rotationAxis></Line>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <VBox prefHeight="80.0" prefWidth="224.0">
           <children>
             <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
               <padding>
                 <Insets left="15.0" />
               </padding>
               <children>
-                <Label fx:id="id" styleClass="cell_big_label" text="\$id">
+                <Label styleClass="cell_big_label" text="Student ID: ">
                   <minWidth>
                     <!-- Ensures that the label text is never truncated -->
                     <Region fx:constant="USE_PREF_SIZE" />
                   </minWidth>
                 </Label>
-                <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                <Label fx:id="sid" styleClass="cell_big_label" text="\$sid" />
               </children>
             </HBox>
-            <Line endX="1000.2929077148438" startX="-100.0" stroke="#ffffff3f" />
             <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
               <padding>
                 <Insets left="15.0" />
               </padding>
               <children>
-                <Label fx:id="id1" styleClass="cell_small_label" text="Assignment ID: ">
+                <Label styleClass="cell_small_label" text="Assignment ID:">
                   <minWidth>
                     <Region fx:constant="USE_PREF_SIZE" />
                   </minWidth>
                 </Label>
-                <Label fx:id="assignmentID" styleClass="cell_small_label" text="\$assignmentID" />
+                <Label fx:id="aid" prefHeight="21.0" prefWidth="78.0" styleClass="cell_small_label" text="\$aid" />
               </children>
             </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                     <children>
+                        <Label styleClass="cell_small_label" text="Status: ">
+                           <minWidth>
+                              <Region fx:constant="USE_PREF_SIZE" />
+                           </minWidth>
+                        </Label>
+                        <Label fx:id="isDone" styleClass="cell_small_label" text="\$isDone" />
+                     </children>
+                  </HBox>
           </children>
           <padding>
             <Insets bottom="5.0" top="5.0" />

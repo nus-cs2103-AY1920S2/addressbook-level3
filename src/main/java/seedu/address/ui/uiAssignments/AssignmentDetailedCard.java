@@ -11,9 +11,9 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Assignment}.
  */
-public class AssignmentCard extends UiPart<Region> {
+public class AssignmentDetailedCard extends UiPart<Region> {
 
-  private static final String FXML = "AssignmentListCard.fxml";
+  private static final String FXML = "AssignmentListDetailedCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -33,17 +33,27 @@ public class AssignmentCard extends UiPart<Region> {
   @FXML
   private Label assignmentID;
   @FXML
+  private Label assignedCourseID;
+  @FXML
   private Label name;
+  @FXML
+  private Label assignmentDeadline;
 
   private CommandBox commandBox;
 
-  public AssignmentCard(Assignment assignment, CommandBox commandBox, int displayedIndex) {
+  public AssignmentDetailedCard(Assignment assignment, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.assignment = assignment;
     this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
-    assignmentID.setText(assignment.getId().toString());
+    assignmentID.setText("Assignment ID: " + assignment.getId().toString());
+    if(assignment.isAssignedToCourse()) {
+      assignedCourseID.setText("Assigned To CourseID: " + assignment.getAssignedCourseID().toString());
+    } else {
+      assignedCourseID.setText("Assigned To CourseID: None");
+    }
     name.setText(assignment.getName().fullName);
+    assignmentDeadline.setText("Deadline: " + assignment.getDeadline().toString());
   }
 
   @Override
@@ -54,12 +64,12 @@ public class AssignmentCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof AssignmentCard)) {
+    if (!(other instanceof AssignmentDetailedCard)) {
       return false;
     }
 
     // state check
-    AssignmentCard card = (AssignmentCard) other;
+    AssignmentDetailedCard card = (AssignmentDetailedCard) other;
     return id.getText().equals(card.id.getText())
         && assignment.equals(card.assignment);
   }

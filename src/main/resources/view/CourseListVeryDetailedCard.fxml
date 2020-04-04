@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox id="cardPaneCourse" fx:id="cardPane"  onMousePressed="#selectCourse"  prefHeight="164.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneCourse" fx:id="cardPane" onMousePressed="#selectCourse" prefHeight="324.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <HBox alignment="CENTER_LEFT" spacing="5">
@@ -99,6 +100,17 @@
                <Insets left="15.0" />
             </padding>
       </HBox>
+      <HBox>
+        <Label styleClass="cell_small_label" text="Number of Done Progress: " />
+        <Label fx:id="noOfDoneProgress" styleClass="cell_small_label" text="\$noOfDoneProgress" />
+        <opaqueInsets>
+          <Insets />
+        </opaqueInsets>
+        <padding>
+          <Insets left="15.0" />
+        </padding>
+      </HBox>
+      <ListView fx:id="progressListView" VBox.vgrow="ALWAYS" />
       <padding>
         <Insets bottom="5.0" top="5.0" />
       </padding>

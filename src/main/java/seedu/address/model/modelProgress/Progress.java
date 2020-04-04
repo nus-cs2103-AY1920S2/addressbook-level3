@@ -1,20 +1,11 @@
 package seedu.address.model.modelProgress;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.exceptions.CommandException;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Progress of a student's assignment in the address book.
@@ -45,6 +36,15 @@ public class Progress extends ModelObject {
 
   public Boolean getIsDone() {
     return this.isDone;
+  }
+
+  // Can be done as a toggle but this is more robust as it prevents accidental toggling from done to undone and vice versa
+  public void done() {
+    this.isDone = true;
+  }
+
+  public void undone() {
+    this.isDone = false;
   }
   /*
   public Boolean isOverDue() {
@@ -103,26 +103,22 @@ public class Progress extends ModelObject {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    try {
-      ID studentID = getId().getStudentID();
-      ID assignmentID = getId().getAssignmentID();
+    ID studentID = getId().getStudentID();
+    ID assignmentID = getId().getAssignmentID();
 
-      builder.append("\n")
-              .append("StudentID: ")
-              .append(studentID.toString())
-              .append("\n")
-              .append("AssignmentID: ")
-              .append(assignmentID.toString())
-              .append("\n")
-              .append("Done: ");
+    builder.append("\n")
+            .append("StudentID: ")
+            .append(studentID.toString())
+            .append("\n")
+            .append("AssignmentID: ")
+            .append(assignmentID.toString())
+            .append("\n")
+            .append("Done: ");
 
-      if(isDone) {
-        builder.append("[O]");
-      } else {
-        builder.append("[X]");
-      }
-    } catch (CommandException e) {
-      e.printStackTrace();
+    if(isDone) {
+      builder.append("[O]");
+    } else {
+      builder.append("[X]");
     }
     return builder.toString();
   }

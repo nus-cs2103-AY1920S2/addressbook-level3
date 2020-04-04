@@ -6,7 +6,7 @@ import seedu.address.commons.util.Constants;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 
 public class BaseManager {
-    protected EventsCenterSingleton eventsCenterSingleton;
+    private static EventsCenterSingleton eventsCenterSingleton;
 
     public BaseManager() {
         this(EventsCenterSingleton.getInstance());
@@ -18,12 +18,12 @@ public class BaseManager {
         this.eventsCenterSingleton.registerHandler(this);
     }
 
-    protected void raiseEvent(BaseEvent event) {
+    protected static void raiseEvent(BaseEvent event) {
         eventsCenterSingleton.post(event);
     }
 
-    protected void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
-                                            Constants.ENTITY_TYPE entityType) {
+    protected static void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
+                                                     Constants.ENTITY_TYPE entityType) {
         raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
     }
 

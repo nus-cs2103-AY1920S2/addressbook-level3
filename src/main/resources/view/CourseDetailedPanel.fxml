@@ -7,14 +7,14 @@
 
 <?import javafx.scene.layout.StackPane?>
 <VBox spacing="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <Label text="Selected Student">
+   <Label text="Selected Course">
       <font>
          <Font size="36.0" />
       </font></Label>
-   <ListView id="detailedPanel" fx:id="studentDetailedView" VBox.vgrow="ALWAYS" />
-   <Label text="Assigned Courses">
+   <ListView id="detailedPanel" fx:id="courseDetailedView" VBox.vgrow="ALWAYS" />
+   <Label text="Assigned Students">
       <font>
          <Font size="36.0" />
       </font></Label>
-   <ListView fx:id="courseListView" VBox.vgrow="ALWAYS" />
+   <ListView fx:id="studentListView" VBox.vgrow="ALWAYS" />
 </VBox>

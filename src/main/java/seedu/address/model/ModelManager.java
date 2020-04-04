@@ -293,7 +293,7 @@ public class ModelManager extends BaseManager implements Model {
           PREDICATE_SHOW_ALL_FINANCES,
           filteredFinances,
           Constants.ENTITY_TYPE.FINANCE);
-    } else if (type.equals(Constants.ENTITY_TYPE.FINANCE)) {
+    } else if (type.equals(Constants.ENTITY_TYPE.COURSE)) {
       return Arrays.asList(
           this.courseAddressBook,
           PREDICATE_SHOW_ALL_COURSES,
@@ -305,15 +305,16 @@ public class ModelManager extends BaseManager implements Model {
           PREDICATE_SHOW_ALL_ASSIGNMENTS,
           filteredAssignments,
           Constants.ENTITY_TYPE.ASSIGNMENT);
-    } else if (obj instanceof Progress) {
+    } else if (type.equals(Constants.ENTITY_TYPE.PROGRESS)) {
       return Arrays.asList(
               this.progressAddressBook,
               PREDICATE_SHOW_ALL_PROGRESSES,
               filteredProgresses,
               Constants.ENTITY_TYPE.PROGRESS);
+    } else {
+      throw new CommandException(
+              "This command is accessing non-existent entity or entity not extending from ModelObject");
     }
-    throw new CommandException(
-        "This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
   private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
@@ -327,24 +328,30 @@ public class ModelManager extends BaseManager implements Model {
       return getEntityFactory(Constants.ENTITY_TYPE.COURSE);
     } else if (obj instanceof Assignment) {
       return getEntityFactory(Constants.ENTITY_TYPE.ASSIGNMENT);
+    } else if (obj instanceof Progress) {
+      return getEntityFactory(Constants.ENTITY_TYPE.PROGRESS);
     }
     throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
-  private AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException {
+  public AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException {
     return (AddressBookGeneric) getEntityFactory(type).get(0);
   }
 
-  private AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
+  public AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException {
     return (AddressBookGeneric) getEntityFactory(obj).get(0);
   }
 
-  private ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj)
+  public ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws CommandException {
+    return (ReadOnlyAddressBookGeneric) getEntityFactory(type).get(0);
+  }
+
+  public ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj)
       throws CommandException {
     return (ReadOnlyAddressBookGeneric) getEntityFactory(obj).get(0);
   }
 
-  private Predicate getPredicateAll(Constants.ENTITY_TYPE type) throws CommandException {
+  public Predicate getPredicateAll(Constants.ENTITY_TYPE type) throws CommandException {
     return (Predicate) getEntityFactory(type).get(1);
   }
 

@@ -19,7 +19,7 @@
       <HBox alignment="CENTER_LEFT" spacing="5">
         <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@ourImages/specs.png" />
+            <Image url="@ourImages/staff.png" />
           </image>
         </ImageView>
         <Label fx:id="id" styleClass="cell_big_label" text="\$id">
