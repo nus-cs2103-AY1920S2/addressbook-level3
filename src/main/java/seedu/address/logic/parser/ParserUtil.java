@@ -128,7 +128,7 @@ public class ParserUtil {
     public static String parseDeadline(String deadline) throws ParseException {
         String trimmedDeadline = deadline.trim();
         String[] dateTime = trimmedDeadline.split(" ");
-        if (!Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
+        if (dateTime.length < 2 || !Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
             throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
         }
         return trimmedDeadline;
