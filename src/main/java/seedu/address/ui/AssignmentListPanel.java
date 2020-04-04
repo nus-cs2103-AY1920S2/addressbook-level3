@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,8 +21,14 @@ public class AssignmentListPanel extends UiPart<Region> {
     @FXML
     private ListView<Assignment> assignmentListView;
 
+    @FXML
+    private Label title;
+
     public AssignmentListPanel(ObservableList<Assignment> assignmentList) {
         super(FXML);
+
+        title.setText("To-Do List:");
+
         assignmentListView.setItems(assignmentList);
         assignmentListView.setCellFactory(listView -> new AssignmentListViewCell());
     }

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,8 +21,14 @@ public class RestaurantListPanel extends UiPart<Region> {
     @FXML
     private ListView<Restaurant> restaurantListView;
 
+    @FXML
+    private Label title;
+
     public RestaurantListPanel(ObservableList<Restaurant> restaurantList) {
         super(FXML);
+
+        title.setText("Saved restaurants:");
+
         restaurantListView.setItems(restaurantList);
         restaurantListView.setCellFactory(listView -> new RestaurantListViewCell());
     }
