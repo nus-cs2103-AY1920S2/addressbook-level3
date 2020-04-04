@@ -348,6 +348,7 @@ Format: `(st)edit INDEX [t/TITLE] [e/ESTIMATED_COMPLETION_TIME] [d/DEADLINE] [s/
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see below).
 * DEADLINE must be entered in a yyyy-mm-dd HH:mm format and cannot be one that has already passed.
 * ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
+* STATUS can only be `Completed` or `Uncompleted`.
 * At least one optional field needs to be specified.
 ****
 
