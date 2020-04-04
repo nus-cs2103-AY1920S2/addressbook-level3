@@ -17,7 +17,9 @@ import cookbuddy.logic.commands.HelpCommand;
 import cookbuddy.logic.commands.ListCommand;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.NewCommand;
+import cookbuddy.logic.commands.RandomCommand;
 import cookbuddy.logic.commands.ResetCommand;
+import cookbuddy.logic.commands.TimeCommand;
 import cookbuddy.logic.commands.UnFavCommand;
 import cookbuddy.logic.commands.UndoCommand;
 import cookbuddy.logic.commands.ViewCommand;
@@ -72,6 +74,9 @@ public class RecipeBookParser {
             return new UnFavCommandParser().parse(arguments);
 
         case ResetCommand.COMMAND_WORD:
+            if (!arguments.equals("")) {
+                throw new ParseException(("The reset command does not take in any arguments!"));
+            }
             return new ResetCommand();
 
         case ViewCommand.COMMAND_WORD:
@@ -83,10 +88,22 @@ public class RecipeBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case RandomCommand.COMMAND_WORD:
+            return new RandomCommand();
+
+        case TimeCommand.COMMAND_WORD:
+            return new TimeCommandParser().parse(arguments);
+
         case CountCommand.COMMAND_WORD:
+            if (!arguments.equals("")) {
+                throw new ParseException("The count command does not take in any arguments!");
+            }
             return new CountCommand();
 
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.equals("")) {
+                throw new ParseException("The exit command does not take in any arguments!");
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
