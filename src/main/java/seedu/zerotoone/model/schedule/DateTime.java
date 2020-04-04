@@ -46,13 +46,17 @@ public class DateTime implements Comparable<DateTime> {
         return true;
     }
 
+    public static DateTime now() {
+        return new DateTime(LocalDateTime.now().format(DATE_TIME_FORMATTER));
+    }
+
     /**
      *
      * @param dateTime
      * @return
      */
     public static Boolean isDateEqualOrLaterThanToday(DateTime dateTime) {
-        DateTime now = getNow();
+        DateTime now = now();
         return dateTime.isDateEqualOrLaterThan(now);
     }
 
@@ -62,12 +66,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return
      */
     public Boolean isDateEqualOrLaterThan(DateTime other) {
-        return this.localDateTime.getYear() >= other.localDateTime.getYear()
-            && this.localDateTime.getDayOfYear() >= other.localDateTime.getDayOfYear();
-    }
-
-    private static DateTime getNow() {
-        return new DateTime(LocalDateTime.now().format(DATE_TIME_FORMATTER));
+        return this.localDateTime.toLocalDate().compareTo(other.localDateTime.toLocalDate()) >= 0;
     }
 
     @Override

@@ -276,6 +276,11 @@ public class CreateCommandTest {
         }
 
         @Override
+        public void populateSortedScheduledWorkoutList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyLogList getLogList() {
             throw new AssertionError("This method should not be called.");
         }

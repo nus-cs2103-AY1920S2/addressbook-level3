@@ -29,7 +29,7 @@ public class RecurringSchedule implements Schedule {
     }
 
     @Override
-    public Optional<List<ScheduledWorkout>> getScheduledWorkout() {
+    public Optional<List<ScheduledWorkout>> getScheduledWorkout(DateTime now) {
         return Optional.empty();
         // do I have any scheduled workouts after today?
         // are some instances of them edited/deleted?
@@ -51,7 +51,7 @@ public class RecurringSchedule implements Schedule {
         }
 
         RecurringSchedule otherSchedule = (RecurringSchedule) other;
-        return otherSchedule.getScheduledWorkout().equals(getScheduledWorkout())
+        return otherSchedule.workoutToSchedule.equals(workoutToSchedule)
                 && otherSchedule.startDate.equals(startDate)
                 && otherSchedule.endDate.equals(endDate);
     }

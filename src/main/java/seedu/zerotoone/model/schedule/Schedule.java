@@ -10,6 +10,6 @@ import seedu.zerotoone.model.workout.Workout;
  */
 public interface Schedule {
     Workout getWorkoutToSchedule();
-    Optional<List<ScheduledWorkout>> getScheduledWorkout();
+    Optional<List<ScheduledWorkout>> getScheduledWorkout(DateTime now);
     boolean isSameSchedule(Schedule other);
 }
