@@ -390,3 +390,7 @@
      -fx-font-size: 13;
      -fx-padding: 0 10 0 0
 }
+
+.filter-category {
+    -text-fill: white;
+}

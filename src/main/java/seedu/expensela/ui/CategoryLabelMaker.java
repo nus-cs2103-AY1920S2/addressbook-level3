@@ -10,19 +10,19 @@ import javafx.scene.control.Label;
  */
 public class CategoryLabelMaker {
 
-    private static final String BACKGROUND_COLOR_GREEN = "-fx-background-color: #00897B";
-    private static final String BACKGROUND_COLOR_RED = "-fx-background-color: #e53935";
-    private static final String BACKGROUND_COLOR_BLUE = "-fx-background-color: #3949AB";
-    private static final String BACKGROUND_COLOR_ORANGE = "-fx-background-color: #e65100";
-    private static final String BACKGROUND_COLOR_PURPLE = "-fx-background-color: #755990";
-    private static final String BACKGROUND_COLOR_LIGHT_GREEN = "-fx-background-color: #558B2F";
-    private static final String BACKGROUND_COLOR_NAVY_BLUE = "-fx-background-color: #3e7b91";
-    private static final String BACKGROUND_COLOR_YELLOW = "-fx-background-color: #FFA000";
-    private static final String BACKGROUND_COLOR_PINK = "-fx-background-color: #ec407a";
-    private static final String BACKGROUND_COLOR_GREY = "-fx-background-color: #959595";
-    private static final String BACKGROUND_COLOR_DARK_GREY = "-fx-background-color: #616161";
-    private static final String BACKGROUND_COLOR_BLACK = "-fx-background-color: #555555";
-    private static final String BACKGROUND_COLOR_WHITE = "-fx-background-color: #FFFFFF";
+    private static final String BACKGROUND_COLOR_GREEN = "-fx-background-color: #00897B; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_RED = "-fx-background-color: #e53935; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_BLUE = "-fx-background-color: #3949AB; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_ORANGE = "-fx-background-color: #e65100; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_PURPLE = "-fx-background-color: #755990; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_LIGHT_GREEN = "-fx-background-color: #558B2F; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_NAVY_BLUE = "-fx-background-color: #3e7b91; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_YELLOW = "-fx-background-color: #FFA000; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_PINK = "-fx-background-color: #ec407a; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_GREY = "-fx-background-color: #959595; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_DARK_GREY = "-fx-background-color: #616161; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_BLACK = "-fx-background-color: #555555; -fx-text-fill: white;";
+    private static final String BACKGROUND_COLOR_WHITE = "-fx-background-color: #FFFFFF; -fx-text-fill: black;";
 
 
     private static Map<String, String> mapCategoryColour = new HashMap<String, String>(0);
@@ -68,6 +68,9 @@ public class CategoryLabelMaker {
 
         // Miscellaneous
         mapCategoryColour.put("misc", BACKGROUND_COLOR_ORANGE);
+
+        // All
+        mapCategoryColour.put("all", BACKGROUND_COLOR_PURPLE);
 
     }
 }

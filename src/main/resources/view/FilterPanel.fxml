@@ -5,8 +5,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
+<?import javafx.scene.layout.FlowPane?>
 <HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="filterTypeLabel" styleClass="filter-label-left"/>
+    <FlowPane fx:id="filterCategory">
+        <Label fx:id="colouredCategoryLabel" styleClass="filter-category"/>
+    </FlowPane>
     <Region prefHeight="20.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
     <Label fx:id="filterNameLabel" styleClass="filter-label-right"/>
 </HBox>

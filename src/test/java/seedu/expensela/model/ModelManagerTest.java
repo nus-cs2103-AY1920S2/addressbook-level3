@@ -121,7 +121,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentExpenseLa, userPrefs)));
 
         modelManager.updateFilteredTransactionList(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
-                new DateEqualsKeywordPredicate(Arrays.asList("all")));
+                new DateEqualsKeywordPredicate(Arrays.asList("ALL")));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
