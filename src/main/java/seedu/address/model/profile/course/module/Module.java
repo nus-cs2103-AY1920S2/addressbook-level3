@@ -118,17 +118,17 @@ public class Module {
         final StringBuilder builder = new StringBuilder();
 
         builder.append(getModuleCode());
-        builder.append(": ");
+        builder.append(" ");
         builder.append(getTitle());
-        builder.append("\n Prerequisite: ");
+        builder.append("\nPrerequisite: ");
         builder.append(getPrereqs());
-        builder.append("\n Preclusions: ");
+        builder.append("\nPreclusions: ");
         builder.append(getPreclusions());
-        builder.append("\n Modular Credits (MCs): ");
+        builder.append("\nModular Credits (MCs): ");
         builder.append(getModularCredits());
-        builder.append("\n Description: ");
+        builder.append("\nDescription: ");
         builder.append(getDescription());
-        builder.append("\n Semesters Offered: ");
+        builder.append("\nSemesters Offered: ");
         builder.append(getSemesterData());
         builder.append("\n");
         //builder.append(getAcadYear());
