@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InventorySystem;
@@ -55,7 +56,7 @@ public class AddCustomerCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validCustomer);
 
         assertThrows(CommandException.class,
-                AddCustomerCommand.MESSAGE_DUPLICATE_PERSON, () -> addCustomerCommand.execute(modelStub));
+                Messages.MESSAGE_DUPLICATE_PERSON, () -> addCustomerCommand.execute(modelStub));
     }
 
     @Test

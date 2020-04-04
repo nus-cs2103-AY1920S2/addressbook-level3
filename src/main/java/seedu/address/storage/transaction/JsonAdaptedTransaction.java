@@ -72,26 +72,48 @@ public class JsonAdaptedTransaction {
      * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
     public Transaction toModelType() throws IllegalValueException {
+        final Customer modelCustomer = getCustomer();
+        final Product modelProduct = getProduct();
+        final UUID modelCustomerId = getCustomerId();
+        final UUID modelProductId = getProductId();
+        final DateTime modelDateTime = getDateTime();
+        final Quantity modelQuantity = getQuantity();
+        final Money modelMoney = getMoney();
+        final Description modelDescription = getDescription();
+
+        return new Transaction(modelCustomer, modelProduct, modelCustomerId, modelProductId,
+                modelDateTime, modelQuantity, modelMoney, modelDescription);
+    }
+
+    private Customer getCustomer() throws IllegalValueException {
         if (customer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        final Customer modelCustomer = customer.toModelType();
+        return customer.toModelType();
+    }
 
+    private Product getProduct() throws IllegalValueException {
         if (product == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        final Product modelProduct = product.toModelType();
+        return product.toModelType();
+    }
 
+    private UUID getCustomerId() throws IllegalValueException {
         if (customerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        final UUID modelCustomerId = UUID.fromString(customerId);
+        return UUID.fromString(customerId);
+    }
 
+    private UUID getProductId() throws IllegalValueException {
         if (productId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        final UUID modelProductId = UUID.fromString(productId);
+        return UUID.fromString(productId);
+    }
 
+    private DateTime getDateTime() throws IllegalValueException {
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     DateTime.class.getSimpleName()));
@@ -99,8 +121,10 @@ public class JsonAdaptedTransaction {
         if (!DateTime.isValidDateTime(dateTime)) {
             throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
         }
-        final DateTime modelDateTime = new DateTime(dateTime);
+        return new DateTime(dateTime);
+    }
 
+    private Quantity getQuantity() throws IllegalValueException {
         if (quantity == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Quantity.class.getSimpleName()));
@@ -111,8 +135,10 @@ public class JsonAdaptedTransaction {
         if (!Quantity.isValidValue(Integer.parseInt(quantity))) {
             throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
         }
-        final Quantity modelQuantity = new Quantity(quantity);
+        return new Quantity(quantity);
+    }
 
+    private Money getMoney() throws IllegalValueException {
         if (money == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Money.class.getSimpleName()));
@@ -123,8 +149,10 @@ public class JsonAdaptedTransaction {
         if (!Money.isValidAmount(Integer.parseInt(money))) {
             throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS_VALUE);
         }
-        final Money modelMoney = new Money(money);
+        return new Money(money);
+    }
 
+    private Description getDescription() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
@@ -132,10 +160,6 @@ public class JsonAdaptedTransaction {
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
-
-        return new Transaction(modelCustomer, modelProduct, modelCustomerId, modelProductId,
-                modelDateTime, modelQuantity, modelMoney, modelDescription);
+        return new Description(description);
     }
-
 }

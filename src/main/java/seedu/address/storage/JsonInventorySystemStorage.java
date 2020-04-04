@@ -27,22 +27,22 @@ public class JsonInventorySystemStorage implements InventorySystemStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getInventorySystemFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyInventorySystem> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyInventorySystem> readInventorySystem() throws DataConversionException {
+        return readInventorySystem(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readInventorySystem()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyInventorySystem> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyInventorySystem> readInventorySystem(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableInventorySystem> jsonAddressBook = JsonUtil.readJsonFile(
@@ -60,21 +60,21 @@ public class JsonInventorySystemStorage implements InventorySystemStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyInventorySystem addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveInventorySystem(ReadOnlyInventorySystem inventorySystem) throws IOException {
+        saveInventorySystem(inventorySystem, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyInventorySystem)}.
+     * Similar to {@link #saveInventorySystem(ReadOnlyInventorySystem)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyInventorySystem addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveInventorySystem(ReadOnlyInventorySystem inventorySystem, Path filePath) throws IOException {
+        requireNonNull(inventorySystem);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableInventorySystem(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableInventorySystem(inventorySystem), filePath);
     }
 
 }

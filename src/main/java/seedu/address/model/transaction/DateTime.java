@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in uuuu-mm-dd hh:mm format, "
+    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in yyyy-mm-dd hh:mm format, "
             + "and it should not be blank";
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
             .ofPattern("uuuu-MM-dd HH:mm")
@@ -101,7 +101,7 @@ public class DateTime {
      */
     public static List<DateTime> populateDates(DateTime startDateTime, DateTime endDateTime) {
         List<DateTime> dateTimes = new ArrayList<>();
-        LocalDate localDate = startDateTime.value.toLocalDate().plusDays(1);
+        LocalDate localDate = startDateTime.value.toLocalDate();
         while (localDate.isBefore(endDateTime.value.toLocalDate().plusDays(1))) {
             dateTimes.add(new DateTime(localDate.atStartOfDay()));
             localDate = localDate.plusDays(1);

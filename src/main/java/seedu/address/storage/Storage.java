@@ -21,12 +21,12 @@ public interface Storage extends InventorySystemStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getInventorySystemFilePath();
 
     @Override
-    Optional<ReadOnlyInventorySystem> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyInventorySystem> readInventorySystem() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyInventorySystem addressBook) throws IOException;
+    void saveInventorySystem(ReadOnlyInventorySystem inventorySystem) throws IOException;
 
 }

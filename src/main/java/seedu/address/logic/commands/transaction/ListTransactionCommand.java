@@ -11,6 +11,7 @@ import seedu.address.model.Model;
  * Lists all transactions in the application to the user.
  */
 public class ListTransactionCommand extends Command {
+
     public static final String COMMAND_WORD = "listt";
 
     public static final String MESSAGE_SUCCESS = "Listed all transactions";
@@ -20,7 +21,6 @@ public class ListTransactionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
-        System.out.println("List " + model.getFilteredTransactionList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

@@ -5,15 +5,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.statistics.StartEndDate;
+import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Money;
 
@@ -30,8 +28,8 @@ public class ProfitCommand extends Command {
             + PREFIX_START_DATE + "START DATE "
             + PREFIX_END_DATE + "END DATE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_START_DATE + "2020-01-01 "
-            + PREFIX_END_DATE + "2020-12-12";
+            + PREFIX_START_DATE + "2020-01-01 10:00 "
+            + PREFIX_END_DATE + "2020-12-12 10:01";
 
     public static final String MESSAGE_SUCCESS = "Profit from %1$s to %2$s: $%3$s";
     public static final String MESSAGE_NUMBER_FORMAT = "Price/ quantity/ cost price of product is invalid";
@@ -39,17 +37,17 @@ public class ProfitCommand extends Command {
     public static final String MESSAGE_NEGATIVE_PROFIT = "You have made a loss of $%1$s!";
     public static final String MESSAGE_DATE_CONFLICT = "Start date must be after end date";
 
-    private final StartEndDate startDate;
-    private final StartEndDate endDate;
+    private final DateTime startDateTime;
+    private final DateTime endDateTime;
 
     /**
      * Creates an ProfitCommand to display the profit.
      */
-    public ProfitCommand(StartEndDate startDate, StartEndDate endDate) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public ProfitCommand(DateTime startDateTime, DateTime endDateTime) {
+        requireNonNull(startDateTime);
+        requireNonNull(endDateTime);
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     @Override
@@ -60,15 +58,15 @@ public class ProfitCommand extends Command {
             throw new CommandException(MESSAGE_NO_PRODUCTS);
         }
 
-        if (startDate.value.compareTo(endDate.value) > 0) {
+        if (startDateTime.value.compareTo(endDateTime.value) > 0) {
             throw new CommandException(MESSAGE_DATE_CONFLICT);
         }
 
         Money profit = calculateProfit(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                startDate,
-                endDate,
+                startDateTime,
+                endDateTime,
                 profit));
     }
 
@@ -85,10 +83,9 @@ public class ProfitCommand extends Command {
         for (int i = 0; i < transactionList.size(); i++) {
             Transaction transaction = transactionList.get(i);
             LocalDateTime transactionDateTime = transaction.getDateTime().value;
-            Date transactionDate = Date.from(transactionDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
-            if (transactionDate.compareTo(startDate.value) > 0
-                    && transactionDate.compareTo(endDate.value) < 0) {
+            if (transactionDateTime.compareTo(startDateTime.value) >= 0
+                    && transactionDateTime.compareTo(endDateTime.value) <= 0) {
                 try {
                     int price = transaction.getMoney().value;
                     int quantity = transaction.getQuantity().value;
@@ -111,7 +108,7 @@ public class ProfitCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProfitCommand // instanceof handles nulls
-                && startDate.equals(((ProfitCommand) other).startDate)
-                && endDate.equals(((ProfitCommand) other).endDate));
+                && startDateTime.equals(((ProfitCommand) other).startDateTime)
+                && endDateTime.equals(((ProfitCommand) other).endDateTime));
     }
 }

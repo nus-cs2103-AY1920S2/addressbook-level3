@@ -177,7 +177,7 @@ public class Product {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDescription() + " (" + getId() + ")")
+        builder.append(getDescription())
                 .append("\nCost Price: $")
                 .append(getCostPrice())
                 .append(" Price: $")

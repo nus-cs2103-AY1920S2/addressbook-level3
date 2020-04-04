@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 public class ClearTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "cleart";
+
     public static final String MESSAGE_SUCCESS = "Transaction list has been cleared!";
 
 

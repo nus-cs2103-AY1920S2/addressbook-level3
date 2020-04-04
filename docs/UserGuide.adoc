@@ -101,15 +101,15 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 
 === Locating customers by name: `findc`
 
-Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
+Finds customers whose attributes match the given attributes. +
 Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
 * At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
-* The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-* Customers matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
+* The order of the attributes does not matter. e.g. Hans Bo will match Bo Hans
+* Only customers matching all keywords will be returned (i.e. AND search)
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
@@ -263,7 +263,7 @@ Adds a specified transaction to the system. +
 Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]` +
 
 [NOTE]
-Duplicate transactions (with the same customer, product, datetime, quantity) are not allowed.
+Duplicate transactions (with the same customer, product, datetime) are not allowed.
 
 [TIP]
 The date time field [dt/] is optional, and will be recorded as current local machine time if left empty. +
@@ -392,15 +392,15 @@ Gets the revenue made in a selected period. +
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
-* The start date and end date must follow a format of `yyyy-mm-dd`
-* The start date must be after or equal to end date
+* The start date and end date must follow a format of `yyyy-mm-dd hh:mm`
+* The start date must be before or equal to end date
 * At least one product must be present
 ****
 
 Example:
 
-* `revenue sd/2020-01-01 ed/2020-12-31` +
-Returns the revenue from Jan 1 2020 to Dec 31 2020
+* `revenue sd/2020-01-01 10:00 ed/2020-12-31 10:01` +
+Returns the revenue from Jan 1 2020 10am to Dec 31 2020 10:01am
 
 === Getting the profit made in a certain period : `profit`
 
@@ -408,15 +408,15 @@ Gets the profit made in a selected period. +
 Format: `profit [sd/START_DATE] [ed/END_DATE]`
 
 ****
-* The start date and end date must follow a format of `yyyy-mm-dd`
-* The start date must be after or equal to end date
+* The start date and end date must follow a format of `yyyy-mm-dd hh:mm`
+* The start date must be before or equal to end date
 * At least one product must be present
 ****
 
 Example:
 
-* `profit sd/2020-01-01 ed/2020-12-31` +
-Returns the profit from Jan 1 2020 to Dec 31 2020
+* `profit sd/2020-01-01 10:00 ed/2020-12-31 10:01` +
+Returns the profit from Jan 1 2020 10am to Dec 31 2020 10:01am
 
 === Setting the low-inventory threshold : `lowlimit`
 
@@ -449,7 +449,7 @@ This is a passive feature.
 
 === Predicting the sales for the next month : `predict`
 
-Predict sales for the next month based on sales in the previous three months +
+Predicts sales for the next month based on sales in the previous three months +
 Format: `predict`
 
 ****
@@ -458,18 +458,32 @@ Format: `predict`
 
 === Plotting sales: `plotsales`.
 
-Plot a graph with the sales of the selected product in the past week. +
+Plots a graph with the sales of the selected product in a given time period. +
 Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
+
+****
+* The start date and end date must follow a format of `yyyy-mm-dd hh:mm`
+* The start date must be before or equal to end date
+* At least one product must be present
+****
 
 [NOTE]
 The start date and end date attributes are optional. If omitted, the system
 will plot the last 7 days by default.
 
+Examples:
+
+* `plotsales 1 sd/2020-02-20 10:00 ed/2020-02-28 10:01` +
+Plots a graph with the sales of the selected product between 20th Feb 10am and 28th Feb 10:01am in 2020.
+
+* `plotsales 1` +
+Plots a graph with the sales of the selected product in the past week.
+
 image::SalesPlot.png[align="center"]
 
 === Exiting from the program : `exit`
 
-Exit from the program, closes all opened windows. +
+Exits from the program, closes all opened windows. +
 Format: `exit`
 
 === Saving the data
@@ -499,7 +513,7 @@ The history is deleted after application closes.
 The product list updates and sort by product quantity automatically.
 
 [NOTE]
-This is a passive feature. The bar indicator beside the products' name represents visualises the remaining balance.
+This is a passive feature. The progress bar indicator beside the products' name represents visualises the remaining balance.
 
 image::TrackProductBalance.png[width="790" align="center"]
 

@@ -13,8 +13,8 @@ import seedu.address.model.Model;
 public class ClearCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "clearc";
-    public static final String MESSAGE_SUCCESS = "Customer list has been cleared!";
 
+    public static final String MESSAGE_SUCCESS = "Customer list has been cleared!";
 
     @Override
     public CommandResult execute(Model model) {

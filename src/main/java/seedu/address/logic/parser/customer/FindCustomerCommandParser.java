@@ -46,6 +46,17 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
                     FindCustomerCommand.MESSAGE_USAGE));
         }
 
+        addToPredicates(argMultimap);
+
+        return new FindCustomerCommand(new JointCustomerPredicate(predicates));
+    }
+
+    /**
+     * Add attributes entered by user to predicates list.
+     * @param argMultimap
+     * @throws ParseException
+     */
+    private void addToPredicates(ArgumentMultimap argMultimap) throws ParseException {
         if (anyPrefixesPresent(argMultimap, PREFIX_NAME)) {
             String customerArgs = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
             String[] customerKeywords = customerArgs.split("\\s+");
@@ -66,8 +77,6 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
             String[] phoneKeywords = phoneArgs.split("\\s+");
             predicates.add(new PhoneContainsKeywordsPredicate(Arrays.asList(phoneKeywords)));
         }
-
-        return new FindCustomerCommand(new JointCustomerPredicate(predicates));
     }
 
     /**

@@ -107,7 +107,7 @@ public class EditCustomerCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstCustomer).build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(editCustomerCommand, model, EditCustomerCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCustomerCommand, model, Messages.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class EditCustomerCommandTest {
         EditCustomerCommand editCustomerCommand =
                 new EditCustomerCommand(INDEX_FIRST_PERSON, editPersonDescriptor);
 
-        assertCommandFailure(editCustomerCommand, model, EditCustomerCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCustomerCommand, model, Messages.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test

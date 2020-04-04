@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyInventorySystem addressBook, Path filePath) throws IOException {
+        public void saveInventorySystem(ReadOnlyInventorySystem inventorySystem, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

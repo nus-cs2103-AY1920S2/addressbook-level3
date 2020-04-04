@@ -7,6 +7,7 @@ import static seedu.address.testutil.customer.TypicalPersons.getTypicalAddressBo
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -40,7 +41,7 @@ public class AddCustomerCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Customer customerInList = model.getInventorySystem().getPersonList().get(0);
         assertCommandFailure(new AddCustomerCommand(customerInList), model,
-                AddCustomerCommand.MESSAGE_DUPLICATE_PERSON);
+                Messages.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

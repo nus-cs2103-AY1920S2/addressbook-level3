@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidMoney(String)}
  */
 public class Money {
+
     public static final String MESSAGE_CONSTRAINTS_FORMAT =
-            "Money should take positive integer values (up to 1000000), and it should not be blank";
+            "Money should take non-negative integer values (up to 1000000), and it should not be blank";
     public static final String MESSAGE_CONSTRAINTS_VALUE =
             "The numeric value of Money must not be negative and must be smaller than 1000000";
 

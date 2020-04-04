@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_PRODUCT;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TRANSACTION;
 import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
@@ -50,9 +52,7 @@ public class AddTransactionCommand extends Command {
             + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the address book";
-    public static final String MESSAGE_MAXIMUM_SALES = "Maximum sales amount that can be stored is 1000000";
+    public static final String MESSAGE_ZERO_QUANTITY = "A transaction with 0 quantity is not allowed";
 
     private final TransactionFactory transactionFactory;
     private final EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
@@ -66,6 +66,10 @@ public class AddTransactionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Transaction toAdd = transactionFactory.createTransaction(model);
+
+        if (toAdd.getQuantity().value == 0) {
+            throw new CommandException(MESSAGE_ZERO_QUANTITY);
+        }
 
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
@@ -123,23 +127,21 @@ public class AddTransactionCommand extends Command {
     private Quantity getNewQuantity(Transaction toAdd, Product productToEdit) throws CommandException {
         Quantity oldQuantity = productToEdit.getQuantity();
 
-        if (oldQuantity.compareTo(toAdd.getQuantity()) < 0) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
+        if (oldQuantity.compareTo(toAdd.getQuantity()) == 0) {
+            throw new CommandException(Messages.MESSAGE_ZERO_PRODUCT_QUANTITY);
+        } else if (oldQuantity.compareTo(toAdd.getQuantity()) < 0) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_QUANTITY,
                     oldQuantity.value, productToEdit.getDescription().value));
         }
 
         return oldQuantity.minus(toAdd.getQuantity());
     }
 
-    private Money getNewSales(Transaction toAdd, Product productToEdit) throws CommandException {
+    private Money getNewSales(Transaction toAdd, Product productToEdit) {
         Money oldSales = productToEdit.getMoney();
         Money newSales;
 
-        try {
-            newSales = oldSales.plus(toAdd.getMoney());
-        } catch (IllegalArgumentException e) {
-            throw new CommandException(MESSAGE_MAXIMUM_SALES);
-        }
+        newSales = oldSales.plus(toAdd.getMoney());
 
         return newSales;
     }

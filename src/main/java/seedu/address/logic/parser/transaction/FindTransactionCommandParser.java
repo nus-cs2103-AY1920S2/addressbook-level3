@@ -32,6 +32,7 @@ import seedu.address.model.util.Money;
  * Parse input arguments and creates a new FindCommand object.
  */
 public class FindTransactionCommandParser implements Parser<FindTransactionCommand> {
+
     private final List<Predicate<Transaction>> predicates = new ArrayList<>();
 
     /**
@@ -49,6 +50,17 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
                     FindTransactionCommand.MESSAGE_USAGE));
         }
 
+        addToPredicates(argMultimap);
+
+        return new FindTransactionCommand(new JointTransactionPredicate(predicates));
+    }
+
+    /**
+     * Add attributes entered by user to predicates list.
+     * @param argMultimap
+     * @throws ParseException
+     */
+    private void addToPredicates(ArgumentMultimap argMultimap) throws ParseException {
         if (anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER)) {
             String customerArgs = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()).trim();
             String[] customerKeywords = customerArgs.split("\\s+");
@@ -67,8 +79,6 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
             Money money = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
             predicates.add(new MoneyEqualsPredicate(money));
         }
-
-        return new FindTransactionCommand(new JointTransactionPredicate(predicates));
     }
 
     /**

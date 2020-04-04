@@ -19,6 +19,7 @@ import seedu.address.model.transaction.Transaction;
  * Keyword matching is case insensitive.
  */
 public class FindTransactionCommand extends Command {
+
     public static final String COMMAND_WORD = "findt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all products whose descriptions contain any of "

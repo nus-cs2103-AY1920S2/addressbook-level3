@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -35,7 +36,6 @@ public class AddProductCommand extends Command {
             + PREFIX_SALES + "100 ";
 
     public static final String MESSAGE_SUCCESS = "New product added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the product list";
 
     private final Product toAdd;
 

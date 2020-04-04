@@ -42,6 +42,22 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
                                     EditProductCommand.MESSAGE_USAGE), pe);
         }
 
+        EditProductDescriptor editProductDescriptor = getEditProductDescriptor(argMultimap);
+
+        if (!editProductDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditProductCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditProductCommand(index, editProductDescriptor);
+    }
+
+    /**
+     * Get an edit product descriptor from the user input values.
+     * @param argMultimap
+     * @return edit product descriptor
+     * @throws ParseException
+     */
+    private EditProductDescriptor getEditProductDescriptor(ArgumentMultimap argMultimap) throws ParseException {
         EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editProductDescriptor.setDescription(ParserUtil
@@ -60,11 +76,6 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
             editProductDescriptor.setSales(ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALES).get()));
         }
-
-        if (!editProductDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditProductCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditProductCommand(index, editProductDescriptor);
+        return editProductDescriptor;
     }
 }

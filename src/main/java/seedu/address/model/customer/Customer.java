@@ -126,7 +126,7 @@ public class Customer {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName() + " (" + getId() + ")")
+        builder.append(getName())
                 .append("\nPhone: ")
                 .append(getPhone())
                 .append(" Email: ")

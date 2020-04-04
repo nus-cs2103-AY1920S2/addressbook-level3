@@ -31,7 +31,6 @@ public class FindProductCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredProductList(predicate);
-        System.out.println("Find " + model.getFilteredProductList());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PRODUCTS_LISTED_OVERVIEW, model.getFilteredProductList().size()));
     }

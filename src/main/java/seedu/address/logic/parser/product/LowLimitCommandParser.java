@@ -20,6 +20,7 @@ import seedu.address.model.util.QuantityThreshold;
  * Parses input arguments and creates a new LowLimitCommand object.
  */
 public class LowLimitCommandParser implements Parser<LowLimitCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the LowLimitCommand
      * and returns a LowLimitCommand object for execution.
