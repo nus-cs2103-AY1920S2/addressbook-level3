@@ -81,7 +81,7 @@ public class EditAssignmentCommand extends Command {
         List<Assignment> lastShownList = model.getFilteredAssignmentList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
         }
 
         Assignment AssignmentToEdit = lastShownList.get(index.getZeroBased());

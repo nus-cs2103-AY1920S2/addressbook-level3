@@ -83,7 +83,7 @@ public class EditStudentCommand extends Command {
     List<Student> lastShownList = model.getFilteredStudentList();
 
     if (index.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+      throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_ID);
     }
 
     Student studentToEdit = lastShownList.get(index.getZeroBased());

@@ -5,10 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddCourseCommand;
-import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
@@ -22,18 +20,18 @@ public class DeleteCourseCommand extends DeleteCommand {
   public static final String COMMAND_WORD = "delete-course";
 
   public static final String MESSAGE_USAGE = COMMAND_WORD
-      + ": Deletes the course identified by the index number used in the displayed course list.\n"
-      + "Parameters: INDEX (must be a positive integer)\n"
-      + "Example: " + COMMAND_WORD + " 1";
+      + ": Deletes the course identified by the existing ID number used in the displayed course list.\n"
+      + "Parameters: ID (must be an existing positive integer)\n"
+      + "Example: " + COMMAND_WORD + " 16100";
 
-  public static final String MESSAGE_DELETE_COURSE_SUCCESS = "Deleted Assignment: %1$s";
+  public static final String MESSAGE_DELETE_COURSE_SUCCESS = "Deleted Course: %1$s";
 
   private Index targetIndex;
-
+  private ID targetID;
   private Course toDelete;
 
-  public DeleteCourseCommand(Index targetIndex) {
-    this.targetIndex = targetIndex;
+  public DeleteCourseCommand(ID targetID) {
+    this.targetID = targetID;
   }
 
   public DeleteCourseCommand(Course toDelete) {
@@ -43,18 +41,18 @@ public class DeleteCourseCommand extends DeleteCommand {
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     List<Course> lastShownList = model.getFilteredCourseList();
-
     if (this.toDelete == null) {
-      if (targetIndex.getZeroBased() >= lastShownList.size()) {
-        throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_ID);
       }
-      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
+      this.toDelete = getCourse(lastShownList);
     }
-
+    if (this.targetID == null) {
+      this.targetID = getID(lastShownList);
+    }
     if (this.targetIndex == null) {
       this.targetIndex = getIndex(lastShownList);
     }
-
   }
 
   @Override
@@ -70,6 +68,26 @@ public class DeleteCourseCommand extends DeleteCommand {
       }
     }
     throw new CommandException("This id not in list");
+  }
+
+  // Find way to abstract this
+  public ID getID(List<Course> lastShownList) throws CommandException {
+    for (Course course : lastShownList) {
+      if (course.getId().equals(this.toDelete.getId())) {
+        return course.getId();
+      }
+    }
+    throw new CommandException("Cannot find this course in the list");
+  }
+
+  // Find way to abstract this
+  public Course getCourse(List<Course> lastShownList) throws CommandException {
+    for (Course course : lastShownList) {
+      if (course.getId().equals(this.targetID)) {
+        return course;
+      }
+    }
+    throw new CommandException("This course ID does not exist");
   }
 
   @Override

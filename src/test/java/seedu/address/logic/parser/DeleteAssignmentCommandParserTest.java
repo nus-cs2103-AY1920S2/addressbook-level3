@@ -24,10 +24,12 @@ public class DeleteAssignmentCommandParserTest {
 
     private DeleteAssignmentCommandParser parser = new DeleteAssignmentCommandParser();
 
+    /*
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteAssignmentCommand(INDEX_FIRST_OBJECT));
     }
+     */
 
     @Test
     public void parse_invalidArgs_throwsParseException() {

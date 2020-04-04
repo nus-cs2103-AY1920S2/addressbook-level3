@@ -15,6 +15,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.ProgressManager;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStudent.Student;
@@ -71,7 +72,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             } else if (assigningStudentContainsCourse) {
             throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
-                model.assignStudentToCourse(studentID, courseID);
+                EdgeManager.assignStudentToCourse(studentID, courseID);
 
                 Set<ID> allAssignmentInCourse = model.getCourse(courseID).getAssignedAssignmentsID();
                 ProgressManager.addAllAssignmentsToOneStudent(allAssignmentInCourse, studentID);

@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
@@ -54,7 +55,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         } else if (!staffExists) {
             throw new CommandException(MESSAGE_INVALID_STAFF_ID);
         } else {
-            model.assignTeacherToCourse(teacherID, courseID);
+            EdgeManager.assignTeacherToCourse(teacherID, courseID);
 
             Course foundCourse = model.getCourse(courseID);
             Staff foundStaff = model.getStaff(teacherID);
@@ -67,7 +68,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
             } else if (assigningStudentContainsCourse) {
                 throw new CommandException(MESSAGE_TEACHER_ALREADY_TEACHES_COURSE);
             } else {
-                model.assignTeacherToCourse(teacherID, courseID);
+                EdgeManager.assignTeacherToCourse(teacherID, courseID);
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                     foundStaff.getName().toString(), teacherID.value,
                         foundCourse.getName().toString(), courseID.value));

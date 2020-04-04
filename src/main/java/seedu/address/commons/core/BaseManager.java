@@ -2,11 +2,13 @@ package seedu.address.commons.core;
 
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.util.Constants;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.person.ID;
 
 public class BaseManager {
-    private static EventsCenterSingleton eventsCenterSingleton;
+    protected static EventsCenterSingleton eventsCenterSingleton;
 
     public BaseManager() {
         this(EventsCenterSingleton.getInstance());
@@ -23,8 +25,12 @@ public class BaseManager {
     }
 
     protected static void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
-                                                     Constants.ENTITY_TYPE entityType) {
+                                            Constants.ENTITY_TYPE entityType) {
         raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
+    }
+
+    protected static void postDeleteEntityEvent(ID entityID, Constants.ENTITY_TYPE entityType) {
+        raiseEvent(new DeleteEntityEvent(entityID, entityType));
     }
 
 }

@@ -123,7 +123,12 @@ public interface Model {
 
   ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException;
 
-  /**
+
+  AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
+
+  ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException;
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
@@ -454,10 +459,6 @@ public interface Model {
 
     // ======================== FOR ASSIGN COMMANDS ============================== //
 
-    void assignStudentToCourse(ID studentID, ID courseID) throws CommandException;
-
-    void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException;
-
     // ========================== Getters for Predicates =========================
 
     public Predicate<Student> getDataStudentPredicate();
@@ -482,11 +483,7 @@ public interface Model {
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
-    void assignTeacherToCourse(ID teacherID, ID courseID) throws CommandException;
+    Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
 
-    // ======================== FOR UNASSIGN COMMANDS ============================== //
-
-    void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException;
-
-    void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException;
+    AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
 }
