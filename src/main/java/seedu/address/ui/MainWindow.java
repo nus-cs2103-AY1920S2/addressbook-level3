@@ -184,6 +184,16 @@ public class MainWindow extends UiPart<Stage> {
     assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList(), commandBox);
     summaryPanel = new SummaryPanel();
 
+//    {
+//      "details": Student,
+//      "courses": [
+//          {
+//            "info": Course,
+//            "progress_list": [Progress],
+//            "number_of_done_progress": Integer,
+//          }
+//      ]
+//    }
     studentDetailedPanel = new StudentDetailedPanel(new HashMap<String, Object>(), commandBox);
     staffDetailedPanel = new StaffDetailedPanel(new HashMap<String, Object>(), commandBox);
     courseDetailedPanel = new CourseDetailedPanel(new HashMap<String, Object>(), commandBox);
@@ -283,7 +293,7 @@ public class MainWindow extends UiPart<Stage> {
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
     currentView = "STUDENT";
-    switchList(studentListPanel.getRoot(), courseListPanel.getRoot());
+    switchList(studentListPanel.getRoot(), studentDetailedPanel.getRoot());
   }
 
   /**
@@ -295,7 +305,7 @@ public class MainWindow extends UiPart<Stage> {
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
     currentView = "STAFF";
-    switchList(staffListPanel.getRoot(), courseListPanel.getRoot());
+    switchList(staffListPanel.getRoot(), staffDetailedPanel.getRoot());
   }
 
   /**
@@ -307,7 +317,7 @@ public class MainWindow extends UiPart<Stage> {
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
     currentView = "COURSE";
-    switchList(courseListPanel.getRoot(), studentListPanel.getRoot());
+    switchList(courseListPanel.getRoot(), courseDetailedPanel.getRoot());
   }
 
   /**
@@ -319,7 +329,7 @@ public class MainWindow extends UiPart<Stage> {
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
     currentView = "FINANCE";
-    switchList(financeListPanel.getRoot(), courseListPanel.getRoot());
+    switchList(financeListPanel.getRoot(), financeDetailedPanel.getRoot());
   }
 
   /**
@@ -331,7 +341,7 @@ public class MainWindow extends UiPart<Stage> {
     extraListPanelPlaceholder.setMaxSize(originalExtraPanelWidth, originalExtraPanelHeight);
     extraListPanelPlaceholder.setVisible(true);
     currentView = "ASSIGNMENT";
-    switchList(assignmentListPanel.getRoot(), courseListPanel.getRoot());
+    switchList(assignmentListPanel.getRoot(), assignmentDetailedPanel.getRoot());
   }
 
   /**
