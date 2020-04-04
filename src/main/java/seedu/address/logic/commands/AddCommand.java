@@ -29,7 +29,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal to the module. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds module details to be tracked.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE "
             + PREFIX_SEMESTER + "SEMESTER "

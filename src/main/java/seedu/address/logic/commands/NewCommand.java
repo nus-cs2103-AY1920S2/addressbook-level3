@@ -19,7 +19,7 @@ public class NewCommand extends Command {
 
     public static final String COMMAND_WORD = "new";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new profile. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new profile. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_COURSE_NAME + "COURSE "
