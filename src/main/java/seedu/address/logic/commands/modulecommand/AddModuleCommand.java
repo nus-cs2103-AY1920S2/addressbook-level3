@@ -21,7 +21,7 @@ public class AddModuleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allows for adding modules "
             + "Parameters: "
             + PREFIX_MODULE_CODE + "MODULE CODE "
-            + PREFIX_GRADE + "GRADE "
+            + PREFIX_GRADE + "GRADE [Optional] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE_CODE + "CS2103T "
             + PREFIX_GRADE + "A+ ";

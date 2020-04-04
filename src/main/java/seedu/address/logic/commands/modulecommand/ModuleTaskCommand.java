@@ -28,7 +28,7 @@ public class ModuleTaskCommand extends Command {
             + PREFIX_MODULETASK_TIMING + "2020-01-02 "
             + PREFIX_PRIORITY + "5 ";
 
-    public static final String MESSAGE_SUCCESS = "New task added ";
+    public static final String MESSAGE_SUCCESS = "New task added:  ";
     public static final String MESSAGE_NO_SUCH_MODULE = "This module does not exist, maybe you can add the module first";
 
     private final ModuleTask toAdd;

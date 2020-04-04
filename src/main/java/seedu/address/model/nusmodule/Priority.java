@@ -35,4 +35,9 @@ public enum Priority {
         }
         return priority;
     }
+
+    @Override
+    public String toString() {
+        return this.text;
+    }
 }
