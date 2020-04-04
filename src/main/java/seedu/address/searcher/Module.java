@@ -20,6 +20,12 @@ public class Module {
     private String sem2Exam = "NA";
     private ArrayList<Classes> sem1Classes = new ArrayList<>();
     private ArrayList<Classes> sem2Classes = new ArrayList<>();
+    private ArrayList<Classes> sem1Lectures = new ArrayList<>();
+    private ArrayList<Classes> sem1Tutorials = new ArrayList<>();
+    private ArrayList<Classes> sem1Others = new ArrayList<>();
+    private ArrayList<Classes> sem2Lectures = new ArrayList<>();
+    private ArrayList<Classes> sem2Tutorials = new ArrayList<>();
+    private ArrayList<Classes> sem2Others = new ArrayList<>();
 
     /**
      * Constructor for module class
@@ -47,6 +53,7 @@ public class Module {
         semesterData = semesterData.split("prereqTree")[0];
         semesterData = semesterData.split("fulfillRequirements")[0];
         parseSemData(semesterData);
+        splitClassByType();
     }
 
     /**
@@ -101,6 +108,31 @@ public class Module {
         }
     }
 
+    /**
+     * Helper Function for Constructor
+     */
+    private void splitClassByType() {
+        for (Classes curr : sem1Classes) {
+            if (curr.getLessonType().equals("Lecture")) {
+                sem1Lectures.add(curr);
+            } else if (curr.getLessonType().equals("Tutorial")) {
+                sem1Tutorials.add(curr);
+            } else {
+                sem1Others.add(curr);
+            }
+        }
+
+        for (Classes curr : sem2Classes) {
+            if (curr.getLessonType().equals("Lecture")) {
+                sem2Lectures.add(curr);
+            } else if (curr.getLessonType().equals("Tutorial")) {
+                sem2Tutorials.add(curr);
+            } else {
+                sem2Others.add(curr);
+            }
+        }
+    }
+
     public String getCode() {
         return this.code;
     }
@@ -131,6 +163,30 @@ public class Module {
 
     public int getCredits() {
         return this.credits;
+    }
+
+    public ArrayList<Classes> getSem1Lectures() {
+        return this.sem1Lectures;
+    }
+
+    public ArrayList<Classes> getSem1Tutorials() {
+        return this.sem1Tutorials;
+    }
+
+    public ArrayList<Classes> getSem1Others() {
+        return this.sem1Others;
+    }
+
+    public ArrayList<Classes> getSem2Lectures() {
+        return this.sem2Lectures;
+    }
+
+    public ArrayList<Classes> getSem2Tutorials() {
+        return this.sem2Tutorials;
+    }
+
+    public ArrayList<Classes> getSem2Others() {
+        return this.sem2Others;
     }
 
     @Override
