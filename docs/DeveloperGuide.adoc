@@ -721,7 +721,7 @@ sessions that the user is affiliated with.
 The following class diagrams hows how different classes are related in the functioning
 of the Session View.
 
-images:: class diagram of session view
+image::SessionModelClassDiagram.png[]
 
 The TaTracker model class contains a `UniqueSessionList` which helps keep track of
 all the *upcoming sessions* of the user.
@@ -732,7 +732,7 @@ The following sequence diagram shows the sequence of commands that take place be
 the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
 `session done 1`.
 
-images:: sequence diagram.
+image::DoneSessionSequenceDiagram.png[]
 
 1. The `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
@@ -744,7 +744,7 @@ arguments to the `DoneSessionCommandParser`.
 
 4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
 
-5.`LogicManager` calls `DoneSessionCommand#execute()` method. The `DoneSessionCommand`
+5. `LogicManager` calls `DoneSessionCommand#execute()` method. The `DoneSessionCommand`
 checks whether the current session called by the user has a recurring period.
 If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
 
