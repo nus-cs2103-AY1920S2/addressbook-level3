@@ -10,6 +10,9 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Deletes an assignment using it's displayed index from the Scheduler.
+ */
 public class DeleteAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "(st)delete";
     public static final String COMMAND_FUNCTION = "Deletes the assignment identified by the "

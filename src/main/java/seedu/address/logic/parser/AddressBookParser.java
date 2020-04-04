@@ -62,6 +62,9 @@ public class AddressBookParser {
         case DeleteAssignmentCommand.COMMAND_WORD:
             return new DeleteAssignmentCommandParser().parse(arguments);
 
+        case EditAssignmentCommand.COMMAND_WORD:
+            return new EditAssignmentCommandParser().parse(arguments);
+
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
 
