@@ -98,15 +98,15 @@
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 6 0 6 0;
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #38383a;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #484C4E;
 }
 
 .list-cell:filled:selected {
@@ -122,16 +122,36 @@
     -fx-text-fill: white;
 }
 
+#exerciseId, #exerciseName, #workoutId, #workoutName {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: salmon;
+    -fx-padding: 3px 0px 6px 0px;
+}
+
+#exerciseSetCard .label {
+    -fx-padding: 4px 0px 0px 0px;
+}
+
+#workoutExerciseCard .label {
+    -fx-text-fill: white;
+}
+
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #fff;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+}
+
+.separator *.line {
+    -fx-border-width: 0.5px;
+    -fx-border-color: #fff;
+    -fx-border-style: solid;
 }
 
 .stack-pane {
@@ -344,8 +364,12 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: transparent, #38383a, transparent, #38383a;
     -fx-background-radius: 0;
+}
+
+#resultDisplayPlaceholder {
+    -fx-background-color: #2c2c2e;
 }
 
 #tags {
