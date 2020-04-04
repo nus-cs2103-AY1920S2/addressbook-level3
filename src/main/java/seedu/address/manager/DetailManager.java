@@ -30,7 +30,7 @@ public class DetailManager extends BaseManager {
         STUDENT_DETAILS,
         STUDENT_COURSE_DETAILS,
         COURSE_DETAILS,
-        COURSE_STUDENT
+        COURSE_STUDENT_DETAILS,
     }
 
     public TYPE type;
@@ -83,7 +83,14 @@ public class DetailManager extends BaseManager {
 
     public TYPE getType(List<ArgumentTokenizer.PrefixPosition> positions) {
         if (positions.get(0).getPrefix().equals(PREFIX_STUDENTID)) {
-            return TYPE.STUDENT_DETAILS;
+            if (positions.size() == 1) {
+                return TYPE.STUDENT_DETAILS;
+            }
+
+            if (positions.get(1).getPrefix().equals(PREFIX_COURSEID)) {
+                return TYPE.STUDENT_COURSE_DETAILS;
+            }
+
         } else if (positions.get(0).getPrefix().equals(PREFIX_COURSEID)) {
             return TYPE.COURSE_DETAILS;
         }
@@ -93,9 +100,11 @@ public class DetailManager extends BaseManager {
     public void updateDetails(List<ArgumentTokenizer.PrefixPosition> positions,
                              List<ID> selectMetaDataIDs) throws CommandException {
         updateType(positions, selectMetaDataIDs);
-
         if (type.equals(TYPE.STUDENT_DETAILS)) {
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
+        } else if (type.equals(TYPE.STUDENT_COURSE_DETAILS)) {
+            updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
+            updateProgressStudentCourse(IdMapping.get(PREFIX_STUDENTID), IdMapping.get(PREFIX_COURSEID));
         }
     }
 
@@ -110,18 +119,27 @@ public class DetailManager extends BaseManager {
             HashMap<String, Object> courseDetail = new HashMap<String, Object>();
             courseDetail.put("info", (Course)model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(courseID));
             courseDetail.put("progress_list",
-                    FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+                    FXCollections.observableArrayList(new ArrayList<Progress>()));
             courseDetail.put("number_of_done_progress", ProgressManager.getNumberOfProgressesDone(courseID, studentID));
             courses.add(courseDetail);
         }
         studentDetailsMap.put("courses", courses);
     }
 
-    public void updateStudentDetailsMap(ID studentID, ID courseID) throws CommandException {
-
+    public void updateProgressStudentCourse(ID studentID, ID courseID) throws CommandException {
+        for (HashMap<String, Object> courseDetail: (ObservableList<HashMap>)studentDetailsMap.get("courses")) {
+            Course course = (Course)courseDetail.get("info");
+            if (course.getId().equals(courseID)) {
+                courseDetail.put("progress_list",
+                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+            } else {
+                courseDetail.put("progress_list",
+                        FXCollections.observableArrayList(new ArrayList<Progress>()));
+            }
+        }
     }
-
     // #######################################################################################################
+
 
 
     // ###############  Update course details map ###########################################################
