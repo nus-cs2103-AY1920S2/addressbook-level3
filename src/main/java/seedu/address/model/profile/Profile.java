@@ -14,7 +14,7 @@ import java.util.Set;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.Specialisation;
+import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -28,7 +28,7 @@ public class Profile {
     // Identity fields
     private HashMap<Integer, ModuleList> semModHashMap;
     private int currentSemester = 0;
-    private Specialisation specialisation;
+    private FocusArea focusArea;
     private Name name;
     private CourseName courseName;
     private Cap cap;
@@ -36,14 +36,14 @@ public class Profile {
     /**
      * Every field must be present and not null.
      */
-    public Profile(Name name, CourseName courseName, int currentSemester, Specialisation specialisation) {
+    public Profile(Name name, CourseName courseName, int currentSemester, FocusArea focusArea) {
         requireAllNonNull(name);
         requireAllNonNull(courseName);
         requireAllNonNull(currentSemester);
         this.name = name;
         this.courseName = courseName;
         this.currentSemester = currentSemester;
-        this.specialisation = specialisation;
+        this.focusArea = focusArea;
         this.semModHashMap = new HashMap<>();
         this.cap = new Cap();
     }
@@ -81,16 +81,12 @@ public class Profile {
         return currentSemester;
     }
 
-    public Specialisation getSpecialisation() {
-        return specialisation;
+    public FocusArea getFocusArea() {
+        return focusArea;
     }
 
-    public String getSpecialisationString() {
-        if (specialisation == null) {
-            return "";
-        } else {
-            return specialisation.toString();
-        }
+    public String getFocusAreaString() {
+        return focusArea.toString();
     }
 
     public void setName(Name name) {
@@ -105,8 +101,8 @@ public class Profile {
         this.currentSemester = currentSemester;
     }
 
-    public void setSpecialisation(Specialisation specialisation) {
-        this.specialisation = specialisation;
+    public void setFocusArea(FocusArea focusArea) {
+        this.focusArea = focusArea;
     }
 
     public ModuleList getModules(Integer semester) throws ParseException {

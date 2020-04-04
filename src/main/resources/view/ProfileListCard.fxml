@@ -30,7 +30,7 @@
       <FlowPane fx:id="tags" />
       <Label fx:id="course" styleClass="cell_small_label" text="\$course" />
       <Label fx:id="curSem" styleClass="cell_small_label" text="\$curSem" />
-      <Label fx:id="specialisation" styleClass="cell_small_label" text="\$specialisation" wrapText="true" />
+      <Label fx:id="focusArea" styleClass="cell_small_label" text="\$focusArea" wrapText="true" />
 
     </VBox>
   </GridPane>

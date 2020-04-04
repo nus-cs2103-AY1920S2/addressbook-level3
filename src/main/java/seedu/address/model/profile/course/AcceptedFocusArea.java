@@ -3,7 +3,7 @@ package seedu.address.model.profile.course;
 /**
  * Accepted specialisations stored as enumerations.
  */
-public enum AcceptedSpecialisation {
+public enum AcceptedFocusArea {
 
     // UNDECIDED
     COMPUTER_SCIENCE_UNDECIDED(new CourseName("COMPUTER SCIENCE"), "UNDECIDED"),
@@ -46,7 +46,7 @@ public enum AcceptedSpecialisation {
     private String name;
     private CourseName courseName;
 
-    AcceptedSpecialisation(CourseName courseName, String name) {
+    AcceptedFocusArea(CourseName courseName, String name) {
         this.courseName = courseName;
         this.name = name;
     }
@@ -59,7 +59,7 @@ public enum AcceptedSpecialisation {
      * Returns true if enum contains given specialisation.
      */
     public static boolean isValid(CourseName courseName, String specialisationName) {
-        for (AcceptedSpecialisation c: AcceptedSpecialisation.values()) {
+        for (AcceptedFocusArea c: AcceptedFocusArea.values()) {
             if (c.courseName.equals(courseName) && c.name.equals(specialisationName)) {
                 return true;
             }

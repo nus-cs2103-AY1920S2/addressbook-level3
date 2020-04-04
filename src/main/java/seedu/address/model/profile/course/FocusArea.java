@@ -1,19 +1,19 @@
 package seedu.address.model.profile.course;
 
 /**
- * Represents a Specialisation's name
+ * Represents a FocusArea's name
  * Guarantees:
  */
-public class Specialisation {
+public class FocusArea {
 
     public final String specialisationName;
 
     /**
-     * Constructs a {@code Specialisation}.
+     * Constructs a {@code FocusArea}.
      *
      * @param specialisationName A valid specialisation.
      */
-    public Specialisation(String specialisationName) {
+    public FocusArea(String specialisationName) {
         String formattedSpecialisationName = format(specialisationName);
         this.specialisationName = formattedSpecialisationName;
     }
@@ -29,7 +29,7 @@ public class Specialisation {
 
     // TODO: Check valid specialisation
     public static boolean isValid(CourseName courseName, String specialisationName) {
-        return AcceptedSpecialisation.isValid(courseName, specialisationName);
+        return AcceptedFocusArea.isValid(courseName, specialisationName);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Specialisation {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Specialisation // instanceof handles nulls
-                && specialisationName.equals(((Specialisation) other).specialisationName)); // state check
+                || (other instanceof FocusArea // instanceof handles nulls
+                && specialisationName.equals(((FocusArea) other).specialisationName)); // state check
     }
 
 }
