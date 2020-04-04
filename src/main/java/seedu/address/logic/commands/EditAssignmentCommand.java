@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditAssignmentDescriptor;
@@ -16,8 +18,9 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.TitleComparator;
 
-import java.util.List;
-
+/**
+ * Edits the details of an existing assignment in the scheduler.
+ */
 public class EditAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "(st)edit";
     public static final String COMMAND_FUNCTION = "Edits the estimated workload of the assignment identified "

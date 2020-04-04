@@ -192,7 +192,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteAssignment(Assignment target){
+    public void deleteAssignment(Assignment target) {
         scheduler.removeAssignment(target);
     }
 

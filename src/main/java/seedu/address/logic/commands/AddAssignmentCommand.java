@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -10,7 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.TitleComparator;
 
-import java.util.Comparator;
 
 /**
  * Adds a new assignment to the Schoolwork Tracker.

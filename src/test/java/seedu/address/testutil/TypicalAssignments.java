@@ -26,9 +26,9 @@ public class TypicalAssignments {
 
     // Manually Added
     public static final Assignment IS1103_QUIZ = new AssignmentBuilder().withTitle("IS1103 Quiz")
-            .withDeadline("2020-05-11 23:59").withHours("40").withStatus("Not Completed").build();
+            .withDeadline("2020-05-11 23:59").withHours("40").withStatus("UnCompleted").build();
     public static final Assignment CS2103_QUIZ = new AssignmentBuilder().withTitle("CS2103 Quiz")
-            .withDeadline("2020-05-18 23:59").withHours("1").withStatus("Not Completed").build();
+            .withDeadline("2020-05-18 23:59").withHours("1").withStatus("UnCompleted").build();
 
     private TypicalAssignments() {}
 

@@ -167,7 +167,7 @@ public class AssignmentList {
         for (int j = 0; j < assignmentList.size(); j++) {
             String assignmentStatus = assignmentList.get(j).getStatus().status;
 
-            if(assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
+            if (assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
                 LocalDateTime deadline = assignmentList.get(j).getDeadline().dateTime;
                 float estHours = Float.parseFloat(assignmentList.get(j).getWorkload().estHours);
                 int noOfDaysBetween = (int) ChronoUnit.DAYS.between(currDateTime.toLocalDate(), deadline.toLocalDate());

@@ -1,14 +1,13 @@
 package seedu.address.logic;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.Deadline;
 import seedu.address.model.assignment.Status;
 import seedu.address.model.assignment.Title;
 import seedu.address.model.assignment.Workload;
-
-import java.util.Optional;
-
 
 /**
  * Stores the details to edit the assignment with. Each non-empty field value will replace the

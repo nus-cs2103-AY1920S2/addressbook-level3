@@ -10,7 +10,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Status {
     public static final String ASSIGNMENT_DONE = "Completed";
     public static final String ASSIGNMENT_OUTSTANDING = "Uncompleted";
-    public static final String MESSAGE_CONSTRAINTS = "Status can only be " + ASSIGNMENT_DONE + " or " + ASSIGNMENT_OUTSTANDING;
+    public static final String MESSAGE_CONSTRAINTS = "Status can only be " + ASSIGNMENT_DONE + " or "
+        + ASSIGNMENT_OUTSTANDING;
 
     // Instance variable
     public final String status;

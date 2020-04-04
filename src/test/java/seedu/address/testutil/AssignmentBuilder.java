@@ -13,7 +13,7 @@ public class AssignmentBuilder {
     public static final String DEFAULT_TITLE = "CS2103 tP";
     public static final String DEFAULT_DEADLINE = "2020-04-17 23:59";
     public static final String DEFAULT_WORKLOAD = "100";
-    public static final String DEFAULT_STATUS = "Not completed";
+    public static final String DEFAULT_STATUS = "Uncompleted";
 
     private Title title;
     private Deadline deadline;
