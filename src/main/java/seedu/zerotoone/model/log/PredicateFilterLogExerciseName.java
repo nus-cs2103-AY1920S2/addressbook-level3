@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.zerotoone.commons.util.StringUtil;
-import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.CompletedWorkout;
 
 /**
@@ -20,8 +19,8 @@ public class PredicateFilterLogExerciseName implements Predicate<CompletedWorkou
 
     @Override
     public boolean test(CompletedWorkout completedWorkout) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(completedWorkout.getWorkoutName().fullName, keyword));
+        return keywords.stream().anyMatch(
+            keyword -> StringUtil.containsWordIgnoreCase(completedWorkout.getWorkoutName().fullName, keyword));
     }
 
     @Override

@@ -10,7 +10,6 @@ import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.log.PredicateFilterLogExerciseName;
-import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.workout.WorkoutName;
 

@@ -9,9 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
-import seedu.zerotoone.model.log.ReadOnlyLogList;
-import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.log.LogList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.session.CompletedWorkout;
 
 /**

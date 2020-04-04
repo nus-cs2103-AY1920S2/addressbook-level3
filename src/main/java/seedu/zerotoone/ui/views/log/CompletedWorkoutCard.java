@@ -1,6 +1,5 @@
 package seedu.zerotoone.ui.views.log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;

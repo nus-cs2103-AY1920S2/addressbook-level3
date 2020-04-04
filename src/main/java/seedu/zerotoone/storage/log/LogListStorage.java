@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.zerotoone.commons.exceptions.DataConversionException;
-import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.log.LogList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 
 /**
  * Represents a storage for {@link LogList}.

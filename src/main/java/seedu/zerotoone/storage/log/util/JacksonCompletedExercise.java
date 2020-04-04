@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedExercise;
+import seedu.zerotoone.model.session.CompletedSet;
 
 /**
  * Jackson-friendly version of {@link CompletedExercise}.

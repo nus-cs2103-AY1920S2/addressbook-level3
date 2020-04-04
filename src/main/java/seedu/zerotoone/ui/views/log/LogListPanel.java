@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.ui.util.UiPart;
 /**

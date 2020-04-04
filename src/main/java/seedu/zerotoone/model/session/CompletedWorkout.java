@@ -23,7 +23,8 @@ public class CompletedWorkout {
     /**
      * Every field must be present and not null.
      */
-    public CompletedWorkout(WorkoutName name, List<CompletedExercise> exercises, LocalDateTime start, LocalDateTime end) {
+    public CompletedWorkout(WorkoutName name,
+            List<CompletedExercise> exercises, LocalDateTime start, LocalDateTime end) {
         requireAllNonNull(name, exercises, start, end);
         this.workoutName = name;
         this.startTime = start;
