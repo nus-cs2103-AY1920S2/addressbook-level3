@@ -7,4 +7,6 @@ public abstract class AppMessage {
     public abstract Boolean getRenderFlag();
     public abstract String getIdentifier();
     public abstract ObservableList getDisplayAsObservable();
+    public abstract String getFeedbackToUser();
+    public abstract boolean isExit();
 }

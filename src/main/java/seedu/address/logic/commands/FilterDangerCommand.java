@@ -5,7 +5,7 @@ import seedu.address.logic.aggregators.Aggregators;
 import seedu.address.logic.aggregators.GroupByIDPairsAggregators;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.conditions.DangerConditions;
-import seedu.address.logic.messages.BluetoothPingsMessage;
+import seedu.address.logic.messages.BluetoothSummaryMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bluetooth.BluetoothPings;
 import seedu.address.model.bluetooth.BluetoothPingsSummary;
@@ -38,11 +38,11 @@ public class FilterDangerCommand implements AppCommand {
     }
 
     @Override
-    public BluetoothPingsMessage execute(AppStorage dao) {
+    public BluetoothSummaryMessage execute(AppStorage dao) {
         Conditions cond = new DangerConditions(this.THRESHOLD);
         Aggregators<BluetoothPings, BluetoothPingsSummary> agg = new GroupByIDPairsAggregators();
         ArrayList resp  = dao.search(cond, agg);
-        BluetoothPingsMessage result = new BluetoothPingsMessage("Identified dangerous users", false);
+        BluetoothSummaryMessage result = new BluetoothSummaryMessage("Identified dangerous users", false);
         result.setToDisplayList(resp);
         return result;
     }

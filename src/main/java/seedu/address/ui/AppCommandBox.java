@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.address.logic.messages.BluetoothPingsMessage;
+import seedu.address.logic.messages.AppMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class AppCommandBox  extends UiPart<Region> {
@@ -62,6 +62,6 @@ public class AppCommandBox  extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        BluetoothPingsMessage execute(String commandText) throws ParseException;
+        AppMessage execute(String commandText) throws ParseException;
     }
 }

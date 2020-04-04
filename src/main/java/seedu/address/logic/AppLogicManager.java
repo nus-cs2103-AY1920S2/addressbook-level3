@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.messages.AppMessage;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -51,11 +52,11 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
     }
 
     @Override
-    public BluetoothPingsMessage execute(String command) throws ParseException {
+    public AppMessage execute(String command) throws ParseException {
         logger.info("----------------[USER COMMAND][" + command + "]");
 
         AppCommand appCommand = new CommandRouter().parse(command);
-        BluetoothPingsMessage result = appCommand.execute(dao);
+        AppMessage result = appCommand.execute(dao);
         return result;
     }
 }

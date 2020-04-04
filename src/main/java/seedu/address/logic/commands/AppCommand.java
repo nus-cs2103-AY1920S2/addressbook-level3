@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.messages.AppMessage;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
@@ -21,5 +22,5 @@ public interface AppCommand {
      * @param   dao                 Data access object
      * @return  CommandResult
      */
-    public BluetoothPingsMessage execute(AppStorage dao);
+    public AppMessage execute(AppStorage dao);
 }
