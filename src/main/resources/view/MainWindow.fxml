@@ -36,7 +36,7 @@
           </Menu>
         </MenuBar>
 
-      <HBox VBox.vgrow="ALWAYS" >
+      <HBox fx:id="tabsContainer" VBox.vgrow="ALWAYS" >
       <VBox id="tabsVBox" HBox.hgrow="ALWAYS">
         <TabPane fx:id="tabPanePlaceHolder"
                  VBox.vgrow="ALWAYS"

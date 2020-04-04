@@ -20,8 +20,8 @@
 
 .tab {
     -fx-background-color: #383838;
-    -fx-padding: 10 0 10 0;
-    -fx-border-width: 1px;
+    -fx-padding: 10 0 12 0;
+    -fx-border-width: 1.5px;
     -fx-border-color: white;
     -fx-min-width: 100px;
     -fx-focus-color: transparent;
@@ -38,7 +38,7 @@
 }
 
 .tab:selected {
-    -fx-border-width: 1px;
+    -fx-border-width: 1.5px;
     -fx-border-color: white white salmon white;
 }
 
