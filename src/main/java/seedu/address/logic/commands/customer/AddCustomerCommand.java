@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.customer;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -36,7 +37,9 @@ public class AddCustomerCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This customer already exists in the address book";
+    public static final String MESSAGE_MAX_NUMBER_OF_TAGS = "Only a maximum of 5 tags are allowed";
+
+    public static final int MAX_NUMBER_OF_TAGS = 5;
 
     private final Customer toAdd;
 
@@ -51,6 +54,10 @@ public class AddCustomerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (toAdd.getTags().size() > MAX_NUMBER_OF_TAGS) {
+            throw new CommandException(MESSAGE_MAX_NUMBER_OF_TAGS);
+        }
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

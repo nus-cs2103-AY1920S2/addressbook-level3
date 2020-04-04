@@ -13,7 +13,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.statistics.StartEndDate;
+import seedu.address.model.transaction.DateTime;
 
 /**
  * Parses input arguments and creates a new ProfitCommand object
@@ -34,10 +34,10 @@ public class ProfitCommandParser implements Parser<ProfitCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProfitCommand.MESSAGE_USAGE));
         }
 
-        StartEndDate startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get());
-        StartEndDate endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_END_DATE).get());
+        DateTime startDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATE).get());
+        DateTime endDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATE).get());
 
-        return new ProfitCommand(startDate, endDate);
+        return new ProfitCommand(startDateTime, endDateTime);
     }
 
     /**

@@ -101,15 +101,15 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 
 === Locating customers by name: `findc`
 
-Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
+Finds customers whose attributes match the given attributes. +
 Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
 * At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
-* The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-* Customers matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
+* The order of the attributes does not matter. e.g. Hans Bo will match Bo Hans
+* Only customers matching all keywords will be returned (i.e. AND search)
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
@@ -392,15 +392,15 @@ Gets the revenue made in a selected period. +
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
-* The start date and end date must follow a format of `yyyy-mm-dd`
-* The start date must be after or equal to end date
+* The start date and end date must follow a format of `yyyy-mm-dd hh:mm`
+* The start date must be before or equal to end date
 * At least one product must be present
 ****
 
 Example:
 
-* `revenue sd/2020-01-01 ed/2020-12-31` +
-Returns the revenue from Jan 1 2020 to Dec 31 2020
+* `revenue sd/2020-01-01 10:00 ed/2020-12-31 10:01` +
+Returns the revenue from Jan 1 2020 10am to Dec 31 2020 10:01am
 
 === Getting the profit made in a certain period : `profit`
 
@@ -408,15 +408,15 @@ Gets the profit made in a selected period. +
 Format: `profit [sd/START_DATE] [ed/END_DATE]`
 
 ****
-* The start date and end date must follow a format of `yyyy-mm-dd`
-* The start date must be after or equal to end date
+* The start date and end date must follow a format of `yyyy-mm-dd hh:mm`
+* The start date must be before or equal to end date
 * At least one product must be present
 ****
 
 Example:
 
-* `profit sd/2020-01-01 ed/2020-12-31` +
-Returns the profit from Jan 1 2020 to Dec 31 2020
+* `profit sd/2020-01-01 10:00 ed/2020-12-31 10:01` +
+Returns the profit from Jan 1 2020 10am to Dec 31 2020 10:01am
 
 === Setting the low-inventory threshold : `lowlimit`
 
@@ -460,6 +460,12 @@ Format: `predict`
 
 Plots a graph with the sales of the selected product in a given time period. +
 Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
+
+****
+* The start date and end date must follow a format of `yyyy-mm-dd hh:mm`
+* The start date must be before or equal to end date
+* At least one product must be present
+****
 
 [NOTE]
 The start date and end date attributes are optional. If omitted, the system

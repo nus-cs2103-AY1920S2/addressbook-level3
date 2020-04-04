@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -49,7 +50,6 @@ public class EditProductCommand extends Command {
 
     public static final String MESSAGE_EDIT_PRODUCT_SUCCESS = "Edited Product: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PRODUCT = "This product already exists in the product list.";
 
     private final Index index;
     private final EditProductDescriptor editProductDescriptor;

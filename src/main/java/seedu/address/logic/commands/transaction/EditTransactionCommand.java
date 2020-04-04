@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.transaction;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
-import static seedu.address.logic.commands.product.EditProductCommand.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.address.logic.commands.product.EditProductCommand.createEditedProduct;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
@@ -137,7 +137,7 @@ public class EditTransactionCommand extends Command {
             editUpdatedProductDescriptor.setSales(updatedProductNewSales);
         } else {
             model.setProduct(editedOriginalProduct, originalProductToEdit);
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_AMOUNT,
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_QUANTITY,
                     updatedProductOldQuantity.value, updatedProductToEdit.getDescription().value));
         }
 

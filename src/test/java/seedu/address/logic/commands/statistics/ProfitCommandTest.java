@@ -6,8 +6,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.statistics.StartEndDate;
-import seedu.address.testutil.statistics.StartEndDateBuilder;
+import seedu.address.model.transaction.DateTime;
+import seedu.address.testutil.util.DateTimeBuilder;
 
 public class ProfitCommandTest {
     @Test
@@ -17,11 +17,11 @@ public class ProfitCommandTest {
 
     @Test
     public void equals() {
-        StartEndDate startDate = new StartEndDateBuilder().build();
-        StartEndDate endDate = new StartEndDateBuilder(StartEndDateBuilder.DEFAULT_END_DATE).build();
+        DateTime startDate = new DateTimeBuilder().build();
+        DateTime endDate = new DateTimeBuilder(DateTimeBuilder.DEFAULT_END_DATE).build();
 
-        StartEndDate otherStartDate = new StartEndDateBuilder(StartEndDateBuilder.DEFAULT_OTHER_START_DATE).build();
-        StartEndDate otherEndDate = new StartEndDateBuilder(StartEndDateBuilder.DEFAULT_OTHER_END_DATE).build();
+        DateTime otherStartDate = new DateTimeBuilder(DateTimeBuilder.DEFAULT_OTHER_START_DATE).build();
+        DateTime otherEndDate = new DateTimeBuilder(DateTimeBuilder.DEFAULT_OTHER_END_DATE).build();
 
         ProfitCommand profitCommand = new ProfitCommand(startDate, endDate);
         ProfitCommand otherProfitCommand = new ProfitCommand(otherStartDate, otherEndDate);

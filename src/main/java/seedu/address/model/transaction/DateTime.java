@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in uuuu-mm-dd hh:mm format, "
+    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in yyyy-mm-dd hh:mm format, "
             + "and it should not be blank";
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
             .ofPattern("uuuu-MM-dd HH:mm")

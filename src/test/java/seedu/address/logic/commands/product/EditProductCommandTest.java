@@ -112,7 +112,7 @@ public class EditProductCommandTest {
         EditProductDescriptor descriptor = new EditProductDescriptorBuilder(firstProduct).build();
         EditProductCommand editProductCommand = new EditProductCommand(INDEX_SECOND_PRODUCT, descriptor);
 
-        assertCommandFailure(editProductCommand, model, EditProductCommand.MESSAGE_DUPLICATE_PRODUCT);
+        assertCommandFailure(editProductCommand, model, Messages.MESSAGE_DUPLICATE_PRODUCT);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class EditProductCommandTest {
         EditProductCommand editProductCommand = new EditProductCommand(INDEX_FIRST_PRODUCT,
                 new EditProductDescriptorBuilder(productInList).build());
 
-        assertCommandFailure(editProductCommand, model, EditProductCommand.MESSAGE_DUPLICATE_PRODUCT);
+        assertCommandFailure(editProductCommand, model, Messages.MESSAGE_DUPLICATE_PRODUCT);
     }
 
     @Test
