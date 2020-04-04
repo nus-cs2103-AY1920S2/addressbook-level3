@@ -4,6 +4,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelAssignment.Assignment;
@@ -62,7 +63,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             } else if(assigningAssignmentContainsCourse) {
                 throw new CommandException("The assignment has already been assigned already!");
             } else {
-                model.assignAssignmentToCourse(AssignmentID, courseID);
+                EdgeManager.assignAssignmentToCourse(AssignmentID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,
