@@ -24,12 +24,12 @@ public class BaseManager {
         eventsCenterSingleton.post(event);
     }
 
-    protected static void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
+    public static void postDataStorageChangeEvent(ReadOnlyAddressBookGeneric addressBook,
                                             Constants.ENTITY_TYPE entityType) {
         raiseEvent(new DataStorageChangeEvent(addressBook, entityType));
     }
 
-    protected static void postDeleteEntityEvent(ID entityID, Constants.ENTITY_TYPE entityType) {
+    public static void postDeleteEntityEvent(ID entityID, Constants.ENTITY_TYPE entityType) {
         raiseEvent(new DeleteEntityEvent(entityID, entityType));
     }
 

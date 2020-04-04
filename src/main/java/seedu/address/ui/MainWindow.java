@@ -37,7 +37,7 @@ import seedu.address.ui.uiFinance.FinanceDetailedPanel;
 import seedu.address.ui.uiFinance.FinanceListPanel;
 import seedu.address.ui.uiStaff.StaffDetailedPanel;
 import seedu.address.ui.uiStaff.StaffListPanel;
-import seedu.address.ui.uiStudent.CourseDetailedPanel;
+import seedu.address.ui.uiCourse.CourseDetailedPanel;
 import seedu.address.ui.uiStudent.StudentDetailedPanel;
 import seedu.address.ui.uiStudent.StudentListPanel;
 

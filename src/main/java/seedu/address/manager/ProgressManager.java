@@ -33,6 +33,10 @@ public class ProgressManager extends BaseManager {
         }
 
         ReadOnlyAddressBookGeneric<Progress> test =  model.getProgressAddressBook();
+        postDataStorageChangeEvent(
+                model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+                Constants.ENTITY_TYPE.PROGRESS
+        );
         logger.info(test.getList().toString());
     }
 
@@ -45,6 +49,10 @@ public class ProgressManager extends BaseManager {
             CompositeID currProgressID = new CompositeID(assignmentID, studentID);
             model.add(new Progress(currProgressID));
         }
+        postDataStorageChangeEvent(
+            model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+            Constants.ENTITY_TYPE.PROGRESS
+        );
     }
 
     private static Progress get(ID assignmentID, ID studentID) throws CommandException {
@@ -64,11 +72,8 @@ public class ProgressManager extends BaseManager {
         return allProgressOfStudentInOneCourse;
     }
 
-    public static String getNumberOfProgressesDone(ID courseID, ID studentID) throws CommandException {
+    public static Integer getNumberOfProgressesDone(ID courseID, ID studentID) throws CommandException {
         Set<Progress> allProgresses = ProgressManager.getProgress(courseID, studentID);
-        String output = "%s : %s";
-        int totalNumProgresses = allProgresses.size();
-
         int doneCount = 0;
 
         for (Progress progress : allProgresses) {
@@ -77,7 +82,7 @@ public class ProgressManager extends BaseManager {
             }
         }
 
-        return String.format(output, doneCount, totalNumProgresses);
+        return doneCount;
     }
 
     public static void markDoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {

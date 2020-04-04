@@ -1,4 +1,4 @@
-package seedu.address.ui.uiStudent;
+package seedu.address.ui.uiCourse;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -14,6 +14,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.uiCourse.CourseDetailedCard;
+import seedu.address.ui.uiStudent.StudentCard;
 
 /**
  * Panel containing the list of courses.

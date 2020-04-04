@@ -1,6 +1,7 @@
 package seedu.address.manager;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
@@ -103,14 +104,17 @@ public class DetailManager extends BaseManager {
         Student student = (Student)model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
         studentDetailsMap.put("details", student);
 
-        ArrayList<Object> courses = new ArrayList<Object>();
+        ObservableList<HashMap> courses = FXCollections.observableArrayList();
         Set<ID> courseIDs = student.getAssignedCoursesID();
         for (ID courseID: courseIDs) {
-            Course course = model.getCourseAddressBook()
             HashMap<String, Object> courseDetail = new HashMap<String, Object>();
-            ArrayList<Progress> progressList = new ArrayList<Progress>();
-            courseDetail.put("info", course)
+            courseDetail.put("info", (Course)model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(courseID));
+            courseDetail.put("progress_list",
+                    FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+            courseDetail.put("number_of_done_progress", ProgressManager.getNumberOfProgressesDone(courseID, studentID));
+            courses.add(courseDetail);
         }
+        studentDetailsMap.put("courses", courses);
     }
 
     public void updateStudentDetailsMap(ID studentID, ID courseID) throws CommandException {

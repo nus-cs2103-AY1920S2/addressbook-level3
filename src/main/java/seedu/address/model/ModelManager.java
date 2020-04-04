@@ -285,6 +285,8 @@ public class ModelManager extends BaseManager implements Model {
       return Constants.ENTITY_TYPE.COURSE;
     } else if (obj instanceof Assignment) {
       return Constants.ENTITY_TYPE.ASSIGNMENT;
+    } else if (obj instanceof Progress) {
+      return Constants.ENTITY_TYPE.PROGRESS;
     }
     throw new CommandException(
             "This command is accessing non-existent entity or entity not extending from ModelObject");
@@ -321,29 +323,18 @@ public class ModelManager extends BaseManager implements Model {
               PREDICATE_SHOW_ALL_ASSIGNMENTS,
               filteredAssignments,
               Constants.ENTITY_TYPE.ASSIGNMENT);
+    } else if (type == Constants.ENTITY_TYPE.PROGRESS) {
+      return Arrays.asList(
+              this.progressAddressBook,
+              PREDICATE_SHOW_ALL_PROGRESSES,
+              filteredProgresses,
+              Constants.ENTITY_TYPE.PROGRESS);
     }
     throw new CommandException(
             "This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
-  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
-    if (obj instanceof Staff) {
-      return getEntityFactory(Constants.ENTITY_TYPE.STAFF);
-    } else if (obj instanceof Student) {
-      return getEntityFactory(Constants.ENTITY_TYPE.STUDENT);
-    } else if (obj instanceof Finance) {
-      return getEntityFactory(Constants.ENTITY_TYPE.FINANCE);
-    } else if (obj instanceof Course) {
-      return getEntityFactory(Constants.ENTITY_TYPE.COURSE);
-    } else if (obj instanceof Assignment) {
-      return getEntityFactory(Constants.ENTITY_TYPE.ASSIGNMENT);
-    } else if (obj instanceof Progress) {
-      return getEntityFactory(Constants.ENTITY_TYPE.PROGRESS);
-    }
-    throw new CommandException("This command is accessing non-existent entity or entity not extending from ModelObject");
-  }
-
-  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
+  public List<Object> getEntityFactory(ModelObject obj) throws CommandException {
     return getEntityFactory(modelObjectToEntityType(obj));
   }
 
@@ -358,6 +349,10 @@ public class ModelManager extends BaseManager implements Model {
   public ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj)
       throws CommandException {
     return (ReadOnlyAddressBookGeneric) getEntityFactory(obj).get(0);
+  }
+
+  public ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws  CommandException {
+    return (ReadOnlyAddressBookGeneric) getEntityFactory(type).get(0);
   }
 
   public Predicate getPredicateAll(Constants.ENTITY_TYPE type) throws CommandException {
@@ -380,7 +375,7 @@ public class ModelManager extends BaseManager implements Model {
     return (Constants.ENTITY_TYPE) getEntityFactory(type).get(3);
   }
 
-  private Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
+  public Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
     return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
   }
 
@@ -397,14 +392,6 @@ public class ModelManager extends BaseManager implements Model {
   }
 
 
-  private FilteredList getFilterList(ModelObject obj) throws CommandException {
-    return (FilteredList) getEntityFactory(obj).get(2);
-
-  }
-
-  public Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
-    return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
-  }
   // ======================================================================================================
 
   // =================================== CRUD METHODS =====================================================
