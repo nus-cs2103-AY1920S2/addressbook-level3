@@ -26,7 +26,7 @@ public class PersonListBdayPanel extends UiPart<Region> {
 
     public PersonListBdayPanel(ObservableList<Person> bdayList) {
         super(FXML);
-        title.setText("Upcoming Birthdays:");
+        title.setText("Wish your friends a Happy Birthday!");
 
         bdayListView.setItems(bdayList);
         bdayListView.setCellFactory(listView -> new PersonListBdayPanel.PersonBdayViewCell());

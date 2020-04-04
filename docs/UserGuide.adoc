@@ -33,7 +33,7 @@ Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `naggyjoel.jar` link:https://github.com/AY1920S2-CS2103-W14-3/main/releases[here].
+.  Download the latest `naggyJoel.jar` link:https://github.com/AY1920S2-CS2103-W14-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Naggy Joel.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -44,8 +44,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`(ab)list`* : lists all contacts
-* **`(ab)add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`(ab)delete`**`3` : deletes the 3rd contact shown in the current list
+* **`(ab)add`**` n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`(ab)delete`** `3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -55,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `(ab)add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -96,10 +96,10 @@ Fields inside square brackets are optional.
 
 Examples:
 
-* `(ab)add n/Akshay g/NUS`
-* `(ab)add n/Joel HH e/joel@yahoo.com.sg p/12345678 o/NUS a/Pasir Ris St. 71, Blk 123, #01-79`
-* `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 b/02-12 o/NUS`
-* `(ab)add n/Benjamin t/CS2103`
+* `(ab)add n/Akshay g/NUS p/56789012`
+* `(ab)add n/Joel HH e/joel@yahoo.com.sg p/12345678 g/NUS a/Pasir Ris St. 71, Blk 123, #01-79`
+* `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 b/02-12 g/NUS`
+* `(ab)add n/ Benjamin t/CS2103 p/45671234`
 
 ==== Deleting a person : `(ab)delete`
 
@@ -247,6 +247,7 @@ Adds a new restaurant +
 Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
 
 ****
+* VISITED can only be Yes or No
 * OPERATING_HOURS must be written in HHmm:HHmm format
 * PRICE_POINT contains only dollar signs
 ** There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is $. The medium price point is $$. The highest price point is $$$.
@@ -254,8 +255,8 @@ Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT]
 
 Examples:
 
-* `(rt)add rubbish l/bedok o/0900:2300 p/$$` +
-Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm
+* `(rt)add n/rubbish l/bedok o/0900:2300 p/$$ v/No` +
+Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm.
 
 ==== Deletes a restaurant: `(rt)delete`
 
@@ -327,8 +328,8 @@ Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 Examples:
 
-* `(st)add t/CS2103 post lecture quiz d/2020-02-11 23:59 e/1` +
-Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
+* `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/1` +
+Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 and which takes an estimated one hour to complete.
 
 ==== Delete assignment: `(st)delete`
 
@@ -419,7 +420,7 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+e.g. `(ab)add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`

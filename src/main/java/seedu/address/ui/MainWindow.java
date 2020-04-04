@@ -182,6 +182,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleGet() {
         personListPanel2 = new PersonListPanelDetail(logic.getFilteredPersonListResult());
+        personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
     }
 
@@ -191,6 +192,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleAssignment() {
         assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(assignmentListPanel.getRoot());
     }
 
@@ -200,6 +202,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleEvent() {
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(eventListPanel.getRoot());
     }
 
@@ -209,6 +212,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleRestaurant() {
         restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+        personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(restaurantListPanel.getRoot());
     }
 
