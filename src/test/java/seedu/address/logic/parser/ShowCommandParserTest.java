@@ -44,7 +44,8 @@ public class ShowCommandParserTest {
 
         // Focus area field present
         String focusArea = "Computer Security";
-        assertParseSuccess(parser, " " + PREFIX_FOCUS_AREA + focusArea, new ShowCommand(focusArea));
+        assertParseSuccess(parser, " " + PREFIX_FOCUS_AREA + focusArea,
+                new ShowCommand(focusArea.toUpperCase()));
 
         // Name field present
         String name = "John";
