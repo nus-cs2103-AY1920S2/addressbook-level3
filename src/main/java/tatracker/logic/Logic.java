@@ -66,4 +66,13 @@ public interface Logic {
 
     /** Returns an the currently used session filters. */
     String getCurrSessionFilter();
+
+    /** Returns an the currently used session date filters. */
+    String getCurrSessionDateFilter();
+
+    /** Returns an the currently used session module filters. */
+    String getCurrSessionModuleFilter();
+
+    /** Returns an the currently used session type filters. */
+    String getCurrSessionTypeFilter();
 }

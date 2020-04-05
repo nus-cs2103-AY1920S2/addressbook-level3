@@ -104,4 +104,20 @@ public class LogicManager implements Logic {
     public String getCurrSessionFilter() {
         return model.getCurrSessionFilter();
     }
+
+    @Override
+    public String getCurrSessionDateFilter() {
+        return model.getCurrSessionDateFilter();
+    }
+
+    @Override
+    public String getCurrSessionModuleFilter() {
+        return model.getCurrSessionModuleFilter();
+    }
+
+    @Override
+    public String getCurrSessionTypeFilter() {
+        return model.getCurrSessionTypeFilter();
+    }
+
 }

@@ -33,9 +33,6 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
     private GridPane currentFiltersGrid;
 
     @FXML
-    private Label currentFilters;
-
-    @FXML
     private Label currentDateFilters;
 
     @FXML
@@ -48,7 +45,9 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
         super(FXML);
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
-        currentFilters.setText("Current Filters: \nDate: None  |  Module Code: None  |  Session Type: None");
+        currentDateFilters.setText("Date: No Filters");
+        currentModuleFilters.setText("Module: No Filters");
+        currentTypeFilters.setText("Type: No Filters");
         currentFiltersGrid.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                 + "-fx-border-color: " + BORDER_COLOUR + "; "
                 + "-fx-border-width: " + BORDER_WIDTH + ";");
@@ -57,9 +56,11 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
     /**
      * Update Label in order to facilitate changing current filters
      */
-    public void updateLabel(String filters) {
-        currentFilters.setText("Current Filters: \n" + filters);
-        currentFilters.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+    public void updateLabel(String dateFilter, String moduleFilter, String typeFilter) {
+        currentDateFilters.setText("Date: " + dateFilter);
+        currentModuleFilters.setText("Module: " + moduleFilter);
+        currentTypeFilters.setText("Type: " + typeFilter);
+        currentFiltersGrid.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                 + "-fx-border-color: " + BORDER_COLOUR + "; "
                 + "-fx-border-width: " + BORDER_WIDTH + ";");
     }

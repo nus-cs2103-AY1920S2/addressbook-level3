@@ -141,8 +141,41 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCurrSessionDateFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrSessionDateFilter(params);
+    }
+
+    @Override
+    public void setCurrSessionModuleFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrSessionModuleFilter(params);
+    }
+
+    @Override
+    public void setCurrSessionTypeFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrSessionTypeFilter(params);
+    }
+
+    @Override
     public String getCurrSessionFilter() {
         return taTracker.getCurrSessionFilter();
+    }
+
+    @Override
+    public String getCurrSessionDateFilter() {
+        return taTracker.getCurrSessionDateFilter();
+    }
+
+    @Override
+    public String getCurrSessionModuleFilter() {
+        return taTracker.getCurrSessionModuleFilter();
+    }
+
+    @Override
+    public String getCurrSessionTypeFilter() {
+        return taTracker.getCurrSessionTypeFilter();
     }
 
     @Override
