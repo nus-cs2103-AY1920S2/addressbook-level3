@@ -12,23 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:releaseUrl: https://github.com/AY1920S2-CS2103-W15-1/main/releases
+:epochTiming: https://www.epochconverter.com
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
 Contact Tracing App is for contract tracing during virus transmission, in order to make better
-decisions when it comes to varus spreading control. This app collect contact information from mobile
+decisions when it comes to virus spreading control. This app collect contact information from mobile
 phone users and maintains a record in a database system. A periodic and detailed report will be generlized 
 for all users including the hotpot of virus transmission. Every citizen can log into this app with 
-personal information such as citizen ID, name, etc. 
-
+personal information such as citizen ID, name, etc.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `ContactTracing.jar` link:{releaseUrl}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -38,10 +38,15 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`Log In`: Log in with citizen ID and name.
+* `From <ts: start> to <ts: end>`: Searches for all interactions from start to end timestamp
+* `id is <user: id>`: Searches for all interactions with the user ID
+* `pairs <user1: id> and <user2: id>`: Searches for all interactions with the containing user 1 and user 2
+* `danger <threshold: counts>`: Searches for user pairs which has occured more than *threshold
+* `list users`: Shows all registered users in the system
+* `find <user: id>`: Shows all information wrt to a user
+* `add users`: Adds a new user to the system
+
 * *`reports`* : list all recent reports about virus transmission and current situation.
-* **`map`: Show the map of Singapore with a heat map of the virus transmission situation.  
-* **`statistics`: Present the statistics of number of patients and trends.
 * *`exit`* : Exits the app.
 
 .  Refer to <<Features>> for details of each command.
@@ -49,59 +54,60 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+== Querying over collected trace data
+=== Searching over timestamp : `From`
+Retrieves collected trace data based on by timestamp filter.
 
-====
-*Command Format*
+Format: `From <ts: start> to <ts: end>`
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+Example: `From 1500000000 to 1500001000`
 
-=== Viewing help : `help`
+*Note: Currently accepted timestamp is in epoch timing. For example on how to use the timing, refer link:{epochTiming}/releases[here]
 
-Format: `help`
+=== Searching over user ID : `id is`
+Retrieves all trace data based on a given user id
 
-=== Viewing Reports: `reports`
+Format: `id is <user: id>`
 
-Get the reports about recent disease transmission and trend.+
-Format: `reports`
+Example: `id is 1`
 
-===  : Viewing the heatmap: `map`
+=== Searching over user ID pairs : `pairs`
+Retrieves all trace data that contains interactions between 2 user pairs
 
-Showing the heat map of disease transmission. +
-Format: `map`
+Format: `pairs <user1: id> and <user2: id>`
 
-=== Searching : `find`
+Example: `pairs 1 and 2`
 
-Searching an anonymous person with citizen ID and name. +
-Format: `find CITIZEN_ID; NAME`
+=== Searching for danger signs : `danger`
+Identifies user pairs that are most at risk, based on occurrence spanning more than a threshold count.
+These individuals are obviously not practicing good social distancing and are a threat to the community.
 
-****
-* Only senior government offcers who are authorized can use such function.
-* The CITIZEN_ID and NAME should be perfectly matched with each other.
-****
+Format: `danger <threshold: counts>`
 
-Examples:
+Example: `danger 10` will flag out user pairs which are present more than 10 times
 
-* `find G1967327P; FU YUJIAN`
-Search for the person with citizen ID G1967327P and name FU YUJIAN
-=== Exit the application: `exit`
+== Querying user related information
+=== Searching all users: `list`
+Shows all users registered in the system
 
-Exits the application. +
-Format: `exit`
+Format: `list`
+
+=== Filtering by user: `find`
+Applies a filter to perform quick search on a user
+
+Format: `find <user: id>`
+
+Example: `find 1` will find information on user ID 1
+
+=== Adding a new user: `add`
+Registers a new user to the system
+
+Format: `add n/<name> m/<mobile no.>`
+
+Example: `add n/John Doe m/99119911`
 
 == FAQ
 
 *Q*: Will my personal data be protected well? +
 *A*: There will be strict authority sytem to prevent privacy leak, all data published to public will be anonymous.
 
-== Command Summary
-
-* *reports* `reports` +
-* *find* : `find CITIZEN_ID; NAME`
-e.g. `find G1967327P; FU YUJIAN`
-* *map* : `map`
-* *help* : `help`
-* *exit* : `exit`

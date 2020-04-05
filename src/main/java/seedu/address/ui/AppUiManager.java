@@ -4,11 +4,10 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.AppLogic;
-
+import seedu.address.ContactTracingMainApp;
 import java.util.logging.Logger;
 
 public class AppUiManager implements Ui {
@@ -44,7 +43,7 @@ public class AppUiManager implements Ui {
     }
 
     private Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
+        return new Image(ContactTracingMainApp.class.getResourceAsStream(imagePath));
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {

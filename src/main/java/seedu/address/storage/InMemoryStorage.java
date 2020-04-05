@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import seedu.address.logic.aggregators.Aggregators;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.conditions.LiterallyNoConditions;
 
@@ -30,6 +31,15 @@ public abstract class InMemoryStorage<T> implements AppStorage<T> {
     @Override
     public void update(T oldTemplateClass, T newTemplateClass) {
         // TODO: write some code here
+    }
+
+    @Override
+    public ArrayList<T> search(Conditions cond, Aggregators agg) {
+        ArrayList<T> collection = agg.collect(this.fakeStorage);
+
+        return collection.stream()
+                        .filter(each -> cond.satisfies(each))
+                        .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
