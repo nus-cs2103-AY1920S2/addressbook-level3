@@ -6,6 +6,7 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.zerotoone.commons.util.Pair;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.DoneCommand;
 import seedu.zerotoone.logic.commands.ExitCommand;
@@ -46,16 +47,12 @@ public class ParserManager {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String input) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        Pair<String, String> separatedInput = separateCommandAndArguments(input);
+        String commandWord = separatedInput.getFirstObject();
+        String arguments = separatedInput.getSecondObject();
+        
         switch (commandWord) {
         case StartCommand.COMMAND_WORD:
-            System.out.println(arguments);
             return new StartCommandParser().parse(arguments);
         case StopCommand.COMMAND_WORD:
             return new StopCommandParser().parse(arguments);
@@ -87,43 +84,43 @@ public class ParserManager {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public ViewType parseViewType(String input) throws ParseException {
-        final String[] command = input.trim().split(" ");
-        final String commandWord = command[0];
+        Pair<String, String> separatedInput = separateCommandAndArguments(input);
+        String commandWord = separatedInput.getFirstObject();
 
         switch (commandWord) {
-        case "start":
+        case StartCommand.COMMAND_WORD:
             return ViewType.SESSION_VIEW;
-
-        case "stop":
+        case StopCommand.COMMAND_WORD:
             return ViewType.SESSION_VIEW;
-
-        case "done":
+        case DoneCommand.COMMAND_WORD:
             return ViewType.SESSION_VIEW;
-
-        case "skip":
+        case SkipCommand.COMMAND_WORD:
             return ViewType.SESSION_VIEW;
-
-        case "exercise":
+        case ExitCommand.COMMAND_WORD:
+            return ViewType.SESSION_VIEW;
+        case HelpCommand.COMMAND_WORD:
+            return ViewType.SESSION_VIEW;
+        case ExerciseCommand.COMMAND_WORD:
             return ViewType.EXERCISE_VIEW;
-
-        case "workout":
+        case WorkoutCommand.COMMAND_WORD:
             return ViewType.WORKOUT_VIEW;
-
-        case "schedule":
+        case ScheduleCommand.COMMAND_WORD:
             return ViewType.SCHEDULE_VIEW;
-
-        case "log":
+        case LogCommand.COMMAND_WORD:
             return ViewType.LOG_VIEW;
-
-        case "help":
-            return ViewType.SESSION_VIEW;
-
-        case "exit":
-            return ViewType.SESSION_VIEW;
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
 
+    private Pair<String, String> separateCommandAndArguments(String input) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        return new Pair<String, String>(commandWord, arguments);
     }
 }
