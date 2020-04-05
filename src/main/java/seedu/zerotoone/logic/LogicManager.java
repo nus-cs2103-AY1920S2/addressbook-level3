@@ -21,6 +21,7 @@ import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.storage.Storage;
+import seedu.zerotoone.ui.util.ViewType;
 
 /**
  * The main LogicManager of the app.
@@ -57,6 +58,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public ViewType getViewType(String commandText) throws ParseException {
+        return parser.parseViewType(commandText);
     }
 
     // -----------------------------------------------------------------------------------------

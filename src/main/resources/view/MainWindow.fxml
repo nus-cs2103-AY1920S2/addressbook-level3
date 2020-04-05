@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -27,35 +28,35 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <!-- <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
-        </MenuBar>
+        </MenuBar> -->
 
-      <HBox VBox.vgrow="ALWAYS" >
+      <HBox fx:id="tabsContainer" VBox.vgrow="ALWAYS" >
       <VBox id="tabsVBox" HBox.hgrow="ALWAYS">
         <TabPane fx:id="tabPanePlaceHolder"
                  VBox.vgrow="ALWAYS"
                  tabClosingPolicy="UNAVAILABLE"
                  stylesheets="@css/Tab.css">
 
-          <Tab text="Home">
+          <Tab text="HOME">
             <StackPane fx:id="homeContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Exercise">
+          <Tab text="EXERCISE">
             <StackPane fx:id="exerciseContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Workout">
+          <Tab text="WORKOUT">
             <StackPane fx:id="workoutContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Schedule">
+          <Tab text="SCHEDULE">
             <StackPane fx:id="scheduleContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Log">
+          <Tab fx:id="logTab" text="LOG">
             <StackPane fx:id="logContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
         </TabPane>
