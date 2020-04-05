@@ -19,17 +19,15 @@ public class Remark {
     }
 
     /**
-     * Format state as text for viewing.
-     */
-    public String toString() {
-        return '[' + value + ']';
-    }
-
-    /**
      * Returns true if a given string is a valid remark.
      */
     public static boolean isValidRemark(String test) {
         return !test.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return '[' + value + ']';
     }
 
     @Override

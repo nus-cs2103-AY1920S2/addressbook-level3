@@ -111,4 +111,9 @@ public class AddInfoCommand extends Command {
     public Optional<ArrayList<Remark>> getRemarks() {
         return (newRemarks != null) ? Optional.of(newRemarks) : Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

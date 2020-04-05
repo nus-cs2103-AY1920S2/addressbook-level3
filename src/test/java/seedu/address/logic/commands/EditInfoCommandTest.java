@@ -40,13 +40,12 @@ class EditInfoCommandTest {
     @Test
     public void execute_editInfoUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
-        int size = editedPerson.getRemark().size();
+        Person editedPerson = new PersonBuilder(firstPerson).withEditRemark(0, REMARK_STUB).build();
 
         EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON,
-                1, editedPerson.getRemark().get(0));
+                1, new Remark(REMARK_STUB));
 
-        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
+        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
@@ -65,12 +64,11 @@ class EditInfoCommandTest {
 
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
-                .withRemark(REMARK_STUB).build();
-        int size = editedPerson.getRemark().size();
+                .withEditRemark(0, REMARK_STUB).build();
         EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON,
-                1, editedPerson.getRemark().get(0));
+                1, new Remark(REMARK_STUB));
 
-        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
+        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
