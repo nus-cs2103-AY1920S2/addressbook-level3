@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY_CONTENT;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.DiaryAddCommand;
+import seedu.address.logic.commands.diarycommand.DiaryAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.DiaryEntry;
 

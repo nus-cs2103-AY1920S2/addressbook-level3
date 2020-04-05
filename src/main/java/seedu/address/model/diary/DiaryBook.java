@@ -50,7 +50,12 @@ public class DiaryBook {
         return diaryEntries.get(entryId - 1).toString();
     }
 
+    /*
     public void addEntry(DiaryEntry diaryEntry) {
         this.internalList.add(diaryEntry);
+    }
+    */
+    public void addEntry(DiaryEntry diaryEntry) {
+        diaryEntries.add(diaryEntry);
     }
 }
