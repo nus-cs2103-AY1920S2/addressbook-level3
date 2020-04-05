@@ -27,7 +27,8 @@ import seedu.address.model.profile.course.module.personal.Grade;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_SEMESTER = "Please input a positive integer as current semester!";
+    public static final String MESSAGE_INVALID_SEMESTER = "Please enter the year in the form Y.S, where Y is the year "
+            + "(positive integer less than 10) and S is the semester (1 or 2).";
 
 
     /**
@@ -103,10 +104,14 @@ public class ParserUtil {
         if (semester.equals("")) {
             throw new ParseException(MESSAGE_MISSING_SEMESTER);
         }
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedSemester)) {
+        if (!semester.matches("[1-9][.][1-2]")) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
-        return Integer.parseInt(trimmedSemester);
+        System.out.println(semester);
+        int year = Integer.parseInt(trimmedSemester.split("\\.")[0]);
+        int sem = Integer.parseInt(trimmedSemester.split("\\.")[1]);
+        int currSem = 2 * (year - 1) + sem;
+        return currSem;
     }
 
     /**
