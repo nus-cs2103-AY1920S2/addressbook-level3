@@ -6,13 +6,14 @@ import seedu.address.logic.conditions.UserIDConditions;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
+import seedu.address.storage.BluetoothPingStorageAccess;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FilterUserIDCommand implements AppCommand {
+public class FilterUserIDCommand implements AppCommand, BluetoothPingStorageAccess {
     private static int USER_ID;
     public static final String COMMAND_WORD = "id";
     private static final Pattern COMMAND_FORMAT = Pattern.compile("is (?<userid>\\d+)");

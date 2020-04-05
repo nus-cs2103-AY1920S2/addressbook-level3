@@ -6,13 +6,14 @@ import seedu.address.logic.conditions.TimestampConditions;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
+import seedu.address.storage.BluetoothPingStorageAccess;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FilterTimestampCommand implements AppCommand {
+public class FilterTimestampCommand implements AppCommand, BluetoothPingStorageAccess {
     private static Long START_TIME;
     private static Long END_TIME;
 

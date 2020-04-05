@@ -5,11 +5,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AppCommand;
 import seedu.address.logic.messages.AppMessage;
-import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
 import seedu.address.logic.parser.CommandRouter;
+import seedu.address.storage.DaoRouter;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -56,6 +57,7 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
         logger.info("----------------[USER COMMAND][" + command + "]");
 
         AppCommand appCommand = new CommandRouter().parse(command);
+        AppStorage<T> dao = DaoRouter.getInstance().getStorage(appCommand);
         AppMessage result = appCommand.execute(dao);
         return result;
     }
