@@ -85,6 +85,9 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             case ExitCommand.COMMAND_WORD:
                 return new HelpCommand(preface + ExitCommand.COMMAND_USAGE + ending);
 
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand("You are already using the help command");
+
             default:
                 throw new ParseException("Invalid Command chosen!");
             }
