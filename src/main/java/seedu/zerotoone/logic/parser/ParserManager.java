@@ -94,6 +94,15 @@ public class ParserManager {
         case "start":
             return ViewType.SESSION_VIEW;
 
+        case "stop":
+        return ViewType.SESSION_VIEW;
+
+        case "done":
+        return ViewType.SESSION_VIEW;
+
+        case "skip":
+        return ViewType.SESSION_VIEW;
+
         case "exercise":
             return ViewType.EXERCISE_VIEW;
 
@@ -105,6 +114,12 @@ public class ParserManager {
 
         case "log":
             return ViewType.LOG_VIEW;
+
+        case "help":
+            return ViewType.SESSION_VIEW;
+
+        case "exit":
+            return ViewType.SESSION_VIEW;
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
