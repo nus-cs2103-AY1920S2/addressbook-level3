@@ -23,12 +23,14 @@ import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.storage.JsonExpenseLaStorage;
+import seedu.expensela.storage.JsonGlobalDataStorage;
 import seedu.expensela.storage.JsonUserPrefsStorage;
 import seedu.expensela.storage.StorageManager;
 import seedu.expensela.testutil.MonthlyDataBuilder;
@@ -49,7 +51,8 @@ public class LogicManagerTest {
         JsonExpenseLaStorage expenseLaStorage =
                 new JsonExpenseLaStorage(temporaryFolder.resolve("expenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage);
+        JsonGlobalDataStorage globalDataStorage = new JsonGlobalDataStorage(temporaryFolder.resolve("globalData.json"));
+        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage, globalDataStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -78,7 +81,9 @@ public class LogicManagerTest {
                 new JsonExpenseLaIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage);
+        JsonGlobalDataStorage globalDataStorage =
+                new JsonGlobalDataStorage(temporaryFolder.resolve("ioExceptionGlobalData.json"));
+        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage, globalDataStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -133,7 +138,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs(), new GlobalData());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

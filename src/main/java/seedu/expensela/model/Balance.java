@@ -45,7 +45,7 @@ public class Balance {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Balance // instanceof handles nulls
-                && balanceAmount == ((Balance) other).balanceAmount); // state check
+                && balanceAmount.equals(((Balance) other).balanceAmount)); // state check
     }
 
     @Override

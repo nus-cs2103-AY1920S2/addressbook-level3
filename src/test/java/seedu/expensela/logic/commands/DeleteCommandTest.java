@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -24,7 +25,7 @@ import seedu.expensela.model.transaction.Transaction;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +35,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs(), new GlobalData());
         expectedModel.deleteTransaction(transactionToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -58,7 +59,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
-        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs(), new GlobalData());
         expectedModel.deleteTransaction(transactionToDelete);
         showNoTransaction(expectedModel);
 

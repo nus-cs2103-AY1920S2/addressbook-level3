@@ -2,8 +2,11 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DecimalFormat;
+
 import javafx.collections.ObservableList;
 import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.Transaction;
 
@@ -19,6 +22,8 @@ public class ResetBalanceCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Total balance is now %.2f.";
 
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -31,7 +36,7 @@ public class ResetBalanceCommand extends Command {
                 balance -= transactionList.get(i).getAmount().transactionAmount;
             }
         }
-        model.updateTotalBalance(balance);
+        model.updateTotalBalance(new Balance(df2.format(balance)));
         return new CommandResult(String.format(MESSAGE_SUCCESS, balance));
     }
 

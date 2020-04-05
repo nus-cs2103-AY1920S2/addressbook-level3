@@ -57,12 +57,11 @@ public class MonthlyDataPanel extends UiPart<Region> {
      * @param monthlyData to be displayed
      * @param balanceAmount to be displayed
      */
-    public MonthlyDataPanel(MonthlyData monthlyData, Double balanceAmount) {
+    public MonthlyDataPanel(MonthlyData monthlyData, Balance balanceAmount) {
         super(FXML);
         this.monthlyData = monthlyData;
-        Balance balanceModel = new Balance(balanceAmount.toString());
         drawCircle(monthlyData.getBudget().budgetAmount, monthlyData.getExpense().expenseAmount);
-        balance.setText("Total Balance: " + balanceModel);
+        balance.setText("Total Balance: " + balanceAmount);
         budget.setText("Monthly Budget: " + monthlyData.getBudget());
         expenditure.setText("Monthly Expense: " + monthlyData.getExpense());
         income.setText("Monthly Income: " + monthlyData.getIncome());

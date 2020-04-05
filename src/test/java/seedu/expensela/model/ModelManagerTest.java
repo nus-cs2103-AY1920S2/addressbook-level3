@@ -41,7 +41,6 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setExpenseLaFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        userPrefs.setTotalBalance(1000.00);
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
@@ -102,10 +101,11 @@ public class ModelManagerTest {
         ExpenseLa expenseLa = new ExpenseLaBuilder().withTransaction(PIZZA).withTransaction(GRAB).build();
         ExpenseLa differentExpenseLa = new ExpenseLa();
         UserPrefs userPrefs = new UserPrefs();
+        GlobalData globalData = new GlobalData();
 
         // same values -> returns true
-        modelManager = new ModelManager(expenseLa, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(expenseLa, userPrefs);
+        modelManager = new ModelManager(expenseLa, userPrefs, globalData);
+        ModelManager modelManagerCopy = new ModelManager(expenseLa, userPrefs, globalData);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -118,11 +118,11 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different expenseLa -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExpenseLa, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseLa, userPrefs, globalData)));
 
         modelManager.updateFilteredTransactionList(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
                 new DateEqualsKeywordPredicate(Arrays.asList("ALL")));
-        assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs, globalData)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
@@ -130,6 +130,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExpenseLaFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(expenseLa, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseLa, differentUserPrefs, globalData)));
     }
 }

@@ -15,7 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path expenseLaFilePath = Paths.get("data" , "expenseLa.json");
-    private Double balance = 1000.00;
+    private Path globalDataFilePath = Paths.get("data", "globalData.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,7 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setExpenseLaFilePath(newUserPrefs.getExpenseLaFilePath());
-        setTotalBalance(newUserPrefs.getTotalBalance());
+        setGlobalDataFilePath(newUserPrefs.getGlobalDataFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -50,16 +50,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Double getTotalBalance() {
-        return balance;
-    }
-
-    public void setTotalBalance(Double totalBalance) {
-        requireNonNull(totalBalance);
-        totalBalance = Math.round(totalBalance * 100.0) / 100.0;
-        this.balance = totalBalance;
-    }
-
     public Path getExpenseLaFilePath() {
         return expenseLaFilePath;
     }
@@ -67,6 +57,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setExpenseLaFilePath(Path expenseLaFilePath) {
         requireNonNull(expenseLaFilePath);
         this.expenseLaFilePath = expenseLaFilePath;
+    }
+
+    public Path getGlobalDataFilePath() {
+        return globalDataFilePath;
+    }
+
+    public void setGlobalDataFilePath(Path globalDataFilePath) {
+        requireNonNull(globalDataFilePath);
+        this.globalDataFilePath = globalDataFilePath;
     }
 
     @Override
@@ -81,13 +80,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && expenseLaFilePath.equals(o.expenseLaFilePath)
-                && balance.equals(o.balance);
+                && expenseLaFilePath.equals(o.expenseLaFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, expenseLaFilePath, balance);
+        return Objects.hash(guiSettings, expenseLaFilePath);
     }
 
     @Override
@@ -95,7 +93,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + expenseLaFilePath);
-        sb.append("\ntotal balance : " + balance);
         return sb.toString();
     }
 

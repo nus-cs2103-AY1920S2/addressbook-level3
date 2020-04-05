@@ -7,6 +7,7 @@ import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
+import seedu.expensela.model.Balance;
 import seedu.expensela.model.Filter;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ToggleView;
@@ -50,6 +51,11 @@ public interface Logic {
     Path getExpenseLaFilePath();
 
     /**
+     * Returns the user prefs' expensela file path.
+     */
+    Path getGlobalDataFilePath();
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
@@ -62,11 +68,11 @@ public interface Logic {
     /**
      * Get the total balance of the user
      */
-    Double getTotalBalance();
+    Balance getTotalBalance();
 
     /**
      * Set the total balance of the user
      */
-    void setTotalBalance(Double totalBalance);
+    void setTotalBalance(Balance totalBalance);
 
 }

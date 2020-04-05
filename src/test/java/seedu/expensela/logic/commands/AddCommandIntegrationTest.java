@@ -6,6 +6,7 @@ import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -21,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
     }
 
     @Test
     public void execute_newTransaction_success() {
         Transaction validTransaction = new TransactionBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs(), new GlobalData());
         expectedModel.addTransaction(validTransaction);
 
         assertCommandSuccess(new AddCommand(validTransaction), model,

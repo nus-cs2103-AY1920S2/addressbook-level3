@@ -19,6 +19,7 @@ import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -31,7 +32,7 @@ import seedu.expensela.testutil.TransactionBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -41,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs(), new GlobalData());
 
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
@@ -64,7 +65,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs(), new GlobalData());
         expectedModel.setTransaction(lastTransaction, editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -77,7 +78,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs(), new GlobalData());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -96,7 +97,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs(), new GlobalData());
         expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
