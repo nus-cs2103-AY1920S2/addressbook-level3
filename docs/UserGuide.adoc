@@ -1,4 +1,4 @@
-= Healthy Baby - User Guide
+= HealthyBaby - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -118,7 +118,8 @@ HYBB uses the following tags to make sense of user input:
 |iv/ |Vegetable ingredient (e.g. spinach, cabbage, carrot)
 |ip/ |Protein ingredient (e.g. chicken, salmon, tofu)
 |if/ |Fruit ingredient (e.g. grapes, honeydew, watermelon)
-|io/ |Other ingredient, for any other ingredient that do not belong in the above 4 categories (e.g. oyster sauce, pepper, sesame oil)
+|io/ |Other ingredient, for any other ingredient that do not belong in the above 4 categories (e.g. oyster sauce,
+pepper, sesame oil)
 |s/ |Steps of the recipe
 |g/ |Goal that the recipe achieves
 |i/ |Image uploaded by user
@@ -136,8 +137,7 @@ From sections 6 to 11, the following notations may be used.
 |[ < > ] |At least one of the optional fields is necessary
 |… | One or more of this same field can be added. e.g. if the command specifies `<ip/PROTEIN>...`, you may either leave
 the field empty, or you may specify ≥1 protein ingredients.
-|💡 | Tip
-|ℹ️| Things to take note of
+|💡 | Tips for usage and things to take note of
 |===
 
 
@@ -165,22 +165,23 @@ Format: `list`
 
 === Find a recipe: `find`
 Searches for existing recipes by their names using the keyword(s) that you have specified. +
-Format: `find` </strict> [keyword] <keyword>...
+Format: `find </strict> [keyword] <keyword>...`
 
-Example 1: `find /strict Avocado Chicken`
-Finds recipes that contain the words "Avocado" *or* "Chicken" in their names.
+Example 1: `find /strict Avocado Chicken` +
+Finds recipes that contain the words "Avocado" *or* "Chicken" in their names (ie. only one of them has to be present).
 
-[NOTE]
-Using `/strict` will treat all subsequent keywords as separate keywords (separated by the space, as seen in Example 1).
+[TIP]
+Using `/strict` will treat all subsequent keywords as *separate keywords* (separated by the space,
+as seen in Example 1). +
+{nbsp} +
+It will also search for an *exact match* of each specified keyword (e.g. If you are searching for a recipe that
+has "Avocado" in its name, `find /strict Avo` _will not_ be able to find it. Instead, use `find /strict Avocado` or
+see Example 2.)
 
-[NOTE]
-Using `/strict` will search for an *exact match* of each specified keyword (e.g. If you are searching for a recipe that
-has "Avocado" in its name, `find /strict Avo` will not be able to find it. Instead, use `find /strict Avocado`)
-
-Example 2: `find Avocado Chicken`
+Example 2: `find Avocado Chicken` +
 Finds recipes that contain the single keyword "Avocado Chicken".
 
-[NOTE]
+[TIP]
 Without `/strict`, all the keywords will be taken as a *single keyword* and it *does not* require an exact match for
 recipe to be found (e.g. `find Avo` will be able to find recipes that has "Avocado" in its name)
 
@@ -188,27 +189,33 @@ recipe to be found (e.g. `find Avo` will be able to find recipes that has "Avoca
 Adds a recipe to the recipe book +
 Format: `add [n/name] [t/time] <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>... <s/step>…`
 
-Example: `add n/Chicken Rice t/30 ip/300g, Chicken Thigh ig/300g, Rice s/Boil chicken s/While chicken is cooking, add sesame oil and crushed ginger into rice and cook it s/When chicken is done, dip it into iced water s/Serve while rice is hot g/Bulk like the Hulk` +
+Example: `add n/Chicken Rice t/30 ip/300g, Chicken Thigh ig/300g, Rice s/Boil chicken s/While chicken is cooking,
+          add sesame oil and crushed ginger into rice and cook it s/When chicken is done, dip it into iced water
+          s/Serve while rice is hot g/Bulk like the Hulk` +
 Adds a new recipe entry that contains the following description:
 image::AddExample.png
 
 [TIP]
 Multiple steps and multiple ingredients for a recipe can be added in this one command. +
-The compulsory fields needed in a recipe are the name, time and at least one of the ingredient fields.
+{nbsp} +
+The compulsory fields needed in a recipe are the *name, time and at least one of the ingredient fields.*
 You can add these fields first, then edit the recipe as needed using the various edit commands available
 (Refer to section 6.6 and 7).
 
 === Edit a recipe : `edit`
 Edits an existing recipe. This is the command used for editing entire fields at a time. +
-Format: `edit [recipe index] <n/name>... <t/time>... <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>… <s/step>…`
+Format: `edit [recipe index] <n/name>... <t/time>... <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>...
+<io/other>… <s/step>…`
 
 Example: `edit 4 n/Chicken Rice t/20` +
 Renames the 4th recipe to Chicken Rice, and sets the preparation time to 20 minutes (from whatever amount it was before).
 
 [TIP]
-Using this command to edit a field that might have multiple entities like ‘vegetable ingredients’ or 'steps' will overwrite the entire field.
-For example, if the 4th recipe currently has a list of 5 vegetable ingredients, running edit 4 iv/50g, Lettuce will
-replace the entire list of vegetable ingredients with only 50g of Lettuce. +
+Using this command to edit a field that might have multiple entities like ‘vegetable ingredients’ or 'steps' will
+overwrite the entire field.
+For example, if the 4th recipe currently has a list of 5 vegetable ingredients, running `edit 4 iv/50g, Lettuce` will
+replace the *entire* list of vegetable ingredients with only 50g of Lettuce. +
+{nbsp} +
 To make changes to a single entity in a field without having to rewrite everything, please refer to Section 7.
 
 === Delete a recipe : `delete`
@@ -221,9 +228,9 @@ Deletes recipe 1, 3, and 4 from the recipe book.
 [TIP]
 You can *delete, favourite, or unfavourite* multiple recipes at the same time (at least one recipe must be selected).
 
-[NOTE]
-Remember to specify recipe numbers that are within the main displayed recipes' range! Otherwise, your recipes will not
-be successfully deleted, favourited, or unfavourited!
+[TIP]
+If you specify a recipe number that does not exist in the list of recipes that you are currently viewing, none of your
+selected recipes will be deleted, favourited, or unfavourited.
 
 === Favourite a recipe: `favourite`
 Favourites the recipe(s) that you have specified. +
@@ -268,17 +275,20 @@ Edits the quantity of an ingredient in an existing recipe. +
 Format: `editIngredient [recipe index] [ <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>... ]`
 
 Example: `editIngredient 3 ig/50g, Bread` +
-Searches for Bread in recipe 3 and changes its quantity to 50g. An error message will appear if Bread does not exist in recipe 3's ingredients set.
+Searches for Bread in recipe 3 and changes its quantity to 50g. An error message will appear if Bread does not exist in
+recipe 3's ingredients set.
 
 [TIP]
 You can edit multiple ingredients at a time (at least one ingredient must be edited).
 
 === Delete Ingredients in a Recipe: `deleteIngredient`
 Deletes an ingredient in an existing recipe. +
-Format: `deleteIngredient [recipe index] [ <ig/grain name>... <iv/vegetable name>... <ip/protein name>... <if/fruit name>... <io/other name>... ]`
+Format: `deleteIngredient [recipe index] [ <ig/grain name>... <iv/vegetable name>... <ip/protein name>...
+<if/fruit name>... <io/other name>... ]`
 
 Example: `deleteIngredient 3 ig/Rice iv/Kailan` +
-Searches for Rice and Kailan in recipe 3 and deletes them. An error message will appear if Rice and/or Kailan does not exist in recipe 3's ingredients set.
+Searches for Rice and Kailan in recipe 3 and deletes them. An error message will appear if Rice and/or Kailan does not
+exist in recipe 3's ingredients set.
 
 [TIP]
 You can delete multiple ingredients at a time (at least one ingredient must be deleted).
@@ -302,7 +312,8 @@ Edits the specified step in an existing recipe. +
 Format: `editStep [recipe index] [step index] [s/new step]`
 
 Example: `editStep 3 4 s/Edited new step` +
-Replaces step 4 of recipe 3 with “Edited new step”. If you specify more than one step, only the first one will be used to replace the old step.
+Replaces step 4 of recipe 3 with “Edited new step”. If you specify more than one step, only the first one will be used
+to replace the old step.
 
 === Delete Steps in a Recipe: `deleteStep`
 Deletes the specified step(s) from an existing recipe. +
@@ -400,7 +411,7 @@ Format: `chart [g/goal]`
 
 == Achievement
 
-==== Display streak: `streak` [Coming in v1.4]
+=== Display streak: `streak` [Coming in v1.4]
 Displays number of consecutive days user has cooked a meal from the app +
 Format: `streak`
 
@@ -415,7 +426,8 @@ Format: `addImage [i/image]`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HYBB folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous HYBB folder.
 
 == Command Summary
 

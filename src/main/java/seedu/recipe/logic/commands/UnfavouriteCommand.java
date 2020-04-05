@@ -2,7 +2,6 @@ package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +65,6 @@ public class UnfavouriteCommand extends Command {
             sb.append(String.format(MESSAGE_ALREADY_NOT_FAVOURITE, getListAsFormattedString(alreadyUnfavouritesList)));
         }
 
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
         return new CommandResult(sb.toString());
