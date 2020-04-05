@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import seedu.address.model.Pet;
 
@@ -11,16 +9,15 @@ public class PetManager {
     public final String HAPPY_MOOD_STRING = "HAPPY";
 
     private Pet pet;
-    private Path petImage;
-    private Path expBarImage;
+    private String petImage;
+    private String expBarImage;
     private String expBarText;
     private String levelText;
 
     private LocalDateTime lastDoneTaskTime;
     private LocalDateTime timeForHangry;
 
-    public PetManager() {
-    }
+    public PetManager() {}
 
     public void setPet(Pet pet) {
         this.pet = pet;
@@ -29,7 +26,7 @@ public class PetManager {
         // this.timeForHangry = lastDoneTaskTime.plusHours(24);
         // use this for TESTING
         this.timeForHangry = lastDoneTaskTime.plusMinutes(1);
-    } 
+    }
 
     public void incrementPomExp() {
         this.pet.incrementPomExp();
@@ -66,76 +63,72 @@ public class PetManager {
         levelText = this.pet.getLevel();
 
         String mood = pet.getMood();
-      
-        String petFilepath;
 
         if (levelText.equals("1")) {
-            String path =
+            String str =
                     (mood.equals(HAPPY_MOOD_STRING)
                             ? "/images/pet/level1.png"
-                           : "/images/pet/level1hangry.png");
-           petFilepath = path;
+                            : "/images/pet/level1hangry.png");
+            petImage = str;
         } else if (levelText.equals("2")) {
-            String path =
+            String str =
                     (mood.equals(HAPPY_MOOD_STRING)
-                            ? "/images/pet/level1.png"
-                           : "/images/pet/level1hangry.png");
-           petFilepath = path;
+                            ? "/images/pet/level2.png"
+                            : "/images/pet/level2hangry.png");
+            petImage = str;
         } else {
-            petFilepath = "/images/pet/level3.png";
-       }
+            petImage = "/images/pet/level3.png";
+        }
 
         int expBarPerc = expBarInt / 10;
 
-        String expBarFilepath;
-
         switch (expBarPerc) {
             case 0:
-                expBarFilepath = "/images/pet/ProgressBar0%.png";
+                expBarImage = "/images/pet/ProgressBar0%.png";
                 break;
 
             case 1:
-                expBarFilepath = "/images/pet/ProgressBar10%.png";
+                expBarImage = "/images/pet/ProgressBar10%.png";
                 break;
 
             case 2:
-                expBarFilepath = "/images/pet/ProgressBar20%.png";
+                expBarImage = "/images/pet/ProgressBar20%.png";
                 break;
 
             case 3:
-                expBarFilepath = "/images/pet/ProgressBar30%.png";
+                expBarImage = "/images/pet/ProgressBar30%.png";
                 break;
 
             case 4:
-                expBarFilepath = "/images/pet/ProgressBar40%.png";
+                expBarImage = "/images/pet/ProgressBar40%.png";
                 break;
 
             case 5:
-                expBarFilepath = "/images/pet/ProgressBar50%.png";
+                expBarImage = "/images/pet/ProgressBar50%.png";
                 break;
 
             case 6:
-                expBarFilepath = "/images/pet/ProgressBar60%.png";
+                expBarImage = "/images/pet/ProgressBar60%.png";
                 break;
 
             case 7:
-                expBarFilepath = "/images/pet/ProgressBar70%.png";
+                expBarImage = "/images/pet/ProgressBar70%.png";
                 break;
 
             case 8:
-                expBarFilepath = "/images/pet/ProgressBar80%.png";
+                expBarImage = "/images/pet/ProgressBar80%.png";
                 break;
 
             case 9:
-                expBarFilepath = "/images/pet/ProgressBar90%.png";
+                expBarImage = "/images/pet/ProgressBar90%.png";
                 break;
 
             case 10:
-                expBarFilepath = "/images/pet/ProgressBar100%.png";
+                expBarImage = "/images/pet/ProgressBar100%.png";
                 break;
 
             default:
-                expBarFilepath = "/images/pet/ProgressBar0%.png";
+                expBarImage = "/images/pet/ProgressBar0%.png";
                 break;
         }
     }
@@ -152,11 +145,11 @@ public class PetManager {
         return expBarText;
     }
 
-    public Path getExpBarImage() {
+    public String getExpBarImage() {
         return expBarImage;
     }
 
-    public Path getPetImage() {
+    public String getPetImage() {
         return petImage;
     }
 
