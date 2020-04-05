@@ -131,10 +131,16 @@ public class ParserUtil {
         requireNonNull(timeStamp);
         String trimmedTimeStamp = timeStamp.trim();
         logger.fine("Checking whether it is valid timestamp");
-        if (!TimeStamp.isValidTimeStamp(trimmedTimeStamp)) {
+
+        int result = TimeStamp.checkTimestamp(trimmedTimeStamp);
+        if (result == TimeStamp.PARSE_ERROR) {
             logger.info("Invalid timestamp: " + trimmedTimeStamp);
             throw new ParseException(TimeStamp.MESSAGE_CONSTRAINTS);
+        } else if (result == TimeStamp.TIMESTAMP_BEFORE_NOW_ERROR) {
+            logger.info("Input date and time before current timestamp: " + trimmedTimeStamp);
+            throw new ParseException((TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW));
         }
+
         return new TimeStamp(trimmedTimeStamp);
     }
 

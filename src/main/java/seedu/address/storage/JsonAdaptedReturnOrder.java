@@ -133,9 +133,14 @@ class JsonAdaptedReturnOrder {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TimeStamp.class.getSimpleName()));
         }
-        if (!TimeStamp.isValidTimeStamp(timeStamp)) {
+
+        int result = TimeStamp.checkTimestamp(timeStamp);
+        if (result == TimeStamp.PARSE_ERROR) {
             throw new IllegalValueException(TimeStamp.MESSAGE_CONSTRAINTS);
+        } else if (result == TimeStamp.TIMESTAMP_BEFORE_NOW_ERROR) {
+            throw new IllegalValueException(TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
         }
+
         final TimeStamp modelTimeStamp = new TimeStamp(timeStamp);
 
         if (warehouse == null) {
