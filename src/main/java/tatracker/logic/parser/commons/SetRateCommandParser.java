@@ -1,7 +1,5 @@
 package tatracker.logic.parser.commons;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.stream.Stream;
 
 import tatracker.logic.commands.commons.SetRateCommand;
