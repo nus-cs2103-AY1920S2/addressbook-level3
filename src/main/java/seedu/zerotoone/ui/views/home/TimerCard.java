@@ -29,9 +29,8 @@ public class TimerCard extends UiPart<Region> {
         String hours = String.valueOf(minutesAbs / 60 % 24);
         String minutes = String.valueOf(minutesAbs % 60);
         String seconds = String.valueOf(secondsAbs % 60);
-        String timerString = hours + ":" + minutes + ":" + seconds;
+        String timerString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         timer.setText(timerString);
-        System.out.println(timerString);
     }
 
     @Override

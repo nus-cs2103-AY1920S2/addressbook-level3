@@ -31,7 +31,6 @@ public class HomePanel extends UiPart<Region> {
                      ObservableList<Integer> timerList) {
         super(FXML);
 
-
         timerListView.setItems(timerList);
         timerListView.setCellFactory(listView -> new TimerListViewCell());
 
