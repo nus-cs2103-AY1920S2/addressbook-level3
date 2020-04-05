@@ -15,6 +15,7 @@ import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.commons.ListCommand;
 import tatracker.logic.parser.commons.FindCommandParser;
 import tatracker.logic.parser.commons.GotoCommandParser;
+import tatracker.logic.parser.commons.SetRateCommandParser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.group.GroupCommandParser;
 import tatracker.logic.parser.module.ModuleCommandParser;
@@ -97,6 +98,9 @@ public class TaTrackerParser {
             return new ExitCommand();
 
         /* Others */
+        case CommandWords.SET_RATE:
+            return new SetRateCommandParser().parse(arguments);
+
         case CommandWords.FIND:
             return new FindCommandParser().parse(arguments);
 

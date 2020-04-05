@@ -41,7 +41,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static Module currentlyShownModule;
     private static Module currentlyShownModuleClaim;
 
-    private int rate;
+    private static int rate;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
@@ -223,8 +223,9 @@ public class TaTracker implements ReadOnlyTaTracker {
         return rate;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public static void setRate(int newRate) {
+        System.out.println("Reached SetRate in TaTracker");
+        rate = newRate;
     }
 
     @Override

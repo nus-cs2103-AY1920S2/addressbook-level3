@@ -288,4 +288,19 @@ public class ParserUtil {
         }
         return Tab.getTab(trimmedType);
     }
+
+    public static int parseRate(String rate) throws ParseException {
+        requireNonNull(rate);
+        String trimmedRate = rate.trim();
+         try {
+             int parsedRate = Integer.parseInt(trimmedRate);
+             if (parsedRate <= 0) {
+                 throw new ParseException("RATE must be a positive integer");
+             }
+             System.out.println("Parse Rate:" + parsedRate);
+             return parsedRate;
+         } catch (NumberFormatException e) {
+             throw new ParseException("RATE must be a positive integer");
+        }
+    }
 }
