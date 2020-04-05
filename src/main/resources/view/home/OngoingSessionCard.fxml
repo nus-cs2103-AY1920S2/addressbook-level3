@@ -16,32 +16,18 @@
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-     <GridPane prefHeight="82.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
-       <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-       </columnConstraints>
-        <children>
-          <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+      <HBox prefHeight="21.0" prefWidth="345.0">
+         <children>
+          <VBox alignment="CENTER_LEFT" minHeight="105">
             <padding>
               <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-             <children>
-                  <HBox prefHeight="21.0" prefWidth="345.0">
-                     <children>
-                    <Label fx:id="exerciseName" prefHeight="17.0" prefWidth="168.0" styleClass="cell_big_label" text="Bench Press:" textOverrun="CLIP" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="35.0" prefWidth="403.0">
-                     <children>
-                        <Label fx:id="exerciseReps" prefHeight="17.0" prefWidth="156.0" styleClass="cell_big_label" text="reps" />
-                     </children>
-                  </HBox>
-             </children>
+               <children>
+              <Label fx:id="exerciseName" prefHeight="17.0" prefWidth="356.0" styleClass="cell_big_label" text="Bench Press:" textOverrun="CLIP" />
+                  <Label fx:id="exerciseReps" prefHeight="17.0" prefWidth="355.0" styleClass="cell_big_label" text="reps" />
+               </children>
           </VBox>
-        </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
-     </GridPane>
+         </children>
+      </HBox>
    </children>
 </HBox>

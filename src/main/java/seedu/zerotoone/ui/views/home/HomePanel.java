@@ -2,6 +2,7 @@ package seedu.zerotoone.ui.views.home;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -16,6 +17,10 @@ public class HomePanel extends UiPart<Region> {
 
     @FXML
     private ListView<OngoingSet> ongoingSessionView;
+    @FXML
+    private Label lastExerciseName;
+    @FXML
+    private Label lastExerciseReps;
 
     public HomePanel(ObservableList<OngoingSet> ongoingSetList) {
         super(FXML);

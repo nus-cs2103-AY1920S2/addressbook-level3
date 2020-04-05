@@ -22,7 +22,7 @@ public class OngoingSession {
     // Identity fields
     private final LocalDateTime startTime;
     private final ExerciseName exerciseName;
-    private final Queue<ExerciseSet> exerciseQueue = new LinkedList<>();
+    private final Queue<OngoingSet> exerciseQueue = new LinkedList<>();
     private final Queue<CompletedSet> exerciseDone = new LinkedList<>();
 
     /**
@@ -31,7 +31,11 @@ public class OngoingSession {
     public OngoingSession(Exercise exercise, LocalDateTime startTime) {
         requireAllNonNull(exercise);
         this.exerciseName = exercise.getExerciseName();
-        this.exerciseQueue.addAll(exercise.getExerciseSets());
+        int i = 0;
+        for (ExerciseSet s: exercise.getExerciseSets()) {
+            this.exerciseQueue.add(new OngoingSet(s, exerciseName, i));
+            i++;
+        }
         this.startTime = startTime;
     }
 
@@ -66,7 +70,7 @@ public class OngoingSession {
         return !exerciseQueue.isEmpty();
     }
 
-    public Optional<ExerciseSet> peek() {
+    public Optional<OngoingSet> peek() {
         return Optional.ofNullable(exerciseQueue.peek());
     }
 
@@ -74,7 +78,7 @@ public class OngoingSession {
         return Optional.ofNullable(exerciseDone.peek());
     }
 
-    public List<ExerciseSet> getRemaining() {
+    public List<OngoingSet> getRemaining() {
         return Collections.unmodifiableList(new LinkedList<>(this.exerciseQueue));
     }
 

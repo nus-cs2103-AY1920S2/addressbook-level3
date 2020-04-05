@@ -11,6 +11,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.schedule.SchedulerModel;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
@@ -122,7 +123,11 @@ public interface Model extends WorkoutModel, SchedulerModel {
 
     Optional<OngoingWorkout> getCurrentWorkout();
 
+    CompletedSet skip();
 
+    CompletedSet done();
+
+    Boolean hasExerciseLeft();
 
     // -----------------------------------------------------------------------------------------
     // Log

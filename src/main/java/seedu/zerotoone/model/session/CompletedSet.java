@@ -38,6 +38,13 @@ public class CompletedSet {
         this.isFinished = isFinished;
     }
 
+    public CompletedSet(OngoingSet exerciseSet, boolean isFinished) {
+        requireAllNonNull(exerciseSet.getWeight(), exerciseSet.getNumReps());
+        this.weight = exerciseSet.getWeight();
+        this.numReps = exerciseSet.getNumReps();
+        this.isFinished = isFinished;
+    }
+
     public Weight getWeight() {
         return weight;
     }

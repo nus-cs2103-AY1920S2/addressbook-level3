@@ -20,10 +20,6 @@ public class OngoingSessionCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on ExerciseList level 4</a>
      */
 
-//    @FXML
-//    private Label exerciseWeight;
-//    @FXML
-//    private Label setId;
     @FXML
     private Label exerciseName;
     @FXML
@@ -32,7 +28,7 @@ public class OngoingSessionCard extends UiPart<Region> {
     public OngoingSessionCard(OngoingSet ongoingSet) {
         super(FXML);
         String name = ongoingSet.getExerciseName().fullName;
-        String set = String.valueOf(ongoingSet.getIndex());
+        String set = String.valueOf(ongoingSet.getIndex() + 1);
         String weight = ongoingSet.getWeight().value;
         String reps = ongoingSet.getNumReps().value;
         exerciseName.setText(name + ": " + "Set " + set);
