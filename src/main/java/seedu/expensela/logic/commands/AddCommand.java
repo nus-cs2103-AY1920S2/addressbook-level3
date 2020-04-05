@@ -8,14 +8,14 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.util.Arrays;
+
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
-
-import java.util.Arrays;
 
 /**
  * Adds a transaction to the expensela.
@@ -62,7 +62,10 @@ public class AddCommand extends Command {
         }
 
         model.addTransaction(toAdd);
-        model.setFilter(new Filter(new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())), new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth()))));
+        model.setFilter(
+                new Filter(
+                        new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())),
+                        new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth()))));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

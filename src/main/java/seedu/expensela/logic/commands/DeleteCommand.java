@@ -45,7 +45,10 @@ public class DeleteCommand extends Command {
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTransaction(transactionToDelete);
-        model.setFilter(new Filter(new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())), new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth()))));
+        model.setFilter(
+                new Filter(
+                        new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())),
+                        new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth()))));
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
     }
 

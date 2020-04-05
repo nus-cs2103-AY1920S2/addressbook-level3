@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
@@ -17,7 +18,7 @@ import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Transaction;
 
-import javafx.scene.chart.PieChart;
+
 
 /**
  * Panel containing the bar graph to break down expenditure according to category.
@@ -44,6 +45,10 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
         graphByCategory(transactionList);
     }
 
+    /**
+     * Creates a pie chart which displays the expenditure by category
+     * @param transactionList
+     */
     private void graphByCategory(ObservableList<Transaction> transactionList) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         ArrayList <String> categories = new ArrayList<>();
@@ -53,11 +58,11 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
             Amount amount = transaction.getAmount();
             double amountDouble = amount.transactionAmount;
             int amountInteger = (int) amountDouble;
-            if (categories.contains(category)) {                    // category alr exists in categories
+            if (categories.contains(category)) {
                 int index = categories.indexOf(category);
                 int newCategoryAmount = amountInteger + amounts.get(index);
                 amounts.add(index, newCategoryAmount);
-            } else {                                                // first time seeing the category
+            } else {
                 categories.add(category);
                 int index = categories.size() - 1;
                 amounts.add(index, amountInteger);
