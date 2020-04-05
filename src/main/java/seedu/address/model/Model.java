@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -121,6 +122,8 @@ public interface Model {
     boolean isValidEntryId(int entryId);
 
     void deleteDiaryEntry(int entryId);
+
+    void tagWeather(int entryId, Weather weather);
 
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */

@@ -52,6 +52,10 @@ public class DiaryEntry {
         return mood;
     }
 
+    public void setWeather(Weather weather) {
+        this.weather = Optional.ofNullable(weather);
+    }
+
     @Override
     public String toString() {
         String dairyDisplay = "";
