@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.FindTransactionCommandParser.TransactionType.BUY_TRANSACTION;
@@ -33,7 +34,9 @@ public class FindTransactionCommandParserTest {
         assertParseSuccess(parser, "buy n/Alice Bob g/Apple Banana", expectedFindTransactionCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "buy n/\n Alice \n \t Bob  \t g/Apple Banana",
+        assertParseSuccess(parser, "buy n/" + PREAMBLE_WHITESPACE + PREAMBLE_WHITESPACE
+                        + "Alice" + PREAMBLE_WHITESPACE + PREAMBLE_WHITESPACE + PREAMBLE_WHITESPACE
+                        + "Bob g/Apple Banana",
                 expectedFindTransactionCommand);
     }
 
@@ -44,7 +47,7 @@ public class FindTransactionCommandParserTest {
                 new TransactionContainKeywordsPredicate(BUY_TRANSACTION,
                         Collections.emptyList(), Collections.emptyList()));
         // extra space behind of "buy" is to account for space between preamble and prefix
-        assertParseSuccess(parser, "buy ", expectedFindTransactionCommand);
+        assertParseSuccess(parser, "buy" + PREAMBLE_WHITESPACE, expectedFindTransactionCommand);
 
         // only supplier name is given
         expectedFindTransactionCommand = new FindTransactionCommand(

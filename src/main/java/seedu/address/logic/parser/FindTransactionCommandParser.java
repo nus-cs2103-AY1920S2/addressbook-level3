@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import java.util.Arrays;
 import java.util.Optional;
 
+import seedu.address.logic.commands.BuyCommand;
 import seedu.address.logic.commands.FindTransactionCommand;
+import seedu.address.logic.commands.SellCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.TransactionContainKeywordsPredicate;
 
@@ -16,9 +18,6 @@ import seedu.address.model.transaction.TransactionContainKeywordsPredicate;
  * Parses input arguments and creates a new FindTransactionCommand object
  */
 public class FindTransactionCommandParser implements Parser<FindTransactionCommand> {
-
-    public static final String BUY_KEYWORD = "buy";
-    public static final String SELL_KEYWORD = "sell";
 
     /**
      * defines the type of transaction
@@ -74,14 +73,17 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
      */
     private String[] setKeywords(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
         Optional<String> words = argMultimap.getValue(prefix);
-        if (words.isPresent()) {
-            if (words.get().equals("")) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTransactionCommand.EMPTY_VALUE_WITH_PREFIX));
-            }
-            return words.get().split("\\s+");
+        // prefix is absent, return empty array
+        if (!words.isPresent()) {
+            return new String[0];
         }
-        return new String[0];
+        // prefix is present, but the value is empty
+        if (words.get().equals("")) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTransactionCommand.EMPTY_VALUE_WITH_PREFIX));
+        }
+        // prefix is present and the value is valid
+        return words.get().split("\\s+");
     }
 
     /**
@@ -94,9 +96,9 @@ public class FindTransactionCommandParser implements Parser<FindTransactionComma
         switch (argMultimap.getPreamble().trim()) {
         case "":
             return TransactionType.EMPTY;
-        case BUY_KEYWORD:
+        case BuyCommand.COMMAND_WORD:
             return TransactionType.BUY_TRANSACTION;
-        case SELL_KEYWORD:
+        case SellCommand.COMMAND_WORD:
             return TransactionType.SELL_TRANSACTION;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
