@@ -23,13 +23,9 @@ public class SetRateCommandParser implements Parser<SetRateCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetRateCommand parse(String args) throws ParseException {
-        try {
-            int rate = ParserUtil.parseRate(args);
-            System.out.println("return new SetRateCommand:" + rate);
-            return new SetRateCommand(rate);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
-        }
+        int rate = ParserUtil.parseRate(args);
+        System.out.println("return new SetRateCommand:" + rate);
+        return new SetRateCommand(rate);
     }
 
     /**

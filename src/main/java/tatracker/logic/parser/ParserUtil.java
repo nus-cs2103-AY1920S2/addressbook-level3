@@ -31,6 +31,7 @@ import tatracker.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RATE = "RATE is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
 
     /**
@@ -303,14 +304,12 @@ public class ParserUtil {
         String trimmedRate = rate.trim();
         try {
             int parsedRate = Integer.parseInt(trimmedRate);
-            if (parsedRate <= 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SetRateCommand.DETAILS.getUsage()));
+            if (!StringUtil.isNonZeroUnsignedInteger(trimmedRate)) {
+                throw new ParseException(MESSAGE_INVALID_RATE);
             }
-            System.out.println("Parse Rate:" + parsedRate);
             return parsedRate;
         } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
+            throw new ParseException(MESSAGE_INVALID_RATE);
         }
     }
 }
