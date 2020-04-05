@@ -37,7 +37,7 @@ public class UsedCommand extends IndexedCommand {
             + "You can only use it for a maximum of %s time(s).";
     public static final String MESSAGE_MISSING_ORIGINAL_AMOUNT = "Coupon has percentage savings "
             + "that requires the input of the original amount of purchase.\n"
-            + "Example: " + COMMAND_WORD + " 1 $100";
+            + "Example: " + COMMAND_WORD + " 1 %s100";
     public static final String MESSAGE_ARCHIVED_COUPON = "Coupon has been archived!\n"
             + "To use the coupon again, type the command `unarchive %s` first.";
 
@@ -86,9 +86,10 @@ public class UsedCommand extends IndexedCommand {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));
         }
 
+        String moneySymbol = model.getStashSettings().getMoneySymbol().getString();
         // checks if original amount of purchase is provided if the type of Savings is of percentage amount
         if (hasPercentageSavings && (originalAmount.equals(new MonetaryAmount(0.0)))) {
-            throw new CommandException(String.format(MESSAGE_MISSING_ORIGINAL_AMOUNT));
+            throw new CommandException(String.format(MESSAGE_MISSING_ORIGINAL_AMOUNT, moneySymbol));
         }
 
         Coupon usedCoupon;
