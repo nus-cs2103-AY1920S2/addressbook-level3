@@ -167,7 +167,22 @@ Format: `list`
 Searches for existing recipes by their names using the keyword(s) that you have specified. +
 Format: `find` </strict> [keyword] <keyword>...
 
-// TODO
+Example 1: `find /strict Avocado Chicken`
+Finds recipes that contain the words "Avocado" *or* "Chicken" in their names.
+
+[NOTE]
+Using `/strict` will treat all subsequent keywords as separate keywords (separated by the space, as seen in Example 1).
+
+[NOTE]
+Using `/strict` will search for an *exact match* of each specified keyword (e.g. If you are searching for a recipe that
+has "Avocado" in its name, `find /strict Avo` will not be able to find it. Instead, use `find /strict Avocado`)
+
+Example 2: `find Avocado Chicken`
+Finds recipes that contain the single keyword "Avocado Chicken".
+
+[NOTE]
+Without `/strict`, all the keywords will be taken as a *single keyword* and it *does not* require an exact match for
+recipe to be found (e.g. `find Avo` will be able to find recipes that has "Avocado" in its name)
 
 === Add a recipe: `add`
 Adds a recipe to the recipe book +
