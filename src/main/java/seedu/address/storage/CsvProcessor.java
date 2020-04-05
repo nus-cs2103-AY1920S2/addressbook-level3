@@ -60,7 +60,6 @@ public class CsvProcessor {
             logger.info("Invalid format found - Csv data does not start with orderType prefix.");
             throw new ParseException(MESSAGE_INVALID_FORMAT);
         }
-
         return getCsvData(fileDataTrimmed);
     }
 
