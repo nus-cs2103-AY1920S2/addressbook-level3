@@ -137,4 +137,9 @@ public class AddRestaurantNoteCommand extends Command {
                 && goodFood.equals(e.goodFood)
                 && badFood.equals(e.badFood);
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

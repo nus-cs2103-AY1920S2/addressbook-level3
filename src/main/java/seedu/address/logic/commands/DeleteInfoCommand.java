@@ -102,4 +102,9 @@ public class DeleteInfoCommand extends Command {
         return index.equals(e.index)
                 && line == e.line;
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }
