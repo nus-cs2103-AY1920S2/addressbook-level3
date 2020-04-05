@@ -114,6 +114,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withEditRemark(int line, String remark) {
+        this.remark.set(line, new Remark(remark));
+        return this;
+    }
+
+    /**
      * Sets the {@code Birthday} of the {@code Person} that we are building.
      */
     public PersonBuilder withBirthday(String birthday) {

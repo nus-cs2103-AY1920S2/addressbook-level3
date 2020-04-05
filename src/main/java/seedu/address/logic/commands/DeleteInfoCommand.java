@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -11,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 
 /**
  * Deletes a remark of an existing person in the address book.
@@ -30,16 +32,15 @@ public class DeleteInfoCommand extends Command {
             + PREFIX_LINE_NUMBER + " 2 ";
 
     public static final String MESSAGE_REMOVE_REMARK_SUCCESS = "Deleted remark for Person: %1$s";
-    public static final String MESSAGE_NO_DELETE_REMARK = "No remark removed from Person: %1$s";
 
     private final Index index;
-    private final int line;
+    private final ArrayList<Integer> line;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
      * @param line number of a specific note in the information stored
      */
-    public DeleteInfoCommand(Index index, int line) {
+    public DeleteInfoCommand(Index index, ArrayList<Integer> line) {
         requireAllNonNull(index, line);
 
         this.index = index;
@@ -59,10 +60,17 @@ public class DeleteInfoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_NO_INFO);
         }
 
-        if (line > personToEdit.getRemark().size() || line < 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
-        } else {
-            personToEdit.getRemark().remove(line - 1);
+        ArrayList<Remark> remarks = new ArrayList<>();
+        for (Integer i : line) {
+            if (i > personToEdit.getRemark().size() || i < 0) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
+            } else {
+                remarks.add(personToEdit.getRemark().get(i - 1));
+            }
+        }
+
+        for (Remark r : remarks) {
+            personToEdit.getRemark().remove(r);
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
@@ -72,17 +80,7 @@ public class DeleteInfoCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
-    }
-
-    /**
-     * Generates a command execution success message based on whether the remark is edited to or removed from
-     * {@code personToEdit}.
-     */
-    private String generateSuccessMessage(Person personToEdit) {
-        String message = (line > personToEdit.getRemark().size() || line < 0)
-                ? MESSAGE_REMOVE_REMARK_SUCCESS : MESSAGE_NO_DELETE_REMARK;
-        return String.format(message, personToEdit);
+        return new CommandResult(String.format(MESSAGE_REMOVE_REMARK_SUCCESS, editedPerson));
     }
 
     @Override
