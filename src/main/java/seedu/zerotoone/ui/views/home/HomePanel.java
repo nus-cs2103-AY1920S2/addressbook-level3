@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.ui.util.UiPart;
 
@@ -17,12 +18,12 @@ public class HomePanel extends UiPart<Region> {
     @FXML
     private ListView<OngoingSet> ongoingSessionView;
     @FXML
-    private ListView<OngoingSet> lastSetView;
+    private ListView<CompletedSet> lastSetView;
 
-    public HomePanel(ObservableList<OngoingSet> ongoingSetList, ObservableList<OngoingSet> lastSet) {
+    public HomePanel(ObservableList<OngoingSet> ongoingSetList, ObservableList<CompletedSet> lastSet) {
         super(FXML);
         lastSetView.setItems(lastSet);
-        lastSetView.setCellFactory(listView -> new OngoingSetViewCell());
+        lastSetView.setCellFactory(listView -> new LastSetViewCell());
         ongoingSessionView.setItems(ongoingSetList);
         ongoingSessionView.setCellFactory(listView -> new OngoingSetViewCell());
     }
@@ -39,6 +40,22 @@ public class HomePanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new OngoingSessionCard(ongoingSet).getRoot());
+            }
+        }
+    }
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
+     */
+    class LastSetViewCell extends ListCell<CompletedSet> {
+        @Override
+        protected void updateItem(CompletedSet completedSet, boolean empty) {
+            super.updateItem(completedSet, empty);
+
+            if (empty || completedSet == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new LastSessionCard(completedSet, completedSet.isFinished()).getRoot());
             }
         }
     }

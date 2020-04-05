@@ -16,6 +16,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -144,7 +145,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<OngoingSet> getLastSet() {
-        return model.getLastSet().getOngoingSetList();
+    public ObservableList<CompletedSet> getLastSet() {
+        return model.getLastSet().getCompletedSetList();
     }
 }
