@@ -171,7 +171,6 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_MISSING_COURSE_FOCUS_AREA);
         }
         if (!FocusArea.isValid(courseName, trimmedFocusArea)) {
-            System.out.println(trimmedFocusArea);
             throw new ParseException(String.format(MESSAGE_INVALID_COURSE_FOCUS_AREA, NewCommand.MESSAGE_USAGE));
         }
         return new FocusArea(trimmedFocusArea);

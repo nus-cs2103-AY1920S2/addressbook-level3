@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
@@ -37,7 +37,7 @@ public class ShowCommand extends Command {
             + "Course, with " + PREFIX_COURSE_NAME + "COURSE\n"
             + "Course Focus Area, with " + PREFIX_FOCUS_AREA + "FOCUS_AREA\n"
             + "Module, with " + PREFIX_MODULE + "MODULE_CODE\n"
-            + "Modules taken in a semester, with " + PREFIX_CURRENT_SEMESTER + "SEMESTER_NUMBER\n";
+            + "Modules taken in a semester, with " + PREFIX_YEAR + "SEMESTER_NUMBER\n";
 
     public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
     public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in semester are shown: "

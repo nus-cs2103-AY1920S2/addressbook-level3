@@ -119,7 +119,7 @@ public class AddCommandParserTest {
 
         // invalid semester (if error message differs, refer to parseSemester method under ParserUtil.java)
         assertParseFailure(parser, MODCODE_DESC_BOB + INVALID_SEMESTER_DESC + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, ParserUtil.MESSAGE_INVALID_SEMESTER);
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, Year.MESSAGE_CONSTRAINTS);
 
         // invalid grade
         assertParseFailure(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + INVALID_GRADE_DESC
