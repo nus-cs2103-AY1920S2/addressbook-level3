@@ -23,6 +23,8 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
+    private static String commandDescription = "";
+
     @FXML
     private Button copyButton;
 
@@ -36,7 +38,11 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        if(commandDescription.equals("")) {
+            helpMessage.setText(HELP_MESSAGE);
+        } else {
+            helpMessage.setText(commandDescription);
+        }
     }
 
     /**
@@ -90,6 +96,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public void setCommandDescription(String commandDescription) {
+        this.commandDescription = commandDescription;
     }
 
     /**
