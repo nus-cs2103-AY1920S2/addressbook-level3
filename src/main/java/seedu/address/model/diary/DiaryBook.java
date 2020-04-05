@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.diary.mood.Mood;
 import seedu.address.model.diary.weather.Weather;
 
 
@@ -66,6 +67,10 @@ public class DiaryBook {
 
     public void tagWeather(int entryId, Weather weather) {
         diaryEntries.get(calibrateIndex(entryId)).setWeather(weather);
+    }
+
+    public void tagMood(int entryId, Mood mood) {
+        diaryEntries.get(calibrateIndex(entryId)).setMood(mood);
     }
 
     public List<DiaryEntry> getDiaryEntries() {

@@ -37,6 +37,7 @@ import seedu.address.logic.commands.NotesListCommand;
 import seedu.address.logic.commands.NotesOpenCommand;
 import seedu.address.logic.commands.ProfileCommand;
 import seedu.address.logic.commands.SearchCommand;
+import seedu.address.logic.commands.diarycommand.DiaryMoodCommand;
 import seedu.address.logic.commands.diarycommand.DiaryWeatherCommand;
 import seedu.address.logic.commands.modulecommand.AddModuleCommand;
 import seedu.address.logic.commands.modulecommand.CapCommand;
@@ -125,6 +126,9 @@ public class AddressBookParser {
 
         case DiaryWeatherCommand.COMMAND_WORD:
             return new DiaryWeatherCommandParser().parse(arguments);
+
+        case DiaryMoodCommand.COMMAND_WORD:
+            return new DiaryMoodCommandParser().parse(arguments);
 
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);

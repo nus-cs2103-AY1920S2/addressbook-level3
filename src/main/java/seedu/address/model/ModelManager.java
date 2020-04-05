@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.StudentProfile.Profile;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.mood.Mood;
 import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
@@ -168,6 +169,11 @@ public class ModelManager implements Model {
     @Override
     public void tagWeather(int entryId, Weather weather) {
         diaryBook.tagWeather(entryId, weather);
+    }
+
+    @Override
+    public void tagMood(int entryId, Mood mood) {
+        diaryBook.tagMood(entryId, mood);
     }
 
     @Override
