@@ -3,6 +3,7 @@ package cookbuddy.ui;
 import java.util.logging.Logger;
 
 import cookbuddy.commons.core.LogsCenter;
+import cookbuddy.logic.commands.HelpCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,11 +39,17 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        if(commandDescription.equals("")) {
+        if (commandDescription.equals("")) {
             helpMessage.setText(HELP_MESSAGE);
         } else {
             helpMessage.setText(commandDescription);
         }
+    }
+
+    public HelpWindow(String commandDescription) {
+        this(new Stage());
+        helpMessage.setText(commandDescription);
+        new JMetro(Style.LIGHT).setScene(this.getRoot().getScene());
     }
 
     /**
@@ -73,6 +80,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
+        String toBeShown = HelpCommand.commandWordz;
+        if (!toBeShown.equals("")) {
+            helpMessage.setText(toBeShown);
+        }
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -99,7 +110,7 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     public void setCommandDescription(String commandDescription) {
-        this.commandDescription = commandDescription;
+        helpMessage.setText(commandDescription);
     }
 
     /**

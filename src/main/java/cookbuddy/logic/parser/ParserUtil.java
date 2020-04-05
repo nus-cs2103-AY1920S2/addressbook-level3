@@ -259,6 +259,12 @@ public class ParserUtil {
 
     }
 
+    public static String parseHelp (String command) {
+        requireNonNull(command);
+        String trimmedCommand = command.trim();
+        return trimmedCommand;
+    }
+
     /**
      * Parses {@code Optional<String> tags} into a {@code Set<Tag>}.
      */

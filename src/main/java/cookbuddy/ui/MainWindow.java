@@ -6,6 +6,7 @@ import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
+import cookbuddy.logic.commands.HelpCommand;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.Recipe;
@@ -30,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
     private static final String FXML = "MainWindow.fxml";
-    private String commandDescription = "";
+    private static String commandDescription = "";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -77,10 +78,9 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
+        commandDescription = HelpCommand.commandWordz;
+
         helpWindow = new HelpWindow();
-        if (!commandDescription.equals("")) {
-            helpWindow.setCommandDescription(commandDescription);
-        }
     }
 
     public Stage getPrimaryStage() {
