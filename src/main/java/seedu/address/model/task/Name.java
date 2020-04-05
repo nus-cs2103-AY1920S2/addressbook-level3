@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's name in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a Task's name in the task list. Guarantees: immutable; is valid as declared in
  * {@link #isValidName(String)}
  */
 public class Name implements Comparable {

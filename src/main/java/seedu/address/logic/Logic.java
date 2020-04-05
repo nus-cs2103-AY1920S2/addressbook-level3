@@ -8,7 +8,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
@@ -31,10 +30,10 @@ public interface Logic {
      */
     ReadOnlyTaskList getTaskList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
 
-    /** Returns the user prefs' address book file path. */
+    /** Returns the user prefs' task list file path. */
     Path getTaskListFilePath();
 
     /** Returns the user prefs' GUI settings. */
@@ -42,8 +41,6 @@ public interface Logic {
 
     /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
-
-    void incrementPomExp();
 
     ObservableList<DayData> getCustomQueue();
 

@@ -12,7 +12,7 @@ import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.InvalidReminderException;
 
-/** A utility class to help with building EditPersonDescriptor objects. */
+/** A utility class to help with building EditTaskDescriptor objects. */
 public class EditTaskDescriptorBuilder {
 
     private EditTaskDescriptor descriptor;
@@ -25,10 +25,8 @@ public class EditTaskDescriptorBuilder {
         this.descriptor = new EditTaskDescriptor(descriptor);
     }
 
-    /**
-     * Returns an {@code EditPersonDescriptor} with fields containing
-     * {@code person}'s details
-     */
+
+    /** Returns an {@code EditTaskDescriptor} with fields containing {@code task}'s details */
     public EditTaskDescriptorBuilder(Task task) {
         descriptor = new EditTaskDescriptor();
         descriptor.setName(task.getName());
@@ -37,28 +35,20 @@ public class EditTaskDescriptorBuilder {
         descriptor.setTags(task.getTags());
     }
 
-    /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are
-     * building.
-     */
+    /** Sets the {@code Name} of the {@code EditTaskDescriptor} that we are building. */
     public EditTaskDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
 
-    /**
-     * Sets the {@code Priority} of the {@code EditPersonDescriptor} that we are
-     * building.
-     */
+
+    /** Sets the {@code Priority} of the {@code EditTaskDescriptor} that we are building. */
     public EditTaskDescriptorBuilder withPriority(String priority) {
         descriptor.setPriority(new Priority(priority));
         return this;
     }
 
-    /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are
-     * building.
-     */
+    /** Sets the {@code Address} of the {@code EditTaskDescriptor} that we are building. */
     public EditTaskDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
         return this;
@@ -66,7 +56,7 @@ public class EditTaskDescriptorBuilder {
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code
-     * EditPersonDescriptor} that we are building.
+     * EditTaskDescriptor} that we are building.
      */
     public EditTaskDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());

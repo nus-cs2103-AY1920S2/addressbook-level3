@@ -220,16 +220,6 @@ public class SortCommandTest {
         }
 
         @Override
-        public void incrementPomExp() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void incrementExp() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyPomodoro getPomodoro() {
             throw new AssertionError("This method should not be called.");
         }
@@ -255,7 +245,7 @@ public class SortCommandTest {
         }
     }
 
-    // /** A Model stub that contains a single person. */
+    // /** A Model stub that contains a single task. */
     // private class ModelStubWithTask extends ModelStub {
     //     private final Task task;
 
@@ -271,7 +261,7 @@ public class SortCommandTest {
     //     }
     // }
 
-    // /** A Model stub that always accept the person being added. */
+    // /** A Model stub that always accept the task being added. */
     // private class ModelStubAcceptingTaskAdded extends ModelStub {
     //     final ArrayList<Task> tasksAdded = new ArrayList<>();
 

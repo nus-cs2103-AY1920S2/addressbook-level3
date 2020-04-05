@@ -56,7 +56,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected PomodoroManager pomodoro;
+    protected PomodoroManager pomodoroManager;
     protected PetManager petManager;
 
     @Override
@@ -90,23 +90,27 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        pomodoro = new PomodoroManager();
+        pomodoroManager = new PomodoroManager(model);
 
-        petManager = new PetManager();
+        PetManager petManager = new PetManager();
 
-        model.setPomodoroManager(pomodoro);
+        pomodoroManager.setDefaultStartTime(Float.valueOf(model.getPomodoro().getDefaultTime()).floatValue());
+
+        pomodoroManager.setRestTime(Float.valueOf(model.getPomodoro().getRestTime()).floatValue());
+
+        model.setPomodoroManager(pomodoroManager);
 
         model.setPetManager(petManager);
 
-        ui = new UiManager(logic, pomodoro, petManager);
+        ui = new UiManager(logic, pomodoroManager, petManager);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code
+     * Returns a {@code ModelManager} with the data from {@code storage}'s task list and {@code
      * userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book
-     * is not found, or an empty address book will be used instead if errors occur when reading
-     * {@code storage}'s address book.
+     * The data from the sample task list will be used instead if {@code storage}'s task list
+     * is not found, or an empty task list will be used instead if errors occur when reading
+     * {@code storage}'s task list.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> taskListOptional;

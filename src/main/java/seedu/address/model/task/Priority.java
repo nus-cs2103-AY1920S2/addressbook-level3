@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's priority number in the address book. Guarantees: immutable; is valid as
+ * Represents a Task's priority number in the task list. Guarantees: immutable; is valid as
  * declared in {@link #isValidPriority(String)}
  */
 public class Priority implements Comparable {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Priority only contain one of these numbers: {1,2,3}";
+            "Priority can only be one of these numbers: {1,2,3}";
     public static final String VALIDATION_REGEX = "[1-3]";
     public final String value;
 

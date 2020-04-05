@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's Done in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a Task's Done in the task list. Guarantees: immutable; is valid as declared in
  * {@link #isValidDone(String)}
  */
 public class Done implements Comparable {
@@ -30,7 +30,7 @@ public class Done implements Comparable {
     }
 
     public
-    Done() { // TODO maybe don't need, but i don't get why we should use a PersonBuilder to inject
+    Done() { // TODO maybe don't need, but i don't get why we should use a TaskBuilder to inject
         // default values
         this.isDone = false;
     }
