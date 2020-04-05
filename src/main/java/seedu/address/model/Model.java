@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
@@ -117,6 +118,10 @@ public interface Model {
 
     ObservableList<DiaryEntry> getDiaryList();
 
+    boolean isInvalidEntryId(int entryId);
+
+    void deleteDiaryEntry(int entryId);
+
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */
     ObservableList<Notes> getFilesInFolderList();
@@ -191,5 +196,6 @@ public interface Model {
      * Checks if content of todo is empty
      */
     boolean isEmptyToDo(Task todo);
+
 
 }
