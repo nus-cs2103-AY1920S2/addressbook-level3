@@ -163,9 +163,7 @@ times)
 ** e.g. `[t/TAG]...`​
 ** can be used as `t/pizza`, `t/friend t/value` or not used at all etc.
 * Parameters can be in any order
-** e.g. specifying `n/NAME s/SAVINGS` is the same as `s/SAVINGS n/NAME` +
-(Note: Coupon Stash will only take the last specified parameter into account if there
-are multiple same parameters for parameters that require only one parameter)
+** e.g. specifying `n/NAME s/SAVINGS` is the same as `s/SAVINGS n/NAME`
 * Dates are all in the D-M-YYYY format (Coupon Stash date format)
 ** D and M can be one or two digits, but YYYY has to be four digits
 ** e.g. `1-1-2020` and `01-01-2020` are valid dates
