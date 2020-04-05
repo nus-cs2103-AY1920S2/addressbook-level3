@@ -969,7 +969,7 @@ All sessions in the *Claims View* with module code `CS2103T` are displayed.
 
 Sets the hourly rate for the total income and claim computation.
 
-Format: `set rate AMOUNT`
+Format: `setrate RATE`
 
 [NOTE]
 ====
@@ -1035,5 +1035,5 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 * *Filter:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
 === Claims View
-* *Set Rate:*
+* *Set Rate:* `setrate RATE`
 * *Filter:* `claims filter m/MOD_CODE`
