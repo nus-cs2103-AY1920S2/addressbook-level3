@@ -47,8 +47,8 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
      * @param monetaryAmount The double to be used.
      */
     public MonetaryAmount(double monetaryAmount) {
-        int intAmount = (int) Math.floor(monetaryAmount);
-        int decAmount = ((int) Math.floor(monetaryAmount * 100)) % 100;
+        int intAmount = (int) Math.floor(monetaryAmount); // get rid of decimal
+        int decAmount = ((int) Math.round(monetaryAmount * 100)) % 100;
         System.out.println(intAmount);
         System.out.println(decAmount);
         checkArgument(MonetaryAmount.isValidMonetaryAmount(intAmount, decAmount),
