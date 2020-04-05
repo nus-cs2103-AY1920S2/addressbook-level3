@@ -6,17 +6,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Helper functions for handling dates and times.
  */
 public class DateTimeUtil {
 
-    public static final String PATTERN_DATE = "yyyy-MM-dd";
+    public static final String PATTERN_DATE = "uuuu-MM-dd";
     public static final String PATTERN_TIME = "HH:mm";
 
-    public static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter.ofPattern(PATTERN_DATE);
-    public static final DateTimeFormatter FORMAT_TIME = DateTimeFormatter.ofPattern(PATTERN_TIME);
+    public static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter
+            .ofPattern(PATTERN_DATE)
+            .withResolverStyle(ResolverStyle.STRICT);
+    public static final DateTimeFormatter FORMAT_TIME = DateTimeFormatter
+            .ofPattern(PATTERN_TIME)
+            .withResolverStyle(ResolverStyle.STRICT);
 
     public static final String CONSTRAINTS_DATE = String.format("Dates should be in %s format", PATTERN_DATE);
     public static final String CONSTRAINTS_TIME = String.format("Times should be in %s format", PATTERN_TIME);
