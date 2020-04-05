@@ -59,7 +59,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROMO_CODE, PREFIX_SAVINGS, PREFIX_EXPIRY_DATE,
                         PREFIX_START_DATE, PREFIX_USAGE, PREFIX_LIMIT, PREFIX_TAG, PREFIX_REMIND, PREFIX_CONDITION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EXPIRY_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EXPIRY_DATE, PREFIX_SAVINGS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -71,8 +71,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         PromoCode promoCode = ParserUtil.parsePromoCode(
                 argMultimap.getValueForOptionalField(PREFIX_PROMO_CODE, "-").get());
-        Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
+        Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE,
                         DateUtil.formatDateToString(LocalDate.now())).get());
         Usage usage = new Usage(); // default 0 usage
