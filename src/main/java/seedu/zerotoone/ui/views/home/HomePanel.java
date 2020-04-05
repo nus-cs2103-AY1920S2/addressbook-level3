@@ -1,10 +1,18 @@
 package seedu.zerotoone.ui.views.home;
 
+import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.GREEN;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.ui.util.UiPart;
@@ -24,6 +32,10 @@ public class HomePanel extends UiPart<Region> {
         super(FXML);
         lastSetView.setItems(lastSet);
         lastSetView.setCellFactory(listView -> new LastSetViewCell());
+        if (!lastSet.isEmpty()) {
+            Color color = lastSet.get(0).isFinished() ? Color.GREEN : Color.RED;
+            lastSetView.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
         ongoingSessionView.setItems(ongoingSetList);
         ongoingSessionView.setCellFactory(listView -> new OngoingSetViewCell());
     }
@@ -50,12 +62,17 @@ public class HomePanel extends UiPart<Region> {
         @Override
         protected void updateItem(CompletedSet completedSet, boolean empty) {
             super.updateItem(completedSet, empty);
-
             if (empty || completedSet == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new LastSessionCard(completedSet, completedSet.isFinished()).getRoot());
+                if (completedSet.isFinished()) {
+                    Region lc = new LastSessionCard(completedSet).getRoot();
+                    setGraphic(lc);
+                } else {
+                    Region lc = new FailSessionCard(completedSet).getRoot();
+                    setGraphic(lc);
+                }
             }
         }
     }

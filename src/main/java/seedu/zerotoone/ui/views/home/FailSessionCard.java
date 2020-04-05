@@ -9,8 +9,8 @@ import seedu.zerotoone.ui.util.UiPart;
 /**
  * An UI component that displays information of a {@code Exercise}.
  */
-public class LastSessionCard extends UiPart<Region> {
-    private static final String FXML = "home/LastSessionCard.fxml";
+public class FailSessionCard extends UiPart<Region> {
+    private static final String FXML = "home/FailSessionCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,7 +25,7 @@ public class LastSessionCard extends UiPart<Region> {
     @FXML
     private Label exerciseReps;
 
-    public LastSessionCard(CompletedSet completedSet) {
+    public FailSessionCard(CompletedSet completedSet) {
         super(FXML);
         String name = completedSet.getExerciseName().fullName;
         String set = String.valueOf(completedSet.getIndex() + 1);
@@ -43,12 +43,12 @@ public class LastSessionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LastSessionCard)) {
+        if (!(other instanceof FailSessionCard)) {
             return false;
         }
 
         // state check
-        LastSessionCard card = (LastSessionCard) other;
+        FailSessionCard card = (FailSessionCard) other;
         return exerciseName.getText().equals(card.exerciseName.getText())
                 && exerciseReps.getText().equals(card.exerciseReps.getText());
     }
