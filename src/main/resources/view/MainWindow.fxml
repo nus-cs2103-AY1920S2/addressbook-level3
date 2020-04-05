@@ -66,7 +66,15 @@
                         <SplitPane fx:id="profileSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
                           <items>
                             <AnchorPane fx:id="modulesTaken" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                            <AnchorPane fx:id="profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                            <AnchorPane fx:id="profile" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <SplitPane fx:id="profilePlaceholder" dividerPositions="0.6212121212121212" layoutX="-3.0" orientation="VERTICAL" prefHeight="166.0" prefWidth="277.0">
+                                      <items>
+                                        <AnchorPane fx:id="profileMainScreenplaceholder" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                        <AnchorPane fx:id="taskLists" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                      </items>
+                                    </SplitPane>
+                                 </children></AnchorPane>
                           </items>
                         </SplitPane>
                      </content></Tab>

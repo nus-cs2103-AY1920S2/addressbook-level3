@@ -40,13 +40,21 @@ public class CalenderListPanel extends UiPart<Region> {
             }
             for (CalenderDate calenderDate : CalenderPanel.getCalenderDatesArrayList()) {
                 if (Task.isTaskPresent(calenderDate.getDate())) {
-                    calenderDate.setCircleVisible();
-                    ArrayList<Task> allTask = Task.getDeadlineTaskHashMap().get(calenderDate.getDate());
-                    for (Task tasks : allTask) {
-                        if (tasks instanceof ModuleTask) {
-                            calenderDate.setPriorityColour(((ModuleTask) tasks).getPriority());
-                        } else {
-                            calenderDate.setPriorityColour(Priority.VERYLOW);
+                    boolean flag = true;
+                    for (Task tasks : Task.getDeadlineTaskHashMap().get(calenderDate.getDate())) {
+                        if (!tasks.getStatus()) {
+                            flag = false;
+                        }
+                    }
+                    if (flag == false) {
+                        calenderDate.setCircleVisible();
+                        ArrayList<Task> allTask = Task.getDeadlineTaskHashMap().get(calenderDate.getDate());
+                        for (Task tasks : allTask) {
+                            if (tasks instanceof ModuleTask) {
+                                calenderDate.setPriorityColour(((ModuleTask) tasks).getPriority());
+                            } else {
+                                calenderDate.setPriorityColour(Priority.VERYLOW);
+                            }
                         }
                     }
 

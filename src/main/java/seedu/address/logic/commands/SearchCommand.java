@@ -34,6 +34,7 @@ public class SearchCommand extends Command {
 
         try {
             myMod = Search.findModule(modToSearch);
+
             return new CommandResult(myMod.toString());
         } catch (StringIndexOutOfBoundsException e) {
             return new CommandResult(SYNTAX_FAILURE);
