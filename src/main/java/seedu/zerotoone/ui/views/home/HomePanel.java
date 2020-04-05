@@ -1,8 +1,5 @@
 package seedu.zerotoone.ui.views.home;
 
-import static javafx.scene.paint.Color.*;
-import static javafx.scene.paint.Color.GREEN;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

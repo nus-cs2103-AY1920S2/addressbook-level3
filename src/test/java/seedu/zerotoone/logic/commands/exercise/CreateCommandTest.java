@@ -34,6 +34,7 @@ import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyCompletedSetList;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -257,6 +258,11 @@ public class CreateCommandTest {
 
         @Override
         public Boolean hasExerciseLeft() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCompletedSetList getLastSet() {
             throw new AssertionError("This method should not be called.");
         }
 
