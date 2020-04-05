@@ -69,8 +69,6 @@ public class CalenderPanel extends UiPart<Region> {
         todayMonth = currentMonth;
         todayYear = currentYear;
 
-
-
         int currentMonthInt = Integer.parseInt(currentMonth);
         monthNow = currentMonthInt;
         year = Integer.parseInt(todayYear);
@@ -83,9 +81,15 @@ public class CalenderPanel extends UiPart<Region> {
         try {
             String firstDay = getCalenderDates();
             int firstDayInt = datesArray.get(firstDay);
-            System.out.println(firstDayInt);
+            String dateSkeleton = makeDate();
             for (int i = 1; i < 32; i++) {
-                calenderDatesArrayList.add(new CalenderDate(Integer.toString(i), "Mon"));
+                String temp = "";
+                if (i < 10) {
+                    temp = "0" + i;
+                } else {
+                    temp = "" + i;
+                }
+                calenderDatesArrayList.add(new CalenderDate(temp + dateSkeleton, i));
             }
 
             int x = 0;
@@ -108,6 +112,16 @@ public class CalenderPanel extends UiPart<Region> {
             logger.info(ex.getMessage());
         }
 
+    }
+
+    private String makeDate() {
+        String dateSkeleton = "";
+        if (monthNow < 10) {
+            dateSkeleton = "-" + 0 + monthNow + "-" + year;
+        } else {
+            dateSkeleton = "-" + monthNow + "-" + year;
+        }
+        return dateSkeleton;
     }
 
     private String getCalenderDates() throws ParseException {

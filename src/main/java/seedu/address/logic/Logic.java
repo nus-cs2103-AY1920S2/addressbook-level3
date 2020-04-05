@@ -12,7 +12,7 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * API of the Logic component

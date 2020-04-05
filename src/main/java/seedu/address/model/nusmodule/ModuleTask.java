@@ -1,9 +1,8 @@
 package seedu.address.model.nusmodule;
 
-import java.time.LocalDate;
 import java.util.StringJoiner;
 
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Represents a task related to a specific module. (e.g. an assignment of module CS2103T)
@@ -11,10 +10,10 @@ import seedu.address.todolist.Task;
 public class ModuleTask extends Task {
 
     private final ModuleCode moduleRelated;
-    private final LocalDate timing;
+    private final String timing;
     private final Priority priority;
 
-    public ModuleTask(String description, ModuleCode moduleRelated, LocalDate timing, Priority priority) {
+    public ModuleTask(String description, ModuleCode moduleRelated, String timing, Priority priority) {
         super(description);
         this.moduleRelated = moduleRelated;
         this.timing = timing;
@@ -25,7 +24,7 @@ public class ModuleTask extends Task {
         return this.moduleRelated;
     }
 
-    public LocalDate getTiming() {
+    public String getDate() {
         return timing;
     }
 

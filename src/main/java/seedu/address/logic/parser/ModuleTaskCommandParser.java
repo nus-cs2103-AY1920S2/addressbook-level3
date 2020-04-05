@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETASK_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
@@ -9,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
+import seedu.address.calender.Task;
 import seedu.address.logic.commands.modulecommand.ModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
@@ -38,7 +40,10 @@ public class ModuleTaskCommandParser implements Parser<ModuleTaskCommand> {
         String trimmedDesc = argMultimap.getValue(PREFIX_TASK_DESC).get().trim();
         ModuleCode moduleCode = ParserUtil.parseModuleCode(
                 argMultimap.getValue(PREFIX_MODULE_CODE).get());
-        LocalDate timing = LocalDate.parse(argMultimap.getValue(PREFIX_MODULETASK_TIMING).get());
+        String timing = argMultimap.getValue(PREFIX_MODULETASK_TIMING).get();
+        if (!Task.isValidDate(timing)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE, ModuleTaskCommand.MESSAGE_USAGE));
+        }
         Priority p = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
         ModuleTask moduleTask = new ModuleTask(trimmedDesc, moduleCode, timing, p);
 
