@@ -15,6 +15,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
@@ -22,6 +23,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -30,15 +32,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
-import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DoneCommandResult;
 import seedu.address.logic.commands.PomCommand;
+import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.PomCommandResult;
+import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.TaskListParser;
+import seedu.address.logic.commands.exceptions.CompletorException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Reminder;
@@ -63,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
     private PetManager petManager;
 
     // Independent Ui parts residing in this Ui container
-    private TaskListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private PetDisplay petDisplay;
@@ -81,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML private MenuItem helpMenuItem;
 
-    @FXML private StackPane personListPanelPlaceholder;
+    @FXML private StackPane taskListPanelPlaceholder;
 
     @FXML private StackPane resultDisplayPlaceholder;
 
@@ -127,6 +130,7 @@ public class MainWindow extends UiPart<Stage> {
             }
         };
         this.hasStarted = false;
+        disableTabClick();
     }
 
     public Stage getPrimaryStage() {
@@ -139,6 +143,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    private void disableTabClick() {
+        EventHandler<MouseEvent> handler = MouseEvent::consume;
+        tabPanePlaceholder.addEventFilter(MouseEvent.ANY, handler);
     }
 
     /**
@@ -178,8 +187,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /** Fills up all the placeholders of this window. */
     void fillInnerParts() {
-        personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         petDisplay = new PetDisplay();
         updateMoodWhenLogIn();
@@ -196,8 +205,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         pomodoroDisplay = new PomodoroDisplay();
+        pomodoroDisplay.setTimerText(pomodoro.getDefaultStartTimeAsString());
+        pomodoroDisplay.setDefaultTimeText(pomodoro.getDefaultStartTimeAsString());
         pomodoroPlaceholder.getChildren().add(pomodoroDisplay.getRoot());
         pomodoro.setTimerLabel(pomodoroDisplay.getTimerLabel());
+        pomodoro.setPomodoroDisplay(pomodoroDisplay);
         pomodoro.setResultDisplay(resultDisplay);
         pomodoro.setMainWindow(this);
 
@@ -251,22 +263,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public TaskListPanel getTaskListPanel() {
-        return personListPanel;
+        return taskListPanel;
     }
 
     /** */
-    private String suggestCommand(String commandText) {
-        String suggestion = commandCompletor.getSuggestedCommand(commandText);
-        if (suggestion.equals(commandText)) {
-            resultDisplay.setFeedbackToUser(commandCompletor.getFailureMessage());
-        } else {
-            resultDisplay.setFeedbackToUser(commandCompletor.getSuccessMessage());
+    private String suggestCommand(String commandText) throws CompletorException {
+        try {
+            CompletorResult completorResult = commandCompletor.getSuggestedCommand(commandText);
+            resultDisplay.setFeedbackToUser(completorResult.getFeedbackToUser());
+            return completorResult.getSuggestion();
+        } catch (CompletorException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
         }
-        return suggestion;
     }
 
     public void setTabFocusTasks() {
-        tabPanePlaceholder.getSelectionModel().select(0);
+        tabPanePlaceholder.getSelectionModel().select(SwitchTabCommand.TASKS_TAB_INDEX);
     }
 
     /**
@@ -340,12 +353,10 @@ public class MainWindow extends UiPart<Stage> {
             updatePetDisplay();
             // update because sorting returns a new list
 
-            this.personListPanel.setTaskList(this.logic.getFilteredTaskList());
-
             // * Old implementation for sort
-            // personListPanel = new TaskListPanel(logic.getFilteredTaskList());
-            // personListPanelPlaceholder.getChildren().clear();
-            // personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            // taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+            // taskListPanelPlaceholder.getChildren().clear();
+            // taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -478,6 +489,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+      
+        CommandResult commandResult = 
+            pomodoro.promptBehaviour(commandText, logic, logger, petManager);
+        return commandResult;
     }
 
     public void updatePetDisplay() {

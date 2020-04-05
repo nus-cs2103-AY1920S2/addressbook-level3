@@ -94,7 +94,7 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortByPriority_successful() throws Exception {
-        String[] prioritySort = {"priority"};
+        String[] prioritySort = {"priority", "name"};
 
         CommandResult commandResult = new SortCommand(prioritySort).execute(modelStub);
         TaskList stubList = new TaskList();
@@ -107,7 +107,7 @@ public class SortCommandTest {
         stubList.addTask(taskPriority1);
         tempModelStub.setTaskList(stubList);
         assertEquals(
-                String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
+                String.format(SortCommand.MESSAGE_SUCCESS, String.join(" ", prioritySort)),
                 commandResult.getFeedbackToUser());
         assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
@@ -245,7 +245,7 @@ public class SortCommandTest {
         }
     }
 
-    // /** A Model stub that contains a single person. */
+    // /** A Model stub that contains a single task. */
     // private class ModelStubWithTask extends ModelStub {
     //     private final Task task;
 
@@ -261,7 +261,7 @@ public class SortCommandTest {
     //     }
     // }
 
-    // /** A Model stub that always accept the person being added. */
+    // /** A Model stub that always accept the task being added. */
     // private class ModelStubAcceptingTaskAdded extends ModelStub {
     //     final ArrayList<Task> tasksAdded = new ArrayList<>();
 

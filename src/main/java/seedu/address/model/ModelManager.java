@@ -18,7 +18,7 @@ import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
-/** Represents the in-memory model of the address book data. */
+/** Represents the in-memory model of the task list data. */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -125,14 +125,15 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         taskList.addTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
+        this.sortList();
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-
         taskList.setTask(target, editedTask);
+        this.sortList();
     }
 
     // =========== Filtered Task List Accessors
@@ -158,11 +159,15 @@ public class ModelManager implements Model {
     public void setComparator(Comparator<Task>[] comparators) {
         requireNonNull(comparators);
         this.comparators = comparators;
-        SortedList<Task> sortedFilteredTasks = new SortedList<>(filteredTasks);
-        for (int i = comparators.length - 1; i >= 0; i--) {
-            sortedFilteredTasks.setComparator(comparators[i]);
+        this.sortList();
+        System.out.println(this.comparators.length);
+    }
+
+    @Override
+    public void sortList() {
+        for (int i = this.comparators.length - 1; i >= 0; i--) {
+            this.taskList.sort(comparators[i]);
         }
-        this.filteredTasks = new FilteredList<Task>(sortedFilteredTasks);
     }
 
     @Override
@@ -214,6 +219,18 @@ public class ModelManager implements Model {
 
     public void setPomodoroTask(Task task) {
         this.pomodoro.setTask(task);
+    }
+
+    public Task getPomodoroTask() {
+        return this.pomodoro.getRunningTask();
+    }
+
+    public void setPomodoroRestTime(float restTimeInMin) {
+        this.pomodoro.setRestTime(Float.toString(restTimeInMin));
+    }
+
+    public void setPomodoroDefaultTime(float defaultTimeInMin) {
+        this.pomodoro.setDefaultTime(Float.toString(defaultTimeInMin));
     }
 
     public void setPomodoroManager(PomodoroManager pomodoroManager) {

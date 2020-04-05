@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's Done in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a Task's Done in the task list. Guarantees: immutable; is valid as declared in
  * {@link #isValidDone(String)}
  */
-public class Done {
+public class Done implements Comparable {
 
     public static final String MESSAGE_CONSTRAINTS = "Done should be a simple Boolean ";
 
@@ -30,7 +30,7 @@ public class Done {
     }
 
     public
-    Done() { // TODO maybe don't need, but i don't get why we should use a PersonBuilder to inject
+    Done() { // TODO maybe don't need, but i don't get why we should use a TaskBuilder to inject
         // default values
         this.isDone = false;
     }
@@ -59,5 +59,14 @@ public class Done {
     @Override
     public int hashCode() {
         return isDone.hashCode();
+    }
+
+    @Override
+    public int compareTo(Object other) {
+        if (!(other instanceof Done)) {
+            return 0;
+        }
+        Done otherDone = (Done) other;
+        return this.isDone.compareTo(otherDone.isDone);
     }
 }

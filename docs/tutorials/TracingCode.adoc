@@ -251,8 +251,8 @@ handled?
 . What components will you have to modify to perform the following enhancements to the application?
 .. Make command words case-insensitive
 .. Allow `delete` to remove more than one index at a time
-.. Save the address book in the CSV format instead
+.. Save the task list in the CSV format instead
 .. Add a new command
 .. Add a new field to `Person`
-.. Add a new entity to the address book
+.. Add a new entity to the task list
 ****

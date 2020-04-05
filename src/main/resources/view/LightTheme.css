@@ -28,10 +28,12 @@
 	background-color: #f7f2f0; /* Used in the default.html file */
 }
 
+/*
 .label {
 	-fx-font-family: "SofiaProRegular";
 	-fx-opacity: 0.9;
 }
+*/
 
 .label-bright {
 	-fx-font-size: 11pt;
@@ -53,7 +55,7 @@
 }
 
 .tab-pane {
-	-fx-padding: 0 0 0 1;
+	-fx-padding: 10 0 0 1;
 }
 
 .tab-pane .tab-header-area {
@@ -81,6 +83,7 @@
 
 .tab .tab-label {
 	-fx-text-fill: rgba(69, 63, 233, 0.4);
+	-fx-font-size: 18px;
 }
 
 .table-view {
@@ -165,7 +168,7 @@
 	-fx-background-color: #f7f2f0;
 }
 
-/* ====================== PersonListCard.fxml styling =========================== */
+/* ====================== TaskListCard.fxml styling =========================== */
 .tasklist-card {
 	-fx-background-color: white;
 	-fx-background-radius: 15px;
@@ -382,13 +385,13 @@
 	-fx-background-radius: 30px;
 	-fx-border-width: 1;
 	-fx-font-family: "SofiaProRegular";
-	-fx-font-size:  13pt;
+	-fx-font-size: 13pt;
 	-fx-text-fill: black;
 }
 
 #filterField,
-#personListPanel,
-#personWebpage {
+#taskListPanel,
+#taskWebpage {
 	-fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

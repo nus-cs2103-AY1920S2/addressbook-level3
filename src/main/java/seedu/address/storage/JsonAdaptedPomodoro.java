@@ -12,16 +12,19 @@ class JsonAdaptedPomodoro {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Pomodoro's %s field is missing!";
 
     private String defaultTime;
+    private String restTime;
     private String timeLeft;
     private JsonAdaptedTask runningTask;
 
-    /** Constructs a {@code JsonAdaptedTask} with the given person details. */
+    /** Constructs a {@code JsonAdaptedTask} with the given task details. */
     @JsonCreator
     public JsonAdaptedPomodoro(
             @JsonProperty("defaultTime") String defaultTime,
+            @JsonProperty("restTime") String restTime,
             @JsonProperty("timeLeft") String timeLeft,
             @JsonProperty("runningTask") JsonAdaptedTask runningTask) {
         this.defaultTime = defaultTime;
+        this.restTime = restTime;
         this.timeLeft = timeLeft;
         this.runningTask = runningTask;
     }
@@ -29,6 +32,7 @@ class JsonAdaptedPomodoro {
     /** Converts a given {@code Task} into this class for Jackson use. */
     public JsonAdaptedPomodoro(ReadOnlyPomodoro source) {
         this.defaultTime = source.getDefaultTime();
+        this.restTime = source.getRestTime();
         this.timeLeft = source.getTimeLeft();
         if (source.getRunningTask() == null) {
             this.runningTask = null;
@@ -38,13 +42,13 @@ class JsonAdaptedPomodoro {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Task} object.
+     * Converts this Jackson-friendly adapted task object into the model's {@code Task} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted
-     *     person.
+     *     task.
      */
     public ReadOnlyPomodoro toModelType() throws IllegalValueException {
-        if (runningTask == null) return new Pomodoro(defaultTime, timeLeft, null);
-        return new Pomodoro(defaultTime, timeLeft, runningTask.toModelType());
+        if (runningTask == null) return new Pomodoro(defaultTime, restTime, timeLeft, null);
+        return new Pomodoro(defaultTime, restTime, timeLeft, runningTask.toModelType());
     }
 }

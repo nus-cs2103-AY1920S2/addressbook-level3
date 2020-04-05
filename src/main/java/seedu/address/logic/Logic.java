@@ -30,10 +30,10 @@ public interface Logic {
      */
     ReadOnlyTaskList getTaskList();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
 
-    /** Returns the user prefs' address book file path. */
+    /** Returns the user prefs' task list file path. */
     Path getTaskListFilePath();
 
     /** Returns the user prefs' GUI settings. */
