@@ -28,8 +28,8 @@ import cookbuddy.ui.HelpWindow;
 public class HelpCommandParser implements Parser<HelpCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the HelpCommand
+     * and returns a HelpCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -88,7 +88,6 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             default:
                 throw new ParseException("Invalid Command chosen!");
             }
-
 
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getLocalizedMessage()));

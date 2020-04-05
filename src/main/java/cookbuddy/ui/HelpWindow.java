@@ -72,8 +72,12 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().centerOnScreen();
     }
 
+    /**
+     * Displays the help window
+     * @param toBeShown the message to be displayed in the help window.
+     */
     public void show(String toBeShown) {
-        if(toBeShown.equals("")) {
+        if (toBeShown.equals("")) {
             helpMessage.setText(HELP_MESSAGE);
         } else {
             helpMessage.setText(toBeShown);
