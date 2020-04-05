@@ -23,7 +23,7 @@ public class OngoingSession {
     private final LocalDateTime startTime;
     private final ExerciseName exerciseName;
     private final Queue<ExerciseSet> exerciseQueue = new LinkedList<>();
-    private final Queue<SessionSet> exerciseDone = new LinkedList<>();
+    private final Queue<CompletedSet> exerciseDone = new LinkedList<>();
 
     /**
      * Every field must be present and not null.
@@ -43,8 +43,8 @@ public class OngoingSession {
      * Completes the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the done SessionSet
      */
-    public SessionSet done() {
-        SessionSet set = new SessionSet(exerciseQueue.poll(), true);
+    public CompletedSet done() {
+        CompletedSet set = new CompletedSet(exerciseQueue.poll(), true);
         exerciseDone.offer(set);
         return set;
     }
@@ -53,8 +53,8 @@ public class OngoingSession {
      * Skips the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the skipped SessionSet
      */
-    public SessionSet skip() {
-        SessionSet set = new SessionSet(exerciseQueue.poll(), false);
+    public CompletedSet skip() {
+        CompletedSet set = new CompletedSet(exerciseQueue.poll(), false);
         exerciseDone.offer(set);
         return set;
     }
@@ -70,7 +70,7 @@ public class OngoingSession {
         return Optional.ofNullable(exerciseQueue.peek());
     }
 
-    public Optional<SessionSet> last() {
+    public Optional<CompletedSet> last() {
         return Optional.ofNullable(exerciseDone.peek());
     }
 
@@ -84,11 +84,11 @@ public class OngoingSession {
      * @param endTime the time of completion
      * @return returns a new immutable CompletedSession.
      */
-    public Session finish(LocalDateTime endTime) {
+    public CompletedExercise finish(LocalDateTime endTime) {
         while (this.hasSetLeft()) {
-            exerciseDone.offer(new SessionSet(exerciseQueue.poll(), false));
+            exerciseDone.offer(new CompletedSet(exerciseQueue.poll(), false));
         }
-        return new Session(this.exerciseName, new LinkedList<>(exerciseDone),
+        return new CompletedExercise(this.exerciseName, new LinkedList<>(exerciseDone),
                 startTime, endTime);
     }
 }

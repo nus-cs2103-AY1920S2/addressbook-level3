@@ -24,7 +24,7 @@ public class OngoingWorkout {
     private final LocalDateTime startTime;
     private final WorkoutName workoutName;
     private final Queue<OngoingSession> toDo = new LinkedList<>();
-    private final Queue<Session> done = new LinkedList<>();
+    private final Queue<CompletedExercise> done = new LinkedList<>();
 
     /**
      * Every field must be present and not null.
@@ -61,8 +61,8 @@ public class OngoingWorkout {
      * Completes the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the done SessionSet
      */
-    public SessionSet done() {
-        SessionSet set = toDo.peek().done();
+    public CompletedSet done() {
+        CompletedSet set = toDo.peek().done();
         if (!toDo.peek().hasSetLeft()) {
             done.offer(toDo.poll().finish(startTime));
         }
@@ -73,8 +73,8 @@ public class OngoingWorkout {
      * Skips the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the skipped SessionSet
      */
-    public SessionSet skip() {
-        SessionSet set = toDo.peek().skip();
+    public CompletedSet skip() {
+        CompletedSet set = toDo.peek().skip();
         if (!toDo.peek().hasSetLeft()) {
             done.offer(toDo.poll().finish(startTime));
         }
@@ -92,7 +92,7 @@ public class OngoingWorkout {
         return Optional.ofNullable(toDo.peek());
     }
 
-    public Optional<Session> last() {
+    public Optional<CompletedExercise> last() {
         return Optional.ofNullable(done.peek());
     }
 
