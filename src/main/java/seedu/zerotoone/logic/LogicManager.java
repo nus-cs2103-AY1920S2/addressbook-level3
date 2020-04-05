@@ -148,4 +148,14 @@ public class LogicManager implements Logic {
     public ObservableList<CompletedSet> getLastSet() {
         return model.getLastSet().getCompletedSetList();
     }
+
+    @Override
+    public ObservableList<Integer> getTimerList() {
+        return model.getTimerList().getTimerList();
+    }
+
+    @Override
+    public void showdownTimer() {
+        model.shutdownTimer();
+    }
 }

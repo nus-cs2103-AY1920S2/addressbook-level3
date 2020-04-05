@@ -24,9 +24,17 @@ public class HomePanel extends UiPart<Region> {
     private ListView<OngoingSet> ongoingSessionView;
     @FXML
     private ListView<CompletedSet> lastSetView;
+    @FXML
+    private ListView<Integer> timerListView;
 
-    public HomePanel(ObservableList<OngoingSet> ongoingSetList, ObservableList<CompletedSet> lastSet) {
+    public HomePanel(ObservableList<OngoingSet> ongoingSetList, ObservableList<CompletedSet> lastSet,
+                     ObservableList<Integer> timerList) {
         super(FXML);
+
+
+        timerListView.setItems(timerList);
+        timerListView.setCellFactory(listView -> new TimerListViewCell());
+
         lastSetView.setItems(lastSet);
         lastSetView.setCellFactory(listView -> new LastSetViewCell());
         if (!lastSet.isEmpty()) {
@@ -36,6 +44,7 @@ public class HomePanel extends UiPart<Region> {
         ongoingSessionView.setItems(ongoingSetList);
         ongoingSessionView.setCellFactory(listView -> new OngoingSetViewCell());
     }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
      */
@@ -52,6 +61,7 @@ public class HomePanel extends UiPart<Region> {
             }
         }
     }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
      */
@@ -70,6 +80,22 @@ public class HomePanel extends UiPart<Region> {
                     Region lc = new FailSessionCard(completedSet).getRoot();
                     setGraphic(lc);
                 }
+            }
+        }
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
+     */
+    class TimerListViewCell extends ListCell<Integer> {
+        @Override
+        protected void updateItem(Integer timeInMs, boolean empty) {
+            super.updateItem(timeInMs, empty);
+            if (empty || timeInMs == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new TimerCard(timeInMs).getRoot());
             }
         }
     }
