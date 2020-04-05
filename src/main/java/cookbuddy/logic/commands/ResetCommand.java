@@ -12,6 +12,8 @@ import cookbuddy.ui.UiManager;
 public class ResetCommand extends Command {
 
     public static final String COMMAND_WORD = "reset";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes all recipes from CookBuddy.\n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "The recipe book has been cleared!";
 
 
