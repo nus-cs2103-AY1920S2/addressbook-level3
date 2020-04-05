@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
@@ -47,30 +48,36 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the order identified "
-            + "by the index number used in the displayed order list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TID + "TRANSACTION_ID] "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_DELIVERY_TIMESTAMP + "DELIVERY_DATE_&_TIME] "
-            + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
-            + "[" + PREFIX_COD + "CASH_ON_DELIVERY] "
-            + "[" + PREFIX_COMMENT + "COMMENT] "
-            + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] "
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_TID + "A0185837Q";
+        + "by the index number used in the displayed order list or return order list." + Messages.NEWLINE
+        + "Existing values will be overwritten by the input values." + Messages.NEWLINE
+        + "Example 1: " + COMMAND_WORD + " " + FLAG_ORDER_BOOK.getFlag() + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_TID + "A0185837Q" + Messages.NEWLINE
+        + "Example 2: " + COMMAND_WORD + " " + FLAG_RETURN_BOOK.getFlag() + " 1 "
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_TID + "A0185837Q" + Messages.NEWLINE
+        + "General format for editing orders: " + Messages.NEWLINE
+        + COMMAND_WORD + " FLAGS INDEX(must be a positive integer) "
+        + "[" + PREFIX_TID + "TRANSACTION_ID] "
+        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_PHONE + "PHONE] "
+        + "[" + PREFIX_EMAIL + "EMAIL] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS]" + Messages.NEWLINE
+        + "[" + PREFIX_DELIVERY_TIMESTAMP + "DELIVERY_DATE_TIME] OR "
+        + "[" + PREFIX_RETURN_TIMESTAMP + "RETURN_DATE_TIME] "
+        + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
+        + "[" + PREFIX_COD + "CASH_ON_DELIVERY] (Only for Orders) "
+        + "[" + PREFIX_COMMENT + "COMMENT] "
+        + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] ";
 
+    public static final String MESSAGE_DUPLICATE_PARCEL = "This parcel already exists in the list.";
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_EDIT_RETURN_ORDER_SUCCESS = "Edited Return Order: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PARCEL = "This parcel already exists in the list.";
     public static final String MULTIPLE_FLAGS_DETECTED = "Different flags detected, please check your input."
         + Messages.NEWLINE + "Format example: " + COMMAND_WORD + " -o 1 n/Alex" + Messages.NEWLINE
         + "OR " + COMMAND_WORD + " -r 1 n/Alex";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided."
+        + Messages.NEWLINE + "%1$s";
 
     private final Flag flag;
     private final Index index;
@@ -135,7 +142,7 @@ public class EditCommand extends Command {
         TypeOfItem updatedType = editParcelDescriptor.getItemType().orElse(orderToEdit.getItemType());
 
         return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
-                updatedWarehouse, updatedCod, updatedComment, updatedType);
+            updatedWarehouse, updatedCod, updatedComment, updatedType);
     }
 
     /**
@@ -143,7 +150,7 @@ public class EditCommand extends Command {
      * edited with {@code editParcelDescriptor}.
      */
     private static ReturnOrder createEditedReturnOrder(ReturnOrder returnOrderToEdit,
-                                                  EditParcelDescriptor editParcelDescriptor) {
+                                                       EditParcelDescriptor editParcelDescriptor) {
         assert returnOrderToEdit != null;
 
         TransactionId updatedTid = editParcelDescriptor.getTid().orElse(returnOrderToEdit.getTid());
@@ -165,7 +172,7 @@ public class EditCommand extends Command {
      *
      * @param parcelToEdit {@code Parcel} object that is going to be edited.
      * @param editedParcel {@code Parcel} object that has been edited.
-     * @param model {@code ModelManager} that represents the in-memory model of the order book data.
+     * @param model        {@code ModelManager} that represents the in-memory model of the order book data.
      * @return Returns a true if the Parcel is not editable, else false.
      * @throws CommandException Throws {@code CommandException} whenever a {@code Parcel} is duplicated.
      */
@@ -179,11 +186,11 @@ public class EditCommand extends Command {
      *
      * @param parcelToEdit {@code Parcel} object that is going to be edited.
      * @param editedParcel {@code Parcel} object that has been edited.
-     * @param model {@code ModelManager} that represents the in-memory model of the order book data.
+     * @param model        {@code ModelManager} that represents the in-memory model of the order book data.
      * @return Returns a {@code CommandResult} object representing the result of either editing an {@code Order} or
      * {@code ReturnOrder}.
      * @throws CommandException Throws {@code CommandException} whenever a {@code Parcel} is duplicated or if the
-     * {@code Parcel} type is invalid.
+     *                          {@code Parcel} type is invalid.
      */
     private CommandResult generalSetParcel(Parcel parcelToEdit, Parcel editedParcel, Model model)
         throws CommandException {
@@ -217,7 +224,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editParcelDescriptor.equals(e.editParcelDescriptor);
+            && editParcelDescriptor.equals(e.editParcelDescriptor);
     }
 
     /**
@@ -261,8 +268,9 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(tid, name, phone, email, address, timeStamp, warehouse,
-                    cod, comment, itemType);
+                cod, comment, itemType);
         }
+
         public void setTid(TransactionId tid) {
             this.tid = tid;
         }
@@ -359,15 +367,15 @@ public class EditCommand extends Command {
             EditParcelDescriptor e = (EditParcelDescriptor) other;
 
             return getTid().equals(e.getTid())
-                    && getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTimeStamp().equals(e.getTimeStamp())
-                    && getWarehouse().equals(e.getWarehouse())
-                    && getCash().equals(e.getCash())
-                    && getComment().equals(e.getComment())
-                    && getItemType().equals(e.getItemType());
+                && getName().equals(e.getName())
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getAddress().equals(e.getAddress())
+                && getTimeStamp().equals(e.getTimeStamp())
+                && getWarehouse().equals(e.getWarehouse())
+                && getCash().equals(e.getCash())
+                && getComment().equals(e.getComment())
+                && getItemType().equals(e.getItemType());
         }
     }
 }

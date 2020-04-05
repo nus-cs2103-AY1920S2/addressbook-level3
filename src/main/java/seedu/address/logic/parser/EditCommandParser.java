@@ -2,9 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_FLAG;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER;
+import static seedu.address.commons.core.Messages.NEWLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
@@ -43,11 +46,13 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Flag flag = null;
 
+        checkForEmptyArgsAfterEditCommand(args);
+
         if (areFlagsPresent(args)) {
             flag = extractFlag(args);
             args = removeFlags(args);
         } else {
-            throw new ParseException(MESSAGE_MISSING_FLAG);
+            throw new ParseException(MESSAGE_MISSING_FLAG + NEWLINE + EditCommand.MESSAGE_USAGE);
         }
 
         assert(flag != null);
@@ -60,9 +65,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         try {
+            checkForEmptyIndex(argMultimap.getPreamble());
+            checkForValidPreamble(argMultimap.getPreamble());
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format("%s" + NEWLINE + "%s",
+                pe.getMessage(), EditCommand.MESSAGE_USAGE));
         }
 
         checkPrefixMatchesFlag(argMultimap, flag);
@@ -84,7 +92,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (!editParcelDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(String.format(EditCommand.MESSAGE_NOT_EDITED, EditCommand.MESSAGE_USAGE));
         }
 
         return new EditCommand(index, editParcelDescriptor, flag);
@@ -275,5 +283,39 @@ public class EditCommandParser implements Parser<EditCommand> {
             editParcelDescriptor.setItemType(ParserUtil.parseItemType(argumentMultimap.getValue(PREFIX_TYPE).get()));
         }
         return editParcelDescriptor;
+    }
+
+    /**
+     * A checker method to see if user type only command word.
+     * @param args user input
+     * @throws ParseException throws exception of message usage to user if only command word is provided.
+     */
+    private void checkForEmptyArgsAfterEditCommand(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        if (args.split("\\s+").length == 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * A checker method to see if user did not give any index
+     * @param string preamble of argmultimap
+     * @throws ParseException throws exception when index is empty.
+     */
+    private void checkForEmptyIndex(String string) throws ParseException {
+        if (string.isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_INDEX);
+        }
+    }
+
+    /**
+     * checks for valid index given.
+     * @param string preamble.
+     * @throws ParseException throws exception whenever user give more than just index in between the index and prefix
+     */
+    private void checkForValidPreamble(String string) throws ParseException {
+        if (string.split("\\s+").length > 1) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
     }
 }
