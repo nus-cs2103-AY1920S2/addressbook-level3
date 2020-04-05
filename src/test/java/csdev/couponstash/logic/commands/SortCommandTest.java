@@ -3,6 +3,7 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -50,6 +51,23 @@ class SortCommandTest {
                 TypicalCoupons.BENSON,
                 TypicalCoupons.CARL,
                 TypicalCoupons.FIONA,
+                TypicalCoupons.GEORGE
+                ), model.getFilteredCouponList()
+        );
+    }
+
+    @Test
+    public void execute_sortByRemind() {
+        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, PREFIX_REMIND);
+        SortCommand command = new SortCommand(PREFIX_REMIND);
+
+        expectedModel.sortCoupons(SortCommand.REMINDER_COMPARATOR);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(
+                TypicalCoupons.CARL,
+                TypicalCoupons.FIONA,
+                TypicalCoupons.BENSON,
+                TypicalCoupons.ALICE,
                 TypicalCoupons.GEORGE
                 ), model.getFilteredCouponList()
         );

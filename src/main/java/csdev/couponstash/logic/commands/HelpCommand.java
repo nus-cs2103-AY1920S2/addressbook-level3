@@ -42,7 +42,7 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * Return URI of help.html. If help.html is not extracted from jar file yet,
+     * Get URI of help.html. If help.html is not extracted from jar file yet,
      * extract it.
      * @return URI of help.html
      * @throws CommandException
