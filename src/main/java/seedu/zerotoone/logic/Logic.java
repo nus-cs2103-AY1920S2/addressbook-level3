@@ -1,7 +1,6 @@
 package seedu.zerotoone.logic;
 
 import java.nio.file.Path;
-import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
@@ -11,7 +10,6 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.ui.util.ViewType;
@@ -95,5 +93,5 @@ public interface Logic extends WorkoutLogic {
     // Schedule List
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
 
-    Optional<CompletedSet> getLastSet();
+    ObservableList<OngoingSet> getLastSet();
 }

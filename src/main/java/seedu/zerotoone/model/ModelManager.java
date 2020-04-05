@@ -5,6 +5,8 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -24,8 +26,8 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.schedule.Scheduler;
-import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
+import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.session.OngoingSetList;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
@@ -55,9 +57,9 @@ public class ModelManager implements Model {
 
     // Session
     private Optional<OngoingWorkout> currentWorkout;
-    private Optional<CompletedSet> lastSet;
     private final StopWatch stopwatch;
     private final OngoingSetList ongoingSetList;
+    private final OngoingSetList lastSet;
 
     // Schedule
     private final Scheduler scheduler;
@@ -94,9 +96,9 @@ public class ModelManager implements Model {
         this.scheduler = new Scheduler(scheduleList);
 
         this.currentWorkout = Optional.empty();
-        this.lastSet = Optional.empty();
         this.stopwatch = new StopWatch();
         this.ongoingSetList = new OngoingSetList();
+        this.lastSet = new OngoingSetList();
 
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
@@ -239,24 +241,28 @@ public class ModelManager implements Model {
         OngoingWorkout ongoingWorkout = this.currentWorkout.orElseThrow(NoCurrentSessionException::new);
         CompletedWorkout workout = ongoingWorkout.finish(currentDateTime);
         ongoingSetList.resetData(new OngoingSetList());
-        lastSet = Optional.empty();
+        lastSet.resetData(new OngoingSetList());
         this.logList.addCompletedWorkout(workout);
         this.currentWorkout = Optional.empty();
     }
 
     @Override
-    public CompletedSet skip() {
-        CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).skip();
+    public OngoingSet skip() {
+        OngoingSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).skip();
         ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
-        lastSet = Optional.of(set);
+        List<OngoingSet> sets = new LinkedList<>();
+        sets.add(set);
+        lastSet.setSessionList(sets);
         return set;
     }
 
     @Override
-    public CompletedSet done() {
-        CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).done();
+    public OngoingSet done() {
+        OngoingSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).done();
         ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
-        lastSet = Optional.of(set);
+        List<OngoingSet> sets = new LinkedList<>();
+        sets.add(set);
+        lastSet.setSessionList(sets);
         return set;
     }
 
@@ -276,7 +282,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<CompletedSet> getLastSet() {
+    public ReadOnlyOngoingSetList getLastSet() {
         return this.lastSet;
     }
 

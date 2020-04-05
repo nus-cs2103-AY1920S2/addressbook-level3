@@ -47,20 +47,22 @@ public class OngoingSession {
      * Completes the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the done SessionSet
      */
-    public CompletedSet done() {
-        CompletedSet set = new CompletedSet(exerciseQueue.poll(), true);
+    public OngoingSet done() {
+        OngoingSet ongoingSet = exerciseQueue.poll();
+        CompletedSet set = new CompletedSet(ongoingSet, true);
         exerciseDone.offer(set);
-        return set;
+        return ongoingSet;
     }
 
     /**
      * Skips the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the skipped SessionSet
      */
-    public CompletedSet skip() {
-        CompletedSet set = new CompletedSet(exerciseQueue.poll(), false);
+    public OngoingSet skip() {
+        OngoingSet ongoingSet = exerciseQueue.poll();
+        CompletedSet set = new CompletedSet(ongoingSet, false);
         exerciseDone.offer(set);
-        return set;
+        return ongoingSet;
     }
 
     /**

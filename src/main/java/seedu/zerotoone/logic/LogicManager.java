@@ -2,7 +2,6 @@ package seedu.zerotoone.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -17,7 +16,6 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -146,7 +144,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Optional<CompletedSet> getLastSet() {
-        return model.getLastSet();
+    public ObservableList<OngoingSet> getLastSet() {
+        return model.getLastSet().getOngoingSetList();
     }
 }

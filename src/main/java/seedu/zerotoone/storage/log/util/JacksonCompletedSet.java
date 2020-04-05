@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
-import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
 import seedu.zerotoone.model.session.CompletedSet;
@@ -18,15 +17,11 @@ class JacksonCompletedSet {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "CompletedSets's %s field is missing!";
     public static final String MALFORMED_BOOLEAN_MESSAGE = "CompletedSets's isFinished field is incorrect!";
-    public static final String MALFORMED_INDEX_MESSAGE = "CompletedSets's index field is incorrect!";
-    public static final String MALFORMED_NAME_MESSAGE = "CompletedSets's exerciseName field is incorrect!";
     private static final Pattern IS_BOOLEAN = Pattern.compile("true|false", Pattern.CASE_INSENSITIVE);
 
     private final String weight;
     private final String numReps;
     private final String isFinished;
-    private final String exerciseName;
-    private final String index;
 
     /**
      * Constructs a {@code JacksonSessionSet} with the given {@code sessionSet}.
@@ -34,14 +29,10 @@ class JacksonCompletedSet {
     @JsonCreator
     public JacksonCompletedSet(@JsonProperty("weight") String weight,
                                @JsonProperty("numReps") String numReps,
-                               @JsonProperty("isFinished") String isFinished,
-                               @JsonProperty("isFinished") String exerciseName,
-                               @JsonProperty("isFinished") String index) {
+                               @JsonProperty("isFinished") String isFinished) {
         this.weight = weight;
         this.numReps = numReps;
         this.isFinished = isFinished;
-        this.exerciseName = exerciseName;
-        this.index = index;
 
     }
 
@@ -52,8 +43,6 @@ class JacksonCompletedSet {
         weight = source.getWeight().value;
         numReps = source.getNumReps().value;
         isFinished = "" + source.isFinished();
-        exerciseName = source.getExerciseName().fullName;
-        index = String.valueOf(source.getIndex());
     }
 
     /**
@@ -82,23 +71,7 @@ class JacksonCompletedSet {
             throw new IllegalValueException(MALFORMED_BOOLEAN_MESSAGE);
         }
 
-        if (exerciseName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ExerciseName.class.getSimpleName()));
-        } else if (!IS_BOOLEAN.matcher(isFinished.trim()).matches()) {
-            throw new IllegalValueException(MALFORMED_NAME_MESSAGE);
-        }
-        final ExerciseName modelExerciseName = new ExerciseName(exerciseName);
-
-        if (index == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "index"));
-        } else if (!IS_BOOLEAN.matcher(isFinished.trim()).matches()) {
-            throw new IllegalValueException(MALFORMED_INDEX_MESSAGE);
-        }
-        final int modelIndex = Integer.parseInt(index);
-
-        return new CompletedSet(modelWeight, modelNumReps, Boolean.parseBoolean(isFinished),
-                modelExerciseName, modelIndex);
+        return new CompletedSet(modelWeight, modelNumReps, Boolean.parseBoolean(isFinished));
     }
 
 }

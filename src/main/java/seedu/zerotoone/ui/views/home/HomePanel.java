@@ -1,14 +1,10 @@
 package seedu.zerotoone.ui.views.home;
 
-import java.util.Optional;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.ui.util.UiPart;
 
@@ -21,20 +17,12 @@ public class HomePanel extends UiPart<Region> {
     @FXML
     private ListView<OngoingSet> ongoingSessionView;
     @FXML
-    private Label lastExerciseName;
-    @FXML
-    private Label lastExerciseReps;
+    private ListView<OngoingSet> lastSetView;
 
-    public HomePanel(ObservableList<OngoingSet> ongoingSetList, Optional<CompletedSet> lastSet) {
+    public HomePanel(ObservableList<OngoingSet> ongoingSetList, ObservableList<OngoingSet> lastSet) {
         super(FXML);
-        if (lastSet.isPresent()) {
-            CompletedSet completedSet = lastSet.get();
-            String name = completedSet.getExerciseName().fullName;
-            String weight = completedSet.getWeight().value;
-            String reps = completedSet.getNumReps().value;
-            lastExerciseName.setText(name);
-            lastExerciseReps.setText(reps + " reps, " + weight + "kg");
-        }
+        lastSetView.setItems(lastSet);
+        lastSetView.setCellFactory(listView -> new OngoingSetViewCell());
         ongoingSessionView.setItems(ongoingSetList);
         ongoingSessionView.setCellFactory(listView -> new OngoingSetViewCell());
     }

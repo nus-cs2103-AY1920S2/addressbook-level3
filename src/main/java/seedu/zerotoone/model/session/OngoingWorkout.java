@@ -56,8 +56,8 @@ public class OngoingWorkout {
      * Completes the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the done SessionSet
      */
-    public CompletedSet done() {
-        CompletedSet set = toDo.peek().done();
+    public OngoingSet done() {
+        OngoingSet set = toDo.peek().done();
         if (!toDo.peek().hasSetLeft()) {
             done.offer(toDo.poll().finish(startTime));
         }
@@ -68,8 +68,8 @@ public class OngoingWorkout {
      * Skips the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the skipped SessionSet
      */
-    public CompletedSet skip() {
-        CompletedSet set = toDo.peek().skip();
+    public OngoingSet skip() {
+        OngoingSet set = toDo.peek().skip();
         if (!toDo.peek().hasSetLeft()) {
             done.offer(toDo.poll().finish(startTime));
         }
