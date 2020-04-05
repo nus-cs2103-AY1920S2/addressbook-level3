@@ -32,9 +32,14 @@ public class SetPrefCommandParser implements Parser<SetPrefCommand> {
              ArgumentTokenizer.tokenize(
                      userInput,
                      CliSyntax.PREFIX_MONEY_SYMBOL);
+        ParseException emptySymbolException = new ParseException(MESSAGE_MISSING_VALUES
+                + "\n" + MESSAGE_USAGE);
         String newSymbol = argMultimap.getValue(CliSyntax.PREFIX_MONEY_SYMBOL)
-                .orElseThrow(() -> new ParseException(MESSAGE_MISSING_VALUES
-                        + "\n" + MESSAGE_USAGE));
+                .orElseThrow(() -> emptySymbolException);
+
+        if (newSymbol.isBlank()) {
+            throw emptySymbolException;
+        }
         return new SetPrefCommand(newSymbol);
     }
 }
