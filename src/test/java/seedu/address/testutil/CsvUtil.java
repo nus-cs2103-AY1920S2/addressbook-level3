@@ -50,7 +50,7 @@ public class CsvUtil {
 
     // Invalid format - order type did not equal to order
     public static final String INVALID_CSV_ORDER_BOB = new CsvBuilder()
-            .withOutOrderTypePrefix(OT_ORDER + " ds").withTid(0, 0, 0, VALID_TID_BOB).withName(0, 0, 0, VALID_NAME_BOB)
+            .withOutOrderTypePrefix(OT_ORDER + "sdd").withTid(0, 0, 0, VALID_TID_BOB).withName(0, 0, 0, VALID_NAME_BOB)
             .withAddress(0, 0, 0, VALID_ADDRESS_BOB).withPhone(0, 0, 0, VALID_PHONE_BOB)
             .withDeliveryTimeStamp(0, 0, 0, VALID_TIMESTAMP_BOB).withWarehouse(0, 0, 0, VALID_WAREHOUSE_BOB)
             .withCod(0, 0, 0, VALID_COD_BOB).withComment(0, 0, 0, VALID_COMMENT_NIL)
