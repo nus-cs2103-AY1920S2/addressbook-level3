@@ -29,7 +29,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
-        this.ingredientName = removeExtraWhitespace(ingredientName);
+        this.ingredientName = caseFormatter(removeExtraWhitespace(ingredientName));
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public Ingredient(String ingredientName) {
         requireNonNull(ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
-        this.ingredientName = removeExtraWhitespace(ingredientName);
+        this.ingredientName = caseFormatter(removeExtraWhitespace(ingredientName));
     }
 
     /**
@@ -57,9 +57,18 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     }
 
     /**
+     * Formats the input string as a proper noun.
+     */
+    private String caseFormatter(String stringToProcess) {
+        assert stringToProcess != null;
+        return stringToProcess.substring(0, 1).toUpperCase() + stringToProcess.substring(1).toLowerCase();
+    }
+
+    /**
      * Removes additional whitespaces between words (ie. words should only have one whitespace between them)
      */
     private String removeExtraWhitespace(String stringToProcess) {
+        assert stringToProcess != null;
         return stringToProcess.replaceAll("\\s{2,}", " ");
     }
 
