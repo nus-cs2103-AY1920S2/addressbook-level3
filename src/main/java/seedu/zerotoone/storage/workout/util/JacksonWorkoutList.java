@@ -19,7 +19,7 @@ import seedu.zerotoone.model.workout.WorkoutList;
 @JsonRootName(value = "workoutlist")
 public class JacksonWorkoutList {
 
-    public static final String MESSAGE_DUPLICATE_EXERCISE = "Workouts list contains duplicate workout(s).";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "Workouts list contains duplicate workout(s).";
 
     private final List<JacksonWorkout> workouts = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class JacksonWorkoutList {
         for (JacksonWorkout jsonAdaptedWorkout : workouts) {
             Workout workout = jsonAdaptedWorkout.toModelType();
             if (workoutList.hasWorkout(workout)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_EXERCISE);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WORKOUT);
             }
             workoutList.addWorkout(workout);
         }
