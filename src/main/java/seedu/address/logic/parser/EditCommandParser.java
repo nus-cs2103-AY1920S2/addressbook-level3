@@ -34,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_YEAR,
-                        PREFIX_FOCUS_AREA, PREFIX_MODULE, PREFIX_YEAR, PREFIX_GRADE, PREFIX_TASK, PREFIX_NEW_TASK,
+                        PREFIX_FOCUS_AREA, PREFIX_MODULE, PREFIX_GRADE, PREFIX_TASK, PREFIX_NEW_TASK,
                         PREFIX_DEADLINE);
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
