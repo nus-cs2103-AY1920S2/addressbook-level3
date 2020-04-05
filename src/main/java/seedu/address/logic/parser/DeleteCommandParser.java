@@ -38,13 +38,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(name);
         }
 
-        // Delete module
-        if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
-            moduleCode = ParserUtil.parseModuleCode(strModuleCode);
-            return new DeleteCommand(moduleCode);
-        }
-
         // Delete deadline/task
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TASK)) {
             String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
@@ -52,6 +45,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
             task = new Deadline(strModuleCode, strDeadline);
             return new DeleteCommand(moduleCode, task);
+        }
+
+        // Delete module
+        if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
+            String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
+            moduleCode = ParserUtil.parseModuleCode(strModuleCode);
+            return new DeleteCommand(moduleCode);
         }
 
         throw new ParseException(

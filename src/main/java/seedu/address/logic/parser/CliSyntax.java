@@ -7,7 +7,7 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_MODULE = new Prefix("m/");
-    public static final Prefix PREFIX_SEMESTER = new Prefix("y/");
+    public static final Prefix PREFIX_YEAR = new Prefix("y/");
     public static final Prefix PREFIX_GRADE = new Prefix("g/");
     public static final Prefix PREFIX_TASK = new Prefix("t/");
     public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
@@ -15,7 +15,6 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_COURSE_NAME = new Prefix("c/");
-    public static final Prefix PREFIX_CURRENT_SEMESTER = new Prefix("cs/");
     public static final Prefix PREFIX_FOCUS_AREA = new Prefix("f/");
 
 }

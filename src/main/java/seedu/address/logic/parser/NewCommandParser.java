@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
@@ -38,17 +38,18 @@ public class NewCommandParser implements Parser<NewCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_YEAR,
                         PREFIX_FOCUS_AREA);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_YEAR)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
-        int currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
+        int currentSemester = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get())
+                .getSemester();
 
         FocusArea focusArea = null;
         if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {

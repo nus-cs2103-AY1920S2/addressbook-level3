@@ -6,13 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.ModuleCode;
 
@@ -28,7 +29,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
      */
     public ShowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SEMESTER, PREFIX_MODULE,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_YEAR, PREFIX_MODULE,
                         PREFIX_FOCUS_AREA, PREFIX_COURSE_NAME);
 
         // Get Name
@@ -38,9 +39,9 @@ public class ShowCommandParser implements Parser<ShowCommand> {
         }
 
         // Get Semester
-        if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-            int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
-            return new ShowCommand(intSemester);
+        if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
+            Year year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
+            return new ShowCommand(year);
         }
 
         // Get Module

@@ -2,15 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TASK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
@@ -34,12 +33,12 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException, DateTimeException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER,
-                        PREFIX_FOCUS_AREA, PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE, PREFIX_TASK, PREFIX_NEW_TASK,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_YEAR,
+                        PREFIX_FOCUS_AREA, PREFIX_MODULE, PREFIX_YEAR, PREFIX_GRADE, PREFIX_TASK, PREFIX_NEW_TASK,
                         PREFIX_DEADLINE);
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
-            if (!arePrefixesPresent(argMultimap, PREFIX_SEMESTER) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
+            if (!arePrefixesPresent(argMultimap, PREFIX_YEAR) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
                     && !arePrefixesPresent(argMultimap, PREFIX_TASK)
                     && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -56,8 +55,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             String newTask = null;
             String newDeadline = null;
 
-            if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-                intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+            if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
+                intSemester = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get()).getSemester();
             }
 
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
@@ -87,7 +86,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         } else { // EDIT PROFILE
 
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
-                    && !arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)
+                    && !arePrefixesPresent(argMultimap, PREFIX_YEAR)
                     && !arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
@@ -103,8 +102,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)) {
                 courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get().toUpperCase());
             }
-            if (arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)) {
-                currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
+            if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
+                currentSemester = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get())
+                        .getSemester();
             }
             if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
                 focusArea = argMultimap.getValue(PREFIX_FOCUS_AREA).get();

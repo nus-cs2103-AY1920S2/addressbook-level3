@@ -3,12 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
@@ -44,20 +44,20 @@ public class EditCommand extends Command {
             + "Parameters to edit a profile: "
             + PREFIX_NAME + "NAME "
             + "(" + PREFIX_COURSE_NAME + "COURSE) "
-            + "(" + PREFIX_CURRENT_SEMESTER + "CURRENT_SEMESTER) "
+            + "(" + CliSyntax.PREFIX_YEAR + "CURRENT_SEMESTER) "
             + "(" + PREFIX_FOCUS_AREA + "FOCUS_AREA) "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John "
             + "(" + PREFIX_COURSE_NAME + "Computer Science) "
-            + "(" + PREFIX_CURRENT_SEMESTER + "4) "
+            + "(" + CliSyntax.PREFIX_YEAR + "4) "
             + "(" + PREFIX_FOCUS_AREA + "Algorithms & Theory) "
             + "Parameters to edit a module: "
             + PREFIX_MODULE + "MODULE "
-            + "(" + PREFIX_SEMESTER + "SEMESTER) "
+            + "(" + PREFIX_YEAR + "SEMESTER) "
             + "(" + PREFIX_GRADE + "GRADE) "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 "
-            + "(" + PREFIX_SEMESTER + "4) "
+            + "(" + PREFIX_YEAR + "4) "
             + "(" + PREFIX_GRADE + "A+) ";
 
     public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: %1$s";

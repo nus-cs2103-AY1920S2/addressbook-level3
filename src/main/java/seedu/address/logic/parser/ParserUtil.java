@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -27,7 +28,8 @@ import seedu.address.model.profile.course.module.personal.Grade;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_SEMESTER = "Please input a positive integer as current semester!";
+    public static final String MESSAGE_INVALID_SEMESTER = "Please enter the year in the form Y.S, where Y is the year "
+            + "(positive integer less than 10) and S is the semester (1 or 2).";
 
 
     /**
@@ -93,20 +95,20 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String semester}.
+     * Parses a {@code String year}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code semester} is invalid.
+     * @throws ParseException if the given {@code year} is invalid.
      */
-    public static int parseSemester(String semester) throws ParseException {
-        String trimmedSemester = semester.trim();
-        if (semester.equals("")) {
+    public static Year parseYear(String year) throws ParseException {
+        String trimmedYear = year.trim();
+        if (year.equals("")) {
             throw new ParseException(MESSAGE_MISSING_SEMESTER);
         }
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedSemester)) {
-            throw new ParseException(MESSAGE_INVALID_SEMESTER);
+        if (!Year.isValidCode(year)) {
+            throw new ParseException(Year.MESSAGE_CONSTRAINTS);
         }
-        return Integer.parseInt(trimmedSemester);
+        return new Year(trimmedYear);
     }
 
     /**
@@ -169,7 +171,6 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_MISSING_COURSE_FOCUS_AREA);
         }
         if (!FocusArea.isValid(courseName, trimmedFocusArea)) {
-            System.out.println(trimmedFocusArea);
             throw new ParseException(String.format(MESSAGE_INVALID_COURSE_FOCUS_AREA, NewCommand.MESSAGE_USAGE));
         }
         return new FocusArea(trimmedFocusArea);

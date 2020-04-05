@@ -34,6 +34,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
@@ -45,7 +46,7 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
         //Profile expectedProfile = new PersonBuilder(BOB).build();
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
-        int semester = Integer.parseInt(VALID_SEMESTER_BOB);
+        int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
         String task = VALID_TASK_BOB;
         String deadline = VALID_DEADLINE_BOB;
@@ -78,7 +79,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
-        int semester = Integer.parseInt(VALID_SEMESTER_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
         String grade = VALID_GRADE_AMY;
         String task = VALID_TASK_AMY;
         String deadline = VALID_DEADLINE_AMY;
@@ -118,7 +119,7 @@ public class AddCommandParserTest {
 
         // invalid semester (if error message differs, refer to parseSemester method under ParserUtil.java)
         assertParseFailure(parser, MODCODE_DESC_BOB + INVALID_SEMESTER_DESC + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, ParserUtil.MESSAGE_INVALID_SEMESTER);
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, Year.MESSAGE_CONSTRAINTS);
 
         // invalid grade
         assertParseFailure(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + INVALID_GRADE_DESC

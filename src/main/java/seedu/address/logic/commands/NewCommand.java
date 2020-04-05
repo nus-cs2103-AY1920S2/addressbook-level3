@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CourseManager;
@@ -23,11 +23,11 @@ public class NewCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_COURSE_NAME + "COURSE "
-            + PREFIX_CURRENT_SEMESTER + "CURRENT_SEMESTER" + "\n"
+            + PREFIX_YEAR + "YEAR.SEMESTER" + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_COURSE_NAME + "Computer Science "
-            + PREFIX_CURRENT_SEMESTER + "4";
+            + PREFIX_YEAR + "2.2";
 
     public static final String MESSAGE_SUCCESS = "New profile created: %1$s";
     public static final String MESSAGE_DUPLICATE_PROFILE = "Error: Profile with name %1$s exists. "

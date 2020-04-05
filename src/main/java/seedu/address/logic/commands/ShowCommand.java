@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,6 +17,7 @@ import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
@@ -36,7 +37,7 @@ public class ShowCommand extends Command {
             + "Course, with " + PREFIX_COURSE_NAME + "COURSE\n"
             + "Course Focus Area, with " + PREFIX_FOCUS_AREA + "FOCUS_AREA\n"
             + "Module, with " + PREFIX_MODULE + "MODULE_CODE\n"
-            + "Modules taken in a semester, with " + PREFIX_CURRENT_SEMESTER + "SEMESTER_NUMBER\n";
+            + "Modules taken in a semester, with " + PREFIX_YEAR + "SEMESTER_NUMBER\n";
 
     public static final String MESSAGE_SUCCESS_NAME = "Here is your academic overview: ";
     public static final String MESSAGE_SUCCESS_MODULE_LIST = "All modules taken in semester are shown: "
@@ -60,9 +61,9 @@ public class ShowCommand extends Command {
         this.toParse = name;
     }
 
-    public ShowCommand(int intSemester) {
-        requireNonNull(intSemester);
-        this.toParse = intSemester;
+    public ShowCommand(Year year) {
+        requireNonNull(year);
+        this.toParse = year;
     }
 
     public ShowCommand(ModuleCode moduleCode) {
@@ -105,13 +106,13 @@ public class ShowCommand extends Command {
                     throw new CommandException("Profile does not exist.");
                 }
 
-            } else if (toParse instanceof Integer) {
+            } else if (toParse instanceof Year) {
                 if (!profileManager.hasOneProfile()) {
                     throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
                 }
 
                 message = MESSAGE_SUCCESS_MODULE_LIST;
-                Integer semester = (Integer) toParse;
+                Integer semester = ((Year) toParse).getSemester();
                 toShow = profileManager.getFirstProfile().getModules(semester);
                 FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
                 profileManager.setDisplayedView(filteredModules);

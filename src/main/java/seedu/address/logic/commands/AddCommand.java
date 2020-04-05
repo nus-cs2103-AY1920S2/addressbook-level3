@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,13 +33,13 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module or task to the module.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE "
-            + PREFIX_SEMESTER + "SEMESTER "
+            + PREFIX_YEAR + "SEMESTER "
             + "(" + PREFIX_TASK + "TASK) "
             + "(" + PREFIX_DEADLINE + "DEADLINE) "
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 "
-            + PREFIX_SEMESTER + "4 "
+            + PREFIX_YEAR + "4 "
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
