@@ -38,5 +38,60 @@ public class QuantityTest {
         assertTrue(Quantity.isValidQuantity("911")); // exactly 3 numbers
         assertTrue(Quantity.isValidQuantity("1000000")); // long prices
     }
+
+    @Test
+    public void equals() {
+        //same value -> returns true
+        Quantity firstQuantity = new Quantity(10);
+        Quantity secondQuantity = new Quantity(10);
+        assertTrue(firstQuantity.equals(secondQuantity));
+
+        //same object -> returns false
+        Quantity quantity = new Quantity(10);
+        assertTrue(quantity.equals(quantity));
+
+        //compared with null -> throws exception
+        assertThrows(NullPointerException.class, () -> quantity.compareTo(null));
+
+        //different value -> returns false
+        firstQuantity = new Quantity(11);
+        secondQuantity = new Quantity(1);
+        assertFalse(firstQuantity.equals(secondQuantity));
+    }
+
+    @Test
+    public void minus() {
+        //minus null -> throws null pointer exception
+        Quantity five = new Quantity(5);
+        assertThrows(NullPointerException.class, () -> five.plus(null));
+
+        //self minus self -> return 0
+        Quantity zero = new Quantity(0);
+        assertTrue(five.minus(five).equals(zero));
+
+        //self minus number larger than self -> throws exception
+        Quantity six = new Quantity(6);
+        assertThrows(IllegalArgumentException.class, () -> five.minus(six));
+
+        //self minus number smaller than self -> return normal result
+        Quantity one = new Quantity(1);
+        assertTrue(six.minus(five).equals(one));
+    }
+
+    @Test
+    public void plus() {
+        //plus null -> throws exception
+        Quantity five = new Quantity(5);
+        assertThrows(NullPointerException.class, () -> five.plus(null));
+
+        //self minus self -> return self x 2
+        Quantity ten = new Quantity(10);
+        assertTrue(five.plus(five).equals(ten));
+
+        //self plus other number -> returns quantity with value = self + other
+        Quantity six = new Quantity(6);
+        Quantity eleven = new Quantity(11);
+        assertTrue(five.plus(six).equals(eleven));
+    }
 }
 

@@ -109,8 +109,12 @@ public class ProductBuilder {
         return this;
     }
 
+    /**
+     * Returns a product with the given attributes.
+     */
     public Product build() {
-        return new Product(id, description, costPrice, price, quantity, money, threshold, 1);
+        return new Product(id, description, costPrice,
+                price, quantity, money, threshold, 1);
     }
 
 }
