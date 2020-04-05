@@ -16,7 +16,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * The API of the Model component.

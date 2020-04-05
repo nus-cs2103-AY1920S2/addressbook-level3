@@ -2,9 +2,11 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
+import seedu.address.model.nusmodule.ModuleTask;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -33,6 +35,9 @@ public class CalenderDeadline extends UiPart<Region> {
     private Label description;
     @FXML
     private Label date;
+    @FXML
+    private FlowPane modCode;
+
 
     public CalenderDeadline(Task deadline, int displayedIndex) {
         super(FXML);
@@ -41,7 +46,28 @@ public class CalenderDeadline extends UiPart<Region> {
         category.setText(deadline.getCategory());
         description.setText(deadline.getDescription());
         date.setText("Deadline: " + deadline.getDate());
+        if (deadline instanceof ModuleTask) {
+            setModuleTask(deadline);
+        }
+        setStatusColor();
+//        category.setStyle("-fx-background-color: teal");
 
+    }
+
+    private void setModuleTask(Task deadline) {
+        category.setText("School");
+        modCode.getChildren().add(new Label(((ModuleTask) deadline).getModuleRelated().toString()));
+        modCode.setStyle("-fx-background-color: teal");
+
+    }
+
+    private void setStatusColor() {
+
+        if (deadline.getStatus()) {
+            cardPane.setStyle("-fx-background-color: #323232");
+        } else {
+            cardPane.setStyle("-fx-background-color: #f78259");
+        }
     }
 
     @Override

@@ -6,9 +6,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import seedu.address.ui.NotesListPanel;
 
 
 /**
@@ -20,29 +22,46 @@ public class Notes {
     public static final String MESSAGE_CONSTRAINTS =
             "operation should contain open, create, createfolder and delete only and it should not be left blank.";
 
+    public static final String MESSAGE_CONSTRAINTS_PATH_TYPE =
+            "Path type should only be abs(Absolute) or rel(Relative)";
+
+    public static final String MESSAGE_CONSTRAINTS_TYPE =
+            "Type must be only file or folder";
+
     public static final String HOME_DIRECTORY = System.getProperty("user.home");
 
-    private static String currentDirectory = "Current Directory: " + HOME_DIRECTORY;
+    private static String currentDirectory = HOME_DIRECTORY;
+
+    private static ObservableValue<String> observableCurrentDirectory =
+            new ReadOnlyObjectWrapper<>("Current Directory " + currentDirectory);
 
     private static final String[] validOperationsDummy = {"open", "create", "delete", "createfolder", "list"};
+
+    private static final String[] validType = {"file", "folder"};
+
+    private static final String[] validPathType = {"abs", "rel"};
 
     public static final HashSet<String> VALID_OPERATIONS = new HashSet<>(Arrays.asList(validOperationsDummy));
 
     private static ObservableList<Notes> filesArrayListFiltered;
 
-    private String operation;
     private String path;
+    private String type;
+    private String pathType;
 
-    public Notes(String operation, String path) {
-
-        this.operation = operation;
+    public Notes(String path, String pathType) {
         this.path = path;
+        this.pathType = pathType;
+    }
 
+    public Notes(String path, String type, String pathType) {
+        this.path = path;
+        this.type = type;
+        this.pathType = pathType;
     }
 
     public Notes(String path) {
         this.path = path;
-        this.operation = null;
     }
 
 
@@ -76,20 +95,49 @@ public class Notes {
 
     }
 
+    public static boolean isValidType(String checkType) {
+
+        for (String type : validType) {
+            if (checkType.equals(type)) {
+                return true;
+            }
+
+        }
+        return false;
+
+    }
+
+    public static boolean isValidPathType(String checkPathType) {
+
+        for (String pathType : validPathType) {
+            if (checkPathType.equals(pathType)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     public static String getCurrentDirectory() {
         return currentDirectory;
     }
 
-    public static void setCurrentDirectory(String directory) {
-        currentDirectory = directory;
-    }
 
-    public String getOperation() {
-        return this.operation;
+    public static void setCurrentDirectory(String directory) {
+
+        currentDirectory = directory;
     }
 
     public String getPath() {
         return this.path;
+    }
+
+    public String getFilePathType() {
+        return this.pathType;
+    }
+
+    public String getType() {
+        return this.type;
     }
 
 

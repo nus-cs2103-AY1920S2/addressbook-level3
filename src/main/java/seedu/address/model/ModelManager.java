@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.StudentProfile.Profile;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
@@ -24,7 +25,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 
 /**
@@ -42,6 +43,7 @@ public class ModelManager implements Model {
     private ModuleBook moduleBook;
     private final FilteredList<Task> deadlineTaskList;
     private final FilteredList<NusModule> moduleListTaken;
+    private Profile studentProfile;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,6 +63,8 @@ public class ModelManager implements Model {
         deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
         moduleBook = new ModuleBook();
         moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
+        studentProfile = new Profile();
+
     }
 
     public ModelManager() {
@@ -237,11 +241,6 @@ public class ModelManager implements Model {
         moduleBook.addModuleTask(moduleTask);
     }
 
-    @Override
-    public void updateMajor(Major major) {
-        moduleBook.setMajor(major);
-    }
-
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -356,5 +355,13 @@ public class ModelManager implements Model {
     public boolean isEmptyToDo(Task todo) {
         return false;
     }
+
+
+    //=========== Profile Module ==================================================================================
+    @Override
+    public void updateMajor(Major major) {
+        studentProfile.setMajor(major);
+    }
+
 
 }

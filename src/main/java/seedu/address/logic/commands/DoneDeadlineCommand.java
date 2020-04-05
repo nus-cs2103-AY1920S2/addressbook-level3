@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Mark a deadline in calendar as done.
@@ -32,6 +32,9 @@ public class DoneDeadlineCommand extends DoneCommand {
         Task.getDeadlineTaskList().get(deadlineDone.getIndex() - 1).markAsDone();
 
         Task done = Task.getDeadlineTaskList().get(deadlineDone.getIndex() - 1);
+        Task.getDeadlineTaskList().remove(deadlineDone.getIndex() - 1);
+        Task.getDeadlineTaskList().add(done);
+        model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
 
         return new CommandResult(MESSAGE_SUCCESS + done);
     }

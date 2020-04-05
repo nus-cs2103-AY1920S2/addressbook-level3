@@ -1,4 +1,4 @@
-package seedu.address.todolist;
+package seedu.address.calender;
 
 /**
  * <h1> To Do Class </h1>

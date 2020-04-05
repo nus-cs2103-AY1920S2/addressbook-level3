@@ -5,9 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.todolist.Task;
-import seedu.address.ui.CalenderDate;
-import seedu.address.ui.CalenderPanel;
+import seedu.address.calender.Task;
 
 /**
  * Adds a deadline.
@@ -37,7 +35,8 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
         }
 
         Task removed = Task.getDeadlineTaskList().remove(deadlineToDelete.getIndex() - 1);
-        removeUiDot(removed);
+        Task.removeTaskPerDate(removed.getDate(), removed);
+        System.out.println(Task.getDeadlineTaskHashMap());
 
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + removed);
@@ -51,23 +50,5 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
                 && deadlineToDelete == deadlineToDelete);
     }
 
-    /**
-     * Dummy doc.
-     * @param removed
-     */
-    public void removeUiDot(Task removed) {
-        String[] date = removed.getDate().split("-");
-        System.out.println(removed);
-        int year = Integer.parseInt(date[2]);
-        String day = date[0];
-        int month = Integer.parseInt(date[1]);
-        if (CalenderPanel.getYear() == year && CalenderPanel.getCurrentMonth() == month) {
-            CalenderDate calenderDate = CalenderPanel.getCalenderDatesArrayList().get(Integer.parseInt(day) - 1);
-
-            calenderDate.decreaseCount();
-            calenderDate.decreaseCount();
-            System.out.println("decreasedCount " + calenderDate.getCount());
-        }
-    }
 
 }
