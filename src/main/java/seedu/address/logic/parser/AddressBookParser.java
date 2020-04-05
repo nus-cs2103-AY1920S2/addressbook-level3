@@ -15,7 +15,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
-<<<<<<< HEAD
 
 import seedu.address.logic.commands.DiaryCommand;
 import seedu.address.logic.commands.diarycommand.DiaryAddCommand;
