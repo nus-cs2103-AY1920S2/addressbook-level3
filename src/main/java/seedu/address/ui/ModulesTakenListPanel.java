@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.nusmodule.NusModule;
@@ -24,6 +25,7 @@ public class ModulesTakenListPanel extends UiPart<Region> {
         super(FXML);
         modulesTaken.setItems(moduleList);
         modulesTaken.setCellFactory(listView -> new ModuleListViewCell());
+
     }
 
     /**
@@ -33,6 +35,7 @@ public class ModulesTakenListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(NusModule module, boolean empty) {
             super.updateItem(module, empty);
+
             if (empty || module == null) {
                 setGraphic(null);
                 setText(null);

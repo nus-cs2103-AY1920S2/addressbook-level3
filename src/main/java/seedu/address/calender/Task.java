@@ -1,10 +1,16 @@
 package seedu.address.calender;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.nusmodule.ModuleTask;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.nusmodule.Priority;
 
 
@@ -37,12 +43,8 @@ public class Task {
      *
      * @return icon for status (tick or cross) to display if task is completed or not
      */
-    public String getStatusIcon() {
-        if (isDone) {
-            return "\u2713";
-        } else {
-            return "\u2718";
-        }
+    public boolean getStatus() {
+        return isDone;
     }
 
     /**
@@ -98,9 +100,9 @@ public class Task {
      *
      * @return status icon of tick as task is marked as done
      */
-    public String markAsDone() {
+    public boolean markAsDone() {
         isDone = true;
-        return getStatusIcon();
+        return isDone;
     }
 
     public static ObservableList<Task> getNewDeadlineTaskList() {
@@ -112,6 +114,29 @@ public class Task {
 
     public static ObservableList<Task> getDeadlineTaskList() {
         return deadlineTaskList;
+    }
+
+    public static void sortDeadlineTaskList(String value) {
+
+        SimpleDateFormat dateParser= new SimpleDateFormat("dd-MM-yyyy");
+
+        if (value.equals("date")) {
+            Comparator<Task> comparator = Comparator.comparing(
+                    Task::getDate, (s1, s2) -> {
+                        try {
+                            Date dateS1 = dateParser.parse(s1);
+                            Date dateS2 = dateParser.parse(s2);
+                            return dateS1.compareTo(dateS2);
+                        } catch (ParseException ex) {
+                            System.out.println("parseException");
+                        }
+                        return -1;
+                    });
+
+            FXCollections.sort(deadlineTaskList, comparator);
+
+        }
+
     }
 
     public String getCategory() {

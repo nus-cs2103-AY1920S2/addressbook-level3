@@ -38,6 +38,7 @@ public class CalenderDeadline extends UiPart<Region> {
     @FXML
     private FlowPane modCode;
 
+
     public CalenderDeadline(Task deadline, int displayedIndex) {
         super(FXML);
         this.deadline = deadline;
@@ -48,6 +49,7 @@ public class CalenderDeadline extends UiPart<Region> {
         if (deadline instanceof ModuleTask) {
             setModuleTask(deadline);
         }
+        setStatusColor();
 //        category.setStyle("-fx-background-color: teal");
 
     }
@@ -59,6 +61,14 @@ public class CalenderDeadline extends UiPart<Region> {
 
     }
 
+    private void setStatusColor() {
+
+        if (deadline.getStatus()) {
+            cardPane.setStyle("-fx-background-color: #323232");
+        } else {
+            cardPane.setStyle("-fx-background-color: #f78259");
+        }
+    }
 
     @Override
     public boolean equals(Object other) {

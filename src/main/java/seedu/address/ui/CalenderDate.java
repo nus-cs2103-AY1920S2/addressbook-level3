@@ -59,15 +59,15 @@ public class CalenderDate extends UiPart<Region> {
         String priorityLevel = priority.toString();
 
         if (priorityLevel.equals("Very high")) {
-            circle.setStyle("-fx-fill: red");
+            circle.setStyle("-fx-fill: #dd2c00");
         } else if (priorityLevel.equals("High")) {
-            circle.setStyle("-fx-fill: orange");
+            circle.setStyle("-fx-fill: #ff5722");
         } else if (priorityLevel.equals("Medium")) {
-            circle.setStyle("-fx-fill: yellow");
+            circle.setStyle("-fx-fill: #f2ed6f");
         } else if (priorityLevel.equals("Low")) {
-            circle.setStyle("-fx-fill: green");
-        } else if (priorityLevel.equals("Very Low")) {
-            circle.setStyle("-fx-fill: white");
+            circle.setStyle("-fx-fill: #639a67");
+        } else {
+            circle.setStyle("-fx-fill: #2b580c");
         }
     }
 

@@ -23,6 +23,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.StudentProfile.Profile;
+import seedu.address.model.nusmodule.Major;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -46,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private CalenderPanel calenderPanel;
     private CalenderListPanel calenderListPanel;
     private ModulesTakenListPanel modulesTakenListPanel;
+    private ProfileMainScreen profileMainScreen;
 
 
     @FXML
@@ -73,6 +76,12 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane profile;
 
     @FXML
+    private AnchorPane profileMainScreenplaceholder;
+
+    @FXML
+    private AnchorPane taskLists;
+
+    @FXML
     private AnchorPane calenderPanelPlaceholder;
 
     @FXML
@@ -83,6 +92,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private SplitPane calenderSplitPane;
+
+    @FXML
+    private SplitPane  profilePlaceholder;
 
     @FXML
     private TabPane tabPane;
@@ -190,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
         modulesTaken.getChildren().add(modulesTakenListPanel.getRoot());
         setAnchorPaneSize(modulesTaken, modulesTaken.getChildren().get(0));
 
+        profileMainScreen = new ProfileMainScreen(new Profile("Zhou Xinwei", new Major("Computer Science"), "4.2", "4.5"));
+        profileMainScreenplaceholder.getChildren().add(profileMainScreen.getRoot());
+        setAnchorPaneSize(profile, profile.getChildren().get(0));
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -209,6 +225,10 @@ public class MainWindow extends UiPart<Stage> {
                 .forEach(div -> div.setMouseTransparent(true));
         calenderSplitPane.setDividerPositions(0.25f, 0.75f);
         calenderSplitPane.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true));
+
+        profilePlaceholder.setDividerPositions(0.75f, 0.25f);
+        profilePlaceholder.lookupAll(".split-pane-divider").stream()
                 .forEach(div -> div.setMouseTransparent(true));
 
 
