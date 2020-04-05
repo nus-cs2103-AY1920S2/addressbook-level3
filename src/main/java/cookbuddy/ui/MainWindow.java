@@ -6,7 +6,6 @@ import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
-import cookbuddy.logic.commands.HelpCommand;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.Recipe;
@@ -77,8 +76,6 @@ public class MainWindow extends UiPart<Stage> {
         JMETRO.setScene(this.primaryStage.getScene());
 
         setAccelerators();
-
-        commandDescription = HelpCommand.commandWordz;
 
         helpWindow = new HelpWindow();
     }
@@ -178,11 +175,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public static void setCommandDescription(String commandDescription) {
+        MainWindow.commandDescription = commandDescription;
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
     public void handleHelp() {
+        String toDisplay = UiManager.getCommandDescription();
+        helpWindow.setCommandDescription(toDisplay);
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {

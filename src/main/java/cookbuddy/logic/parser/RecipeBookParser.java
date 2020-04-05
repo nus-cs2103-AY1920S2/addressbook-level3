@@ -107,7 +107,7 @@ public class RecipeBookParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            if(arguments.equals("")) {
+            if (arguments.equals("")) {
                 return new HelpCommand("");
             } else {
                 return new HelpCommandParser().parse(arguments);

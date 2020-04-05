@@ -3,7 +3,6 @@ package cookbuddy.ui;
 import java.util.logging.Logger;
 
 import cookbuddy.commons.core.LogsCenter;
-import cookbuddy.logic.commands.HelpCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -80,12 +79,13 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
-        String toBeShown = HelpCommand.commandWordz;
-        if (!toBeShown.equals("")) {
-            helpMessage.setText(toBeShown);
-        }
         getRoot().show();
         getRoot().centerOnScreen();
+    }
+
+    public void show(String toBeShown) {
+        helpMessage.setText(toBeShown);
+        show();
     }
 
     /**

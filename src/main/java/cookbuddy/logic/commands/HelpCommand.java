@@ -1,6 +1,7 @@
 package cookbuddy.logic.commands;
 
 import cookbuddy.model.Model;
+import cookbuddy.ui.UiManager;
 
 /**
  * Format full help instructions for every command for display.
@@ -14,18 +15,20 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    public static String commandWordz = "";
+    private static String commandDescription = "";
 
     public HelpCommand(String commandWord) {
-        commandWordz = commandWord;
+        commandDescription = commandWord;
     }
+
 
     @Override
     public CommandResult execute(Model model) {
+        UiManager.setCommandDescription(commandDescription);
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 
     public String getCommandWord () {
-        return commandWordz;
+        return commandDescription;
     }
 }
