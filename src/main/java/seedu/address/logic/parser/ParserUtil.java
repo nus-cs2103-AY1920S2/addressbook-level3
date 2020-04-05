@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -99,19 +100,15 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code semester} is invalid.
      */
-    public static int parseSemester(String semester) throws ParseException {
+    public static Year parseSemester(String semester) throws ParseException {
         String trimmedSemester = semester.trim();
         if (semester.equals("")) {
             throw new ParseException(MESSAGE_MISSING_SEMESTER);
         }
-        if (!semester.matches("[1-9][.][1-2]")) {
+        if (!Year.isValidCode(semester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
-        System.out.println(semester);
-        int year = Integer.parseInt(trimmedSemester.split("\\.")[0]);
-        int sem = Integer.parseInt(trimmedSemester.split("\\.")[1]);
-        int currSem = 2 * (year - 1) + sem;
-        return currSem;
+        return new Year(trimmedSemester);
     }
 
     /**

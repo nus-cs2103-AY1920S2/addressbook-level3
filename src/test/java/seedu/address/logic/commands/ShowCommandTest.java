@@ -30,6 +30,7 @@ import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.AcceptedCourses;
 import seedu.address.model.profile.course.AcceptedFocusArea;
 import seedu.address.model.profile.course.Course;
@@ -104,7 +105,7 @@ public class ShowCommandTest {
     // One profile has been added but with no modules, user inputs "show y/1"
     @Test
     public void execute_semesterNoModules_throwsCommandException() {
-        ShowCommand showCommandSem = new ShowCommand(1);
+        ShowCommand showCommandSem = new ShowCommand(new Year("1.1"));
         assertThrows(CommandException.class, MESSAGE_EMPTY_PROFILE_LIST, () ->
                 showCommandSem.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()));
         assertThrows(CommandException.class, MESSAGE_INVALID_SEMESTER, () ->
@@ -115,7 +116,7 @@ public class ShowCommandTest {
     // One profile has been added with a module. Valid semester, user inputs "show y/1"
     @Test
     public void execute_validSemesterWithModules_success() {
-        ShowCommand showCommandSem = new ShowCommand(1);
+        ShowCommand showCommandSem = new ShowCommand(new Year("1.1"));
         try {
             assertTrue(showCommandSem.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                     new ModuleManagerStub()).getFeedbackToUser().equals(MESSAGE_SUCCESS_MODULE_LIST));
@@ -127,7 +128,7 @@ public class ShowCommandTest {
     // One profile has been added with a module. Invalid semester, user inputs "show y/2"
     @Test
     public void execute_invalidSemesterWithModules_throwsCommandException() {
-        ShowCommand showCommandSem = new ShowCommand(2);
+        ShowCommand showCommandSem = new ShowCommand(new Year("1.2"));
         assertThrows(CommandException.class, MESSAGE_INVALID_SEMESTER, () ->
                 showCommandSem.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStub()));

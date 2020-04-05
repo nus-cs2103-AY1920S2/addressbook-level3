@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.AcceptedCourses;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -31,7 +32,7 @@ public class ShowCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         // Semester field present
-        int semester = 1;
+        Year semester = new Year("1.1");
         assertParseSuccess(parser, " " + PREFIX_SEMESTER + semester, new ShowCommand(semester));
 
         // Course field present

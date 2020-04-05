@@ -41,6 +41,7 @@ import seedu.address.model.ProfileManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.AcceptedCourses;
 import seedu.address.model.profile.course.AcceptedFocusArea;
 import seedu.address.model.profile.course.Course;
@@ -91,7 +92,7 @@ public class AddCommandTest {
         }
 
         moduleCode = new ModuleCode(VALID_MODCODE_BOB);
-        semester = Integer.parseInt(VALID_SEMESTER_BOB);
+        semester = new Year(VALID_SEMESTER_BOB).getSemester();
         grade = VALID_GRADE_BOB;
         task = VALID_TASK_BOB;
         deadline = VALID_DEADLINE_BOB;
@@ -164,7 +165,7 @@ public class AddCommandTest {
     @Test
     public void equals() {
         AddCommand addAmyCommand = new AddCommand(new ModuleCode(VALID_MODCODE_AMY),
-                Integer.parseInt(VALID_SEMESTER_AMY), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
+                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
         AddCommand addBobCommand = new AddCommand(moduleCode, semester, grade, task, deadline);
 
         // same object -> returns true
@@ -172,12 +173,12 @@ public class AddCommandTest {
 
         // same values -> returns true
         AddCommand addAmyCommandCopy = new AddCommand(new ModuleCode(VALID_MODCODE_AMY),
-                Integer.parseInt(VALID_SEMESTER_AMY), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
+                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
         assertTrue(addAmyCommand.equals(addAmyCommandCopy));
 
         // same module code but remainder fields differ -> returns true
         AddCommand addBobCommandDiff = new AddCommand(new ModuleCode(VALID_MODCODE_BOB),
-                Integer.parseInt(VALID_SEMESTER_AMY), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
+                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
         assertTrue(addBobCommand.equals(addBobCommandDiff));
 
         // different types -> returns false

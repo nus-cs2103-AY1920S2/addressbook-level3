@@ -57,7 +57,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             String newDeadline = null;
 
             if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-                intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+                intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()).getSemester();
             }
 
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
@@ -104,7 +104,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                 courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get().toUpperCase());
             }
             if (arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)) {
-                currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get());
+                currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get())
+                        .getSemester();
             }
             if (arePrefixesPresent(argMultimap, PREFIX_FOCUS_AREA)) {
                 focusArea = argMultimap.getValue(PREFIX_FOCUS_AREA).get();

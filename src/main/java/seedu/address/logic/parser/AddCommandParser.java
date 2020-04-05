@@ -44,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         int intSemester = 0;
 
         if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-            intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+            intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()).getSemester();
         }
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
             grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().toUpperCase());

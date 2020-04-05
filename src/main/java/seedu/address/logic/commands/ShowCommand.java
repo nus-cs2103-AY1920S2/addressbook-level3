@@ -17,6 +17,7 @@ import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
@@ -60,9 +61,9 @@ public class ShowCommand extends Command {
         this.toParse = name;
     }
 
-    public ShowCommand(int intSemester) {
-        requireNonNull(intSemester);
-        this.toParse = intSemester;
+    public ShowCommand(Year year) {
+        requireNonNull(year);
+        this.toParse = year;
     }
 
     public ShowCommand(ModuleCode moduleCode) {
@@ -105,13 +106,13 @@ public class ShowCommand extends Command {
                     throw new CommandException("Profile does not exist.");
                 }
 
-            } else if (toParse instanceof Integer) {
+            } else if (toParse instanceof Year) {
                 if (!profileManager.hasOneProfile()) {
                     throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
                 }
 
                 message = MESSAGE_SUCCESS_MODULE_LIST;
-                Integer semester = (Integer) toParse;
+                Integer semester = ((Year) toParse).getSemester();
                 toShow = profileManager.getFirstProfile().getModules(semester);
                 FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
                 profileManager.setDisplayedView(filteredModules);

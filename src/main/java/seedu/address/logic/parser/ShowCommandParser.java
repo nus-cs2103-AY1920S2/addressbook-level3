@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.ModuleCode;
 
@@ -39,8 +40,8 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         // Get Semester
         if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-            int intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
-            return new ShowCommand(intSemester);
+            Year year = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+            return new ShowCommand(year);
         }
 
         // Get Module

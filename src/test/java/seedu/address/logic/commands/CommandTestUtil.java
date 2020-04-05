@@ -26,13 +26,13 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_MODCODE_AMY = "CS2103T";
-    public static final String VALID_SEMESTER_AMY = "3";
+    public static final String VALID_SEMESTER_AMY = "2.1";
     public static final String VALID_GRADE_AMY = "A-";
     public static final String VALID_TASK_AMY = "homework";
     public static final String VALID_DEADLINE_AMY = "2020-03-23 23:59";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_MODCODE_BOB = "MA1521";
-    public static final String VALID_SEMESTER_BOB = "1";
+    public static final String VALID_SEMESTER_BOB = "1.1";
     public static final String VALID_GRADE_BOB = "C+";
     public static final String VALID_TASK_BOB = "assignment";
     public static final String VALID_DEADLINE_BOB = "2021-01-01 12:35";
