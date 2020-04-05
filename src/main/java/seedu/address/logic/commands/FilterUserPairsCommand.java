@@ -6,13 +6,14 @@ import seedu.address.logic.conditions.UserPairsConditions;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
+import seedu.address.storage.BluetoothPingStorageAccess;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FilterUserPairsCommand implements AppCommand {
+public class FilterUserPairsCommand implements AppCommand, BluetoothPingStorageAccess {
     private int USER_A;
     private int USER_B;
     public static final String COMMAND_WORD = "pairs";

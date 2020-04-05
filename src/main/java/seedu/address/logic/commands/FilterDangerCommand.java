@@ -10,13 +10,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bluetooth.BluetoothPings;
 import seedu.address.model.bluetooth.BluetoothPingsSummary;
 import seedu.address.storage.AppStorage;
+import seedu.address.storage.BluetoothPingStorageAccess;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FilterDangerCommand implements AppCommand {
+public class FilterDangerCommand implements AppCommand, BluetoothPingStorageAccess {
     private int THRESHOLD;
 
     public static final String COMMAND_WORD = "danger";

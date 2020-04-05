@@ -9,7 +9,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.AppLogic;
 import seedu.address.logic.messages.AppMessage;
-import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,6 +25,7 @@ public class AppMainWindow extends UiPart<Stage> {
     private AppLogic logic;
     private BluetoothPingPanel bluetoothPingPanel;
     private BluetoothPingSummaryPanel bluetoothPingSummaryPanel;
+    private PersonSummaryPanel personSummaryPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -65,8 +65,9 @@ public class AppMainWindow extends UiPart<Stage> {
                 this.bluetoothPingSummaryPanel = new BluetoothPingSummaryPanel(commandResult.getDisplayAsObservable());
                 this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingSummaryPanel.getRoot());
             }
-            else if (commandResult.getIdentifier().equals("UserList")) {
-
+            else if (commandResult.getIdentifier().equals("UserSummary")) {
+                this.personSummaryPanel = new PersonSummaryPanel(commandResult.getDisplayAsObservable());
+                this.bluetoothPingPanelPlaceholder.getChildren().add(this.personSummaryPanel.getRoot());
             }
         }
     }
@@ -75,9 +76,6 @@ public class AppMainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.bluetoothPingPanel = new BluetoothPingPanel(logic.getAll());
-        this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
-
         this.resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(this.resultDisplay.getRoot());
 

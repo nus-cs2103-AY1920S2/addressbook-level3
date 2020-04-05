@@ -1,11 +1,7 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AppCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.commands.FilterTimestampCommand;
-import seedu.address.logic.commands.FilterUserIDCommand;
-import seedu.address.logic.commands.FilterUserPairsCommand;
-import seedu.address.logic.commands.FilterDangerCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +36,12 @@ public class CommandRouter {
 
         case FilterDangerCommand.COMMAND_WORD:
             return new FilterDangerCommand().validate(arguments);
+
+        case ListAllPersonCommand.COMMAND_WORD:
+            return new ListAllPersonCommand().validate(arguments);
+
+        case FilterPersonCommand.COMMAND_WORD:
+            return new FilterPersonCommand().validate(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
