@@ -5,7 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Adds a deadline.
@@ -34,6 +34,8 @@ public class AddDeadlineCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Task.getDeadlineTaskList().add(deadlineToAdd);
+        Task.addTaskPerDate(deadlineToAdd.getDate(), deadlineToAdd);
+        Task.sortDeadlineTaskList("date");
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
 
         if (model.isEmptyDeadline(deadlineToAdd)) {

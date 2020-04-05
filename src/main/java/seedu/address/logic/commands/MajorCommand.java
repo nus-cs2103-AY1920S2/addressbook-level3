@@ -11,7 +11,7 @@ import seedu.address.model.nusmodule.Major;
 public class MajorCommand extends Command {
     public static final String COMMAND_WORD = "major";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "State your major (e.g. Computer Science) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": State your major (e.g. Computer Science) "
             + "for the app to help you with module planning\n"
             + "Parameters: your major\n"
             + "Example: " + COMMAND_WORD + "Computer Science";

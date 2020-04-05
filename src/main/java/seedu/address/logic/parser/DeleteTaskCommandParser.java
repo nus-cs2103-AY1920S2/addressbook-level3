@@ -12,7 +12,7 @@ import seedu.address.logic.commands.DeleteModuleTaskCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -43,7 +43,7 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
             return new DeleteModuleTaskCommand(moduleCode, index);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteDeadlineCommand.MESSAGE_USAGE));
+                    DeleteTaskCommand.MESSAGE_USAGE));
         }
     }
 

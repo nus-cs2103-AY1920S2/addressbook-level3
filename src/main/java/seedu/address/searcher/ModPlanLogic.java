@@ -55,4 +55,26 @@ public class ModPlanLogic {
 
         return true;
     }
+
+    /**
+     * Function to check if two classes clash
+     * @param myClass first class
+     * @param toCheck second class
+     * @return true if there is clash false otherwise
+     */
+    private static boolean checkClassClash (Classes myClass, Classes toCheck) {
+        int myClassStart = Integer.parseInt(myClass.getStartTime());
+        int myClassEnd = Integer.parseInt(myClass.getEndTime());
+        int toCheckStart = Integer.parseInt(myClass.getStartTime());
+        int toCheckEnd = Integer.parseInt(toCheck.getEndTime());
+
+
+        if (myClassStart > toCheckStart) {
+            return myClassStart < toCheckEnd;
+        } else if (myClassStart == toCheckStart) {
+            return true;
+        } else {
+            return myClassEnd > toCheckStart;
+        }
+    }
 }
