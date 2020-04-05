@@ -118,13 +118,15 @@ Deletes the 2nd person in the address book.
 ==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
-Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GROUPNAME] [b/BIRTHDAY]`
+Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [t/TAG]... [-t/TAG_TO_BE_DELETED]... [e/EMAIL] [a/ADDRESS] [g/GROUPNAME] [b/BIRTHDAY]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided and cannot be left empty.
-* Existing values will be updated to the input values.
-* Remarks and Tags cannot be edited using this command.
+* Existing values will be updated to the input values except tags.
+* `t/`: Multiple tags can be specified and all will be added, if it is not a duplicate.
+* `-t/`: Multiple tags can be specified and all will be deleted, if they exist.
+* Remarks cannot be edited using this command.
 ****
 
 Examples:
@@ -133,39 +135,6 @@ Examples:
 Changes the 37th person’s address to 2 Cactus Road, S903281.
 * `(ab)edit 2 n/Elysia Tan g/Comp Club` +
 Changes the second person’s name to Elysia Tan, and organization to Comp Club.
-
-==== [Coming Soon] Adding tags to a person : `(ab)addtag`
-
-Allows you to add additional tags to your contacts. +
-Format: `(ab)addtag INDEX t/TAG`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function.
-* All tags typed will be added, if it is not a duplicate
-* Maximum tag length of 15
-* Maximum of 5 tags can be added to a contact
-****
-
-Examples:
-
-* `(ab)addtag 37 t/noob`
-Adds the tag “noob” to the person at index 37
-
-==== [Coming Soon] Removing tags from a person : `(ab)rmtag`
-
-Allows you to remove tags from your contacts. +
-Format: `(ab)rmtag INDEX t/TAG`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If a tag matches an existing tag, it will be removed
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `(ab)rmtag 37 t/noob` +
-Removes the tag “noob” from the person at index 37
 
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
