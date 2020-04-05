@@ -59,10 +59,12 @@ public class CourseVeryDetailedCard extends UiPart<Region> {
   private ListView<Progress> progressListView;
 
   private CommandBox commandBox;
+  private String selectedStudentID;
 
-  public CourseVeryDetailedCard(Course course, ObservableList<Progress> progressList, int progress, CommandBox commandBox, int displayedIndex) {
+  public CourseVeryDetailedCard(Course course, String selectedStudentID, ObservableList<Progress> progressList, int progress, CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.course = course;
+    this.selectedStudentID = selectedStudentID;
     this.commandBox = commandBox;
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
@@ -130,7 +132,7 @@ public class CourseVeryDetailedCard extends UiPart<Region> {
   @FXML
   private void selectCourse(){
     String selectedCourseID = courseID.getText();
-    String commandText = "select cid/" + selectedCourseID;
-    commandBox.runCommand(commandText, "COURSE");
+    String commandText = "select sid/" + selectedStudentID + " cid/" + selectedCourseID;
+    commandBox.runCommand(commandText, "STUDENT");
   }
 }

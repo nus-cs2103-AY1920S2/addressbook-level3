@@ -57,10 +57,12 @@ public class StudentVeryDetailedCard extends UiPart<Region> {
   private CommandBox commandBox;
   Image studentGuy = new Image(getClass().getResourceAsStream("/view/ourImages/student.png"));
   Image studentGirl = new Image(getClass().getResourceAsStream("/view/ourImages/studentGirl.png"));
+  private String selectedCourseID;
 
-  public StudentVeryDetailedCard(Student student, ObservableList<Progress> progressList, int progress,  CommandBox commandBox, int displayedIndex) {
+  public StudentVeryDetailedCard(Student student, String selectedCourseID, ObservableList<Progress> progressList, int progress,  CommandBox commandBox, int displayedIndex) {
     super(FXML);
     this.student = student;
+    this.selectedCourseID = selectedCourseID;
     this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
     studentID.setText(student.getId().value);
@@ -124,7 +126,7 @@ public class StudentVeryDetailedCard extends UiPart<Region> {
   @FXML
   private void selectStudent(){
     String selectedStudentID = studentID.getText();
-    String commandText = "select sid/" + selectedStudentID;
-    commandBox.runCommand(commandText, "STUDENT");
+    String commandText = "select cid/" + selectedCourseID + " sid/" + selectedStudentID;
+    commandBox.runCommand(commandText, "COURSE");
   }
 }

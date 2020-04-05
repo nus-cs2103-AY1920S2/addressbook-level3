@@ -1,14 +1,18 @@
 package seedu.address.manager;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,12 +26,7 @@ import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
-
-import static seedu.address.logic.parser.CliSyntax.*;
 
 // TODO: Think of better name?
 public class DetailManager extends BaseManager {
@@ -167,6 +166,7 @@ public class DetailManager extends BaseManager {
         Set<ID> courseIDs = student.getAssignedCoursesID();
         for (ID courseID: courseIDs) {
             HashMap<String, Object> courseDetail = new HashMap<String, Object>();
+            courseDetail.put("selected_studentID", studentID);
             courseDetail.put("info", (Course)model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(courseID));
             courseDetail.put("progress_list",
                     FXCollections.observableArrayList(new ArrayList<Progress>()));
@@ -201,6 +201,7 @@ public class DetailManager extends BaseManager {
         Set<ID> studentIDs = course.getAssignedStudentsID();
         for (ID studentID: studentIDs) {
             HashMap<String, Object> studentDetail = new HashMap<String, Object>();
+            studentDetail.put("selected_courseID", courseID);
             studentDetail.put("info", (Student)model.getAddressBook(Constants.ENTITY_TYPE.STUDENT).get(studentID));
             studentDetail.put("progress_list",
                     FXCollections.observableArrayList(new ArrayList<Progress>()));

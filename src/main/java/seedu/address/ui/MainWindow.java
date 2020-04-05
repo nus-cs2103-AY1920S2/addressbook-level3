@@ -1,13 +1,7 @@
 package seedu.address.ui;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -24,15 +18,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelProgress.Progress;
-import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
 import seedu.address.ui.uiAssignments.AssignmentDetailedPanel;
 import seedu.address.ui.uiAssignments.AssignmentListPanel;
 import seedu.address.ui.uiCourse.CourseDetailedPanel;
@@ -41,7 +26,6 @@ import seedu.address.ui.uiFinance.FinanceDetailedPanel;
 import seedu.address.ui.uiFinance.FinanceListPanel;
 import seedu.address.ui.uiStaff.StaffDetailedPanel;
 import seedu.address.ui.uiStaff.StaffListPanel;
-import seedu.address.ui.uiCourse.CourseDetailedPanel;
 import seedu.address.ui.uiStudent.StudentDetailedPanel;
 import seedu.address.ui.uiStudent.StudentListPanel;
 
@@ -239,8 +223,8 @@ public class MainWindow extends UiPart<Stage> {
 //    studentDetailsMap.put("courses", courseMap);
 //    studentDetailedPanel = new StudentDetailedPanel(studentDetailsMap, commandBox);
 
-    dataListPanelPlaceholder.getChildren().add(courseListPanel.getRoot());
-    extraListPanelPlaceholder.getChildren().add(courseDetailedPanel.getRoot());
+    dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+    extraListPanelPlaceholder.getChildren().add(studentDetailedPanel.getRoot());
     //summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
     summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
     summaryPanel.updateTotalStaffs(logic.getFilteredStaffList().size());

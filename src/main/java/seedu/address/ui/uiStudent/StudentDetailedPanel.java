@@ -18,8 +18,6 @@ import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.uiCourse.CourseVeryDetailedCard;
 
-import javax.swing.text.AttributeSet;
-
 /**
  * Panel containing the list of students.
  */
@@ -111,9 +109,10 @@ public class StudentDetailedPanel extends UiPart<Region> {
         setText(null);
       } else {
         Course thisCourse = (Course) courseMap.get("info");
+        String selectedStudentID = courseMap.get("selected_studentID").toString();
         ObservableList<Progress> progressList = (ObservableList<Progress>) courseMap.get("progress_list");
         int noOfDoneProgress = (int) courseMap.get("number_of_done_progress");
-        setGraphic(new CourseVeryDetailedCard(thisCourse, progressList, noOfDoneProgress, commandBox,getIndex() + 1).getRoot());
+        setGraphic(new CourseVeryDetailedCard(thisCourse, selectedStudentID, progressList, noOfDoneProgress, commandBox,getIndex() + 1).getRoot());
       }
     }
   }

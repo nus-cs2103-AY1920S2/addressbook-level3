@@ -37,7 +37,10 @@ public class SelectCommand extends Command {
   @Override
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
-    detailManager.updateDetails(positions, selectMetaDataIDs);
+    int no_of_commands = 2;
+    for (int i = 0; i < no_of_commands; i++){
+      detailManager.updateDetails(positions, selectMetaDataIDs);
+    }
     return new CommandResult("Selected item.");
   }
 

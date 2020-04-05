@@ -16,10 +16,7 @@ import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
-import seedu.address.ui.uiStudent.StudentDetailedPanel;
 import seedu.address.ui.uiStudent.StudentVeryDetailedCard;
-import seedu.address.ui.uiCourse.CourseDetailedCard;
-import seedu.address.ui.uiStudent.StudentCard;
 
 /**
  * Panel containing the list of courses.
@@ -111,9 +108,10 @@ public class CourseDetailedPanel extends UiPart<Region> {
         setText(null);
       } else {
         Student thisStudent = (Student) studentMap.get("info");
+        String selectedCourseID = studentMap.get("selected_courseID").toString();
         ObservableList<Progress> progressList = (ObservableList<Progress>) studentMap.get("progress_list");
         int noOfDoneProgress = (int) studentMap.get("number_of_done_progress");
-        setGraphic(new StudentVeryDetailedCard(thisStudent, progressList, noOfDoneProgress, commandBox,getIndex() + 1).getRoot());
+        setGraphic(new StudentVeryDetailedCard(thisStudent, selectedCourseID, progressList, noOfDoneProgress, commandBox,getIndex() + 1).getRoot());
       }
     }
   }
