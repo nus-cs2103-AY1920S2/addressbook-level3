@@ -19,6 +19,7 @@ import cookbuddy.logic.commands.UnFavCommand;
 import cookbuddy.logic.commands.UndoCommand;
 import cookbuddy.logic.commands.ViewCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.ui.HelpWindow;
 
 /**
  * Parses user input.
@@ -36,52 +37,53 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         try {
             String command = ParserUtil.parseHelp(args);
             String preface = "Showing usage for the " + command + " command:\n\n";
+            String ending = "\n\nFor more information, you may " + HelpWindow.HELP_MESSAGE.toLowerCase();
 
             switch (command) {
             case NewCommand.COMMAND_WORD:
-                return new HelpCommand(preface + NewCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + NewCommand.MESSAGE_USAGE + ending);
 
             case ModifyCommand.COMMAND_WORD:
-                return new HelpCommand(preface + ModifyCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + ModifyCommand.MESSAGE_USAGE + ending);
 
             case DeleteCommand.COMMAND_WORD:
-                return new HelpCommand(preface + DeleteCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + DeleteCommand.MESSAGE_USAGE + ending);
 
             case DoneCommand.COMMAND_WORD:
-                return new HelpCommand(preface + DoneCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + DoneCommand.MESSAGE_USAGE + ending);
 
             case UndoCommand.COMMAND_WORD:
-                return new HelpCommand(preface + UndoCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + UndoCommand.MESSAGE_USAGE + ending);
 
             case FavCommand.COMMAND_WORD:
-                return new HelpCommand(preface + FavCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + FavCommand.MESSAGE_USAGE + ending);
 
             case UnFavCommand.COMMAND_WORD:
-                return new HelpCommand(preface + UnFavCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + UnFavCommand.MESSAGE_USAGE + ending);
 
             case ResetCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_RESET");
+                return new HelpCommand(preface + "TBA_RESET" + ending);
 
             case ViewCommand.COMMAND_WORD:
-                return new HelpCommand(preface + ViewCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + ViewCommand.MESSAGE_USAGE + ending);
 
             case FindCommand.COMMAND_WORD:
-                return new HelpCommand(preface + FindCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + FindCommand.MESSAGE_USAGE + ending);
 
             case ListCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_LIST");
+                return new HelpCommand(preface + "TBA_LIST" + ending);
 
             case RandomCommand.COMMAND_WORD:
-                return new HelpCommand(preface + RandomCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + RandomCommand.MESSAGE_USAGE + ending);
 
             case TimeCommand.COMMAND_WORD:
-                return new HelpCommand(preface + TimeCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + TimeCommand.MESSAGE_USAGE + ending);
 
             case CountCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_COUNT");
+                return new HelpCommand(preface + "TBA_COUNT" + ending);
 
             case ExitCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_EXIT");
+                return new HelpCommand(preface + "TBA_EXIT" + ending);
 
             default:
                 throw new ParseException("Invalid Command chosen!");
