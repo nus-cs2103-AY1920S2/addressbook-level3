@@ -89,6 +89,21 @@ Shows all clients currently entered in this program.
 
 Format: `list-c`
 
+=== Find clients by name: `Find-c` --- Yong Jie
+
+`Find-c` allows you to find clients with the names that are specified in your input. You might have many clients and finding a particular client by scrolling through the entire list might be troublesome and difficult.
+
+==== Parameters
+
+==== Example
+Let's say that you want to find a client named "Bryan Low" in FitBiz. You can simply use the `find-c` command by following the steps below.
+
+1. Type `find-c bryan` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+
+==== Errors
+
 === Add a new client profile: `add-c`
 
 Initialises and adds a new client profile.
