@@ -27,13 +27,13 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
@@ -281,33 +281,33 @@ public class CreateCommandTest {
         }
 
         @Override
-        public ReadOnlySessionList getSessionList() {
+        public ReadOnlyLogList getLogList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Session> getFilteredSessionList() {
+        public ObservableList<CompletedWorkout> getFilteredLogList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredSessionList(Predicate<Session> predicate) {
+        public void updateFilteredLogList(Predicate<CompletedWorkout> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Path getSessionListFilePath() {
+        public Path getLogListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteSession(int target) {
-
+        public void deleteLog(int target) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSessionListFilePath(Path sessionListFilePath) {
-
+        public void setLogListFilePath(Path logListFilePath) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

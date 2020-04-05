@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
         scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
 
 
-        logListPanel = new LogListPanel(logic.getFilteredSessionList());
+        logListPanel = new LogListPanel(logic.getFilteredLogList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
         tabPanePlaceHolder.setMinWidth(530);

@@ -55,7 +55,7 @@ public class LogicManagerTestUtil {
                 model.getExerciseList(),
                 model.getWorkoutList(),
                 model.getScheduleList(),
-                model.getSessionList());
+                model.getLogList());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel, logic, model);
     }
 

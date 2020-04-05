@@ -12,18 +12,17 @@ import seedu.zerotoone.model.exercise.ExerciseName;
 /**
  * Represents an immutable Session once a session is completed.
  */
-public class Session {
+public class CompletedExercise {
 
-    // Identity fields
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final ExerciseName exerciseName;
-    private final List<SessionSet> sets;
+    private final List<CompletedSet> sets;
 
     /**
      * Every field must be present and not null.
      */
-    public Session(ExerciseName name, List<SessionSet> sets, LocalDateTime start, LocalDateTime end) {
+    public CompletedExercise(ExerciseName name, List<CompletedSet> sets, LocalDateTime start, LocalDateTime end) {
         requireAllNonNull(name, sets, start, end);
         this.exerciseName = name;
         this.startTime = start;
@@ -35,7 +34,7 @@ public class Session {
         return this.exerciseName;
     }
 
-    public List<SessionSet> getSets() {
+    public List<CompletedSet> getSets() {
         return Collections.unmodifiableList(sets);
     }
 
