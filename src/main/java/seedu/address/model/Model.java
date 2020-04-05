@@ -49,7 +49,7 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Returns the AddressBook
+     * Returns the FitBiz
      */
     ReadOnlyAddressBook getAddressBook();
 

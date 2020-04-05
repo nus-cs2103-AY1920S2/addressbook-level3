@@ -1,5 +1,7 @@
 package seedu.address.commons.trie;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashMap;
 
 /**
@@ -15,38 +17,47 @@ public class Node {
     private HashMap<Character, Node> children;
     private boolean isWordEnd;
 
+    /**
+     * Constructs the root {@code Node}.
+     */
     public Node() {
         children = new HashMap<>();
         isWordEnd = false;
         parent = null;
     }
 
+    /**
+     * Constructs a child {@code Node} with a {@code parent}.
+     *
+     * @param letter the letter that this new child contains
+     * @param parent the parent {@code Node} of this child, which must not be
+     *               {@code null}
+     */
     public Node(char letter, Node parent) {
+        requireNonNull(parent);
         this.letter = letter;
         this.parent = parent;
         children = new HashMap<>();
         isWordEnd = false;
     }
 
-    public Node getChild(char letter) {
-        return children.get(letter);
-    }
-
+    /**
+     * Returns {@code children}.
+     */
     public HashMap<Character, Node> getChildren() {
         return children;
     }
 
-    public boolean hasChild(char letter) {
-        return children.containsKey(letter);
-    }
-
+    /**
+     * Returns true iff {@code children} is of size one.
+     */
     public boolean hasSingleChild() {
         return children.size() == SIZE_OF_ONE;
     }
 
     /**
-     * Returns the only child of this node. {@code children} must only have a single
-     * child to start with.
+     * Returns the only child of this node. {@code children} must only contain one
+     * child child to start with.
      */
     public Node getSingleChild() {
         assert hasSingleChild();
@@ -56,8 +67,25 @@ public class Node {
         return null;
     }
 
-    public void addChild(char letter, Node child) {
-        children.put(letter, child);
+    /**
+     * Returns true iff {@code children} contains {@code letter}.
+     */
+    public boolean hasChild(char letter) {
+        return children.containsKey(letter);
+    }
+
+    /**
+     * Returns the child {@Node} in {@code children}.
+     */
+    public Node getChild(char letter) {
+        return children.get(letter);
+    }
+
+    /**
+     * Adds a child {@code Node} to this {@code Node}.
+     */
+    public void addChild(Node child) {
+        children.put(child.getLetter(), child);
     }
 
     public void setIsWordEnd(boolean bool) {
@@ -73,14 +101,22 @@ public class Node {
     }
 
     /**
+     * Returns true iff @{code parent} is null, meaning that this node must be the
+     * root node.
+     */
+    public boolean isRoot() {
+        return parent == null;
+    }
+
+    /**
      * Constructs the word by recursively going up the parent node.
      *
      * @return the constructed word string
      */
     public String constructWord() {
-        if (parent == null) {
+        if (isRoot()) {
             return EMPTY_STRING;
         }
-        return parent.constructWord() + this.getLetter();
+        return parent.constructWord() + getLetter();
     }
 }

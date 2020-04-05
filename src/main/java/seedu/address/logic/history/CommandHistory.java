@@ -7,18 +7,32 @@ import seedu.address.model.CommandHistoryState;
 import seedu.address.storage.CommandHistoryStorage;
 
 /**
- * This class represents the logic behind the command history and exposes the
- * methods needed for this feature.
+ * This class represents the logic behind the command history feature and acts
+ * as an interface by exposing the necessary methods needed.
  */
 public class CommandHistory {
 
-    private static final Path STORAGE_FILE_PATH = Paths.get("data", "command.txt");
+    private static final Path DEFAULT_STORAGE_FILE_PATH = Paths.get("data", "command.txt");
 
     private CommandHistoryStorage historyStorage;
     private CommandHistoryState historyState;
 
+    /**
+     * Default constructor for this class which uses the default storage file path
+     * for storage {@code CommandHistoryStorage}.
+     */
     public CommandHistory() {
-        historyStorage = new CommandHistoryStorage(STORAGE_FILE_PATH);
+        historyStorage = new CommandHistoryStorage(DEFAULT_STORAGE_FILE_PATH);
+        historyState = new CommandHistoryState(historyStorage.readFromStorage());
+    }
+
+    /**
+     * Overloaded constructor for this class which allows the storage file path for
+     * storage {@code CommandHistoryStorage} to be set. Provided for ease of JUnit
+     * testing.
+     */
+    public CommandHistory(Path storagePath) {
+        historyStorage = new CommandHistoryStorage(storagePath);
         historyState = new CommandHistoryState(historyStorage.readFromStorage());
     }
 
@@ -34,14 +48,14 @@ public class CommandHistory {
     }
 
     /**
-     * Returns the previous command while browsing the history.
+     * Returns the previous (least recent) command while browsing the history.
      */
     public String getPreviousCommand() {
         return historyState.getPreviousCommand();
     }
 
     /**
-     * Returns the next command while browsing the history.
+     * Returns the next (most recent) command while browsing the history.
      */
     public String getNextCommand() {
         return historyState.getNextCommand();

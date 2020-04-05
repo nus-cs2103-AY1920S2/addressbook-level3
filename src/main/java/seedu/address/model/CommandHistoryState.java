@@ -16,7 +16,8 @@ public class CommandHistoryState {
     private int index;
 
     /**
-     * Default constructor for this class.
+     * Default constructor for this class; initialises the state {@code history} and
+     * the {@code index}.
      */
     public CommandHistoryState(ArrayList<String> initialState) {
         history = initialState;
@@ -32,9 +33,12 @@ public class CommandHistoryState {
     }
 
     private boolean hasNoHistory() {
-        return history.size() == START_INDEX;
+        return history.isEmpty();
     }
 
+    /**
+     * Returns the last item added to {@code history}.
+     */
     private String getMostRecentCommand() {
         return history.get(history.size() - 1);
     }
@@ -45,10 +49,10 @@ public class CommandHistoryState {
 
     /**
      * Returns true iff the parameter {@code toTest} is different from the most
-     * recent command, or if no history exists.
+     * recent command, or if {@code history} is currently empty.
      *
      * @param toTest parameter to test.
-     * @return true iff toTest is different from the most recent command.
+     * @return true iff {@code toTest} is different from the most recent command.
      */
     private boolean isSimilarToMostRecentCommand(String toTest) {
         if (hasNoHistory()) {
@@ -65,7 +69,7 @@ public class CommandHistoryState {
      * Adds the user input {@code command} String to this model and to the
      * {@code commandHistoryStorage}.
      *
-     * @param command the user input command.
+     * @param command the user input command
      */
     public void add(String command) {
         if (isEmptyString(command)) {
@@ -84,6 +88,12 @@ public class CommandHistoryState {
         index = history.size();
     }
 
+    /**
+     * Returns the previous command string in the {@code history}. If
+     * {@code history} is empty, the empty string is returned.
+     *
+     * @return the previous command string
+     */
     public String getPreviousCommand() {
         if (isAtStart()) {
             return hasNoHistory() ? EMPTY_STRING : history.get(index);
@@ -92,6 +102,12 @@ public class CommandHistoryState {
         return history.get(index);
     }
 
+    /**
+     * Returns the next command string in the {@code history}. If the end of the
+     * {@code history} is reached, the empty string is returned.
+     *
+     * @return the next command string
+     */
     public String getNextCommand() {
         if (isAtEnd()) {
             return EMPTY_STRING;
@@ -101,15 +117,15 @@ public class CommandHistoryState {
     }
 
     /**
-     * Returns a copy of the history list. Any modifications done to this returned
-     * list will not affect the internal list stored in this class.
+     * Returns a copy of the {@code history}. Any modifications done to this
+     * returned list will not affect the internal list stored in this class.
      */
     public ArrayList<String> getCurrentState() {
         return new ArrayList<String>(history);
     }
 
     /**
-     * Clears and resets the state of the history and the index.
+     * Clears and resets the state of the {@code history} and the {@code index}.
      */
     public void clearState() {
         history.clear();

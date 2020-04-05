@@ -19,8 +19,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditClientDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ClientInView;
+import seedu.address.model.FitBiz;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -44,7 +44,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS, editedClient);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new FitBiz(model.getAddressBook()), new UserPrefs(),
                 new ClientInView());
         expectedModel.setClient(model.getFilteredClientList().get(0), editedClient);
 
@@ -66,7 +66,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS, editedClient);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new FitBiz(model.getAddressBook()), new UserPrefs(),
                 new ClientInView());
         expectedModel.setClient(lastClient, editedClient);
 
@@ -80,7 +80,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS, editedClient);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new FitBiz(model.getAddressBook()), new UserPrefs(),
                 new ClientInView());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -97,7 +97,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS, editedClient);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new FitBiz(model.getAddressBook()), new UserPrefs(),
                 new ClientInView());
         expectedModel.setClient(model.getFilteredClientList().get(0), editedClient);
 

@@ -22,7 +22,7 @@ import seedu.address.logic.commands.ViewCommand;
 import seedu.address.ui.ResultDisplay;
 
 /**
- * This class contains the logic behind the auto complete function. It makes use
+ * This class contains the logic behind the autocomplete feature. It makes use
  * of {@code Trie} as the underlying data structure.
  */
 public class AutoComplete {
@@ -38,6 +38,10 @@ public class AutoComplete {
     private final TextField commandTextField;
     private final ResultDisplay resultDisplay;
 
+    /**
+     * Default constructor for this class. Note that both {@code commandTextField}
+     * and {@code resultDisplay} must not be {@code null}.
+     */
     public AutoComplete(TextField commandTextField, ResultDisplay resultDisplay) {
         requireAllNonNull(commandTextField, resultDisplay);
         trie = new Trie();
@@ -47,7 +51,7 @@ public class AutoComplete {
     }
 
     /**
-     * Adds all the commands included in FitBiz to the {@code Trie}.
+     * Adds all the commands included in FitBiz to {@code Trie}.
      */
     private void addAllCommands() {
         trie.insert(AddCommand.COMMAND_WORD);

@@ -11,49 +11,70 @@ public class NodeTest {
     private static final char VALID_CHAR_2 = 'b';
 
     @Test
-    public void hasSingleChild_oneChild_correctOutput() {
+    public void constructor_nullParent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Node(VALID_CHAR_1, null));
+    }
+
+    @Test
+    public void isRoot_rootNode_returnsTrue() {
         Node root = new Node();
 
-        Node node1 = new Node(VALID_CHAR_1, root);
+        assertEquals(true, root.isRoot());
+    }
 
-        root.addChild(VALID_CHAR_1, node1);
+    @Test
+    public void isRoot_childNode_returnsFalse() {
+        Node root = new Node();
+
+        Node child = new Node(VALID_CHAR_1, root);
+
+        assertEquals(false, child.isRoot());
+    }
+
+    @Test
+    public void hasSingleChild_oneChild_returnsTrue() {
+        Node root = new Node();
+
+        Node child = new Node(VALID_CHAR_1, root);
+
+        root.addChild(child);
 
         assertEquals(true, root.hasSingleChild());
     }
 
     @Test
-    public void hasSingleChild_multipleChilds_correctOutput() {
+    public void hasSingleChild_multipleChilds_returnsFalse() {
         Node root = new Node();
 
-        Node node1 = new Node(VALID_CHAR_1, root);
-        Node node2 = new Node(VALID_CHAR_2, node1);
+        Node child1 = new Node(VALID_CHAR_1, root);
+        Node child2 = new Node(VALID_CHAR_2, child1);
 
-        root.addChild(VALID_CHAR_1, node1);
-        root.addChild(VALID_CHAR_2, node2);
+        root.addChild(child1);
+        root.addChild(child2);
 
         assertEquals(false, root.hasSingleChild());
     }
 
     @Test
-    public void getSingleChild_oneChild_correctOutput() {
+    public void getSingleChild_oneChild_returnsCorrectChild() {
         Node root = new Node();
 
-        Node node1 = new Node(VALID_CHAR_1, root);
+        Node child1 = new Node(VALID_CHAR_1, root);
 
-        root.addChild(VALID_CHAR_1, node1);
+        root.addChild(child1);
 
-        assertEquals(node1, root.getSingleChild());
+        assertEquals(child1, root.getSingleChild());
     }
 
     @Test
-    public void getSingleChild_multipleChilds_errorThrown() {
+    public void getSingleChild_multipleChilds_throwsAssertionError() {
         Node root = new Node();
 
-        Node node1 = new Node(VALID_CHAR_1, root);
-        Node node2 = new Node(VALID_CHAR_2, node1);
+        Node child1 = new Node(VALID_CHAR_1, root);
+        Node child2 = new Node(VALID_CHAR_2, child1);
 
-        root.addChild(VALID_CHAR_1, node1);
-        root.addChild(VALID_CHAR_2, node2);
+        root.addChild(child1);
+        root.addChild(child2);
 
         assertThrows(AssertionError.class, () -> root.getSingleChild());
     }

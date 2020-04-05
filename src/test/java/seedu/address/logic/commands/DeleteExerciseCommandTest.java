@@ -28,6 +28,13 @@ public class DeleteExerciseCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
 
     @Test
+    public void execute_noClientInView_throwsCommandException() {
+        DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
+
+        assertCommandFailure(deleteExerciseCommand, model, DeleteExerciseCommand.MESSAGE_CLIENT_NOT_IN_VIEW);
+    }
+
+    @Test
     public void execute_validIndexUnfilteredList_success() {
         Client clientInView = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
         model.setClientInView(clientInView);

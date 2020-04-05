@@ -27,20 +27,20 @@ public class CommandHistoryStateTest {
     }
 
     @Test
-    public void clearState() {
+    public void clearState_emptyListHistory() {
         historyState.clearState();
         assertEquals(Collections.emptyList(), historyState.getCurrentState());
     }
 
     @Test
-    public void add_emptyString_nothingAdded() {
+    public void add_emptyString_addsNothing() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(EMPTY_STRING);
         assertTrue(historyState.getCurrentState().size() == LIST_SIZE_EMPTY);
     }
 
     @Test
-    public void add_similarValidCommandMultipleTimes_onlyOneAdded() {
+    public void add_similarValidCommandMultipleTimes_addsOnlyOne() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(VALID_COMMAND_1);
         historyState.add(VALID_COMMAND_1);
@@ -50,7 +50,7 @@ public class CommandHistoryStateTest {
     }
 
     @Test
-    public void add_validCommandMultipleTimes_allAdded() {
+    public void add_validUniqueCommandMultipleTimes_addsAll() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(VALID_COMMAND_1);
         historyState.add(VALID_COMMAND_2);
@@ -61,19 +61,19 @@ public class CommandHistoryStateTest {
     }
 
     @Test
-    public void getNextCommand_emptyHistory_emptyStringReturned() {
+    public void getNextCommand_emptyHistory_returnsEmptyString() {
         historyState.clearState(); // sanity check that history is empty
         assertTrue(historyState.getNextCommand() == EMPTY_STRING);
     }
 
     @Test
-    public void getPreviousCommand_emptyHistory_emptyStringReturned() {
+    public void getPreviousCommand_emptyHistory_returnsEmptyString() {
         historyState.clearState(); // sanity check that history is empty
         assertTrue(historyState.getPreviousCommand() == EMPTY_STRING);
     }
 
     @Test
-    public void getNextCommand_nonEmptyHistory_emptyStringReturned() {
+    public void getNextCommand_nonEmptyHistory_returnsEmptyString() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(VALID_COMMAND_1);
         historyState.add(VALID_COMMAND_2);
@@ -81,7 +81,7 @@ public class CommandHistoryStateTest {
     }
 
     @Test
-    public void getPreviousCommand_oneItemHistory_sameStringReturned() {
+    public void getPreviousCommand_oneItemHistory_returnsSameString() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(VALID_COMMAND_1);
         String command1 = historyState.getPreviousCommand();
@@ -89,25 +89,26 @@ public class CommandHistoryStateTest {
         String command3 = historyState.getPreviousCommand();
         String command4 = historyState.getPreviousCommand();
         String command5 = historyState.getPreviousCommand();
-        assertTrue(command1 == VALID_COMMAND_1
-                && command2 == VALID_COMMAND_1
-                && command3 == VALID_COMMAND_1
-                && command4 == VALID_COMMAND_1
-                && command5 == VALID_COMMAND_1);
+        assertTrue(command1 == VALID_COMMAND_1);
+        assertTrue(command2 == VALID_COMMAND_1);
+        assertTrue(command3 == VALID_COMMAND_1);
+        assertTrue(command4 == VALID_COMMAND_1);
+        assertTrue(command5 == VALID_COMMAND_1);
     }
 
     @Test
-    public void getPreviousCommand_twoItemsHistory_correctStringsReturned() {
+    public void getPreviousCommand_twoItemsHistory_returnsCorrectStrings() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(VALID_COMMAND_1);
         historyState.add(VALID_COMMAND_2);
         String shouldBeValidCommand2 = historyState.getPreviousCommand();
         String shouldBeValidCommand1 = historyState.getPreviousCommand();
-        assertTrue(shouldBeValidCommand2 == VALID_COMMAND_2 && shouldBeValidCommand1 == VALID_COMMAND_1);
+        assertTrue(shouldBeValidCommand2 == VALID_COMMAND_2);
+        assertTrue(shouldBeValidCommand1 == VALID_COMMAND_1);
     }
 
     @Test
-    public void getNextCommand_twoItemsHistoryAfterGetPrevCommand_correctStringReturned() {
+    public void getNextCommand_twoItemsHistoryAfterGetPrevCommand_returnsCorrectString() {
         historyState.clearState(); // sanity check that history is empty
         historyState.add(VALID_COMMAND_1);
         historyState.add(VALID_COMMAND_2);

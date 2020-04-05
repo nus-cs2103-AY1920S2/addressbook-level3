@@ -25,7 +25,7 @@ import seedu.address.model.schedule.ScheduleList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final FitBiz addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Client> filteredClients;
     private final ClientInView clientInView;
@@ -39,14 +39,14 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new FitBiz(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.clientInView = clientInView;
         filteredClients = new FilteredList<>(this.addressBook.getClientList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new ClientInView());
+        this(new FitBiz(), new UserPrefs(), new ClientInView());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -84,7 +84,7 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FitBiz ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {

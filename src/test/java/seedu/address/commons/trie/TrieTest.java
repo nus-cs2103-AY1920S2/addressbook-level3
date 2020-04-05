@@ -1,5 +1,6 @@
 package seedu.address.commons.trie;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,19 +22,21 @@ public class TrieTest {
     }
 
     @Test
-    public void insert_validWord() {
+    public void insert_nonNullString_success() {
         Trie trie = new Trie();
-        trie.insert("abcd");
+        assertDoesNotThrow(() -> trie.insert(VALID_WORD_1));
+        assertDoesNotThrow(() -> trie.insert(VALID_WORD_2));
+        assertDoesNotThrow(() -> trie.insert(VALID_WORD_3));
     }
 
     @Test
-    public void insert_null_errorThrown() {
+    public void insert_nullString_throwsNullPointerException() {
         Trie trie = new Trie();
         assertThrows(NullPointerException.class, () -> trie.insert(null));
     }
 
     @Test
-    public void listAllSimilarWords_oneWordTrie_correctLongestPrefix() {
+    public void listAllSimilarWords_oneWordTrie_returnsCorrectLongestPrefix() {
         Trie trie = new Trie();
         trie.insert(VALID_WORD_1);
 
@@ -42,7 +45,7 @@ public class TrieTest {
     }
 
     @Test
-    public void listAllSimilarWords_multipleWordsTrie_correctLongestPrefix() {
+    public void listAllSimilarWords_multipleWordsTrie_returnsCorrectLongestPrefix() {
         Trie trie = new Trie();
         trie.insert(VALID_WORD_1);
         trie.insert(VALID_WORD_2);
@@ -53,7 +56,7 @@ public class TrieTest {
     }
 
     @Test
-    public void listAllSimilarWords_null_errorThrown() {
+    public void listAllSimilarWords_null_throwsNullPointerException() {
         Trie trie = new Trie();
         assertThrows(NullPointerException.class, () -> trie.listAllSimilarWords(null));
     }

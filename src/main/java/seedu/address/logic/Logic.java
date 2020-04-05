@@ -26,7 +26,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the FitBiz.
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
@@ -74,4 +74,11 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Opens the provided {@code url} in the user's default web browser.
+     *
+     * @param url website url to open
+     */
+    public void openUrlInDefaultWebBrowser(String url);
 }

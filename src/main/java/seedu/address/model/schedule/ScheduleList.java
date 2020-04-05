@@ -15,6 +15,10 @@ public class ScheduleList {
         this.scheduleList = new ArrayList<Schedule>();
     }
 
+    public ScheduleList(ArrayList<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
+    }
+
     /**
      * Sets schedule using an ArrayList of Schedule.
      */

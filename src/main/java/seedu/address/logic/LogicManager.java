@@ -1,6 +1,9 @@
 package seedu.address.logic;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
@@ -44,7 +47,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveFitBiz(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -90,5 +93,33 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<ScheduleDay> getScheduleDayList() {
         return model.getScheduleDayList();
+    }
+
+    @Override
+    public void openUrlInDefaultWebBrowser(String url) {
+        String os = System.getProperty("os.name").toLowerCase().substring(0, 3);
+
+        switch (os) {
+        case "win": // windows
+        case "mac": // macOS
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(new URI(url));
+                } catch (IOException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+            break;
+        case "lin": // linux
+        case "uni": // unix
+            try {
+                new ProcessBuilder("x-www-browser", url).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            break;
+        default:
+            break;
+        }
     }
 }

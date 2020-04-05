@@ -89,8 +89,7 @@ public class ClientBuilder {
         targetWeight = clientToCopy.getTargetWeight();
         sports = new HashSet<>(clientToCopy.getSports());
         tags = new HashSet<>(clientToCopy.getTags());
-        ScheduleList newScheduleList = new ScheduleList();
-        newScheduleList = clientToCopy.getScheduleList();
+        ScheduleList newScheduleList = clientToCopy.getScheduleList();
         scheduleList = newScheduleList;
     }
 

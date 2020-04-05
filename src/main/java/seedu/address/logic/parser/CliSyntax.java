@@ -29,4 +29,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DAY = new Prefix("day/");
     public static final Prefix PREFIX_START_TIME = new Prefix("st/");
     public static final Prefix PREFIX_END_TIME = new Prefix("et/");
+
+    //======================= schedule =====================================
+    public static final Prefix PREFIX_SCHEDULE = new Prefix("sch/");
 }

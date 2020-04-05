@@ -392,4 +392,36 @@ public class ParserUtil {
         return endTimeList;
     }
 
+    /**
+     * @author @Dban1
+     * takes in the raw input string entered into the CLI from the user and processes it into an ArrayList
+     * of String arrays for further parsing by the day, start and end time parsers respectively.
+     */
+    public static ArrayList<String>[] parseRawScheduleInput(List<String> input) throws ParseException {
+        requireNonNull(input);
+        String[] tripleData = new String[3];
+        ArrayList[] returnArray = new ArrayList[3];
+
+        for (int i = 0; i < 3; i++) {
+            returnArray[i] = new ArrayList<String>();
+        }
+
+        // short-circuit if empty input
+        if (input.get(0).length() == 0) {
+            return returnArray;
+        }
+
+        try {
+            for (String s : input) {
+                tripleData = s.split("-");
+                returnArray[0].add(tripleData[0]);
+                returnArray[1].add(tripleData[1]);
+                returnArray[2].add(tripleData[2]);
+            }
+            return returnArray;
+        } catch (Exception e) {
+            throw new ParseException(Schedule.MESSAGE_CONSTRAINTS);
+        }
+    }
+
 }

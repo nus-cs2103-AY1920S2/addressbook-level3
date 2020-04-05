@@ -29,8 +29,7 @@ class ScheduleCommandTest {
         Client clientToSchedule = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
         ScheduleCommand scheduleCommand = new ScheduleCommand(INDEX_FIRST_CLIENT, emptyScheduleList);
 
-        String expectedMessage = String.format(ScheduleCommand.MESSAGE_SUCCESS, clientToSchedule.getName().fullName,
-                clientToSchedule.getScheduleList().toString());
+        String expectedMessage = String.format(ScheduleCommand.MESSAGE_CLEARED, clientToSchedule.getName().fullName);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ClientInView());
         expectedModel.setClient(model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased()), clientToSchedule);

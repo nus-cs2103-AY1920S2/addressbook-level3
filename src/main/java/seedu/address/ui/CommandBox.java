@@ -40,6 +40,16 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         // handles the up and down arrow keys for command history
+        handleUpDownArrowKeys();
+
+        // handles the tab key for auto complete
+        handleTabKey();
+    }
+
+    /**
+     * Handles the "up" and "down" arrow key for the command history.
+     */
+    private void handleUpDownArrowKeys() {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.UP) {
@@ -53,8 +63,12 @@ public class CommandBox extends UiPart<Region> {
                 }
             }
         });
+    }
 
-        // handles the tab key for auto complete
+    /**
+     * Handles the "tab" key for the command autocompletion.
+     */
+    private void handleTabKey() {
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
             if (ke.getCode() == KeyCode.TAB) {
                 ke.consume();

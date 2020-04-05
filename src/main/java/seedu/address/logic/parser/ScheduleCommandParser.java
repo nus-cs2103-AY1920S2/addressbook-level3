@@ -1,9 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -33,9 +31,6 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
     /**
      * @author Dban1
      * Checks for any overlaps in given schedule with all existing schedules in input set.
-     * @param schedule
-     * @param set
-     * @return
      */
     private static boolean checkIfOverlaps(Schedule schedule, TreeSet<Schedule> set) {
         if (set.size() == 0) {
@@ -52,11 +47,11 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ScheduleCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY,
-                PREFIX_START_TIME, PREFIX_END_TIME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SCHEDULE);
         Index index;
 
-        if (argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getPreamble().isEmpty()
+                || !argMultimap.getValue(PREFIX_SCHEDULE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
 
@@ -66,9 +61,12 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE), pe);
         }
 
-        ArrayList<Day> dayList = ParserUtil.parseDay(argMultimap.getAllValues(PREFIX_DAY));
-        ArrayList<StartTime> startTimeList = ParserUtil.parseStartTime(argMultimap.getAllValues(PREFIX_START_TIME));
-        ArrayList<EndTime> endTimeList = ParserUtil.parseEndTime(argMultimap.getAllValues(PREFIX_END_TIME));
+        ArrayList<String>[] processedInput = ParserUtil.parseRawScheduleInput(
+                argMultimap.getAllValues(PREFIX_SCHEDULE));
+
+        ArrayList<Day> dayList = ParserUtil.parseDay(processedInput[0]);
+        ArrayList<StartTime> startTimeList = ParserUtil.parseStartTime(processedInput[1]);
+        ArrayList<EndTime> endTimeList = ParserUtil.parseEndTime(processedInput[2]);
         ArrayList<Schedule> scheduleList = new ArrayList<>();
 
         // Checks if there are the same number of arguments for Day, StarTime and EndTime.
@@ -87,8 +85,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
             try {
                 schedule = new Schedule(day, startTime, endTime);
             } catch (IllegalArgumentException iae) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE),
-                        iae);
+                throw new ParseException(Schedule.MESSAGE_CONSTRAINTS);
             }
             if (!checkIfOverlaps(schedule, scheduleSet)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

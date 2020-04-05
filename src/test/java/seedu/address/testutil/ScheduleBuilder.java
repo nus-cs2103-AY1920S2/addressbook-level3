@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+
 import seedu.address.model.schedule.Day;
 import seedu.address.model.schedule.EndTime;
-//import seedu.address.model.schedule.Schedule;
+import seedu.address.model.schedule.Schedule;
+import seedu.address.model.schedule.ScheduleList;
 import seedu.address.model.schedule.StartTime;
 
 /**
@@ -23,30 +26,50 @@ public class ScheduleBuilder {
         startTime = new StartTime(DEFAULT_START_TIME);
         endTime = new EndTime(DEFAULT_END_TIME);
     }
-//
-//    public Schedule build() {
-//        return new Schedule(day, startTime, endTime);
-//    }
-//
-//    public ScheduleBuilder withDay(String day) {
-//        this.day = new Day(day);
-//        return this;
-//    }
-//
-//
-//    public ScheduleBuilder withStartTime(String st) {
-//        this.startTime = new StartTime(st);
-//        return this;
-//    }
-//
-//    /**
-//     * Adds endtime to the schedulebuilder chain.
-//     * @param et
-//     * @return
-//     */
-//    public ScheduleBuilder withEndTime(String et) {
-//        this.endTime = new EndTime(et);
-//        return this;
-//    }
+
+    public Schedule build() {
+        return new Schedule(day, startTime, endTime);
+    }
+
+    /**
+     * Wraps the current Schedule in a ScheduleList.
+     * @return
+     */
+    public ScheduleList buildAsList() {
+        ArrayList<Schedule> scheduleList = new ArrayList<>();
+        scheduleList.add(this.build());
+        return new ScheduleList(scheduleList);
+    }
+
+    /**
+     * Updates the Day of the ScheduleBuilder.
+     * @param day
+     * @return
+     */
+    public ScheduleBuilder withDay(String day) {
+        this.day = new Day(day);
+        return this;
+    }
+
+
+    /**
+     * Updates the Start Time of the ScheduleBuilder.
+     * @param st
+     * @return
+     */
+    public ScheduleBuilder withStartTime(String st) {
+        this.startTime = new StartTime(st);
+        return this;
+    }
+
+    /**
+     * Updates the End Time of the ScheduleBuilder.
+     * @param et
+     * @return
+     */
+    public ScheduleBuilder withEndTime(String et) {
+        this.endTime = new EndTime(et);
+        return this;
+    }
 
 }

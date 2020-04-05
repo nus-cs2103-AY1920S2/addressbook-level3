@@ -32,7 +32,7 @@ public class Trie {
                 current = current.getChild(letter);
             } else {
                 Node newChild = new Node(letter, current);
-                current.addChild(letter, newChild);
+                current.addChild(newChild);
                 current = newChild;
             }
         }

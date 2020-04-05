@@ -67,6 +67,28 @@ This section introduces the syntax and the usages of the commands available in F
 * Parameters can be in any order
 ** e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable
 
+=== View help: `help`
+
+Opens a window with the link to the User Guide. `Currently in v1.3`
+Lists all available commands and a short description of what they do. Specify the command for more detailed explanation. `Coming in v1.4`
+
+Format: `help [c/COMMAND]`
+
+Examples:
+
+* `help`
+** Lists all commands
+* `help add-c`
+** Shows a detailed explanation of the `add-c` command
+
+=== List all clients: `list-c`
+
+Shows all clients currently entered in this program.
+
+* Note that this is the default view when you first launch FitBiz
+
+Format: `list-c`
+
 === Add a new client profile: `add-c`
 
 Initialises and adds a new client profile.
@@ -84,6 +106,53 @@ Examples:
 ** Adds a new client: Ming Liang with the above information
 * `add-c n/Low Tah Kiow, John t/powerlifter e/betsycrowe@example.com a/some street p/1234567 t/strongman`
 ** Adds a new client: Low Tah Kiow, John with the above information
+
+=== Edit a client’s profile: `edit-c`
+
+Edits the client’s cliental details by specifying the attribute and the new value.
+
+Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]...`
+
+* `INDEX` refers to the index number shown in the displayed client list
+* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
+* At least one of the optional fields must be provided
+* When editing tags, the existing tags of the client will be removed i.e adding of tags is not cumulative
+* You can remove all the client’s tags by typing `t/` without specifying any tags after it
+
+Examples:
+
+* `edit-c 1 n/Ming Liang a/60 a/male`
+** Edits the name of the 1st client to Ming Liang, age to 60, and gender to male.
+
+=== Delete a client: `delete-c`
+
+Deletes the client at the specified index from the program.
+
+Format: `delete-c INDEX`
+
+* `INDEX` refers to the index number shown in the displayed client list
+* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
+
+Examples:
+
+* `delete-c 4`
+** Deletes the 4th client from the program
+
+=== View a client profile: `view-c`
+
+Shows all available information of the client at the specified index. This also displays all the exercises recorded for the client as well as their personal bests for said exercises.
+
+Format: `view-c INDEX`
+
+* `INDEX` refers to the index number shown in the displayed client list
+* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
+
+Examples:
+
+* `view-c 3`
+** Shows all information about the 3rd client
+* `view-c 45`
+** Shows all information about the 45th client
 
 === Add a client's exercise: `add-e`
 
@@ -128,36 +197,29 @@ Examples:
 +
 ** Deletes the 4th exercise from the exercise list of the 1st client
 
-=== Delete a client: `delete-c`
+=== Schedule trainings for a client: `schedule`
 
-Deletes the client at the specified index from the program.
+Assigns weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. This command can assign multiple schedules to a client at once, by adding more arguments following the command.
 
-Format: `delete-c INDEX`
+Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
 
-* `INDEX` refers to the index number shown in the displayed client list
-* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
-
-Examples:
-
-* `delete-c 4`
-** Deletes the 4th client from the program
-
-=== Edit a client’s profile: `edit-c`
-
-Edits the client’s cliental details by specifying the attribute and the new value.
-
-Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]...`
-
-* `INDEX` refers to the index number shown in the displayed client list
-* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
-* At least one of the optional fields must be provided
-* When editing tags, the existing tags of the client will be removed i.e adding of tags is not cumulative
-* You can remove all the client’s tags by typing `t/` without specifying any tags after it
+* `INDEX` refers to the index number shown on the displayed client list
+* `INDEX` must be a positive integer(ie. 1, 2, 3, ...)
+* `INDEX` must be for an existing client index number
+* `DAY` must be any one of the following values:
+** MON
+** TUE
+** WED
+** THU
+** FRI
+** SAT
+** SUN
+* `DAY` is not case-sensitive
 
 Examples:
 
-* `edit-c 1 n/Ming Liang a/60 a/male`
-** Edits the name of the 1st client to Ming Liang, age to 60, and gender to male.
+* `schedule 1 day/mon st/1100 et/1200`
+** Adds to the 1st client a schedule for training from 11:00am to 12:00pm on Monday
 
 === Export as CSV: `export` [Coming in v1.4]
 
@@ -204,69 +266,6 @@ Examples:
 
 * `graph e/Push Ups`
 ** Shows a graph of Ming Liang’s Push Ups progress over the current month
-
-=== View help: `help`
-
-Opens a window with the link to the User Guide. `Currently in v1.3`
-Lists all available commands and a short description of what they do. Specify the command for more detailed explanation. `Coming in v1.4`
-
-Format: `help [c/COMMAND]`
-
-Examples:
-
-* `help`
-** Lists all commands
-* `help add-c`
-** Shows a detailed explanation of the `add-c` command
-
-=== List all clients: `list-c`
-
-Shows all clients currently entered in this program.
-
-* Note that this is the default view when you first launch FitBiz
-
-Format: `list-c`
-
-=== View a client profile: `view-c`
-
-Shows all available information of the client at the specified index. This also displays all the exercises recorded for the client as well as their personal bests for said exercises.
-
-Format: `view-c INDEX`
-
-* `INDEX` refers to the index number shown in the displayed client list
-* `INDEX` must be a positive integer (ie. 1, 2, 3, ...)
-
-Examples:
-
-* `view-c 3`
-** Shows all information about the 3rd client
-* `view-c 45`
-** Shows all information about the 45th client
-
-=== Schedule trainings for a client: `schedule`
-
-Assigns weekly schedule timings to a client. The schedule will be displayed on the right panel of FitBiz, with the timings as well as the client's name. This command can assign multiple schedules to a client at once, by adding more arguments following the command.
-
-Format: `schedule INDEX day/DAY st/STARTTIME et/ENDTIME`
-
-* `INDEX` refers to the index number shown on the displayed client list
-* `INDEX` must be a positive integer(ie. 1, 2, 3, ...)
-* `INDEX` must be for an existing client index number
-* `DAY` must be any one of the following values:
-** MON
-** TUE
-** WED
-** THU
-** FRI
-** SAT
-** SUN
-* `DAY` is not case-sensitive
-
-Examples:
-
-* `schedule 1 day/mon st/1100 et/1200`
-** Adds to the 1st client a schedule for training from 11:00am to 12:00pm on Monday
-
 
 === View schedule for the day/week: `view-s` [Coming in v2.0]
 

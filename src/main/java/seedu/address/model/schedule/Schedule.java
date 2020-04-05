@@ -15,7 +15,7 @@ public class Schedule implements Comparable<Schedule> {
     public static final String MESSAGE_CONSTRAINTS = "Schedule day should be the first 3 letters of the day. "
             + "Timings should be given in 24 hour format and in HHmm format. "
             + "Start time cannot be later than end time.\nMaximum range is 0000-2359."
-            + " Example usage: schedule 1 day/tue st/1100 et/1200";
+            + " Example usage: schedule 1 sch/MON-1100-1200";
 
     private final Day day;
     private final StartTime startTime;
@@ -125,10 +125,10 @@ public class Schedule implements Comparable<Schedule> {
 
 
         Schedule otherSchedule = (Schedule) other;
-        int otherSt = Integer.parseInt(otherSchedule.getStartTime().toString());
-        int otherEt = Integer.parseInt(otherSchedule.getEndTime().toString());
-        int thisSt = Integer.parseInt(this.getStartTime().toString());
-        int thisEt = Integer.parseInt(this.getEndTime().toString());
+        int otherSt = otherSchedule.getStartTime().getDirectTimeInt();
+        int otherEt = otherSchedule.getEndTime().getDirectTimeInt();
+        int thisSt = this.getStartTime().getDirectTimeInt();
+        int thisEt = this.getEndTime().getDirectTimeInt();
 
         // Checks if there are overlaps between 2 schedules.
         return otherSchedule.getDay().equals(getDay())

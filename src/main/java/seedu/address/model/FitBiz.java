@@ -12,7 +12,7 @@ import seedu.address.model.client.UniqueClientList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameClient comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class FitBiz implements ReadOnlyAddressBook {
 
     private final UniqueClientList clients;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         clients = new UniqueClientList();
     }
 
-    public AddressBook() {}
+    public FitBiz() {}
 
     /**
-     * Creates an AddressBook using the Clients in the {@code toBeCopied}
+     * Creates an FitBiz using the Clients in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public FitBiz(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,7 +48,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code FitBiz} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code FitBiz}.
      * {@code key} must exist in the address book.
      */
     public void removeClient(Client key) {
@@ -109,8 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && clients.equals(((AddressBook) other).clients));
+                || (other instanceof FitBiz // instanceof handles nulls
+                && clients.equals(((FitBiz) other).clients));
     }
 
     @Override
