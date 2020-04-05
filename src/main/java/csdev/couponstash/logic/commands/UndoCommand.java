@@ -16,7 +16,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_NO_STATE_TO_UNDO_TO = "No commands to undo";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Undo previous operation. "
-            + "Only operations that change the coupons in the coupon stash can be undone.\n"
+            + "Only operations that change the coupons in the coupon stash can be undone.\n\n"
             + "Example: " + COMMAND_WORD;
 
     @Override

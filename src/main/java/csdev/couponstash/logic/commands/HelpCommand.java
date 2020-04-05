@@ -1,9 +1,14 @@
 package csdev.couponstash.logic.commands;
 
 import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
@@ -28,21 +33,54 @@ public class HelpCommand extends Command {
 
     public static final String ERROR = "An error has occurred. Please try the help command again.";
 
-    private static final String FILE_PATH =
-            "https://ay1920s2-cs2103t-f09-1.github.io/main/UserGuide.html";
+    private static final String HTML_NAME = "help.html";
 
     @Override
     public CommandResult execute(Model model, String commandText) throws CommandException {
-        openBrowser(FILE_PATH);
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        openBrowser(getHelpHtmlPath());
+        return new CommandResult(SHOWING_HELP_MESSAGE);
+    }
+
+    /**
+     * Return URI of help.html. If help.html is not extracted from jar file yet,
+     * extract it.
+     * @return URI of help.html
+     * @throws CommandException
+     */
+    private static URI getHelpHtmlPath() throws CommandException {
+        try {
+            File file = new File(HTML_NAME);
+            if (file.exists()) {
+                return file.toURI();
+            }
+
+            // If help.html is not extracted yet, extract HTML from jar file
+            URI jarPath = HelpCommand.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+            JarFile jar = new JarFile(jarPath.getPath());
+
+            InputStream inputStream = jar.getInputStream(new JarEntry(HTML_NAME));
+            FileOutputStream fileOutputStream = new java.io.FileOutputStream(file);
+            while (inputStream.available() > 0) {
+                fileOutputStream.write(inputStream.read());
+            }
+            fileOutputStream.close();
+            inputStream.close();
+
+            return file.toURI();
+        } catch (URISyntaxException e) {
+            throw new CommandException(UNSUPPORTED_OS);
+        } catch (IOException e) {
+            throw new CommandException(ERROR);
+        }
     }
 
     /**
      * Open path in system browser.
+     *
      * @param path
      * @throws CommandException
      */
-    private static void openBrowser(String path) throws CommandException {
+    private static void openBrowser(URI path) throws CommandException {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("linux") || os.contains(("unix"))) {
@@ -50,7 +88,7 @@ public class HelpCommand extends Command {
 
             try {
                 if (runtime.exec("which xdg-open").getInputStream().read() != -1) {
-                    runtime.exec("xdg-open " + path);
+                    runtime.exec("xdg-open " + path.toString());
                 } else {
                     throw new CommandException(UNSUPPORTED_OS);
                 }
@@ -59,11 +97,9 @@ public class HelpCommand extends Command {
             }
         } else if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             try {
-                Desktop.getDesktop().browse(new URI(path));
+                Desktop.getDesktop().browse(path);
             } catch (IOException e) {
                 throw new CommandException(ERROR);
-            } catch (URISyntaxException e) {
-                throw new CommandException("The link has error");
             }
         } else {
             throw new CommandException(UNSUPPORTED_OS);

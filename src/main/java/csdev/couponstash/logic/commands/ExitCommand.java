@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting CouponStash as requested ...";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exits the program.\n"
+            + ": Exits the program.\n\n"
             + "Example: " + COMMAND_WORD;
 
     @Override

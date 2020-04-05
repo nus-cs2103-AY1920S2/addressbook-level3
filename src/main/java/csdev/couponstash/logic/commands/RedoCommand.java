@@ -15,7 +15,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undone command redone: %s";
     public static final String MESSAGE_NO_STATE_TO_REDO_TO = "Nothing to redo";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Redo the previously undone command.\n"
+            + ": Redo the previously undone command.\n\n"
             + "Example: " + COMMAND_WORD;
 
     @Override
