@@ -47,7 +47,7 @@ public class DiaryBook {
     }
 
     public String showEntry(int entryId) {
-        return diaryEntries.get(entryId - 1).toString();
+        return diaryEntries.get(calibrateIndex(entryId)).toString();
     }
 
     /*
@@ -57,5 +57,17 @@ public class DiaryBook {
     */
     public void addEntry(DiaryEntry diaryEntry) {
         diaryEntries.add(diaryEntry);
+    }
+
+    public void deleteEntry(int entryId) {
+        diaryEntries.remove(calibrateIndex(entryId));
+    }
+
+    public List<DiaryEntry> getDiaryEntries() {
+        return this.diaryEntries;
+    }
+
+    private int calibrateIndex(int index) {
+        return index - 1;
     }
 }

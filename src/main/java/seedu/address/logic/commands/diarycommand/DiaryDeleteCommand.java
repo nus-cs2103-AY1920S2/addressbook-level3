@@ -30,12 +30,12 @@ public class DiaryDeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.isInvalidEntryId(entryId)) {
-            throw new CommandException("The diary entry ID is invalid!");
+        if (!model.isValidEntryId(entryId)) {
+            throw new CommandException("The diary entry ID is not in range!");
         }
 
         model.deleteDiaryEntry(entryId);
-        String messageResult = "Diary entry " + entryId + " deleted."
+        String messageResult = "Diary entry " + entryId + " deleted.";
         return new CommandResult(messageResult);
     }
 }

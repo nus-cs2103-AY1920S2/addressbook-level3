@@ -118,7 +118,7 @@ public interface Model {
 
     ObservableList<DiaryEntry> getDiaryList();
 
-    boolean isInvalidEntryId(int entryId);
+    boolean isValidEntryId(int entryId);
 
     void deleteDiaryEntry(int entryId);
 

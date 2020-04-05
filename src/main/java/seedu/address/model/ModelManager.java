@@ -149,6 +149,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isValidEntryId(int entryId) {
+        int minId = 1;
+        int maxId = diaryBook.getDiaryEntries().size();
+        return (entryId >= minId) && (entryId <= maxId);
+    }
+
+    @Override
+    public void deleteDiaryEntry(int entryId) {
+        diaryBook.deleteEntry(entryId);
+    }
+
+    @Override
     public String showDiaryLog() {
         return diaryBook.showLog();
     }
