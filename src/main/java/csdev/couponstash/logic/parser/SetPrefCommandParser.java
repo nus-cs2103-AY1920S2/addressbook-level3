@@ -35,6 +35,7 @@ public class SetPrefCommandParser implements Parser<SetPrefCommand> {
         ParseException emptySymbolException = new ParseException(MESSAGE_MISSING_VALUES
                 + "\n" + MESSAGE_USAGE);
         String newSymbol = argMultimap.getValue(CliSyntax.PREFIX_MONEY_SYMBOL)
+                .map(String::trim)
                 .orElseThrow(() -> emptySymbolException);
 
         if (newSymbol.isBlank()) {
