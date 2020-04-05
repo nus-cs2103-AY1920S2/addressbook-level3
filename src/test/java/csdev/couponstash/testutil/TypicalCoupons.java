@@ -38,7 +38,7 @@ import csdev.couponstash.model.coupon.savings.Savings;
  */
 public class TypicalCoupons {
 
-    public static final MonetaryAmount ALICE_MONETARY_AMOUNT = new MonetaryAmount(0, 5);
+    public static final MonetaryAmount ALICE_MONETARY_AMOUNT = new MonetaryAmount(0, 50);
     public static final PercentageAmount BENSON_PERCENTAGE_AMOUNT = new PercentageAmount(30.0);
 
     public static final Savings ALICE_SAVINGS = new Savings(ALICE_MONETARY_AMOUNT);
