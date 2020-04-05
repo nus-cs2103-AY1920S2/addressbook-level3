@@ -30,6 +30,7 @@ This section allows you to start up NUSProductivity with ease. Detailed steps ar
 .  Double-click the file to start the app. The GUI should appear in a few seconds (screenshot of GUI shown below).
 +
 image::Ui.png[width="790"]
+Figure 1. NUSProductivity calendar tab
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -41,6 +42,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+==== Commonly Used Symbols
+
+[NOTE]
+This symbol indicates something you should take note of.
+
+[TIP]
+This symbol indicates a tip that you could use.
+
+[CAUTION]
+This symbol indicates an aspect that should be used with caution.
 
 [[Features]]
 == Features
@@ -66,6 +78,17 @@ This section shows the detailed list of usable commands.
 - Exits the program.
 
 - Format: `exit`
+
+=== Switching Tabs : `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
+
+- Switches to the respective tab
+- Format: `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
+
++
+image::switching_tabs.png[width="790"]
+Figure 2.Switching tabs
++
+
 
 === Address Book
 
@@ -124,6 +147,7 @@ A person can have any number of tags (including 0)
 * Only the name is searched.
 * Only full words will be matched e.g. Han will not match Hans
 * Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
+* After a find operation, use `list` to get back the original list for address book.
 ****
 
 - Examples:
@@ -246,81 +270,128 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 A calendar in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
 
 
-
 ==== Adding Deadline: `deadlineAdd`
 
 - Schedules a task tagged with a deadline to the calendar. A dot will be shown to indicate there is a deadline to be met on that day
 
 - Format: `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
 
-==== Removing Deadline: `deadlineDelete`
+==== Removing Deadline: `taskDelete`
 
-- Deletes a deadline from the deadline list, marking the deadline as done
+- Deletes a task from the deadline list, marking the task as done
 
-- Format: `deadlineDelete index/INDEX`
+- Format: `taskDelete index/INDEX`
+
+==== Adding Module Tasks: `moduleTask`
+
+- Schedules a module task, this module task includes priority level, module that is associated with the task.
+
+- Format: `taskAdd desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY PRI/PRIORITY-LEVEL`
+
+[NOTE]
+This requires you to add a module under `moduleAdd` before you can use it
+
+
 
 === Notes
 
-Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
-
-==== Note Taking: `notes`
+- Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
 
 - Allows for users to create documents for notes, organise their notes in folders.
-Default location is set to user's desktop.
+Default location is set to
+`/User/<ACCOUNT NAME>` for mac
+`C:\Users\<ACCOUNT NAME>` for windows
 
-- Format: `notes ops/COMMAND loc/DIRECTORY`
+[NOTE]
+Path type gives you the flexibility to choose whether you want to use the current directory's path or the absolute path
 
-a.	`notes ops/list loc/NUS/`: shows content in usr/Desktop/NUS/ folder, content will be updated in the UI
-b.	`notes ops/open loc/test.doc`: Opens the file test.doc at usr/Desktop, if file is not present, error message will be shown.
-c.	`notes ops/create loc/test.doc`: Creates the file test.doc at usr/Desktop, if file is already present, error message will be shown.
+- INSERT PATH IMAGES
+
+==== Listing Directory: `notesList`
+
+- List the directory that you supplied.
+
+- Format: `notesList loc/PATH pt/PATH TYPE`
+
+==== Listing Directory: `notesCreate`
+
+- Creates a file/directory based on what you specified.
+
+- Format: `notesCreate loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE`
+
+==== Listing Directory: `notesOpen`
+
+- Opens a file/directory based on what you specified.
+
+- Format: `notesOpen loc/PATH name/FILE_NAME pt/PATH_TYPE`
+
+==== Listing Directory: `notesDelete`
+
+- Delete a file based on what you specified.
+
+- Format: `notesDelete loc/PATH name/FILE_NAME pt/PATH_TYPE`
+
+[CAUTION]
+This can only be use to delete a file and not a folder
+
 
 == Command Summary
 
 This section summarizes the list of commands.
 
-•	add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
+
+* Address Book:
+** add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
  e.g. `add n/James Ho p/22224444 e/jamesho@example.com t/friend t/colleague`
-•	clear : clear
-•	delete : delete INDEX +
+** clear : clear
+** delete : delete INDEX +
  e.g. `delete 3`
-•	edit : edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]… +
+** edit : edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]… +
  e.g. `edit 2 n/James Lee e/jameslee@example.com`
-•	find : find KEYWORD [MORE_KEYWORDS] +
+** find : find KEYWORD [MORE_KEYWORDS] +
  e.g. `find James Jake`
-•	list: list
-•	cap : cap {BREAKDOWN}
-•	modreq : modreq {\MAJOR} +
-e.g. `modreq computer science`
-•	help : help
-•	diary :
-* diary log LIMIT
+** list: list
+
+* Profile
+** cap : cap {BREAKDOWN}
+
+* help : help
+* Diary :
+** diary log LIMIT
 e.g. `diary log 10`
-* diary show ENTRY ID
+** diary show ENTRY ID
 e.g. `diary show 3`
-* diary show DD-MM-YYYY
+** diary show DD-MM-YYYY
 e.g. `diary show 30-03-2020`
-* diary add ENTRY
+** diary add ENTRY
 e.g. `diary add "Today is a good day"`
-* diary delete ENTRY ID
+** diary delete ENTRY ID
 e.g. `diary delete 1`
-* diary weather ID WEATHER
+** diary weather ID WEATHER
 e.g. `diary weather 1 SUNNY`
-* diary emotion ID EMOTION
+** diary emotion ID EMOTION
 e.g. `diary emotion 1 HAPPY`
-* todo : todo DESCRIPTION
-e.g. `todo water plants`
-* deadline : deadline DESCRIPTION /by DD-MM-YYYY HHMM
-e.g. `deadline Finish homework /by 30-03-2020 1800`
-* mymodplan: mymodplan
+
+* Calendar:
+** deadline : deadlineAdd DESCRIPTION /by DD-MM-YYYY HHMM
+e.g. `deadlineAdd Finish homework /by 30-03-2020 1800`
+
+* Mod Plan:
+** mymodplan: mymodplan
 ** mymodplan add MODULE CODE
 e.g. `mymodplan add CS2103T`
 ** mymodplan done MODULE CODE
 e.g. `mymodplan done CS2103T`
-* notes : notes
-** notes ops/open loc/DIRECTORY
-e.g. `notes ops/open loc/Desktop/`
-** notes ops/create loc/DIRECTORY
-e.g. `notes ops/create loc/Desktop/test.doc`
-** notes ops/list loc/DIRECTORY
-e.g. `notes ops/list loc/Desktop/`
+** modreq : modreq {\MAJOR} +
+e.g. `modreq computer science`
+
+* Notes
+** notesList loc/PATH pt/PATH TYPE
+e.g. `notesList loc/Desktop pt/abs`
+** notesOpen loc/PATH name/FILE_NAME pt/PATH_TYPE
+e.g. `notesOpen loc/Desktop name/test.doc pt/abs`
+** notesCreate loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE
+Example: `notesCreate loc/Desktop/ name/Test.doc type/file pt/abs`
+** notesDelete loc/PATH name/FILE_NAME pt/PATH_TYPE
+e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
 

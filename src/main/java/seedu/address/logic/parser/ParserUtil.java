@@ -19,9 +19,9 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.todolist.Deadline;
-import seedu.address.todolist.Task;
-import seedu.address.todolist.ToDo;
+import seedu.address.calender.Deadline;
+import seedu.address.calender.Task;
+import seedu.address.calender.ToDo;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -130,6 +130,85 @@ public class ParserUtil {
             throw new ParseException(Notes.MESSAGE_CONSTRAINTS);
         }
         return new Notes(notesOperation, path);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesListoperation} is invalid.
+     */
+    public static Notes parseNotesListOperation(String path, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesListoperation} is invalid.
+     */
+    public static Notes parseNotesCreateOperation(String path, String type, String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        requireNonNull(type);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        String trimmedType = type.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+        if (!Notes.isValidType(trimmedType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_TYPE);
+        }
+        return new Notes(trimmedPath, trimmedType, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesOpenoperation} is invalid.
+     */
+    public static Notes parseNotesOpenOperation(String path,  String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+
+        return new Notes(trimmedPath, trimmedPathType);
+    }
+
+    /**
+     * Parses a {@code String path, @code String pathType} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param path path and filename to be created
+     * @param pathType path type, absolute or relative.
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesOpenoperation} is invalid.
+     */
+    public static Notes parseNotesDeleteOperation(String path,  String pathType) throws ParseException {
+        requireNonNull(path, pathType);
+        String trimmedPath = path.trim();
+        String trimmedPathType = pathType.trim();
+        if (!Notes.isValidPathType(trimmedPathType)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS_PATH_TYPE);
+        }
+
+        return new Notes(trimmedPath, trimmedPathType);
     }
 
     /**

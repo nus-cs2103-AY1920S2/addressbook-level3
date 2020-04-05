@@ -1,4 +1,6 @@
-package seedu.address.todolist;
+package seedu.address.calender;
+
+import seedu.address.model.nusmodule.Priority;
 
 /**
  * <h1> Deadline Class </h1>
@@ -13,6 +15,7 @@ public class Deadline extends Task {
     protected String operation;
     protected int index;
 
+
     /**
      * Constructor for deadline class
      * @param description describes content of task
@@ -23,6 +26,7 @@ public class Deadline extends Task {
         this.by = by;
         this.category = category;
         this.operation = operation;
+//        this.priority = new Priority();
     }
 
     public Deadline(int index, String operation) {

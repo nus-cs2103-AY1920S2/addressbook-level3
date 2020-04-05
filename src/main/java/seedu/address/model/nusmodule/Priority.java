@@ -4,11 +4,11 @@ package seedu.address.model.nusmodule;
  * Represents the priority of certain module tasks.
  */
 public enum Priority {
-    VERYHIGH("very high", 5),
-    HIGH("high", 4),
-    MEDIAN("median", 3),
-    LOW("low", 2),
-    VERYLOW("very low", 1);
+    VERYHIGH("Very high", 5),
+    HIGH("High", 4),
+    MEDIAN("Medium", 3),
+    LOW("Low", 2),
+    VERYLOW("Very low", 1);
 
     public static final String MESSAGE_CONSTRAINTS = "Please enter valid priority (an integer from 1 to 5)";
 

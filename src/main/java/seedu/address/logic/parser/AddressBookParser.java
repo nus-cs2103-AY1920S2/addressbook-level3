@@ -6,14 +6,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.commands.AddToDoCommand;
+import seedu.address.logic.commands.CalenderCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DiaryAddCommand;
+import seedu.address.logic.commands.DiaryCommand;
 import seedu.address.logic.commands.DiaryLogCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -21,7 +24,13 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MajorCommand;
+import seedu.address.logic.commands.ModPlanCommand;
 import seedu.address.logic.commands.NotesCommand;
+import seedu.address.logic.commands.NotesCreateCommand;
+import seedu.address.logic.commands.NotesDeleteCommand;
+import seedu.address.logic.commands.NotesListCommand;
+import seedu.address.logic.commands.NotesOpenCommand;
+import seedu.address.logic.commands.ProfileCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.modulecommand.AddModuleCommand;
 import seedu.address.logic.commands.modulecommand.CapCommand;
@@ -81,8 +90,23 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case CalenderCommand.COMMAND_WORD:
+            return new CalenderCommand();
+
+        case AddBookCommand.COMMAND_WORD:
+            return new AddBookCommand();
+
+        case ProfileCommand.COMMAND_WORD:
+            return new ProfileCommand();
+
+        case DiaryCommand.COMMAND_WORD:
+            return new DiaryCommand();
+
+        case ModPlanCommand.COMMAND_WORD:
+            return new ModPlanCommand();
+
         case NotesCommand.COMMAND_WORD:
-            return new NotesCommandParser().parse(arguments);
+            return new NotesCommand();
 
         case DiaryAddCommand.COMMAND_WORD:
             return new DiaryAddCommandParser().parse(arguments);
@@ -119,6 +143,19 @@ public class AddressBookParser {
 
         case MajorCommand.COMMAND_WORD:
             return new MajorCommandParser().parse(arguments);
+
+        case NotesListCommand.COMMAND_WORD:
+            return new NotesListCommandParser().parse(arguments);
+
+        case NotesCreateCommand.COMMAND_WORD:
+            return new NotesCreateCommandParser().parse(arguments);
+
+        case NotesOpenCommand.COMMAND_WORD:
+            return new NotesOpenCommandParser().parse(arguments);
+
+        case NotesDeleteCommand.COMMAND_WORD:
+            return new NotesDeleteCommandParser().parse(arguments);
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
