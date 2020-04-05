@@ -184,6 +184,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered record list */
     ObservableList<Record> getFilteredRecordList();
 
+    /** Returns an unmodifiable view of the filtered goals list */
+    ObservableList<Integer> getFilteredGoalsTally();
+
     /**
      * Replaces record book data with the data in {@code CookedRecordBook}.
      */

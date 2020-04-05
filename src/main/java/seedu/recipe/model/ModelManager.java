@@ -288,6 +288,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Integer> getFilteredGoalsTally() {
+        return cookedRecordBook.getFilteredGoalsTally();
+    }
+
+    @Override
     public ReadOnlyCookedRecordBook getRecordBook() {
         return cookedRecordBook;
     }

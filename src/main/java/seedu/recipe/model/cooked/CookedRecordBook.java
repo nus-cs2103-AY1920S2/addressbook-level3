@@ -56,7 +56,6 @@ public class CookedRecordBook implements ReadOnlyCookedRecordBook {
         setRecords(newData.getRecordsList());
     }
 
-
     //// recipe-level operations
 
     /**
@@ -118,5 +117,10 @@ public class CookedRecordBook implements ReadOnlyCookedRecordBook {
     @Override
     public ObservableList<Record> getRecordsList() {
         return records.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Integer> getFilteredGoalsTally() {
+        return records.getGoalsTally();
     }
 }
