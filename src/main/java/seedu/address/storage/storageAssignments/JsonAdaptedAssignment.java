@@ -98,7 +98,7 @@ class JsonAdaptedAssignment {
       throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
     };
 
-    final Deadline modelDeadline = new Deadline(deadline);
+    final Date modelDeadline = new Date(deadline);
 
     final Set<Tag> modelTags = new HashSet<>(AssignmentTags);
 
@@ -107,7 +107,7 @@ class JsonAdaptedAssignment {
       return new Assignment(modelName, modelId, modelDeadline, modelTags);
     } else {
       final ID modelCourseID = new ID(courseID);
-      return new Assignment(modelName, modelId, modelCourseID,modelDeadline, modelTags);
+      return new Assignment(modelName, modelId, modelCourseID, modelDeadline, modelTags);
     }
   }
 

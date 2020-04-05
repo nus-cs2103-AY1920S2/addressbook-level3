@@ -15,7 +15,7 @@ public class Progress extends ModelObject {
   // Identity fields
   private final String ENTITY_NAME = "progress";
   private final CompositeID progressID;
-  private boolean isDone;
+  private Boolean isDone;
 
   /**
    * Every field must be present and not null.

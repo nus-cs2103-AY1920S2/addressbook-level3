@@ -5,11 +5,10 @@ import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
-import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
@@ -19,17 +18,16 @@ import java.util.Set;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
-/** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
-public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
+/** This class will be in charge of assigning stuff (e.g Assignments, Teacher, etc) to a course. */
+public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
-    public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
-    public static final String MESSAGE_SUCCESS = "Successfully unassigned student %s (%s) from course %s (%s)";
+    public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such teacher that with ID";
+    public static final String MESSAGE_SUCCESS = "Successfully unassigned teacher %s (%s) from course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
-    private Set<Tag> ArrayList;
 
-    public UnassignStudentFromCourseCommand(AssignDescriptor assignDescriptor) {
+    public UnassignTeacherFromCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
 
         this.assignDescriptor = assignDescriptor;
@@ -42,34 +40,33 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
 
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
-
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
-        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+        ID teacherID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
         boolean courseExists = model.hasCourse(courseID);
-        boolean StudentExists = model.hasStudent(studentID);
+        boolean teacherExists = model.hasStaff(teacherID);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-        } else if (!StudentExists) {
-            throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+        } else if (!teacherExists) {
+            throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
         } else {
             Course assignedCourse = model.getCourse(courseID);
-            Student assigningStudent = model.getStudent(studentID);
+            Staff assigningStaff = model.getStaff(teacherID);
 
-            boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
-            boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
+            boolean assignedCourseContainsStaff = assignedCourse.containsStaff(teacherID);
+            boolean assigningStaffContainsCourse = assigningStaff.containsCourse(courseID);
 
-            if(!assignedCourseContainsStudent) {
-                throw new CommandException("This course doesn't contain the specified student! :(");
-            } else if(!assigningStudentContainsCourse) {
-                throw new CommandException("The student isn't even assigned to this course! :(");
+            if(!assignedCourseContainsStaff) {
+                throw new CommandException("This course doesn't have the specified teacher! :(");
+            } else if(!assigningStaffContainsCourse) {
+                throw new CommandException("The teacher isn't even assigned to this course! :(");
             } else {
-                EdgeManager.unassignStudentFromCourse(studentID, courseID);
+                EdgeManager.unassignTeacherFromCourse(teacherID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningStudent.getName(), studentID.value,
+                        assigningStaff.getName(), teacherID.value,
                         assignedCourse.getName(), courseID.value));
             }
         }

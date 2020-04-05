@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandUnassign;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -41,7 +42,7 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
+    protected CommandResult executeUndoableCommand(Model model) throws CommandException {
 
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
@@ -73,5 +74,10 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
                         assignedCourse.getName(), courseID.value));
             }
         }
+    }
+
+    @Override
+    protected void generateOppositeCommand() throws CommandException {
+        oppositeCommand = new AssignAssignmentToCourseCommand(this.assignDescriptor);
     }
 }

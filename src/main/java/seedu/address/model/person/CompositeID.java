@@ -2,10 +2,16 @@ package seedu.address.model.person;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 
 import java.util.HashMap;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 
 /**
  * Represents a composite ID for objects without a field as primary key
@@ -21,18 +27,18 @@ public class CompositeID extends ID {
     }
 
     public CompositeID(ID assignmentID, ID studentID) throws CommandException {
+        requireAllNonNull(assignmentID, studentID);
         ids = new HashMap<>();
         addAssignmentID(assignmentID);
         addStudentID(studentID);
     }
-
-
+    // no error thrown since we require for assignmentID and studentID to be non null during instantiation
     public ID getStudentID() {
-      return ids.get(PREFIX_STUDENTID);
-   }
+        return ids.get(PREFIX_STUDENTID);
+    }
 
     public ID getAssignmentID() {
-      return ids.get(PREFIX_ASSIGNMENTID);
+        return ids.get(PREFIX_ASSIGNMENTID);
     }
 
     private void addStudentID(ID studentID) throws CommandException {
