@@ -57,7 +57,7 @@ public class EditPersonDescriptor {
      */
     public boolean isAnyFieldEdited() {
         return CollectionUtil.isAnyNonNull(name, phone, email, address, remarks, birthday, organization, tags,
-            tagsToBeDeleted, emptyTags);
+            tagsToBeDeleted, emptyTags, organization);
     }
 
     public void setName(Name name) {
