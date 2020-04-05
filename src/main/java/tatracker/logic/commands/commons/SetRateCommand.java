@@ -19,7 +19,7 @@ public class SetRateCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SET_RATE,
-            "Sets the pay rate to the specified integer.",
+            "Sets the pay rate to a specified integer greater than zero.",
             List.of(),
             List.of()
     );

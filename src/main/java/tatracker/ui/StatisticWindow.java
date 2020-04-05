@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.session.SessionType;
 import tatracker.model.statistic.Statistic;
 
@@ -73,13 +74,16 @@ public class StatisticWindow extends UiPart<Stage> {
     @FXML
     private Label rating5Label;
 
+    private final ReadOnlyTaTracker taTracker;
+
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
+    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings, ReadOnlyTaTracker taTracker) {
         super(FXML, root);
+        this.taTracker = taTracker;
 
         root.setHeight(guiSettings.getWindowHeight());
         if (guiSettings.getWindowCoordinates() != null) {
@@ -111,7 +115,7 @@ public class StatisticWindow extends UiPart<Stage> {
         numHoursGradingLabel.setText(stats.numHoursPerCategory[3] + " Hours");
         numHoursPreparationLabel.setText(stats.numHoursPerCategory[4] + " Hours");
         numHoursOtherLabel.setText(stats.numHoursPerCategory[5] + " Hours");
-        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalPay() + ")");
+        numHoursTotalLabel.setText(taTracker.getTotalHours() + " (S$" + taTracker.getTotalEarnings() + ")");
 
         studentName1Label.setText(stats.worstStudents[0].getFullName());
         rating1Label.setText(Integer.toString(stats.worstStudents[0].getRating()));
@@ -138,8 +142,8 @@ public class StatisticWindow extends UiPart<Stage> {
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticWindow(Statistic stats, GuiSettings guiSettings) {
-        this(new Stage(), stats, guiSettings);
+    public StatisticWindow(Statistic stats, GuiSettings guiSettings, ReadOnlyTaTracker taTracker) {
+        this(new Stage(), stats, guiSettings, taTracker);
     }
 
     /**

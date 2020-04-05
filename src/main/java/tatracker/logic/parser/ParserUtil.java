@@ -1,6 +1,7 @@
 package tatracker.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ import tatracker.commons.core.index.Index;
 import tatracker.commons.util.DateTimeUtil;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
+import tatracker.logic.commands.commons.SetRateCommand;
 import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.GroupType;
@@ -295,12 +297,12 @@ public class ParserUtil {
          try {
              int parsedRate = Integer.parseInt(trimmedRate);
              if (parsedRate <= 0) {
-                 throw new ParseException("RATE must be a positive integer");
+                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
              }
              System.out.println("Parse Rate:" + parsedRate);
              return parsedRate;
          } catch (NumberFormatException e) {
-             throw new ParseException("RATE must be a positive integer");
+             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
         }
     }
 }
