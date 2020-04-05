@@ -175,6 +175,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Sets the command description of the help window
+     * @param commandDescription the new command description.
+     */
     public static void setCommandDescription(String commandDescription) {
         MainWindow.commandDescription = commandDescription;
     }
@@ -185,7 +189,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleHelp() {
         String toDisplay = UiManager.getCommandDescription();
-        helpWindow.setCommandDescription(toDisplay);
+        helpWindow = new HelpWindow();
+        if (!toDisplay.equals("")) {
+            helpWindow.show(toDisplay);
+        } else {
+            helpWindow.show(HelpWindow.HELP_MESSAGE);
+        }
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
