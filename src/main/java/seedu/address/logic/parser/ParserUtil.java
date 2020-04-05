@@ -180,6 +180,31 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String remark} into a {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
+     */
+    public static Integer parseLine(String line) throws ParseException {
+        requireNonNull(line);
+        String trimmedLine = line.trim();
+
+        return Integer.parseInt(trimmedLine);
+    }
+
+    /**
+     * Parses {@code Collection<String> remarks} into a {@code Set<Remark>}.
+     */
+    public static ArrayList<Integer> parseLines(Collection<String> lines) throws ParseException {
+        requireNonNull(lines);
+        final ArrayList<Integer> lineArrayList = new ArrayList<>();
+        for (String line : lines) {
+            lineArrayList.add(parseLine(line));
+        }
+        return lineArrayList;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *

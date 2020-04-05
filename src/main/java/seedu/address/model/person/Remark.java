@@ -13,7 +13,7 @@ public class Remark {
             "Remarks should not be empty.";
     public final String value;
 
-    public Remark(@JsonProperty("remark")String remark) {
+    public Remark(String remark) {
         requireNonNull(remark);
         value = remark;
     }

@@ -32,7 +32,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, ArrayList<Remark> remark,
+    public Person(Name name, Phone phone, Email email, Address address, ArrayList<Remark> remarks,
                 Birthday birthday, Organization organization, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags); // do I need to put organization here?
         this.name = name;
@@ -41,7 +41,7 @@ public class Person {
         this.address = address;
         this.birthday = birthday;
         this.organization = organization;
-        this.remarks.addAll(remark);
+        this.remarks.addAll(remarks);
         this.tags.addAll(tags);
     }
 
@@ -130,6 +130,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getRemark().equals(getRemark())
                 && otherPerson.getBirthday().equals(getBirthday())
                 && otherPerson.getOrganization().equals(getOrganization())
                 && otherPerson.getTags().equals(getTags());
@@ -138,7 +139,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, birthday, organization, tags);
+        return Objects.hash(name, phone, email, address, remarks, birthday, organization, tags);
     }
 
     @Override
@@ -151,9 +152,9 @@ public class Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Remark: ")
-                .append(getRemark())
-                .append(" Birthday: ")
+                .append(" Remarks: ");
+        getRemark().forEach(builder::append);
+        builder.append(" Birthday: ")
                 .append(getBirthday())
                 .append(" Organization: ")
                 .append(getOrganization())

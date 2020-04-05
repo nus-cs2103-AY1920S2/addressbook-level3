@@ -87,8 +87,12 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final ArrayList<Remark> personRemarks = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        for (JsonAdaptedRemark r : remark) {
+            personRemarks.add(r.toModelType());
         }
 
         if (name == null) {
@@ -123,11 +127,6 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final ArrayList<Remark> modelRemark = new ArrayList<>();
-        for (JsonAdaptedRemark r : remark) {
-            modelRemark.add(r.toModelType());
-        }
-
         if (birthday == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Birthday.class.getSimpleName()));
@@ -144,7 +143,8 @@ class JsonAdaptedPerson {
         final Organization modelOrganization = new Organization(organization);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+        final ArrayList<Remark> modelRemarks = new ArrayList<>(personRemarks);
         return new Person(modelName, modelPhone, modelEmail, modelAddress,
-                modelRemark, modelBirthday, modelOrganization, modelTags);
+                modelRemarks, modelBirthday, modelOrganization, modelTags);
     }
 }

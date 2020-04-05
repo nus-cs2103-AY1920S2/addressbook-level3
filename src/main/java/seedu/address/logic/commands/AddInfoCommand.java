@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -35,21 +37,23 @@ public class AddInfoCommand extends Command {
     public static final String MESSAGE_EMPTY = "No remark added to Person: %1$s";
 
     private final Index index;
-    private final ArrayList<Remark> remark;
+    private final ArrayList<Remark> remarks;
+    private ArrayList<Remark> newRemarks;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person to be updated to
+     * @param remarks of the person to be updated to
      */
-    public AddInfoCommand(Index index, ArrayList<Remark> remark) {
-        requireAllNonNull(index, remark);
+    public AddInfoCommand(Index index, ArrayList<Remark> remarks) {
+        requireAllNonNull(index, remarks);
 
         this.index = index;
-        this.remark = remark;
+        this.remarks = remarks;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -57,18 +61,18 @@ public class AddInfoCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        if (remark.size() != 0) {
-            for (int i = 0; i < remark.size(); i++) {
-                personToEdit.getRemark().add(remark.get(i));
+        if (remarks.size() != 0) {
+            for (int i = 0; i < remarks.size(); i++) {
+                newRemarks = personToEdit.getRemark();
+                newRemarks.add(remarks.get(i));
             }
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
-                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getRemark(),
+                personToEdit.getEmail(), personToEdit.getAddress(), getRemarks().orElse(personToEdit.getRemark()),
                 personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         return new CommandResult(generateSuccessMessage(editedPerson));
     }
 
@@ -77,7 +81,7 @@ public class AddInfoCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = (remark.size() != 0) ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_EMPTY;
+        String message = (remarks.size() != 0) ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_EMPTY;
         return String.format(message, personToEdit);
     }
 
@@ -96,6 +100,15 @@ public class AddInfoCommand extends Command {
         // state check
         AddInfoCommand e = (AddInfoCommand) other;
         return index.equals(e.index)
-                && remark.equals(e.remark);
+                && remarks.equals(e.remarks);
+    }
+
+    /**
+     * Returns an unmodifiable remark set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     * Returns {@code Optional#empty()} if {@code remarks} is null.
+     */
+    public Optional<ArrayList<Remark>> getRemarks() {
+        return (newRemarks != null) ? Optional.of(newRemarks) : Optional.empty();
     }
 }

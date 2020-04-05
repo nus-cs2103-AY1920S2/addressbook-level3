@@ -10,6 +10,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteInfoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.ArrayList;
+
 /**
  * Parses input arguments and creates a new {@code DeleteInfoCommand} object
  */
@@ -35,7 +37,7 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
                 .getAllValues(PREFIX_LINE_NUMBER).get(0).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER, DeleteInfoCommand.MESSAGE_USAGE));
         }
-        int line = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER).get(0));
+        ArrayList<Integer> line = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER));
         return new DeleteInfoCommand(index, line);
     }
 
