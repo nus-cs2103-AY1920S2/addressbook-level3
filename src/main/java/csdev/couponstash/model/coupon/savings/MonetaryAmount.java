@@ -49,8 +49,6 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
     public MonetaryAmount(double monetaryAmount) {
         int intAmount = (int) Math.floor(monetaryAmount); // get rid of decimal
         int decAmount = ((int) Math.round(monetaryAmount * 100)) % 100;
-        System.out.println(intAmount);
-        System.out.println(decAmount);
         checkArgument(MonetaryAmount.isValidMonetaryAmount(intAmount, decAmount),
                 MonetaryAmount.MESSAGE_CONSTRAINTS);
         this.integerAmount = intAmount;
@@ -65,7 +63,6 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
      * @param monetaryAmount The String to be used.
      */
     public MonetaryAmount(String monetaryAmount) {
-        System.out.println(monetaryAmount);
         String[] intAndDecimalAmounts = monetaryAmount.split("\\.");
         if (intAndDecimalAmounts.length == 0 || intAndDecimalAmounts.length > 2) {
             throw new IllegalArgumentException(MonetaryAmount.MESSAGE_CONSTRAINTS);
