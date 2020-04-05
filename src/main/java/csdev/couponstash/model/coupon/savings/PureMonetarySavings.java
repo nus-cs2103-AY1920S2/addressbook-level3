@@ -72,6 +72,11 @@ public class PureMonetarySavings extends Savings {
      * monetary amounts in both PureMonetarySavings,
      * as well as the Saveable items.
      *
+     * This method assumes that the original Saveable
+     * lists in this and in PureMonetarySavings pms
+     * are unique (no duplicate Saveables with
+     * the same String names).
+     *
      * @param pms The other PureMonetarySavings to be
      *            combined with this PureMonetarySavings.
      * @return Returns a new PureMonetarySavings that adds the
@@ -97,12 +102,15 @@ public class PureMonetarySavings extends Savings {
             String value = s.getValue();
             Saveable retrieveFromMap = saveableMap.get(value);
             if (retrieveFromMap != null) {
-                combinedSaveables.add(s.increaseCount(retrieveFromMap));
-                saveableMap.remove(value);
+                // item seen before, increase count in map
+                Saveable increased = s.increaseCount(retrieveFromMap);
+                saveableMap.put(value, increased);
             } else {
+                // new item, just add to list
                 combinedSaveables.add(s);
             }
         }
+        // put all from map into the list
         combinedSaveables.addAll(saveableMap.values());
 
         if (combinedSaveables.isEmpty()) {

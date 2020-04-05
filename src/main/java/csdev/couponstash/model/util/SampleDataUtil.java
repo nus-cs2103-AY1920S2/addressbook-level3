@@ -57,7 +57,7 @@ public class SampleDataUtil {
         cappleSaveables.add(new Saveable("Goggle Pix 1"));
         DateSavingsSumMap cappleSavings = new DateSavingsSumMap();
         cappleSavings.add(LocalDate.of(2020, 2, 26),
-                new PureMonetarySavings(new MonetaryAmount(4, 0)));
+                new PureMonetarySavings(new MonetaryAmount(4, 0), cappleSaveables));
         cappleSavings.add(LocalDate.of(2020, 4, 1),
                 new PureMonetarySavings(new MonetaryAmount(25, 20)));
 
