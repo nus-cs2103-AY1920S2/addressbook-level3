@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 
 /**
@@ -51,12 +51,12 @@ public class TypicalPersons {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ProfileList getTypicalProfileList() {
+        ProfileList pl = new ProfileList();
         for (Profile profile : getTypicalPersons()) {
-            ab.addPerson(profile);
+            pl.addProfile(profile);
         }
-        return ab;
+        return pl;
     }
 
     public static List<Profile> getTypicalPersons() {
