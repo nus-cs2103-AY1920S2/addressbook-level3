@@ -8,17 +8,17 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddDeadlineCommand;
-import seedu.address.logic.commands.AddToDoCommand;
+import seedu.address.logic.commands.taskcommand.addcommand.AddDeadlineCommand;
+import seedu.address.logic.commands.taskcommand.addcommand.AddToDoCommand;
 import seedu.address.logic.commands.CalenderCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteTaskCommand;
+import seedu.address.logic.commands.taskcommand.deletecommand.DeleteTaskCommand;
 import seedu.address.logic.commands.DiaryAddCommand;
 import seedu.address.logic.commands.DiaryCommand;
 import seedu.address.logic.commands.DiaryLogCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.taskcommand.donecommand.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -33,12 +33,13 @@ import seedu.address.logic.commands.NotesListCommand;
 import seedu.address.logic.commands.NotesOpenCommand;
 import seedu.address.logic.commands.ProfileCommand;
 import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.commands.findtaskscommand.FindTasksCommand;
+import seedu.address.logic.commands.taskcommand.findcommand.FindTasksCommand;
 import seedu.address.logic.commands.modulecommand.AddModuleCommand;
 import seedu.address.logic.commands.modulecommand.CapCommand;
 import seedu.address.logic.commands.modulecommand.DeleteModuleCommand;
 import seedu.address.logic.commands.modulecommand.GradeCommand;
-import seedu.address.logic.commands.modulecommand.ModuleTaskCommand;
+import seedu.address.logic.commands.taskcommand.addcommand.ModuleTaskCommand;
+import seedu.address.logic.commands.taskcommand.sortcommand.SortTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -145,6 +146,9 @@ public class AddressBookParser {
 
         case FindTasksCommand.COMMAND_WORD:
             return new FindTasksCommandParser().parse(arguments);
+
+        case SortTasksCommand.COMMAND_WORD:
+            return new SortTasksCommandParser().parse(arguments);
 
         case ModuleTaskCommand.COMMAND_WORD:
             return new ModuleTaskCommandParser().parse(arguments);

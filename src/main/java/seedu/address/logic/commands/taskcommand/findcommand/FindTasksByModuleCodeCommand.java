@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.findtaskscommand;
+package seedu.address.logic.commands.taskcommand.findcommand;
 
 import static java.util.Objects.requireNonNull;
 

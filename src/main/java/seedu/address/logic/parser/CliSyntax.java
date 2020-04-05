@@ -26,8 +26,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_INDEX = new Prefix("index/");
     public static final Prefix PREFIX_MODULETASK_TIMING = new Prefix("date/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("pri/");
-
-
-
+    public static final Prefix PREFIX_SORTING = new Prefix("by/");
 
 }

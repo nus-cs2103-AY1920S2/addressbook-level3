@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.findtaskscommand;
+package seedu.address.logic.commands.taskcommand.findcommand;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETASK_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;

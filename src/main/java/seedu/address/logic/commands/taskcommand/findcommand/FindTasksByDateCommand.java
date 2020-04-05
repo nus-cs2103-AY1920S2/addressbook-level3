@@ -1,13 +1,13 @@
-package seedu.address.logic.commands.findtaskscommand;
+package seedu.address.logic.commands.taskcommand.findcommand;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.calender.Task;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.todolist.Task;
 
 public class FindTasksByDateCommand extends FindTasksCommand {
     public static final String MESSAGE_SUCCESS = "Tasks found: ";
