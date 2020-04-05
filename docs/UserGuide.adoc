@@ -91,21 +91,33 @@ Format: `list-c`
 
 === Add a new client profile: `add-c`
 
-Initialises and adds a new client profile.
+After setting up the program, the first thing you might want to do is to add your client to FitBiz. You can do so by using the `add-c` command, followed by the details of your client.
 
-Format: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
+The format of the command is:
 
-* `n/NAME` is case insensitive. e.g `hans` will match `Hans`
-* The order of words will matter. e.g `Hans Ong` will not match `Ong Hans`
-* Only exact match will be shown. e.g. `Hans` will not match `Hans Ong`
-* A client can have any number of tags (including 0)
+`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
+
+Here are some things to note:
+
+* `n/NAME` is case insensitive. e.g `ray` will match `Ray`
+* The order of the name matters. e.g `Hans Ong` will not match `Ong Hans`
+* `p/PHONE_NUMBER` should be longer than 2 digits and contain numbers only
+* `e/EMAIL` needs to be a valid email
+* `a/ADDRESS` can be any value
+* `g/GENDER` is case insensitive and can be `male` or `m` for male, `female` or `f` for female, `others` or `o` for others
+* `h/HEIGHT` is in cm and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
+* `cw/CURRENT_WEIGHT` is in kg and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
+* `tw/TARGET_WEIGHT` is in kg and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
+* `r/REMARK` can be any value
+* `s/SPORT` should contain letters, numbers or spaces only
+* `t/TAG` should contain letters or numbers only
 
 Examples:
 
 * `add-c n/Ming Liang p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-** Adds a new client: Ming Liang with the above information
+** Result: Ming Liang with the above information has been added
 * `add-c n/Low Tah Kiow, John t/powerlifter e/betsycrowe@example.com a/some street p/1234567 t/strongman`
-** Adds a new client: Low Tah Kiow, John with the above information
+** Result: Low Tah Kiow, John with the above information has been added
 
 === Edit a client’s profile: `edit-c`
 
