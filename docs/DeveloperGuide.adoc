@@ -924,19 +924,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `TA-Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Viewing a page
+=== Use case: Goto a tab
 
 *MSS*
 
-1.  User requests to view a different page.
-2. TA-Tracker layout changes to show the new page.
+1.  User requests to goto a different tab.
+2. TA-Tracker layout changes to show the new tab.
 
 +
 Use case ends.
 
 *Extensions*
 
-* 1a.  The requested page is invalid.
+* 1a.  The requested tab is invalid.
 +
 [none]
 ** 1a1.  TA-Tracker shows an error message.
@@ -949,29 +949,9 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to view the help menu.
-2. TA-Tracker shows the list of commands.
+2. TA-Tracker opens a new window showing the list of commands.
 +
 Use case ends.
-
-[discrete]
-=== Use case: Change default view
-
-*MSS*
-
-1.  User requests to change the default view to a specified page.
-2. TA-Tracker changes the default view.
-3. TA-Tracker shows the default view.
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The given page is invalid.
-+
-[none]
-** 1a1. TA-Tracker shows an error message.
-+
-Use case resumes at step 1.
 
 [discrete]
 === Use case: Change the hourly pay rate
@@ -980,7 +960,7 @@ Use case resumes at step 1.
 
 1.  User requests to change the hourly pay rate to a specified amount.
 2. TA-Tracker changes the pay rate.
-3. TA-Tracker shows an edited TSS claims page the total pay adjusted to reflect the new pay rate.
+3. TA-Tracker shows an edited TSS claims page with the total earnings adjusted to reflect the new pay rate.
 
 +
 Use case ends.
@@ -1002,7 +982,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a student.
 2. TA-Tracker adds new student.
-3. TA-Tracker layout changes to show the student list page.
+3. TA-Tracker layout changes to show the student tab.
 
 +
 Use case ends.
@@ -1023,7 +1003,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a new module.
 2. TA-Tracker adds a new module.
-3. TA-Tracker layout changes to show the session list page.
+3. TA-Tracker layout changes to show the student taba.
 
 +
 Use case ends.
@@ -1044,7 +1024,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a new tutorial.
 2. TA-Tracker shows adds a new tutorial linked to the specified module.
-3. TA-Tracker layout changes to show the session list page.
+3. TA-Tracker layout changes to show the session tab.
 
 +
 Use case ends.
@@ -1072,10 +1052,12 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to list students.
-2. TA-Tracker shows a list of students.
-3. User requests to edit a specific student in the list.
-4. TA-Tracker edits the student according to the specified parameters.
+. User requests to list students.
+. TA-Tracker shows a list of students at the student tab.
+. User filters the list in order to get the student's index.
+. User requests to edit a specific student in the list.
+. TA-Tracker edits the student according to the specified parameters.
+. TA-Tracker switches to the student tab
 +
 Use case ends.
 
@@ -1105,10 +1087,11 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show students page.
-2. TA-Tracker shows a list of students categorised by tutorial.
-3. User requests to delete a specific student in the list.
-4. TA-Tracker deletes the student.
+. User requests to show students tab.
+. TA-Tracker shows a list of students at the student tab.
+. User filters the list in order to get the student's index.
+. User requests to delete a specific student in the list.
+. TA-Tracker deletes the student.
 +
 Use case ends.
 
@@ -1131,10 +1114,10 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show sessions page.
-2. TA-Tracker shows a list of sessions categorised by modules.
+1. User requests to show the students tab.
+2. TA-Tracker shows a list of modules.
 3. User requests to delete a specific module in the list.
-4. TA-Tracker deletes the module and all of the sessions and tutorials in it.
+4. TA-Tracker deletes the module and all of the sessions and groups in it.
 +
 Use case ends.
 
@@ -1153,14 +1136,15 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Delete tutorial
+=== Use case: Delete group
 
 *MSS*
 
-1. User requests to show students page.
-2. TA-Tracker shows a list of students categorised by tutorial.
-3. User requests to delete a specific tutorial in the list.
-4. TA-Tracker deletes the tutorial and all of the students in it.
+. User requests to show students page.
+. TA-Tracker shows a list of groups categorised by module.
+. User filters the list in order to get the group's index.
+. User requests to delete a specific group in the list.
+. TA-Tracker deletes the group and all of the students in it.
 +
 Use case ends.
 
@@ -1171,7 +1155,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given class code is invalid.
+* 3a. The given group code is invalid.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
@@ -1184,8 +1168,8 @@ Use case resumes at step 3.
 
 1. User requests to add a session.
 2. TA-Tracker creates the new session.
-3. TA-Tracker adds the new session into the corresponding session group.
-4. TA-Tracker switches to the Schedule View in order to display the new session.
+3. TA-Tracker adds the new session into the corresponding module group.
+4. TA-Tracker switches to the Session Tab in order to display the new session.
 +
 Use case ends.
 
@@ -1206,7 +1190,7 @@ Use case resumes at step 3.
 Use case resumes at step 2.
 
 [none]
-. 2b. The session group does not exist.
+. 2b. The session type does not exist.
 [none]
 .. 2b1. TA-Tracker shows an error message.
 +
@@ -1216,9 +1200,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to view the Schedule View.
-2. TA-Tracker switches to the Schedule View.
-3. User requests to edit a specific session in the view.
+1. User requests to view the Session Tab.
+2. TA-Tracker switches to the Session Tab.
+3. User requests to edit a specific session in the list.
 4. TA-Tracker edits the session.
 5. TA-Tracker replaces the session in the current view with the new version.
 +
@@ -1231,7 +1215,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given session UID is invalid.
+* 3a. The given session index is invalid.
 ** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 2.
@@ -1240,8 +1224,8 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to view the Schedule View.
-2. TA-Tracker switches to the Schedule View.
+1. User requests to view the Session View.
+2. TA-Tracker switches to the Schedule Tab.
 3. User requests to delete a specific session in the view.
 4. TA-Tracker deletes the session.
 5. TA-Tracker removes the session from the current view.
@@ -1264,100 +1248,35 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to view the Schedule View.
-2. TA-Tracker switches to the Schedule View.
+1. User requests to view the Session View.
+2. TA-Tracker switches to the Session Tab.
 3. User requests to mark a specific session in the view as done.
 4. TA-Tracker marks the session as done.
-5. TA-Tracker shows a tick next to the session in the current view.
+5. TA-Tracker removes the session from the current view.
+6. TA-Tracker adds the session to the Claims View.
+6. TA-Tracker switched to the Claims Tab.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The Schedule View is empty.
+* 2a. The Session View is empty.
 +
 Use case ends.
 
-* 3a. The given session UID is invalid.
+* 3a. The given session index is invalid.
 ** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 2.
 
-=== Use case: Enroll student into class
+=== Use case: Filter claims for a specific module
 
 *MSS*
 
-1. User requests to enroll a student in a session group.
-2. TA-Tracker registers the student in the session group.
-3. TA-Tracker switches to the Student View.
-4. TA-Tracker shows the student in the student list for the session group.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-. 2a. The student does not exist.
-[none]
-.. 2a1. TA-Tracker shows an error message.
-+
-Use case resumes at step 2.
-
-[none]
-. 2b. The module does not exist.
-[none]
-.. 2b1. TA-Tracker shows an error message.
-+
-Use case resumes at step 2.
-
-[none]
-. 2c. The session group does not exist.
-[none]
-.. 2c1. TA-Tracker shows an error message.
-+
-Use case resumes at step 2.
-
-=== Use case: Kick student from class
-
-*MSS*
-
-1. User requests to withdraw a student from a session group.
-2. TA-Tracker removes the student from the session group.
-3. TA-Tracker switches to the Student View.
-4. TA-Tracker shows that the student is removed from the student list for the session group.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-. 2a. The student does not exist.
-[none]
-.. 2a1. TA-Tracker shows an error message.
-+
-Use case resumes at step 2.
-
-[none]
-. 2b. The module does not exist.
-[none]
-.. 2b1. TA-Tracker shows an error message.
-+
-Use case resumes at step 2.
-
-[none]
-. 2c. The session group does not exist.
-[none]
-.. 2c1. TA-Tracker shows an error message.
-+
-Use case resumes at step 2.
-
-=== Use case: Filter information for a specific module
-
-*MSS*
-
-1. User requests to filter information for a specific module.
-2. TA-Tracker hides unrelated information from the current view.
+1. User requests to filter claims for a specific module.
+2. TA-Tracker hides unrelated claims from the Claims view.
+3. TA-Tracker switched to the Claims tab.
 +
 Use case ends.
 
@@ -1370,26 +1289,6 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-=== Use case: Find sessions matching a keyword
-
-*MSS*
-
-1. User requests to find sessions related to a specific keyword.
-2. TA-Tracker retrieves a list of sessions containing the keyword in any of their fields.
-3. TA-Tracker shows the list of sessions.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-. 2a. The search did find any matches.
-[none]
-.. 2a1. TA-Tracker shows an empty list.
-+
-Use case resumes at step 2.
-
-[discrete]
 === Use case: Exit the app
 
 *MSS*
