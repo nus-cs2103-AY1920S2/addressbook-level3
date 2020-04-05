@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.TimerTask;
 import java.util.Timer;
 import javafx.application.Platform;
-import jdk.vm.ci.meta.Local;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
