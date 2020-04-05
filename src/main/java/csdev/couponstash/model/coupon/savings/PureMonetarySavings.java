@@ -73,9 +73,8 @@ public class PureMonetarySavings extends Savings {
      * as well as the Saveable items.
      *
      * This method assumes that the original Saveable
-     * lists in this and in PureMonetarySavings pms
-     * are unique (no duplicate Saveables with
-     * the same String names).
+     * lists in "this" is unique (no duplicate Saveables
+     * with the same String names).
      *
      * @param pms The other PureMonetarySavings to be
      *            combined with this PureMonetarySavings.
