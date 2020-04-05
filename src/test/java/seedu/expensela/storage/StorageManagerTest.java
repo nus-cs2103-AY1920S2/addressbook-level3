@@ -24,9 +24,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExpenseLaStorage expenseLaStorage = new JsonExpenseLaStorage(getTempFilePath("ab"));
+        JsonExpenseLaStorage expenseLaStorage = new JsonExpenseLaStorage(getTempFilePath("el"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(expenseLaStorage, userPrefsStorage);
+        JsonGlobalDataStorage globalDataStorage = new JsonGlobalDataStorage(getTempFilePath("gd"));
+        storageManager = new StorageManager(expenseLaStorage, userPrefsStorage, globalDataStorage);
     }
 
     private Path getTempFilePath(String fileName) {
