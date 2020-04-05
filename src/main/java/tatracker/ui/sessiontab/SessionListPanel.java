@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
@@ -29,14 +30,26 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
     private ListView<Session> sessionListView;
 
     @FXML
+    private GridPane currentFiltersGrid;
+
+    @FXML
     private Label currentFilters;
+
+    @FXML
+    private Label currentDateFilters;
+
+    @FXML
+    private Label currentTypeFilters;
+
+    @FXML
+    private Label currentModuleFilters;
 
     public SessionListPanel(ObservableList<Session> sessionList) {
         super(FXML);
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
-        currentFilters.setText("Current Filters: \nDate: \nModule Code: \nSession Type:\n");
-        currentFilters.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+        currentFilters.setText("Current Filters: \nDate: None  |  Module Code: None  |  Session Type: None");
+        currentFiltersGrid.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                 + "-fx-border-color: " + BORDER_COLOUR + "; "
                 + "-fx-border-width: " + BORDER_WIDTH + ";");
     }

@@ -71,9 +71,9 @@ public class FilterSessionCommand extends Command {
      */
     public String buildParams(String date, String module, String sessionType) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Date: ").append(date).append("\n");
-        builder.append("Module Code: ").append(module).append("\n");
-        builder.append("Session Type: ").append(sessionType).append("\n");
+        builder.append("Date: ").append(date).append("  |  ");
+        builder.append("Module Code: ").append(module).append("  |  ");
+        builder.append("Session Type: ").append(sessionType);
         String result = builder.toString();
         return result;
     }
