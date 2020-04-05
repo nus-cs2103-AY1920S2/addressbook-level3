@@ -55,10 +55,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `(ab)add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+*  Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `(ab)add n/John Doe`.
+*  Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+*  Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+*  Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === General Commands
@@ -84,10 +84,10 @@ Format: `exit`
 
 === Address Book Commands
 
-==== Adding a person: `(ab)add`
+==== Adding a person : `(ab)add`
 
 Adds a person to the address book +
-Format: `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [g/ORGANIZATION] [b/BIRTHDAY]`
+Format: `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [g/GROUPNAME] [b/BIRTHDAY]`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -115,57 +115,26 @@ Examples:
 * `(ab)delete 2` +
 Deletes the 2nd person in the address book.
 
-==== [Coming Soon] Editing a person : `(ab)edit`
+==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
-Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [o/ORGANIZATION] [b/BIRTHDAY]`
+Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [g/GROUPNAME] [t/TAG]... [-t/TAG_TO_BE_DELETED]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* Remarks and Tags cannot be edited using this command.
+* At least one of the optional fields must be provided and cannot be left empty.
+* Existing values will be updated to the input values except tags.
+* `t/`: Multiple tags can be specified and all will be added, if it is not a duplicate.
+* `-t/`: Multiple tags can be specified and all will be deleted, if they exist.
+* Remarks cannot be edited using this command.
 ****
 
 Examples:
 
 * `(ab)edit 37 a/2 Cactus Road, S903281` +
 Changes the 37th person’s address to 2 Cactus Road, S903281.
-* `(ab)edit 2 n/Elysia Tan o/Comp Club` +
+* `(ab)edit 2 n/Elysia Tan g/Comp Club` +
 Changes the second person’s name to Elysia Tan, and organization to Comp Club.
-
-==== [Coming Soon] Adding tags to a person : `(ab)addtag`
-
-Allows you to add additional tags to your contacts. +
-Format: `(ab)addtag INDEX [t/TAG]`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function.
-* All tags typed will be added, if it is not a duplicate
-* Maximum tag length of 15
-* Maximum of 5 tags can be added to a contact
-****
-
-Examples:
-
-* `(ab)addtag 37 t/noob`
-Adds the tag “noob” to the person at index 37
-
-==== [Coming Soon] Removing tags from a person : `(ab)rmtag`
-
-Allows you to remove tags from your contacts. +
-Format: `(ab)rmtag INDEX t/[TAG]`
-
-****
-* INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If a tag matches an existing tag, it will be removed
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `(ab)rmtag 37 t/noob` +
-Removes the tag “noob” from the person at index 37
 
 ==== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
@@ -177,7 +146,7 @@ Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
 * There should be at least one i/INFO specified.
 ****
 
-==== Edit additional information about contacts: `(ab)editnote`
+==== Edit additional information about contacts : `(ab)editnote`
 
 Edit additional information about contacts using the Note Taker +
 Format: `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
@@ -187,7 +156,7 @@ Format: `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
 * l/LINE_NUMBER Line number of information to be replaced
 ****
 
-==== Delete additional information about contacts: `(ab)deletenote`
+==== Delete additional information about contacts : `(ab)deletenote`
 
 Delete additional information about contacts using the Note Taker +
 Format: `(ab)deletenote INDEX l/LINE_NUMBER`
@@ -198,7 +167,7 @@ Format: `(ab)deletenote INDEX l/LINE_NUMBER`
 * l/LINE_NUMBER Line number of information to be deleted
 ****
 
-==== Finding a specific contact/a specific set of contacts: `(ab)find`
+==== Finding a specific contact/a specific set of contacts : `(ab)find`
 
 Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only the contact's name, phone number and tags (if present) will be listed +
 Format: `(ab)find [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
@@ -212,7 +181,7 @@ Examples:
 * `(ab)find -g/NUS -n/Lim` +
 Finds and lists all contacts that is in group “NUS” and have the word “Lim” in his name
 
-==== List contacts in a particular order: `(ab)sort`
+==== List contacts in a particular order : `(ab)sort`
 
 Displays the list of contacts in a certain sorted order +
 Format: `ab sort [-f] [-o] [-b]`
@@ -228,7 +197,7 @@ Examples:
 * `(ab)sort -a` +
 Lists all contacts alphabetically
 
-==== List everything about a contact in field: `(ab)get`
+==== List everything about a contact in field : `(ab)get`
 Format: `(ab)get INDEX`
 
 ****
@@ -236,12 +205,12 @@ Format: `(ab)get INDEX`
 * Displays all information relating to a contact at index INDEX
 ****
 
-==== List contacts with birthdays in the next 5 days (current day included): `(ab)birthday`
+==== List contacts with birthdays in the next 5 days (current day included) : `(ab)birthday`
 Format: `(ab)birthday`
 
 === Restaurant Book commands
 
-==== Adds a new restaurant: `(rt)add`
+==== Adds a new restaurant : `(rt)add`
 
 Adds a new restaurant +
 Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
@@ -263,7 +232,7 @@ Adds a new restaurant called rubbish at bedok with 2 dollar signs price point an
 Deletes a restaurant from the list +
 Format: `(rt)delete INDEX`
 
-==== Add notes to a restaurant: `(rt)addnote`
+==== Add notes to a restaurant : `(rt)addnote`
 
 Adds a new note to a restaurant +
 Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [a/GOOD_FOOD] [b/BAD_FOOD]`
@@ -273,7 +242,7 @@ Examples:
 * `(rt)addnote 5 r/chicken chop a/truffle fries b/risotto` +
 Adds a notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
-==== Change visited status of restaurant: `(rt)visited`
+==== Change visited status of restaurant : `(rt)visited`
 
 Updates visited status of restaurant to visited +
 Format: `(rt)visited INDEX`
@@ -283,7 +252,7 @@ Examples:
 * `(rt)visited 3` +
 Updated visited status of restaurant at index 3 to visited.
 
-==== List all restaurants: `(rt)list`
+==== List all restaurants : `(rt)list`
 
 Lists all restaurants +
 Format: `(rt)list`
@@ -293,7 +262,7 @@ Examples:
 * `(rt)list` +
 Lists all restaurants.
 
-==== [Coming Soon] Search: `(rt)search`
+==== [Coming Soon] Search : `(rt)search`
 
 Search for restaurants based on a number of criteria. +
 Format: `(rt)search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
@@ -315,7 +284,7 @@ Searches for restaurants in the bedok area at a low price point.
 
 === Schoolwork Tracker commands
 
-==== Add new assignment to the Schoolwork Tracker: `(st)add`
+==== Add new assignment to the Schoolwork Tracker : `(st)add`
 
 Adds a new assignment to your list of assignments and projects. +
 Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
@@ -331,7 +300,7 @@ Examples:
 * `(st)add t/CS2103 post lecture quiz d/2020-11-11 23:59 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-11-2020 23:59 and which takes an estimated one hour to complete.
 
-==== Delete assignment: `(st)delete`
+==== Delete assignment : `(st)delete`
 
 Deletes an assignment. +
 Format: `(st)delete INDEX`
@@ -353,7 +322,7 @@ Format: `(st)edit INDEX [t/TITLE] [e/ESTIMATED_COMPLETION_TIME] [d/DEADLINE] [s/
 * At least one optional field needs to be specified.
 ****
 
-==== List current assignments: `(st)list`
+==== List current assignments : `(st)list`
 
 Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. By default, it sorts the list in alphabetical order. +
 Format: `(st)list [-d/DEADLINE] [-e/ESTIMATED_COMPLETION_TIME]`
@@ -362,7 +331,7 @@ Format: `(st)list [-d/DEADLINE] [-e/ESTIMATED_COMPLETION_TIME]`
 * Only 1 field can be specified at each time
 ****
 
-==== Visualise the intensity of your upcoming schedule: `(st)schedule`
+==== Visualise the intensity of your upcoming schedule : `(st)schedule`
 
 Looks through the list of current uncompleted assignments to calculate the estimated work hours per day to complete all assignments by their deadlines +
 Format: `(st)schedule n/NUM_DAYS`
@@ -376,7 +345,7 @@ Format: `(st)schedule n/NUM_DAYS`
 
 === Event Book commands
 
-==== Create a new social event: `event`
+==== Create a new social event : `event`
 
 Creates a social event. +
 Format: `event et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
@@ -385,7 +354,7 @@ Format: `event et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 * `EVENT DATE` must be in a YYYY-MM-DD HH:MM format
 ****
 
-==== Listing all events: `eventlist`
+==== Listing all events : `eventlist`
 
 Lists all social events in your Event Book. +
 Format: `eventlist`

@@ -55,7 +55,7 @@ public class DeleteInfoCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        if (personToEdit.getRemark().get(0).equals("")) {
+        if (personToEdit.getRemark().isEmpty()) {
             throw new CommandException(Messages.MESSAGE_NO_INFO);
         }
 
@@ -64,6 +64,7 @@ public class DeleteInfoCommand extends Command {
         } else {
             personToEdit.getRemark().remove(line - 1);
         }
+
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getBirthday(),
                 personToEdit.getOrganization(), personToEdit.getTags());
@@ -100,5 +101,10 @@ public class DeleteInfoCommand extends Command {
         DeleteInfoCommand e = (DeleteInfoCommand) other;
         return index.equals(e.index)
                 && line == e.line;
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }

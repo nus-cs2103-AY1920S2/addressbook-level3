@@ -107,4 +107,9 @@ public class EditInfoCommand extends Command {
                 && remark.equals(e.remark)
                     && line == e.line;
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

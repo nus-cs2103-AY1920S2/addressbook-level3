@@ -68,4 +68,9 @@ public class FindCommand extends Command {
                 && tagPredicate.equals(((FindCommand) other).tagPredicate)); // state check
     }
 
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
+
 }

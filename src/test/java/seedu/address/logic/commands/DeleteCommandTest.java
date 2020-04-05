@@ -113,7 +113,7 @@ public class DeleteCommandTest {
                 .withTags().build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags().build();
+                .withPhone(VALID_PHONE_BOB).withTagsToAdd().build();
         DeleteCommand deleteCommand = new DeleteCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FIELD_SUCCESS, editedPerson);
