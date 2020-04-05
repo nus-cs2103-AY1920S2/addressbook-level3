@@ -35,13 +35,15 @@ public class Randomize {
     private String selectedStall = "";
     private List<String[]> listOutput = new ArrayList<>();
     private List<Stall> optionsList = new ArrayList<>();
-    private StringBuilder output = new StringBuilder("Here are the choices:\n");
+    private StringBuilder output = new StringBuilder("Here is the choice:\n");
     private JSONArray jsonArrayStall;
     private Map<String, Integer> mapStalls = new HashMap<>();
     private Boolean isLessThanFiveOption = false;
     private Random rand = new Random();
     private String prefix;
     private String action;
+    private Boolean isCanteenContext = false;
+    private List<Stall> matchingCanteen = new ArrayList<>();
 
     private Randomize() {}
 
@@ -70,6 +72,10 @@ public class Randomize {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public void setCanteenContext() {
+        this.isCanteenContext = true;
     }
 
     /**
@@ -135,7 +141,7 @@ public class Randomize {
      * This function save canteen name and number of stalls from the canteen selected by index.
      * @param canteen which is provided from the RandomizeCommand
      */
-    public void setCanteenIndex(Canteen canteen) {
+    public void setSpecifiedCanteen(Canteen canteen) {
         selectedCanteen = canteen.getName().toString();
         action = selectedCanteen;
         int numOfStalls = canteen.getNumberOfStalls();
@@ -159,7 +165,12 @@ public class Randomize {
         try {
             JSONObject obj = (JSONObject) parser.parse(file);
             jsonArrayStall = (JSONArray) obj.get("stalls");
-            List<Stall> listStall = generateListByCriteria("", "");
+            List<Stall> listStall;
+            if (isCanteenContext) {
+                listStall = generateListByCriteria("canteen", selectedCanteen);
+            } else {
+                listStall = generateListByCriteria("", "");
+            }
             //generateFiveOptions(listStall);
             generateOneOption(listStall);
         } catch (IOException | ParseException e) {
@@ -178,7 +189,7 @@ public class Randomize {
             jsonArrayStall = (JSONArray) obj.get("stalls");
             //generateOptionsByCanteen(action);
             selectedCanteen = action;
-            List<Stall> matchingCanteen = generateListByCriteria("canteen", selectedCanteen);
+            matchingCanteen = generateListByCriteria("canteen", selectedCanteen);
             generateOneOption(matchingCanteen);
         } catch (IOException | ParseException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_FILEREADER);
@@ -308,20 +319,31 @@ public class Randomize {
      */
     private List<Stall> generateListByCriteria(String type, String criteria) {
         List<Stall> listOfStallMatchingCriteria = new ArrayList<>();
-        for (Object o : jsonArrayStall) {
-            JSONObject jsonStall = (JSONObject) o;
-            if (type.equals("tags")) {
-                JSONArray tagList = (JSONArray) jsonStall.get("tags");
-                if (tagList.contains(criteria)) {
+        if (isCanteenContext && type.equals("tags")) {
+            matchingCanteen = generateListByCriteria("canteen", selectedCanteen);
+            for (int i = 0; i < matchingCanteen.size(); i++) {
+                Stall stall = matchingCanteen.get(i);
+                Set<Tag> tags = stall.getTags();
+                if (tags.contains(criteria)) {
+                    listOfStallMatchingCriteria.add(stall);
+                }
+            }
+        } else {
+            for (Object o : jsonArrayStall) {
+                JSONObject jsonStall = (JSONObject) o;
+                if (type.equals("tags")) {
+                    JSONArray tagList = (JSONArray) jsonStall.get("tags");
+                    if (tagList.contains(criteria)) {
+                        listOfStallMatchingCriteria.add(createNewStall(jsonStall));
+                    }
+                } else if (type.equals("canteen")) {
+                    String canteenName = (String) jsonStall.get("canteenName");
+                    if (canteenName.equals(criteria)) {
+                        listOfStallMatchingCriteria.add(createNewStall(jsonStall));
+                    }
+                } else {
                     listOfStallMatchingCriteria.add(createNewStall(jsonStall));
                 }
-            } else if (type.equals("canteen")) {
-                String canteenName = (String) jsonStall.get("canteenName");
-                if (canteenName.equals(criteria)) {
-                    listOfStallMatchingCriteria.add(createNewStall(jsonStall));
-                }
-            } else {
-                listOfStallMatchingCriteria.add(createNewStall(jsonStall));
             }
         }
         return listOfStallMatchingCriteria;

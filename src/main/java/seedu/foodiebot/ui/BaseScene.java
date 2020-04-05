@@ -189,8 +189,10 @@ public class BaseScene {
     public void handleListFood() {
         Stall currentStall = ParserContext.getCurrentStall().get();
         topLabel.setText("List of Foods in " + currentStall.getName());
-        bottomLabel = (Label) primaryStage.getScene().lookup("#bottomLabel");
-        bottomLabel.setText("Current Stall");
+        if (!ParserContext.getPreviousContext().equals("RANDOMIZE")) {
+            bottomLabel = (Label) primaryStage.getScene().lookup("#bottomLabel");
+            bottomLabel.setText("Current Stall");
+        }
 
         addToListPanel(new FoodListPanel(logic.getFilteredFoodList(true)));
         addToExtraListPanel(new StallsListPanel(FXCollections.observableArrayList(
@@ -261,7 +263,7 @@ public class BaseScene {
         changeScene("MainScene.fxml");
         new BaseScene(primaryStage, logic);
         topLabel = (Label) primaryStage.getScene().lookup("#topLabel");
-        topLabel.setText("List of Randomize Options");
+        topLabel.setText("Randomize Option: ");
         addToListPanel(new RandomizeListPanel(logic.getFilteredRandomizeList()));
     }
 

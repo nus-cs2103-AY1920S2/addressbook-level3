@@ -4,8 +4,11 @@ import static seedu.foodiebot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_CANTEEN;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.stream.Stream;
+
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.RandomizeCommand;
+
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.randomize.Randomize;
 
@@ -22,11 +25,25 @@ public class RandomizeCommandParser implements Parser<RandomizeCommand> {
      */
     public RandomizeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CANTEEN, PREFIX_TAG);
-        if (arePrefixesPresent(argMultimap)) {
-            return separatePrefix(argMultimap);
-        } else {
-            return new RandomizeCommand("", "all", randomize);
+        String pc = ParserContext.getCurrentContext();
+        if (!pc.equals(ParserContext.MAIN_CONTEXT) && !pc.equals(ParserContext.RANDOMIZE_CONTEXT)
+                && !pc.equals((ParserContext.CANTEEN_CONTEXT))) {
+            throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext()
+                    + "\n" + ParserContext.SUGGESTED_CONTEXT_MESSAGE
+                    + ParserContext.MAIN_CONTEXT + ", " + ParserContext.RANDOMIZE_CONTEXT + ", enter 1"
+                    + ParserContext.CANTEEN_CONTEXT);
         }
+
+
+        if (args.equals("")) {
+            return new RandomizeCommand("", "all", randomize);
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_CANTEEN)) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RandomizeCommand.MESSAGE_USAGE));
+            }
+        }
+        return separatePrefix(argMultimap);
     }
 
     /**
@@ -55,14 +72,12 @@ public class RandomizeCommandParser implements Parser<RandomizeCommand> {
      * @param argumentMultimap arguments for testing.
      * @return Boolean true is there are prefix, false otherwise.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap) {
-        if (argumentMultimap.size(false) == 1 && argumentMultimap.containsAny(
-                PREFIX_TAG, PREFIX_CANTEEN)) {
-            return true;
-        } else {
-            return false;
-        }
+    private static boolean arePrefixesPresent(
+            ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes)
+                .allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 
     /**
      * This method extract the argument attached to the prefix.

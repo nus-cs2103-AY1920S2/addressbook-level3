@@ -26,4 +26,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_FAVORITE_NAME_SPECIFIED = "Please specify the number in the menu "
         + "of the food stall";
     public static final String MESSAGE_NO_FOOD_WITH_TAG = "There is no food with the tag : ";
+    public static final String MESSAGE_INVALID_STALL_INDEX = "Invalid stall index!";
+    public static final String MESSAGE_INVALID_CANTEEN_INDEX = "Invalid canteen index!";
+    public static final String MESSAGE_CANTEEN_ALREADY_SELECTED = "You have already selected a canteen!";
 }

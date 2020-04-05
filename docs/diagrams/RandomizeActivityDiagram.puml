@@ -10,16 +10,16 @@ start
 
 if () then ([randomize c/ CANTEEN_NAME])
     :Set Canteens;
-    :Get 5 Options from Chosen Canteen;
-    :Add Options for Display;
+    :Get an Option from Chosen Canteen;
+    :Add Option for Display;
 else ([else])
     if () then ([randomize t/ TAG])
         :Set Canteens;
-        :Get 5 Options by Tag;
-        :Add Options for Display;
+        :Get an Option by Tag;
+        :Add Option for Display;
     else ([else])
-        :Get 5 Options;
-        :Add Options for Display;
+        :Get an Option;
+        :Add Option for Display;
     endif
 endif
 stop
