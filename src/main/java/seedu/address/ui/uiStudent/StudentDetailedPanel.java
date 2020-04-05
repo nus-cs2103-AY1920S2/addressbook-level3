@@ -61,16 +61,20 @@ public class StudentDetailedPanel extends UiPart<Region> {
   }
 
   private void updateDetailView(ObservableMap<String, Object> newStudentMap) {
-    Student student = (Student) newStudentMap.get("details");
-    ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
-    filteredStudents.add(student);
-    studentDetailedView.setItems(filteredStudents);
-    studentDetailedView.setCellFactory(listView -> new StudentListViewCell());
+    if (newStudentMap.containsKey("details")) {
+      Student student = (Student) newStudentMap.get("details");
+      ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
+      filteredStudents.add(student);
+      studentDetailedView.setItems(filteredStudents);
+      studentDetailedView.setCellFactory(listView -> new StudentListViewCell());
+    }
   }
 
   private void updateCoursesView(ObservableMap<String, Object> newStudentMap) {
-    courseListView.setItems((ObservableList<HashMap>) newStudentMap.get("courses"));
-    courseListView.setCellFactory(listView -> new CourseListViewCell());
+    if (newStudentMap.containsKey("courses")) {
+      courseListView.setItems((ObservableList<HashMap>) newStudentMap.get("courses"));
+      courseListView.setCellFactory(listView -> new CourseListViewCell());
+    }
   }
 
   /**

@@ -170,6 +170,12 @@ public interface Logic {
 
   ObservableMap<String, Object> getFilteredCourseDetailsMap();
 
+  ObservableMap<String, Object> getFilteredStaffDetailsMap();
+
+  ObservableMap<String, Object> getFilteredFinanceDetailsMap();
+
+  ObservableMap<String, Object> getFilteredAssignmentDetailsMap();
+
   // ========================== Getters for Predicates =========================
 
   public Predicate<Student> getDataStudentPredicate();

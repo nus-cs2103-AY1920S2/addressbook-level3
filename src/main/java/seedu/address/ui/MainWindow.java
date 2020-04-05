@@ -212,10 +212,10 @@ public class MainWindow extends UiPart<Stage> {
 //    }
 
     studentDetailedPanel = new StudentDetailedPanel(logic.getFilteredStudentDetailsMap(), commandBox);
-    staffDetailedPanel = new StaffDetailedPanel(new HashMap<String, Object>(), commandBox);
+    staffDetailedPanel = new StaffDetailedPanel(logic.getFilteredStaffDetailsMap(), commandBox);
     courseDetailedPanel = new CourseDetailedPanel(logic.getFilteredCourseDetailsMap(), commandBox);
-    financeDetailedPanel = new FinanceDetailedPanel(new HashMap<String, Object>(), commandBox);
-    assignmentDetailedPanel = new AssignmentDetailedPanel(new HashMap<String, Object>(), commandBox);
+    financeDetailedPanel = new FinanceDetailedPanel(logic.getFilteredFinanceDetailsMap(), commandBox);
+    assignmentDetailedPanel = new AssignmentDetailedPanel(logic.getFilteredAssignmentDetailsMap(), commandBox);
 
 //    Set<ID> assignedCourses = new HashSet<ID>();
 //    assignedCourses.add(new ID("11"));

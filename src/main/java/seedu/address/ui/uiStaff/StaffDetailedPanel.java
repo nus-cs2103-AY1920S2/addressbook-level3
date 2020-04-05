@@ -2,8 +2,12 @@ package seedu.address.ui.uiStaff;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
+
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -11,9 +15,11 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.uiCourse.CourseCard;
+import seedu.address.ui.uiStudent.StudentDetailedPanel;
 
 /**
  * Panel containing the list of staffs.
@@ -36,17 +42,34 @@ public class StaffDetailedPanel extends UiPart<Region> {
 //    "course": [CourseDetail]
 //  }
 
-  public StaffDetailedPanel(HashMap<String, Object> staffMap, CommandBox commandBox) {
+  public StaffDetailedPanel(ObservableMap<String, Object> staffMap, CommandBox commandBox) {
     super(FXML);
     this.commandBox = commandBox;
-    Staff staff = (Staff) staffMap.get("details");
-    ObservableList<Staff> filteredStaffs = FXCollections.observableArrayList();
-    filteredStaffs.add(staff);
-    staffDetailedView.setItems(filteredStaffs);
-    staffDetailedView.setCellFactory(listView -> new StaffListViewCell());
+    staffMap.addListener(new MapChangeListener<String, Object>() {
+      @Override
+      public void onChanged(MapChangeListener.Change<? extends String, ? extends Object> change) {
+        ObservableMap<String, Object> newStaffMap = (ObservableMap<String, Object>)change.getMap();
+        updateDetailView(newStaffMap);
+        updateCoursesView(newStaffMap);
+      }
+    });
+  }
 
-    courseListView.setItems((ObservableList<Course>) staffMap.get("courses"));
-    courseListView.setCellFactory(listView -> new CourseListViewCell());
+  private void updateDetailView(ObservableMap<String, Object> newStaffMap) {
+    if (newStaffMap.containsKey("details")) {
+      Staff staff = (Staff) newStaffMap.get("details");
+      ObservableList<Staff> filteredStaffs = FXCollections.observableArrayList();
+      filteredStaffs.add(staff);
+      staffDetailedView.setItems(filteredStaffs);
+      staffDetailedView.setCellFactory(listView -> new StaffListViewCell());
+    }
+  }
+
+  private void updateCoursesView(ObservableMap<String, Object> newStaffMap) {
+    if (newStaffMap.containsKey("courses")) {
+      courseListView.setItems((ObservableList<Course>) newStaffMap.get("courses"));
+      courseListView.setCellFactory(listView -> new CourseListViewCell());
+    }
   }
 
   /**

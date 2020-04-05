@@ -3,15 +3,19 @@ package seedu.address.ui.uiFinance;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
+import seedu.address.ui.uiStudent.StudentDetailedPanel;
 
 /**
  * Panel containing the list of finances.
@@ -31,14 +35,26 @@ public class FinanceDetailedPanel extends UiPart<Region> {
 //    "course": [CourseDetail]
 //  }
 
-  public FinanceDetailedPanel(HashMap<String, Object> financeMap, CommandBox commandBox) {
+  public FinanceDetailedPanel(ObservableMap<String, Object> financeMap, CommandBox commandBox) {
     super(FXML);
     this.commandBox = commandBox;
-    Finance finance = (Finance) financeMap.get("details");
-    ObservableList<Finance> filteredFinances = FXCollections.observableArrayList();
-    filteredFinances.add(finance);
-    financeDetailedView.setItems(filteredFinances);
-    financeDetailedView.setCellFactory(listView -> new FinanceListViewCell());
+    financeMap.addListener(new MapChangeListener<String, Object>() {
+      @Override
+      public void onChanged(MapChangeListener.Change<? extends String, ? extends Object> change) {
+        ObservableMap<String, Object> newFinanceMap = (ObservableMap<String, Object>)change.getMap();
+        updateDetailView(newFinanceMap);
+      }
+    });
+  }
+
+  private void updateDetailView(ObservableMap<String, Object> newFinanceMap) {
+    if (newFinanceMap.containsKey("details")) {
+      Finance finance = (Finance) newFinanceMap.get("details");
+      ObservableList<Finance> filteredFinances = FXCollections.observableArrayList();
+      filteredFinances.add(finance);
+      financeDetailedView.setItems(filteredFinances);
+      financeDetailedView.setCellFactory(listView -> new FinanceListViewCell());
+    }
   }
 
   /**

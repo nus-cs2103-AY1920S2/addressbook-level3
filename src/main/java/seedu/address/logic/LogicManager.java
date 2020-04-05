@@ -196,6 +196,21 @@ public class LogicManager implements Logic {
     return detailManager.getFilteredCourseDetailsMap();
   }
 
+  @Override
+  public ObservableMap<String, Object> getFilteredStaffDetailsMap() {
+    return detailManager.getFilteredStaffDetailsMap();
+  }
+
+  @Override
+  public ObservableMap<String, Object> getFilteredFinanceDetailsMap() {
+    return detailManager.getFilteredFinanceDetailsMap();
+  }
+
+  @Override
+  public ObservableMap<String, Object> getFilteredAssignmentDetailsMap() {
+    return detailManager.getFilteredAssignmentDetailsMap();
+  }
+
   // ========================== Getters for Predicates =========================
 
   public Predicate<Student> getDataStudentPredicate() {

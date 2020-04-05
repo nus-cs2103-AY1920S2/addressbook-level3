@@ -1,8 +1,5 @@
 package seedu.address.manager;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,13 +16,18 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelProgress.Progress;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
+
+import static seedu.address.logic.parser.CliSyntax.*;
 
 // TODO: Think of better name?
 public class DetailManager extends BaseManager {
@@ -34,6 +36,9 @@ public class DetailManager extends BaseManager {
         STUDENT_COURSE_DETAILS,
         COURSE_DETAILS,
         COURSE_STUDENT_DETAILS,
+        STAFF_DETAILS,
+        FINANCE_DETAILS,
+        ASSIGNMENT_DETAILS,
     }
 
     public TYPE type;
@@ -49,31 +54,23 @@ public class DetailManager extends BaseManager {
 
     private ObservableMap<String, Object> studentDetailsMap;
     private ObservableMap<String, Object> courseDetailsMap;
+    private ObservableMap<String, Object> staffDetailsMap;
+    private ObservableMap<String, Object> financeDetailsMap;
+    private ObservableMap<String, Object> assignmentDetailsMap;
 
     HashMap<Prefix, ID> IdMapping;
 
     public DetailManager() {
         studentDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
         courseDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
-        initializeStudentDetailsMap();
+        staffDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
+        financeDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
+        assignmentDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
         IdMapping = new HashMap<Prefix, ID>();
         instance = this;
     }
 
-    private void initializeStudentDetailsMap() {
-        Set<ID> assignedCourses = new HashSet<ID>();
-        assignedCourses.add(new ID("11"));
-        assignedCourses.add(new ID("12"));
-        Set<Tag> assignedTags = new HashSet<Tag>();
-        assignedTags.add(new Tag("Cool"));
-        assignedTags.add(new Tag("CS"));
-        Gender gender = new Gender("m");
-        Student fakeStudent = new Student(new Name("Tommy"), new ID("1231111111111"), gender, assignedCourses, assignedTags);
-        fakeStudent.processAssignedCourses((FilteredList<Course>) model.getFilteredCourseList());
-        studentDetailsMap.put("details", fakeStudent);
-        studentDetailsMap.put("courses", FXCollections.observableList(new ArrayList<Course>()));
-    }
-
+    // ###################### Getters for details map of different page ####################################
     public ObservableMap<String, Object> getFilteredStudentDetailsMap() {
         return this.studentDetailsMap;
     }
@@ -81,6 +78,20 @@ public class DetailManager extends BaseManager {
     public ObservableMap<String, Object> getFilteredCourseDetailsMap() {
         return this.courseDetailsMap;
     }
+
+    public ObservableMap<String, Object> getFilteredStaffDetailsMap() {
+        return this.staffDetailsMap;
+    }
+
+    public ObservableMap<String, Object> getFilteredFinanceDetailsMap() {
+        return this.financeDetailsMap;
+    }
+
+    public ObservableMap<String, Object> getFilteredAssignmentDetailsMap() {
+        return this.assignmentDetailsMap;
+    }
+    // #####################################################################################################
+
 
     // Select commands will update the observable lists here
     public void updateType(List<ArgumentTokenizer.PrefixPosition> positions,
@@ -109,6 +120,18 @@ public class DetailManager extends BaseManager {
             if (positions.get(1).getPrefix().equals(PREFIX_STUDENTID)) {
                 return TYPE.COURSE_STUDENT_DETAILS;
             }
+        } else if (positions.get(0).getPrefix().equals(PREFIX_TEACHERID)) {
+            if (positions.size() == 1) {
+                return TYPE.STAFF_DETAILS;
+            }
+        } else if (positions.get(0).getPrefix().equals(PREFIX_FINANCEID)) {
+            if (positions.size() == 1) {
+                return TYPE.FINANCE_DETAILS;
+            }
+        } else if (positions.get(0).getPrefix().equals(PREFIX_ASSIGNMENTID)) {
+            if (positions.size() == 1) {
+                return TYPE.ASSIGNMENT_DETAILS;
+            }
         }
         return TYPE.COURSE_DETAILS;
     }
@@ -126,6 +149,12 @@ public class DetailManager extends BaseManager {
         } else if (type.equals(TYPE.COURSE_STUDENT_DETAILS)) {
             updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
             updateProgressCourseStudent(IdMapping.get(PREFIX_COURSEID), IdMapping.get(PREFIX_STUDENTID));
+        } else if (type.equals(TYPE.STAFF_DETAILS)) {
+            updateStaffDetailsMap(IdMapping.get(PREFIX_TEACHERID));
+        } else if (type.equals(TYPE.FINANCE_DETAILS)) {
+            updateFinanceDetailsMap(IdMapping.get(PREFIX_FINANCEID));
+        } else if (type.equals(TYPE.ASSIGNMENT_DETAILS)) {
+            updateAssignmentDetailsMap(IdMapping.get(PREFIX_ASSIGNMENTID));
         }
     }
 
@@ -196,5 +225,34 @@ public class DetailManager extends BaseManager {
     // #######################################################################################################
 
 
+    // ################# Update staff details map ###########################################################
+    public void updateStaffDetailsMap(ID staffID) throws CommandException {
+        Staff staff = (Staff)model.get(staffID, Constants.ENTITY_TYPE.STAFF);
+        staffDetailsMap.put("details", staff);
 
+        ObservableList<Course> courses = FXCollections.observableArrayList();
+        Set<ID> courseIDs = staff.getAssignedCoursesID();
+        for (ID courseID: courseIDs) {
+            courses.add((Course)model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(courseID));
+        }
+        staffDetailsMap.put("courses", courses);
+    }
+    // ####################################################################################################
+
+
+
+    // ################### Update Finance Details Map #####################################################
+    public void updateFinanceDetailsMap(ID financeID) throws CommandException {
+        Finance finance = (Finance)model.get(financeID, Constants.ENTITY_TYPE.FINANCE);
+        financeDetailsMap.put("details", finance);
+    }
+    // ####################################################################################################
+
+
+    // ##################### Update Assignment Details Map ################################################
+    public void updateAssignmentDetailsMap(ID assignmentID) throws CommandException {
+        Assignment assignment = (Assignment)model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
+        assignmentDetailsMap.put("details", assignment);
+    }
+    // ####################################################################################################
 }

@@ -3,15 +3,19 @@ package seedu.address.ui.uiAssignments;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
+import seedu.address.ui.uiFinance.FinanceDetailedPanel;
 
 /**
  * Panel containing the list of assignments.
@@ -31,14 +35,26 @@ public class AssignmentDetailedPanel extends UiPart<Region> {
 //    "course": [CourseDetail]
 //  }
 
-  public AssignmentDetailedPanel(HashMap<String, Object> assignmentMap, CommandBox commandBox) {
+  public AssignmentDetailedPanel(ObservableMap<String, Object> assignmentMap, CommandBox commandBox) {
     super(FXML);
     this.commandBox = commandBox;
-    Assignment assignment = (Assignment) assignmentMap.get("details");
-    ObservableList<Assignment> filteredAssignments = FXCollections.observableArrayList();
-    filteredAssignments.add(assignment);
-    assignmentDetailedView.setItems(filteredAssignments);
-    assignmentDetailedView.setCellFactory(listView -> new AssignmentListViewCell());
+    assignmentMap.addListener(new MapChangeListener<String, Object>() {
+       @Override
+       public void onChanged(MapChangeListener.Change<? extends String, ? extends Object> change) {
+         ObservableMap<String, Object> newAssignmentMap = (ObservableMap<String, Object>)change.getMap();
+         updateDetailView(newAssignmentMap);
+       }
+    });
+  }
+
+  private void updateDetailView(ObservableMap<String, Object> newAssignmentMap) {
+    if (newAssignmentMap.containsKey("details")) {
+      Assignment assignment = (Assignment) newAssignmentMap.get("details");
+      ObservableList<Assignment> filteredAssignments = FXCollections.observableArrayList();
+      filteredAssignments.add(assignment);
+      assignmentDetailedView.setItems(filteredAssignments);
+      assignmentDetailedView.setCellFactory(listView -> new AssignmentListViewCell());
+    }
   }
 
   /**
