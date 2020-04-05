@@ -8,7 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-public class DiaryAddCommand extends Command {
+public class DiaryDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "diaryDelete";
 
@@ -22,7 +22,7 @@ public class DiaryAddCommand extends Command {
 
     private final int entryId;
 
-    public DiaryAddCommand(int entryId) {
+    public DiaryDeleteCommand(int entryId) {
         this.entryId = entryId;
     }
 
