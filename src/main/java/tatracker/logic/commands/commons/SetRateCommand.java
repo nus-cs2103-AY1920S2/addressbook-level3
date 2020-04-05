@@ -1,6 +1,5 @@
 package tatracker.logic.commands.commons;
 
-import static tatracker.logic.parser.Prefixes.RATE;
 import static tatracker.model.TaTracker.setRate;
 
 import java.util.List;

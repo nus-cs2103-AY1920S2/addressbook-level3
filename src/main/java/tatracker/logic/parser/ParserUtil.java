@@ -275,7 +275,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses and returns the tab na`me specified by the user in the goto command
+     * Parses and returns the tab name specified by the user in the goto command
      *
      * @param tabName user input
      * @return the tab specified by the user
@@ -291,18 +291,26 @@ public class ParserUtil {
         return Tab.getTab(trimmedType);
     }
 
+    /**
+     * Parses and returns the pay rate specified by the user in the setrate command
+     *
+     * @param rate user input
+     * @return the pay rate specified by the user
+     * @throws ParseException invalid pay rate
+     */
     public static int parseRate(String rate) throws ParseException {
         requireNonNull(rate);
         String trimmedRate = rate.trim();
-         try {
-             int parsedRate = Integer.parseInt(trimmedRate);
-             if (parsedRate <= 0) {
-                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
-             }
-             System.out.println("Parse Rate:" + parsedRate);
-             return parsedRate;
-         } catch (NumberFormatException e) {
-             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
+        try {
+            int parsedRate = Integer.parseInt(trimmedRate);
+            if (parsedRate <= 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SetRateCommand.DETAILS.getUsage()));
+            }
+            System.out.println("Parse Rate:" + parsedRate);
+            return parsedRate;
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetRateCommand.DETAILS.getUsage()));
         }
     }
 }
