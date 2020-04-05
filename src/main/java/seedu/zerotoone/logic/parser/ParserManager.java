@@ -55,7 +55,6 @@ public class ParserManager {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case StartCommand.COMMAND_WORD:
-            System.out.println(arguments);
             return new StartCommandParser().parse(arguments);
         case StopCommand.COMMAND_WORD:
             return new StopCommandParser().parse(arguments);

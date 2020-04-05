@@ -20,10 +20,10 @@ public class OngoingSessionCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on ExerciseList level 4</a>
      */
 
-    @FXML
-    private Label exerciseWeight;
-    @FXML
-    private Label setId;
+//    @FXML
+//    private Label exerciseWeight;
+//    @FXML
+//    private Label setId;
     @FXML
     private Label exerciseName;
     @FXML
@@ -31,10 +31,12 @@ public class OngoingSessionCard extends UiPart<Region> {
 
     public OngoingSessionCard(OngoingSet ongoingSet) {
         super(FXML);
-        exerciseName.setText(ongoingSet.getExerciseName().fullName);
-        setId.setText(String.valueOf(ongoingSet.getIndex()));
-        exerciseWeight.setText(ongoingSet.getWeight().value);
-        exerciseReps.setText(ongoingSet.getNumReps().value);
+        String name = ongoingSet.getExerciseName().fullName;
+        String set = String.valueOf(ongoingSet.getIndex());
+        String weight = ongoingSet.getWeight().value;
+        String reps = ongoingSet.getNumReps().value;
+        exerciseName.setText(name + ": " + "Set " + set);
+        exerciseReps.setText(reps + " reps, " + weight + "kg");
     }
 
     @Override
@@ -51,9 +53,7 @@ public class OngoingSessionCard extends UiPart<Region> {
 
         // state check
         OngoingSessionCard card = (OngoingSessionCard) other;
-        return setId.getText().equals(card.setId.getText())
-                && exerciseName.getText().equals(card.exerciseName.getText())
-                && exerciseReps.getText().equals(card.exerciseReps.getText())
-                && exerciseWeight.getText().equals(card.exerciseWeight.getText());
+        return exerciseName.getText().equals(card.exerciseName.getText())
+                && exerciseReps.getText().equals(card.exerciseReps.getText());
     }
 }
