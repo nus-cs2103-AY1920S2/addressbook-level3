@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TimerTask;
 import java.util.Timer;
+import javafx.application.Platform;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
@@ -20,7 +21,7 @@ public class Recurring {
    public static final String MESSAGE_CONSTRAINTS = "Recurring should be in the format d or w, for eg: rec/d";
    public static final String MESSAGE_RECURRING_TASK_SUCCESS = "Recurring Task: %1$s";
 
-   public static final String VALIDATION_REGEX = ""; 
+   public static final String VALIDATION_REGEX = "[dw]"; 
 
    public Recurring(String recurringString) throws ParseException {
         this.type = parse(recurringString);
@@ -65,12 +66,16 @@ public class Recurring {
     return new TimerTask(){
         @Override
         public void run() {
-            requireNonNull(model);
+            Platform.runLater(() -> {
+                requireNonNull(model);
 
-            Task resetedTask = resetDone(taskToReset);
+                Task resetedTask = resetDone(taskToReset);
 
-            model.setTask(taskToReset, resetedTask);
-            model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+                model.setTask(taskToReset, resetedTask);
+                model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+                }
+            );
+            
         }
     };
    }
@@ -85,9 +90,10 @@ public class Recurring {
    public long getInterval() {
        long period = 0;
        if (type == RecurType.DAILY) {
-           period = 1000*60*60*24;        
+        //    period = 1000*60*60*24;
+        period = 20000l;        
        } else if (type == RecurType.WEEKLY) {
-           period = 1000*60*60*24*7;
+           period = 1000l*60*60*24*7;
        }
        return period;
    }

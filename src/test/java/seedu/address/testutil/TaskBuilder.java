@@ -9,6 +9,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.InvalidReminderException;
@@ -28,6 +29,7 @@ public class TaskBuilder {
     private Done done;
     private Optional<Reminder> reminder = Optional.empty();
     private Set<Tag> tags;
+    private Optional<Recurring> recurring = Optional.empty();
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -97,6 +99,6 @@ public class TaskBuilder {
     }
 
     public Task build() {
-        return new Task(name, priority, description, done, tags, reminder);
+        return new Task(name, priority, description, done, tags, reminder, recurring);
     }
 }

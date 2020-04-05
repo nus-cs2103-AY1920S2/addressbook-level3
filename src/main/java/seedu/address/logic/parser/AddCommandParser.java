@@ -39,7 +39,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_PRIORITY,
                         PREFIX_DESCRIPTION,
                         PREFIX_TAG,
-                        PREFIX_REMINDER);
+                        PREFIX_REMINDER,
+                        PREFIX_RECURRING);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
