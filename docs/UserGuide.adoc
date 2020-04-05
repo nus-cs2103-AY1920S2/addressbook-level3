@@ -190,11 +190,10 @@ Format: `(ab)editnote INDEX l/LINE_NUMBER i/INFO`
 ==== Delete additional information about contacts: `(ab)deletenote`
 
 Delete additional information about contacts using the Note Taker +
-Format: `(ab)deletenote INDEX l/LINE_NUMBER`
+Format: `(ab)deletenote INDEX l/LINE_NUMBER l/LINE_NUMBER ...`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
-* If none of the optional switches are specified, all information will be deleted
 * l/LINE_NUMBER Line number of information to be deleted
 ****
 
