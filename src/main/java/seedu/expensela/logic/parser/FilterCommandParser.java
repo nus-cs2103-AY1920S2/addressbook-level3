@@ -33,14 +33,14 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
 
         // invalid category
-        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() &&
-                !isValidCategory(argMultimap.getValue(PREFIX_CATEGORY).get().trim())) {
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()
+                && !isValidCategory(argMultimap.getValue(PREFIX_CATEGORY).get().trim())) {
             throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
         }
 
         // invalid month
-        if (argMultimap.getValue(PREFIX_MONTH).isPresent() &&
-                !isValidMonth(argMultimap.getValue(PREFIX_MONTH).get().trim())) {
+        if (argMultimap.getValue(PREFIX_MONTH).isPresent()
+                && !isValidMonth(argMultimap.getValue(PREFIX_MONTH).get().trim())) {
             throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
         }
 
@@ -92,33 +92,43 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Checks if the category input by the user is valid
+     * @param input
+     * @return
+     */
     public boolean isValidCategory(String input) {
         switch(input) {
-            case("FOOD"):
-                return true;
-            case("SHOPPING"):
-                return true;
-            case("TRANSPORT"):
-                return true;
-            case("GROCERIES"):
-                return true;
-            case("HEALTH"):
-                return true;
-            case("RECREATION"):
-                return true;
-            case("MISC"):
-                return true;
-            case("UTILITIES"):
-                return true;
-            case("INCOME"):
-                return true;
-            case("ALL"):
-                return true;
-            default:
-                return false;
+        case("FOOD"):
+            return true;
+        case("SHOPPING"):
+            return true;
+        case("TRANSPORT"):
+            return true;
+        case("GROCERIES"):
+            return true;
+        case("HEALTH"):
+            return true;
+        case("RECREATION"):
+            return true;
+        case("MISC"):
+            return true;
+        case("UTILITIES"):
+            return true;
+        case("INCOME"):
+            return true;
+        case("ALL"):
+            return true;
+        default:
+            return false;
         }
     }
 
+    /**
+     * Checks if the month inputted by the user is valid.
+     * @param input
+     * @return
+     */
     public boolean isValidMonth(String input) {
         if (input.length() != 7) {
             return false;
