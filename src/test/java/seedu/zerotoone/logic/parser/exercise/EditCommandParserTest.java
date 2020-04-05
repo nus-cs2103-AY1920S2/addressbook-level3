@@ -4,7 +4,7 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.zerotoone.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.INVALID_EXERCISE_NAME_DESC;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_BENCH_PRESS;
@@ -55,7 +55,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_EXERCISE;
+        Index targetIndex = INDEX_SECOND_OBJECT;
         String userInput = targetIndex.getOneBased() + EXERCISE_NAME_DESC_BENCH_PRESS;
         EditCommand expectedCommand = new EditCommand(targetIndex,
                 new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS));
