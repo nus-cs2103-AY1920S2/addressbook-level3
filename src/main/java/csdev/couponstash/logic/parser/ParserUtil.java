@@ -100,31 +100,45 @@ public class ParserUtil {
         List<Saveable> saveables = new ArrayList<Saveable>();
         for (String str : savings) {
             if (str.startsWith(moneySymbol)) {
-                // last monetary amount will be taken
-                hasMoney = true;
-                String trimmedMonetaryAmount = str.trim().substring(moneySymbol.length());
-                try {
-                    monetaryAmount = new MonetaryAmount(Double.parseDouble(trimmedMonetaryAmount));
-                } catch (NumberFormatException e) {
-                    throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
-                } catch (IllegalArgumentException e) {
-                    throw new ParseException(e.getMessage());
+                if (!hasMoney) {
+                    hasMoney = true;
+                    String trimmedMonetaryAmount = str.trim().substring(moneySymbol.length());
+                    try {
+                        monetaryAmount = new MonetaryAmount(Double.parseDouble(trimmedMonetaryAmount));
+                    } catch (NumberFormatException e) {
+                        throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
+                    } catch (IllegalArgumentException e) {
+                        throw new ParseException(e.getMessage());
+                    }
+                } else {
+                    // if more than one monetary amount, throw error
+                    throw new ParseException(Savings.MULTIPLE_NUMBER_AMOUNTS);
                 }
             } else if (str.endsWith(PercentageAmount.PERCENT_SUFFIX)) {
-                // last percentage amount will be taken
-                hasPercent = true;
-                String trimmedPercentage = str.trim();
-                String rawNumber = trimmedPercentage
-                        .substring(0, trimmedPercentage.length() - PercentageAmount.PERCENT_SUFFIX.length());
-                try {
-                    percentageAmount = new PercentageAmount(Double.parseDouble(rawNumber));
-                } catch (NumberFormatException e) {
-                    throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
-                } catch (IllegalArgumentException e) {
-                    throw new ParseException(e.getMessage());
+                if (!hasPercent) {
+                    hasPercent = true;
+                    String trimmedPercentage = str.trim();
+                    String rawNumber = trimmedPercentage
+                            .substring(0, trimmedPercentage.length() - PercentageAmount.PERCENT_SUFFIX.length());
+                    try {
+                        percentageAmount = new PercentageAmount(Double.parseDouble(rawNumber));
+                    } catch (NumberFormatException e) {
+                        throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
+                    } catch (IllegalArgumentException e) {
+                        throw new ParseException(e.getMessage());
+                    }
+                } else {
+                    // if more than one percentage amount, throw error
+                    throw new ParseException(Savings.MULTIPLE_NUMBER_AMOUNTS);
                 }
             } else {
                 String trimmedSaveable = str.trim();
+                // numbers might be a mistake by the user
+                if (trimmedSaveable.matches(".*\\d.*")) {
+                    throw new ParseException(
+                            String.format(Savings.NUMBER_DETECTED_BUT_NOT_IN_FORMAT, moneySymbol));
+                }
+
                 if (!trimmedSaveable.isBlank()) {
                     // avoid adding blank Strings
                     saveables.add(new Saveable(trimmedSaveable));
@@ -132,10 +146,13 @@ public class ParserUtil {
             }
         }
 
-        if ((saveables.isEmpty() && !hasMoney && !hasPercent) || (hasMoney && hasPercent)) {
-            // throw an exception if no savings, or savings contains both
-            // monetary amount and percentage amount
+        if ((saveables.isEmpty() && !hasMoney && !hasPercent)) {
+            // throw an exception if no savings
             throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
+        } else if (hasMoney && hasPercent) {
+            // throw an exception if savings contains both
+            // monetary amount and percentage amount
+            throw new ParseException(Savings.MULTIPLE_NUMBER_AMOUNTS);
         } else if (saveables.isEmpty()) {
             if (hasMoney) {
                 return new Savings(monetaryAmount);
