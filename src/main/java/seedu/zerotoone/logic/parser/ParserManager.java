@@ -120,7 +120,7 @@ public class ParserManager {
 
         case "exit":
             return ViewType.SESSION_VIEW;
-          
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
