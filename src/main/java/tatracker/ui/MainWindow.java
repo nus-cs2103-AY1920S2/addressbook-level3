@@ -413,6 +413,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case FILTER_SESSION:
+                sessionListPanel.updateLabel(logic.getCurrSessionFilter());
                 handleGoto(sessionListTab);
                 break;
 

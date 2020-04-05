@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,13 +21,34 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "SessionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(SessionListPanel.class);
 
+    private static final String BACKGROUND_COLOUR = "#5f4d42";
+    private static final String BORDER_COLOUR = "#917b3e";
+    private static final String BORDER_WIDTH = "1";
+
     @FXML
     private ListView<Session> sessionListView;
+
+    @FXML
+    private Label currentFilters;
 
     public SessionListPanel(ObservableList<Session> sessionList) {
         super(FXML);
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
+        currentFilters.setText("Current Filters: \nDate: \nModule Code: \nSession Type:\n");
+        currentFilters.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+                + "-fx-border-color: " + BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
+    }
+
+    /**
+     * Update Label in order to facilitate changing current filters
+     */
+    public void updateLabel(String filters) {
+        currentFilters.setText("Current Filters: \n" + filters);
+        currentFilters.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+                + "-fx-border-color: " + BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
     }
 
     @Override
