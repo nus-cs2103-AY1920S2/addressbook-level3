@@ -93,6 +93,7 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.setMonthlyData(new MonthlyDataBuilder().build());
         expectedModel.addTransaction(expectedTransaction);
+        expectedModel.updateFilteredTransactionList(expectedModel.getFilter().getDateMonthPredicate(), null);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
@@ -152,6 +153,8 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        System.out.println(model.getFilteredTransactionList());
+        System.out.println(expectedModel.getFilteredTransactionList());
         assertEquals(expectedModel, model);
     }
 
