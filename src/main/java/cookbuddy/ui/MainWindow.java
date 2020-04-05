@@ -79,6 +79,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         if (!commandDescription.equals("")) {
+            helpWindow.setCommandDescription(commandDescription);
+        }
     }
 
     public Stage getPrimaryStage() {
