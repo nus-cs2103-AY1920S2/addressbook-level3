@@ -41,11 +41,11 @@ public class SampleLogDataUtil {
 
         for (int i = 0; i < 5; i++) {
             List<CompletedSet> completedSets = new LinkedList<>();
-            completedSets.add(new CompletedSet(new Weight("20"), new NumReps("5"), true));
-            completedSets.add(new CompletedSet(new Weight("30"), new NumReps("6"), true));
-            completedSets.add(new CompletedSet(new Weight("40"), new NumReps("8"), true));
-
             ExerciseName name = new ExerciseName(names[i % 4]);
+            completedSets.add(new CompletedSet(new Weight("20"), new NumReps("5"), true, name, 0));
+            completedSets.add(new CompletedSet(new Weight("30"), new NumReps("6"), true, name, 1));
+            completedSets.add(new CompletedSet(new Weight("40"), new NumReps("8"), true, name, 2));
+
             LocalDateTime start = workoutStart.plusMinutes(2);
             LocalDateTime end = workoutStart.plusMinutes(10);
             completedExercises.add(new CompletedExercise(name, completedSets, start, end));

@@ -129,6 +129,8 @@ public interface Model extends WorkoutModel, SchedulerModel {
 
     Boolean hasExerciseLeft();
 
+    Optional<CompletedSet> getLastSet();
+
     // -----------------------------------------------------------------------------------------
     // Log
 

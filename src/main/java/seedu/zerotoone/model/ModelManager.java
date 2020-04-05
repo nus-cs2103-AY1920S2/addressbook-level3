@@ -55,6 +55,7 @@ public class ModelManager implements Model {
 
     // Session
     private Optional<OngoingWorkout> currentWorkout;
+    private Optional<CompletedSet> lastSet;
     private final StopWatch stopwatch;
     private final OngoingSetList ongoingSetList;
 
@@ -93,6 +94,7 @@ public class ModelManager implements Model {
         this.scheduler = new Scheduler(scheduleList);
 
         this.currentWorkout = Optional.empty();
+        this.lastSet = Optional.empty();
         this.stopwatch = new StopWatch();
         this.ongoingSetList = new OngoingSetList();
 
@@ -234,9 +236,10 @@ public class ModelManager implements Model {
 
     @Override
     public void stopSession(LocalDateTime currentDateTime) {
-        OngoingWorkout ongoingWorkout = this.currentWorkout.get();
+        OngoingWorkout ongoingWorkout = this.currentWorkout.orElseThrow(NoCurrentSessionException::new);
         CompletedWorkout workout = ongoingWorkout.finish(currentDateTime);
         ongoingSetList.resetData(new OngoingSetList());
+        lastSet = Optional.empty();
         this.logList.addCompletedWorkout(workout);
         this.currentWorkout = Optional.empty();
     }
@@ -245,6 +248,7 @@ public class ModelManager implements Model {
     public CompletedSet skip() {
         CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).skip();
         ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
+        lastSet = Optional.of(set);
         return set;
     }
 
@@ -252,6 +256,7 @@ public class ModelManager implements Model {
     public CompletedSet done() {
         CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).done();
         ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
+        lastSet = Optional.of(set);
         return set;
     }
 
@@ -268,6 +273,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyOngoingSetList getOngoingSetList() {
         return this.ongoingSetList;
+    }
+
+    @Override
+    public Optional<CompletedSet> getLastSet() {
+        return this.lastSet;
     }
 
     // -----------------------------------------------------------------------------------------

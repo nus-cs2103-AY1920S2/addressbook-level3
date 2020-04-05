@@ -99,7 +99,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        homePanel = new HomePanel(logic.getOngoingSetList());
+        homePanel = new HomePanel(logic.getOngoingSetList(), logic.getLastSet());
         homeContentPlaceholder.getChildren().add(homePanel.getRoot());
 
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());

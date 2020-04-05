@@ -4,7 +4,7 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.zerotoone.model.exercise.ExerciseSet;
+import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
 
@@ -20,22 +20,19 @@ public class CompletedSet {
     public final Weight weight;
     public final NumReps numReps;
     public final boolean isFinished;
+    public final ExerciseName exerciseName;
+    public final int index;
 
     /**
      * Every field must be present and not null.
      */
-    public CompletedSet(Weight weight, NumReps numReps, boolean isFinished) {
+    public CompletedSet(Weight weight, NumReps numReps, boolean isFinished, ExerciseName name, int index) {
         requireAllNonNull(weight, numReps);
         this.weight = weight;
         this.numReps = numReps;
         this.isFinished = isFinished;
-    }
-
-    public CompletedSet(ExerciseSet exerciseSet, boolean isFinished) {
-        requireAllNonNull(exerciseSet.getWeight(), exerciseSet.getNumReps());
-        this.weight = exerciseSet.getWeight();
-        this.numReps = exerciseSet.getNumReps();
-        this.isFinished = isFinished;
+        this.exerciseName = name;
+        this.index = index;
     }
 
     public CompletedSet(OngoingSet exerciseSet, boolean isFinished) {
@@ -43,6 +40,8 @@ public class CompletedSet {
         this.weight = exerciseSet.getWeight();
         this.numReps = exerciseSet.getNumReps();
         this.isFinished = isFinished;
+        this.exerciseName = exerciseSet.getExerciseName();
+        this.index = exerciseSet.getIndex();
     }
 
     public Weight getWeight() {
@@ -87,4 +86,11 @@ public class CompletedSet {
         return Objects.hash(weight, numReps);
     }
 
+    public ExerciseName getExerciseName() {
+        return this.exerciseName;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 }
