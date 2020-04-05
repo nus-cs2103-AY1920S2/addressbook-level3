@@ -100,6 +100,15 @@ public class ModuleBook {
         getModule(moduleCode).getTasks().remove(index);
     }
 
+    /**
+     * Mark a module task as done in a specific module recorded in our program.
+     */
+    public void doneModuleTask(ModuleCode moduleCode, Index index) {
+        requireNonNull(moduleCode);
+        requireNonNull(index);
+        getModule(moduleCode).getTasks().get(index.getZeroBased()).markAsDone();
+    }
+
     public void setMajor(Major major) {
         requireNonNull(major);
         this.majorTaken = major;

@@ -22,7 +22,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.todolist.Task;
+import seedu.address.calender.Task;
 
 
 /**
@@ -231,6 +231,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         moduleBook.deleteModuleTask(moduleCode, index);
+    }
+
+    @Override
+    public void doneModuleTask(ModuleCode moduleCode, Index index) {
+        moduleBook.doneModuleTask(moduleCode, index);
     }
 
     @Override

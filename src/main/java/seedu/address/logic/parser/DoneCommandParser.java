@@ -7,24 +7,24 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteDeadlineCommand;
-import seedu.address.logic.commands.DeleteModuleTaskCommand;
-import seedu.address.logic.commands.DeleteTaskCommand;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.DoneDeadlineCommand;
+import seedu.address.logic.commands.DoneModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.calender.Task;
+import seedu.address.todolist.Task;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new DoneCommand object
  */
-public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
+public class DoneCommandParser implements Parser<DoneCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteTaskCommand parse(String args) throws ParseException {
+    public DoneCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap1 =
                 ArgumentTokenizer.tokenize(args, PREFIX_TASK_INDEX);
 
@@ -34,16 +34,16 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
         if (arePrefixesPresent(argMultimap1, PREFIX_TASK_INDEX)
                 && argMultimap1.getPreamble().isEmpty()) {
             Task deadline = ParserUtil.parseRemoveDeadline(argMultimap1.getValue(PREFIX_TASK_INDEX).get());
-            return new DeleteDeadlineCommand(deadline);
+            return new DoneDeadlineCommand(deadline);
         } else if (arePrefixesPresent(argMultimap2, PREFIX_MODULE_CODE, PREFIX_TASK_INDEX)
                 && argMultimap2.getPreamble().isEmpty()) {
             ModuleCode moduleCode = ParserUtil.parseModuleCode(
                     argMultimap2.getValue(PREFIX_MODULE_CODE).get());
             Index index = ParserUtil.parseIndex(argMultimap2.getValue(PREFIX_TASK_INDEX).get());
-            return new DeleteModuleTaskCommand(moduleCode, index);
+            return new DoneModuleTaskCommand(moduleCode, index);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteTaskCommand.MESSAGE_USAGE));
+                    DoneCommand.MESSAGE_USAGE));
         }
     }
 

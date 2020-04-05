@@ -37,6 +37,15 @@
         </MenuBar>
             <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="200.0" stylesheets="@DarkTheme.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
+                  <Tab fx:id="calenderTab" text="Calendar">
+                     <content>
+                        <SplitPane fx:id="calenderSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="deadlinePanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="79.0" />
+                            <AnchorPane fx:id="calenderPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="288.0" />
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
                 <Tab id="diaryTab" fx:id="diaryTab" text="Diary">
                      <content>
                         <StackPane fx:id="diaryListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
@@ -48,15 +57,6 @@
                        <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </content>
                   </Tab>
-                  <Tab fx:id="calenderTab" text="Calender">
-                     <content>
-                        <SplitPane fx:id="calenderSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
-                          <items>
-                            <AnchorPane fx:id="deadlinePanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="79.0" />
-                            <AnchorPane fx:id="calenderPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="288.0" />
-                          </items>
-                        </SplitPane>
-                     </content></Tab>
                   <Tab fx:id="notesTab" text="Notes">
                      <content>
                         <StackPane fx:id="notesListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />

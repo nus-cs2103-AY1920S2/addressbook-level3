@@ -118,6 +118,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -148,6 +149,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Helper method to build image to tabs
+     *
      * @param imgPatch image path
      * @return
      */
@@ -284,11 +286,44 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSwitchTab()) {
+                showSelectedTab(commandText);
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+
+    private void showSelectedTab(String commandText) {
+
+        // diary = 0, modplan = 1, addbook = 2, calender = 3, notes = 4, profile = 5
+
+        String tabName = commandText.split(" ")[0];
+        if (tabName.equals("notes")) {
+
+            tabPane.getSelectionModel().select(4);
+
+        } else if (tabName.equals("calender")) {
+
+            tabPane.getSelectionModel().select(0);
+        } else if (tabName.equals("addressbook")) {
+
+            tabPane.getSelectionModel().select(3);
+        } else if (tabName.equals("diary")) {
+
+            tabPane.getSelectionModel().select(1);
+        } else if (tabName.equals("profile")) {
+
+            tabPane.getSelectionModel().select(5);
+        } else if (tabName.equals("modplan")) {
+
+            tabPane.getSelectionModel().select(2);
+        }
+
     }
 }

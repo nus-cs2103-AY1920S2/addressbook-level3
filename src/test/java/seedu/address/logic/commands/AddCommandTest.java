@@ -209,6 +209,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void doneModuleTask(ModuleCode moduleCode, Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void gradeModule(ModuleCode moduleCode, Grade grade) {
             throw new AssertionError("This method should not be called.");
         }
