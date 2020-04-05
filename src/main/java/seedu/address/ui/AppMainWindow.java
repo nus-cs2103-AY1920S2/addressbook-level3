@@ -75,9 +75,6 @@ public class AppMainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.bluetoothPingPanel = new BluetoothPingPanel(logic.getAll());
-        this.bluetoothPingPanelPlaceholder.getChildren().add(this.bluetoothPingPanel.getRoot());
-
         this.resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(this.resultDisplay.getRoot());
 
