@@ -20,11 +20,11 @@ import tatracker.ui.UiPart;
  */
 public class SessionListPanel extends UiPart<Region> implements Focusable {
     private static final String FXML = "SessionListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(SessionListPanel.class);
-
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
     private static final String BORDER_WIDTH = "1";
+
+    private final Logger logger = LogsCenter.getLogger(SessionListPanel.class);
 
     @FXML
     private ListView<Session> sessionListView;
