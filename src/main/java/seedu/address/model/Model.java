@@ -72,19 +72,19 @@ public interface Model {
 
     ReadOnlyPet getPet();
 
+    PetManager getPetManager();
+
     void setPetName(String name);
-
-    void incrementExp();
-
-    void incrementPomExp();
-
-    void updateMoodWhenDone();
 
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);
 
-    // void setPomodoroTime(String time);
+    Task getPomodoroTask();
+
+    void setPomodoroDefaultTime(float defaultTimeInMin);
+
+    void setPomodoroRestTime(float restTimeInMin);
 
     void setPomodoroManager(PomodoroManager pomodoroManager);
 

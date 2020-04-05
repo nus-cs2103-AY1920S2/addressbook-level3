@@ -51,6 +51,9 @@ public class ModelManager implements Model {
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
         logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
 
+        this.petManager = new PetManager();
+        this.petManager.setPet(this.pet);
+
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
     }
@@ -194,32 +197,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public PetManager getPetManager() {
+        return petManager;
+    }
+
+    @Override
     public void setPetName(String name) {
         this.pet.setName(name);
     }
 
     @Override
-    public void incrementPomExp() {
-        this.pet.incrementPomExp();
-    }
-
-    @Override
-    public void incrementExp() {
-        this.pet.incrementExp();
-    }
-
-    @Override
     public void setPetManager(PetManager petManager) {
         this.petManager = petManager;
-        this.petManager.setPet(pet);
+        this.petManager.setPet(this.pet);
     }
-
-    @Override
-    public void updateMoodWhenDone() {
-        petManager.updateMoodWhenTaskDone();
-        petManager.updatePetDisplayWhenDone();
-    }
-
     // ============================ Pomodoro Manager
 
     public ReadOnlyPomodoro getPomodoro() {
@@ -228,6 +219,18 @@ public class ModelManager implements Model {
 
     public void setPomodoroTask(Task task) {
         this.pomodoro.setTask(task);
+    }
+
+    public Task getPomodoroTask() {
+        return this.pomodoro.getRunningTask();
+    }
+
+    public void setPomodoroRestTime(float restTimeInMin) {
+        this.pomodoro.setRestTime(Float.toString(restTimeInMin));
+    }
+
+    public void setPomodoroDefaultTime(float defaultTimeInMin) {
+        this.pomodoro.setDefaultTime(Float.toString(defaultTimeInMin));
     }
 
     public void setPomodoroManager(PomodoroManager pomodoroManager) {

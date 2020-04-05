@@ -8,7 +8,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.exceptions.InvalidReminderException;
 
 /** A utility class to help with building EditTaskDescriptor objects. */
 public class EditTaskDescriptorBuilder {
@@ -22,6 +24,7 @@ public class EditTaskDescriptorBuilder {
     public EditTaskDescriptorBuilder(EditTaskDescriptor descriptor) {
         this.descriptor = new EditTaskDescriptor(descriptor);
     }
+
 
     /** Returns an {@code EditTaskDescriptor} with fields containing {@code task}'s details */
     public EditTaskDescriptorBuilder(Task task) {
@@ -37,6 +40,7 @@ public class EditTaskDescriptorBuilder {
         descriptor.setName(new Name(name));
         return this;
     }
+
 
     /** Sets the {@code Priority} of the {@code EditTaskDescriptor} that we are building. */
     public EditTaskDescriptorBuilder withPriority(String priority) {
@@ -57,6 +61,15 @@ public class EditTaskDescriptorBuilder {
     public EditTaskDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    public EditTaskDescriptorBuilder withReminder(String reminder) {
+        try {
+            descriptor.setReminder(new Reminder(reminder));
+        } catch (InvalidReminderException e) {
+            return this;
+        }
         return this;
     }
 

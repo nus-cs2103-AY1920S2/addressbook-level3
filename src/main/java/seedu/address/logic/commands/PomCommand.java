@@ -13,8 +13,6 @@ import seedu.address.model.task.Task;
 
 public class PomCommand extends Command {
 
-    public static final int DEFAULT_TIMER = 25;
-
     public static final String COMMAND_WORD = "pom";
 
     public static final String MESSAGE_USAGE =
@@ -22,6 +20,7 @@ public class PomCommand extends Command {
                     + ": Starts the pomodoro timer, focusing on "
                     + "the task identified by the index number used in the displayed task list.\n"
                     + "Parameters: 1-INDEXed (must be a positive integer)\n"
+                    + "Time value must be greater than 0\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " 1 "
@@ -37,9 +36,16 @@ public class PomCommand extends Command {
     private final boolean isPause;
     private final boolean isContinue;
 
+    public PomCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
+        this.timerAmount = -1;
+        this.isPause = false;
+        this.isContinue = false;
+    }
+
     public PomCommand(Index targetIndex, float timerAmount) {
         this.targetIndex = targetIndex;
-        this.timerAmount = timerAmount;
+        this.timerAmount = timerAmount * 60;
         this.isPause = false;
         this.isContinue = false;
     }
@@ -77,23 +83,46 @@ public class PomCommand extends Command {
 
         Task taskToPom = lastShownList.get(index);
 
-        model.getPomodoroManager().startTrackTask(taskToPom);
+        pm.startTrackTask(taskToPom);
+        //model.getPomodoroManager().startTrackTask(taskToPom);
 
-        if (taskToPom.getDone().getIsDone()){
+        if (taskToPom.getDone().getIsDone()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_TO_BE_DONED);
         }
 
         // Update the pomodoro model
         model.setPomodoroTask(taskToPom);
 
+        System.out.println("Hardy: " + (pm.getDefaultStartTime()));
+
         return new PomCommandResult(
                 "Pomming task: " + taskToPom.toString(),
                 taskToPom.getName().toString(),
-                timerAmount,
+                ((int)timerAmount) == -1 ? pm.getDefaultStartTime() : timerAmount,
                 model,
                 index,
                 lastShownList,
                 isPause,
                 isContinue);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof PomCommand)) {
+            return false;
+        }
+
+        // state check
+        PomCommand e = (PomCommand) other;
+        return targetIndex.equals(e.targetIndex)
+            && ((int)timerAmount) == ((int)e.timerAmount)
+            && (isPause == e.isPause)
+            && (isContinue == e.isContinue);
     }
 }
