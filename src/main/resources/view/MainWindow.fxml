@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root maximized="true" minHeight="600" minWidth="550" onCloseRequest="#handleExit" title="TeaPet" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/teapot_icon.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@TempTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -31,27 +27,57 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+          <Menu fx:id="studentList" mnemonicParsing="false" text="Student List">
+            <MenuItem fx:id="studentListDefaultMenuItem" mnemonicParsing="false" onAction="#handleStudentDefault" text="Display Default List" />
+            <MenuItem fx:id="studentListDetailedMenuItem" mnemonicParsing="false" onAction="#handleStudentDetailed" text="Display Detailed List" />
+
+          </Menu>
+          <Menu fx:id="studentAdmin" mnemonicParsing="false" text="Student Administration">
+            <MenuItem fx:id="studentAdminMenuItem" mnemonicParsing="false" onAction="#handleStudentAdmin" text="Display Administration" />
+            <MenuItem fx:id="datesMenuItem" mnemonicParsing="false" onAction="#handleDates" text="Display Dates" />
+          </Menu>
+          <Menu fx:id= "studentAcademics" mnemonicParsing="false" text="Student Academics">
+            <MenuItem fx:id="studentAcadMenuItem" mnemonicParsing="false" onAction="#handleAcademics" text="Display Academics" />
+            <MenuItem fx:id="studentAcadReportMenuItem" mnemonicParsing="false" onAction="#handleAcademicsReport" text="Display Report" />
+          </Menu>
+          <Menu fx:id="personalSchedule" mnemonicParsing="false" text="Personal Schedule">
+            <MenuItem fx:id="scheduleMenuItem" mnemonicParsing="false" onAction="#handleSchedule" text="Display Schedule" />
+          </Menu>
+
+
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <HBox>
+          <children>
+            <VBox fx:id="mainPanel" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+              <StackPane fx:id="mainPanelPlaceholder" maxWidth="Infinity" minWidth="400" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+            </VBox>
+            <VBox fx:id="notesList" alignment="CENTER_LEFT" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+              <children>
+                <Label style="-fx-font-size: 15; -fx-font-weight: bold; -fx-font-style: Trebuchet MS; -fx-text-fill: black;" text="Notes Section:" textFill="WHITE" VBox.vgrow="NEVER" />
+                <StackPane fx:id="notesPanelPlaceholder" maxWidth="Infinity" minWidth="300" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+              </children>
+            </VBox>
+          </children>
+        </HBox>
+
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" maxWidth="Infinity" minHeight="100" prefHeight="100" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

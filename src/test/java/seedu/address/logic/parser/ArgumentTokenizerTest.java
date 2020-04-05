@@ -49,8 +49,28 @@ public class ArgumentTokenizerTest {
         }
     }
 
+    /**
+     * Test to check the returns of prefix of argmultimap
+     * @param argMultimap argument multimap
+     * @param prefix prefix of input
+     */
     private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
-        assertFalse(argMultimap.getValue(prefix).isPresent());
+        switch (prefix.getPrefix()) {
+        case "p/":
+            assertFalse(argMultimap.getValue(prefix).equals("Insert phone number here!"));
+            break;
+        case "a/":
+            assertFalse(argMultimap.getValue(prefix).equals("Insert address here!"));
+            break;
+        case "e/":
+            assertFalse(argMultimap.getValue(prefix).equals("Insert email here!"));
+            break;
+        case "temp/":
+            assertFalse(argMultimap.getValue(prefix).equals("Insert temperature here!"));
+            break;
+        default:
+            break;
+        }
     }
 
     @Test
@@ -84,6 +104,7 @@ public class ArgumentTokenizerTest {
         // Only two arguments are present
         String argsString = "SomePreambleString -t dashT-Value p/pSlash value";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
+        String check = argMultimap.getPreamble();
         assertPreamblePresent(argMultimap, "SomePreambleString");
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
         assertArgumentPresent(argMultimap, dashT, "dashT-Value");

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="submissionPane" fx:id="submissionPane" styleClass="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="studentName" minWidth="150.0" styleClass="cell_small_label" text="\$studentName">
+      <font>
+         <Font size="10.0" />
+      </font></Label>
+    <Label fx:id="submitted" minWidth="100.0" styleClass="cell_small_label" text="\$submitted">
+      <font>
+         <Font size="10.0" />
+      </font></Label>
+    <Label fx:id="marked" minWidth="100.0" styleClass="cell_small_label" text="\$marked">
+      <font>
+         <Font size="10.0" />
+      </font></Label>
+    <Label fx:id="score" minWidth="100.0" styleClass="cell_small_label" text="\$score">
+      <font>
+         <Font size="10.0" />
+      </font></Label>
+</HBox>

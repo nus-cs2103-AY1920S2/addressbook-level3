@@ -3,7 +3,27 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+           xmlns:fx="http://javafx.com/fxml/1">
+  <!-- There's an issue with the alignment and maximum width of the TextArea. Need to revisit-->
+
+  <HBox fx:id="cardPane" styleClass="cardPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+    <VBox alignment="CENTER" >
+      <padding>
+        <Insets bottom="-5" left="10" right="10" top="-5" />
+      </padding>
+      <children>
+        <ImageView fx:id="image" fitHeight="88.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/official_teapet.png" />
+          </image></ImageView>
+      </children>
+    </VBox>
+    <TextArea fx:id="resultDisplay" editable="false" centerShape="true" wrapText="true" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="result-display"/>
+  </HBox>
 </StackPane>

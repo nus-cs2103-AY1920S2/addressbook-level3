@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="scheduleWindowView" minWidth="150">
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@TempTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
+            <VBox>
+                <BorderPane fx:id="borderPane" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

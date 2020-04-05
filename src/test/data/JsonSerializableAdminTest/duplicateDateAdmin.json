@@ -1,0 +1,30 @@
+{
+  "dates" : [ {
+    "date" : "2020-03-31",
+    "students" : [ {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "nok" : "Joseph Pauline - father - 99999999",
+      "temperature": "37.1",
+      "attendance": "Present",
+      "notes": [],
+      "remark": "",
+      "tagged": [ "friends" ]
+    } ]
+  }, {
+    "date": "2020-03-31",
+    "students": [ {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "pauline@example.com",
+      "address": "4th street",
+      "nok" : "Joseph Pauline - father - 99999999",
+      "temperature": "36.7",
+      "attendance": "Present",
+      "notes": [],
+      "remark" : ""
+    }]
+  } ]
+}

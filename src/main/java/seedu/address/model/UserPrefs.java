@@ -15,6 +15,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path academicsFilePath = Paths.get("data" , "academics.json");
+    private Path adminFilePath = Paths.get("data", "admin.json");
+    private Path eventHistoryFilePath = Paths.get("data", "events.json");
+    private Path notesFilePath = Paths.get("data", "notes.json");
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +41,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setAdminFilePath(newUserPrefs.getAdminFilePath());
+        setAcademicsFilePath(newUserPrefs.getAcademicsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +63,42 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public Path getAcademicsFilePath() {
+        return academicsFilePath;
+    }
+
+    public void setAcademicsFilePath(Path academicsFilePath) {
+        requireNonNull(academicsFilePath);
+        this.academicsFilePath = academicsFilePath;
+    }
+
+    public Path getAdminFilePath() {
+        return adminFilePath;
+    }
+
+    public void setAdminFilePath(Path adminFilePath) {
+        requireNonNull(adminFilePath);
+        this.adminFilePath = adminFilePath;
+    }
+
+    public Path getEventHistoryFilePath() {
+        return eventHistoryFilePath;
+    }
+
+    public void setEventHistoryFilePath(Path eventHistoryFilePath) {
+        this.eventHistoryFilePath = eventHistoryFilePath;
+    }
+
+    public Path getNotesFilePath() {
+        return notesFilePath;
+    }
+
+    public void setNotesFilePath(Path notesFilePath) {
+        requireNonNull(notesFilePath);
+        this.notesFilePath = notesFilePath;
+    }
+
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,20 +111,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && academicsFilePath.equals(o.academicsFilePath)
+                && adminFilePath.equals(o.adminFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, academicsFilePath, adminFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nLocal data addressbook file location : " + addressBookFilePath);
+        sb.append("\nLocal data ad,om file location : " + adminFilePath);
+        sb.append("\nLocal data academics file location : " + academicsFilePath);
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nAcademics data file location : " + academicsFilePath);
+        sb.append("\nNotes data file location : " + notesFilePath);
         return sb.toString();
     }
-
 }

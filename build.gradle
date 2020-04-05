@@ -64,6 +64,11 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    compile group: 'org.jfxtras', name: 'jfxtras-agenda', version: '10.0-r2-SNAPSHOT'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '10.0-r2-SNAPSHOT'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '10.0-r2-SNAPSHOT'
+    compile 'org.apache.commons:commons-math3:3.6.1'
 }
 
 shadowJar {

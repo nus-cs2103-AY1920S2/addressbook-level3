@@ -66,7 +66,6 @@ public class JsonUserPrefsStorageTest {
     public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("ExtraValuesUserPref.json").get();
-
         assertEquals(expected, actual);
     }
 
@@ -74,12 +73,17 @@ public class JsonUserPrefsStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setAcademicsFilePath(Paths.get("academics.json"));
+        userPrefs.setAdminFilePath(Paths.get("admin.json"));
+        userPrefs.setNotesFilePath(Paths.get("notes.json"));
+        userPrefs.setEventHistoryFilePath(Paths.get("events.json"));
         return userPrefs;
     }
 
     @Test
     public void savePrefs_nullPrefs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveUserPrefs(null, "SomeFile.json"));
+        assertThrows(NullPointerException.class, ()
+            -> saveUserPrefs(null, "SomeFile.json"));
     }
 
     @Test

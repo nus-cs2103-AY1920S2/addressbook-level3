@@ -1,0 +1,31 @@
+{
+  "dates" : [ {
+    "date" : "2020-03-31",
+    "students" : [ {
+      "name" : "Valid Date",
+      "phone" : "87438807",
+      "email" : "simonlam@example.com",
+      "address" : "Blk 30 Geylang Street 29, #06-40",
+      "temperature" : "36.5",
+      "attendance" : "Sick",
+      "nok" : "Joseph Lam - father - 99999999",
+      "noted" : [ ],
+      "remark" : "",
+      "tagged" : [ "Sheares" ]
+      } ]
+  }, {
+    "date": "31-03-2020",
+    "students": [ {
+        "name": "Invalid Date",
+        "phone": "91031282",
+        "email": "leegary@example.com",
+        "address": "Blk 436 Serangoon Gardens Street 26, #16-43",
+        "temperature": "36.4",
+        "attendance": "Present",
+        "nok": "Joseph Syndromes - father - 99999999",
+        "noted": [ ],
+        "remark": "",
+        "tagged": ["Home"]
+      }]
+    } ]
+}

@@ -1,5 +1,6 @@
-= AddressBook Level 3 - User Guide
+= TeaPet - User Guide
 :site-section: UserGuide
+:toclevels: 5
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -12,20 +13,94 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W12-2/main/releases
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-2`      Since: `Feb 2020`      Licence: `MIT`
+//tag::intro[]
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to TeaPet!
 
-== Quick Start
+Looking for an all-in-one solution for your teaching needs? Look no further!
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+TeaPet is an integrated platform fully customized for Primary School Form Teachers to help you manage your classroom effectively.
+It contains your personal curriculum schedule, students' particulars, and can also track your class' academic progress.
+
+All your important information is comfortably compartmentalized on our simple and clean Graphical User Interface (GUI) and we are optimized for users who are very comfortable
+working on the Command Line Interface (CLI).
+
+If you are looking for a way to easily manage your administrative classroom chores
+and have quick hands, then TeaPet is definitely for you!
+
+Interested? Hop onto <<Getting started>>. Enjoy!
+//end::intro[]
+
+== About
+The aim of this User Guide is to provide you with all the information you need to fully utilise TeaPet. We understand the pains of using a
+Command Line Interface (CLI) program and have bested our efforts into ensuring a very readable guide on how to use our program.
+
+If you need help setting up TeaPet, you can go to the <<Getting started>> section.
+
+If you want to find out more about TeaPet's features and commands, you can go to the <<Features>> section.
+
+If you need an overview regarding the usage of TeaPet's commands, head on to the <<Summary>> section.
+
+Take note of the following symbols and formatting used in this document: +
+
+[cols=".^, .^"]
+[%autowidth.stretch]
+.A Summary of symbols used in our User Guide.
+|===
+^|*Symbol/ +
+Format* <|*Meaning*
+^| kbd:[Enter] |[gray]#This symbol indicates the enter button on the keyboard.#
+^|[gray]#`command`# |[gray]#A grey highlight indicates that this is a command that can be executed by the program.#
+
+
+2+.^a|  NOTE: This symbol indicates notes.
+2+.^a|  WARNING: This symbol indicates warnings.
+2+.^a|  TIP: This symbol indicates tips.
+2+.^a|  CAUTION: This symbol indicates cautions.
+2+.^a|  IMPORTANT: This symbol indicates important information.
+|===
+
+
+TIP: If you have any questions, please check out our <<FAQ>> section.
+
+== Overview of Features
+This section will provide you a brief overview of TeaPet's cool features and functionalities.
+
+. Manage your students easily
+.. Include student's particulars. e.g. address, contact number, next of kin (NOK)
+.. Include administrative details of the students. e.g. attendance, temperature
+
+. Plan your schedule easily
+.. Create and manage your events with a single calendar
+.. View calendar at a glance
+
+. Manage your class academic progress easily
+.. Include every student's grades for every examination.
+.. Easy to track progress using helpful tools. e.g. graph plots
+
+. Add Notes to act as lightweight, digital reminders easily
+.. Include reminders for yourself to help you remember important information.
+.. Search keywords in your notes.
+.. Save the notes as administrative or behavioural
+
+. Toggle different views to find information easily
+.. Different view modes show only the required information. e.g. detailed, admin, default
+
+. Data is saved onto your hard disk automatically
+.. Any changes made will be saved onto your computer so you dont have to worry about data being lost.
+
+== Getting started
+This section will bring you through the step-by-step process on getting started with TeaPet.
+
+.  Ensure you have Java 11 or above installed in your Computer.
+.  Download the latest TeaPet.jar link:{repoURL}/releases[here]
+.  Copy the file to the folder you want to use as the home folder for TeaPet.
+.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -33,145 +108,286 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`part add`**`n/Xiao Ming p/98765432 e/xiaoming@example.com a/Ming Dynasty, block 123, #01-01` : adds a contact named Xiao Ming to the Class List.
+* **`part delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+This section will provide you with an in-depth explanation of our features of TeaPet.
 
 ====
-*Command Format*
+*Using Commands in TeaPet*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+****
+- Words in `<ANGLE_BRACKETS>` are the parameters to be supplied by the user
+** e.g. `add n/<name>`, `<name>` is a parameter which can be used as `add n/Xiao Ming`
+- Items in square brackets are optional
+** e.g `n/<name> [t/<tag>]` can be used as `n/Xiao Ming t/friend` or `n/Xiao Ming`
+- Items with `…`​ after them can be used multiple times or not at all
+** e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend` or `t/friend t/family`
+- Parameters can be in any order
+** e.g. `n/<name> p/<phone number>` or `p/<phone number> n/<name>` both are acceptable.
+****
+
 ====
 
-=== Viewing help : `help`
+=== Class Particulars
+TeaPet records down personal particulars of students such as address, contact number and Next of Kin (NOK) particulars.
+Thereafter, you are able to view, update or delete those information of specific students when deemed necessary.
+
+==== Commands related to Class Particulars
+part add delete view
+
+GUIDE THEM STEP BY STEP +
+PROVIDE EXAMPLE +
+CATER THEIR NEEDS
+
+
+'''
+
+=== Class Administration
+TeaPet's Class Administration feature is used to keep track of administrative details such as daily attendance and
+temperature recordings. Data will be displayed in a weekly format for further perusal.
+
+==== Commands related to Class Administration
+temp admin
+
+GUIDE THEM STEP BY STEP +
+PROVIDE EXAMPLE +
+CATER THEIR NEEDS
+
+'''
+
+=== Personal Scheduler
+TeaPet's Personal Scheduler allows you to record down your commitments for the week, which will be
+sorted according to date and time. You will then be able to view your weekly schedule at a glance.
+
+==== Commands related to Personal Scheduler
+
+===== Display Personal Schedule: `schedule`
+
+Displays the personal schedule (description)
+
+Format: `schedule`
+
+The format supported by this command includes:
+
+|===
+|Keyword |Description
+
+|`NONE`
+|NONE
+|===
+
+Examples:
+
+- `schedule` +
+Views your current schedule
+
+====== Add event: `placeholder`
+etc etc
+
+'''
+
+
+
+
+=== Class Progress Tracker
+TeaPet's Class Progress Tracker is able to keep tabs on the class' academic progress. You will be able to store data of
+every student's subject grades with this feature. Thereafter, there will be a graph plot displayed to highlight the
+progress of individual students as well as the entire class.
+
+==== Commands related to Class Progress Tracker
+academics
+
+GUIDE THEM STEP BY STEP +
+PROVIDE EXAMPLE +
+CATER THEIR NEEDS
+
+//tag::update-profile[]
+[[update-profile]]
+=== Update Profile Picture
+TeaPet's student list allows you to upload image of your students into your application.
+[[update-profile]]
+
+'''
+
+=== Notes
+TeaPet's Notes feature performs like the ones we all use in our everyday lives, aiming to help form teachers keep
+track of important information of their students spontaneously. This feature allows you to label each note with
+different priority to better manage tasks. Every note is tagged to one or more students, such you will be able to
+better keep track of the stakeholder and information.
+
+==== Commands related to Notes
+* *Notes Help and Panel Refresh*: `notes`
+* *Add Note*: `notesa n/[Student Name] c/[Note Content] pr/[Priority]` +
+Priority must be either HIGH, MEDIUM or LOW, case insensitive. +
+e.g. `notesa n/James Ho c/Reminder to print his testimonial pr/HIGH`
+* *Delete Note*: `notesd [Index]`
+* *Filter Search Note*: `notesf [Keywords(s)]`
+* *Export Notes*: `notese` +
+Notes will be exported to a .csv file format.
+
+GUIDE THEM STEP BY STEP +
+PROVIDE EXAMPLE +
+CATER THEIR NEEDS
+
+
+'''
+
+=== Default Commands
+Default Commands are the commands that help you navigate through TeaPet easily.
+
+==== View help: `help`
+If you need help at any point regarding the many features TeaPet has, the default `help` command will bring you
+to this user guide. +
 
 Format: `help`
 
-=== Adding a person: `add`
+==== View in detailed mode: `detailed`
+If you require detailed information about your students, the default command `detailed` will bring up the detailed student
+list +
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `detailed`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== View in admin mode: `admin`
+If you require administrative information about your students -- such as attendance or temperature, the default command
+`admin` will bring up the admin
+list +
 
-Examples:
+Format: `admin`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+==== View in default mode: `default`
+If you want a simple and concise display of the student list, typing the `default` command will bring up a simple
+summary of your students. +
+Format: `default`
 
-=== Listing all persons : `list`
+==== Exit program: `exit`
+If you are done using TeaPet and would like to safely exit the application, typing the `exit` command will save your data
+and exit the program +
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Refresh student list: `refresh`
+If you have just added images of your students into the image folder, simply typing the
+`refresh` command will update the images of your students. Confused on how to do so? See <<update-profile>>.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+=== Student commands
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Adding students: `add`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Adds a student into the student list.
+
+Format: `student add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [nok/NAME-RELATIONSHIP-PHONE_NUMBER]
+[temp/TEMPERATURE] [att/ATTENDANCE]`
+
+* Adds a new student with the given attributes.
+* The student name *cannot be empty*.
+
+Example:
+
+* `student add n/Jim p/90045722 e/jim@example.com a/Bishan St 13 Blk 154 #08-18 t/monitor nok/James-Father-91234567
+temp/36.6 att/Present` Adds a student named Jim into the student list along with his details.
+
+Expected Outcome:
+
+    New student added: Jim Phone: 90045722 Email: jim@example.com Address: Bishan St 13 Blk 154 #08-18 Temperature: 36.6 Attendance: Present Tags: [monitor]
+
+
+==== Editing student information: `edit`
+
+Edits personal details of students.
+
+Format: `student edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [nok/NAME-RELATIONSHIP-PHONE_NUMBER]
+[temp/TEMPERATURE] [att/ATTENDANCE]`
+
+Example:
+
+* `student edit 1 p/90023413` Edits the student phone number in index 1 to a new phone number.
+
+Expected Outcome:
+
+    Edited Student: Simon Lam Phone: 90023413 Email: simonlam@example.com Address: Blk 30 Geylang Street 29,
+    #06-40 Temperature: 36.5 Attendance: Sick Remark:  Tags: [Sheares]
+
+
+==== Delete student: `delete`
+
+Deletes the student and all his personal details from the student list.
+
+Format: `student delete INDEX`
+
+Example:
+
+* `student delete 1` Deletes the student at index 1.
+
+Expected Outcome:
+
+    Deleted Student: Simon Lam Phone: 90023413 Email: simonlam@example.com Address: Blk 30 Geylang Street 29, #06-40 Temperature: 36.5 Attendance: Sick Remark:  Tags: [Sheares]
+
+
+==== Find student: `find`
+
+Finds the student information from the student list and display it.
+
+Format: `student find NAME`
+
+Example:
+
+* `student find simon` Finds the information a student named Simon.
+
+Expected Outcome:
+
+    1 students listed!
+
+
+=== Schedule Commands
+
+==== Creating a schedule: `add`
+
+Adds an event to your personal scheduler.
+
+Format: `schedule add eventName/EVENT_NAME startDateTime/START_DATETIME endDateTime/END_DATETIME recur/RECUR color/COLOR`
+
+Example:
+
+* *Non-Recurring Event* `schedule add eventName/Teachers Meeting startDateTime/2020-04-07T10:00
+endDateTime/2020-04-07T12:00 recur/none color/10`
+Creates a schedule with the title '_Teachers Meeting_' from '_7th Apr 2020, 1000_' to '_7th Apr 2020, 1200_' with no recurrence
+and a color group of '_10_'.
+
 
 == FAQ
+This section will provide answers to all Frequently Asked Questions by our users.
+[qanda]
+How do I transfer my data to another Computer? ::
+  Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+[[Summary]]
 == Command Summary
+This section provides a summary on all of the commands that we use at TeaPet sorted in alphabetical order.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+* *Academics*: `academics`
+* *Add*: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`     +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *Administrative Student Information*: `admin`
+* *Clear*: `clear`
+* *Delete*: `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Default Student Information*: `default`
+* *Detailed Student Information*: `detailed`
+* *Edit*: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Find*: `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Help*: `help`
+* *List*: `list`
+* *Notes*: `anotes [n/NAME] [c/CONTENT]`
+* *Schedule*: `schedule`
+
+'''
+

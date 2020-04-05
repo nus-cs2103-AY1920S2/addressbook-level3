@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= TeaPet - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -14,16 +15,101 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-02`      Since: `Jan 2020`      Licence: `MIT`
+
+== Introduction
+
+Welcome to TeaPet!
+
+image::Ui.png[width="790"]
+
+TeaPet is an integrated platform fully customized for Primary School Form Teachers to help you manage your classroom effectively.
+It contains your personal curriculum schedule, students' particulars, and can also track your class' academic progress.
+
+All your important information is comfortably compartmentalized on our simple and clean Graphical User Interface (GUI) and we are optimized for users who are very comfortable
+working on the Command Line Interface (CLI).
+
+If you are looking for a way to easily manage your administrative classroom chores
+and have quick hands, then TeaPet is definitely for you!
+
+== About
+The aim of this Developer Guide is to provide an introduction to the software architecture and implementation of TeaPet.
+It is made for developers who wish to understand and maintain the backbone of our application.
+
+At TeaPet, we prioritise teamwork. We welcome you developers to contribute and improve on our application anytime by
+opening an issue should you have any refreshing ideas to improve TeaPet after reading this guide.
+
+== How To Use
+This section will teach you how should you go about understanding our Developer Guide in order to best understand our product.
+
+Reading ahead, you will find that we've adopted the "top-down" approach into the structure of our Developer Guide --
+We will first look at the high-level architecture of our application before delving into the implementation details of each feature that makes up TeaPet.
+
+We encourage you to read every page diligently from the top to the bottom in order to get the highest level of understanding of our application.
+If you are only interested in how we develop one feature, you may read the high-level design then focus on the implementation of that particular feature.
+
+
+Take note of the following symbols and formatting used in this document:
+
+IMPORTANT: Use this to highlight important stuff
+
+WARNING: Use this for warnings
+
+CAUTION: Use this for caution
+
+NOTE: Use this for note
+
+TIP: This symbol indicates tips.
+
+.A Summary of symbols used in our User Guide.
+[cols="1,12"]
+|===
+|kbd:[Enter]
+|This symbol indicates the Enter button on your keyboard.
+
+|`command`
+|A grey highlight indicates that this is a command that can be typed into the command line and executed by the program.
+|===
+
+== Overview of Features
+This section will provide you a brief overview of TeaPet's cool features and functionalities.
+
+. Manage your students easily
+.. Include student's particulars. e.g. address, contact number, next of kin (NOK)
+.. Include administrative details of the students. e.g. attendance, temperature
+
+. Plan your schedule easily
+.. Create and manage your events with a single calendar
+.. View calendar at a glance
+
+. Manage your class academic progress easily
+.. Include every student's grades for every examination.
+.. Easy to track progress using helpful tools. e.g. graph plots
+
+. Add Notes to act as lightweight, digital reminders easily
+.. Include reminders for yourself to help you remember important information.
+.. Search keywords in your notes.
+.. Save the notes as administrative or behavioural
+
+. Toggle different views to find information easily
+.. Different view modes show only the required information. e.g. detailed, admin, default
+
+. Data is saved onto your hard disk automatically
+.. Any changes made will be saved onto your computer so you dont have to worry about data being lost.
+
 
 == Setting up
+This section provides you with the tools needed for you to set up TeaPet.
 
-Refer to the guide <<SettingUp#, here>>.
+You can refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+This section describes the high-level design details of TeaPet.
+
 [[Design-Architecture]]
 === Architecture
+This section describes the high-level software architecture of TeaPet.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -73,13 +159,14 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+This section describes the high-level software structure of TeaPet's UI Component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `NotesPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -90,6 +177,7 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
+This section describes the high-level software structure of TeaPet's Logic Component.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -100,9 +188,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The command execution can affect the `Model` (e.g. adding a student).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`,and then displayed to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help (for commands) and toggling of view between `default`, `detailed` and `admin`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -114,6 +202,8 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+This section describes the high-level software structure of TeaPet's Model Component.
+
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
@@ -123,16 +213,15 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Notes data.
+* exposes an unmodifiable `ObservableList<Student>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+
 
 [[Design-Storage]]
 === Storage component
+This section describes the high-level software structure of TeaPet's Storage Component.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -141,8 +230,9 @@ image::StorageClassDiagram.png[]
 
 The `Storage` component,
 
+* converts Model objects into savable data in JSON-format and vice versa.
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can store `Student`, `Academics` and `PersonalSchedule` data in a single json file, which can be read.
 
 [[Design-Commons]]
 === Common classes
@@ -153,7 +243,70 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== Class particulars feature
+The class particulars feature keeps track of essential student details.
+The feature comprises of four commands namely,
+
+* `AddCommand` - Adds the student particulars into the class list
+* `EditCommand` - Edits the particulars of a student
+* `DeleteCommand` - Deletes the student information
+* `FindCommand` - Finds information of the required student
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic,logic component>> for the general overview).
+
+.Class Diagram for Commands
+image::CommandClassDiagram.png[]
+
+[[Feature-Add]]
+==== Add command
+
+===== Implementation
+
+The following is a detailed explanation of the operations which `AddCommand` performs.
+
+*Step 1*. The `AddCommand#execute(Model model)` method is executed which takes in a necessary student name and additional attributes.
+[NOTE]
+Format for adding NOK details is `add n/<NAME> nok/<NAME-RELATIONSHIP-CONTACT>`.
+
+*Step 2*. The student is then searched through the `UniqueStudentList#students` list using the
+ `Model#hasStudent(Student student)` method to check if the student already exists. If the student exists, the `CommandException` will be thrown
+with the duplicate students error message.
+
+*Step 3*. The method `Model#addStudent(Student student)` will then be called to add the student. The command box will be reflected with
+the `AddCommand#MESSAGE_SUCCESS` constant and a new `CommandResult` will be returned with the message.
+[NOTE]
+If the format or wording of adding a student contains error(s), the behaviour of TeaPet will be similar to step 2, where either a unknown command
+or wrong format error message will be displayed.
+
+The following sequence diagram shows how the add operation works:
+
+image::AddSequenceDiagram.png[]
+
+==== Edit command
+
+===== Implementation
+
+The following is a detailed explanation of the operations which `EditCommand` performs.
+
+*Step 1*. The `EditCommand#execute(Model model)` method is executed which edit attributes of the selected student. The method
+checks if the `index` defined when instantiating `EditCommand(Index index, EditStudentDescriptor editStudentDescriptor)` is
+valid. Since it is optional for users to input fields, the fields not entered will reuse the existing values that are currently stored and defined
+in the `Student` object.
+
+*Step 2*. A new `Student` with the updated values is created and it is then searched  through the `UniqueStudentList#students` list using the
+ `Model#hasStudent(Student student)` method to check if the student already exists. If the student exists, the `CommandException` will be thrown
+with the duplicate students error message.
+
+*Step 3*. The newly created `Student` will replace the old one through the `Model#setStudent(Student oldStudent, Student editedStudent`
+method.
+
+*Step 4*. The command box will be reflected with the `EditCommand#MESSAGE_SUCCESS` constant and a new `CommandResult` will be returned with the message.
+
+=== Import image feature
+=== Personal Schedule feature
+==== Command 1
+==== Command 2
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
@@ -173,18 +326,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th student in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new student. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -222,7 +375,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the student being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -243,6 +396,7 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 === Logging
+This section describes how TeaPet record it's logs.
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -279,13 +433,18 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* form teacher of a class
+* has a need to manage a significant number of students
+* has a need to take the attendance of students
+* wants to be able to track the homework and progress of students
+* wants to be able to keep a schedule of his/her classes and events
+* wants to be able to keep track of students' behavior in class
+* prefer desktop applications over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Ability to manage students administration and personal commitments better than a typical mouse/GUI driven application. Overall increase in productivity.
 
 [appendix]
 == User Stories
@@ -297,15 +456,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |form teacher |take the attendance of my students |know who is present for my class
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |form teacher |have a schedule tracking my events |know what I need to attend/do in a day
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |form teacher |maintain of a list of students who have completed my homework |know who has not submitted my homework
+
+|`* * *` |form teacher |take down notes for student's behavior |track the behaviour of my students
+
+|`* * *` |form teacher |see the scores of my class |track the academic progress of my class
+
+|`* * *` |form teacher |add students |add new students to the class list
+
+|`* * *` |form teacher |delete a student |remove students that I no longer need
+
+|`* * *` |form teacher |find a student by name |locate details of students without having to go through the entire list
+
+|`* * *` |form teacher |sort students by alphabetical order |locate a student easily
+
+|`* * *` |form teacher |update the details of my students |make necessary changes to my student's particulars
+
+|`* * *` |form teacher |maintain emergency contacts of my students |know who to contact in case of emergency
+
+|`* *` |form teacher |specify if a student is late or absent for class |know why my student is absent
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |form teacher |keep track of the sitting arrangement of the class |students who change their seats unknowingly
+
+|`* *` |form teacher |record the temperature of students |track the health of my students
+
+|`*` |form teacher |get feedback from other teachers teaching the students of my class |better understand the progress of the class
+
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,47 +496,283 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TeaPet` and the *Actor* is the `Teacher`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Add student
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User enters a student name, followed by optional <<attributes,attributes>> such as emergency contacts, through the command line.
+2. TeaPet adds the student and his/her <<attributes,attributes>> to the class list.
+3. TeaPet displays feedback to the user that a new student is being added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Student is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
++
+[none]
+* 1b. Particulars are invalid.
++
+[none]
+** 1b1. TeaPet shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC02 - Edit student
+
+*MSS*
+
+1. User specifies which student, using the name, and what particulars he/she wants to edit in the command line.
+2. TeaPet edits the student's particulars in the class list as instructed by the commands.
+3. TeaPet displays feedback to the user that the student has been edited, followed by the changes made.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. TeaPet shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
++
+[none]
+* 1b. Particulars are invalid.
++
+[none]
+** 1b1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Delete student
+
+*MSS*
+
+1. User specifies which student, using the index, he/she wants to remove.
+2. TeaPet removes the student from the class list.
+3. TeaPet displays feedback to the user that the student is being removed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Student name entered is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Add event
+
+*MSS*
+
+1. User keys in an event.
+2. TeaPet adds the event to the schedule.
+3. TeaPet feedback the event has been added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Event entered is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Display Schedule
+
+*MSS*
+
+1. User keys in the command to display events.
+2. TeaPet displays the events in chronological order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Display default class list.
+
+*MSS*
+
+1. User enters the command to display the default version of the class list.
+2. TeaPet displays the class list with the students' tags, mobile number, email, and notes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Display admin class list.
+
+*MSS*
+
+1. User enters the command to display the administrative version of the class list.
+2. TeaPet displays the class list with the students' attendance status and temperature.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Display detailed class list.
+
+*MSS*
+
+1. User enters the command to display the detailed version of the class list.
+2. TeaPet displays the class list with all of the students' attributes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC09 - Display the class list.
+
+*MSS*
+
+1. User enters the command to list the students in the class.
+2. TeaPet displays default class list..
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC10 - Display students' academic progress
+
+*MSS*
+
+1. User enters the command to display academic progress of students.
+2. TeaPet displays the academic progress in chronological order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Add note for specific student
+
+*MSS*
+
+1. User enters command, together with a student and note's content.
+2. TeaPet displays feedback that a new note is now tagged to the student specified.
+3. TeaPet's note panel will display the updated list of notes.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+* 1b. Student is invalid.
++
+[none]
+** 1a1. TeaPet shows an error message.
++
+Use case ends.
 
 _{More to be added}_
+[discrete]
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 500 students without a noticeable sluggishness in performance for typical usage.
+.  A teacher with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish majority of the tasks faster using commands than using the mouse.
+.  TeaPet should be used only for a teacher handling his/her own form class, not by any other teachers.
+.  TeaPet should be able to work without internet access.
+.  The teacher should be able to familiarise himself/herself within half an hour of usage.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
+
+[[attributes]] Attributes::
+The information of a student. For example, phone number, address or next-of-kin contact details.
+
+[[class-list]] Class List::
+Class list of students
+
+[[cli]] CLI::
+Command Line Interface
+
+[[gui]] GUI::
+Graphical User Interface
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -361,22 +780,40 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[schedule]] Schedule::
+TeaPet's schedule that stores all of the teacher's events
+t
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+*TeacherKit*
 
 Pros:
 
-* ...
-* ...
+** Functionality
+* Ease of data tracking
+* Tracks attendance and grades
+
+** Non-funtional requirements
+* Attractive looking GUI
+* Cross platform
 
 Cons:
 
-* ...
-* ...
+** Functionality
+* Unable to tag notes to students
+* Unable to track behavioural score
+* Unable to show statistics on exam assessment
+
+** Non-functional requirements
+* Requires internet access
+* Some features are blocked by advertisements and pop ups
+* GUI-reliant, many buttons have to be pressed and many screens traversed to perform a task
+
+Author: Simon Lam
+
+Product information can be found at <https://www.teacherkit.net/>
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -402,23 +839,36 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Adding a student
 
-. Deleting a person while all persons are listed
+. Adding a student from class list with the specific name entered by user.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `add n/John Tan Jun Wei p/83391329 e/john@gmail.com temp/36.0 a/Punggol Street 22` +
+   Expected: Student John Tan Jun Wei has been added to the class list.
+
+.. Test case: `add n/John Tan Jun Wei p/83393129 e/john@gmail.com temp/3@.5 a/Punggol Street 22` +
+   Expected: No student is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `add John Tan Jun Wei`, `add n/John Tan Jun Wei p/phone number` (where the specified student is not a student in the class list due to invalid phone number.) _{give more}_ +
+   Expected: Similar to test case b.
+
+_{ more test cases ... }_
+
+=== Deleting a student
+
+. Deleting a student from class list with the specific name entered by user.
+
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+   Expected: The student at the first index is deleted from the list. Status message displays that the specified student has been deleted.
+.. Test case: `delete Tan John Wei Jun` +
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete 10` (where the specified student is not a student in the class list due to the index being out of bounds.) _{give more}_ +
+   Expected: Similar to test case b.
 
 _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing/corrupted data files.
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 

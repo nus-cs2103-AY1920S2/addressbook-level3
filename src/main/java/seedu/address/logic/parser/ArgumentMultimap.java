@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Stores mapping of prefixes to their respective arguments.
  * Each key may be associated with multiple argument values.
@@ -15,7 +17,11 @@ import java.util.Optional;
  */
 public class ArgumentMultimap {
 
-    /** Prefixes mapped to their respective arguments**/
+    public static final String NOT_SINGULAR = "Can only have one argument in the prefix \"%1$s\".";
+
+    /**
+     * Prefixes mapped to their respective arguments
+     **/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
@@ -33,10 +39,58 @@ public class ArgumentMultimap {
 
     /**
      * Returns the last value of {@code prefix}.
+     * If value does not exist, returns insert comment
      */
     public Optional<String> getValue(Prefix prefix) {
+        if (!argMultimap.containsKey(prefix)) {
+            switch (prefix.getPrefix()) {
+            case "a/":
+                Optional<String> missingAddressString = Optional.of("Insert address here!");
+                return missingAddressString;
+            case "p/":
+                Optional<String> missingPhoneNumberString = Optional.of("Insert phone number here!");
+                return missingPhoneNumberString;
+            case "e/":
+                Optional<String> missingEmailString = Optional.of("Insert email here!");
+                return missingEmailString;
+            case "nok/":
+                Optional<String> missingNokString = Optional.of("Insert NOK details here!");
+                return missingNokString;
+            case ("temp/"):
+                Optional<String> missingTemperatureString = Optional.of("Insert temperature here!");
+                return missingTemperatureString;
+            case ("att/"):
+                Optional<String> missingAttendanceString = Optional.of("Present");
+                return missingAttendanceString;
+            default:
+                List<String> values = getAllValues(prefix);
+                return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+            }
+
+        }
         List<String> values = getAllValues(prefix);
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+    }
+
+    public Optional<String> getSingleValue(Prefix prefix) throws ParseException {
+        List<String> values = getAllValues(prefix);
+        if (values.size() > 1) {
+            throw new ParseException(String.format(NOT_SINGULAR, prefix.getPrefix()));
+        }
+        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(0));
+    }
+
+    /**
+     * Returns the last value of {@code prefix}.
+     * If value does not exist, returns null.
+     */
+    public Optional<String> getValueOptional(Prefix prefix) {
+        if (!argMultimap.containsKey(prefix)) {
+            return Optional.empty();
+        } else {
+            List<String> values = getAllValues(prefix);
+            return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+        }
     }
 
     /**
@@ -56,5 +110,12 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
+     */
+    public String getPreamble(String prefix) {
+        return getValue(new Prefix(prefix)).orElse("");
     }
 }

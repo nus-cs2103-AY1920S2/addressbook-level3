@@ -1,5 +1,6 @@
 package seedu.address;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -21,6 +22,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.academics.Academics;
+import seedu.address.model.academics.ReadOnlyAcademics;
+import seedu.address.model.admin.Admin;
+import seedu.address.model.admin.ReadOnlyAdmin;
+import seedu.address.model.event.EventHistory;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.notes.NotesManager;
+import seedu.address.model.notes.ReadOnlyNotes;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -28,6 +37,15 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.academics.AcademicsStorage;
+import seedu.address.storage.academics.JsonAcademicsStorage;
+import seedu.address.storage.admin.AdminStorage;
+import seedu.address.storage.admin.JsonAdminStorage;
+import seedu.address.storage.event.EventStorage;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.notes.JsonNotesManagerStorage;
+import seedu.address.storage.notes.NotesManagerStorage;
+
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -57,7 +75,12 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        AcademicsStorage academicsStorage = new JsonAcademicsStorage(userPrefs.getAcademicsFilePath());
+        EventStorage eventStorage = new JsonEventStorage(userPrefs.getEventHistoryFilePath());
+        NotesManagerStorage notesManagerStorage = new JsonNotesManagerStorage(userPrefs.getNotesFilePath());
+        AdminStorage adminStorage = new JsonAdminStorage(userPrefs.getAdminFilePath());
+        storage = new StorageManager(addressBookStorage, adminStorage, academicsStorage,
+                 userPrefsStorage, eventStorage, notesManagerStorage);
 
         initLogging(config);
 
@@ -66,6 +89,11 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        File file = new File("images");
+        if (!file.exists()) {
+            new File("images").mkdir();
+        }
     }
 
     /**
@@ -75,22 +103,66 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyAcademics> academicsOptional;
+        Optional<ReadOnlyEvents> eventsOptional;
+        Optional<ReadOnlyNotes> notesManagerOptional;
+        Optional<ReadOnlyAdmin> adminOptional;
+
+
         ReadOnlyAddressBook initialData;
+        ReadOnlyAcademics initialAcademics;
+        ReadOnlyAdmin initialAdmin;
+        ReadOnlyEvents initialEvents;
+        ReadOnlyNotes initialNotesManager;
         try {
             addressBookOptional = storage.readAddressBook();
+            academicsOptional = storage.readAcademics();
+            adminOptional = storage.readAdmin();
+            eventsOptional = storage.readEvents();
+            notesManagerOptional = storage.readNotesManager();
+
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
+                new File("data").mkdir();
+            }
+            if (!academicsOptional.isPresent()) {
+                logger.info("Academics file not found. Will be starting with a sample Academics.");
+            }
+            if (!adminOptional.isPresent()) {
+                logger.info("Admin file not found.");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAcademics = academicsOptional.orElseGet(SampleDataUtil::getSampleAcademics);
+            initialAdmin = adminOptional.orElseGet(SampleDataUtil::getSampleAdmin);
+
+            if (!eventsOptional.isPresent()) {
+                logger.info("Events file not found, Will be starting with a sample Events file");
+            }
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialAcademics = academicsOptional.orElseGet(SampleDataUtil::getSampleAcademics);
+            initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEvents);
+            initialNotesManager = notesManagerOptional.orElseGet(SampleDataUtil::getSampleNotesManager);
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialAcademics = new Academics();
+            initialAdmin = new Admin();
+            initialEvents = new EventHistory();
+            initialNotesManager = new NotesManager();
+
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            initialAcademics = new Academics();
+            initialAdmin = new Admin();
+            initialNotesManager = new NotesManager();
+            initialEvents = new EventHistory();
+            initialNotesManager = new NotesManager();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, initialAcademics, initialAdmin, initialNotesManager, userPrefs,
+                initialEvents);
     }
 
     private void initLogging(Config config) {
@@ -161,7 +233,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-
         return initializedPrefs;
     }
 
