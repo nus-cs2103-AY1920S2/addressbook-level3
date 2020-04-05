@@ -53,7 +53,11 @@ public class StudentCard extends UiPart<Region> {
         phone.setText(student.getPhone().value);
         email.setText(student.getEmail().value);
         matric.setText(student.getMatric().value);
-        rating.setText(student.getRating().toString());
+        StringBuilder stars = new StringBuilder();
+        for (int i = 0; i < student.getRating().value; i += 1) {
+            stars.append("\u2605");
+        }
+        rating.setText(stars.toString());
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
