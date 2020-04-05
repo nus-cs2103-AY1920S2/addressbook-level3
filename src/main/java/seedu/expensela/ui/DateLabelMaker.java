@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 /**
  * Factory class for making coloured labels.
  */
-public class CategoryLabelMaker {
+public class DateLabelMaker {
 
     private static final String BACKGROUND_COLOR_GREEN = "-fx-background-color: #00897B; -fx-text-fill: white;";
     private static final String BACKGROUND_COLOR_RED = "-fx-background-color: #e53935; -fx-text-fill: white;";
@@ -25,52 +25,45 @@ public class CategoryLabelMaker {
     private static final String BACKGROUND_COLOR_WHITE = "-fx-background-color: #FFFFFF; -fx-text-fill: black;";
 
 
-    private static Map<String, String> mapCategoryColour = new HashMap<String, String>(0);
+    private static Map<String, String> mapDateColour = new HashMap<String, String>(0);
 
 
     /**
-     * Takes in a category name and returns a JavaFX Label coloured based on it.
+     * Takes in a date name and returns a JavaFX Label coloured based on it.
      *
-     * @param categoryName of the category
-     * @return a JavaFX Label coloured based on category name
+     * @param dateName of the date
+     * @return a JavaFX Label coloured based on date name
      */
-    public static Label getColouredCategoryLabel(String categoryName) {
-        initMapCategoryColour();
-        String trueCategoryName = categoryName.toLowerCase();
+    public static Label getColouredDateLabel(String dateName) {
+        initMapDateColour();
+        String trueDateName = dateName.toLowerCase();
 
-        Label colouredLabel = new Label(categoryName);
+        Label colouredLabel = new Label(dateName);
 
-        if (mapCategoryColour.containsKey(trueCategoryName)) {
-            colouredLabel.setStyle(mapCategoryColour.get(trueCategoryName));
-        } else {
-            colouredLabel.setStyle(BACKGROUND_COLOR_PURPLE);
-        }
+        colouredLabel.setStyle(BACKGROUND_COLOR_WHITE);
 
         return colouredLabel;
     }
 
     /**
-     * Initialises the Category-Colour map if it hasn't been initialised yet
+     * Initialises the Date-Colour map if it hasn't been initialised yet
      */
-    public static void initMapCategoryColour() {
-        if (mapCategoryColour.size() > 0) {
+    public static void initMapDateColour() {
+        if (mapDateColour.size() > 0) {
             return;
         }
 
-        mapCategoryColour.put("shopping", BACKGROUND_COLOR_RED);
-        mapCategoryColour.put("health", BACKGROUND_COLOR_PINK);
-        mapCategoryColour.put("food", BACKGROUND_COLOR_GREEN);
-        mapCategoryColour.put("transport", BACKGROUND_COLOR_BLUE);
-        mapCategoryColour.put("groceries", BACKGROUND_COLOR_LIGHT_GREEN);
-        mapCategoryColour.put("recreation", BACKGROUND_COLOR_YELLOW);
-        mapCategoryColour.put("utilities", BACKGROUND_COLOR_GREY);
-        mapCategoryColour.put("income", BACKGROUND_COLOR_NAVY_BLUE);
-
-        // Miscellaneous
-        mapCategoryColour.put("misc", BACKGROUND_COLOR_ORANGE);
-
-        // All
-        mapCategoryColour.put("all", BACKGROUND_COLOR_PURPLE);
-
+        mapDateColour.put("2020-01", BACKGROUND_COLOR_RED);
+        mapDateColour.put("2020-02", BACKGROUND_COLOR_PINK);
+        mapDateColour.put("2020-03", BACKGROUND_COLOR_GREEN);
+        mapDateColour.put("2020-04", BACKGROUND_COLOR_BLUE);
+        mapDateColour.put("2020-05", BACKGROUND_COLOR_LIGHT_GREEN);
+        mapDateColour.put("2020-06", BACKGROUND_COLOR_YELLOW);
+        mapDateColour.put("2020-07", BACKGROUND_COLOR_GREY);
+        mapDateColour.put("2020-08", BACKGROUND_COLOR_NAVY_BLUE);
+        mapDateColour.put("2020-09", BACKGROUND_COLOR_ORANGE);
+        mapDateColour.put("2020-10", BACKGROUND_COLOR_PURPLE);
+        mapDateColour.put("2020-11", BACKGROUND_COLOR_DARK_GREY);
+        mapDateColour.put("2020-12", BACKGROUND_COLOR_BLACK);
     }
 }

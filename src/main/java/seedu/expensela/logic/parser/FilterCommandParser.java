@@ -41,8 +41,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
                 String dateMinusDay;
-                if (date.equals("all")) {
-                    dateMinusDay = "all";
+                if (date.equals("ALL")) {
+                    dateMinusDay = "ALL";
                 } else {
                     dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
                 }
@@ -53,21 +53,21 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 // get category filter
                 String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
                 // set date as all transaction dates
-                String dateMinusDay = "all";
+                String dateMinusDay = "ALL";
 
                 return new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList(cat)),
                         new DateEqualsKeywordPredicate(Arrays.asList(dateMinusDay)));
             } else if (!argMultimap.getValue(PREFIX_CATEGORY).isPresent()
                     && argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
-                String cat = "all";
+                String cat = "ALL";
 
                 // sends the next word after "date" to see if it matches any transaction dates
                 String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
                 String dateMinusDay;
-                if (date.equals("all")) {
-                    dateMinusDay = "all";
+                if (date.equals("ALL")) {
+                    dateMinusDay = "ALL";
                 } else {
                     dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
                 }

@@ -381,7 +381,7 @@
 .filter-label-left {
      -fx-text-fill: white;
      -fx-font-size: 13;
-     -fx-padding: 0 0 0 10
+     -fx-padding: 0 0 0 5
  }
 
 .filter-label-right {
@@ -389,4 +389,8 @@
      -fx-text-fill: white;
      -fx-font-size: 13;
      -fx-padding: 0 10 0 0
+}
+
+.filter-category {
+    -text-fill: white;
 }

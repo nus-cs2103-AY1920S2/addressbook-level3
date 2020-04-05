@@ -2,12 +2,16 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.Filter;
 import seedu.expensela.model.Model;
+import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
+import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -41,6 +45,10 @@ public class DeleteCommand extends Command {
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTransaction(transactionToDelete);
+        model.setFilter(
+                new Filter(
+                        new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())),
+                        new DateEqualsKeywordPredicate(Arrays.asList(model.getFilter().getDateMonth()))));
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
     }
 

@@ -17,12 +17,12 @@ public class Filter {
 
     public Filter(Predicate<Transaction> categoryName, Predicate<Transaction> dateMonth) {
         if (categoryName == null) {
-            this.categoryName = new CategoryEqualsKeywordPredicate(Arrays.asList("all"));
+            this.categoryName = new CategoryEqualsKeywordPredicate(Arrays.asList("ALL"));
         } else {
             this.categoryName = categoryName;
         }
         if (dateMonth == null) {
-            this.dateMonth = new DateEqualsKeywordPredicate(Arrays.asList("all"));
+            this.dateMonth = new DateEqualsKeywordPredicate(Arrays.asList("ALL"));
         } else {
             this.dateMonth = dateMonth;
         }
@@ -30,7 +30,7 @@ public class Filter {
 
     public String getFilterCategoryName() {
         if (this.categoryName == null) {
-            return "all";
+            return "ALL";
         } else {
             return this.categoryName.toString();
         }
@@ -50,7 +50,7 @@ public class Filter {
 
     public String getDateMonth() {
         if (this.dateMonth == null) {
-            return "all";
+            return "ALL";
         } else {
             return this.dateMonth.toString();
         }

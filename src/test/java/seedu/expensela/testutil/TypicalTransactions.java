@@ -114,8 +114,8 @@ public class TypicalTransactions {
         for (Transaction transaction : getTypicalTransactions()) {
             el.addTransaction(transaction);
         }
-        el.setFilter(new Filter(new CategoryEqualsKeywordPredicate(Arrays.asList("all")),
-                new DateEqualsKeywordPredicate(Arrays.asList("all"))));
+        el.setFilter(new Filter(new CategoryEqualsKeywordPredicate(Arrays.asList("ALL")),
+                new DateEqualsKeywordPredicate(Arrays.asList("ALL"))));
         el.setMonthlyData(monthlyData);
         return el;
     }
