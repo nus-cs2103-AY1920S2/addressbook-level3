@@ -35,10 +35,32 @@ In this guide, we cover:
 
 === Miscellaneous Features
 
-As this is primarily a CLI based application, some features are included to make the user experience better. The following features are provided to simplify the use of FitBiz:
+As this is primarily a CLI based application with lots of anticipated typing, we have provided some features to make your user experience with FitBiz much better. In this section, we shall look at the **Command History** and the **Command Autocompletion** feature, and learn how to effectively utilise them.
 
-* Command History: similar to most modern CLIs, users can press the kbd:[Up] and kbd:[Down] arrow key to cycle through their previously entered commands. This history is persisted in the storage, allowing users to quickly reference what they have entered in a previous usage of this app.
-* Command Auto Completion: again, similar to most modern CLIs, users can press the kbd:[Tab] key to auto complete the commands that they have partially typed. If the partially typed letters begin a string that uniquely identifies a command, the complete command name appears. Otherwise, a list of all commands similar to the ambiguous letters will appear.
+==== Command History
+
+Similar to most modern CLIs, users of FitBiz can press the kbd:[&uarr;] and kbd:[&darr;] arrow key to cycle through their previously entered commands. If you have prior experience in using a CLI, feel free to skip this section as this should be second nature to you. If not, here is a quick tutorial on how to use this time saving feature.
+
+First, start by typing anything into the Command Box. It _does not_ have to be a valid command as explained in <<Commands>>. In our example, we chose to type `Hello World`:
+
+// diagram for hello world command box
+
+Next, hit the kbd:[Enter] key to enter the command into FitBiz. Notice that whatever you have typed in the Command Box should have disappeared. If you did not enter a valid command (like `Hello World`), you would have been prompted by a message saying `Invalid command` in the Result Box like shown:
+
+// diagram for invalid command
+
+Next, continue entering different commands into the Command Box. You can safely ignore all the `Invalid command` prompts for now.
+
+Once you feel like you have entered enough commands into FitBiz, try hitting the kbd:[&uarr;] arrow key several times. You should start to see the history of your entered commands displaying in the Command Box. If you press the kbd:[&uarr;] arrow key enough times (or simply hold down the key), you would realise that the command in the Command Box no longer changes. In our case, it currently displays `Hello World`, our first ever entered command.
+
+Now, you can as easily see your more recent commands by pressing the kbd:[&darr;] arrow key. Again, if you press it enough times, you would realise that the Command Box will display nothing (right after displaying your most recent command). This means that you have reached the end of your command history.
+
+[TIP]
+You can press the kbd:[&darr;] arrow key whenever you are typing to immediately do a quick clear of whatever you are typing.
+
+==== Command Autocompletion
+
+Command Auto Completion: again, similar to most modern CLIs, users can press the kbd:[Tab] key to auto complete the commands that they have partially typed. If the partially typed letters begin a string that uniquely identifies a command, the complete command name appears. Otherwise, a list of all commands similar to the ambiguous letters will appear.
 
 == Quick Start
 
