@@ -608,8 +608,11 @@ with a Module in the UniqueModuleList.
 
 The following diagram describes how TaTracker is updated when a Done Session command is entered.
 
+==== Session Done Command
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
+
+{insert Filter Claims sequence diagram here}
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
