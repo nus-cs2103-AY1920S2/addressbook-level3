@@ -56,11 +56,11 @@ Once you feel like you have entered enough commands into FitBiz, try hitting the
 Now, you can as easily see your more recent commands by pressing the kbd:[&darr;] arrow key. Again, if you press it enough times, you would realise that the Command Box will display nothing (right after displaying your most recent command). This means that you have reached the end of your command history.
 
 [TIP]
-You can press the kbd:[&darr;] arrow key whenever you are typing to immediately do a quick clear of whatever you are typing.
+If you are not currently browsing the history, you can press the kbd:[&darr;] arrow key to immediately do a quick clear of whatever you are typing.
 
 ==== Command Autocompletion
 
-Command Auto Completion: again, similar to most modern CLIs, users can press the kbd:[Tab] key to auto complete the commands that they have partially typed. If the partially typed letters begin a string that uniquely identifies a command, the complete command name appears. Otherwise, a list of all commands similar to the ambiguous letters will appear.
+Again, similar to most modern CLIs, users can press the kbd:[Tab] key to auto complete the commands that they have partially typed. If the partially typed letters begin a string that uniquely identifies a valid command in FitBiz (see <<Commands>>), the complete command name will appear. Otherwise, a list of all commands similar to the ambiguous letters will appear in the Result Box.
 
 == Quick Start
 
