@@ -24,6 +24,8 @@ public class ClaimsListPanel extends UiPart<Region> {
     private static final String FXML = "ClaimsListPanel.fxml";
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
+    private static final String LABEL_BACKGROUND_COLOUR = "#424d5f";
+    private static final String LABEL_BORDER_COLOUR = "#3e7b91";
     private static final String BORDER_WIDTH = "1";
     private final Logger logger = LogsCenter.getLogger(ClaimsListPanel.class);
 
@@ -42,6 +44,9 @@ public class ClaimsListPanel extends UiPart<Region> {
         claimsListView.setItems(claimsList);
         claimsListView.setCellFactory(listView -> new ClaimsListViewCell());
         totalEarnings.setText("Total Earnings: " + this.taTracker.getTotalEarnings());
+        totalEarnings.setStyle("-fx-background-color: " + LABEL_BACKGROUND_COLOUR + "; "
+                + "-fx-border-color: " + LABEL_BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
     }
 
     /**

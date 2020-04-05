@@ -60,9 +60,6 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
         currentDateFilters.setText("Date: " + dateFilter);
         currentModuleFilters.setText("Module: " + moduleFilter);
         currentTypeFilters.setText("Type: " + typeFilter);
-        currentFiltersGrid.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
-                + "-fx-border-color: " + BORDER_COLOUR + "; "
-                + "-fx-border-width: " + BORDER_WIDTH + ";");
     }
 
     @Override
