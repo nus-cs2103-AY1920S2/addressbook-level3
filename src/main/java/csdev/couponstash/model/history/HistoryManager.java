@@ -33,19 +33,19 @@ public class HistoryManager {
      * @param newState State to add to {@code couponStashList}
      */
     public void commitState(CouponStash newState, String command) {
-        this.couponStashStateList.add(newState);
-        this.commandTextHistory.add(command);
-        currStateIndex++;
-
         int stateSize = couponStashStateList.size();
         if (currStateIndex != stateSize - 1) {
 
             // Purging all coupon stash states and commandText histories after the currentStatePointer.
             for (int i = currStateIndex + 1; i < stateSize; i++) {
                 couponStashStateList.remove(couponStashStateList.size() - 1);
-                commandTextHistory.remove(couponStashStateList.size() - 1);
+                commandTextHistory.remove(commandTextHistory.size() - 1);
             }
         }
+
+        this.couponStashStateList.add(newState);
+        this.commandTextHistory.add(command);
+        currStateIndex++;
     }
 
     /**
