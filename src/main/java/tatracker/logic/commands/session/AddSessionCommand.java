@@ -38,7 +38,7 @@ public class AddSessionCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
     private static final String MESSAGE_INVALID_MODULE_CODE = "A module with the given module code doesn't exist";
-    private static final String  MESSAGE_INVALID_TIME = "[Session] Start time is set to after end time!";
+    private static final String MESSAGE_INVALID_TIME = "[Session] Start time is set to after end time!";
 
     private final Session toAdd;
 
