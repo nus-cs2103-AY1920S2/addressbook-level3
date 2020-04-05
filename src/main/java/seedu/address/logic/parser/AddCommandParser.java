@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.stream.Stream;
@@ -26,7 +26,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException, DateTimeException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE,
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_YEAR, PREFIX_GRADE,
                         PREFIX_TASK, PREFIX_DEADLINE);
 
         // To check if Module argument exists since it is compulsory
@@ -43,8 +43,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         String deadlineString = null;
         int intSemester = 0;
 
-        if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
-            intSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()).getSemester();
+        if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
+            intSemester = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get()).getSemester();
         }
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
             grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().toUpperCase());

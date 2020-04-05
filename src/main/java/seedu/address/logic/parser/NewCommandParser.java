@@ -48,7 +48,7 @@ public class NewCommandParser implements Parser<NewCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
-        int currentSemester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get())
+        int currentSemester = ParserUtil.parseYear(argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get())
                 .getSemester();
 
         FocusArea focusArea = null;

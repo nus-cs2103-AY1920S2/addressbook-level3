@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_SEMESTER;
@@ -33,7 +33,7 @@ public class ShowCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // Semester field present
         Year semester = new Year("1.1");
-        assertParseSuccess(parser, " " + PREFIX_SEMESTER + semester, new ShowCommand(semester));
+        assertParseSuccess(parser, " " + PREFIX_YEAR + semester, new ShowCommand(semester));
 
         // Course field present
         CourseName courseName = new CourseName(AcceptedCourses.COMPUTER_SCIENCE.getName());
@@ -63,8 +63,8 @@ public class ShowCommandParserTest {
     public void parse_invalidValue_failure() {
         // Invalid semester
         String semester = "abc";
-        assertParseFailure(parser, " " + PREFIX_SEMESTER + semester, MESSAGE_INVALID_SEMESTER);
-        assertParseFailure(parser, " " + PREFIX_SEMESTER, MESSAGE_MISSING_SEMESTER);
+        assertParseFailure(parser, " " + PREFIX_YEAR + semester, MESSAGE_INVALID_SEMESTER);
+        assertParseFailure(parser, " " + PREFIX_YEAR, MESSAGE_MISSING_SEMESTER);
 
         // Invalid course
         CourseName courseName = new CourseName("course");

@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashMap;
@@ -53,11 +53,11 @@ public class EditCommand extends Command {
             + "(" + PREFIX_FOCUS_AREA + "Algorithms & Theory) "
             + "Parameters to edit a module: "
             + PREFIX_MODULE + "MODULE "
-            + "(" + PREFIX_SEMESTER + "SEMESTER) "
+            + "(" + PREFIX_YEAR + "SEMESTER) "
             + "(" + PREFIX_GRADE + "GRADE) "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 "
-            + "(" + PREFIX_SEMESTER + "4) "
+            + "(" + PREFIX_YEAR + "4) "
             + "(" + PREFIX_GRADE + "A+) ";
 
     public static final String MESSAGE_EDIT_PROFILE_SUCCESS = "Edited Profile: %1$s";

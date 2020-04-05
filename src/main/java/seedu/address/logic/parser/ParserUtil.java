@@ -95,20 +95,20 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String semester}.
+     * Parses a {@code String year}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code semester} is invalid.
+     * @throws ParseException if the given {@code year} is invalid.
      */
-    public static Year parseSemester(String semester) throws ParseException {
-        String trimmedSemester = semester.trim();
-        if (semester.equals("")) {
+    public static Year parseYear(String year) throws ParseException {
+        String trimmedYear = year.trim();
+        if (year.equals("")) {
             throw new ParseException(MESSAGE_MISSING_SEMESTER);
         }
-        if (!Year.isValidCode(semester)) {
-            throw new ParseException(MESSAGE_INVALID_SEMESTER);
+        if (!Year.isValidCode(year)) {
+            throw new ParseException(Year.MESSAGE_CONSTRAINTS);
         }
-        return new Year(trimmedSemester);
+        return new Year(trimmedYear);
     }
 
     /**

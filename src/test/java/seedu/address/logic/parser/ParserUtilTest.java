@@ -86,17 +86,17 @@ public class ParserUtilTest {
 
     @Test
     public void parseSemester_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseSemester(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseYear(null));
     }
 
     @Test
     public void parseSemester_emptyString_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_MISSING_SEMESTER, () -> ParserUtil.parseSemester(""));
+        assertThrows(ParseException.class, MESSAGE_MISSING_SEMESTER, () -> ParserUtil.parseYear(""));
     }
 
     @Test
     public void parseSemester_string_throwsParseException() {
-        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseSemester("abc"));
+        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseYear("abc"));
     }
 
     @Test
