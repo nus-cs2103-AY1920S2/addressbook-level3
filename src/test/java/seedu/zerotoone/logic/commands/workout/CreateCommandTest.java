@@ -60,9 +60,9 @@ public class CreateCommandTest {
     }
 
     @Test
-    public void execute_duplicateExercise_throwsCommandException() {
+    public void execute_duplicateWorkout_throwsCommandException() {
         Workout validWorkout = new WorkoutBuilder().build();
-        CreateCommand createCommand = new CreateCommand(LEGS_WORKOUT.getWorkoutName());
+        CreateCommand createCommand = new CreateCommand(ARMS_WORKOUT.getWorkoutName());
         ModelStub modelStub = new ModelStubWithWorkout(validWorkout);
 
         assertThrows(

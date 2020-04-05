@@ -3,7 +3,6 @@ package seedu.zerotoone.logic.commands.workout;
 import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
-import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.VALID_WORKOUT_NAME_ABS_WORKOUT;
 import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.assertCommandFailure;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +35,7 @@ public class CreateCommandIntegrationTest {
 
     @Test
     public void execute_newWorkout_success() {
-        Workout validWorkout = new WorkoutBuilder().withWorkoutName("Abs Workout").build();
+        Workout validWorkout = new WorkoutBuilder().withWorkoutName("Strength Training").build();
 
         Model expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
@@ -46,7 +45,7 @@ public class CreateCommandIntegrationTest {
 
         expectedModel.addWorkout(validWorkout);
 
-        CreateCommand command = new CreateCommand(new WorkoutName(VALID_WORKOUT_NAME_ABS_WORKOUT));
+        CreateCommand command = new CreateCommand(new WorkoutName("Strength Training"));
         assertCommandSuccess(command, model,
                 String.format(CreateCommand.MESSAGE_SUCCESS, validWorkout.getWorkoutName()), expectedModel);
     }

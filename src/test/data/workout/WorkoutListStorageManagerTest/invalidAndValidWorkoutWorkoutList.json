@@ -1,0 +1,22 @@
+{
+    "workouts": [
+        {
+            "workoutName": "Bench Press",
+            "workoutSets": [
+                {
+                    "weight": "60",
+                    "numReps": "10"
+                }
+            ]
+        },
+        {
+            "workoutName": "inValid#&*#Name",
+            "workoutSets": [
+                {
+                    "weight": "invalidWeight",
+                    "numReps": "invalidNumReps"
+                }
+            ]
+        }
+    ]
+}

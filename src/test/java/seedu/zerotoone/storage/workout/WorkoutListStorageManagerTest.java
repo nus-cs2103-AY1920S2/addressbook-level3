@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.workout.TypicalWorkouts.ARMS_WORKOUT;
-import static seedu.zerotoone.testutil.workout.TypicalWorkouts.LEGS_WORKOUT;
 import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.io.IOException;
@@ -73,7 +72,6 @@ public class WorkoutListStorageManagerTest {
         assertEquals(original, new WorkoutList(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addWorkout(LEGS_WORKOUT);
         original.removeWorkout(ARMS_WORKOUT);
         jsonWorkoutListStorage.saveWorkoutList(original, filePath);
         readBack = jsonWorkoutListStorage.readWorkoutList(filePath).get();

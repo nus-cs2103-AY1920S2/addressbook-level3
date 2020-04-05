@@ -1,0 +1,24 @@
+{
+    "workouts": [
+        {
+            "workoutName" : "Arms Workout",
+            "workoutExercises" : [ {
+                "exerciseName" : "Bench Press",
+                "exerciseSets" : [ {
+                    "weight" : "60",
+                    "numReps" : "10"
+                } ]
+            }]
+        },
+        {
+            "workoutName" : "Arms Workout",
+            "workoutExercises" : [ {
+                "exerciseName" : "Bench Press",
+                "exerciseSets" : [ {
+                    "weight" : "60",
+                    "numReps" : "10"
+                } ]
+            }]
+        }
+    ]
+}
