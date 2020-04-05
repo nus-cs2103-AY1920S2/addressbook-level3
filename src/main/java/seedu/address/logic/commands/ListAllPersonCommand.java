@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class ListAllPersonCommand implements AppCommand, UserStorageAccess {
-    public static final String COMMAND_WORD = "users";
+    public static final String COMMAND_WORD = "person";
 
     private final Logger logger = LogsCenter.getLogger(FilterTimestampCommand.class);
 

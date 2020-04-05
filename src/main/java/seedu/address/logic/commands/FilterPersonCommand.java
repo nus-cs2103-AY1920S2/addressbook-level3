@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class FilterPersonCommand implements AppCommand, UserStorageAccess {
     private static int PERSON_ID;
 
-    public static final String COMMAND_WORD = "users_by";
+    public static final String COMMAND_WORD = "person_by";
     private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<personId>\\d+)");
     private final Logger logger = LogsCenter.getLogger(FilterTimestampCommand.class);
 
