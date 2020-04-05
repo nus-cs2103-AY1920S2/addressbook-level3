@@ -25,7 +25,8 @@ public class CommandResult {
         GOTO_SESSION,
         GOTO_CLAIMS,
         HELP,
-        NONE
+        LIST,
+        NONE;
     }
 
     private final Action nextAction;
