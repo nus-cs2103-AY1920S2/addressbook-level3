@@ -8,15 +8,17 @@ import java.util.Comparator;
 public class DeadlineComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {
-        if (a1.getStatus().status.equals("Completed") && a2.getStatus().status.equals("Not completed")) {
+        if (a1.getStatus().status.equals(Status.ASSIGNMENT_DONE)
+            && a2.getStatus().status.equals(Status.ASSIGNMENT_OUTSTANDING)) {
             return 1;
-        } else if (a2.getStatus().status.equals("Completed") && a1.getStatus().status.equals("Not completed")) {
+        } else if (a2.getStatus().status.equals(Status.ASSIGNMENT_DONE)
+            && a1.getStatus().status.equals(Status.ASSIGNMENT_OUTSTANDING)) {
             return -1;
         } else {
             if (a1.getDeadline().getDateTime().isEqual(a2.getDeadline().getDateTime())) {
-                if (Integer.parseInt(a1.getWorkload().estHours) == Integer.parseInt(a2.getWorkload().estHours)) {
+                if (Float.parseFloat(a1.getWorkload().estHours) == Float.parseFloat(a2.getWorkload().estHours)) {
                     return 0;
-                } else if (Integer.parseInt(a1.getWorkload().estHours) > Integer.parseInt(a2.getWorkload().estHours)) {
+                } else if (Float.parseFloat(a1.getWorkload().estHours) > Float.parseFloat(a2.getWorkload().estHours)) {
                     return 1;
                 } else {
                     return -1;

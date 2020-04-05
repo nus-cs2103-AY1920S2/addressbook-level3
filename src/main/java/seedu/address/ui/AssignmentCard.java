@@ -1,11 +1,17 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.Status;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -31,7 +37,7 @@ public class AssignmentCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private FlowPane status;
+    private Label status;
     @FXML
     private Label title;
     @FXML
@@ -43,7 +49,17 @@ public class AssignmentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         deadline.setText(assignment.getDeadline().toString());
         title.setText(assignment.getTitle().title);
-        status.getChildren().add(new Label(assignment.getStatus().status));
+        status.setText(" " + assignment.getStatus().status + " ");
+
+        status.setStyle("-fx-text-fill: #000");
+        if (assignment.getStatus().status.equals(Status.ASSIGNMENT_OUTSTANDING)) {
+            status.setBackground(new Background(new BackgroundFill(Color.rgb(255, 87, 51),
+                CornerRadii.EMPTY, Insets.EMPTY)));
+        } else {
+            status.setBackground(new Background(new BackgroundFill(Color.rgb(218, 247, 166),
+                CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+
         workload.setText(assignment.getWorkload().estHours);
     }
 

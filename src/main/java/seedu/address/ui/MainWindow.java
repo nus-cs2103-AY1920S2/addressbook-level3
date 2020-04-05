@@ -187,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Display assignment on third panel.
+     * Display assignments on third panel.
      */
     @FXML
     private void handleAssignment() {

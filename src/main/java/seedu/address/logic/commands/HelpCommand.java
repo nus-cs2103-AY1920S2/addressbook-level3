@@ -48,9 +48,9 @@ public class HelpCommand extends Command {
             + "22. " + "(rt)search [Coming Soon]\n"
             + "\nSchoolwork Tracker Commands:\n"
             + "23. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "24. " + "(st)delete [Coming Soon]\n"
+            + "24. " + DeleteAssignmentCommand.COMMAND_WORD + ": " + DeleteAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "25. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "26. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
+            + "26. " + EditAssignmentCommand.COMMAND_WORD + ": " + EditAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "27. " + ScheduleCommand.COMMAND_WORD + ": " + ScheduleCommand.COMMAND_FUNCTION + "\n"
             + "\nEvent Book Commands:\n"
             + "28. " + AddEventCommand.COMMAND_WORD + ": " + AddEventCommand.COMMAND_FUNCTION + "\n"
@@ -100,9 +100,9 @@ public class HelpCommand extends Command {
         commands.add("21. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("22. " + "Coming Soon" + "\n");
         commands.add("23. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("24. " + "Coming Soon" + "\n");
+        commands.add("24. " + DeleteAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("25. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("26. " + DoneCommand.MESSAGE_USAGE + "\n");
+        commands.add("26. " + EditAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("27. " + ScheduleCommand.MESSAGE_USAGE + "\n");
         commands.add("28. " + AddEventCommand.MESSAGE_USAGE + "\n");
         commands.add("29. " + ListEventCommand.MESSAGE_USAGE + "\n");

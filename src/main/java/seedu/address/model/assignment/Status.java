@@ -1,5 +1,6 @@
 package seedu.address.model.assignment;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -8,14 +9,21 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Status {
     public static final String ASSIGNMENT_DONE = "Completed";
-    public static final String ASSIGNMENT_OUTSTANDING = "Not completed";
+    public static final String ASSIGNMENT_OUTSTANDING = "Uncompleted";
+    public static final String MESSAGE_CONSTRAINTS = "Status can only be " + ASSIGNMENT_DONE + " or "
+        + ASSIGNMENT_OUTSTANDING;
 
     // Instance variable
     public final String status;
 
     public Status(String status) {
         requireAllNonNull(status);
+        checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
         this.status = status;
+    }
+
+    public static boolean isValidStatus(String status) {
+        return status.equals(ASSIGNMENT_OUTSTANDING) || status.equals(ASSIGNMENT_DONE);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -48,8 +49,8 @@ public class AddAssignmentCommand extends Command {
         }
 
         model.addAssignment(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false,
-                false, true, false, false, false, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
+            false, false, false, true, false, false, false, false);
     }
 
     @Override

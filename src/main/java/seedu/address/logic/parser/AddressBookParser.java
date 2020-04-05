@@ -14,10 +14,11 @@ import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.commands.AddRestaurantNoteCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteInfoCommand;
 import seedu.address.logic.commands.DeleteRestaurantCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditInfoCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -33,7 +34,6 @@ import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowBirthdayCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.VisitedRestaurantCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -85,11 +85,14 @@ public class AddressBookParser {
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommandParser().parse(arguments);
 
+        case DeleteAssignmentCommand.COMMAND_WORD:
+            return new DeleteAssignmentCommandParser().parse(arguments);
+
+        case EditAssignmentCommand.COMMAND_WORD:
+            return new EditAssignmentCommandParser().parse(arguments);
+
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
-
-        case DoneCommand.COMMAND_WORD:
-            return new DoneCommandParser().parse(arguments);
 
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommandParser().parse(arguments);

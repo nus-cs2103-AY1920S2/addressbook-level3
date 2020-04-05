@@ -55,10 +55,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `(ab)add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+*  Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `(ab)add n/John Doe`.
+*  Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+*  Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+*  Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === General Commands
@@ -290,9 +290,9 @@ Adds a new assignment to your list of assignments and projects. +
 Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 ****
-* DEADLINE must be entered in a yyyy-mm-dd HH:mm format.
-* DEADLINE cannot be one that has already passed.
-* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment.
+* DEADLINE must be entered in a yyyy-mm-dd HH:mm format and cannot be one that has already passed.
+* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
+* You will not be able to add two assignments with both the same name and deadline.
 ****
 
 Examples:
@@ -309,13 +309,17 @@ Format: `(st)delete INDEX`
 * INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see below).
 ****
 
-==== List current assignments : `(st)list`
+==== Edits an assignment: `(st)edit`
 
-Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. By default, it sorts the list in alphabetical order. +
-Format: `(st)list [-d/DEADLINE] [-e/ESTIMATED_COMPLETION_TIME]`
+Marks an assignment as completed. +
+Format: `(st)edit INDEX [t/TITLE] [e/ESTIMATED_COMPLETION_TIME] [d/DEADLINE] [s/STATUS]`
 
 ****
-* Only 1 field can be specified at each time
+* INDEX must be a positive integer. It corresponds to the INDEX of the assignment as shown when you list all assignments in the Schoolwork Tracker using the default list function (see below).
+* DEADLINE must be entered in a yyyy-mm-dd HH:mm format and cannot be one that has already passed.
+* ESTIMATED_COMPLETION_TIME is the number of hours expected to finish the assignment, rounded off to the nearest half an hour.
+* STATUS can only be `Completed` or `Uncompleted`.
+* At least one optional field needs to be specified.
 ****
 
 ==== List current assignments : `(st)list`

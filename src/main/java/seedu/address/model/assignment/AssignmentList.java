@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -129,18 +130,17 @@ public class AssignmentList {
         return true;
     }
 
-
     public ObservableList<Day> getScheduleVisualList() {
         return scheduleVisual;
     }
 
     /**
      * Populates an unmodifiable view of the intensity of the user's upcoming schedule for the next n days (including
-     * today) calculated based on stored assignments, their deadlines and estimated hours per assignment.
+     * today) calculated based on uncompleted stored assignments, their deadlines and estimated hours per assignment.
      *
      * @param numDays The number of days the user would like to display.
      *
-     * Aim is to have the workload as evenly spread out across days (from current date to deadline).
+     * Aim is to have the workload as evenly spread out across days (from current date to deadline) as possible.
      */
     public void calculateScheduleIntensity(int numDays) {
         ArrayList<Float> hoursPerDayList = new ArrayList<Float>();
@@ -166,14 +166,17 @@ public class AssignmentList {
 
         for (int j = 0; j < assignmentList.size(); j++) {
             String assignmentStatus = assignmentList.get(j).getStatus().status;
-            LocalDateTime deadline = assignmentList.get(j).getDeadline().dateTime;
-            float estHours = Float.parseFloat(assignmentList.get(j).getWorkload().estHours);
-            int noOfDaysBetween = (int) ChronoUnit.DAYS.between(currDateTime.toLocalDate(), deadline.toLocalDate());
 
-            calculate(hoursPerDayList, assignmentStatus, deadline, estHours, noOfDaysBetween, currDateTime);
+            if (assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
+                LocalDateTime deadline = assignmentList.get(j).getDeadline().dateTime;
+                float estHours = Float.parseFloat(assignmentList.get(j).getWorkload().estHours);
+                int noOfDaysBetween = (int) ChronoUnit.DAYS.between(currDateTime.toLocalDate(), deadline.toLocalDate());
 
-            if (noOfDaysBetween < numDays && assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
-                scheduleVisual.get(noOfDaysBetween).addDueAssignment(assignmentList.get(j).getTitle().title);
+                calculate(hoursPerDayList, deadline, estHours, noOfDaysBetween, currDateTime);
+
+                if (noOfDaysBetween < numDays) {
+                    scheduleVisual.get(noOfDaysBetween).addDueAssignment(assignmentList.get(j).getTitle().title);
+                }
             }
         }
 
@@ -185,23 +188,26 @@ public class AssignmentList {
 
     /**
      * Allocates the current assignments estimated workload across several days (today included).
-     * Allocates the time to the date of submission as well.
+     * Allocates the time to the date of submission as well if the timing falls beyond 12pm.
      */
-    // TODO: Take care of deadline...
-    public void calculate(ArrayList<Float> hoursPerDayList, String assignmentStatus, LocalDateTime deadline,
-                          float estHours, int noOfDaysBetween, LocalDateTime dateTime) {
+    public void calculate(ArrayList<Float> hoursPerDayList, LocalDateTime deadline, float estHours, int noOfDaysBetween,
+                           LocalDateTime dateTime) {
 
-        if (noOfDaysBetween == 0 && assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
+        if (noOfDaysBetween == 0) {
             float diffInHours = java.time.Duration.between(dateTime, deadline).toHours();
 
             hoursPerDayList.set(0, hoursPerDayList.get(0) + Math.min(diffInHours, estHours));
 
-        } else if (noOfDaysBetween > 0 && assignmentStatus.equals(Status.ASSIGNMENT_OUTSTANDING)) {
+        } else if (noOfDaysBetween > 0) {
             float[] currMinMax = getMinMax(hoursPerDayList, noOfDaysBetween);
 
             // Allocate hours to new days first (if any)
             int numNewDays = noOfDaysBetween - (hoursPerDayList.size() - 1);
             float hoursToAdd = estHours / numNewDays;
+
+            if (deadline.toLocalTime().isBefore(LocalTime.NOON)) {
+                numNewDays -= 1;
+            }
 
             for (int i = 0; i < numNewDays; i++) {
                 hoursPerDayList.add(Math.min(currMinMax[0], hoursToAdd));
