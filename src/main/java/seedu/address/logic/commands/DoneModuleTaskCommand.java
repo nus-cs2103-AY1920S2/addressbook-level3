@@ -9,16 +9,16 @@ import seedu.address.model.Model;
 import seedu.address.model.nusmodule.ModuleCode;
 
 /**
- * Deletes a task of certain module identified using it's displayed index from the module book.
+ * Mark a task of certain module identified using it's displayed index from the module book as done.
  */
-public class DeleteModuleTaskCommand extends DeleteTaskCommand {
+public class DoneModuleTaskCommand extends DoneCommand {
 
-    public static final String MESSAGE_SUCCESS = "Task Deleted: ";
+    public static final String MESSAGE_SUCCESS = "Task done: ";
 
     private final Index targetIndex;
     private final ModuleCode targetModule;
 
-    public DeleteModuleTaskCommand(ModuleCode moduleCode, Index targetIndex) {
+    public DoneModuleTaskCommand(ModuleCode moduleCode, Index targetIndex) {
         requireNonNull(targetIndex);
         requireNonNull(moduleCode);
         this.targetIndex = targetIndex;
@@ -37,7 +37,7 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_TASK_INDEX);
         }
 
-        model.deleteModuleTask(targetModule, targetIndex);
+        model.doneModuleTask(targetModule, targetIndex);
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
                 + targetIndex.getOneBased());
     }
@@ -45,9 +45,8 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteModuleTaskCommand // instanceof handles nulls
-                && targetModule.equals(((DeleteModuleTaskCommand) other).targetModule)
-                && targetIndex.equals(((DeleteModuleTaskCommand) other).targetIndex));
+                || (other instanceof DoneModuleTaskCommand // instanceof handles nulls
+                && targetModule.equals(((DoneModuleTaskCommand) other).targetModule)
+                && targetIndex.equals(((DoneModuleTaskCommand) other).targetIndex));
     }
 }
-

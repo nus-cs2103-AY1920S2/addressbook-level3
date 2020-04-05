@@ -25,7 +25,7 @@ public class ModuleTaskCommand extends Command {
             + "Parameters: "
             + PREFIX_TASK_DESC + "Description "
             + PREFIX_MODULE_CODE + "Module related "
-            + PREFIX_MODULETASK_TIMING + "Timing of the task "
+            + PREFIX_MODULETASK_TIMING + "Timing of the task (in the format of {YYYY-MM-DD})"
             + PREFIX_PRIORITY + "Priority "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_DESC + "Tutorial 08 "

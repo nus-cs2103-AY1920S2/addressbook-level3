@@ -222,6 +222,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void doneModuleTask(ModuleCode moduleCode, Index index) {
+        moduleBook.doneModuleTask(moduleCode, index);
+    }
+
+    @Override
     public void addModuleTask(ModuleTask moduleTask) {
         moduleBook.addModuleTask(moduleTask);
     }
