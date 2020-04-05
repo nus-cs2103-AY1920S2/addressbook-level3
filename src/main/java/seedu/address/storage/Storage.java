@@ -11,13 +11,15 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
-import seedu.address.storage.storageStudent.StudentAddressBookStorage;
+import seedu.address.storage.storageProgress.ProgressAddressBookStorage;
 import seedu.address.storage.storageStaff.StaffAddressBookStorage;
+import seedu.address.storage.storageStudent.StudentAddressBookStorage;
 
 /**
  * API of the Storage component
@@ -25,6 +27,7 @@ import seedu.address.storage.storageStaff.StaffAddressBookStorage;
 public interface Storage extends AddressBookStorage, StaffAddressBookStorage,
     StudentAddressBookStorage,
     FinanceAddressBookStorage, CourseAddressBookStorage, AssignmentAddressBookStorage,
+    ProgressAddressBookStorage,
         UserPrefsStorage {
 
   @Override
@@ -98,6 +101,17 @@ public interface Storage extends AddressBookStorage, StaffAddressBookStorage,
 
   @Override
   void saveAssignmentAddressBook(ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) throws IOException;
+
+  ///
+  @Override
+  Path getProgressAddressBookFilePath();
+
+  @Override
+  Optional<ReadOnlyAddressBookGeneric<Progress>> readProgressAddressBook()
+      throws DataConversionException, IOException;
+
+  @Override
+  void saveProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) throws IOException;
 
 
 }

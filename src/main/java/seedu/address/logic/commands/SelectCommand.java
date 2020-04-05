@@ -3,19 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.manager.DetailManager;
 import seedu.address.model.Model;
-import seedu.address.model.modelAssignment.AssignmentIDContainsKeywordsPredicate;
-import seedu.address.model.modelCourse.Course;
-import seedu.address.model.modelCourse.CourseIDContainsKeywordsPredicate;
-import seedu.address.model.modelFinance.FinanceIDContainsKeywordsPredicate;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelStudent.StudentIDContainsKeywordsPredicate;
-import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStaff.StaffIDContainsKeywordsPredicate;
 import seedu.address.model.person.ID;
 
 /**
@@ -27,10 +18,9 @@ public class SelectCommand extends Command {
   public static final String COMMAND_WORD = "select";
 
   public static final String MESSAGE_USAGE =
-      COMMAND_WORD + ": Finds all courses whose names contain any of "
-          + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-          + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-          + "Example: " + COMMAND_WORD + " alice bob charlie";
+      COMMAND_WORD + ": Selects an item.\n"
+          + "Parameters: [PREFIX] + \"ID\"\n"
+          + "Example: " + COMMAND_WORD + " cid/ 1";
 
   public DetailManager detailManager = DetailManager.getInstance();
 
@@ -48,7 +38,7 @@ public class SelectCommand extends Command {
   public CommandResult execute(Model model) throws CommandException {
     requireNonNull(model);
     detailManager.updateDetails(positions, selectMetaDataIDs);
-    return new CommandResult("a");
+    return new CommandResult("Selected item.");
   }
 
 }

@@ -34,6 +34,8 @@ public class FinanceCard extends UiPart<Region> {
   private Label id;
   @FXML
   private Label financeType;
+  @FXML
+  private Label financeID;
 
   private CommandBox commandBox;
 
@@ -44,6 +46,7 @@ public class FinanceCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     name.setText(finance.getName().fullName);
     financeType.setText(finance.getFinanceType().toString());
+    financeID.setText(finance.getId().value);
   }
 
   @Override
@@ -62,5 +65,12 @@ public class FinanceCard extends UiPart<Region> {
     FinanceCard card = (FinanceCard) other;
     return id.getText().equals(card.id.getText())
         && finance.equals(card.finance);
+  }
+
+  @FXML
+  private void selectFinance(){
+    String selectedFinanceID = financeID.getText();
+    String commandText = "select fid/" + selectedFinanceID;
+    commandBox.runCommand(commandText, "FINANCE");
   }
 }

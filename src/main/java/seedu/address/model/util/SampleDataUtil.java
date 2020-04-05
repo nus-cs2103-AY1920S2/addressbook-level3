@@ -12,14 +12,16 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
+import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.CompositeID;
 import seedu.address.model.person.Date;
-import seedu.address.model.person.Deadline;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.FinanceType;
 import seedu.address.model.person.Gender;
@@ -152,11 +154,11 @@ public class SampleDataUtil {
 
   public static Finance[] getSampleFinances() {
     return new Finance[]{
-        new Finance(new Name("Renovated Staff Lounge"), new FinanceType("m"),
+        new Finance(new Name("Renovated Staff Lounge"), new ID("801"), new FinanceType("m"),
             new Date("2020-08-20"),
             new Amount("2000"),
             getTagSet("BLK71", "AirCon")),
-        new Finance(new Name("Received Payment From NUS"), new FinanceType("m"),
+        new Finance(new Name("Received Payment From NUS"), new ID("802"), new FinanceType("m"),
             new Date("2020-08-21"),
             new Amount("1000"),
             getTagSet("Contract"))
@@ -285,6 +287,179 @@ public class SampleDataUtil {
     AssignmentAddressBook sampleAb = new AssignmentAddressBook();
     for (Assignment sampleAssignment : getSampleAssignments()) {
       sampleAb.add(sampleAssignment);
+    }
+    return sampleAb;
+  }
+
+  public static Progress[] getSampleProgresses() {
+    //CompositeID: assignmentID, studentID
+    return new Progress[]{
+        new Progress(new CompositeID(new ID("901"), new ID("11")), false),
+        new Progress(new CompositeID(new ID("902"), new ID("11")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("11")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("11")), false),
+        new Progress(new CompositeID(new ID("917"), new ID("11")), false),
+        new Progress(new CompositeID(new ID("918"), new ID("11")), false),
+
+        new Progress(new CompositeID(new ID("901"), new ID("12")), false),
+        new Progress(new CompositeID(new ID("902"), new ID("12")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("12")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("12")), false),
+        new Progress(new CompositeID(new ID("911"), new ID("12")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("12")), false),
+
+        new Progress(new CompositeID(new ID("911"), new ID("13")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("13")), false),
+        new Progress(new CompositeID(new ID("917"), new ID("13")), false),
+        new Progress(new CompositeID(new ID("918"), new ID("13")), false),
+
+        new Progress(new CompositeID(new ID("901"), new ID("14")), false),
+        new Progress(new CompositeID(new ID("902"), new ID("14")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("14")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("14")), false),
+
+        new Progress(new CompositeID(new ID("901"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("902"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("911"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("917"), new ID("15")), false),
+        new Progress(new CompositeID(new ID("918"), new ID("15")), false),
+
+        new Progress(new CompositeID(new ID("901"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("902"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("917"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("918"), new ID("16")), false),
+
+        new Progress(new CompositeID(new ID("901"), new ID("17")), false),
+        new Progress(new CompositeID(new ID("902"), new ID("17")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("17")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("17")), false),
+        new Progress(new CompositeID(new ID("911"), new ID("17")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("17")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("911"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("917"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("918"), new ID("18")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("907"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("908"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("915"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("916"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("917"), new ID("19")), false),
+        new Progress(new CompositeID(new ID("918"), new ID("19")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("20")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("20")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("20")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("20")), false),
+        new Progress(new CompositeID(new ID("915"), new ID("20")), false),
+        new Progress(new CompositeID(new ID("916"), new ID("20")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("915"), new ID("21")), false),
+        new Progress(new CompositeID(new ID("916"), new ID("21")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("913"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("915"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("916"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("22")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("22")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("913"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("915"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("916"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("23")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("23")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("913"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("24")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("24")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("913"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("25")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("25")), false),
+
+        new Progress(new CompositeID(new ID("903"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("904"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("905"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("913"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("26")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("26")), false),
+
+        new Progress(new CompositeID(new ID("905"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("906"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("909"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("910"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("913"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("27")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("27")), false),
+
+        new Progress(new CompositeID(new ID("913"), new ID("28")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("28")), false),
+        new Progress(new CompositeID(new ID("919"), new ID("28")), false),
+        new Progress(new CompositeID(new ID("920"), new ID("28")), false),
+
+        new Progress(new CompositeID(new ID("913"), new ID("29")), false),
+        new Progress(new CompositeID(new ID("914"), new ID("29")), false),
+    };
+  }
+
+  public static ReadOnlyAddressBookGeneric<Progress> getSampleProgressAddressBook()
+       {
+    ProgressAddressBook sampleAb = new ProgressAddressBook();
+    for (Progress sampleProgress : getSampleProgresses()) {
+      sampleAb.add(sampleProgress);
     }
     return sampleAb;
   }

@@ -64,4 +64,11 @@ public class AssignmentCard extends UiPart<Region> {
         && assignment.equals(card.assignment);
   }
 
+  @FXML
+  private void selectAssignment(){
+    String selectedAssignmentID = assignmentID.getText();
+    String commandText = "select aid/" + selectedAssignmentID;
+    commandBox.runCommand(commandText, "ASSIGNMENT");
+  }
+
 }

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.UuidManager;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Date;
@@ -24,6 +26,7 @@ public class Finance extends ModelObject {
   // Identity fields
   private final String ENTITY_NAME = "Finance";
   private final Name name;
+  private final ID id;
   private final FinanceType financeType;
   private final Date date;
   private final Amount amount;
@@ -35,9 +38,24 @@ public class Finance extends ModelObject {
   /**
    * A finance object not tied to any modelObjects.
    */
-  public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, Set<Tag> tags)
+      throws ParseException {
     requireAllNonNull(name, financeType, amount, tags);
     this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.financeType = financeType;
+    this.date = date;
+    this.amount = amount;
+    this.tags.addAll(tags);
+    this.courseid = new ID();
+    this.studentid = new ID();
+    this.staffid = new ID();
+  }
+
+  public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, Set<Tag> tags) {
+    requireAllNonNull(name, financeType, amount, tags);
+    this.name = name;
+    this.id = id;
     this.financeType = financeType;
     this.date = date;
     this.amount = amount;
@@ -50,9 +68,32 @@ public class Finance extends ModelObject {
   /**
    * Every field must be present and not null.
    */
-  public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags) {
-    this(name, financeType, date, amount, tags);
+  public Finance(Name name, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
+      throws ParseException {
     requireAllNonNull(courseid, studentid, staffid);
+    this.name = name;
+    this.id = UuidManager.assignNewUUID(this);
+    this.financeType = financeType;
+    this.date = date;
+    this.amount = amount;
+    this.tags.addAll(tags);
+    this.courseid = courseid;
+    this.studentid = studentid;
+    this.staffid = staffid;
+  }
+
+  /**
+   * Every field must be present and not null.
+   */
+  public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
+      throws ParseException {
+    requireAllNonNull(courseid, studentid, staffid);
+    this.name = name;
+    this.id = id;
+    this.financeType = financeType;
+    this.date = date;
+    this.amount = amount;
+    this.tags.addAll(tags);
     this.courseid = courseid;
     this.studentid = studentid;
     this.staffid = staffid;
@@ -60,6 +101,10 @@ public class Finance extends ModelObject {
 
   public Name getName() {
     return name;
+  }
+
+  public ID getId() {
+    return id;
   }
 
   public FinanceType getFinanceType() {
@@ -91,12 +136,6 @@ public class Finance extends ModelObject {
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
-  }
-
-  @Override
-  public ID getId() {
-    // should never be used
-    return courseid;
   }
 
   /**

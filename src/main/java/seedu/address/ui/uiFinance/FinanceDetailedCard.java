@@ -42,6 +42,8 @@ public class FinanceDetailedCard extends UiPart<Region> {
   private Label amount;
   @FXML
   private FlowPane tags;
+  @FXML
+  private Label financeID;
 
   private CommandBox commandBox;
 
@@ -54,6 +56,7 @@ public class FinanceDetailedCard extends UiPart<Region> {
     financeType.setText(finance.getFinanceType().toString());
     date.setText(finance.getDate().value);
     amount.setText(finance.getAmount().value);
+    financeID.setText(finance.getId().value);
     finance.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
