@@ -95,7 +95,7 @@ After setting up the program, the first thing you might want to do is to add you
 
 The format of the command is:
 
-`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
+`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [g/GENDER] [b/BIRTHDAY] [h/HEIGHT] [cw/CURRENT_WEIGHT] [tw/TARGET_WEIGHT] [r/REMARK] [s/SPORT]… [t/TAG]…`
 
 Here are some things to note:
 
@@ -105,6 +105,7 @@ Here are some things to note:
 * `e/EMAIL` needs to be a valid email
 * `a/ADDRESS` can be any value
 * `g/GENDER` is case insensitive and can be `male` or `m` for male, `female` or `f` for female, `others` or `o` for others
+* `b/BIRTHDAY` should be in the format DD-MM-YYYY and must be before today's date
 * `h/HEIGHT` is in cm and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
 * `cw/CURRENT_WEIGHT` is in kg and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
 * `tw/TARGET_WEIGHT` is in kg and must be non-negative. It can either be a whole number with maximum 3 digits or a decimal with maximum of 2 decimal places
