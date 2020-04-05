@@ -62,7 +62,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
                 return new HelpCommand(preface + UnFavCommand.MESSAGE_USAGE + ending);
 
             case ResetCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_RESET" + ending);
+                return new HelpCommand(preface + ResetCommand.MESSAGE_USAGE + ending);
 
             case ViewCommand.COMMAND_WORD:
                 return new HelpCommand(preface + ViewCommand.MESSAGE_USAGE + ending);
@@ -71,7 +71,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
                 return new HelpCommand(preface + FindCommand.MESSAGE_USAGE + ending);
 
             case ListCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_LIST" + ending);
+                return new HelpCommand(preface + ListCommand.MESSAGE_USAGE + ending);
 
             case RandomCommand.COMMAND_WORD:
                 return new HelpCommand(preface + RandomCommand.MESSAGE_USAGE + ending);
@@ -80,10 +80,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
                 return new HelpCommand(preface + TimeCommand.MESSAGE_USAGE + ending);
 
             case CountCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_COUNT" + ending);
+                return new HelpCommand(preface + CountCommand.MESSAGE_USAGE + ending);
 
             case ExitCommand.COMMAND_WORD:
-                return new HelpCommand(preface + "TBA_EXIT" + ending);
+                return new HelpCommand(preface + ExitCommand.COMMAND_USAGE + ending);
 
             default:
                 throw new ParseException("Invalid Command chosen!");
