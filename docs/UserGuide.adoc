@@ -44,7 +44,7 @@ Similar to most modern CLIs, users of FitBiz can press the kbd:[&uarr;] and kbd:
 First, start by typing anything into the Command Box. It _does not_ have to be a valid command as explained in <<Commands>>. In our example, we chose to type `Hello World`:
 
 // diagram for hello world command box
-image::command-history-auto-complete.png[]
+image::command-history-hello-world.png[]
 
 Next, hit the kbd:[Enter] key to enter the command into FitBiz. Notice that whatever you have typed in the Command Box should have disappeared. If you did not enter a valid command (like `Hello World`), you would have been prompted by a message saying `Unknown command` in the Result Box like shown:
 
