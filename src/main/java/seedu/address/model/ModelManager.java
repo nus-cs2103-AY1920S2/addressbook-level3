@@ -95,10 +95,6 @@ public class ModelManager extends BaseManager implements Model {
     requireAllNonNull(staffAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
         assignmentAddressBook, progressAssignmentBook, userPrefs);
 
-    logger.info("Model Manager check:" + assignmentAddressBook.toString());
-
-    logger.info("Model Manager check:" + assignmentAddressBook.toString());
-
     logger.fine("Initializing with address book: " + studentAddressBook
         + "Initializing with staff address book: " + staffAddressBook
         + "Initializing with address address book: " + assignmentAddressBook
@@ -134,7 +130,7 @@ public class ModelManager extends BaseManager implements Model {
       staff.processAssignedCourses(filteredCourses);
     }
 
-    this.instance = this;
+   instance = this;
 
   }
 

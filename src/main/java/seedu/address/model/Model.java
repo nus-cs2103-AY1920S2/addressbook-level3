@@ -107,10 +107,6 @@ public interface Model {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
-
-    ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException;
-
     /**
      * Returns an unmodifiable view of the filtered person list
      */
@@ -469,4 +465,6 @@ public interface Model {
     Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
 
     AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
+
+  ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject modelObject) throws CommandException;
 }

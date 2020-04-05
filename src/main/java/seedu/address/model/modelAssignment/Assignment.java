@@ -3,7 +3,7 @@ package seedu.address.model.modelAssignment;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.Deadline;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -24,14 +24,14 @@ public class Assignment extends ModelObject {
   private final Name name;
   private final ID id;
   private ID assignedCourseID;
-  private final Deadline deadline;
+  private final Date deadline;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
    */
 
-  public Assignment(Name name, Deadline deadline, Set<Tag> tags) throws ParseException {
+  public Assignment(Name name, Date deadline, Set<Tag> tags) throws ParseException {
     requireAllNonNull(name, deadline, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
@@ -39,7 +39,7 @@ public class Assignment extends ModelObject {
     this.tags.addAll(tags);
   }
 
-  public Assignment(Name name, ID assignmentId, Deadline deadline, Set<Tag> tags) {
+  public Assignment(Name name, ID assignmentId, Date deadline, Set<Tag> tags) {
     requireAllNonNull(name, assignmentId, deadline, tags);
     this.name = name;
     this.id = assignmentId;
@@ -47,7 +47,7 @@ public class Assignment extends ModelObject {
     this.tags.addAll(tags);
   }
 
-  public Assignment(Name name, ID assignmentId, ID courseID, Deadline deadline, Set<Tag> tags) {
+  public Assignment(Name name, ID assignmentId, ID courseID, Date deadline, Set<Tag> tags) {
     requireAllNonNull(name, assignmentId, deadline, tags);
     this.name = name;
     this.id = assignmentId;
@@ -64,7 +64,7 @@ public class Assignment extends ModelObject {
     return id;
   }
 
-  public Deadline getDeadline() {
+  public Date getDeadline() {
     return deadline;
   }
 

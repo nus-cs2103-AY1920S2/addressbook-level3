@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandUnassign.UnassignStudentFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
@@ -46,8 +47,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
-
+    protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
@@ -69,7 +69,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             if (assignedCourseContainsStudent) {
                 throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_STUDENT);
             } else if (assigningStudentContainsCourse) {
-            throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
+                throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
                 EdgeManager.assignStudentToCourse(studentID, courseID);
 
@@ -79,5 +79,10 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
             }
         }
+    }
+
+    @Override
+    protected void generateOppositeCommand() throws CommandException {
+        oppositeCommand = new UnassignStudentFromCourseCommand(this.assignDescriptor);
     }
 }

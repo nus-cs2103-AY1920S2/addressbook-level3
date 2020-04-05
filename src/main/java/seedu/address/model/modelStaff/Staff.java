@@ -122,6 +122,11 @@ public class Staff extends ModelObject {
     }
   }
 
+  public void removeCourse(ID courseid) {
+    this.assignedCoursesID.remove(courseid);
+  }
+
+
   public static boolean isValidLevel(String test) {
     String testTrimmed = test.toUpperCase().trim();
     return testTrimmed.equals(String.valueOf(Level.ADMIN)) || testTrimmed.equals(String.valueOf(Level.TEACHER));

@@ -5,6 +5,7 @@ import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -47,7 +48,7 @@ public class AddAssignmentCommandParser extends AddCommandParser {
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+    Date deadline = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DEADLINE).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
     Assignment Assignment = new Assignment(name, deadline, tagList);
