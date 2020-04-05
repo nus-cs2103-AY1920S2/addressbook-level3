@@ -177,7 +177,7 @@ public class AddCommandTest {
 
         @Override
         public Filter getFilter() {
-            return null;
+            return new Filter(null, null);
         }
 
         @Override
