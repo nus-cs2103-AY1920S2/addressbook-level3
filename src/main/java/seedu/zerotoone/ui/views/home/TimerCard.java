@@ -24,11 +24,11 @@ public class TimerCard extends UiPart<Region> {
 
     public TimerCard(Integer timeInMs) {
         super(FXML);
-        int secondsAbs = timeInMs / 1000;
-        int minutesAbs = secondsAbs / 60;
-        String hours = String.valueOf(minutesAbs / 60 % 24);
-        String minutes = String.valueOf(minutesAbs % 60);
-        String seconds = String.valueOf(secondsAbs % 60);
+        int seconds = timeInMs / 1000;
+        int minutes = seconds / 60;
+        int hours = minutes / 60 % 24;
+        minutes = minutes % 60;
+        seconds = seconds % 60;
         String timerString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         timer.setText(timerString);
     }
