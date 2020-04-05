@@ -5,12 +5,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteInfoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.ArrayList;
 
 /**
  * Parses input arguments and creates a new {@code DeleteInfoCommand} object

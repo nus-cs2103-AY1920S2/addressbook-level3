@@ -6,7 +6,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -66,7 +65,7 @@ public class DeleteInfoCommand extends Command {
             if (i > personToEdit.getRemark().size() || i < 0) {
                 throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
             } else {
-                remarks.add(personToEdit.getRemark().get(i-1));
+                remarks.add(personToEdit.getRemark().get(i - 1));
             }
         }
 
