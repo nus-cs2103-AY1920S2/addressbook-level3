@@ -177,16 +177,24 @@ are multiple same parameters for parameters that require only one parameter)
 
 === Adding a coupon: `add`
 
-Adds a coupon. Some fields like `name`, `expiry date` and `savings` are required. Optional fields like `promo code` and `tags` may be provided as well.
+Adds a coupon. Some fields like `name`, `expiry date` and `savings` are required.
+Optional fields like `promo code` and `tags` may be provided as well.
 
-Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
-[c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...`
+Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] [p/PROMO_CODE]
+[c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
 
 [TIP]
 A coupon can have any number of tags (including 0)
 
-[NOTE]
-`SAVINGS` and `FREE_ITEMS` share the same prefix
+****
+* Coupons must have at least one "savings" value, whether it is
+a flat monetary amount (e.g. $1.00), a percentage (e.g. 10%) or
+an item (e.g. Free Water Bottle).
+* Savings can be represented by multiple free items, but not multiple
+monetary amounts or percentage amounts.
+* Coupons cannot have both a monetary amount and a percentage amount.
+* To add more free items, use the same prefix as before!
+****
 
 Examples:
 
