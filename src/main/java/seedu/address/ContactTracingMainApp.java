@@ -10,8 +10,6 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.AppLogic;
 import seedu.address.logic.AppLogicManager;
-import seedu.address.storage.AppStorage;
-import seedu.address.storage.BluetoothPingsStorage;
 import seedu.address.ui.AppUiManager;
 import seedu.address.ui.Ui;
 
@@ -26,7 +24,6 @@ public class ContactTracingMainApp extends Application {
 
     protected Ui ui;
     protected AppLogic logic;
-    protected AppStorage storage;
     protected Config config;
 
     @Override
@@ -38,8 +35,7 @@ public class ContactTracingMainApp extends Application {
         this.config = initConfig(appParameters.getConfigPath());
         initLogging(this.config);
 
-        this.storage    = new BluetoothPingsStorage();
-        this.logic      = new AppLogicManager(this.storage);
+        this.logic      = new AppLogicManager();
         this.ui         = new AppUiManager(this.logic);
     }
 

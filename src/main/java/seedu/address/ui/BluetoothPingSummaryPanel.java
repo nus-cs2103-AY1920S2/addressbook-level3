@@ -14,7 +14,7 @@ public class BluetoothPingSummaryPanel extends UiPart<Region> {
     private static final String FXML = "BluetoothPingPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BluetoothPingSummaryPanel.class);
 
-    @javafx.fxml.FXML
+    @FXML
     private ListView<BluetoothPingsSummary> bluetoothPingsListView;
 
     public BluetoothPingSummaryPanel(ObservableList<BluetoothPingsSummary> bluetoothPingSummaryList) {

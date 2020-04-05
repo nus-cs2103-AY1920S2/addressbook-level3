@@ -6,6 +6,7 @@ import seedu.address.logic.commands.FilterTimestampCommand;
 import seedu.address.logic.commands.FilterUserIDCommand;
 import seedu.address.logic.commands.FilterUserPairsCommand;
 import seedu.address.logic.commands.FilterDangerCommand;
+import seedu.address.logic.commands.ListAllUsersCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +41,9 @@ public class CommandRouter {
 
         case FilterDangerCommand.COMMAND_WORD:
             return new FilterDangerCommand().validate(arguments);
+
+        case ListAllUsersCommand.COMMAND_WORD:
+            return new ListAllUsersCommand().validate(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -15,11 +15,9 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
     /**
      * Asserts that the user must always declare type M which is subclass of {@code AppStorage}
      *
-     * @param   dao        Data access object implementation
      * @throws  Exception
      */
-    public AppLogicManager(M dao) throws Exception {
-        assert (dao instanceof AppStorage);
+    public AppLogicManager() throws Exception {
     }
 
     @Override
