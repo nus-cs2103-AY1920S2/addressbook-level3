@@ -6,6 +6,7 @@ import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -21,8 +22,8 @@ public class BudgetCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
-        expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
+        expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs(), new GlobalData());
         expectedModel.setMonthlyData(new MonthlyData("1", new Budget("1500"),
                 new Expense("500"), new Income("2000")));
     }
@@ -32,6 +33,7 @@ public class BudgetCommandTest {
         CommandResult result = new BudgetCommand(1500.0).execute(model);
 
         assertEquals(String.format(BudgetCommand.MESSAGE_SUCCESS, 1500.00), result.getFeedbackToUser());
+        System.out.println(model.equals(expectedModel));
         assertEquals(model, expectedModel);
     }
 }

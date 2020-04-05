@@ -5,6 +5,7 @@ import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -15,8 +16,8 @@ public class ToggleCommandTest {
 
     @Test
     public void execute_toggleSwitch() {
-        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
-        expectedModel = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
+        expectedModel = new ModelManager(getTypicalExpenseLa(), new UserPrefs(), new GlobalData());
         expectedModel.switchToggleView();
 
         assertCommandSuccess(new ToggleCommand(), model, ToggleCommand.MESSAGE_SUCCESS, expectedModel);

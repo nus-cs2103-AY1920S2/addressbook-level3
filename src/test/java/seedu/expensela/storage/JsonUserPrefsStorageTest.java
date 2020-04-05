@@ -74,7 +74,6 @@ public class JsonUserPrefsStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setExpenseLaFilePath(Paths.get("expenseLa.json"));
-        userPrefs.setTotalBalance(0.0);
         return userPrefs;
     }
 

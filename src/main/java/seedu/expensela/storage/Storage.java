@@ -6,13 +6,14 @@ import java.util.Optional;
 
 import seedu.expensela.commons.exceptions.DataConversionException;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.ReadOnlyGlobalData;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExpenseLaStorage, UserPrefsStorage {
+public interface Storage extends ExpenseLaStorage, UserPrefsStorage, GlobalDataStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,4 +26,10 @@ public interface Storage extends ExpenseLaStorage, UserPrefsStorage {
 
     @Override
     void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException;
+
+    @Override
+    Path getGlobalDataFilePath();
+
+    @Override
+    void saveGlobalData(ReadOnlyGlobalData globalData) throws IOException;
 }

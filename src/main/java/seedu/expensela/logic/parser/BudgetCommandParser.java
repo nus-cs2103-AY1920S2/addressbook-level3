@@ -23,12 +23,15 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
     public BudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BUDGET, PREFIX_RECURRING);
-        if (!arePrefixesPresent(argMultimap, PREFIX_BUDGET, PREFIX_RECURRING)
+        if (!arePrefixesPresent(argMultimap, PREFIX_BUDGET)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
         try {
             Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get());
+            if (arePrefixesPresent(argMultimap, PREFIX_RECURRING)) {
+                // Create recurring budget
+            }
             return new BudgetCommand(budget.budgetAmount);
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
