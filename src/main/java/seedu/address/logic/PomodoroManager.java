@@ -187,9 +187,14 @@ public class PomodoroManager {
         timeline.playFromStart();
         timeline.setOnFinished(
                 event -> {
+                    PetManager petManager = model.getPetManager();
+                    petManager.incrementPomExp();
+                    petManager.updateDisplayElements();
+                    mainWindow.updatePetDisplay();
+
                     this.setPromptState(PROMPT_STATE.CHECK_DONE);
                     resultDisplay.setFeedbackToUser(CHECK_DONE_MESSAGE);
-                    model.incrementPomExp();
+
                     mainWindow.setPomCommandExecutor();
                     mainWindow.setTabFocusTasks();
                     model.setPomodoroTask(null);
@@ -310,10 +315,9 @@ public class PomodoroManager {
                         new Done("Y"),
                         updatedTags);
         model.setTask(taskToEdit, editedTask);
-        // Update pet exp
-        model.incrementExp();
         // Update stats
         model.updateDataDatesStatistics();
+
         LocalDateTime now = LocalDateTime.now();
         Date dateOnDone = new Date(now.format(Date.dateFormatter));
         Statistics stats = model.getStatistics();

@@ -92,7 +92,7 @@ public class MainApp extends Application {
 
         pomodoroManager = new PomodoroManager(model);
 
-        petManager = new PetManager();
+        PetManager petManager = new PetManager();
 
         pomodoroManager.setDefaultStartTime(Float.valueOf(model.getPomodoro().getDefaultTime()).floatValue());
 
