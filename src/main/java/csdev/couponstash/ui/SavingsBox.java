@@ -18,6 +18,10 @@ public class SavingsBox extends UiPart<Region> {
     private static final String HIDDEN = "visibility: hidden;";
     // allow CSS styles for each label in the FlowPane
     private static final String SAVEABLE_CLASS = "sv-label";
+    // make it more obvious that savings can exist without
+    // numerical but with saveable free items
+    private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 12;"
+            + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: #6c96be;";
     // controls font size of number amount
     private static final int BASE_FONT_SIZE = 125;
     // if no saveables, translate numerical amount
@@ -56,7 +60,8 @@ public class SavingsBox extends UiPart<Region> {
         // handle numerical value
         String savingsNumber = getSavingsString(s, moneySymbol);
         if (savingsNumber.isBlank()) {
-            this.numericalAmount.setStyle(SavingsBox.HIDDEN);
+            this.numericalAmount.setText("(no amount)");
+            this.numericalAmount.setStyle(SavingsBox.NO_NUMERICAL_AMOUNT_STYLE);
         } else {
             this.numericalAmount.setText(savingsNumber);
             // resize numerical amount dynamically
