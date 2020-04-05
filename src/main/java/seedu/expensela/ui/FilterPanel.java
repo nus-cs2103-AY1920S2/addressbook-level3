@@ -24,12 +24,6 @@ public class FilterPanel extends UiPart<Region> {
     private final Filter filter;
 
     @FXML
-    private Label filterCategoryLabel;
-
-    @FXML
-    private Label filterMonthLabel;
-
-    @FXML
     private FlowPane filterCategory;
 
     @FXML
@@ -38,10 +32,8 @@ public class FilterPanel extends UiPart<Region> {
     public FilterPanel(Filter filter) {
         super(FXML);
         this.filter = filter;
-        filterCategoryLabel.setText("Category: ");
-        filterCategory.getChildren().add(getColouredCategoryLabel(filter.getFilterCategoryName()));
-        filterMonthLabel.setText("Month: ");
-        filterDateMonth.getChildren().add(getColouredDateLabel(filter.getDateMonth()));
+        filterCategory.getChildren().add(getColouredCategoryLabel("Category: " + filter.getFilterCategoryName()));
+        filterDateMonth.getChildren().add(getColouredDateLabel("Month: " + filter.getDateMonth()));
     }
 }
 

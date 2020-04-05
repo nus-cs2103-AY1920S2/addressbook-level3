@@ -394,3 +394,7 @@
 .filter-category {
     -text-fill: white;
 }
+
+.hbox {
+    -fx-padding: 0;
+}

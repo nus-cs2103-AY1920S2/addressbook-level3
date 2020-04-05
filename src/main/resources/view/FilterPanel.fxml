@@ -6,10 +6,8 @@
 <?import javafx.scene.layout.Region?>
 
 <?import javafx.scene.layout.FlowPane?>
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="filterCategoryLabel" styleClass="filter-label-left"/>
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" styleClass="hbox">
     <FlowPane fx:id="filterCategory"/>
     <Region prefHeight="20.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
-    <Label fx:id="filterMonthLabel" styleClass="filter-label-right"/>
     <FlowPane fx:id="filterDateMonth" prefWidth="20.0"/>
 </HBox>
