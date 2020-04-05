@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
+import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
@@ -25,6 +27,7 @@ public class Task {
     private final Done done;
     private final Set<Tag> tags = new HashSet<>();
     private final Optional<Reminder> optionalReminder;
+    private final Optional<Recurring> optionalRecurring;
 
     /** Every field must be present and not null. */
     public Task(
@@ -33,7 +36,9 @@ public class Task {
             Description description,
             Done done,
             Set<Tag> tags,
-            Optional<Reminder> optionalReminder) {
+            Optional<Reminder> optionalReminder,
+            Optional<Recurring> optionalRecurring
+            ) {
         requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
@@ -41,6 +46,7 @@ public class Task {
         this.done = done;
         this.tags.addAll(tags);
         this.optionalReminder = optionalReminder;
+        this.optionalRecurring = optionalRecurring;
         triggerReminderIfPresent();
     }
 
@@ -53,6 +59,7 @@ public class Task {
         this.done = done;
         this.tags.addAll(tags);
         this.optionalReminder = Optional.empty();
+        this.optionalRecurring = Optional.empty();
     }
 
     // without done provided
@@ -61,7 +68,8 @@ public class Task {
             Priority priority,
             Description description,
             Set<Tag> tags,
-            Optional<Reminder> optionalReminder) {
+            Optional<Reminder> optionalReminder,
+            Optional<Recurring> optionalRecurring) {
         requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
@@ -69,6 +77,7 @@ public class Task {
         this.done = new Done();
         this.optionalReminder = optionalReminder;
         this.tags.addAll(tags);
+        this.optionalRecurring = optionalRecurring;
         triggerReminderIfPresent();
     }
 
@@ -80,6 +89,7 @@ public class Task {
         this.description = description;
         this.done = new Done();
         this.optionalReminder = Optional.empty();
+        this.optionalRecurring = Optional.empty();
         this.tags.addAll(tags);
     }
 
@@ -90,6 +100,13 @@ public class Task {
         }
     }
 
+    public void triggerRecurringIfPresent(Model model) {
+        if (optionalRecurring.isPresent()) {
+            Recurring recurring = optionalRecurring.get();
+            recurring.orchestrateRecurring(model, this);
+        }
+    }
+    
     public Name getName() {
         return name;
     }
@@ -108,6 +125,10 @@ public class Task {
 
     public Optional<Reminder> getOptionalReminder() {
         return optionalReminder;
+    }
+
+    public Optional<Recurring> getOptionalRecurring() {
+        return optionalRecurring;
     }
 
     /**

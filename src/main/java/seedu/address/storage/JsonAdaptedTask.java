@@ -28,6 +28,7 @@ class JsonAdaptedTask {
     private final String done;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String reminder;
+    // private final String recurring;
 
     /** Constructs a {@code JsonAdaptedTask} with the given details. */
     @JsonCreator
@@ -48,6 +49,28 @@ class JsonAdaptedTask {
         this.reminder = reminder;
     }
 
+    // /** Constructs a {@code JsonAdaptedTask} with the given details. */
+    // @JsonCreator
+    // public JsonAdaptedTask(
+    //         @JsonProperty("name") String name,
+    //         @JsonProperty("priority") String priority,
+    //         @JsonProperty("description") String description,
+    //         @JsonProperty("done") String done,
+    //         @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+    //         @JsonProperty("reminder") String reminder,
+    //         @JsonProperty("recurring") String recurring,
+    //         ) {
+    //     this.name = name;
+    //     this.priority = priority;
+    //     this.description = description;
+    //     this.done = done;
+    //     if (tagged != null) {
+    //         this.tagged.addAll(tagged);
+    //     }
+    //     this.reminder = reminder;
+    //     this.recurring = recurring;
+    // }
+
     /** Converts a given {@code Task} into this class for Jackson use. */
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
@@ -60,6 +83,9 @@ class JsonAdaptedTask {
                 (source.getOptionalReminder().isPresent())
                         ? source.getOptionalReminder().get().toString()
                         : "";
+        // recurring = (source.getOptionalRecurring().isPresent())
+        //                 ? source.getOptionalRecurring().get().toString()
+        //                 : "";
     }
 
     /**
@@ -115,6 +141,6 @@ class JsonAdaptedTask {
             optReminder = Optional.of(new Reminder(reminder));
         }
         return new Task(
-                modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder);
+                modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder, Optional.empty());
     }
 }
