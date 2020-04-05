@@ -48,7 +48,7 @@ public class CalenderDeadline extends UiPart<Region> {
         if (deadline instanceof ModuleTask) {
             setModuleTask(deadline);
         }
-        category.setStyle("-fx-background-color: teal");
+//        category.setStyle("-fx-background-color: teal");
 
     }
 

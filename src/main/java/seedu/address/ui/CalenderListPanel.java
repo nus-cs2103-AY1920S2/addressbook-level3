@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.calender.Task;
 import seedu.address.model.nusmodule.ModuleTask;
+import seedu.address.model.nusmodule.Priority;
 
 /**
  * Panel containing the list of persons.
@@ -44,6 +45,8 @@ public class CalenderListPanel extends UiPart<Region> {
                     for (Task tasks : allTask) {
                         if (tasks instanceof ModuleTask) {
                             calenderDate.setPriorityColour(((ModuleTask) tasks).getPriority());
+                        } else {
+                            calenderDate.setPriorityColour(Priority.VERYLOW);
                         }
                     }
 

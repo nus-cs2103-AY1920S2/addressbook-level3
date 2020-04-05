@@ -83,7 +83,13 @@ public class CalenderPanel extends UiPart<Region> {
             int firstDayInt = datesArray.get(firstDay);
             String dateSkeleton = makeDate();
             for (int i = 1; i < 32; i++) {
-                calenderDatesArrayList.add(new CalenderDate(i + dateSkeleton, i));
+                String temp = "";
+                if (i < 10) {
+                    temp = "0" + i;
+                } else {
+                    temp = "" + i;
+                }
+                calenderDatesArrayList.add(new CalenderDate(temp + dateSkeleton, i));
             }
 
             int x = 0;

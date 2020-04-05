@@ -30,6 +30,7 @@ This section allows you to start up NUSProductivity with ease. Detailed steps ar
 .  Double-click the file to start the app. The GUI should appear in a few seconds (screenshot of GUI shown below).
 +
 image::Ui.png[width="790"]
+Figure 1. NUSProductivity calendar tab
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -41,6 +42,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+==== Commonly Used Symbols
+
+[NOTE]
+This symbol indicates something you should take note of.
+
+[TIP]
+This symbol indicates a tip that you could use.
+
+[CAUTION]
+This symbol indicates an aspect that should be used with caution.
 
 [[Features]]
 == Features
@@ -66,6 +78,17 @@ This section shows the detailed list of usable commands.
 - Exits the program.
 
 - Format: `exit`
+
+=== Switching Tabs : `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
+
+- Switches to the respective tab
+- Format: ``calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
+
++
+image::switching_tabs.png[width="790"]
+Figure 2.Switching tabs
++
+
 
 === Address Book
 

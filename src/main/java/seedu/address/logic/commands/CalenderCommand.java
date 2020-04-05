@@ -7,12 +7,12 @@ import seedu.address.model.Model;
  */
 public class CalenderCommand extends Command {
 
-    public static final String COMMAND_WORD = "calender";
+    public static final String COMMAND_WORD = "calendar";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows Calender tab.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows Calendar tab.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SWITCHED_MESSAGE = "Switched to Calender Tab";
+    public static final String SWITCHED_MESSAGE = "Switched to Calendar Tab";
 
     @Override
     public CommandResult execute(Model model) {
