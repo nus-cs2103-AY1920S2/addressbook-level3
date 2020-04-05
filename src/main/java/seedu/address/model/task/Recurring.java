@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,15 +9,21 @@ import java.util.Set;
 import java.util.TimerTask;
 import java.util.Timer;
 import javafx.application.Platform;
+import jdk.vm.ci.meta.Local;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.Storage;
 
 public class Recurring {
    private final RecurType type;
+//    private final LocalDateTime referenceDateTime;
 
    public static final String MESSAGE_CONSTRAINTS = "Recurring should be in the format d or w, for eg: rec/d";
    public static final String MESSAGE_RECURRING_TASK_SUCCESS = "Recurring Task: %1$s";
@@ -98,11 +105,11 @@ public class Recurring {
        return period;
    }
 
-
-//    public void resetReminder() {
-
-//    }
-
+   @Override
+   public String toString() {
+       String typeString = type.name().substring(0, 1).toLowerCase();
+       return typeString;
+   }
 
 
 }

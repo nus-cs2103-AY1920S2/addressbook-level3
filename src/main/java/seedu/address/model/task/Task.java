@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.Storage;
 import seedu.address.ui.MainWindow;
 
 /**

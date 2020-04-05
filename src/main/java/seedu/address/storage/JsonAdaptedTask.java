@@ -14,6 +14,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
@@ -28,26 +29,7 @@ class JsonAdaptedTask {
     private final String done;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String reminder;
-    // private final String recurring;
-
-    /** Constructs a {@code JsonAdaptedTask} with the given details. */
-    @JsonCreator
-    public JsonAdaptedTask(
-            @JsonProperty("name") String name,
-            @JsonProperty("priority") String priority,
-            @JsonProperty("description") String description,
-            @JsonProperty("done") String done,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("reminder") String reminder) {
-        this.name = name;
-        this.priority = priority;
-        this.description = description;
-        this.done = done;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
-        this.reminder = reminder;
-    }
+    private final String recurring;
 
     // /** Constructs a {@code JsonAdaptedTask} with the given details. */
     // @JsonCreator
@@ -57,9 +39,7 @@ class JsonAdaptedTask {
     //         @JsonProperty("description") String description,
     //         @JsonProperty("done") String done,
     //         @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-    //         @JsonProperty("reminder") String reminder,
-    //         @JsonProperty("recurring") String recurring,
-    //         ) {
+    //         @JsonProperty("reminder") String reminder) {
     //     this.name = name;
     //     this.priority = priority;
     //     this.description = description;
@@ -68,8 +48,29 @@ class JsonAdaptedTask {
     //         this.tagged.addAll(tagged);
     //     }
     //     this.reminder = reminder;
-    //     this.recurring = recurring;
     // }
+
+    /** Constructs a {@code JsonAdaptedTask} with the given details. */
+    @JsonCreator
+    public JsonAdaptedTask(
+            @JsonProperty("name") String name,
+            @JsonProperty("priority") String priority,
+            @JsonProperty("description") String description,
+            @JsonProperty("done") String done,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("reminder") String reminder,
+            @JsonProperty("recurring") String recurring
+            ) {
+        this.name = name;
+        this.priority = priority;
+        this.description = description;
+        this.done = done;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
+        this.reminder = reminder;
+        this.recurring = recurring;
+    }
 
     /** Converts a given {@code Task} into this class for Jackson use. */
     public JsonAdaptedTask(Task source) {
@@ -83,9 +84,9 @@ class JsonAdaptedTask {
                 (source.getOptionalReminder().isPresent())
                         ? source.getOptionalReminder().get().toString()
                         : "";
-        // recurring = (source.getOptionalRecurring().isPresent())
-        //                 ? source.getOptionalRecurring().get().toString()
-        //                 : "";
+        recurring = (source.getOptionalRecurring().isPresent())
+                        ? source.getOptionalRecurring().get().toString()
+                        : "";
     }
 
     /**
@@ -140,7 +141,15 @@ class JsonAdaptedTask {
         } else {
             optReminder = Optional.of(new Reminder(reminder));
         }
+
+        Optional<Recurring> optRecurring = Optional.empty();
+        if (recurring == null || recurring.equals("")) {
+            optRecurring = Optional.empty();
+        } else {
+            optRecurring = Optional.of(new Recurring(recurring));
+        }
+
         return new Task(
-                modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder, Optional.empty());
+                modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder, optRecurring);
     }
 }
