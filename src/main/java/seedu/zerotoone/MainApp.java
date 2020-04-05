@@ -165,12 +165,6 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
             initialLogListData = logListOptional.orElseGet(SampleLogDataUtil::getSampleLogList);
-
-            try {
-                storage.saveLogList(initialLogListData);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty LogList");
             initialLogListData = new LogList();
