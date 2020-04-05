@@ -33,7 +33,7 @@ public class DeleteCommandParserTest {
     public void parse_validArgs_returnsDeleteCommand() {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withBirthday(VALID_BIRTHDAY_AMY).build();
+                .withTagsToAdd(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withBirthday(VALID_BIRTHDAY_AMY).build();
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON, descriptor));
     }
 

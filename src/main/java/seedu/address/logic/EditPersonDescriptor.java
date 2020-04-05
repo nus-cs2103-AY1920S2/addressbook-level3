@@ -30,6 +30,8 @@ public class EditPersonDescriptor {
     private Organization organization;
     private ArrayList<Remark> remarks;
     private Set<Tag> tags;
+    private Set<Tag> tagsToBeDeleted;
+    private Set<Tag> emptyTags;
 
     public EditPersonDescriptor() {}
 
@@ -45,14 +47,17 @@ public class EditPersonDescriptor {
         setBirthday(toCopy.birthday);
         setOrganization(toCopy.organization);
         setRemarks(toCopy.remarks);
-        setTags(toCopy.tags);
+        setTagsToBeAdded(toCopy.tags);
+        setTagsToBeDeleted(toCopy.tagsToBeDeleted);
+        setTagsToEmpty(toCopy.emptyTags);
     }
 
     /**
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, phone, email, address, remarks, birthday, organization, tags);
+        return CollectionUtil.isAnyNonNull(name, phone, email, address, remarks, birthday, organization, tags,
+            tagsToBeDeleted, emptyTags, organization);
     }
 
     public void setName(Name name) {
@@ -124,7 +129,7 @@ public class EditPersonDescriptor {
      * Sets {@code tags} to this object's {@code tags}.
      * A defensive copy of {@code tags} is used internally.
      */
-    public void setTags(Set<Tag> tags) {
+    public void setTagsToBeAdded(Set<Tag> tags) {
         this.tags = (tags != null) ? new HashSet<>(tags) : null;
     }
 
@@ -135,6 +140,40 @@ public class EditPersonDescriptor {
      */
     public Optional<Set<Tag>> getTags() {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+    }
+
+    /**
+     * Sets {@code tags} that are to be deleted to this object's {@code tagsToBeDeleted}
+     * A defensive copy of {@code tagsToBeDeleted} is used internally.
+     */
+    public void setTagsToBeDeleted(Set<Tag> tags) {
+        this.tagsToBeDeleted = (tags != null) ? new HashSet<>(tags) : null;
+    }
+
+    /**
+     * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     * Returns {@code Optional#empty()} if {@code tagsToBeDeleted} is null.
+     */
+    public Optional<Set<Tag>> getTagsToBeDeleted() {
+        return (tagsToBeDeleted != null) ? Optional.of(Collections.unmodifiableSet(tagsToBeDeleted)) : Optional.empty();
+    }
+
+    /**
+     * Sets {@code tags} to this object's {@code tags}.
+     * A defensive copy of {@code tags} is used internally.
+     */
+    public void setTagsToEmpty(Set<Tag> tags) {
+        this.emptyTags = (tags != null) ? new HashSet<>(tags) : null;
+    }
+
+    /**
+     * Returns an unmodifiable empty tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     * Returns {@code Optional#empty()} if {@code tags} is null.
+     */
+    public Optional<Set<Tag>> getEmptyTagSet() {
+        return (emptyTags != null) ? Optional.of(Collections.unmodifiableSet(emptyTags)) : null;
     }
 
     /**
@@ -151,7 +190,14 @@ public class EditPersonDescriptor {
         ArrayList<Remark> updatedRemark = getRemarks().orElse(personToEdit.getRemark());
         Birthday updatedBirthday = getBirthday().orElse(personToEdit.getBirthday());
         Organization updatedOrganization = getOrganization().orElse(personToEdit.getOrganization());
-        Set<Tag> updatedTags = getTags().orElse(personToEdit.getTags());
+
+        Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
+        updatedTags.addAll(getTags().orElse(new HashSet<>()));
+        updatedTags.removeAll(getTagsToBeDeleted().orElse(new HashSet<>()));
+
+        if (getEmptyTagSet() != null) {
+            updatedTags.clear();
+        }
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
                 updatedBirthday, updatedOrganization, updatedTags);

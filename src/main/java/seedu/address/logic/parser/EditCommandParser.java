@@ -4,14 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,6 +20,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Birthday;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Organization;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -34,8 +39,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_BIRTHDAY, PREFIX_REMARK, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANIZATION,
+                        PREFIX_ADDRESS, PREFIX_BIRTHDAY, PREFIX_REMARK, PREFIX_TAG, PREFIX_DELETE_TAG);
 
         Index index;
 
@@ -49,19 +54,46 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+
+            if (!email.value.isEmpty()) {
+                editPersonDescriptor.setEmail(email);
+            }
         }
+
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+
+            if (!address.value.isEmpty()) {
+                editPersonDescriptor.setAddress(address);
+            }
         }
+
         if (argMultimap.getValue(PREFIX_BIRTHDAY).isPresent()) {
-            editPersonDescriptor.setBirthday(ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get()));
+            Birthday birthday = ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get());
+
+            if (!birthday.birthday.isEmpty()) {
+                editPersonDescriptor.setBirthday(birthday);
+            }
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+
+        if (argMultimap.getValue(PREFIX_ORGANIZATION).isPresent()) {
+            Organization organisation = ParserUtil.parseOrganization(argMultimap.getValue(PREFIX_ORGANIZATION).get());
+
+            if (!organisation.organization.isEmpty()) {
+                editPersonDescriptor.setOrganization(organisation);
+            }
+        }
+
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTagsToBeAdded);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG))
+            .ifPresent(editPersonDescriptor::setTagsToBeDeleted);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -77,12 +109,10 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
-
-        if (tags.isEmpty()) {
+        if (tags.isEmpty() || tags.size() == 1 && tags.contains("")) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
-    }
 
+        return Optional.of(ParserUtil.parseTags(tags));
+    }
 }

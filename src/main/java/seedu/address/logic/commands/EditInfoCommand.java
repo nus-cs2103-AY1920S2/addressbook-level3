@@ -67,9 +67,10 @@ public class EditInfoCommand extends Command {
         if (line > personToEdit.getRemark().size() && personToEdit.getRemark().size() != 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
         }
-        if (!remark.value.isEmpty()) {
-            personToEdit.getRemark().set(line - 1, remark);
+        if (remark.value.isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY);
         }
+        personToEdit.getRemark().set(line - 1, remark);
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getBirthday(),
                 personToEdit.getOrganization(), personToEdit.getTags());
@@ -77,16 +78,7 @@ public class EditInfoCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
-    }
-
-    /**
-     * Generates a command execution success message based on whether the remark is edited to or removed from
-     * {@code personToEdit}.
-     */
-    private String generateSuccessMessage(Person personToEdit) {
-        String message = !remark.value.isEmpty() ? MESSAGE_EDIT_REMARK_SUCCESS : MESSAGE_EMPTY;
-        return String.format(message, personToEdit);
+        return new CommandResult(String.format(MESSAGE_EDIT_REMARK_SUCCESS, editedPerson));
     }
 
     @Override
@@ -106,5 +98,10 @@ public class EditInfoCommand extends Command {
         return index.equals(e.index)
                 && remark.equals(e.remark)
                     && line == e.line;
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }

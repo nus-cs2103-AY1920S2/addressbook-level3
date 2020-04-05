@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
             + "[" + PREFIX_BIRTHDAY + "] "
             + "[" + PREFIX_REMARK + "] "
             + "[" + PREFIX_ORGANIZATION + "] "
-            + "[" + PREFIX_TAG + "]\n"
+            + "[" + PREFIX_DELETE_TAG + "]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_ADDRESS + " " + PREFIX_EMAIL;
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
