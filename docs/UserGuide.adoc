@@ -973,7 +973,8 @@ Format: `set rate AMOUNT`
 
 [NOTE]
 ====
-* AMOUNT is the amount you want to change the hourly rate to.
+* AMOUNT is the amount you want to change the hourly rate to, this value will be used to calulate the
+`Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * To specify in exact dollars, you can write it as just the number (example: 20).
 * To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
 ====
