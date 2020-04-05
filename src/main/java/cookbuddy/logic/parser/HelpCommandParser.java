@@ -35,52 +35,53 @@ public class HelpCommandParser implements Parser<HelpCommand> {
     public HelpCommand parse(String args) throws ParseException {
         try {
             String command = ParserUtil.parseHelp(args);
+            String preface = "Showing usage for the " + command + " command:\n\n";
 
             switch (command) {
             case NewCommand.COMMAND_WORD:
-                return new HelpCommand(NewCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + NewCommand.MESSAGE_USAGE);
 
             case ModifyCommand.COMMAND_WORD:
-                return new HelpCommand(ModifyCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + ModifyCommand.MESSAGE_USAGE);
 
             case DeleteCommand.COMMAND_WORD:
-                return new HelpCommand(DeleteCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + DeleteCommand.MESSAGE_USAGE);
 
             case DoneCommand.COMMAND_WORD:
-                return new HelpCommand(DoneCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + DoneCommand.MESSAGE_USAGE);
 
             case UndoCommand.COMMAND_WORD:
-                return new HelpCommand(UndoCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + UndoCommand.MESSAGE_USAGE);
 
             case FavCommand.COMMAND_WORD:
-                return new HelpCommand(FavCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + FavCommand.MESSAGE_USAGE);
 
             case UnFavCommand.COMMAND_WORD:
-                return new HelpCommand(UnFavCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + UnFavCommand.MESSAGE_USAGE);
 
             case ResetCommand.COMMAND_WORD:
-                return new HelpCommand("TBA_RESET");
+                return new HelpCommand(preface + "TBA_RESET");
 
             case ViewCommand.COMMAND_WORD:
-                return new HelpCommand(ViewCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + ViewCommand.MESSAGE_USAGE);
 
             case FindCommand.COMMAND_WORD:
-                return new HelpCommand(FindCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + FindCommand.MESSAGE_USAGE);
 
             case ListCommand.COMMAND_WORD:
-                return new HelpCommand("TBA_LIST");
+                return new HelpCommand(preface + "TBA_LIST");
 
             case RandomCommand.COMMAND_WORD:
-                return new HelpCommand(RandomCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + RandomCommand.MESSAGE_USAGE);
 
             case TimeCommand.COMMAND_WORD:
-                return new HelpCommand(TimeCommand.MESSAGE_USAGE);
+                return new HelpCommand(preface + TimeCommand.MESSAGE_USAGE);
 
             case CountCommand.COMMAND_WORD:
-                return new HelpCommand("TBA_COUNT");
+                return new HelpCommand(preface + "TBA_COUNT");
 
             case ExitCommand.COMMAND_WORD:
-                return new HelpCommand("TBA_EXIT");
+                return new HelpCommand(preface + "TBA_EXIT");
 
             default:
                 throw new ParseException("Invalid Command chosen!");
