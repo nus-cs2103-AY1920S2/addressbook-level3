@@ -38,11 +38,6 @@ public class EditCouponDescriptorTest {
                 .withPromoCode(CommandTestUtil.VALID_PROMO_CODE_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
-        // different usage -> returns false
-        editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
-                .withUsage(CommandTestUtil.VALID_USAGE_BOB).build();
-        assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
-
         // different limit -> returns false
         editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();

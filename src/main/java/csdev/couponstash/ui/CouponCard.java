@@ -1,8 +1,10 @@
 package csdev.couponstash.ui;
 
 import java.util.Comparator;
+import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.tag.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -79,7 +81,7 @@ public class CouponCard extends UiPart<Region> {
         startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
         setTags(coupon, tags);
-        setTags(coupon, tagsDup);
+        setTags(coupon, tagsDup); // duplicate is needed for UI purposes
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
         condition.setText("T&C: " + coupon.getCondition().value);
         // set savings pane
@@ -89,11 +91,43 @@ public class CouponCard extends UiPart<Region> {
         archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
     }
 
+    /**
+     * A maximum of 5 tags will be displayed, while the total length
+     * of all on screen tags will be at most 44 characters.
+     * These numbers are chosen to achieve the best fit for the UI.
+     * An 'and more...' tag will be created and displayed when either
+     * of the two aforementioned numbers are exceeded.
+     */
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {
-        coupon.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .limit(5)
-                .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
+        Set<Tag> couponTags = coupon.getTags();
+        final int maxTags = 5;
+
+        Object[] tagsArr = couponTags.stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName.length()))
+                .limit(maxTags)
+                .toArray();
+
+        int maxTotalLength = 44;
+        boolean isSkiped = false;
+
+        for (Object tag : tagsArr) {
+            Tag currentTag = ((Tag) tag);
+            int currentTagNameLength = currentTag.tagName.length();
+            if (currentTagNameLength < maxTotalLength) {
+                tagFlowPane.getChildren().add(new Label(currentTag.tagName));
+                maxTotalLength -= currentTagNameLength;
+            } else {
+                isSkiped = true;
+            }
+        }
+
+        // add ellipses to indicate existence of more off screen tags
+        int initialNumberOfTags = couponTags.size();
+        boolean isNumberOfTagsAboveLimit = initialNumberOfTags > maxTags;
+
+        if (isSkiped || isNumberOfTagsAboveLimit) {
+            tagFlowPane.getChildren().add(new Label("and more..."));
+        }
     }
 
     public void setId(Label idLabel, int index) {

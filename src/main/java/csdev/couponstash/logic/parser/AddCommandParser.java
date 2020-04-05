@@ -64,6 +64,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        if (argMultimap.getValue(PREFIX_USAGE).isPresent()) {
+            throw new ParseException(Usage.MESSAGE_UNEDITABLE);
+        }
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         PromoCode promoCode = ParserUtil.parsePromoCode(
                 argMultimap.getValueForOptionalField(PREFIX_PROMO_CODE, "-").get());
@@ -71,7 +75,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE,
                         DateUtil.formatDateToString(LocalDate.now())).get());
-        Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE, "0").get());
+        Usage usage = new Usage(); // default 0 usage
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Condition condition = ParserUtil.parseCondition(

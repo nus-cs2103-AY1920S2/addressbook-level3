@@ -11,6 +11,8 @@ public class Usage {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Usage should only contain numbers, and it should at least be a value of 0";
+    public static final String MESSAGE_UNEDITABLE = "Usage cannot be added or edited. "
+            + "This is to keep the savings consistent.";
     public static final String VALIDATION_REGEX = "^\\d+$";
     public final String value;
 
@@ -33,7 +35,7 @@ public class Usage {
     }
 
     /** Returns true if a given string is a valid usage number.
-     *
+     *s
      * @param test String to be validated.
      */
     public static boolean isValidUsage(String test) {
@@ -42,13 +44,22 @@ public class Usage {
 
     /**
      * Returns true if {@code usage} current value is equals or greater than its {@code maxUsage}.
-     *
      * @param usage The usage of the coupon.
      */
     public static boolean isUsageAtLimit(Usage usage, Limit limit) {
         Double currentUsage = Double.parseDouble(usage.value);
         Double usageLimit = limit.getParsedLimit();
         return currentUsage >= usageLimit;
+    }
+
+    /**
+     * Returns true if {@code usage} current value is greater than its {@code maxUsage}.
+     * @param usage The usage of the coupon.
+     */
+    public static boolean isUsageGreaterThanLimit(Usage usage, Limit limit) {
+        Double currentUsage = Double.parseDouble(usage.value);
+        Double usageLimit = limit.getParsedLimit();
+        return currentUsage > usageLimit;
     }
 
     /**

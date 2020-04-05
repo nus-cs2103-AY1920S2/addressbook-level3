@@ -200,6 +200,9 @@ image:ug_deck_chicken.png[]
 Adds a new Coupon: +
 image:ug_pgp_mala.png[]
 
+[TIP]
+If your coupon has unlimited use, set the limit of the coupon to a number less than 1! E.g. `l/0`
+
 === Editing a coupon: `edit`
 
 Edits an existing coupon in the coupon book.
@@ -233,7 +236,6 @@ Edits the savings of the 1st coupon to be 50% off.
 Edits the name of the 2nd coupon to be The Deck Nasi Ayam Hainan and
 clears all existing tags.
 
-// tag::delete[]
 === Deleting a coupon: `delete`
 
 Deletes the specified coupon from the coupon stash.
@@ -389,7 +391,7 @@ Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
 
 [NOTE]
-To view archived coupons, the user can run the <<Listing coupons: `list`, `list /a`>> command to list all
+To view archived coupons, the user can run the <<Listing coupons: `list`, `list a/`>> command to list all
 archived coupons. Alternatively, the <<Locating coupons by name: `find`, `find`>> command explained below will
 search all archived coupons, thus displaying archives that match the supplied
 keywords below unarchived coupons. Finally, the <<Listing all expiring coupons: `expiring`, `expiring`>> command will also

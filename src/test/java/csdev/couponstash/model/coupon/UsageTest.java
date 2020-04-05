@@ -24,12 +24,15 @@ public class UsageTest {
         assertThrows(NullPointerException.class, () -> Limit.isValidLimit(null));
 
         // invalid usage
+        assertFalse(Usage.isValidUsage("-1")); // Negative number
+        assertFalse(Usage.isValidUsage("" + (Integer.MAX_VALUE + 1))); // Maximum value of Integer.MAX_VALUE
         assertFalse(Usage.isValidUsage(" ")); // spaces only
         assertFalse(Usage.isValidUsage("")); // empty string
         assertFalse(Usage.isValidUsage("^")); // only non-alphanumeric characters
         assertFalse(Usage.isValidUsage("peter*")); // contains non-alphanumeric characters
 
         // valid usage
-        assertTrue(Usage.isValidUsage("12345")); // numbers only
+        assertTrue(Usage.isValidUsage("" + Integer.MAX_VALUE)); // Maximum value of Integer.MAX_VALUE
+        assertTrue(Usage.isValidUsage("0")); // Minimum value of 0
     }
 }

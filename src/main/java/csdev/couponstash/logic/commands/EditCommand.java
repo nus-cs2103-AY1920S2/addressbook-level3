@@ -55,7 +55,7 @@ public class EditCommand extends IndexedCommand {
     public static final String MESSAGE_CANNOT_EDIT_USAGE = "The usage of the coupon cannot be edited, "
             + "due to changes in the concrete savings.";
     public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
-            + "the current usage (%d) of the coupon.";
+            + "the current usage (%s) of the coupon.";
     private final EditCouponDescriptor editCouponDescriptor;
 
     /**
@@ -91,9 +91,8 @@ public class EditCommand extends IndexedCommand {
             throw new CommandException(START_DATE_EXPIRY_DATE_CONSTRAINT);
         }
 
-        Integer currentUsage = Integer.parseInt(couponToEdit.getUsage().value);
-        Integer editedLimit = Integer.parseInt(editedCoupon.getLimit().value);
-        if (currentUsage > editedLimit) {
+        Usage currentUsage = couponToEdit.getUsage();
+        if (Usage.isUsageGreaterThanLimit(currentUsage, editedCoupon.getLimit())) {
             throw new CommandException(String.format(MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
         }
 

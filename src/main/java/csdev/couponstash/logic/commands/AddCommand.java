@@ -26,9 +26,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a coupon to CouponStash.\n\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PROMO_CODE + "PROMO_CODE "
             + PREFIX_EXPIRY_DATE + "EXPIRY_DATE "
             + PREFIX_SAVINGS + "SAVINGS "
+            + "[" + PREFIX_PROMO_CODE + "PROMO_CODE] "
             + "[" + PREFIX_START_DATE + "START_DATE] "
             + "[" + PREFIX_SAVINGS + "SAVINGS]... "
             + "[" + PREFIX_TAG + "TAG]...\n\n"
@@ -58,6 +58,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
+        assert Integer.parseInt(toAdd.getUsage().value) == 0 : "Usage of a new coupon to be added should be 0";
 
         if (model.hasCoupon(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
