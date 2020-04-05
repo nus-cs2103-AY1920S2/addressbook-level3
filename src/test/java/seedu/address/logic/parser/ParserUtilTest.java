@@ -95,8 +95,15 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseSemester_string_throwsParseException() {
+    public void parseSemester_invalidValue_throwsParseException() {
+        // Random string
         assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseYear("abc"));
+        // Year out of range
+        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseYear("0.1"));
+        // Semester out of range
+        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseYear("1.3"));
+        // Dash instead of dot
+        assertThrows(ParseException.class, ParserUtil.MESSAGE_INVALID_SEMESTER, () -> ParserUtil.parseYear("1-2"));
     }
 
     @Test

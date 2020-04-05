@@ -28,22 +28,3 @@ public interface Storage extends ProfileListStorage, UserPrefsStorage {
     @Override
     void saveProfileList(ProfileList profileList) throws IOException;
 }
-
-/*public interface Storage extends AddressBookStorage, UserPrefsStorage {
-
-    @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
-
-    @Override
-    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
-    @Override
-    Path getAddressBookFilePath();
-
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
-
-}*/
