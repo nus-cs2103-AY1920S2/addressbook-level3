@@ -101,7 +101,7 @@ public class ParserManager {
             return ViewType.SESSION_VIEW;
 
         case "skip":
-        return ViewType.SESSION_VIEW;
+            return ViewType.SESSION_VIEW;
 
         case "exercise":
             return ViewType.EXERCISE_VIEW;
