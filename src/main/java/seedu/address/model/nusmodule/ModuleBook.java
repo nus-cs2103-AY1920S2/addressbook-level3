@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.todolist.Task;
 
 /**
  * Wraps all module-related data at the module-book level
@@ -107,6 +108,11 @@ public class ModuleBook {
         requireNonNull(moduleCode);
         requireNonNull(index);
         getModule(moduleCode).getTasks().get(index.getZeroBased()).markAsDone();
+    }
+
+    public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return getModule(moduleCode).getTasks();
     }
 
     public void setMajor(Major major) {

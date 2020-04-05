@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -217,6 +219,10 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
+        return moduleBook.getModuleTaskList(moduleCode);
+    }
+    @Override
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         moduleBook.deleteModuleTask(moduleCode, index);
     }
@@ -313,6 +319,28 @@ public class ModelManager implements Model {
     public void updateDeadlineTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         deadlineTaskList.setPredicate(predicate);
+    }
+
+    @Override
+    public List<Task> findTasksByDate(String date) {
+        List<Task> targetTasks = new ArrayList<>();
+        for(Task task: deadlineTaskList) {
+            if(task.getDate().equals(date)) {
+                targetTasks.add(task);
+            }
+        }
+        return targetTasks;
+    }
+
+    @Override
+    public List<Task> findTasksByCat(String cat) {
+        List<Task> targetTasks = new ArrayList<>();
+        for(Task task: deadlineTaskList) {
+            if(task.getCategory().equals(cat)) {
+                targetTasks.add(task);
+            }
+        }
+        return targetTasks;
     }
 
 
