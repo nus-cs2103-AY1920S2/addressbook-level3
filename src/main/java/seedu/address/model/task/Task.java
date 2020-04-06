@@ -116,7 +116,7 @@ public class Task {
     public void triggerRecurringIfPresent(Model model) {
         if (optionalRecurring.isPresent()) {
             Recurring recurring = optionalRecurring.get();
-            recurring.orchestrateRecurring(model, this);
+            recurring.triggerRecurring(model, this);
         }
     }
     

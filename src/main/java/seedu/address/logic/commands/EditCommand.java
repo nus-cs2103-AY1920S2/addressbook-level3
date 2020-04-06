@@ -92,14 +92,23 @@ public class EditCommand extends Command {
         }
 
         model.setTask(taskToEdit, editedTask);
+
+        Task pommedTask = model.getPomodoroTask();
+        if (pommedTask != null && pommedTask.equals(taskToEdit)) {
+            model.setPomodoroTask(editedTask);
+            model.getPomodoroManager()
+                    .getPomodoroDisplay()
+                    .setTaskInProgressText(editedTask.getName().toString());
+        }
+
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         editedTask.triggerRecurringIfPresent(model);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of {@code taskToEdit} edited with
-     * {@code editTaskDescriptor}.
+     * Creates and returns a {@code Task} with the details of {@code taskToEdit} edited with {@code
+     * editTaskDescriptor}.
      */
     private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;

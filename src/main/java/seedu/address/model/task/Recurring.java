@@ -109,7 +109,7 @@ public class Recurring {
     };
    }
 
-   public void orchestrateRecurring(Model model, Task taskToReset) {
+   public void triggerRecurring(Model model, Task taskToReset) {
        TimerTask repeatedTask = generateTimerTask(model, taskToReset);
        Timer timer = new Timer("Timer");
        long period = getInterval();

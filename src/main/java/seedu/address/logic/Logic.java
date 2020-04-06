@@ -10,7 +10,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.Observer;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
@@ -45,8 +44,6 @@ public interface Logic extends Observer {
 
     /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
-
-    void incrementPomExp();
 
     ObservableList<DayData> getCustomQueue();
 
