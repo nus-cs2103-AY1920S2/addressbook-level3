@@ -41,7 +41,7 @@ public class StudentCommandParser {
         switch (commandWord) {
 
         case CommandWords.FILTER_MODEL:
-            return new FilterStudentViewCommandParser().parse(arguments);
+            return new FilterStudentCommandParser().parse(arguments);
 
         case CommandWords.ADD_MODEL:
             return new AddStudentCommandParser().parse(arguments);

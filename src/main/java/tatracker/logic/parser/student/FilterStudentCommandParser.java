@@ -17,7 +17,7 @@ import tatracker.logic.parser.exceptions.ParseException;
 /**
  * Parse input arguments and create a new FilterStudentCommand object
  */
-public class FilterStudentViewCommandParser implements Parser<FilterStudentCommand> {
+public class FilterStudentCommandParser implements Parser<FilterStudentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterSessionCommand
