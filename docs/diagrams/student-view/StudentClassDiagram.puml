@@ -11,6 +11,7 @@ Class ModelManager
 Package Student {
 Class Student
 Class Email
+Class Rating
 Class Matric
 Class Name
 Class Phone
@@ -26,7 +27,9 @@ Class HiddenOutside #FFFFFF
 
 TaTracker *--> "1" UniqueStudentList
 UniqueStudentList o--> "*" Student
+ModelManager o--> "1" TaTracker
 Student *--> Name
+Student *--> Rating
 Student *--> Phone
 Student *--> Email
 Student *--> Matric

@@ -3,8 +3,7 @@ start
 :A DoneSessionCommand is called;
 
   :The duration of the session is added to TotalHours in TaTracker;
-  :TotalEarnings in the UI is increased based
-  on the rate input by the user;
+  :TotalEarnings in the UI is increased;
   :Session is added to UniqueDoneSessionList;
 
   if () then (session is recurring)
