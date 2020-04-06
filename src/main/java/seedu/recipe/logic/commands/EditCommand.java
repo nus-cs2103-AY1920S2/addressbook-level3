@@ -120,7 +120,8 @@ public class EditCommand extends Command {
     protected static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
 
-        boolean isFavourite = recipeToEdit.isFavourite();
+        // boolean isFavourite = recipeToEdit.isFavourite();
+        boolean isFavourite = editRecipeDescriptor.getFavourite();
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
         List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
@@ -161,6 +162,7 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
+        private boolean isFavourite;
         private List<Step> steps;
         private Set<Goal> goals;
         private Set<Grain> grains;
@@ -178,6 +180,7 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
+            setFavourite(toCopy.isFavourite);
             setSteps(toCopy.steps);
             setGoals(toCopy.goals);
             setGrains(toCopy.grains);
@@ -208,6 +211,14 @@ public class EditCommand extends Command {
 
         public Optional<Time> getTime() {
             return Optional.ofNullable(time);
+        }
+
+        public void setFavourite(boolean isFavourite) {
+            this.isFavourite = isFavourite;
+        }
+
+        public boolean getFavourite() {
+            return isFavourite;
         }
 
         /**
