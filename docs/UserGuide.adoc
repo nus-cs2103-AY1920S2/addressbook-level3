@@ -95,14 +95,51 @@ Format: `list-c`
 
 ==== Parameters
 
+
+* `NAME` is case insensitive. e.g `hans` will match `Hans`
+* The search is case insensitive. e.g `push ups` will match `Push Ups`
+* Only full words will be matched e.g. `Push` will not match `Push Pull`
+* Clients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber, Bo Yang`
+
 ==== Example
-Let's say that you want to find a client named "Bryan Low" in FitBiz. You can simply use the `find-c` command by following the steps below.
+Let's say that you want to find a client named "Bryan Low" in client list. You can simply use the `find-c` command by following the steps below.
 
-1. Type `find-c bryan` into the command box, and press `Enter` to execute it.
+1.Type `find-c bryan` into the command box, and press `Enter` to execute it.
 
-2. The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+image::Find-cExamplePart1.png[]
 
-==== Errors
+2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+
+image::Find-cExamplePart2.png[]
+
+3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive.
+
+image::Find-cExamplePart3.png[]
+
+==== Errors / Problems
+You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
+
+===== Using incomplete names
+You might wonder why `find-c` do not show the clients even though the client is in clearly in your client list. It might be possible that you have typed an incomplete name and does not match any word in the name of that client. The example below might help you understand better.  
+
+Example:
+You want to find the client named "Bryan" in client list. Below shows that "Bryan" indeed exists in the client list.
+
+/photo
+
+You typed `find-c bry".
+
+/photo
+
+You will obtain "no clients listed!".
+
+/photo
+
+This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to type `find-c bryan` in this case.
+
+/photo
+
+===== Using multiple words as parameters
 
 === Add a new client profile: `add-c`
 
