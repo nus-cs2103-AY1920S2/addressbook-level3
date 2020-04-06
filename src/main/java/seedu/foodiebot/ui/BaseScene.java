@@ -310,8 +310,7 @@ public class BaseScene {
                 break;
             case GoToCanteenCommand
                     .COMMAND_WORD:
-                if (commandResult instanceof DirectionsCommandResult && ParserContext.getCurrentContext()
-                    .equals(ParserContext.MAIN_CONTEXT)) {
+                if (commandResult instanceof DirectionsCommandResult) {
                     //new DirectionsWindowScene(getPrimaryStage(), logic, (DirectionsCommandResult) commandResult)
                     // .show();
 
@@ -388,7 +387,9 @@ public class BaseScene {
                 updateResultDisplayBudget(commandResult.getFeedbackToUser(), logic.getFoodieBot().getBudget());
                 break;
             case BackCommand.COMMAND_WORD:
-                topLabel.setText("");
+                if (topLabel != null) {
+                    topLabel.setText("");
+                }
                 switch (ParserContext.getCurrentContext()) {
                 case ParserContext.MAIN_CONTEXT:
                     handleListCanteens(commandResult);

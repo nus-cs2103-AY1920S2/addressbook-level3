@@ -228,11 +228,12 @@ image::ListActivityDiagram.png[]
 ===== Aspect: User command format
 
 * **Alternative 1 (current choice):** `list f/com`
-** Pros: Easy to implement.
+** Pros: Uses only a prefix to get the intended functionality with list.
 ** Cons: `f/` is an optional prefix, user might forget that it exists as no error is shown in the command result box
 * **Alternative 2:** find nearest `BLOCK_NAME`
-** Pros: The user finds it natural to type the word find.
-** Cons: Can be confusing whether find shows the list of canteens, food, or location of the canteen on campus. Having the 'find' command is also one additional command for the user to remember.
+** Pros: It is not required to remember any prefix.
+** Cons: Can be confusing whether find shows the list of canteens, food, or location of the canteen on campus.
+Find has to be followed by nearest otherwise it does not come natural to sort by distance.
 
 === Budget Command
 
@@ -259,14 +260,16 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Budget Design Considerations
-===== Aspect:
+===== Aspect: `Budget view` shows the transactions screen
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `Budget view` displays the current budget in the command feedback panel.
+** Pros: Budget can be viewed anywhere in FoodieBot.
+** Cons: -
+
 * **Alternative 2:**
-** Pros:
-** Cons:
+** Pros: Can set a realistic budget after looking at past spendings.
+** Cons: Increased the coupling of budget and transactions but the intended functionality is different. The user may not want to type
+budget to rate a food item.
 
 === Enter Command
 
@@ -292,14 +295,14 @@ Below is the _activity diagram_ that summarizes what happens during the executio
 image::EnterActivityDiagram.png[]
 
 ==== Enter Design Considerations
-===== Aspect:
+===== Aspect: Select command to be used instead of Enter
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `enter`
+** Pros: `enter` only handles the viewing of canteens and stalls.
+** Cons: Might accidentally type `select` as the `select` command is also implemented in FoodieBot.
+* **Alternative 2:** `select`
+** Pros: one command to select canteens, stalls and food items.
+** Cons: Additional checks for `select` command to detect if a food is chosen, so that it gets add into transactions.
 
 === Favorites Command
 
@@ -328,14 +331,15 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Favorites Design Considerations
-===== Aspect:
+===== Aspect: `favorites set` operates on stalls and food items
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `favorites set` operate only for food items
+** Pros: Only need to maintain one list of food items.
+** Cons: Does not allow stall to be added to favorites, the randomize feature cannot take into account of users' stall preferences.
+* **Alternative 2:** `favorites set` operate for both stalls and food items
+** Pros: Can favorite a single stall rather than adding all the food items in the stall.
+** Cons: Cannot identify which food in particular the user likes from the stall. For instance, the user might not like spicy
+food and the stall sells a food item with that food characteristic.
 
 === Filter Command
 
@@ -362,14 +366,15 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Filter Design Considerations
-===== Aspect:
+===== Aspect: `filter` allow partial name tag filters
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `filter` is using strict match case.
+** Pros: Can be accurate in the filter, for example, typing `filter ex` with not
+return both food that are expensive and or considered as extras in a combo set
+** Cons: -
+* **Alternative 2:** `filter` allow partial name tag search.
+** Pros: More lenient in tag search
+** Cons: Long list of filter results
 
 
 
@@ -397,14 +402,33 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Goto Design Considerations
-===== Aspect:
+===== Aspect: Command format
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `goto CANTEEN_INDEX f/CURRENT_LOCATION`
+** Pros: Displays the directional instructions only for the current location to the canteen.
+** Cons: If no directions are found for the current location to canteen, the user has to try another location by changing
+it in the command box.
+* **Alternative 2:** `directions` shows directions categorised by blocks. For example,
+
+  //example snippet
+  Com1
+  1. To Nus Flavors:
+  ...
+  2. To The Deck:
+  ...
+  .
+  Utown
+  3. To Nus Flavors:
+  ...
+  4. To The Deck:
+  ...
+  .
+  //end of example
+
+
+** Pros: It is not required to enter any prefix or remember any block name.
+** Cons: Display a list of possible directional instructions of current locations to the canteen.
+One has to scroll down the list to find the correct list item to show the directions.
 
 === Randomize Command
 
@@ -430,14 +454,15 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 image::RandomizeSequenceDiagram.png[]
 
 ==== Randomize Design Considerations
-===== Aspect: Context where `randomize` can be called from
+===== Aspect: Context where `randomize c/` can be called from
 
-* **Alternative 1 (current choice):** `randomize` function is only called from the canteen context.
-** Pros: Easy to implement.
-** Cons: Prefix are necessary to indicate if randomize is to be within one canteen only.
-* **Alternative 2:** `randomize` can be called after entering a canteen and/or stall.
-** Pros: Reduce user inputs.
-** Cons: Additional method will be needed to store the knowledge of the current canteen and/or stall entered.
+* **Alternative 1 (current choice):** `randomize c/` function is only called from the canteen context.
+** Pros: Only allow canteen index or name shown in the displayed list to be entered with the prefix.
+** Cons: Prefix is necessary to indicate that randomize works with one canteen only.
+
+* **Alternative 2 :** `randomize c/` can be called anywhere within FoodieBot.
+** Pros: -
+** Cons: The index might not be bound to the canteen when index is used.
 
 === Rate Command
 
@@ -464,14 +489,11 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Rate Design Considerations
-===== Aspect:
+===== Aspect: Rate command allows 0
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Current choice:** Rating starts from 1.
+** Pros: Does not cause confusion whether a rating of 0 means food item is not rated.
+** Cons: Cannot remove a rating by setting it to 0.
 
 === Review Command
 
@@ -498,14 +520,16 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Review Design Considerations
-===== Aspect:
+===== Aspect: `review` uses a separate screen
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `review 1 this is a message`
+** Pros: Able to update a review message conveniently
+** Cons: Review message may be too long which may not fit within the ui card
+* **Alternative 2:** `review INDEX`. FoodieBot shows review edit screen to type message.
+** Pros: Remove the need to do any checking on prefixes
+** Cons: A valid command can be entered but not recognised. The user has to accept the change to navigate away.
+If the back command is accepted, the user can't enter the single word `back` as the review message.
+
 
 === Report Command (Please Update, IDK how it works)
 
@@ -530,15 +554,17 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 
 //image::
 
-==== Review Design Considerations
-===== Aspect:
+==== Report Design Considerations
+===== Aspect: Functionality aspect of report
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+
+* **Alternative 1 (current choice):** `report`
+** Pros: Shows a generated report when the command is entered.
+** Cons: -
+* **Alternative 2:** `report` command to be combined with `transactions`
+** Pros: A report can be generated right from transactions which means
+one less command to manage.
+** Cons: It is still required to  type `report` after `transactions` command is entered.
 
 
 === Select Command
@@ -566,18 +592,15 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Select Design Considerations
-===== Aspect:
+===== Aspect: How food items are selected
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Current Choice:** Selects the food item with `select INDEX`
+** Pros: clean, easy to understand command syntax
+** Cons: may be confused and used interchangeably with `enter`
 
 === Transactions Command
 
-The `transaction` command is implemented  by the `TransactionsCommand` class.
+The `transactions` command is implemented  by the `TransactionsCommand` class.
 
 This command is accessed by the `LogicManager#execute()` to display the transaction of the given period if stated.
 
@@ -599,14 +622,14 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 //image::
 
 ==== Transactions Design Considerations
-===== Aspect:
+===== Aspect: `transactions` should be included as a feature
 
-* **Alternative 1 (current choice):** `
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** `transactions`
+** Pros: There is no need to worry about prefixes.
+** Cons: To review or rate a food item, it has to always start with the transactions command.
+* **Alternative 2:** The food item is reviewed after selecting the canteen and/or stall without having `transactions` command.
+** Pros: Convenience in being able interact with the screen using multiple commands.
+** Cons: Ui may look cluttered. Increases difficulty to test.
 
 
 == Testing

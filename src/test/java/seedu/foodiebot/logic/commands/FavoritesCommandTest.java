@@ -9,6 +9,7 @@ import static seedu.foodiebot.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.UserPrefs;
@@ -24,6 +25,7 @@ class FavoritesCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalFoodieBot(), new UserPrefs());
         expectedModel = new ModelManager(getTypicalFoodieBot(), new UserPrefs());
+        ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
     }
 
     @Test
