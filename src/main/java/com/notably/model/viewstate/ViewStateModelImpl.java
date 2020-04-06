@@ -1,7 +1,12 @@
 package com.notably.model.viewstate;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,15 +16,17 @@ import javafx.beans.property.StringProperty;
  */
 public class ViewStateModelImpl implements ViewStateModel {
 
-    private StringProperty input;
+    private final StringProperty input;
+    private final Property<Optional<String>> responseText;
     private final BooleanProperty helpOpen;
 
     public ViewStateModelImpl() {
-        this("", false);
+        this("", Optional.empty(), false);
     }
 
-    private ViewStateModelImpl(String initialInput, boolean initialHelpBool) {
+    private ViewStateModelImpl(String initialInput, Optional<String> initialResponseText, boolean initialHelpBool) {
         this.input = new SimpleStringProperty(initialInput);
+        responseText = new SimpleObjectProperty<>(initialResponseText);
         this.helpOpen = new SimpleBooleanProperty(initialHelpBool);
     }
 
@@ -53,6 +60,23 @@ public class ViewStateModelImpl implements ViewStateModel {
     @Override
     public void setHelpOpen(Boolean bool) {
         this.helpOpen.setValue(bool);
+    }
+
+    //============ Response Text ===========================================================
+    @Override
+    public Property<Optional<String>> responseTextProperty() {
+        return responseText;
+    }
+
+    @Override
+    public void setResponseText(String responseTextStr) {
+        Objects.requireNonNull(responseTextStr);
+        responseText.setValue(Optional.of(responseTextStr));
+    }
+
+    @Override
+    public void clearResponseText() {
+        responseText.setValue(Optional.empty());
     }
 }
 
