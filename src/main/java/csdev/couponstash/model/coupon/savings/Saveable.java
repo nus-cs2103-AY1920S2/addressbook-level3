@@ -11,6 +11,8 @@ import java.util.Objects;
 public class Saveable implements Comparable<Saveable> {
     public static final String MESSAGE_CONSTRAINTS = "Saveables should not be blank "
             + "or null, and must have a non-negative count field.";
+    // limit for the length of string possible
+    public static final int STRING_LENGTH_LIMIT = 20;
 
     private final String savedItem;
     private final int count;

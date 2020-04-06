@@ -61,6 +61,6 @@ public class JsonAdaptedSaveable {
         if (!Saveable.isValidSaveableValue(this.saveableDesc, this.count)) {
             throw new IllegalValueException(Saveable.MESSAGE_CONSTRAINTS);
         }
-        return new Saveable(this.saveableDesc);
+        return new Saveable(this.saveableDesc, this.count);
     }
 }
