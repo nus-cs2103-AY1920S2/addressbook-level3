@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private RecipeListPanel achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private GroceryListWindow groceryListWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -182,6 +183,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the grocery list window // todo or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleGroceryList() {
+        groceryListWindow.show();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -239,6 +248,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowGroceryList()) {
+                handleGroceryList();
             }
 
             if (commandResult.isSwitchTab()) {

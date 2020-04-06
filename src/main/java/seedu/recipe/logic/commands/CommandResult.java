@@ -16,6 +16,9 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /** Ingredient list of planned recipes should be shown to the user. */
+    private final boolean showGroceryList;
+
     /**
      * The application should switch tab.
      */
@@ -27,9 +30,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, Tab switchTab, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showGroceryList, boolean showHelp, Tab switchTab, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
+        this.showGroceryList = showGroceryList;
         this.switchTab = switchTab;
         this.exit = exit;
     }
@@ -39,7 +43,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, null, false);
+        this(feedbackToUser, false, false, null, false);
     }
 
     public String getFeedbackToUser() {
@@ -48,6 +52,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowGroceryList() {
+        return showGroceryList;
     }
 
     public boolean isSwitchTab() {
@@ -76,13 +84,14 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
+                && showGroceryList == otherCommandResult.showGroceryList
                 && switchTab == otherCommandResult.switchTab
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, switchTab, exit);
+        return Objects.hash(feedbackToUser, showHelp, showGroceryList, switchTab, exit);
     }
 
 }

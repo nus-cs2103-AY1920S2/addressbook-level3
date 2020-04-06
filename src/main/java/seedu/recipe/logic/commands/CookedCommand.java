@@ -62,7 +62,7 @@ public class CookedCommand extends Command {
         }
         sb.append("!");
         model.commitBook(commandType);
-        return new CommandResult(sb.toString(), false, goalsTab, false);
+        return new CommandResult(sb.toString(), false, false, goalsTab, false);
     }
 
     @Override

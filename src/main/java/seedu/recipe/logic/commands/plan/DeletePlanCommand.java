@@ -74,6 +74,6 @@ public class DeletePlanCommand extends Command {
         model.commitBook(commandType);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToDelete, plannedIndex.getOneBased()),
-                false, planTab, false);
+                false, false, planTab, false);
     }
 }

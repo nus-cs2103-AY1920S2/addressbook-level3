@@ -81,7 +81,7 @@ public class PlanCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToPlan.toString(), atDate.toString()),
-                false, planTab, false);
+                false, false, planTab, false);
     }
 
 }

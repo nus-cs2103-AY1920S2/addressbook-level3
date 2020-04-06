@@ -31,6 +31,7 @@ import seedu.recipe.logic.commands.UndoCommand;
 import seedu.recipe.logic.commands.UnfavouriteCommand;
 import seedu.recipe.logic.commands.plan.ClearPlanCommand;
 import seedu.recipe.logic.commands.plan.DeletePlanCommand;
+import seedu.recipe.logic.commands.plan.GroceryListCommand;
 import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.logic.parser.plan.DeletePlanCommandParser;
@@ -134,6 +135,9 @@ public class RecipeBookParser {
 
         case ClearPlanCommand.COMMAND_WORD:
             return new ClearPlanCommand();
+
+        case GroceryListCommand.COMMAND_WORD:
+            return new GroceryListCommand();
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
