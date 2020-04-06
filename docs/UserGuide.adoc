@@ -201,7 +201,7 @@ Examples:
 Adds a new Coupon: +
 image:ug_deck_chicken.png[]
 
-* `add n/Preenz Gjorjes Pak Mala s/$1.50 e/2-3-2020 t/value t/friends`
+* `add n/Preenz Gjorjes Pak Mala s/$1.50 e/22-4-2020 t/value t/friends`
 +
 Adds a new Coupon: +
 image:ug_pgp_mala.png[]
