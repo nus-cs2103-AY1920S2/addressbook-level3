@@ -33,7 +33,7 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
         // Nullity check
         Objects.requireNonNull(model);
 
-        if (!oldTitle.isEmpty()) {
+        if (!oldTitle.isBlank()) {
             // Set suggestions
             List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
             List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
