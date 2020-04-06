@@ -2,6 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.com/AY1920S2-CS2103T-W17-2/main.svg?branch=master["Build Status", link="https://travis-ci.com/AY1920S2-CS2103T-W17-2/main"]
+image:https://codecov.io/gh/AY1920S2-CS2103T-W17-2/main/branch/master/graph/badge.svg["codecov", link="https://codecov.io/gh/AY1920S2-CS2103T-W17-2/main"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[]
