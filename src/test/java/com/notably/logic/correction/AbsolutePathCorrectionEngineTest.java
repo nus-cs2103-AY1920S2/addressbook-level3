@@ -9,40 +9,22 @@ import org.junit.jupiter.api.Test;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
-import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
-import com.notably.model.block.BlockModelImpl;
-import com.notably.model.block.Title;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
+import com.notably.testutil.TypicalBlockModel;
 
 public class AbsolutePathCorrectionEngineTest {
-    private static AbsolutePath toBlock;
-    private static AbsolutePath toAnother;
-    private static AbsolutePath toAnotherBlock;
     private static Model model;
 
     @BeforeAll
     public static void setUp() {
-        // Set up paths
-        toBlock = AbsolutePath.fromString("/block");
-        toAnother = AbsolutePath.fromString("/another");
-        toAnotherBlock = AbsolutePath.fromString("/another/block");
-
-        // Set up model
-        BlockModel blockModel = new BlockModelImpl();
+        BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
-
-        // Populate model with test data
-        model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("another")));
-
-        model.setCurrentlyOpenBlock(toAnother);
-        model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
     }
 
     @Test
@@ -54,13 +36,13 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withinDistanceThreshold_correctionDone() {
+    public void correct_noForwardMatchingAndWithinDistanceThreshold_correctionDone() {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, false);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/blcok");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/y2s2/Cs2016");
 
-        final AbsolutePath expectedCorrectedItem = toBlock;
+        final AbsolutePath expectedCorrectedItem = TypicalBlockModel.PATH_TO_CS2106;
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
                 expectedCorrectedStatus, expectedCorrectedItem);
@@ -70,11 +52,11 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_exceedDistanceThreshold_correctionFailed() {
+    public void correct_noForwardMatchingAndExceedDistanceThreshold_correctionFailed() {
         final int distanceThreshold = 1;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, false);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/anoth");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2s2/Cs");
 
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.FAILED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(expectedCorrectedStatus);
@@ -84,13 +66,13 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_exactMatch_noCorrection() {
+    public void correct_noForwardMatchingAndExactMatch_noCorrection() {
         final int distanceThreshold = 1;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, false);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/block");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/CS2106");
 
-        final AbsolutePath expectedCorrectedItem = toAnotherBlock;
+        final AbsolutePath expectedCorrectedItem = uncorrectedInput;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.UNCHANGED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
                 expectedCorrectionStatus, expectedCorrectedItem);
@@ -100,45 +82,13 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_differentCase() {
-        final int distanceThreshold = 1;
-        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
-                model, distanceThreshold, false);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/ANOTHER/BLOCK");
-
-        final AbsolutePath expectedCorrectedItem = toAnotherBlock;
-        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
-        final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectionStatus, expectedCorrectedItem);
-
-        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
-        assertEquals(expectedCorrectionResult, correctionResult);
-    }
-
-    @Test
-    public void correct_forwardMatching() {
-        final int distanceThreshold = 1;
+    public void correct_forwardMatchingAndWithinThreshold_correctionDone() {
+        final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/bl");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2103t/Lctre");
 
-        final AbsolutePath expectedCorrectedItem = toAnotherBlock;
-        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
-        final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectionStatus, expectedCorrectedItem);
-
-        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
-        assertEquals(expectedCorrectionResult, correctionResult);
-    }
-
-    @Test
-    public void correct_forwardMatchingDifferingCases() {
-        final int distanceThreshold = 1;
-        final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
-                model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/another/BL");
-
-        final AbsolutePath expectedCorrectedItem = toAnotherBlock;
+        final AbsolutePath expectedCorrectedItem = TypicalBlockModel.PATH_TO_CS2103T_LECTURES;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
                 expectedCorrectionStatus, expectedCorrectedItem);
