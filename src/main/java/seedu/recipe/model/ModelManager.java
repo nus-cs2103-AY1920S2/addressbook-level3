@@ -288,6 +288,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateGoalsTally(Record record) {
+        cookedRecordBook.updateGoalsTally(record);
+    }
+
+    @Override
     public ObservableList<Integer> getFilteredGoalsTally() {
         return cookedRecordBook.getFilteredGoalsTally();
     }
