@@ -3,14 +3,13 @@ package seedu.zerotoone.ui.views.home;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.ui.util.UiPart;
 
 /**
  * An UI component that displays information of a {@code Exercise}.
  */
-public class OngoingSessionCard extends UiPart<Region> {
-    private static final String FXML = "home/OngoingSessionCard.fxml";
+public class TimerCard extends UiPart<Region> {
+    private static final String FXML = "home/TimerCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,18 +20,17 @@ public class OngoingSessionCard extends UiPart<Region> {
      */
 
     @FXML
-    private Label exerciseName;
-    @FXML
-    private Label exerciseReps;
+    private Label timer;
 
-    public OngoingSessionCard(OngoingSet ongoingSet) {
+    public TimerCard(Integer timeInMs) {
         super(FXML);
-        String name = ongoingSet.getExerciseName().fullName;
-        String set = String.valueOf(ongoingSet.getIndex() + 1);
-        String weight = ongoingSet.getWeight().value;
-        String reps = ongoingSet.getNumReps().value;
-        exerciseName.setText(name + ": " + "Set " + set);
-        exerciseReps.setText(reps + " reps, " + weight + "kg");
+        int seconds = timeInMs / 1000;
+        int minutes = seconds / 60;
+        int hours = minutes / 60 % 24;
+        minutes = minutes % 60;
+        seconds = seconds % 60;
+        String timerString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        timer.setText(timerString);
     }
 
     @Override
@@ -43,13 +41,12 @@ public class OngoingSessionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof OngoingSessionCard)) {
+        if (!(other instanceof TimerCard)) {
             return false;
         }
 
         // state check
-        OngoingSessionCard card = (OngoingSessionCard) other;
-        return exerciseName.getText().equals(card.exerciseName.getText())
-                && exerciseReps.getText().equals(card.exerciseReps.getText());
+        TimerCard card = (TimerCard) other;
+        return timer.getText().equals(card.timer.getText());
     }
 }
