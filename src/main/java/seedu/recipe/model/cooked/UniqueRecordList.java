@@ -32,6 +32,10 @@ public class UniqueRecordList implements Iterable<Record> {
     private final ObservableList<Record> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    private final ObservableList<Integer> internalGoalsList = FXCollections.observableArrayList();
+    private final ObservableList<Integer> internalUnmodifiableGoalsList =
+            FXCollections.unmodifiableObservableList(internalGoalsList);
+
 
     public void setRecords(UniqueRecordList replacement) {
         requireNonNull(replacement);
@@ -140,16 +144,49 @@ public class UniqueRecordList implements Iterable<Record> {
 
             List<Goal> currGoals = new ArrayList<Goal>();
             currGoals.addAll(internalList.get(i).getGoals());
-            for (Goal curr : currGoals) {
-                String goalName = curr.goalName;
-                Integer prevCount = goalMap.get(goalName);
-                goalMap.put(goalName, prevCount + 1);
+            for (Goal currGoal : currGoals) {
+                String goalName = currGoal.goalName;
+                if (goalMap.containsKey(goalName)) {
+                    Integer prevCount = goalMap.get(goalName);
+                    goalMap.put(goalName, prevCount + 1);
+                }
             }
         }
-        ObservableList<Integer> internalGoalList = FXCollections.observableArrayList(
+        internalGoalsList.addAll(
                 goalMap.get("Herbivore"),
                 goalMap.get("Bulk like the Hulk"),
                 goalMap.get("Wholesome Wholemeal"));
-        return FXCollections.unmodifiableObservableList(internalGoalList);
+        return internalUnmodifiableGoalsList;
+    }
+
+    /**
+     * Updates goals for a record.
+     * @param record
+     */
+    public void updateGoalsTally(Record record) {
+        List<Goal> currGoals = new ArrayList<Goal>();
+        currGoals.addAll(record.getGoals());
+        for (Goal currGoal: currGoals) {
+            String goalName = currGoal.goalName;
+            int currCount = 0;
+            switch(goalName) {
+
+            case "Herbivore":
+                currCount = internalGoalsList.get(0);
+                internalGoalsList.set(0, currCount + 1);
+                break;
+            case "Bulk like the Hulk":
+                currCount = internalGoalsList.get(1);
+                internalGoalsList.set(1, currCount + 1);
+                break;
+            case "Wholesome Wholemeal":
+                currCount = internalGoalsList.get(2);
+                internalGoalsList.set(2, currCount + 1);
+                break;
+            default:
+                //no update to counter - not part of main 3 goals
+                break;
+            }
+        }
     }
 }
