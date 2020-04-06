@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -127,6 +129,12 @@ public interface Model {
     void tagWeather(int entryId, Weather weather);
 
     void tagMood(int entryId, Mood mood);
+
+    DiaryEntry getDiaryEntryById(int entryId);
+
+    List<Integer> getListOfIdsByDate(LocalDate date);
+
+    boolean isExistingDate(LocalDate date);
 
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */

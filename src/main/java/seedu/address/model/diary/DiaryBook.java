@@ -1,5 +1,6 @@
 package seedu.address.model.diary;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +73,25 @@ public class DiaryBook {
     public void tagMood(int entryId, Mood mood) {
         diaryEntries.get(calibrateIndex(entryId)).setMood(mood);
     }
+
+    public DiaryEntry getDiaryEntryById(int entryId) {
+        return diaryEntries.get(calibrateIndex(entryId));
+    }
+
+    public List<Integer> getListOfIdsByDate(LocalDate date) {
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 1; i <= diaryEntries.size(); i++) {
+            if (getDiaryEntryById(i).getDate().equals(date)) {
+                ids.add(i);
+            }
+        }
+        return ids;
+    }
+
+    public boolean isExistingDate(LocalDate date) {
+        return getListOfIdsByDate(date).size() != 0;
+    }
+
 
     public List<DiaryEntry> getDiaryEntries() {
         return this.diaryEntries;

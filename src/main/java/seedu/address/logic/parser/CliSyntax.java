@@ -32,6 +32,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ENTRY_ID = new Prefix("id/");
     public static final Prefix PREFIX_WEATHER = new Prefix("w/");
     public static final Prefix PREFIX_MOOD = new Prefix("m/");
+    public static final Prefix PREFIX_DIARY_DATE = new Prefix("date/");
 
 
 }

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -174,6 +176,21 @@ public class ModelManager implements Model {
     @Override
     public void tagMood(int entryId, Mood mood) {
         diaryBook.tagMood(entryId, mood);
+    }
+
+    @Override
+    public DiaryEntry getDiaryEntryById(int entryId) {
+        return diaryBook.getDiaryEntryById(entryId);
+    }
+
+    @Override
+    public List<Integer> getListOfIdsByDate(LocalDate date) {
+        return diaryBook.getListOfIdsByDate(date);
+    }
+
+    @Override
+    public boolean isExistingDate(LocalDate date) {
+        return diaryBook.isExistingDate(date);
     }
 
     @Override
