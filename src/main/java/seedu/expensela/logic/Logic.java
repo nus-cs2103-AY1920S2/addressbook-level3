@@ -43,9 +43,9 @@ public interface Logic {
 
     void setFilter(Filter filter);
 
-    ToggleView getToggleView();
+    boolean getIsFilterMonth();
 
-    boolean getToggleIsRangeMonth();
+    ToggleView getToggleView();
 
     /**
      * Returns the user prefs' expensela file path.

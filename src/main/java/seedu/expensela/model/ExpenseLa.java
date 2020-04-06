@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.Toggle;
 import seedu.expensela.model.monthlydata.Budget;
 import seedu.expensela.model.monthlydata.Expense;
 import seedu.expensela.model.monthlydata.Income;
@@ -73,6 +72,10 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         this.filter.setDateMonth(filter.getDateMonthPredicate());
     }
 
+    public boolean getIsFilterMonth() {
+        return this.filter.isFilterMonth();
+    }
+
     /**
      * Resets the existing data of this {@code ExpenseLa} with {@code newData}.
      */
@@ -124,12 +127,6 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
 
     public void switchToggleView() {
         toggleView.switchIsViewList();
-    }
-
-    public void setToggleViewRange(String toggleViewRange) {
-        requireNonNull(toggleViewRange);
-
-        toggleView.setRange(toggleViewRange);
     }
 
     //// util methods

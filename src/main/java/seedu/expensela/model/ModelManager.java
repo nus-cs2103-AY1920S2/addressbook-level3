@@ -259,12 +259,17 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Update filter object and set range of toggleView object
+     * Update filter object
      */
     @Override
     public void setFilter(Filter filter) {
         expenseLa.setFilter(filter);
         updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
+    }
+
+    @Override
+    public boolean getIsFilterMonth() {
+        return expenseLa.getIsFilterMonth();
     }
 
     //=========== Global Data Accessors =============================================================
@@ -317,16 +322,6 @@ public class ModelManager implements Model {
     @Override
     public void switchToggleView() {
         expenseLa.switchToggleView();
-    }
-
-    @Override
-    public void setToggleViewRange(String toggleViewRange) {
-        expenseLa.setToggleViewRange(toggleViewRange);
-    }
-
-    @Override
-    public boolean getToggleIsRangeMonth() {
-        return expenseLa.getToggleView().isRangeMonth();
     }
 
     //=========== Monthly Data Accessors =============================================================

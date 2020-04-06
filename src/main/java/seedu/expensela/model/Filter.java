@@ -60,6 +60,18 @@ public class Filter {
         this.dateMonth = dateMonth;
     }
 
+    /**
+     * Checks if filter is currently by month or not
+     * @return true is currently filtered by month, else false
+     */
+    public boolean isFilterMonth() {
+        if (getDateMonth().equals("ALL")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

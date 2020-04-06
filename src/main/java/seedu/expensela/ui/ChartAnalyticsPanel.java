@@ -39,9 +39,9 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
 
-    public ChartAnalyticsPanel(ObservableList<Transaction> transactionList, boolean isRangeMonth) {
+    public ChartAnalyticsPanel(ObservableList<Transaction> transactionList, boolean isFilterMonth) {
         super(FXML);
-        if (isRangeMonth) {
+        if (isFilterMonth) {
             graphByWeek(transactionList);
         } else {
             graphByMonth(transactionList);
@@ -90,7 +90,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
         xAxis.setLabel("Day");
         xAxis.getCategories().addAll("Week 1", "Week 2", "Week 3", "Week 4", "Week 5");
         yAxis.setLabel("Spent");
-        stackedBarChart.setTitle("Expenditure this month");
+        stackedBarChart.setTitle("Expenditure This Month");
 
         double[][] spentByWeekAndDay = new double[5][7];
 
@@ -161,7 +161,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     private void graphByMonth(ObservableList<Transaction> transactionList) {
         xAxis.setLabel("Month");
         yAxis.setLabel("Spent");
-        stackedBarChart.setTitle("Expenditure this year and last year");
+        stackedBarChart.setTitle("Expenditure This Year and Last Year");
 
         double[][] spentByYearAndMonth = new double[2][12];
         int currYear = LocalDate.now().getYear();

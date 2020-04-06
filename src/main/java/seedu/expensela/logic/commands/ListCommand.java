@@ -21,7 +21,6 @@ public class ListCommand extends Command {
         model.setFilter(new Filter(null, null));
         requireNonNull(model);
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
-        model.setToggleViewRange("ALL");
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
