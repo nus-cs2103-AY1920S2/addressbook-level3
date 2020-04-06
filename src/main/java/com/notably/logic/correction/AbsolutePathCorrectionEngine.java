@@ -110,13 +110,13 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
 
             List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
             List<AbsolutePath> childrenPaths = childrenBlocks
-                .stream()
-                .map(item -> {
-                    List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
-                    combinedComponents.add(item.getTitle().getText());
-                    return AbsolutePath.fromComponents(combinedComponents);
-                })
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(item -> {
+                        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
+                        combinedComponents.add(item.getTitle().getText());
+                        return AbsolutePath.fromComponents(combinedComponents);
+                    })
+                    .collect(Collectors.toList());
             pathQueue.addAll(childrenPaths);
 
             possiblePaths.add(currentPath);
