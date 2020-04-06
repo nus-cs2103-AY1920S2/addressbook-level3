@@ -116,7 +116,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
                     combinedComponents.add(item.getTitle().getText());
                     return AbsolutePath.fromComponents(combinedComponents);
                 })
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
             pathQueue.addAll(childrenPaths);
 
             possiblePaths.add(currentPath);
