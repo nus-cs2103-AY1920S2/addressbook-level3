@@ -114,7 +114,7 @@ e.g. Typing `find-c Bry` will not show clients with the name `Bryan`. +
 For a detailed explanation, you can refer to the commons errors / problems section.
 
 * Clients matching at least one `NAME` keyword will be returned and does not require all the words in their name to match. +
-e.g. Typing `find-c Hans Bo` will show clients `Hans Gruber` and `Bo Yang` and not necessarily just client `Hans bo`. +
+e.g. Typing `find-c Hans Bo` will show clients `Hans Gruber` and `Bo Yang` and not necessarily just client `Hans Bo`. +
 For a detailed explanation, you can refer to the commons errors / problems section.
 |====================
 
