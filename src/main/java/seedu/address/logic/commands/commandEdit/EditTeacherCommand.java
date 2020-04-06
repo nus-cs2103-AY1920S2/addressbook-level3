@@ -52,7 +52,6 @@ public class EditTeacherCommand extends Command {
           + "[" + PREFIX_SALARY + "SALARY] "
           + "[" + PREFIX_ADDRESS + "ADDRESS] "
           + "[" + PREFIX_TAG + "TAG]...\n"
-
           + "Example: " + COMMAND_WORD + " 16100 "
           + PREFIX_GENDER + "m "
           + PREFIX_PHONE + "91234567 "
@@ -87,6 +86,7 @@ public class EditTeacherCommand extends Command {
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
     Gender updatedGender = editTeacherDescriptor.getGender().orElse(teacherToEdit.getGender());
+
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
     Email updatedEmail = editTeacherDescriptor.getEmail().orElse(teacherToEdit.getEmail());
     Salary updatedSalary = editTeacherDescriptor.getSalary().orElse(teacherToEdit.getSalary());
