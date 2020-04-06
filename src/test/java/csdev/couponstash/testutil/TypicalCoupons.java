@@ -38,13 +38,13 @@ import csdev.couponstash.model.coupon.savings.Savings;
  */
 public class TypicalCoupons {
 
-    public static final MonetaryAmount ALICE_MONETARY_AMOUNT = new MonetaryAmount(0.5);
+    public static final MonetaryAmount ALICE_MONETARY_AMOUNT = new MonetaryAmount(0, 50);
     public static final PercentageAmount BENSON_PERCENTAGE_AMOUNT = new PercentageAmount(30.0);
 
     public static final Savings ALICE_SAVINGS = new Savings(ALICE_MONETARY_AMOUNT);
     public static final Savings BENSON_SAVINGS = new Savings(BENSON_PERCENTAGE_AMOUNT);
     public static final Savings CARL_SAVINGS = new Savings(
-            new MonetaryAmount(20.0),
+            new MonetaryAmount(20, 0),
             Arrays.asList(new Saveable("Spa"), new Saveable("Door Gift"), new Saveable("Drink"))
     );
     public static final Savings DANIEL_SAVINGS = new Savings(
@@ -54,10 +54,10 @@ public class TypicalCoupons {
     public static final Savings ELLE_SAVINGS = new Savings(
             Arrays.asList(new Saveable("Brattby Bag"), new Saveable("Channel Bag"), new Saveable("Doir Bag"))
     );
-    public static final Savings FIONA_SAVINGS = new Savings(new MonetaryAmount(3.0));
+    public static final Savings FIONA_SAVINGS = new Savings(new MonetaryAmount(3, 0));
     public static final Savings GEORGE_SAVINGS = new Savings(new PercentageAmount(17.0));
     public static final Savings HOON_SAVINGS = new Savings(
-            new MonetaryAmount(2.5),
+            new MonetaryAmount(2, 5),
             Arrays.asList(new Saveable("Haircut"), new Saveable("Hair Colouring"))
     );
     public static final Savings IDA_SAVINGS = new Savings(

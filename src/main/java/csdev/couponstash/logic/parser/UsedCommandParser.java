@@ -24,7 +24,6 @@ public class UsedCommandParser implements Parser<UsedCommand> {
      * @param moneySymbol String representing the money symbol.
      */
     public UsedCommandParser(String moneySymbol) {
-        System.out.println(moneySymbol);
         this.moneySymbol = moneySymbol;
     }
 
