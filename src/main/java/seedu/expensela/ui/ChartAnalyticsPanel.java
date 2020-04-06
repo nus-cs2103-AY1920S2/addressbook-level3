@@ -59,6 +59,9 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
         ArrayList <Integer> amounts = new ArrayList<>();
         for (Transaction transaction : transactionList) {
             String category = transaction.getCategory().toString();
+            if (category.equals("INCOME")) {
+                continue;
+            }
             Amount amount = transaction.getAmount();
             double amountDouble = amount.transactionAmount;
             int amountInteger = (int) amountDouble;
