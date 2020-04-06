@@ -31,14 +31,14 @@ public class CouponTest {
     @Test
     public void setArchivalState_true_returnsTrue() {
         Coupon coupon = new CouponBuilder().build();
-        boolean stateOfArchival = Boolean.valueOf(coupon.archive().getArchived().value);
+        boolean stateOfArchival = Boolean.valueOf(coupon.archive().getArchived().state);
         assertTrue(stateOfArchival);
     }
 
     @Test
     public void setArchivalState_false_returnsTrue() {
         Coupon coupon = new CouponBuilder().build();
-        boolean stateOfArchival = Boolean.valueOf(coupon.unarchive().getArchived().value);
+        boolean stateOfArchival = Boolean.valueOf(coupon.unarchive().getArchived().state);
         assertFalse(stateOfArchival);
     }
 
@@ -78,7 +78,7 @@ public class CouponTest {
 
         // different state of archival -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
-                .withArchived("true")
+                .withArchived(true)
                 .build();
         assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
     }
@@ -134,7 +134,7 @@ public class CouponTest {
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different state of archival -> returns false
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withArchived("true")
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withArchived(true)
                 .build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
     }
