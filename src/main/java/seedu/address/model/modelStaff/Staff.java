@@ -156,7 +156,7 @@ public class Staff extends ModelObject {
 
   /**
    * Assign a course ID to a staff (the staff must be a teacher)
-   * @param courseID
+   * @param courseID the course ID that is assigned for staff (teacher) teaches
    */
   public void addCourse(ID courseID) {
     if (isTeacher())
@@ -165,7 +165,7 @@ public class Staff extends ModelObject {
 
   /**
    * Assign a course ID to a staff (the staff must be a teacher)
-   * @param courseID
+   * @param courseID the courses ID that are assigned for staff (teacher) teaches
    */
   public void addCourses(Set<ID> courseID) {
     if (isTeacher())

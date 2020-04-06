@@ -23,6 +23,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,10 +44,10 @@ public class EditTeacherCommandParser implements Parser<EditTeacherCommand> {
             .tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_TEACHERID, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SALARY, PREFIX_ADDRESS,
                 PREFIX_TAG);
 
-    Index index;
+    ID id;
 
     try {
-      index = ParserUtil.parseIndex(argMultimap.getPreamble());
+      id = ParserUtil.parseID(argMultimap.getPreamble());
     } catch (ParseException pe) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTeacherCommand.MESSAGE_USAGE), pe);
@@ -79,7 +80,7 @@ public class EditTeacherCommandParser implements Parser<EditTeacherCommand> {
       throw new ParseException(EditTeacherCommand.MESSAGE_NOT_EDITED);
     }
 
-    return new EditTeacherCommand(index, editTeacherDescriptor);
+    return new EditTeacherCommand(id, editTeacherDescriptor);
   }
 
   /**
