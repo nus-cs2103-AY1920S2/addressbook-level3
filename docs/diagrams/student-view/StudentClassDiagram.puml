@@ -1,0 +1,43 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Class TaTracker
+Class ModelManager
+
+Package Student {
+Class Student
+Class Email
+Class Rating
+Class Matric
+Class Name
+Class Phone
+Class UniqueStudentList
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+Class HiddenOutside #FFFFFF
+
+TaTracker *--> "1" UniqueStudentList
+UniqueStudentList o--> "*" Student
+ModelManager o--> "1" TaTracker
+Student *--> Name
+Student *--> Rating
+Student *--> Phone
+Student *--> Email
+Student *--> Matric
+Student *--> "*" Tag
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Matric
+Matric -[hidden]right-> Email
+
+ModelManager -->"1" Student : filtered list
+@enduml
