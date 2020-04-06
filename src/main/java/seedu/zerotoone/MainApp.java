@@ -172,9 +172,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty LogList");
             initialLogListData = new LogList();
         }
-
-        ;
-
         return new ModelManager(userPrefs,
                 initialExerciseListData,
                 initialWorkoutListData,

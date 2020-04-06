@@ -1,0 +1,60 @@
+package seedu.zerotoone.ui.util;
+
+import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+
+public class DateViewUtil {
+
+    public static String getPrettyDateRangeDateTime(LocalDateTime start, LocalDateTime end) {
+        if (isDateEqual(start, end)) {
+            return getPrettyDateRangeSameDay(start, end);
+        }
+        return getPrettyDateRangeDifferentDay(start, end);
+    }
+
+    public static String getPrettyDateRangeSameDay(LocalDateTime start, LocalDateTime end) {
+        int year = start.getYear();
+        int day = start.getDayOfMonth();
+
+        String month = capitalize(start.getMonth().toString());
+        String dayOfWeek = capitalize(start.getDayOfWeek().toString().substring(0, 3));
+
+        int startHour = start.getHour();
+        int startMinute = start.getMinute();
+        int endHour = end.getHour();
+        int endMinute = end.getMinute();
+        return String.format("%s %s %s %s,  %02d:%02d - %02d:%02d", dayOfWeek, day, month, year, startHour,
+            startMinute, endHour, endMinute);
+    }
+
+    public static String getPrettyDateRangeDifferentDay(LocalDateTime start, LocalDateTime end) {
+        return getPrettyDateTimeString(start) + " - " + getPrettyDateTimeString(end);
+    }
+
+    public static String getPrettyTimeDifference(LocalDateTime start, LocalDateTime end) {
+        LocalDateTime tempDateTime = LocalDateTime.from(start);
+
+        long hours = tempDateTime.until( end, ChronoUnit.HOURS );
+        tempDateTime = tempDateTime.plusHours( hours );
+
+        long minutes = tempDateTime.until( end, ChronoUnit.MINUTES );
+        tempDateTime = tempDateTime.plusMinutes( minutes );
+
+
+        long seconds = tempDateTime.until( end, ChronoUnit.SECONDS );
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    private static boolean isDateEqual(LocalDateTime start, LocalDateTime end) {
+        return start.getYear() == end.getYear() && start.getMonthValue() == end.getMonthValue()
+            && start.getDayOfMonth() == end.getDayOfMonth();
+    }
+
+    private static String capitalize(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+}

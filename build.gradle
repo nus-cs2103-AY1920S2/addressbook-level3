@@ -81,6 +81,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3, approved on forum for StopWatch use
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+    // https://github.com/nus-cs2103-AY1920S2/forum/issues/101 approved for icons
+    compile group: 'de.jensd', name: 'fontawesomefx', version: '8.2'
 }
 
 shadowJar {
