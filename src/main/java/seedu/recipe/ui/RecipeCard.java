@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.ingredient.Ingredient;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
@@ -33,6 +34,7 @@ public class RecipeCard extends UiPart<Region> {
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n";
+    private final double windowWidth = 2;
 
     @FXML
     private HBox cardPane;
@@ -40,6 +42,8 @@ public class RecipeCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private VBox details;
     @FXML
     private ImageView favourite;
     @FXML
@@ -79,7 +83,8 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         name.setWrapText(true);
-
+        //cardPane.get
+        //System.out.println(windowWidth);
         if (recipe.isFavourite()) {
             favourite.setImage(new Image("/images/favourite.png"));
         }
@@ -95,32 +100,29 @@ public class RecipeCard extends UiPart<Region> {
 
         if (!recipe.getGrains().isEmpty()) {
             setHeader(grainsHeader, "Grains");
-            recipe.getGrains().forEach(grain -> grains.getChildren().add(new Label(grain.toString())));
-            grains.getChildren().forEach(grain -> grain.setStyle(styleIngredientsAndSteps));
+            recipe.getGrains().forEach(grain -> addIngredientToVerticalBox(grain, grains));
+
+            grains.setPrefWidth(300);
         }
 
         if (!recipe.getVegetables().isEmpty()) {
             setHeader(vegetablesHeader, "Vegetables");
-            recipe.getVegetables().forEach(vegetable -> vegetables.getChildren().add(new Label(vegetable.toString())));
-            vegetables.getChildren().forEach(vegetable -> vegetable.setStyle(styleIngredientsAndSteps));
+            recipe.getVegetables().forEach(vegetable -> addIngredientToVerticalBox(vegetable, vegetables));
         }
 
         if (!recipe.getProteins().isEmpty()) {
             setHeader(proteinsHeader, "Proteins");
-            recipe.getProteins().forEach(protein -> proteins.getChildren().add(new Label(protein.toString())));
-            proteins.getChildren().forEach(protein -> protein.setStyle(styleIngredientsAndSteps));
+            recipe.getProteins().forEach(protein -> addIngredientToVerticalBox(protein, proteins));
         }
 
         if (!recipe.getFruits().isEmpty()) {
             setHeader(fruitsHeader, "Fruits");
-            recipe.getFruits().forEach(fruit -> fruits.getChildren().add(new Label(fruit.toString())));
-            fruits.getChildren().forEach(fruit -> fruit.setStyle(styleIngredientsAndSteps));
+            recipe.getFruits().forEach(fruit -> addIngredientToVerticalBox(fruit, fruits));
         }
 
         if (!recipe.getOthers().isEmpty()) {
             setHeader(othersHeader, "Others");
-            recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
-            others.getChildren().forEach(other -> other.setStyle(styleIngredientsAndSteps));
+            recipe.getOthers().forEach(other -> addIngredientToVerticalBox(other, others));
         }
 
         if (!recipe.getSteps().isEmpty()) {
@@ -141,8 +143,16 @@ public class RecipeCard extends UiPart<Region> {
     }
 
     private void setHeader(Label label, String text) {
-        label.setUnderline(true);
         label.setText(text);
+        label.setUnderline(true);
+        label.setWrapText(true);
+    }
+
+    private void addIngredientToVerticalBox(Ingredient ingredient, VBox box) {
+        Label label = new Label(ingredient.toString());
+        label.setWrapText(true);
+        label.setStyle(styleIngredientsAndSteps);
+        box.getChildren().add(label);
     }
 
     @Override
