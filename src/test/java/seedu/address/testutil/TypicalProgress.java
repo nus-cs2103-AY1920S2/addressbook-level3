@@ -37,24 +37,6 @@ public class TypicalProgress {
 
     static {
         try {
-<<<<<<< HEAD
-            CompositeID_S1_A1 = new CompositeID(student1, assignment100);
-            Progress_S1_A1 = new ProgressBuilder().withCompositeID(CompositeID_S1_A1).build();
-
-            CompositeID_S1_A2 = new CompositeID(student1, assignment200);
-            Progress_S1_A2 = new ProgressBuilder().withCompositeID(CompositeID_S1_A2).build();
-
-            CompositeID_S1_A3 = new CompositeID(student1, assignment300);
-            Progress_S1_A3 = new ProgressBuilder().withCompositeID(CompositeID_S1_A3).build();
-
-            CompositeID_S2_A1 = new CompositeID(student2, assignment100);
-            Progress_S2_A1 = new ProgressBuilder().withCompositeID(CompositeID_S2_A1).build();
-
-            CompositeID_S2_A2 = new CompositeID(student2, assignment200);
-            Progress_S2_A2 = new ProgressBuilder().withCompositeID(CompositeID_S2_A2).build();
-
-            CompositeID_S2_A3 = new CompositeID(student2, assignment300);
-=======
             CompositeID_S1_A1 = new CompositeID(assignment100, student1);
             Progress_S1_A1 = new ProgressBuilder().withCompositeID(CompositeID_S1_A1).build();
 
@@ -71,7 +53,6 @@ public class TypicalProgress {
             Progress_S2_A2 = new ProgressBuilder().withCompositeID(CompositeID_S2_A2).build();
 
             CompositeID_S2_A3 = new CompositeID(assignment300, student2);
->>>>>>> e0382ed7d7cf050b0f9736611029ddf78809669e
             Progress_S2_A3 = new ProgressBuilder().withCompositeID(CompositeID_S2_A3).build();
         } catch (CommandException e) {
             e.printStackTrace();

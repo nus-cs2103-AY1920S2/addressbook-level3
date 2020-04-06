@@ -86,7 +86,7 @@ public class Finance extends ModelObject {
    * Every field must be present and not null.
    */
   public Finance(Name name, ID id, FinanceType financeType, Date date, Amount amount, ID courseid, ID studentid, ID staffid, Set<Tag> tags)
-      throws ParseException {
+       {
     requireAllNonNull(courseid, studentid, staffid);
     this.name = name;
     this.id = id;
