@@ -4,121 +4,214 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Model {
-    Class HiddenModel #FFFFFF
+package Model {}
+package Storage {}
+
+package Logic as LogicPkg {
+
+    Interface Logic <<Interface>>
+    Class LogicManager
+
+    package Parser as ParserPkg {
+        Interface Parser <<Interface>>
+        Class TaTrackerParser
+
+        Parser .up[hidden]..> TaTrackerParser
+    }
+
+    package Commands as CommandPkg {
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        CommandResult <.left. Command
+    }
+
+    Logic .down.> CommandResult
+
+    Logic <|.left. LogicManager
+
+    LogicManager -right-> "1" TaTrackerParser
+    LogicManager .down.> CommandResult
+    LogicManager .down.> Command
 }
+
+Class HiddenOutside #FFFFFF
+'HiddenOutside .[hidden]down.> LogicPkg
+HiddenOutside .down.> Logic
+
+LogicManager -up-> Storage
+
+LogicManager -right-> Model
+Command .right.> Model
+
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
 
 package Logic {
     package Parser as ParserPkg {
 
-        note as Note1
-        <size:16>Each <u>ActionY</u> modifies the UI view of TA-Tracker</size>
+        Class TaTrackerParser
+        Interface Parser <<Interface>>
 
-        ----
-        eg. Clear, Find, Help, Filter
-        end note
 
-        package ModelX as ModelParser {
-            Class ModelXCommandParser
-            Class ActionXModelXCommandParser
-            ModelXCommandParser .down.> ActionXModelXCommandParser
+        package X as ModelParser {
+            Class XCommandParser
+            Class XYCommandParser
 
-            note as Note2
-            <size:16>Each <u>ModelX</u> has a set of valid <u>ActionX</u></size>
-
-            ----
-            <u><b>ModelX:  ActionX</b></u>
-
-            Module: Add, Delete
-
-            Group: Add, Delete
-
-            Student: Add, Delete, Edit
-
-            Session: Add, Delete, Edit, Done, Start, Stop
-            end note
+            TaTrackerParser .down.> XCommandParser
+            XCommandParser .down.> XYCommandParser
         }
 
-        Class ActionYCommandParser
-        Class TaTrackerParser
+        XYCommandParser .right.|> Parser
 
-        TaTrackerParser .down.> ModelXCommandParser
-
-
-        Class ArgumentMultimap
-        Class ArgumentTokenizer
-        Class Prefixes
-        Class ParserUtil
-        Interface Parser <<Interface>>
         Class Prefix
 
+        Class Prefixes
 
-        Prefixes -right[hidden]- Parser
-'        ArgumentMultimap -right[hidden]- ArgumentTokenizer
-'        Prefixes -left[hidden]- ParserUtil
-'        ArgumentTokenizer -right[hidden]- Prefixes
-'        ParserUtil -right[hidden]- Parser
+        Class ArgumentTokenizer
+        Class ArgumentMultimap
 
-        ActionXModelXCommandParser ..down..|> Parser
-        ActionXModelXCommandParser ..down..> ArgumentMultimap
-        ActionXModelXCommandParser ..down..> ArgumentTokenizer
-        ActionXModelXCommandParser ..down..> Prefixes
-        ActionXModelXCommandParser ..down..> ParserUtil
+        Class ParserUtil
 
-        ActionYCommandParser .down.|> Parser
-        ActionYCommandParser .down.> ArgumentMultimap
-        ActionYCommandParser .down.> ArgumentTokenizer
-        ActionYCommandParser .down.> Prefixes
-        ActionYCommandParser .down.> ParserUtil
 
-        ArgumentMultimap <.left. ArgumentTokenizer
+        Prefixes -right[hidden]- ParserUtil
+
+        XYCommandParser .down.> ArgumentMultimap
+        XYCommandParser .down.> ArgumentTokenizer
+        XYCommandParser .down[#Red].> Prefixes
+        XYCommandParser .down.> ParserUtil
+
+        ArgumentTokenizer .right.> ArgumentMultimap
 
         ArgumentTokenizer .down.> Prefix
         ParserUtil .down.> Prefix
-        Prefixes .down.> Prefix
-
-'        ActionXModelXCommandParser -right- ActionYCommandParser
+        Prefixes -down-> "*" Prefix
     }
 
-    package Command as ModelCommand {
-        package ModelX {
-            Class ActionXModelXCommand
+    package Commands as ModelCommand {
+        package X {
+            Class XYCommand
         }
-
-        Class ActionYCommand
 
         Class CommandResult
         Class "{abstract}\nCommand" as Command
 
         Command .up.> CommandResult
-        ActionXModelXCommand -up-|> Command
+        XYCommand -up-|> Command
 
-        ActionYCommand -right-|> Command
+        XYCommand .down[LOGIC_COLOR_T4].> Prefixes
     }
 
-    Interface Logic <<Interface>>
-    Class LogicManager
-
-    Logic .down.> CommandResult
-
-    LogicManager .up.|> Logic
-    LogicManager -down-> "1" TaTrackerParser
-    LogicManager .down.> CommandResult
-    LogicManager .down.> Command
-
-    ActionYCommandParser <.right. TaTrackerParser
-
-    ActionXModelXCommandParser .right.> ActionXModelXCommand
-    ActionYCommandParser .right.> ActionYCommand
-
-    ModelXCommandParser .left[hidden].> ActionYCommandParser
-    ActionYCommandParser .left[hidden].> ActionXModelXCommand
+    XYCommandParser .right.> XYCommand
 }
+@enduml
 
-Class HiddenOutside #FFFFFF
-HiddenOutside .down.> Logic
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
 
-Model <-left- LogicManager
-Model <.left. Command
+package Logic {
+    package Parser as ParserPkg {
 
+        Class TaTrackerParser
+        Interface Parser <<Interface>>
+
+
+        package X as ModelParser {
+            Class XCommandParser
+
+            TaTrackerParser ..down[#Red].> XCommandParser
+        }
+
+        XCommandParser .right.|> Parser
+    }
+
+    package Commands as ModelCommand {
+        package X {
+            Class XCommand
+        }
+
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        Command .up.> CommandResult
+        XCommand -up-|> Command
+    }
+
+    XCommandParser .right.> XCommand
+}
+@enduml
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+    package Parser as ParserPkg {
+
+        Class TaTrackerParser
+        Interface Parser <<Interface>>
+
+
+        package X as ModelParser {
+            Class XCommandParser
+            Class XYCommandParser
+
+            TaTrackerParser .down.> XCommandParser
+            XCommandParser .down.> XYCommandParser
+        }
+
+        XYCommandParser .right.|> Parser
+
+        Class Prefix
+
+        Class ArgumentTokenizer
+        Class ArgumentMultimap
+
+        Class ParserUtil
+
+
+        XYCommandParser .down.> ArgumentMultimap
+        XYCommandParser .down.> ArgumentTokenizer
+        XYCommandParser .down.> ParserUtil
+
+        ArgumentTokenizer .right.> ArgumentMultimap
+
+        ArgumentTokenizer .down.> Prefix
+        ParserUtil .down.> Prefix
+
+    }
+
+    package Commands as ModelCommand {
+        package X {
+            Class XYCommand
+        }
+
+        Class Prefixes #RED
+
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+
+        Command .up.> CommandResult
+        XYCommand -up-|> Command
+
+        XYCommand .down[LOGIC_COLOR_T4].> Prefixes
+    }
+
+    XYCommandParser .down[#RED].> Prefixes
+
+    Prefixes -right[hidden]- ParserUtil
+    Prefixes -down-> "*" Prefix
+
+    XYCommandParser .right.> XYCommand
+}
 @enduml

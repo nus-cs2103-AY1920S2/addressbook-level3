@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes `session done` Command;
+
+:Checks the recurring period of the session;
+
+if () then ([recurring period > 0])
+    :Creates a new Session with the updated date;
+
+else ([else])
+endif
+
+:Remove the current session from session view;
+:Current session added under Claims view;
+:Shows user the added Session;
+
+stop
+@enduml
+
