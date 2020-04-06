@@ -40,7 +40,7 @@ public class CouponBuilder {
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
     public static final String DEFAULT_CONDITION = "While Stocks Last";
-    public static final String DEFAULT_ARCHIVED = "false";
+    public static final Boolean DEFAULT_ARCHIVED = false;
 
     public static final String FULL_COMMAND_TEXT =
             String.format("n/%s p/%s e/%s s/%s sd/%s l/%s",
@@ -207,7 +207,7 @@ public class CouponBuilder {
     /**
      * Sets the {@code Archive} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withArchived(String state) {
+    public CouponBuilder withArchived(Boolean state) {
         this.archived = new Archived(state);
         return this;
     }
@@ -220,7 +220,7 @@ public class CouponBuilder {
     public Coupon build() {
         boolean isUsageAtLimit = Usage.isUsageAtLimit(usage, limit);
         if (isUsageChanged && isUsageAtLimit) {
-            archived = new Archived("true");
+            archived = new Archived(true);
         }
 
         return new Coupon(name, promoCode, savings, expiryDate, startDate,

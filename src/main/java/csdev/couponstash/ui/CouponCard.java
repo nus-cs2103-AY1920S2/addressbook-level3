@@ -88,7 +88,7 @@ public class CouponCard extends UiPart<Region> {
         SavingsBox savingsBox = new SavingsBox();
         savingsBox.setSavings(coupon.getSavingsForEachUse(), moneySymbol);
         savings.getChildren().add(savingsBox.getRoot());
-        archived.setVisible(Boolean.parseBoolean(coupon.getArchived().value));
+        archived.setVisible(coupon.getArchived().state);
     }
 
     /**

@@ -59,6 +59,7 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
         assert Integer.parseInt(toAdd.getUsage().value) == 0 : "Usage of a new coupon to be added should be 0";
+        assert !toAdd.getArchived().state : "A new coupon should not be archived";
 
         if (model.hasCoupon(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);

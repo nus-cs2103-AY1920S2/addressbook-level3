@@ -102,7 +102,7 @@ public class ModelManagerTest {
         CouponStash couponStash = new CouponStash(TypicalCoupons.getTypicalCouponStash());
         FilteredList<Coupon> filteredCouponList = couponStash.getCouponList()
                 .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now()))
-                .filtered(coupon -> !Boolean.parseBoolean(coupon.getArchived().value));
+                .filtered(coupon -> !coupon.getArchived().state);
 
         modelManager = new ModelManager(couponStash, new UserPrefs());
 

@@ -47,7 +47,7 @@ public class UnarchiveCommand extends IndexedCommand {
         Coupon couponToBeUnarchived = lastShownList.get(targetIndex.getZeroBased());
         Archived currentStateOfArchival = couponToBeUnarchived.getArchived();
 
-        if (!Boolean.parseBoolean(currentStateOfArchival.toString())) {
+        if (!currentStateOfArchival.state) {
             throw new CommandException(String.format(MESSAGE_COUPON_ALREADY_ACTIVE, couponToBeUnarchived.getName()));
         }
 

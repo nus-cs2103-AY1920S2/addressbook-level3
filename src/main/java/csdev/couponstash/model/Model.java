@@ -24,18 +24,18 @@ public interface Model {
      * {@code Predicate} to filter active coupons only
      */
     Predicate<Coupon> PREDICATE_SHOW_ALL_ACTIVE_COUPONS = coupon ->
-            !Boolean.valueOf(coupon.getArchived().toString());
+            !coupon.getArchived().state;
 
     /**
      * {@code Predicate} to filter archived coupons only
      */
     Predicate<Coupon> PREDICATE_SHOW_ALL_ARCHIVED_COUPONS = coupon ->
-            Boolean.valueOf(coupon.getArchived().toString());
+            coupon.getArchived().state;
 
     /**
      * {@code Predicate} to filter used coupons only
      */
-    Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = coupon -> coupon.isUsed();
+    Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = Coupon::isUsed;
 
     /**
      * {@code Comparator} to sort non-archived coupons at the top

@@ -31,11 +31,11 @@ public class ExpiringCommandParser implements Parser<ExpiringCommand> {
 
         try {
             if (monthYearPresent && !expiryDatePresent) {
-                //Month-Year only
+                // Month-Year only
                 YearMonth yearMonth = ParserUtil.parseYearMonth(argMultiMap.getValue(PREFIX_MONTH_YEAR).get());
                 return new ExpiringCommand(new DateIsInMonthYearPredicate(yearMonth));
             } else if (!monthYearPresent && expiryDatePresent) {
-                //Expiry Date only
+                // Expiry Date only
                 ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultiMap.getValue(PREFIX_EXPIRY_DATE).get());
                 return new ExpiringCommand(new DateIsEqualsPredicate(expiryDate.value));
             } else {
