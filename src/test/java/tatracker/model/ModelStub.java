@@ -218,7 +218,7 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredGroupList(String moduleCode) {
-        throw new AssertionError("This method should not be called.");
+        //throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -298,7 +298,7 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredStudentList(String groupCode, String moduleCode) {
-        throw new AssertionError("This method should not be called.");
+        //throw new AssertionError("This method should not be called.");
     }
 
     @Override
