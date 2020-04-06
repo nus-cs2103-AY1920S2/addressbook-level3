@@ -119,8 +119,8 @@ public class EditCommand extends Command {
      */
     protected static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
+        assert editRecipeDescriptor != null;
 
-        // boolean isFavourite = recipeToEdit.isFavourite();
         boolean isFavourite = editRecipeDescriptor.getFavourite();
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
