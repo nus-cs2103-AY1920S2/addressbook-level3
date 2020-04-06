@@ -95,6 +95,8 @@ Format: `list-c`
 ==== Parameters
 This section acts as a summary of the important things to note when using `find-c` including their parameters.
 
+Format: `find-c NAME`
+
 [options='header']
 [cols="15%,85%"]
 |====================
@@ -240,60 +242,69 @@ Examples:
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in a table.
 
 ==== Parameters
-This section acts as a summary of the important things to note when using `add-e` including their parameters.
+This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional.
+
+Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
 [options='header']
 [cols="15%,85%"]
 |====================
 | Parameters | Important points to note
 | n/NAME |
-* `n/NAME` is compulsory and you have to specify it.
+* `n/NAME` is compulsory and you have to specify it. +
+
+* `n/NAME` is case sensitive. +
+e.g `squats` will not match `Squats`
 
 | d/DATE |
-* `d/DATE` is compulsory and you have to specify it.
+* `d/DATE` is compulsory and you have to specify it. +
 
-| reps/REPS |
-| sets/SETS |
-| ew/WEIGHT |
+* `DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020)
+
+| [reps/REPS] |
+* `reps/REPS` is optional. Your command will still execute if you do not type it.
+
+* Range for `REPS` is 1-9999. +
+
+| [sets/SETS] |
+* `sets/SETS` is optional. Your command will still execute if you do not type it.
+
+* Range for `SETS` is 1-9999. +
+
+| [ew/WEIGHT] |
+* `ew/WEIGHT` is optional. Your command will still execute if you do not type it.
+
+* Range for `WEIGHT` is 1-9999. +
 |====================
 
 ==== Example
-Let's say that you want to find a client named "Bryan Low" in client list. You can simply use the `add-e` command by following the steps below.
+Let's say that you want to add an exercise with the following details: +
+Name: Bench Press +
+Date: 12-02-2020 +
+Reps: 4 +
+Weight: 100 +
+Sets: 4 +
+You can use the `add-e` command to add the exercise by following the steps below.
 
-1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section on `...:view-c`. For this example, we will add an exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table with his recorded exercises.
+1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section on `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
 
 /photo
 
-2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
+2.Now enter the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. Press enter to execute it. You can verify that the information entered matches the one shown above.
 
 /photo
 
-3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive.
+3.After it has been successfully entered, the result box will display the recorded exercise.
+
+/photo
+
+4.You will also be able to see the recorded exercise in the table.
 
 /photo
 
 ==== Common errors / problems
 
-Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
-* `add-e` can only be used when a client is in view (ie. `view-c` is called first)
-* `DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020)
-* `n/EXERCISE_NAME` is case sensitive. e.g `squats` will not match `Squats`
-* The order of words will matter. e.g `High Lunge` will not match `Lunge High`
-* `[ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]` must be a positive whole integer (ie. 1, 2, 3, ...)
-
-Examples:
-
-* `view-c 1`
-+
-`add-e n/Push Ups d/25-02-2020 reps/50`
-+
-** Adds an exercise called "Push Ups" with "50 reps" on 25th February 2020 to the 1st client
-* `view-c 3`
-+
-`add-e n/Bench Press d/26-02-2020 ew/120 reps/10`
-+
-** Adds an exercise called "Bench Press" of weight 120kg with "10 reps" on 26th February 2020 to the 3rd client
 
 === Edit a client's exercise: `edit-e`
 
