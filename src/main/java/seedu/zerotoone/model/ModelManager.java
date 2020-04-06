@@ -5,12 +5,15 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang3.time.StopWatch;
-
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.zerotoone.commons.core.GuiSettings;
@@ -24,10 +27,16 @@ import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.schedule.Scheduler;
+import seedu.zerotoone.model.session.CompletedSet;
+import seedu.zerotoone.model.session.CompletedSetList;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSetList;
 import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyCompletedSetList;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
+import seedu.zerotoone.model.session.ReadOnlyTimerList;
+import seedu.zerotoone.model.session.TimerList;
+import seedu.zerotoone.model.session.exceptions.NoCurrentSessionException;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -40,6 +49,7 @@ import seedu.zerotoone.model.workout.WorkoutList;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final long UPDATE_INTERVAL = 100; // in ms
 
     private final UserPrefs userPrefs;
 
@@ -53,8 +63,11 @@ public class ModelManager implements Model {
 
     // Session
     private Optional<OngoingWorkout> currentWorkout;
-    private final StopWatch stopwatch;
     private final OngoingSetList ongoingSetList;
+    private final CompletedSetList lastSet;
+    private final TimerList timerList;
+    private Timer timer;
+    private long start;
 
     // Schedule
     private final Scheduler scheduler;
@@ -90,9 +103,15 @@ public class ModelManager implements Model {
 
         this.scheduler = new Scheduler(scheduleList);
 
+        // Init session variables
         this.currentWorkout = Optional.empty();
-        this.stopwatch = new StopWatch();
         this.ongoingSetList = new OngoingSetList();
+        this.lastSet = new CompletedSetList();
+
+        // Init timer stuff
+        this.timerList = new TimerList();
+        this.start = 0;
+        this.timer = new Timer();
 
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
@@ -226,17 +245,75 @@ public class ModelManager implements Model {
     public OngoingWorkout startSession(Workout workoutToStart, LocalDateTime currentDateTime) {
         OngoingWorkout ongoingWorkout = new OngoingWorkout(workoutToStart, currentDateTime);
         this.currentWorkout = Optional.of(ongoingWorkout);
-        ongoingSetList.setSessionList(ongoingWorkout.getRemainingSets());
+        this.ongoingSetList.setSessionList(ongoingWorkout.getRemainingSets());
+        this.start = System.currentTimeMillis();
+
+        TimerTask runner = new TimerTask() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        long diff = System.currentTimeMillis() - start;
+                        List<Integer> data = new LinkedList<>();
+                        data.add(Math.toIntExact(diff));
+                        timerList.setSessionList(data);
+                    }
+                });
+            }
+        };
+
+        this.timer.schedule(runner, 0, UPDATE_INTERVAL);
         return ongoingWorkout;
     }
 
     @Override
     public void stopSession(LocalDateTime currentDateTime) {
-        OngoingWorkout ongoingWorkout = this.currentWorkout.get();
+        OngoingWorkout ongoingWorkout = this.currentWorkout.orElseThrow(NoCurrentSessionException::new);
         CompletedWorkout workout = ongoingWorkout.finish(currentDateTime);
-        ongoingSetList.resetData(new OngoingSetList());
         this.logList.addCompletedWorkout(workout);
         this.currentWorkout = Optional.empty();
+
+        // Gui stuff
+        this.ongoingSetList.resetData(new OngoingSetList());
+        this.lastSet.resetData(new CompletedSetList());
+
+        // Timer stuff
+        this.start = 0;
+        this.timerList.resetData(new TimerList());
+        this.timer.cancel();
+        this.timer.purge();
+        this.timer = new Timer();
+    }
+
+    @Override
+    public CompletedSet skip() {
+        CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).skip();
+        this.ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
+        List<CompletedSet> sets = new LinkedList<>();
+        sets.add(set);
+        this.lastSet.setSessionList(sets);
+
+        // Timer stuff
+        this.start = System.currentTimeMillis();
+        return set;
+    }
+
+    @Override
+    public CompletedSet done() {
+        CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).done();
+        this.ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
+        List<CompletedSet> sets = new LinkedList<>();
+        sets.add(set);
+        this.lastSet.setSessionList(sets);
+
+        // Timer stuff
+        this.start = System.currentTimeMillis();
+        return set;
+    }
+
+    @Override
+    public Boolean hasExerciseLeft() {
+        return this.currentWorkout.orElseThrow(NoCurrentSessionException::new).hasExerciseLeft();
     }
 
     @Override
@@ -247,6 +324,22 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyOngoingSetList getOngoingSetList() {
         return this.ongoingSetList;
+    }
+
+    @Override
+    public ReadOnlyCompletedSetList getLastSet() {
+        return this.lastSet;
+    }
+
+    @Override
+    public ReadOnlyTimerList getTimerList() {
+        return this.timerList;
+    }
+
+    @Override
+    public void shutdownTimer() {
+        this.timer.cancel();
+        this.timer.purge();
     }
 
     // -----------------------------------------------------------------------------------------

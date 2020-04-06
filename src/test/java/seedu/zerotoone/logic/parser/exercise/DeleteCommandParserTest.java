@@ -3,7 +3,7 @@ package seedu.zerotoone.logic.parser.exercise;
 import static seedu.zerotoone.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_EXERCISE));
+        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_OBJECT));
     }
 
     @Test
