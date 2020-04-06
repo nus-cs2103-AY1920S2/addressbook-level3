@@ -166,18 +166,6 @@ public class ModelManager implements Model {
         }
     }
 
-    public void updateTotalBalance(boolean positive, double amount) {
-        if (positive) {
-            globalData.setTotalBalance(
-                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount + amount))
-            );
-        } else {
-            globalData.setTotalBalance(
-                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount - amount))
-            );
-        }
-    }
-
     @Override
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
@@ -300,6 +288,23 @@ public class ModelManager implements Model {
         globalData.setTotalBalance(balance);
     }
 
+    /**
+     * update balance given positive or not and amount
+     * @param positive
+     * @param amount
+     */
+    private void updateTotalBalance(boolean positive, double amount) {
+        if (positive) {
+            globalData.setTotalBalance(
+                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount + amount))
+            );
+        } else {
+            globalData.setTotalBalance(
+                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount - amount))
+            );
+        }
+    }
+
     //=========== Monthly Data Accessors =============================================================
     /**
      * Returns toggle list or chart object
@@ -315,6 +320,12 @@ public class ModelManager implements Model {
     }
 
     //=========== Monthly Data Accessors =============================================================
+
+    /**
+     * Check if the date from transaction is in today's month
+     * @param date
+     * @return booelan
+     */
     private boolean isTodaysMonth(LocalDate date) {
         if (date.getMonth().equals(LocalDate.now().getMonth())) {
             return true;
