@@ -73,13 +73,19 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
 
         List<AbsolutePath> possiblePaths = getPossiblePaths();
 
-        AbsolutePath closestPath = null;
         int closestDistance = Integer.MAX_VALUE;
         for (AbsolutePath possiblePath : possiblePaths) {
             int distance = calculatePathDistance(uncorrected, possiblePath);
             if (distance < closestDistance) {
-                closestPath = possiblePath;
                 closestDistance = distance;
+            }
+        }
+
+        List<AbsolutePath> correctedItems = new ArrayList<>();
+        for (AbsolutePath possiblePath : possiblePaths) {
+            int distance = calculatePathDistance(uncorrected, possiblePath);
+            if (distance == closestDistance) {
+                correctedItems.add(possiblePath);
             }
         }
 
@@ -87,11 +93,11 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
             return new CorrectionResult<>(CorrectionStatus.FAILED);
         }
 
-        if (closestPath.equals(uncorrected)) {
-            return new CorrectionResult<>(CorrectionStatus.UNCHANGED, uncorrected);
+        if (correctedItems.equals(List.of(uncorrected))) {
+            return new CorrectionResult<>(CorrectionStatus.UNCHANGED, List.of(uncorrected));
         }
 
-        return new CorrectionResult<>(CorrectionStatus.CORRECTED, closestPath);
+        return new CorrectionResult<>(CorrectionStatus.CORRECTED, correctedItems);
     }
 
     /**

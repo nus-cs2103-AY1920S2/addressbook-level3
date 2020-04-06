@@ -3,11 +3,12 @@ package com.notably.logic.parser;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionResult;
+import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 
@@ -46,12 +47,11 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(titles, notablyModel.getCurrentlyOpenPath());
-        Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
-
-        if (correctedPath.equals(Optional.empty())) {
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedPath);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
             throw new ParseException("Invalid Path");
         }
 
-        return List.of(new OpenCommand(correctedPath.get()));
+        return List.of(new OpenCommand(correctionResult.getCorrectedItems().get(0)));
     }
 }
