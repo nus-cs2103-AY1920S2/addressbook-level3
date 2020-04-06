@@ -1,10 +1,14 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AXIS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+
+import java.time.LocalDate;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,6 +44,10 @@ public class GraphCommand extends Command {
     public GraphCommand(Graph graph) {
         requireNonNull(graph);
         this.graph = graph;
+    }
+
+    public static boolean isValidTimeFrame(String startDate, String endDate) {
+        return (LocalDate.parse(endDate).compareTo(LocalDate.parse(startDate)) >= 0);
     }
 
     @Override

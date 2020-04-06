@@ -43,7 +43,7 @@ public class StartDate {
 
     @Override
     public String toString() {
-        return this.value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return this.value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     @Override

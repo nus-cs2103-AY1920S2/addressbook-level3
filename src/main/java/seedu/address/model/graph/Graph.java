@@ -9,6 +9,7 @@ import seedu.address.model.exercise.ExerciseName;
  * not null, field values are validated, immutable.
  */
 public class Graph {
+
     private final ExerciseName exerciseName;
     private final Axis axis;
     private final StartDate startDate;
