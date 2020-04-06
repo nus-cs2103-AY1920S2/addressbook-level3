@@ -86,7 +86,7 @@ public class AbsolutePathCorrectionEngineTest {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/CS2103T/Lctre");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2103t/Lctre");
 
         final AbsolutePath expectedCorrectedItem = TypicalBlockModel.PATH_TO_CS2103T_LECTURES;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
