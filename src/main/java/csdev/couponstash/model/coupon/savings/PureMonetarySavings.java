@@ -30,7 +30,7 @@ public class PureMonetarySavings extends Savings {
      * wil be set to 0)
      */
     public PureMonetarySavings() {
-        super(new MonetaryAmount(0));
+        super(new MonetaryAmount(0, 0));
     }
 
     /**
@@ -43,7 +43,7 @@ public class PureMonetarySavings extends Savings {
      *                  as Savings.
      */
     public PureMonetarySavings(List<Saveable> saveables) {
-        super(new MonetaryAmount(0), saveables);
+        super(new MonetaryAmount(0, 0), saveables);
     }
 
     public PureMonetarySavings(MonetaryAmount monetaryAmount) {
@@ -79,8 +79,12 @@ public class PureMonetarySavings extends Savings {
      * from both PureMonetarySavings.
      */
     public PureMonetarySavings add(PureMonetarySavings pms) {
-        MonetaryAmount newAmount = new MonetaryAmount(
-                this.getMonetaryAmountAsDouble() + pms.getMonetaryAmountAsDouble());
+        if (!this.hasMonetaryAmount() || !pms.hasMonetaryAmount()) {
+            // should never be thrown as PureMonetarySavings
+            // should not be created without MonetaryAmount
+            throw new InvalidSavingsException("PureMonetarySavings without MonetaryAmount");
+        }
+        MonetaryAmount newAmount = this.getMonetaryAmount().get().add(pms.getMonetaryAmount().get());
         List<Saveable> originalSaveables = this.getListOfSaveables();
         List<Saveable> newSaveables = pms.getListOfSaveables();
         List<Saveable> combinedSaveables = new ArrayList<Saveable>();
@@ -148,7 +152,7 @@ public class PureMonetarySavings extends Savings {
      */
     public PureMonetarySavings copy() {
         Optional<MonetaryAmount> monetaryAmountCopy =
-                getMonetaryAmount().map(x -> new MonetaryAmount(x.getValue()));
+                getMonetaryAmount().map(x -> new MonetaryAmount(x));
         Optional<List<Saveable>> savablesCopy = getSaveables().map(x -> new ArrayList<>(x));
 
         if (monetaryAmountCopy.isEmpty() && savablesCopy.isEmpty()) {
