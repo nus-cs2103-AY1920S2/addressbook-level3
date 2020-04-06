@@ -2,6 +2,7 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
 
 import static java.util.Objects.requireNonNull;
 
@@ -41,6 +42,12 @@ public class SortCommand extends Command {
             .compareTo(
                     y.getExpiryDate().getDate()
             );
+    public static final Comparator<Coupon> REMINDER_COMPARATOR = (x, y) -> x
+            .getRemindDate()
+            .getDate()
+            .compareTo(
+                    y.getRemindDate().getDate()
+            );
 
     private Prefix prefixToSortBy;
 
@@ -63,9 +70,9 @@ public class SortCommand extends Command {
             model.sortCoupons(NAME_COMPARATOR);
         } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
             model.sortCoupons(EXPIRY_COMPARATOR);
+        } else if (prefixToSortBy.equals(PREFIX_REMIND)) {
+            model.sortCoupons(REMINDER_COMPARATOR);
         }
-
-
 
         // Put non-archived at the top.
         model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
