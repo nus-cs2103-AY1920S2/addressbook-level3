@@ -20,7 +20,7 @@ import tatracker.model.Model;
  * A module can contains many groups.
  * A group contains students related it its group and module.
  */
-public class FilterStudentViewCommand extends Command {
+public class FilterStudentCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
@@ -42,7 +42,7 @@ public class FilterStudentViewCommand extends Command {
     private final String moduleCode;
     private final String groupCode;
 
-    public FilterStudentViewCommand(String moduleCode, String groupCode) {
+    public FilterStudentCommand(String moduleCode, String groupCode) {
 
         this.moduleCode = moduleCode;
         this.groupCode = groupCode;
@@ -132,8 +132,8 @@ public class FilterStudentViewCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterStudentViewCommand // instanceof handles nulls
-                && (moduleCode.equals(((FilterStudentViewCommand) other).moduleCode)
-                      && groupCode.equals(((FilterStudentViewCommand) other).groupCode))); // state check
+                || (other instanceof FilterStudentCommand // instanceof handles nulls
+                && (moduleCode.equals(((FilterStudentCommand) other).moduleCode)
+                      && groupCode.equals(((FilterStudentCommand) other).groupCode))); // state check
     }
 }
