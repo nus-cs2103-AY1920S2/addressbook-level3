@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox id="cardPane" fx:id="cardPane" style="-fx-background-color: #8E5858;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="21.0" prefWidth="345.0">
+         <children>
+          <VBox alignment="CENTER_LEFT" minHeight="105">
+            <padding>
+              <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+               <children>
+              <Label fx:id="exerciseName" prefHeight="17.0" prefWidth="356.0" styleClass="cell_big_label" text="Bench Press:" textOverrun="CLIP" />
+                  <Label fx:id="exerciseReps" prefHeight="17.0" prefWidth="355.0" styleClass="cell_big_label" text="reps" />
+               </children>
+          </VBox>
+         </children>
+      </HBox>
+   </children>
+</HBox>
