@@ -145,7 +145,7 @@ public class StorageManager implements Storage {
         schedulerStorage.saveScheduler(scheduler, filePath);
     }
 
-    // ============== Scheduler methods =======================================
+    // ============== Event Scheduler methods =================================
 
     @Override
     public Path getEventScheduleFilePath() {

@@ -209,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteEvent(Event target) {
+        eventSchedule.removeEvent(target);
+    }
+
+    @Override
     public void sortEvent(Comparator<Event> comparator) {
         eventSchedule.sortEvent(comparator);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
