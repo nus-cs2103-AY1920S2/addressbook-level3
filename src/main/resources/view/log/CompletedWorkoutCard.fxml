@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -21,7 +22,8 @@
                 </minWidth>
             </Label>
 
-            <HBox alignment="CENTER_LEFT" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="5">
+                <FontAwesomeIcon glyphName="CALENDAR"/>
                 <Label fx:id="startEndTime" styleClass="cell_big_label" />
             </HBox>
 
