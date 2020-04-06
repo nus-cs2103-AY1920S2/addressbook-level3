@@ -108,4 +108,14 @@ public class LogicManager implements Logic {
     public ReadOnlyPomodoro getPomodoro() {
         return model.getPomodoro();
     }
+
+    @Override
+    public void update() throws CommandException {
+        try {
+            storage.saveTaskList(model.getTaskList());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
 }

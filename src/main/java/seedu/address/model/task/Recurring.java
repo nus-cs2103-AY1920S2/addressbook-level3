@@ -64,7 +64,14 @@ public class Recurring {
    public static boolean isValidRecurring(String test) {
        return test.matches(VALIDATION_REGEX);
    }
-
+   
+   /**
+    * Returns Daily or Weekly for display on the card.
+    */
+   public String displayRecurring() {
+       String result = type.name().substring(0, 1) + type.name().substring(1).toLowerCase();
+       return result;
+   } 
 
 
    public TimerTask generateTimerTask(Model model, Task taskToReset) {    
@@ -97,7 +104,7 @@ public class Recurring {
        long period = 0;
        if (type == RecurType.DAILY) {
         //    period = 1000*60*60*24;
-        period = 20000l;        
+        period = 12000l;        
        } else if (type == RecurType.WEEKLY) {
            period = 1000l*60*60*24*7;
        }

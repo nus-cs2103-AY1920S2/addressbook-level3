@@ -1,19 +1,22 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.Observer;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
+
 /** API of the Logic component */
-public interface Logic {
+public interface Logic extends Observer {
     /**
      * Executes the command and returns the result.
      *
@@ -48,4 +51,5 @@ public interface Logic {
     ObservableList<DayData> getCustomQueue();
 
     ReadOnlyPomodoro getPomodoro();
+
 }

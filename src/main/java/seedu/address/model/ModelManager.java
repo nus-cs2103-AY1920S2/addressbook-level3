@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,11 +13,14 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
+import seedu.address.logic.Observer;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /** Represents the in-memory model of the task list data. */
 public class ModelManager implements Model {
@@ -32,6 +36,7 @@ public class ModelManager implements Model {
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
+    private ArrayList<Observer> observers;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
     public ModelManager(
@@ -53,6 +58,7 @@ public class ModelManager implements Model {
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
+        this.observers = new ArrayList<>();
     }
 
     public ModelManager() {
@@ -131,6 +137,23 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTask);
         taskList.setTask(target, editedTask);
         this.sortList();
+        try {
+			notifyObservers();
+		} catch (CommandException e) {
+			e.printStackTrace();
+		}
+    }
+
+    // =========== Subject Methods for Observer
+    // ================================================================================
+    public void notifyObservers() throws CommandException {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 
     // =========== Filtered Task List Accessors

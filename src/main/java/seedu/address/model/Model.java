@@ -5,8 +5,10 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.task.Task;
 
 /** The API of the Model component. */
@@ -95,6 +97,14 @@ public interface Model {
     PomodoroManager getPomodoroManager();
 
     Statistics getStatistics();
+
+    /**
+     * Notifies observers when a change is made. Observer in this case is the logic manager.
+     * @throws CommandException
+     */
+    void notifyObservers() throws CommandException;
+
+    void addObserver(Observer observer); 
 
     public void updateDataDatesStatistics();
 }
