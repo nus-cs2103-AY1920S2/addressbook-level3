@@ -11,20 +11,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.SuggestionTestUtil;
+import com.notably.logic.suggestion.SuggestionTestUtil;
 import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class DeleteSuggestionCommandTest {
-    private static AbsolutePath toCs2103;
+    private static AbsolutePath toCs2103t;
     private static Model model;
 
     private static final String COMMAND_WORD = "delete";
 
     @BeforeAll
     public static void setUpTree() {
-        SuggestionTestUtil.setUp();
-        toCs2103 = SuggestionTestUtil.getToCs2103();
+        toCs2103t = SuggestionTestUtil.getToCs2103t();
         model = SuggestionTestUtil.getModel();
     }
 
@@ -40,20 +39,20 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void constructor_nullTitle_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(toCs2103,
+        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(toCs2103t,
             null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103,
-            toCs2103.getStringRepresentation());
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
+            toCs2103t.getStringRepresentation());
         assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 
     @Test
     public void execute_blankOldTitle_generatesEmptySuggestion() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103, "    ");
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t, "    ");
         deleteSuggestionCommand.execute(model);
 
         assertTrue(model.getSuggestions().size() == 0);
@@ -61,21 +60,21 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
-        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation());
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103,
-            toCs2103.getStringRepresentation());
+        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103t.getStringRepresentation());
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
+            toCs2103t.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         // Expected suggestions
-        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSuggestionsToCs2103();
+        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSuggestionsToCs2103t();
 
         // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
         // Expected inputs
-        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsToCs2103(COMMAND_WORD, true);
+        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsToCs2103t(COMMAND_WORD, true);
 
         // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions);
@@ -83,21 +82,21 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
-        model.setInput(COMMAND_WORD + " " + toCs2103.getStringRepresentation());
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103,
-                toCs2103.getStringRepresentation());
+        model.setInput(COMMAND_WORD + " " + toCs2103t.getStringRepresentation());
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
+                toCs2103t.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         // Expected suggestions
-        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSuggestionsToCs2103();
+        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSuggestionsToCs2103t();
 
         // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
         // Expected inputs
-        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsToCs2103(COMMAND_WORD, false);
+        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsToCs2103t(COMMAND_WORD, false);
 
         // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions);
