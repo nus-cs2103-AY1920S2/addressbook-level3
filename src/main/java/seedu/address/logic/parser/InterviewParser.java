@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.OpenResumeCommand;
 import seedu.address.logic.commands.interview.EndCommand;
 import seedu.address.logic.commands.interview.RemarkCommand;
 import seedu.address.logic.commands.interview.ScoreCommand;
@@ -28,6 +31,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * when HireLah! is not in interviewing mode.
  */
 public class InterviewParser {
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern SCORE_COMMAND_FORMAT =
             Pattern.compile(":(?<attribute>[\\p{Alpha}][\\p{Alpha} ]*?)\\s+(?<score>\\d+(\\.\\d+)?)");
     private static final Pattern START_QUESTION_COMMAND_FORMAT =
@@ -43,9 +47,16 @@ public class InterviewParser {
     public Command parseCommand(String userInput) throws ParseException {
         if (userInput.startsWith(":")) {
             return parseSpecialCommand(userInput);
-        } else {
-            return new RemarkCommand(userInput);
+        } else if (userInput.startsWith("resume")) {
+            final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+            if (!matcher.matches()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+
+            final String arguments = matcher.group("arguments");
+            return new OpenResumeCommand(arguments.trim());
         }
+        return new RemarkCommand(userInput);
     }
 
     /**
