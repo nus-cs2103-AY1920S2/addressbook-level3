@@ -1,20 +1,24 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AXIS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 
 import java.time.LocalDate;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
+import seedu.address.model.exercise.Exercise;
 import seedu.address.model.graph.Graph;
 
+/**
+ * Displays a graph of exercises done by a client in FitBiz.
+ */
 public class GraphCommand extends Command {
 
     public static final String COMMAND_WORD = "graph";
@@ -38,6 +42,8 @@ public class GraphCommand extends Command {
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
 
+    public static final String MESSAGE_EXERCISE_NOT_IN_PERSONAL_BEST =
+        "This exercise does not have a personal best recorded";
 
     private final Graph graph;
 
@@ -53,10 +59,16 @@ public class GraphCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: execute
+        if (!model.hasClientInView()) {
+            throw new CommandException(MESSAGE_CLIENT_NOT_IN_VIEW);
+        }
 
+        Client clientInView = model.getClientInView();
 
-        return new CommandResult("HI");
+        List<Exercise> graphList = graph.generateGraphList(clientInView);
+        // TODO: send graphList to gui :D
+
+        return new CommandResult(graphList.toString());
     }
 
     @Override

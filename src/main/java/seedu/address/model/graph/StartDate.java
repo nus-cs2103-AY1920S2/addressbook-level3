@@ -7,11 +7,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the start date of the graph of exercises. Guarantees: immutable; is
+ * valid as declared in {@link #isValidStartDate(String)}
+ */
 public class StartDate {
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
             "Start date input should be in the form DD-MM-YYYY and should not be after end date or blank. \n"
             + "The accepted range of dates is today to one year before today. eg. 18-07-2019.";
-    
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
     public final String displayValue;
@@ -23,6 +27,12 @@ public class StartDate {
         this.displayValue = date; // assuming date string is valid
     }
 
+    /**
+     * Tests if startDate is a valid date, within a year prior to current date.
+     *
+     * @param test String to be tested.
+     * @return Returns true if a given string is a valid date.
+     */
     public static Boolean isValidStartDate(String test) {
         try {
             LocalDate testDate = LocalDate.parse(test, DATE_TIME_FORMATTER);
