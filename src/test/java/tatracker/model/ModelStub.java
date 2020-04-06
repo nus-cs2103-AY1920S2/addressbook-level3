@@ -298,9 +298,15 @@ public class ModelStub implements Model {
      * A Model stub that contains a single module.
      */
     public static class ModelStubWithModule extends ModelStub {
-        private final Module module;
+        private Module module;
 
         public ModelStubWithModule(Module module) {
+            requireNonNull(module);
+            this.module = module;
+        }
+
+        @Override
+        public void addModule(Module module) {
             requireNonNull(module);
             this.module = module;
         }
@@ -418,6 +424,12 @@ public class ModelStub implements Model {
         public void addModule(Module module) {
             requireNonNull(module);
             modulesAdded.add(module);
+        }
+
+        @Override
+        public void deleteModule(Module module) {
+            requireNonNull(module);
+            modulesAdded.remove(module);
         }
 
         @Override
