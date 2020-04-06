@@ -169,10 +169,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Opens FitBiz user guide in the user's default web browser.
      */
-    @FXML
     public void handleHelp() {
         logic.openUrlInDefaultWebBrowser(USER_GUIDE_URL);
         resultDisplay.setFeedbackToUser(SHOWING_HELP_MESSAGE);
+    }
+
+    public void handleGraph() {
+        //graphWindow.show();
     }
 
     void show() {
@@ -259,6 +262,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isOpenGraph()){
+                handleGraph();
             }
 
             if (commandResult.isExit()) {

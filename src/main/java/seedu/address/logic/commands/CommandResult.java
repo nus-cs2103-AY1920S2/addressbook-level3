@@ -14,6 +14,8 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    private final boolean openGraph;
+
     /** The application should exit. */
     private final boolean exit;
 
@@ -23,7 +25,18 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
+        this.openGraph = false;
         this.exit = exit;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean openGraph) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.openGraph = openGraph;
+        this.exit = false;
     }
 
     /**
@@ -40,6 +53,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isOpenGraph() {
+        return openGraph;
     }
 
     public boolean isExit() {

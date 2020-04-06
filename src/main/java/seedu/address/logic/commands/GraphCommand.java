@@ -56,7 +56,7 @@ public class GraphCommand extends Command {
         // TODO: execute
 
 
-        return new CommandResult("HI");
+        return new CommandResult("HI", true);
     }
 
     @Override
