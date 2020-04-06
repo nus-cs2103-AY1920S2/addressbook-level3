@@ -113,17 +113,17 @@ public class ModelManager implements Model {
 
     @Override
     public Property<Optional<String>> responseTextProperty() {
-        return suggestionModel.responseTextProperty();
+        return viewStateModel.responseTextProperty();
     }
 
     @Override
     public void setResponseText(String responseText) {
-        suggestionModel.setResponseText(responseText);
+        viewStateModel.setResponseText(responseText);
     }
 
     @Override
     public void clearResponseText() {
-        suggestionModel.clearResponseText();
+        viewStateModel.clearResponseText();
     }
 
     @Override
