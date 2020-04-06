@@ -104,7 +104,7 @@ public class ParserUtil {
                 hasMoney = true;
                 String trimmedMonetaryAmount = str.trim().substring(moneySymbol.length());
                 try {
-                    monetaryAmount = new MonetaryAmount(Double.parseDouble(trimmedMonetaryAmount));
+                    monetaryAmount = new MonetaryAmount(trimmedMonetaryAmount);
                 } catch (NumberFormatException e) {
                     throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
                 } catch (IllegalArgumentException e) {
@@ -261,12 +261,9 @@ public class ParserUtil {
         requireNonNull(monetaryAmount);
         String trimmedMonetaryAmount = monetaryAmount.trim();
         try {
-            Double convertedMonetaryAmount = Double.parseDouble(trimmedMonetaryAmount);
-            if (!MonetaryAmount.isValidMonetaryAmount(convertedMonetaryAmount)) {
-                throw new ParseException(MonetaryAmount.MESSAGE_CONSTRAINTS);
-            }
-            return new MonetaryAmount(convertedMonetaryAmount);
-        } catch (NumberFormatException nfe) {
+            MonetaryAmount convertedMonetaryAmount = new MonetaryAmount(trimmedMonetaryAmount);
+            return convertedMonetaryAmount;
+        } catch (IllegalArgumentException e) {
             throw new ParseException(MonetaryAmount.MESSAGE_CONSTRAINTS);
         }
     }
