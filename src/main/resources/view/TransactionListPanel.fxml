@@ -14,12 +14,12 @@
    </Label>
    <TableView fx:id="transactionTableView">
      <columns>
-       <TableColumn fx:id="customerCol" prefWidth="75.0" text="Customer" />
-       <TableColumn fx:id="productCol" prefWidth="75.0" text="Product" />
-         <TableColumn fx:id="dateTimeCol" prefWidth="75.0" text="DateTime" />
-         <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Quantity" />
-         <TableColumn fx:id="amountCol" prefWidth="75.0" text="Amount" />
-         <TableColumn fx:id="descriptionCol" prefWidth="75.0" text="Description" />
+       <TableColumn fx:id="customerCol" prefWidth="125.0" sortable="false" text="Customer" />
+       <TableColumn fx:id="productCol" prefWidth="125.0" sortable="false" text="Product" />
+         <TableColumn fx:id="dateTimeCol" prefWidth="150.0" sortable="false" text="DateTime" />
+         <TableColumn fx:id="quantityCol" prefWidth="75.0" sortable="false" text="Quantity" />
+         <TableColumn fx:id="amountCol" prefWidth="75.0" sortable="false" text="Amount" />
+         <TableColumn fx:id="descriptionCol" prefWidth="300.0" sortable="false" text="Description" />
      </columns>
    </TableView>
 </VBox>
