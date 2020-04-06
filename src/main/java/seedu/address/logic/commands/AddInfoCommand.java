@@ -116,10 +116,4 @@ public class AddInfoCommand extends Command {
     public String toString() {
         return COMMAND_WORD;
     }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
-
 }
