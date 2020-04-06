@@ -86,6 +86,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public boolean getToggleIsRangeMonth() {
+        return model.getToggleIsRangeMonth();
+    }
+
+    @Override
     public Path getExpenseLaFilePath() {
         return model.getExpenseLaFilePath();
     }

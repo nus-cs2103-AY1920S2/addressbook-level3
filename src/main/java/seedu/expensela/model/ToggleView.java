@@ -14,6 +14,10 @@ public class ToggleView {
         return this.isViewList;
     }
 
+    /**
+     * Currently filter is either ALL or my a certain month. Checks if it's knowledge of filter in month or not.
+     * @return
+     */
     public boolean isRangeMonth() {
         if (range.equals("ALL")) {
             return false;

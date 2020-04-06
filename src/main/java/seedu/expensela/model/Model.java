@@ -110,7 +110,8 @@ public interface Model {
     /** Returns a view of toggle list or chart object */
     ToggleView getToggleView();
 
-    /**
+    /** Returns a boolean value of whether toggle chart's range is month */
+    boolean getToggleIsRangeMonth();
 
     /** Flips the switch of toggle list or chart object */
     void switchToggleView();

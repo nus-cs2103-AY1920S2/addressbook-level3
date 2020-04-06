@@ -155,7 +155,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
     /**
      * Creates a stacked bar chart, X axis is months of the year and Y axis is total expenditure.
-     * Stacks the past 3 years of transactions.
+     * Stacks last year's and this year's transactions.
      * @param transactionList Transaction List filtered by a certain month.
      */
     private void graphByMonth(ObservableList<Transaction> transactionList) {

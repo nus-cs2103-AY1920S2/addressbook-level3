@@ -45,6 +45,8 @@ public interface Logic {
 
     ToggleView getToggleView();
 
+    boolean getToggleIsRangeMonth();
+
     /**
      * Returns the user prefs' expensela file path.
      */

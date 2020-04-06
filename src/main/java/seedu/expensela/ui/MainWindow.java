@@ -119,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData(), logic.getTotalBalance());
         chartAnalyticsPanel = new ChartAnalyticsPanel(logic.getFilteredTransactionList(),
-                logic.getToggleView().isRangeMonth());
+                logic.getToggleIsRangeMonth());
         transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
         monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
 
@@ -199,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
                 transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
             } else {
                 chartAnalyticsPanel = new ChartAnalyticsPanel(logic.getFilteredTransactionList(),
-                        logic.getToggleView().isRangeMonth());
+                        logic.getToggleIsRangeMonth());
                 transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(chartAnalyticsPanel.getRoot());
             }
 
