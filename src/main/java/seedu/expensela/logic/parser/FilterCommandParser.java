@@ -27,8 +27,20 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_CATEGORY);
 
-
+        // missing both category and month
         if (!(argMultimap.getValue(PREFIX_CATEGORY).isPresent() || argMultimap.getValue(PREFIX_MONTH).isPresent())) {
+            throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
+        }
+
+        // invalid category
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()
+                && !isValidCategory(argMultimap.getValue(PREFIX_CATEGORY).get().trim())) {
+            throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
+        }
+
+        // invalid month
+        if (argMultimap.getValue(PREFIX_MONTH).isPresent()
+                && !isValidMonth(argMultimap.getValue(PREFIX_MONTH).get().trim())) {
             throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
         }
 
@@ -80,4 +92,70 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Checks if the category input by the user is valid
+     * @param input
+     * @return
+     */
+    public boolean isValidCategory(String input) {
+        switch(input) {
+        case("FOOD"):
+            return true;
+        case("SHOPPING"):
+            return true;
+        case("TRANSPORT"):
+            return true;
+        case("GROCERIES"):
+            return true;
+        case("HEALTH"):
+            return true;
+        case("RECREATION"):
+            return true;
+        case("MISC"):
+            return true;
+        case("UTILITIES"):
+            return true;
+        case("INCOME"):
+            return true;
+        case("ALL"):
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the month inputted by the user is valid.
+     * @param input
+     * @return
+     */
+    public boolean isValidMonth(String input) {
+        if (input.length() != 7) {
+            return false;
+        }
+        try {
+            String inputYear = input.split("-")[0];
+            int inputYearInteger = Integer.parseInt(inputYear);
+            String inputMonth = input.split("-")[1];
+            int inputMonthInteger = Integer.parseInt(inputMonth);
+            if (inputYear.length() != 4) {
+                return false;
+            }
+            if (inputYearInteger < 2000) {
+                return false;
+            }
+            if (inputMonth == null) {
+                return false;
+            }
+            if (inputMonth.length() != 2) {
+                return false;
+            }
+            if (inputMonthInteger < 1 || inputMonthInteger > 12) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }
