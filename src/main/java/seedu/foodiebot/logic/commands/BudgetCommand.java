@@ -24,7 +24,7 @@ public class BudgetCommand extends Command {
             + "AMOUNT \n"
             + "Example: "
             + COMMAND_WORD
-            + " "
+            + "set "
             + PREFIX_DATE_BY_MONTH
             + "100 ";
 

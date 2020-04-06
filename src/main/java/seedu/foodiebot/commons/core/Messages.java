@@ -14,8 +14,8 @@ public class Messages {
     public static final String MESSAGE_FOOD_REVIEW = "Leave a review for the food item";
     public static final String MESSAGE_BUDGET_SET = "Your %s budget has been set to $ %.2f.\n"
         + "You have $%.2f available to spend today.\n";
-    public static final String MESSAGE_BUDGET_VIEW = "Your %s budget is $%.2f.\n"
-            + "Your remaining budget is $%.2f, with $%.2f to spend today.\n"
+    public static final String MESSAGE_BUDGET_VIEW = "Your %s budget is $%.2f."
+            + " Remaining budget: $%.2f.\nYou have $%.2f left to spend today.\n"
             + "Here are your %s spendings:\n";
     public static final String MESSAGE_NOTAVAILABLE = "No information available";
     public static final String MESSAGE_INVALID_DATE = "Invalid date format!";
