@@ -34,7 +34,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         // invalid category
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()
-                && !isValidCategory(argMultimap.getValue(PREFIX_CATEGORY).get().trim())) {
+                && !isValidCategory(argMultimap.getValue(PREFIX_CATEGORY).get().trim().toUpperCase())) {
             throw new ParseException(String.format(MESSAGE_INVALID_FILTER, FilterCommand.MESSAGE_USAGE));
         }
 
