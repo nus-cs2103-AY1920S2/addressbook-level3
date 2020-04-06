@@ -124,6 +124,15 @@ public class MainApp extends Application {
             initialData = new FoodieBot();
         }
 
+        // Update storage files in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.saveFoodieBot(initialData, "Canteen");
+            storage.saveFoodieBot(initialData, "Stall");
+            storage.saveFoodieBot(initialData, "Food");
+        } catch (IOException e) {
+            logger.warning("Failed to save foodiebot");
+        }
+
         return new ModelManager(initialData, userPrefs);
     }
 

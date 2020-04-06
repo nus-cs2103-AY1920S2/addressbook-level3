@@ -66,6 +66,15 @@ public class SelectItemCommand extends Command {
         this.foodName = Optional.of(foodName);
     }
 
+    /** Save the purchased food into transactions */
+    public void saveTransaction(Model model, PurchasedFood purchase) throws IOException {
+        model.addPurchasedFood(purchase);
+        ReadOnlyFoodieBot foodieBot = model.getFoodieBot();
+        Path budgetFilePath = new UserPrefs().getBudgetFilePath();
+
+        JsonUtil.saveJsonFile(new JsonAdaptedBudget(foodieBot), budgetFilePath);
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException, IOException {
         requireNonNull(model);
@@ -107,32 +116,25 @@ public class SelectItemCommand extends Command {
         Rating rating = new Rating();
         Review review = new Review();
         PurchasedFood purchase = new PurchasedFood(food.get(), dateAdded, timeAdded, rating, review);
-
-        if (model.getBudget().isPresent()) {
-            Budget savedBudget = model.getBudget().get();
+        if (!model.getBudget().get().equals(new Budget())) {
+            Budget savedBudget = model.getFoodieBot().getBudget();
 
             if (savedBudget.getRemainingBudget() < priceOfFood) {
                 throw new CommandException(EXCEEDED_BUDGET);
             }
 
-            model.addPurchasedFood(purchase);
-
             savedBudget.subtractFromRemainingBudget(priceOfFood);
-
             model.setBudget(savedBudget);
-            ReadOnlyFoodieBot foodieBot = model.getFoodieBot();
-            Path budgetFilePath = new UserPrefs().getBudgetFilePath();
+            Budget newBudget = model.getFoodieBot().getBudget();
 
-            JsonUtil.saveJsonFile(new JsonAdaptedBudget(foodieBot), budgetFilePath);
-
-            Budget newBudget = model.getBudget().get();
-
+            saveTransaction(model, purchase);
             return new CommandResult(COMMAND_WORD, String.format(
                     MESSAGE_SUCCESS_BUDGET, nameOfFood,
                     priceOfFood,
                     newBudget.getRemainingBudget(),
                     newBudget.getRemainingDailyBudget()));
         } else {
+            saveTransaction(model, purchase);
             return new CommandResult(COMMAND_WORD, String.format(
                     MESSAGE_SUCCESS, nameOfFood, priceOfFood));
         }

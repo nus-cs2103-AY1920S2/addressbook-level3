@@ -63,13 +63,6 @@ public class EnterStallCommand extends Command {
         String currentCanteenName = "";
         if (!currContext.equals("RANDOMIZE")) {
             currentCanteenName = ParserContext.getCurrentCanteen().get().getName().toString();
-        } else {
-            try {
-                int idx = Integer.parseInt(stallName.get());
-                index = Optional.of(Index.fromOneBased(idx));
-            } catch (NumberFormatException ne) {
-                ne.printStackTrace();
-            }
         }
         if (index.isPresent()) {
             Stall stall;
@@ -87,7 +80,7 @@ public class EnterStallCommand extends Command {
         } else if (stallName.isPresent()) {
             List<Stall> stalls;
             if (currContext.equals("RANDOMIZE")) {
-                stalls = randomize.getOptionsList();
+                stalls = model.getFilteredRandomizeList();
             } else {
                 stalls = model.getFilteredStallList();
             }
@@ -108,7 +101,8 @@ public class EnterStallCommand extends Command {
                 return new CommandResult(COMMAND_WORD, Stall.MESSAGE_CONSTRAINTS);
             }
         }
-        return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
+        return new CommandResult(COMMAND_WORD, "Stall menu of  "
+            + ParserContext.getCurrentStall().get().getName());
     }
 
     @Override

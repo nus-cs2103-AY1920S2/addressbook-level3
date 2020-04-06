@@ -10,6 +10,7 @@ import java.util.Optional;
 import seedu.foodiebot.commons.core.Messages;
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.CliSyntax;
 import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
@@ -21,13 +22,15 @@ import seedu.foodiebot.model.randomize.Randomize;
 public class RandomizeCommand extends Command {
     public static final String COMMAND_WORD = "randomize";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generate a random food option.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + " [c/CANTEEN_NAME]: Generate a random food option by canteen.\n"
+            + "[t/TAG]: Generate a random food option by tag.\n";
 
-    public static final String MESSAGE_SUCCESS = "Here are the choices:\n";
+    public static final String MESSAGE_IN_CANTEEN = "\nYou call randomize on its own or use "
+            + "[t/TAG] to get an option by a tag.";
+
 
     private final Randomize randomize;
-
-    private Messages messages;
 
     private String prefix;
     private String action = "";
@@ -56,20 +59,48 @@ public class RandomizeCommand extends Command {
         FileReader fileC = model.listOfCanteens();
         FileReader fileS = model.listOfStalls();
         randomize.resetInternalList();
-        if (prefix.contains("c")) {
+
+        Boolean isCanteenContext = false;
+
+        if (ParserContext.getPreviousContext().equals(ParserContext.CANTEEN_CONTEXT)) {
+            Canteen canteen;
+            if (ParserContext.getCurrentCanteen().isPresent()) {
+                canteen = ParserContext.getCurrentCanteen().get();
+                String canteenName = canteen.getName().toString();
+                randomize.setSpecifiedCanteen(canteen);
+                randomize.setCanteenContext();
+                isCanteenContext = true;
+            }
+        }
+        if (prefix.equals(CliSyntax.PREFIX_CANTEEN.toString()) && isCanteenContext) {
+            throw new CommandException(String.format(Messages.MESSAGE_CANTEEN_ALREADY_SELECTED
+                    + MESSAGE_IN_CANTEEN));
+        } else if (prefix.equals(CliSyntax.PREFIX_CANTEEN.toString()) && !isCanteenContext) {
+            List<Canteen> canteenList = model.getFilteredCanteenList();
             if (index != null) { //null and isPresent are different, DO NOT change
-                List<Canteen> canteenList = model.getFilteredCanteenList();
-                Canteen canteen = canteenList.get(index.get().getZeroBased());
-                randomize.setCanteenIndex(canteen);
+                try {
+                    Canteen canteen = canteenList.get(index.get().getZeroBased());
+                    randomize.setSpecifiedCanteen(canteen);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new CommandException(Messages.MESSAGE_INVALID_CANTEEN_INDEX);
+                }
             } else {
-                randomize.setCanteens(fileC);
+                for (int i = 0; i < canteenList.size(); i++) {
+                    Canteen canteen = canteenList.get(i);
+                    String canteenName = canteen.getName().toString();
+                    if (canteenName.equals(action)) {
+                        randomize.setSpecifiedCanteen(canteen);
+                    }
+                }
                 if (!randomize.ifCanteenNamePresent()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_CANTEEN_NAME);
                 }
             }
             randomize.getOptionsByCanteen(fileS);
-        } else if (prefix.contains("t")) {
-            randomize.setCanteens(fileC);
+        } else if (prefix.equals(CliSyntax.PREFIX_TAG.toString())) {
+            if (!isCanteenContext) {
+                randomize.setCanteens(fileC);
+            }
             randomize.getOptionsByTags(fileS);
         } else {
             randomize.getOptions(fileS);

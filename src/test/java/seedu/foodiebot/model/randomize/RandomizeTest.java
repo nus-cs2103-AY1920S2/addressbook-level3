@@ -33,7 +33,7 @@ class RandomizeTest {
 
         randomize.setCanteens(createSampleModel().listOfCanteens());
         assertThrows(NullPointerException.class, () -> randomize.setCanteens(null));
-        randomize.setCanteenIndex(SampleDataUtil.getSampleCanteens()[0]);
+        randomize.setSpecifiedCanteen(SampleDataUtil.getSampleCanteens()[0]);
         //assertNotEquals(randomize, copy);
         assertEquals(copy.hashCode(), Randomize.checkRandomize().hashCode());
 

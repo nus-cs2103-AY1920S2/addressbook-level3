@@ -34,6 +34,8 @@ public class RandomizeCard extends UiPart<Region> {
     @FXML
     private ImageView iv;
     @FXML
+    private Label canteenName;
+    @FXML
     private Label id;
     @FXML
     private Label stallNumber;
@@ -48,6 +50,7 @@ public class RandomizeCard extends UiPart<Region> {
         this.stall = stall;
         id.setText(displayedIndex + ". ");
         iv.setImage(stall.getStallImage());
+        canteenName.setText(stall.getCanteenName());
         name.setText(stall.getName().fullName);
         stallNumber.setText(String.valueOf(stall.getStallNumber()));
         cuisine.setText(stall.getCuisine());

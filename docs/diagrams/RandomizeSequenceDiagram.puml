@@ -1,5 +1,5 @@
 @startuml
-!include ../style.puml
+!include style.puml
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -71,9 +71,7 @@ deactivate Model
 RandomizeCommand -> Randomize : getOptions(File)
 activate Randomize
 
-Randomize -> Randomize : generateListByCriteria()
-
-Randomize -> Randomize : generateFiveOptions()
+Randomize -> Randomize : generateOneOption()
 
 Randomize --> RandomizeCommand
 deactivate Randomize

@@ -287,9 +287,9 @@ This process returns a new `EnterCanteenCommand` */* `EnterStallCommand` object 
 . The `LogicManager` then access `EnterCanteenCommand#execute()` */* `EnterStallCommand#execute()` to switch the current display to the stalls/food available within the selected canteen/stall.
 . Both `EnterCanteenCommand#execute()` and `EnterStallCommand#execute()` returns a `CommandResult` object to the `LogicManger`.
 
-Below is the _sequence diagram_ that summarizes what happens during the execution of the `enter` command:
+Below is the _activity diagram_ that summarizes what happens during the execution of the `enter` command:
 
-//image::
+image::EnterActivityDiagram.png[]
 
 ==== Enter Design Considerations
 ===== Aspect:
@@ -422,7 +422,7 @@ image::RandomizeActivityDiagram.png[]
 . `RandomizeCommandParser` then parse the randomize command to separate the prefix if any and return a command object.
 In this case a `RandomizeCommand` object is created and returned to the `LogicManager`.
 . The `LogicManager` then access `RandomizeCommand#execute()`.
-. From `RandomizeCommand#execute()`, `randomize` objects are called to generate five random options based on the user input.
+. From `RandomizeCommand#execute()`, `randomize` objects are called to generate a random option based on the user input.
 . The `RandomizeCommand#execute()` returns a  `CommandResult` object to the `LogicManger`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `randomize` command:
