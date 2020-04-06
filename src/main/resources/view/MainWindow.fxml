@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -48,32 +50,44 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <children>
-              <VBox fx:id="customerList" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
-                </padding>
-                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-              </VBox>
-              <VBox fx:id="productList" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
-                 <padding>
-                    <Insets bottom="10" left="10" right="10" top="10" />
-                 </padding>
-                 <children>
-                    <StackPane fx:id="productListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                 </children>
-              </VBox>
-              <VBox fx:id="transactionList" layoutX="350.0" layoutY="10.0" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
-                 <padding>
-                    <Insets bottom="10" left="10" right="10" top="10" />
-                 </padding>
-                 <children>
-                    <StackPane fx:id="transactionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                 </children>
-              </VBox>
-               </children>
-            </HBox>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Main">
+                     <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                          <VBox fx:id="customerList" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                            <padding>
+                              <Insets bottom="10" left="10" right="10" top="10" />
+                            </padding>
+                            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                          </VBox>
+                          <VBox fx:id="productList" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                             <padding>
+                                <Insets bottom="10" left="10" right="10" top="10" />
+                             </padding>
+                             <children>
+                                <StackPane fx:id="productListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                             </children>
+                          </VBox>
+                           </children>
+                        </HBox>
+                     </content>
+                </Tab>
+                <Tab text="Transations">
+                     <content>
+                    <VBox fx:id="transactionList" minWidth="150.0" styleClass="pane-with-border">
+                       <padding>
+                          <Insets bottom="10" left="10" right="10" top="10" />
+                       </padding>
+                       <children>
+                          <StackPane fx:id="transactionListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                       </children>
+                    </VBox>
+                     </content>
+                </Tab>
+              </tabs>
+            </TabPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

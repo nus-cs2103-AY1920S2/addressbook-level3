@@ -2,7 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -11,5 +12,14 @@
          <Insets bottom="5.0" left="5.0" right="5.0" />
       </VBox.margin>
    </Label>
-    <ListView fx:id="transactionListView" VBox.vgrow="ALWAYS" />
+   <TableView fx:id="transactionTableView">
+     <columns>
+       <TableColumn fx:id="customerCol" prefWidth="75.0" text="Customer" />
+       <TableColumn fx:id="productCol" prefWidth="75.0" text="Product" />
+         <TableColumn fx:id="dateTimeCol" prefWidth="75.0" text="DateTime" />
+         <TableColumn fx:id="quantityCol" prefWidth="75.0" text="Quantity" />
+         <TableColumn fx:id="amountCol" prefWidth="75.0" text="Amount" />
+         <TableColumn fx:id="descriptionCol" prefWidth="75.0" text="Description" />
+     </columns>
+   </TableView>
 </VBox>
