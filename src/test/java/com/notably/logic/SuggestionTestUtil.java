@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
-
 import com.notably.commons.path.AbsolutePath;
 import com.notably.commons.path.exceptions.InvalidPathException;
 import com.notably.model.Model;
@@ -35,7 +33,6 @@ public class SuggestionTestUtil {
     private static AbsolutePath toCs2103Week1Lecture;
     private static Model model;
 
-    @BeforeAll
     public static void setUp() throws InvalidPathException {
         // Set up paths
         toCs2103 = AbsolutePath.fromString("/CS2103");
