@@ -70,11 +70,6 @@ public class AddCommandParserTest {
                 + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + LIMIT_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedCoupon));
 
-        // multiple savings monetary amount - last one accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PROMO_CODE_DESC_BOB + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT
-                + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + LIMIT_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedCoupon));
-
         // multiple limits - last limit accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PROMO_CODE_DESC_BOB + SAVINGS_DESC_BOB
                 + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + LIMIT_DESC_AMY + LIMIT_DESC_BOB
@@ -153,6 +148,11 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PROMO_CODE_DESC_BOB + INVALID_SAVINGS_DESC
                 + EXPIRY_DATE_DESC_BOB + LIMIT_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND,
                 Savings.MESSAGE_CONSTRAINTS);
+
+        // multiple savings monetary amount fails
+        assertParseFailure(parser, NAME_DESC_BOB + PROMO_CODE_DESC_BOB + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT
+                        + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + LIMIT_DESC_BOB + TAG_DESC_FRIEND,
+                Savings.MULTIPLE_NUMBER_AMOUNTS);
 
         // non-addable usage
         assertParseFailure(parser, NAME_DESC_BOB + PROMO_CODE_DESC_BOB + SAVINGS_DESC_BOB + EXPIRY_DATE_DESC_BOB
