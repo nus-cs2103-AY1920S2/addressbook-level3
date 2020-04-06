@@ -37,6 +37,11 @@ import csdev.couponstash.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    // used to reject user input for text that is too long
+    // to be displayed properly by Coupon Stash
+    public static final String MESSAGE_STRING_TOO_LONG = "$1%s is too long! Length exceeds"
+            + " the limit of $2%d characters.";
+    public static final int SAVEABLES_STRING_LENGTH_LIMIT = 100;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -328,5 +333,23 @@ public class ParserUtil {
         RemindDate remind = new RemindDate();
         remind.setRemindDate(LocalDate.parse(trimmedDate, DATE_FORMATTER));
         return remind;
+    }
+
+    /**
+     * Checks if a String exceeds a given limit on the
+     * number of characters, to avoid causing problems
+     * with the rendering of text on the UI.
+     *
+     * @param s The String to be checked.
+     * @param limit The int representing the character limit.
+     * @return Returns the original String s if it is
+     *         determined to fit within the limit.
+     * @throws ParseException If the String s exceeds the limit.
+     */
+    private static String checkStringLength(String s, int limit) throws ParseException {
+        if (s.length() > limit) {
+            throw new ParseException(String.format(ParserUtil.MESSAGE_STRING_TOO_LONG, s, limit));
+        }
+        return s;
     }
 }
