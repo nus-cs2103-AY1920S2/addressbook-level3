@@ -52,12 +52,19 @@ public class CommandTestUtil {
     public static final Savings VALID_SAVINGS_AMY = new Savings(
             Arrays.asList(new Saveable(VALID_SAVEABLE_CAKE), new Saveable(VALID_SAVEABLE_CROISSANT))
     );
-    public static final double VALID_MONETARY_AMOUNT_ONE_FIFTY = 1.5;
-    public static final double VALID_MONETARY_AMOUNT_TWO_TWENTY = 2.2;
+    public static final int VALID_MONETARY_INTEGER_AMOUNT_ONE = 1;
+    public static final int VALID_MONETARY_DECIMAL_AMOUNT_FIFTY = 50;
+    public static final int VALID_MONETARY_INTEGER_AMOUNT_TWO = 2;
+    public static final int VALID_MONETARY_DECIMAL_AMOUNT_TWENTY = 20;
+    public static final String VALID_MONETARY_AMOUNT_ONE_FIFTY = VALID_MONETARY_INTEGER_AMOUNT_ONE
+            + "." + VALID_MONETARY_DECIMAL_AMOUNT_FIFTY;
+    public static final String VALID_MONETARY_AMOUNT_TWO_TWENTY = VALID_MONETARY_INTEGER_AMOUNT_TWO
+            + "." + VALID_MONETARY_DECIMAL_AMOUNT_TWENTY;
+
     public static final String VALID_SAVEABLE_COFFEE = "Coffee";
     public static final String VALID_SAVEABLE_TEA = "Tea";
     public static final Savings VALID_SAVINGS_BOB = new Savings(
-            new MonetaryAmount(VALID_MONETARY_AMOUNT_TWO_TWENTY),
+            new MonetaryAmount(VALID_MONETARY_INTEGER_AMOUNT_TWO, VALID_MONETARY_DECIMAL_AMOUNT_TWENTY),
             Arrays.asList(new Saveable(VALID_SAVEABLE_COFFEE), new Saveable(VALID_SAVEABLE_TEA))
     );
     public static final MoneySymbol VALID_MONEY_SYMBOL = new MoneySymbolStub("RM");

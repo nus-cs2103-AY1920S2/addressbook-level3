@@ -27,7 +27,7 @@ public class SampleDataUtil {
     public static Coupon[] getSampleCoupons() {
         return new Coupon[] {
             new Coupon(new Name("Auntie Azah's Nasi Lemak"), new PromoCode("AZAH BAIK LA"),
-                new Savings(new MonetaryAmount(5.50)), new ExpiryDate("30-12-2020"), new StartDate("01-12-2020"),
+                new Savings(new MonetaryAmount(5, 50)), new ExpiryDate("30-12-2020"), new StartDate("01-12-2020"),
                     new Usage("0"), new Limit("1"), getTagSet("sedap"),
                     new Condition("Min spending of $15 on sambal sauce")),
             new Coupon(new Name("Boszini Clothing"), new PromoCode("NAKED SUMMER"),
@@ -45,7 +45,7 @@ public class SampleDataUtil {
                     new Limit("1"), getTagSet("whilestockslast"),
                     new Condition("While Stocks Last")),
             new Coupon(new Name("IKEEA"), new PromoCode("BRATTBY_IS_YOUR_FRIEND"),
-                new Savings(new MonetaryAmount(1d),
+                new Savings(new MonetaryAmount(1, 0),
                         Arrays.asList(new Saveable("Brattby Bag"))), new ExpiryDate("01-10-2020"),
                     new StartDate("01-09-2020"), new Usage("0"), new Limit("1"), getTagSet("limitededition"),
                     new Condition("Meatball are made of horsemeat")),

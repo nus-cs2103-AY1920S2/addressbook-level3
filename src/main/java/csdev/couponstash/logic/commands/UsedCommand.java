@@ -48,7 +48,7 @@ public class UsedCommand extends IndexedCommand {
      */
     public UsedCommand(Index targetIndex) {
         super(targetIndex);
-        this.originalAmount = new MonetaryAmount(0.0);
+        this.originalAmount = new MonetaryAmount(0, 0);
     }
 
     /**
@@ -87,7 +87,7 @@ public class UsedCommand extends IndexedCommand {
         }
 
         // checks if original amount of purchase is provided if the type of Savings is of percentage amount
-        if (hasPercentageSavings && (originalAmount.equals(new MonetaryAmount(0.0)))) {
+        if (hasPercentageSavings && (originalAmount.equals(new MonetaryAmount(0, 0)))) {
             throw new CommandException(String.format(MESSAGE_MISSING_ORIGINAL_AMOUNT));
         }
 
