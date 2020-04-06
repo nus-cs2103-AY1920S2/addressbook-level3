@@ -142,7 +142,7 @@ You want to find the client named "Bryan" in client list. Below shows that "Brya
 
 /photo
 
-If you entered `find-c bry",
+Type `find-c bry" into the command box, and press `Enter` to execute it.
 
 /photo
 
@@ -161,13 +161,15 @@ You might wonder why the application shows more clients than you intended. It mi
 Example:
 You want to find the client named "Bryan Low" in client list.
 
-If you entered `find-c bryan low`,
+Type `find-c bryan low` in to the command box, and press `Enter` to execute it.
 
 /photo
 
 You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice Low`.
 
 /photo
+
+You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
 
 === Add a new client profile: `add-c`
 
@@ -245,10 +247,10 @@ This section acts as a summary of the important things to note when using `add-e
 |====================
 | Parameters | Important points to note
 | n/NAME |
-* `n/NAME` is compulsory and you have to be specified it.
+* `n/NAME` is compulsory and you have to specify it.
 
 | d/DATE |
-* `d/DATE` is compulsory and you have to be specified it.
+* `d/DATE` is compulsory and you have to specify it.
 
 | reps/REPS |
 | sets/SETS |
@@ -258,7 +260,7 @@ This section acts as a summary of the important things to note when using `add-e
 ==== Example
 Let's say that you want to find a client named "Bryan Low" in client list. You can simply use the `add-e` command by following the steps below.
 
-1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to section on `...:view-c`. For this example, we will add an exercise to the first client in the list. After you entered `view-c 1`,
+1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section on `...:view-c`. For this example, we will add an exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table with his recorded exercises.
 
 /photo
 
