@@ -26,6 +26,7 @@
 #savings #saveables .sv-label {
     -fx-font-size: 14;
     -fx-label-padding: 0 3 0 3;
+    -fx-max-width: 100;
 }
 
 #couponName {
