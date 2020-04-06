@@ -16,18 +16,17 @@ import javafx.beans.property.StringProperty;
  */
 public class ViewStateModelImpl implements ViewStateModel {
 
-    private StringProperty input;
-    private Property<Optional<String>> responseTextProperty;
-
+    private final StringProperty input;
+    private final Property<Optional<String>> responseText;
     private final BooleanProperty helpOpen;
 
     public ViewStateModelImpl() {
-        this("", false);
-        responseTextProperty = new SimpleObjectProperty<>(Optional.empty());
+        this("", Optional.empty(), false);
     }
 
-    private ViewStateModelImpl(String initialInput, boolean initialHelpBool) {
+    private ViewStateModelImpl(String initialInput, Optional<String> initialResponseText, boolean initialHelpBool) {
         this.input = new SimpleStringProperty(initialInput);
+        responseText = new SimpleObjectProperty<>(initialResponseText);
         this.helpOpen = new SimpleBooleanProperty(initialHelpBool);
     }
 
@@ -66,18 +65,18 @@ public class ViewStateModelImpl implements ViewStateModel {
     //============ Response Text ===========================================================
     @Override
     public Property<Optional<String>> responseTextProperty() {
-        return responseTextProperty;
+        return responseText;
     }
 
     @Override
-    public void setResponseText(String responseText) {
-        Objects.requireNonNull(responseText);
-        responseTextProperty.setValue(Optional.of(responseText));
+    public void setResponseText(String responseTextStr) {
+        Objects.requireNonNull(responseTextStr);
+        responseText.setValue(Optional.of(responseTextStr));
     }
 
     @Override
     public void clearResponseText() {
-        responseTextProperty.setValue(Optional.empty());
+        responseText.setValue(Optional.empty());
     }
 }
 
