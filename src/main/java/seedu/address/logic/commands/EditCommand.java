@@ -93,7 +93,7 @@ public class EditCommand extends Command {
         model.setTask(taskToEdit, editedTask);
 
         Task pommedTask = model.getPomodoroTask();
-        if (pommedTask.equals(taskToEdit)) {
+        if (pommedTask != null && pommedTask.equals(taskToEdit)) {
             model.setPomodoroTask(editedTask);
             model.getPomodoroManager()
                     .getPomodoroDisplay()
