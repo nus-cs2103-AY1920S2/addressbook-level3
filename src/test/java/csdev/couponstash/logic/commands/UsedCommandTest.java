@@ -51,7 +51,7 @@ class UsedCommandTest {
     @Test
     public void execute_validIndexUnfilteredListWithOriginalAmount_success() {
         Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
-        MonetaryAmount originalAmount = new MonetaryAmount(10.0);
+        MonetaryAmount originalAmount = new MonetaryAmount(10, 0);
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_SECOND_COUPON, originalAmount);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
@@ -126,7 +126,7 @@ class UsedCommandTest {
         showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
 
         Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
-        MonetaryAmount originalAmount = new MonetaryAmount(10.0);
+        MonetaryAmount originalAmount = new MonetaryAmount(10, 0);
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON, originalAmount);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
@@ -172,7 +172,7 @@ class UsedCommandTest {
         UsedCommand usedFirstCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
         UsedCommand usedSecondCommand = new UsedCommand(TypicalIndexes.INDEX_THIRD_COUPON);
         UsedCommand usedThirdCommandWithOriginalAmount =
-                new UsedCommand(TypicalIndexes.INDEX_SECOND_COUPON, new MonetaryAmount(10.00));
+                new UsedCommand(TypicalIndexes.INDEX_SECOND_COUPON, new MonetaryAmount(10, 0));
 
         // same object -> returns true
         assertTrue(usedFirstCommand.equals(usedFirstCommand));
