@@ -121,8 +121,8 @@ public class Recurring {
    public long getInterval() {
        long period = 0;
        if (type == RecurType.DAILY) {
-        //    period = 1000*60*60*24;
-        period = 12000l;        
+           period = 1000l*60*60*24;
+        // period = 12000l;  //for testing      
        } else if (type == RecurType.WEEKLY) {
            period = 1000l*60*60*24*7;
        }
