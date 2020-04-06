@@ -15,7 +15,6 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.recipe.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.recipe.commons.core.index.Index;
@@ -150,7 +149,7 @@ public class CommandTestUtil {
 
         Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());
         final String[] splitName = recipe.getName().fullName.split("\\s+");
-        model.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredRecipeList(new NameContainsKeywordsPredicate(true, splitName[0]));
 
         assertEquals(1, model.getFilteredRecipeList().size());
     }
