@@ -5,10 +5,10 @@
       "time" : "35",
       "isFavourite" : false,
       "grains" : [ "200.0g,  rice vermicelli noodles" ],
-      "vegetables" : [ "1.0cup,  broccoli florets", "100.0g,  button mushrooms sliced", "10.0g,  Thai red eye bird's chili" ],
+      "vegetables" : [ "50.0g,  vege" ],
       "proteins" : [ ],
       "fruits" : [ ],
-      "others" : [ "0.5tsp,  brown sugar", "0.25cup,  coconut milk", "2.0tsp,  oil", "1.0tsp,  Salt", "1.0tsp,  soy sauce", "1.0tbsp,  thai Green Curry Paste" ],
+      "others" : [ "0.5tsp,  brown sugar", "0.3cup,  coconut milk", "2.0tsp,  oil", "1.0tsp,  Salt", "1.0tsp,  soy sauce", "1.0tbsp,  thai Green Curry Paste", "0.3ml,  water" ],
       "steps" : [ "Heat oil in a saucepan. Add the vegetables (broccoli, mushroom) and saute till they turn soft. Transfer to a plate and set aside.", "In the same saucepan, add the green curry paste. Saute the curry paste for a minute.", "Add the coconut milk, brown sugar and soy sauce. Stir until the curry paste is nicely dissolved.", "Now add the vegetable stock, salt, red chillies and stir to combine.", "Bring the soup to a boil over high heat. Reduce the heat and allow the soup to simmer for 5 minutes.", "Add the vermicelli noodles and the vegetables. Simmer till the noodles are cooked.", "Turn off the heat and give soup a nice stir. Taste and adjust the seasoning and consistency accordingly. If too thick add more stock or coconut milk.", "Just before serving garnish soup with fresh herbs, crushed peanuts and juice of lemon.", "Serve Thai Green Curry Soup warm." ],
       "goals" : [ "Herbivore" ]
     } ],

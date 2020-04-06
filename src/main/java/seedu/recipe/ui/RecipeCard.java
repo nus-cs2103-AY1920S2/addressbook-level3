@@ -61,6 +61,16 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label ingredientsHeader;
     @FXML
+    private Label grainsHeader;
+    @FXML
+    private Label vegetablesHeader;
+    @FXML
+    private Label proteinsHeader;
+    @FXML
+    private Label fruitsHeader;
+    @FXML
+    private Label othersHeader;
+    @FXML
     private Label stepsHeader;
 
     public RecipeCard(Recipe recipe, int displayedIndex) {
@@ -80,28 +90,41 @@ public class RecipeCard extends UiPart<Region> {
 
         time.setText(recipe.getTime().value + " min");
 
-        ingredientsHeader.setText("Ingredients");
-        ingredientsHeader.setUnderline(true);
+        setHeader(ingredientsHeader, "Ingredients");
         ingredientsHeader.setPadding(new Insets(10, 0, 0, 0));
 
-        recipe.getGrains().forEach(grain -> grains.getChildren().add(new Label(grain.toString())));
-        grains.getChildren().forEach(grain -> grain.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getGrains().isEmpty()) {
+            setHeader(grainsHeader, "Grains");
+            recipe.getGrains().forEach(grain -> grains.getChildren().add(new Label(grain.toString())));
+            grains.getChildren().forEach(grain -> grain.setStyle(styleIngredientsAndSteps));
+        }
 
-        recipe.getVegetables().forEach(vegetable -> vegetables.getChildren().add(new Label(vegetable.toString())));
-        vegetables.getChildren().forEach(vegetable -> vegetable.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getVegetables().isEmpty()) {
+            setHeader(vegetablesHeader, "Vegetables");
+            recipe.getVegetables().forEach(vegetable -> vegetables.getChildren().add(new Label(vegetable.toString())));
+            vegetables.getChildren().forEach(vegetable -> vegetable.setStyle(styleIngredientsAndSteps));
+        }
 
-        recipe.getProteins().forEach(protein -> proteins.getChildren().add(new Label(protein.toString())));
-        proteins.getChildren().forEach(protein -> protein.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getProteins().isEmpty()) {
+            setHeader(proteinsHeader, "Proteins");
+            recipe.getProteins().forEach(protein -> proteins.getChildren().add(new Label(protein.toString())));
+            proteins.getChildren().forEach(protein -> protein.setStyle(styleIngredientsAndSteps));
+        }
 
-        recipe.getFruits().forEach(fruit -> fruits.getChildren().add(new Label(fruit.toString())));
-        fruits.getChildren().forEach(fruit -> fruit.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getFruits().isEmpty()) {
+            setHeader(fruitsHeader, "Fruits");
+            recipe.getFruits().forEach(fruit -> fruits.getChildren().add(new Label(fruit.toString())));
+            fruits.getChildren().forEach(fruit -> fruit.setStyle(styleIngredientsAndSteps));
+        }
 
-        recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
-        others.getChildren().forEach(other -> other.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getOthers().isEmpty()) {
+            setHeader(othersHeader, "Others");
+            recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
+            others.getChildren().forEach(other -> other.setStyle(styleIngredientsAndSteps));
+        }
 
         if (!recipe.getSteps().isEmpty()) {
-            stepsHeader.setText("Steps");
-            stepsHeader.setUnderline(true);
+            setHeader(stepsHeader, "Steps");
             stepsHeader.setPadding(new Insets(10, 0, 0, 0));
 
             // Calculates step number and displays with along with the step
@@ -115,6 +138,11 @@ public class RecipeCard extends UiPart<Region> {
             steps.setSpacing(5);
         }
 
+    }
+
+    private void setHeader(Label label, String text) {
+        label.setUnderline(true);
+        label.setText(text);
     }
 
     @Override

@@ -32,11 +32,23 @@
       <FlowPane fx:id="goals" />
       <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
       <Label fx:id="ingredientsHeader" styleClass="cell_big_label" />
-      <VBox fx:id="grains" />
-      <VBox fx:id="vegetables" />
-      <VBox fx:id="proteins" />
-      <VBox fx:id="fruits" />
-      <VBox fx:id="others" />
+      <HBox spacing="10">
+        <VBox fx:id="grains">
+          <Label fx:id="grainsHeader"/>
+        </VBox>
+        <VBox fx:id="vegetables">
+          <Label fx:id="vegetablesHeader"/>
+        </VBox>
+        <VBox fx:id="proteins">
+          <Label fx:id="proteinsHeader"/>
+        </VBox>
+        <VBox fx:id="fruits">
+          <Label fx:id="fruitsHeader"/>
+        </VBox>
+        <VBox fx:id="others">
+          <Label fx:id="othersHeader"/>
+        </VBox>
+      </HBox>
       <Label fx:id="stepsHeader" styleClass="cell_big_label" />
       <VBox fx:id="steps" />
     </VBox>
