@@ -8,7 +8,7 @@ start
 
   if () then (session is recurring)
     :A new session is created with startTime
-    and endTime are incremented accordingly;
+    and endTime incremented;
     :New session is added to UniqueSessionList;
 
     else (session is not recurring)
