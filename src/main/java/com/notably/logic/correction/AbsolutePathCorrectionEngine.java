@@ -110,13 +110,13 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
 
             List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
             List<AbsolutePath> childrenPaths = childrenBlocks
-                    .stream()
-                    .map(item -> {
-                        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
-                        combinedComponents.add(item.getTitle().getText());
-                        return AbsolutePath.fromComponents(combinedComponents);
-                    })
-                    .collect(Collectors.toList());
+                .stream()
+                .map(item -> {
+                    List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
+                    combinedComponents.add(item.getTitle().getText());
+                    return AbsolutePath.fromComponents(combinedComponents);
+                })
+            .collect(Collectors.toList());
             pathQueue.addAll(childrenPaths);
 
             possiblePaths.add(currentPath);
@@ -148,8 +148,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
 
             if (forwardMatch && i == inputComponents.size() - 1
                     && inputComponent.length() < referenceComponent.length()) {
-                distance += editDistanceCalculator.calculateDistance(inputComponent,
-                        referenceComponent.substring(0, inputComponent.length()));
+                distance += calculateForwardMatchingDistance(inputComponent, referenceComponent);
             } else {
                 distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
             }
@@ -169,6 +168,26 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         }
 
         return distance;
+    }
+
+    /**
+     * Calculates the forward matching distance between to path components.
+     *
+     * @param inputComponent Input path component
+     * @param referenceComponent Reference path component
+     * @return Forward matching distance between the two components
+     */
+    private int calculateForwardMatchingDistance(String inputComponent, String referenceComponent) {
+        int forwardMatchDistance = Integer.MAX_VALUE;
+        for (int stopIndex = 0; stopIndex <= referenceComponent.length(); stopIndex++) {
+            int currentForwardMatchDistance = editDistanceCalculator.calculateDistance(inputComponent,
+                    referenceComponent.substring(0, stopIndex));
+            if (currentForwardMatchDistance < forwardMatchDistance) {
+                forwardMatchDistance = currentForwardMatchDistance;
+            }
+        }
+
+        return forwardMatchDistance;
     }
 }
 
