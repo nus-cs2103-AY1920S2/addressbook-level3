@@ -76,10 +76,9 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        System.out.println("get filtered triggered on boot");
         ObservableList<Task> tasklist = model.getFilteredTaskList();
         tasklist.forEach((task) -> task.triggerRecurringIfPresent(model));
-        return model.getFilteredTaskList();
+        return tasklist;
     }
 
     @Override

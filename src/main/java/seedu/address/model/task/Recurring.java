@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,18 +23,32 @@ import seedu.address.storage.Storage;
 
 public class Recurring {
    private final RecurType type;
-//    private final LocalDateTime referenceDateTime;
+   private final LocalDateTime referenceDateTime;
 
    public static final String MESSAGE_CONSTRAINTS = "Recurring should be in the format d or w, for eg: rec/d";
    public static final String MESSAGE_RECURRING_TASK_SUCCESS = "Recurring Task: %1$s";
 
    public static final String VALIDATION_REGEX = "[dw]"; 
+   public static final DateTimeFormatter stringFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
 
-   public Recurring(String recurringString) throws ParseException {
-        this.type = parse(recurringString);
+   public Recurring(String recurringStringStorage) throws ParseException {
+        String recurTypeString = recurringStringStorage.substring(0,1);
+        String dateTimeString = recurringStringStorage.substring(1);
+        this.type = parseRecurType(recurTypeString);
+        this.referenceDateTime = parseDateTime(dateTimeString);
    }
 
-   public RecurType parse(String recurringString) throws ParseException {
+   public Recurring(String recurringString, LocalDateTime referenceDateTime) throws ParseException{
+       this.type = parseRecurType(recurringString);
+       this.referenceDateTime = referenceDateTime;
+   }
+
+   public LocalDateTime parseDateTime(String dateTimeString) {
+       return stringFormatter.parse(dateTimeString, LocalDateTime::from);
+   }
+
+   public RecurType parseRecurType(String recurringString) throws ParseException {
        if (recurringString.equals("d")) {
            return RecurType.DAILY;
        } else if (recurringString.equals("w")) {
@@ -98,7 +113,9 @@ public class Recurring {
        TimerTask repeatedTask = generateTimerTask(model, taskToReset);
        Timer timer = new Timer("Timer");
        long period = getInterval();
-       timer.scheduleAtFixedRate(repeatedTask, period, period); //might run twice in the first time
+       long delayToFirstTrigger = Duration.between(LocalDateTime.now(), referenceDateTime).getSeconds();
+       delayToFirstTrigger = delayToFirstTrigger >= 0 ? delayToFirstTrigger*1000 : 0;
+       timer.scheduleAtFixedRate(repeatedTask, delayToFirstTrigger, period); //might run twice in the first time
    }
    
    public long getInterval() {
@@ -115,7 +132,8 @@ public class Recurring {
    @Override
    public String toString() {
        String typeString = type.name().substring(0, 1).toLowerCase();
-       return typeString;
+       String dateTimeString = referenceDateTime.format(stringFormatter);
+       return typeString + dateTimeString;
    }
 
 

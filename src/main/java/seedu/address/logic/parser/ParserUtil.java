@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -95,7 +96,7 @@ public class ParserUtil {
         if (!Recurring.isValidRecurring(trimmedRecurring)) {
             throw new ParseException(Recurring.MESSAGE_CONSTRAINTS);
         }
-        return new Recurring(trimmedRecurring);
+        return new Recurring(trimmedRecurring, LocalDateTime.now());
     }
 
     /**
