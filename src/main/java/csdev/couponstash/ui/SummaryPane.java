@@ -71,7 +71,7 @@ public class SummaryPane extends UiPart<Region> {
     private ObservableList<Node> barGraphLabels = null;
 
     // Total amount to show in the summary tab
-    private MonetaryAmount shownMonetaryAmount = new MonetaryAmount(0.0);
+    private MonetaryAmount shownMonetaryAmount = new MonetaryAmount(0, 0);
 
     /**
      * Constructor for a new SummaryPane. This is the

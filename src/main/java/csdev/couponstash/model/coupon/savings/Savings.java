@@ -200,7 +200,7 @@ public class Savings implements Comparable<Savings> {
      */
     public Savings copy() {
         Optional<MonetaryAmount> monetaryAmountCopy =
-                monetaryAmount.map(x -> new MonetaryAmount(x.getValue()));
+                monetaryAmount.map(MonetaryAmount::new);
         Optional<PercentageAmount> percentageCopy =
                 percentage.map(x -> new PercentageAmount(x.getValue()));
         Optional<List<Saveable>> savablesCopy = saveables.map(x -> new ArrayList<>(x));

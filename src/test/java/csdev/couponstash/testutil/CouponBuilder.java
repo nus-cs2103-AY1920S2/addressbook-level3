@@ -29,11 +29,11 @@ public class CouponBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PROMO_CODE = "ILOVESTASH";
-    public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32.5));
+    public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32, 5));
     public static final DateSavingsSumMap DEFAULT_TOTAL_SAVINGS =
             new DateSavingsSumMap(
                     LocalDate.of(2020, 2, 2),
-                    new PureMonetarySavings(new MonetaryAmount(97.5)));
+                    new PureMonetarySavings(new MonetaryAmount(97, 5)));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
     public static final String DEFAULT_START_DATE = DateUtil.formatDateToString(LocalDate.now());
     public static final String DEFAULT_USAGE = "0";
