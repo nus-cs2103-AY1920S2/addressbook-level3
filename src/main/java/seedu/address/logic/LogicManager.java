@@ -1,11 +1,10 @@
 package seedu.address.logic;
 
-import static java.util.Objects.requireNonNull;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -13,6 +12,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.DetailManager;
+import seedu.address.manager.FinanceManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
@@ -35,6 +37,7 @@ public class LogicManager implements Logic {
   private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
   private final Model model;
+  private final DetailManager detailManager;
   private final Storage storage;
   private final AddressBookParser addressBookParser;
   private final UndoRedoStack undoRedoStack;
@@ -44,6 +47,7 @@ public class LogicManager implements Logic {
     this.model = model;
     this.storage = storage;
     this.undoRedoStack = new UndoRedoStack();
+    this.detailManager = new DetailManager();
     addressBookParser = new AddressBookParser();
   }
 
@@ -106,11 +110,6 @@ public class LogicManager implements Logic {
     return model.getStaffAddressBookFilePath();
   }
 
-  @Override
-  public void updateObservedDataFilteredStaffList(Predicate<Staff> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredStaffList(predicate);
-  }
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Student> getStudentAddressBook() {
@@ -125,12 +124,6 @@ public class LogicManager implements Logic {
   @Override
   public Path getStudentAddressBookFilePath() {
     return model.getStudentAddressBookFilePath();
-  }
-
-  @Override
-  public void updateObservedDataFilteredStudentList(Predicate<Student> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredStudentList(predicate);
   }
 
   ///
@@ -149,12 +142,6 @@ public class LogicManager implements Logic {
     return model.getCourseAddressBookFilePath();
   }
 
-  @Override
-  public void updateObservedDataFilteredCourseList(Predicate<Course> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredCourseList(predicate);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Finance> getFinanceAddressBook() {
@@ -170,13 +157,6 @@ public class LogicManager implements Logic {
   public Path getFinanceAddressBookFilePath() {
     return model.getFinanceAddressBookFilePath();
   }
-
-  @Override
-  public void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredFinanceList(predicate);
-  }
-
   ///
   @Override
   public ReadOnlyAddressBookGeneric<Assignment> getAssignmentAddressBook() {
@@ -194,13 +174,6 @@ public class LogicManager implements Logic {
   }
 
   @Override
-  public void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate) {
-    requireNonNull(predicate);
-    model.updateObservedDataFilteredAssignmentList(predicate);
-  }
-
-
-  @Override
   public GuiSettings getGuiSettings() {
     return model.getGuiSettings();
   }
@@ -208,6 +181,34 @@ public class LogicManager implements Logic {
   @Override
   public void setGuiSettings(GuiSettings guiSettings) {
     model.setGuiSettings(guiSettings);
+  }
+
+
+  // ========================== Getters for view details ========================
+
+  @Override
+  public ObservableMap<String, Object> getFilteredStudentDetailsMap() {
+    return detailManager.getFilteredStudentDetailsMap();
+  }
+
+  @Override
+  public ObservableMap<String, Object> getFilteredCourseDetailsMap() {
+    return detailManager.getFilteredCourseDetailsMap();
+  }
+
+  @Override
+  public ObservableMap<String, Object> getFilteredStaffDetailsMap() {
+    return detailManager.getFilteredStaffDetailsMap();
+  }
+
+  @Override
+  public ObservableMap<String, Object> getFilteredFinanceDetailsMap() {
+    return detailManager.getFilteredFinanceDetailsMap();
+  }
+
+  @Override
+  public ObservableMap<String, Object> getFilteredAssignmentDetailsMap() {
+    return detailManager.getFilteredAssignmentDetailsMap();
   }
 
   // ========================== Getters for Predicates =========================

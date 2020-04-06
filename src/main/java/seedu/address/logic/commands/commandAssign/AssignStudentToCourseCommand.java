@@ -10,10 +10,13 @@ import java.util.HashMap;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandUnassign.UnassignStudentFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.ProgressManager;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStudent.Student;
@@ -45,8 +48,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
-
+    protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
@@ -68,15 +70,22 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
             if (assignedCourseContainsStudent) {
                 throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_STUDENT);
             } else if (assigningStudentContainsCourse) {
-            throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
+                throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
-                model.assignStudentToCourse(studentID, courseID);
+                EdgeManager.assignStudentToCourse(studentID, courseID);
+
+                Set<ID> allAssignmentInCourse = model.getCourse(courseID).getAssignedAssignmentsID();
+                ProgressManager.addAllAssignmentsToOneStudent(allAssignmentInCourse, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,
                         assignedCourse.getName(), courseID.value));
-
             }
         }
+    }
+
+    @Override
+    protected void generateOppositeCommand() throws CommandException {
+        oppositeCommand = new UnassignStudentFromCourseCommand(this.assignDescriptor);
     }
 }

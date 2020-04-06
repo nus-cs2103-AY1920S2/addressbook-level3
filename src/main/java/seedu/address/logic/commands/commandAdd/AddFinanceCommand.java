@@ -15,6 +15,7 @@ import java.util.Set;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
@@ -171,8 +172,13 @@ public class AddFinanceCommand extends AddCommand {
       Name name = new Name(String.format("Student %s %s has paid for Course %s %s", studentName, studentid.toString()
       , courseName, courseid.toString()));
 
-      toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+      try {
+        toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
+            toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
+
     } else if (financeType.toString().equals("ct")) {
       ID courseid = toAdd.getCourseID();
       ID staffid = toAdd.getStaffID();
@@ -214,8 +220,12 @@ public class AddFinanceCommand extends AddCommand {
       Name name = new Name(String.format("Staff %s %s has been paid for teaching Course %s %s", staffName, staffid.toString()
           , courseName, courseid.toString()));
 
-      toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-          toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+      try {
+        toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
+            toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
     }
 
     if (model.has(toAdd)) {

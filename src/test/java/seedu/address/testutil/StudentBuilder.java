@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.AssignedCourses;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -16,16 +16,19 @@ public class StudentBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_ID = "100";
+    public static final String DEFAULT_GENDER = "m";
     public static final String DEFAULT_ASSIGNEDCOURSES = "";
 
     private Name name;
     private ID id;
+    private Gender gender;
     private Set<ID> assignedCourses;
     private Set<Tag> tags;
 
     public StudentBuilder() {
         name = new Name(DEFAULT_NAME);
         id = new ID(DEFAULT_ID);
+        gender = new Gender(DEFAULT_GENDER);
         assignedCourses = new HashSet<>();
         tags = new HashSet<>();
     }
@@ -36,6 +39,7 @@ public class StudentBuilder {
     public StudentBuilder(Student studentToCopy) {
         name = studentToCopy.getName();
         id = studentToCopy.getId();
+        gender = studentToCopy.getGender();
         assignedCourses = studentToCopy.getAssignedCoursesID();
         tags = new HashSet<>(studentToCopy.getTags());
     }
@@ -65,6 +69,14 @@ public class StudentBuilder {
     }
 
     /**
+     * Sets the {@code Gender} of the {@code Student} that we are building.
+     */
+    public StudentBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
+    /**
      * Sets the {@code AssignedCourse} of the {@code Student} that we are building.
      */
     public StudentBuilder withAssignedCourse(String assignedCourse) {
@@ -73,7 +85,7 @@ public class StudentBuilder {
     }
 
     public Student build() {
-        return new Student(name, id, assignedCourses, tags);
+        return new Student(name, id, gender, assignedCourses, tags);
     }
 
 }

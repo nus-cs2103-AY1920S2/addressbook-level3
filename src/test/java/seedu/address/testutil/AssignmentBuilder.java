@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -22,12 +23,12 @@ public class AssignmentBuilder {
     private Name name;
     private ID id;
     private Set<Tag> tags;
-    private Deadline dl;
+    private Date dl;
 
     public AssignmentBuilder() {
         name = new Name(DEFAULT_NAME);
         id = new ID(DEFAULT_ID);
-        dl = new Deadline(DEFAULT_DEADLINE);
+        dl = new Date(DEFAULT_DEADLINE);
         tags = new HashSet<>();
     }
 
@@ -69,7 +70,7 @@ public class AssignmentBuilder {
      * Sets the {@code Deadline} of the {@code Assignment} that we are building.
      */
     public AssignmentBuilder withDeadline(String dl) {
-        this.dl = new Deadline(dl);
+        this.dl = new Date(dl);
         return this;
     }
 

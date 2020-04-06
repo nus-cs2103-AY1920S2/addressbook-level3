@@ -18,6 +18,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.person.Amount;
@@ -71,7 +72,7 @@ public class EditFinanceCommand extends Command {
    * {@code editFinanceDescriptor}.
    */
   private static Finance createEditedFinance(Finance financeToEdit,
-      EditFinanceDescriptor editFinanceDescriptor) {
+      EditFinanceDescriptor editFinanceDescriptor) throws ParseException {
     assert financeToEdit != null;
 
     Name updatedName = editFinanceDescriptor.getName().orElse(financeToEdit.getName());
@@ -83,11 +84,11 @@ public class EditFinanceCommand extends Command {
     ID updatedTeacherID = editFinanceDescriptor.getTeacherID().orElse(financeToEdit.getStaffID());
     Set<Tag> updatedTags = editFinanceDescriptor.getTags().orElse(financeToEdit.getTags());
 
-    return new Finance(updatedName, updatedFinanceType, updatedDate, updatedAmount, updatedCourseID, updatedStudentiD, updatedTeacherID, updatedTags);
+    return new Finance(updatedName, financeToEdit.getId(), updatedFinanceType, updatedDate, updatedAmount, updatedCourseID, updatedStudentiD, updatedTeacherID, updatedTags);
   }
 
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  public CommandResult execute(Model model) throws CommandException, ParseException {
     requireNonNull(model);
     List<Finance> lastShownList = model.getFilteredFinanceList();
 

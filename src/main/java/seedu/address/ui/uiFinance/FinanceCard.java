@@ -1,9 +1,7 @@
 package seedu.address.ui.uiFinance;
 
-import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelFinance.Finance;
@@ -37,11 +35,7 @@ public class FinanceCard extends UiPart<Region> {
   @FXML
   private Label financeType;
   @FXML
-  private Label date;
-  @FXML
-  private Label amount;
-  @FXML
-  private FlowPane tags;
+  private Label financeID;
 
   private CommandBox commandBox;
 
@@ -52,11 +46,7 @@ public class FinanceCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     name.setText(finance.getName().fullName);
     financeType.setText(finance.getFinanceType().toString());
-    date.setText(finance.getDate().value);
-    amount.setText(finance.getAmount().value);
-    finance.getTags().stream()
-        .sorted(Comparator.comparing(tag -> tag.tagName))
-        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    financeID.setText(finance.getId().value);
   }
 
   @Override
@@ -75,5 +65,12 @@ public class FinanceCard extends UiPart<Region> {
     FinanceCard card = (FinanceCard) other;
     return id.getText().equals(card.id.getText())
         && finance.equals(card.finance);
+  }
+
+  @FXML
+  private void selectFinance(){
+    String selectedFinanceID = financeID.getText();
+    String commandText = "select fid/" + selectedFinanceID;
+    commandBox.runCommand(commandText, "FINANCE");
   }
 }

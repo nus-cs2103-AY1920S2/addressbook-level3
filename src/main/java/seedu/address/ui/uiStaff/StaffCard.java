@@ -1,9 +1,9 @@
 package seedu.address.ui.uiStaff;
 
-import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStaff.Staff;
@@ -37,19 +37,11 @@ public class StaffCard extends UiPart<Region> {
   @FXML
   private Label staffID;
   @FXML
-  private Label phone;
-  @FXML
-  private Label address;
-  @FXML
-  private Label email;
-  @FXML
-  private Label salary;
-  @FXML
-  private Label assignedCourses;
-  @FXML
-  private FlowPane tags;
+  private ImageView staffImage;
 
   private CommandBox commandBox;
+  Image staffGuy = new Image(getClass().getResourceAsStream("/view/ourImages/staff.png"));
+  Image staffGirl = new Image(getClass().getResourceAsStream("/view/ourImages/staffGirl.png"));
 
   public StaffCard(Staff staff, CommandBox commandBox, int displayedIndex) {
     super(FXML);
@@ -58,14 +50,13 @@ public class StaffCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     staffID.setText(staff.getId().value);
     name.setText(staff.getName().fullName);
-    phone.setText(staff.getPhone().value);
-    address.setText(staff.getAddress().value);
-    email.setText(staff.getEmail().value);
-    assignedCourses.setText(staff.getAssignedCourses());
-    salary.setText("Salary: " + staff.getSalary().value + "\n");
-    staff.getTags().stream()
-        .sorted(Comparator.comparing(tag -> tag.tagName))
-        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    String gender = staff.getGender().value;
+
+    if (gender.equals("m")) {
+      staffImage.setImage(staffGuy);
+    } else if (gender.equals("f")) {
+      staffImage.setImage(staffGirl);
+    }
   }
 
   @Override
