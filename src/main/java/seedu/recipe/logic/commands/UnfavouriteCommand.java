@@ -1,6 +1,7 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.recipe.logic.commands.EditCommand.createEditedRecipe;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
@@ -39,8 +41,8 @@ public class UnfavouriteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        List<String> successfulUnfavouritesList = new ArrayList<>();
-        List<String> alreadyUnfavouritesList = new ArrayList<>();
+        List<String> successfullyUnfavouritedRecipes = new ArrayList<>();
+        List<String> alreadyUnfavouritedRecipes = new ArrayList<>();
 
         if (!canUnfavouriteTargetRecipes(lastShownList.size(), targetIndex)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -49,20 +51,24 @@ public class UnfavouriteCommand extends Command {
         for (Index index : targetIndex) {
             Recipe recipeToUnfavourite = lastShownList.get(index.getZeroBased());
             if (recipeToUnfavourite.isFavourite()) {
-                model.unfavouriteRecipe(recipeToUnfavourite);
-                successfulUnfavouritesList.add(recipeToUnfavourite.getName().toString());
+                EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+                editRecipeDescriptor.setFavourite(false);
+                Recipe editedRecipe = createEditedRecipe(recipeToUnfavourite, editRecipeDescriptor);
+                model.setRecipe(recipeToUnfavourite, editedRecipe);
+                successfullyUnfavouritedRecipes.add(recipeToUnfavourite.getName().toString());
             } else {
-                alreadyUnfavouritesList.add(recipeToUnfavourite.getName().toString());
+                alreadyUnfavouritedRecipes.add(recipeToUnfavourite.getName().toString());
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        if (!successfulUnfavouritesList.isEmpty()) {
-            sb.append(String.format(MESSAGE_SUCCESS, getListAsFormattedString(successfulUnfavouritesList)));
+        if (!successfullyUnfavouritedRecipes.isEmpty()) {
+            sb.append(String.format(MESSAGE_SUCCESS, getListAsFormattedString(successfullyUnfavouritedRecipes)));
             sb.append("\n");
         }
-        if (!alreadyUnfavouritesList.isEmpty()) {
-            sb.append(String.format(MESSAGE_ALREADY_NOT_FAVOURITE, getListAsFormattedString(alreadyUnfavouritesList)));
+        if (!alreadyUnfavouritedRecipes.isEmpty()) {
+            sb.append(
+                    String.format(MESSAGE_ALREADY_NOT_FAVOURITE, getListAsFormattedString(alreadyUnfavouritedRecipes)));
         }
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);

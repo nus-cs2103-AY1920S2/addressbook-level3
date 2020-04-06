@@ -139,16 +139,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void favouriteRecipe(Recipe target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void unfavouriteRecipe(Recipe target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setRecipe(Recipe target, Recipe editedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
