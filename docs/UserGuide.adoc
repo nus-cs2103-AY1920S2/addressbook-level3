@@ -37,7 +37,7 @@ This symbol indicates tips for the particular feature.
 `list` - A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box and executed by the application.
 The command box location can be seen in the diagram below.
 
-image::Ui_screenshot_windows.png[width="850"]
+image::Ui_screenshot_windows.PNG[width="850"]
 
 === Definition of Common Words Used
 
@@ -67,7 +67,7 @@ Section 4. Features will introduce you to the commands for the application.
 .  Double-click the file to start the app. The Graphical User Interface(GUI) similar to the image shown below should appear in a few seconds.
 
 +
-image::Ui_screenshot_windows.png[width="850"]
+image::Ui_screenshot_windows.PNG[width="850"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -130,7 +130,7 @@ List all canteens.
 List all canteens starting with the nearest canteen from com1
 ****
 
-image::app/list1.png[width="700", align="left"]
+image::app/list1.PNG[width="700", align="left"]
 
 
 === Go to a Canteen: `*goto*`
@@ -242,7 +242,7 @@ Example:: You have decided what you want to eat and you want to save that item t
 +
 image::wireframe/enterStall.PNG[width="700", align="left"]
 
-. Enter `select Combo Set` or `selecct 1` into the command box.
+. Enter `select Combo Set` or `select 1` into the command box.
 
 . This will display the cost of the item, the remaining amount that you have and the amount you are left with to spend for the day.
 
@@ -270,10 +270,10 @@ remember that FoodieBot has a convenient `randomize` function.
 +
 image::wireframe/randomizeStep1.PNG[width="700", align="left"]
 
-. This will generate 1 option for you with the details of the _canteen name_ that this stall belongs to, the _stall name_, the _stall number_
+. This will generate 1 option for you with the details of the _canteen name_ that this stall belongs to, the _stall name_, the _stall number_,
 the _price rating_ and the tag if there are any.
 +
-image::wireframe/randomize.PNG[width="700", align="left"]
+image::wireframe/randomize.png[width="700", align="left"]
 
 * If you like the option that you see, you can key in `enter Japanese` or `enter 1` to be redirected to the stall to see the menu.
 
@@ -335,11 +335,11 @@ Otherwise an error message will be displayed requesting a correct type to be pro
 Examples:
 
 `*budget set d/ 10*`::
-** Sets daily budget to $10.
+** Set daily budget to $10.
 `*budget set w/ 30.50*`::
-** Sets weekly budget to $30.50.
+** Set weekly budget to $30.50.
 `*budget set m/ 100*`::
-Sets monthly budget to $100.
+Set monthly budget to $100.
 ****
 
 === View Budget: `*budget view*`
@@ -356,9 +356,12 @@ If you want to see how much you have spent over a period of time, view a beautif
 past expenses with the `report` command.
 
 NOTE: This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
-as long as your date format follows a generic D/M/YY format (e.g. 11/4/20, 3-6-2019)!
+as long as your date format follows a generic DD/M/YY or D-M-YYYY format (e.g. 11/4/20, 3-6-2019)! +
+D - day +
+M - month +
+Y - year +
 
-Formats:
+Format:
 
 * `report`
 * `report [f/FROM_DATE] [t/TO_DATE]`
@@ -386,13 +389,17 @@ image::wireframe/report.png[width="700", align="left"]
 
 === View Past Transactions: `*transactions*`
 
-In a similar way to `report`, `transactions` also allows you to see all the food you have purchased in
+In a similar way to `report`, `transactions` also allow you to see all the food you have purchased in
 a particular period.
 
 NOTE: This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
-as long as your date format follows a generic D/M/YY format (e.g. 11/4/20, 3-6-2019)!
+as long as your date format follows a generic DD/M/YY or D-M-YYYY format (e.g. 11/4/20, 3-6-2019)! +
+D - day +
+M - month +
+Y - year +
 
-Formats:
+
+Format:
 
 * `transactions`
 * `transactions [f/FROM_DATE] [t/TO_DATE]`
@@ -427,7 +434,7 @@ Format: `review INDEX REVIEW`
 Parameters:
 
 * `INDEX` - This must be the first parameter and an index from the list has to be specified.
-* `REVIEW`- This must be the second parameter and the review message cannot be blank.
+* `REVIEW` - This must be the second parameter and the review message cannot be blank.
 
 ====
 Example:: You want to review a food item that you have eaten for future reference.
@@ -450,7 +457,7 @@ Format: `rate INDEX RATING`
 Parameters:
 
 * `INDEX` - This must be the first parameter and an index from the list has to be specified.
-* `RATING`- This must be the second parameter and requires a rating for the food item.
+* `RATING` - This must be the second parameter and requires a rating for the food item.
 
 ****
 Example:
@@ -464,7 +471,7 @@ TIP: You can also update existing ratings by using the rate on the same food ite
 === Set Food Items as Favorites: `*favorites set*`
 
 Just had this absolutely delicious meal and want to save it for the next time so you can remember to have it
-again or recommend it others? From the *menu screen* of a stall, you can easily set your favourite food items
+again or recommend it to others? From the *menu screen* of a stall, you can easily set your favourite food items
 for easier access in the future.
 
 Format: `favorites set INDEX`
@@ -485,7 +492,7 @@ image::wireframe/favoritesView.PNG[width="700", align="left"]
 === Remove Favorite Food Items: `*favorites remove*`
 
 Had a change of heart and a particular food has lost your fancy? Don't worry because FoodieBot makes it
-painless to severe your ties, by allowing quick removal of that food.
+painless to sever your ties, by allowing quick removal of that food.
 
 Format: `favorites remove INDEX`
 
@@ -503,20 +510,20 @@ Format: `filter TAG/ PRICE`
 
 Parameters:
 
-* `TAG` - Label tag associated with the canteen or stall depending on which context you are on.
+* `TAG` - Label tag associated with the canteen or stall depending on which context you are in.
 * `PRICE` - a number which indicates the maximum price of food you are willing to pay for.
 
 
 NOTE: You can only filter by _price_ from the *menu page* of a stall. +
-When filtering by _tag_, tags varies base on the *current context*.
+When filtering by _tag_, tags vary based on the *current context*.
 
 ****
 Examples:
 ****
-* If you wish to filter tags base on what the canteen has, you can enter
-`*filter asian*` on the main screen. This will displays canteens with the asian tag.
+* If you wish to filter tags based on what the canteen has, you can enter
+`*filter asian*` on the main screen. This will display canteens with the asian tag.
 
-* After entering a canteen, you can also filter the stalls base on tags as well.
+* After entering a canteen, you can also filter the stalls based on tags as well.
 
 * If you have decided on the stall you wish to eat from, but then have a limit on how much you can spend ($4).
 You can `filter 4` on the menu page. This will display all the options available that are within your budget.
@@ -561,8 +568,6 @@ You can `filter 4` on the menu page. This will display all the options available
 |select INDEX| Saves the food in transactions |
 
 |transactions |Generates the transaction breakdown |transaction w/ 12-02-2020
-
-|filter |Show only canteens or stalls with a specified tag |filter asian
 
 
 |=======================================================================
