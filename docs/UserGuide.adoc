@@ -242,7 +242,7 @@ Examples:
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in a table.
 
 ==== Parameters
-This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional.
+This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional. Your command will still execute even if you do not type them.
 
 Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
@@ -262,17 +262,17 @@ e.g `squats` will not match `Squats`
 * `DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020)
 
 | [reps/REPS] |
-* `reps/REPS` is optional. Your command will still execute if you do not type it.
+* `reps/REPS` is optional..
 
 * Range for `REPS` is 1-9999. +
 
 | [sets/SETS] |
-* `sets/SETS` is optional. Your command will still execute if you do not type it.
+* `sets/SETS` is optional.
 
 * Range for `SETS` is 1-9999. +
 
 | [ew/WEIGHT] |
-* `ew/WEIGHT` is optional. Your command will still execute if you do not type it.
+* `ew/WEIGHT` is optional.
 
 * Range for `WEIGHT` is 1-9999. +
 |====================
