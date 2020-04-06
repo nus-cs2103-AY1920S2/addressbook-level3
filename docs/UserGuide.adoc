@@ -102,14 +102,14 @@ This section acts as a summary of the important things to note when using `find-
 | Parameters | Important points to note
 | NAME |
 
-* You can use multiple keywords in `NAME`. +
+* You can use multiple keywords for `NAME`. +
 e.g. You can type `find-c bryan low`.
 
 * The `NAME` keywords are case insensitive. +
 e.g. Typing `find-c hans` will show clients even with the name `Hans`. +
 For a better understanding, you can refer to the example section .
 
-* The keywords in `NAME` have to match at least one word in the name of the clients. +
+* The keywords used for `NAME` have to match at least one word in the name of the clients. +
 e.g. Typing `find-c Bry` will not show clients with the name `Bryan`. +
 For a detailed explanation, you can refer to the commons errors / problems section.
 
@@ -157,7 +157,20 @@ This is because the name that you have entered is incomplete and does not match 
 
 /photo
 
-===== Using multiple words as parameters
+===== Using multiple keywords for `NAME`
+
+You might wonder why the application shows more clients than you intended. It might be possible that you have misunderstood how the `NAME` parameter gets the client you are finding. The application will show clients as long as one of the words of the client match a keyword you use for name. The example below might help you understand better.
+
+Example:
+You want to find the client named "Bryan Low" in client list.
+
+If you typed `find-c bryan low`,
+
+/photo
+
+You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice low`.
+
+/photo
 
 === Add a new client profile: `add-c`
 
