@@ -17,6 +17,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class FinanceBuilder {
 
     public static final String DEFAULT_NAME = "AdHoc";
+    public static final String DEFAULT_ID = "801";
     public static final String DEFAULT_FINANCETYPE = "m";
     public static final String DEFAULT_DATE = "2020-03-20";
     public static final String DEFAULT_AMOUNT = "102";
@@ -25,6 +26,7 @@ public class FinanceBuilder {
     public static final String DEFAULT_TEACHERID = "21";
 
     private Name name;
+    private ID id;
     private FinanceType financeType;
     private Date date;
     private Amount amount;
@@ -35,6 +37,7 @@ public class FinanceBuilder {
 
     public FinanceBuilder() {
         name = new Name(DEFAULT_NAME);
+        id = new ID(DEFAULT_ID);
         financeType = new FinanceType(DEFAULT_FINANCETYPE);
         date = new Date(DEFAULT_DATE);
         amount = new Amount(DEFAULT_AMOUNT);
@@ -123,7 +126,7 @@ public class FinanceBuilder {
     }
 
     public Finance build() {
-        return new Finance(name, financeType, date, amount, courseid, studentid, teacherid, tags);
+        return new Finance(name, id, financeType, date, amount, courseid, studentid, teacherid, tags);
     }
 
 }

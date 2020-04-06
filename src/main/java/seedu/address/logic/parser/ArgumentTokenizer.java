@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class ArgumentTokenizer {
    * @param prefixes   Prefixes to find in the arguments string
    * @return List of zero-based prefix positions in the given arguments string
    */
-  private static List<PrefixPosition> findAllPrefixPositions(String argsString,
+  public static List<PrefixPosition> findAllPrefixPositions(String argsString,
       Prefix... prefixes) {
     return Arrays.stream(prefixes)
         .flatMap(prefix -> findPrefixPositions(argsString, prefix).stream())
@@ -134,7 +135,7 @@ public class ArgumentTokenizer {
   /**
    * Represents a prefix's position in an arguments string.
    */
-  private static class PrefixPosition {
+  public static class PrefixPosition implements Comparable<PrefixPosition> {
 
     private final Prefix prefix;
     private int startPosition;
@@ -148,8 +149,13 @@ public class ArgumentTokenizer {
       return startPosition;
     }
 
-    Prefix getPrefix() {
+    public Prefix getPrefix() {
       return prefix;
+    }
+
+    @Override
+    public int compareTo(PrefixPosition other) {
+      return this.startPosition - other.getStartPosition();
     }
   }
 

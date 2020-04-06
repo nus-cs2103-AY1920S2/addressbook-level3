@@ -28,6 +28,7 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.StaffAddressBook;
@@ -46,6 +47,8 @@ import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
+import seedu.address.storage.storageProgress.JsonProgressAddressBookStorage;
+import seedu.address.storage.storageProgress.ProgressAddressBookStorage;
 import seedu.address.storage.storageStaff.JsonStaffAddressBookStorage;
 import seedu.address.storage.storageStaff.StaffAddressBookStorage;
 import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
@@ -91,11 +94,13 @@ public class MainApp extends Application {
         userPrefs.getFinanceAddressBookFilePath());
     AssignmentAddressBookStorage assignmentAddressBookStorage = new JsonAssignmentAddressBookStorage(
         userPrefs.getAssignmentAddressBookFilePath());
+    ProgressAddressBookStorage progressAddressBookStorage = new JsonProgressAddressBookStorage(
+        userPrefs.getProgressAddressBookFilePath());
 
 
     storage = new StorageManager(addressBookStorage, staffAddressBookStorage,
         studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage,
-        assignmentAddressBookStorage, userPrefsStorage);
+        assignmentAddressBookStorage, progressAddressBookStorage, userPrefsStorage);
 
     initLogging(config);
 
@@ -231,8 +236,30 @@ public class MainApp extends Application {
     }
     logger.info("Main app check:" + assignmentInitialData.getList().toString());
 
+    Optional<ReadOnlyAddressBookGeneric<Progress>> progressAddressBookOptional;
+    ReadOnlyAddressBookGeneric<Progress> progressInitialData;
+
+    try {
+      progressAddressBookOptional = storage.readProgressAddressBook();
+
+      if (!progressAddressBookOptional.isPresent()) {
+        logger.info("Data file not found. Will be starting with a sample ProgressAddressBook");
+      }
+      progressInitialData = progressAddressBookOptional
+          .orElseGet(SampleDataUtil::getSampleProgressAddressBook);
+    } catch (DataConversionException e) {
+      logger.warning(
+          "Data file not in the correct format. Will be starting with an empty ProgressAddressBook");
+      progressInitialData = new ProgressAddressBook();
+    } catch (IOException e) {
+      logger.warning(
+          "Problem while reading from the file. Will be starting with an empty ProgressAddressBook");
+      progressInitialData = new ProgressAddressBook();
+    }
+    logger.info("Main app check:" + progressInitialData.getList().toString());
+
     return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,
-        courseInitialData, assignmentInitialData, new ProgressAddressBook(), userPrefs);
+        courseInitialData, assignmentInitialData, progressInitialData, userPrefs);
 
   /*
     return new ModelManager(initialData, staffInitialData, studentInitialData, financeInitialData,

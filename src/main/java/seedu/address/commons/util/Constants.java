@@ -7,5 +7,6 @@ public class Constants {
         STAFF,
         FINANCE,
         ASSIGNMENT,
+        PROGRESS
     }
 }

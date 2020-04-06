@@ -3,6 +3,7 @@ package seedu.address.logic.commands.commandEdit;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
@@ -25,6 +26,7 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -44,12 +46,15 @@ public class EditTeacherCommand extends Command {
           + "Existing values will be overwritten by the input values.\n"
           + "Parameters: ID (must be an existing positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
+          + "[" + PREFIX_GENDER + "GENDER] "
           + "[" + PREFIX_PHONE + "PHONE] "
           + "[" + PREFIX_EMAIL + "EMAIL] "
           + "[" + PREFIX_SALARY + "SALARY] "
           + "[" + PREFIX_ADDRESS + "ADDRESS] "
           + "[" + PREFIX_TAG + "TAG]...\n"
+
           + "Example: " + COMMAND_WORD + " 16100 "
+          + PREFIX_GENDER + "m "
           + PREFIX_PHONE + "91234567 "
           + PREFIX_EMAIL + "johndoe@example.com";
 
@@ -81,6 +86,7 @@ public class EditTeacherCommand extends Command {
     assert teacherToEdit != null;
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
+    Gender updatedGender = editTeacherDescriptor.getGender().orElse(teacherToEdit.getGender());
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
     Email updatedEmail = editTeacherDescriptor.getEmail().orElse(teacherToEdit.getEmail());
     Salary updatedSalary = editTeacherDescriptor.getSalary().orElse(teacherToEdit.getSalary());
@@ -91,7 +97,7 @@ public class EditTeacherCommand extends Command {
     ID id = teacherToEdit.getId();
     Level updatedLevel = teacherToEdit.getLevel();
     Set<ID> assignedCoursesID = teacherToEdit.getAssignedCoursesID();
-    return new Staff(updatedName, id, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
+    return new Staff(updatedName, id, updatedGender, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
             assignedCoursesID, updatedTags);
   }
 
@@ -151,6 +157,8 @@ public class EditTeacherCommand extends Command {
   public static class EditTeacherDescriptor {
 
     private Name name;
+    private Gender gender;
+    private Level level;
     private Phone phone;
     private Email email;
     private Address address;
@@ -165,6 +173,8 @@ public class EditTeacherCommand extends Command {
      */
     public EditTeacherDescriptor(EditTeacherDescriptor toCopy) {
       setName(toCopy.name);
+      setGender(toCopy.gender);
+      setLevel(toCopy.level);
       setPhone(toCopy.phone);
       setEmail(toCopy.email);
       setSalary(toCopy.salary);
@@ -181,6 +191,22 @@ public class EditTeacherCommand extends Command {
 
     public Optional<Name> getName() {
       return Optional.ofNullable(name);
+    }
+
+    public Optional<Gender> getGender() {
+      return Optional.ofNullable(gender);
+    }
+
+    public void setGender(Gender gender) {
+      this.gender = gender;
+    }
+
+    public Optional<Level> getLevel() {
+      return Optional.ofNullable(level);
+    }
+
+    public void setLevel(Level level) {
+      this.level = level;
     }
 
     public void setName(Name name) {
@@ -251,11 +277,12 @@ public class EditTeacherCommand extends Command {
       EditTeacherDescriptor e = (EditTeacherDescriptor) other;
 
       return getName().equals(e.getName())
-              && getPhone().equals(e.getPhone())
-              && getEmail().equals(e.getEmail())
-              && getSalary().equals(e.getSalary())
-              && getAddress().equals(e.getAddress())
-              && getTags().equals(e.getTags());
+          && getGender().equals(e.getGender())
+          && getPhone().equals(e.getPhone())
+          && getEmail().equals(e.getEmail())
+          && getSalary().equals(e.getSalary())
+          && getAddress().equals(e.getAddress())
+          && getTags().equals(e.getTags());
     }
   }
 }

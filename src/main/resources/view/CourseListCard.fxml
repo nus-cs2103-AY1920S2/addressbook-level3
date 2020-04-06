@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -13,97 +13,63 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<HBox id="cardPaneCourse" fx:id="cardPane"  onMousePressed="#selectCourse"  prefHeight="164.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneCourse" fx:id="cardPane" onMousePressed="#selectCourse" prefHeight="80.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <HBox alignment="CENTER_LEFT" spacing="5">
+    <VBox alignment="CENTER_LEFT" minHeight="70" GridPane.columnIndex="0">
+      <HBox alignment="CENTER_LEFT">
         <ImageView fitHeight="47.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@ourImages/book.png" />
+            <Image url="@ourImages/course.png" />
           </image>
         </ImageView>
-        <Label fx:id="id" styleClass="cell_big_label" text="\$id">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Line endY="69.29289245605469" startY="-8.204582214355469" stroke="#ffffff3f">
+          <rotationAxis>
+            <Point3D />
+          </rotationAxis></Line>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
+              <padding>
+                <Insets left="15.0" />
+              </padding>
+              <children>
+                <Label fx:id="id" styleClass="cell_big_label" text="\$id">
+                  <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+                </Label>
+                <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+              </children>
+            </HBox>
+            <Line endX="1000.2929077148438" startX="-100.0" stroke="#ffffff3f" />
+            <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="100.0">
+              <padding>
+                <Insets left="15.0" />
+              </padding>
+              <children>
+                <Label fx:id="id1" styleClass="cell_small_label" text="Course ID: ">
+                  <minWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+                </Label>
+                <Label fx:id="courseID" styleClass="cell_small_label" text="\$courseID" />
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" top="5.0" />
+          </padding>
+        </VBox>
         <padding>
           <Insets left="15.0" />
         </padding>
         <opaqueInsets>
-          <Insets top="5.0" />
+          <Insets />
         </opaqueInsets>
       </HBox>
-      <Line endX="999.0" startX="-100.0" stroke="#ffffff41">
-        <VBox.margin>
-          <Insets bottom="5.0" top="5.0" />
-        </VBox.margin>
-      </Line>
-      <FlowPane fx:id="tags">
-        <VBox.margin>
-          <Insets left="15.0" />
-        </VBox.margin>
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-      </FlowPane>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Course ID: " />
-        <Label fx:id="courseID" styleClass="cell_small_label" text="\$courseID" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Course Fee: " />
-        <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Staff: " />
-        <Label fx:id="assignedStaff" styleClass="cell_small_label" text="\$assignedStaff" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Students: " />
-        <Label fx:id="assignedStudents" styleClass="cell_small_label" text="\$assignedStudents" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <HBox>
-        <Label styleClass="cell_small_label" text="Assigned Assignments: " />
-        <Label fx:id="assignedAssignments" styleClass="cell_small_label" text="\$assignedAssignments" />
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <padding>
-               <Insets left="15.0" />
-            </padding>
-      </HBox>
-      <padding>
-        <Insets bottom="5.0" top="5.0" />
-      </padding>
       <opaqueInsets>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        <Insets />
       </opaqueInsets>
     </VBox>
     <columnConstraints>
@@ -113,7 +79,4 @@
       <RowConstraints />
     </rowConstraints>
   </GridPane>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
 </HBox>

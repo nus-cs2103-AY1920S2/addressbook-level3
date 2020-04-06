@@ -1,14 +1,10 @@
 package seedu.address.ui.uiCourse;
 
-import java.util.Comparator;
-import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelCourse.Course;
-import seedu.address.model.person.ID;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
@@ -38,16 +34,6 @@ public class CourseCard extends UiPart<Region> {
   private Label id;
   @FXML
   private Label courseID;
-  @FXML
-  private Label assignedStaff;
-  @FXML
-  private Label assignedStudents;
-  @FXML
-  private Label assignedAssignments;
-  @FXML
-  private Label amount;
-  @FXML
-  private FlowPane tags;
 
   private CommandBox commandBox;
 
@@ -58,22 +44,6 @@ public class CourseCard extends UiPart<Region> {
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
-
-    Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
-    String assignmentsStrings = "None";
-    if (assignmentIDS.size() > 0) {
-      assignmentsStrings = assignmentIDS.toString();
-    }
-    assignedAssignments.setText(assignmentsStrings);
-
-    course.getAssignedAssignmentsID();
-    amount.setText(course.getAmount().value);
-    assignedStaff.setText(course.getAssignedStaffWithName());
-    assignedStudents.setText(course.getAssignedStudentsWithNames());
-
-    course.getTags().stream()
-        .sorted(Comparator.comparing(tag -> tag.tagName))
-        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
   @Override
@@ -91,7 +61,6 @@ public class CourseCard extends UiPart<Region> {
     // state check
     CourseCard card = (CourseCard) other;
     return courseID.getText().equals(card.courseID.getText())
-        && amount.getText().equals(card.amount.getText())
         && course.equals(card.course);
   }
 

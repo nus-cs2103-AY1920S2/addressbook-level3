@@ -2,9 +2,11 @@ package seedu.address.logic.commands.commandUnassign;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
+import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -39,7 +41,7 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
+    protected CommandResult executeUndoableCommand(Model model) throws CommandException {
 
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
@@ -64,12 +66,17 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
             } else if(!assigningStudentContainsCourse) {
                 throw new CommandException("The student isn't even assigned to this course! :(");
             } else {
-                model.unassignStudentFromCourse(studentID, courseID);
+                EdgeManager.unassignStudentFromCourse(studentID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,
                         assignedCourse.getName(), courseID.value));
             }
         }
+    }
+
+    @Override
+    protected void generateOppositeCommand() throws CommandException {
+        oppositeCommand = new AssignStudentToCourseCommand(this.assignDescriptor);
     }
 }

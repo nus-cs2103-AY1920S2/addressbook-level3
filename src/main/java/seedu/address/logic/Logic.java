@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -82,12 +83,6 @@ public interface Logic {
    */
   Path getStaffAddressBookFilePath();
 
-  /**
-   * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredStaffList(Predicate<Staff> predicate);
   ///
 
   /**
@@ -106,13 +101,6 @@ public interface Logic {
    * Returns the user prefs' student address book file path.
    */
   Path getStudentAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredStudentList(Predicate<Student> predicate);
   ///
 
   /**
@@ -131,13 +119,6 @@ public interface Logic {
    * Returns the user prefs' staff address book file path.
    */
   Path getFinanceAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered finance list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredFinanceList(Predicate<Finance> predicate);
   ///
 
   /**
@@ -156,13 +137,6 @@ public interface Logic {
    * Returns the user prefs' course address book file path.
    */
   Path getCourseAddressBookFilePath();
-
-  /**
-   * Updates the filter of the filtered course list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredCourseList(Predicate<Course> predicate);
   //TODO
   /**
    * Returns the AssignmentAddressBook.
@@ -182,13 +156,6 @@ public interface Logic {
   Path getAssignmentAddressBookFilePath();
 
   /**
-   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
-   *
-   * @throws NullPointerException if {@code predicate} is null.
-   */
-  void updateObservedDataFilteredAssignmentList(Predicate<Assignment> predicate);
-
-  /**
    * Returns the user prefs' GUI settings.
    */
   GuiSettings getGuiSettings();
@@ -197,6 +164,17 @@ public interface Logic {
    * Set the user prefs' GUI settings.
    */
   void setGuiSettings(GuiSettings guiSettings);
+
+  // ========================= Getters for Details View ======================
+  ObservableMap<String, Object> getFilteredStudentDetailsMap();
+
+  ObservableMap<String, Object> getFilteredCourseDetailsMap();
+
+  ObservableMap<String, Object> getFilteredStaffDetailsMap();
+
+  ObservableMap<String, Object> getFilteredFinanceDetailsMap();
+
+  ObservableMap<String, Object> getFilteredAssignmentDetailsMap();
 
   // ========================== Getters for Predicates =========================
 

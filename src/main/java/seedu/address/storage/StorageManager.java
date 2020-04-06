@@ -8,8 +8,10 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DataStorageChangeEvent;
+import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.Constants.ENTITY_TYPE;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -17,14 +19,15 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
-import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
-import seedu.address.storage.storageStudent.StudentAddressBookStorage;
+import seedu.address.storage.storageProgress.ProgressAddressBookStorage;
 import seedu.address.storage.storageStaff.StaffAddressBookStorage;
-import com.google.common.eventbus.Subscribe;
+import seedu.address.storage.storageStudent.StudentAddressBookStorage;
 
 
 /**
@@ -39,6 +42,7 @@ public class StorageManager extends BaseManager implements Storage {
   private FinanceAddressBookStorage financeAddressBookStorage;
   private CourseAddressBookStorage courseAddressBookStorage;
   private AssignmentAddressBookStorage assignmentAddressBookStorage;
+  private ProgressAddressBookStorage progressAddressBookStorage;
 
   private UserPrefsStorage userPrefsStorage;
 
@@ -48,6 +52,7 @@ public class StorageManager extends BaseManager implements Storage {
       FinanceAddressBookStorage financeAddressBookStorage,
       CourseAddressBookStorage courseAddressBookStorage,
       AssignmentAddressBookStorage assignmentAddressBookStorage,
+      ProgressAddressBookStorage progressAddressBookStorage,
                         UserPrefsStorage userPrefsStorage) {
 
     super();
@@ -57,6 +62,7 @@ public class StorageManager extends BaseManager implements Storage {
     this.financeAddressBookStorage = financeAddressBookStorage;
     this.courseAddressBookStorage = courseAddressBookStorage;
     this.assignmentAddressBookStorage = assignmentAddressBookStorage;
+    this.progressAddressBookStorage = progressAddressBookStorage;
     this.userPrefsStorage = userPrefsStorage;
   }
 
@@ -278,6 +284,40 @@ public class StorageManager extends BaseManager implements Storage {
     assignmentAddressBookStorage.saveAssignmentAddressBook(assignmentAddressBook, filePath);
   }
 
+  // ================ ProgressAddressBook methods ==============================
+
+  @Override
+  public Path getProgressAddressBookFilePath() {
+    return progressAddressBookStorage.getProgressAddressBookFilePath();
+  }
+
+  @Override
+  public Optional<ReadOnlyAddressBookGeneric<Progress>> readProgressAddressBook()
+      throws DataConversionException, IOException {
+    return readProgressAddressBook(progressAddressBookStorage.getProgressAddressBookFilePath());
+  }
+
+  @Override
+  public Optional<ReadOnlyAddressBookGeneric<Progress>> readProgressAddressBook(Path filePath)
+      throws DataConversionException, IOException {
+    logger.fine("Attempting to read data from file: " + filePath);
+    return progressAddressBookStorage.readProgressAddressBook(filePath);
+  }
+
+  @Override
+  public void saveProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook)
+      throws IOException {
+    saveProgressAddressBook(progressAddressBook,
+        progressAddressBookStorage.getProgressAddressBookFilePath());
+  }
+
+  @Override
+  public void saveProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook, Path filePath)
+      throws IOException {
+    logger.fine("Attempting to write to data file: " + filePath);
+    progressAddressBookStorage.saveProgressAddressBook(progressAddressBook, filePath);
+  }
+
   @Subscribe
   public void handleDataStorageChangeEvent(DataStorageChangeEvent event) {
     try {
@@ -293,10 +333,17 @@ public class StorageManager extends BaseManager implements Storage {
         saveFinanceAddressBook(event.addressBook);
       } else if (event.entityType == ENTITY_TYPE.ASSIGNMENT) {
         saveAssignmentAddressBook(event.addressBook);
+      } else if (event.entityType == ENTITY_TYPE.PROGRESS) {
+        saveProgressAddressBook(event.addressBook);
       }
     } catch (IOException e) {
       // TODO: Fix this
       logger.info("STORAGE SAVE PROBLEM");
     }
+  }
+
+  @Subscribe
+  public void handleDeleteEntityEvent(DeleteEntityEvent event) {
+    EdgeManager.handleDeleteEntityEvent(event);
   }
 }

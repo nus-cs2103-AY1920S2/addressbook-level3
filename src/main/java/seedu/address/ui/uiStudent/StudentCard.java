@@ -1,9 +1,9 @@
 package seedu.address.ui.uiStudent;
 
-import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStudent.Student;
@@ -37,11 +37,11 @@ public class StudentCard extends UiPart<Region> {
   @FXML
   private Label studentID;
   @FXML
-  private Label assignedCourses;
-  @FXML
-  private FlowPane tags;
+  private ImageView studentImage;
 
   private CommandBox commandBox;
+  Image studentGuy = new Image(getClass().getResourceAsStream("/view/ourImages/student.png"));
+  Image studentGirl = new Image(getClass().getResourceAsStream("/view/ourImages/studentGirl.png"));
 
   public StudentCard(Student student, CommandBox commandBox, int displayedIndex) {
     super(FXML);
@@ -50,10 +50,13 @@ public class StudentCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
-    assignedCourses.setText(student.getAssignedCoursesWithNames());
-    student.getTags().stream()
-        .sorted(Comparator.comparing(tag -> tag.tagName))
-        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    String gender = student.getGender().value;
+
+    if (gender.equals("m")) {
+      studentImage.setImage(studentGuy);
+    } else if (gender.equals("f")) {
+      studentImage.setImage(studentGirl);
+    }
   }
 
   @Override
