@@ -2,7 +2,6 @@
 start
 :A DoneSessionCommand is called;
 
-if () then ([The session exists at the specified index])
   :The duration of the session is added to TotalHours in TaTracker;
   :TotalEarnings in the UI is increased based
   on the rate input by the user;
@@ -18,8 +17,4 @@ endif
     :Old session is deleted from UniqueSessionList;
 
     stop
-
-else([The session does not exist])
-  :an exception is thrown;
-stop
 @enduml

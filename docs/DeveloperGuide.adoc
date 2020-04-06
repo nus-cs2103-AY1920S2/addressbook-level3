@@ -612,6 +612,8 @@ The following diagram describes how TaTracker is updated when a Done Session com
 ==== Session Done Command
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
+Note: The above diagram assumes that a valid index has been input into the TA-Tracker during
+the done session command.
 
 {insert Filter Claims sequence diagram here}
 
