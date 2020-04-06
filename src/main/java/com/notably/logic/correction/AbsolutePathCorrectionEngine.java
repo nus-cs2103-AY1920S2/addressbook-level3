@@ -128,48 +128,45 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
     /**
      * Calculate the edit distance between two {@link AbsolutePath}s.
      *
-     * @param firstPath First {@link AbsolutePath}
-     * @param secondPath Second {@link AbsolutePath}
-     * @return Edit distance between {@code firstPath} and {@code secondPath}
+     * @param input Input {@link AbsolutePath}
+     * @param reference Reference {@link AbsolutePath}
+     * @return Edit distance between {@code input} and {@code reference}
      */
-    private int calculatePathDistance(AbsolutePath firstPath, AbsolutePath secondPath) {
-        Objects.requireNonNull(firstPath);
-        Objects.requireNonNull(secondPath);
+    private int calculatePathDistance(AbsolutePath input, AbsolutePath reference) {
+        Objects.requireNonNull(input);
+        Objects.requireNonNull(reference);
 
-        List<String> firstComponents = firstPath.getComponents();
-        List<String> secondComponents = secondPath.getComponents();
+        List<String> inputComponents = input.getComponents();
+        List<String> referenceComponents = reference.getComponents();
 
         // Calculate the cumulative distance between the two paths component-by-component
         int i = 0;
         int distance = 0;
-        while (i < firstComponents.size() && i < secondComponents.size()) {
-            String firstComponent = firstComponents.get(i);
-            String secondComponent = secondComponents.get(i);
+        while (i < inputComponents.size() && i < referenceComponents.size()) {
+            String inputComponent = inputComponents.get(i);
+            String referenceComponent = referenceComponents.get(i);
 
             // Check for possible forward matching
-            if (forwardMatch && i == firstComponents.size() - 1
-                    && secondComponent.toLowerCase().startsWith(firstComponent.toLowerCase())) {
-                i++;
-                continue;
-            }
-            if (forwardMatch && i == secondComponents.size() - 1
-                    && firstComponent.toLowerCase().startsWith(secondComponent.toLowerCase())) {
+            if (forwardMatch
+                    && i == inputComponents.size() - 1
+                    && referenceComponent.toLowerCase().startsWith(inputComponent.toLowerCase())) {
                 i++;
                 continue;
             }
 
-            distance += editDistanceCalculator.calculateDistance(firstComponents.get(i), secondComponents.get(i));
+            // If no forward matching, we calculate the edit distance between the two components
+            distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
             i++;
         }
 
         // If one path is longer than another, increase cumulative distance by the size of
         // each extra component's length.
-        while (i < firstComponents.size()) {
-            distance += firstComponents.get(i).length();
+        while (i < inputComponents.size()) {
+            distance += inputComponents.get(i).length();
             i++;
         }
-        while (i < secondComponents.size()) {
-            distance += secondComponents.get(i).length();
+        while (i < referenceComponents.size()) {
+            distance += referenceComponents.get(i).length();
             i++;
         }
 
