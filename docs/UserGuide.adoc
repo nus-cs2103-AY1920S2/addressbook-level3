@@ -238,7 +238,7 @@ Examples:
 * `view-c 45`
 ** Shows all information about the 45th client
 
-=== Add a client's exercise: `add-e`
+=== Add a client's exercise: `add-e`  --- YongJie
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in a table.
 
 ==== Parameters
@@ -286,7 +286,7 @@ Weight: 100 +
 Sets: 4 +
 You can use the `add-e` command to add the exercise by following the steps below.
 
-1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section on `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
+1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
 
 /photo
 
@@ -303,8 +303,22 @@ You can use the `add-e` command to add the exercise by following the steps below
 /photo
 
 ==== Common errors / problems
+You might face some errors or difficulties when you `add-e`. In this section, you will be able to understand these errors and resolve them.
 
+===== Duplicate exercises
+You might wonder where the application shows you a duplicate exercise error when the details of the exercises you entered are different. It is likely that only the sets differ between the two exercises. The example below might help you understand better.  
 
+You might have the following exercise in your table.
+
+/photo
+
+If you were to enter `....` into the command box. The only information that is different is the number of sets. The result box will show that you have a duplicate exercise.
+
+/photo type
+
+/photo error
+
+To solve this, we suggest incrementing the sets of existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the section `Edit a client's exercise: edit-e`.
 
 === Edit a client's exercise: `edit-e`
 
