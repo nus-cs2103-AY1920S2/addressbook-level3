@@ -16,6 +16,7 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.commons.util.StringUtil;
+import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 import csdev.couponstash.model.coupon.Condition;
@@ -37,14 +38,22 @@ import csdev.couponstash.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INDEX_OVERFLOW =
+            String.format("Index is too large. Why do you need so many coupons? "
+            + "Try something less or equals to than %d.", Integer.MAX_VALUE);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
+    public static Index parseIndex(String oneBasedIndex) throws ParseException, OverflowException {
         String trimmedIndex = oneBasedIndex.trim();
+
+        if (StringUtil.isIntegerOverflow(trimmedIndex)) {
+            throw new OverflowException(MESSAGE_INDEX_OVERFLOW);
+        }
+
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }

@@ -4,6 +4,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.UnarchiveCommand;
+import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
@@ -23,6 +24,8 @@ public class UnarchiveCommandParser implements Parser<UnarchiveCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UnarchiveCommand.MESSAGE_USAGE), pe);
+        } catch (OverflowException oe) {
+            throw new ParseException(oe.getMessage());
         }
     }
 }

@@ -25,4 +25,12 @@ class ShareCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShareCommand.MESSAGE_USAGE)
         );
     }
+
+    @Test
+    public void parse_integerOverflow_throwsParseException() {
+        CommandParserTestUtil.assertParseFailure(parser,
+                Long.toString(Integer.MAX_VALUE + 1L),
+                ParserUtil.MESSAGE_INDEX_OVERFLOW
+        );
+    }
 }

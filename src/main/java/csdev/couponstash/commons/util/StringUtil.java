@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
@@ -65,4 +66,31 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Checks if an integer is larger than Integer.MAX_INT by using the
+     * Math.addExact method.
+     * @param s Integer to check
+     * @return True if s is <= Integer.MAX_INT, false otherwise
+     */
+    public static boolean isIntegerOverflow(String s) {
+        try {
+            if (s.length() == 0) {
+                return false;
+            }
+
+            long value = Long.parseLong(s);
+            return value > Integer.MAX_VALUE || value < Integer.MIN_VALUE;
+        } catch (NumberFormatException e) {
+            try {
+                // Check if the exception comes from illegal characters
+                new BigInteger(s);
+            } catch (Exception e1) {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
 }

@@ -26,4 +26,12 @@ public class UsedCommandParserTest {
         CommandParserTestUtil.assertParseSuccess(parser, "2 s/" + VALID_MONEY_SYMBOL + "10",
                 expectedSecondUsedCommand);
     }
+
+    @Test
+    public void parse_integerOverflow_throwsParseException() {
+        CommandParserTestUtil.assertParseFailure(parser,
+                Long.toString(Integer.MAX_VALUE + 1L),
+                ParserUtil.MESSAGE_INDEX_OVERFLOW
+        );
+    }
 }

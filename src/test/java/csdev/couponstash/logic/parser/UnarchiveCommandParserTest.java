@@ -21,4 +21,12 @@ public class UnarchiveCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser,
                 "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnarchiveCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_integerOverflow_throwsParseException() {
+        CommandParserTestUtil.assertParseFailure(parser,
+                Long.toString(Integer.MAX_VALUE + 1L),
+                ParserUtil.MESSAGE_INDEX_OVERFLOW
+        );
+    }
 }
