@@ -240,7 +240,21 @@ public class Coupon {
     private Coupon setArchive(boolean state) {
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage, this.limit,
-                this.tags, this.totalSavings, this.remind, this.condition, new Archived(String.valueOf(state)));
+                this.tags, this.totalSavings, this.remind, this.condition, new Archived(state));
+    }
+
+    /**
+     * Returns true if the coupon has expired.
+     */
+    public boolean hasExpired() {
+        return this.expiryDate.hasExpired();
+    }
+
+    /**
+     * Returns true if the coupon has been used before.
+     */
+    public boolean isUsed() {
+        return Integer.parseInt(this.usage.value) > 0;
     }
 
     /**
@@ -255,8 +269,7 @@ public class Coupon {
             return true;
         }
 
-        if (otherCoupon == null || Boolean.valueOf(archived.toString())
-                || Boolean.valueOf(otherCoupon.archived.toString())) {
+        if (otherCoupon == null || archived.state || otherCoupon.archived.state) {
             return false;
         }
 
@@ -357,11 +370,10 @@ public class Coupon {
                 new StartDate(startDate.value),
                 new Usage(usage.value), new Limit(limit.value), copiedTags,
                 totalSavings.copy(), remind.copy(), new Condition(condition.toString()),
-                new Archived(archived.toString())
+                new Archived(archived.state)
         );
 
         return copy;
-
     }
 
 }

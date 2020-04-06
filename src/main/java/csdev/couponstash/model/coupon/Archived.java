@@ -1,8 +1,6 @@
 package csdev.couponstash.model.coupon;
 
-import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * Represents a Coupon's state of archive in the CouponStash.
@@ -14,25 +12,24 @@ public class Archived {
 
     public static final String VALIDATION_REGEX = "^(true|false)$";
 
-    public final String value;
+    public final boolean state;
 
 
     /**
      * Constructs a false {@code state} of archival.
      */
     public Archived() {
-        this.value = "false";
+        this.state = false;
     }
 
     /**
      * Constructs a {@code state} of {@code Archived}.
      *
-     * @param value A valid state of archival.
+     * @param state A valid boolean state of archival.
      */
-    public Archived(String value) {
-        requireNonNull(value);
-        checkArgument(isValidState(value), MESSAGE_CONSTRAINTS);
-        this.value = value;
+    public Archived(boolean state) {
+        requireNonNull(state);
+        this.state = state;
     }
 
     /**
@@ -44,18 +41,18 @@ public class Archived {
 
     @Override
     public String toString() {
-        return value;
+        return String.valueOf(state);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Archived
-                && value.equals(((Archived) other).value));
+                && state == ((Archived) other).state);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return String.valueOf(state).hashCode();
     }
 }

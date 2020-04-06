@@ -46,7 +46,7 @@ public class ArchiveCommand extends IndexedCommand {
         Coupon couponToBeArchived = lastShownList.get(targetIndex.getZeroBased());
         Archived currentStateOfArchival = couponToBeArchived.getArchived();
 
-        if (Boolean.parseBoolean(currentStateOfArchival.toString())) {
+        if (currentStateOfArchival.state) {
             throw new CommandException(String.format(MESSAGE_COUPON_ALREADY_ARCHIVED,
                     couponToBeArchived.getName()));
         }

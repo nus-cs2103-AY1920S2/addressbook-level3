@@ -2,7 +2,6 @@ package csdev.couponstash.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -105,9 +104,8 @@ public class CouponStash implements ReadOnlyCouponStash {
     public CouponStash archiveExpiredCoupons() {
         Iterable<Coupon> iterable = () -> coupons.iterator();
         CouponStash updatedCouponStash = new CouponStash();
-        final LocalDate today = LocalDate.now();
         updatedCouponStash.setCoupons(StreamSupport.stream(iterable.spliterator(), false)
-                .map(coupon -> coupon.getExpiryDate().date.isBefore(today) ? coupon.archive() : coupon)
+                .map(coupon -> coupon.hasExpired() ? coupon.archive() : coupon)
                 .collect(Collectors.toList()));
         return updatedCouponStash;
     }
@@ -132,7 +130,6 @@ public class CouponStash implements ReadOnlyCouponStash {
     @Override
     public String toString() {
         return coupons.asUnmodifiableObservableList().size() + " coupons";
-        // TODO: refine later
     }
 
     @Override

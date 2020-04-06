@@ -171,7 +171,7 @@ class JsonAdaptedCoupon {
         if (!Archived.isValidState(archived)) {
             throw new IllegalValueException(Archived.MESSAGE_CONSTRAINTS);
         }
-        final Archived modelArchived = new Archived(archived);
+        final Archived modelArchived = new Archived(Boolean.parseBoolean(archived));
 
         final DateSavingsSumMap modelTotalSaved;
         if (totalSaved == null) {

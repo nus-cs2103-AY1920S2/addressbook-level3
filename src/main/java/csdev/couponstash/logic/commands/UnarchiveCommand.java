@@ -25,6 +25,7 @@ public class UnarchiveCommand extends IndexedCommand {
 
     public static final String MESSAGE_UNARCHIVE_COUPON_SUCCESS = "Unarchived Coupon: %1s";
     public static final String MESSAGE_COUPON_ALREADY_ACTIVE = "Coupon: %1s is already active!";
+    public static final String MESSAGE_COUPON_ALREADY_EXIST = "Coupon: %1s cannot be duplicated in the active list!";
 
     /**
      * Creates an UnarchiveCommand to unarchive the {@code Coupon} at the specified {@code targetIndex}.
@@ -46,11 +47,16 @@ public class UnarchiveCommand extends IndexedCommand {
         Coupon couponToBeUnarchived = lastShownList.get(targetIndex.getZeroBased());
         Archived currentStateOfArchival = couponToBeUnarchived.getArchived();
 
-        if (!Boolean.parseBoolean(currentStateOfArchival.toString())) {
-            throw new CommandException(MESSAGE_COUPON_ALREADY_ACTIVE);
+        if (!currentStateOfArchival.state) {
+            throw new CommandException(String.format(MESSAGE_COUPON_ALREADY_ACTIVE, couponToBeUnarchived.getName()));
         }
 
         Coupon activeCoupon = couponToBeUnarchived.unarchive();
+
+        if (model.hasCoupon(activeCoupon)) {
+            throw new CommandException(String.format(MESSAGE_COUPON_ALREADY_EXIST, activeCoupon.getName()));
+        }
+
         model.setCoupon(couponToBeUnarchived, activeCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         return new CommandResult(String.format(MESSAGE_UNARCHIVE_COUPON_SUCCESS,

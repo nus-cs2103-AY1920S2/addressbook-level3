@@ -40,7 +40,7 @@ public class CouponBuilder {
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
     public static final String DEFAULT_CONDITION = "While Stocks Last";
-    public static final String DEFAULT_ARCHIVED = "false";
+    public static final Boolean DEFAULT_ARCHIVED = false;
 
     public static final String FULL_COMMAND_TEXT =
             String.format("n/%s p/%s e/%s s/%s sd/%s l/%s",
@@ -64,6 +64,8 @@ public class CouponBuilder {
     private Set<Tag> tags;
     private Condition condition;
     private Archived archived;
+
+    private boolean isUsageChanged = false;
 
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -175,6 +177,7 @@ public class CouponBuilder {
      */
     public CouponBuilder withUsage(String usage) {
         this.usage = new Usage(usage);
+        this.isUsageChanged = true;
         return this;
     }
 
@@ -204,7 +207,7 @@ public class CouponBuilder {
     /**
      * Sets the {@code Archive} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withArchived(String state) {
+    public CouponBuilder withArchived(Boolean state) {
         this.archived = new Archived(state);
         return this;
     }
@@ -215,13 +218,13 @@ public class CouponBuilder {
      * @return A new Coupon.
      */
     public Coupon build() {
-        if (Usage.isUsageAtLimit(usage, limit)) {
-            archived = new Archived("true");
+        boolean isUsageAtLimit = Usage.isUsageAtLimit(usage, limit);
+        if (isUsageChanged && isUsageAtLimit) {
+            archived = new Archived(true);
         }
 
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
                 usage, limit, tags, totalSavings, remindDate, condition, archived);
-
     }
 
 }

@@ -24,27 +24,25 @@ public interface Model {
      * {@code Predicate} to filter active coupons only
      */
     Predicate<Coupon> PREDICATE_SHOW_ALL_ACTIVE_COUPONS = coupon ->
-            !Boolean.valueOf(coupon.getArchived().toString());
+            !coupon.getArchived().state;
 
     /**
      * {@code Predicate} to filter archived coupons only
      */
     Predicate<Coupon> PREDICATE_SHOW_ALL_ARCHIVED_COUPONS = coupon ->
-            Boolean.valueOf(coupon.getArchived().toString());
+            coupon.getArchived().state;
 
     /**
      * {@code Predicate} to filter used coupons only
      */
-    Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = coupon ->
-            Integer.parseInt(coupon.getUsage().toString()) > 0;
+    Predicate<Coupon> PREDICATE_SHOW_ALL_USED_COUPONS = Coupon::isUsed;
 
     /**
      * {@code Comparator} to sort non-archived coupons at the top
      */
-    Comparator<Coupon> COMPARATOR_NON_ARCHVIED_FIRST = (c1, c2) -> {
+    Comparator<Coupon> COMPARATOR_NON_ARCHIVED_FIRST = (c1, c2) -> {
         String first = c1.getArchived().toString();
         String second = c2.getArchived().toString();
-        int result = first.compareTo(second);
         return first.compareTo(second);
     };
 
