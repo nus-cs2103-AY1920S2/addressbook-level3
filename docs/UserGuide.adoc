@@ -317,7 +317,7 @@ Format: `remind INDEX r/(specific date to remind)`
 ****
 Examples:
 
-* `remind 5 d/1-5-2020` +
+* `remind 5 r/ 01-05-2020` +
 Reminds you about the 5th coupon in the list on 1 May 2020.
 Reminders will be displayed as a pop up when you launch the app.
 

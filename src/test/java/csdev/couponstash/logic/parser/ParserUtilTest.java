@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.parser;
 
+import static csdev.couponstash.logic.parser.ParserUtil.MESSAGE_INDEX_OVERFLOW;
 import static csdev.couponstash.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
@@ -19,7 +21,6 @@ import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.TypicalIndexes;
-
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -46,6 +47,18 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+    }
+
+    @Test
+    public void parseIndex_integerOverFlow_throwsOverflowException() {
+        assertThrows(OverflowException.class, MESSAGE_INDEX_OVERFLOW, ()
+            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1L)));
+    }
+
+    @Test
+    public void parseIndex_longOverFlow_throwsOverflowException() {
+        assertThrows(OverflowException.class, MESSAGE_INDEX_OVERFLOW, ()
+            -> ParserUtil.parseIndex("9223372036854775808"));
     }
 
     @Test
