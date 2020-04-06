@@ -178,6 +178,9 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
      * @return Forward matching distance between the two components
      */
     private int calculateForwardMatchingDistance(String inputComponent, String referenceComponent) {
+        Objects.requireNonNull(inputComponent);
+        Objects.requireNonNull(referenceComponent);
+
         int forwardMatchDistance = Integer.MAX_VALUE;
         for (int stopIndex = 0; stopIndex <= referenceComponent.length(); stopIndex++) {
             int currentForwardMatchDistance = editDistanceCalculator.calculateDistance(inputComponent,
