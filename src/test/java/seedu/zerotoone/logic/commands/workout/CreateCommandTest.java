@@ -29,9 +29,12 @@ import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyCompletedSetList;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
+import seedu.zerotoone.model.session.ReadOnlyTimerList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
@@ -113,6 +116,58 @@ public class CreateCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // -----------------------------------------------------------------------------------------
+        // Session
+        @Override
+        public boolean isInSession() {
+            return false;
+        }
+
+        @Override
+        public OngoingWorkout startSession(Workout workout, LocalDateTime currentDateTime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void stopSession(LocalDateTime currentDateTime) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<OngoingWorkout> getCurrentWorkout() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CompletedSet skip() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CompletedSet done() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Boolean hasExerciseLeft() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCompletedSetList getLastSet() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTimerList getTimerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void shutdownTimer() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -219,28 +274,6 @@ public class CreateCommandTest {
 
         @Override
         public ReadOnlyOngoingSetList getOngoingSetList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        // -----------------------------------------------------------------------------------------
-        // Session
-        @Override
-        public boolean isInSession() {
-            return false;
-        }
-
-        @Override
-        public OngoingWorkout startSession(Workout workout, LocalDateTime currentDateTime) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void stopSession(LocalDateTime currentDateTime) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<OngoingWorkout> getCurrentWorkout() {
             throw new AssertionError("This method should not be called.");
         }
 
