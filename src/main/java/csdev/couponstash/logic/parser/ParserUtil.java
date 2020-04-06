@@ -40,7 +40,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INDEX_OVERFLOW =
             String.format("Index is too large. Why do you need so many coupons? "
-            + "Try something less or equals to than %d.", Integer.MAX_VALUE);
+            + "Try something less than or equals to %d.", Integer.MAX_VALUE);
     // used to reject user input for text that is too long
     // to be displayed properly by Coupon Stash
     public static final String MESSAGE_STRING_TOO_LONG = "\"%1$s\" is too long! Length of"
