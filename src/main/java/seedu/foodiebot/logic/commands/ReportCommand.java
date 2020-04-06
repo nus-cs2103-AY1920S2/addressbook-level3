@@ -6,9 +6,13 @@ import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_DATE_BY_MONTH;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_FROM;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_TO;
 
+import java.util.logging.Logger;
+
+import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.core.date.DateRange;
 import seedu.foodiebot.commons.core.date.DefiniteDate;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.Model;
 
@@ -38,6 +42,7 @@ public class ReportCommand extends Command {
             + "jan";
 
     public static final String MESSAGE_SUCCESS = MESSAGE_REPORT_EXPENSE;
+    private static final Logger logger = LogsCenter.getLogger(ReportCommand.class);
 
     private final DateRange dateRange;
 
@@ -48,6 +53,8 @@ public class ReportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        ParserContext.setCurrentContext(ParserContext.REPORT_CONTEXT);
+        logger.info("Enter transactions");
 
         try {
             if (dateRange.getStartDate().equals(DefiniteDate.MIN_DATE)) {

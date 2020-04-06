@@ -14,6 +14,7 @@ public class ParserContext {
     public static final String STALL_CONTEXT = "STALL";
     public static final String DIRECTIONS_CONTEXT = "GOTO";
     public static final String TRANSACTIONS_CONTEXT = "TRANSACTIONS";
+    public static final String REPORT_CONTEXT = "REPORT";
     public static final String INVALID_CONTEXT_MESSAGE = "Wrong context to use this command. Current Context: ";
     public static final String SUGGESTED_CONTEXT_MESSAGE = "Context to use this command in: ";
     public static final String FAVORITE_CONTEXT = "FAVORITE";

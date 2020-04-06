@@ -310,9 +310,9 @@ can be changed anytime you want but please note the consequences in the box belo
 
 NOTE: Changing the budget will reset the budget overview for the current budget cycle. +
 For example, if you have $5 remaining from a weekly budget of $20, setting a new monthly budget of $150
-will update your current budget settings to the new one, but at the same time resets both the start date
-of the cycle as well as the amount remaining. +
-(But not to worry, your transactions are still saved!)
+will update your current budget settings to the new one, but at the same time resets the start date
+of the cycle, your remaining budget, as well as an overview of your spendings in your budget. +
+(But not to worry, all of your transactions are still saved!)
 
 Format: `budget set PERIOD AMOUNT`
 
@@ -355,7 +355,16 @@ image::wireframe/budgetView.PNG[width="700", align="left"]
 If you want to see how much you have spent over a period of time, view a beautifully designed report of your
 past expenses with the `report` command.
 
-Format: `report`
+NOTE: This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
+as long as your date format follows a generic D/M/YY format (e.g. 11/4/20, 3-6-2019)!
+
+Formats:
+
+* `report`
+* `report [f/FROM_DATE] [t/TO_DATE]`
+* `report [w/DATE]`
+* `report [m/MONTH]`
+* `report [y/YEAR]`
 
 Parameters:
 
@@ -380,7 +389,16 @@ image::wireframe/report.png[width="700", align="left"]
 In a similar way to `report`, `transactions` also allows you to see all the food you have purchased in
 a particular period.
 
-Format: `transactions`
+NOTE: This command has several variations to choose from! Also, the date can be delimited with '-', '.' or '/',
+as long as your date format follows a generic D/M/YY format (e.g. 11/4/20, 3-6-2019)!
+
+Formats:
+
+* `transactions`
+* `transactions [f/FROM_DATE] [t/TO_DATE]`
+* `transactions [w/DATE]`
+* `transactions [m/MONTH]`
+* `transactions [y/YEAR]`
 
 Parameters:
 

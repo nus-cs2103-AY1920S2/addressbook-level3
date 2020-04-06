@@ -357,10 +357,13 @@ public class BaseScene {
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
             case TransactionsCommand.COMMAND_WORD:
+                ParserContext.setCurrentContext(ParserContext.TRANSACTIONS_CONTEXT);
                 handleListTransactions();
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
             case ReportCommand.COMMAND_WORD:
+                ParserContext.setCurrentContext(ParserContext.REPORT_CONTEXT);
+                topLabel.setText("Report: ");
                 changeScene("MainScene.fxml");
                 // VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
                 // primaryStage.getScene().setRoot(pane);

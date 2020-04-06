@@ -544,10 +544,10 @@ The following _activity diagram_ illustrates what happens when a user executes t
 ==== Report Command Implementation
 
 . The `LogicManager` first executes `FoodieBotParser` to create a `ReportCommandParser` object.
-. `ReportCommandParser` then parse the user input to determine the period of report to display. +
+. `ReportCommandParser` then parse an optional user input to determine the period of report to display. +
 This Process returns a `ReportCommand` object to the `LogicManager`.
 . The `LogicManager` then access `ReportCommand#execute()`.
-. The `ReportCommand#execute()`
+. The `ReportCommand#execute()` retrieves the transaction list from storage and display a list adapted to a report format within the given period, or all transactions if the period is not given.
 . The `ReportCommand#execute()` returns a  `CommandResult` object to the `LogicManger`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `report` command:
@@ -611,10 +611,10 @@ The following _activity diagram_ illustrates what happens when a user executes t
 ==== Transactions Command Implementation
 
 . The `LogicManager` first executes `FoodieBotParser` to create a `TransactionsCommandParser` object.
-. `TransactionsCommandParser` then parse the user input to determine the period of transaction report to display. +
+. `TransactionsCommandParser` then parse an optional user input to determine the period of transaction report to display. +
 This Process returns a `TransactionsCommand` object to the `LogicManager`.
 . The `LogicManager` then access `TransactionsCommand#execute()`.
-. The `TransactionsCommand#execute()` retrieve the transaction list from storage and display the list within the given period or everything of period is not stated.
+. The `TransactionsCommand#execute()` retrieve the transaction list from storage and display the list within the given period, or all transactions if the period is not stated.
 . The `TransactionsCommand#execute()` returns a  `CommandResult` object to the `LogicManger`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `transactions` command:

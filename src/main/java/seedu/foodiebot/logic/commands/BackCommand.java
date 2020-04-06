@@ -22,6 +22,12 @@ public class BackCommand extends Command {
     public static final String MESSAGE_EXIT_RANDOMIZE =
             "Exit Randomize. ";
 
+    public static final String MESSAGE_EXIT_TRANSACTIONS =
+            "Exit Transactions. ";
+
+    public static final String MESSAGE_EXIT_REPORT =
+            "Exit Report. ";
+
     public static final String INVALID_CONTEXT_MESSAGE =
             "Cannot go back any further";
     private static final String MESSAGE_EXIT_DIRECTIONS = "Exit Directions. ";
@@ -61,7 +67,12 @@ public class BackCommand extends Command {
         case ParserContext.TRANSACTIONS_CONTEXT:
             ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
             ParserContext.setCanteenContext(null);
-            return new CommandResult(COMMAND_WORD, CHANGE_CONTEXT_ACKNOWLEDGEMENT + context,
+            return new CommandResult(COMMAND_WORD, MESSAGE_EXIT_TRANSACTIONS + context,
+                    false, false);
+        case ParserContext.REPORT_CONTEXT:
+            ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
+            ParserContext.setCanteenContext(null);
+            return new CommandResult(COMMAND_WORD, MESSAGE_EXIT_REPORT + context,
                     false, false);
 
         default:
