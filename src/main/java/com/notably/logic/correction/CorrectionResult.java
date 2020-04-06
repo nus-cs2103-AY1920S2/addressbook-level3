@@ -1,14 +1,15 @@
 package com.notably.logic.correction;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Represents the result of a correction.
  */
 public class CorrectionResult<T> {
     private final CorrectionStatus correctionStatus;
-    private final T correctedItem;
+    private final List<T> correctedItems;
 
     /**
      * Creates a correction result without any corrected item.
@@ -16,20 +17,21 @@ public class CorrectionResult<T> {
      * @param correctionStatus Status of the result
      */
     public CorrectionResult(CorrectionStatus correctionStatus) {
-        this(correctionStatus, null);
+        this(correctionStatus, List.of());
     }
 
     /**
      * Creates a correction result.
      *
      * @param correctionStatus Status of the result
-     * @param correctedItem Item after correction
+     * @param correctedItems List of corrected items
      */
-    public CorrectionResult(CorrectionStatus correctionStatus, T correctedItem) {
+    public CorrectionResult(CorrectionStatus correctionStatus, List<T> correctedItems) {
         Objects.requireNonNull(correctionStatus);
+        Objects.requireNonNull(correctedItems);
 
         this.correctionStatus = correctionStatus;
-        this.correctedItem = correctedItem;
+        this.correctedItems = correctedItems;
     }
 
     /**
@@ -42,13 +44,12 @@ public class CorrectionResult<T> {
     }
 
     /**
-     * Gets the corrected item.
-     * If no corrected item, {@code Optional.empty()} will be returned.
+     * Gets the list of corrected items.
      *
-     * @return Corrected item, or {@code Optional.empty()} if there is none
+     * @return List of corrected items
      */
-    public Optional<T> getCorrectedItem() {
-        return Optional.ofNullable(correctedItem);
+    public List<T> getCorrectedItems() {
+        return correctedItems;
     }
 
     @Override
@@ -59,12 +60,12 @@ public class CorrectionResult<T> {
 
         CorrectionResult<?> another = (CorrectionResult<?>) object;
         return Objects.equals(correctionStatus, another.correctionStatus)
-                && Objects.equals(correctedItem, another.correctedItem);
+                && Objects.equals(new HashSet<>(correctedItems), new HashSet<>(another.correctedItems));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(correctionStatus, correctedItem);
+        return Objects.hash(correctionStatus, correctedItems);
     }
 }
 
