@@ -3,14 +3,14 @@ package seedu.zerotoone.ui.views.home;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.zerotoone.model.session.OngoingSet;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.ui.util.UiPart;
 
 /**
  * An UI component that displays information of a {@code Exercise}.
  */
-public class OngoingSessionCard extends UiPart<Region> {
-    private static final String FXML = "home/OngoingSessionCard.fxml";
+public class LastSessionCard extends UiPart<Region> {
+    private static final String FXML = "home/LastSessionCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,12 +25,12 @@ public class OngoingSessionCard extends UiPart<Region> {
     @FXML
     private Label exerciseReps;
 
-    public OngoingSessionCard(OngoingSet ongoingSet) {
+    public LastSessionCard(CompletedSet completedSet) {
         super(FXML);
-        String name = ongoingSet.getExerciseName().fullName;
-        String set = String.valueOf(ongoingSet.getIndex() + 1);
-        String weight = ongoingSet.getWeight().value;
-        String reps = ongoingSet.getNumReps().value;
+        String name = completedSet.getExerciseName().fullName;
+        String set = String.valueOf(completedSet.getIndex() + 1);
+        String weight = completedSet.getWeight().value;
+        String reps = completedSet.getNumReps().value;
         exerciseName.setText(name + ": " + "Set " + set);
         exerciseReps.setText(reps + " reps, " + weight + "kg");
     }
@@ -43,12 +43,12 @@ public class OngoingSessionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof OngoingSessionCard)) {
+        if (!(other instanceof LastSessionCard)) {
             return false;
         }
 
         // state check
-        OngoingSessionCard card = (OngoingSessionCard) other;
+        LastSessionCard card = (LastSessionCard) other;
         return exerciseName.getText().equals(card.exerciseName.getText())
                 && exerciseReps.getText().equals(card.exerciseReps.getText());
     }

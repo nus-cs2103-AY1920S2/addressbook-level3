@@ -15,8 +15,8 @@ import seedu.zerotoone.model.session.CompletedSet;
  */
 class JacksonCompletedSet {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "SessionSet's %s field is missing!";
-    public static final String MALFORMED_BOOLEAN_MESSAGE = "SessionSet's isFinished field is incorrect!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "CompletedSets's %s field is missing!";
+    public static final String MALFORMED_BOOLEAN_MESSAGE = "CompletedSets's isFinished field is incorrect!";
     private static final Pattern IS_BOOLEAN = Pattern.compile("true|false", Pattern.CASE_INSENSITIVE);
 
     private final String weight;
@@ -33,6 +33,7 @@ class JacksonCompletedSet {
         this.weight = weight;
         this.numReps = numReps;
         this.isFinished = isFinished;
+
     }
 
     /**

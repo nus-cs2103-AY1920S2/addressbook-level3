@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutName;
 
@@ -48,11 +47,7 @@ public class OngoingWorkout {
     public List<OngoingSet> getRemainingSets() {
         List<OngoingSet> sets = new LinkedList<>();
         for (OngoingSession o: getRemainingExercises()) {
-            int i = 1;
-            for (ExerciseSet e: o.getRemaining()) {
-                sets.add(new OngoingSet(e, o.getExerciseName(), i));
-                i++;
-            }
+            sets.addAll(o.getRemaining());
         }
         return sets;
     }
