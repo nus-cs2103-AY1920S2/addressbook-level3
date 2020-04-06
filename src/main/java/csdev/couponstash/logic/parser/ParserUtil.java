@@ -297,7 +297,7 @@ public class ParserUtil {
      */
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
-        String trimmedTag = tag.trim();
+        String trimmedTag = checkStringLength(tag.trim(), Tag.STRING_LENGTH_LIMIT);
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
