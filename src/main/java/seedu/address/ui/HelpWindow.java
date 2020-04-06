@@ -41,55 +41,56 @@ public class HelpWindow extends UiPart<Stage> {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
         Text title = new Text("MODdy Commands:");
-        title.setStyle("-fx-font-family: \"Segoe Pro Display\"; -fx-font-weight: bold;\n" +
-                "-fx-font-size: 35px;\n" +
-                "-fx-fill: #f78086;");
+        title.setStyle("-fx-font-family: \"Segoe Pro Display\"; -fx-font-weight: bold;\n"
+                + "-fx-font-size: 35px;\n"
+                + "-fx-fill: #f78086;");
 
-        Text title2 = new Text("COMMANDS FORMAT: \n" +
-                "1. New user profile: \n" +
-                "       - new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION] \n" +
-                "2. Add a current/completed module to MODdy: \n" +
-                "       - add m/MODULE y/SEMESTER_INDEX [g/GRADE]\n" +
-                "3. Add a task with a deadline to an existing module in MODdy:\n" +
-                "       - add m/MODULE t/TASK [d/DEADLINE]\n" +
-                "4. Edit your profile:\n" +
-                "       - edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]\n" +
-                "5. Edit a module’s details in MODdy:\n" +
-                "       - edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]\n" +
-                "6. Edit a task’s description or deadline:\n" +
-                "       - edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]\n");
+        Text title2 = new Text("COMMANDS FORMAT: \n"
+                + "1. New user profile: \n"
+                + "       - new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION] \n"
+                + "2. Add a current/completed module to MODdy: \n"
+                + "       - add m/MODULE y/SEMESTER_INDEX [g/GRADE]\n"
+                + "3. Add a task with a deadline to an existing module in MODdy:\n"
+                + "       - add m/MODULE t/TASK [d/DEADLINE]\n"
+                + "4. Edit your profile:\n"
+                + "       - edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]\n"
+                + "5. Edit a module’s details in MODdy:\n"
+                + "       - edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]\n"
+                + "6. Edit a task’s description or deadline:\n"
+                + "       - edit m/MODULE t/TASK [nt/NEW_TASK] [d/DEADLINE]\n");
         Text title3 = new Text("PARAMETERS ACCEPTED: ");
-        Text newCommands = new Text("1. `new` command \n" +
-                "       - n/USER_NAME\n" +
-                "       - c/COURSE_NAME\n" +
-                "       - cs/CURRENT_SEMESTER\n" +
-                "       - [s/SPECIALISATION]\n");
+        Text newCommands = new Text("1. `new` command \n"
+                + "       - n/USER_NAME\n"
+                + "       - c/COURSE_NAME\n"
+                + "       - cs/CURRENT_SEMESTER\n"
+                + "       - [s/SPECIALISATION]\n");
 
-        Text addCommands = new Text("2. `add` command \n" +
-                "       - m/MODULE_CODE\n" +
-                "       - y/SEMESTER\n" +
-                "       - [g/GRADE]\n" +
-                "       - [t/TASK]\n" +
-                "       - [d/DEADLINE]\n");
+        Text addCommands = new Text("2. `add` command \n"
+                + "       - m/MODULE_CODE\n"
+                + "       - y/SEMESTER\n"
+                + "       - [g/GRADE]\n"
+                + "       - [t/TASK]\n"
+                + "       - [d/DEADLINE]\n");
 
-        Text editCommands = new Text("3. `edit` command \n" +
-                "       - [n/NEW_NAME]\n" +
-                "       - [c/NEW_COURSE]\n" +
-                "       - [cs/CURRENT_SEMESTER]\n" +
-                "       - [s/SPECIALISATION]\n" +
-                "       - [d/DEADLINE]\n");
+        Text editCommands = new Text("3. `edit` command \n"
+                +
+                "       - [n/NEW_NAME]\n"
+                + "       - [c/NEW_COURSE]\n"
+                + "       - [cs/CURRENT_SEMESTER]\n"
+                + "       - [s/SPECIALISATION]\n"
+                + "       - [d/DEADLINE]\n");
 
-        Text showCommands = new Text("4. `show` command \n" +
-                "       - n/USER_NAME\n" +
-                "       - y/SEMESTER_INDEX\n" +
-                "       - c/COURSE_NAME\n" +
-                "       - f/FOCUS_AREA\n" +
-                "       - m/MODULE_CODE\n");
+        Text showCommands = new Text("4. `show` command \n"
+                + "       - n/USER_NAME\n"
+                + "       - y/SEMESTER_INDEX\n"
+                + "       - c/COURSE_NAME\n"
+                + "       - f/FOCUS_AREA\n"
+                + "       - m/MODULE_CODE\n");
 
-        Text deleteCommands = new Text("5. `delete` command \n" +
-                "       - n/USER_NAME\n" +
-                "       - t/TASK\n" +
-                "       - m/MODULE_CODE\n");
+        Text deleteCommands = new Text("5. `delete` command \n"
+                + "       - n/USER_NAME\n"
+                + "       - t/TASK\n"
+                + "       - m/MODULE_CODE\n");
         HBox hbox = new HBox();
         hbox.getChildren().addAll(newCommands, addCommands, editCommands, showCommands, deleteCommands);
         helpCommand.getChildren().addAll(title, title2, title3, hbox);
