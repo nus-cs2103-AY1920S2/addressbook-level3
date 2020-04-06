@@ -86,6 +86,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        groceryListWindow = new GroceryListWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -188,7 +189,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleGroceryList() {
-        groceryListWindow.show();
+        if (!groceryListWindow.isShowing()) {
+            groceryListWindow.show();
+        } else {
+            groceryListWindow.focus();
+        }
     }
 
     void show() {

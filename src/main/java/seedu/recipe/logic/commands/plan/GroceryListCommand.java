@@ -34,6 +34,6 @@ public class GroceryListCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_LIST);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS, false, true, planTab, false);
+        return new CommandResult(MESSAGE_SUCCESS, true, false, planTab, false);
     }
 }

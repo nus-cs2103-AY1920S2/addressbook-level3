@@ -59,7 +59,7 @@ public class GroceryListWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing grocery list page about the application.");
+        logger.fine("Showing grocery list page.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
