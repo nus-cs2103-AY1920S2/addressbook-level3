@@ -2,6 +2,7 @@ package seedu.recipe.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.recipe.commons.core.LogsCenter;
+import seedu.recipe.model.plan.PlannedDate;
 
 public class GroceryListWindow extends UiPart<Stage> {
     
@@ -28,16 +30,17 @@ public class GroceryListWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the GroceryListWindow.
      */
-    public GroceryListWindow(Stage root) {
+    public GroceryListWindow(Stage root, String groceries) {
         super(FXML, root);
-        groceryList.setText(GROCERY_LIST_MESSAGE);
+        // todo make getter method in list X // analyse how command result is being displayed, how to pass a message from logic to  model to UI
+        groceryList.setText(groceries);
     }
     
     /**
      * Creates a new GroceryListWindow.
      */
-    public GroceryListWindow() {
-        this(new Stage());
+    public GroceryListWindow(String groceries) {
+        this(new Stage(), groceries);
     }
     
     /**

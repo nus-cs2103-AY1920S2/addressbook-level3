@@ -86,7 +86,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        groceryListWindow = new GroceryListWindow();
+
+        String groceries = "hi";
+        groceryListWindow = new GroceryListWindow(groceries);
     }
 
     public Stage getPrimaryStage() {
@@ -185,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the grocery list window // todo or focuses on it if it's already opened.
+     * Opens the grocery list window // todo or focuses and updates on it if it's already opened.
      */
     @FXML
     public void handleGroceryList() {
