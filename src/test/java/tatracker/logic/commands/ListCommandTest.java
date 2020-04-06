@@ -1,6 +1,6 @@
 package tatracker.logic.commands;
 
-import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tatracker.logic.commands.CommandTestUtil.assertListCommandSuccess;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +27,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertListCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /*
