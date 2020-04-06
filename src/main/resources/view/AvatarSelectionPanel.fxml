@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.0" stylesheets="DarkTheme.css">
+    <GridPane
+            VBox.vgrow="ALWAYS"
+            alignment="CENTER"
+            styleClass="avatar-selection">
+        <Label
+                GridPane.rowIndex="0"
+                text="Welcome to iGrad"
+                fx:id="avatarLabel"
+                styleClass="title"
+               >
+        </Label>
+        <HBox GridPane.rowIndex="1">
+            <GridPane
+                    styleClass="avatar-grid-pane"
+                    fx:id="avatarGridPane"
+                    alignment="CENTER"
+                    hgap="100.0"
+                    vgap="24.0"
+            >
+            </GridPane>
+        </HBox>
+    </GridPane>
+</VBox>

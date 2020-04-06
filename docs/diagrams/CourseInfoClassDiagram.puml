@@ -1,0 +1,15 @@
+@startuml
+class CourseInfo {
+    +getName()
+    +getCap()
+    +equals()
+    +hashCode()
+    +toString()
+}
+class Name {}
+
+CourseInfo *-- "1" Name
+CourseInfo *-- "1" CAP
+CourseInfo *-- "1" SemsLeft
+
+@enduml
