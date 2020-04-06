@@ -39,9 +39,13 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
 
-    public ChartAnalyticsPanel(ObservableList<Transaction> transactionList) {
+    public ChartAnalyticsPanel(ObservableList<Transaction> transactionList, boolean isRangeMonth) {
         super(FXML);
-        graphByWeek(transactionList);
+        if (isRangeMonth) {
+            graphByWeek(transactionList);
+        } else {
+            graphByMonth(transactionList);
+        }
         graphByCategory(transactionList);
     }
 

@@ -36,6 +36,7 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setFilter(new Filter(categoryPredicate, datePredicate));
+        model.setToggleViewRange(datePredicate.toString());
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));

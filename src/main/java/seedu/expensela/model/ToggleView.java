@@ -6,9 +6,18 @@ package seedu.expensela.model;
 public class ToggleView {
 
     private boolean isViewList = true;
+    private String range = "ALL";
 
     public boolean getIsViewList() {
         return this.isViewList;
+    }
+
+    public boolean isRangeMonth() {
+        if (range.equals("ALL")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void switchIsViewList() {
@@ -17,5 +26,9 @@ public class ToggleView {
 
     public void setIsViewList(boolean isViewList) {
         this.isViewList = isViewList;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
     }
 }

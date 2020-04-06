@@ -246,7 +246,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Update filter object
+     * Update filter object and set range of toggleView object
      */
     @Override
     public void setFilter(Filter filter) {
@@ -287,5 +287,10 @@ public class ModelManager implements Model {
     @Override
     public void switchToggleView() {
         expenseLa.switchToggleView();
+    }
+
+    @Override
+    public void setToggleViewRange(String toggleViewRange) {
+        expenseLa.setToggleViewRange(toggleViewRange);
     }
 }

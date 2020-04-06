@@ -110,8 +110,13 @@ public interface Model {
     /** Returns a view of toggle list or chart object */
     ToggleView getToggleView();
 
+    /**
+
     /** Flips the switch of toggle list or chart object */
     void switchToggleView();
+
+    /** Updates toggle view whether transactions filter is by month or year */
+    void setToggleViewRange(String toggleViewRange);
 
     /**
      * Get Global data of the user.
