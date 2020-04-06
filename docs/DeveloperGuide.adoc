@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deletep 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deletec 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,15 +98,15 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `InventorySystemParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a customer).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletec 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deletec 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -122,12 +122,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Inventory System data.
+* exposes an unmodifiable `ObservableList<Customer>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Inventory System`, which `Customer` can reference. This would allow `Inventory System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -142,7 +142,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Inventory System data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -294,10 +294,6 @@ The following sequence diagram shows how the profit operation works:
 image::ProfitSequenceDiagram.png[]
 The revenue operation works in the same way as the profit operation.
 
-The following activity diagram summarizes what happens when a user executes a command that changes the customer/product list in the model:
-
-image::ProductActivityDiagram.png[]
-
 ==== Design Considerations
 
 ===== Aspect: How commands are executed
@@ -373,23 +369,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |view all <<item,items>> in my shop |keep track of my <<item,items>>
 
-|`* *` |user |find <<item,items>> by keyword and attributes |search <<item,items>> more efficiently
+|`* *` |user |find <<item,items>> by keyword or attributes |search <<item,items>> more efficiently
 
-|`* *` |user |receive notifications when the <<product, product>> quantity is running low, with the <<product, product>> name and balance left |stock up for the particular <<product, product>>
+|`* *` |user |receive notifications when the <<product, product>> quantity is running low |stock up for the particular <<product, product>>
 
 |`* *` |user |set the inventory quantity low limit |get notified when my stock is running low
 
-|`* *` |user |view the top-selling <<product, products>> and worst-selling <<product, products>> at one glance (e.g. dashboard that displays name of <<product, products>>) |
+|`* *` |analytical user |view the top-selling <<product, products>> and worst-selling <<product, products>> at one glance (e.g. dashboard that displays name of <<product, products>>) |
 
-|`* *` |user |view the statistics of each individual <<product, product>>, such as revenue made and sales volume |
+|`* *` |analytical user |view the sales or quantity of each individual <<product, product>> in graphical format | so that it is easier to visualise
 
-|`* *` |user |see predicted sales for the future months based on past sales |know which <<product, products>> to stock up on
+|`* *` |analytical user |see predicted sales for the next month based on past sales |know which <<product, products>> to stock up on
 
-|`* *` |user |view a list of <<product, products>> sorted by the amount of sales in a selected period (e.g. last week/last month) |
+|`* *` |analytical user |view a list of <<product, products>> sorted by the amount of profits |
 
-|`* *` |user |view the revenue on a daily/monthly/yearly basis or in a customised period |
-
-|`*` |user |generate a demographic report on <<customer, customers>> |know who to target for marketing strategies
+|`* *` |analytical user |view the revenue on a daily/ monthly/ yearly basis or in a customised period |
 
 |`*` |lazy user |keep track of previous inputs |enter/edit previous commands easily
 
@@ -400,7 +394,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `iTrackPro` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `iTrack Pro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case:  UC01 - Delete an <<item,item>>
@@ -537,7 +531,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case:  UC06 - View statistics (revenue, best/ worst selling products) and do analysis
+=== Use case:  UC06 - View statistics (profit, revenue)
 
 *MSS*
 
@@ -579,11 +573,11 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case:  UC08 - Configure low inventory notification settings (products only)
+=== Use case:  UC08 - Configure low inventory notification settings (for products)
 
 *MSS*
 
-1. User sets the inventory quantity low limit.
+1. User sets the quantity threshold for a particular product.
 
 +
 Use case ends.
@@ -591,7 +585,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The input limit is invalid or out of range.
+* 1a. The input limit is invalid or out of range or the product index is invalid.
 +
 [none]
 ** 1a1. The app shows an error message.
@@ -604,13 +598,19 @@ Use case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java 11 or above installed.
 .  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  The system should work on Windows, Linux or Mac operating systems.
+.  The system should work on Windows, Linux or Mac operating aystems.
 .  The system should be usable by a novice who has never used an inventory management system.
 .  The system should save the <<product, product>>, <<customer, customer>> and <<transaction, transaction>> data permanently.
 .  There should be at least one <<product, product>> and <<customer, customer>> before a <<transaction, transaction>> can be made.
 .  The response to any use action should become visible within 5 seconds.
 .  The system should be able to have up to 1000000 <<customer, customers>>, 1000000 <<product, products>> and 1000000 <<transaction, transactions>>.
-.  The product (price, cost, quantity, sales), transaction (quantity, money) fields and quantity threshold should be able to take values up to 1000000.
+.  The product (price, cost price, quantity, sales), transaction (quantity, money) fields and quantity threshold should be able to take integers up to 1000000.
+.  The price and cost price should be at least $1.
+.  The customer's address field should take up to 45 characters.
+.  The customer's name field should take up to 30 characters.
+.  The customer's phone field should be between 3 to 15 characters long and contain only integers.
+.  The customer's email field should take up to 40 characters and should be a valid email format.
+.  A customer can have up to 5 tags where each tag is up to 15 characters long.
 .  The user interface should be intuitive enough for users who are not IT-savvy.
 .  The source code should be open source.
 .  The product is offered as a free downloadable <<jar, jar>> file.
@@ -640,14 +640,17 @@ The products in stock.
 [[revenue]] Revenue::
 The sales of the product, calculated by adding up the transaction amounts of a particular product.
 
+[[revenue]] Profit::
+The money gained from the sale of the product minus cost of product, calculated by revenue - total cost.
+
 [[sales]] Sales::
 Used interchangeably with revenue
 
 [[price]] Price::
 Selling price of the product
 
-[[cost]] Cost::
-Cost price of the product
+[[cost]] Cost price::
+Price of making/ buying the product to sell
 
 [[jar]] Jar File::
 A https://en.wikipedia.org/wiki/JAR_(file_format)[JAR] (Java ARchive) is a package file format typically used to aggregate many Java class files and associated metadata and resources (text, images, etc.) into one file for distribution.
@@ -698,12 +701,12 @@ _{ more test cases ... }_
 
 . Deleting a customer while all customers are listed
 
-.. Prerequisites: List all customers using the `list` command. Multiple customers in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all customers using the `listc` command. Multiple customers in the list.
+.. Test case: `deletec 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `deletec 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `deletec`, `deletec x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_

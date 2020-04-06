@@ -47,6 +47,8 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 *** Added restrictions for each field (e.g. max value for price and quantity, max length for address) (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/142[#142])
 *** Modify tests to suit modified `Person` (`Customer`) class
 ** Documentation:
+*** Edited ArchitectureSequenceDiagram, BetterModelClassDiagram, DeleteSequenceDiagram, LogicClassDiagram to reflect current app structure
+*** Replaced ModelClassDiagram and StorageClassDiagram with created diagrams to reflect current class structure
 *** Added implementation, sequence and activity diagrams for product features (Pull requests https://github.com/AY1920S2-CS2103-T09-2/main/pull/100[#100], https://github.com/AY1920S2-CS2103-T09-2/main/pull/103[#103])
 *** Added implementation, sequence and activity diagrams for revenue/profit features
 ** Community:
