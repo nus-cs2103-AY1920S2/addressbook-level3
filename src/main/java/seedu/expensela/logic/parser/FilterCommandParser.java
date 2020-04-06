@@ -35,13 +35,13 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         try {
             if (argMultimap.getValue(PREFIX_CATEGORY).isPresent() && argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
-                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim().toUpperCase();
 
                 // sends the next word after "date" to see if it matches any transaction dates
                 String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
                 String dateMinusDay;
-                if (date.equals("ALL")) {
+                if (date.toUpperCase().equals("ALL")) {
                     dateMinusDay = "ALL";
                 } else {
                     dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];
@@ -51,7 +51,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             } else if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()
                     && !argMultimap.getValue(PREFIX_MONTH).isPresent()) {
                 // get category filter
-                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+                String cat = argMultimap.getValue(PREFIX_CATEGORY).get().trim().toUpperCase();
                 // set date as all transaction dates
                 String dateMinusDay = "ALL";
 
@@ -66,7 +66,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 String date = argMultimap.getValue(PREFIX_MONTH).get().trim();
                 // removes the day in the string version of transaction date, so we filter by month
                 String dateMinusDay;
-                if (date.equals("ALL")) {
+                if (date.toUpperCase().equals("ALL")) {
                     dateMinusDay = "ALL";
                 } else {
                     dateMinusDay = date.split("-")[0] + "-" + date.split("-")[1];

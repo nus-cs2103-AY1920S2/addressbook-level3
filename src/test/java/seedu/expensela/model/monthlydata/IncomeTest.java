@@ -27,14 +27,15 @@ public class IncomeTest {
         // invalid income
         assertFalse(Income.isValidAmount("")); // empty string
         assertFalse(Income.isValidAmount(" ")); // spaces only
-        assertTrue(Income.isValidAmount("88")); // no cents
         assertFalse(Income.isValidAmount(".88")); // no dollars
-        assertTrue(Income.isValidAmount("88.9")); // cents not 2 digits
         assertFalse(Income.isValidAmount("eighty eight")); // non-numeric
         assertFalse(Income.isValidAmount("88e88")); // alphabets within digits
         assertFalse(Income.isValidAmount("69 96")); // spaces within digits
+        assertFalse(Income.isValidAmount("-88")); // negative amount
 
         // valid income
+        assertTrue(Income.isValidAmount("88.9")); // cents not 2 digits
+        assertTrue(Income.isValidAmount("88")); // no cents
         assertTrue(Income.isValidAmount("88.80")); // both dollars and cents
         assertTrue(Income.isValidAmount("87654321.88"));
         assertTrue(Income.isValidAmount("124293842033123.00")); // long income
