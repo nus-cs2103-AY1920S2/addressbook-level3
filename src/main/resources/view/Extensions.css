@@ -112,6 +112,20 @@
   -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+.feedback-display {
+  -fx-background-color: #6C96BE;
+  -fx-text-fill: white;
+  -fx-font-size: 15px;
+}
+
+.feedback-display .scroll-bar .track{
+  -fx-background-color: #6C96BE;
+}
+
+.feedback-display .scroll-bar .thumb{
+  -fx-background-color: white;
+}
+
 /* For TextArea component of ResultDisplay */
 .result-display {
   -fx-background-color: -fx-secondary-blue;
@@ -119,8 +133,7 @@
   -fx-border-radius: 10px;
   -fx-effect: -fx-paneShadow;
   -fx-alignment: center;
-  -fx-padding: 20px;
-
+  -fx-padding: 15px;
 }
 
 .result-display .label {

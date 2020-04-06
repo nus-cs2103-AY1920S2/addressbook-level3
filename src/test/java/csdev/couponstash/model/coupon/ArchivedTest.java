@@ -8,11 +8,6 @@ import org.junit.jupiter.api.Test;
 
 public class ArchivedTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Archived(null));
-    }
-
-    @Test
     public void isValidState() {
         // null state
         assertThrows(NullPointerException.class, () -> Archived.isValidState(null));

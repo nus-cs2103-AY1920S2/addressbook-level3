@@ -2,7 +2,6 @@ package csdev.couponstash.model.coupon;
 
 import static java.util.Objects.requireNonNull;
 
-
 /**
  * Represents a Coupon's state of archive in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidState(String)}
@@ -13,7 +12,7 @@ public class Archived {
 
     public static final String VALIDATION_REGEX = "^(true|false)$";
 
-    public final Boolean state;
+    public final boolean state;
 
 
     /**
@@ -28,7 +27,7 @@ public class Archived {
      *
      * @param state A valid boolean state of archival.
      */
-    public Archived(Boolean state) {
+    public Archived(boolean state) {
         requireNonNull(state);
         this.state = state;
     }
@@ -42,18 +41,18 @@ public class Archived {
 
     @Override
     public String toString() {
-        return state.toString();
+        return String.valueOf(state);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Archived
-                && state.equals(((Archived) other).state));
+                && state == ((Archived) other).state);
     }
 
     @Override
     public int hashCode() {
-        return state.hashCode();
+        return String.valueOf(state).hashCode();
     }
 }

@@ -54,10 +54,6 @@ public class Limit {
         }
     }
 
-    public String toUiLabelText() {
-        return String.format("You can only use it %s time(s).", value);
-    }
-
     @Override
     public String toString() {
         return value;
