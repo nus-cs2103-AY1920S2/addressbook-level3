@@ -11,8 +11,8 @@ import java.text.DecimalFormat;
 public class Budget {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Budget should only contain numbers with 2 decimal places";
-    public static final String VALIDATION_REGEX = "^-?\\d+\\.?\\d{0,2}$";
+            "Budget should only contain positive numbers with 2 decimal places";
+    public static final String VALIDATION_REGEX = "^?\\d+\\.?\\d{0,2}$";
     public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
     public final Double budgetAmount;
 
