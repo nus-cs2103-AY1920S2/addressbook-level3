@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.customer.TypicalPersons.ALICE;
 import static seedu.address.testutil.customer.TypicalPersons.HOON;
 import static seedu.address.testutil.customer.TypicalPersons.IDA;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,8 +19,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.ReadOnlyInventorySystem;
 
-public class JsonAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+public class JsonInventorySystemStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonInventorySystemStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -64,7 +64,7 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        InventorySystem original = getTypicalAddressBook();
+        InventorySystem original = getTypicalInventorySystem();
         JsonInventorySystemStorage jsonAddressBookStorage = new JsonInventorySystemStorage(filePath);
 
         // Save in new file and read back

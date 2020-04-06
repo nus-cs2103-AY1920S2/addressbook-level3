@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "InventorySystem save file which contains the same Person values as in TypicalPersons#getTypicalInventorySystem()",
   "persons" : [ {
     "id": "a4365691-ea10-47ad-b33b-fc038f1e5e81",
     "name" : "Alice Pauline",

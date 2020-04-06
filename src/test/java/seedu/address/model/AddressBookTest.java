@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.customer.TypicalPersons.ALICE;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        InventorySystem newData = getTypicalAddressBook();
+        InventorySystem newData = getTypicalInventorySystem();
         addressBook.resetData(newData, ClearCustomerCommand.COMMAND_WORD);
         addressBook.resetData(newData, ClearProductCommand.COMMAND_WORD);
         assertEquals(newData, addressBook);

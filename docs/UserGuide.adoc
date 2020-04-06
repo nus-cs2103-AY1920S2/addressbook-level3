@@ -52,34 +52,105 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== General
+
+// tag::help[]
+==== Viewing help : `help`
 
 Format: `help`
 
 [NOTE]
 `F1` key for quick access to launch help window.
+// end::help[]
 
-=== Adding a customer: `addc`
+// tag::receivenotif[]
+==== Receiving notification while a certain product is running low.
+
+Pops up notification if quantity of product is below threshold. +
+Displays the product name and remaining product quantity.
+
+image::PopupNotification.png[align="center"]
+
+[NOTE]
+This is a passive feature.
+// end::receivenotif[]
+
+
+// tag::exit[]
+==== Exiting from the program : `exit`
+
+Exits from the program, closes all opened windows. +
+Format: `exit`
+// end::exit[]
+
+// tag::savedata[]
+==== Saving the data
+
+The application data is saved in the hard disk automatically after any command that changes the data. +
+
+****
+* There is no need to save manually.
+****
+// end::savedata[]
+
+// tag::reuseinputs[]
+==== Reusing previous inputs
+
+The application keeps the history of previous inputs that was keyed in the command line.
+
+****
+* Can keep history of up to 100 inputs. +
+* Up arrow key in command line to navigate up the history of inputs. +
+* Down arrow key in command line to navigate down the history of inputs. +
+* Commands are saved into the history automatically.
+****
+
+[NOTE]
+The history is deleted after application closes.
+// end::reuseinputs[]
+
+// tag::lowstockproducts[]
+==== Keeping track of products that are running low on stock
+
+The product list updates and sort by product quantity automatically.
+
+[NOTE]
+This is a passive feature. The progress bar indicator beside the products' name represents visualises the remaining balance.
+
+image::TrackProductBalance.png[width="790" align="center"]
+// end::lowstockproducts[]
+
+=== Customer
+
+// tag::addc[]
+==== Adding a customer: `addc`
 
 Adds a customer to the customer list +
 Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 
 [NOTE]
 A customer can have any number of tags (including 0). +
-Duplicate customers (with the same name, phone, email) are not allowed.
+Duplicate customers (with the same name, phone, email) are not allowed. +
+The address field can take up to 45 characters. +
+The name field can take up to 30 characters. +
+The phone field can be between 3 to 15 characters long and contain only integers. +
+The  email field can take up to 40 characters and should be a valid email format.
 
 Examples:
 
 * `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `addc n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+// end::addc[]
 
-
-=== Listing all customers: `listc`
+// tag::listc[]
+==== Listing all customers: `listc`
 
 Shows a list of all customers in the customer list. +
 Format: `listc`
+// end::listc[]
 
-=== Editing a customer: `editc`
+// tag::editc[]
+==== Editing a customer: `editc`
 
 Edits an existing customer in the customer list. +
 Format: `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
@@ -98,8 +169,10 @@ Examples:
 Edits the phone number and email address of the 1st customer to be 91234567 and johndoe@example.com respectively.
 * `editc 2 n/Betsy Crower t/` +
 Edits the name of the 2nd customer to be Betsy Crower and clears all existing tags.
+// end::editc[]
 
-=== Locating customers by name: `findc`
+// tag::findc[]
+==== Locating customers by name: `findc`
 
 Finds customers whose attributes match the given attributes. +
 Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
@@ -122,8 +195,10 @@ Returns john and John Doe from the customer list.
 Returns any customer having names Betsy, Tim, or John in the customer list.
 * `findc a/serangoon yishun` +
 Returns all customers with address in Serangoon and Yishun.
+// end::findc[]
 
-=== Deleting a customer: `deletec`
+// tag::deletec[]
+==== Deleting a customer: `deletec`
 
 Deletes the specified customer from the customer list that is currently being displayed. +
 Format: `deletec INDEX`
@@ -145,8 +220,10 @@ Deletes the 2nd customer in the customer list.
 * `findc n/Betsy` +
 `deletec 1` +
 Deletes the 1st customer in the results of the find command.
+// end::deletec[]
 
-=== Clearing all customers: `clearc`
+// tag::clearc[]
+==== Clearing all customers: `clearc`
 
 Clears all entries from the customer list. +
 Format: `clearc`
@@ -154,14 +231,20 @@ Format: `clearc`
 [WARNING]
 Permanently deletes all the stored customer data in the application. +
 Deletes all transactions as well.
+// end::clearc[]
 
-=== Adding a product: `addp`
+=== Product
+
+// tag::addp[]
+==== Adding a product: `addp`
 
 Adds a product to the product list. +
 Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY cp/COSTPRICE [s/SALES]`
 
 [NOTE]
-Duplicate products (with the same description, cost price, price) are not allowed.
+Duplicate products (with the same description, cost price, price) are not allowed. +
+The price, cost price, quantity and sales can take integers up to 1000000. +
+The price and cost price must be at least $1.
 
 [TIP]
 A product created without providing values for sales (in SGD) will be created with 0 sales. +
@@ -173,16 +256,20 @@ Examples:
 
 * `addp d/iphone x pr/1000 q/10 cp/300`
 * `addp d/camera pr/2000 q/90 s/100 cp/1000`
+// end::addp[]
 
-=== Listing all products : `listp`
+// tag::listp[]
+==== Listing all products : `listp`
 
 Show all products in the product list. +
 Format: `listp`
 
 [NOTE]
 The product is automatically sorted by the product quantity, represented by the bar indicator beside the product name.
+// end::listp[]
 
-=== Editing a product : `editp`
+// tag::editp[]
+==== Editing a product : `editp`
 
 Edits an existing product in the displayed product list. +
 Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [cp/COSTPRICE] [s/SALES]`
@@ -199,8 +286,10 @@ Examples:
 Edits the price and quantity of the 1st product in the list to be $1150 and 80 respectively.
 * `editp 2 s/1000` +
 Edits the sales of the 2nd product in the list to be $1000.
+// end::editp[]
 
-=== Finding products : `findp`
+// tag::findp[]
+==== Finding products : `findp`
 
 Finds products whose description contains a certain keyword +
 Format: `findp [KEYWORD]`
@@ -222,9 +311,10 @@ Examples:
 Returns camera.
 * `findp iphone` +
 Returns iPhone.
+// end::findp[]
 
-// tag::delete[]
-=== Deleting a product : `deletep`
+// tag::deletep[]
+==== Deleting a product : `deletep`
 
 Deletes the specified product from the system. +
 Format: `deletep INDEX`
@@ -246,9 +336,10 @@ Deletes the 2nd product in the product list.
 * `findp camera` +
 `deletep 1` +
 Deletes the 1st product in the results of the find command.
-// end::delete[]
+// end::deletep[]
 
-=== Clearing all entries : `clearp`
+// tag::clearp[]
+==== Clearing all entries : `clearp`
 
 Clears all entries from the product list. +
 Format: `clearp`
@@ -256,20 +347,26 @@ Format: `clearp`
 [WARNING]
 Permanently deletes all the stored product data in the application. +
 Deletes all transactions as well.
+// end::clearp[]
 
-=== Adding a transaction : `addt`
+=== Transaction
+
+// tag::addt[]
+==== Adding a transaction : `addt`
 
 Adds a specified transaction to the system. +
 Format: `addt p/PRODUCT_ID c/CUSTOMER_ID q/QUANTITY [dt/DATETIME] [m/MONEY] [d/DESCRIPTION]` +
 
 [NOTE]
-Duplicate transactions (with the same customer, product, datetime) are not allowed.
+Duplicate transactions (with the same customer, product, datetime) are not allowed. +
+The quantity and money fields can take integers up to 1000000. +
+The quantity must be at least 1.
 
 [TIP]
 The date time field [dt/] is optional, and will be recorded as current local machine time if left empty. +
 The money field [m/] is optional, and will be recorded as product price multiplied by quantity if left empty.
 Only need to enter if necessary (i.e. discounts on products). +
-The description field [d/] is optional, will be recorded as Null if left empty.
+The description field [d/] is optional, will be recorded as N/A if left empty.
 Only need to enter if user wants to add notes to the transaction.
 
 image::AddTransaction.png[width="790" align="center"]
@@ -280,14 +377,17 @@ Examples:
 Adds a transaction, where the 10th customer bought 10 of the 1st product for $20 at 2020-02-19 19:00.
 * `addt p/20 c/2 dt/2020-02-20 10:00 q/10 m/30 d/under discount` +
 Adds a transaction, where the 2nd customer bought 10 of the 20th product for $30 at 2020-02-20 10:00 at an discount.
+// end::addt[]
 
-
-=== Listing all transaction : `listt`
+// tag::listt[]
+==== Listing all transaction : `listt`
 
 Lists all the transactions. +
 Format: `listt`
+// end::listt[]
 
-=== Editing a transaction : `editt`
+// tag::editt[]
+==== Editing a transaction : `editt`
 
 Edits a transaction in the system. It allows the user to edit wrong transction
  with correct information. +
@@ -303,8 +403,10 @@ Examples:
 
 * `editt 1 p/101 c/123` +
 Edits the product id and customer id of the 1st transaction to be 101 and 123 respectively.
+// end::editt[]
 
-=== Locating transaction : `findt`
+// tag::findt[]
+==== Locating transaction : `findt`
 
 Finds transactions whose attributes match the given attributes. +
 Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
@@ -329,8 +431,10 @@ Returns all transactions made on 7th February 2020 4pm.
 Returns all transactions that have a selling price of 100 dollars.
 * `findt c/bob dt/2020-02-07 16:00` +
 Returns all transactions that Bob made on the 7th February 2020 4pm.
+// end::findt[]
 
-=== Undo a transaction : `undot`
+// tag::undot[]
+==== Undo a transaction : `undot`
 
 Undo the specified transaction from the system. It allows the user to remove a transaction in case he/she keyed inaccurate
 information. +
@@ -342,7 +446,10 @@ Format: `undot INDEX`
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
-[NOTE]
+[TIP]
+Why undot instead of deletet? Deletet implies that transaction is only deleted but undot is more fitting as the product details will be modified too.
+
+[WARNING]
 Adds the quantity in the transaction back to the product and reduces the sales of the product by transaction amount.
 
 Examples:
@@ -353,27 +460,34 @@ Undo the 2nd transaction in the displayed list.
 * `findt dt/2020-01-03 16:00` +
 `undot 1` +
 Undo the 1st transaction in the results of the find command.
+// end::undot[]
 
-=== Clearing all transactions : `cleart`
+// tag::cleart[]
+==== Clearing all transactions : `cleart`
 
 Clears all transactions from the list of transactions. +
 Format: `cleart`
 
 [WARNING]
 Permanently deletes all the stored transaction data in the application.
+// end::cleart[]
 
-=== Viewing the top-selling and worst-selling products.
+=== Statistics
+
+// tag::viewtopsellingproducts[]
+==== Viewing the top-selling and worst-selling products.
 
 Displays and updates the top-selling and worst-selling products (sorted by profit) as transactions are made. +
 
 [NOTE]
 This is a passive feature. Relaunch the window to get the updated information.
 `F2` key for quick access to launch/relaunch the window.
-
+// end::viewtopsellingproducts[]
 
 image::TopSellingProducts.png[align="center"]
 
-=== Viewing the product sales and quantity histogram.
+// tag::viewproductsalesquantity[]
+==== Viewing the product sales and quantity histogram.
 
 Displays and updates the histogram of product sales and quantity. +
 Plots 2 graphs: +
@@ -385,8 +499,10 @@ This is a passive feature. Relaunch the histogram window to udpate the plot.
 `F3` key is the short cut for launch/relaunch the window.
 
 image::ViewInventory.png[align="center"]
+// end::viewproductsalesquantity[]
 
-=== Getting the revenue made in a certain period : `revenue`
+// tag::revenue[]
+==== Getting the revenue made in a certain period : `revenue`
 
 Gets the revenue made in a selected period. +
 Format: `revenue [sd/START_DATE] [ed/END_DATE]`
@@ -401,8 +517,10 @@ Example:
 
 * `revenue sd/2020-01-01 10:00 ed/2020-12-31 10:01` +
 Returns the revenue from Jan 1 2020 10am to Dec 31 2020 10:01am
+// end::revenue[]
 
-=== Getting the profit made in a certain period : `profit`
+// tag::profit[]
+==== Getting the profit made in a certain period : `profit`
 
 Gets the profit made in a selected period. +
 Format: `profit [sd/START_DATE] [ed/END_DATE]`
@@ -417,8 +535,10 @@ Example:
 
 * `profit sd/2020-01-01 10:00 ed/2020-12-31 10:01` +
 Returns the profit from Jan 1 2020 10am to Dec 31 2020 10:01am
+// end::profit[]
 
-=== Setting the low-inventory threshold : `lowlimit`
+// tag::lowlimit[]
+==== Setting the low-inventory threshold : `lowlimit`
 
 Sets the notification threshold for individual product and updates the bar indicator of the product. +
 Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
@@ -430,24 +550,17 @@ Format: `lowlimit p/PRODUCT_ID t/THRESHOLD`
 ****
 
 [TIP]
-The default threshold represents 20% of the desired quantity.
+The default threshold represents 20% of the desired quantity. +
+The quantity threshold can take integers up to 1000000.
 
 Examples:
 
 * `lowlimit p/1 t/20` +
 Sets the low inventory threshold for the 1st product as 20.
+// end::lowlimit[]
 
-=== Receiving notification while a certain product is running low.
-
-Pops up notification if quantity of product is below threshold. +
-Displays the product name and remaining product quantity.
-
-image::PopupNotification.png[align="center"]
-
-[NOTE]
-This is a passive feature.
-
-=== Predicting the sales for the next month : `predict`
+// tag::predict[]
+==== Predicting the sales for the next month : `predict`
 
 Predicts sales for the next month based on sales in the previous three months +
 Format: `predict`
@@ -455,8 +568,10 @@ Format: `predict`
 ****
 * The average of the profits made in the past three months is the predicted sales for next month.
 ****
+// end::predict[]
 
-=== Plotting sales: `plotsales`.
+// tag::plotsales[]
+==== Plotting sales: `plotsales`.
 
 Plots a graph with the sales of the selected product in a given time period. +
 Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
@@ -480,42 +595,7 @@ Plots a graph with the sales of the selected product between 20th Feb 10am and 2
 Plots a graph with the sales of the selected product in the past week.
 
 image::SalesPlot.png[align="center"]
-
-=== Exiting from the program : `exit`
-
-Exits from the program, closes all opened windows. +
-Format: `exit`
-
-=== Saving the data
-
-The application data is saved in the hard disk automatically after any command that changes the data. +
-
-****
-* There is no need to save manually.
-****
-
-=== Reusing previous inputs
-
-The application keeps the history of previous inputs that was keyed in the command line.
-
-****
-* Can keep history of up to 100 inputs. +
-* Up arrow key in command line to navigate up the history of inputs. +
-* Down arrow key in command line to navigate down the history of inputs. +
-* Commands are saved into the history automatically.
-****
-
-[NOTE]
-The history is deleted after application closes.
-
-=== Keeping track of products that are running low on stock
-
-The product list updates and sort by product quantity automatically.
-
-[NOTE]
-This is a passive feature. The progress bar indicator beside the products' name represents visualises the remaining balance.
-
-image::TrackProductBalance.png[width="790" align="center"]
+// end::plotsales[]
 
 == FAQ
 
