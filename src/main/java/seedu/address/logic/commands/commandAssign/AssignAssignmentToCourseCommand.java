@@ -7,6 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.modelCourse.Course;
@@ -68,7 +69,9 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
                 logger.info("AssignmentID check:" + AssignmentID);
                 logger.info("CourseID check:" + courseID);
                 EdgeManager.assignAssignmentToCourse(AssignmentID, courseID);
+                Set<ID> allStudentsInCourse = model.getCourse(courseID).getAssignedStudentsID();
 
+                ProgressManager.addOneAssignmentToAllStudents(allStudentsInCourse, AssignmentID);
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,
                         assignedCourse.getName(), courseID.value));

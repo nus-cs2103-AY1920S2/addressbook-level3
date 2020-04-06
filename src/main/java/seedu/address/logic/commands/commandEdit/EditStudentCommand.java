@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandEdit;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -36,10 +38,12 @@ public class EditStudentCommand extends Command {
           + "Existing values will be overwritten by the input values.\n"
           + "Parameters: INDEX (must be a positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
+          + "[" + PREFIX_GENDER + "GENDER] "
           + "[" + PREFIX_STUDENTID + "STUDENTID] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 1 "
           + PREFIX_NAME + "Bob Ross "
+          + PREFIX_GENDER + "m "
           + PREFIX_STUDENTID + "123 ";
 
   public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
@@ -70,11 +74,12 @@ public class EditStudentCommand extends Command {
     assert studentToEdit != null;
 
     Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
+    Gender updatedGender = editStudentDescriptor.getGender().orElse(studentToEdit.getGender());
     ID updatedID = editStudentDescriptor.getID()
         .orElse(studentToEdit.getId());
     Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-    return new Student(updatedName, updatedID, updatedTags);
+    return new Student(updatedName, updatedID, updatedGender, updatedTags);
   }
 
   @Override
@@ -123,6 +128,7 @@ public class EditStudentCommand extends Command {
   public static class EditStudentDescriptor {
 
     private Name name;
+    private Gender gender;
     private ID studentID;
     private Set<Tag> tags;
 
@@ -134,6 +140,7 @@ public class EditStudentCommand extends Command {
      */
     public EditStudentDescriptor(EditStudentDescriptor toCopy) {
       setName(toCopy.name);
+      setGender(toCopy.gender);
       setID(toCopy.studentID);
       setTags(toCopy.tags);
     }
@@ -151,6 +158,14 @@ public class EditStudentCommand extends Command {
 
     public void setName(Name name) {
       this.name = name;
+    }
+
+    public Optional<Gender> getGender() {
+      return Optional.ofNullable(gender);
+    }
+
+    public void setGender(Gender gender) {
+      this.gender = gender;
     }
 
     public Optional<ID> getID() {
@@ -193,6 +208,7 @@ public class EditStudentCommand extends Command {
       EditStudentDescriptor e = (EditStudentDescriptor) other;
 
       return getName().equals(e.getName())
+          && getGender().equals(e.getGender())
           && getID().equals(e.getID())
           && getTags().equals(e.getTags());
     }

@@ -33,15 +33,16 @@ public interface Model {
   Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
   Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
   Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+  Predicate<Progress> PREDICATE_SHOW_ALL_PROGRESSES = unused -> true;
 
-    Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
+
+  Predicate<Person> PREDICATE_HIDE_ALL_PERSONS = unused -> false;
     Predicate<Staff> PREDICATE_HIDE_ALL_STAFFS = unused -> false;
     Predicate<Student> PREDICATE_HIDE_ALL_STUDENTS = unused -> false;
     Predicate<Finance> PREDICATE_HIDE_ALL_FINANCES = unused -> false;
     Predicate<Course> PREDICATE_HIDE_ALL_COURSES = unused -> false;
     Predicate<Assignment> PREDICATE_HIDE_ALL_ASSIGNMENTS = unused -> false;
-
-    String COURSE_ENTITY_NAME = "course";
+    Predicate<Progress> PREDICATE_HIDE_ALL_PROGRESSES = unused -> false;
 
     public MainWindow getMainWindow();
 
@@ -87,6 +88,8 @@ public interface Model {
 
     void set(ModelObject target, ModelObject editedTarget) throws CommandException;
 
+    ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException;
+
     boolean hasStudent(ID studentID);
 
     Student getStudent(ID studentID);
@@ -102,10 +105,23 @@ public interface Model {
     boolean hasStaff(ID staffID);
 
     Staff getStaff(ID staffID);
-    /**
+
+    boolean hasProgress(ID assignmentID, ID studentID) throws CommandException;
+
+    Progress getProgress(ID assignmentID, ID studentID) throws CommandException;
+
+  /**
      * Returns the AddressBook
      */
     ReadOnlyAddressBook getAddressBook();
+
+    AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
+
+    AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
+
+    ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
+
+    ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject obj) throws CommandException;
 
     /**
      * Returns an unmodifiable view of the filtered person list
@@ -463,8 +479,4 @@ public interface Model {
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
     Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
-
-    AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
-
-  ReadOnlyAddressBookGeneric getReadOnlyAddressBook(ModelObject modelObject) throws CommandException;
 }

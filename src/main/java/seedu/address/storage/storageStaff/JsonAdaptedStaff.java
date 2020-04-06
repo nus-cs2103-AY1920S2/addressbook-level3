@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -28,6 +29,7 @@ class JsonAdaptedStaff {
   private final String name;
   private final String level;
   private final String id;
+  private final String gender;
   private final String phone;
   private final String email;
   private final String salary;
@@ -41,6 +43,7 @@ class JsonAdaptedStaff {
    */
   @JsonCreator
   public JsonAdaptedStaff(@JsonProperty("name") String name, @JsonProperty("id") String id,
+                          @JsonProperty("gender") String gender,
                           @JsonProperty("level") String level,
                           @JsonProperty("phone") String phone,
                           @JsonProperty("email") String email, @JsonProperty("salary") String salary,
@@ -49,6 +52,7 @@ class JsonAdaptedStaff {
     this.name = name;
     this.level = level;
     this.id = id;
+    this.gender = gender;
     this.phone = phone;
     this.email = email;
     this.salary = salary;
@@ -68,6 +72,7 @@ class JsonAdaptedStaff {
     name = source.getName().fullName;
     level = source.getLevel().toString();
     id= source.getId().value;
+    gender = source.getGender().value;
     phone = source.getPhone().value;
     email = source.getEmail().value;
     salary = source.getSalary().value;
@@ -107,6 +112,15 @@ class JsonAdaptedStaff {
       throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
     }
     final Name modelName = new Name(name);
+
+    if (gender == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
+    }
+    if (!Gender.isValidGender(gender)) {
+      throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+    }
+    final Gender modelGender = new Gender(gender);
 
     if (level == null) {
       throw new IllegalValueException("Missing level field, unidentified Staff");
@@ -156,6 +170,6 @@ class JsonAdaptedStaff {
       throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
     }
     final Address modelAddress = new Address(address);
-    return new Staff(modelName, modelID, modelLevel, modelPhone, modelEmail, modelSalary, modelAddress,modelAssignedCoursesID, modelTags);
+    return new Staff(modelName, modelID, modelGender, modelLevel, modelPhone, modelEmail, modelSalary, modelAddress,modelAssignedCoursesID, modelTags);
   }
 }

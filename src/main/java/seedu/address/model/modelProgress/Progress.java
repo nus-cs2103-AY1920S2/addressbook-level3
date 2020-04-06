@@ -1,18 +1,11 @@
 package seedu.address.model.modelProgress;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.CompositeID;
-import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Progress of a student's assignment in the address book.
@@ -45,6 +38,18 @@ public class Progress extends ModelObject {
     return this.isDone;
   }
 
+  // Can be done as a toggle but this is more robust as it prevents accidental toggling from done to undone and vice versa
+  public void done() {
+    this.isDone = true;
+  }
+
+  public void undone() {
+    this.isDone = false;
+  }
+  /*
+  public Boolean isOverDue() {
+  }
+   */
 
   @Override
   public CompositeID getId() {
@@ -98,11 +103,17 @@ public class Progress extends ModelObject {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
+    ID studentID = getId().getStudentID();
+    ID assignmentID = getId().getAssignmentID();
+
     builder.append("\n")
-            .append("Progress: ")
+            .append("StudentID: ")
+            .append(studentID.toString())
             .append("\n")
-            .append("Mapping: ")
-            .append(getId());
+            .append("AssignmentID: ")
+            .append(assignmentID.toString())
+            .append("\n")
+            .append("Done: ");
 
     if(isDone) {
       builder.append("[O]");

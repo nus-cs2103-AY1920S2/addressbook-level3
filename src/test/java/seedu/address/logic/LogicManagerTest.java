@@ -1,14 +1,9 @@
 package seedu.address.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
-
 import java.io.IOException;
 import java.nio.file.Path;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
-
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -17,8 +12,9 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.storageAssignments.JsonAssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
-import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
+import seedu.address.storage.storageProgress.JsonProgressAddressBookStorage;
 import seedu.address.storage.storageStaff.JsonStaffAddressBookStorage;
+import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,11 +39,13 @@ public class LogicManagerTest {
             new JsonCourseAddressBookStorage(temporaryFolder.resolve("courseAddressBook.json"));
         JsonAssignmentAddressBookStorage assignmentAddressBookStorage =
                 new JsonAssignmentAddressBookStorage(temporaryFolder.resolve("assignmentAddressBook.json"));
+        JsonProgressAddressBookStorage progressAddressBookStorage =
+            new JsonProgressAddressBookStorage(temporaryFolder.resolve("progressAddressBook.json"));
 
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
             studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,
-                userPrefsStorage);
+                progressAddressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
     /*

@@ -33,11 +33,7 @@ public class AssignmentCard extends UiPart<Region> {
   @FXML
   private Label assignmentID;
   @FXML
-  private Label assignedCourseID;
-  @FXML
-  private Label assignmentName;
-  @FXML
-  private Label assignmentDeadline;
+  private Label name;
 
   private CommandBox commandBox;
 
@@ -46,14 +42,8 @@ public class AssignmentCard extends UiPart<Region> {
     this.assignment = assignment;
     this.commandBox = commandBox;
     id.setText(displayedIndex + ". ");
-    assignmentID.setText("Assignment ID: " + assignment.getId().toString());
-    if(assignment.isAssignedToCourse()) {
-      assignedCourseID.setText("Assigned To CourseID: " + assignment.getAssignedCourseID().toString());
-    } else {
-      assignedCourseID.setText("Assigned To CourseID: None");
-    }
-    assignmentName.setText(assignment.getName().fullName);
-    assignmentDeadline.setText("Deadline: " + assignment.getDeadline().toString());
+    assignmentID.setText(assignment.getId().toString());
+    name.setText(assignment.getName().fullName);
   }
 
   @Override
@@ -72,6 +62,13 @@ public class AssignmentCard extends UiPart<Region> {
     AssignmentCard card = (AssignmentCard) other;
     return id.getText().equals(card.id.getText())
         && assignment.equals(card.assignment);
+  }
+
+  @FXML
+  private void selectAssignment(){
+    String selectedAssignmentID = assignmentID.getText();
+    String commandText = "select aid/" + selectedAssignmentID;
+    commandBox.runCommand(commandText, "ASSIGNMENT");
   }
 
 }

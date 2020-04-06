@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -13,8 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
@@ -31,6 +32,7 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStudent.StudentAddressBook;
+import seedu.address.model.person.CompositeID;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
@@ -129,9 +131,7 @@ public class ModelManager extends BaseManager implements Model {
     for (Staff staff : filteredStaffs) {
       staff.processAssignedCourses(filteredCourses);
     }
-
-   instance = this;
-
+    instance = this;
   }
 
   public ModelManager() {
@@ -279,6 +279,8 @@ public class ModelManager extends BaseManager implements Model {
       return Constants.ENTITY_TYPE.COURSE;
     } else if (obj instanceof Assignment) {
       return Constants.ENTITY_TYPE.ASSIGNMENT;
+    } else if (obj instanceof Progress) {
+      return Constants.ENTITY_TYPE.PROGRESS;
     }
     throw new CommandException(
             "This command is accessing non-existent entity or entity not extending from ModelObject");
@@ -315,12 +317,18 @@ public class ModelManager extends BaseManager implements Model {
               PREDICATE_SHOW_ALL_ASSIGNMENTS,
               filteredAssignments,
               Constants.ENTITY_TYPE.ASSIGNMENT);
+    } else if (type == Constants.ENTITY_TYPE.PROGRESS) {
+      return Arrays.asList(
+              this.progressAddressBook,
+              PREDICATE_SHOW_ALL_PROGRESSES,
+              filteredProgresses,
+              Constants.ENTITY_TYPE.PROGRESS);
     }
     throw new CommandException(
             "This command is accessing non-existent entity or entity not extending from ModelObject");
   }
 
-  private List<Object> getEntityFactory(ModelObject obj) throws CommandException {
+  public List<Object> getEntityFactory(ModelObject obj) throws CommandException {
     return getEntityFactory(modelObjectToEntityType(obj));
   }
 
@@ -337,9 +345,35 @@ public class ModelManager extends BaseManager implements Model {
     return (ReadOnlyAddressBookGeneric) getEntityFactory(obj).get(0);
   }
 
+  public ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws  CommandException {
+    return (ReadOnlyAddressBookGeneric) getEntityFactory(type).get(0);
+  }
+
+  public Predicate getPredicateAll(Constants.ENTITY_TYPE type) throws CommandException {
+    return (Predicate) getEntityFactory(type).get(1);
+  }
+
   private Predicate getPredicateAll(ModelObject obj) throws CommandException {
     return (Predicate) getEntityFactory(obj).get(1);
   }
+
+  private FilteredList getFilterList(Constants.ENTITY_TYPE type) throws CommandException {
+    return (FilteredList) getEntityFactory(type).get(2);
+  }
+
+  private FilteredList getFilterList(ModelObject obj) throws CommandException {
+    return (FilteredList) getEntityFactory(obj).get(2);
+  }
+
+  private Constants.ENTITY_TYPE getEntityType(Constants.ENTITY_TYPE type) throws CommandException {
+    return (Constants.ENTITY_TYPE) getEntityFactory(type).get(3);
+  }
+
+  public Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
+    return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
+  }
+
+  // ======================================================================================================
 
   @Override
   public ReadOnlyAddressBookGeneric<Staff> getStaffAddressBook() {
@@ -352,14 +386,6 @@ public class ModelManager extends BaseManager implements Model {
   }
 
 
-  private FilteredList getFilterList(ModelObject obj) throws CommandException {
-    return (FilteredList) getEntityFactory(obj).get(2);
-
-  }
-
-  public Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException {
-    return (Constants.ENTITY_TYPE) getEntityFactory(obj).get(3);
-  }
   // ======================================================================================================
 
   // =================================== CRUD METHODS =====================================================
@@ -396,6 +422,12 @@ public class ModelManager extends BaseManager implements Model {
     requireAllNonNull(target, editedTarget);
     getAddressBook(target).set(target, editedTarget);
     postDataStorageChangeEvent(getReadOnlyAddressBook(target), getEntityType(target));
+  }
+
+  @Override
+  public ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException {
+    requireAllNonNull(id, type);
+    return getAddressBook(type).get(id);
   }
 
   // =========================== CRUD METHODS DONE VIA ID =====================================================
@@ -438,6 +470,18 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public Staff getStaff(ID staffID) {
     return staffAddressBook.get(staffID);
+  }
+
+  @Override
+  public boolean hasProgress(ID assignmentID, ID studentID) throws CommandException {
+    CompositeID target = new CompositeID(assignmentID, studentID);
+    return progressAddressBook.has(target);
+  }
+
+  @Override
+  public Progress getProgress(ID assignmentID, ID studentID) throws CommandException {
+    CompositeID target = new CompositeID(assignmentID, studentID);
+    return progressAddressBook.get(target);
   }
 
   // =====================================================================================================

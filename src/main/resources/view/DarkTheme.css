@@ -97,6 +97,14 @@
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
+.list-cell:filled:even #cardPaneProgress {
+    -fx-background-color: linear-gradient(from 80% 80% to 100% 100%, #31493C, #B3EFB2);
+
+}
+
+.list-cell:filled:odd #cardPaneProgress {
+    -fx-background-color: linear-gradient(from 20% 80% to 100% 100%, #7A9E7E, #E8F1F2);
+}
 
 .list-cell:filled:even #cardPaneCourse {
     -fx-background-color: linear-gradient(from 80% 80% to 100% 100%, #776EFF, #766EFF);
@@ -429,4 +437,10 @@
      -fx-border-color: derive(#000000, 70%);
      -fx-border-top-width: 1px;
      -fx-text-fill: white;
+}
+
+#detailedPanel {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #FF8989, #F7C29A);
+    -fx-text-fill: white;
+
 }

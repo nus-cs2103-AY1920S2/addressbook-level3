@@ -3,6 +3,7 @@ package seedu.address.logic.commands.commandEdit;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
@@ -26,6 +27,7 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -45,6 +47,7 @@ public class EditTeacherCommand extends Command {
           + "Existing values will be overwritten by the input values.\n"
           + "Parameters: INDEX (must be a positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
+          + PREFIX_GENDER + "m "
           + "[" + PREFIX_TEACHERID + "TEACHERID] "
           + "[" + PREFIX_PHONE + "PHONE] "
           + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -52,6 +55,7 @@ public class EditTeacherCommand extends Command {
           + "[" + PREFIX_ADDRESS + "ADDRESS] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 1 "
+          + PREFIX_GENDER + "m "
           + PREFIX_PHONE + "91234567 "
           + PREFIX_EMAIL + "johndoe@example.com";
 
@@ -83,6 +87,7 @@ public class EditTeacherCommand extends Command {
     assert teacherToEdit != null;
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
+    Gender updatedGender = editTeacherDescriptor.getGender().orElse(teacherToEdit.getGender());
     Level updatedLevel = editTeacherDescriptor.getLevel().orElse(teacherToEdit.getLevel());
     ID updatedID = editTeacherDescriptor.getID().orElse(teacherToEdit.getId());
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
@@ -91,7 +96,7 @@ public class EditTeacherCommand extends Command {
     Address updatedAddress = editTeacherDescriptor.getAddress().orElse(teacherToEdit.getAddress());
     Set<Tag> updatedTags = editTeacherDescriptor.getTags().orElse(teacherToEdit.getTags());
 
-    return new Staff(updatedName, updatedID, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
+    return new Staff(updatedName, updatedID, updatedGender, updatedLevel, updatedPhone, updatedEmail, updatedSalary, updatedAddress,
         updatedTags);
   }
 
@@ -141,6 +146,7 @@ public class EditTeacherCommand extends Command {
   public static class EditTeacherDescriptor {
 
     private Name name;
+    private Gender gender;
     private Level level;
     private ID teacherID;
     private Phone phone;
@@ -157,6 +163,7 @@ public class EditTeacherCommand extends Command {
      */
     public EditTeacherDescriptor(EditTeacherDescriptor toCopy) {
       setName(toCopy.name);
+      setGender(toCopy.gender);
       setLevel(toCopy.level);
       setID(toCopy.teacherID);
       setPhone(toCopy.phone);
@@ -175,6 +182,14 @@ public class EditTeacherCommand extends Command {
 
     public Optional<Name> getName() {
       return Optional.ofNullable(name);
+    }
+
+    public Optional<Gender> getGender() {
+      return Optional.ofNullable(gender);
+    }
+
+    public void setGender(Gender gender) {
+      this.gender = gender;
     }
 
     public Optional<Level> getLevel() {
@@ -261,6 +276,7 @@ public class EditTeacherCommand extends Command {
       EditTeacherDescriptor e = (EditTeacherDescriptor) other;
 
       return getName().equals(e.getName())
+          && getGender().equals(e.getGender())
           && getID().equals(e.getID())
           && getPhone().equals(e.getPhone())
           && getEmail().equals(e.getEmail())

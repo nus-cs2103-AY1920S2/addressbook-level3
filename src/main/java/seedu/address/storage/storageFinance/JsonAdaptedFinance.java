@@ -26,6 +26,7 @@ class JsonAdaptedFinance {
   public static final String MISSING_FIELD_MESSAGE_FORMAT = "Finance's %s field is missing!";
 
   private final String name;
+  private final String financeID;
   private final String financeType;
   private final String date;
   private final String amount;
@@ -39,6 +40,7 @@ class JsonAdaptedFinance {
    */
   @JsonCreator
   public JsonAdaptedFinance(@JsonProperty("name") String name,
+      @JsonProperty("financeID") String financeID,
       @JsonProperty("financeType") String financeType,
       @JsonProperty("date") String date,
       @JsonProperty("amount") String amount,
@@ -47,6 +49,7 @@ class JsonAdaptedFinance {
       @JsonProperty("staffid") String staffid,
       @JsonProperty("tagged") List<JsonFinanceAdaptedTag> tagged) {
     this.name = name;
+    this.financeID = financeID;
     this.financeType = financeType;
     this.date = date;
     this.amount = amount;
@@ -63,6 +66,7 @@ class JsonAdaptedFinance {
    */
   public JsonAdaptedFinance(Finance source) {
     name = source.getName().fullName;
+    financeID = source.getId().toString();
     financeType = source.getFinanceType().toString();
     date = source.getDate().toString();
     amount = source.getAmount().value;
@@ -94,6 +98,15 @@ class JsonAdaptedFinance {
       throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
     }
     final Name modelName = new Name(name);
+
+    if (financeID == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
+    }
+    if (!ID.isValidId(financeID)) {
+      throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
+    }
+    final ID modelId = new ID(financeID);
 
     if (financeType == null) {
       throw new IllegalValueException(
@@ -150,7 +163,7 @@ class JsonAdaptedFinance {
     final ID modelStaffID = new ID(staffid);
 
     final Set<Tag> modelTags = new HashSet<>(financeTags);
-    return new Finance(modelName, modelFinanceType, modelDate, modelAmount, modelCourseID, modelStudentID, modelStaffID, modelTags);
+    return new Finance(modelName, modelId, modelFinanceType, modelDate, modelAmount, modelCourseID, modelStudentID, modelStaffID, modelTags);
   }
 
 }
