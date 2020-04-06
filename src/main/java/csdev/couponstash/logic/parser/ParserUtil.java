@@ -41,6 +41,10 @@ public class ParserUtil {
     public static final String MESSAGE_INDEX_OVERFLOW =
             String.format("Index is too large. Why do you need so many coupons? "
             + "Try something less or equals to than %d.", Integer.MAX_VALUE);
+    // used to reject user input for text that is too long
+    // to be displayed properly by Coupon Stash
+    public static final String MESSAGE_STRING_TOO_LONG = "\"%1$s\" is too long! Length of"
+            + " %2$d exceeds the limit of %3$d characters.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -141,7 +145,7 @@ public class ParserUtil {
                     throw new ParseException(Savings.MULTIPLE_NUMBER_AMOUNTS);
                 }
             } else {
-                String trimmedSaveable = str.trim();
+                String trimmedSaveable = checkStringLength(str.trim(), Saveable.STRING_LENGTH_LIMIT);
                 // numbers might be a mistake by the user
                 if (trimmedSaveable.matches(".*\\d.*")) {
                     throw new ParseException(
@@ -302,7 +306,7 @@ public class ParserUtil {
      */
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
-        String trimmedTag = tag.trim();
+        String trimmedTag = checkStringLength(tag.trim(), Tag.STRING_LENGTH_LIMIT);
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
@@ -337,5 +341,25 @@ public class ParserUtil {
         RemindDate remind = new RemindDate();
         remind.setRemindDate(LocalDate.parse(trimmedDate, DATE_FORMATTER));
         return remind;
+    }
+
+    /**
+     * Checks if a String exceeds a given limit on the
+     * number of characters, to avoid causing problems
+     * with the rendering of text on the UI.
+     *
+     * @param s The String to be checked.
+     * @param limit The int representing the character limit.
+     * @return Returns the original String s if it is
+     *         determined to fit within the limit.
+     * @throws ParseException If the String s exceeds the limit.
+     */
+    private static String checkStringLength(String s, int limit) throws ParseException {
+        int currentLength = s.length();
+        if (currentLength > limit) {
+            throw new ParseException(String.format(
+                    ParserUtil.MESSAGE_STRING_TOO_LONG, s, currentLength, limit));
+        }
+        return s;
     }
 }

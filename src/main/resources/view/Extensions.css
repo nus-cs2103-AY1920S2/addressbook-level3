@@ -200,3 +200,10 @@
 #summary-tab #savings-chart #days-axis .axis-tick-mark {
   -fx-stroke-width: 0;
 }
+
+#summary-tab #savings-chart #days-axis .axis-label {
+  -fx-text-fill: white;
+  -fx-font-family: arial;
+  -fx-font-size: 11;
+  -fx-font-style: italic;
+}
