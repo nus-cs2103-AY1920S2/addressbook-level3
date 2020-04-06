@@ -257,7 +257,7 @@
     -fx-text-fill: black;
 }
 
-#suggestionsText {
+#responseText {
     -fx-background-color: #E8E7E4;
     -fx-background-radius: 10px;
     -fx-border-color: white;
