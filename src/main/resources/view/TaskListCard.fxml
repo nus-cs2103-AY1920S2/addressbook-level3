@@ -71,7 +71,12 @@
                             <padding>
                                 <Insets right="10" top="10" />
                             </padding>
-                            <Label fx:id="priority" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="233.0" styleClass="cell_small_label" text="\$priority" textAlignment="RIGHT" />
+                     <HBox prefHeight="80.0" prefWidth="309.0">
+                        <children>
+                           <Label id="recurring" fx:id="recurring" alignment="CENTER" prefHeight="17.0" prefWidth="257.0" styleClass="recurring" textAlignment="RIGHT" />
+                                  <Label fx:id="priority" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="256.0" styleClass="cell_small_label" text="\$priority" textAlignment="RIGHT" />
+                        </children>
+                     </HBox>
                         </VBox>
                     </HBox>
                <GridPane.margin>
