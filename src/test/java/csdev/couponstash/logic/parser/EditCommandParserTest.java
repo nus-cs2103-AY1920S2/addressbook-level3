@@ -2,6 +2,7 @@ package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import static csdev.couponstash.logic.commands.CommandTestUtil.CONDITION_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_LIMIT_DESC;
@@ -17,6 +18,7 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.START_DATE_DESC_A
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.USAGE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_CONDITION_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_BOB;
@@ -170,6 +172,12 @@ public class EditCommandParserTest {
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditCouponDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+
+        // condition
+        userInput = targetIndex.getOneBased() + CONDITION_DESC_AMY;
+        descriptor = new EditCouponDescriptorBuilder().withCondition(VALID_CONDITION_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }

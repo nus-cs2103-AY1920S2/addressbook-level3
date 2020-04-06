@@ -103,6 +103,11 @@ public class EditCommandParser implements Parser<EditCommand> {
                     .getValue(CliSyntax.PREFIX_LIMIT).get()));
         }
 
+        if (argMultimap.getValue(CliSyntax.PREFIX_CONDITION).isPresent()) {
+            editCouponDescriptor.setCondition(ParserUtil.parseCondition(argMultimap
+                    .getValue(CliSyntax.PREFIX_CONDITION).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))
                 .ifPresent(editCouponDescriptor::setTags);
 
