@@ -1,5 +1,6 @@
 package com.notably.logic.correction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,13 +47,19 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
     public CorrectionResult<String> correct(String uncorrected) {
         Objects.requireNonNull(uncorrected);
 
-        String closestString = null;
         int closestDistance = Integer.MAX_VALUE;
         for (String option : options) {
             int distance = editDistanceCalculator.calculateDistance(uncorrected, option);
             if (distance < closestDistance) {
-                closestString = option;
                 closestDistance = distance;
+            }
+        }
+
+        List<String> correctedItems = new ArrayList<>();
+        for (String option : options) {
+            int distance = editDistanceCalculator.calculateDistance(uncorrected, option);
+            if (distance == closestDistance) {
+                correctedItems.add(option);
             }
         }
 
@@ -60,11 +67,11 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
             return new CorrectionResult<>(CorrectionStatus.FAILED);
         }
 
-        if (closestString.equals(uncorrected)) {
-            return new CorrectionResult<>(CorrectionStatus.UNCHANGED, uncorrected);
+        if (correctedItems.equals(List.of(uncorrected))) {
+            return new CorrectionResult<>(CorrectionStatus.UNCHANGED, List.of(uncorrected));
         }
 
-        return new CorrectionResult<String>(CorrectionStatus.CORRECTED, closestString);
+        return new CorrectionResult<String>(CorrectionStatus.CORRECTED, correctedItems);
     }
 }
 
