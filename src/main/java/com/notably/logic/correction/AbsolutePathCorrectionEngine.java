@@ -146,16 +146,14 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
             String inputComponent = inputComponents.get(i);
             String referenceComponent = referenceComponents.get(i);
 
-            // Check for possible forward matching
-            if (forwardMatch
-                    && i == inputComponents.size() - 1
-                    && referenceComponent.toLowerCase().startsWith(inputComponent.toLowerCase())) {
-                i++;
-                continue;
+            if (forwardMatch && i == inputComponents.size() - 1
+                    && inputComponent.length() < referenceComponent.length()) {
+                distance += editDistanceCalculator.calculateDistance(inputComponent,
+                        referenceComponent.substring(0, inputComponent.length()));
+            } else {
+                distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
             }
 
-            // If no forward matching, we calculate the edit distance between the two components
-            distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
             i++;
         }
 
