@@ -153,7 +153,7 @@ You will obtain "no clients listed!".
 
 /photo
 
-This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to type `find-c bryan` in this case.
+This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to type `find-c bryan`.
 
 /photo
 
@@ -168,7 +168,7 @@ If you typed `find-c bryan low`,
 
 /photo
 
-You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice low`.
+You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice Low`.
 
 /photo
 
