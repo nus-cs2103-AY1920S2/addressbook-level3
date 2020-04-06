@@ -19,7 +19,7 @@ else ([Command is not 'list done'])
                 :UpdateFilteredList with predicate
                 that always result to true (List all orders);
                 :Returns Message that indicates successful
-                command to list all orders 
+                command to list all orders
                 (Both delivered and undelivered);
             else ([Command is neither of the three commands])
                 :Returns Message that indicates
