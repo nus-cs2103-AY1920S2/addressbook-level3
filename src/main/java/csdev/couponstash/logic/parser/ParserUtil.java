@@ -39,9 +39,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     // used to reject user input for text that is too long
     // to be displayed properly by Coupon Stash
-    public static final String MESSAGE_STRING_TOO_LONG = "$1%s is too long! Length exceeds"
-            + " the limit of $2%d characters.";
-    public static final int SAVEABLES_STRING_LENGTH_LIMIT = 100;
+    public static final String MESSAGE_STRING_TOO_LONG = "\"%1$s\" is too long! Length of"
+            + " %2$d exceeds the limit of %3$d characters.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -137,7 +136,7 @@ public class ParserUtil {
                     throw new ParseException(Savings.MULTIPLE_NUMBER_AMOUNTS);
                 }
             } else {
-                String trimmedSaveable = str.trim();
+                String trimmedSaveable = checkStringLength(str.trim(), Saveable.STRING_LENGTH_LIMIT);
                 // numbers might be a mistake by the user
                 if (trimmedSaveable.matches(".*\\d.*")) {
                     throw new ParseException(
@@ -347,8 +346,10 @@ public class ParserUtil {
      * @throws ParseException If the String s exceeds the limit.
      */
     private static String checkStringLength(String s, int limit) throws ParseException {
-        if (s.length() > limit) {
-            throw new ParseException(String.format(ParserUtil.MESSAGE_STRING_TOO_LONG, s, limit));
+        int currentLength = s.length();
+        if (currentLength > limit) {
+            throw new ParseException(String.format(
+                    ParserUtil.MESSAGE_STRING_TOO_LONG, s, currentLength, limit));
         }
         return s;
     }
