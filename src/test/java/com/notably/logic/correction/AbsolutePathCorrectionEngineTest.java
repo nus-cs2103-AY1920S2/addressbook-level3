@@ -3,6 +3,8 @@ package com.notably.logic.correction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -40,12 +42,13 @@ public class AbsolutePathCorrectionEngineTest {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, false);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/y2s2/Cs2016");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/y2s2/Cs2103t/Tutorials/tutorial");
 
-        final AbsolutePath expectedCorrectedItem = TypicalBlockModel.PATH_TO_CS2106;
+        final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1,
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2);
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectedStatus, expectedCorrectedItem);
+                expectedCorrectedStatus, expectedCorrectedItems);
 
         CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
@@ -72,10 +75,10 @@ public class AbsolutePathCorrectionEngineTest {
                 model, distanceThreshold, false);
         final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/CS2106");
 
-        final AbsolutePath expectedCorrectedItem = uncorrectedInput;
+        final List<AbsolutePath> expectedCorrectedItems = List.of(uncorrectedInput);
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.UNCHANGED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectionStatus, expectedCorrectedItem);
+                expectedCorrectionStatus, expectedCorrectedItems);
 
         CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
@@ -86,12 +89,13 @@ public class AbsolutePathCorrectionEngineTest {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2103t/Lctre");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2103t/tutorials/tutrial");
 
-        final AbsolutePath expectedCorrectedItem = TypicalBlockModel.PATH_TO_CS2103T_LECTURES;
+        final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1,
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2);
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectionStatus, expectedCorrectedItem);
+                expectedCorrectionStatus, expectedCorrectedItems);
 
         CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);

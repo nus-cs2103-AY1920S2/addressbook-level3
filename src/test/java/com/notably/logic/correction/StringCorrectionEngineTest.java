@@ -31,12 +31,12 @@ public class StringCorrectionEngineTest {
     public void correct_withinDistanceThreshold_correctionDone() {
         final int distanceThreshold = 2;
         final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
-        final String uncorrectedInput = "nrw";
+        final String uncorrectedInput = "NRW";
 
-        final String expectedCorrectedItem = "new";
+        final List<String> expectedCorrectedItems = List.of("new");
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectedStatus, expectedCorrectedItem);
+                expectedCorrectedStatus, expectedCorrectedItems);
 
         CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
@@ -46,7 +46,7 @@ public class StringCorrectionEngineTest {
     public void correct_exceedDistanceThreshold_correctionFailed() {
         final int distanceThreshold = 1;
         final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
-        final String uncorrectedInput = "opne";
+        final String uncorrectedInput = "OPne";
 
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.FAILED;
         final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(expectedCorrectedStatus);
@@ -61,25 +61,10 @@ public class StringCorrectionEngineTest {
         final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
         final String uncorrectedInput = "help";
 
-        final String expectedCorrectedItem = "help";
+        final List<String> expectedCorrectedItems = List.of("help");
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.UNCHANGED;
         final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectionStatus, expectedCorrectedItem);
-
-        CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
-        assertEquals(expectedCorrectionResult, correctionResult);
-    }
-
-    @Test
-    public void correct_differentCase() {
-        final int distanceThreshold = 1;
-        final StringCorrectionEngine correctionEngine = new StringCorrectionEngine(OPTIONS, distanceThreshold);
-        final String uncorrectedInput = "HElP";
-
-        final String expectedCorrectedItem = "help";
-        final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
-        final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectionStatus, expectedCorrectedItem);
+                expectedCorrectionStatus, expectedCorrectedItems);
 
         CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
