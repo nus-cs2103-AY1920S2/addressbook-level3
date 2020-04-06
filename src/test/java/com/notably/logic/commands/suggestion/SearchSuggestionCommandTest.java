@@ -19,8 +19,6 @@ import com.notably.testutil.TypicalBlockModel;
 public class SearchSuggestionCommandTest {
     private static Model model;
 
-    private static final String COMMAND_WORD = "search";
-
     @BeforeAll
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
