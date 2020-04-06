@@ -32,8 +32,8 @@ TaTracker --> "1 " UniqueModuleList
 UniqueModuleList -right-> "*" Module
 
 Module --> "1" UniqueGroupList
-Module --> "1  " UniqueSessionList
-Module --> "1  " UniqueDoneSessionList
+TaTracker --> "1  " UniqueSessionList
+TaTracker --> "1  " UniqueDoneSessionList
 
 UniqueGroupList -left-> "*" Group
 UniqueSessionList -up-> "*" Session
