@@ -2,8 +2,6 @@ package seedu.recipe.logic.parser;
 
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import seedu.recipe.logic.commands.FindCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
@@ -25,9 +23,18 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        String[] nameKeywords = trimmedArgs.split("\\s+", 2);
+        if (nameKeywords[0].toLowerCase().equals("/strict")) {
+            if (nameKeywords.length < 2) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+            return new FindCommand(new NameContainsKeywordsPredicate(true,
+                    nameKeywords[1].replaceAll("\\s{2,}", " ")));
+        } else {
+            return new FindCommand(new NameContainsKeywordsPredicate(false,
+                    trimmedArgs.replaceAll("\\s{2,}", " ")));
+        }
     }
 
 }

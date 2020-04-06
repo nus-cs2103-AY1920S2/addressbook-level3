@@ -12,7 +12,6 @@ import static seedu.recipe.testutil.TypicalRecords.CHOCOLATE_CAKE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -129,8 +128,8 @@ public class ModelManagerTest {
                 differentRecordBook, plannedBook)));
 
         // different filteredList -> returns false
-        String[] keywords = CAESAR_SALAD.getName().fullName.split("\\s+");
-        modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String keywords = CAESAR_SALAD.getName().fullName;
+        modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(true, keywords));
 
         assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs, recordBook, plannedBook)));
 
