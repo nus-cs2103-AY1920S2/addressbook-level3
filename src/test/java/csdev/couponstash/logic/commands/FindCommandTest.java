@@ -56,7 +56,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_COUPONS_FOUND, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -69,7 +69,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
 
-        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

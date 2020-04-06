@@ -29,7 +29,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
         // Put non-archived at the top first
-        model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        model.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
 
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         model.updateFilteredCouponList(predicate);

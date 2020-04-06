@@ -244,6 +244,13 @@ public class Coupon {
     }
 
     /**
+     * Returns true if the coupon has been used before.
+     */
+    public boolean isUsed() {
+        return Integer.parseInt(this.usage.value) > 0;
+    }
+
+    /**
      * Returns true if both coupons have the same name, and all
      * of the fields of promo code, savings for each use, expiry date or
      * start date is the same. However, if either of the coupon is archived,

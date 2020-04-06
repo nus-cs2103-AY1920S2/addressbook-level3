@@ -65,6 +65,8 @@ public class CouponBuilder {
     private Condition condition;
     private Archived archived;
 
+    private boolean isUsageChanged = false;
+
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
         promoCode = new PromoCode(DEFAULT_PROMO_CODE);
@@ -175,6 +177,7 @@ public class CouponBuilder {
      */
     public CouponBuilder withUsage(String usage) {
         this.usage = new Usage(usage);
+        this.isUsageChanged = true;
         return this;
     }
 
@@ -215,13 +218,13 @@ public class CouponBuilder {
      * @return A new Coupon.
      */
     public Coupon build() {
-        if (Usage.isUsageAtLimit(usage, limit)) {
+        boolean isUsageAtLimit = Usage.isUsageAtLimit(usage, limit);
+        if (isUsageChanged && isUsageAtLimit) {
             archived = new Archived("true");
         }
 
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
                 usage, limit, tags, totalSavings, remindDate, condition, archived);
-
     }
 
 }
