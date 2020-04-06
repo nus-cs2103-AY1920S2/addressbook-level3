@@ -3,17 +3,6 @@ skinparam backgroundColor #ffffff
 skinparam classAttributeIconSize 0
 hide circle
 
-class InsertCommandParser implements Parser {
-    /' Methods '/
-    + parse(args : String) : InsertCommand
-    - arePrefixesPresent(argumentMultimap : ArgumentMultimap, prefixes : Prefix...) : boolean
-
-}
-
-interface Parser<T> <<interface>> {
-    parse(userInput : String) : ClearCommand
-}
-
 abstract class "{abstract}\nCommand" {
     + {abstract} execute(model : Model) : CommandResult
 }
@@ -23,28 +12,10 @@ interface Model <<interface>> {
     + hasOrder(Order order) : boolean
 }
 
-class ArgumentMultimap {
-    + getValue(prefix : Prefix) : Optional<String>
-}
-
-class Prefix {
-    - prefix : String
-}
-
 abstract class "{abstract}\nParcel" {
-    + getTid() : TransactionId
-    + getName() : Name
-    + getPhone() : Phone
-    + getEmail() : Email
-    + getAddress() : Address
-    + getTimestamp() : Timestamp
-    + getWarehouse() : Warehouse
-    + getCash() : CashOnDelivery
-    + getComment() : Comment
-    + getItemType() : TypeOfItem
-    + isDelivered() : boolean
-    + setDeliveryStatus(status : boolean) : void
+
 }
+
 class Order {
     /' Fields '/
     - tid : TransactionId
@@ -80,8 +51,6 @@ class InsertCommand implements Model {
 }
 
 InsertCommand --up|> "{abstract}\nCommand"
-InsertCommandParser ..> ArgumentMultimap
-InsertCommandParser ..> Prefix
 InsertCommand --> Order
 Order --right|> "{abstract}\nParcel"
 @enduml

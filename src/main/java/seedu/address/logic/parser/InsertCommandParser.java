@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PREFIXES;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
@@ -12,6 +13,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.InsertCommand;
@@ -40,6 +43,18 @@ public class InsertCommandParser implements Parser<InsertCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public InsertCommand parse(String args) throws ParseException {
+        String missingMessage = MESSAGE_EMPTY_PREFIXES;
+
+        List<Prefix> prefixes = new ArrayList<>();
+        prefixes.add(PREFIX_TID);
+        prefixes.add(PREFIX_NAME);
+        prefixes.add(PREFIX_PHONE);
+        prefixes.add(PREFIX_EMAIL);
+        prefixes.add(PREFIX_ADDRESS);
+        prefixes.add(PREFIX_DELIVERY_TIMESTAMP);
+        prefixes.add(PREFIX_WAREHOUSE);
+        prefixes.add(PREFIX_COD);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                         PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_COD, PREFIX_TYPE,
@@ -48,8 +63,26 @@ public class InsertCommandParser implements Parser<InsertCommand> {
                 PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE,
                 PREFIX_PHONE, PREFIX_EMAIL, PREFIX_COD)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertCommand.MESSAGE_USAGE));
+
+            if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_ADDRESS,
+                    PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE,
+                    PREFIX_PHONE, PREFIX_EMAIL, PREFIX_COD)) {
+                for (Prefix p : prefixes) {
+                    if (!arePrefixesPresent(argMultimap, p)) {
+                        missingMessage = missingMessage + p + "\n";
+                    }
+                }
+
+                missingMessage = missingMessage + "%1$s";
+
+                throw new ParseException(String.format(missingMessage, InsertCommand.MESSAGE_USAGE));
+
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertCommand.MESSAGE_USAGE));
+            }
         }
+
+        ParserUtil.parse(prefixes, argMultimap);
 
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

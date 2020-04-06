@@ -1,0 +1,28 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class InsertCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : InsertCommand
+    - arePrefixesPresent(argumentMultimap : ArgumentMultimap, prefixes : Prefix...) : boolean
+
+}
+
+interface Parser<T> <<interface>> {
+    parse(userInput : String) : ClearCommand
+}
+
+class ArgumentMultimap {
+    + getValue(prefix : Prefix) : Optional<String>
+}
+
+class Prefix {
+    - prefix : String
+}
+
+InsertCommandParser ..> ArgumentMultimap
+InsertCommandParser ..> Prefix
+
+@enduml

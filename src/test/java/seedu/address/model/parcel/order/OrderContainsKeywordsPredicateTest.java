@@ -118,21 +118,21 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withPhone("97555838").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("999", "98765432")),
-                new OrderBuilder().withPhone("999").build()
+                new OrderContainsKeywordsPredicate(Arrays.asList("99999999", "98765432")),
+                new OrderBuilder().withPhone("99999999").build()
             ),
             // Address checks
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang")),
-                new OrderBuilder().withAddress("Lorong 10 Geylang st 10").build()
+                new OrderBuilder().withAddress("Lorong 10 Geylang st 10 S142142").build()
             ),
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("Geylang", "Serangoon", "Tampines")),
-                new OrderBuilder().withAddress("Tampines 10").build()
+                new OrderBuilder().withAddress("Tampines 10 S469721").build()
             ),
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("cHuAn", "GeYLaNg")),
-                new OrderBuilder().withAddress("geylang lorong").build()
+                new OrderBuilder().withAddress("geylang lorong S140621").build()
             ),
             // Delivery date and timestamp checks
             Arguments.of(
@@ -165,8 +165,8 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withWarehouse("Yishun Old").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("123456", "760844")),
-                new OrderBuilder().withWarehouse("Yishun st 71 blk 777 760844").build()
+                new OrderContainsKeywordsPredicate(Arrays.asList("Yishun", "S760844")),
+                new OrderBuilder().withWarehouse("Yishun st 71 blk 777 S760844").build()
             ),
             // Cash checks
             Arguments.of(
@@ -247,38 +247,50 @@ public class OrderContainsKeywordsPredicateTest {
             // check no matching keywords given in phone
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("999")),
-                new OrderBuilder().withPhone("12345678").build()
+                new OrderBuilder().withPhone("92345678").build()
             ),
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("978", "654")),
-                new OrderBuilder().withPhone("879").build()
+                new OrderBuilder().withPhone("87912345").build()
             ),
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("999", "888")),
-                new OrderBuilder().withPhone("99988899").build()
+                new OrderBuilder().withPhone("91981899").build()
             ),
             // check no matching keywords given in address
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("Yishun", "st", "81")),
-                new OrderBuilder().withAddress("Jurong West 36").build()
+                new OrderContainsKeywordsPredicate(Arrays.asList("Yishun", "Ave")),
+                new OrderBuilder().withAddress("Jurong West 36 S619242").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020", "1345", "01")),
-                new OrderBuilder().withTimeStamp("2040-02-03 1000").build()
+                new OrderContainsKeywordsPredicate(Arrays.asList("Marsiling")),
+                new OrderBuilder().withAddress("Hougang st 52 Blk 567, #12-34 S538567").build()
+            ),
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("Telok", ";Blangah")),
+                new OrderBuilder().withAddress("1 Marina boulevard S111111").build()
             ),
             // check no matching keywords given in time stamp
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("2020", "1345", "01")),
                 new OrderBuilder().withTimeStamp("2040-02-03 1000").build()
             ),
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020", "1345", "01")),
+                new OrderBuilder().withTimeStamp("2100-04-09 1400").build()
+            ),
             // check no matching keywords given in warehouse
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("Toh", "134544", "#05-11")),
+                new OrderContainsKeywordsPredicate(Arrays.asList("Hougang")),
                 new OrderBuilder().withWarehouse("Geylang Street 81, #02-30 S608831").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("Toh", "134544", "05-11")),
+                new OrderContainsKeywordsPredicate(Arrays.asList("Woodlands")),
                 new OrderBuilder().withWarehouse("Geylang Street 81, #05-11 S134544").build()
+            ),
+            Arguments.of(
+                new OrderContainsKeywordsPredicate(Arrays.asList("Geylang")),
+                new OrderBuilder().withWarehouse("5 Toh Guan Rd S456123").build()
             ),
             // check no matching keywords given in COD
             Arguments.of(
@@ -363,13 +375,13 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withTid("12345abc").build()),
             // Phone checking
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Collections.singletonList("12345678"),
+                new OrderContainsKeywordsPredicate(Collections.singletonList("92345678"),
                     am2),
-                new OrderBuilder().withPhone("12345678").build()),
+                new OrderBuilder().withPhone("92345678").build()),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("12345678", "111111"),
+                new OrderContainsKeywordsPredicate(Arrays.asList("92345678", "111111"),
                     am2),
-                new OrderBuilder().withPhone("12345678").build()),
+                new OrderBuilder().withPhone("92345678").build()),
             // Name checking
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("Alice"),
@@ -385,17 +397,17 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withName("Alice Bob").build()),
             // Address checking
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"),
+                new OrderContainsKeywordsPredicate(Collections.singletonList("S142142"),
                     am4),
-                new OrderBuilder().withAddress("Geylang").build()),
+                new OrderBuilder().withAddress("Geylang S142142").build()),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("Geylang", "street"),
+                new OrderContainsKeywordsPredicate(Arrays.asList("Geylang", "street", "S142345"),
                     am4),
-                new OrderBuilder().withAddress("Geylang street").build()),
+                new OrderBuilder().withAddress("Geylang street S142345").build()),
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("geYlAnG"),
                     am4),
-                new OrderBuilder().withAddress("Geylang Street").build()),
+                new OrderBuilder().withAddress("Geylang Street S149987").build()),
             // Timestamp checking
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("2020-10-10", "1500"),
@@ -471,12 +483,12 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withName("Alice Bob").build()),
             // Phone checking not in given prefix
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Collections.singletonList("12345678"), am1),
-                new OrderBuilder().withPhone("12345678").build()),
+                new OrderContainsKeywordsPredicate(Collections.singletonList("823"), am1),
+                new OrderBuilder().withPhone("92345678").build()),
             // Address checking not in given prefix
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), am2),
-                new OrderBuilder().withAddress("Geylang").build()),
+                new OrderBuilder().withAddress("Geylang S142142").build()),
             // Warehouse checking not in given prefix
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), am2),

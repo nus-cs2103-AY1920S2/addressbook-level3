@@ -152,21 +152,21 @@ class ReturnOrderContainsKeywordsPredicateTest {
                 new ReturnOrderBuilder().withPhone("97555838").build()
             ),
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("999", "98765432")),
-                new ReturnOrderBuilder().withPhone("999").build()
+                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("99999999", "98765432")),
+                new ReturnOrderBuilder().withPhone("99999999").build()
             ),
             // Address checks
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("Geylang")),
-                new ReturnOrderBuilder().withAddress("Lorong 10 Geylang st 10").build()
+                new ReturnOrderBuilder().withAddress("Lorong 10 Geylang st 10 S144441").build()
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Geylang", "Serangoon", "Tampines")),
-                new ReturnOrderBuilder().withAddress("Tampines 10").build()
+                new ReturnOrderBuilder().withAddress("Tampines 10 S610321").build()
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("cHuAn", "GeYLaNg")),
-                new ReturnOrderBuilder().withAddress("geylang lorong").build()
+                new ReturnOrderBuilder().withAddress("geylang lorong S145701").build()
             ),
             // Delivery date and timestamp checks
             Arguments.of(
@@ -179,7 +179,7 @@ class ReturnOrderContainsKeywordsPredicateTest {
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("2020-10-01", "1500", "2020-10-02", "1400")),
-                new ReturnOrderBuilder().withTimeStamp("2020-05-05 1500").build()
+                new ReturnOrderBuilder().withTimeStamp("2020-10-01 1500").build()
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("2020-05-05", "1300", "2020-10-02", "1400")),
@@ -274,11 +274,11 @@ class ReturnOrderContainsKeywordsPredicateTest {
             // check no matching keywords given in phone
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("999")),
-                new ReturnOrderBuilder().withPhone("12345678").build()
+                new ReturnOrderBuilder().withPhone("82345678").build()
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("978", "654")),
-                new ReturnOrderBuilder().withPhone("879").build()
+                new ReturnOrderBuilder().withPhone("87912234").build()
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("999", "888")),
@@ -287,7 +287,7 @@ class ReturnOrderContainsKeywordsPredicateTest {
             // check no matching keywords given in address
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Yishun", "st", "81")),
-                new ReturnOrderBuilder().withAddress("Jurong West 36").build()
+                new ReturnOrderBuilder().withAddress("Jurong West 36 S728192").build()
             ),
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("2020", "1345", "01")),
@@ -379,11 +379,11 @@ class ReturnOrderContainsKeywordsPredicateTest {
                 new ReturnOrderBuilder().withTid("12345abc").build()),
             // Phone checking
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("12345678"), amPhone),
-                new ReturnOrderBuilder().withPhone("12345678").build()),
+                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("82345678"), amPhone),
+                new ReturnOrderBuilder().withPhone("82345678").build()),
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("12345678", "111111"), amPhone),
-                new ReturnOrderBuilder().withPhone("12345678").build()),
+                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("92345678", "111111"), amPhone),
+                new ReturnOrderBuilder().withPhone("92345678").build()),
             // Name checking
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("Alice"), amName),
@@ -397,13 +397,14 @@ class ReturnOrderContainsKeywordsPredicateTest {
             // Address checking
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), amAddress),
-                new ReturnOrderBuilder().withAddress("Geylang").build()),
+                new ReturnOrderBuilder().withAddress("Geylang S123456").build()),
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Geylang", "street"), amAddress),
-                new ReturnOrderBuilder().withAddress("Geylang street").build()),
+                new ReturnOrderContainsKeywordsPredicate(Arrays.asList("Geylang", "street", "S654321"), amAddress),
+                new ReturnOrderBuilder().withAddress("Geylang street S654321").build()),
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("geYlAnG"), amAddress),
-                new ReturnOrderBuilder().withAddress("Geylang Street").build()),
+                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("geYlAnG"),
+                        amAddress),
+                new ReturnOrderBuilder().withAddress("Geylang Street S654321").build()),
             // Timestamp checking
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Arrays.asList("2020-10-10", "1500"), amRts),
@@ -468,12 +469,12 @@ class ReturnOrderContainsKeywordsPredicateTest {
                 new ReturnOrderBuilder().withName("Alice Bob").build()),
             // Phone checking not in given prefix
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("12345678"), am1),
-                new ReturnOrderBuilder().withPhone("12345678").build()),
+                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("822"), am1),
+                new ReturnOrderBuilder().withPhone("82345678").build()),
             // Address checking not in given prefix
             Arguments.of(
-                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), am2),
-                new ReturnOrderBuilder().withAddress("Geylang").build()),
+                new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("Geylan"), am2),
+                new ReturnOrderBuilder().withAddress("Geylang S142222").build()),
             // Warehouse checking not in given prefix
             Arguments.of(
                 new ReturnOrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), am2),

@@ -9,13 +9,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Please enter a Singapore address with it's postal code. "
+            + "\n"
+            + "The Postal Code should start with the letter 'S'";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * The VALIDATION_REGEX checks if the address has a
+     * postal code in it. The postal code should start with a letter 'S'.
+     * Valid: 123 Serangoon Garden Blk 20 S537992
+     * Invalid: 123 Serangoon Garden Blk 20
+     *
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "^(.*?)S\\d{6}$";
 
     public final String value;
 

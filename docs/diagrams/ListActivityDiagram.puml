@@ -1,34 +1,33 @@
 @startuml
 start
 :User inputs List Command;
-:LogicManager parse command to OrderBookParser;
-:OrderBookParser creates a new ListCommand object;
+
 If () then ([Command is 'list done'])
     :UpdateFilteredList with predicate to list all
     delivered orders;
-    :Create a new CommandResult object with Message that
-    says list all delivered orders;
+    :Returns Message that indicates successful
+     command to list all delivered orders;
 else ([Command is not 'list done'])
     If () then ([Command is 'list undone])
         :UpdateFilteredList with predicate to list all
         orders not delivered;
-        :Create a new CommandResult object with
-        Message that says list all undelivered orders;
+        :Returns Message that indicates successful
+        command to list all orders not delivered;
         else ([Command is not 'list undone'])
             If () then ([Command is 'list'])
                 :UpdateFilteredList with predicate
                 that always result to true (List all orders);
-                :Create a new CommandResult object with Message that
-                says list all orders;
+                :Returns Message that indicates successful
+                command to list all orders
+                (Both delivered and undelivered);
             else ([Command is neither of the three commands])
-                :Returns a new CommandResult object with Message that
-                says that it is an invalid command;
+                :Returns Message that indicates
+                 an invalid command;
 
         endif
 endif
 endif
-:LogicManager prints message to
-user with CommandResult object;
+:LogicManager prints message to user;
 
 stop
 @enduml
