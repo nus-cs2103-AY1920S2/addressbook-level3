@@ -11,6 +11,7 @@ import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.ui.tab.Tab;
 
 public class ClearCommandTest {
 
@@ -19,7 +20,9 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+        assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -31,7 +34,9 @@ public class ClearCommandTest {
 
         expectedModel.setRecipeBook(new RecipeBook());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+        assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
 }

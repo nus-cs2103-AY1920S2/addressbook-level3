@@ -24,6 +24,7 @@ import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -81,7 +82,9 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("/strict Boiled Omelet Egg");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Arrays.asList(BOILED_CHICKEN, OMELET, STEAMED_EGG), model.getFilteredRecipeList());
     }
 
@@ -91,7 +94,9 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("ea");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Arrays.asList(STEAMED_EGG, TUNA_BREAD), model.getFilteredRecipeList());
     }
 

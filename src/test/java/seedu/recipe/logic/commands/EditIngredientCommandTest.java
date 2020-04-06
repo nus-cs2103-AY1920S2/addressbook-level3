@@ -28,6 +28,7 @@ import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -65,7 +66,10 @@ public class EditIngredientCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
-        assertCommandSuccess(editIngredientCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+
+        assertCommandSuccess(editIngredientCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -122,7 +126,10 @@ public class EditIngredientCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
-        assertCommandSuccess(editIngredientCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+
+        assertCommandSuccess(editIngredientCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

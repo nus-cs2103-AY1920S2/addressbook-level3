@@ -160,7 +160,7 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Updates goals for a record.
+     * Updates goals for a record where index 0: Herbivores 1: Bulk Like the Hulk 2: Wholesome Wholemeal.
      * @param record
      */
     public void updateGoalsTally(Record record) {

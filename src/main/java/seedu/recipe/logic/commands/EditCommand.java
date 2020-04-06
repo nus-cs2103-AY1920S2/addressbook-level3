@@ -36,6 +36,7 @@ import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Edits the details of an existing recipe in the recipe book.
@@ -69,6 +70,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
     public static final String MESSAGE_CANNOT_DELETE_ALL_INGREDIENTS = "Cannot delete all ingredients!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
     private final CommandType commandType;
@@ -110,7 +112,9 @@ public class EditCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
+
+        String finalMessage = String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     /**

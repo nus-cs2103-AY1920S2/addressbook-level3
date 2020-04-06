@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Finds and lists all recipes in recipe book whose name contains any of the argument keywords.
@@ -20,6 +21,7 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " Thai beef bowl";
 
     private final NameContainsKeywordsPredicate predicate;
+    private final Tab recipesTab = Tab.RECIPES;
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
@@ -29,8 +31,8 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredRecipeList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredRecipeList().size()));
+        String message = String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredRecipeList().size());
+        return new CommandResult(message, false, recipesTab, false);
     }
 
     @Override

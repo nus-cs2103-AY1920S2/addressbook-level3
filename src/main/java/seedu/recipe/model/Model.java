@@ -186,7 +186,7 @@ public interface Model {
 
     /**
      * updates goal tally every time a record is added
-     * @param record
+     * @code record
      */
     void updateGoalsTally(Record record);
 

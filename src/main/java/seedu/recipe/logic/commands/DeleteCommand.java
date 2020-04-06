@@ -11,6 +11,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Deletes a recipe identified using it's displayed index from the recipe book.
@@ -26,6 +27,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Deleted %1$s from recipe book!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index[] targetIndex;
     private final CommandType commandType;
 
@@ -52,7 +54,8 @@ public class DeleteCommand extends Command {
         }
 
         model.commitBook(commandType);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, getListAsFormattedString(deletedRecipesList)));
+        String finalMessage = String.format(MESSAGE_SUCCESS, getListAsFormattedString(deletedRecipesList));
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     /**

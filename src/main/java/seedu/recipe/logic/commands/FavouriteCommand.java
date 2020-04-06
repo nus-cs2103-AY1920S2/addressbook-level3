@@ -12,6 +12,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Favourites a recipe identified using it's displayed index from the recipe book.
@@ -27,6 +28,7 @@ public class FavouriteCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added %1$s to favourites!";
     public static final String MESSAGE_ALREADY_FAVOURITE = "%1$s already in favourites!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index[] targetIndex;
     private final CommandType commandType;
 
@@ -67,7 +69,7 @@ public class FavouriteCommand extends Command {
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(sb.toString());
+        return new CommandResult(sb.toString(), false, recipesTab, false);
     }
 
     /**

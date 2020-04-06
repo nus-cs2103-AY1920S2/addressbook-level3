@@ -14,6 +14,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Adds a recipe to the recipe book.
@@ -45,6 +46,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Recipe toAdd;
     private final CommandType commandType;
 
@@ -67,7 +69,8 @@ public class AddCommand extends Command {
 
         model.addRecipe(toAdd);
         model.commitBook(commandType);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        String message = String.format(MESSAGE_SUCCESS, toAdd);
+        return new CommandResult(message, false, recipesTab, false);
     }
 
     @Override

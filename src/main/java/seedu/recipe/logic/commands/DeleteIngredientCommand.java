@@ -27,6 +27,7 @@ import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Deletes ingredient(s) from an existing recipe in the recipe book.
@@ -54,6 +55,7 @@ public class DeleteIngredientCommand extends Command {
     public static final String MESSAGE_NO_SUCH_INGREDIENT = "%1$s is either not %2$s ingredient "
             + "or it does not exist in %3$s!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
     private final CommandType commandType;
@@ -97,7 +99,8 @@ public class DeleteIngredientCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
+        String finalMessage = String.format(MESSAGE_DELETE_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString());
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     /**
