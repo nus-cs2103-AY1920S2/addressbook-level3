@@ -424,6 +424,7 @@ exist, it is removed from the module.
 7. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
 
 The `group edit` command has been implemented in a similar manner.
+
 ==== Implementation of the Student Add and Delete Commands
 
 The following sequence diagram shows the sequence of commands that take place
@@ -468,31 +469,31 @@ matric number exists in the TA-Tracker. If no such student exists, a command exc
 is thrown saying that a student with the given matric number doesn't exist. If it does
 exist, the student is removed from the TA-Tracker.
 
-Note: This diagram assumes that there exists a student with the matric number 'A0181234G'
-pre-existing in the TA-Tracker.
+Note: This diagram assumes that a student with the matric number 'A0181234G' exists
+in the TA-Tracker.
 
 .Student Delete - Sequence Diagram
 image::DeleteStudentSequenceDiagram.png[]
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+1. `LogicManager` uses the `TATrackerParser` to first parse the user command.
 
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
+2. The `TATrackerParser` sees that the command is of type student and passes the
+command to the `StudentCommandParser`.
 
-3. The StudentCommandParser sees that the command is of type delete and passes the
-arguments to the DeleteStudentCommandParser.
+3. The `StudentCommandParser` sees that the command is of type delete and passes the
+arguments to the `DeleteStudentCommandParser`.
 
-4. The DeleteStudentCommandParser creates a Student with the given matric number
+4. The `DeleteStudentCommandParser` creates a Student with the given matric number
 
-5. The DeleteStudentCommandParser then creates a DeleteStudentCommand object and passes
-it the created student. The parser then returns the DeleteStudentCommand
+5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
+it the created student. The parser then returns the `DeleteStudentCommand`
 
-6. LogicManager calls DeleteStudentCommand's execute method. The DeleteGroupCommand object
+6. `LogicManager` calls `DeleteStudentCommand's` execute method. The `DeleteGroupCommand` object
 checks whether a student with the given matric number already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a student with the given matric number
 doesn't exist in the TA-Tracker.
 
-7. If the student exists, the DeleteStudentCommand object retrieves the student from the
+7. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
 model and removes the student.
 
 ==== Implementation of the Sort Command
@@ -928,7 +929,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to goto a different tab.
+1.  User requests to view a different tab.
 2. TA-Tracker layout changes to show the new tab.
 
 +
@@ -1003,7 +1004,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a new module.
 2. TA-Tracker adds a new module.
-3. TA-Tracker layout changes to show the student taba.
+3. TA-Tracker layout changes to show the student tab.
 
 +
 Use case ends.
@@ -1052,12 +1053,11 @@ Use case resumes at step 1.
 
 *MSS*
 
-. User requests to list students.
-. TA-Tracker shows a list of students at the student tab.
-. User filters the list in order to get the student's index.
+. User requests to switch to the student tab.
+. TA-Tracker shows a list of students in the student tab.
+. User filters the list in order to get the student's matric number.
 . User requests to edit a specific student in the list.
 . TA-Tracker edits the student according to the specified parameters.
-. TA-Tracker switches to the student tab
 +
 Use case ends.
 
@@ -1088,7 +1088,7 @@ Use case resumes at step 3.
 *MSS*
 
 . User requests to show students tab.
-. TA-Tracker shows a list of students at the student tab.
+. TA-Tracker shows a list of students in the student tab.
 . User filters the list in order to get the student's index.
 . User requests to delete a specific student in the list.
 . TA-Tracker deletes the student.
@@ -1115,7 +1115,7 @@ Use case resumes at step 3.
 *MSS*
 
 1. User requests to show the students tab.
-2. TA-Tracker shows a list of modules.
+2. TA-Tracker shows a list of modules in the student tab.
 3. User requests to delete a specific module in the list.
 4. TA-Tracker deletes the module and all of the sessions and groups in it.
 +
@@ -1142,7 +1142,7 @@ Use case resumes at step 3.
 
 . User requests to show students page.
 . TA-Tracker shows a list of groups categorised by module.
-. User filters the list in order to get the group's index.
+. User filters the list in order to get the group's group code.
 . User requests to delete a specific group in the list.
 . TA-Tracker deletes the group and all of the students in it.
 +
@@ -1215,7 +1215,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given session index is invalid.
+* 3a. The given session list index is invalid.
 ** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 2.
@@ -1225,7 +1225,7 @@ Use case resumes at step 2.
 *MSS*
 
 1. User requests to view the Session View.
-2. TA-Tracker switches to the Schedule Tab.
+2. TA-Tracker switches to the Session Tab.
 3. User requests to delete a specific session in the view.
 4. TA-Tracker deletes the session.
 5. TA-Tracker removes the session from the current view.
@@ -1254,7 +1254,7 @@ Use case resumes at step 2.
 4. TA-Tracker marks the session as done.
 5. TA-Tracker removes the session from the current view.
 6. TA-Tracker adds the session to the Claims View.
-6. TA-Tracker switched to the Claims Tab.
+6. TA-Tracker switches to the Claims Tab.
 +
 Use case ends.
 
@@ -1265,7 +1265,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given session index is invalid.
+* 3a. The given session list index is invalid.
 ** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 2.
@@ -1276,7 +1276,7 @@ Use case resumes at step 2.
 
 1. User requests to filter claims for a specific module.
 2. TA-Tracker hides unrelated claims from the Claims view.
-3. TA-Tracker switched to the Claims tab.
+3. TA-Tracker switches to the Claims tab.
 +
 Use case ends.
 
