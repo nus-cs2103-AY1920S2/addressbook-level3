@@ -56,8 +56,9 @@ public class Recurring {
         Description updatedDescription = taskToReset.getDescription();
         Set<Tag> updatedTags = taskToReset.getTags();
         Optional<Reminder> sameOptReminder = taskToReset.getOptionalReminder();
+        Optional<Recurring> sameOptRecurring = taskToReset.getOptionalRecurring();
         return new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("N"), updatedTags, sameOptReminder, Optional.of(this));
+                updatedName, updatedPriority, updatedDescription, new Done("N"), updatedTags, sameOptReminder, sameOptRecurring);
    }
 
    /** Returns true if a given string is a valid name. */

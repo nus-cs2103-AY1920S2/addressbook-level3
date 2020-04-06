@@ -63,6 +63,18 @@ public class Task {
         this.optionalRecurring = Optional.empty();
     }
 
+    /** With done, no reminder but with recurring */
+    public Task(Name name, Priority priority, Description description, Done done, Set<Tag> tags, Optional<Recurring> optionalRecurring) {
+        requireAllNonNull(name, priority, description, tags);
+        this.name = name;
+        this.priority = priority;
+        this.description = description;
+        this.done = done;
+        this.tags.addAll(tags);
+        this.optionalReminder = Optional.empty();
+        this.optionalRecurring = optionalRecurring;
+    }
+
     // without done provided
     public Task(
             Name name,
