@@ -46,7 +46,8 @@ public class AbsolutePathCorrectionEngineTest {
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
                 expectedCorrectedStatus, expectedCorrectedItem);
-CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
+
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
     }
 
@@ -81,11 +82,11 @@ CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncor
     }
 
     @Test
-    public void correct_forwardMatchingAndExactSubstring() {
-        final int distanceThreshold = 1;
+    public void correct_forwardMatchingAndWithinThreshold_correctionDone() {
+        final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/CS2103T/Le");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/CS2103T/Lctre");
 
         final AbsolutePath expectedCorrectedItem = TypicalBlockModel.PATH_TO_CS2103T_LECTURES;
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
