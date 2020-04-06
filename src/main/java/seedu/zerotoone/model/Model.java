@@ -16,6 +16,7 @@ import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyCompletedSetList;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
+import seedu.zerotoone.model.session.ReadOnlyTimerList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutModel;
@@ -122,6 +123,8 @@ public interface Model extends WorkoutModel, SchedulerModel {
 
     ReadOnlyCompletedSetList getLastSet();
 
+    ReadOnlyTimerList getTimerList();
+
     // todo write java docs
 
     Optional<OngoingWorkout> getCurrentWorkout();
@@ -144,4 +147,6 @@ public interface Model extends WorkoutModel, SchedulerModel {
 
     Path getLogListFilePath();
     void setLogListFilePath(Path logListFilePath);
+
+    void shutdownTimer();
 }

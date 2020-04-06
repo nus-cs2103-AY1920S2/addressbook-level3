@@ -36,6 +36,7 @@ import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyCompletedSetList;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
+import seedu.zerotoone.model.session.ReadOnlyTimerList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
@@ -263,6 +264,16 @@ public class CreateCommandTest {
 
         @Override
         public ReadOnlyCompletedSetList getLastSet() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTimerList getTimerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void shutdownTimer() {
             throw new AssertionError("This method should not be called.");
         }
 

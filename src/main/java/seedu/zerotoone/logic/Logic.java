@@ -81,6 +81,10 @@ public interface Logic extends WorkoutLogic {
      */
     ObservableList<OngoingSet> getOngoingSetList();
 
+    ObservableList<CompletedSet> getLastSet();
+
+    ObservableList<Integer> getTimerList();
+
     /** Returns an unmodifiable view of the filtered list of workouts.
      */
     ObservableList<CompletedWorkout> getFilteredLogList();
@@ -94,5 +98,5 @@ public interface Logic extends WorkoutLogic {
     // Schedule List
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
 
-    ObservableList<CompletedSet> getLastSet();
+    void showdownTimer();
 }

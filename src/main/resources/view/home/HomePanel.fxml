@@ -12,6 +12,12 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <Label text="Timer">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <ListView fx:id="timerListView" minHeight="130.0" prefHeight="130.0" prefWidth="734.0" />
       <Label text="Past Sets">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -24,21 +30,5 @@
          </VBox.margin>
       </Label>
        <ListView fx:id="ongoingSessionView" prefHeight="400.0" prefWidth="524.0" VBox.vgrow="ALWAYS" />
-      <VBox alignment="CENTER" prefHeight="84.0" prefWidth="734.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="timer" alignment="CENTER" prefHeight="65.0" prefWidth="128.0" text="00:00" textAlignment="RIGHT" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="35.0" />
-                     </font>
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
    </children>
 </VBox>
