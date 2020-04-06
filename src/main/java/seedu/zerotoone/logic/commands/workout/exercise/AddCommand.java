@@ -54,6 +54,10 @@ public class AddCommand extends WorkoutExerciseCommand {
         Workout workoutToEdit = lastShownWorkoutList.get(workoutId.getZeroBased());
         Exercise exerciseToAdd = lastShownExerciseList.get(exerciseId.getZeroBased());
 
+        if (exerciseToAdd.getExerciseSets().isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_WORKOUT_EXERCISE);
+        }
+
         List<Exercise> updatedWorkoutExercises = new ArrayList<>(workoutToEdit.getWorkoutExercises());
         updatedWorkoutExercises.add(exerciseToAdd);
 
