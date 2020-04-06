@@ -1,12 +1,14 @@
 package seedu.expensela.model;
 
+import java.time.LocalDate;
+
 /**
  * ToggleListOrChart class to toggle between viewing transaction list or chart analytics
  */
 public class ToggleView {
 
     private boolean isViewList = true;
-    private String range = "ALL";
+    private String range = LocalDate.now().toString().substring(0, 7);
 
     public boolean getIsViewList() {
         return this.isViewList;
