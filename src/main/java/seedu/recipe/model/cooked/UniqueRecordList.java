@@ -142,8 +142,10 @@ public class UniqueRecordList implements Iterable<Record> {
             currGoals.addAll(internalList.get(i).getGoals());
             for (Goal curr : currGoals) {
                 String goalName = curr.goalName;
-                Integer prevCount = goalMap.get(goalName);
-                goalMap.put(goalName, prevCount + 1);
+                if(goalMap.containsKey(goalName)) {
+                    Integer prevCount = goalMap.get(goalName);
+                    goalMap.put(goalName, prevCount + 1);
+                }
             }
         }
         ObservableList<Integer> internalGoalList = FXCollections.observableArrayList(
