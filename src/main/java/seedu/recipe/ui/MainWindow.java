@@ -1,5 +1,6 @@
 package seedu.recipe.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -17,6 +18,8 @@ import seedu.recipe.logic.Logic;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
+import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.model.achievement.Streak;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
@@ -41,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private PlanningListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
     private CookedListPanel cookedListPanel;
-    private RecipeListPanel achievementsListPanel;
+    private AchievementCard achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -128,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    void fillInnerParts() throws IOException {
 
         ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
         recipeListPanel = new RecipeListPanel(recipeList);
@@ -142,8 +145,8 @@ public class MainWindow extends UiPart<Stage> {
         cookedListPanel.setChart(goalsCountList);
 
         //using recipe list as stub for achievements, to be edited later todo
-        ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
-        achievementsListPanel = new RecipeListPanel(achievementsList);
+        //ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
+        achievementsListPanel = new AchievementCard(new Quote("A long life begins with a clean palate"), new Streak(6));
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, cookedListPanel, achievementsListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
