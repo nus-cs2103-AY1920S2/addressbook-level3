@@ -35,20 +35,35 @@ public class SuggestionTestUtil {
 
     public static void setUp() throws InvalidPathException {
         // Set up paths
+        setUpPaths();
+
+        // Set up model
+        setUpModel();
+
+        // Add test data to model
+        addTestDataToModel();
+    }
+
+    public static void setUpPaths() {
         toCs2103 = AbsolutePath.fromString("/CS2103");
         toCs3230 = AbsolutePath.fromString("/CS3230");
         toCs2103Week1 = AbsolutePath.fromString("/CS2103/Week1");
         toCs2103Week2 = AbsolutePath.fromString("/CS2103/Week2");
         toCs2103Week3 = AbsolutePath.fromString("/CS2103/Week3");
         toCs2103Week1Lecture = AbsolutePath.fromString("/CS2103/Week1/Lecture");
+    }
 
-        // Set up model
+    public static void setUpModel() {
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
+    }
 
-        // Add test data to model
+    /**
+     * Adds the test data to the model.
+     */
+    public static void addTestDataToModel() {
         Block cs2103 = new BlockImpl(new Title("CS2103"));
         Block cs3230 = new BlockImpl(new Title("CS3230"));
         model.addBlockToCurrentPath(cs2103);
