@@ -30,11 +30,15 @@ import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
  * see 50% off by itself, or $1 off by itself.
  */
 public class Savings implements Comparable<Savings> {
-    public static final String MESSAGE_CONSTRAINTS = "Savings should not be blank, "
-            + "and savings cannot have both a monetary amount and a percentage amount.";
+    public static final String MESSAGE_CONSTRAINTS = "Savings should not be blank!";
     public static final String EMPTY_LIST_ERROR =
             "ERROR: Parser identified that this Savings should have"
             + "Saveables, but no Saveables received in class Savings";
+    public static final String NUMBER_DETECTED_BUT_NOT_IN_FORMAT =
+            "For savings, did you mean to specify a percentage amount (e.g. s/10%%)"
+                    + " or a monetary amount (e.g. s/%1$s1.00)?";
+    public static final String MULTIPLE_NUMBER_AMOUNTS =
+            "Please only specify one numerical amount for savings.";
 
     // coupons could have a certain monetary value
     private final Optional<MonetaryAmount> monetaryAmount;

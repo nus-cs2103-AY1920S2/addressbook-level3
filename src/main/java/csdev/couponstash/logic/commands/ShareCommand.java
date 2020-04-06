@@ -93,4 +93,11 @@ public class ShareCommand extends IndexedCommand {
 
         return new CommandResult(String.format(MESSAGE_SHARE_COUPON_SUCCESS, file.getAbsolutePath()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof ShareCommand
+                && targetIndex.equals(((ShareCommand) other).targetIndex));
+    }
 }
