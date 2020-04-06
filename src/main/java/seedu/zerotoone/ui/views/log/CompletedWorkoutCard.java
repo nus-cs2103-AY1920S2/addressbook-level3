@@ -41,7 +41,8 @@ public class CompletedWorkoutCard extends UiPart<Region> {
     public CompletedWorkoutCard(CompletedWorkout completedWorkout, int displayedIndex) {
         super(FXML);
         workoutTitle.setText(formatTitle(completedWorkout, displayedIndex));
-        startEndTime.setText(getPrettyDateRangeDateTime(completedWorkout.getStartTime(), completedWorkout.getEndTime()));
+        startEndTime.setText(getPrettyDateRangeDateTime(completedWorkout.getStartTime(),
+            completedWorkout.getEndTime()));
 
         List<CompletedExercise> exerciseList = completedWorkout.getExercises();
 

@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.zerotoone.commons.util.DateUtil;
 import seedu.zerotoone.model.session.CompletedExercise;
 import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.ui.util.UiPart;
@@ -50,7 +49,8 @@ public class CompletedExerciseCard extends UiPart<Region> {
     }
 
     private String formatTitle(CompletedExercise completedExercise, int displayIndex) {
-        return String.format("Exercise #%d: %s (%s)", displayIndex, completedExercise.getExerciseName().fullName, getPrettyTimeDifference(completedExercise.getStartTime(), completedExercise.getEndTime()));
+        return String.format("Exercise #%d: %s (%s)", displayIndex, completedExercise.getExerciseName().fullName,
+            getPrettyTimeDifference(completedExercise.getStartTime(), completedExercise.getEndTime()));
     }
 
     @Override
@@ -67,6 +67,6 @@ public class CompletedExerciseCard extends UiPart<Region> {
 
         // state check
         CompletedExerciseCard card = (CompletedExerciseCard) other;
-        return card.exerciseTitle.equals(exerciseTitle) ;
+        return card.exerciseTitle.equals(exerciseTitle);
     }
 }
