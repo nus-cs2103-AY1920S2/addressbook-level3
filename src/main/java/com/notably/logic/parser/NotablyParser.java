@@ -1,7 +1,6 @@
 package com.notably.logic.parser;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +11,8 @@ import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.correction.CorrectionResult;
+import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
@@ -44,13 +45,14 @@ public class NotablyParser {
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));
         }
+
         String commandWord = matcher.group("commandWord");
         if (commandWord.length() > 1) {
-            Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
-            if (correctedCommand.equals(Optional.empty())) {
+            CorrectionResult<String> correctionResult = correctionEngine.correct(commandWord);
+            if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
                 throw new ParseException("Invalid command");
             }
-            commandWord = correctedCommand.get();
+            commandWord = correctionResult.getCorrectedItems().get(0);
         }
 
         final String arguments = matcher.group("arguments");

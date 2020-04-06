@@ -73,13 +73,19 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
 
         List<AbsolutePath> possiblePaths = getPossiblePaths();
 
-        AbsolutePath closestPath = null;
         int closestDistance = Integer.MAX_VALUE;
         for (AbsolutePath possiblePath : possiblePaths) {
             int distance = calculatePathDistance(uncorrected, possiblePath);
             if (distance < closestDistance) {
-                closestPath = possiblePath;
                 closestDistance = distance;
+            }
+        }
+
+        List<AbsolutePath> correctedItems = new ArrayList<>();
+        for (AbsolutePath possiblePath : possiblePaths) {
+            int distance = calculatePathDistance(uncorrected, possiblePath);
+            if (distance == closestDistance) {
+                correctedItems.add(possiblePath);
             }
         }
 
@@ -87,11 +93,11 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
             return new CorrectionResult<>(CorrectionStatus.FAILED);
         }
 
-        if (closestPath.equals(uncorrected)) {
-            return new CorrectionResult<>(CorrectionStatus.UNCHANGED, uncorrected);
+        if (correctedItems.equals(List.of(uncorrected))) {
+            return new CorrectionResult<>(CorrectionStatus.UNCHANGED, List.of(uncorrected));
         }
 
-        return new CorrectionResult<>(CorrectionStatus.CORRECTED, closestPath);
+        return new CorrectionResult<>(CorrectionStatus.CORRECTED, correctedItems);
     }
 
     /**
@@ -128,52 +134,69 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
     /**
      * Calculate the edit distance between two {@link AbsolutePath}s.
      *
-     * @param firstPath First {@link AbsolutePath}
-     * @param secondPath Second {@link AbsolutePath}
-     * @return Edit distance between {@code firstPath} and {@code secondPath}
+     * @param input Input {@link AbsolutePath}
+     * @param reference Reference {@link AbsolutePath}
+     * @return Edit distance between {@code input} and {@code reference}
      */
-    private int calculatePathDistance(AbsolutePath firstPath, AbsolutePath secondPath) {
-        Objects.requireNonNull(firstPath);
-        Objects.requireNonNull(secondPath);
+    private int calculatePathDistance(AbsolutePath input, AbsolutePath reference) {
+        Objects.requireNonNull(input);
+        Objects.requireNonNull(reference);
 
-        List<String> firstComponents = firstPath.getComponents();
-        List<String> secondComponents = secondPath.getComponents();
+        List<String> inputComponents = input.getComponents();
+        List<String> referenceComponents = reference.getComponents();
 
         // Calculate the cumulative distance between the two paths component-by-component
         int i = 0;
         int distance = 0;
-        while (i < firstComponents.size() && i < secondComponents.size()) {
-            String firstComponent = firstComponents.get(i);
-            String secondComponent = secondComponents.get(i);
+        while (i < inputComponents.size() && i < referenceComponents.size()) {
+            String inputComponent = inputComponents.get(i);
+            String referenceComponent = referenceComponents.get(i);
 
-            // Check for possible forward matching
-            if (forwardMatch && i == firstComponents.size() - 1
-                    && secondComponent.toLowerCase().startsWith(firstComponent.toLowerCase())) {
-                i++;
-                continue;
-            }
-            if (forwardMatch && i == secondComponents.size() - 1
-                    && firstComponent.toLowerCase().startsWith(secondComponent.toLowerCase())) {
-                i++;
-                continue;
+            if (forwardMatch && i == inputComponents.size() - 1
+                    && inputComponent.length() < referenceComponent.length()) {
+                distance += calculateForwardMatchingDistance(inputComponent, referenceComponent);
+            } else {
+                distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
             }
 
-            distance += editDistanceCalculator.calculateDistance(firstComponents.get(i), secondComponents.get(i));
             i++;
         }
 
         // If one path is longer than another, increase cumulative distance by the size of
         // each extra component's length.
-        while (i < firstComponents.size()) {
-            distance += firstComponents.get(i).length();
+        while (i < inputComponents.size()) {
+            distance += inputComponents.get(i).length();
             i++;
         }
-        while (i < secondComponents.size()) {
-            distance += secondComponents.get(i).length();
+        while (i < referenceComponents.size()) {
+            distance += referenceComponents.get(i).length();
             i++;
         }
 
         return distance;
+    }
+
+    /**
+     * Calculates the forward matching distance between to path components.
+     *
+     * @param inputComponent Input path component
+     * @param referenceComponent Reference path component
+     * @return Forward matching distance between the two components
+     */
+    private int calculateForwardMatchingDistance(String inputComponent, String referenceComponent) {
+        Objects.requireNonNull(inputComponent);
+        Objects.requireNonNull(referenceComponent);
+
+        int forwardMatchDistance = Integer.MAX_VALUE;
+        for (int stopIndex = 0; stopIndex <= referenceComponent.length(); stopIndex++) {
+            int currentForwardMatchDistance = editDistanceCalculator.calculateDistance(inputComponent,
+                    referenceComponent.substring(0, stopIndex));
+            if (currentForwardMatchDistance < forwardMatchDistance) {
+                forwardMatchDistance = currentForwardMatchDistance;
+            }
+        }
+
+        return forwardMatchDistance;
     }
 }
 

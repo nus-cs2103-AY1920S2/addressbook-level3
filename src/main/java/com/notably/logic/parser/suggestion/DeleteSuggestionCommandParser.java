@@ -2,11 +2,11 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Optional;
-
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionResult;
+import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.ArgumentMultimap;
 import com.notably.logic.parser.ArgumentTokenizer;
 import com.notably.logic.parser.ParserUtil;
@@ -52,10 +52,13 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
         } catch (ParseException pe) {
             throw new ParseException("Cannot delete \"" + title + "\". Invalid path.");
         }
-        Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
 
-        return correctedPath
-                .map((AbsolutePath path) -> new DeleteSuggestionCommand(path, title))
-                .orElseThrow(() -> new ParseException("Cannot delete \"" + title + "\". Invalid path."));
+        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedPath);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            throw new ParseException("Cannot delete \"" + title + "\". Invalid path.");
+        }
+
+        // TODO: Pass in the list of corrected items and create suggestions based on that
+        return new DeleteSuggestionCommand(correctionResult.getCorrectedItems().get(0), title);
     }
 }

@@ -1,7 +1,6 @@
 package com.notably.logic.suggestion;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +12,8 @@ import com.notably.logic.commands.suggestion.HelpSuggestionCommand;
 import com.notably.logic.commands.suggestion.NewSuggestionCommand;
 import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
+import com.notably.logic.correction.CorrectionResult;
+import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
@@ -60,13 +61,13 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         }
 
         String commandWord = matcher.group("commandWord");
-        Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
-        if (correctedCommand.equals(Optional.empty())) {
+        CorrectionResult<String> correctionResult = correctionEngine.correct(commandWord);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
             return new ErrorSuggestionCommand(
                     "Invalid command. To see the list of available commands, type: help");
         }
+        commandWord = correctionResult.getCorrectedItems().get(0);
 
-        commandWord = correctedCommand.get();
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
