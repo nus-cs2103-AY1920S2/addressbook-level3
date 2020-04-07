@@ -6,14 +6,11 @@ import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NEWGROUP;
 import static tatracker.logic.parser.Prefixes.NEWTYPE;
 
-import java.util.stream.Stream;
-
 import tatracker.logic.commands.group.EditGroupCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
@@ -32,7 +29,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, GROUP, MODULE, NEWTYPE, NEWGROUP);
 
-        if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
+        if (!argMultimap.arePrefixesPresent(GROUP, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditGroupCommand.DETAILS.getUsage()));
@@ -59,13 +56,5 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         }
 
         return new EditGroupCommand(group, moduleCode, newGroupCode, newGroupType);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
