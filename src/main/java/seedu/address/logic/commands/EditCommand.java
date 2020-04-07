@@ -276,4 +276,100 @@ public class EditCommand extends Command {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        boolean isSameProfile = false;
+        boolean isSameModule = false;
+        if (toEditProfile == true) {
+            if (isProfileNameEqual(other)
+                    && isCourseNameEqual(other)
+                    && (updatedSemester == ((EditCommand) other).updatedSemester)
+                    && isFocusAreaEqual(other)) {
+                isSameProfile = true;
+            }
+        } else if (editModule == true) {
+            if (moduleCode.equals(((EditCommand) other).moduleCode)
+                    && (editSemester == ((EditCommand) other).editSemester)
+                    && isGradeEqual(other)
+                    && isOldTaskEqual(other)
+                    && isNewTaskEqual(other)
+                    && isNewDeadLineEqual(other)) {
+                isSameModule = true;
+            }
+        }
+        return other == this // short circuit if same object
+                || (other instanceof EditCommand // instanceof handles nulls
+                && (isSameProfile || isSameModule));
+    }
+
+    public boolean isProfileNameEqual(Object other) {
+        boolean isEqual = false;
+        if ((profileName == null) && (((EditCommand) other).profileName == null)) {
+            isEqual = true;
+        } else if (profileName.equals(((EditCommand) other).profileName)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    public boolean isCourseNameEqual(Object other) {
+        boolean isEqual = false;
+        if ((courseName == null) && (((EditCommand) other).courseName == null)) {
+            isEqual = true;
+        } else if (courseName.equals(((EditCommand) other).courseName)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    public boolean isFocusAreaEqual(Object other) {
+        boolean isEqual = false;
+        if ((focusAreaString == null) && (((EditCommand) other).focusAreaString == null)) {
+            isEqual = true;
+        } else if (focusAreaString.equals(((EditCommand) other).focusAreaString)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    public boolean isGradeEqual(Object other) {
+        boolean isEqual = false;
+        if ((grade == null) && (((EditCommand) other).grade == null)) {
+            isEqual = true;
+        } else if (grade.equals(((EditCommand) other).grade)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    public boolean isOldTaskEqual(Object other) {
+        boolean isEqual = false;
+        if ((oldTask == null) && (((EditCommand) other).oldTask == null)) {
+            isEqual = true;
+        } else if (oldTask.equals(((EditCommand) other).oldTask)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    public boolean isNewTaskEqual(Object other) {
+        boolean isEqual = false;
+        if ((newTask == null) && (((EditCommand) other).newTask == null)) {
+            isEqual = true;
+        } else if (newTask.equals(((EditCommand) other).newTask)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    public boolean isNewDeadLineEqual(Object other) {
+        boolean isEqual = false;
+        if ((newDeadlineString == null) && (((EditCommand) other).newDeadlineString == null)) {
+            isEqual = true;
+        } else if (newDeadlineString.equals(((EditCommand) other).newDeadlineString)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
 }

@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
@@ -31,6 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_SEMESTER_AMY = "2.1";
     public static final String VALID_GRADE_AMY = "A-";
     public static final String VALID_TASK_AMY = "homework";
+    public static final String VALID_NEW_TASK_AMY = "new homework";
     public static final String VALID_DEADLINE_AMY = "2020-03-23 23:59";
     public static final String VALID_COURSE_AMY = "Computer Science";
     public static final String VALID_FOCUS_AREA_AMY = "Software Engineering";
@@ -40,6 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_SEMESTER_BOB = "1.1";
     public static final String VALID_GRADE_BOB = "C+";
     public static final String VALID_TASK_BOB = "assignment";
+    public static final String VALID_NEW_TASK_BOB = "new assignment";
     public static final String VALID_DEADLINE_BOB = "2021-01-01 12:35";
     public static final String VALID_COURSE_BOB = "Business Analytics";
     public static final String VALID_FOCUS_AREA_BOB = "Financial Analytics";
@@ -49,6 +52,7 @@ public class CommandTestUtil {
     public static final String SEMESTER_DESC_AMY = " " + PREFIX_YEAR + VALID_SEMESTER_AMY;
     public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
     public static final String TASK_DESC_AMY = " " + PREFIX_TASK + VALID_TASK_AMY;
+    public static final String NEW_TASK_DESC_AMY = " " + PREFIX_NEW_TASK + VALID_NEW_TASK_AMY;
     public static final String DEADLINE_DESC_AMY = "  " + PREFIX_DEADLINE + VALID_DEADLINE_AMY;
     public static final String COURSE_DESC_AMY = " " + PREFIX_COURSE_NAME + VALID_COURSE_AMY;
     public static final String FOCUS_AREA_DESC_AMY = " " + PREFIX_FOCUS_AREA + VALID_FOCUS_AREA_AMY;
@@ -58,6 +62,7 @@ public class CommandTestUtil {
     public static final String SEMESTER_DESC_BOB = " " + PREFIX_YEAR + VALID_SEMESTER_BOB;
     public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
     public static final String TASK_DESC_BOB = " " + PREFIX_TASK + VALID_TASK_BOB;
+    public static final String NEW_TASK_DESC_BOB = " " + PREFIX_NEW_TASK + VALID_NEW_TASK_BOB;
     public static final String DEADLINE_DESC_BOB = " " + PREFIX_DEADLINE + VALID_DEADLINE_BOB;
     public static final String COURSE_DESC_BOB = " " + PREFIX_COURSE_NAME + VALID_COURSE_BOB;
     public static final String FOCUS_AREA_DESC_BOB = " " + PREFIX_FOCUS_AREA + VALID_FOCUS_AREA_BOB;
