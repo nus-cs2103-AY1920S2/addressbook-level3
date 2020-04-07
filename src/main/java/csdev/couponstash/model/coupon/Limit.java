@@ -17,8 +17,7 @@ public class Limit {
     public final int value;
 
     /**
-     * Constructs a {@code Limit}.
-     * If {@code limit} is an empty String, it will default to 1.
+     * Constructs a {@code Limit} with a String parameter.
      * If {@code limit} is given as a hyphen only or a negative number string,
      * it will default to max value to indicate limitless usage of the encapsulating Coupon.
      *
@@ -28,13 +27,18 @@ public class Limit {
         requireNonNull(limit);
         checkArgument(isValidLimit(limit));
 
-        if (Integer.parseInt(limit) <= 0) {
+        int intValue = Integer.parseInt(limit);
+        if (intValue <= 0) {
             this.value = Integer.MAX_VALUE;
         } else {
-            this.value = Integer.parseInt(limit);
+            this.value = intValue;
         }
     }
 
+    /**
+     * Constructs a {@code Limit} with an int parameter.
+     * Refer to {@Link #Limit(String)}.
+     */
     public Limit(int limit) {
         requireNonNull(limit);
 
@@ -81,6 +85,6 @@ public class Limit {
 
     @Override
     public int hashCode() {
-        return ((Integer) value).hashCode();
+        return value;
     }
 }
