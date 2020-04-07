@@ -72,6 +72,11 @@ class OpenCommandParserTest {
     }
 
     @Test
+    void parse_invalidPathArgument_throwParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> openCommandParser.parse("-t /nonExisting"));
+    }
+
+    @Test
     void parse_absolutePathArgument_openCommand() throws ParseException, CommandException {
         final OpenCommand openCommand = openCommandParser.parse(" -t /another/block").get(0);
 
