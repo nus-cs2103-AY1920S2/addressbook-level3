@@ -18,6 +18,14 @@ public class Axis {
         value = axis;
     }
 
+    public boolean isReps(){
+        return value.equals("reps");
+    }
+
+    public boolean isWeight() {
+        return value.equals("weight");
+    }
+
     public static boolean isValidAxis(String test) {
         return test.equalsIgnoreCase("reps") || test.equalsIgnoreCase("weight");
     }

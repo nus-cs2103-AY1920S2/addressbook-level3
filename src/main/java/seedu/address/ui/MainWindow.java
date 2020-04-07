@@ -174,8 +174,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser(SHOWING_HELP_MESSAGE);
     }
 
-    public void handleGraph() {
-        GraphWindow graphWindow = new GraphWindow();
+    public void handleGraph(CommandResult commandResult) {
+        GraphWindow graphWindow = new GraphWindow(commandResult.getGraphList(),
+            commandResult.isShowReps(), commandResult.isShowWeight());
         graphWindow.show();
     }
 
@@ -266,7 +267,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isOpenGraph()){
-                handleGraph();
+                handleGraph(commandResult);
             }
 
             if (commandResult.isExit()) {

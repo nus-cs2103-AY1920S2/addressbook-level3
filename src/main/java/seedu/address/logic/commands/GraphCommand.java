@@ -45,6 +45,8 @@ public class GraphCommand extends Command {
     public static final String MESSAGE_EXERCISE_NOT_IN_PERSONAL_BEST =
         "This exercise does not have a personal best recorded";
 
+    public static final String MESSAGE_AXIS_UNSPECIFIED = "There was no axis specified.";
+
     private final Graph graph;
 
     public GraphCommand(Graph graph) {
@@ -66,9 +68,14 @@ public class GraphCommand extends Command {
         Client clientInView = model.getClientInView();
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
-        // TODO: send graphList to gui :D
 
-        return new CommandResult(graphList.toString(), true);
+        if (graph.getAxis().isReps()) {
+            return new CommandResult(graphList.toString(), true, false, graphList);
+        } else if (graph.getAxis().isWeight()) {
+            return new CommandResult(graphList.toString(), false, true, graphList);
+        } else {
+            throw new CommandException(MESSAGE_AXIS_UNSPECIFIED);
+        }
     }
 
     @Override

@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -9,7 +13,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseDate;
+import seedu.address.model.exercise.ExerciseReps;
 
 /**
  * Controller for a graph page
@@ -19,14 +27,30 @@ public class GraphWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(GraphWindow.class);
     private static final String FXML = "GraphWindow.fxml";
 
-    @FXML
-    private LineChart<String, Number> exerciseGraph;
+    private boolean showReps;
+    private boolean showSets;
 
     @FXML
-    private CategoryAxis xAxis;
+    private LineChart<Number, Number> exerciseGraph;
+
+    @FXML
+    private NumberAxis xAxis;
 
     @FXML
     private NumberAxis yAxis;
+
+    @FXML
+    private StringConverter<Number> converter = new NumberAxis.DefaultFormatter() {
+            @Override
+            public String toString(Number object) {
+                return LocalDate.ofEpochDay(object.longValue()).toString(); 
+            }
+
+            @Override
+            public Number fromString(String string) {
+                return null;
+            }
+        };
 
     /**
      * Creates a new HelpWindow.
@@ -40,43 +64,24 @@ public class GraphWindow extends UiPart<Stage> {
     /**
      * Creates a new GraphWindow.
      */
-    public GraphWindow() {
+    public GraphWindow(List<Exercise> graphList, boolean showReps, boolean showWeight) {
         this(new Stage());
         // defining the axes
-        // xAxis = new CategoryAxis();
-        // yAxis = new NumberAxis();
-        // xAxis.setLabel("Number of Month");
+        xAxis = new NumberAxis();
+        yAxis = new NumberAxis();
 
-        // XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        // series.setName("My portfolio");
-        // // populating the series with data
-        // series.getData().add(new XYChart.Data<String, Number>("12", 25));
-        // series.getData().add(new XYChart.Data<String, Number>("1", 23));
-        // series.getData().add(new XYChart.Data<String, Number>("2", 14));
-        // series.getData().add(new XYChart.Data<String, Number>("3", 15));
-        // series.getData().add(new XYChart.Data<String, Number>("4", 24));
-        // series.getData().add(new XYChart.Data<String, Number>("5", 34));
-        // series.getData().add(new XYChart.Data<String, Number>("6", 36));
-        // series.getData().add(new XYChart.Data<String, Number>("7", 22));
-        // series.getData().add(new XYChart.Data<String, Number>("8", 45));
-        // series.getData().add(new XYChart.Data<String, Number>("9", 43));
-        // series.getData().add(new XYChart.Data<String, Number>("10", 17));
-        // series.getData().add(new XYChart.Data<String, Number>("11", 29));
-
-        ObservableList<XYChart.Series<Date, Number>> series = FXCollections.observableArrayList();
- 
-        ObservableList<XYChart.Data<Date, Number>> series1Data = FXCollections.observableArrayList();
-        series1Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2012, 11, 15).getTime(), 2));
-        series1Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 5, 3).getTime(), 4));
-
-        ObservableList<XYChart.Data<Date, Number>> series2Data = FXCollections.observableArrayList();
-        series2Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 0, 13).getTime(), 8));
-        series2Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 7, 27).getTime(), 4));
-
-        series.add(new XYChart.Series<>("Series1", series1Data));
-        series.add(new XYChart.Series<>("Series2", 
-
-        dateAxis = new DateAxis();
+        xAxis.setTickLabelFormatter(converter);
+        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+        series.setName("Exercise Graph");
+        // populating the series with data
+         
+        for (Exercise e : graphList) {
+            ExerciseReps reps = e.getExerciseReps();
+            Number plotReps = reps.convertToInt();
+            ExerciseDate date = e.getExerciseDate();
+            Number plotDate = date.forPlot();
+            series.getData().add(new XYChart.Data<Number, Number>(plotDate, plotReps));
+        }
 
         exerciseGraph.getData().addAll(series);
     }

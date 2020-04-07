@@ -2,19 +2,27 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import seedu.address.model.exercise.Exercise;
 
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
+    public static final List<Exercise> noGraphList = new ArrayList<Exercise>();
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
     private final boolean openGraph;
+    private final List<Exercise> exerciseGraphList;
+    private final boolean showReps;
+    private final boolean showWeight;
 
     /** The application should exit. */
     private final boolean exit;
@@ -25,17 +33,27 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
+
         this.openGraph = false;
+        this.exerciseGraphList = noGraphList;
+        this.showReps = false;
+        this.showWeight = false;
+
         this.exit = exit;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean openGraph) {
+    public CommandResult(String feedbackToUser, boolean showReps, boolean showWeight, List<Exercise> exerciseGraphList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
-        this.openGraph = openGraph;
+
+        this.showReps = showReps;
+        this.showWeight = showWeight;
+        this.openGraph = true;
+        this.exerciseGraphList = exerciseGraphList;
+
         this.exit = false;
     }
 
@@ -55,8 +73,20 @@ public class CommandResult {
         return showHelp;
     }
 
+    public boolean isShowReps() {
+        return showReps;
+    }
+
+    public boolean isShowWeight() {
+        return showWeight;
+    }
+
     public boolean isOpenGraph() {
         return openGraph;
+    }
+
+    public List<Exercise> getGraphList() {
+        return exerciseGraphList;
     }
 
     public boolean isExit() {
