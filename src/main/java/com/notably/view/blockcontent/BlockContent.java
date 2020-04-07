@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
  * View of the currently open block's content.
  */
 public class BlockContent {
+
     private final BlockContentDisplayView blockContentDisplayView;
     private final BlockContentEditView blockContentEditView;
 

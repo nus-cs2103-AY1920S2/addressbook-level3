@@ -19,8 +19,8 @@ import javafx.scene.layout.Region;
  * Editable view of the currently open block's content.
  */
 public class BlockContentEditView extends ViewPart<Region> {
-    private static final String FXML = "blockcontent/BlockContentEditView.fxml";
 
+    private static final String FXML = "blockcontent/BlockContentEditView.fxml";
     private final Logic logic;
     private final Model model;
 
