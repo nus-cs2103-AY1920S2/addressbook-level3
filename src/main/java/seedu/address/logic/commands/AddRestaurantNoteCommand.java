@@ -23,7 +23,7 @@ import seedu.address.model.restaurant.Restaurant;
 public class AddRestaurantNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "(rt)addnote";
-    public static final String COMMAND_FUNCTION = "Store the food information of the restaurant identified "
+    public static final String COMMAND_FUNCTION = "Store the food note of the restaurant identified "
             + "by the index number used in the last restaurant listing. "
             + "If there is existing information, input will be added to the "
             + "existing information.";
