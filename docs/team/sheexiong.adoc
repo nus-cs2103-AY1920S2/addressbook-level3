@@ -1,0 +1,114 @@
+= Chen Shee Xiong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:imagesDir: ../images/expense-splitter
+:stylesDir: ../stylesheets
+
+== PROJECT: EYLAH
+
+---
+
+== Overview
+
+EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
+at halls/residential colleges by providing them with an application to split bills easily and help
+them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
+
+== Summary of contributions
+
+* *Major enhancement*: Integrating 2 main features of EYLAH. [In Process]
+** What it does: Ensure both of the features integrated with proper Object-Oriented Programing concept.
+** Justification: This is to ensure the code quality of the project and remove the duplicate part in both features.
+** Highlights: During the implementation, I faced a lot of difficulty as we working on the existing `addressbook level-3`, the code base given does not give any hints of how to integrate 2 different features.
+** Credits: -
+
+** *Adding Amount field of the Person object for the Expense Splitter portion of EYLAH*
+*** What it does: Person's amount is used for both price per person for each item and total price for each person.
+*** Justification: Each person in the EYLAH will required to have a price associate with them, so the amount is use to fulfil this purpose.
+*** Highlights: This amount is using the BigDecimal to store the decimal value, this way was recommended by my teammate, Willy. After he doing the research about the ItemPrice, he decide to go with BigDecimal to store the price.
+*** Credits: Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
+
+** *Adding Storage for the receipt portion into Expense Splitter portion of EYLAH*
+*** What it does: This storage is used to store the receipt details into the local files.
+*** Justification: The reason of storing the receipt is for the user able to still viewing the receipt details even they accidentally close the application or the application crashing.
+*** Highlights: The structure of the receipt storage is much more complicated from the original `AddressBook Level-3` storage. So when I implementing this storage, I am required to understand how the Json file store the value and how to modify the current code to achieve the storage purpose.
+*** Credits:
+
+
+
+* *Minor enhancement*: [In Process]
+** *Drew UML Class diagram for the overall EYLAH project*
++
+image::expense_splitter_uml_class_diagram.png[]
+(Excluding the Height Class)
++
+** *Added tests for Person related class*
+
+** *Assisted in downscaling of AddressBook3 by removing Email object*
+
+** *Drew Activity Diagram for Expense Spliter portion of EYLAH*
++
+image::activityDiagram_for_expensesplitter.png[]
+
+
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+
+** Project management:
+*** In charge of project repository management and ensure the weekly task achievement.
+*** Participated in planning the project timeline for EYLAH.
+
+
+** Enhancements to existing features:
+*** Adapted the given Address Book UI into EYLAH's first draft UI. https://github.com/
+
+** Documentation:
+*** To be added
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+** Tools:
+
+==== Code contributed
+Please click the following link to see my code contributions dashboard.
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=sheexiong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
+
+Questions to ask: +
+1. is BigDecimal the best way to represent currency? +
+2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
+will throw an exception? Because in AB3 everything there is assertFalse +
+3.
