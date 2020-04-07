@@ -39,18 +39,17 @@ public class GraphWindow extends UiPart<Stage> {
     @FXML
     private NumberAxis yAxis;
 
-    @FXML
-    private StringConverter<Number> converter = new NumberAxis.DefaultFormatter() {
-            @Override
-            public String toString(Number object) {
-                return LocalDate.ofEpochDay(object.longValue()).toString(); 
-            }
+    private StringConverter<Number> converter = new NumberAxis.DefaultFormatter(xAxis) {
+        @Override
+        public String toString(Number object) {
+            return LocalDate.ofEpochDay(object.longValue()).toString();
+        }
 
-            @Override
-            public Number fromString(String string) {
-                return null;
-            }
-        };
+        @Override
+        public Number fromString(String string) {
+            return null;
+        }
+    };
 
     /**
      * Creates a new HelpWindow.
@@ -67,14 +66,11 @@ public class GraphWindow extends UiPart<Stage> {
     public GraphWindow(List<Exercise> graphList, boolean showReps, boolean showWeight) {
         this(new Stage());
         // defining the axes
-        xAxis = new NumberAxis();
-        yAxis = new NumberAxis();
-
         xAxis.setTickLabelFormatter(converter);
         XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
         series.setName("Exercise Graph");
         // populating the series with data
-         
+
         for (Exercise e : graphList) {
             ExerciseReps reps = e.getExerciseReps();
             Number plotReps = reps.convertToInt();
@@ -83,7 +79,7 @@ public class GraphWindow extends UiPart<Stage> {
             series.getData().add(new XYChart.Data<Number, Number>(plotDate, plotReps));
         }
 
-        exerciseGraph.getData().addAll(series);
+        exerciseGraph.getData().add(series);
     }
 
     /**
