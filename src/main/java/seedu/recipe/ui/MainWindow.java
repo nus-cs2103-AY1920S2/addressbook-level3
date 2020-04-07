@@ -145,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         cookedListPanel.setChart(goalsCountList);
 
         //using recipe list as stub for achievements, to be edited later todo
-        //ObservableList<Recipe> achievementsList = logic.getFilteredRecipeList();
+        //TODO set storage parameter instead of hardcode
         achievementsListPanel = new AchievementCard(new Quote("A long life begins with a clean palate"), new Streak(6));
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, cookedListPanel, achievementsListPanel);
