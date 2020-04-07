@@ -20,7 +20,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
-import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
@@ -49,14 +48,14 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateTask_throwsCommandException() {
         Task validTask = new TaskBuilder().build();
         AddCommand addCommand = new AddCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
         assertThrows(
                 CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 () -> addCommand.execute(modelStub));
     }
 
@@ -80,7 +79,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different task -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -118,6 +117,11 @@ public class AddCommandTest {
 
         @Override
         public void addTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -162,22 +166,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public PetManager getPetManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPetName(String name) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void incrementPomExp() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateMoodWhenDone() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void incrementExp() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -220,9 +214,24 @@ public class AddCommandTest {
         public void updateDataDatesStatistics() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Task getPomodoroTask() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPomodoroDefaultTime(float defaultTimeInMin) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPomodoroRestTime(float restTimeInMin) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
-    /** A Model stub that contains a single person. */
+    /** A Model stub that contains a single task. */
     private class ModelStubWithTask extends ModelStub {
         private final Task task;
 
@@ -238,7 +247,7 @@ public class AddCommandTest {
         }
     }
 
-    /** A Model stub that always accept the person being added. */
+    /** A Model stub that always accept the task being added. */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
         final ArrayList<Task> tasksAdded = new ArrayList<>();
 

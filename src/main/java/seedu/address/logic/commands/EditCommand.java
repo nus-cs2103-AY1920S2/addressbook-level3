@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,15 +25,15 @@ import seedu.address.model.task.Priority;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
-/** Edits the details of an existing person in the address book. */
+/** Edits the details of an existing task in the task list. */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD
-                    + ": Edits the details of the person identified "
-                    + "by the index number used in the displayed person list. "
+                    + ": Edits the details of the task identified "
+                    + "by the index number used in the displayed task list. "
                     + "Existing values will be overwritten by the input values.\n"
                     + "Parameters: INDEX (must be a positive integer) "
                     + "["
@@ -41,10 +41,10 @@ public class EditCommand extends Command {
                     + "NAME] "
                     + "["
                     + PREFIX_PRIORITY
-                    + "PHONE] "
+                    + "PRIORITY] "
                     + "["
                     + PREFIX_DESCRIPTION
-                    + "ADDRESS] "
+                    + "DESCRIPTION] "
                     + "["
                     + PREFIX_TAG
                     + "TAG]...\n"
@@ -52,19 +52,19 @@ public class EditCommand extends Command {
                     + COMMAND_WORD
                     + " 1 "
                     + PREFIX_PRIORITY
-                    + "91234567 ";
+                    + "2 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON =
-            "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_TASK =
+            "This task already exists in the task list.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editTaskDescriptor details to edit the person with
+     * @param index of the task in the filtered task list to edit
+     * @param editTaskDescriptor details to edit the task with
      */
     public EditCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
         requireNonNull(index);
@@ -80,24 +80,33 @@ public class EditCommand extends Command {
         List<Task> lastShownList = model.getFilteredTaskList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
         model.setTask(taskToEdit, editedTask);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedTask));
+
+        Task pommedTask = model.getPomodoroTask();
+        if (pommedTask != null && pommedTask.equals(taskToEdit)) {
+            model.setPomodoroTask(editedTask);
+            model.getPomodoroManager()
+                    .getPomodoroDisplay()
+                    .setTaskInProgressText(editedTask.getName().toString());
+        }
+
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of {@code personToEdit} edited with
-     * {@code editTaskDescriptor}.
+     * Creates and returns a {@code Task} with the details of {@code taskToEdit} edited with {@code
+     * editTaskDescriptor}.
      */
     private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
@@ -109,7 +118,10 @@ public class EditCommand extends Command {
                 editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Done updatedDone = editTaskDescriptor.getDone().orElse(taskToEdit.getDone());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
-        Optional<Reminder> updatedOptionalReminder = editTaskDescriptor.getReminder().isPresent() ? editTaskDescriptor.getReminder() : taskToEdit.getOptionalReminder();
+        Optional<Reminder> updatedOptionalReminder =
+                editTaskDescriptor.getReminder().isPresent()
+                        ? editTaskDescriptor.getReminder()
+                        : taskToEdit.getOptionalReminder();
 
         return new Task(
                 updatedName,
@@ -138,8 +150,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the task with. Each non-empty field value will replace the
+     * corresponding field value of the task.
      */
     public static class EditTaskDescriptor {
         private Name name;

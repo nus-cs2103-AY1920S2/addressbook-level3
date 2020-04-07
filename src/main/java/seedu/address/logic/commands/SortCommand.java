@@ -9,17 +9,19 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
-/** Adds a person to the address book. */
+/** Adds a task to the task list. */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
-    public static final String[] ALLOWED_SORT_FIELDS = {"priority", "date", "name"};
+    public static final String[] ALLOWED_SORT_FIELDS = {
+        "r-priority", "r-date", "r-name", "r-done", "priority", "date", "name", "done"
+    }; // TODO replace with enum
 
     public static final String MESSAGE_SUCCESS = "TaskList sorted by: %1$s";
     public static final String MESSAGE_SORT_UNKNOWN = "No such field to sort by %1$s!";
     public static final String MESSAGE_USAGE =
             String.format(
-                    "%1$s -> Sorts tasklist by certain field such as\n%2$s \nExample: %1$s priority",
+                    "%1$s -> Sorts tasklist by one or multiple fields such as\n%2$s \nExample: %1$s done, priority",
                     COMMAND_WORD, String.join(" | ", ALLOWED_SORT_FIELDS));
 
     private String[] fields;
@@ -37,12 +39,31 @@ public class SortCommand extends Command {
             switch (field) {
                 case "priority":
                     temp.add(getPriorityComparator());
+                    break;
                 case "date":
                     temp.add(getReminderComparator());
+                    break;
                 case "name":
                     temp.add(getNameComparator());
+                    break;
+                case "done":
+                    temp.add(getDoneComparator());
+                    break;
+                case "r-priority":
+                    temp.add(getPriorityComparator().reversed());
+                    break;
+                case "r-date":
+                    temp.add(getReminderComparator().reversed());
+                    break;
+                case "r-name":
+                    temp.add(getNameComparator().reversed());
+                    break;
+                case "r-done":
+                    temp.add(getDoneComparator().reversed());
+                    break;
             }
         }
+
         model.setComparator(temp.toArray(new Comparator[0]));
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join(" ", fields)));
     }
@@ -52,6 +73,15 @@ public class SortCommand extends Command {
             @Override
             public int compare(Task task1, Task task2) {
                 return task1.getPriority().compareTo(task2.getPriority());
+            }
+        };
+    }
+
+    private Comparator<Task> getDoneComparator() {
+        return new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return task1.getDone().compareTo(task2.getDone());
             }
         };
     }

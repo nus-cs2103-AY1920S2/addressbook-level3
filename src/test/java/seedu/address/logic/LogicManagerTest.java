@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK1;
@@ -70,7 +70,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     @Test
@@ -83,14 +83,15 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonTaskListIoExceptionThrowingStub
         JsonTaskListStorage taskListStorage =
-                new JsonTaskListStorage(temporaryFolder.resolve("taskList.json"));
-        JsonPetStorage petStorage = new JsonPetStorage(temporaryFolder.resolve("pet.json"));
+                new JsonTaskListIoExceptionThrowingStub(
+                        temporaryFolder.resolve("invalidTaskList.json"));
+        JsonPetStorage petStorage = new JsonPetStorage(temporaryFolder.resolve("invalidPet.json"));
         JsonPomodoroStorage pomodoroStorage =
-                new JsonPomodoroStorage(temporaryFolder.resolve("pomodoro.json"));
+                new JsonPomodoroStorage(temporaryFolder.resolve("invalidPomodoro.json"));
         JsonStatisticsStorage statisticsStorage =
-                new JsonStatisticsStorage(temporaryFolder.resolve("statistics.json"));
+                new JsonStatisticsStorage(temporaryFolder.resolve("invalidStorage.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+                new JsonUserPrefsStorage(temporaryFolder.resolve("invalidPrefs.json"));
         StorageManager storage =
                 new StorageManager(
                         taskListStorage,

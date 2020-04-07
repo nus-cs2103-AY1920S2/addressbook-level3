@@ -43,8 +43,8 @@ public class DayData {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields. This defines a stronger
-     * notion of equality between two persons.
+     * Returns true if both tasks have the same identity and data fields. This defines a stronger
+     * notion of equality between two tasks.
      */
     @Override
     public boolean equals(Object other) {
@@ -60,6 +60,16 @@ public class DayData {
         return otherDayData.getDate().equals(getDate())
                 && otherDayData.getPomDurationData().equals(getPomDurationData())
                 && otherDayData.getTasksDoneData().equals(getTasksDoneData());
+    }
+
+    @Override
+    public String toString() {
+        return "DayData: "
+                + this.getDate()
+                + " pom: "
+                + getPomDurationData()
+                + " tasksDone: "
+                + getTasksDoneData();
     }
 
     /*

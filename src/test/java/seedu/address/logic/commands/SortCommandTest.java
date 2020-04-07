@@ -13,7 +13,6 @@ import seedu.address.logic.parser.FindCommandParser;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
-import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
@@ -95,7 +94,7 @@ public class SortCommandTest {
 
     @Test
     public void execute_sortByPriority_successful() throws Exception {
-        String[] prioritySort = {"priority"};
+        String[] prioritySort = {"priority", "name"};
 
         CommandResult commandResult = new SortCommand(prioritySort).execute(modelStub);
         TaskList stubList = new TaskList();
@@ -108,7 +107,7 @@ public class SortCommandTest {
         stubList.addTask(taskPriority1);
         tempModelStub.setTaskList(stubList);
         assertEquals(
-                String.format(SortCommand.MESSAGE_SUCCESS, prioritySort[0]),
+                String.format(SortCommand.MESSAGE_SUCCESS, String.join(" ", prioritySort)),
                 commandResult.getFeedbackToUser());
         assertEquals(tempModelStub.getFilteredTaskList(), modelStub.getFilteredTaskList());
     }
@@ -221,16 +220,6 @@ public class SortCommandTest {
         }
 
         @Override
-        public void incrementPomExp() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void incrementExp() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyPomodoro getPomodoro() {
             throw new AssertionError("This method should not be called.");
         }
@@ -256,7 +245,7 @@ public class SortCommandTest {
         }
     }
 
-    // /** A Model stub that contains a single person. */
+    // /** A Model stub that contains a single task. */
     // private class ModelStubWithTask extends ModelStub {
     //     private final Task task;
 
@@ -272,7 +261,7 @@ public class SortCommandTest {
     //     }
     // }
 
-    // /** A Model stub that always accept the person being added. */
+    // /** A Model stub that always accept the task being added. */
     // private class ModelStubAcceptingTaskAdded extends ModelStub {
     //     final ArrayList<Task> tasksAdded = new ArrayList<>();
 

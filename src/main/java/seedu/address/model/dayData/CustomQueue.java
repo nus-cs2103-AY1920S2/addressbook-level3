@@ -11,15 +11,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
-import seedu.address.model.task.exceptions.DuplicateTaskException;
-import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of dayDatas that enforces CONSTANT_SIZE, days must be continuous between its elements and
  * does not allow nulls. A dayData is considered unique by comparing using {@code
- * DayData#isSameDayData(DayData)}. As such, adding and updating of persons uses
+ * DayData#isSameDayData(DayData)}. As such, adding and updating of tasks uses
  * DayData#isSameDayData(DayData) for equality so as to ensure that the dayDaya being added or
- * updated is unique in terms of identity in the CustomQueue. However, the removal of a person uses
+ * updated is unique in terms of identity in the CustomQueue. However, the removal of a task uses
  * DayData#equals(Object) so as to ensure that the dayData with exactly the same fields will be
  * removed.
  *
@@ -40,6 +38,17 @@ public class CustomQueue implements Iterable<DayData> {
     /** Initialises empty DayData for past MAX_SIZE days */
     public void init() throws InvalidTableException {
         LocalDate currDate = LocalDate.now();
+        this.init(currDate);
+    }
+
+    /**
+     * Initialises empty DayData for past MAX_SIZE days starting from localDate.
+     *
+     * @param localDate localDate to start with.
+     * @throws InvalidTableException
+     */
+    public void init(LocalDate localDate) throws InvalidTableException {
+        LocalDate currDate = localDate;
         for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
             LocalDate tempLocalDate = currDate.minusDays(i);
             String tempLocalDateStr = tempLocalDate.toString();
@@ -56,15 +65,18 @@ public class CustomQueue implements Iterable<DayData> {
     /** reinitialises dayDataList to current day while retaining stored data. */
     public void updateDataDatesCustom() throws InvalidTableException {
         LocalDate todayLocalDate = LocalDate.now();
+        this.updateDataDatesCustom(todayLocalDate);
+    }
 
+    public void updateDataDatesCustom(LocalDate localDate) throws InvalidTableException {
         DayData currDayData = this.getLatestDayData();
         LocalDate currLocalDate = currDayData.getDate().value;
 
-        long daysBetween = DAYS.between(todayLocalDate, currLocalDate);
+        long daysBetween = DAYS.between(localDate, currLocalDate);
         if (daysBetween > CONSTANT_SIZE) {
             this.init();
         } else {
-            while (!currLocalDate.equals(todayLocalDate)) { // keep adding new date from last date
+            while (!currLocalDate.equals(localDate)) { // keep adding new date from last date
                 this.pop(); // poll oldest day from queue
 
                 currLocalDate = currLocalDate.plusDays(1); // create new day LocalDate
@@ -89,7 +101,7 @@ public class CustomQueue implements Iterable<DayData> {
      *
      * @param dayData
      */
-    public void updatesDayDataCustom(DayData dayData) throws InvalidTableException {
+    public void updatesDayDataCustom(DayData dayData) throws DayDataNotFoundException {
         requireNonNull(dayData);
 
         Date currDate = dayData.getDate();
@@ -102,9 +114,7 @@ public class CustomQueue implements Iterable<DayData> {
             }
         }
 
-        if (!tableConstraintsAreEnforced(internalList)) {
-            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS);
-        }
+        throw new DayDataNotFoundException(); // dayData not found
     }
 
     /**
@@ -128,7 +138,7 @@ public class CustomQueue implements Iterable<DayData> {
 
     /** Removes oldest DayData from head of the queue. */
     public void pop() {
-        this.remove(0);
+        this.internalList.remove(0);
     }
 
     /**
@@ -136,7 +146,7 @@ public class CustomQueue implements Iterable<DayData> {
      *
      * @param dayData dayData to be added.
      */
-    private void push(DayData dayData) {
+    private void push(DayData dayData) throws InvalidTableException {
         this.add(dayData);
     }
 
@@ -169,25 +179,17 @@ public class CustomQueue implements Iterable<DayData> {
         return internalList.get(i);
     }
 
-    public void remove(int index) {
-        internalList.remove(0);
-    }
-
     /**
      * Replaces the dayData {@code target} in the list with {@code editedDayData}. {@code target}
      * must exist in the list. The dayData identity of {@code editedDayData} must not be the same as
-     * another existing person in the list.
+     * another existing task in the list.
      */
     public void setDayData(DayData target, DayData editedDayData) {
         requireAllNonNull(target, editedDayData);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new TaskNotFoundException();
-        }
-
-        if (!target.isSameDayData(editedDayData) && contains(editedDayData)) {
-            throw new DuplicateTaskException();
+            throw new DayDataNotFoundException();
         }
 
         internalList.set(index, editedDayData);
@@ -197,7 +199,7 @@ public class CustomQueue implements Iterable<DayData> {
     public void remove(DayData toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new TaskNotFoundException();
+            throw new DayDataNotFoundException();
         }
     }
 
@@ -220,9 +222,24 @@ public class CustomQueue implements Iterable<DayData> {
         internalList.setAll(dayDatas);
     }
 
+    public void setDayDatas(CustomQueue replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
     /** Returns the backing list as an unmodifiable {@code ObservableList}. */
     public ObservableList<DayData> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    @Override
+    public String toString() {
+        String temp = "";
+        for (int i = 0; i < internalList.size(); i++) {
+            temp += internalList.get(i).toString();
+            temp += "\n";
+        }
+        return temp;
     }
 
     @Override
