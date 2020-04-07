@@ -325,6 +325,6 @@ The following section gives a quick summary of all the commands you can use in C
 
 * `undo *INDEX*`: *Undoes the recipe at given `INDEX`*
 
-* `unfav *INDEX*`: *UnFavourites the recipe at given `INDEX`*
+* `unfav *INDEX*`: *Unfavourites the recipe at given `INDEX`*
 
 * `view *INDEX*`: *Displays the recipe at given `INDEX` on CookBuddy*
