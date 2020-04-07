@@ -38,7 +38,7 @@ class DeleteCommandTest {
         toDeletePath = AbsolutePath.fromString("/CS2103");
     }
     @Test
-    void execute_deleteAPath_blockNoLongerExist() throws CommandException {
+    void execute_validAbsolutePath_blockSuccessfullyDeleted() throws CommandException {
         final DeleteCommand deleteCommand = new DeleteCommand(toDeletePath);
 
         deleteCommand.execute(model);
@@ -48,11 +48,18 @@ class DeleteCommandTest {
     }
 
     @Test
-    void execute_deleteRoot_throwsError() {
+    void execute_deleteRoot_throwsCommandException() {
         final AbsolutePath rootPath = AbsolutePath.fromString("/");
         final DeleteCommand deleteCommand = new DeleteCommand(rootPath);
 
         assertThrows(CommandException.class, () -> deleteCommand.execute(model));
     }
 
+    @Test
+    void execute_deleteNoneExistingBlock_throwsCommandException() {
+        final AbsolutePath rootPath = AbsolutePath.fromString("/NonExisting");
+        final DeleteCommand deleteCommand = new DeleteCommand(rootPath);
+
+        assertThrows(CommandException.class, () -> deleteCommand.execute(model));
+    }
 }
