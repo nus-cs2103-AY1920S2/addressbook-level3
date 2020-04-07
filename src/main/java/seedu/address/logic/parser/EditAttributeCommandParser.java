@@ -11,8 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditAttributeCommandParser implements Parser<EditAttributeCommand> {
 
-    /*private static final Pattern BASIC_EDIT_ATTRIBUTE_COMMAND_FORMAT =
-            Pattern.compile("(?<oldAttribute>\\S+)(?<newAttribute>)");*/
+    public static final String MESSAGE_INCOMPLETE_ARGUMENT = "Incomplete input format for editing an attribute.\n%s";
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditAttributeCommand
@@ -27,14 +26,14 @@ public class EditAttributeCommandParser implements Parser<EditAttributeCommand> 
                 ArgumentTokenizer.tokenize(arguments, PREFIX_ATTRIBUTE);
 
         if (argMultimap.getPreamble().equals("")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditAttributeCommand.MESSAGE_USAGE));
         }
         if (!argMultimap.arePrefixesPresent(PREFIX_ATTRIBUTE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
         }
         if (argMultimap.getValue(PREFIX_ATTRIBUTE).get().equals("")) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditAttributeCommand.MESSAGE_USAGE));
         }
 
         return new EditAttributeCommand(

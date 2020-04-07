@@ -15,7 +15,7 @@ import seedu.address.model.hirelah.storage.Storage;
  */
 public class OpenResumeCommand extends Command {
     public static final String COMMAND_WORD = "resume";
-    public static final String MESSAGE_SUCCESS = "Opening resume..";
+    public static final String MESSAGE_SUCCESS = "Resume of %s opened.";
     public static final String MESSAGE_NO_RESUME = "No resume uploaded!";
     public static final String MESSAGE_RESUME_NOT_FOUND =
             "Cannot find a resume at %s!\nPlease upload a resume via the upload command";
@@ -40,7 +40,7 @@ public class OpenResumeCommand extends Command {
             throw new CommandException(String.format(MESSAGE_RESUME_NOT_FOUND, resume));
         }
         openFile(resume);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, identifier));
     }
 
     /**

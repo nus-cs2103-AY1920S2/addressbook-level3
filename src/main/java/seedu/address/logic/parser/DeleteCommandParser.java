@@ -23,6 +23,8 @@ public class DeleteCommandParser implements Parser<Command> {
             + DeleteMetricCommand.MESSAGE_FORMAT + DeleteMetricCommand.MESSAGE_FUNCTION
             + DeleteQuestionCommand.MESSAGE_FORMAT + DeleteQuestionCommand.MESSAGE_FUNCTION;
 
+    public static final String INVALID_QUESTION_NUMBER_MESSAGE = "The question number provided is invalid.";
+
     private static final Pattern BASIC_DELETE_COMMAND_FORMAT =
             Pattern.compile("(?<deleteCommandWord>\\S+)(?<deleteArguments>.*)");
 
@@ -44,20 +46,21 @@ public class DeleteCommandParser implements Parser<Command> {
 
         switch (deleteCommandWord) {
         case DeleteAttributeCommand.COMMAND_WORD:
-            ParserUtil.checkEmptyArgument(DeleteAttributeCommand.MESSAGE_USAGE);
+            ParserUtil.checkEmptyArgument(deleteArguments, DeleteAttributeCommand.MESSAGE_USAGE);
             return new DeleteAttributeCommand(deleteArguments.trim());
 
         case DeleteIntervieweeCommand.COMMAND_WORD:
+            ParserUtil.checkEmptyArgument(deleteArguments, DeleteIntervieweeCommand.MESSAGE_USAGE);
             return new DeleteIntervieweeCommand(deleteArguments.trim());
 
         case DeleteQuestionCommand.COMMAND_WORD:
-            ParserUtil.checkEmptyArgument(DeleteQuestionCommand.MESSAGE_USAGE);
+            ParserUtil.checkEmptyArgument(deleteArguments, DeleteQuestionCommand.MESSAGE_USAGE);
 
             try {
                 int index = Integer.parseInt(deleteArguments.trim());
                 return new DeleteQuestionCommand(index);
             } catch (NumberFormatException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EXPECTED_INPUT_FORMAT));
+                throw new ParseException(INVALID_QUESTION_NUMBER_MESSAGE);
             }
 
         case DeleteMetricCommand.COMMAND_WORD:
