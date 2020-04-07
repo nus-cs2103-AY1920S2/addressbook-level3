@@ -34,12 +34,12 @@ class UsedCommandTest {
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        Integer expectedUsageAmount = couponToBeUsed.getUsage().value + 1;
         DateSavingsSumMap expectedTotalSavings = new DateSavingsSumMap(
                 LocalDate.now(),
                 SavingsConversionUtil.convertToPure(couponToBeUsed.getSavingsForEachUse()));
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                new CouponBuilder(couponToBeUsed).withUsage(expectedUsageAmount)
                         .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
 
@@ -55,13 +55,13 @@ class UsedCommandTest {
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_SECOND_COUPON, originalAmount);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        Integer expectedUsageAmount = couponToBeUsed.getUsage().value + 1;
         DateSavingsSumMap expectedTotalSavings = new DateSavingsSumMap(
                 LocalDate.now(),
                 SavingsConversionUtil.convertToPure(
                         couponToBeUsed.getSavingsForEachUse(), originalAmount));
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                new CouponBuilder(couponToBeUsed).withUsage(expectedUsageAmount)
                         .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
         String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());
@@ -85,12 +85,12 @@ class UsedCommandTest {
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        Integer expectedUsageAmount = couponToBeUsed.getUsage().value + 1;
         DateSavingsSumMap expectedTotalSavings = new DateSavingsSumMap(
                 LocalDate.now(),
                 SavingsConversionUtil.convertToPure(couponToBeUsed.getSavingsForEachUse()));
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                new CouponBuilder(couponToBeUsed).withUsage(expectedUsageAmount)
                         .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
 
@@ -107,12 +107,12 @@ class UsedCommandTest {
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        Integer expectedUsageAmount = couponToBeUsed.getUsage().value + 1;
         DateSavingsSumMap expectedTotalSavings = new DateSavingsSumMap(
                 LocalDate.now(),
                 SavingsConversionUtil.convertToPure(couponToBeUsed.getSavingsForEachUse()));
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                new CouponBuilder(couponToBeUsed).withUsage(expectedUsageAmount)
                         .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
 
@@ -130,13 +130,13 @@ class UsedCommandTest {
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON, originalAmount);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        Integer expectedUsageAmount = couponToBeUsed.getUsage().value + 1;
         DateSavingsSumMap expectedTotalSavings = new DateSavingsSumMap(
                 LocalDate.now(),
                 SavingsConversionUtil.convertToPure(
                         couponToBeUsed.getSavingsForEachUse(), originalAmount));
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                new CouponBuilder(couponToBeUsed).withUsage(expectedUsageAmount)
                         .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
 

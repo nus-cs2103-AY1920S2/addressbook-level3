@@ -3,6 +3,8 @@ package csdev.couponstash.model.coupon;
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+import csdev.couponstash.commons.util.StringUtil;
+
 /**
  * Represents a Coupon's usage in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidUsage(String)}
@@ -14,16 +16,26 @@ public class Usage {
     public static final String MESSAGE_UNEDITABLE = "Usage cannot be added or edited. "
             + "This is to keep the savings consistent.";
     public static final String VALIDATION_REGEX = "^\\d+$";
-    public final String value;
+    public final int value;
 
     /**
-     * Constructs a {@code Usage}.
+     * Constructs a {@code Usage} with a String parameter.
      *
      * @param usage Valid usage number.
      */
     public Usage(String usage) {
         requireNonNull(usage);
         checkArgument(isValidUsage(usage), MESSAGE_CONSTRAINTS);
+
+        value = Integer.parseInt(usage);
+    }
+
+    /**
+     * Constructs a {@code Usage} with an int parameter.
+     */
+    public Usage(int usage) {
+        requireNonNull(usage);
+
         value = usage;
     }
 
@@ -31,7 +43,7 @@ public class Usage {
      * Constructs a {@code Usage} that defaults the current value to 0.
      */
     public Usage() {
-        this("0");
+        this(0);
     }
 
     /** Returns true if a given string is a valid usage number.
@@ -39,7 +51,7 @@ public class Usage {
      * @param test String to be validated.
      */
     public static boolean isValidUsage(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && !StringUtil.isIntegerOverflow(test);
     }
 
     /**
@@ -47,8 +59,8 @@ public class Usage {
      * @param usage The usage of the coupon.
      */
     public static boolean isUsageAtLimit(Usage usage, Limit limit) {
-        Double currentUsage = Double.parseDouble(usage.value);
-        Double usageLimit = limit.getParsedLimit();
+        int currentUsage = usage.value;
+        int usageLimit = limit.value;
         return currentUsage >= usageLimit;
     }
 
@@ -57,8 +69,8 @@ public class Usage {
      * @param usage The usage of the coupon.
      */
     public static boolean isUsageGreaterThanLimit(Usage usage, Limit limit) {
-        Double currentUsage = Double.parseDouble(usage.value);
-        Double usageLimit = limit.getParsedLimit();
+        int currentUsage = usage.value;
+        int usageLimit = limit.value;
         return currentUsage > usageLimit;
     }
 
@@ -73,29 +85,24 @@ public class Usage {
      * Returns new {@code Usage} with an increase of {@code numberOfTimes} in value.
      */
     public Usage increaseUsage(String numberOfTimes) {
-        Integer currentValue = Integer.parseInt(value);
-        Integer finalValue = Integer.parseInt(numberOfTimes) + currentValue;
-        return new Usage(finalValue.toString());
-    }
-
-    public String toUiLabelText() {
-        return String.format("You have used it %s time(s)", value);
+        Integer finalValue = Integer.parseInt(numberOfTimes) + value;
+        return new Usage(finalValue);
     }
 
     @Override
     public String toString() {
-        return value;
+        return String.valueOf(value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Usage
-                && value.equals(((Usage) other).value));
+                && value == ((Usage) other).value);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return value;
     }
 }

@@ -92,7 +92,7 @@ public class EditCouponDescriptorBuilder {
     /**
      * Sets the {@code Usage} of the {@code EditCouponDescriptor} that we are building.
      */
-    public EditCouponDescriptorBuilder withUsage(String usage) {
+    public EditCouponDescriptorBuilder withUsage(int usage) {
         descriptor.setUsage(new Usage(usage));
         return this;
     }
@@ -100,7 +100,7 @@ public class EditCouponDescriptorBuilder {
     /**
      * Sets the {@code Limit} of the {@code EditCouponDescriptor} that we are building.
      */
-    public EditCouponDescriptorBuilder withLimit(String limit) {
+    public EditCouponDescriptorBuilder withLimit(int limit) {
         descriptor.setLimit(new Limit(limit));
         return this;
     }

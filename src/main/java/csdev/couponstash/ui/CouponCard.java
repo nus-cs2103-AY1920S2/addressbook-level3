@@ -79,7 +79,7 @@ public class CouponCard extends UiPart<Region> {
         promoCode.setText("Promo Code: " + coupon.getPromoCode());
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
-        usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().value));
+        usage.setText(String.format("Usage: %s/%s", coupon.getUsage().value, coupon.getLimit().toUiText()));
         setTags(coupon, tags);
         setTags(coupon, tagsDup); // duplicate is needed for UI purposes
         remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());

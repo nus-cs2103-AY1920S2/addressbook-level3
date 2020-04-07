@@ -24,7 +24,7 @@ public class CouponTest {
         Usage currentUsage = coupon.getUsage();
         Coupon usedCoupon = coupon.increaseUsageByOne();
         Usage newUsage = usedCoupon.getUsage();
-        int difference = Integer.parseInt(newUsage.value) - Integer.parseInt(currentUsage.value);
+        int difference = newUsage.value - currentUsage.value;
         assertTrue(difference == 1);
     }
 

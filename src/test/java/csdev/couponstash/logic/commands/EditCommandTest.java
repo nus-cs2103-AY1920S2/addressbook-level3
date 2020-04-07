@@ -123,18 +123,17 @@ public class EditCommandTest {
     @Test
     public void execute_limitLowerThanUsage_failure() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
-        Integer currentUsage =
-                Integer.parseInt(TypicalCoupons.getTypicalCoupons().get(targetIndex.getZeroBased()).getUsage().value);
-        String newLimit = String.valueOf(currentUsage - 1);
+        int currentUsageValue = TypicalCoupons.getTypicalCoupons().get(targetIndex.getZeroBased()).getUsage().value;
+        int newLimitValue = currentUsageValue - 1;
 
         Coupon secondCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
         EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(secondCoupon)
-                .withLimit(newLimit)
+                .withLimit(newLimitValue)
                 .build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
         assertCommandFailure(editCommand, model,
-                String.format(EditCommand.MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
+                String.format(EditCommand.MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsageValue));
     }
 
     @Test

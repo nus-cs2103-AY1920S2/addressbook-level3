@@ -112,6 +112,16 @@
   -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+.result-display {
+  -fx-background-color: -fx-secondary-blue;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  -fx-effect: -fx-paneShadow;
+  -fx-alignment: center;
+  -fx-padding: 10px;
+}
+
+/* Styles for Coupon Window */
 .feedback-display {
   -fx-background-color: #6C96BE;
   -fx-text-fill: white;
@@ -126,21 +136,6 @@
   -fx-background-color: white;
 }
 
-/* For TextArea component of ResultDisplay */
-.result-display {
-  -fx-background-color: -fx-secondary-blue;
-  -fx-background-radius: 10px;
-  -fx-border-radius: 10px;
-  -fx-effect: -fx-paneShadow;
-  -fx-alignment: center;
-  -fx-padding: 10px;
-}
-
-.result-display .label {
-  -fx-text-fill: white;
-  -fx-text-alignment: center;
-}
-
 .text-area .scroll-pane {
   -fx-background-color: transparent;
 }
@@ -149,6 +144,70 @@
 }
 .text-area .scroll-pane .content {
   -fx-background-color: transparent;
+}
+
+#expanded-coupon-details .label {
+  -fx-font-family: arial;
+  -fx-text-fill: white;
+}
+
+.expanded-coupon-details-title {
+  -fx-font-size: 10px;
+  -fx-underline: true;
+}
+
+.expanded-coupon-details-info {
+  -fx-padding: 4 0 0 0;
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+  -fx-font-style: italic;
+}
+
+#expanded-coupon-details-condition {
+  -fx-padding: 4 0 0 0;
+  -fx-font-size: 10px;
+}
+
+#expanded-coupon-savings {
+  -fx-font-family: arial;
+  -fx-font-size: 40px;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
+}
+
+#expanded-coupon-saveables {
+  -fx-font-family: arial;
+  -fx-font-size: 40px;
+  -fx-text-fill: white;
+}
+
+#history-pane {
+  -fx-background-color: #75BE85;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  -fx-effect: -fx-paneShadow;
+  -fx-alignment: center;
+  -fx-padding: 10px;
+}
+
+#history-text-area {
+  -fx-background-color: #75BE85;
+  -fx-text-fill: white;
+  -fx-font-size: 12px;
+}
+
+#history-text-area .scroll-bar .track{
+  -fx-background-color: #6C96BE;
+}
+
+#history-text-area .scroll-bar .thumb{
+  -fx-background-color: white;
+}
+
+#history-label {
+  -fx-text-fill: white;
+  -fx-padding: 0 0 5 0;
 }
 
 /* Styles for Summary Tab */

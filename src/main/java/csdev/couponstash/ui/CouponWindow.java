@@ -2,7 +2,6 @@ package csdev.couponstash.ui;
 
 import static csdev.couponstash.commons.util.DateUtil.DAY_SHORT_MONTH_YEAR_FORMATTER;
 
-import java.util.Comparator;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -16,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 
 /**
  * Coupon Window display panel.
@@ -32,8 +30,8 @@ public class CouponWindow extends UiPart<Stage> {
     private static final String SAVEABLE_CLASS = "sv-label";
     // make it more obvious that savings can exist without
     // numerical but with saveable free items
-    private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 12;"
-            + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: #6c96be;";
+    private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 30px;"
+            + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: white;";
     // controls font size of number amount
     private static final int BASE_FONT_SIZE = 125;
     // if no saveables, translate numerical amount
@@ -65,7 +63,7 @@ public class CouponWindow extends UiPart<Stage> {
     @FXML
     private Label numericalAmount;
     @FXML
-    private FlowPane saveables;
+    private Label saveables;
 
     /**
      * Creates a new Coupon Window.
@@ -80,7 +78,7 @@ public class CouponWindow extends UiPart<Stage> {
         duration.setText(String.format("%s to %s",
                 coupon.getStartDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER),
                 coupon.getExpiryDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER)));
-        usage.setText(String.format("%s/%s", coupon.getUsage().value, coupon.getLimit().value));
+        usage.setText(String.format("%s/%s", coupon.getUsage().value, coupon.getLimit().toUiText()));
         remindDate.setText(coupon.getRemindDate().toString());
         condition.setText(coupon.getCondition().value);
 
@@ -102,34 +100,8 @@ public class CouponWindow extends UiPart<Stage> {
 
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {
         Set<Tag> couponTags = coupon.getTags();
-        final int maxTags = 5;
-
-        Object[] tagsArr = couponTags.stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName.length()))
-                .limit(maxTags)
-                .toArray();
-
-        int maxTotalLength = 44;
-        boolean isSkipped = false;
-
-        for (Object tag : tagsArr) {
-            Tag currentTag = ((Tag) tag);
-            int currentTagNameLength = currentTag.tagName.length();
-            if (currentTagNameLength < maxTotalLength) {
-                tagFlowPane.getChildren().add(new Label(currentTag.tagName));
-                maxTotalLength -= currentTagNameLength;
-            } else {
-                isSkipped = true;
-            }
-        }
-
-        // add ellipses to indicate existence of more off screen tags
-        int initialNumberOfTags = couponTags.size();
-        boolean isNumberOfTagsAboveLimit = initialNumberOfTags > maxTags;
-
-        if (isSkipped || isNumberOfTagsAboveLimit) {
-            tagFlowPane.getChildren().add(new Label("and more..."));
-        }
+        couponTags.stream()
+                .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
     }
 
     /**
@@ -139,18 +111,6 @@ public class CouponWindow extends UiPart<Stage> {
      * @param moneySymbol Money symbol for the display.
      */
     public void setSavings(Savings s, String moneySymbol) {
-        // handle saveables
-        s.getSaveables().ifPresentOrElse(saveablesList -> saveablesList.stream()
-                .forEach(sva -> {
-                    Label label = new Label(sva.getValue());
-                    // ensure that label has the correct CSS style
-                    label.getStyleClass().add(SAVEABLE_CLASS);
-                    saveables.getChildren().add(label);
-                }), () -> {
-                this.saveables.setStyle(HIDDEN);
-                this.numericalAmount.setTranslateY(NUMERICAL_AMOUNT_TRANSLATE_AMOUNT);
-            });
-
         // handle numerical value
         String savingsNumber = getSavingsString(s, moneySymbol);
         if (savingsNumber.isBlank()) {
@@ -158,10 +118,6 @@ public class CouponWindow extends UiPart<Stage> {
             this.numericalAmount.setStyle(NO_NUMERICAL_AMOUNT_STYLE);
         } else {
             this.numericalAmount.setText(savingsNumber);
-            // resize numerical amount dynamically
-            this.numericalAmount.setStyle("-fx-font-size: "
-                    + (BASE_FONT_SIZE / savingsNumber.length())
-                    + ";");
         }
     }
 

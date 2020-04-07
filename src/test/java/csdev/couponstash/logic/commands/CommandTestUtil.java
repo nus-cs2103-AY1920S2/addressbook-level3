@@ -68,10 +68,10 @@ public class CommandTestUtil {
             Arrays.asList(new Saveable(VALID_SAVEABLE_COFFEE), new Saveable(VALID_SAVEABLE_TEA))
     );
     public static final MoneySymbol VALID_MONEY_SYMBOL = new MoneySymbolStub("RM");
-    public static final String VALID_USAGE_AMY = "0";
-    public static final String VALID_USAGE_BOB = "0";
-    public static final String VALID_LIMIT_AMY = "1";
-    public static final String VALID_LIMIT_BOB = "10";
+    public static final int VALID_USAGE_AMY = 0;
+    public static final int VALID_USAGE_BOB = 0;
+    public static final int VALID_LIMIT_AMY = 1;
+    public static final int VALID_LIMIT_BOB = 10;
 
     public static final String VALID_CONDITION_AMY = "While Stocks Last";
     public static final String VALID_CONDITION_BOB = "While Stocks Last";
