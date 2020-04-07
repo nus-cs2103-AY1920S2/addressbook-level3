@@ -1,11 +1,12 @@
 package csdev.couponstash.ui;
 
+import static csdev.couponstash.commons.util.DateUtil.DAY_SHORT_MONTH_YEAR_FORMATTER;
+
 import java.util.Comparator;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
-import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -76,8 +77,9 @@ public class CouponWindow extends UiPart<Stage> {
 
         name.setText(coupon.getName().fullName);
         promoCode.setText(coupon.getPromoCode().toString());
-        duration.setText(String.format("%s to %s", coupon.getStartDate().date.format(
-                DateUtil.DAY_MONTH_YEAR_FORMATTER_FOR_CALENDAR), coupon.getExpiryDate().value));
+        duration.setText(String.format("%s to %s",
+                coupon.getStartDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER),
+                coupon.getExpiryDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER)));
         usage.setText(String.format("%s/%s", coupon.getUsage().value, coupon.getLimit().value));
         remindDate.setText(coupon.getRemindDate().toString());
         condition.setText(coupon.getCondition().value);
