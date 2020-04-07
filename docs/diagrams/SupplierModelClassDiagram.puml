@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+ModelManager -->"1" Supplier : filtered list
+AddressBook *-right-> "1" UniqueSupplierList
+AddressBook *-right-> "1" UniqueTagList
+UniqueOfferList -[hidden]down- UniqueSupplierList
+UniqueOfferList -[hidden]down- UniqueSupplierList
+
+UniqueOfferList *-right-> "*" Offer
+UniqueSupplierList o-right-> Supplier
+
+Supplier o-up-> "*" Offer
+
+Supplier *--> Name
+Supplier *--> Phone
+Supplier *--> Email
+Supplier *--> Address
+@enduml
