@@ -1,6 +1,7 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.recipe.logic.commands.EditCommand.createEditedRecipe;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Favourites a recipe identified using it's displayed index from the recipe book.
@@ -27,6 +30,7 @@ public class FavouriteCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added %1$s to favourites!";
     public static final String MESSAGE_ALREADY_FAVOURITE = "%1$s already in favourites!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index[] targetIndex;
     private final CommandType commandType;
 
@@ -39,8 +43,8 @@ public class FavouriteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        List<String> successfulFavouritesList = new ArrayList<>();
-        List<String> alreadyFavouritesList = new ArrayList<>();
+        List<String> successfullyFavouritedRecipes = new ArrayList<>();
+        List<String> alreadyFavouritedRecipes = new ArrayList<>();
 
         if (!canFavouriteTargetRecipes(lastShownList.size(), targetIndex)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -49,25 +53,28 @@ public class FavouriteCommand extends Command {
         for (Index index : targetIndex) {
             Recipe recipeToFavourite = lastShownList.get(index.getZeroBased());
             if (!recipeToFavourite.isFavourite()) {
-                model.favouriteRecipe(recipeToFavourite);
-                successfulFavouritesList.add(recipeToFavourite.getName().toString());
+                EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+                editRecipeDescriptor.setFavourite(true);
+                Recipe editedRecipe = createEditedRecipe(recipeToFavourite, editRecipeDescriptor);
+                model.setRecipe(recipeToFavourite, editedRecipe);
+                successfullyFavouritedRecipes.add(recipeToFavourite.getName().toString());
             } else {
-                alreadyFavouritesList.add(recipeToFavourite.getName().toString());
+                alreadyFavouritedRecipes.add(recipeToFavourite.getName().toString());
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        if (!successfulFavouritesList.isEmpty()) {
-            sb.append(String.format(MESSAGE_SUCCESS, getListAsFormattedString(successfulFavouritesList)));
+        if (!successfullyFavouritedRecipes.isEmpty()) {
+            sb.append(String.format(MESSAGE_SUCCESS, getListAsFormattedString(successfullyFavouritedRecipes)));
             sb.append("\n");
         }
-        if (!alreadyFavouritesList.isEmpty()) {
-            sb.append(String.format(MESSAGE_ALREADY_FAVOURITE, getListAsFormattedString(alreadyFavouritesList)));
+        if (!alreadyFavouritedRecipes.isEmpty()) {
+            sb.append(String.format(MESSAGE_ALREADY_FAVOURITE, getListAsFormattedString(alreadyFavouritedRecipes)));
         }
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(sb.toString());
+        return new CommandResult(sb.toString(), false, recipesTab, false);
     }
 
     /**

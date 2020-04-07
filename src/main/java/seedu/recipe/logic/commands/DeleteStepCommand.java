@@ -15,6 +15,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.Step;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Deletes step(s) from an existing recipe in the recipe book.
@@ -31,6 +32,7 @@ public class DeleteStepCommand extends Command {
     public static final String MESSAGE_DELETE_STEPS_SUCCESS = "Successfully deleted step(s) from %1$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to delete a non-existent step";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final Integer[] stepNumbers;
     private final CommandType commandType;
@@ -73,7 +75,8 @@ public class DeleteStepCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_STEPS_SUCCESS, recipeToEdit.getName().toString()));
+        String finalMessage = String.format(MESSAGE_DELETE_STEPS_SUCCESS, recipeToEdit.getName().toString());
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     @Override

@@ -16,6 +16,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.Step;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Edits a step in an existing recipe in the recipe book.
@@ -34,6 +35,7 @@ public class EditStepCommand extends Command {
     public static final String MESSAGE_EDIT_STEPS_SUCCESS = "Successfully edited step %1$d in %2$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to edit a non-existent step";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final int stepNumber;
     private final Step editedStep;
@@ -76,8 +78,9 @@ public class EditStepCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
 
-        return new CommandResult(
-                String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1, recipeToEdit.getName().toString()));
+        String finalMessage = String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1,
+                recipeToEdit.getName().toString());
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     /**

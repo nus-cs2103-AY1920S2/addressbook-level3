@@ -139,16 +139,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void favouriteRecipe(Recipe target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void unfavouriteRecipe(Recipe target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setRecipe(Recipe target, Recipe editedRecipe) {
             throw new AssertionError("This method should not be called.");
         }
@@ -225,6 +215,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Record> getFilteredRecordList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateGoalsTally(Record record) {
             throw new AssertionError("This method should not be called.");
         }
 

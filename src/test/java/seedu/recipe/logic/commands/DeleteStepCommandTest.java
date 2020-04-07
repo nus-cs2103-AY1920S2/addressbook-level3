@@ -20,6 +20,7 @@ import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -51,7 +52,10 @@ public class DeleteStepCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToDeleteSteps, expectedRecipe);
 
-        assertCommandSuccess(deleteStepCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+
+        assertCommandSuccess(deleteStepCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -98,7 +102,10 @@ public class DeleteStepCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToDeleteSteps, expectedRecipe);
 
-        assertCommandSuccess(deleteStepCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+
+        assertCommandSuccess(deleteStepCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

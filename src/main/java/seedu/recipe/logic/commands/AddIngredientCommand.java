@@ -25,6 +25,7 @@ import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Adds ingredient(s) to an existing recipe in the recipe book.
@@ -48,6 +49,7 @@ public class AddIngredientCommand extends Command {
 
     public static final String MESSAGE_ADD_INGREDIENTS_SUCCESS = "Successfully added ingredient(s) to %1$s!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
     private final CommandType commandType;
@@ -85,7 +87,8 @@ public class AddIngredientCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
 
-        return new CommandResult(String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString()));
+        String finalMessage = String.format(MESSAGE_ADD_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString());
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     /**
