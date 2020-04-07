@@ -23,8 +23,7 @@ public class EditInfoCommand extends Command {
     public static final String COMMAND_FUNCTION = "Edit the information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information at the line number, "
-            + "it will be overwritten with the input indicated. "
-            + "If note is empty, the input will be added as new note.";
+            + "the input will added on to the existing information.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
@@ -33,7 +32,7 @@ public class EditInfoCommand extends Command {
             + PREFIX_LINE_NUMBER + " 2 " + PREFIX_REMARK + " Likes to swim.";
 
     public static final String MESSAGE_EDIT_REMARK_SUCCESS = "Edited remark for Person: %1$s";
-    public static final String MESSAGE_EMPTY = "No remark edited for Person: %1$s";
+    public static final String MESSAGE_EMPTY = "No remark to be edited is provided.";
 
     private final Index index;
     private final int line;

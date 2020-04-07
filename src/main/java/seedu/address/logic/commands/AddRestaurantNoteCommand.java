@@ -53,7 +53,8 @@ public class AddRestaurantNoteCommand extends Command {
      * @param goodFood notes of the restaurant to be updated to
      * @param badFood notes of the restaurant to be updated to
      */
-    public AddRestaurantNoteCommand(Index index, ArrayList<Note> recommendedFood, ArrayList<Note> goodFood, ArrayList<Note> badFood) {
+    public AddRestaurantNoteCommand(Index index, ArrayList<Note> recommendedFood,
+                                    ArrayList<Note> goodFood, ArrayList<Note> badFood) {
         requireAllNonNull(index, recommendedFood, goodFood, badFood);
 
         this.index = index;
