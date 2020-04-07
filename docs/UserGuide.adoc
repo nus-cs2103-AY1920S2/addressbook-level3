@@ -104,6 +104,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can
 In this section, you can find *all* the commands of EYLAH and some tips and trick you can use
 to to improve your user experience of EYLAH.
 
+[cols="50%, 50%"]
 |===
 |Diet Tracker | Expense Spliter
 | <<mode, mode>>
