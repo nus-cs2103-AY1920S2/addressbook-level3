@@ -34,20 +34,15 @@ public class BlockContentEditView extends ViewPart<Region> {
         this.logic = logic;
         this.model = model;
 
-        setup();
+        initializeComponent();
     }
 
     /**
      * Sets up the view's initial data and wire up all required change listeners.
      */
-    private void setup() {
-        // Initialize text area content
+    private void initializeComponent() {
         setText(model);
-
-        // Setup change listeners
-        model.currentlyOpenPathProperty().addListener(observable -> setText(model));
-        model.getBlockTree().getRootBlock().getTreeItem()
-                .addEventHandler(TreeItem.treeNotificationEvent(), event -> setText(model));
+        initializeListeners();
     }
 
     /**
@@ -63,6 +58,12 @@ public class BlockContentEditView extends ViewPart<Region> {
         String markdownBody = currentlyOpenBlock.getBody().getText();
 
         blockContentTextArea.setText(markdownBody);
+    }
+
+    private void initializeListeners() {
+        model.currentlyOpenPathProperty().addListener(observable -> setText(model));
+        model.getBlockTree().getRootBlock().getTreeItem()
+                .addEventHandler(TreeItem.treeNotificationEvent(), event -> setText(model));
     }
 }
 
