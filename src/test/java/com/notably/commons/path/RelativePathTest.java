@@ -48,8 +48,16 @@ class RelativePathTest {
     }
 
     @Test
-    public void equals_similarPath_pathAreEqual() {
+    public void equals_similarPathWithSameCasing_pathAreEqual() {
         final RelativePath inputRelativePath1 = RelativePath.fromString("CS2103/../CS2103");
+        final RelativePath inputRelativePath2 = RelativePath.fromString("CS2103");
+
+        assertEquals(inputRelativePath2, inputRelativePath1);
+    }
+
+    @Test
+    public void equals_similarPathWithDifferentCase_pathAreEqual() {
+        final RelativePath inputRelativePath1 = RelativePath.fromString("cs2103");
         final RelativePath inputRelativePath2 = RelativePath.fromString("CS2103");
 
         assertEquals(inputRelativePath2, inputRelativePath1);
