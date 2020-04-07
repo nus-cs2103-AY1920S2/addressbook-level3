@@ -48,7 +48,7 @@
                   </HBox.margin>
                </Label>
                <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="address" styleClass="cell_small_label" text="Address: \$address" wrapText="true" />
+            <Label fx:id="address" styleClass="cell_small_label" text="Address: \$address" wrapText="true" textAlignment="RIGHT"/>
             </children>
          </HBox>
          <HBox>
