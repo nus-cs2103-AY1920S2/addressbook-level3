@@ -24,9 +24,7 @@ identify the recipes they like.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-*  *Summary of code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AdarshChugani&tabRepo=AY1920S2-CS2103T-W12-4%2Fmain%5Bmaster%5D[Code contribution summary]]
-    [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=AdarshChugani&zR=AY1920S2-CS2103T-W12-4%2Fmain%5Bmaster%5D&zACS=350.1965230536659&zS=2020-02-14&zU=2020-04-06&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false[breakdown of commits]]
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AdarshChugani&tabRepo=AY1920S2-CS2103T-W12-4%2Fmain%5Bmaster%5D[Summary of code contributed]]
 * *Other contributions*:
 
 ** Project management:
