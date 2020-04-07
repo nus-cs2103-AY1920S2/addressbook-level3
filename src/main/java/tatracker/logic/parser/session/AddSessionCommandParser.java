@@ -12,14 +12,12 @@ import static tatracker.logic.parser.Prefixes.START_TIME;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.stream.Stream;
 
 import tatracker.logic.commands.session.AddSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 
@@ -46,7 +44,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE, START_TIME, END_TIME,
                 DATE, RECUR, SESSION_TYPE, NOTES);
 
-        if (!arePrefixesPresent(argMultimap, MODULE)
+        if (!argMultimap.arePrefixesPresent(MODULE)
                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddSessionCommand.DETAILS.getUsage()));
@@ -96,13 +94,5 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         }
 
         return new AddSessionCommand(sessionToAdd);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
