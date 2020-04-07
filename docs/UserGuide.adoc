@@ -376,6 +376,10 @@ Example: +
 
 Listing the amount of money each Person owes you.
 
+OR
+
+If you want to find how much each Person(s) owes you!
+
 *Summary of List Amount Command: `listamount` shows you how much each Person owes you*.
 
 *How to use the List Amount Command:*
