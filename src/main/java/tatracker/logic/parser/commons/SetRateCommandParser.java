@@ -1,13 +1,12 @@
 package tatracker.logic.parser.commons;
 
+import java.util.logging.Logger;
+
 import tatracker.commons.core.LogsCenter;
 import tatracker.logic.commands.commons.SetRateCommand;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
-
-import java.util.logging.Logger;
-
 
 /**
  * Parses input arguments and creates a new SetRateCommand object
