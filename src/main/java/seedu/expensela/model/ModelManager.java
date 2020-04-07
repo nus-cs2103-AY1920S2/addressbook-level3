@@ -153,16 +153,10 @@ public class ModelManager implements Model {
             this.expenseLa.getMonthlyData()
                     .setIncome(new Income(Double.toString(
                             this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
-            globalData.setTotalBalance(
-                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount + amount))
-            );
         } else {
             this.expenseLa.getMonthlyData()
                     .setExpense(new Expense(Double.toString(
                             this.expenseLa.getMonthlyData().getExpense().expenseAmount + amount)));
-            globalData.setTotalBalance(
-                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount - amount))
-            );
         }
     }
 

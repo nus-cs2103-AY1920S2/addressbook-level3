@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.expensela.model.Balance;
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 
 /**
@@ -20,6 +21,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         model.setExpenseLa(new ExpenseLa());
         model.updateTotalBalance(new Balance("0.00"));
+        model.setGlobalData(new GlobalData());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
