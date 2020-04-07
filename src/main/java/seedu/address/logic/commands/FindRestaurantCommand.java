@@ -43,9 +43,12 @@ public class FindRestaurantCommand extends Command {
             model.updateFilteredRestaurantList(rNamePredicate.and(locationPredicate)); // 11
         } // we don't do anything for the case 00
 
+        int numRestaurants = model.getFilteredRestaurantList().size();
+        String MESSAGE_RESTAURANTS_LISTED_OVERVIEW = Integer.toString(numRestaurants) + " restaurant(s) listed!";
+
         // We edit the commandResult so it shows the restaurant panel.
         return new CommandResult(
-                String.format(Messages.MESSAGE_RESTAURANTS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
+                String.format(MESSAGE_RESTAURANTS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
                 false, false, false, false, false, false, true, false);
 
     }
