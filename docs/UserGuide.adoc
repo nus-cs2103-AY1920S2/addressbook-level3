@@ -47,7 +47,7 @@ This block displays *tips* that you may find useful.
 
 == Quick Start
 
-The following steps will walk you through getting *CookBuddy* installed on your computer.
+The following steps will walk you through installing *CookBuddy* on your computer.
 
 . Ensure you have Java 11 or later installed on your computer.
     - If not, download and install the latest Java Runtime Environment from https://www.java.com/en/download/[here].
@@ -65,14 +65,14 @@ image::Ui.png[width="800"]
 
 . Some example commands you can try:
 
-   * `list` : lists all the recipes in the recipe book
+   * `list` : lists all the recipes stored in CookBuddy.
 
    * `new n/Ham Sandwich ing/bread, 2 slices; ham, 1 slice ins/put ham between bread; serve on plate`:
     adds a recipe named "Ham Sandwich" to *CookBuddy*.
 
-   * `delete 3` : deletes the 3rd recipe shown in the current list
+   * `delete 3` : deletes the 3rd recipe shown in the current list from CookBuddy.
 
-   * `exit` : quits *CookBuddy*
+   * `exit` : quits *CookBuddy*.
 
 . Refer to <<Features>> for details of each command.
 
@@ -91,15 +91,15 @@ The following sub-sections describes the features you can use in *CookBuddy*.
 ===  Help — `help`
 You can list all the commands recognised by *CookBuddy* by typing `help` into the command box and pressing kbd:[Enter].
 
-If you also specify a command, *CookBuddy* will show how to use that specific command.
+If you also specify a command after typing help, *CookBuddy* will show how to use that specific command.
 
 Format: `help [COMMAND]`
 
 Example 1: You can type `help` and *CookBuddy* will display the commands that it recognises.
 
-Example 2: You can type `help delete` and *CookBuddy* will display how to use the `delete` command.
+Example 2: You can type `help delete` and *CookBuddy* will display you how to use the `delete` command.
 
-tag::AddRecipe[]
+
 === Adding a recipe — `new`
 You can add a new recipe to *CookBuddy* using the `new` command.
 
@@ -131,14 +131,13 @@ Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram i
         . Fry the rice
         . Add salt
 
-end::AddRecipe[]
 
-=== View a Recipe — `view`
-You can view a given recipe on *CookBuddy* using the `view` command.
+=== Viewing a Recipe — `view`
+You can view a recipe at the given index on *CookBuddy* using the `view` command.
 
 Format: `view INDEX`
 
-Example: You can type `view 2` and *CookBuddy* will display the recipe at index 2 on the main page.
+Example: You can type `view 2` and *CookBuddy* will display you the recipe at index 2 on the main page.
 
 
 === Deleting a recipe — `delete`
@@ -159,7 +158,7 @@ Format: `modify INDEX [ing/INGREDIENT, QUANTITY [; ...]] [ins/INSTRUCTION [; ...
 You can modify a recipe's ingredients by appending `ing/INGREDIENT, QUANTITY [; ...]` to a `modify` command.
 
 Example: You can type `modify 1 ing/ham, 2 slices` and *CookBuddy* will modify the ingredients of the 1st recipe in
-the list to contain only 2 slices of ham.
+the list to contain 2 slices of ham.
 
 
 ==== Modifying a recipe's instructions
@@ -171,9 +170,10 @@ recipe to contain two instructions:
     * boil eggs
     * slice apples
 
+
 ==== Modifying a recipe's tags
 You can modify a recipe's tags by appending `[t/TAG [, ...]]` to a `modify` command.
-If you want to remove all tags from the recipe, append `t/` instead.
+If you want to remove all the tags from the recipe, append `t/` instead.
 
 Example 1: You can type `modify 1 t/lunch, dinner` and *CookBuddy* will update the tags in the 1st recipe to contain
 two tags:
@@ -181,7 +181,7 @@ two tags:
     * lunch
     * dinner
 
-Example 2: You can type `modify 1 t/` and *CookBuddy* will remove all existing tags from the 1st recipe.
+Example 2: You can type `modify 1 t/` and *CookBuddy* will remove all the existing tags from the 1st recipe.
 
 
 === Favouriting a recipe — `fav`
@@ -191,24 +191,24 @@ Format: `fav INDEX`
 
 Example: You can type `fav 1` and *CookBuddy* will favourite the recipe at index 1.
 [NOTE]
-A favourited recipe is indicated by a red filled heart
+A favourited recipe is indicated by a red filled heart.
 
 
 === Un-Favouriting a recipe — `unfav`
-You can un-favourite an existing recipe from *CookBuddy* using the `fav` command.
+You can un-favourite an existing recipe from *CookBuddy* using the `unfav` command.
 
 Format: `unfav INDEX`
 
 Example: You can type `unfav 1` and *CookBuddy* will un-favourite the recipe at index 1.
 [NOTE]
 Recipes are not favourited by default.
-This command is only useful if you wish to un-favourite recipe that is already favourited.
+This command is only useful if you wish to un-favourite a recipe that is already favourited.
 A non-favourited recipe is indicated by a heart with a read outline and no fill.
 
 
 === Marking a recipe as done — `done`
-You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that it has
-been attempted.
+You can mark an existing recipe from *CookBuddy* as being done using the `done` command. This indicates that the recipe
+has been attempted.
 
 Format: `done INDEX`
 
@@ -230,11 +230,14 @@ This command is only useful if you wish to un-mark recipe that is already marked
 
 
 === Listing recipes — `list`
-You can list all the existing recipes from *CookBuddy* using the `list` command.
+You can list all the existing recipes from *CookBuddy* using the `list` command. This command also helps to refresh
+the current recipe list.
 
 Format: `list`
 
-tag::find[]
+Example: You can type `list` and *CookBuddy* will display all the recipes that are currently stored in it.
+
+
 === Finding recipes — `find`
 You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
 
@@ -248,43 +251,41 @@ You can find a recipe by its name by appending `n/NAME [...]` to a `find` comman
 
 Example: You can type `find n/sandwich` and *CookBuddy* will display recipes that contain the word `sandwich` in their name.
 
+
 ==== Finding a recipe by ingredient
 You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
 
 Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
 
-end::find[]
 
 === Counting recipes — `count`
 You can count the total number of recipes stored in *CookBuddy* using the `count` command.
 
 Format: `count`
 
+Example: You can type `count` and *CookBuddy* will display the total number of recipes stored in it.
 //
-//=== Tag a Recipe — `tag <index> <tag_type> <tag> (V1.3)`
-//Tags a recipe at the specified index with the tag of tag_type.
 //
-//Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1.
-
-// ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
-// Tags a recipe (and the ingredient, if specified) as containing `allergen`.
-
-// ==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
-// Tag the recipe as `meal type` such as breakfast/lunch/dinner
-
 // === Duplicate Recipe — `dup <index>`
 // Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
 // Useful for users who wish to experiment with recipes while keeping a copy of the original.
 
+
 === Deleting all recipes - `reset`
-You can remove all recipes stored in *CookBuddy* using the `reset`command.
+You can remove all the recipes stored in *CookBuddy* using the `reset`command.
 
 Format: `reset`
+
+Example: You can type `reset` and *CookBuddy* will clear all the recipes stored in it.
+
 
 === Exiting *CookBuddy* - `exit`
 You can exit from *CookBuddy* using the `exit` command.
 
 Format: `exit`
+
+Example: You can type `exit` and *CookBuddy* will terminate.
+
 
 == FAQ
 
@@ -299,15 +300,15 @@ The following section gives a quick summary of all the commands you can use in C
 
 * `count`: *Counts the total number of recipes stored in CookBuddy*
 
-* `delete *INDEX*`: *Deletes the recipe at given `INDEX`*
+* `delete *INDEX*`: *Deletes the recipe at the given `INDEX`*
 
-* `done *INDEX*`: *Marks the recipe at given `INDEX` as `done`*
+* `done *INDEX*`: *Marks the recipe at the given `INDEX` as `done`*
 
 * `exit`: *Exits CookBuddy*
 
-* `fav *INDEX*`: *Favourites the recipe at given `INDEX`*
+* `fav *INDEX*`: *Favourites the recipe at the given `INDEX`*
 
-* `find [n/NAME [...]] [ing/INGREDIENT [...]]`: *Finds an existing recipe with the given parameter from CookBuddy*
+* `find [n/NAME [...]] [ing/INGREDIENT [...]]`: *Finds an existing recipe with the given parameter(s) from CookBuddy*
 
 * `help`: *Lists all the commands recognised by CookBuddy*
 
@@ -323,8 +324,8 @@ The following section gives a quick summary of all the commands you can use in C
 
 * `reset`: *Removes all the recipes from CookBuddy*
 
-* `undo *INDEX*`: *Undoes the recipe at given `INDEX`*
+* `undo *INDEX*`: *Undoes the recipe at the given `INDEX`*
 
-* `unfav *INDEX*`: *Unfavourites the recipe at given `INDEX`*
+* `unfav *INDEX*`: *Unfavourites the recipe at the given `INDEX`*
 
-* `view *INDEX*`: *Displays the recipe at given `INDEX` on CookBuddy*
+* `view *INDEX*`: *Displays the recipe at the given `INDEX` on CookBuddy*
