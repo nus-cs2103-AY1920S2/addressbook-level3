@@ -16,8 +16,7 @@ public class JsonModuleListStorageTest {
 
     @Test
     public void readModuleList_nullFilePath_throwsNullPointerException() {
-        JsonModuleListStorage storage = new JsonModuleListStorage(null);
-        assertThrows(NullPointerException.class, storage::readModuleList);
+        assertThrows(NullPointerException.class, () -> readModuleList(null));
     }
 
     private java.util.Optional<ModuleList> readModuleList(String filePath) throws Exception {
