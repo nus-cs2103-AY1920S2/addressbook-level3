@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.testutil.*;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.testutil.AddressBookBuilder;
 
@@ -116,14 +117,14 @@ public class ProfileManagerTest {
 
     @Test
     public void equals() {
-        //AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        //AddressBook differentAddressBook = new AddressBook();
+        ProfileList profileList = new ProfileListBuilder().withProfile(ALICE).withProfile(BENSON).build();
+        ProfileList differentProfileList = new ProfileList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        //profileManager = new ProfileManager(addressBook, userPrefs);
-        //ProfileManager profileManagerCopy = new ProfileManager(addressBook, userPrefs);
-        //assertTrue(profileManager.equals(profileManagerCopy));
+        profileManager = new ProfileManager(profileList, userPrefs);
+        ProfileManager profileManagerCopy = new ProfileManager(profileList, userPrefs);
+        assertTrue(profileManager.equals(profileManagerCopy));
 
         // same object -> returns true
         assertTrue(profileManager.equals(profileManager));
@@ -135,7 +136,7 @@ public class ProfileManagerTest {
         assertFalse(profileManager.equals(5));
 
         // different addressBook -> returns false
-        //assertFalse(profileManager.equals(new ProfileManager(differentAddressBook, userPrefs)));
+        assertFalse(profileManager.equals(new ProfileManager(differentProfileList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
@@ -148,6 +149,6 @@ public class ProfileManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        //assertFalse(profileManager.equals(new ProfileManager(addressBook, differentUserPrefs)));
+        assertFalse(profileManager.equals(new ProfileManager(profileList, differentUserPrefs)));
     }
 }
