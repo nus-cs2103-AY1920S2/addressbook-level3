@@ -441,6 +441,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
                 break;
 
+            case LIST:
+                claimsListPanel.updateLabel();
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                break;
+
             default:
                 break;
             }

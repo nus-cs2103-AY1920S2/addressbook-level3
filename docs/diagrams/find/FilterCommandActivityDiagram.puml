@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes Filter Command;
+
+:Parse and Validate the keywords;
+
+if () then ([any keywords matches])
+    :Update the filtered list;
+    :Display the filtered list to the user;
+
+else ([else])
+:shows user the command exception;
+endif
+
+stop
+@enduml
