@@ -49,6 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `filter c/OBJECT`, `OBJECT` is a parameter which can be used as `filter c/FOOD`.
 
+* Parameters are not case sensitive, but prefixes are
+
 * Items in square brackets are optional e.g `spend a/AMOUNT n/ OBJECT [d/ DATE] [c/ CAT]` and can used as `add a/100 n/Pizza` or `add a/100 n/Pizza d/2020-02-02 c/Food`
 
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AMOUNT`, `a/AMOUNT n/NAME` is also acceptable.
@@ -64,13 +66,13 @@ Format: `help`
 
 Sets a spendable budget for the current month
 
-Format: `budget b/AMOUNT rc/no` (to set a budget for the given month only)
-        `budget b/AMOUNT rc/yes` (to set repeating budget of $AMOUNT for the coming months)
+Format: `budget b/AMOUNT` (to set a budget for the given month only)
+        `budget b/AMOUNT rc/` (to set repeating budget of $AMOUNT for the coming months)
 
 Examples:
 
-* `budget b/1000 rc/no`
-* `budget rc/yes b/1500`
+* `budget b/1000 rc/`
+* `budget b/1500`
 
 
 === Reset total balance `resetbalance`
@@ -82,7 +84,7 @@ Reset Balance value to the total from the amount of all transactions in stored i
 
 Adds an expense or income to the expense tracker. Expenses/incomes are stored as a transaction.
 
-Format: `add [i/] n/ NAME a/ AMOUNT [d/ DATE] [c/ CATEGORY] [r/ REMARK]  `
+Format: `add [i/] n/ NAME a/ AMOUNT [d/ DATE] [c/ CATEGORY] [r/ REMARK]  [rc/]`
 
 [TIP]
 Leaving the DATE option blank will auto fill with today's date
@@ -90,20 +92,22 @@ Leaving the DATE option blank will auto fill with today's date
 Leaving the CATEGORY option blank will auto fill with 'MISC' category
 [TIP]
 Not including i/ will make transaction an expense by default while including i/ will make it an income
+[TIP]
+Including rc/ will make transaction recurring every month on the same day set in the transaction date
 
 Examples:
 
 * `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT`
 * `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD`
-* `add i/ a/ 200.00 n/ pocket money c/INCOME`
+* `add i/ a/ 200.00 n/ pocket money c/INCOME rc/`
 
 
 === Filter transactions : `filter`
 
 Filters transactions for user to see by filter type.
 
-Format: `filter /m YYYY-MM` to view a certain month's transactions
-        `filter /c CATEGORY` to view transactions of a certain category
+Format: `filter m/ YYYY-MM` to view a certain month's transactions
+        `filter c/ CATEGORY` to view transactions of a certain category
 
 Examples:
 
@@ -164,9 +168,14 @@ Examples:
 List all transactions and reset all filters
 
 
+=== Clear all recurring transactions stored : `clearrecurring`
+
+Clear all recurring transactions stored
+
+
 === Clear all data : `clear`
 
-Clear all data in expenseLa including monthly data and total balance
+Clear all data in expenseLa including monthly data and global data
 
 
 === Exiting the program : `exit`
@@ -188,16 +197,16 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Budget* : `budget a/ AMOUNT rc/ no` +
-           `budget rc/ yes a/ AMOUNT` +
-e.g. `budget a/ 1000 rc/ no` +
-     `budget a/ 1500 rc/ yes`
-* *add* : `add a/ AMOUNT n/ NAME [d/ DATE] [c/ CATEGORY] [r/ REMARK]` +
+* *Budget* : `budget b/ AMOUNT` +
+           `budget rc/ b/ AMOUNT` +
+e.g. `budget b/ 1000` +
+     `budget b/ 1500 rc/`
+* *add* : `add a/ AMOUNT n/ NAME [d/ DATE] [c/ CATEGORY] [r/ REMARK] [rc/]` +
 e.g. * `add a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
        `add a/ 16.00 n/ Pizza r/ Lunch c/ FOOD` +
-       `add i/ a/ 200.00 n/ pocket money c/INCOME`
-* *Filter* : `filter /m YYYY-MM` +
-             `filter /c CATEGORY` +
+       `add i/ a/ 200.00 n/ pocket money c/INCOME rc/`
+* *Filter* : `filter m/ YYYY-MM` +
+             `filter c/ CATEGORY` +
 e.g. `filter m/ 2020-02` +
      `filter c/ FOOD` +
      `filter c/ TRANSPORT m/ 2020-03`
@@ -215,4 +224,5 @@ e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
 * *Clear*: `clear`
 * *Exit*: `exit`
 * *List* : `list`
+* *Clear Recurring Transactions*: `clearrecurring`
 * *Help* : `help`
