@@ -239,11 +239,12 @@ public class CalendarView extends UiPart<Region> {
      */
     private Label getActivityLabel(Activity activity) {
         Label activityLabel = new Label();
-        activityLabel.setText(activity.toString());
+        activityLabel.setText(activity.getName().toString());
         activityLabel.setPadding(new Insets(0, 5, 0, 5));
         if (activity instanceof Deadline) {
             // color it red
-            activityLabel.setStyle("-fx-background-color:#AFEEEE; -fx-background-radius: 5 5 5 5");
+            activityLabel.setStyle("-fx-background-color: purple; -fx-color-label-visible: -fx-background-radius: 5" +
+                    " 5 5 5");
         } else if (activity instanceof Event) {
             // color it yellow
             activityLabel.setStyle("-fx-background-color: darkblue; -fx-background-radius: 5 5 5 5");

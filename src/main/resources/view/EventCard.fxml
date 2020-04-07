@@ -27,25 +27,4 @@
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>
     </Label>
-    <Label fx:id="status" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <minWidth>
-            <Region fx:constant="USE_PREF_SIZE"/>
-        </minWidth>
-    </Label>
-    <Label fx:id="priority" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <minWidth>
-            <Region fx:constant="USE_PREF_SIZE"/>
-        </minWidth>
-    </Label>
-    <Label fx:id="note" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="0" GridPane.rowIndex="3">
-        <minWidth>
-            <Region fx:constant="USE_PREF_SIZE"/>
-        </minWidth>
-    </Label>
-    <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-    </padding>
 </GridPane>

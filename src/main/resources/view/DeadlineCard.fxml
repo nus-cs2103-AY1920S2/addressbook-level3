@@ -27,8 +27,8 @@
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>
     </Label>
-    <Label fx:id="priority" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <Label fx:id="priority" styleClass="activity_priority_label" text="\$code" wrapText="true"
+           GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>
