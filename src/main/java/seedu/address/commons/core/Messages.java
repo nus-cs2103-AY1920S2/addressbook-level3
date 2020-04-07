@@ -13,7 +13,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The profile index provided is invalid";
     public static final String MESSAGE_INVALID_SEMESTER = "Error: No modules have been added to this semester";
-    public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created";
+    public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created.";
+    public static final String MESSAGE_EMPTY_MODULE_DATA = "No module data has been added to any semesters.";
     public static final String MESSAGE_MISSING_COURSE = "Error: Please input a course name";
     public static final String MESSAGE_MISSING_COURSE_FOCUS_AREA = "Error: Please input a focus area";
     public static final String MESSAGE_MISSING_MODULE = "Error: Please input a module code";

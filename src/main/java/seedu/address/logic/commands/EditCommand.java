@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
@@ -110,7 +112,7 @@ public class EditCommand extends Command {
         try {
             profileToEdit = lastShownList.get(0); //accessing only first profile in list
         } catch (Exception e) {
-            throw new CommandException("Error: There is no existing profile.");
+            throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
 
 
@@ -118,7 +120,7 @@ public class EditCommand extends Command {
 
             HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
             if (hashMap.isEmpty()) { // No modules have been added to any semester at all
-                throw new CommandException("No module data has been added to any semesters.");
+                throw new CommandException(MESSAGE_EMPTY_MODULE_DATA);
             }
 
             // Checks if module has been added to any semesters before
