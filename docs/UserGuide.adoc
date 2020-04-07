@@ -249,6 +249,8 @@ _Output:_
 ....
 New question added: What are your relevant experiences?
 
+New question added: What are your strengths?
+
 Edited question 1 to What do you hope to accomplish in 5 years?
 
 Edited question 2 to How can you add value to the company?
