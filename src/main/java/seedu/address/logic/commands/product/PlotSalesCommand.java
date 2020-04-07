@@ -27,7 +27,7 @@ import seedu.address.model.util.Quantity;
 /**
  * Plot sales of a product in a given period.
  */
-public class PlotProductSalesCommand extends Command {
+public class PlotSalesCommand extends Command {
 
     public static final String COMMAND_WORD = "plotsales";
 
@@ -49,7 +49,7 @@ public class PlotProductSalesCommand extends Command {
     private final DateTime startDateTime;
     private final DateTime endDateTime;
 
-    public PlotProductSalesCommand(Index targetIndex, DateTime startDateTime, DateTime endDateTime) {
+    public PlotSalesCommand(Index targetIndex, DateTime startDateTime, DateTime endDateTime) {
         this.targetIndex = targetIndex;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

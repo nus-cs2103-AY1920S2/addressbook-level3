@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.product.PlotProductSalesCommand;
+import seedu.address.logic.commands.product.PlotSalesCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -17,7 +17,7 @@ import seedu.address.model.transaction.DateTime;
 /**
  * Parses input arguments and creates a new PlotProductSalesCommand object
  */
-public class PlotProductSalesCommandParser implements Parser<PlotProductSalesCommand> {
+public class PlotProductSalesCommandParser implements Parser<PlotSalesCommand> {
 
     private static final int DEFAULT_LENGTH = 7;
     private static final DateTime DEFAULT_START_DATE =
@@ -28,7 +28,7 @@ public class PlotProductSalesCommandParser implements Parser<PlotProductSalesCom
      * and returns a PlotProductSalesCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public PlotProductSalesCommand parse(String args) throws ParseException {
+    public PlotSalesCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
@@ -39,13 +39,13 @@ public class PlotProductSalesCommandParser implements Parser<PlotProductSalesCom
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlotProductSalesCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlotSalesCommand.MESSAGE_USAGE), pe);
         }
 
         DateTime startDateTime = getStartDateTime(argMultimap);
         DateTime endDateTime = getEndDateTime(argMultimap, startDateTime);
 
-        return new PlotProductSalesCommand(index, startDateTime, endDateTime);
+        return new PlotSalesCommand(index, startDateTime, endDateTime);
     }
 
     private DateTime getStartDateTime(ArgumentMultimap argMultimap) throws ParseException {
