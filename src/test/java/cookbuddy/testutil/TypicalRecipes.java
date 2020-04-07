@@ -13,19 +13,24 @@ import cookbuddy.model.recipe.Recipe;
  */
 public class TypicalRecipes {
 
-    public static final Recipe HAM_SANDWICH = new RecipeBuilder().withName(CommandTestUtil.VALID_NAME_HAM_SANDWICH).withIngredients(
-            CommandTestUtil.VALID_INGREDIENTS_HAM_SANDWICH).withInstructions(
-            CommandTestUtil.VALID_INSTRUCTIONS_HAM_SANDWICH).withTags(CommandTestUtil.VALID_TAG_LUNCH)
-            .build();
+    public static final Recipe HAM_SANDWICH = new RecipeBuilder().withName(CommandTestUtil.VALID_NAME_HAM_SANDWICH)
+            .withIngredients(CommandTestUtil.VALID_INGREDIENTS_HAM_SANDWICH).withInstructions(
+                    CommandTestUtil.VALID_INSTRUCTIONS_HAM_SANDWICH).withCalorie(
+                    CommandTestUtil.VALID_CALORIE_HAM_SANDWICH).withServing(CommandTestUtil.VALID_SERVING_HAM_SANDWICH)
+            .withRating(CommandTestUtil.VALID_RATING_HAM_SANDWICH).withDifficulty(
+                    CommandTestUtil.VALID_DIFFICULTY_HAM_SANDWICH).withTags(CommandTestUtil.VALID_TAG_LUNCH).build();
 
-    public static final Recipe EGGS_ON_TOAST = new RecipeBuilder().withName(CommandTestUtil.VALID_NAME_EGGS_ON_TOAST).withIngredients(
-            CommandTestUtil.VALID_INGREDIENTS_EGGS_ON_TOAST).withInstructions(
-            CommandTestUtil.VALID_INSTRUCTIONS_EGGS_ON_TOAST).withTags(
-            CommandTestUtil.VALID_TAG_BREAKFAST, CommandTestUtil.VALID_TAG_LUNCH).build();
+    public static final Recipe EGGS_ON_TOAST = new RecipeBuilder().withName(CommandTestUtil.VALID_NAME_EGGS_ON_TOAST)
+            .withIngredients(CommandTestUtil.VALID_INGREDIENTS_EGGS_ON_TOAST).withInstructions(
+                    CommandTestUtil.VALID_INSTRUCTIONS_EGGS_ON_TOAST).withCalorie(
+                    CommandTestUtil.VALID_CALORIE_EGGS_ON_TOAST).withServing(
+                    CommandTestUtil.VALID_SERVING_EGGS_ON_TOAST).withRating(CommandTestUtil.VALID_RATING_EGGS_ON_TOAST)
+            .withDifficulty(CommandTestUtil.VALID_DIFFICULTY_EGGS_ON_TOAST).withTags(
+                    CommandTestUtil.VALID_TAG_BREAKFAST, CommandTestUtil.VALID_TAG_LUNCH).build();
 
     // TODO: Add more typical recipes
 
-    public static final String KEYWORD_MATCHING_HAM = "Ham"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_HAM = "Ham";
 
     private TypicalRecipes() {
     } // prevents instantiation

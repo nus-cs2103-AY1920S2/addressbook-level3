@@ -1,7 +1,5 @@
 package cookbuddy.model.recipe;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INGREDIENTS_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INSTRUCTIONS_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_NAME_EGGS_ON_TOAST;
@@ -10,6 +8,8 @@ import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static cookbuddy.testutil.Assert.assertThrows;
 import static cookbuddy.testutil.TypicalRecipes.EGGS_ON_TOAST;
 import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,17 +40,17 @@ public class RecipeTest {
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withName(VALID_NAME_EGGS_ON_TOAST).build();
         assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
 
-        // same name, same instructions, different attributes -> returns true
+        // same name, same instructions, different attributes -> returns false
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).withTags(
                 VALID_TAG_LUNCH).build();
-        assertTrue(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
+        assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
 
-        // same name, same ingredients, different attributes -> returns true
+        // same name, same ingredients, different attributes -> returns false
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withInstructions(VALID_INSTRUCTIONS_EGGS_ON_TOAST).withTags(
                 VALID_TAG_BREAKFAST).build();
-        assertTrue(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
+        assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same ingredients, same instructions, different attributes -> returns true
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST).build();
         assertTrue(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
     }

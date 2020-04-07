@@ -1,12 +1,12 @@
 package cookbuddy.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static cookbuddy.testutil.Assert.assertThrows;
 import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
 import static cookbuddy.testutil.TypicalRecipes.getTypicalRecipeBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,11 +15,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.exceptions.DuplicateRecipeException;
+import cookbuddy.testutil.RecipeBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
-import cookbuddy.testutil.RecipeBuilder;
 
 public class RecipeBookTest {
 

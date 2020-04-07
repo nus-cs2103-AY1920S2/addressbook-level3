@@ -11,13 +11,13 @@ public class FileUtilTest {
     @Test
     public void isValidPath() {
         // valid path
-        assertTrue(FileUtil.isValidPath("valid/file/path"));
+        assertTrue(FileUtil.isValidPathString("valid/file/path"));
 
         // invalid path
-        assertFalse(FileUtil.isValidPath("a\0"));
+        assertFalse(FileUtil.isValidPathString("a\0"));
 
         // null path -> throws NullPointerException
-        assertThrows(NullPointerException.class, () -> FileUtil.isValidPath(null));
+        assertThrows(NullPointerException.class, () -> FileUtil.isValidPathString(null));
     }
 
 }

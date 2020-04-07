@@ -1,9 +1,12 @@
 package cookbuddy.testutil;
 
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_IMAGEFILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -31,11 +34,15 @@ public class RecipeUtil {
      */
     public static String getRecipeDetails(Recipe recipe) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + recipe.getName().name + " ");
+        sb.append(PREFIX_NAME + recipe.getName().getName() + " ");
         sb.append(PREFIX_INGREDIENTS + recipe.getIngredients().toString() + " ");
         sb.append(PREFIX_INSTRUCTIONS + recipe.getInstructions().toString() + " ");
         sb.append(PREFIX_CALORIE + recipe.getCalorie().toString() + " ");
         sb.append(PREFIX_SERVING + recipe.getServing().toString() + " ");
+        sb.append(PREFIX_RATING + recipe.getRating().toString() + " ");
+        sb.append(PREFIX_DIFFICULTY + recipe.getDifficulty().toString() + " ");
+        sb.append(PREFIX_IMAGEFILEPATH + recipe.getPhotograph().toString() + " ");
+
         recipe.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -47,13 +54,16 @@ public class RecipeUtil {
      */
     public static String getEditRecipeDescriptorDetails(EditRecipeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.getName()).append(" "));
         descriptor.getIngredients().ifPresent(ingredients -> sb.append(PREFIX_INGREDIENTS)
                 .append(ingredients.toString()).append(" "));
         descriptor.getInstructions().ifPresent(instructions -> sb.append(PREFIX_INSTRUCTIONS)
                 .append(instructions.toString()).append(" "));
         descriptor.getCalorie().ifPresent(calorie -> sb.append(PREFIX_CALORIE).append(calorie.toString()).append(" "));
         descriptor.getServing().ifPresent(serving -> sb.append(PREFIX_SERVING).append(serving.toString()).append(" "));
+        descriptor.getRating().ifPresent(rating -> sb.append(PREFIX_RATING).append(rating.toString()).append(" "));
+        descriptor.getDifficulty().ifPresent(difficulty -> sb.append(PREFIX_DIFFICULTY).append(difficulty.toString())
+                .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

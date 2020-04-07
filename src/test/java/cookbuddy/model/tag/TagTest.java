@@ -4,7 +4,7 @@ import static cookbuddy.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Tag;
 
 public class TagTest {
 

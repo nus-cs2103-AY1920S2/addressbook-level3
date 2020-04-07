@@ -1,12 +1,12 @@
 package cookbuddy.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static cookbuddy.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static cookbuddy.testutil.Assert.assertThrows;
 import static cookbuddy.testutil.TypicalRecipes.EGGS_ON_TOAST;
 import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,8 +14,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
+import cookbuddy.commons.core.GuiSettings;
+import cookbuddy.model.recipe.NameContainsKeywordsPredicate;
 import cookbuddy.testutil.RecipeBookBuilder;
 
 public class ModelManagerTest {
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setRecipeBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setDataFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setRecipeBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setDataFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = HAM_SANDWICH.getName().name.split("\\s+");
+        String[] keywords = HAM_SANDWICH.getName().getName().split("\\s+");
         modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs)));
 
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setRecipeBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setDataFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs)));
     }
 }
