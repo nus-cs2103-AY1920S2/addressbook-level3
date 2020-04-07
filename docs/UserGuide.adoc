@@ -935,7 +935,7 @@ The syntax for a valid Return command can be seen below!
 * The `CUSTOMER_ADDRESS` refers to the location which the return should be picked up from.
 * The `WAREHOUSE_LOCATION` refers to the location which the return should be delivered to.
 * The `PHONE_NUMBER` refers to the phone number of the customer.
-* The `RETURN_TIMESTAMP` refers to the return date and time of the parcel.
+* The `RETURN_TIMESTAMP` refers to the return date and time of the parcel. This field cannot be earlier than the current date and time.
 * The `COMMENTS_BY_CUSTOMER` is an optional attribute which can be included if the customer has special requests.
 * The `TYPE_OF_ITEM` is an optional attribute which can be included if the item requires special attention.
 For example, it can be used when the item is fragile.
@@ -972,7 +972,7 @@ the item was already delivered and the money already was collected upon delivery
 * The `CUSTOMER_ADDRESS` *is alphanumeric*.
 * The `CUSTOMER_PHONE` *must be numeric*
 * The `WAREHOUSE_LOCATION` *is alphanumeric*
-* The `RETURN_TIMESTAMP` *must follow the yyyy-mm-dd format*
+* The `RETURN_TIMESTAMP` *must follow the yyyy-mm-dd format* *must not be earlier than the current date and time*
 * The `COMMENTS_BY_CUSTOMER` *is alphanumeric*
 * The `TYPE_OF_ITEM` is *alphanumeric*
 * The resulting created return order will not have the `CASH_ON_DELIVERY` field as the money
