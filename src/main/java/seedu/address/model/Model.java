@@ -229,6 +229,9 @@ public interface Model {
      */
     void addEvent(Event toAdd);
 
+    /** Deletes the given event; event must exist in the Event Schedule. */
+    void deleteEvent(Event eventToDelete);
+
     /**
      * Returns true if an Event with the same title and date as {@code Event} exists in the event schedule
      */

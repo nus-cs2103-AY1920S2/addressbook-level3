@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command.toString().contains("event")) {
+        } else if (command.toString().contains("(ev)")) {
             try {
                 storage.saveEventSchedule(model.getEventSchedule());
             } catch (IOException ioe) {

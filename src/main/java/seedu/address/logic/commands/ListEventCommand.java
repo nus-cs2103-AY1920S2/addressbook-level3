@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 
 import seedu.address.model.Model;
@@ -11,7 +12,7 @@ import seedu.address.model.event.Event;
  * Lists all Events in the Events Schedule to the user.
  */
 public class ListEventCommand extends Command {
-    public static final String COMMAND_WORD = "eventlist";
+    public static final String COMMAND_WORD = "(ev)list";
     public static final String COMMAND_FUNCTION = "Shows a list of all your events which "
             + "Naggy Joel is keeping track for you "
             + "sorted by the chronological order based on event date. "
@@ -31,9 +32,29 @@ public class ListEventCommand extends Command {
         this.comparator = comparator;
     }
 
+    public boolean isOverdue(Event event) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime eventDateTime = event.getEventDate().getDateTime();
+        if (currentDateTime.isAfter(eventDateTime)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        /*
+        int length = model.getEventsList().size();
+        for (int i = 0; i < length; i++) {
+            Event event = model.getEventsList().get(i);
+            if (isOverdue(event)) {
+                model.deleteEvent(event);
+            }
+        }
+        */
+
         model.sortEvent(comparator);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, true, false, false, false);
     }
