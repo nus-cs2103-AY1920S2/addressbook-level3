@@ -13,7 +13,7 @@ public interface SuggestionCommandParser<T extends SuggestionCommand> {
     /**
      * Parses user input into a suggestion command and returns it.
      * @param userInput The user input.
-     * @return The suggestion command, if it can be created.
+     * @return The optional suggestion command.
      * @throws ParseException if {@code userInput} does not conform to the expected format.
      */
     Optional<SuggestionCommand> parse(String userInput) throws ParseException;
