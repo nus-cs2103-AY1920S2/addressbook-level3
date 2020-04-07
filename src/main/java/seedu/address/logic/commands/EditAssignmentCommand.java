@@ -32,9 +32,9 @@ public class EditAssignmentCommand extends Command {
         + "[" + PREFIX_ESTHOURS + "ESTIMATED_HOURS] "
         + "[" + PREFIX_STATUS + "STATUS]\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_TITLE + "CS2103 tP"
-        + PREFIX_DEADLINE + "2020-11-11 23:59"
-        + PREFIX_ESTHOURS + "5.0"
+        + PREFIX_TITLE + "CS2103 tP "
+        + PREFIX_DEADLINE + "2020-11-11 23:59 "
+        + PREFIX_ESTHOURS + "5.0 "
         + PREFIX_STATUS + "Completed";
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";

@@ -44,12 +44,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* ** `(ab)list` : Lists all contacts
+* **`(ab)list`** : Lists all contacts
 * **`(ab)add`**` n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 * **`(ab)delete`** `3` : Deletes the 3rd contact shown in the current list
-* ** `(st)list`* : Lists all assignments
+* **`(st)list`** : Lists all assignments
 * **`(st)add`** t/CS2103 tP d/2020-11-11 23:59 e/10 : Adds an assignment titled `CS2103 tP` with deadline on 11 November 2020 11:59 PM and an estimated completion time of 10 hours.
-* ** `(rt)list`* : Lists all restaurants
+* **`(rt)list`** : Lists all restaurants
 * **`(rt)add`** n/McDonalds l/NUS o/0900:2300 p/$ v/Yes :  Adds a new visited restaurant named McDonalds located in NUS with operating hours 9:00 AM to 11:00 PM with the lowest price point.
 * *`exit`* : exits the app
 
@@ -304,7 +304,7 @@ Adds a note to the restaurant at index 2 with good food Cheese baked rice.
 * `(rt)addnote 1 b/Fried rice b/Latte`
 Adds a note to the restaurant at index 1 with bad food Fried rice and Latte.
 
-=== Edit notes to a restaurant : `(rt)editnote`
+==== Edit notes to a restaurant : `(rt)editnote`
 
 Edits a note to a restaurant +
 Format: `(rt)editnote INDEX [rl/LINE_NUMBER] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBER] [g/GOOD_FOOD] [bl/BAD_FOOD] [b/BAD_FOOD]`
