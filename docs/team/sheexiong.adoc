@@ -76,8 +76,8 @@ image::activityDiagram_for_expensesplitter.png[]
 ** Tools:
 
 ==== Code contributed
-Please click the following link to see my code contributions dashboard.
-https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=sheexiong&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
+Please click the following link to see my code contributions dashboard. +
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=sheexiong
 
 == Contributions to the User Guide
 
