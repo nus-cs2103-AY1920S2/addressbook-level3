@@ -388,7 +388,9 @@ Example of valid List Amount Command: +
 
 *Expected outcome after using Paid Command:*
 
-image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional tips and notes for List Amount Command* +
 
 [TIP]
 ====
