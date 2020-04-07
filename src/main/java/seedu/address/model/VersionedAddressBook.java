@@ -101,6 +101,6 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
      * Updates the list of suppliers to be shown in the UI.
      */
     private void updateDisplayedSuppliers() {
-         super.resetData(getCurrentState());
+        super.resetData(getCurrentState());
     }
 }

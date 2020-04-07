@@ -1,9 +1,9 @@
 package seedu.address.model.version;
 
-import seedu.address.model.util.Copyable;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.util.Copyable;
 
 /**
  * An implementation of Version with a linear list.
