@@ -27,25 +27,39 @@ If yes, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
 app to solve issues. More importantly, EYLAH is *optimized for residents who prefer to work with a Command Line Interface*
-(CLI) while still having the benefits of a Graphical User Interface (GUI).
+(CLI).
 
-If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
+EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
 and splitting the cost after each outing or late-night party session with a few pokes of your keyboard. Interested?
-Jump to <<Getting Started>> to get started. Enjoy!
+Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
-
-
-=== How to use?
-Below is some special syntax used throughout the documentation:
-
-* `Markup` - Text in markup are inputs into the application through the CLI.
-* NOTE - Text in NOTE indicates important things to consider to prevent unexpected behaviour.
-* TIP - Text in TIP shows certain actions to make using the application easier.
+Figure 1. Photo of EYLAH
 
 === Purpose
 * This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
 to use the application to improve their lives on campus.
+
+
+=== Tips on reading the User Guide
+While reading the User Guide you may encounter some symbols.
+These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
+the symbols and their meaning.
+
+[NOTE]
+This block of text with a blue exclamation mark indicates *additional notes* that you should consider to prevent
+unexpected behaviour.
+
+[TIP]
+This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH.
+
+`markup` - Text in markup are inputs into the EYLAH. +
+
+`[-c Calories]` - For some commands there are optional fields. Keywords placed in square brackets are optional fields. +
+(e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
+
+Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
+
 
 == Getting Started
 
@@ -57,7 +71,7 @@ to use the application to improve their lives on campus.
 
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can type.
 .  Some example commands you can try:
 
 * `1` : enters the Diet Tracker component of EYLAH.
@@ -70,58 +84,64 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+In this section, you can find *all* the commands of EYLAH and some tips and trick you can use
+to to improve your user experience of EYLAH.
+
 |===
-|Current Features |Future Features
+|Diet Tracker | Expense Spliter
+|
 | <<additem, additem>>
-| <<export, export>>
 
+|
 | <<deleteitem, deleteitem>>
-| <<reminder, reminder>>
 
+|
 | <<listreceipt, listreceipt>>
-|
 
+|
 | <<listamount, listamount>>
-|
 
+|
 | <<paid, paid>>
-|
 
+|
 | <<donereceipt, donereceipt>>
-|
 
+|
 | <<clearreceipt, clearreceipt>>
-|
 
+|
 | <<help, help>>
-|
 
-| <<back, back>>
 |
+| <<back, back>>
 
 |===
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters are compulsory and have to be supplied by the user,
+* Words in `UPPER_CASE` are the parameters supplied by the user,
 e.g: in `additem -i ITEM -p PRICE -n NAME`.
 `NAME`, `ITEM` and `PRICE` are parameters which can decided by the user ,
-e.g:`additem -i beer tower -p 19.90 -n charlotte`.
+e.g: `additem -i beer tower -p 19.90 -n charlotte`.
 * Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
 `paid 1 3.90`.
 * Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
 (i.e. 0 times), `-n Charlotte`, `-n John Doe -n Daniel` etc.
-* Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 To provide help for users +
 Format: `help`
 
+'''
+
 === Diet Tracker : `diet`
 
 Tracks our daily calories intake. Add food, then calculate
+
+'''
 
 ==== Dieting Mode `mode`
 Allows users to decide which dieting mode they want, based on the following modes: +
@@ -133,6 +153,8 @@ Allows users to decide which dieting mode they want, based on the following mode
 Format: `mode [-m] [-l] [-g]` +
 Example: `mode -m`
 
+'''
+
 ==== Store Height `height`
 Allows user to input their height.
 
@@ -141,6 +163,8 @@ Example: `height 172`
 
 NOTE: Height in centimetres (cm)
 
+'''
+
 ==== Store Weight `weight`
 Allows user to input their weight.
 
@@ -148,6 +172,8 @@ Format: `weight WEIGHT` +
 Example: `weight 65.7`
 
 NOTE: Weight in kilograms (kg)
+
+'''
 
 
 ==== Add food `add`
@@ -161,6 +187,8 @@ Adds food to the list.
 
 Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
+
+'''
 
 ==== List items `list`
 List food in your current diet tracker along with the total calorie count.
@@ -179,6 +207,8 @@ NOTE: Default value of list is food consumed for the day.
 
 Format: `list [-a] [-d NUMDAYS] [-t TAGNAME]` +
 Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
+
+'''
 
 ==== Delete Food Item `delete`
 
@@ -200,6 +230,8 @@ Example:
 `delete 2` +
 Deletes the 2nd row of food data from the past 7 days of food.
 
+'''
+
 ==== Editing a Food Item `edit`
 
 Allows you to edit either the Food name, or the calories.  +
@@ -217,6 +249,8 @@ Example:
 
 * `edit 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
+
+'''
 
 ==== Calculate Body Mass Index (BMI) `bmi`
 
@@ -244,6 +278,8 @@ BMI is calculated based off the stored height and weight in this instance.
 * `bmi -h 172 -w 65.5` +
 Calculate BMI based on the input height and weight values.
 
+'''
+
 === Expense Splitter : `split`
 Splitting the items' cost with friends. All you have to do is add the item,
 price and the names involved in splitting that item and EYLAH will
@@ -268,6 +304,7 @@ Example: +
 Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
+'''
 
 [[deleteitem]]
 ==== Deleting an item: `deleteitem`
@@ -283,6 +320,8 @@ Use `listreceipt` to view your item indices before deletion.
 Example: +
 `deleteitem 3`
 
+'''
+
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
@@ -295,6 +334,8 @@ Format: +
 Example: +
 `listreceipt`
 
+'''
+
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
@@ -306,36 +347,64 @@ Format: +
 Example: +
 `listamount`
 
+'''
+
 [[paid]]
 ==== Paying money: `paid`
 
-In this section, you will learn more about the `paid` command, how to use it and the possible usage scenarios of the
+In this section, you will learn more about the `paid` command, <<howtousepaidcommand,how to use it>> and the
+<<paidcommandexpectedoutcome,expected outcome>> after using the
 `paid` command.
 
-Summary: `paid` subtracts the amount paid by a Person.
+*Summary of Paid Command: `paid` subtracts the amount a Person owes you.*
 
+[[howtousepaidcommand]]
+*How to use the Paid Command:*
 
-Format: +
+Format of Paid Command: +
+
 `paid INDEX [AMOUNT]` +
 
-Example: +
+[NOTE]
+====
+* `INDEX` is a compulsory field that must be stated. Instead of typing a Person's name,
+you can type his/her index thus saving you time and effort.
+
+* `AMOUNT` is an optional field. It refers to the amount paid by that Person. Leaving this field
+empty is equivalent to the Person paying you the full amount he/she owes you.
+
+* `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+====
+
+Example of valid Paid Commands: +
+
 `paid 2` +
-`paid 2 3.90`
+
+`paid 2 3.90` +
+
+
+[[paidcommandexpectedoutcome]]
+*Expected outcome after using Paid Command:*
+
+image::Ui.png[width="790"]
+
+
+*Additional tips and notes for Paid Command*
 
 [TIP]
 ====
 * Use `listamount` command to find the index of the person who paid you.
-* Leaving the amount empty is equivalent to paying the full amount. As seen in `paid 2` above.
 ====
 
 [NOTE]
 ====
 * You will only be able to use this command after you have marked the receipt as done using the
 `donereceipt` command.
-* The person will automatically be removed from the list if the amount owed is $0.
-* Price can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+* The person will automatically be removed from the list if the amount he owes you drops to $0.
 ====
 
+
+'''
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
@@ -355,6 +424,8 @@ or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
 ====
 
+'''
+
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
 
@@ -373,6 +444,8 @@ and delete items using the `deleteitem` command.
 * However, you will be unable to use the `paid` command.
 ====
 
+'''
+
 [[help]]
 ==== Display the available commands `help`
 
@@ -383,6 +456,8 @@ Format: +
 
 Example: +
 `help`
+
+'''
 
 [[back]]
 ==== Exiting split to go back to main menu `back`
@@ -395,10 +470,14 @@ Format: +
 Example: +
 `back`
 
+'''
+
 ==== Saving the data
 
 EYLAH data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+'''
 
 == FAQ
 
