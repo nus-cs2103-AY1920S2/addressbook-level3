@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +27,6 @@ import seedu.address.model.profile.course.module.PrereqTreeNode;
 import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 import seedu.address.model.profile.course.module.personal.ModuleGrade;
@@ -85,11 +87,10 @@ public class JsonProfileTest {
 
     static {
         Deadline tempDeadline;
-        try {
-            tempDeadline = new Deadline(VALID_MODULE_CODE, VALID_DESCRIPTION, VALID_DATE, VALID_TIME);
-        } catch (DateTimeException e) {
-            tempDeadline = null;
-        }
+        LocalDate date = LocalDate.parse(VALID_DATE);
+        LocalTime time = LocalTime.parse(VALID_TIME, DateTimeFormatter.ofPattern("HH:mm"));
+        tempDeadline = new Deadline(VALID_MODULE_CODE, VALID_DESCRIPTION, date, time);
+
         VALID_DEADLINE = tempDeadline;
     }
 
