@@ -113,12 +113,28 @@ Format: `(ab)delete INDEX`
 Examples:
 
 * `(ab)delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the address book. +
+Format: `(ab)delete INDEX [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [g/GROUPNAME] [t/TAG]...`
+
+****
+* Deletes the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided and cannot be left empty.
+* Name and phone of the contact cannot be deleted.
+* Existing values will be deleted if the field is specified.
+* All tags and remarks will be deleted if indicated.
+****
+
+Examples:
+
+* `(ab)delete 3 a/` +
+Deletes the third person's address.
+* `(ab)delete 20 e/ b/ i/
+Deletes the 20th person's email, birthday, and remarks.
 
 ==== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
-Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [g/GROUPNAME] [t/TAG]... [-t/TAG_TO_BE_DELETED]...`
+Format: `(ab)edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [g/GROUPNAME] [t/TAG]... [-t/TAG_TO_BE_EDITED]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
