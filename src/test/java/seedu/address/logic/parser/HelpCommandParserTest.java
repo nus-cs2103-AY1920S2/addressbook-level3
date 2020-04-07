@@ -15,7 +15,7 @@ public class HelpCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "asdasdasd", String.format(HelpCommand.SHOW_ADDITIONAL_PARAMETERS_MESSAGE
-        + Messages.NEWLINE + HelpCommand.MESSAGE_USAGE));
+                + Messages.NEWLINE + HelpCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, "1234", String.format(HelpCommand.SHOW_ADDITIONAL_PARAMETERS_MESSAGE
                 + Messages.NEWLINE + HelpCommand.MESSAGE_USAGE));
