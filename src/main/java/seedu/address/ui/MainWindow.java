@@ -233,6 +233,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            statisticsPanelPlaceholder.getChildren().removeAll();
+            statisticsPanelPlaceholder.getChildren().add(new StatisticsListPanel(logic).getRoot());
+
             if (commandResult.isShowPlot()) {
                 handlePlot(commandResult.getDataSeries(), commandResult.getTitle());
             }
