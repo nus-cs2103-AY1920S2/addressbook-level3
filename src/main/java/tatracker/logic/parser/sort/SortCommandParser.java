@@ -46,40 +46,42 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, TYPE, MODULE, GROUP);
 
-        boolean hasType = argMultimap.getValue(TYPE).isPresent();
+        if (!argMultimap.arePrefixesPresent(TYPE) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SortCommand.DETAILS.getUsage()));
+        }
+
+        SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
+
         boolean hasModule = argMultimap.getValue(MODULE).isPresent();
         boolean hasGroup = argMultimap.getValue(GROUP).isPresent();
 
-        SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
         String moduleCode = argMultimap.getValue(MODULE).map(String::trim).orElse("").toUpperCase();
         String groupCode = argMultimap.getValue(GROUP).map(String::trim).orElse("").toUpperCase();
 
         switch (commandWord) {
 
         case CommandWords.SORT_ALL:
-            if (!hasType) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortCommand.DETAILS.getUsage()));
-            }
             return new SortCommand(type);
 
         case CommandWords.SORT_MODULE:
-            if (!(hasType && hasModule)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortModuleCommand.DETAILS.getUsage()));
+            if (hasModule) {
+                return new SortModuleCommand(type, moduleCode);
             }
-            return new SortModuleCommand(type, moduleCode);
+            break;
 
         case CommandWords.SORT_GROUP:
-            if (!(hasType && hasModule && hasGroup)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortGroupCommand.DETAILS.getUsage()));
+            if (hasModule && hasGroup) {
+                return new SortGroupCommand(type, groupCode, moduleCode);
             }
-            return new SortGroupCommand(type, groupCode, moduleCode);
+            break;
 
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SortCommand.DETAILS.getUsage()));
         }
+
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SortCommand.DETAILS.getUsage()));
     }
 }
