@@ -1,0 +1,100 @@
+= Tng Liang Yi, Ailanthus - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:imagesDir: ../images/expense-splitter
+:stylesDir: ../stylesheets
+
+== PROJECT: EYLAH
+
+---
+
+== Overview
+
+EYLAH is a desktop application specifically programmed for university students staying on NUS Campus. It aims to ease their lives
+at halls/residential colleges by providing them with an application to split bills easily and help
+them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
+
+== Summary of contributions
+
+*Major Enhancements*
+
+** *Added Entry and Receipt for Expense Splitter portion of EYLAH*
+*** What it does: Receipt is used to store multiple Entries, and these Entries are meant to store the information about a particular Item and the Persons involved in splitting the cost of that item.
+*** Justification: These classes are required to keep track of items and the persons involved for each of that item.
+*** Highlights:
+
+** *Added AddItemCommand and DeleteItemCommand for the Expense Splitter portion of EYLAH*
+*** What it does: It simply adds a new Entry into the Receipt or deletes an existing Entry from the Receipt.
+*** Justification: The DeleteItemCommand feature allows the user to delete any items that he/she made a mistake on.
+*** Highlights: These commands are only allowed to be used when the Receipt has not been marked as completed as this was accomplished using a boolean flag in the Receipt class. This is because DeleteItemCommand actually removes the Amount owed by the person from the PersonAmountBook. So does the PaidCommand. As such, if a user uses the DeleteItemCommand after using the PaidCommand, and if the Amount owed goes to negative, an exception would be thrown due to the nature of BigDecimal. Hence, a flag was included to prevent this from happening.
+
+** *Added DoneReceiptCommand and ClearReceiptCommand for the Expense Splitter portion of EYLAH*
+*** What it does: DoneReceiptCommand marks the Receipt as done and ClearReceiptCommand removes all existing Entries from the Receipt.
+*** Justification: DoneReceiptCommand is required to toggle the boolean flag of Receipt to be done. ClearReceiptCommand does the opposite by toggling the Receipt back as undone.
+*** Highlights: These commands are required to prevent an exception being thrown with regards to negative BigDecimal values, as explained in the text above.
+
+** *Added CalculateUtil and ParserUtil for the Expense Splitter portion of EYLAH*
+*** What it does: CalculateUtil does all the handling of calculations required in EYLAH. ParserUtil parses all the inputted texts and outputs them as the required Objects.
+*** Justification: Abstraction, to make things easier and more streamlined in our application.
+*** Highlights:
+
+*Minor Enhancements*
+
+** Added test cases for Entry and Receipt classes
+** Added test cases for AddItemCommand, DeleteItemCommand, DoneReceiptCommand and ClearReceiptCommand
+** Assisted in downscaling of AddressBook3 by removing Phone class
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+
+** Project management:
+*** Lead for ExpenseSplitter portion of EYLAH.
+*** Participated in planning the project timeline for EYLAH.
+
+
+** Enhancements to existing features:
+
+** Documentation:
+*** To be added
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+** Tools:
+
+==== Code contributed
+Please click the following link to see my code contributions dashboard.
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=ailanthustng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
+
