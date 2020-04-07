@@ -81,12 +81,6 @@ public class StatisticWindow extends UiPart<Stage> {
     public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
         super(FXML, root);
 
-        root.setHeight(guiSettings.getWindowHeight());
-        if (guiSettings.getWindowCoordinates() != null) {
-            root.setX(guiSettings.getWindowCoordinates().getX());
-            root.setY(guiSettings.getWindowCoordinates().getY());
-        }
-
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         for (int i = 0; i < SessionType.NUM_SESSION_TYPES; ++i) {

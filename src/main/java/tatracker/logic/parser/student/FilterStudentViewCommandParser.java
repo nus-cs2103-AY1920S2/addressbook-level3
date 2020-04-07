@@ -6,7 +6,7 @@ import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.stream.Stream;
 
-import tatracker.logic.commands.student.FilterStudentViewCommand;
+import tatracker.logic.commands.student.FilterStudentCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
@@ -15,16 +15,16 @@ import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
- * Parse input arguments and create a new FilterStudentViewCommand object
+ * Parse input arguments and create a new FilterStudentCommand object
  */
-public class FilterStudentViewCommandParser implements Parser<FilterStudentViewCommand> {
+public class FilterStudentViewCommandParser implements Parser<FilterStudentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterSessionCommand
      * and returns a FilterSessionCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FilterStudentViewCommand parse(String args) throws ParseException {
+    public FilterStudentCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE,
                 GROUP);
@@ -32,7 +32,7 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
         if (!arePrefixesPresent(argMultimap, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    FilterStudentViewCommand.DETAILS.getUsage()));
+                                    FilterStudentCommand.DETAILS.getUsage()));
         }
 
         String moduleCode = "";
@@ -46,7 +46,7 @@ public class FilterStudentViewCommandParser implements Parser<FilterStudentViewC
             groupCode = (ParserUtil.parseValue(argMultimap.getValue(GROUP).get())).toUpperCase();
         }
 
-        return new FilterStudentViewCommand(moduleCode, groupCode);
+        return new FilterStudentCommand(moduleCode, groupCode);
     }
 
     /**
