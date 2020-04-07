@@ -104,6 +104,11 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         objects.remove(key);
     }
 
+    public void remove(ID id) {
+        objects.remove(id);
+    }
+
+
     public boolean containsID(ID objectID) {
         for (K object : objects) {
             if (object.getId().equals(objectID)) {

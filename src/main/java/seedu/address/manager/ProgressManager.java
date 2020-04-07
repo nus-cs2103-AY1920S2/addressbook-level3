@@ -48,9 +48,13 @@ public class ProgressManager extends BaseManager {
         Set<ID> setOfAssignmentIDs = model.getCourse(courseID).getAssignedAssignmentsID();
 
         for (ID assignmentID : setOfAssignmentIDs) {
-            CompositeID currProgressID = new CompositeID(assignmentID, studentID);
-            model.delete(new Progress(currProgressID));
+            model.removeProgress(assignmentID, studentID);
         }
+        ReadOnlyAddressBookGeneric<Progress> test =  model.getProgressAddressBook();
+        postDataStorageChangeEvent(
+                model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+                Constants.ENTITY_TYPE.PROGRESS
+        );
     }
 
     // Called by AssignAssignmentToCourse
@@ -67,11 +71,6 @@ public class ProgressManager extends BaseManager {
             model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
             Constants.ENTITY_TYPE.PROGRESS
         );
-    }
-
-    private static Progress get(ID assignmentID, ID studentID) throws CommandException {
-        logger.info(model.getProgressAddressBook().toString());
-        return model.getProgress(assignmentID, studentID);
     }
 
     public static Set<Progress> getProgress(ID courseID, ID studentID) throws CommandException {
@@ -124,5 +123,10 @@ public class ProgressManager extends BaseManager {
         targetProgress.undone();
         ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
         postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
+    }
+
+    private static Progress get(ID assignmentID, ID studentID) throws CommandException {
+        logger.info(model.getProgressAddressBook().toString());
+        return model.getProgress(assignmentID, studentID);
     }
 }
