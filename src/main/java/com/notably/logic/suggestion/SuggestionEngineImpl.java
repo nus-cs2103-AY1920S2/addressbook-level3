@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.ErrorSuggestionCommand;
-import com.notably.logic.commands.suggestion.ExitSuggestionCommand;
-import com.notably.logic.commands.suggestion.HelpSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
@@ -93,10 +91,12 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return Optional.empty();
 
         case "help":
-            return Optional.of(new HelpSuggestionCommand());
+            model.setResponseText("Display a list of available commands");
+            return Optional.empty();
 
         case "exit":
-            return Optional.of(new ExitSuggestionCommand());
+            model.setResponseText("Exit the application");
+            return Optional.empty();
 
         default:
             return Optional.of(new ErrorSuggestionCommand(
