@@ -50,9 +50,6 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         id = source.getIdentifier();
         name = source.getName();
-        sessions.addAll(source.getSessionList().stream()
-                .map(JsonAdaptedSession::new)
-                .collect(Collectors.toList()));
         groups.addAll(source.getGroupList().stream()
                 .map(JsonAdaptedGroup::new)
                 .collect(Collectors.toList()));
@@ -96,7 +93,6 @@ class JsonAdaptedModule {
 
         // ==== Build ====
         Module module = new Module(id, name);
-        modelDoneSessions.forEach(module::addDoneSession);
         modelGroups.forEach(module::addGroup);
 
         return module;

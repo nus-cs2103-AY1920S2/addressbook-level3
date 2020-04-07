@@ -310,6 +310,13 @@ Format: `module add m/MOD_CODE n/NAME`
 [NOTE]
 ====
 * You can't have two modules with the same module code in the TA-Tracker.
+
+* MOD_CODE can't be an empty string or a sequence of spaces.
+
+* You can give a module your own custom MOD_CODE or NAME if you find it easier
+to remember. However, for ease of remembrance, we recommend you use the official
+module code and name for it.
+
 ====
 
 [TIP]
@@ -368,8 +375,10 @@ Format: `module edit m/MOD_CODE n/NEW NAME`
 ====
 * You can only use this command to change the name of the module. The module
 code can't be changed.
+
 * Editing a module doesn't affect the students and
 groups inside the module.
+
 * You cannot edit a module that doesn't exist.
 ====
 
@@ -402,7 +411,13 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * You cannot add a group to a module that doesn't exist.
 
+* The GROUP_CODE can't be an empty string or a sequences of spaces.
+
 * You cannot add multiple groups with the same group code into the same module.
+
+* You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
+to remember. However, for ease of remembrance, we recommend you use the official
+group code   for it.
 ====
 
 ====
@@ -511,6 +526,9 @@ Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 * You cannot add a student to a group that does not exist inside the given module.
 
 * You cannot add multiple students with the same matric number inside the same module group.
+
+* Student names are auto-capitalized. However, if the name includes a hyphen (-) with no
+space after the hyphen, the second half of the name will not be capitalised.
 ====
 
 ====
@@ -743,7 +761,7 @@ Sorts all groups inside all modules `alphabetically`.
 [[FilterStudent]]
 ==== Filter : `filter`
 
-You can use this command to find the students in a particular group
+You can use this command to view the students in a particular group
 and module.
 
 You can filter the students in *Student View* in the following ways:
@@ -780,6 +798,8 @@ If you use just the module code, you will see:
 
 * the first group of the module specified by the given module code highlighted
 * all the students belonging to that group
+* you can use this command when you want to see all the groups belonging to a
+particular module.
 
 Format: `student filter m/MOD_CODE`
 

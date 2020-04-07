@@ -27,12 +27,12 @@ TaTracker --> "1 " UniqueModuleList
 
 UniqueModuleList -right-> "*" Module
 
-Module --> "1" UniqueGroupList
+Module -right-> "1" UniqueGroupList
 
-UniqueGroupList -left-> "*" Group
+UniqueGroupList -right-> "*" Group
 
 Group --> "1 " UniqueStudentList
-UniqueStudentList -right-> "*" Student
+UniqueStudentList -left-> "*" Student
 
 @enduml
 
