@@ -37,7 +37,8 @@ public class GraphCommand extends Command {
             + PREFIX_STARTDATE + "01-01-2020 "
             + PREFIX_ENDDATE + "01-04-2020";
 
-    public static final String MESSAGE_SUCCESS = "Graph displayed. Currently displaying graph for exercise:\n%1$s";
+    public static final String MESSAGE_SUCCESS = "Graph displayed. Any new updates are not reflected. "
+        + "Currently displaying graph for exercise:\n%1$s";
 
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
@@ -69,7 +70,8 @@ public class GraphCommand extends Command {
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
 
-        return new CommandResult(graphList.toString(), graph.getAxis().getAxisType(), graphList);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, graphList.toString()),
+            graph.getAxis().getAxisType(), graphList);
     }
 
     @Override
