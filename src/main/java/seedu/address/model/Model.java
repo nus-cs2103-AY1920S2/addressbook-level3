@@ -238,6 +238,13 @@ public interface Model {
     boolean hasEvent(Event toAdd);
 
     /**
+     * Sets an event
+     * @param eventToUpdate event to be replaced
+     * @param updatedEvent event to replace the replaced event
+     */
+    void setEvent(Event eventToUpdate, Event updatedEvent);
+
+    /**
      * Returns true if there is a clashing event (same timing and same date).
      */
     boolean hasClashingEvent(Event event);
