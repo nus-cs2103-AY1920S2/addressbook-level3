@@ -19,7 +19,7 @@ import com.notably.model.Model;
 /**
  * Represents a Parser for DeleteSuggestionCommand.
  */
-public class DeleteSuggestionCommandParser implements SuggestionCommandParser<DeleteSuggestionCommand> {
+public class DeleteSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
     private static final String RESPONSE_MESSAGE = "Delete a note";
 
     private Model model;
@@ -34,7 +34,6 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
      * Parses user input in the context of the DeleteSuggestionCommand.
      * @param userInput The user's input.
      * @return An optional DeleteSuggestionCommand object with a corrected absolute path.
-     * @throws ParseException if the user input is in a wrong format and/ or path cannot be found.
      */
     @Override
     public Optional<SuggestionCommand> parse(String userInput) {

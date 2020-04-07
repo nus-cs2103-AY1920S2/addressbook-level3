@@ -16,7 +16,6 @@ import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
-import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.NewSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
@@ -79,11 +78,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
 
         switch (commandWord) {
         case "open":
-            try {
-                return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
-            } catch (ParseException e) {
-                return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
-            }
+            return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         case "delete":
             return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);

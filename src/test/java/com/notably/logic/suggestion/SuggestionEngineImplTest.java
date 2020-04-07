@@ -98,10 +98,11 @@ public class SuggestionEngineImplTest {
 
     @Test
     public void suggest_correctDeleteCommandValidArgs_returnsDeleteSuggestionCommand() {
-        model.setInput("delete -t Lecture");
+        String title = "Lecture";
+        model.setInput("delete -t " + title);
 
         // Test response text
-        String expectedResponseText = "Delete a note";
+        String expectedResponseText = "Delete a note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
         // Expected result
@@ -137,7 +138,7 @@ public class SuggestionEngineImplTest {
         model.setInput("delete " + title);
 
         // Expected result
-        String expectedResponseText = "Delete a note entitled: " + title;
+        String expectedResponseText = "Delete a note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -147,7 +148,7 @@ public class SuggestionEngineImplTest {
         model.setInput("dele -t " + title);
 
         // Test response text
-        String expectedResponseText = "Delete a note";
+        String expectedResponseText = "Delete a note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
         // Expected result
@@ -183,7 +184,7 @@ public class SuggestionEngineImplTest {
         model.setInput("dele -t " + title);
 
         // Expected result
-        String expectedResponseText = "Delete a note entitled: " + title;
+        String expectedResponseText = "Delete a note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -193,7 +194,7 @@ public class SuggestionEngineImplTest {
         model.setInput("oen -t " + title);
 
         // Test response text
-        String expectedResponseText = "Open a note";
+        String expectedResponseText = "Open a note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
         // Expected result
@@ -229,7 +230,7 @@ public class SuggestionEngineImplTest {
         model.setInput("opn -t " + title);
 
         // Expected result
-        String expectedResponseText = "Open a note entitled: " + title;
+        String expectedResponseText = "Open a note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
