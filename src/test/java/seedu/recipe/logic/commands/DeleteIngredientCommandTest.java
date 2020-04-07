@@ -24,6 +24,7 @@ import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -53,8 +54,9 @@ public class DeleteIngredientCommandTest {
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToDeleteIngredients, expectedRecipe);
-
-        assertCommandSuccess(deleteIngredientCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+        assertCommandSuccess(deleteIngredientCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -88,7 +90,9 @@ public class DeleteIngredientCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToDeleteIngredients, expectedRecipe);
 
-        assertCommandSuccess(deleteIngredientCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+        assertCommandSuccess(deleteIngredientCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

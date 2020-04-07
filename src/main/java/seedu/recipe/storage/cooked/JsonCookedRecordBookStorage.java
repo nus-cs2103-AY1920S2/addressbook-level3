@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.cooked;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,6 +13,7 @@ import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.commons.util.FileUtil;
 import seedu.recipe.commons.util.JsonUtil;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
+import seedu.recipe.storage.JsonRecipeBookStorage;
 
 /**
  * A class to access RecipeBook data stored as a json file on the hard disk.

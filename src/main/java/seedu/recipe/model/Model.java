@@ -71,18 +71,6 @@ public interface Model {
     void deleteRecipe(Recipe target);
 
     /**
-     * Favourites the given recipe.
-     * The recipe must exist in the recipe book.
-     */
-    void favouriteRecipe(Recipe target);
-
-    /**
-     * Unfavourites the given recipe.
-     * The recipe must exist in the recipe book.
-     */
-    void unfavouriteRecipe(Recipe target);
-
-    /**
      * Adds the given recipe.
      * {@code recipe} must not already exist in the recipe book.
      */
@@ -184,6 +172,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered record list */
     ObservableList<Record> getFilteredRecordList();
 
+    /**
+     * updates goal tally every time a record is added
+     * @code record
+     */
+    void updateGoalsTally(Record record);
+
     /** Returns an unmodifiable view of the filtered goals list */
     ObservableList<Integer> getFilteredGoalsTally();
 
@@ -196,4 +190,6 @@ public interface Model {
      * Returns true if a record with the same identity as {@code record} exists in the record book.
      */
     boolean hasRecord(Record record);
+
+
 }

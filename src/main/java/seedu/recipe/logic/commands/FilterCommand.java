@@ -11,6 +11,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.RecipeMatchesKeywordsPredicate;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Finds and lists all recipes in recipe book that matches the specified arguments.
@@ -36,6 +37,7 @@ public class FilterCommand extends Command {
             + PREFIX_GOAL + "Search for goal ";
 
     private final RecipeMatchesKeywordsPredicate predicate;
+    private final Tab recipesTab = Tab.RECIPES;
 
     public FilterCommand(RecipeMatchesKeywordsPredicate predicate) {
         this.predicate = predicate;
@@ -45,8 +47,9 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredRecipeList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredRecipeList().size()));
+        String finalMessage = String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW,
+                model.getFilteredRecipeList().size());
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     @Override

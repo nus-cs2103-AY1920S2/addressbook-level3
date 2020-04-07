@@ -15,6 +15,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.Step;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Adds step(s) to an existing recipe in the recipe book.
@@ -32,6 +33,7 @@ public class AddStepCommand extends Command {
 
     public static final String MESSAGE_ADD_STEPS_SUCCESS = "Successfully added step(s) to %1$s!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final List<Step> newSteps;
     private final CommandType commandType;
@@ -68,7 +70,8 @@ public class AddStepCommand extends Command {
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
 
-        return new CommandResult(String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString()));
+        String finalMessage = String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString());
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     @Override

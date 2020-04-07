@@ -55,7 +55,7 @@ public class ParserUtil {
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index[] parseMultipleIndex(String oneBasedIndex) throws ParseException {
-        String[] args = oneBasedIndex.trim().split(" ");
+        String[] args = oneBasedIndex.trim().split("\\s+");
         int len = args.length;
 
         Integer[] toSort = new Integer[len];

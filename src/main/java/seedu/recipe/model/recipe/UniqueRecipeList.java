@@ -79,41 +79,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
     }
 
-    /**
-     * Favourites the equivalent recipe from the list.
-     * The recipe must exist in the list.
-     */
-    public void favourite(Recipe toFavourite) {
-        requireNonNull(toFavourite);
-        int index = internalList.indexOf(toFavourite);
-        if (index == -1) {
-            throw new RecipeNotFoundException();
-        }
-        if (!toFavourite.isFavourite()) {
-            internalList.set(index, new Recipe(toFavourite.getName(), toFavourite.getTime(), toFavourite.getGrains(),
-                    toFavourite.getVegetables(), toFavourite.getProteins(), toFavourite.getFruits(),
-                    toFavourite.getOthers(), toFavourite.getSteps(), toFavourite.getGoals(), true));
-        }
-    }
-
-    /**
-     * Unfavourites the equivalent recipe from the list.
-     * The recipe must exist in the list.
-     */
-    public void unfavourite(Recipe toUnfavourite) {
-        requireNonNull(toUnfavourite);
-        int index = internalList.indexOf((toUnfavourite));
-        if (index == -1) {
-            throw new RecipeNotFoundException();
-        }
-        if (toUnfavourite.isFavourite()) {
-            internalList.set(index, new Recipe(toUnfavourite.getName(), toUnfavourite.getTime(),
-                    toUnfavourite.getGrains(), toUnfavourite.getVegetables(), toUnfavourite.getProteins(),
-                    toUnfavourite.getFruits(), toUnfavourite.getOthers(), toUnfavourite.getSteps(),
-                    toUnfavourite.getGoals(), false));
-        }
-    }
-
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

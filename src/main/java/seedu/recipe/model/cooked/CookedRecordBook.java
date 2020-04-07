@@ -123,4 +123,8 @@ public class CookedRecordBook implements ReadOnlyCookedRecordBook {
     public ObservableList<Integer> getFilteredGoalsTally() {
         return records.getGoalsTally();
     }
+
+    public void updateGoalsTally(Record record) {
+        records.updateGoalsTally(record);
+    }
 }

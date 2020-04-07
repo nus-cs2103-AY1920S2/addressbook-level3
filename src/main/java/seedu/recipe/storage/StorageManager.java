@@ -12,6 +12,7 @@ import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.storage.cooked.CookedRecordBookStorage;
 import seedu.recipe.storage.plan.PlannedBookStorage;
 
 /**

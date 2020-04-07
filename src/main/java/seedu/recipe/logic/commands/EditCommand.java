@@ -36,6 +36,7 @@ import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Edits the details of an existing recipe in the recipe book.
@@ -69,6 +70,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
     public static final String MESSAGE_CANNOT_DELETE_ALL_INGREDIENTS = "Cannot delete all ingredients!";
 
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
     private final CommandType commandType;
@@ -110,7 +112,9 @@ public class EditCommand extends Command {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
+
+        String finalMessage = String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
+        return new CommandResult(finalMessage, false, recipesTab, false);
     }
 
     /**
@@ -119,8 +123,9 @@ public class EditCommand extends Command {
      */
     protected static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
+        assert editRecipeDescriptor != null;
 
-        boolean isFavourite = recipeToEdit.isFavourite();
+        boolean isFavourite = editRecipeDescriptor.getFavourite();
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
         List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
@@ -161,6 +166,7 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
+        private boolean isFavourite;
         private List<Step> steps;
         private Set<Goal> goals;
         private Set<Grain> grains;
@@ -178,6 +184,7 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
+            setFavourite(toCopy.isFavourite);
             setSteps(toCopy.steps);
             setGoals(toCopy.goals);
             setGrains(toCopy.grains);
@@ -208,6 +215,14 @@ public class EditCommand extends Command {
 
         public Optional<Time> getTime() {
             return Optional.ofNullable(time);
+        }
+
+        public void setFavourite(boolean isFavourite) {
+            this.isFavourite = isFavourite;
+        }
+
+        public boolean getFavourite() {
+            return isFavourite;
         }
 
         /**
