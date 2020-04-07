@@ -44,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ResultDisplay resultDisplay;
 
-    private ReportWindow reportWindow;
+    private StatisticsWindow statisticsWindow;
 
     @FXML
     private VBox tabsVBox;
@@ -83,7 +83,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        reportWindow = new ReportWindow();
+        statisticsWindow = new StatisticsWindow();
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 6);
@@ -145,10 +145,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleReport() {
-        if (!reportWindow.isShowing()) {
-            reportWindow.show();
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show(logic.generateStatistics());
         } else {
-            reportWindow.focus();
+            statisticsWindow.focus();
         }
     }
 
@@ -165,7 +165,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         logic.showdownTimer();
-        reportWindow.hide();
+        statisticsWindow.hide();
         primaryStage.hide();
     }
 

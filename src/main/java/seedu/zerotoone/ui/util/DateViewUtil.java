@@ -2,6 +2,7 @@ package seedu.zerotoone.ui.util;
 
 import static seedu.zerotoone.commons.util.DateUtil.getPrettyDateTimeString;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -86,5 +87,18 @@ public class DateViewUtil {
 
     private static String capitalize(String str) {
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+
+    /**
+     * Gets pretty duration.
+     *
+     * @param duration the duration eg 6h 50m 15s
+     * @return the pretty duration
+     */
+    public static String getPrettyDuration(Duration duration) {
+        return duration.toString()
+            .substring(2)
+            .replaceAll("(\\d[HMS])(?!$)", "$1 ")
+            .toLowerCase();
     }
 }

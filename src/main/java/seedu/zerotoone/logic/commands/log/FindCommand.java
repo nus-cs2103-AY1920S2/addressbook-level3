@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.log.PredicateFilterLogWorkoutName;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.workout.WorkoutName;

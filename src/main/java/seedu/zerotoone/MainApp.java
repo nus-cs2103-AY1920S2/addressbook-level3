@@ -1,20 +1,16 @@
 package seedu.zerotoone;
 
-import static seedu.zerotoone.commons.util.AppUtil.getImage;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.Config;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Version;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
-import seedu.zerotoone.commons.util.AppUtil;
 import seedu.zerotoone.commons.util.ConfigUtil;
 import seedu.zerotoone.commons.util.StringUtil;
 import seedu.zerotoone.logic.Logic;

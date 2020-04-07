@@ -76,7 +76,8 @@ public class ModelManager implements Model {
     // Log
     private final LogList logList;
     private final FilteredList<CompletedWorkout> filteredLogList;
-    private ArrayList<CompletedWorkout> statisticLogList;
+    private Optional<LocalDateTime> statisticsStartRange;
+    private Optional<LocalDateTime> statisticsEndStartRange;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -117,7 +118,9 @@ public class ModelManager implements Model {
 
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
-        statisticLogList = new ArrayList<>(this.logList.getLogList());
+
+        statisticsStartRange = Optional.empty();
+        statisticsEndStartRange = Optional.empty();
     }
 
     public ModelManager() {
@@ -237,14 +240,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void initStatisticsLogList(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
-        statisticLogList = new ArrayList<>(this.getLogList().getLogList());
+    public void setStatisticsDateRange(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
 
-        startRange.ifPresent(
-            localDateTime -> statisticLogList.removeIf(workout -> workout.getStartTime().isBefore(localDateTime)));
+        this.statisticsStartRange = startRange;
+        this.statisticsEndStartRange = endRange;
 
-        endRange.ifPresent(
-            localDateTime -> statisticLogList.removeIf(workout -> workout.getStartTime().isAfter(localDateTime)));
     }
 
     // -----------------------------------------------------------------------------------------
@@ -371,6 +371,21 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyLogList getLogList() {
         return logList;
+    }
+
+    @Override
+    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
+        return new ArrayList<>(this.getLogList().getLogList());
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsStartDateRange() {
+        return statisticsStartRange;
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsEndDateRange() {
+        return statisticsEndStartRange;
     }
 
     @Override

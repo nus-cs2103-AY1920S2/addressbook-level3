@@ -1,7 +1,9 @@
 package seedu.zerotoone.ui.views.log;
 
 import static seedu.zerotoone.ui.util.DateViewUtil.getPrettyDateRangeDateTime;
+import static seedu.zerotoone.ui.util.DateViewUtil.getPrettyDuration;
 
+import java.time.Duration;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -42,7 +44,8 @@ public class CompletedWorkoutCard extends UiPart<Region> {
         super(FXML);
         workoutTitle.setText(formatTitle(completedWorkout, displayedIndex));
         startEndTime.setText(getPrettyDateRangeDateTime(completedWorkout.getStartTime(),
-            completedWorkout.getEndTime()));
+            completedWorkout.getEndTime()) + ", "
+            + getPrettyDuration(Duration.between(completedWorkout.getStartTime(), completedWorkout.getEndTime())));
 
         List<CompletedExercise> exerciseList = completedWorkout.getExercises();
 

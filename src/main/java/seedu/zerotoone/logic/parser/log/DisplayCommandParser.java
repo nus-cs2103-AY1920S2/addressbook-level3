@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_LOG_END;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_LOG_START;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -16,7 +15,6 @@ import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
-import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * Parses input arguments and creates a new DisplayCommand object
