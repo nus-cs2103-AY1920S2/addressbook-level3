@@ -8,47 +8,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import hirelah.logic.commands.Command;
-import hirelah.logic.commands.ExitCommand;
 import hirelah.logic.commands.HelpCommand;
-import hirelah.logic.commands.OpenResumeCommand;
-import hirelah.logic.commands.StartInterviewCommand;
+import hirelah.logic.commands.presession.NewSessionCommand;
+import hirelah.logic.commands.presession.OpenSessionCommand;
 import hirelah.logic.parser.exceptions.ParseException;
 
-/*
- * NormalParser
- *
- * CS2103 AY19/20 Semester 2
- * Team Project
- * HireLah!
- *
- * 13 Mar 2020
- *
- */
-
 /**
- * NormalParser parses the input entered by the client
- * when HireLah! is not in interviewing mode.
+ * PreSessionParser parses user input before a session is set.
  */
-public class NormalParser {
-    /**
-     * Used for initial separation of command word and args.
-     */
+public class PreSessionParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final HashMap<String, CommandSupplier> suppliers = new HashMap<>() {
         {
-            put("add", args -> new AddCommandParser().parse(args));
-            put("edit", args -> new EditCommandParser().parse(args));
-            put("delete", args -> new DeleteCommandParser().parse(args));
-            put("list", args -> new ListCommandParser().parse(args));
-            put("finalise", args -> new FinaliseCommandParser().parse(args));
-            put("open", args -> new OpenReportCommandParser().parse(args));
-            put("goto", args -> new NavigationCommandParser().parse(args));
-            put("best", args -> new BestCommandParser().parse(args));
-            put("interview", args -> new StartInterviewCommand(args.trim()));
-            put("exit", args -> new ExitCommand());
+            put("open", args -> new OpenSessionCommand(args.trim()));
+            put("new", args -> new NewSessionCommand(args.trim()));
             put("help", args -> new HelpCommand());
-            put("upload", args -> new UploadResumeCommandParser().parse(args.trim()));
-            put("resume", args -> new OpenResumeCommand(args.trim()));
         }
     };
 

@@ -1,6 +1,7 @@
 package hirelah.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import hirelah.commons.core.GuiSettings;
 import hirelah.model.hirelah.AppPhase;
@@ -52,6 +53,16 @@ public interface Model {
      */
     void setSessionsDirectory(Path sessionsDirectory);
 
+    /**
+     * Returns the directory of the current session.
+     */
+    Optional<Path> getCurrentSession();
+
+    /**
+     * Sets the directory of the current session.
+     */
+    void setCurrentSession(Path session);
+
     /** Returns an unmodifiable view of the attribute list */
     ObservableList<Attribute> getAttributeListView();
 
@@ -67,14 +78,22 @@ public interface Model {
     /** Returns the list of interviewees for the current interview session */
     IntervieweeList getIntervieweeList();
 
+    void setIntervieweeList(IntervieweeList intervieweeList);
+
     /** Returns the list of attributes to score interviewees by */
     AttributeList getAttributeList();
+
+    void setAttributeList(AttributeList attributeList);
 
     /** Returns the list of questions to ask during interviews */
     QuestionList getQuestionList();
 
+    void setQuestionList(QuestionList questionList);
+
     /** Returns the list of metrics that describes certain weight */
     MetricList getMetricList();
+
+    void setMetricList(MetricList metricList);
 
     /** Returns the list of best N interviewees based on certain measures */
     ObservableList<IntervieweeToScore> getBestNInterviewees();

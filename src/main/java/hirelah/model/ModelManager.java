@@ -4,6 +4,7 @@ import static hirelah.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import hirelah.commons.core.GuiSettings;
@@ -28,14 +29,16 @@ import javafx.collections.ObservableList;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private Path session;
     private boolean finalisedInterviewProperties;
     private AppPhase appPhase;
     private Interviewee currentInterviewee;
-    private final IntervieweeList intervieweeList;
-    private final AttributeList attributeList;
-    private final QuestionList questionList;
-    private final MetricList metricList;
-    private final UserPrefs userPrefs;
+    private IntervieweeList intervieweeList;
+    private AttributeList attributeList;
+    private QuestionList questionList;
+    private MetricList metricList;
+    private UserPrefs userPrefs;
     private ObservableList<IntervieweeToScore> bestNIntervieweeList;
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,7 +48,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
-        this.appPhase = AppPhase.NORMAL;
+        this.appPhase = AppPhase.PRE_SESSION;
 
         this.intervieweeList = new IntervieweeList();
         this.attributeList = new AttributeList();
@@ -64,7 +67,7 @@ public class ModelManager implements Model {
                         MetricList initialMetrics, Boolean finalised) {
         logger.fine("Initializing with user prefs " + userPrefs);
 
-        this.appPhase = AppPhase.NORMAL;
+        this.appPhase = AppPhase.PRE_SESSION;
         this.finalisedInterviewProperties = finalised;
         this.userPrefs = new UserPrefs(userPrefs);
         this.intervieweeList = initialInterviewees;
@@ -107,6 +110,16 @@ public class ModelManager implements Model {
     public void setSessionsDirectory(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setSessionsDirectory(addressBookFilePath);
+    }
+
+    @Override
+    public Optional<Path> getCurrentSession() {
+        return Optional.ofNullable(session);
+    }
+
+    @Override
+    public void setCurrentSession(Path session) {
+        this.session = session;
     }
 
     //=========== App state setters/getters ======================================================
@@ -211,8 +224,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setIntervieweeList(IntervieweeList intervieweeList) {
+        this.intervieweeList = intervieweeList;
+    }
+
+    @Override
     public AttributeList getAttributeList() {
         return attributeList;
+    }
+
+    @Override
+    public void setAttributeList(AttributeList attributeList) {
+        this.attributeList = attributeList;
     }
 
     @Override
@@ -221,8 +244,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setQuestionList(QuestionList questionList) {
+        this.questionList = questionList;
+    }
+
+    @Override
     public MetricList getMetricList() {
         return metricList;
+    }
+
+    @Override
+    public void setMetricList(MetricList metricList) {
+        this.metricList = metricList;
     }
 
     @Override

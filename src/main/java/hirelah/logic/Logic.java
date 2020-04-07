@@ -1,6 +1,9 @@
 package hirelah.logic;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import hirelah.commons.core.GuiSettings;
 import hirelah.logic.commands.CommandResult;
@@ -57,6 +60,11 @@ public interface Logic {
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
+
+    /**
+     * Returns all the available sessions in the user prefs' sessions directory.
+     */
+    List<File> getAvailableSessions() throws IOException;
 
     /**
      * Set the user prefs' GUI settings.

@@ -1,10 +1,14 @@
 package hirelah.storage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 
 import hirelah.commons.exceptions.DataConversionException;
-import hirelah.commons.exceptions.IllegalValueException;
+import hirelah.model.Model;
+import hirelah.model.ReadOnlyUserPrefs;
 import hirelah.model.hirelah.AttributeList;
 import hirelah.model.hirelah.Interviewee;
 import hirelah.model.hirelah.IntervieweeList;
@@ -15,6 +19,10 @@ import hirelah.model.hirelah.QuestionList;
  * API of the Storage component.
  */
 public interface Storage extends UserPrefsStorage {
+    List<File> readSessions(ReadOnlyUserPrefs userPrefs) throws IOException;
+
+    public void loadSession(Model model, Path session) throws DataConversionException;
+
     void saveInterviewee(IntervieweeList source) throws IOException;
 
     Optional<IntervieweeList> readInterviewee(QuestionList questionList,

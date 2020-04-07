@@ -1,12 +1,18 @@
 package hirelah.storage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import hirelah.commons.core.LogsCenter;
 import hirelah.commons.exceptions.DataConversionException;
+import hirelah.commons.util.StringUtil;
+import hirelah.model.Model;
 import hirelah.model.ReadOnlyUserPrefs;
 import hirelah.model.UserPrefs;
 import hirelah.model.hirelah.AttributeList;
@@ -21,6 +27,7 @@ import hirelah.model.hirelah.QuestionList;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+
     private UserPrefsStorage userPrefsStorage;
     private IntervieweeStorage intervieweeStorage;
     private AttributeStorage attributeStorage;
@@ -29,23 +36,54 @@ public class StorageManager implements Storage {
     private TranscriptStorage transcriptStorage;
     private ModelStorage modelStorage;
 
-    public StorageManager(UserPrefsStorage userPrefsStorage, IntervieweeStorage intervieweeStorage,
-                          AttributeStorage attributeStorage, QuestionStorage questionStorage,
-                          MetricStorage metricStorage, TranscriptStorage transcriptStorage,
-                          ModelStorage modelStorage) {
-        super();
-        this.userPrefsStorage = userPrefsStorage;
-        this.intervieweeStorage = intervieweeStorage;
-        this.attributeStorage = attributeStorage;
-        this.questionStorage = questionStorage;
-        this.metricStorage = metricStorage;
-        this.transcriptStorage = transcriptStorage;
-        this.modelStorage = modelStorage;
-    }
-
     public StorageManager(UserPrefsStorage userPrefsStorage) {
         this.userPrefsStorage = userPrefsStorage;
     }
+
+    // ================ Session methods ==============================
+    @Override
+    public List<File> readSessions(ReadOnlyUserPrefs userPrefs) throws IOException {
+        try {
+            Files.createDirectories(userPrefs.getSessionsDirectory());
+        } catch (IOException e) {
+            logger.severe("Unable to create sessions directory : " + StringUtil.getDetails(e));
+        }
+        File[] sessions = userPrefs.getSessionsDirectory().toFile().listFiles(File::isDirectory);
+        if (sessions == null) {
+            throw new IOException("Unable to read sessions directory");
+        }
+        return Arrays.asList(sessions);
+    }
+
+    @Override
+    public void loadSession(Model model, Path session) throws DataConversionException {
+        this.intervieweeStorage = new IntervieweeStorage(session.resolve("interviewee.json"));
+        this.attributeStorage = new AttributeStorage(session.resolve("attribute.json"));
+        this.questionStorage = new QuestionStorage(session.resolve("question.json"));
+        this.metricStorage = new MetricStorage(session.resolve("metric.json"));
+        this.transcriptStorage = new TranscriptStorage(session.resolve("transcript"));
+        this.modelStorage = new ModelStorage(session.resolve("model.json"));
+
+        initModelManager(model);
+    }
+
+    /** Sets the initial lists inside the model. */
+    private void initModelManager(Model model) throws DataConversionException {
+        AttributeList initialAttributes = initializeAttribute();
+        QuestionList initialQuestions = initializeQuestion();
+        Boolean initialModel = initializeModel();
+        MetricList initialMetrics = initializeMetric();
+        IntervieweeList initialInterviewees = initializeInterviewee(initialQuestions, initialAttributes, initialModel);
+
+        model.setAttributeList(initialAttributes);
+        model.setQuestionList(initialQuestions);
+        if (initialModel) {
+            model.finaliseInterviewProperties();
+        }
+        model.setMetricList(initialMetrics);
+        model.setIntervieweeList(initialInterviewees);
+    }
+
 
     // ================ InterviewStorage methods ==============================
     /** Save all the IntervieweeList into their Json file*/
@@ -71,6 +109,17 @@ public class StorageManager implements Storage {
                 .readInterviewee(filepath, questionList, attributeList, initialModel, this.transcriptStorage);
     }
 
+    /** Gets the initial interviewee list for a session. */
+    private IntervieweeList initializeInterviewee(QuestionList questionList,
+                                                  AttributeList attributeList,
+                                                  Boolean initialModel) throws DataConversionException {
+        Optional<IntervieweeList> intervieweeListOptional = readInterviewee(questionList, attributeList, initialModel);
+        if (intervieweeListOptional.isEmpty()) {
+            logger.info("Interviewees data file not found. Will be starting with an empty interviewee file");
+        }
+        return intervieweeListOptional.orElse(new IntervieweeList());
+    }
+
     public Path getIntervieweeDirectory() {
         return intervieweeStorage.getPath();
     }
@@ -92,6 +141,15 @@ public class StorageManager implements Storage {
     public Optional<AttributeList> readAttribute(Path filepath) throws DataConversionException {
         logger.fine("Attempting to read data from Attribute file: " + filepath);
         return attributeStorage.readAttribute(filepath);
+    }
+
+    /** Gets the initial attribute list for the session. */
+    private AttributeList initializeAttribute() throws DataConversionException {
+        Optional<AttributeList> attributeListOptional = readAttribute();
+        if (attributeListOptional.isEmpty()) {
+            logger.info("Attributes data file not found. Will be starting with an empty attribute file");
+        }
+        return attributeListOptional.orElse(new AttributeList());
     }
 
     public Path getAttributeDirectory() {
@@ -117,6 +175,15 @@ public class StorageManager implements Storage {
         return questionStorage.readQuestion(filepath);
     }
 
+    /** Gets the initial question list for the session. */
+    private QuestionList initializeQuestion() throws DataConversionException {
+        Optional<QuestionList> questionListOptional = readQuestion();
+        if (questionListOptional.isEmpty()) {
+            logger.info("Question data file not found. Will be starting with an empty question file");
+        }
+        return questionListOptional.orElse(new QuestionList());
+    }
+
     public Path getQuestionDirectory() {
         return questionStorage.getPath();
     }
@@ -140,6 +207,15 @@ public class StorageManager implements Storage {
         return metricStorage.readMetric(filepath);
     }
 
+    /** Gets the initial metric list for the session. */
+    private MetricList initializeMetric() throws DataConversionException {
+        Optional<MetricList> metricListOptional = readMetric();
+        if (metricListOptional.isEmpty()) {
+            logger.info("Metric data file not found. Will be starting with an empty metric file");
+        }
+        return metricListOptional.orElse(new MetricList());
+    }
+
     public Path getMetricDirectory() {
         return metricStorage.getPath();
     }
@@ -150,10 +226,6 @@ public class StorageManager implements Storage {
     public void saveTranscript(Interviewee source) throws IOException {
         logger.fine("Attempting to write to Transcript data file: " + getMetricDirectory());
         transcriptStorage.saveTranscript(source);
-    }
-
-    public Path getTranscriptDirectory() {
-        return transcriptStorage.getPath();
     }
 
     // ================ ModelStorage methods ================================
@@ -184,6 +256,15 @@ public class StorageManager implements Storage {
     public Optional<Boolean> readModel(Path filePath) throws DataConversionException {
         logger.fine("Attempting to read data from Model file: " + filePath);
         return modelStorage.readModel(filePath);
+    }
+
+    /** Gets the initial finalised status for the session. */
+    private Boolean initializeModel() throws DataConversionException {
+        Optional<Boolean> modelOptional = readModel();
+        if (modelOptional.isEmpty()) {
+            logger.info("Model data file not found. Will be starting with an empty model file");
+        }
+        return modelOptional.orElse(false);
     }
 
     // ================ UserPrefsStorage methods ==============================
