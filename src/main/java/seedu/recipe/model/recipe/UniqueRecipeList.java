@@ -28,6 +28,11 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private final ObservableList<Recipe> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    private final ObservableList<Recipe> internalQuantityList = FXCollections.observableArrayList();
+    private final ObservableList<Recipe> internalUnmodifiableQuantityList =
+            FXCollections.unmodifiableObservableList(internalQuantityList);
+
+//======================================RECIPE======================================
     /**
      * Returns true if the list contains an equivalent recipe as the given argument.
      */
@@ -133,5 +138,10 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             }
         }
         return true;
+    }
+
+//======================================QUANTITY======================================
+    private void setQuantityTally() {
+
     }
 }

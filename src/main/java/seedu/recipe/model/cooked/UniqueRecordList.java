@@ -191,8 +191,7 @@ public class UniqueRecordList implements Iterable<Record> {
                 internalGoalsList.set(3, currCount + 1);
                 break;
             default:
-                //not part of main 4 goals
-                break;
+                throw new IllegalStateException("Unexpected value: " + goalName);
             }
         }
     }
