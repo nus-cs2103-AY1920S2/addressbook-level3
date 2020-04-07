@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
  * Contains helper methods for testing commands.
  */
 public class ParserTestUtil {
-   
     private static final String INVALID_NAME = "";
     private static final String INVALID_INGREDIENTS = "";
     private static final String INVALID_INSTRUCTIONS = "";
@@ -70,12 +69,10 @@ public class ParserTestUtil {
     public void parseName_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
     }
-    
     @Test
     public void parseRating_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseRating(INVALID_RATING));
     }
-    
     @Test
     public void parseDifficulty_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDifficulty(INVALID_DIFFICULTY));
