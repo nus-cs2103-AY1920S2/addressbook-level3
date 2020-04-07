@@ -475,13 +475,15 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public boolean hasProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
+    logger.info("compositeID for hasProgress:" + target.toString());
+
     return progressAddressBook.has(target);
   }
 
   @Override
   public Progress getProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    logger.info(target.toString());
+    logger.info("compositeID for getProgress:" + target.toString());
     return progressAddressBook.get(target);
   }
 

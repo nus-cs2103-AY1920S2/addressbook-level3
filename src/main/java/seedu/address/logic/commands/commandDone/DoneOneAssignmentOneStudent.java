@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.commandDone;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
@@ -8,17 +9,21 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 public class DoneOneAssignmentOneStudent extends DoneCommandBase {
+    private static final Logger logger = LogsCenter.getLogger(DoneOneAssignmentOneStudent.class);
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks an assignment as done for a student. "
             + "Parameters: "
             + PREFIX_ASSIGNMENTID + "ASSIGNMENTID "
@@ -57,7 +62,8 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
 
         boolean studentExists = model.hasStudent(studentID);
         boolean assignmentExists = model.hasAssignment(assignmentID);
-        boolean progressExists = model.hasProgress(studentID, assignmentID);
+        boolean progressExists = model.hasProgress(assignmentID, studentID);
+        logger.info("Progress Exists: " + progressExists);
 
         if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
