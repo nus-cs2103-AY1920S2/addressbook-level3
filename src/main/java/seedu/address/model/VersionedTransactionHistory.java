@@ -15,7 +15,8 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
     }
 
     /**
-     * Creates a VersionedTransactionHistory using the {@code Transaction}s in the {@code toBeCopied}.
+     * Creates a VersionedTransactionHistory with an initial state containing the {@code Transaction}s
+     * in the {@code toBeCopied}.
      */
     public VersionedTransactionHistory(ReadOnlyList<Transaction> toBeCopied) {
         history = new LinearHistory<>(new TransactionHistory(toBeCopied));

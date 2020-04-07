@@ -5,13 +5,17 @@ import java.util.List;
 
 /**
  * An implementation of Version with a linear list.
- * @param <T> a class that implements Copyable
+ * @param <T> a class that can produce independent copies
  */
 public class LinearHistory<T extends Copyable<T>> implements Version<T> {
     private T currentState;
     private List<T> history = new ArrayList<>();
     private int statePointer;
 
+    /**
+     * Creates a {@code LinearHistory} with a starting state.
+     * @param object the initial state
+     */
     public LinearHistory(T object) {
         history.add(object);
         currentState = object.copy();

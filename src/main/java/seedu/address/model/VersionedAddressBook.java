@@ -14,7 +14,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
     }
 
     /**
-     * Creates a VersionedAddressBook using the {@code Supplier}s in the {@code toBeCopied}.
+     * Creates a VersionedAddressBook with an initial state containing the {@code Supplier}s in the {@code toBeCopied}.
      */
     public VersionedAddressBook(ReadOnlyList<Supplier> toBeCopied) {
         history = new LinearHistory<>(new AddressBook(toBeCopied));

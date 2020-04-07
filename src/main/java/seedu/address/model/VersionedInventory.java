@@ -14,7 +14,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
     }
 
     /**
-     * Creates a VersionedInventory using the {@code Good}s in the {@code toBeCopied}.
+     * Creates a VersionedInventory with an initial state containing the {@code Good}s in the {@code toBeCopied}.
      */
     public VersionedInventory(ReadOnlyList<Good> toBeCopied) {
         history = new LinearHistory<>(new Inventory(toBeCopied));
