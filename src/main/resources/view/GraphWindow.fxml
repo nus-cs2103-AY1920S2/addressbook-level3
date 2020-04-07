@@ -14,7 +14,7 @@
             <children>
                <LineChart fx:id="exerciseGraph" layoutX="39.0" layoutY="48.0" prefHeight="400.0" prefWidth="511.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                  <xAxis>
-                  <NumberAxis forceZeroInRange="false" fx:id="xAxis" />
+                  <NumberAxis forceZeroInRange="false" label="Date" fx:id="xAxis" />
                  </xAxis>
                  <yAxis>
                    <NumberAxis fx:id="yAxis" side="LEFT" />

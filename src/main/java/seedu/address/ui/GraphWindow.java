@@ -1,14 +1,10 @@
 package seedu.address.ui;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -18,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.ExerciseDate;
 import seedu.address.model.exercise.ExerciseReps;
+import seedu.address.model.exercise.ExerciseWeight;
 
 /**
  * Controller for a graph page
@@ -27,8 +24,10 @@ public class GraphWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(GraphWindow.class);
     private static final String FXML = "GraphWindow.fxml";
 
-    private boolean showReps;
-    private boolean showSets;
+    private final List<Exercise> graphList;
+    private final boolean isShowReps;
+    private final boolean isShowWeight;
+    public XYChart.Series<Number, Number> series;
 
     @FXML
     private LineChart<Number, Number> exerciseGraph;
@@ -39,51 +38,66 @@ public class GraphWindow extends UiPart<Stage> {
     @FXML
     private NumberAxis yAxis;
 
-    private StringConverter<Number> converter = new NumberAxis.DefaultFormatter(xAxis) {
-        @Override
-        public String toString(Number object) {
-            return LocalDate.ofEpochDay(object.longValue()).toString();
-        }
-
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    };
-
-    /**
-     * Creates a new HelpWindow.
-     *
-     * @param root Stage to use as the root of the HelpWindow.
-     */
-    public GraphWindow(Stage root) {
-        super(FXML, root);
-    }
-
     /**
      * Creates a new GraphWindow.
      */
-    public GraphWindow(List<Exercise> graphList, boolean showReps, boolean showWeight) {
-        this(new Stage());
-        // defining the axes
-        xAxis.setTickLabelFormatter(converter);
-        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
-        series.setName("Exercise Graph");
-        // populating the series with data
+    public GraphWindow(List<Exercise> graphList, boolean isShowReps, boolean isShowWeight) {
+        super(FXML, new Stage());
+        this.graphList = graphList;
+        this.isShowReps = isShowReps;
+        this.isShowWeight = isShowWeight;
 
-        for (Exercise e : graphList) {
-            ExerciseReps reps = e.getExerciseReps();
-            Number plotReps = reps.convertToInt();
-            ExerciseDate date = e.getExerciseDate();
-            Number plotDate = date.forPlot();
-            series.getData().add(new XYChart.Data<Number, Number>(plotDate, plotReps));
+        if (isShowReps) {
+            fillRepsSeries();
+            yAxis.setLabel("Reps");
+        } else {
+            fillWeightSeries();
+            yAxis.setLabel("Weight");
         }
 
+        series.setName("Exercise Graph");
+        
+        formatDateLabels();
         exerciseGraph.getData().add(series);
     }
 
+    private void fillRepsSeries() {
+        series = new XYChart.Series<Number, Number>();
+
+        for (Exercise exercise : graphList) {
+            Number plotDate = getDateInNumberFormat(exercise);
+            Number plotReps = getRepsInNumberFormat(exercise);
+            series.getData().add(new XYChart.Data<Number, Number>(plotDate, plotReps));
+        }
+    }
+
+    private void fillWeightSeries() {
+        series = new XYChart.Series<Number, Number>();
+
+        for (Exercise exercise : graphList) {
+            Number plotDate = getDateInNumberFormat(exercise);
+            Number plotWeight = getWeightInNumberFormat(exercise);
+            series.getData().add(new XYChart.Data<Number, Number>(plotDate, plotWeight));
+        }
+    }
+
+    private void formatDateLabels() {
+        StringConverter<Number> converter = new NumberAxis.DefaultFormatter(xAxis) {
+            @Override
+            public String toString(Number object) {
+                return LocalDate.ofEpochDay(object.longValue()).toString();
+            }
+            @Override
+            public Number fromString(String string) {
+                return null;
+            }
+        };
+
+        xAxis.setTickLabelFormatter(converter);
+    }
+
     /**
-     * Shows the help window.
+     * Shows the graph window.
      * 
      * @throws IllegalStateException
      *                               <ul>
@@ -111,7 +125,7 @@ public class GraphWindow extends UiPart<Stage> {
     }
 
     /**
-     * Hides the grap window.
+     * Hides the graph window.
      */
     public void hide() {
         getRoot().hide();
@@ -122,5 +136,23 @@ public class GraphWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    private static Number getRepsInNumberFormat(Exercise exercise) {
+        ExerciseReps reps = exercise.getExerciseReps();
+        Number plotReps = reps.convertToInt();
+        return plotReps;
+    }
+
+    private static Number getWeightInNumberFormat(Exercise exercise) {
+        ExerciseWeight weight = exercise.getExerciseWeight();
+        Number plotWeight = weight.convertToInt();
+        return plotWeight;
+    }
+
+    private static Number getDateInNumberFormat(Exercise exercise) {
+        ExerciseDate date = exercise.getExerciseDate();
+        Number plotDate = date.forPlot();
+        return plotDate;
     }
 }
