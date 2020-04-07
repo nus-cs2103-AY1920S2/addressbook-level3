@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddDeadlineCommand;
-import seedu.address.logic.commands.AddToDoCommand;
+import seedu.address.logic.commands.taskcommand.addcommand.AddDeadlineCommand;
+import seedu.address.logic.commands.taskcommand.addcommand.AddToDoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.calender.Task;
 

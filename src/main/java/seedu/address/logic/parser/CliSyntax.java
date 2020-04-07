@@ -16,9 +16,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_NOTES_TYPE = new Prefix("type/");
     public static final Prefix PREFIX_NOTES_FILE_NAME = new Prefix("name/");
 
+    /* Module Prefixes*/
     public static final Prefix PREFIX_GRADE = new Prefix("g/");
     public static final Prefix PREFIX_MODULE_CODE = new Prefix("m/");
 
+    /* Task Prefixes*/
     public static final Prefix PREFIX_TASK_DESC = new Prefix("desc/");
     public static final Prefix PREFIX_DEADLINE_DATE = new Prefix("by/");
     public static final Prefix PREFIX_TASK_CAT = new Prefix("cat/");
@@ -26,6 +28,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_INDEX = new Prefix("index/");
     public static final Prefix PREFIX_MODULETASK_TIMING = new Prefix("date/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("pri/");
+    public static final Prefix PREFIX_SORTING = new Prefix("by/");
 
     /* Diary Prefixes*/
     public static final Prefix PREFIX_ENTRY_CONTENT = new Prefix("ec/");
@@ -33,6 +36,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_WEATHER = new Prefix("w/");
     public static final Prefix PREFIX_MOOD = new Prefix("m/");
     public static final Prefix PREFIX_DIARY_DATE = new Prefix("date/");
-
-
 }

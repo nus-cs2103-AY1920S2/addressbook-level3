@@ -109,6 +109,11 @@ public class ModuleBook {
         getModule(moduleCode).getTasks().get(index.getZeroBased()).markAsDone();
     }
 
+    public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return getModule(moduleCode).getTasks();
+    }
+
     public void setMajor(Major major) {
         requireNonNull(major);
         this.majorTaken = major;

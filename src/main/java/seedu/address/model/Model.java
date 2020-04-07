@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
@@ -177,6 +178,12 @@ public interface Model {
     void deleteModuleTask(ModuleCode moduleCode, Index index);
 
     void doneModuleTask(ModuleCode moduleCode, Index index);
+
+    List<ModuleTask> getModuleTaskList(ModuleCode moduleCode);
+
+    List<Task> findTasksByDate(String date);
+
+    List<Task> findTasksByCat(String cat);
 
     void updateModulesListTaken(Predicate<NusModule> predicate);
 

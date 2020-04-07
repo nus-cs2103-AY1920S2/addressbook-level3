@@ -1,7 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.taskcommand.addcommand;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.calender.Task;
@@ -45,8 +47,8 @@ public class AddToDoCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.AddToDoCommand // instanceof handles nulls
-                && todoToAdd.equals(((seedu.address.logic.commands.AddToDoCommand) other).todoToAdd));
+                || (other instanceof AddToDoCommand // instanceof handles nulls
+                && todoToAdd.equals(((AddToDoCommand) other).todoToAdd));
     }
 }
 

@@ -7,11 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 
-import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.address.calender.Task;
-import seedu.address.logic.commands.modulecommand.ModuleTaskCommand;
+import seedu.address.logic.commands.taskcommand.addcommand.ModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
