@@ -18,8 +18,10 @@ import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TASK_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
@@ -31,6 +33,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -38,6 +44,7 @@ import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
+
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -49,31 +56,32 @@ public class AddCommandParserTest {
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
         String task = VALID_TASK_BOB;
-        String deadline = VALID_DEADLINE_BOB;
+        LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_BOB);
+        LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_BOB, DateTimeFormatter.ofPattern("HH:mm"));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, deadline));
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // multiple modules - last module accepted
         assertParseSuccess(parser, MODCODE_DESC_AMY + MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, deadline));
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // multiple semesters - last semester accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_AMY + SEMESTER_DESC_BOB + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, deadline));
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // multiple grades - last grade accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_AMY + GRADE_DESC_BOB
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, deadline));
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // multiple tasks - last task accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB + TASK_DESC_AMY
-                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, deadline));
+                + TASK_DESC_BOB + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // multiple deadlines - last deadline accepted
         assertParseSuccess(parser, MODCODE_DESC_BOB + SEMESTER_DESC_BOB + GRADE_DESC_BOB + TASK_DESC_BOB
-                + DEADLINE_DESC_AMY + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, deadline));
+                + DEADLINE_DESC_AMY + DEADLINE_DESC_BOB, new AddCommand(moduleCode, semester, grade, task, date, time));
     }
 
     @Test
@@ -82,19 +90,20 @@ public class AddCommandParserTest {
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
         String grade = VALID_GRADE_AMY;
         String task = VALID_TASK_AMY;
-        String deadline = VALID_DEADLINE_AMY;
+        LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
+        LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY, DateTimeFormatter.ofPattern("HH:mm"));
 
         // No grade
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + TASK_DESC_AMY + DEADLINE_DESC_AMY,
-                new AddCommand(moduleCode, semester, grade, task, deadline));
+                new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // No task and deadline
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY + GRADE_DESC_AMY,
-                new AddCommand(moduleCode, semester, grade, task, deadline));
+                new AddCommand(moduleCode, semester, grade, task, date, time));
 
         // No grade, task and deadline
         assertParseSuccess(parser, MODCODE_DESC_AMY + SEMESTER_DESC_AMY,
-                new AddCommand(moduleCode, semester, grade, task, deadline));
+                new AddCommand(moduleCode, semester, grade, task, date, time));
     }
 
     @Test

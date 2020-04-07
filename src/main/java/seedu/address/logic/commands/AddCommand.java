@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +21,6 @@ import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
 
@@ -56,10 +57,11 @@ public class AddCommand extends Command {
     private int addSemester;
     private String addGrade;
     private String addTask;
-    private String addDeadlineString;
+    private LocalDate addDate;
+    private LocalTime addTime;
 
     public AddCommand(ModuleCode moduleCode, int semester, String grade,
-                      String task, String deadlineString) {
+                      String task, LocalDate date, LocalTime time) {
         requireNonNull(moduleCode);
         requireNonNull(semester);
 
@@ -71,8 +73,11 @@ public class AddCommand extends Command {
         if (task != null) {
             addTask = task;
         }
-        if (deadlineString != null) {
-            addDeadlineString = deadlineString;
+        if (date != null) {
+            addDate = date;
+        }
+        if (time != null) {
+            addTime = time;
         }
     }
 
@@ -115,7 +120,7 @@ public class AddCommand extends Command {
         Personal personal;
         if (hasModule) { // Module already added to semester
             personal = moduleToAdd.getPersonal();
-            if (addGrade == null && addTask == null && addDeadlineString == null) {
+            if (addGrade == null && addTask == null && addDate == null) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE,
                         moduleToAdd.getPersonal().getStatus()));
             }
@@ -152,14 +157,9 @@ public class AddCommand extends Command {
 
             Deadline deadline;
             String moduleCode = toAdd.toString();
-            if (addDeadlineString != null) {
-                String date = addDeadlineString.split(" ")[0];
-                String time = addDeadlineString.split(" ")[1];
-                try {
-                    deadline = new Deadline(moduleCode, addTask, date, time);
-                } catch (DateTimeException e) {
-                    throw new CommandException("Invalid date or time! Try: YYYY-MM-DD HH:mm");
-                }
+            if (addDate != null) {
+                deadline = new Deadline(moduleCode, addTask, addDate, addTime);
+                //throw new CommandException("Invalid date or time! Try: YYYY-MM-DD HH:mm");
             } else {
                 deadline = new Deadline(moduleCode, addTask);
             }

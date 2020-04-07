@@ -256,5 +256,4 @@ public class Profile {
         builder.append(getName());
         return builder.toString();
     }
-
 }
