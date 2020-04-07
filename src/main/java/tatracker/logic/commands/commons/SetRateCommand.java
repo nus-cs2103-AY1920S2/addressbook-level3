@@ -1,7 +1,5 @@
 package tatracker.logic.commands.commons;
 
-import static tatracker.logic.parser.Prefixes.RATE;
-
 import java.util.List;
 
 import tatracker.logic.commands.Command;
