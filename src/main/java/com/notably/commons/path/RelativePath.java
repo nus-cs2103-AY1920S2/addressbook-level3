@@ -111,23 +111,23 @@ public class RelativePath implements Path {
         for (String obj: this.getComponents()) {
             if (obj.equals("..")) {
                 if (temp.size() == 0) {
-                    temp.add(obj);
+                    temp.add(obj.toLowerCase());
                 } else {
                     temp.remove(temp.size() - 1);
                 }
             } else if (!obj.equals(".")) {
-                temp.add(obj);
+                temp.add(obj.toLowerCase());
             }
         }
         for (String obj: another.getComponents()) {
             if (obj.equals("..")) {
                 if (anotherTemp.size() == 0) {
-                    anotherTemp.add(obj);
+                    anotherTemp.add(obj.toLowerCase());
                 } else {
                     anotherTemp.remove(temp.size() - 1);
                 }
             } else if (!obj.equals(".")) {
-                anotherTemp.add(obj);
+                anotherTemp.add(obj.toLowerCase());
             }
         }
         return temp.equals(anotherTemp);
