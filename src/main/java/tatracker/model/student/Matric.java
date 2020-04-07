@@ -7,7 +7,7 @@ import static tatracker.commons.util.AppUtil.checkArgument;
  * Represents a Student's matric number in the TA-Tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidMatric(String)}
  */
-public class Matric {
+public class Matric implements Comparable<Matric> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Matric numbers should start with an \"A\", followed by 7 digits, and one final capital letter,"
@@ -56,4 +56,8 @@ public class Matric {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Matric other) {
+        return value.compareToIgnoreCase(other.value);
+    }
 }
