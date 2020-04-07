@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -22,6 +24,8 @@ import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
 class OpenCommandParserTest {
+    private static final int CORRECTION_THRESHOLD = 2;
+    private static final boolean USE_FORWARD_MATCHING = true;
     private static AbsolutePath toBlock;
     private static AbsolutePath toAnother;
     private static AbsolutePath toAnotherBlock;
@@ -41,7 +45,9 @@ class OpenCommandParserTest {
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
-        openCommandParser = new OpenCommandParser(model);
+        CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
+                CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
+        openCommandParser = new OpenCommandParser(model, pathCorrectionEngine);
 
         // Populate model with test data
         model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));

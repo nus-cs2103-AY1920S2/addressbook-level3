@@ -34,7 +34,7 @@ class NewCommandTest {
     }
     @Test
     void execute_validInput_updatedDatastructure() {
-        final Block currentBlock = (new BlockImpl(new Title("CS2103")));
+        final Block currentBlock = new BlockImpl(new Title("CS2103"));
 
         final AbsolutePath expectedPath = AbsolutePath.fromString("/CS2103");
 
@@ -44,7 +44,7 @@ class NewCommandTest {
     }
 
     @Test
-    void execute_invalidInputDuplicateTitle_throwsDuplicateBlockException() throws CommandException {
+    void execute_invalidInputDuplicateTitle_throwsCommandException() throws CommandException {
         final Block filler = new BlockImpl(new Title("CS2104"));
         final Block duplicateBlock = new BlockImpl(new Title("CS2104"));
         final AbsolutePath toPath = AbsolutePath.fromString("/");
@@ -55,4 +55,5 @@ class NewCommandTest {
 
         assertThrows(CommandException.class, () -> newCommandDuplicate.execute(model));
     }
+
 }
