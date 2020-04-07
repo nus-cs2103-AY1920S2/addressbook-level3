@@ -12,7 +12,7 @@ import seedu.address.model.good.UniqueGoodList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameGood comparison)
  */
-public class Inventory implements ReadOnlyList<Good> {
+public class Inventory implements ReadOnlyList<Good>, Copyable<Inventory> {
 
     private final UniqueGoodList goods;
 
@@ -103,6 +103,11 @@ public class Inventory implements ReadOnlyList<Good> {
     }
 
     //=========== Util Methods =========================================================================
+
+    @Override
+    public Inventory copy() {
+        return new Inventory(this);
+    }
 
     @Override
     public String toString() {
