@@ -61,7 +61,7 @@ public class AddGroupCommand extends Command {
 
         Module actualModule = model.getModule(targetModule);
 
-        if(toAdd.getIdentifier().equals("")) {
+        if (toAdd.getIdentifier().equals("")) {
             throw new CommandException(INVALID_GROUP_CODE);
         }
         if (actualModule.hasGroup(toAdd)) {

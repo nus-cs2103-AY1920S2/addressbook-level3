@@ -417,7 +417,7 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
 to remember. However, for ease of remembrance, we recommend you use the official
-group code for it.
+group code   for it.
 ====
 
 ====

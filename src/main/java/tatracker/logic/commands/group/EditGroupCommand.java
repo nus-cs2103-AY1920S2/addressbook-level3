@@ -67,11 +67,11 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
-        if(newGroupCode.equals(group.getIdentifier()) && newGroupType == null) {
+        if (newGroupCode.equals(group.getIdentifier()) && newGroupType == null) {
             throw new CommandException(MESSAGE_NO_CHANGES);
         }
 
-        if(newGroupCode.equals("")) {
+        if (newGroupCode.equals("")) {
             throw new CommandException(INVALID_GROUP_CODE);
         }
 

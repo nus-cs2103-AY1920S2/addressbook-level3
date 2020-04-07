@@ -48,11 +48,11 @@ public class AddModuleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(toAdd.getIdentifier().equals("")) {
+        if (toAdd.getIdentifier().equals("")) {
             throw new CommandException(INVALID_MODULE_CODE);
         }
 
-        if(toAdd.getName().equals("")) {
+        if (toAdd.getName().equals("")) {
             throw new CommandException(INVALID_MODULE_NAME);
         }
 
