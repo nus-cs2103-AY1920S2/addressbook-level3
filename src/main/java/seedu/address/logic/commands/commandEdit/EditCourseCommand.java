@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing course in the address book.
  */
-public class EditCourseCommand extends Command {
+public class EditCourseCommand extends EditCommand {
 
   public static final String COMMAND_WORD = "edit-course";
 
@@ -38,19 +39,21 @@ public class EditCourseCommand extends Command {
           + "Existing values will be overwritten by the input values.\n"
           + "Parameters: ID (must be an existing positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
-          + "[" + PREFIX_COURSEID + "COURSEID] "
           + "[" + PREFIX_AMOUNT + "AMOUNT] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 1 "
           + PREFIX_NAME + "Java 101 "
-          + PREFIX_AMOUNT + "1000 ";
+          + PREFIX_AMOUNT + "1000 "
+          + PREFIX_TAG + "intermediate";
 
   public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Assignment: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_COURSE = "This course already exists in the address book.";
 
-  private final ID targetID;
-  private final EditCourseDescriptor editCourseDescriptor;
+  private ID targetID;
+  private EditCourseDescriptor editCourseDescriptor;
+  private Course toEdit;
+  private Course editedCourse;
 
   /**
    * @param targetID                of the course in the filtered course list to edit
@@ -86,7 +89,12 @@ public class EditCourseCommand extends Command {
   }
 
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  protected void generateOppositeCommand() {
+    oppositeCommand = new EditCourseCommand(targetID, new EditCourseCommand.EditCourseDescriptor(toEdit));
+  }
+
+  @Override
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Course> lastShownList = model.getFilteredCourseList();
 
@@ -95,13 +103,20 @@ public class EditCourseCommand extends Command {
     }
 
     Course courseToEdit = getCourse(lastShownList);
+    this.toEdit = courseToEdit;
     Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
-
+    this.editedCourse = editedCourse;
     if (!courseToEdit.weakEquals(editedCourse) && model.has(editedCourse)) {
       throw new CommandException(MESSAGE_DUPLICATE_COURSE);
     }
 
-    model.set(courseToEdit, editedCourse);
+
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
+    model.set(toEdit, editedCourse);
     model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
   }
@@ -154,6 +169,15 @@ public class EditCourseCommand extends Command {
       setName(toCopy.name);
       setAmount(toCopy.amount);
       setTags(toCopy.tags);
+    }
+
+    /**
+     * Copy constructor. A defensive copy of {@code tags} is used internally.
+     */
+    public EditCourseDescriptor(Course toCopy) {
+      setName(toCopy.getName());
+      setAmount(toCopy.getAmount());
+      setTags(toCopy.getTags());
     }
 
     /**
