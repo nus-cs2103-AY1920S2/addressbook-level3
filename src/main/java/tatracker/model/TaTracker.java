@@ -35,6 +35,9 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static final int DEFAULT_RATE = 40;
     private static String currClaimFilter;
     private static String currSessionFilter;
+    private static String currSessionDateFilter;
+    private static String currSessionModuleFilter;
+    private static String currSessionTypeFilter;
     private static String currStudentFilter;
 
     private static Group currentlyShownGroup;
@@ -63,6 +66,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         currClaimFilter = "";
         currSessionFilter = "";
+        currSessionDateFilter = "No Filter";
+        currSessionModuleFilter = "No Filter";
+        currSessionTypeFilter = "No Filter";
         currStudentFilter = "";
 
         rate = DEFAULT_RATE;
@@ -121,6 +127,51 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public String getCurrSessionFilter() {
         return currSessionFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionDateFilter(String params) {
+        requireNonNull(params);
+        currSessionDateFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionDateFilter() {
+        return currSessionDateFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionModuleFilter(String params) {
+        requireNonNull(params);
+        currSessionModuleFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionModuleFilter() {
+        return currSessionModuleFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionTypeFilter(String params) {
+        requireNonNull(params);
+        currSessionTypeFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionTypeFilter() {
+        return currSessionTypeFilter;
     }
 
     /**
