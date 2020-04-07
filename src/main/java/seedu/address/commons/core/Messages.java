@@ -11,7 +11,7 @@ public class Messages {
   public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
   public static final String MESSAGE_INVALID_STAFF_DISPLAYED_ID = "The staff ID provided is invalid";
   public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_ID = "The student ID provided is invalid";
-  public static final String MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX = "The finance index provided is invalid";
+  public static final String MESSAGE_INVALID_FINANCE_DISPLAYED_ID = "The finance ID provided is invalid";
   public static final String MESSAGE_INVALID_COURSE_DISPLAYED_ID = "The course ID provided is invalid";
   public static final String MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID = "The assignment ID provided is invalid";
 

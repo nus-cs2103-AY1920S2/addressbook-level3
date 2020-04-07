@@ -5,13 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
 
 /**
@@ -55,7 +52,7 @@ public class DeleteFinanceCommand extends DeleteCommand {
     List<Finance> lastShownList = model.getFilteredFinanceList();
     if (this.toDelete == null) {
       if (targetIndex.getZeroBased() >= lastShownList.size()) {
-        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
+        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
       }
 
       this.toDelete = lastShownList.get(targetIndex.getZeroBased());
