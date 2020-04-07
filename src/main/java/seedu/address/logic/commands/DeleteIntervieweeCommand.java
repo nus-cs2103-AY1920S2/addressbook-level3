@@ -6,6 +6,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * DeleteIntervieweeCommand describes the behavior when the
@@ -15,8 +16,10 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
 public class DeleteIntervieweeCommand extends Command {
     public static final String COMMAND_WORD = "interviewee";
     public static final String MESSAGE_SUCCESS = "Deleted interviewee: %1$s";
-    public static final String MESSAGE_USAGE = "delete " + COMMAND_WORD + " <interviewee>"
-            + ": Deletes an interviewee to the Interviewee list. "
+    public static final String MESSAGE_FORMAT = "delete " + COMMAND_WORD + " <interviewee>";
+    public static final String MESSAGE_FUNCTION = ": Deletes an interviewee to the Interviewee list.\n";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
+            + MESSAGE_FUNCTION
             + "Example: delete " + COMMAND_WORD + " Doe";
 
     private final String identifier;
@@ -29,7 +32,7 @@ public class DeleteIntervieweeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         IntervieweeList interviewees = model.getIntervieweeList();
 

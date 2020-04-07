@@ -85,10 +85,14 @@ public class MetricList {
      * @throws IllegalValueException If there is a formatting error in the command.
      */
 
-    public void edit(String metricPrefix, String updatedName, AttributeList attributes,
+    public String edit(String metricPrefix, String updatedName, AttributeList attributes,
                      List<String> attributePrefixes, List<Double> weightages) throws IllegalValueException {
         Metric metric = find(metricPrefix);
         Metric updatedMetric = metric.setName(updatedName.equals("") ? metric.getName() : updatedName);
+
+        if (!updatedName.equals("") && isDuplicate(updatedMetric)) {
+            throw new IllegalValueException(ALREADY_EXISTS_MESSAGE);
+        }
 
         for (int i = 0; i < attributePrefixes.size(); i++) {
             Attribute attribute = attributes.find(attributePrefixes.get(i));
@@ -97,6 +101,7 @@ public class MetricList {
 
         int index = metrics.indexOf(metric);
         metrics.set(index, updatedMetric);
+        return metric.getName();
     }
 
     /**
@@ -191,6 +196,6 @@ public class MetricList {
     }
 
     private boolean isDuplicate(Metric metric) {
-        return metrics.contains(metric);
+        return metrics.stream().anyMatch(x -> x.getName().equals(metric.getName()));
     }
 }

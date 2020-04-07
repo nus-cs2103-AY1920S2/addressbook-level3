@@ -6,18 +6,24 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * NavigationQuestionCommand describes the behavior when the
  * client wants to navigate to a certain remark of the interview.
  */
 public class NavigationQuestionCommand extends Command {
-    public static final String COMMAND_WORD = "goto";
-    public static final String MESSAGE_NAVIGATION_QUESTION_SUCCESS = "Here is the remark of question %d!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Navigate to a particular answer of a question from an interviewee.\n"
+
+    public static final String COMMAND_WORD = "q";
+    public static final String MESSAGE_FORMAT = "goto " + COMMAND_WORD + "<questionNumber>";
+    public static final String MESSAGE_FUNCTION =
+            ": Navigate to a particular answer of a question from an interviewee.\n";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
+            + MESSAGE_FUNCTION
             + "Parameters: questionNumber\n"
             + "Example:  " + COMMAND_WORD + " q10";
+
+    public static final String MESSAGE_NAVIGATION_QUESTION_SUCCESS = "Here is the remark of question %d!";
 
     private final int questionIndex;
 
@@ -26,7 +32,7 @@ public class NavigationQuestionCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         if (!model.hasCurrentInterviewee()) {
             throw new CommandException("You need to open a transcript of a particular interviewee "

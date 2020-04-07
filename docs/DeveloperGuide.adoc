@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses either the `NormalParser` or `InterviewParser` class to parse the user command, depending on the app phase.
+.  `Logic` uses either the `NormalParser` or `InterviewParser` class to parse the user command, depending on the app phase stored in the Model.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an attribute).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.

@@ -6,18 +6,23 @@ import java.time.Duration;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * NavigationTimeCommand describes the behavior when the
  * client wants to navigate to a certain remark of the interview.
  */
 public class NavigationTimeCommand extends Command {
-    public static final String COMMAND_WORD = "goto";
-    public static final String MESSAGE_NAVIGATION_TIME_SUCCESS = "Here is the remark at time %d.%d";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Navigate to a particular time of an interviewee's interview.\n"
+
+    public static final String COMMAND_WORD = ".";
+    public static final String MESSAGE_FORMAT = "goto <minutes>" + COMMAND_WORD + "<seconds>";
+    public static final String MESSAGE_FUNCTION = ": Navigate to a particular time of an interviewee's interview.\n";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
+            + MESSAGE_FUNCTION
             + "Parameters: TIME (in the format mm.ss)\n"
             + "Example:  " + COMMAND_WORD + " 30.00";
+
+    public static final String MESSAGE_NAVIGATION_TIME_SUCCESS = "Here is the remark at time %d.%s";
 
     private final Duration timeQuery;
 
@@ -26,7 +31,7 @@ public class NavigationTimeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
 
         if (!model.hasCurrentInterviewee()) {
@@ -35,7 +40,7 @@ public class NavigationTimeCommand extends Command {
         }
         int remarkIndex = model.getCurrentTranscript().getIndexAtTime(timeQuery);
         return new NavigationCommandResult(String.format(MESSAGE_NAVIGATION_TIME_SUCCESS,
-                timeQuery.toMinutes(), timeQuery.toSecondsPart()), remarkIndex);
+                timeQuery.toMinutes(), String.format("%02d", timeQuery.toSecondsPart())), remarkIndex);
     }
 
 

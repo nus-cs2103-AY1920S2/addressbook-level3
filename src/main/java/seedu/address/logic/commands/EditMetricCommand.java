@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * EditMetricCommand describes the behavior of HireLah!
@@ -20,8 +21,9 @@ public class EditMetricCommand extends Command {
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
     public static final String MESSAGE_FORMAT = "edit " + COMMAND_WORD + "<metric> [-n <metric name>] [-a <attribute>"
             + " -w <score>]...";
+    public static final String MESSAGE_FUNCTION = ": Edits the metric.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
-            + ": Edits the metric.\n"
+            + MESSAGE_FUNCTION
             + "Example: edit " + COMMAND_WORD + " extremeLeadership -n extremeDictatorship -a leadership -w 100";
 
     public static final String MESSAGE_EDIT_METRIC_SUCCESS = "Edited metric: %s";
@@ -40,16 +42,16 @@ public class EditMetricCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         MetricList metrics = model.getMetricList();
         AttributeList attributes = model.getAttributeList();
 
         try {
-            metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
+            String name = metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
             return new ToggleCommandResult(
-                    String.format(MESSAGE_EDIT_METRIC_SUCCESS, this.toEdit), ToggleView.METRIC);
+                    String.format(MESSAGE_EDIT_METRIC_SUCCESS, name), ToggleView.METRIC);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }

@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.MetricList;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * DeleteMetricCommand describes the behavior when the
@@ -17,8 +18,10 @@ import seedu.address.model.hirelah.MetricList;
 public class DeleteMetricCommand extends Command {
     public static final String COMMAND_WORD = "metric";
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
-    public static final String MESSAGE_USAGE = "delete " + COMMAND_WORD + "<metric>"
-            + ": Deletes the metric identified by its name.\n"
+    public static final String MESSAGE_FORMAT = "delete " + COMMAND_WORD + "<metric>";
+    public static final String MESSAGE_FUNCTION = ": Deletes the metric identified by its name.\n";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
+            + MESSAGE_FUNCTION
             + "Example: delete " + COMMAND_WORD + " extremeDictatorship";
 
     public static final String MESSAGE_DELETE_METRIC_SUCCESS = "Deleted metric: %1$s";
@@ -30,7 +33,7 @@ public class DeleteMetricCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
 

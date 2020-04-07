@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * AddAttributeCommand describes the behavior when the
@@ -18,8 +19,9 @@ public class AddAttributeCommand extends Command {
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = false;
     public static final String MESSAGE_SUCCESS = "New attribute added: %1$s";
     public static final String MESSAGE_FORMAT = "add " + COMMAND_WORD + " <attribute>";
+    public static final String MESSAGE_FUNCTION = ": Adds an attribute to the Attribute list.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
-            + ": Adds an attribute to the Attribute list.\n"
+            + MESSAGE_FUNCTION
             + "Example: add " + COMMAND_WORD + " leadership";
 
     private final String toAdd;
@@ -32,7 +34,7 @@ public class AddAttributeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         AttributeList attributes = model.getAttributeList();

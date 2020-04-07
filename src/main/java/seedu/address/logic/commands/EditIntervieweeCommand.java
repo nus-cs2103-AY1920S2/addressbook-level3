@@ -7,6 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * EditIntervieweeCommand describes the behavior when the
@@ -17,8 +18,9 @@ public class EditIntervieweeCommand extends Command {
     public static final String COMMAND_WORD = "interviewee";
     public static final String MESSAGE_FORMAT = "edit " + COMMAND_WORD + " <interviewee> [-n <new name>] "
             + "[-aka <new alias>]";
+    public static final String MESSAGE_FUNCTION = ": Edits the interviewee's name and/or alias.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
-            + ": Edits the interviewee's name and/or alias.\n"
+            + MESSAGE_FUNCTION
             + "Example: edit " + COMMAND_WORD + " Doe -n Janice Doe -aka JDoe";
 
     public static final String MESSAGE_EDIT_INTERVIEWEE_SUCCESS = "Edited interviewee: %1$s";
@@ -34,7 +36,7 @@ public class EditIntervieweeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         IntervieweeList interviewees = model.getIntervieweeList();
         try {

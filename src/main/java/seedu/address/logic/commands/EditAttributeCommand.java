@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * EditAttributeCommand describes the behavior when the
@@ -18,8 +19,9 @@ public class EditAttributeCommand extends Command {
     public static final String COMMAND_WORD = "attribute";
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = false;
     public static final String MESSAGE_FORMAT = "edit " + COMMAND_WORD + " <old attribute> -a <new attribute>";
+    public static final String MESSAGE_FUNCTION = ": Edits the attribute identified by the name.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
-            + ": Edits the attribute identified by the name.\n"
+            + MESSAGE_FUNCTION
             + "Example: edit " + COMMAND_WORD + " leadership -a tenacity";
 
     public static final String MESSAGE_EDIT_ATTRIBUTE_SUCCESS = "Edited attribute: %s to %s";
@@ -33,7 +35,7 @@ public class EditAttributeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         AttributeList attributes = model.getAttributeList();

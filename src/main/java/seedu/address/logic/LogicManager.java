@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.IntervieweeToScore;
 import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.storage.Storage;
@@ -55,7 +56,7 @@ public class LogicManager implements Logic {
         default:
             throw new IllegalArgumentException("Impossible enum case");
         }
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, storage);
 
         try {
             storage.saveInterviewee(model.getIntervieweeList());
@@ -101,7 +102,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Interviewee> getBestNIntervieweesView() {
+    public ObservableList<IntervieweeToScore> getBestNIntervieweesView() {
         return model.getBestNInterviewees();
     }
 

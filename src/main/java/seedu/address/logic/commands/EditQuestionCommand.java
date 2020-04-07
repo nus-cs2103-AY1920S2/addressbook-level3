@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
+import seedu.address.model.hirelah.storage.Storage;
 
 /**
  * EditQuestionCommand describes the behavior when the
@@ -18,8 +19,9 @@ public class EditQuestionCommand extends Command {
     public static final String COMMAND_WORD = "question";
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = false;
     public static final String MESSAGE_FORMAT = "edit " + COMMAND_WORD + " <question number> <edited question>";
+    public static final String MESSAGE_FUNCTION = ": Edits the question's description, identified by its number.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
-            + ": Edits the question's description, identified by its number.\n"
+            + MESSAGE_FUNCTION
             + "Example: edit " + COMMAND_WORD + " 1 what the heck is this question?";
 
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Edited question %s to %s";
@@ -33,7 +35,7 @@ public class EditQuestionCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
         QuestionList questions = model.getQuestionList();

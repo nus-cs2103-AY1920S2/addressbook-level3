@@ -22,6 +22,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * @author AY1920S2-W15-2
  */
 public class QuestionList {
+    private static final String ALREADY_EXISTS = "This question is already exists!";
     private ObservableList<Question> questions;
 
     public QuestionList() {
@@ -41,7 +42,7 @@ public class QuestionList {
     public void add(String questionDescription) throws IllegalValueException {
         Question question = new Question(questionDescription);
         if (isDuplicate(question)) {
-            throw new IllegalValueException("This question is already exists!");
+            throw new IllegalValueException(ALREADY_EXISTS);
         }
 
         questions.add(question);
@@ -100,6 +101,12 @@ public class QuestionList {
     public Question edit(int index, String description) throws IllegalValueException {
         if (index > questions.size() || index <= 0) {
             throw new IllegalValueException("No such question exists!");
+        }
+
+        Question newQuestion = new Question(description);
+
+        if (isDuplicate(newQuestion)) {
+            throw new IllegalValueException(ALREADY_EXISTS);
         }
         Question current = questions.get(index - 1);
         Question question = new Question(description);
