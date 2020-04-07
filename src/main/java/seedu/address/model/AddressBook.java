@@ -12,7 +12,7 @@ import seedu.address.model.supplier.UniqueSupplierList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameSupplier comparison)
  */
-public class AddressBook implements ReadOnlyList<Supplier> {
+public class AddressBook implements ReadOnlyList<Supplier>, Copyable<AddressBook> {
 
     private final UniqueSupplierList suppliers;
 
@@ -99,6 +99,12 @@ public class AddressBook implements ReadOnlyList<Supplier> {
     }
 
     //=========== Util Methods =========================================================================
+
+
+    @Override
+    public AddressBook copy() {
+        return new AddressBook(this);
+    }
 
     @Override
     public String toString() {
