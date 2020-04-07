@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -20,8 +21,13 @@ public class PersonListPanelDetail extends UiPart<Region> {
     @FXML
     private ListView<Person> personView;
 
+    @FXML
+    private Label title;
+
     public PersonListPanelDetail(ObservableList<Person> personList) {
         super(FXML);
+
+        title.setText("Showing contact details:");
         personView.setItems(personList);
         personView.setCellFactory(listView -> new PersonListViewCell());
     }
