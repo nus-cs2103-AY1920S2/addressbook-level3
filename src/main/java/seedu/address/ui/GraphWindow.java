@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -42,25 +43,40 @@ public class GraphWindow extends UiPart<Stage> {
     public GraphWindow() {
         this(new Stage());
         // defining the axes
-        xAxis = new CategoryAxis();
-        yAxis = new NumberAxis();
-        xAxis.setLabel("Number of Month");
+        // xAxis = new CategoryAxis();
+        // yAxis = new NumberAxis();
+        // xAxis.setLabel("Number of Month");
 
-        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-        series.setName("My portfolio");
-        // populating the series with data
-        series.getData().add(new XYChart.Data<String, Number>("1", 23));
-        series.getData().add(new XYChart.Data<String, Number>("2", 14));
-        series.getData().add(new XYChart.Data<String, Number>("3", 15));
-        series.getData().add(new XYChart.Data<String, Number>("4", 24));
-        series.getData().add(new XYChart.Data<String, Number>("5", 34));
-        series.getData().add(new XYChart.Data<String, Number>("6", 36));
-        series.getData().add(new XYChart.Data<String, Number>("7", 22));
-        series.getData().add(new XYChart.Data<String, Number>("8", 45));
-        series.getData().add(new XYChart.Data<String, Number>("9", 43));
-        series.getData().add(new XYChart.Data<String, Number>("10", 17));
-        series.getData().add(new XYChart.Data<String, Number>("11", 29));
-        series.getData().add(new XYChart.Data<String, Number>("12", 25));
+        // XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        // series.setName("My portfolio");
+        // // populating the series with data
+        // series.getData().add(new XYChart.Data<String, Number>("12", 25));
+        // series.getData().add(new XYChart.Data<String, Number>("1", 23));
+        // series.getData().add(new XYChart.Data<String, Number>("2", 14));
+        // series.getData().add(new XYChart.Data<String, Number>("3", 15));
+        // series.getData().add(new XYChart.Data<String, Number>("4", 24));
+        // series.getData().add(new XYChart.Data<String, Number>("5", 34));
+        // series.getData().add(new XYChart.Data<String, Number>("6", 36));
+        // series.getData().add(new XYChart.Data<String, Number>("7", 22));
+        // series.getData().add(new XYChart.Data<String, Number>("8", 45));
+        // series.getData().add(new XYChart.Data<String, Number>("9", 43));
+        // series.getData().add(new XYChart.Data<String, Number>("10", 17));
+        // series.getData().add(new XYChart.Data<String, Number>("11", 29));
+
+        ObservableList<XYChart.Series<Date, Number>> series = FXCollections.observableArrayList();
+ 
+        ObservableList<XYChart.Data<Date, Number>> series1Data = FXCollections.observableArrayList();
+        series1Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2012, 11, 15).getTime(), 2));
+        series1Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 5, 3).getTime(), 4));
+
+        ObservableList<XYChart.Data<Date, Number>> series2Data = FXCollections.observableArrayList();
+        series2Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 0, 13).getTime(), 8));
+        series2Data.add(new XYChart.Data<Date, Number>(new GregorianCalendar(2014, 7, 27).getTime(), 4));
+
+        series.add(new XYChart.Series<>("Series1", series1Data));
+        series.add(new XYChart.Series<>("Series2", 
+
+        dateAxis = new DateAxis();
 
         exerciseGraph.getData().addAll(series);
     }

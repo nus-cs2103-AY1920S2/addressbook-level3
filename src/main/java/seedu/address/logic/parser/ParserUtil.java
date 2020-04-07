@@ -435,6 +435,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code String axis} into an {@code Axis}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code axis} is invalid.
+     */
     public static Axis parseAxis(String axis) throws ParseException {
         requireNonNull(axis);
         String trimmedAxis = axis.trim();
@@ -444,6 +450,12 @@ public class ParserUtil {
         return new Axis(trimmedAxis);
     }
 
+    /**
+     * Parses a {@code String startDate} into an {@code StartDate}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startDate} is invalid.
+     */
     public static StartDate parseStartDate(String startDate) throws ParseException {
         requireNonNull(startDate);
         String trimmedStartDate = startDate.trim();
@@ -453,6 +465,12 @@ public class ParserUtil {
         return new StartDate(trimmedStartDate);
     }
 
+    /**
+     * Parses a {@code String endDate} into an {@code EndDate}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDate} is invalid.
+     */
     public static EndDate parseEndDate(String endDate) throws ParseException {
         requireNonNull(endDate);
         String trimmedEndDate = endDate.trim();

@@ -7,11 +7,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the end date of the graph of exercises. Guarantees: immutable; is
+ * valid as declared in {@link #isValidEndDate(String)}
+ */
 public class EndDate {
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
             "End date input should be in the form DD-MM-YYYY and should not be before start date or blank. \n"
             + "It should only be from within one year before to the current date. eg. 18-12-2019. ";
-    
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
     public final String displayValue;
@@ -23,6 +27,12 @@ public class EndDate {
         this.displayValue = date; // assuming date string is valid
     }
 
+    /**
+     * Tests if endDate is a valid date, within a year prior to current date.
+     *
+     * @param test String to be tested.
+     * @return Returns true if a given string is a valid date.
+     */
     public static Boolean isValidEndDate(String test) {
         try {
             LocalDate testDate = LocalDate.parse(test, DATE_TIME_FORMATTER);
