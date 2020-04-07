@@ -57,7 +57,9 @@ public class EditCommand extends IndexedCommand {
     public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
             + "the current usage (%s) of the coupon.";
     public static final String MESSAGE_CANNOT_EDIT_ARCHIVED_COUPON = "Coupon %s is archived! "
-            + "You cannot edit an archived coupon.";
+            + "You cannot edit an archived coupon.\n\n"
+            + "If you do have the intention to edit this coupon, you can unarchive it first with "
+            + "the unarchive command.";
     private final EditCouponDescriptor editCouponDescriptor;
 
     /**

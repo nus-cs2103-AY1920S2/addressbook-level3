@@ -133,7 +133,7 @@
   -fx-border-radius: 10px;
   -fx-effect: -fx-paneShadow;
   -fx-alignment: center;
-  -fx-padding: 15px;
+  -fx-padding: 10px;
 }
 
 .result-display .label {
