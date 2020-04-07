@@ -90,17 +90,20 @@ public class EditModuleCommand extends Command {
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         ModuleName updatedModuleName = editModuleDescriptor.getModuleName().orElse(moduleToEdit.getModuleName());
+
         UniqueDeadlineList deadlineList = moduleToEdit.getDeadlineList();
-        UniqueDeadlineList eventList = moduleToEdit.getDeadlineList();
-        // UniqueActivityList activityList = moduleToEdit.getActivities(); // original module's activity list is preserved
-        // ObservableList<Activity> filteredActivityList = moduleToEdit.getFilteredActivityList();
+        ObservableList<Deadline> obsDeadlineList = moduleToEdit.getFilteredDeadlineList();
+
+        UniqueEventList eventList = moduleToEdit.getEventList();
+        ObservableList<Event> obsEventList = moduleToEdit.getFilteredEventList();
 
         Module newModule = new Module(updatedModuleCode, updatedModuleName);
 
-        newModule.setDeadlines(replacement);
-        newModule.setEvents(replacement);
-        // newModule.setActivities(activityList);
-        // newModule.setActivities(filteredActivityList);
+        newModule.setDeadlines(deadlineList);
+        newModule.setDeadlines(obsDeadlineList);
+
+        newModule.setEvents(eventList);
+        newModule.setEvents(obsEventList);
 
         return newModule;
     }

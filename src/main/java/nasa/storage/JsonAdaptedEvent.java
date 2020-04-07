@@ -2,18 +2,11 @@ package nasa.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import nasa.commons.exceptions.IllegalValueException;
-import nasa.model.activity.Event;
 import nasa.model.activity.Date;
-import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
-import nasa.model.activity.Priority;
-import nasa.model.activity.Schedule;
-import nasa.model.activity.Status;
 
 /**
  * Jackson-friendly version of {@link Event}.

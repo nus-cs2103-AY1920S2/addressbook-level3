@@ -101,14 +101,14 @@ public class CalendarView extends UiPart<Region> {
             ObservableList<Event> eventObservableList = module.getFilteredEventList();
             deadlineObservableList.addListener(new ListChangeListener<Deadline>() {
                 @Override
-                public void onChanged(Change<Deadline> c) {
+                public void onChanged(Change<? extends Deadline> c) {
                     resetCalendar();
                     loadActivities(moduleObservableList);
                 }
             });
             eventObservableList.addListener(new ListChangeListener<Event>() {
                 @Override
-                public void onChanged(Change<Event> c) {
+                public void onChanged(Change<? extends Event> c) {
                     resetCalendar();
                     loadActivities(moduleObservableList);
                 }
@@ -204,16 +204,31 @@ public class CalendarView extends UiPart<Region> {
     public void loadActivities(ObservableList<Module> moduleObservableList) {
         HashMap<Integer, ArrayList<Activity>> activityHashMap = new HashMap<>();
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> activityObservableList =
-                module.getFilteredActivityList();
-            for (Activity activity : activityObservableList) {
-                if (activity.occurInMonth(currentMonth)) {
-                    int activityDate = getMonth(activity);
+            ObservableList<Deadline> deadlineObservableList =
+                module.getFilteredDeadlineList();
+            for (Deadline deadline : deadlineObservableList) {
+                if (deadline.occurInMonth(currentMonth)) {
+                    int activityDate = getDayOfMonth(deadline);
                     if (activityHashMap.containsKey(activityDate)) {
-                        activityHashMap.get(activityDate).add(activity);
+                        activityHashMap.get(activityDate).add(deadline);
                     } else {
                         ArrayList<Activity> activities = new ArrayList<>();
-                        activities.add(activity);
+                        activities.add(deadline);
+                        activityHashMap.put(activityDate, activities);
+                    }
+                }
+            }
+
+            ObservableList<Event> eventObservableList =
+                module.getFilteredEventList();
+            for (Event event : eventObservableList) {
+                if (event.occurInMonth(currentMonth)) {
+                    int activityDate = getDayOfMonth(event);
+                    if (activityHashMap.containsKey(activityDate)) {
+                        activityHashMap.get(activityDate).add(event);
+                    } else {
+                        ArrayList<Activity> activities = new ArrayList<>();
+                        activities.add(event);
                         activityHashMap.put(activityDate, activities);
                     }
                 }
@@ -288,13 +303,13 @@ public class CalendarView extends UiPart<Region> {
      * @param activity activity to be listed on calendar
      * @return
      */
-    private int getMonth(Activity activity) {
+    private int getDayOfMonth(Activity activity) {
         if (activity instanceof Deadline) {
             return ((Deadline) activity).getDueDate().getDate().getDayOfMonth();
         } else if (activity instanceof Event) {
-            return ((Event) activity).getDateFrom().getDate().getDayOfMonth();
+            return ((Event) activity).getStartDate().getDate().getDayOfMonth();
         } else {
-            return ((Lesson) activity).getDateFrom().getDate().getDayOfMonth();
+            return ((Lesson) activity).getEndDate().getDate().getDayOfMonth();
         }
     }
 

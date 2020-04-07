@@ -138,4 +138,6 @@ public interface Model {
     void undoHistory();
 
     boolean redoHistory();
+
+    public HistoryManager<UniqueModuleList> getHistoryManager();
 }

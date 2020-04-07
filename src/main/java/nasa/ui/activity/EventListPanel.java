@@ -1,4 +1,4 @@
-package nasa.ui.event;
+package nasa.ui.activity;
 
 import java.util.logging.Logger;
 
@@ -9,10 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
-import nasa.model.event.Event;
-import nasa.model.event.Deadline;
-import nasa.model.event.Event;
-import nasa.model.event.Lesson;
+import nasa.model.activity.Event;
 import nasa.ui.UiPart;
 
 /**

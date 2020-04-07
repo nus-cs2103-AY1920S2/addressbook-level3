@@ -46,11 +46,6 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
         }
 
-        if (model.hasActivity(moduleCode, toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
-        }
-
-        model.addActivity(moduleCode, toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

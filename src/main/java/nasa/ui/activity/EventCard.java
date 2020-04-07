@@ -1,4 +1,4 @@
-package nasa.ui.event;
+package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -43,10 +43,10 @@ public class EventCard extends UiPart<Region> {
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
         this.event = event;
-        index.setText(displayedIndex);
+        index.setText(String.valueOf(displayedIndex));
         name.setText(event.getName().toString());
         startDate.setText("From " + event.getStartDate().toString());
-        endDate.setText("To " + event.getEndDate()).toString();
+        endDate.setText("To " + event.getEndDate().toString());
         note.setText(event.getNote().toString());
         //status.setText(event.getStatus().toString());
     }

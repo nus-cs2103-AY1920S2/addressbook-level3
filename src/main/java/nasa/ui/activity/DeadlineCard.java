@@ -1,4 +1,4 @@
-package nasa.ui.deadline;
+package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.Group;

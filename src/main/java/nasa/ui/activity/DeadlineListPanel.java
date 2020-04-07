@@ -1,4 +1,4 @@
-package nasa.ui.deadline;
+package nasa.ui.activity;
 
 import java.util.logging.Logger;
 
@@ -10,9 +10,6 @@ import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Deadline;
-import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.ui.UiPart;
 
 /**
@@ -23,7 +20,7 @@ public class DeadlineListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(DeadlineListPanel.class);
 
     @FXML
-    private ListView<Deadline> deadeListView;
+    private ListView<Deadline> deadlineListView;
 
     public DeadlineListPanel(ObservableList<Deadline> deadlineList) {
         super(FXML);

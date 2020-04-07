@@ -3,11 +3,9 @@ package nasa.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.NasaBook;
 import nasa.model.ReadOnlyNasaBook;
@@ -49,7 +47,7 @@ class JsonSerializableNasaBook {
         NasaBook nasaBook = new NasaBook();
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
-            if (nasaBook.hasModule(module)) {
+            if (nasaBook.hasModule(module.getModuleCode())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
             nasaBook.addModule(module);

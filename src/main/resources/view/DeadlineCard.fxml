@@ -13,28 +13,30 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
     </columnConstraints>
-    <Label fx:id="name" styleClass="activity_big_label" text="\$code" wrapText="true"
+    <Label fx:id="index" styleClass="activity_big_label" text="\$code" wrapText="true"
            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <Label fx:id="name" styleClass="activity_big_label" text="\$code" wrapText="true"
+           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
     <Label fx:id="date" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="0" GridPane.rowIndex="1">
-        <minWidth>
-            <Region fx:constant="USE_PREF_SIZE"/>
-        </minWidth>
-    </Label>
-    <Label fx:id="status" styleClass="activity_small_label" text="\$code" wrapText="true"
            GridPane.columnIndex="1" GridPane.rowIndex="1">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>
     </Label>
+    <Label fx:id="status" styleClass="activity_small_label" text="\$code" wrapText="true"
+           GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <minWidth>
+            <Region fx:constant="USE_PREF_SIZE"/>
+        </minWidth>
+    </Label>
     <Label fx:id="priority" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="1" GridPane.rowIndex="2">
+           GridPane.columnIndex="2" GridPane.rowIndex="2">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>
     </Label>
     <Label fx:id="note" styleClass="activity_small_label" text="\$code" wrapText="true"
-           GridPane.columnIndex="0" GridPane.rowIndex="3">
+           GridPane.columnIndex="1" GridPane.rowIndex="3">
         <minWidth>
             <Region fx:constant="USE_PREF_SIZE"/>
         </minWidth>

@@ -36,7 +36,4 @@ public class DoneCommandParser implements Parser<DoneCommand> {
                 DoneCommand.MESSAGE_USAGE));
         }
     }
-
-    public static class DeleteDeadlineCommandParser implements Parser<Deadline> {
-    }
 }

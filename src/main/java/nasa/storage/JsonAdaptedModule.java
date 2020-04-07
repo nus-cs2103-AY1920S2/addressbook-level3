@@ -3,17 +3,16 @@ package nasa.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import nasa.commons.exceptions.IllegalValueException;
-import nasa.model.activity.Activity;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-
 
 /**
  * Jackson-friendly version of {@link Module}.
@@ -51,10 +50,10 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
         moduleName = source.getModuleName().toString();
-        deadlineList.addAll(source.getDeadlines().asUnmodifiableObservableList().stream()
+        deadlineList.addAll(source.getDeadlineList().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedDeadline::new)
                 .collect(Collectors.toList()));
-        eventList.addAll(source.getEvents().asUnmodifiableObservableList().stream()
+        eventList.addAll(source.getEventList().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedEvent::new)
                 .collect(Collectors.toList()));        
     }

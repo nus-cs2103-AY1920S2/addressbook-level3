@@ -236,7 +236,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
-        for (Module module : filteredModules) {
+        for (Module module : getFilteredModuleList()) {
             module.updateFilteredActivityList(predicate);
         }
     }

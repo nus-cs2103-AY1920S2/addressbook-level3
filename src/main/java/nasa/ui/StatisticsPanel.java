@@ -18,6 +18,7 @@ import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 
 /**
@@ -60,10 +61,10 @@ public class StatisticsPanel extends UiPart<Region> {
      */
     private void updateStatistics(ObservableList<Module> moduleObservableList) {
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> deadlineObservableList = module.getFilteredDeadlineList();
+            ObservableList<Deadline> deadlineObservableList = module.getFilteredDeadlineList();
             deadlineObservableList.addListener(new ListChangeListener<Deadline>() {
                 @Override
-                public void onChanged(Change<Deadline> c) {
+                public void onChanged(Change<? extends Deadline> c) {
                     resetStatistics();
                     loadStatistics(moduleObservableList);
                 }
