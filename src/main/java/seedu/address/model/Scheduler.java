@@ -118,7 +118,7 @@ public class Scheduler implements ReadOnlyScheduler {
      * Calculates the user's expected work hours for the next n days (including today) based on stored assignments,
      * their deadlines and expected work hours per assignment.
      */
-    public void calculateScheduleIntensity(int numDays) {
+    public void generateSchedule(int numDays) {
         assignments.generateSchedule(numDays);
     }
 }

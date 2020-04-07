@@ -396,8 +396,8 @@ public class ModelManager implements Model {
 
     //=========== Schedule Visual Accessor ========================================================================
     @Override
-    public void calculateScheduleIntensity(int numDays) {
-        this.scheduler.calculateScheduleIntensity(numDays);
+    public void generateSchedule(int numDays) {
+        this.scheduler.generateSchedule(numDays);
     }
 
     @Override

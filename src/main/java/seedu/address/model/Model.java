@@ -268,7 +268,7 @@ public interface Model {
     /**
      * Calculates the schedule for the upcoming numDays (today inclusive).
      */
-    void calculateScheduleIntensity(int numDays);
+    void generateSchedule(int numDays);
 
     /**
      * Returns an unmodifiable view of the user's upcoming schedule for the next n days (today inclusive).

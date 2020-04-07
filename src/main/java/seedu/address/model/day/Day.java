@@ -7,11 +7,13 @@ import java.util.ArrayList;
  */
 public class Day {
     private Hours hours;
-    private ArrayList<DueAssignment> dueAssignments;
+    private ArrayList<Assignment> dueAssignments;
+    private ArrayList<Assignment> allocatedAssignments;
 
     public Day() {
         this.hours = new Hours(0);
-        this.dueAssignments = new ArrayList<DueAssignment>();
+        this.dueAssignments = new ArrayList<Assignment>();
+        this.allocatedAssignments = new ArrayList<Assignment>();
     }
 
     public Hours getHours() {
@@ -26,25 +28,23 @@ public class Day {
         dueAssignments.clear();
     }
 
-    public ArrayList<DueAssignment> getDueAssignments() {
+    public ArrayList<Assignment> getDueAssignments() {
         return dueAssignments;
     }
 
     public void addDueAssignment(String assignment) {
-        dueAssignments.add(new DueAssignment(assignment));
+        dueAssignments.add(new Assignment(assignment));
     }
 
-    public String getDueAssignmentsToString() {
-        String result = "";
-
-        if (dueAssignments.size() != 0) {
-            result = result + "1. " + dueAssignments.get(0).assignment;
-        }
-
-        for (int i = 1; i < dueAssignments.size(); i++) {
-            result = result + "\n" + (i + 1) + ". " + dueAssignments.get(i).assignment;
-        }
-        return result;
+    public void resetAllocatedAssignments() {
+        allocatedAssignments.clear();
     }
 
+    public ArrayList<Assignment> getAllocatedAssignments() {
+        return allocatedAssignments;
+    }
+
+    public void addAllocatedAssignment(float hours, String title) {
+        allocatedAssignments.add(new AllocatedAssignment(hours, title));
+    }
 }

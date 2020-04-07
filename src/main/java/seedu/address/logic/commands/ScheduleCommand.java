@@ -29,7 +29,7 @@ public class ScheduleCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        model.calculateScheduleIntensity(numDays);
+        model.generateSchedule(numDays);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, false, false, true);
     }
 }
