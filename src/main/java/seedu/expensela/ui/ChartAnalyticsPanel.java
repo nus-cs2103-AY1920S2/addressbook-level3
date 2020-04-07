@@ -187,8 +187,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
         for (int i = 0; i < 12; i++) {
-            seriesPrevYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[0][i]));
-            seriesCurrYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[1][i]));
+            seriesPrevYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[1][i]));
+            seriesCurrYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[0][i]));
         }
         stackedBarChart.getData().addAll(seriesPrevYear, seriesCurrYear);
     }
