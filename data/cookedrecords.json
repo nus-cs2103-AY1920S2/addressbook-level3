@@ -27,5 +27,9 @@
     "name" : "edit name test",
     "date" : "2020-04-07",
     "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Avocado Couscous Grapefruit salad with honey lime dressing",
+    "date" : "2020-04-07",
+    "goals" : [ "Wholesome Wholemeal" ]
   } ]
 }
