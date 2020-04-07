@@ -19,7 +19,7 @@ import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * Edit a remark of an existing person in the address book.
+ * Edit a note of an existing restaurant in the restaurant book.
  */
 public class EditRestaurantNoteCommand extends Command {
 
@@ -53,7 +53,7 @@ public class EditRestaurantNoteCommand extends Command {
     private final Note badFood;
 
     /**
-     * @param index of the person in the filtered restaurant list to edit the note
+     * @param index of the restaurant in the filtered restaurant list to edit the note
      * @param lineRec number of a specific note in the recommended food information stored
      * @param lineGood number of a specific note in the good food information stored
      * @param lineBad number of a specific note in the bad food information stored
@@ -83,32 +83,32 @@ public class EditRestaurantNoteCommand extends Command {
         }
 
         Restaurant restaurantToEdit = lastShownList.get(index.getZeroBased());
-        if (restaurantToEdit.getRecommendedFood().size() == 0) {
-            throw new CommandException(Messages.MESSAGE_NO_RECOMMENDED_FOOD);
-        }
-        if (lineRec > restaurantToEdit.getRecommendedFood().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_REC);
-        }
-        if (restaurantToEdit.getGoodFood().size() == 0) {
-            throw new CommandException(Messages.MESSAGE_NO_GOOD_FOOD);
-        }
-        if (lineBad > restaurantToEdit.getGoodFood().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_GOOD);
-        }
-        if (restaurantToEdit.getBadFood().size() == 0) {
-            throw new CommandException(Messages.MESSAGE_NO_BAD_FOOD);
-        }
-        if (lineGood > restaurantToEdit.getBadFood().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_BAD);
-        }
 
-        if (lineRec != -1) {
+        if (lineRec != -1) { //Checks if recommended food is to be edited
+            if (restaurantToEdit.getRecommendedFood().size() == 0) {
+                throw new CommandException(Messages.MESSAGE_NO_RECOMMENDED_FOOD);
+            }
+            if (lineRec > restaurantToEdit.getRecommendedFood().size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_REC);
+            }
             restaurantToEdit.getRecommendedFood().set(lineRec - 1, recommendedFood);
         }
-        if (lineGood != -1) {
+        if (lineGood != -1) { //Checks if good food is to be edited
+            if (restaurantToEdit.getGoodFood().size() == 0) {
+                throw new CommandException(Messages.MESSAGE_NO_GOOD_FOOD);
+            }
+            if (lineGood > restaurantToEdit.getBadFood().size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_BAD);
+            }
             restaurantToEdit.getGoodFood().set(lineGood - 1, goodFood);
         }
-        if (lineBad != -1) {
+        if (lineBad != -1) { //Checks if bad food is to be edited
+            if (restaurantToEdit.getBadFood().size() == 0) {
+                throw new CommandException(Messages.MESSAGE_NO_BAD_FOOD);
+            }
+            if (lineBad > restaurantToEdit.getGoodFood().size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_GOOD);
+            }
             restaurantToEdit.getBadFood().set(lineBad - 1, badFood);
         }
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),

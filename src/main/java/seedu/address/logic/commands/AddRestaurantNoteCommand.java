@@ -73,6 +73,7 @@ public class AddRestaurantNoteCommand extends Command {
         }
 
         Restaurant restaurantToEdit = lastShownList.get(index.getZeroBased());
+        //Checks if the relevant notes are empty
         if (recommendedFood.size() == 0 || goodFood.size() == 0 || badFood.size() == 0) {
             throw new CommandException(MESSAGE_EMPTY);
         }

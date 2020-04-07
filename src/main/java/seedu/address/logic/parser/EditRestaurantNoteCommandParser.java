@@ -42,6 +42,7 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
                     EditRestaurantNoteCommand.MESSAGE_USAGE), ive);
         }
 
+        //There should be at least one line number indicated for the relevant food notes.
         if (!argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).isPresent()
                 && !argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).isPresent()
                 && !argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).isPresent()) {
@@ -51,48 +52,57 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
 
         int lineRec = -1;
         String recommendedFood = "";
+        //Checks if user wants to add recommended food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).isPresent()) {
+            //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED).get(0).isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER_REC,
                         EditRestaurantNoteCommand.MESSAGE_USAGE));
             } else if (!argMultimap.getValue(PREFIX_RECOMMENDED).isPresent()
                     || (argMultimap.getValue(PREFIX_RECOMMENDED).isPresent()
                     && argMultimap.getAllValues(PREFIX_RECOMMENDED).get(0).isEmpty())) {
+                //Checks if recommended food is provided
                 throw new ParseException(EditRestaurantNoteCommand.MESSAGE_EMPTY_REC);
             } else {
-                lineRec = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED).get(0));
+                lineRec = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).get());
                 recommendedFood = argMultimap.getValue(PREFIX_RECOMMENDED).get();
             }
         }
 
         int lineGood = -1;
         String goodFood = "";
+        //Checks if user wants to add good food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).isPresent()) {
+            //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD).get(0).isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER_GOOD,
                         EditRestaurantNoteCommand.MESSAGE_USAGE));
             } else if (!argMultimap.getValue(PREFIX_GOOD).isPresent()
                     || (argMultimap.getValue(PREFIX_GOOD).isPresent()
                     && argMultimap.getAllValues(PREFIX_GOOD).get(0).isEmpty())) {
+                //Checks if good food is provided
                 throw new ParseException(EditRestaurantNoteCommand.MESSAGE_EMPTY_GOOD);
             } else {
-                lineGood = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD).get(0));
+                lineGood = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).get());
                 goodFood = argMultimap.getValue(PREFIX_GOOD).get();
             }
         }
 
         int lineBad = -1;
         String badFood = "";
+        //Checks if user wants to add bad food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).isPresent()) {
+            //Checks if line number is empty
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD).get(0).isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER_BAD,
                         EditRestaurantNoteCommand.MESSAGE_USAGE));
             } else if (!argMultimap.getValue(PREFIX_BAD).isPresent()
                     || (argMultimap.getValue(PREFIX_BAD).isPresent()
                     && argMultimap.getAllValues(PREFIX_BAD).get(0).isEmpty())) {
+                //Checks if bad food is empty
                 throw new ParseException(EditRestaurantNoteCommand.MESSAGE_EMPTY_BAD);
             } else {
-                lineBad = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD).get(0));
+                lineBad = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).get());
                 badFood = argMultimap.getValue(PREFIX_BAD).get();
             }
         }
