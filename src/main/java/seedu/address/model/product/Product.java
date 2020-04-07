@@ -149,6 +149,13 @@ public class Product {
     }
 
     /**
+     * Returns true if the product's quantity is below its threshold.
+     */
+    public boolean isBelowThreshold() {
+        return this.quantity.value < this.threshold.value;
+    }
+
+    /**
      * Returns true if both products have the same identity and data fields.
      */
     @Override

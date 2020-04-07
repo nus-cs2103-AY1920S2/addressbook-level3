@@ -86,10 +86,12 @@ public class PlotSalesCommand extends Command {
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, productToPlot.getDescription()),
                 dataSeries,
+                null,
                 String.format(TITLE,
                         productToPlot.getDescription(),
                         startDateTime.toDateString(),
                         endDateTime.toDateString()),
+                false,
                 false,
                 true,
                 false);

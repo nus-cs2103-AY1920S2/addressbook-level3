@@ -55,7 +55,6 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_ZERO_QUANTITY = "A transaction with 0 quantity is not allowed";
 
     private final TransactionFactory transactionFactory;
-    private final EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
 
     public AddTransactionCommand(TransactionFactory transactionFactory) {
         requireNonNull(transactionFactory);
@@ -75,9 +74,21 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
-        updateProduct(model, toAdd);
-
         model.addTransaction(toAdd);
+
+        Product editedProduct = updateProduct(model, toAdd);
+
+        if (editedProduct.isBelowThreshold()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
+                    null,
+                    editedProduct,
+                    "",
+                    false,
+                    true,
+                    false,
+                    false);
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -87,17 +98,15 @@ public class AddTransactionCommand extends Command {
      * @param toAdd
      * @throws CommandException
      */
-    private void updateProduct(Model model, Transaction toAdd) throws CommandException {
+    private Product updateProduct(Model model, Transaction toAdd) throws CommandException {
         List<Product> lastShownList = model.getFilteredProductList();
+        EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
 
         Index productIndex = getProductIndex(lastShownList);
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        Quantity newQuantity = getNewQuantity(toAdd, productToEdit);
-        editProductDescriptor.setQuantity(newQuantity);
-
-        Money newSales = getNewSales(toAdd, productToEdit);
-        editProductDescriptor.setSales(newSales);
+        editProductDescriptor.setQuantity(getNewQuantity(toAdd, productToEdit));
+        editProductDescriptor.setSales(getNewSales(toAdd, productToEdit));
         editProductDescriptor.setThreshold(productToEdit.getThreshold());
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
@@ -108,12 +117,7 @@ public class AddTransactionCommand extends Command {
         model.setProduct(productToEdit, editedProduct);
         model.updateFilteredProductList();
 
-        int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
-
-        if (editedProduct.getQuantity().value <= thresholdValue) {
-            NotificationWindow window = new NotificationWindow();
-            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
-        }
+        return editedProduct;
     }
 
     private Index getProductIndex(List<Product> lastShownList) throws CommandException {

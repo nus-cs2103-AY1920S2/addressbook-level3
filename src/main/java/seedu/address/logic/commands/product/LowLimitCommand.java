@@ -59,7 +59,7 @@ public class LowLimitCommand extends Command {
         }
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        int thresholdValue = Integer.parseInt(threshold.value);
+        int thresholdValue = threshold.value;
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
         if (thresholdValue > 0) {
             editedProduct.setThreshold(String.valueOf(thresholdValue));

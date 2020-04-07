@@ -60,7 +60,7 @@ public class ProductCard extends UiPart<Region> {
         price.setText("$" + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantity().value));
         sales.setText("$" + product.getMoney().value);
-        threshold.setText(product.getThreshold().value);
+        threshold.setText(product.getThreshold().toString());
         updateProgressBar();
     }
 
