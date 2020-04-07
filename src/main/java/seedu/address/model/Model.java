@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
 /** The API of the Model component. */
@@ -91,6 +92,8 @@ public interface Model {
     PomodoroManager getPomodoroManager();
 
     Statistics getStatistics();
+
+    ObservableList<DayData> getCustomQueue();
 
     public void updateDataDatesStatistics();
 }
