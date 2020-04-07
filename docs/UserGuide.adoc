@@ -18,7 +18,11 @@ TEMP PLSSS REAL UPDATED UG HERE: https://docs.google.com/document/d/1I60enPj3FDs
 
 By: `AY1920S2-CS2103T-W16-1`      Since: `Jan 2020`      Licence: `NUS`
 
-== Introduction
+== What is BB Productive?
+
+BB Productive is for those who looking for motivation in their work. This app serves as a great task manager and includes a Pomodoro feature and a Pet companion. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can get you to get tasks done faster. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== About this document
 
 BB Productive is for those who looking for motivation in their work. This app serves as a great task manager and includes a Pomodoro feature and a Pet companion. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can get you to get tasks done faster. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
@@ -41,174 +45,47 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+== Terminology
+Write terminology here.
+
+== Graphical User Interface (Permas)
+
 [[Features]]
 == Features
 
-=== Use of indexes
-****
-* Focus is on the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
-****
+=== TaskList (Branson)
+Write CRUD stuff
 
-=== Adding a task: `add`
+== Pet (Fyonn)
+Write pet
 
-Adds a task to the task list +
-Format: `add n/Do math homework d/pages 1-2 ld/LOCALDATE`
+== Pomodoro (Hardy)
+Write pomodoro
 
-Prefixes accepted: 
-
-*  `n/` Adds task name. *Compulsory*. +
-** `add n/Do math homework` - Adds a task with name *Do math homework*.
-*  `des/` Adds task with description. +
-** `add n/Task1 des/quiz online` - Adds a task with description *quiz online*.
-*  `p/` Adds task with priority 1 if unspecified. Priority is of 3 categories with 3 as the highest priority. +
-** `add n/Task2 p/2` - Adds a task with priority *2*.
-*  `r/` Adds task with reminder. +
-** `add n/Task3 r/20/03/20@19:30` - Adds a task with reminder on *19:30 on March, 20th 2020*.
-*  `t/` Adds task with tags. +
-** `add n/Task4 t/tag1 tag2` - Adds a task with 2 tags, *tag1*, *tag2* - tags are space separated.
-
-
-=== Editing a task : `edit`
-
-Edits an existing task in the list. +
-Format: `edit INDEX [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [t/TAG]`.
-* Refer to prefixes in `add` section before to see examples of possible inputs for prefixes. 
-
-=== Reminders
-
-Adds a reminder task that will take a date and time of the format `r/DD/MM/YY@HH:MM`. A pop up will then appear reminding the user to complete the task at the specifed date and time.
-
-==== Add reminder when adding a task
-Format: `add`**`n/Do math homework d/pages 1-2 r/DD/MM/YY@HH:MM` +
-
-==== Edit and add a reminder to existing task
-Editing the 1 index task on taskList displayed on the right.
-Format: `edit`**`1 r/DD/MM/YY@HH:MM`
-
-=== Viewing help : `help`
-
-Format: `help`
-Opens UserGuide on application site. 
-
-=== Marking tasks as done : `done INDEX` +
-Format: `done 1` or `done 1, 2, ...`
-Will mark tasks indexed on the list on the right as done. Multiple tasks can be marked as done with comma separated indexes.
-
-Note: Tasks already marked done will not be marked done again.
-
-=== Deleting tasks : `delete INDEX` +
-Format:`delete 1` or `delete 1, 2, ...`
-
-Will delte tasks indexed on the list on the right as done. Multiple tasks can be deleted with comma separated indexes.
-
-=== Listing all tasks : `list`
-
-Shows a list of all tasks recorded. +
-Format: `list`
-
-=== Pomodoro
-
-Activates the Pomodoro timer with a task in focus. User can add an optional timer amount field, different from the default time of 25 minutes. +
-
-Format: `pom 1` or `pom 2 tm/5`. +
-The value following the `tm/` tag is treated as a float for the amount of minutes for this pomodoro cycle. +
-
-To pause the timer, enter: `pom pause`. +
-
-To continue, enter: `pom continue`. +
-
-Once the timer expires, the app will ask the user if they have done the task. User need only respond with `Yes (Y)` or `No (N)`. +
-
-After, the app will prompt the user to begin a 5 minute break (as per the pomodoro technique). Similarly, user need only respond with `Yes (Y)` or `No (N)`. +
-During these prompts, user will not be able to enter any other forms of input.
-
-=== Locating tasks by a keyword: `find`
-
-Finds tasks whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `Math` will match `math`
-* The order of the keywords does not matter. e.g. `Math Homework` will match `Homework Math`
-* Only the name is searched.
-* Only full words will be matched e.g. `Math` will not match `Mathematics`
-* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `Math Quiz` will return `Math Work`, `Japanese Quiz`
-****
-
-Examples:
-
-* `find Quiz` +
-Returns `History Quiz` and `Spanish Quiz`
-* `find Essay Homework Quiz` +
-Returns any tasks containing names `Essay`, `Homework`, and/or `Quiz`
-
-// // tag::delete[]
-// === Deleting a task : `delete`
-
-// Deletes the specified task from the list. +
-// Format: `delete INDEX`
-
-// ****
-// * Deletes the task at the specified `INDEX`.
-// * The index refers to the index number shown in the displayed person list.
-// * The index *must be a positive integer* 1, 2, 3, ...
-// ****
-
-// Examples:
-
-// * `delete 2` +
-// Deletes the 2nd task in the list.
-
-// // end::delete[]
-
-Exits the program. +
-Format: `exit`
-
-=== Statistics : 'stats'
+== Statistics (Permas)
 
 Views statistics generated through the app usage.
 stats SPEED/DONE
 SPEED : Displays average time taken to complete tasks over past week/month/year.
 DONE : Displays average number of tasks done over past week/month/year.
 
-=== Pet
+== AutoComplete (Branson)
+Write autocomplete
 
-The Pet gives a sense of responsibility to the user. +
-It acts as a motivation to encourage the user to be productive. +
-The Pet also gives a sense of satisfaction to the user when it is being fed. 
+== Reminders (Arthur)
+Write reminders
 
-The pet can earn experience points (XP) upon completion of each task via the `done` or `pom` command.
+== Navigation (Hardy)
+Write navigation
 
-=== Clearing all entries : `clear`
+== Storage (Permas)
+Write storage
 
-Clears all task from the list. +
-Format: `clear`
+== Command Table Summary (Hardy)
+Table here.
 
-=== Exiting the program : `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous BB Productive folder.
-
-== Command Summary
-
-* *Add* `add n/Do math homework des/pages 1-2 r/DD/MM/YY@HH:mm t/tag1 tag2` +
-e.g. `add n/Do math homework d/pages 1-2 r/09/08/20@12:30 t/Difficult InProgress`
-* *Edit* : `edit INDEX [n/NAME] [des/DESCRIPTION] [r/REMINDER]` +
-e.g. `edit 2 n/Add Buy Feature ld/2020-03-04`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find Quiz Essay`
-* *Statistics* : `stats`
-* *Pom* : `pom 2 tm/5`
-* *List* : `list`
-* *Help* : `help`
-* *Clear* : `clear`
-* *Exit* : `exit`
