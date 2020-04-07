@@ -49,7 +49,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private InventoryWindow inventoryWindow;
     private PlotWindow plotWindow;
 
     @FXML
@@ -57,9 +56,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private MenuItem inventory;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -92,8 +88,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-//        statisticsWindow = new StatisticsWindow(logic);
-        inventoryWindow = new InventoryWindow(logic);
         plotWindow = new PlotWindow();
     }
 
@@ -103,7 +97,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-        setAccelerator(inventory, KeyCombination.valueOf("F3"));
     }
 
     /**
@@ -209,18 +202,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the inventory window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleInventory() {
-        if (!inventoryWindow.isShowing()) {
-            inventoryWindow.show();
-        } else {
-            inventoryWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -251,7 +232,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            inventoryWindow = new InventoryWindow(logic);
 
             if (commandResult.isShowPlot()) {
                 handlePlot(commandResult.getDataSeries(), commandResult.getTitle());

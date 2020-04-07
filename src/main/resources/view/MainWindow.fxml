@@ -33,9 +33,6 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
-            <Menu mnemonicParsing="false" text="Statistics">
-                <MenuItem fx:id="inventory" mnemonicParsing="false" onAction="#handleInventory" text="Inventory" />
-            </Menu>
         </MenuBar>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
