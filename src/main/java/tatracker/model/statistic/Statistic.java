@@ -23,10 +23,13 @@ public class Statistic {
     public final int[] numHoursPerCategory = new int [SessionType.NUM_SESSION_TYPES];
     public final int[] studentRatingBinValues = new int[Rating.RANGE];
     public final RatedStudent[] worstStudents = new RatedStudent[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
-
     public final String targetModuleCode;
 
+    private final ReadOnlyTaTracker taTracker;
+
     public Statistic(ReadOnlyTaTracker taTracker, String targetModuleCode) {
+
+        this.taTracker = taTracker;
 
         UniqueSessionList fList = new UniqueSessionList();
         UniqueStudentList sList = new UniqueStudentList();
@@ -72,8 +75,8 @@ public class Statistic {
         return total;
     }
 
-    public double getTotalPay() {
-        return getTotalHours() * 40; //TODO: Change 40 to rate
+    public int getTotalEarnings() {
+        return getTotalHours() * taTracker.getRate();
     }
 
     /**

@@ -424,6 +424,7 @@ public class MainWindow extends UiPart<Stage> {
 
             case GOTO_CLAIMS:
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                claimsListPanel.updateLabel();
                 handleGoto(claimsListTab);
                 break;
 
@@ -433,6 +434,7 @@ public class MainWindow extends UiPart<Stage> {
 
             case GOTO_STUDENT:
                 moduleListPanel.updateCells(logic.getFilteredModuleList());
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
                 break;
