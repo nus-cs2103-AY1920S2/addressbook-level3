@@ -9,6 +9,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Find tasks in calendar by specific date.
+ */
 public class FindTasksByDateCommand extends FindTasksCommand {
     public static final String MESSAGE_SUCCESS = "Tasks found: ";
 

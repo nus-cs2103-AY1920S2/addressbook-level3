@@ -9,6 +9,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.taskcommand.sortcommand.SortTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new SortTasksCommand object
+ */
 public class SortTasksCommandParser implements Parser<SortTasksCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ModuleTaskCommand

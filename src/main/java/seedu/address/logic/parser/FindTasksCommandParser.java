@@ -58,8 +58,8 @@ public class FindTasksCommandParser implements Parser<FindTasksCommand> {
             return new FindTasksByCatCommand(cat);
 
         } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        FindTasksCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTasksCommand.MESSAGE_USAGE));
         }
     }
 

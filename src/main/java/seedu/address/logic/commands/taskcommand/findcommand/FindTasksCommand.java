@@ -9,6 +9,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Find tasks in calendar by specific key word (category/date/module code).
+ */
 public abstract class FindTasksCommand extends Command {
     public static final String COMMAND_WORD = "taskFind";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find tasks as required\n"

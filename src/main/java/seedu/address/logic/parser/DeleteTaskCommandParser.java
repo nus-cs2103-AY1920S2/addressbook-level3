@@ -6,13 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import java.util.stream.Stream;
 
+import seedu.address.calender.Task;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.taskcommand.deletecommand.DeleteDeadlineCommand;
 import seedu.address.logic.commands.taskcommand.deletecommand.DeleteModuleTaskCommand;
 import seedu.address.logic.commands.taskcommand.deletecommand.DeleteTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.calender.Task;
 
 /**
  * Parses input arguments and creates a new AddCommand object

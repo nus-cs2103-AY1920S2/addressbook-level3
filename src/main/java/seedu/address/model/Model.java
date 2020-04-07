@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.calender.Task;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.mood.Mood;
 import seedu.address.model.diary.weather.Weather;
@@ -21,7 +21,6 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.calender.Task;
 
 /**
  * The API of the Model component.

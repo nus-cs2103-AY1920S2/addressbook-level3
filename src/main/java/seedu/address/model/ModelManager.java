@@ -5,14 +5,16 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
+import seedu.address.calender.Task;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -29,7 +31,6 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.calender.Task;
 
 
 /**
@@ -364,8 +365,8 @@ public class ModelManager implements Model {
     @Override
     public List<Task> findTasksByDate(String date) {
         List<Task> targetTasks = new ArrayList<>();
-        for(Task task: deadlineTaskList) {
-            if(task.getDate().equals(date)) {
+        for (Task task: deadlineTaskList) {
+            if (task.getDate().equals(date)) {
                 targetTasks.add(task);
             }
         }
@@ -375,8 +376,8 @@ public class ModelManager implements Model {
     @Override
     public List<Task> findTasksByCat(String cat) {
         List<Task> targetTasks = new ArrayList<>();
-        for(Task task: deadlineTaskList) {
-            if(task.getCategory().equals(cat)) {
+        for (Task task: deadlineTaskList) {
+            if (task.getCategory().equals(cat)) {
                 targetTasks.add(task);
             }
         }

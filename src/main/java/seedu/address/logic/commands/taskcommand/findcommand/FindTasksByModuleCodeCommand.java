@@ -10,6 +10,9 @@ import seedu.address.model.Model;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 
+/**
+ * Find tasks in calendar by specific module code.
+ */
 public class FindTasksByModuleCodeCommand extends FindTasksCommand {
     public static final String MESSAGE_SUCCESS = "Tasks found: ";
 

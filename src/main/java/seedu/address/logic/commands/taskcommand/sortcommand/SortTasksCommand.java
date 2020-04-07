@@ -10,6 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
 
+/**
+ * Sort tasks in calendar by date or priority.
+ */
 public class SortTasksCommand extends Command {
     public static final String COMMAND_WORD = "taskSort";
 
