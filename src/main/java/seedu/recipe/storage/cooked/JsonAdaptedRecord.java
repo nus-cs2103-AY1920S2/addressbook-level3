@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.cooked;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +14,7 @@ import seedu.recipe.model.Date;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
+import seedu.recipe.storage.JsonAdaptedGoal;
 
 /**
  * Jackson-friendly version of {@link Record}.
