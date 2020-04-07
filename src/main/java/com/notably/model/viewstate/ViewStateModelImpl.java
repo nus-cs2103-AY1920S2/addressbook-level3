@@ -1,5 +1,7 @@
 package com.notably.model.viewstate;
 
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -28,6 +30,8 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     private ViewStateModelImpl(String initialInput, boolean initialHelpBool,
                                boolean initialBlockEditBool, Optional<String> initialResponseText) {
+        requireAllNonNull(initialInput, initialHelpBool, initialBlockEditBool, initialResponseText);
+
         this.input = new SimpleStringProperty(initialInput);
         this.helpOpen = new SimpleBooleanProperty(initialHelpBool);
         this.blockEditable = new SimpleBooleanProperty(initialBlockEditBool);
