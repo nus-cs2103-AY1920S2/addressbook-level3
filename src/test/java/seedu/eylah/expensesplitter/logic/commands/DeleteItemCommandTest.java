@@ -235,6 +235,9 @@ public class DeleteItemCommandTest {
         }
     }
 
+    /**
+     * This model stub accepts adding of entries and deleting of entries.
+     */
     private class ModelStubAcceptingEntryDeletingEntry extends ModelStub {
         final Receipt receipt = new Receipt();
         final PersonAmountBook personAmountBook = new PersonAmountBook();

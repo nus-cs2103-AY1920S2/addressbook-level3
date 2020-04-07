@@ -268,6 +268,9 @@ public class AddItemCommandTest {
         }
     }
 
+    /**
+     * This model stub accepts adding of entries.
+     */
     private class ModelStubAcceptingEntry extends ModelStub {
         final Receipt receipt = new Receipt();
         final PersonAmountBook personAmountBook = new PersonAmountBook();
