@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.ErrorSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
@@ -59,15 +58,17 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     private Optional<SuggestionCommand> parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return Optional.of(new ErrorSuggestionCommand(
-                    "Invalid command format. To see the list of available commands, type: help"));
+            model.setResponseText("\"" + userInput + "\" is an invalid command format. "
+                    + "To see the list of available commands, type: help");
+            return Optional.empty();
         }
 
         String commandWord = matcher.group("commandWord");
         CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            return Optional.of(new ErrorSuggestionCommand(
-                    "Invalid command. To see the list of available commands, type: help"));
+            model.setResponseText("\"" + userInput + "\" is an invalid command format. "
+                    + "To see the list of available commands, type: help");
+            return Optional.empty();
         }
         commandWord = correctionResult.getCorrectedItems().get(0);
 
@@ -99,8 +100,9 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return Optional.empty();
 
         default:
-            return Optional.of(new ErrorSuggestionCommand(
-                    "Invalid command. To see the list of available commands, type: help"));
+            model.setResponseText("\"" + userInput + "\" is an invalid command format. "
+                    + "To see the list of available commands, type: help");
+            return Optional.empty();
         }
     }
 

@@ -88,15 +88,6 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_uncorrectedCommand_returnsErrorSuggestionCommand() {
-        model.setInput("opensesame -t CS2103");
-
-        // Expected result
-        String expectedResponseText = "Invalid command. To see the list of available commands, type: help";
-        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
-    }
-
-    @Test
     public void suggest_correctDeleteCommandValidArgs_returnsDeleteSuggestionCommand() {
         String title = "Lecture";
         model.setInput("delete -t " + title);
