@@ -2,6 +2,8 @@ package com.notably.model.block;
 
 import java.util.List;
 
+import com.notably.commons.path.AbsolutePath;
+
 import javafx.scene.control.TreeItem;
 
 /**
@@ -57,6 +59,11 @@ public interface BlockTreeItem extends Block {
      * @param toRemove
      */
     void removeBlockChild(Block toRemove);
+
+    /**
+     * Gets the absolute path of the current block in the tree.
+     */
+    AbsolutePath getAbsolutePath();
 
     /**
      * Checks if a block is a root block.

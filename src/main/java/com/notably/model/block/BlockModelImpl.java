@@ -72,7 +72,9 @@ public class BlockModelImpl implements BlockModel {
 
     @Override
     public void removeBlock(AbsolutePath p) {
+        BlockTreeItem parent = blockTree.get(p).getBlockParent();
         blockTree.remove(p);
+        setCurrentlyOpenBlock(parent.getAbsolutePath());
     }
 
     @Override

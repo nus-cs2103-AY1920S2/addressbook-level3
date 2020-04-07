@@ -2,10 +2,13 @@ package com.notably.model.block;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.exceptions.DuplicateBlockException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
@@ -53,6 +56,9 @@ public class BlockTreeItemImpl implements BlockTreeItem {
 
     @Override
     public BlockTreeItem getBlockParent() {
+        if (blockTreeItem.getParent() == null) {
+            return this;
+        }
         return new BlockTreeItemImpl(blockTreeItem.getParent());
     }
 
@@ -111,6 +117,18 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         requireNonNull(toRemove);
         TreeItem<Block> itemToRemove = getBlockChild(toRemove.getTitle()).getTreeItem();
         blockTreeItem.getChildren().remove(itemToRemove);
+    }
+
+    @Override
+    public AbsolutePath getAbsolutePath() {
+        ArrayList<String> blockPath = new ArrayList<>();
+        BlockTreeItem current = this;
+        while (!current.isRootBlock()) {
+            blockPath.add(current.getTitle().getText());
+            current = getBlockParent();
+        }
+        Collections.reverse(blockPath);
+        return AbsolutePath.fromComponents(blockPath);
     }
 
     @Override
