@@ -33,6 +33,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -245,10 +247,12 @@ public class MainWindow extends UiPart<Stage> {
     public void populatePieChart() {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Orders completed", deliveredList.size()),
-                        new PieChart.Data("Orders not completed", orderList.size() - deliveredList.size()),
-                        new PieChart.Data("Orders returned", returnedList.size()),
-                        new PieChart.Data("Orders not returned", returnList.size() - returnedList.size()));
+                        new PieChart.Data("Orders completed: " + deliveredList.size() , deliveredList.size()),
+                        new PieChart.Data("Orders not completed: "
+                                + (orderList.size() - deliveredList.size()), orderList.size() - deliveredList.size()),
+                        new PieChart.Data("Orders returned: " + returnedList.size(), returnedList.size()),
+                        new PieChart.Data("Orders not returned: "
+                                + (returnList.size() - returnedList.size()), returnList.size() - returnedList.size()));
 
         deliveryPieChart.setTitle("All Orders");
         deliveryPieChart.setData(pieChartData);

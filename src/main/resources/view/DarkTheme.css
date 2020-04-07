@@ -378,18 +378,32 @@
     -fx-border-color: -fx-primary;
 }
 
-#listTab, #showTab {
-    -fx-font-family: "Roboto Light";
+.tab-label {
+   -fx-font-family: "Roboto Light";
     -fx-font-size: 13;
     -fx-font-style: italic;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-color: -fx-primary;
-    -fx-border-color: -fx-primary;
+}
+.tab {
     -fx-border-radius: 10 10 0 0;
     -fx-background-radius: 10 10 0 0;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-primary;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator{
+    -fx-background-radius: 0;
+    -fx-border-width: 0 0 4 0;
+    -fx-background-insets: 0;
+    -fx-border-color: white;
 }
 
 #orderList, #returnOrderList{
     -fx-border-radius: 5, 0, 0, 0;
+}
+
+.chart-legend {
+   -fx-background-color: -fx-secondary;
+   -fx-stroke: #daa520;
 }
