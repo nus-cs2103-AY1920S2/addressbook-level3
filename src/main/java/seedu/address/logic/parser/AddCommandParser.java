@@ -44,17 +44,18 @@ public class AddCommandParser implements Parser<Command> {
 
         switch (addCommandWord) {
         case AddAttributeCommand.COMMAND_WORD:
-            ParserUtil.checkEmptyArgument(AddAttributeCommand.MESSAGE_USAGE);
+            ParserUtil.checkEmptyArgument(addArguments, AddAttributeCommand.MESSAGE_USAGE);
             return new AddAttributeCommand(addArguments.trim());
 
         case AddIntervieweeCommand.COMMAND_WORD:
             return new AddIntervieweeCommandParser().parse(addArguments.trim());
 
         case AddQuestionCommand.COMMAND_WORD:
-            ParserUtil.checkEmptyArgument(AddQuestionCommand.MESSAGE_USAGE);
+            ParserUtil.checkEmptyArgument(addArguments, AddQuestionCommand.MESSAGE_USAGE);
             return new AddQuestionCommand(addArguments.trim());
 
         case AddMetricCommand.COMMAND_WORD:
+            ParserUtil.checkEmptyArgument(addArguments, AddMetricCommand.MESSAGE_USAGE);
             return new AddMetricCommandParser().parse(addArguments);
 
         default:

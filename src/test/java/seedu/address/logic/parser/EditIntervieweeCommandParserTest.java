@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.EditIntervieweeCommandParser.MESSAGE_INCOMPLETE_ARGUMENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,18 +34,18 @@ class EditIntervieweeCommandParserTest {
     @Test
     void parse_oldFieldMissing_failure() {
         assertParseFailure(parser, WHITESPACE + PREFIX_ALIAS + VALID_ALIAS_JANE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditIntervieweeCommand.MESSAGE_USAGE));
     }
 
     @Test
     void parse_newFieldMissing_failure() {
         assertParseFailure(parser, WHITESPACE + VALID_INTERVIEWEE_JANE
                         + WHITESPACE + PREFIX_NAME,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditIntervieweeCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, WHITESPACE + VALID_INTERVIEWEE_JANE
                         + WHITESPACE + PREFIX_ALIAS,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditIntervieweeCommand.MESSAGE_USAGE));
     }
 
     @Test

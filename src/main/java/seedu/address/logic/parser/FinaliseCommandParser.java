@@ -18,7 +18,7 @@ public class FinaliseCommandParser implements Parser<FinaliseCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FinaliseCommand parse(String arguments) throws ParseException {
-        if (!arguments.equals("")) {
+        if (!arguments.trim().equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FinaliseCommand.MESSAGE_USAGE));
         }
         return new FinaliseCommand();
