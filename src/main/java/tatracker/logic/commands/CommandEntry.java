@@ -7,6 +7,7 @@ import tatracker.logic.commands.commons.ExitCommand;
 import tatracker.logic.commands.commons.GotoCommand;
 import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.commons.ListCommand;
+import tatracker.logic.commands.commons.SetRateCommand;
 import tatracker.logic.commands.group.AddGroupCommand;
 import tatracker.logic.commands.group.DeleteGroupCommand;
 import tatracker.logic.commands.group.EditGroupCommand;
@@ -64,6 +65,7 @@ public enum CommandEntry {
 
     /* TSS View */
     CLAIM_FILTER(FilterClaimCommand.DETAILS),
+    SET_RATE(SetRateCommand.DETAILS),
 
     /* Storage Operations */
     CLEAR(ClearCommand.DETAILS),
