@@ -55,7 +55,7 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
         ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 
-        boolean studentExists = model.hasCourse(studentID);
+        boolean studentExists = model.hasStudent(studentID);
         boolean assignmentExists = model.hasAssignment(assignmentID);
         boolean progressExists = model.hasProgress(studentID, assignmentID);
 

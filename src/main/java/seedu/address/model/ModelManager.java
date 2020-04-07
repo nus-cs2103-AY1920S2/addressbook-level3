@@ -481,6 +481,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public Progress getProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
+    logger.info(target.toString());
     return progressAddressBook.get(target);
   }
 

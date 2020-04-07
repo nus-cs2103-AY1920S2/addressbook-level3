@@ -62,6 +62,7 @@ public class ProgressManager extends BaseManager {
             CompositeID currProgressID = new CompositeID(assignmentID, studentID);
             model.add(new Progress(currProgressID));
         }
+
         postDataStorageChangeEvent(
             model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
             Constants.ENTITY_TYPE.PROGRESS
@@ -69,6 +70,7 @@ public class ProgressManager extends BaseManager {
     }
 
     private static Progress get(ID assignmentID, ID studentID) throws CommandException {
+        logger.info(model.getProgressAddressBook().toString());
         return model.getProgress(assignmentID, studentID);
     }
 

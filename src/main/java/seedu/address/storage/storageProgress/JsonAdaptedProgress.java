@@ -4,16 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -41,7 +33,11 @@ class JsonAdaptedProgress {
   public JsonAdaptedProgress(Progress source) {
     assignmentID = source.getId().getAssignmentID().value;
     studentID = source.getId().getStudentID().value;
-    isDone = source.getIsDone().toString();
+    if(source.getIsDone()) {
+      isDone = Boolean.TRUE.toString();
+    } else {
+      isDone = Boolean.FALSE.toString();
+    }
   }
 
   /**
@@ -74,9 +70,13 @@ class JsonAdaptedProgress {
               String.format(MISSING_FIELD_MESSAGE_FORMAT, Boolean.class.getSimpleName())
       );
     }
-    if (!Boolean.parseBoolean(isDone)) {
-      throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
-    };
+    boolean isTrue = Boolean.TRUE.toString().equals(isDone);
+    boolean isFalse = Boolean.FALSE.toString().equals(isDone);
+
+    // if its not true and if its not false, means that there's an issue
+    if(!isTrue && !isFalse) {
+      throw new IllegalValueException("isDone must be in the format of true/false");
+    }
 
     final Boolean modelIsDone = Boolean.valueOf(isDone);
 
