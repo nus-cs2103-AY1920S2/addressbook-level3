@@ -36,6 +36,7 @@ public class DeleteItemCommand extends Command {
     private final Index targetIndex;
 
     public DeleteItemCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

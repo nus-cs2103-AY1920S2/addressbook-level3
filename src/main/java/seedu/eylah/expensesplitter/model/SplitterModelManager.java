@@ -1,6 +1,7 @@
 package seedu.eylah.expensesplitter.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.util.function.Predicate;
@@ -67,6 +68,7 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
      */
     @Override
     public void addEntry(Entry entry) {
+        requireNonNull(entry);
         receipt.addEntry(entry);
     }
 
@@ -107,6 +109,7 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
      */
     @Override
     public void paidPerson(Person person, String amountPaid) {
+        requireAllNonNull(person, amountPaid);
         Amount amount = new Amount(new BigDecimal(amountPaid));
         personAmountBook.removeAmount(person, amount);
 
@@ -167,21 +170,25 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
 
     @Override
     public void addPerson(Person person) {
+        requireNonNull(person);
         personAmountBook.addPerson(person);
     }
 
     @Override
     public Person getPerson(Person person) {
+        requireNonNull(person);
         return personAmountBook.getPerson(person);
     }
 
     @Override
     public void addAmount(Person person, Amount amount) {
+        requireAllNonNull(person, amount);
         personAmountBook.addAmount(person, amount);
     }
 
     @Override
     public void removeAmount(Person person, Amount amount) {
+        requireAllNonNull(person, amount);
         personAmountBook.removeAmount(person, amount);
     }
 
