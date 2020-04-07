@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.ShareCommand;
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
@@ -22,16 +21,20 @@ public class ShareCommandParser implements Parser<ShareCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        Index index;
+
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            return new ShareCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShareCommand.MESSAGE_USAGE), pe);
-        } catch (OverflowException oe) {
-            throw new ParseException(oe.getMessage());
+            throw new ParseException(
+                    String.format(
+                            pe.getMessage() + "\n\n"
+                            + MESSAGE_INVALID_COMMAND_FORMAT,
+                            ShareCommand.MESSAGE_USAGE
+                    ),
+                    pe
+            );
         }
-
-        return new ShareCommand(index);
     }
 }

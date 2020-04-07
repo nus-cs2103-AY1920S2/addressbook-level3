@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.UsedCommand;
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 
@@ -60,10 +59,13 @@ public class UsedCommandParser implements Parser<UsedCommand> {
                 return new UsedCommand(index, originalAmount);
             }
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    String.format(UsedCommand.MESSAGE_USAGE, moneySymbol, moneySymbol)), pe);
-        } catch (OverflowException oe) {
-            throw new ParseException(oe.getMessage());
+            throw new ParseException(
+                    String.format(
+                            pe.getMessage() + "\n\n"
+                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            String.format(UsedCommand.MESSAGE_USAGE, moneySymbol, moneySymbol)),
+                    pe
+            );
         }
     }
 }

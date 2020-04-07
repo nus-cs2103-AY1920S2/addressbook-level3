@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.ExpandCommand;
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
@@ -28,10 +27,13 @@ public class ExpandCommandParser implements Parser<ExpandCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpandCommand.MESSAGE_USAGE), pe
+                    String.format(
+                            pe.getMessage() + "\n\n"
+                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            ExpandCommand.MESSAGE_USAGE
+                    ),
+                    pe
             );
-        } catch (OverflowException oe) {
-            throw new ParseException(oe.getMessage());
         }
 
         return new ExpandCommand(index);
