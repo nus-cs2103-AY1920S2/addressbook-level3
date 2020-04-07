@@ -21,7 +21,7 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
 This user guide provides in-depth documentation on the EYLAH desktop application:
 features summary, getting started, features, FAQ, command summary, and glossary.
 
-Hello there, welcome to EYLAH's User Guide.
+Hello there! welcome to EYLAH's User Guide.
 Are you someone who *lives in Temasek hall* in the National University of Singapore and
 have *supper frequently with your hall mates?* Do you dread the *tedious and irritating portion of
 splitting large bills*? Have you wished for a *Command Line Interface* (CLI) application that can solve the
@@ -33,20 +33,18 @@ lives at halls much easier!
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
 app to solve issues.* More importantly, EYLAH is optimized for residents who prefer to work with a *Command Line Interface*
-(CLI) that can match
+(CLI).
 
 EYLAH can solve your problems in halls by *tracking your diet* after those unhealthy suppers
 and *splitting the cost* after each outing or late-night party session with a few pokes of your keyboard.
-Interested?
-
-Jump to <<Getting Started>> to get started. Let's go!
+Interested? Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
 Figure 1. Photo of EYLAH
 
 === Purpose
-* This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
-to use the application to improve their lives on campus.
+* This documentation serves as an introduction to the features and proper usage of EYLAH, and is made for you
+to aid you in using the application to improve your lives on campus.
 
 
 === Tips on reading the User Guide
@@ -54,23 +52,25 @@ While reading the User Guide you may encounter some symbols.
 These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
 the symbols and their meaning.
 
+
 [NOTE]
 This block of text with a blue exclamation mark indicates *additional notes* that you should consider to prevent
 unexpected behaviour.
 
 [TIP]
-This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH.
+This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
 
-`markup` - Text in markup are inputs into the EYLAH. +
+2+.^a +
+WARNING: This symbol indicates warnings.
+
+kbd:[Enter] - This symbol indicates the enter button on the keyboard.
+
+`markup` - A grey highlight (known as a mark-up) indicates that this is a command you can type into EYLAH. +
 
 `[-c Calories]` - For some commands there are optional fields. Keywords placed in square brackets are optional fields. +
 (e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
 
 Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
-
-
-== About this guide
-
 
 
 == Getting Started
