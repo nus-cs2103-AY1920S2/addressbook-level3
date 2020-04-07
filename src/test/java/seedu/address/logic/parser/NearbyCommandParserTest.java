@@ -15,6 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import seedu.address.logic.commands.NearbyCommand;
 
+//@@author JeremyLoh
 class NearbyCommandParserTest {
     private NearbyCommandParser parser = new NearbyCommandParser();
 

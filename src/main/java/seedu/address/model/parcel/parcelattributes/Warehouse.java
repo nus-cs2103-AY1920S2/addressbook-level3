@@ -3,6 +3,7 @@ package seedu.address.model.parcel.parcelattributes;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author JeremyLoh
 /**
  * Represents warehouse details related to an Order.
  * Guarantees: immutable;
