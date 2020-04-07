@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -49,5 +50,27 @@ public class JsonProfileListStorageTest {
     public void readModuleList_invalidAndValidProfileProfileList_throwDataConversionException() {
         assertThrows(DataConversionException.class, () ->
                 readProfileList("invalidAndValidProfileProfileList.json"));
+    }
+
+    @Test
+    public void saveProfileList_nullProfileList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveProfileList(null, "SomeFile.json"));
+    }
+
+    /**
+     * Saves {@code profileList} at the specified {@code filePath}.
+     */
+    private void saveProfileList(ProfileList profileList, String filePath) {
+        try {
+            new JsonProfileListStorage(Paths.get(filePath))
+                    .saveProfileList(profileList, addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
+
+    @Test
+    public void saveProfileList_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveProfileList(new ProfileList(), null));
     }
 }
