@@ -45,7 +45,7 @@ public class ShareCommand extends IndexedCommand {
     private static final String FORMAT = "png";
 
     /**
-     * @param index of the coupon in the filtered coupon list to edit
+     * @param index of the coupon in the filtered coupon list to share
      */
     public ShareCommand(Index index) {
         super(index);

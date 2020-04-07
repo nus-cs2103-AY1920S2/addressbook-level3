@@ -16,6 +16,7 @@ import csdev.couponstash.logic.commands.CopyCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.ExitCommand;
+import csdev.couponstash.logic.commands.ExpandCommand;
 import csdev.couponstash.logic.commands.ExpiringCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.GoToCommand;
@@ -95,6 +96,9 @@ public class CouponStashParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case ExpandCommand.COMMAND_WORD:
+            return new ExpandCommandParser().parse(arguments);
 
         case ExpiringCommand.COMMAND_WORD:
             return new ExpiringCommandParser().parse(arguments);
