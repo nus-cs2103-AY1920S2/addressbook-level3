@@ -32,7 +32,10 @@ public class ListEventCommand extends Command {
         this.comparator = comparator;
     }
 
-    public boolean isOverdue(Event event) {
+    /**
+     * Checks whether an event is overdue.
+     */
+    private boolean isOverdue(Event event) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime eventDateTime = event.getEventDate().getDateTime();
         if (currentDateTime.isAfter(eventDateTime)) {
