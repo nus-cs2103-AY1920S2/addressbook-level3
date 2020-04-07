@@ -143,6 +143,6 @@ public interface Model {
     /**
      * Resets the Global Data and clears it of all recurring transactions
      */
-    void resetGlobalData();
+    void clearRecurringTransactions();
 
 }

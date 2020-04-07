@@ -220,7 +220,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetGlobalData() {
+        public void clearRecurringTransactions() {
 
         }
     }

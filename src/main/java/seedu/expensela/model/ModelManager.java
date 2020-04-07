@@ -279,7 +279,7 @@ public class ModelManager implements Model {
     public void addTransactionToGlobalData(Transaction transaction) { globalData.addTransaction(transaction);}
 
     @Override
-    public void resetGlobalData() {globalData.resetData(globalData);}
+    public void clearRecurringTransactions() {globalData.clearRecurringTransactionsList();}
 
     //=========== Monthly Data Accessors =============================================================
     /**
