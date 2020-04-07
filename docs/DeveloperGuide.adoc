@@ -415,7 +415,7 @@ Use case ends.
 
 *MSS*
 
-1.  `User` requests to delete a specific _recipe_ by specifying its name or index
+1.  `User` requests to delete a specific _recipe_ by specifying its index
 2.  CookBuddy deletes the recipe
 +
 Use case ends.
