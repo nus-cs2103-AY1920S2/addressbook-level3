@@ -59,9 +59,9 @@ public class CommandTestUtil {
     public static final int VALID_HOUR_HAM_SANDWICH = 2;
     public static final int VALID_MIN_HAM_SANDWICH = 0;
     public static final int VALID_SEC_HAM_SANDWICH = 0;
-    public static final int VALID_HOUR_EGGS_TOAST = 0;
-    public static final int VALID_MIN_HAM_EGGS_TOAST = 5;
-    public static final int VALID_SEC_EGGS_TOAST = 30;
+    public static final int VALID_HOUR_EGGS_ON_TOAST = 0;
+    public static final int VALID_MIN_HAM_EGGS_ON_TOAST = 5;
+    public static final int VALID_SEC_EGGS_ON_TOAST = 30;
 
 
 

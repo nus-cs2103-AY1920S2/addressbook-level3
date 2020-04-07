@@ -31,13 +31,15 @@ public class ParserTestUtil {
     private static final String INVALID_CALORIE = "-100";
     private static final String INVALID_DIFFICULTY = "7";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_TIME = "-1:-1:-1";
 
+    //TODO: Remove fields referencing person.
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TAG_1 = "easy";
+    private static final String VALID_TAG_2 = "snack";
     private static final String VALID_TIME = "12:00:00";
 
     private static final String WHITESPACE = " \t\r\n";
