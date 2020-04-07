@@ -23,7 +23,6 @@ public class Address {
      * Invalid Postal Code: 123 Serangoon Garden Blk 20 S847120
      */
     public static final String VALIDATION_REGEX = "^(.*?)[S,s]([0][1-9]|[1-7][0-9]|[8][0-2])\\d{4}$";
-        //"^(.*?)S\\d{6}$";
 
     public final String value;
 
