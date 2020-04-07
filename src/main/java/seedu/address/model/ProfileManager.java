@@ -228,6 +228,25 @@ public class ProfileManager implements Model {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ProfileManager)) {
+            return false;
+        }
+
+        // state check
+        ProfileManager other = (ProfileManager) obj;
+        return profileList.equals(other.profileList)
+                && userPrefs.equals(other.userPrefs);
+        //&& filteredPersons.equals(other.filteredPersons);
+    }
+
     //MODULE LIST VIEW
     @Override
     public Optional<Object> getDisplayedView() {
@@ -238,7 +257,6 @@ public class ProfileManager implements Model {
     public void setDisplayedView(ObservableList<Module> toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
-
 
     @Override
     public void setDisplayedView(Profile toDisplay) {
