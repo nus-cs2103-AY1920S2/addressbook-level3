@@ -34,7 +34,7 @@ public class AddGroupCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Group added: %s";
     public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    private static final String INVALID_GROUP_CODE = "You can't use that as a group code";
+    private static final String INVALID_GROUP_CODE = "You can't use that as the group code.";
 
     private final Group toAdd;
     private final String targetModule;

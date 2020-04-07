@@ -310,6 +310,8 @@ Format: `module add m/MOD_CODE n/NAME`
 [NOTE]
 ====
 * You can't have two modules with the same module code in the TA-Tracker.
+
+* MOD_CODE can't be an empty string or a sequence of spaces.
 ====
 
 [TIP]
@@ -401,6 +403,8 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 * `MOD_CODE` here refers to the module code of the module you want to add the group to.
 
 * You cannot add a group to a module that doesn't exist.
+
+* The GROUP_CODE can't be an empty string or a sequences of spaces.
 
 * You cannot add multiple groups with the same group code into the same module.
 ====
