@@ -207,7 +207,7 @@ public class CommandTestUtil {
         model.setCoupon(coupon, archivedCoupon, "");
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ARCHIVED_COUPONS);
 
-        assertTrue(Boolean.parseBoolean(model.getFilteredCouponList().get(0).getArchived().value));
+        assertTrue(model.getFilteredCouponList().get(0).getArchived().state);
         assertTrue(model.getFilteredCouponList().size() >= 1);
     }
 

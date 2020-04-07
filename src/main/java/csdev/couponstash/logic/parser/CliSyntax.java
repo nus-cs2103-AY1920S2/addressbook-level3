@@ -6,7 +6,7 @@ package csdev.couponstash.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_ARCHIVE = new Prefix("a/"); //For ListCommand
+    public static final Prefix PREFIX_ARCHIVE = new Prefix("a/"); // or ListCommand
     public static final Prefix PREFIX_CONDITION = new Prefix("c/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_EXPIRY_DATE = new Prefix("e/");

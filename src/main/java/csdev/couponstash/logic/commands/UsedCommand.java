@@ -78,7 +78,7 @@ public class UsedCommand extends IndexedCommand {
         Archived archived = couponToBeUsed.getArchived();
         boolean hasPercentageSavings = couponToBeUsed.getSavingsForEachUse().hasPercentageAmount();
 
-        if (Boolean.parseBoolean(archived.value)) {
+        if (archived.state) {
             throw new CommandException(String.format(MESSAGE_ARCHIVED_COUPON, targetIndex.getOneBased()));
         }
 

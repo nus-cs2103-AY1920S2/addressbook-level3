@@ -78,7 +78,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withRemindDate("29-11-2020", "02-12-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .withTags("friends").build();
     public static final Coupon BENSON = new CouponBuilder().withName("Benson Meier")
             .withPromoCode("ILUVSTASH")
@@ -90,7 +90,7 @@ public class TypicalCoupons {
             .withLimit("5")
             .withRemindDate("28-11-2020", "31-12-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .withTags("owesMoney", "friends").build();
     public static final Coupon CARL = new CouponBuilder().withName("Carl Kurz")
             .withPromoCode("KKB")
@@ -102,7 +102,7 @@ public class TypicalCoupons {
             .withLimit("2")
             .withRemindDate("27-8-2020", "30-8-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .build();
 
     // Expired coupon
@@ -117,7 +117,7 @@ public class TypicalCoupons {
             .withTags("friends")
             .withRemindDate("28-12-2019", "31-12-2019")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .build();
 
     // Archived coupon
@@ -131,7 +131,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
             .withCondition("While Stock Last")
-            .withArchived("true")
+            .withArchived(true)
             .build();
 
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
@@ -144,7 +144,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .build();
 
 
@@ -158,7 +158,7 @@ public class TypicalCoupons {
             .withLimit("2")
             .withRemindDate("28-12-2020", "31-12-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .build();
 
     // Manually added
@@ -172,7 +172,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withRemindDate("28-12-2020", "31-12-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .build();
     public static final Coupon IDA = new CouponBuilder().withName("Ida Mueller")
             .withPromoCode("ILOVEICECREAM")
@@ -184,7 +184,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withRemindDate("28-12-2020", "31-12-2020")
             .withCondition("While Stock Last")
-            .withArchived("false")
+            .withArchived(false)
             .build();
 
     // Manually added - Coupon's details found in {@code CommandTestUtil}

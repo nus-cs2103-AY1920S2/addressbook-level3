@@ -41,20 +41,19 @@ public class Savings implements Comparable<Savings> {
             "Please only specify one numerical amount for savings.";
 
     // coupons could have a certain monetary value
-    private final Optional<MonetaryAmount> monetaryAmount;
+    private final MonetaryAmount monetaryAmount;
     // coupons could have a certain percentage value
-    private final Optional<PercentageAmount> percentage;
+    private final PercentageAmount percentage;
     // coupons could offer some gifts which their
     // value is not easily quantifiable
-    private final Optional<List<Saveable>> saveables;
+    private final List<Saveable> saveables;
 
     /**
      * Private constructor facilitating copy of current Savings
      */
-    private Savings(
-            Optional<MonetaryAmount> monetaryAmount,
-            Optional<PercentageAmount> percentage,
-            Optional<List<Saveable>> saveables
+    private Savings(MonetaryAmount monetaryAmount,
+                    PercentageAmount percentage,
+                    List<Saveable> saveables
     ) {
         this.monetaryAmount = monetaryAmount;
         this.percentage = percentage;
@@ -69,9 +68,9 @@ public class Savings implements Comparable<Savings> {
      *                       amount of money.
      */
     public Savings(MonetaryAmount monetaryAmount) {
-        this.monetaryAmount = Optional.of(monetaryAmount);
-        this.percentage = Optional.empty();
-        this.saveables = Optional.empty();
+        this.monetaryAmount = monetaryAmount;
+        this.percentage = null;
+        this.saveables = null;
     }
 
     /**
@@ -82,9 +81,9 @@ public class Savings implements Comparable<Savings> {
      *                   percentage off.
      */
     public Savings(PercentageAmount percentage) {
-        this.monetaryAmount = Optional.empty();
-        this.percentage = Optional.of(percentage);
-        this.saveables = Optional.empty();
+        this.monetaryAmount = null;
+        this.percentage = percentage;
+        this.saveables = null;
     }
 
     /**
@@ -98,9 +97,9 @@ public class Savings implements Comparable<Savings> {
     public Savings(List<Saveable> saveables) {
         checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
-        this.monetaryAmount = Optional.empty();
-        this.percentage = Optional.empty();
-        this.saveables = Optional.of(condenseSaveablesList(saveables));
+        this.monetaryAmount = null;
+        this.percentage = null;
+        this.saveables = condenseSaveablesList(saveables);
     }
 
     /**
@@ -116,9 +115,9 @@ public class Savings implements Comparable<Savings> {
     public Savings(MonetaryAmount monetaryAmount, List<Saveable> saveables) {
         checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
-        this.monetaryAmount = Optional.of(monetaryAmount);
-        this.percentage = Optional.empty();
-        this.saveables = Optional.of(condenseSaveablesList(saveables));
+        this.monetaryAmount = monetaryAmount;
+        this.percentage = null;
+        this.saveables = condenseSaveablesList(saveables);
     }
 
     /**
@@ -134,9 +133,9 @@ public class Savings implements Comparable<Savings> {
     public Savings(PercentageAmount percentage, List<Saveable> saveables) {
         checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
-        this.monetaryAmount = Optional.empty();
-        this.percentage = Optional.of(percentage);
-        this.saveables = Optional.of(condenseSaveablesList(saveables));
+        this.monetaryAmount = null;
+        this.percentage = percentage;
+        this.saveables = condenseSaveablesList(saveables);
     }
 
     /**
@@ -152,7 +151,9 @@ public class Savings implements Comparable<Savings> {
     public Savings(Savings s) {
         this.monetaryAmount = s.monetaryAmount;
         this.percentage = s.percentage;
-        this.saveables = s.saveables.map(ArrayList::new);
+        this.saveables = s.saveables == null
+                ? null
+                : new ArrayList<Saveable>(s.saveables);
     }
 
     /**
@@ -161,7 +162,7 @@ public class Savings implements Comparable<Savings> {
      *     False, if it does not.
      */
     public boolean hasMonetaryAmount() {
-        return this.monetaryAmount.isPresent();
+        return this.monetaryAmount != null;
     }
 
     /**
@@ -170,7 +171,7 @@ public class Savings implements Comparable<Savings> {
      *     False, if it does not.
      */
     public boolean hasPercentageAmount() {
-        return this.percentage.isPresent();
+        return this.percentage != null;
     }
 
     /**
@@ -179,19 +180,19 @@ public class Savings implements Comparable<Savings> {
      *     False, if it does not.
      */
     public boolean hasSaveables() {
-        return this.saveables.isPresent();
+        return this.saveables != null;
     }
 
     public Optional<MonetaryAmount> getMonetaryAmount() {
-        return this.monetaryAmount;
+        return Optional.ofNullable(this.monetaryAmount);
     }
 
     public Optional<PercentageAmount> getPercentageAmount() {
-        return this.percentage;
+        return Optional.ofNullable(this.percentage);
     }
 
     public Optional<List<Saveable>> getSaveables() {
-        return this.saveables;
+        return Optional.ofNullable(this.saveables);
     }
 
     /**
@@ -199,13 +200,7 @@ public class Savings implements Comparable<Savings> {
      * @return a copy of the current Savings
      */
     public Savings copy() {
-        Optional<MonetaryAmount> monetaryAmountCopy =
-                monetaryAmount.map(MonetaryAmount::new);
-        Optional<PercentageAmount> percentageCopy =
-                percentage.map(x -> new PercentageAmount(x.getValue()));
-        Optional<List<Saveable>> savablesCopy = saveables.map(x -> new ArrayList<>(x));
-
-        return new Savings(monetaryAmountCopy, percentageCopy, savablesCopy);
+        return new Savings(this);
     }
 
     @Override
@@ -213,7 +208,7 @@ public class Savings implements Comparable<Savings> {
         if (this.hasMonetaryAmount() || s.hasMonetaryAmount()) {
             // first, compare monetary amount
             if (this.hasMonetaryAmount() && s.hasMonetaryAmount()) {
-                return this.monetaryAmount.get().compareTo(s.monetaryAmount.get());
+                return this.monetaryAmount.compareTo(s.monetaryAmount);
             } else {
                 // prioritise the one with actual monetary amount
                 return this.hasMonetaryAmount() ? 1 : -1;
@@ -221,7 +216,7 @@ public class Savings implements Comparable<Savings> {
         } else if (this.hasPercentageAmount() || s.hasPercentageAmount()) {
             // next, compare percentage
             if (this.hasPercentageAmount() && s.hasPercentageAmount()) {
-                return this.percentage.get().compareTo(s.percentage.get());
+                return this.percentage.compareTo(s.percentage);
             } else {
                 // prioritise the one with percentage
                 return this.hasPercentageAmount() ? 1 : -1;
@@ -229,7 +224,7 @@ public class Savings implements Comparable<Savings> {
         } else if (this.hasSaveables() || s.hasSaveables()) {
             // last resort, compare saveables list
             if (this.hasSaveables() && s.hasSaveables()) {
-                return this.saveables.get().size() - s.saveables.get().size();
+                return this.saveables.size() - s.saveables.size();
             } else {
                 // error, either this or s has no information at all
                 throw new InvalidSavingsException();
@@ -257,17 +252,17 @@ public class Savings implements Comparable<Savings> {
             sb.append("You get ");
         } else {
             sb.append("You save ");
-            this.monetaryAmount.ifPresent(ma -> {
+            this.getMonetaryAmount().ifPresent(ma -> {
                 sb.append(ma.getStringWithMoneySymbol(symbol));
                 sb.append(", ");
             });
-            this.percentage.ifPresent(pc -> {
+            this.getPercentageAmount().ifPresent(pc -> {
                 sb.append(pc.toString());
                 sb.append(", ");
             });
-            this.saveables.ifPresent(s -> sb.append(" and you get "));
+            this.getSaveables().ifPresent(s -> sb.append(" and you get "));
         }
-        this.saveables.ifPresent(savedItems -> {
+        this.getSaveables().ifPresent(savedItems -> {
             for (Saveable sv : savedItems) {
                 sb.append(sv.toString());
                 sb.append(", ");
@@ -285,12 +280,12 @@ public class Savings implements Comparable<Savings> {
             return false;
         } else {
             Savings s = (Savings) o;
-            return this.monetaryAmount.equals(s.monetaryAmount)
-                    && this.percentage.equals(s.percentage)
+            return this.getMonetaryAmount().equals(s.getMonetaryAmount())
+                    && this.getPercentageAmount().equals(s.getPercentageAmount())
                     // does not take order of saveables list into account
-                    && ((this.saveables.isEmpty() && s.saveables.isEmpty())
-                    || (this.saveables.isPresent() && s.saveables.isPresent()
-                    && this.saveables.get().containsAll(s.saveables.get())));
+                    && ((this.getSaveables().isEmpty() && s.getSaveables().isEmpty())
+                    || (this.getSaveables().isPresent() && s.getSaveables().isPresent()
+                    && this.saveables.containsAll(s.saveables)));
         }
     }
 

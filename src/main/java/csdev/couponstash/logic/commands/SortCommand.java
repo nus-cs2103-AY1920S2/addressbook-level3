@@ -75,7 +75,7 @@ public class SortCommand extends Command {
         }
 
         // Put non-archived at the top.
-        model.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        model.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, prefixToSortBy.toString())

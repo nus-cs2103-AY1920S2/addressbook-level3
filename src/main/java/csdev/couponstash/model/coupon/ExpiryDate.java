@@ -44,7 +44,7 @@ public class ExpiryDate {
      * @return True if date is after today.
      */
     public boolean hasExpired() {
-        return date.isAfter(LocalDate.now());
+        return date.isBefore(LocalDate.now());
     }
 
     /**

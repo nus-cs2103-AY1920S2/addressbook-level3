@@ -88,7 +88,7 @@ public class ExpiringCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, inputDate);
         DateIsEqualsPredicate predicate = prepareDatePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
-        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -101,7 +101,7 @@ public class ExpiringCommandTest {
         String expectedMessage = String.format(MESSAGE_COUPONS_EXPIRING_ON_DATE, 3, inputDate);
         DateIsEqualsPredicate predicate = prepareDatePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
-        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -115,7 +115,7 @@ public class ExpiringCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, inputDate);
         DateIsInMonthYearPredicate predicate = prepareYearMonthPredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
-        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -130,7 +130,7 @@ public class ExpiringCommandTest {
         DateIsInMonthYearPredicate predicate = prepareYearMonthPredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
 
-        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHVIED_FIRST);
+        expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
         expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
