@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.EditSuggestionCommand;
 import com.notably.logic.commands.suggestion.ErrorSuggestionCommand;
 import com.notably.logic.commands.suggestion.ExitSuggestionCommand;
 import com.notably.logic.commands.suggestion.HelpSuggestionCommand;
@@ -90,7 +89,8 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return new NewSuggestionCommandParser(model).parse(arguments);
 
         case "edit":
-            return Optional.of(new EditSuggestionCommand());
+            model.setResponseText("Edit this note");
+            return Optional.empty();
 
         case "help":
             return Optional.of(new HelpSuggestionCommand());
