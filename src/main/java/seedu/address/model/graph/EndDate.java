@@ -53,7 +53,7 @@ public class EndDate {
 
     @Override
     public String toString() {
-        return this.value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return this.value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     @Override

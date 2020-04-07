@@ -44,7 +44,7 @@ public class GraphCommandParser implements Parser<GraphCommand> {
         StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
         EndDate endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE).get());
 
-        if (!GraphCommand.isValidTimeFrame(startDate.toString(), endDate.toString())) {
+        if (!GraphCommand.isValidTimeFrame(startDate.value, endDate.value)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
         }
 

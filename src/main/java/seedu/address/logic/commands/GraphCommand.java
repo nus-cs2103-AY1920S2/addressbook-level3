@@ -37,8 +37,8 @@ public class GraphCommand extends Command {
             + PREFIX_STARTDATE + "01-01-2020 "
             + PREFIX_ENDDATE + "01-04-2020";
 
-    public static final String MESSAGE_SUCCESS = "Graph displayed. Any new updates are not reflected. "
-        + "Currently displaying graph for exercise:\n%1$s";
+    public static final String MESSAGE_SUCCESS = "Showing exercise graph for %1$s's %2$s from %3$s to %4$s. "
+            + "Any new updates are not reflected. ";
 
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
@@ -55,8 +55,8 @@ public class GraphCommand extends Command {
         this.graph = graph;
     }
 
-    public static boolean isValidTimeFrame(String startDate, String endDate) {
-        return (LocalDate.parse(endDate).compareTo(LocalDate.parse(startDate)) >= 0);
+    public static boolean isValidTimeFrame(LocalDate startDate, LocalDate endDate) {
+        return (endDate.compareTo(startDate) >= 0);
     }
 
     @Override
@@ -70,7 +70,8 @@ public class GraphCommand extends Command {
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, graphList.toString()),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, clientInView.getName().toString(),
+            graph.getExerciseName().toString(), graph.getStartDate().toString(), graph.getEndDate().toString()),
             graph.getAxis().getAxisType(), graphList);
     }
 
