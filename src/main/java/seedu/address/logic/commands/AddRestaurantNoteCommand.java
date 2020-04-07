@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD;
@@ -41,9 +42,9 @@ public class AddRestaurantNoteCommand extends Command {
     public static final String MESSAGE_EMPTY = "No note added to Restaurant: %1$s";
 
     private final Index index;
-    private final Note recommendedFood;
-    private final Note goodFood;
-    private final Note badFood;
+    private final ArrayList<Note> recommendedFood;
+    private final ArrayList<Note> goodFood;
+    private final ArrayList<Note> badFood;
 
     /**
      *
@@ -52,7 +53,7 @@ public class AddRestaurantNoteCommand extends Command {
      * @param goodFood notes of the restaurant to be updated to
      * @param badFood notes of the restaurant to be updated to
      */
-    public AddRestaurantNoteCommand(Index index, Note recommendedFood, Note goodFood, Note badFood) {
+    public AddRestaurantNoteCommand(Index index, ArrayList<Note> recommendedFood, ArrayList<Note> goodFood, ArrayList<Note> badFood) {
         requireAllNonNull(index, recommendedFood, goodFood, badFood);
 
         this.index = index;
@@ -63,6 +64,7 @@ public class AddRestaurantNoteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Restaurant> lastShownList = model.getFilteredRestaurantList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -70,52 +72,36 @@ public class AddRestaurantNoteCommand extends Command {
         }
 
         Restaurant restaurantToEdit = lastShownList.get(index.getZeroBased());
-
-        ArrayList<Note> updatedRecFood = new ArrayList<>();
-        for (Note i : restaurantToEdit.getRecommendedFood()) {
-            updatedRecFood.add(i);
+        if (recommendedFood.size() == 0 || goodFood.size() == 0 || badFood.size() == 0) {
+            throw new CommandException(MESSAGE_EMPTY);
         }
 
-        ArrayList<Note> updatedGoodFood = new ArrayList<>();
-        for (Note i : restaurantToEdit.getGoodFood()) {
-            updatedGoodFood.add(i);
+        if (recommendedFood.size() != 0) {
+            for (int i = 0; i < recommendedFood.size(); i++) {
+                restaurantToEdit.getRecommendedFood().add(recommendedFood.get(i));
+            }
         }
-
-        ArrayList<Note> updatedBadFood = new ArrayList<>();
-        for (Note i : restaurantToEdit.getBadFood()) {
-            updatedBadFood.add(i);
+        if (goodFood.size() != 0) {
+            for (int j = 0; j < goodFood.size(); j++) {
+                restaurantToEdit.getGoodFood().add(goodFood.get(j));
+            }
         }
-
-        if (!recommendedFood.note.isEmpty()) {
-            updatedRecFood.add(recommendedFood);
-        }
-        if (!goodFood.note.isEmpty()) {
-            updatedGoodFood.add(goodFood);
-        }
-        if (!badFood.note.isEmpty()) {
-            updatedBadFood.add(badFood);
+        if (badFood.size() != 0) {
+            for (int k = 0; k < badFood.size(); k++) {
+                restaurantToEdit.getBadFood().add(badFood.get(k));
+            }
         }
 
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
-                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), updatedRecFood,
-                updatedGoodFood, updatedBadFood);
+                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), restaurantToEdit.getRecommendedFood(),
+                restaurantToEdit.getGoodFood(), restaurantToEdit.getBadFood());
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
-        return new CommandResult(String.format(generateSuccessMessage(editedRestaurant), editedRestaurant),
+        return new CommandResult(String.format(MESSAGE_ADD_NOTE_SUCCESS, editedRestaurant),
                 false, false, false, false, false, false, true, false);
-    }
-
-    /**
-     * Generates a command execution success message based on whether the remark is added to or removed from
-     * {@code personToEdit}.
-     */
-    private String generateSuccessMessage(Restaurant restaurantToEdit) {
-        String message = (!recommendedFood.note.isEmpty() || !goodFood.note.isEmpty()
-                || !badFood.note.isEmpty()) ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_EMPTY;
-        return String.format(message, restaurantToEdit);
     }
 
     @Override

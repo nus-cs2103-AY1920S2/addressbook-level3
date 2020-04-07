@@ -13,6 +13,8 @@ import seedu.address.logic.commands.AddRestaurantNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Note;
 
+import java.util.ArrayList;
+
 /**
  * Parses input arguments and creates a new {@code AddInfoCommand} object
  */
@@ -40,11 +42,11 @@ public class AddRestaurantNoteCommandParser implements Parser<AddRestaurantNoteC
             throw new ParseException(String.format(MESSAGE_NO_PREFIX, AddRestaurantNoteCommand.MESSAGE_USAGE));
         }
 
-        String recommendedFood = argMultimap.getValue(PREFIX_RECOMMENDED).orElse("");
-        String goodFood = argMultimap.getValue(PREFIX_GOOD).orElse("");
-        String badFood = argMultimap.getValue(PREFIX_BAD).orElse("");
+        ArrayList<Note> recommendedFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_RECOMMENDED));
+        ArrayList<Note> goodFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_GOOD));
+        ArrayList<Note> badFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_BAD));
 
-        return new AddRestaurantNoteCommand(index, new Note(recommendedFood), new Note(goodFood), new Note(badFood));
+        return new AddRestaurantNoteCommand(index, recommendedFood, goodFood, badFood);
     }
 
 }

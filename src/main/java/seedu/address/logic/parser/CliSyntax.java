@@ -31,7 +31,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CUISINE = new Prefix("c/");
     public static final Prefix PREFIX_VISITED = new Prefix("v/");
     public static final Prefix PREFIX_RECOMMENDED = new Prefix("r/");
-    public static final Prefix PREFIX_GOOD = new Prefix("a/"); // a is for awesome (g was taken)
+    public static final Prefix PREFIX_GOOD = new Prefix("g/");
     public static final Prefix PREFIX_BAD = new Prefix("b/");
     public static final Prefix PREFIX_EVENTTITLE = new Prefix("et/"); // event title
     public static final Prefix PREFIX_EVENTDATE = new Prefix("edt/"); // event date time
