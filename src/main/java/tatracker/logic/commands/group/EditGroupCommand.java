@@ -66,7 +66,7 @@ public class EditGroupCommand extends Command {
         }
 
         if (!newGroupCode.equals(group.getIdentifier())) {
-            if (actualModule.hasGroup(group)) {
+            if (actualModule.hasGroup(new Group(newGroupCode))) {
                 throw new CommandException(MESSAGE_DUPLICATE_GROUP);
             }
         }
