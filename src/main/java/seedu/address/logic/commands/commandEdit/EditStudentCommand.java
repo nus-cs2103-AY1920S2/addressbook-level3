@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,9 +45,10 @@ public class EditStudentCommand extends EditCommand {
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book.";
 
-  private final ID targetID;
-  private final EditStudentDescriptor editStudentDescriptor;
-  private EditStudentDescriptor toEdit;
+  private ID targetID;
+  private EditStudentDescriptor editStudentDescriptor;
+  private Student toEdit;
+  private Student editedStudent;
 
   /**
    * @param targetID              of the student in the filtered student list to edit
@@ -57,7 +57,6 @@ public class EditStudentCommand extends EditCommand {
   public EditStudentCommand(ID targetID, EditStudentDescriptor editStudentDescriptor) {
     requireNonNull(targetID);
     requireNonNull(editStudentDescriptor);
-
     this.targetID = targetID;
     this.editStudentDescriptor = new EditStudentDescriptor(editStudentDescriptor);
   }
@@ -85,7 +84,7 @@ public class EditStudentCommand extends EditCommand {
   }
 
   @Override
-  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Student> lastShownList = model.getFilteredStudentList();
 
@@ -94,14 +93,19 @@ public class EditStudentCommand extends EditCommand {
     }
 
     Student studentToEdit = getStudent(lastShownList);
-    this.toEdit = new EditStudentDescriptor(studentToEdit);
+    this.toEdit = studentToEdit;
     Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
-
+    this.editedStudent = editedStudent;
     if (!studentToEdit.weakEquals(editedStudent) && model.has(editedStudent)) {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
 
-    model.set(studentToEdit, editedStudent);
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
+    model.set(toEdit, editedStudent);
     model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
   }
