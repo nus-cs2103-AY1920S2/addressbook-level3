@@ -57,6 +57,7 @@ public class DoneSessionCommand extends Command {
 
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
+
         if (session.getRecurring() != 0) {
 
             int recurring = session.getRecurring();
@@ -70,14 +71,14 @@ public class DoneSessionCommand extends Command {
                     recurring, moduleCode, description);
 
             model.addSession(newSession);
+            model.deleteSession(session);
             model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
             return new CommandResult(String.format(AddSessionCommand.MESSAGE_SUCCESS, newSession), Action.DONE);
         }
 
         model.addDoneSession(session);
         model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS, "");
-        model.deleteSession(session);
-        model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, session), Action.DONE);
     }
 
