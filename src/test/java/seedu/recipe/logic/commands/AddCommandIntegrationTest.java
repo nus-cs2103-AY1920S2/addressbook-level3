@@ -14,6 +14,7 @@ import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -37,8 +38,11 @@ public class AddCommandIntegrationTest {
 
         expectedModel.addRecipe(validRecipe);
 
-        assertCommandSuccess(new AddCommand(validRecipe), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validRecipe), expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validRecipe),
+                        false, Tab.RECIPES, false);
+
+        assertCommandSuccess(new AddCommand(validRecipe), model, expectedCommandResult, expectedModel);
     }
 
     @Test

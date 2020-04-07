@@ -2,6 +2,7 @@ package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Deletes a recipe identified using it's displayed index from the recipe book.
@@ -23,6 +25,9 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX NUMBER(s) (must be positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_SUCCESS = "Deleted %1$s from recipe book!";
+
+    private final Tab recipesTab = Tab.RECIPES;
     private final Index[] targetIndex;
     private final CommandType commandType;
 
@@ -35,9 +40,9 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        StringBuilder sb = new StringBuilder().append("Deleted ");
+        List<String> deletedRecipesList = new ArrayList<>();
 
-        if (!canDeleteTargetRecipes(lastShownList, targetIndex)) {
+        if (!canDeleteTargetRecipes(lastShownList.size(), targetIndex)) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
@@ -45,26 +50,37 @@ public class DeleteCommand extends Command {
             Index indexAfterEachDeletion = Index.fromZeroBased(targetIndex[i].getZeroBased() - i);
             Recipe recipeToDelete = lastShownList.get(indexAfterEachDeletion.getZeroBased());
             model.deleteRecipe(recipeToDelete);
-            if (i == targetIndex.length - 1 && targetIndex.length != 1) {
-                sb.append(" and ");
-            }
-            sb.append(recipeToDelete.getName().toString());
-            if (i < targetIndex.length - 2) {
-                sb.append(", ");
-            }
+            deletedRecipesList.add(recipeToDelete.getName().toString());
         }
-        sb.append(" from recipe book!");
 
         model.commitBook(commandType);
-        return new CommandResult(sb.toString());
+        String finalMessage = String.format(MESSAGE_SUCCESS, getListAsFormattedString(deletedRecipesList));
+        return new CommandResult(finalMessage, false, recipesTab, false);
+    }
+
+    /**
+     * Formats a list of recipe names into a string with appropriate commas and conjunctions.
+     */
+    private String getListAsFormattedString(List<String> listToFormat) {
+        StringBuilder formattedString = new StringBuilder();
+        for (int i = 0; i < listToFormat.size(); i++) {
+            if (i == listToFormat.size() - 1 && listToFormat.size() != 1) {
+                formattedString.append(" and ");
+            }
+            formattedString.append(listToFormat.get(i));
+            if (i < listToFormat.size() - 2) {
+                formattedString.append(", ");
+            }
+        }
+        return formattedString.toString();
     }
 
     /**
      * Checks if the recipe that the user wishes to delete exists within the recipe list.
      */
-    public boolean canDeleteTargetRecipes(List<Recipe> lastShownList, Index[] targetIndex) {
+    private boolean canDeleteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
         for (int i = targetIndex.length - 1; i >= 0; i--) {
-            if (targetIndex[i].getOneBased() > lastShownList.size()) {
+            if (targetIndex[i].getOneBased() > lastShownListSize) {
                 return false;
             }
         }

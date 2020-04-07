@@ -120,18 +120,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void favouriteRecipe(Recipe target) {
-        recipeBook.favouriteRecipe(target);
-        plannedBook.favouriteRecipe(target);
-    }
-
-    @Override
-    public void unfavouriteRecipe(Recipe target) {
-        recipeBook.unfavouriteRecipe(target);
-        plannedBook.unfavouriteRecipe(target);
-    }
-
-    @Override
     public void addRecipe(Recipe recipe) {
         recipeBook.addRecipe(recipe);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
@@ -285,6 +273,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Record> getFilteredRecordList() {
         return filteredRecords;
+    }
+
+    @Override
+    public void updateGoalsTally(Record record) {
+        cookedRecordBook.updateGoalsTally(record);
     }
 
     @Override

@@ -32,6 +32,10 @@ public class UniqueRecordList implements Iterable<Record> {
     private final ObservableList<Record> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    private final ObservableList<Integer> internalGoalsList = FXCollections.observableArrayList();
+    private final ObservableList<Integer> internalUnmodifiableGoalsList =
+            FXCollections.unmodifiableObservableList(internalGoalsList);
+
 
     public void setRecords(UniqueRecordList replacement) {
         requireNonNull(replacement);
@@ -49,6 +53,7 @@ public class UniqueRecordList implements Iterable<Record> {
         }
 
         internalList.setAll(records);
+        setGoalsTally();
     }
 
     /**
@@ -127,10 +132,9 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Returns goalTally for all main {@code goal} in cookedRecordBook.
+     * Sets goal tally when records are set initially.
      */
-
-    public ObservableList<Integer> getGoalsTally() {
+    public void setGoalsTally() {
         HashMap<String, Integer> goalMap = new HashMap<String, Integer>();
         goalMap.put("Herbivore", 0);
         goalMap.put("Bulk like the Hulk", 0);
@@ -140,16 +144,55 @@ public class UniqueRecordList implements Iterable<Record> {
 
             List<Goal> currGoals = new ArrayList<Goal>();
             currGoals.addAll(internalList.get(i).getGoals());
-            for (Goal curr : currGoals) {
-                String goalName = curr.goalName;
-                Integer prevCount = goalMap.get(goalName);
-                goalMap.put(goalName, prevCount + 1);
+            for (Goal currGoal : currGoals) {
+                String goalName = currGoal.goalName;
+                if (goalMap.containsKey(goalName)) {
+                    Integer prevCount = goalMap.get(goalName);
+                    goalMap.put(goalName, prevCount + 1);
+                }
             }
         }
-        ObservableList<Integer> internalGoalList = FXCollections.observableArrayList(
+        internalGoalsList.addAll(
                 goalMap.get("Herbivore"),
                 goalMap.get("Bulk like the Hulk"),
                 goalMap.get("Wholesome Wholemeal"));
-        return FXCollections.unmodifiableObservableList(internalGoalList);
+    }
+
+    /**
+     * Updates goals for a record where index 0: Herbivores 1: Bulk Like the Hulk 2: Wholesome Wholemeal.
+     * @param record
+     */
+    public void updateGoalsTally(Record record) {
+        List<Goal> currGoals = new ArrayList<Goal>();
+        currGoals.addAll(record.getGoals());
+        for (Goal currGoal: currGoals) {
+            String goalName = currGoal.goalName;
+            int currCount = 0;
+            switch(goalName) {
+
+            case "Herbivore":
+                currCount = internalGoalsList.get(0);
+                internalGoalsList.set(0, currCount + 1);
+                break;
+            case "Bulk like the Hulk":
+                currCount = internalGoalsList.get(1);
+                internalGoalsList.set(1, currCount + 1);
+                break;
+            case "Wholesome Wholemeal":
+                currCount = internalGoalsList.get(2);
+                internalGoalsList.set(2, currCount + 1);
+                break;
+            default:
+                //no update to counter - not part of main 3 goals
+                break;
+            }
+        }
+    }
+
+    /**
+     * Returns goalTally for all main {@code goal} in cookedRecordBook.
+     */
+    public ObservableList<Integer> getGoalsTally() {
+        return internalUnmodifiableGoalsList;
     }
 }

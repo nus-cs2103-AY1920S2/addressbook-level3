@@ -26,7 +26,7 @@ import seedu.recipe.model.recipe.ingredient.Quantity;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
- * Contains utility methods for populating {@code RecipeBook} with sample data. todo: populate with real recipes
+ * Contains utility methods for populating {@code RecipeBook} with sample data
  */
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
@@ -172,7 +172,7 @@ public class SampleDataUtil {
                             "Meanwhile, prepare Spaghetti according to the Directions stated on the Package.",
                             "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.",
                             "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg,"
-                            + " Parmesan and more fresh Basil."),
+                                    + " Parmesan and more fresh Basil."),
                     getGoalSet("Wholesome Wholemeal"), false),
             new Recipe(new Name("Bacon, Spinach Caramelized Onion Pasta"), new Time("25"),
                     getGrainSet("170g, whole wheat penne pasta"),
@@ -186,13 +186,14 @@ public class SampleDataUtil {
                             "1 tbsp, garlic powder",
                             "0.5 cup, Parmesan cheese sprinkles"),
                     getStepsList("In a large skillet, add your bacon and cook for 1-2 mins until bacon is halfway done",
-                    "In that same pan, and some butter, sugar, spices, and onion; "
-                            + "sautee until the onion becomes tender, and bacon starts to crisp up.",
-                    "Boil pasta in salted water until al dente",
-                    "Once the pasta is done, drain it loosely, but leave a tiny amount of water and add it to the "
-                            + "skillet with the bacon, and onion mixture.",
-                    "Mix in the spinach and stir until tender",
-                    "Sprinkle with Parmesan before serving."), getGoalSet("Wholesome Wholemeal"), false),
+                            "In that same pan, and some butter, sugar, spices, and onion; "
+                                    + "sautee until the onion becomes tender, and bacon starts to crisp up.",
+                            "Boil pasta in salted water until al dente",
+                            "Once the pasta is done, drain it loosely, but leave a tiny amount of water and add it to "
+                                    + "the skillet with the bacon, and onion mixture.",
+                            "Mix in the spinach and stir until tender",
+                            "Sprinkle with Parmesan before serving."),
+                    getGoalSet("Wholesome Wholemeal"), false),
             new Recipe(new Name("Healthy Chicken Salad Sandwich"), new Time("10"),
                     getGrainSet("50 g, whole wheat pita (toasted)"),
                     getVegetableSet("120 g, celery (chopped small)", "55 g, butter lettuce (chopped)"),
@@ -203,16 +204,17 @@ public class SampleDataUtil {
                             "1 tbsp, garlic salt", "1 tbsp, Dijon mustard (whole grain dijon)"),
                     getStepsList("Toast one pita.",
                             "Prep ingredients by cooking, and then shredding or chopping 1/2 large chicken breast, "
-                            + "chop 1-2 stalks celery to get 1/4 c chopped celery, "
-                            + "quarter a handful of grapes to get 1/4 cup quartered grapes, "
-                            + "prepare lettuce by washing/chopping it if needed."
-                            + " Also prepare nuts by chopping them if needed, making 1 tbsp chopped nuts.",
-                    "Make chicken salad by adding shredded/chopped chicken to a small mixing bowl, "
-                            + "then add 1/4 c Greek yogurt, 1/4 c mayo, 1/4 tsp garlic salt, 1 tsp Dijon mustard.",
-                    "Mix together well. Once all incorporated, add in 1/4 c chopped celery, "
-                            + "1/4 c quartered red grapes, and 1 T chopped mixed nuts. Stir together.",
-                    "Fill pita with chicken salad mixture and lettuce. Enjoy. "
-                            + "Store chicken salad in airtight container for up to 5 days"),
+                                    + "chop 1-2 stalks celery to get 1/4 c chopped celery, "
+                                    + "quarter a handful of grapes to get 1/4 cup quartered grapes, "
+                                    + "prepare lettuce by washing/chopping it if needed."
+                                    + " Also prepare nuts by chopping them if needed, making 1 tbsp chopped nuts.",
+                            "Make chicken salad by adding shredded/chopped chicken to a small mixing bowl, "
+                                    + "then add 1/4 c Greek yogurt, 1/4 c mayo, 1/4 tsp garlic salt, "
+                                    + "1 tsp Dijon mustard.",
+                            "Mix together well. Once all incorporated, add in 1/4 c chopped celery, "
+                                    + "1/4 c quartered red grapes, and 1 T chopped mixed nuts. Stir together.",
+                            "Fill pita with chicken salad mixture and lettuce. Enjoy. "
+                                    + "Store chicken salad in airtight container for up to 5 days"),
                     getGoalSet("Wholesome Wholemeal"), false),
             new Recipe(new Name("All Veggie Sandwich"), new Time("10"),
                     getGrainSet("300 g, whole-wheat bread"),

@@ -21,6 +21,7 @@ import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -55,7 +56,10 @@ public class EditStepCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToEditSteps, expectedRecipe);
 
-        assertCommandSuccess(editStepCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+
+        assertCommandSuccess(editStepCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -103,7 +107,10 @@ public class EditStepCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToEditSteps, expectedRecipe);
 
-        assertCommandSuccess(editStepCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+
+        assertCommandSuccess(editStepCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

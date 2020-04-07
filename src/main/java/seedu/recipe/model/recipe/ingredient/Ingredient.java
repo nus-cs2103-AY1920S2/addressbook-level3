@@ -13,12 +13,8 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
             + "Tag/Quantity, Name\n"
             + "For example, to enter 50g of Broccoli, the format is iv/50g, Broccoli";
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%/',-]+$+";
 
+    public static final String VALIDATION_REGEX = "^[\\sA-Za-z0-9\\()&%/',-]+$+";
 
     protected String ingredientName;
     protected Quantity quantity;
@@ -33,7 +29,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
-        this.ingredientName = removeExtraWhitespace(ingredientName);
+        this.ingredientName = caseFormatter(removeExtraWhitespace(ingredientName));
     }
 
     /**
@@ -42,7 +38,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public Ingredient(String ingredientName) {
         requireNonNull(ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
-        this.ingredientName = removeExtraWhitespace(ingredientName);
+        this.ingredientName = caseFormatter(removeExtraWhitespace(ingredientName));
     }
 
     /**
@@ -61,9 +57,18 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     }
 
     /**
+     * Formats the input string as a proper noun.
+     */
+    private String caseFormatter(String stringToProcess) {
+        assert stringToProcess != null;
+        return stringToProcess.substring(0, 1).toUpperCase() + stringToProcess.substring(1).toLowerCase();
+    }
+
+    /**
      * Removes additional whitespaces between words (ie. words should only have one whitespace between them)
      */
     private String removeExtraWhitespace(String stringToProcess) {
+        assert stringToProcess != null;
         return stringToProcess.replaceAll("\\s{2,}", " ");
     }
 
