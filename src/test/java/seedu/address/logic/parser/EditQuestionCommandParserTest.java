@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_1;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANICE;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_NUMBER_1;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_WHAT;
 import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;

@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditQuestionCommandParser implements Parser<EditQuestionCommand> {
 
-    private static final String MESSAGE_INCOMPLETE_ARGUMENT = "Incomplete input format for editing a question.\n%s";
+    public static final String MESSAGE_INCOMPLETE_ARGUMENT = "Incomplete input format for editing a question.\n%s";
     public static final String INVALID_QUESTION_NUMBER_MESSAGE = "The question number provided is invalid.";
 
     /**
@@ -32,6 +32,10 @@ public class EditQuestionCommandParser implements Parser<EditQuestionCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditQuestionCommand.MESSAGE_USAGE));
         }
+        if (argMultimap.getPreamble().equals("")) {
+            throw new ParseException(String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditQuestionCommand.MESSAGE_USAGE));
+        }
+
         try {
             int index = Integer.parseInt(argMultimap.getPreamble());
             return new EditQuestionCommand(index, argMultimap.getValue(PREFIX_QUESTION).get());
