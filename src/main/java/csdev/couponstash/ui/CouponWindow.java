@@ -110,7 +110,7 @@ public class CouponWindow extends UiPart<Stage> {
                 .toArray();
 
         int maxTotalLength = 44;
-        boolean isSkiped = false;
+        boolean isSkipped = false;
 
         for (Object tag : tagsArr) {
             Tag currentTag = ((Tag) tag);
@@ -119,7 +119,7 @@ public class CouponWindow extends UiPart<Stage> {
                 tagFlowPane.getChildren().add(new Label(currentTag.tagName));
                 maxTotalLength -= currentTagNameLength;
             } else {
-                isSkiped = true;
+                isSkipped = true;
             }
         }
 
@@ -127,7 +127,7 @@ public class CouponWindow extends UiPart<Stage> {
         int initialNumberOfTags = couponTags.size();
         boolean isNumberOfTagsAboveLimit = initialNumberOfTags > maxTags;
 
-        if (isSkiped || isNumberOfTagsAboveLimit) {
+        if (isSkipped || isNumberOfTagsAboveLimit) {
             tagFlowPane.getChildren().add(new Label("and more..."));
         }
     }
