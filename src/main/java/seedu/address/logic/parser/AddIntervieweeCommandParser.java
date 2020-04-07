@@ -11,6 +11,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AddIntervieweeCommandParser implements Parser<AddIntervieweeCommand> {
 
+    private static final String MESSAGE_INCOMPLETE_ARGUMENT = "Missing argument for alias of the interviewee.\n%s";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddIntervieweeCommand
      * and returns an AddIntervieweeCommand object for execution.
@@ -30,7 +32,7 @@ public class AddIntervieweeCommandParser implements Parser<AddIntervieweeCommand
         } else {
             if (argMultimap.getValue(PREFIX_ALIAS).get().equals("")) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIntervieweeCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INCOMPLETE_ARGUMENT, AddIntervieweeCommand.MESSAGE_USAGE));
             }
             return new AddIntervieweeCommand(argMultimap.getPreamble(), argMultimap.getValue(PREFIX_ALIAS).get());
         }
