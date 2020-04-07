@@ -20,7 +20,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ClientInView;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -175,6 +174,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser(SHOWING_HELP_MESSAGE);
     }
 
+    /**
+     * Opens a graph with the requested information from {@code CommandResult}.
+     */
     public void handleGraph(CommandResult commandResult) {
         String clientName = clientViewDisplay.getClientInViewName();
         GraphWindow graphWindow = GraphWindow.createNewGraph(commandResult.getGraphList(),

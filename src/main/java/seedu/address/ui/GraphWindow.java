@@ -20,12 +20,14 @@ import seedu.address.model.graph.AxisType;
 
 /**
  * Controller for a graph page
+ *
+ * @author yonggiee
  */
 public class GraphWindow extends UiPart<Stage> {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final Logger logger = LogsCenter.getLogger(GraphWindow.class);
     private static final String FXML = "GraphWindow.fxml";
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final Stage stage;
     private final List<Exercise> graphList;
@@ -47,7 +49,7 @@ public class GraphWindow extends UiPart<Stage> {
      */
     private GraphWindow(Stage stage, List<Exercise> graphList, AxisType axisType, String clientName) {
         super(FXML, stage);
-        this.stage =  stage;
+        this.stage = stage;
         this.graphList = graphList;
         this.axisType = axisType;
         this.clientName = clientName;
@@ -58,11 +60,19 @@ public class GraphWindow extends UiPart<Stage> {
         addToGraph();
     }
 
+    /**
+     * Creates a {@GraphWindow} with a list of exercises.
+     * The xAxis will always be date and the yAxis depends on the value
+     * specified by {@AxisType}.
+     */
     public static GraphWindow createNewGraph(List<Exercise> graphList, AxisType axisType, String clientName) {
         Stage stage = new Stage();
         return new GraphWindow(stage, graphList, axisType, clientName);
     }
 
+    /**
+     * Adds data values depending on the {@code AxisType}.
+     */
     private void fillSeries() {
         switch (axisType) {
         case REPS:
@@ -111,7 +121,7 @@ public class GraphWindow extends UiPart<Stage> {
             @Override
             public String toString(Number object) {
                 LocalDate date = LocalDate.ofEpochDay(object.longValue());
-                String formattedDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                String formattedDate = date.format(DATE_TIME_FORMATTER);
                 return formattedDate;
             }
 

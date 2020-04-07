@@ -77,7 +77,7 @@ public class ClientView extends UiPart<Region> {
         remark.setText(fullRemarkForDisplay);
     }
 
-    public String getClientInViewName(){
+    public String getClientInViewName() {
         return client.getName().fullName;
     }
 
