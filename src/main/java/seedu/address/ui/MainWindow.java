@@ -25,6 +25,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.customer.PersonListPanel;
 import seedu.address.ui.product.ProductListPanel;
+import seedu.address.ui.statistics.StatisticsListPanel;
 import seedu.address.ui.transaction.TransactionListPanel;
 
 /**
@@ -44,24 +45,14 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ProductListPanel productListPanel;
     private TransactionListPanel transactionListPanel;
+    private StatisticsListPanel statisticsListPanel;
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StatisticsWindow statisticsWindow;
-    private InventoryWindow inventoryWindow;
     private PlotWindow plotWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private MenuItem topSellingProduct;
-
-    @FXML
-    private MenuItem inventory;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -71,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane transactionListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -91,8 +85,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statisticsWindow = new StatisticsWindow(logic);
-        inventoryWindow = new InventoryWindow(logic);
         plotWindow = new PlotWindow();
     }
 
@@ -101,9 +93,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-        setAccelerator(topSellingProduct, KeyCombination.valueOf("F2"));
-        setAccelerator(inventory, KeyCombination.valueOf("F3"));
+    //        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -148,6 +138,9 @@ public class MainWindow extends UiPart<Stage> {
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+
+        statisticsListPanel = new StatisticsListPanel(logic);
+        statisticsPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -206,31 +199,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the statistics window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleStatistics() {
-        if (!statisticsWindow.isShowing()) {
-            statisticsWindow.show();
-        } else {
-            statisticsWindow.focus();
-        }
-    }
-
-    /**
-     * Opens the inventory window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleInventory() {
-        if (!inventoryWindow.isShowing()) {
-            inventoryWindow.show();
-        } else {
-            inventoryWindow.focus();
-        }
-    }
-
-
     void show() {
         primaryStage.show();
     }
@@ -247,10 +215,6 @@ public class MainWindow extends UiPart<Stage> {
         System.exit(0);
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -261,8 +225,9 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            statisticsWindow = new StatisticsWindow(logic);
-            inventoryWindow = new InventoryWindow(logic);
+
+            statisticsPanelPlaceholder.getChildren().removeAll();
+            statisticsPanelPlaceholder.getChildren().add(new StatisticsListPanel(logic).getRoot());
 
             if (commandResult.isShowPlot()) {
                 handlePlot(commandResult.getDataSeries(), commandResult.getTitle());

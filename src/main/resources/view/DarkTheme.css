@@ -29,6 +29,26 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+.tab-label {
+    -fx-text-fill: white;
+}
+
+
+.tab:top {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-border-color: derive(#1d1d1d, 50%);
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.tab:selected:top {
+    -fx-background-color: derive(#1d1d1d, 10%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+/*Solution adapted from
+https://stackoverflow.com/questions/36779642/javafx-css-styling-change-highlight-color-of-selected-tabs*/
+
 .tab-pane {
     -fx-padding: 0 0 0 1;
 }
@@ -65,7 +85,6 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
