@@ -409,19 +409,19 @@ Shows the user's upcoming schedule for the next 5 days colour-coded based on the
 
 === Event Book commands
 
-==== Create a new social event : `event`
+==== Create a new social event : `(ev)add`
 
 Creates a social event. +
-Format: `event et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
+Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 
 ****
-* `EVENT DATE` must be in a YYYY-MM-DD HH:MM format
+* `EVENT DATE` must be in a YYYY-MM-dd HH:mm format
 ****
 
-==== Listing all events : `eventlist`
+==== Listing all events : `(ev)list`
 
 Lists all social events in your Event Book. +
-Format: `eventlist`
+Format: `(ev)list`
 
 === Saving the data
 
@@ -430,16 +430,7 @@ There is no need to save manually.
 
 === Coming in v2.0
 
-==== Add person to assignment: `(st)addmem`
-
-Adds a group mate to an assignment. +
-Format: `(st)addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
-
-****
-* INDEX must be a positive integer. It corresponds to the rank of the assignment shown
-****
-
-==== Obtain gift suggestions for a particular contact using the Birthday Tracker
+==== Obtain gift suggestions for a particular contact
 
 ==== Encrypting data files
 
@@ -456,6 +447,7 @@ _{explain how the user can enable/disable data encryption}_
 ** `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [b/BIRTHDAY] [g/GROUPNAME] [t/TAG]...`
 ** `(rt)add n/NAME l/LOCATION o/OPERATING_HOURS p/PRICE_POINT v/VISITED`
 ** `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
+** `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 * *Delete* :
 ** `(ab)delete INDEX [p/] [e/] [a/] [t/] [b/] [g/]`
 ** `(rt)delete INDEX`
@@ -471,6 +463,7 @@ _{explain how the user can enable/disable data encryption}_
 ** `(ab)list`
 ** `(rt)list`
 ** `(st)list [-d] [-e]`
+** `(ev)list`
 * *Add notes* :
 ** `(ab)addnote INDEX i/INFO...`
 ** `(rt)addnote INDEX [r/RECOMMENDED_FOOD] [a/AWESOME_FOOD] [b/BAD_FOOD]`
