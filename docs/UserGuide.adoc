@@ -758,7 +758,7 @@ Sorts all groups inside all modules `alphabetically`.
 [[FilterStudent]]
 ==== Filter : `filter`
 
-You can use this command to find the students in a particular group
+You can use this command to view the students in a particular group
 and module.
 
 You can filter the students in *Student View* in the following ways:
@@ -795,6 +795,8 @@ If you use just the module code, you will see:
 
 * the first group of the module specified by the given module code highlighted
 * all the students belonging to that group
+* you can use this command when you want to see all the groups belonging to a
+particular module.
 
 Format: `student filter m/MOD_CODE`
 
