@@ -50,6 +50,8 @@ to aid you in using the application to improve your lives on campus.
 
 
 === Tips on reading the User Guide
+We encourage you to read EYLAH's User Guide from top to bottom.
+
 While reading the User Guide you may encounter some symbols.
 These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
 the symbols and their meaning.
@@ -104,28 +106,28 @@ to to improve your user experience of EYLAH.
 
 |===
 |Diet Tracker | Expense Spliter
-|
+| <<mode, mode>>
 | <<additem, additem>>
 
-|
+| <<storeheight, storeheight>>
 | <<deleteitem, deleteitem>>
 
-|
+| <<storeweight, storeweight>>
 | <<listreceipt, listreceipt>>
 
-|
+| <<addfood, addfood>>
 | <<listamount, listamount>>
 
-|
+| <<listfooditem, list>>
 | <<paid, paid>>
 
-|
+| <<deletefooditem, delete>>
 | <<donereceipt, donereceipt>>
 
-|
+| <<editfooditem, edit>>
 | <<clearreceipt, clearreceipt>>
 
-|
+| <<calculatebmi, bmi>>
 | <<help, help>>
 
 |
@@ -157,7 +159,7 @@ Format: `help`
 Tracks our daily calories intake. Add food, then calculate
 
 '''
-
+[[mode]]
 ==== Dieting Mode `mode`
 Allows users to decide which dieting mode they want, based on the following modes: +
 
@@ -170,6 +172,7 @@ Example: `mode -m`
 
 '''
 
+[[storeheight]]
 ==== Store Height `height`
 Allows user to input their height.
 
@@ -179,7 +182,7 @@ Example: `height 172`
 NOTE: Height in centimetres (cm)
 
 '''
-
+[[storeweight]]
 ==== Store Weight `weight`
 Allows user to input their weight.
 
@@ -190,7 +193,7 @@ NOTE: Weight in kilograms (kg)
 
 '''
 
-
+[[addfood]]
 ==== Add food `add`
 Adds food to the list.
 
@@ -204,7 +207,7 @@ Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
 
 '''
-
+[[listfooditem]]
 ==== List items `list`
 List food in your current diet tracker along with the total calorie count.
 Watch your diet intake for different time frames and food of different categories.
@@ -225,6 +228,7 @@ Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
 
 '''
 
+[[deletefooditem]]
 ==== Delete Food Item `delete`
 
 Deletes a Food item from the list of foods stored. +
@@ -247,6 +251,7 @@ Deletes the 2nd row of food data from the past 7 days of food.
 
 '''
 
+[[editfooditem]]
 ==== Editing a Food Item `edit`
 
 Allows you to edit either the Food name, or the calories.  +
@@ -266,7 +271,7 @@ Example:
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
 '''
-
+[[calculatebmi]]
 ==== Calculate Body Mass Index (BMI) `bmi`
 
 Allows the user to calculate their BMI based on the height and weight stored in the program. +
