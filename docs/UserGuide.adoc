@@ -198,15 +198,6 @@ professor’s contact associated with the module.
 
 * `module CS2103T`
 
-==== Module planning: `mymodplan`
-
-- Shows list of modules taken/to be taken to fulfill major requirements.
-
-- Format:
-
-a.	`mymodplan`: shows module planning list
-b.	`mymodplan add MODULE CODE`: adds a module to the module plan
-c.	`mymodplan done MODULE CODE`: marks a module as taken/done
 
 === Diary
 
