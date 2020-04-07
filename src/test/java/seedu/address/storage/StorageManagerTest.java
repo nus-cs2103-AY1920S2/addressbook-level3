@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,12 +17,12 @@ import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.QuestionList;
-import seedu.address.model.hirelah.storage.StorageManager;
 import seedu.address.model.hirelah.storage.AttributeStorage;
 import seedu.address.model.hirelah.storage.IntervieweeStorage;
 import seedu.address.model.hirelah.storage.MetricStorage;
 import seedu.address.model.hirelah.storage.ModelStorage;
 import seedu.address.model.hirelah.storage.QuestionStorage;
+import seedu.address.model.hirelah.storage.StorageManager;
 import seedu.address.model.hirelah.storage.TranscriptStorage;
 
 public class StorageManagerTest {
@@ -41,8 +40,8 @@ public class StorageManagerTest {
     private IntervieweeList intervieweeList = new IntervieweeList();
     private AttributeList attributeList = new AttributeList();
     private QuestionList questionList = new QuestionList();
-    private MetricList metricList=  new MetricList();
-    private boolean model;
+    private MetricList metricList = new MetricList();
+    private boolean model = false;
 
     /**
      * Setting up of the respective fields
@@ -51,7 +50,6 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() throws IllegalValueException {
         /** populating the different lists with initial values for testing.*/
-        this.model = false;
         this.attributeList.add("Productivity");
         this.intervieweeList.addInterviewee("John Doe");
         this.questionList.add("How can you contribute to the company?");
@@ -71,7 +69,7 @@ public class StorageManagerTest {
                 metricStorage, transcriptStorage, modelStorage);
     }
 
-
+    /** Provide custom path based on input String. */
     private Path getTempFilePath(String fileName) {
         return testFolder.resolve(fileName);
     }
@@ -99,7 +97,7 @@ public class StorageManagerTest {
         assertEquals(this.intervieweeList, retrieved);
     }
 
-   @Test
+    @Test
     public void attributesReadSave() throws Exception {
         storageManager.saveAttribute(attributeList);
         AttributeList retrieved = storageManager.readAttribute().get();
@@ -107,7 +105,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void MetricsReadSave() throws Exception {
+    public void metricsReadSave() throws Exception {
         storageManager.saveMetric(this.metricList);
         MetricList retrieved = storageManager.readMetric().get();
         assertEquals(metricList, retrieved);
