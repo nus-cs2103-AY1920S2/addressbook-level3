@@ -262,7 +262,7 @@ public class Coupon {
      * Returns true if the coupon has been used before.
      */
     public boolean isUsed() {
-        return Integer.parseInt(this.usage.value) > 0;
+        return this.usage.value > 0;
     }
 
     /**

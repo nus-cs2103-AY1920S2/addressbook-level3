@@ -118,9 +118,9 @@
           </padding>
         </Label>
         <FlowPane fx:id="tags" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0"
-                  AnchorPane.topAnchor="7.0" prefWidth="450"/>
-        <FlowPane id="tags" fx:id="tagsDup" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0"
-                  AnchorPane.topAnchor="7.0" prefWidth="450"/>
+                  AnchorPane.topAnchor="7.0" prefWidth="450" styleClass="tags"/>
+        <FlowPane fx:id="tagsDup" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0"
+                  AnchorPane.topAnchor="7.0" prefWidth="450" styleClass="tags"/>
       </children>
     </AnchorPane>
   </children>
