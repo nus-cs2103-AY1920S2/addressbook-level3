@@ -80,6 +80,8 @@ Lastly, blue underline words like link:[this] will lead you to other portions of
 
 == Getting Started
 
+Follow the steps below to help you set up EYLAH in no time!
+
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `eylah.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for EYLAH.
@@ -104,7 +106,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can
 In this section, you can find *all* the commands of EYLAH and some tips and trick you can use
 to to improve your user experience of EYLAH.
 
-[cols="50%, 50%"]
+[cols= "50%, 50%"]
+
 |===
 |*Diet Tracker*  | *Expense Splitter*
 | <<mode, mode>>
@@ -313,8 +316,8 @@ Calculate BMI based on the input height and weight values.
 
 
 === Expense Splitter : `split`
-Splitting the items' cost with friends. All you have to do is add the item,
-price and the names involved in splitting that item and EYLAH will
+Splitting a large receipt with friends has never been easier with EYLAH! All you have to do is add the item,
+its price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
@@ -399,10 +402,11 @@ Format of Paid Command: +
 
 [NOTE]
 ====
-* `INDEX` is a compulsory field that must be stated. Instead of typing a Person's name,
-you can type his/her index thus saving you time and effort.
+* `INDEX` is a *compulsory* field that must be stated by you. Instead of typing a Person's name,
+you can type his/her index thus saving you time and effort. To find out his/her index, use the command
+ `listamount`.
 
-* `AMOUNT` is an optional field. It refers to the amount paid by that Person. Leaving this field
+* `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
 empty is equivalent to the Person paying you the full amount he/she owes you.
 
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
@@ -410,15 +414,15 @@ empty is equivalent to the Person paying you the full amount he/she owes you.
 
 Example of valid Paid Commands: +
 
-`paid 2` +
+`paid 2` - This commmand means that the Person at index 2 has paid you the full amount they owe you. +
 
-`paid 2 3.90` +
+`paid 3 3.90` - This command means that the Perosn at index 3 has paid you $3.90. +
 
 
 [[paidcommandexpectedoutcome]]
 *Expected outcome after using Paid Command:*
 
-image::Ui.png[width="790"]
+image::expenseSplitterPaidCommandSuccessPhoto.png[width="790", height="1000"]
 
 
 *Additional tips and notes for Paid Command*
