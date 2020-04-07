@@ -1,8 +1,11 @@
 package cookbuddy.model.recipe;
 
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_HOUR_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INGREDIENTS_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INSTRUCTIONS_EGGS_ON_TOAST;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_MIN_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_NAME_EGGS_ON_TOAST;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_SEC_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_BREAKFAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static cookbuddy.testutil.Assert.assertThrows;
@@ -49,6 +52,12 @@ public class RecipeTest {
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withInstructions(VALID_INSTRUCTIONS_EGGS_ON_TOAST).withTags(
                 VALID_TAG_BREAKFAST).build();
         assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
+
+        editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).addTime(VALID_HOUR_HAM_SANDWICH,
+                VALID_MIN_HAM_SANDWICH, VALID_SEC_HAM_SANDWICH);
+        assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
+
+
 
         // same name, same ingredients, same instructions, different attributes -> returns true
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST).build();
