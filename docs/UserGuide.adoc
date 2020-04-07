@@ -129,8 +129,8 @@ Adds a customer to the customer list +
 Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 
 [NOTE]
-A customer can have any number of tags (including 0). +
-Duplicate customers (with the same name, phone, email) are not allowed. +
+A customer can have up to 5 tags (including 0). +
+Duplicate customers (with the same name, phone, email, address) are not allowed. +
 The address field can take up to 45 characters. +
 The name field can take up to 30 characters. +
 The phone field can be between 3 to 15 characters long and contain only integers. +
