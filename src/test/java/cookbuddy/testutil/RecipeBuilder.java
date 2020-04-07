@@ -16,6 +16,7 @@ import cookbuddy.model.recipe.attribute.Photograph;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 import cookbuddy.model.util.SampleDataUtil;
 
 /**
@@ -43,7 +44,10 @@ public class RecipeBuilder {
     private Serving serving;
     private Rating rating;
     private Difficulty difficulty;
+    private Time timing;
     private Set<Tag> tags;
+
+    private Recipe recipe;
 
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -144,7 +148,26 @@ public class RecipeBuilder {
         return this;
     }
 
+    /**
+     * builds a Recipe.
+     * @return the Recipe.
+     */
     public Recipe build() {
-        return new Recipe(name, ingredients, instructions, photograph, calorie, serving, rating, difficulty, tags);
+        Recipe toReturn = new Recipe(name, ingredients, instructions, photograph, calorie, serving, rating, difficulty,
+                tags);
+        toReturn.setTime(timing);
+        return toReturn;
+    }
+
+    /**
+     * adds a time to the recipe.
+     * @param h the hour component of the time.
+     * @param m the minute component of the time.
+     * @param s the second component of the time.
+     * @return
+     */
+    public RecipeBuilder addTime(int h, int m, int s) {
+        this.timing = new Time(h, m, s);
+        return this;
     }
 }

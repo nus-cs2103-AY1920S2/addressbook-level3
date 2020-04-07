@@ -99,7 +99,7 @@ Example 1: You can type `help` and *CookBuddy* will display the commands that it
 
 Example 2: You can type `help delete` and *CookBuddy* will display how to use the `delete` command.
 
-
+tag::AddRecipe[]
 === Adding a recipe — `new`
 You can add a new recipe to *CookBuddy* using the `new` command.
 
@@ -131,6 +131,7 @@ Example 1: You can enter `new n/Fried Rice ing/White rice, 1 cup; salt, 1 gram i
         . Fry the rice
         . Add salt
 
+end::AddRecipe[]
 
 === View a Recipe — `view`
 You can view a given recipe on *CookBuddy* using the `view` command.
@@ -233,6 +234,7 @@ You can list all the existing recipes from *CookBuddy* using the `list` command.
 
 Format: `list`
 
+tag::find[]
 === Finding recipes — `find`
 You can find an existing recipe with a particular parameter from *CookBuddy* using the `find` command.
 
@@ -250,6 +252,8 @@ Example: You can type `find n/sandwich` and *CookBuddy* will display recipes tha
 You can find a recipe by its ingredient by appending `[ing/INGREDIENT [...]]` to a `find` command.
 
 Example: You can type `find ing/bread` and *CookBuddy* will display the recipes containing bread as an ingredient to you.
+
+end::find[]
 
 === Counting recipes — `count`
 You can count the total number of recipes stored in *CookBuddy* using the `count` command.
