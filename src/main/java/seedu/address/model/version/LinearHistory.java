@@ -1,4 +1,6 @@
-package seedu.address.model;
+package seedu.address.model.version;
+
+import seedu.address.model.util.Copyable;
 
 import java.util.ArrayList;
 import java.util.List;

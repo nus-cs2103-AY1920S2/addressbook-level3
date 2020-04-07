@@ -20,7 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.StateNotFoundException;
+import seedu.address.model.version.StateNotFoundException;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;

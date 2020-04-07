@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.UniqueGoodList;
+import seedu.address.model.util.Copyable;
 
 /**
  * Wraps all data at the address-book level

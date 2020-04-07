@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.version;
 
 /**
  * Represents a collection of the states of an object at different points in time.

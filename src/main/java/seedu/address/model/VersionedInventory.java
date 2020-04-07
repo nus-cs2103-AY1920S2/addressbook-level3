@@ -1,6 +1,9 @@
 package seedu.address.model;
 
 import seedu.address.model.good.Good;
+import seedu.address.model.version.LinearHistory;
+import seedu.address.model.version.StateNotFoundException;
+import seedu.address.model.version.Version;
 
 /**
  * An {@code Inventory} that keeps track of its history. Snapshots of its state are done based on external commands.
