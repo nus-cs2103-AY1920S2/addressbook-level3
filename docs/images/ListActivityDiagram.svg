@@ -12,11 +12,11 @@ else ([Command is not 'list done'])
         :Returns success message;
         else ([Command is not 'list undone'])
             If () then ([Command is 'list'])
-                :List all orders 
+                :List all orders
                 (completed and not completed);
                 :Returns success message;
             else ([Command is neither of the three commands])
-                :Returns failure message 
+                :Returns failure message
                 (Invalid Command);
 
         endif
