@@ -38,6 +38,7 @@ public class EditGroupCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
     public static final String MESSAGE_DUPLICATE_GROUP = "There is already a group with the group code"
         + " you want to change it to.";
+    public static final String MESSAGE_NO_CHANGES = "You have made no changes to the group.";
 
     private final Group group;
     private final String targetModule;
@@ -63,6 +64,10 @@ public class EditGroupCommand extends Command {
 
         if (!actualModule.hasGroup(group)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
+        }
+
+        if(newGroupCode.equals(group.getIdentifier()) && newGroupType == null) {
+            throw new CommandException(MESSAGE_NO_CHANGES);
         }
 
         if (!newGroupCode.equals(group.getIdentifier())) {
