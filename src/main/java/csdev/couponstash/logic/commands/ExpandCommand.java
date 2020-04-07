@@ -9,6 +9,8 @@ import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.ui.CouponWindow;
+import javafx.stage.Stage;
 
 /**
  * Expand a Coupon in the CouponStash.
@@ -41,6 +43,10 @@ public class ExpandCommand extends IndexedCommand {
         }
 
         Coupon couponToExpand = lastShownList.get(targetIndex.getZeroBased());
+
+        Stage couponWindow = new CouponWindow(couponToExpand,
+                model.getStashSettings().getMoneySymbol().toString()).getRoot();
+        couponWindow.show();
 
         return new CommandResult(String.format(MESSAGE_EXPAND_COUPON_SUCCESS,
                 couponToExpand.getName()));
