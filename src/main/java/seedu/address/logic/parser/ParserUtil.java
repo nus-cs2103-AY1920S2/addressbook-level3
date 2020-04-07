@@ -28,6 +28,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Note;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Visit;
 import seedu.address.model.tag.Tag;
@@ -168,7 +169,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> remarks} into a {@code Set<Remark>}.
+     * Parses {@code Collection<String> remarks} into a {@code ArrayList<Remark>}.
      */
     public static ArrayList<Remark> parseRemarks(Collection<String> remarks) throws ParseException {
         requireNonNull(remarks);
@@ -180,10 +181,35 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String remark} into a {@code Remark}.
+     * Parses a {@code String note} into a {@code Note}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code remark} is invalid.
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+
+        return new Note(trimmedNote);
+    }
+
+    /**
+     * Parses {@code Collection<String> notes} into a {@code ArrayList<Note>}.
+     */
+    public static ArrayList<Note> parseNotes(Collection<String> notes) throws ParseException {
+        requireNonNull(notes);
+        final ArrayList<Note> noteArrayList = new ArrayList<>();
+        for (String noteName : notes) {
+            noteArrayList.add(parseNote(noteName));
+        }
+        return noteArrayList;
+    }
+
+    /**
+     * Parses a {@code String line} into a {@code Integer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code line} is invalid.
      */
     public static Integer parseLine(String line) throws ParseException {
         requireNonNull(line);
@@ -193,7 +219,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> remarks} into a {@code Set<Remark>}.
+     * Parses {@code Collection<String> remarks} into a {@code ArrayList<Remark>}.
      */
     public static ArrayList<Integer> parseLines(Collection<String> lines) throws ParseException {
         requireNonNull(lines);

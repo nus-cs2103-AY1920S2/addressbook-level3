@@ -17,8 +17,8 @@ import seedu.address.model.person.Remark;
  */
 public class EditInfoCommandParser implements Parser<EditInfoCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the {@code RemarkCommand}
-     * and returns a {@code RemarkCommand} object for execution.
+     * Parses the given {@code String} of arguments in the context of the {@code EditInfoCommand}
+     * and returns a {@code EditInfoCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditInfoCommand parse(String args) throws ParseException {
