@@ -128,9 +128,9 @@ to to improve your user experience of EYLAH.
 | <<clearreceipt, clearreceipt>>
 
 | <<calculatebmi, bmi>>
-| <<help, help>>
+| <<expensesplitterhelp, help>>
 
-|
+| <<diettrackerhelp, help>>
 | <<back, back>>
 
 |===
@@ -271,6 +271,7 @@ Example:
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
 '''
+
 [[calculatebmi]]
 ==== Calculate Body Mass Index (BMI) `bmi`
 
@@ -299,6 +300,16 @@ BMI is calculated based off the stored height and weight in this instance.
 Calculate BMI based on the input height and weight values.
 
 '''
+
+[[diettrackerhelp]]
+==== Diet Tracker `help`
+
+
+
+'''
+
+
+
 
 === Expense Splitter : `split`
 Splitting the items' cost with friends. All you have to do is add the item,
@@ -466,7 +477,7 @@ and delete items using the `deleteitem` command.
 
 '''
 
-[[help]]
+[[expensesplitterhelp]]
 ==== Display the available commands `help`
 
 Use this command to view the available commands.
