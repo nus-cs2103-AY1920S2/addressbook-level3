@@ -1,8 +1,10 @@
-package seedu.recipe.logic.commands;
+package seedu.recipe.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
+import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.model.Model;
 import seedu.recipe.ui.tab.Tab;
 

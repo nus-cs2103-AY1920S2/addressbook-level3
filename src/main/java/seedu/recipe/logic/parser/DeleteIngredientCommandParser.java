@@ -16,9 +16,9 @@ import java.util.Set;
 
 import seedu.recipe.commons.core.index.Index;
 
-import seedu.recipe.logic.commands.DeleteIngredientCommand;
-import seedu.recipe.logic.commands.EditCommand;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.DeleteIngredientCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 
 import seedu.recipe.model.recipe.ingredient.Fruit;

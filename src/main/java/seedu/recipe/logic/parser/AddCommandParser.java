@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.recipe.logic.commands.AddCommand;
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;

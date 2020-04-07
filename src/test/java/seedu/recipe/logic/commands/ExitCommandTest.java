@@ -1,10 +1,11 @@
 package seedu.recipe.logic.commands;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.recipe.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.recipe.logic.commands.common.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.common.ExitCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 

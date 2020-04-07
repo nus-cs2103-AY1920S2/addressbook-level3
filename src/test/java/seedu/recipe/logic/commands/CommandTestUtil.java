@@ -19,6 +19,7 @@ import java.util.List;
 
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.logic.commands.recipe.EditCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;

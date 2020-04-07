@@ -37,7 +37,7 @@ import static seedu.recipe.testutil.TypicalRecipes.TURKEY_SANDWICH;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.AddCommand;
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Recipe;

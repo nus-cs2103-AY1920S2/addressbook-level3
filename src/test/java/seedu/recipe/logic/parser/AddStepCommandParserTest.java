@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.AddStepCommand;
+import seedu.recipe.logic.commands.recipe.AddStepCommand;
 import seedu.recipe.model.recipe.Step;
 
 /**

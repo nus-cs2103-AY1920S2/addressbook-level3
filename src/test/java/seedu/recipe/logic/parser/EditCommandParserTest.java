@@ -31,8 +31,8 @@ import static seedu.recipe.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
 import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.EditCommand;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.EditCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;

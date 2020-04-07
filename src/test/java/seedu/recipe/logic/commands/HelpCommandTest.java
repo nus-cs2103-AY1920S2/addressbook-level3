@@ -1,10 +1,11 @@
 package seedu.recipe.logic.commands;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.recipe.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.recipe.logic.commands.common.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.common.HelpCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 

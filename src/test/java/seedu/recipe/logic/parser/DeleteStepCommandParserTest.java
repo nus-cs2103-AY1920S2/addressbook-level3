@@ -7,7 +7,7 @@ import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.DeleteStepCommand;
+import seedu.recipe.logic.commands.recipe.DeleteStepCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

@@ -31,7 +31,8 @@ public class GroceryListWindow extends UiPart<Stage> {
      */
     public GroceryListWindow(Stage root, String groceries) {
         super(FXML, root);
-        // todo make getter method in list X // analyse how command result is being displayed, how to pass a message from logic to  model to UI
+        // todo make getter method in list X
+        // analyse how command result is being displayed, how to pass a message from logic to  model to UI
         groceryList.setText(groceries);
     }
     

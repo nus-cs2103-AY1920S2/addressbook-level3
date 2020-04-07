@@ -2,7 +2,7 @@ package seedu.recipe.logic.parser;
 
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.recipe.logic.commands.FindCommand;
+import seedu.recipe.logic.commands.recipe.FindCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
 

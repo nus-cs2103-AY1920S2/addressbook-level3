@@ -9,6 +9,7 @@ import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.recipe.ListCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;

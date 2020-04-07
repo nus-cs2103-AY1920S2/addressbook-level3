@@ -1,4 +1,4 @@
-package seedu.recipe.logic.commands;
+package seedu.recipe.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
@@ -24,6 +24,9 @@ import java.util.TreeSet;
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.commons.util.CollectionUtil;
+import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CommandResult;
+import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.goal.Goal;

@@ -21,9 +21,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.recipe.logic.commands.AddCommand;
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.logic.commands.CommandResult;
-import seedu.recipe.logic.commands.ListCommand;
+import seedu.recipe.logic.commands.recipe.ListCommand;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Model;

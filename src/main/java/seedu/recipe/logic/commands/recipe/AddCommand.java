@@ -1,4 +1,4 @@
-package seedu.recipe.logic.commands;
+package seedu.recipe.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
@@ -11,6 +11,9 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 
+import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CommandResult;
+import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;

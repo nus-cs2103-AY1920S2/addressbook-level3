@@ -1,7 +1,9 @@
-package seedu.recipe.logic.commands;
+package seedu.recipe.logic.commands.plan;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.PlannedRecipeWithinDateRangePredicate;

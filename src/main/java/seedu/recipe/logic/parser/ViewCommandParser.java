@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 
-import seedu.recipe.logic.commands.ViewCommand;
+import seedu.recipe.logic.commands.plan.ViewCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedRecipeWithinDateRangePredicate;

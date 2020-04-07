@@ -2,10 +2,11 @@
 package seedu.recipe.logic.commands;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.recipe.logic.commands.SwitchCommand.MESSAGE_SUCCESS;
+import static seedu.recipe.logic.commands.common.SwitchCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.common.SwitchCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.ui.tab.Tab;
