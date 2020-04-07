@@ -5,11 +5,18 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
+import seedu.recipe.model.recipe.ingredient.Fruit;
+import seedu.recipe.model.recipe.ingredient.Grain;
+import seedu.recipe.model.recipe.ingredient.MainIngredientType;
+import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
+import seedu.recipe.model.recipe.ingredient.Protein;
+import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
  * A list of recipes that enforces uniqueness between its elements and does not allow nulls.
@@ -28,8 +35,8 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private final ObservableList<Recipe> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    private final ObservableList<Recipe> internalQuantityList = FXCollections.observableArrayList();
-    private final ObservableList<Recipe> internalUnmodifiableQuantityList =
+    private final ObservableList<MainTypeMagnitude> internalQuantityList = FXCollections.observableArrayList();
+    private final ObservableList<MainTypeMagnitude> internalUnmodifiableQuantityList =
             FXCollections.unmodifiableObservableList(internalQuantityList);
 
 //======================================RECIPE======================================
@@ -100,6 +107,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
 
         internalList.setAll(recipes);
+        setAllQuantityTally();
     }
 
     /**
@@ -141,7 +149,64 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     }
 
 //======================================QUANTITY======================================
-    private void setQuantityTally() {
+    private void setAllQuantityTally() {
+        for (int i = 0; i < internalList.size(); i++) {
+            Recipe recipe = internalList.get(i);
+            internalQuantityList.add(i, calculateTally(recipe));
+        }
+    }
+
+    private MainTypeMagnitude calculateTally(Recipe recipe) {
+        double vegCount = 0;
+        double fruitCount = 0;
+        double proteinCount = 0;
+        double grainCount = 0;
+        fruitCount += calculateFruitsQuantity(recipe.getFruits());
+        grainCount += calculateGrainsQuantity(recipe.getGrains());
+        proteinCount += calculateProteinQuantity(recipe.getProteins());
+        vegCount += calculateVegQuantity(recipe.getVegetables());
+        MainTypeMagnitude tally = new MainTypeMagnitude(vegCount, fruitCount, proteinCount, grainCount);
+        return tally;
 
     }
+
+    private double calculateFruitsQuantity(Set<Fruit> fruits) {
+        double totalMagnitude = 0;
+        for(Fruit fruit: fruits) {
+            totalMagnitude += fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
+        }
+        return totalMagnitude;
+    }
+
+    private double calculateVegQuantity(Set<Vegetable> vegetables) {
+        double totalMagnitude = 0;
+        for(Vegetable veg: vegetables) {
+            totalMagnitude += veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
+        }
+        return totalMagnitude;
+    }
+
+    private double calculateProteinQuantity(Set<Protein> proteins) {
+        double totalMagnitude = 0;
+        for(Protein protein: proteins) {
+            totalMagnitude += protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
+        }
+        return totalMagnitude;
+    }
+
+    private double calculateGrainsQuantity(Set<Grain> grains) {
+        double totalMagnitude = 0;
+        for(Grain grain: grains) {
+            totalMagnitude += grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
+        }
+        return totalMagnitude;
+    }
+
+    /**
+     * Returns the quantity tally list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<MainTypeMagnitude> getQuantityTally() {
+        return internalUnmodifiableQuantityList;
+    }
+
 }

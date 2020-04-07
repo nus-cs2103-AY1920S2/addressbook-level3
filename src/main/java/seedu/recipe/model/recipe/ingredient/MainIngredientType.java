@@ -1,6 +1,6 @@
 package seedu.recipe.model.recipe.ingredient;
 
-public enum IngredientType {
+public enum MainIngredientType {
     VEGETABLE,
     PROTEIN,
     GRAIN,

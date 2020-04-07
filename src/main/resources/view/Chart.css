@@ -1,7 +1,6 @@
 /* Chart background */
 .chart {
     -fx-padding: 10px;
-    -fx-background-color: #blue;
     -fx-start-angle:30;
     -fx-legend-side: right;
 }

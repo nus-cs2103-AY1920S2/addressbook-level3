@@ -22,20 +22,20 @@ public class Quantity {
      * from https://www.thecalculatorsite.com/cooking/cups-grams.php.
      * @param ingredientType
      */
-    public Quantity convertToGram(IngredientType ingredientType) {
+    public double convertToGram(MainIngredientType ingredientType) {
         double newMagnitude = this.magnitude;
         switch(this.unit) {
             case CUP:
-                if(ingredientType == IngredientType.GRAIN) {
+                if(ingredientType == MainIngredientType.GRAIN) {
                     //eg rice
                     newMagnitude = this.magnitude * 145;
-                } else if(ingredientType == IngredientType.PROTEIN) {
+                } else if(ingredientType == MainIngredientType.PROTEIN) {
                     //eg minced beef
                     newMagnitude = this.magnitude * 225;
-                } else if(ingredientType == IngredientType.VEGETABLE) {
+                } else if(ingredientType == MainIngredientType.VEGETABLE) {
                     //eg beans
                     newMagnitude = this.magnitude * 200;
-                } else if (ingredientType == IngredientType.FRUIT) {
+                } else if (ingredientType == MainIngredientType.FRUIT) {
                     //eg apple
                     newMagnitude = this.magnitude * 160;
                 }
@@ -55,7 +55,7 @@ public class Quantity {
             default:
                 throw new IllegalStateException("Unexpected value: " + this.unit);
         }
-        return new Quantity(newMagnitude, Unit.GRAM);
+        return newMagnitude;
     }
 
     public Unit getUnit() {

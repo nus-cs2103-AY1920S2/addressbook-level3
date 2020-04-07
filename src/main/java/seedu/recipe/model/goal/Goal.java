@@ -3,7 +3,7 @@ package seedu.recipe.model.goal;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
-import seedu.recipe.model.recipe.ingredient.IngredientType;
+import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 
 /**
  * Represents a Goal in the recipe book.
@@ -15,7 +15,7 @@ public class Goal {
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     public final String goalName;
-    private final IngredientType ingredientType;
+    private final MainIngredientType ingredientType;
 
     /**
      * Constructs a {@code Goal}.
@@ -25,7 +25,8 @@ public class Goal {
     public Goal(String goalName) {
         requireNonNull(goalName);
         checkArgument(isValidGoalName(goalName), MESSAGE_CONSTRAINTS);
-        this.goalName = setGoalName();
+        this.goalName = goalName;
+        //this.goalName = setGoalName();
         this.ingredientType = null;
     }
 
