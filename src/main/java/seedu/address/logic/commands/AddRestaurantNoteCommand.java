@@ -39,7 +39,7 @@ public class AddRestaurantNoteCommand extends Command {
             + PREFIX_BAD + "Risotto";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Restaurant: %1$s";
-    public static final String MESSAGE_EMPTY = "No note added to Restaurant: %1$s";
+    public static final String MESSAGE_EMPTY = "No note added to Restaurant";
 
     private final Index index;
     private final ArrayList<Note> recommendedFood;

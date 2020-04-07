@@ -31,13 +31,13 @@ public class EditRestaurantNoteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
-            + PREFIX_LINE_NUMBER_RECOMMENDED + "LINE_NUMBER " + PREFIX_RECOMMENDED + "INFO "
-            + PREFIX_LINE_NUMBER_GOOD + "LINE_NUMBER " + PREFIX_GOOD + "INFO "
-            + PREFIX_LINE_NUMBER_BAD + "LINE_NUMBER " + PREFIX_BAD + "INFO\n"
+            + "[" + PREFIX_LINE_NUMBER_RECOMMENDED + "LINE_NUMBER " + PREFIX_RECOMMENDED + "INFO] "
+            + "[" + PREFIX_LINE_NUMBER_GOOD + "LINE_NUMBER " + PREFIX_GOOD + "INFO] "
+            + "[" + PREFIX_LINE_NUMBER_BAD + "LINE_NUMBER " + PREFIX_BAD + "INFO]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_LINE_NUMBER_RECOMMENDED + " 2 " + PREFIX_RECOMMENDED + " Lobster pasta "
-            + PREFIX_LINE_NUMBER_GOOD + " 1 " + PREFIX_GOOD + " Mushroom soup "
-            + PREFIX_LINE_NUMBER_BAD + " 3 " + PREFIX_BAD + " Salad";
+            + PREFIX_LINE_NUMBER_RECOMMENDED + "2 " + PREFIX_RECOMMENDED + "Lobster pasta "
+            + PREFIX_LINE_NUMBER_GOOD + "1 " + PREFIX_GOOD + "Mushroom soup "
+            + PREFIX_LINE_NUMBER_BAD + "3 " + PREFIX_BAD + "Salad";
 
     public static final String MESSAGE_EDIT_REMARK_SUCCESS = "Edited notes for restaurant: %1$s";
     public static final String MESSAGE_EMPTY_REC = "No recommended food to be edited is provided.";
