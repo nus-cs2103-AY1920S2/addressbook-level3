@@ -526,6 +526,9 @@ Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 * You cannot add a student to a group that does not exist inside the given module.
 
 * You cannot add multiple students with the same matric number inside the same module group.
+
+* Student names are auto-capitalized. However, if the name includes a hyphen (-) with no
+space after the hyphen, the second half of the name will not be capitalised.
 ====
 
 ====
