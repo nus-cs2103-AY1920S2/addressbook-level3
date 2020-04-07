@@ -13,7 +13,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
@@ -51,13 +50,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_integerOverFlow_throwsOverflowException() {
-        assertThrows(OverflowException.class, MESSAGE_INDEX_OVERFLOW, ()
+        assertThrows(ParseException.class, MESSAGE_INDEX_OVERFLOW, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1L)));
     }
 
     @Test
     public void parseIndex_longOverFlow_throwsOverflowException() {
-        assertThrows(OverflowException.class, MESSAGE_INDEX_OVERFLOW, ()
+        assertThrows(ParseException.class, MESSAGE_INDEX_OVERFLOW, ()
             -> ParserUtil.parseIndex("9223372036854775808"));
     }
 

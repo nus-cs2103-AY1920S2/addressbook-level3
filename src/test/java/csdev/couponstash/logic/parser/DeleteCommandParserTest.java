@@ -27,14 +27,23 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser,
-                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                "a", String.format(
+                        ParserUtil.MESSAGE_INVALID_INDEX + "\n\n"
+                                + MESSAGE_INVALID_COMMAND_FORMAT,
+                        DeleteCommand.MESSAGE_USAGE
+                )
+        );
     }
 
     @Test
     public void parse_integerOverflow_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser,
                 Long.toString(Integer.MAX_VALUE + 1L),
-                ParserUtil.MESSAGE_INDEX_OVERFLOW
+                String.format(
+                        ParserUtil.MESSAGE_INDEX_OVERFLOW + "\n\n"
+                                + MESSAGE_INVALID_COMMAND_FORMAT,
+                        DeleteCommand.MESSAGE_USAGE
+                )
         );
     }
 }

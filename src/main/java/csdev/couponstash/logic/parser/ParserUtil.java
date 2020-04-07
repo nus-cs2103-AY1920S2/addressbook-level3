@@ -16,7 +16,6 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.commons.util.StringUtil;
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 import csdev.couponstash.model.coupon.Condition;
@@ -51,11 +50,11 @@ public class ParserUtil {
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException, OverflowException {
+    public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
 
         if (StringUtil.isIntegerOverflow(trimmedIndex)) {
-            throw new OverflowException(MESSAGE_INDEX_OVERFLOW);
+            throw new ParseException(MESSAGE_INDEX_OVERFLOW);
         }
 
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {

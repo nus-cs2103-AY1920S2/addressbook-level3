@@ -48,15 +48,19 @@ public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_INVALID_FORMAT = ParserUtil.MESSAGE_INVALID_INDEX + "\n\n"
+            + String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser(VALID_MONEY_SYMBOL.toString());
 
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        CommandParserTestUtil.assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(
+                parser,
+                VALID_NAME_AMY,
+                MESSAGE_INVALID_FORMAT
+        );
 
         // no field specified
         CommandParserTestUtil.assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -220,7 +224,11 @@ public class EditCommandParserTest {
     public void parse_integerOverflow_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser,
                 Long.toString(Integer.MAX_VALUE + 1L),
-                ParserUtil.MESSAGE_INDEX_OVERFLOW
+                String.format(
+                        ParserUtil.MESSAGE_INDEX_OVERFLOW + "\n\n"
+                                + MESSAGE_INVALID_COMMAND_FORMAT,
+                        EditCommand.MESSAGE_USAGE
+                )
         );
     }
 }
