@@ -79,10 +79,6 @@ public class Statistic {
         return getTotalHours() * taTracker.getRate();
     }
 
-    public double getTotalPay() {
-        return getTotalHours() * 40; //TODO: Change 40 to rate
-    }
-
     /**
      * Represents a Statistics entry containing a Student's name and their associated rating.
      */
