@@ -526,11 +526,11 @@ Examples:
 * `weekreport`
 * `weekreport 2020-02-14`
 
-=== Sort food/sports entry list `sort`
+=== Sort food/sports entry list: `sort`
 
 Sorts food or sports entry list, or both of them, based on starting time or
 calorie value or name of the entry (case insensitive), in either ascending or descending order.
-In addition, the reminder entry list will also be sorted in the same manner specified by the user.
+In addition, the reminders entry list will also be sorted in the same manner specified by the user.
 The user must specify the sorting criterion `cal/c OR time/t OR name/n`.
 If the user does not specify the type of entry list, both lists will be sorted.
 And if the user does not specify the sorting order `a OR d`,
@@ -542,12 +542,12 @@ format: `sort [x/TYPE] by/SORT_BY [o/ORDER]`
 
 Examples:
 
-* `sort x/f by/time o/a` (sort food entry list and reminder list in ascending order of recording time,
+* `sort x/f by/time o/a` (sort food entry list and reminders list in ascending order of recording time,
 i.e. the older entry comes first)
-* `sort by/c` (sort both food and sports entry list, as well as reminder list,
+* `sort by/c` (sort both food and sports entry list, as well as reminders list,
 in descending order of calorie value, i.e. entry with higher calorie intake/consumption comes first)
 
-=== Check calorie intake/consumption of common food/sports
+=== Check calorie intake/consumption of common food/sports: `check`
 
 Searches through the pre-set database for calorie intake/consumption information
 about common food/sports (i.e. a datum) whose name matches/contains keywords specified by the user.

@@ -48,8 +48,8 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "please refer to the user guide via\n";
     public static final String USERGUIDE_URL =
             "https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/docs/UserGuide.adoc\n";
-    public static final String URL_COPED =
-            "(We have already stored the url in your clipboard, use ctrl + v in your browser to access the guide)";
+    public static final String URL_COPED = "(We have already copied the url into your clipboard,"
+            + " press ctrl + v in your browser's url bar to visit the guide)";
     public static final String HELP_MESSAGE = LIST_OF_VALID_COMMANDS;
     public static final String SHOW_URL = LOOK_FOR_URL + USERGUIDE_URL + URL_COPED;
     private static final String FXML = "HelpWindow.fxml";
