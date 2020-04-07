@@ -88,7 +88,7 @@ The following sub-sections describes the features you can use in *CookBuddy*.
 * Words in square brackets indicate that they are optional. `[t/TAG]` means the `t/` parameter is optional.
 ****
 
-===  Help — `help` (V1.4)
+===  Help — `help`
 You can list all the commands recognised by *CookBuddy* by typing `help` into the command box and pressing kbd:[Enter].
 
 If you also specify a command, *CookBuddy* will show how to use that specific command.
