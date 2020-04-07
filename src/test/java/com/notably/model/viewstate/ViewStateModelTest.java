@@ -2,8 +2,10 @@ package com.notably.model.viewstate;
 
 import static com.notably.testutil.Assert.assertThrows;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import javafx.beans.property.BooleanProperty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +15,22 @@ public class ViewStateModelTest {
     @BeforeEach
     public void setUpBeforeEach() {
         viewStateModel = new ViewStateModelImpl();
+    }
+
+    //============ HelpFlagModelModel =============================================================
+    @Test
+    public void helpOpenProperty_void_returnsValidProperty() {
+        assertNotNull(viewStateModel.helpOpenProperty());
+    }
+
+    @Test
+    public void isHelpOpen_void_returnsValidBoolean() {
+        assertNotNull(viewStateModel.isHelpOpen());
+    }
+
+    @Test
+    public void setHelpOpen_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> viewStateModel.setHelpOpen(null));
     }
 
     //============ BlockEditFlagModel =============================================================
