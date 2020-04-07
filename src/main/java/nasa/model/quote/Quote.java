@@ -8,10 +8,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import nasa.commons.core.LogsCenter;
 
 /**

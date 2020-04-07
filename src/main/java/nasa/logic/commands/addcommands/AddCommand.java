@@ -22,8 +22,8 @@ public class AddCommand extends Command {
         "The module does not exist!";
 
 
-    private final Activity toAdd;
-    private final ModuleCode moduleCode;
+    public final Activity toAdd;
+    public final ModuleCode moduleCode;
 
     /**
      * Creates an AddCommand that adds {@code activity} to list of {@code moduleCode}.

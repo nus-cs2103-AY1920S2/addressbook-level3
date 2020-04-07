@@ -1,7 +1,5 @@
 package nasa.model.activity;
 
-import static java.util.Objects.requireNonNull;
-import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -10,29 +8,24 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Deadline extends Activity {
 
-    public static final String DUE_DATE_CONSTRAINTS =
-            "Deadline should be after date of creation.";
-
     private Date dueDate;
+    private Priority priority;
 
+    private boolean isDone;
+    private boolean isOverdue;
+
+    /**
+     * Constructor to create a new deadline.
+     * @param name Name of deadline
+     * @param dueDate date the deadline is due
+     */
     public Deadline(Name name, Date dueDate) {
         super(name);
-        requireNonNull(dueDate);
-        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
+        requireAllNonNull(dueDate);
         this.dueDate = dueDate;
-    }
-
-    public Deadline(Name name, Date dueDate, Note note) {
-        super(name, note);
-        requireNonNull(dueDate);
-        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
-        this.dueDate = dueDate;
-    }
-
-    public Deadline(Name name, Note note, Priority priority, Date dueDate) {
-        super(name, note, priority);
-        requireAllNonNull(name, dueDate);
-        this.dueDate = dueDate;
+        priority = new Priority();
+        isDone = false;
+        isOverdue = isOverdue();
     }
 
     /**
@@ -45,68 +38,85 @@ public class Deadline extends Activity {
      * @param priority Priority
      * @param dueDate Date
      */
-    public Deadline(Name name, Date date, Note note, Status status, Priority priority, Date dueDate) {
-        super(name, date, note, status, priority);
+    public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate) {
+        super(name, date, note);
+        this.priority = priority;
         this.dueDate = dueDate;
     }
 
+    /**
+     * Method to return due date of the deadline.
+     * @return dueDate
+     */
     public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date date) {
-        this.dueDate = date;
-        this.updateStatus();
+    /**
+     * Method to set the dueDate.
+     */
+    public void setDueDate(Date dueDate) {
+        requireAllNonNull(dueDate);
+        this.dueDate = dueDate;
     }
 
     /**
-     * Return the difference in due date and date of creation.
-     * @return int
+     * Method to get the priority.
+     * @return
      */
-    public int getDifferenceInDay() {
-        return dueDate.getDifference(getDate());
-    }
-
-    public int getDifferenceInDate() {
-        return dueDate.getDifference(Date.now());
+    public Priority getPriority() {
+        return priority;
     }
 
     /**
-     * Calculate the percentage base on comparison.
-     * @param toCompare Date
-     * @return int
+     * Method to set the priority.
+     * @param priority
      */
-    public int percentage(Date toCompare) {
-        int difference = toCompare.getDifference(getDate());
-        double result = 100 * ((double) difference / getDifferenceInDay());
-        return difference == 0 ? 0 : (int) result;
+    public void setPriority(Priority priority) {
+        requireAllNonNull(priority);
+        this.priority = priority;
     }
 
-    @Override
-    public void updateStatus() {
-        if (status == Status.ONGOING && Date.now().isAfter(getDueDate())) {
-            status = Status.LATE;
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void unmarkAsDone() {
+        isDone = false;
+        if (isOverdue()) {
+            isOverdue = true;
+        } else {
+            isOverdue = false;
         }
     }
 
-    public static boolean isExpiredDueDate(Date date) {
-        return date.isAfter(Date.now());
-    }
-
-    @Override
-    public Deadline regenerate() {
-        super.getSchedule().update();
-        if (Date.now().isAfter(dueDate)) {
-            setDueDate(getSchedule().getDate().addDaysToCurrDate(getDifferenceInDay()));
-            super.setDate(super.getSchedule().getDate());
-            setStatus(Status.ONGOING);
-        }
-        return this;
+    private boolean isOverdue() {
+        return !isDone && Date.now().isAfter(dueDate);
     }
 
     @Override
     public boolean occurInMonth(int month) {
-        int dueDateMonth = dueDate.getDate().getMonth().getValue();
+        int dueDateMonth = this.dueDate.getDate().getMonth().getValue();
         return month == dueDateMonth;
+    }
+
+    @Override
+    public Activity deepCopy() {
+        Deadline copy = new Deadline(getName(), getDueDate());
+        copy.setDateCreated(getDateCreated());
+        copy.setPriority(priority);
+        copy.setNote(getNote());
+        if (isDone) {
+            copy.markAsDone();
+        }
+        return copy;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }

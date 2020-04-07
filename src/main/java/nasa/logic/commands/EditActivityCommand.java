@@ -9,6 +9,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
+import java.util.List;
 import java.util.Optional;
 
 import nasa.commons.core.Messages;
@@ -82,14 +83,14 @@ public class EditActivityCommand extends Command {
 
         requireNonNull(module);
 
-        UniqueActivityList moduleUniqueActivityList = module.getActivities();
+        List<Activity> lastShownList = moduleUniqueActivityList.getActivityList();
 
-        if (index.getZeroBased() >= moduleUniqueActivityList.getActivityList().size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
                     Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        Activity activityToEdit = moduleUniqueActivityList.getActivityByIndex(index);
+        Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
 
         requireNonNull(editedActivity);

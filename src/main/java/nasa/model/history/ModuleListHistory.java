@@ -3,7 +3,6 @@ package nasa.model.history;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

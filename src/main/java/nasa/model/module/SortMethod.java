@@ -2,9 +2,7 @@ package nasa.model.module;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
-
 import java.util.Comparator;
-
 import nasa.model.activity.Activity;
 
 /**

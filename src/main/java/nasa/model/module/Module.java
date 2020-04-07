@@ -5,13 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
-import nasa.model.activity.Name;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 
 /**
  * Abstract class to specify fields with getter and setters for modules.
@@ -19,24 +21,31 @@ import nasa.model.activity.UniqueActivityList;
 public class Module {
 
     private ModuleCode moduleCode;
-    private UniqueActivityList activityList;
-    private FilteredList<Activity> filteredActivity;
+    private UniqueEventList eventList;
+    private FilteredList<Event> filteredEvent;
+    private UniqueDeadlineList deadlineList;
+    private FilteredList<Deadline> filteredDeadline;
     private ModuleName moduleName;
 
     /**
      * Constructs a {@code module}
+     *
      * @param moduleCode ModuleCode
      * @param moduleName ModuleName
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
-        this.activityList = new UniqueActivityList();
-        this.filteredActivity = new FilteredList<>(activityList.getActivityList());
+
+        this.eventList = new UniqueEventList();
+        this.deadlineList = new UniqueDeadlineList();
+        this.filteredEvent = new FilteredList<>(eventList.getActivityList());
+        this.filteredDeadline = new FilteredList<>(deadlineList.getActivityList());
         this.moduleName = moduleName;
     }
 
     /**
      * Retrieve the moduleCode of the module.
+     *
      * @return String moduleCode
      */
     public ModuleCode getModuleCode() {
@@ -46,106 +55,126 @@ public class Module {
     /**
      * Sets the module moduleCode to a new moduleCode.
      * Used for editing module code.
+     *
      * @param moduleCode of the module
      */
     public void setModuleCode(ModuleCode moduleCode) {
         this.moduleCode = moduleCode;
     }
 
-    public boolean contains(Activity activity) {
-        return activityList.contains(activity);
+    public void addDeadline(Deadline deadline) {
+        deadlineList.add(deadline);
     }
 
-    public void add(Activity toAdd) {
-        activityList.add(toAdd);
+    public void addEvent(Event event) {
+        eventList.add(event);
     }
 
-    public void setActivity(Activity target, Activity editedActivity) {
-        activityList.setActivity(target, editedActivity);
+    public void setDeadline(Deadline target, Deadline editedDeadline) {
+        deadlineList.setActivity(target, editedDeadline);
+    }
+
+    public void setEvent(Event target, Event editedEvent) {
+        eventList.setActivity(target, editedEvent);
     }
 
     public ModuleName getModuleName() {
         return moduleName;
     }
 
-    public void remove(Activity toRemove) {
-        activityList.remove(toRemove);
+    public void removeDeadline(Deadline toRemove) {
+        deadlineList.remove(toRemove);
     }
 
-    public void removeActivityByIndex(Index index) {
-        activityList.removeByIndex(index);
+    public void removeEvent(Event toRemove) {
+        eventList.remove(toRemove);
     }
 
-    public UniqueActivityList getActivities() {
-        return activityList;
+    public UniqueDeadlineList getDeadlineList() {
+        return deadlineList;
     }
 
-    public boolean hasActivity(Name name) {
-        return activityList.hasActivity(name);
+    public UniqueEventList getEventList() {
+        return eventList;
     }
 
-    public void setActivities(UniqueActivityList replacement) {
-        activityList.setActivities(replacement);
+    public void setDeadlines(UniqueDeadlineList replacement) {
+        deadlineList.setActivities(replacement);
     }
 
-    /**
-     * Replaces the contents of this list with {@code activities}
-     * {@code activities} must not contain duplicate activities.
-     * @param activities List
-     */
-    public void setActivities(List<Activity> activities) {
-        activityList.setActivities(activities);
+    public void setEvents(UniqueEventList replacement) {
+        eventList.setActivities(replacement);
     }
 
-    public Activity getActivityByIndex(Index index) {
-        return activityList.getActivityByIndex(index);
+    public void setDeadlines(List<Deadline> deadlines) {
+        deadlineList.setActivities(deadlines);
     }
 
-    public Activity getActivityByName(Name name) {
-        return activityList.getActivityByName(name);
+    public void setEvents(List<Event> events) {
+        eventList.setActivities(events);
     }
 
-    public ObservableList<Activity> getFilteredActivityList() {
-        return filteredActivity;
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return filteredDeadline;
     }
 
-    public ObservableList<Activity> getDeepCopyList() {
-        return activityList.getDeepCopyList();
+    public ObservableList<Event> getFilteredEventList() {
+        return filteredEvent;
+    }
+
+    public ObservableList<Activity> getDeepCopyDeadlineList() {
+        return deadlineList.getDeepCopyList();
+    }
+
+    public ObservableList<Activity> getDeepCopyEventList() {
+        return eventList.getDeepCopyList();
     }
 
     public Module getDeepCopyModule() {
         Module newModule = new Module(getModuleCode(), getModuleName());
-        newModule.setActivities(activityList.getDeepCopyList());
+        ObservableList<Activity> deadlines = deadlineList.getDeepCopyList();
+        ObservableList<Deadline> deadlinesCopy = FXCollections.observableArrayList();
+        for (Activity activity : deadlines) {
+            deadlinesCopy.add((Deadline) activity);
+        }
+        newModule.setDeadlines(deadlinesCopy);
+        ObservableList<Activity> events = eventList.getDeepCopyList();
+
+        ObservableList<Event> eventsCopy = FXCollections.observableArrayList();
+        for (Activity activity : events) {
+            eventsCopy.add((Event) activity);
+        }
+        newModule.setEvents(eventsCopy);
         return newModule;
     }
 
-    public void setActivityByIndex(Index index, Activity activity) {
-        activityList.setActivityByIndex(index, activity);
+    public Iterator<Deadline> deadlineIterator() {
+        return deadlineList.iterator();
     }
 
-    public void editActivityByIndex(Index index, Object... args) {
-        activityList.editActivityByIndex(index, args);
-    }
-
-    public Iterator<Activity> iterator() {
-        return activityList.iterator();
+    public Iterator<Event> eventIterator() {
+        return eventList.iterator();
     }
 
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
-        filteredActivity.setPredicate(predicate);
+        filteredDeadline.setPredicate(predicate);
+        filteredEvent.setPredicate(predicate);
     }
 
     /**
      * Sorts module's activity list by the specified {@code sortMethod}.
+     *
      * @param sortMethod Method of sorting the activities in the module activity list.
      */
     public void sortActivityList(SortMethod sortMethod) {
         Comparator<Activity> comparator = sortMethod.getComparator();
-        this.activityList.getActivityList().sort(comparator);
+        this.eventList.getActivityList().sort(comparator);
+        this.deadlineList.getActivityList().sort(comparator);
     }
 
     /**
      * Returns true if both modules of the same module code.
+     *
      * @param otherModule the module to be compared to
      * @return true if both modules are the same instance, or both have the same module code, otherwise, false
      */
@@ -155,7 +184,7 @@ public class Module {
         }
 
         return otherModule != null
-                && otherModule.getModuleCode().equals(getModuleCode());
+            && otherModule.getModuleCode().equals(getModuleCode());
     }
 
     /**

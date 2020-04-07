@@ -1,12 +1,17 @@
 package nasa.logic.commands.addcommands;
 
+import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
+import nasa.logic.commands.CommandResult;
+import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.Model;
 import nasa.model.activity.Deadline;
+import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -37,5 +42,18 @@ public class AddDeadlineCommand extends AddCommand {
      */
     public AddDeadlineCommand(Deadline deadline, ModuleCode moduleCode) {
        super(deadline, moduleCode);
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if(!model.hasModule(moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        }
+
+        Module module = model.getModule(moduleCode);
+        module.addDeadline((Deadline) toAdd);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

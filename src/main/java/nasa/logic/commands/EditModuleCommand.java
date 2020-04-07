@@ -14,6 +14,7 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
@@ -69,11 +70,11 @@ public class EditModuleCommand extends Command {
 
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
-        if (moduleToEdit.isSameModule(editedModule) || model.hasModule(editedModule)) {
+        if (moduleToEdit.isSameModule(editedModule) || model.hasModule(editedModule.getModuleCode())) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        model.setModule(moduleToEdit, editedModule);
+        model.setModule(moduleToEdit.getModuleCode(), editedModule);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
 
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
@@ -89,13 +90,17 @@ public class EditModuleCommand extends Command {
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         ModuleName updatedModuleName = editModuleDescriptor.getModuleName().orElse(moduleToEdit.getModuleName());
-        UniqueActivityList activityList = moduleToEdit.getActivities(); // original module's activity list is preserved
-        ObservableList<Activity> filteredActivityList = moduleToEdit.getFilteredActivityList();
+        UniqueDeadlineList deadlineList = moduleToEdit.getDeadlineList();
+        UniqueDeadlineList eventList = moduleToEdit.getDeadlineList();
+        // UniqueActivityList activityList = moduleToEdit.getActivities(); // original module's activity list is preserved
+        // ObservableList<Activity> filteredActivityList = moduleToEdit.getFilteredActivityList();
 
         Module newModule = new Module(updatedModuleCode, updatedModuleName);
 
-        newModule.setActivities(activityList);
-        newModule.setActivities(filteredActivityList);
+        newModule.setDeadlines(replacement);
+        newModule.setEvents(replacement);
+        // newModule.setActivities(activityList);
+        // newModule.setActivities(filteredActivityList);
 
         return newModule;
     }

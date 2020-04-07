@@ -33,7 +33,7 @@ public class AddEventCommandParser extends AddCommandParser {
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
-                        PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
+                        PREFIX_END_DATE, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_ACTIVITY_NAME,
                 PREFIX_START_DATE, PREFIX_END_DATE)
@@ -57,11 +57,6 @@ public class AddEventCommandParser extends AddCommandParser {
                 note = null;
             }
 
-            Priority priority = new Priority();
-            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-            }
-            event.setPriority(priority);
             return new AddEventCommand(event, moduleCode);
         } catch (IllegalArgumentException e) {
             // if the start date is > end date or end date is already in the past

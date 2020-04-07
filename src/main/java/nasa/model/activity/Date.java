@@ -2,7 +2,6 @@ package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;

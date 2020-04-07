@@ -1,24 +1,20 @@
 package nasa.model;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import nasa.commons.core.index.Index;
-import nasa.model.activity.Activity;
-import nasa.model.activity.Name;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
 import nasa.model.module.UniqueModuleList;
 
 /**
  * Wraps all data at the Nasa Book Level
- * Duplicates are not allowed (by .isSameActivity comparison)
+ * Duplicates are not allowed (by .isSameEvent comparison)
  */
 public class NasaBook implements ReadOnlyNasaBook {
 
@@ -50,44 +46,20 @@ public class NasaBook implements ReadOnlyNasaBook {
      * Replaces the contents of the activities of module {@code moduleCode} with {@code activities}
      * {@code activities} must not contain duplicate activities.
      * @param module Module
-     * @return UniqueActivityList
+     * @return UniqueEventList
      */
-    public UniqueActivityList getActivities(Module module) {
-        return moduleList.getActivities(module);
+    public UniqueEventList getEvents(Module module) {
+        return moduleList.getEvents(module.getModuleCode());
     }
 
     /**
      * Replaces the contents of the activities of module {@code moduleCode} with {@code activities}
      * {@code activities} must not contain duplicate activities.
      * @param moduleCode ModuleCode
-     * @return UniqueActivityList
+     * @return UniqueEventList
      */
-    public UniqueActivityList getActivities(ModuleCode moduleCode) {
-        return moduleList.getActivities(moduleCode);
-    }
-
-    /**
-     * Replaces the contents of the activities of module {@code moduleCode} with {@code activities}
-     * {@code activities} must not contain duplicate activities.
-     * @param module Module
-     * @param activities List
-     */
-    public void setActivities(Module module, List<Activity> activities) {
-        Module toEditModule = moduleList.getModule(module);
-        toEditModule.setActivities(activities);
-        moduleList.setModule(module, toEditModule);
-    }
-
-    /**
-     * Replaces the contents of the activities of module {@code moduleCode} with {@code activities}
-     * {@code activities} must not contain duplicate activities.
-     * @param module ModuleCode
-     * @param activities List
-     */
-    public void setActivities(ModuleCode module, List<Activity> activities) {
-        Module toEditModule = moduleList.getModule(module);
-        toEditModule.setActivities(activities);
-        moduleList.setModule(module, toEditModule);
+    public UniqueDeadlineList getDeadline(ModuleCode moduleCode) {
+        return moduleList.getDeadlines(moduleCode);
     }
 
     /**
@@ -106,130 +78,61 @@ public class NasaBook implements ReadOnlyNasaBook {
         this.moduleList.setModules(moduleList);
     }
 
-    /**
-     * Add a single activity to module {@code moduleCode} with {@code activity}
-     * {@code activity} must not contain duplicate activities.
-     * @param module Module
-     * @param activity Activity
-     */
-    public void addActivity(Module module, Activity activity) {
-        requireNonNull(activity);
-
-        Module toEditModule = moduleList.getModule(module);
-        toEditModule.add(activity);
-        moduleList.setModule(module, toEditModule);
-    }
 
     /**
-     * Add a single activity to module {@code moduleCode} with {@code activity}
-     * {@code activity} must not contain duplicate activities.
-     * @param activity Activity
+     * Add a single event to module {@code moduleCode} with {@code event}
+     * {@code event} must not contain duplicate activities.
+     * @param event Event
      * @param moduleCode ModuleCode
      */
-    public void addActivity(ModuleCode moduleCode, Activity activity) {
-        requireNonNull(activity);
+    public void addEvent(ModuleCode moduleCode, Event event) {
+        requireNonNull(event);
 
         Module toEditModule = moduleList.getModule(moduleCode);
-        toEditModule.add(activity);
+        toEditModule.addEvent(event);
     }
 
-    /**
-     * Remove a single activity from module {@code module} with {@code activity}
-     * {@code activity} must exist in the list.
-     * @param activity Activity
-     * @param module Module
-     */
-    public void removeActivity(Module module, Activity activity) {
-        requireNonNull(activity);
-
-        Module toEditModule = moduleList.getModule(module);
-        toEditModule.remove(activity);
-        moduleList.setModule(module, toEditModule);
-    }
 
     /**
-     * Remove a single activity from module {@code module} with {@code activity}
-     * {@code activity} must exist in the list.
-     * @param activity Activity
+     * Remove a single event from module {@code module} with {@code event}
+     * {@code event} must exist in the list.
+     * @param event Event
      * @param moduleCode ModuleCode
      */
-    public void removeActivity(ModuleCode moduleCode, Activity activity) {
-        requireNonNull(activity);
+    public void removeEvent(ModuleCode moduleCode, Event event) {
+        requireNonNull(event);
 
         Module toEditModule = moduleList.getModule(moduleCode);
-        toEditModule.remove(activity);
+        toEditModule.removeEvent(event);
         moduleList.setModule(moduleCode, toEditModule);
     }
 
     /**
-     * Remove module by index.
-     * @param index must not be negative.
-     */
-    public void removeModuleByIndex(Index index) {
-        moduleList.removeByIndex(index);
-    }
-
-    /**
-     * Remove activity by index.
-     * @param index must not be negative.
-     * @param module Module
-     */
-    public void removeActivityByIndex(Module module, Index index) {
-        requireNonNull(module);
-
-        Module toEditModule = moduleList.getModule(module);
-        toEditModule.removeActivityByIndex(index);
-    }
-
-    /**
-     * Remove activity by index.
-     * @param index must not be negative.
+     * Add a single deadline to module {@code moduleCode} with {@code deadline}
+     * {@code deadline} must not contain duplicate activities.
+     * @param deadline Deadline
      * @param moduleCode ModuleCode
      */
-    public void removeActivityByIndex(ModuleCode moduleCode, Index index) {
-        requireNonNull(moduleCode);
+    public void addDeadline(ModuleCode moduleCode, Deadline deadline) {
+        requireNonNull(deadline);
 
         Module toEditModule = moduleList.getModule(moduleCode);
-        toEditModule.removeActivityByIndex(index);
+        toEditModule.addDeadline(deadline);
     }
 
-    /**
-     * Check if it has activity {@code activity} in {@code module}
-     * @param activity Activity
-     * @param module Module
-     * @return boolean
-     */
-    public boolean hasActivity(Module module, Activity activity) {
-        requireNonNull(activity);
-
-        Module toEditModule = moduleList.getModule(module);
-        return toEditModule.contains(activity);
-    }
 
     /**
-     * Check if it has activity {@code activity} in {@code module}
-     * @param activity Activity
+     * Remove a single deadline from module {@code module} with {@code deadline}
+     * {@code deadline} must exist in the list.
+     * @param deadline Deadline
      * @param moduleCode ModuleCode
-     * @return boolean
      */
-    public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
-        requireNonNull(activity);
+    public void removeDeadline(ModuleCode moduleCode, Deadline deadline) {
+        requireNonNull(deadline);
 
         Module toEditModule = moduleList.getModule(moduleCode);
-        return toEditModule.contains(activity);
-    }
-
-    /**
-     * Check if it has activity name {@code activity} in {@code module}
-     * @param activity Name
-     * @param moduleCode ModuleCode
-     * @return boolean
-     */
-    public boolean hasActivity(ModuleCode moduleCode, Name activity) {
-        requireNonNull(activity);
-
-        Module toEditModule = moduleList.getModule(moduleCode);
-        return toEditModule.hasActivity(activity);
+        toEditModule.removeDeadline(deadline);
+        moduleList.setModule(moduleCode, toEditModule);
     }
 
     /**
@@ -246,16 +149,6 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Returns true if an module has the same identity as {@code module} exits in NasaBook.
-     * @param module Module
-     * @return boolean
-     */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return moduleList.contains(module);
-    }
-
-    /**
-     * Returns true if an module has the same identity as {@code module} exits in NasaBook.
      * @param moduleCode ModuleCode
      * @return boolean
      */
@@ -265,7 +158,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
-     * Adds an module to the NasaBook.
+     * Adds a module to the NasaBook.
      * The module must not already exist in the NasaBook
      * @param module Module
      */
@@ -274,92 +167,16 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
-     * Adds an module to the NasaBook.
-     * The module must not already exist in the NasaBook
-     * @param moduleCode ModuleCode
-     * @param moduleName ModuleName
-     */
-    public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
-        moduleList.add(moduleCode, moduleName);
-    }
-
-    /**
-     * Replaces the given module {@code target} in the list with {@code editedActivity}.
+     * Replaces the given module {@code target} in the list with {@code editedEvent}.
      * {@code target} must exit in the NasaBook.
-     * The module identity of {@code editedActivity} must not be the same as another existing module in Nasa Book.
+     * The module identity of {@code editedEvent} must not be the same as another existing module in Nasa Book.
      * @param target Module
-     * @param editedActivity Module
+     * @param editedEvent Module
      */
-    public void setModule(Module target, Module editedActivity) {
-        requireNonNull(editedActivity);
+    public void setModule(ModuleCode target, Module editedEvent) {
+        requireNonNull(editedEvent);
 
-        moduleList.setModule(target, editedActivity);
-    }
-
-    /**
-     * Replaces the given module {@code target} in the list with {@code editedActivity}.
-     * {@code target} must exit in the NasaBook.
-     * The module identity of {@code editedActivity} must not be the same as another existing module in Nasa Book.
-     * @param target Module
-     * @param editedActivity Module
-     */
-    public void setModule(ModuleCode target, Module editedActivity) {
-        requireNonNull(editedActivity);
-
-        moduleList.setModule(target, editedActivity);
-    }
-
-    public Activity getActivityByIndex(Module module, Index index) {
-        return moduleList.getModule(module).getActivityByIndex(index);
-    }
-
-    public Activity getActivityByIndex(ModuleCode module, Index index) {
-        return moduleList.getModule(module).getActivityByIndex(index);
-    }
-
-    public void setActivityByIndex(Module module, Index index, Activity activity) {
-        requireNonNull(activity);
-
-        moduleList.setActivityByIndex(module, index, activity);
-    }
-
-    public void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity) {
-        requireNonNull(activity);
-
-        moduleList.setActivityByIndex(moduleCode, index, activity);
-    }
-
-    /**
-     * Edits activity via index.
-     * @param module module where the activity belongs
-     * @param index index of the activity in the module activity list
-     * @param args parameters to be edited
-     */
-    public void editActivityByIndex(Module module, Index index, Object... args) {
-        requireNonNull(args);
-
-        moduleList.editActivityByIndex(module, index, args);
-    }
-
-    /**
-     * Edits activity via index.
-     * @param moduleCode moduleCode of the activity
-     * @param index index of the activity in the module activity list
-     * @param args parameters to be edited
-     */
-    public void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args) {
-        requireNonNull(args);
-
-        moduleList.editActivityByIndex(moduleCode, index, args);
-    }
-
-    /**
-     * Removes {@code key} from this {@code NasaBook}.
-     * {@code key} must exist in the Nasa Book.
-     * @param key Module
-     */
-    public void removeModule(Module key) {
-        moduleList.remove(key);
+        moduleList.setModule(target, editedEvent);
     }
 
     /**
@@ -373,26 +190,6 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     public UniqueModuleList getList() {
         return moduleList;
-    }
-
-    /**
-     * Reschedule all activity based on user presets.
-     */
-    public void scheduleAll() {
-        moduleList.asModifiableObservableList().stream()
-                .forEach(x -> x.getActivities().getActivityList().stream()
-                        .forEach(y -> y.regenerate()));
-    }
-
-    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
-        if (hasModule(module)) {
-            Module item = moduleList.getModule(module);
-            if (item.hasActivity(activity)) {
-                moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -429,9 +226,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     public ObservableList<Module> getDeepCopyList() {
         ObservableList<Module> deepCopyList = FXCollections.observableArrayList();
         for (Module mods : moduleList.asUnmodifiableObservableList()) {
-            Module moduleTemp = new Module(mods.getModuleCode(), mods.getModuleName());
-            moduleTemp.setActivities(mods.getActivities());
-            deepCopyList.add(moduleTemp);
+            deepCopyList.add(mods.getDeepCopyModule());
         }
         return deepCopyList;
     }

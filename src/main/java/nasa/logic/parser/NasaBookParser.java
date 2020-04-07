@@ -10,7 +10,8 @@ import nasa.logic.commands.AddModuleCommand;
 import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.ContinueCommand;
-import nasa.logic.commands.DeleteActivityCommand;
+import nasa.logic.commands.DeleteDeadlineCommand;
+import nasa.logic.commands.DeleteEventCommand;
 import nasa.logic.commands.DeleteModuleCommand;
 import nasa.logic.commands.DoneCommand;
 import nasa.logic.commands.EditActivityCommand;
@@ -73,8 +74,11 @@ public class NasaBookParser {
         case AddDeadlineCommand.COMMAND_WORD:
             return new AddDeadlineCommandParser().parse(arguments);
 
-        case DeleteActivityCommand.COMMAND_WORD:
-            return new DeleteActivityCommandParser().parse(arguments);
+        case DeleteDeadlineCommand.COMMAND_WORD:
+            return new DeleteDeadlineCommandParser().parse(arguments);
+
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
 
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
@@ -117,6 +121,7 @@ public class NasaBookParser {
 
         case QuoteCommand.COMMAND_WORD:
             return new QuoteCommand();
+
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 

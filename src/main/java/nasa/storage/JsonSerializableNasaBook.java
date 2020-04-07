@@ -19,7 +19,7 @@ import nasa.model.module.Module;
 @JsonRootName(value = "nasabook")
 class JsonSerializableNasaBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Module list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE= "Module list contains duplicate module(s).";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
@@ -50,7 +50,7 @@ class JsonSerializableNasaBook {
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
             if (nasaBook.hasModule(module)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
             nasaBook.addModule(module);
         }

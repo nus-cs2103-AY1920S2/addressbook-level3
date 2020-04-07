@@ -97,10 +97,18 @@ public class CalendarView extends UiPart<Region> {
      */
     private void updateCalendar(ObservableList<Module> moduleObservableList) {
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> activityObservableList = module.getFilteredActivityList();
-            activityObservableList.addListener(new ListChangeListener<Activity>() {
+            ObservableList<Deadline> deadlineObservableList = module.getFilteredDeadlineList();
+            ObservableList<Event> eventObservableList = module.getFilteredEventList();
+            deadlineObservableList.addListener(new ListChangeListener<Deadline>() {
                 @Override
-                public void onChanged(Change<? extends Activity> c) {
+                public void onChanged(Change<Deadline> c) {
+                    resetCalendar();
+                    loadActivities(moduleObservableList);
+                }
+            });
+            eventObservableList.addListener(new ListChangeListener<Event>() {
+                @Override
+                public void onChanged(Change<Event> c) {
                     resetCalendar();
                     loadActivities(moduleObservableList);
                 }

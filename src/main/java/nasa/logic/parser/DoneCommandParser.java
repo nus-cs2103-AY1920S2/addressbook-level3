@@ -7,6 +7,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.DoneCommand;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.activity.Deadline;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -34,5 +35,8 @@ public class DoneCommandParser implements Parser<DoneCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DoneCommand.MESSAGE_USAGE));
         }
+    }
+
+    public static class DeleteDeadlineCommandParser implements Parser<Deadline> {
     }
 }
