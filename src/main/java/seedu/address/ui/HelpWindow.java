@@ -26,59 +26,64 @@ public class HelpWindow extends UiPart<Stage> {
             + " illustrate the usage of the aforementioned commands in Delino.\n"
 
             + "\n 1. Insert a new order to the list of orders based on their order attributes\n"
-            + "      Format. insert TRANSACTION_ID NAME ADDRESS PHONE_NUMBER DELIVERY_TIMESTAMP \n"
+            + "      Format: insert TRANSACTION_ID NAME ADDRESS PHONE_NUMBER DELIVERY_TIMESTAMP \n"
             + "              EMAIL WAREHOUSE_ADDRESS CASH_ON_DELIVERY\n"
             + "      Eg. insert tid/9876543210 n/John Doe a/Blk 572 Hougang st 51 #10-33 S530572"
             + " p/98766789 \n              dts/2020-02-20 1300 e/johndoe@example.com w/Yishun cod/$4 \n"
 
             + "\n 2. Clear all orders/returns while orders are listed \n"
-            + "      Format. clear FLAG INDEX \n"
+            + "      Format: clear FLAG INDEX \n"
             + "      Eg. clear -o -f (force clear order list without prompt) OR\n"
             + "      Eg. clear -r -f (force clear return list without prompt)"
 
             + "\n 3. Delete a specified order/return order from the list of orders/return orders \n"
-            + "      Format. delete FLAG INDEX \n"
+            + "      Format: delete FLAG INDEX \n"
             + "      Eg. delete -o 2 (Removes the second order in the list) \n"
 
             + "\n 4. Marks a specified order as delivered \n"
-            + "      Format. delivered FLAG INDEX \n"
+            + "      Format: delivered FLAG INDEX \n"
             + "      Eg. delivered -o 3 (The third order in the order list will be marked as completed) \n"
 
             + "\n 5. Edit a parcel's specified attribute\n"
-            + "      Format. edit FLAG INDEX PARCEL_ATTRIBUTE \n"
+            + "      Format: edit FLAG INDEX PARCEL_ATTRIBUTE \n"
             + "      Eg. edit -o 2 n/James Charles (Edit the customer name in the second order of\n"
             + " the order list to 'James Charles') \n"
 
             + "\n 6. Exit the Delino application\n"
-            + "      Format. exit\n"
+            + "      Format: exit \n"
             + "      Eg. exit OR you may choose to press 'F1' to close the application \n"
 
             + "\n 7. Search for a parcel based on either its attributes \n"
-            + "      Format. search FLAG "
-            + "       Eg. search -n Amos or find -t A195BCD2S \n"
+            + "      Format: search FLAG PARCEL_ATTRIBUTE or search ORDER_ATTRIBUTE \n"
+            + "      Eg. search -o amos (only searches order list) OR\n"
+            + "          search amos (searches both lists) \n"
 
             + "\n 8. Provide more information about Delino and its commands\n"
-            + "       Eg. help OR you may choose to press 'F2' \n"
+            + "      Format: help \n"
+            + "      Eg. help OR you may choose to press 'F2' to open a help window \n"
 
             + "\n 9. Import a list of orders from a given .csv file with the order data format\n"
-            + "       Eg. import customers_20_02_2020.csv \n"
+            + "      Format: import FILE_NAME"
+            + "      Eg. import customers_20_02_2020.csv \n"
             + "      Please refer to the User Guide for more information regarding the order data format. \n"
 
             + "\n 10. Display the default list of orders or a list based on specified status\n"
-            + "         Eg. list OR list done OR list undone \n"
+            + "       Format: list OR list done OR list undone \n"
+            + "       Eg. list OR list done OR list undone \n"
 
             + "\n 11. Create a return order and adds it into the list of returns\n"
-            + "         Eg. return tid/ac17s2a n/Bobby Tan a/123 Delta Road #03-333 Singapore 123456\n"
-            + "             p/91230456 rts/12-12-2020 1300 w/Jurong Warehouse c/NIL type/glass \n"
+            + "       Format: return TRANSACTION_ID NAME ADDRESS PHONE_NUMBER RETURN_TIMESTAMP WAREHOUSE_LOCATION \n"
+            + "                      [COMMENTS] [ITEM_TYPE] \n"
+            + "       OR      return TRANSACTION_ID \n"
+            + "       Eg. return tid/ac17s2a n/Bobby Tan a/123 Delta Road #03-333 Singapore 123456\n"
+            + "                  p/91230456 rts/12-12-2020 1300 w/Jurong Warehouse c/NIL type/glass \n"
+            + "       OR  return tid/ac123d"
 
             + "\n 12. View orders at a specified Singapore postal sector "
             + "(i.e. the first two digits of the postal code)\n"
-            + "         Eg. nearby 14 (View all orders located in the general location of Queenstown & Tiong Bahru)\n"
-            + "        Please refer to the User Guide for the respective postal sectors in Singapore. \n"
-
-            + "\n 13. Undo the previous action\n"
-            + "         Eg. After calling 'list, delete 1, delete 2', calling 'undo' will reverse the deletion of"
-            + " the second item of the list \n"
+            + "       Format: nearby POSTAL_SECTOR \n"
+            + "       Eg. nearby 14 (View all orders located in the general location of Queenstown & Tiong Bahru)\n"
+            + "       Please refer to the User Guide for the respective postal sectors in Singapore. \n"
 
             + "\n For more information, please refer to Delino's User Guide.";
 
