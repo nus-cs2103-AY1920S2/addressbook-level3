@@ -56,6 +56,8 @@ public class EditCommand extends IndexedCommand {
             + "due to changes in the concrete savings.";
     public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
             + "the current usage (%s) of the coupon.";
+    public static final String MESSAGE_CANNOT_EDIT_ARCHIVED_COUPON = "Coupon %s is archived! "
+            + "You cannot edit an archived coupon.";
     private final EditCouponDescriptor editCouponDescriptor;
 
     /**
@@ -80,6 +82,11 @@ public class EditCommand extends IndexedCommand {
         }
 
         Coupon couponToEdit = lastShownList.get(targetIndex.getZeroBased());
+
+        if (couponToEdit.isArchived()) {
+            throw new CommandException(String.format(MESSAGE_CANNOT_EDIT_ARCHIVED_COUPON, couponToEdit.getName()));
+        }
+
         Coupon editedCoupon = createEditedCoupon(couponToEdit, editCouponDescriptor);
 
         if (!couponToEdit.isSameCoupon(editedCoupon) && model.hasCoupon(editedCoupon)) {
