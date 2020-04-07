@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing teacher in the address book.
  */
-public class EditTeacherCommand extends Command {
+public class EditTeacherCommand extends EditCommand {
 
   public static final String COMMAND_WORD = "edit-staff";
 
@@ -55,14 +56,19 @@ public class EditTeacherCommand extends Command {
           + "Example: " + COMMAND_WORD + " 16100 "
           + PREFIX_GENDER + "m "
           + PREFIX_PHONE + "91234567 "
-          + PREFIX_EMAIL + "johndoe@example.com";
+          + PREFIX_EMAIL + "johndoe@example.com "
+          + PREFIX_EMAIL + "3000 "
+          + PREFIX_ADDRESS + "City Hall "
+          + PREFIX_TAG + "senior";
 
   public static final String MESSAGE_EDIT_STAFF_SUCCESS = "Edited Staff: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_STAFF = "This staff already exists in the address book.";
 
-  private final ID targetID;
-  private final EditTeacherDescriptor editTeacherDescriptor;
+  private ID targetID;
+  private EditTeacherDescriptor editTeacherDescriptor;
+  private Staff toEdit;
+  private Staff editedStaff;
 
   /**
    * @param targetID                 of the staff in the filtered staff list to edit
@@ -86,7 +92,6 @@ public class EditTeacherCommand extends Command {
 
     Name updatedName = editTeacherDescriptor.getName().orElse(teacherToEdit.getName());
     Gender updatedGender = editTeacherDescriptor.getGender().orElse(teacherToEdit.getGender());
-
     Phone updatedPhone = editTeacherDescriptor.getPhone().orElse(teacherToEdit.getPhone());
     Email updatedEmail = editTeacherDescriptor.getEmail().orElse(teacherToEdit.getEmail());
     Salary updatedSalary = editTeacherDescriptor.getSalary().orElse(teacherToEdit.getSalary());
@@ -102,7 +107,12 @@ public class EditTeacherCommand extends Command {
   }
 
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  protected void generateOppositeCommand() {
+    oppositeCommand = new EditTeacherCommand(targetID, new EditTeacherCommand.EditTeacherDescriptor(toEdit));
+  }
+
+  @Override
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Staff> lastShownList = model.getFilteredStaffList();
 
@@ -111,15 +121,21 @@ public class EditTeacherCommand extends Command {
     }
 
     Staff teacherToEdit = getStaff(lastShownList);
+    this.toEdit = teacherToEdit;
     Staff editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
-
+    this.editedStaff = editedTeacher;
     if (!teacherToEdit.weakEquals(editedTeacher) && model.has(editedTeacher)) {
       throw new CommandException(MESSAGE_DUPLICATE_STAFF);
     }
 
-    model.set(teacherToEdit, editedTeacher);
-    model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
-    return new CommandResult(String.format(MESSAGE_EDIT_STAFF_SUCCESS, editedTeacher));
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
+    model.set(toEdit, editedStaff);
+    model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+    return new CommandResult(String.format(MESSAGE_EDIT_STAFF_SUCCESS, editedStaff));
   }
 
   // Find way to abstract this
@@ -180,6 +196,20 @@ public class EditTeacherCommand extends Command {
       setSalary(toCopy.salary);
       setAddress(toCopy.address);
       setTags(toCopy.tags);
+    }
+
+    /**
+     * Copy constructor. A defensive copy of {@code tags} is used internally.
+     */
+    public EditTeacherDescriptor(Staff toCopy) {
+      setName(toCopy.getName());
+      setGender(toCopy.getGender());
+      setLevel(toCopy.getLevel());
+      setPhone(toCopy.getPhone());
+      setEmail(toCopy.getEmail());
+      setSalary(toCopy.getSalary());
+      setAddress(toCopy.getAddress());
+      setTags(toCopy.getTags());
     }
 
     /**
