@@ -142,7 +142,7 @@ public class AssignmentList {
      *
      * Aim is to have the workload as evenly spread out across days (from current date to deadline) as possible.
      */
-    public void calculateScheduleIntensity(int numDays) {
+    public void generateSchedule(int numDays) {
         ArrayList<Float> hoursPerDayList = new ArrayList<Float>();
         LocalDateTime currDateTime = LocalDateTime.now(ZoneId.of("Singapore"));
         ObservableList<Assignment> assignmentList = internalList.sorted(new DeadlineComparator());
@@ -180,81 +180,92 @@ public class AssignmentList {
             }
         }
 
-        // Set hours per day in result list
+        // Set hours per day in result list with a cap of 24 hours per day
         for (int k = 0; k < Math.min(numDays, hoursPerDayList.size()); k++) {
-            scheduleVisual.get(k).setHours((float) (Math.round(hoursPerDayList.get(k) * 2) / 2.0));
+            scheduleVisual.get(k).setHours((float) Math.min(Math.round((hoursPerDayList.get(k) * 2) / 2.0), 24));
         }
     }
 
     /**
      * Allocates the current assignments estimated workload across several days (today included).
-     * Allocates the time to the date of submission as well if the timing falls beyond 12pm.
+     * Does not allocate any time to
      */
     public void calculate(ArrayList<Float> hoursPerDayList, LocalDateTime deadline, float estHours, int noOfDaysBetween,
                            LocalDateTime dateTime) {
 
         if (noOfDaysBetween == 0) {
+            // Allocate only the remaining time the user has before the deadline
             float diffInHours = java.time.Duration.between(dateTime, deadline).toHours();
-
             hoursPerDayList.set(0, hoursPerDayList.get(0) + Math.min(diffInHours, estHours));
 
         } else if (noOfDaysBetween > 0) {
-            float[] currMinMax = getMinMax(hoursPerDayList, noOfDaysBetween);
+            float[] currMinAndSecondMin = getMinAndSecondMin(hoursPerDayList, noOfDaysBetween);
+            float numHoursToDeadline = 0;
 
             // Allocate hours to new days first (if any)
             int numNewDays = noOfDaysBetween - (hoursPerDayList.size() - 1);
-            float hoursToAdd = estHours / numNewDays;
 
-            if (deadline.toLocalTime().isBefore(LocalTime.NOON)) {
-                numNewDays -= 1;
-            }
+            if (numNewDays != 0) {
+                float hoursToAdd = estHours / numNewDays;
+                float hoursAdded = Math.min(currMinAndSecondMin[0], hoursToAdd);
 
-            for (int i = 0; i < numNewDays; i++) {
-                hoursPerDayList.add(Math.min(currMinMax[0], hoursToAdd));
-                estHours -= Math.min(currMinMax[0], hoursToAdd);
-            }
-
-            // Allocate hours to days with the least number of work hours from today to deadline of assignment
-            float daysWithMinHours = getMinDays(hoursPerDayList, noOfDaysBetween, currMinMax[0]);
-            float diffBetweenMinAndMax = currMinMax[1] - currMinMax[0];
-            hoursToAdd = estHours / daysWithMinHours;
-
-            for (int j = 0; j < Math.min(hoursPerDayList.size(), noOfDaysBetween + 1); j++) {
-                if (hoursPerDayList.get(j) == currMinMax[0]) {
-                    hoursPerDayList.set(j, hoursPerDayList.get(j) + Math.min(hoursToAdd, diffBetweenMinAndMax));
-                    estHours -= Math.min(hoursToAdd, diffBetweenMinAndMax);
+                for (int i = 0; i < numNewDays; i++) {
+                    hoursPerDayList.add(hoursAdded);
+                    estHours -= hoursAdded;
                 }
+                numHoursToDeadline += hoursAdded;
+            }
+
+            // Allocate hours to days with the least number of work hours in increasing order from today to deadline
+            while (currMinAndSecondMin[0] != currMinAndSecondMin[1]) {
+                float daysWithMinHours = getMinDays(hoursPerDayList, noOfDaysBetween, currMinAndSecondMin[0]);
+                float diffBetweenMinAndSecondMin = currMinAndSecondMin[1] - currMinAndSecondMin[0];
+                float hoursToAdd = estHours / daysWithMinHours;
+                float hoursAdded = Math.min(hoursToAdd, diffBetweenMinAndSecondMin);
+
+                for (int j = 0; j < Math.min(hoursPerDayList.size(), noOfDaysBetween + 1); j++) {
+                    if (hoursPerDayList.get(j) == currMinAndSecondMin[0]) {
+                        hoursPerDayList.set(j, hoursPerDayList.get(j) + hoursAdded);
+                        estHours -= hoursAdded;
+
+                        if (j == noOfDaysBetween) {
+                            numHoursToDeadline += hoursAdded;
+                        }
+                    }
+                }
+                currMinAndSecondMin = getMinAndSecondMin(hoursPerDayList, noOfDaysBetween);
             }
 
             // Allocate remaining hours equally across the days up to deadline of assignment (if any)
-            hoursToAdd = estHours / (noOfDaysBetween + 1);
+            float hoursToAdd = estHours / (noOfDaysBetween);
 
-            for (int k = 0; k < Math.min(hoursPerDayList.size(), noOfDaysBetween + 1); k++) {
+            for (int k = 0; k < Math.min(hoursPerDayList.size(), noOfDaysBetween); k++) {
                 hoursPerDayList.set(k, hoursPerDayList.get(k) + hoursToAdd);
             }
         }
     }
 
     /**
-     * Returns the min and max workload allocated to a particular day from today to assignment due date.
-     * minMax[0]: Contains the minimum allocated workload.
-     * minMax[1]: Contains the maximum allocated workload.
-     *
+     * Returns the minimum and second minimum hours allocated to a day.
+     * result[0]: Minimum hours allocated to a day.
+     * result[1]: Second minimum hours allocated to a day.
      */
-    private float[] getMinMax(ArrayList<Float> hoursPerDayList, int daysInBetween) {
-        float[] minMax = new float[2];
-        minMax[0] = hoursPerDayList.get(0);
-        minMax[1] = hoursPerDayList.get(0);
+    private float[] getMinAndSecondMin(ArrayList<Float> hoursPerDayList, int daysInBetween) {
+        float[] result = {Float.MAX_VALUE, Float.MAX_VALUE};
 
-        for (int i = 1; i < Math.min(hoursPerDayList.size(), daysInBetween + 1); i++) {
-            minMax[0] = Math.min(minMax[0], hoursPerDayList.get(i));
-            minMax[1] = Math.max(minMax[1], hoursPerDayList.get(i));
+        for (int i = 0; i < Math.min(hoursPerDayList.size(), daysInBetween + 1); i++) {
+            if (hoursPerDayList.get(i) < result[0]) {
+                result[0] = hoursPerDayList.get(i);
+                result[1] = hoursPerDayList.get(i);
+            } else if (hoursPerDayList.get(i) < result[1]) {
+                result[1] = hoursPerDayList.get(i);
+            }
         }
-        return minMax;
+        return result;
     }
 
     /**
-     * Returns the number of days that have been allocated the least workload from today to the deadline of assignment.
+     * Returns the number of days that have been allocated the least workload from today to deadline.
      */
     private float getMinDays(ArrayList<Float> hoursPerDayList, int daysInBetween, float currMin) {
         float count = 0;

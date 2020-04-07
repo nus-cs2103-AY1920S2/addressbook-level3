@@ -119,6 +119,6 @@ public class Scheduler implements ReadOnlyScheduler {
      * their deadlines and expected work hours per assignment.
      */
     public void calculateScheduleIntensity(int numDays) {
-        assignments.calculateScheduleIntensity(numDays);
+        assignments.generateSchedule(numDays);
     }
 }
