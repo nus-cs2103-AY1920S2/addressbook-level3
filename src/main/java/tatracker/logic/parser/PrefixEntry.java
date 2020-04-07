@@ -42,6 +42,11 @@ public enum PrefixEntry {
             Tab.MESSAGE_CONSTRAINTS, Tab::isValidTab,
             "student"
     ),
+    RATE(
+            Prefixes.RATE,
+            "Rate must be a number greater than zero", StringUtil::isNonZeroUnsignedInteger,
+            "40"
+    ),
 
     /* Session definitions */
     START_TIME(
@@ -61,7 +66,7 @@ public enum PrefixEntry {
     ),
     RECUR(
             Prefixes.RECUR,
-            "Recurring weeks must be an unsigned number", StringUtil::isNonZeroUnsignedInteger,
+            "Recurring weeks must be an unsigned number", StringUtil::isUnsignedInteger,
             "1" // Number of weeks
     ),
     SESSION_TYPE(

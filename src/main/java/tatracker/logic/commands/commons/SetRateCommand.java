@@ -1,6 +1,6 @@
 package tatracker.logic.commands.commons;
 
-//import static tatracker.logic.parser.Prefixes.RATE;
+import static tatracker.logic.parser.Prefixes.RATE;
 
 import java.util.List;
 
@@ -20,8 +20,9 @@ public class SetRateCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SET_RATE,
             "Sets the pay rate to a specified integer greater than zero.",
+            List.of(RATE),
             List.of(),
-            List.of()
+            RATE
     );
 
     public static final String MESSAGE_SET_RATE = "Set pay rate at $%s per hour.";
