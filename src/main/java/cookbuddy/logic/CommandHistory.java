@@ -20,7 +20,7 @@ public class CommandHistory {
 
     /**
      * Adds {@code cmd} to command history.
-     * @param command The string to be stored in the history.
+     * @param cmd The command to be stored in the history.
      */
     public void addCommand(String cmd) {
         commandHistory.addFirst(cmd);
