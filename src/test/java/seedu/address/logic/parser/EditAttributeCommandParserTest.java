@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTRIBUTE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.EditAttributeCommandParser.MESSAGE_INCOMPLETE_ARGUMENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class EditAttributeCommandParserTest {
     void parse_oldFieldMissing_failure() {
         assertParseFailure(parser, WHITESPACE + PREFIX_ATTRIBUTE
                         + WHITESPACE + VALID_ATTRIBUTE_PERSISTENCE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditAttributeCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -37,7 +38,7 @@ class EditAttributeCommandParserTest {
         assertParseFailure(parser, WHITESPACE + VALID_ATTRIBUTE_PERSISTENCE
                         + WHITESPACE + PREFIX_ATTRIBUTE
                         + WHITESPACE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAttributeCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INCOMPLETE_ARGUMENT, EditAttributeCommand.MESSAGE_USAGE));
     }
 
     @Test

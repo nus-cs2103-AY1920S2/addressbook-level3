@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,7 +16,6 @@ import seedu.address.model.hirelah.storage.Storage;
  */
 
 public class AddIntervieweeCommand extends Command {
-    public static final String PREFIX_ALIAS = "-a";
 
     public static final String COMMAND_WORD = "interviewee";
     public static final String MESSAGE_SUCCESS = "New interviewee added: %1$s";

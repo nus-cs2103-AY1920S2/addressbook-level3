@@ -89,6 +89,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+// tag::logic[]
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -112,6 +113,8 @@ image::AddSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// end::logic[]
+
 [[Design-Model]]
 === Model component
 
@@ -134,6 +137,7 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
+// tag::storage[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
