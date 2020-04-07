@@ -16,8 +16,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -37,12 +39,22 @@ public class CalendarView extends UiPart<Region> {
     private static final String FXML = "CalendarView.fxml";
     private int currentYear;
     private int currentMonth;
+    private ObservableList<Module> moduleObservableList;
 
     @FXML
     private Label monthAndYear;
 
     @FXML
     private GridPane calendarGrid;
+
+    @FXML
+    private Button next;
+
+    @FXML
+    private Button prev;
+
+    @FXML
+    private HBox calendarDetails;
 
     /**
      * Constructor for the controller.
@@ -55,10 +67,10 @@ public class CalendarView extends UiPart<Region> {
         LocalDateTime currentDateTime = LocalDateTime.now();
         currentYear = currentDateTime.getYear();
         currentMonth = currentDateTime.getMonthValue();
+        this.moduleObservableList = moduleObservableList;
 
-        // update the Label and the grids
-        monthAndYear.setText(String.format("%s %s", Month.of(currentMonth), Year.of(currentYear)));
-        monthAndYear.setTextFill(Color.WHITE);
+        // update the Label
+        updateLabel();
 
         // update calendar
         initializeWholeCalendar();
@@ -292,5 +304,53 @@ public class CalendarView extends UiPart<Region> {
                 }
             }
         }
+    }
+
+    /**
+     * Updates the calendar to the next month's schedule.
+     */
+    public void onClickNext() {
+        if (currentMonth == 12) {
+            // set to first month of next year
+            currentMonth = 1;
+            currentYear += 1;
+        } else {
+            currentMonth += 1;
+        }
+
+        updateLabel();
+        calendarGrid.getChildren().clear();
+        initializeWholeCalendar();
+        loadActivities(moduleObservableList);
+        /*
+        initializeDateGrids();
+        loadActivities(moduleObservableList);*/
+    }
+
+    /**
+     * Update the calendar to previous month's schedule.
+     */
+    public void onClickPrevious() {
+        if (currentMonth == 1) {
+            // set to last month of last year
+            currentMonth = 12;
+            currentYear -= 1;
+        } else {
+            currentMonth -= 1;
+        }
+
+        updateLabel();
+        calendarGrid.getChildren().clear();
+        initializeWholeCalendar();
+        loadActivities(moduleObservableList);
+    }
+
+    /**
+     * Update label based on current months.
+     */
+    public void updateLabel() {
+        monthAndYear.setText(String.format("%s %s", Month.of(currentMonth), Year.of(currentYear)));
+        monthAndYear.setTextFill(Color.WHITE);
+        monthAndYear.setAlignment(Pos.CENTER);
     }
 }
