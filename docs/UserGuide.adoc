@@ -97,7 +97,7 @@ Format: `help [COMMAND]`
 
 Example 1: You can type `help` and *CookBuddy* will display the commands that it recognises.
 
-Example 2: You can type `help delete` and *CookBuddy* will display you how to use the `delete` command.
+Example 2: You can type `help delete` and *CookBuddy* will show you how to use the `delete` command.
 
 
 === Adding a recipe — `new`
