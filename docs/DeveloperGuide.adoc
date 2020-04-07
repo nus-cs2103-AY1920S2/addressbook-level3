@@ -115,6 +115,7 @@ NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) b
 
 // end::logic[]
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -128,6 +129,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the interview data, including the current interview session, questions, attributes, metrics, and interviewees.
 * exposes an unmodifiable `ObservableList<Attribute>`, `ObservableList<Question>`, `ObservableList<Metric>`, `ObservableList<Interviewee>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+// end::model[]
 
 [[Design-Storage]]
 === Storage component
