@@ -46,15 +46,47 @@ public class DeadlineCard extends UiPart<Region> {
     @FXML
     private Circle circle;
 
-    public DeadlineCard(Deadline activity, int displayedIndex) {
+    public DeadlineCard(Deadline activity) {
         super(FXML);
         this.activity = activity;
         name.setText(activity.getName().toString());
         date.setText("Due by: " + activity.getDueDate().toString());
         note.setText(activity.getNote().toString());
         status.setText(activity.getStatus().toString());
-        priority.setText("Priority: " + activity.getPriority().toString());
+        setPriority();
     }
+
+    /**
+     * Returns a Ui representation of the priority.
+     */
+    public void setPriority() {
+        switch (activity.getPriority().getPriorityLevel()) {
+        case 1:
+            priority.setText("!");
+            priority.setStyle("-fx-text-fill:#00bc6b;");
+            break;
+        case 2:
+            priority.setText("!!");
+            priority.setStyle("-fx-text-fill:#85ba00;");
+            break;
+        case 3:
+            priority.setText("!!!");
+            priority.setStyle("-fx-text-fill:#d0d000;");
+            break;
+        case 4:
+            priority.setText("!!!!");
+            priority.setStyle("-fx-text-fill:#e1b400;");
+            break;
+        case 5:
+            priority.setText("!!!!!");
+            priority.setStyle("-fx-text-fill:#e80303;");
+            break;
+        default:
+            priority.setStyle("");
+            break;
+        }
+    }
+
 
     @Override
     public boolean equals(Object other) {

@@ -40,6 +40,11 @@ public class Priority {
         this.priorityLevel = Integer.parseInt(priorityLevel);
     }
 
+    public int getPriorityLevel() {
+        return priorityLevel;
+    }
+
+
     public static int getDefaultPriorityLevel() {
         return defaultPriorityLevel;
     }
@@ -57,6 +62,7 @@ public class Priority {
     public String toString() {
         return Integer.toString(priorityLevel);
     }
+
 
     @Override
     public boolean equals(Object other) {

@@ -192,6 +192,16 @@
     -fx-font-weight: bold;
 }
 
+
+.activity_priority_label {
+    -fx-font-family: "Impact";
+    -fx-font-size: 15px;
+    -fx-color-label-visible: black;
+    -fx-font-weight: bold;
+    -fx-text-alignment: right;
+}
+
+
 .activity_small_label {
     -fx-text-fill: #303030;
     -fx-font-family: "Verdana";
@@ -437,9 +447,12 @@
     -fx-background-color: white;
 }
 
-.chart-bar {
-    -fx-bar-fill: #32174d;
-}
+
+.default-color0.chart-bar { -fx-pie-color: #FF9AA2; }
+.default-color2.chart-bar { -fx-pie-color: #FFDAC1; }
+.default-color3.chart-bar { -fx-pie-color: #E2F0CB; }
+.default-color4.chart-bar { -fx-pie-color: #B5EAD7; }
+.default-color5.chart-bar { -fx-pie-color: #C7CEEA; }
 
 .default-color0.chart-pie { -fx-pie-color: #FF9AA2; }
 .default-color2.chart-pie { -fx-pie-color: #FFDAC1; }
@@ -450,6 +463,7 @@
 #modulePane {
      -fx-border-width: 0;
     -fx-padding: 0;
+    -fx-min-width: 200;
  }
 
 #commandTypeLabel {

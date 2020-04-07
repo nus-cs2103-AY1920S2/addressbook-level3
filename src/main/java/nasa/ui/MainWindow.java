@@ -122,11 +122,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        /*
-        TODO: Implement Activity list panel to display activity of the respective module
-        Can use {@code logic.getFilteredActivityList()}
-         */
         tabPanel = new TabPanel(logic);
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
