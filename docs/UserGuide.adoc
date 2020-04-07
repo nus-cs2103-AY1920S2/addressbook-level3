@@ -120,6 +120,9 @@ Examples:
 * `add-c n/Low Tah Kiow, John t/powerlifter e/betsycrowe@example.com a/some street p/1234567 t/strongman`
 ** Result: Low Tah Kiow, John with the above information has been added
 
+Common Errors:
+
+
 === Edit a client’s profile: `edit-c`
 
 Edits the client’s cliental details by specifying the attribute and the new value.
@@ -248,20 +251,24 @@ Example:
 * `export 6`
 ** Exports training records of the 6th client
 
-=== Filter clients based on attribute: `filter-c` [Coming in v1.4]
+=== Filter clients based on attribute: `filter-c` --- Ker Wei
 
-Filters the client list by the specified keyword(s) that matches the name or any attributes the client has.
+When the client list gets too long for you to find clients efficiently, you can use the command `filter-c` to filter clients based on their tags or their sports
 
-Format: `filter-c KEYWORD [MORE_KEYWORDS]`
+Format: `filter-c t/TAG... s/SPORT...
+
+Parameters:
+* `t/TAG` should contain letters or numbers only
+* `s/SPORT` should contain letters, numbers or spaces only
+
+Notes:
 
 * The search is case insensitive. e.g `push ups` will match `Push Ups`
 * The order of the keywords does not matter (e.g. `Push Pull` will match `Pull Push`)
-* Only full words will be matched e.g. `Push` will not match `Push Pull`
-* Clients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber, Bo Yang`
 
 Examples:
 
-* `filter-c Johnny`
+* `filter-c `
 ** Returns a client list of `Johnny Tim` and `johnny`
 
 === Display visualisations of training progress: `graph` [Coming in v1.4]
