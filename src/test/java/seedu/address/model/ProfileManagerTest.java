@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.testutil.*;
+import seedu.address.testutil.ProfileListBuilder;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.testutil.AddressBookBuilder;
 
