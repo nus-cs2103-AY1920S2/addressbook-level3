@@ -49,7 +49,7 @@ public class JointCustomerPredicate implements Predicate<Customer> {
                         msg += String.format("staying in the area %s ", predicate.toString());
                     } else if (predicate instanceof EmailContainsKeywordsPredicate) {
                         msg += String.format("with email %s ", predicate.toString());
-                    } else if (predicate instanceof  PhoneContainsKeywordsPredicate) {
+                    } else if (predicate instanceof PhoneContainsKeywordsPredicate) {
                         msg += String.format("with phone number %s ", predicate.toString());
                     }
                 }
