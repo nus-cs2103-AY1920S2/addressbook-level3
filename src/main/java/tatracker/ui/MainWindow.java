@@ -325,7 +325,7 @@ public class MainWindow extends UiPart<Stage> {
      * Alternates the focus on the module, group, and student list in the StudentView.
      */
     private void handleSwitchingStudentViewLists(KeyEvent event) {
-        if (!isSelectedTab(studentListTab)) {
+        if (!isSelectedTab(studentListTab) || commandBox.isFocused()) {
             return;
         }
         switch (event.getCode()) {
@@ -441,6 +441,11 @@ public class MainWindow extends UiPart<Stage> {
 
             case HELP:
                 handleHelp();
+                break;
+
+            case LIST:
+                claimsListPanel.updateLabel();
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 break;
 
             default:

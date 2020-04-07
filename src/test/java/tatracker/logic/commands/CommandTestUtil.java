@@ -121,7 +121,7 @@ public class CommandTestUtil {
      */
     public static void assertListCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_SESSION);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.LIST);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

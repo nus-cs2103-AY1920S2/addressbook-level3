@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -27,6 +27,7 @@ Teaching Assistants at SoC have to keep a track of:
 * students
 * students' participation marks
 * notes they have for certain students that they can later use for recommendations.
+* upcoming teaching-related sessions (of which the hours can be claimed)
 * claimable hours so that they can fill up the TSS Claims form at the end of each semester.
 
 Rather than managing this through several excel
@@ -35,14 +36,16 @@ platform.
 
 In particular, TA-Tracker is a *Command Line Interface (CLI)* application packaged
 with a *Graphical User Interface (GUI)*. This means that users are expected to interact
-with the TA-Tracker mainly through the command line, but each command executed will
+with the TA-Tracker mainly through the command line, and each command executed will
 evoke a visual response in the TA-Tracker.
 
 Any help on the development of the TA-Tracker would be greatly appreciated, and there
 are a couple of ways that you can do so:
 
-* contribute to TA-Tracker's code base by expanding its features
-** such as adding an option to enter assignment grades
+* contribute to TA-Tracker's code base by expanding its features such as:
+** adding an option to enter assignment grades
+** add students to consultations in session view
+** list all the consultations a student has attended in student view
 * help us improve test coverage
 * propose and implement improvements on current features
 
@@ -124,15 +127,26 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/tatracker/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
-`StudentTab`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the
+`StudentTab`, `StatusBarFooter` etc. The UI also contains 2 more windows, namely:
+
+. the `HelpWindow` and
+. the `StatisticsWindow`
+
+All these, including the `MainWindow`, inherit from the
 abstract `UiPart` class.
 
 .Structure of the Student Tab Component
 image::StudentTabClassDiagram.png[]
 
-The UI contains 3 tabs: the StudentTab, the SessionTab and the ClaimsTab. Each of these tabs
-consist of one or more List Panels (e.g. StudentListPanel) and its respective Card (e.g. Student Card).
-In each ListPanel, the the Graphics component of each of the cells is defined by the respective Card.
+The UI contains 3 tabs:
+
+. the `Student Tab`,
+. the `Session Tab` and
+. the `Claims Tab`.
+
+Each of these tabs consist of one or more List Panels (e.g. `StudentListPanel`) and its
+respective Card (e.g. `StudentCard`). In each List Panel, the the `Graphics` component of
+each of the List Cells is defined by the respective Card.
 
 The other 2 Tabs follow the same structure as the Class diagram above.
 
@@ -340,16 +354,14 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the TA-Tracker data.
-* exposes an unmodifiable `ObservableList<Student>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes 5 unmodifiable `ObservableList<>` objects:
+. `filteredStudentList`, an `ObservableList<Student>` that contains all the Students in the TA-Tracker.
+. `filteredSessionList`, an `ObservableList<Session>` that contains all the Sessions in the TA-Tracker that have not been marked as done.
+. `filteredDoneSessionList`, an `ObservableList<Session> that contains all the Sessions in the TA-Tracker that have been marked as done.
+. `filteredModuleList`, an `ObservableList<Module>` that contains all the Modules in the TA-Tracker.
+. `filteredGroupList`, an `ObservableList<Group>` that contains all the Groups in the TA-Tracker.
+* these lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
-reference. This would allow `TaTracker` to only require one `Tag` object per unique
-`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
-such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -397,6 +409,9 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[]
+
 [[StudentView]]
 === Student View
 *Student View* is used to display all modules, groups and students in the TA-Tracker.
@@ -407,7 +422,7 @@ Students are a part of *groups* and groups are a part of *modules*.
 The following class diagram shows how different classes are related in the
 functioning of the `Student View`.
 
-.Module View - Class Diagram
+.Student View - Class Diagram
 image::ModuleModelClassDiagram.png[]
 
 The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
@@ -443,6 +458,19 @@ and the creation of association classes which would unnecessarily complicate the
 That is why we decided to stick to our current implementation.
 
 ====
+.Structure of the Student Component
+image::StudentClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tatracker/model/student/Student.java[`Student.java`]
+
+[NOTE]
+As a more `OOP` model, we can store a `Tag` list in `TaTracker`, which `Student` can
+reference. This would allow `TaTracker` to only require one `Tag` object per unique
+`Tag`, instead of each `Student` needing their own `Tag` object. An example of what
+such a model may look like is given below. +
+ +
+image:BetterModelClassDiagram.png[]
+
 ==== Implementation of the Module Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
@@ -559,6 +587,77 @@ exist, it is removed from the module.
 
 The `group edit` command has been implemented in a similar manner.
 
+==== Implementation of the Student Add and Delete Commands
+
+The following sequence diagram shows the sequence of commands that take place
+between the logic and model components of the TA-Tracker when the user enters the
+command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
+
+Note: This diagram assumes that there is no student with the matric number 'A0181234G'
+pre-existing in the TA-Tracker.
+
+.Student Add - Sequence Diagram
+image::AddStudentSequenceDiagram.png[]
+
+[NOTE]
+====
+* The lifeline for `StudentCommandParser` and `AddStudentCommandParser` should end at the
+destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+====
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type student and passes the
+command to the StudentCommandParser.
+
+3. The StudentCommandParser sees that the command is of type add and passes the
+arguments to the AddStudentCommandParser.
+
+4. The AddStudentCommandParser creates a Student with the given parameters.
+
+5. The AddStudentCommandParser then creates an AddStudentCommand object and passes
+it the created module. The parser then returns the AddStudentCommand
+
+6. LogicManager calls AddStudentCommand's execute method. The AddStudentCommand object
+checks whether a student with the given matric number already exists in TA-Tracker.
+If it does, a command exception is thrown saying that a student with the matric number
+already exists in the TA-Tracker.
+
+7. If no such student exists, the student is added to the TA-Tracker.
+
+The command used to delete a student has been implemented in a similar way. The main
+difference is that the DeleteStudentCommand checks whether an object with the given
+matric number exists in the TA-Tracker. If no such student exists, a command exception
+is thrown saying that a student with the given matric number doesn't exist. If it does
+exist, the student is removed from the TA-Tracker.
+
+Note: This diagram assumes that a student with the matric number 'A0181234G' exists
+in the TA-Tracker.
+
+.Student Delete - Sequence Diagram
+image::DeleteStudentSequenceDiagram.png[]
+
+1. `LogicManager` uses the `TATrackerParser` to first parse the user command.
+
+2. The `TATrackerParser` sees that the command is of type student and passes the
+command to the `StudentCommandParser`.
+
+3. The `StudentCommandParser` sees that the command is of type delete and passes the
+arguments to the `DeleteStudentCommandParser`.
+
+4. The `DeleteStudentCommandParser` creates a Student with the given matric number
+
+5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
+it the created student. The parser then returns the `DeleteStudentCommand`
+
+6. `LogicManager` calls `DeleteStudentCommand's` execute method. The `DeleteGroupCommand` object
+checks whether a student with the given matric number already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a student with the given matric number
+doesn't exist in the TA-Tracker.
+
+7. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
+model and removes the student.
+
 ==== Implementation of the Sort Command
 
 The sort command allows the user to sort the students in the module view either *alphabetically*,
@@ -651,76 +750,8 @@ is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 
 6. The `SortCommand` returns a `CommandResult` with a success message.
 
-==== Implementation of the Student Add and Delete Commands
-
-The following sequence diagram shows the sequence of commands that take place
-between the logic and model components of the TA-Tracker when the user enters the
-command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
-
-Note: This diagram assumes that there is no student with the matric number 'A0181234G'
-pre-existing in the TA-Tracker.
-
-.Student Add - Sequence Diagram
-image::AddStudentSequenceDiagram.png[]
-
-[NOTE]
-====
-* The lifeline for `StudentCommandParser` and `AddStudentCommandParser` should end at the
-destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-====
-
-1. LogicManager uses the TATrackerParser to first parse the user command.
-
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
-
-3. The StudentCommandParser sees that the command is of type add and passes the
-arguments to the AddStudentCommandParser.
-
-4. The AddStudentCommandParser creates a Student with the given parameters.
-
-5. The AddStudentCommandParser then creates an AddStudentCommand object and passes
-it the created module. The parser then returns the AddStudentCommand
-
-6. LogicManager calls AddStudentCommand's execute method. The AddStudentCommand object
-checks whether a student with the given matric number already exists in TA-Tracker.
-If it does, a command exception is thrown saying that a student with the matric number
-already exists in the TA-Tracker.
-
-7. If no such student exists, the student is added to the TA-Tracker.
-
-The command used to delete a student has been implemented in a similar way. The main
-difference is that the DeleteStudentCommand checks whether an object with the given
-matric number exists in the TA-Tracker. If no such student exists, a command exception
-is thrown saying that a student with the given matric number doesn't exist. If it does
-exist, the student is removed from the TA-Tracker.
-
-Note: This diagram assumes that there exists a student with the matric number 'A0181234G'
-pre-existing in the TA-Tracker.
-
-.Student Delete - Sequence Diagram
-image::DeleteStudentSequenceDiagram.png[]
-
-1. LogicManager uses the TATrackerParser to first parse the user command.
-
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
-
-3. The StudentCommandParser sees that the command is of type delete and passes the
-arguments to the DeleteStudentCommandParser.
-
-4. The DeleteStudentCommandParser creates a Student with the given matric number
-
-5. The DeleteStudentCommandParser then creates a DeleteStudentCommand object and passes
-it the created student. The parser then returns the DeleteStudentCommand
-
-6. LogicManager calls DeleteStudentCommand's execute method. The DeleteGroupCommand object
-checks whether a student with the given matric number already exists in TA-Tracker.
-If it doesn't, a command exception is thrown saying that a student with the given matric number
-doesn't exist in the TA-Tracker.
-
-7. If the student exists, the DeleteStudentCommand object retrieves the student from the
-model and removes the student.
+//tag::tssview[]
+=== Session View
 
 [[SessionView]]
 === Session View
@@ -776,24 +807,24 @@ related to the done sessions that the user is affiliated with.
 
 ==== Model Framework
 The following class diagram shows how different classes are related in the
-functioning of the TSS view.
+functioning of the Claims view.
 
-.TSS View - Class Diagram
+.Claims View - Class Diagram
 image::TssModelClassDiagram.png[]
 
-The TaTracker model class contains a TSS which helps it keep track of the total
-hours the user is associated with. Each TSS contains the TotalHours of all the
-done sessions, a rate which represents how much the user is paid per hour and
-the total earnings of the user.
+The TaTracker model class contains a UniqueDoneSessionList which keeps track of
+all the sessions that have been marked as done. Each of the sessions are associated
+with a Module in the UniqueModuleList.
 
-.TSS View - Activity Diagram
+The following diagram describes how TaTracker is updated when a Done Session command is entered.
+
+==== Session Done Command
+.Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
+Note: The above diagram assumes that a valid index has been input into the TA-Tracker during
+the done session command.
 
-1. A DoneSessionCommand is called,
-2. TotalHours is incremented according to the duration of the completed session.
-3. The duration of the completed session is calculated by subtracting StartDateTime
-of the session from EndDateTime and then rounding up the value to a whole.
-4. TotalEarnings is calculated by multiplying TotalHours with Rate
+{insert Filter Claims sequence diagram here}
 
 // tag::syntaxhighlighting[]
 === Syntax Highlighting
@@ -1268,19 +1299,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `TA-Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Viewing a page
+=== Use case: Goto a tab
 
 *MSS*
 
-1.  User requests to view a different page.
-2. TA-Tracker layout changes to show the new page.
+1.  User requests to view a different tab.
+2. TA-Tracker layout changes to show the new tab.
 
 +
 Use case ends.
 
 *Extensions*
 
-* 1a.  The requested page is invalid.
+* 1a.  The requested tab is invalid.
 +
 [none]
 ** 1a1.  TA-Tracker shows an error message.
@@ -1293,29 +1324,9 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to view the help menu.
-2. TA-Tracker shows the list of commands.
+2. TA-Tracker opens a new window showing the list of commands.
 +
 Use case ends.
-
-[discrete]
-=== Use case: Change default view
-
-*MSS*
-
-1.  User requests to change the default view to a specified page.
-2. TA-Tracker changes the default view.
-3. TA-Tracker shows the default view.
-+
-Use case ends.
-
-*Extensions*
-
-* 1a. The given page is invalid.
-+
-[none]
-** 1a1. TA-Tracker shows an error message.
-+
-Use case resumes at step 1.
 
 [discrete]
 === Use case: Change the hourly pay rate
@@ -1324,7 +1335,7 @@ Use case resumes at step 1.
 
 1.  User requests to change the hourly pay rate to a specified amount.
 2. TA-Tracker changes the pay rate.
-3. TA-Tracker shows an edited TSS claims page the total pay adjusted to reflect the new pay rate.
+3. TA-Tracker shows an edited TSS claims page with the total earnings adjusted to reflect the new pay rate.
 
 +
 Use case ends.
@@ -1346,7 +1357,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a student.
 2. TA-Tracker adds new student.
-3. TA-Tracker layout changes to show the student list page.
+3. TA-Tracker layout changes to show the student tab.
 
 +
 Use case ends.
@@ -1367,7 +1378,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a new module.
 2. TA-Tracker adds a new module.
-3. TA-Tracker layout changes to show the session list page.
+3. TA-Tracker layout changes to show the student tab.
 
 +
 Use case ends.
@@ -1388,7 +1399,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a new tutorial.
 2. TA-Tracker shows adds a new tutorial linked to the specified module.
-3. TA-Tracker layout changes to show the session list page.
+3. TA-Tracker layout changes to show the session tab.
 
 +
 Use case ends.
@@ -1416,10 +1427,11 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to list students.
-2. TA-Tracker shows a list of students.
-3. User requests to edit a specific student in the list.
-4. TA-Tracker edits the student according to the specified parameters.
+. User requests to switch to the student tab.
+. TA-Tracker shows a list of students in the student tab.
+. User filters the list in order to get the student's matric number.
+. User requests to edit a specific student in the list.
+. TA-Tracker edits the student according to the specified parameters.
 +
 Use case ends.
 
@@ -1449,10 +1461,11 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show students page.
-2. TA-Tracker shows a list of students categorised by tutorial.
-3. User requests to delete a specific student in the list.
-4. TA-Tracker deletes the student.
+. User requests to show students tab.
+. TA-Tracker shows a list of students in the student tab.
+. User filters the list in order to get the student's index.
+. User requests to delete a specific student in the list.
+. TA-Tracker deletes the student.
 +
 Use case ends.
 
@@ -1475,10 +1488,10 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show sessions page.
-2. TA-Tracker shows a list of sessions categorised by modules.
+1. User requests to show the students tab.
+2. TA-Tracker shows a list of modules in the student tab.
 3. User requests to delete a specific module in the list.
-4. TA-Tracker deletes the module and all of the sessions and tutorials in it.
+4. TA-Tracker deletes the module and all of the sessions and groups in it.
 +
 Use case ends.
 
@@ -1497,14 +1510,15 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Delete tutorial
+=== Use case: Delete group
 
 *MSS*
 
-1. User requests to show students page.
-2. TA-Tracker shows a list of students categorised by tutorial.
-3. User requests to delete a specific tutorial in the list.
-4. TA-Tracker deletes the tutorial and all of the students in it.
+. User requests to show students page.
+. TA-Tracker shows a list of groups categorised by module.
+. User filters the list in order to get the group's group code.
+. User requests to delete a specific group in the list.
+. TA-Tracker deletes the group and all of the students in it.
 +
 Use case ends.
 
@@ -1515,7 +1529,7 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given class code is invalid.
+* 3a. The given group code is invalid.
 +
 [none]
 ** 3a1. TA-Tracker shows an error message.
@@ -1529,7 +1543,7 @@ Use case resumes at step 3.
 1. User requests to add a session.
 2. TA-Tracker creates the new session.
 3. TA-Tracker adds the new session into the session list.
-4. TA-Tracker switches to the Session View in order to display the new session.
+4. TA-Tracker switches to the Session Tab in order to display the new session.
 +
 Use case ends.
 
@@ -1568,8 +1582,8 @@ Use case ends.
 *MSS*
 
 1. User requests to view the Session View.
-2. TA-Tracker switches to the Session View.
-3. User requests to edit a specific session in the view.
+2. TA-Tracker switches to the Session Tab.
+3. User requests to edit a specific session in the list.
 4. TA-Tracker edits the session.
 5. TA-Tracker replaces the session in the current view with the new version.
 +
@@ -1583,9 +1597,9 @@ Use case ends.
 Use case ends.
 
 [none]
-* 3a. The index is invalid.
+* 3a. The given session list index is invalid.
 [none]
-.. 3a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case ends.
 
@@ -1594,7 +1608,7 @@ Use case ends.
 *MSS*
 
 1. User requests to view the Session View.
-2. TA-Tracker switches to the Session View.
+2. TA-Tracker switches to the Session Tab.
 3. User requests to delete a specific session in the view.
 4. TA-Tracker deletes the session.
 5. TA-Tracker removes the session from the current view.
@@ -1620,24 +1634,26 @@ Use case ends.
 *MSS*
 
 1. User requests to view the Session View.
-2. TA-Tracker switches to the Session View.
+2. TA-Tracker switches to the Session Tab.
 3. User requests to mark a specific session in the view as done.
 4. TA-Tracker marks the session as done.
-5. TA-Tracker moves the done session to Claims View.
+5. TA-Tracker removes the session from the current view.
+6. TA-Tracker adds the session to the Claims View.
+6. TA-Tracker switches to the Claims Tab.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The Schedule View is empty.
+* 2a. The Session View is empty.
 +
 Use case ends.
 
 [none]
-* 3a. The index is invalid.
+* 3a. The given session list index is invalid.
 [none]
-.. 3a1. TA-Tracker shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case ends.
 

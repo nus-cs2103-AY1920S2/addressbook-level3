@@ -1,0 +1,28 @@
+@startuml
+!include ../style.puml
+package Model {
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>> {
+package Session {
+class Session
+class UniqueDoneSessionList
+}
+package Module {
+class Module
+class UniqueModuleList
+}
+}
+
+Class HiddenOutside #FFFFFF
+
+TaTracker --> "1 " UniqueDoneSessionList
+UniqueModuleList -down-> "*" Module
+TaTracker -down-> "1  " UniqueModuleList
+UniqueDoneSessionList --> "*" Session
+
+
+@enduml
