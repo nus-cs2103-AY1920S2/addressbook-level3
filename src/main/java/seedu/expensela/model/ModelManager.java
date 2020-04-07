@@ -5,6 +5,7 @@ import static seedu.expensela.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -120,7 +121,10 @@ public class ModelManager implements Model {
         expenseLa.removeTransaction(target);
         boolean positive = target.getAmount().positive;
         double amount = target.getAmount().transactionAmount;
-        updateMonthlyData(positive, amount * (-1));
+        if (isTodaysMonth(target.getDate().transactionDate)) {
+            updateMonthlyData(positive, amount * (-1));
+        }
+        updateTotalBalance(positive, amount * (-1));
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
@@ -129,7 +133,10 @@ public class ModelManager implements Model {
         expenseLa.addTransaction(transaction);
         boolean positive = transaction.getAmount().positive;
         double amount = transaction.getAmount().transactionAmount;
-        updateMonthlyData(positive, amount);
+        if (isTodaysMonth(transaction.getDate().transactionDate)) {
+            updateMonthlyData(positive, amount);
+        }
+        updateTotalBalance(positive, amount);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS, PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
@@ -166,8 +173,14 @@ public class ModelManager implements Model {
         double amountBefore = target.getAmount().transactionAmount * -1;
         boolean positive = editedTransaction.getAmount().positive;
         double amount = editedTransaction.getAmount().transactionAmount;
-        updateMonthlyData(positiveBefore, amountBefore);
-        updateMonthlyData(positive, amount);
+        if (isTodaysMonth(target.getDate().transactionDate)) {
+            updateMonthlyData(positiveBefore, amountBefore);
+        }
+        updateTotalBalance(positiveBefore, amountBefore);
+        if (isTodaysMonth(editedTransaction.getDate().transactionDate)) {
+            updateMonthlyData(positive, amount);
+        }
+        updateTotalBalance(positive, amount);
         expenseLa.setTransaction(target, editedTransaction);
     }
 
@@ -254,6 +267,11 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
+    @Override
+    public boolean getIsFilterMonth() {
+        return expenseLa.getIsFilterMonth();
+    }
+
     //=========== Global Data Accessors =============================================================
     @Override
     public GlobalData getGlobalData() {
@@ -275,11 +293,30 @@ public class ModelManager implements Model {
         globalData.setTotalBalance(balance);
     }
 
+
     @Override
     public void addTransactionToGlobalData(Transaction transaction) { globalData.addTransaction(transaction);}
 
     @Override
     public void clearRecurringTransactions() {globalData.clearRecurringTransactionsList();}
+  
+    /**
+     * update balance given positive or not and amount
+     * @param positive
+     * @param amount
+     */
+    private void updateTotalBalance(boolean positive, double amount) {
+        if (positive) {
+            globalData.setTotalBalance(
+                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount + amount))
+            );
+        } else {
+            globalData.setTotalBalance(
+                    new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount - amount))
+            );
+        }
+    }
+
 
     //=========== Monthly Data Accessors =============================================================
     /**
@@ -293,5 +330,20 @@ public class ModelManager implements Model {
     @Override
     public void switchToggleView() {
         expenseLa.switchToggleView();
+    }
+
+    //=========== Monthly Data Accessors =============================================================
+
+    /**
+     * Check if the date from transaction is in today's month
+     * @param date
+     * @return booelan
+     */
+    private boolean isTodaysMonth(LocalDate date) {
+        if (date.getMonth().equals(LocalDate.now().getMonth())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

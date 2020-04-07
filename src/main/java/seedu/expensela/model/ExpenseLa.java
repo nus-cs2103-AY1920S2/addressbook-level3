@@ -72,6 +72,10 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
         this.filter.setDateMonth(filter.getDateMonthPredicate());
     }
 
+    public boolean getIsFilterMonth() {
+        return this.filter.isFilterMonth();
+    }
+
     /**
      * Resets the existing data of this {@code ExpenseLa} with {@code newData}.
      */

@@ -31,7 +31,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                         PREFIX_CATEGORY, PREFIX_INCOME);
 
         Index index;
-        boolean isNotIncome = true;
+        boolean isIncome = false;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -43,14 +43,14 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         try {
             if (argMultimap.getValue(PREFIX_INCOME).isPresent()) {
-                isNotIncome = false;
+                isIncome = true;
             }
             if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
                 editTransactionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
             }
             if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
                 editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(),
-                        isNotIncome));
+                        isIncome));
             }
             if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
                 editTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));

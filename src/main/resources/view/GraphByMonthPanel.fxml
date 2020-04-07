@@ -4,20 +4,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.ScrollPane?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane styleClass="pane-with-border" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" percentWidth="60.0" />
         </columnConstraints>
 
-        <StackedBarChart fx:id="stackedBarChart" GridPane.columnIndex="0">
+        <BarChart fx:id="barChart" GridPane.columnIndex="0">
             <xAxis>
                 <CategoryAxis fx:id="xAxis" side="BOTTOM" />
             </xAxis>
             <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" />
             </yAxis>
-        </StackedBarChart>
+        </BarChart>
         <PieChart fx:id="pieChart" GridPane.columnIndex="1"/>
     </GridPane>
 </ScrollPane>

@@ -27,13 +27,14 @@ public class AmountTest {
         // invalid amount numbers
         assertFalse(Amount.isValidAmount("")); // empty string
         assertFalse(Amount.isValidAmount(" ")); // spaces only
-        assertTrue(Amount.isValidAmount("91")); // no decimal places
-        assertTrue(Amount.isValidAmount("91.1")); // 1 decimal place
         assertFalse(Amount.isValidAmount("amount")); // non-numeric
         assertFalse(Amount.isValidAmount("9011p041")); // alphabets within digits
         assertFalse(Amount.isValidAmount("9312 1534")); // spaces within digits
+        assertFalse(Amount.isValidAmount("-88")); // negative amount
 
         // valid amount numbers
+        assertTrue(Amount.isValidAmount("91")); // no decimal places
+        assertTrue(Amount.isValidAmount("91.1")); // 1 decimal place
         assertTrue(Amount.isValidAmount("91.10")); // exactly 2 decimal places
         assertTrue(Amount.isValidAmount("124293842033123.00")); // long amount numbers
     }
