@@ -83,7 +83,8 @@ public class Transaction {
             return true;
         }
 
-        return otherTransaction.getCustomerId().equals(getCustomerId())
+        return otherTransaction != null
+                && otherTransaction.getCustomerId().equals(getCustomerId())
                 && otherTransaction.getProductId().equals(getProductId())
                 && otherTransaction.getDateTime().equals(getDateTime());
     }

@@ -1,4 +1,6 @@
-package seedu.address.testutil.util;
+package seedu.address.testutil.transaction;
+
+import java.time.LocalDateTime;
 
 import seedu.address.model.transaction.DateTime;
 
@@ -12,20 +14,27 @@ public class DateTimeBuilder {
     public static final String DEFAULT_OTHER_START_DATE = "2020-02-02 00:01";
     public static final String DEFAULT_OTHER_END_DATE = "2020-11-30 23:58";
 
-    private DateTime startEndDate;
+    private LocalDateTime dateTime;
 
     public DateTimeBuilder() {
-        this.startEndDate = new DateTime(DEFAULT_START_DATE);
+        this.dateTime = LocalDateTime.parse(DEFAULT_START_DATE, DateTime.DATE_TIME_FORMAT);
     }
 
     /**
      * Initializes the DateTimeBuilder with the data of {@code startEndDate}.
      */
-    public DateTimeBuilder(String startEndDate) {
-        this.startEndDate = new DateTime(startEndDate);
+    public DateTimeBuilder(String dateTime) {
+        this.dateTime = LocalDateTime.parse(dateTime, DateTime.DATE_TIME_FORMAT);
+    }
+
+    /**
+     * Initializes the DateTimeBuilder with the data of {@code dateTimeToCopy}.
+     */
+    public DateTimeBuilder(DateTime dateTimeToCopy) {
+        dateTime = dateTimeToCopy.value;
     }
 
     public DateTime build() {
-        return startEndDate;
+        return new DateTime(dateTime);
     }
 }

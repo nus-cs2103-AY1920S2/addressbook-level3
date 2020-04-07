@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
 
 import java.nio.file.Path;
 
@@ -52,9 +52,9 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonInventorySystemStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonInventorySystemStorageTest} class.
          */
-        InventorySystem original = getTypicalAddressBook();
+        InventorySystem original = getTypicalInventorySystem();
         storageManager.saveInventorySystem(original);
         ReadOnlyInventorySystem retrieved = storageManager.readInventorySystem().get();
         assertEquals(original, new InventorySystem(retrieved));

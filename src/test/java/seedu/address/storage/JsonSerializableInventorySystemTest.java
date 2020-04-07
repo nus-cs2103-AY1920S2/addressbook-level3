@@ -13,9 +13,10 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.InventorySystem;
 import seedu.address.testutil.customer.TypicalPersons;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableInventorySystemTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonSerializableInventorySystemTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
@@ -25,7 +26,7 @@ public class JsonSerializableAddressBookTest {
         JsonSerializableInventorySystem dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableInventorySystem.class).get();
         InventorySystem addressBookFromFile = dataFromFile.toModelType();
-        InventorySystem typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        InventorySystem typicalPersonsAddressBook = TypicalPersons.getTypicalInventorySystem();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

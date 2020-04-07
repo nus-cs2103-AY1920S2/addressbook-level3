@@ -71,6 +71,7 @@ public class Quantity implements Comparable<Quantity> {
      * @return new quantity.
      */
     public Quantity minus(Quantity q) {
+        requireNonNull(q);
         int newValue = value - q.value;
         return new Quantity(newValue);
     }
@@ -82,6 +83,7 @@ public class Quantity implements Comparable<Quantity> {
      * @return new quantity.
      */
     public Quantity plus(Quantity q) {
+        requireNonNull(q);
         int newValue = value + q.value;
         return new Quantity(newValue);
     }

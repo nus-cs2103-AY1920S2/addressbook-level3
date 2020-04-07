@@ -61,7 +61,8 @@ public class RevenueCommand extends Command {
             throw new CommandException(MESSAGE_DATE_CONFLICT);
         }
 
-        Money revenue = calculateRevenue(model);
+        List<Transaction> transactions = model.getInventorySystem().getTransactionList();
+        Money revenue = calculateRevenue(transactions);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                                 startDateTime,
@@ -71,16 +72,15 @@ public class RevenueCommand extends Command {
 
     /**
      * Calculates the revenue in a given time period
-     * @param model
+     * @param transactions
      * @return calculated sales
      * @throws CommandException
      */
-    private Money calculateRevenue(Model model) throws CommandException {
+    private Money calculateRevenue(List<Transaction> transactions) throws CommandException {
         int revenue = 0;
-        List<Transaction> transactionList = model.getFilteredTransactionList();
 
-        for (int i = 0; i < transactionList.size(); i++) {
-            Transaction transaction = transactionList.get(i);
+        for (int i = 0; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
             LocalDateTime transactionDateTime = transaction.getDateTime().value;
 
             if (transactionDateTime.compareTo(startDateTime.value) > 0
