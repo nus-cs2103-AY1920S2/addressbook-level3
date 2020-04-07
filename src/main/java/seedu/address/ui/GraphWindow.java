@@ -15,6 +15,7 @@ import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.ExerciseDate;
 import seedu.address.model.exercise.ExerciseReps;
 import seedu.address.model.exercise.ExerciseWeight;
+import seedu.address.model.graph.AxisType;
 
 /**
  * Controller for a graph page
@@ -25,8 +26,7 @@ public class GraphWindow extends UiPart<Stage> {
     private static final String FXML = "GraphWindow.fxml";
 
     private final List<Exercise> graphList;
-    private final boolean isShowReps;
-    private final boolean isShowWeight;
+    private final AxisType axisType;
     public XYChart.Series<Number, Number> series;
 
     @FXML
@@ -41,21 +41,24 @@ public class GraphWindow extends UiPart<Stage> {
     /**
      * Creates a new GraphWindow.
      */
-    public GraphWindow(List<Exercise> graphList, boolean isShowReps, boolean isShowWeight) {
+    public GraphWindow(List<Exercise> graphList, AxisType axisType) {
         super(FXML, new Stage());
         this.graphList = graphList;
-        this.isShowReps = isShowReps;
-        this.isShowWeight = isShowWeight;
+        this.axisType = axisType;
 
-        if (isShowReps) {
+        switch (axisType) {
+        case REPS:
             fillRepsSeries();
             yAxis.setLabel("Reps");
-        } else {
+            break;
+        case WEIGHT:
             fillWeightSeries();
             yAxis.setLabel("Weight");
+            break;
+        default:
         }
 
-        series.setName("Exercise Graph");
+        //series.setName("Exercise Graph");
         
         formatDateLabels();
         exerciseGraph.getData().add(series);

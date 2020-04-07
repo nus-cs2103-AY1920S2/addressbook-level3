@@ -69,13 +69,7 @@ public class GraphCommand extends Command {
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
 
-        if (graph.getAxis().isReps()) {
-            return new CommandResult(graphList.toString(), true, false, graphList);
-        } else if (graph.getAxis().isWeight()) {
-            return new CommandResult(graphList.toString(), false, true, graphList);
-        } else {
-            throw new CommandException(MESSAGE_AXIS_UNSPECIFIED);
-        }
+        return new CommandResult(graphList.toString(), graph.getAxis().getAxisType(), graphList);
     }
 
     @Override

@@ -63,11 +63,14 @@ public class Graph {
                 .filter(exercise -> (exercise.getExerciseDate().value.compareTo(endDate.value) <= 0))
                 .sorted(exerciseComparator);
 
-        if (axis.value.equals("reps")) {
+        switch (axis.getAxisType()) {
+        case REPS:
             graphList = graphList.filter(exercise -> !exercise.getExerciseReps().value.isEmpty());
-
-        } else if (axis.value.equals("weight")) {
+            break;
+        case WEIGHT:
             graphList = graphList.filter(exercise -> !exercise.getExerciseWeight().value.isEmpty());
+            break;
+        default:
         }
         return graphList.collect(Collectors.toList());
     }

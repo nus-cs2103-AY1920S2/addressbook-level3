@@ -10,20 +10,16 @@ public class Axis {
     public static final String MESSAGE_CONSTRAINTS =
         "The y-axis can only be exactly \"reps\" or \"weight\" and it should not be blank. ";
 
-    public final String value;
+    public final AxisType value;
 
     public Axis(String axis) {
         requireNonNull(axis);
         checkArgument(isValidAxis(axis), MESSAGE_CONSTRAINTS);
-        value = axis;
+        value = AxisType.getAxisType(axis);
     }
 
-    public boolean isReps(){
-        return value.equals("reps");
-    }
-
-    public boolean isWeight() {
-        return value.equals("weight");
+    public AxisType getAxisType() {
+        return value;
     }
 
     public static boolean isValidAxis(String test) {

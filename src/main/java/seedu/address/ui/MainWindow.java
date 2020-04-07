@@ -176,7 +176,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public void handleGraph(CommandResult commandResult) {
         GraphWindow graphWindow = new GraphWindow(commandResult.getGraphList(),
-            commandResult.isShowReps(), commandResult.isShowWeight());
+            commandResult.getAxisType());
         graphWindow.show();
     }
 
