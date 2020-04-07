@@ -21,6 +21,7 @@ import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.NewSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
 import com.notably.model.Model;
 
@@ -53,7 +54,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     public void suggest(String userInput) {
         if (userInput.length() >= 2) {
             Optional<SuggestionCommand> suggestionCommand = parseCommand(userInput);
-            suggestionCommand.ifPresent(s -> suggestionCommand.get().execute(model));
+            suggestionCommand.ifPresent(s -> s.execute(model));
         }
     }
 
@@ -98,7 +99,11 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
         case NewSuggestionCommand.COMMAND_WORD:
-            return Optional.of(new NewSuggestionCommand());
+            try {
+                return new NewSuggestionCommandParser(model).parse(arguments);
+            } catch (ParseException e) {
+                return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
+            }
 
         case EditSuggestionCommand.COMMAND_WORD:
             return Optional.of(new EditSuggestionCommand());
