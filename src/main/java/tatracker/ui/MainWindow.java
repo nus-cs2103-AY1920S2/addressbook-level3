@@ -257,8 +257,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         // Create a new statistic window
-        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic.getGuiSettings(),
-                logic.getTaTracker());
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic.getGuiSettings());
         statisticWindow.show();
         statisticWindow.focus();
     }

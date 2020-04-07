@@ -74,16 +74,14 @@ public class StatisticWindow extends UiPart<Stage> {
     @FXML
     private Label rating5Label;
 
-    private final ReadOnlyTaTracker taTracker;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings, ReadOnlyTaTracker taTracker) {
+    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
         super(FXML, root);
-        this.taTracker = taTracker;
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
@@ -109,7 +107,7 @@ public class StatisticWindow extends UiPart<Stage> {
         numHoursGradingLabel.setText(stats.numHoursPerCategory[3] + " Hours");
         numHoursPreparationLabel.setText(stats.numHoursPerCategory[4] + " Hours");
         numHoursOtherLabel.setText(stats.numHoursPerCategory[5] + " Hours");
-        numHoursTotalLabel.setText(taTracker.getTotalHours() + " (S$" + taTracker.getTotalEarnings() + ")");
+        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalEarnings() + ")");
 
         studentName1Label.setText(stats.worstStudents[0].getFullName());
         rating1Label.setText(Integer.toString(stats.worstStudents[0].getRating()));
@@ -136,8 +134,8 @@ public class StatisticWindow extends UiPart<Stage> {
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticWindow(Statistic stats, GuiSettings guiSettings, ReadOnlyTaTracker taTracker) {
-        this(new Stage(), stats, guiSettings, taTracker);
+    public StatisticWindow(Statistic stats, GuiSettings guiSettings) {
+        this(new Stage(), stats, guiSettings);
     }
 
     /**
