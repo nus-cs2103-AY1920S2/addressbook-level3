@@ -54,32 +54,10 @@ public class StatisticsWindow extends UiPart<Stage> {
      */
     private void setUpLogic(Logic logic) {
         this.logic = logic;
-        ObservableList<Product> productList = logic.getInventorySystem().getProductList();
-        ObservableList<Transaction> transactionsList = logic.getInventorySystem().getTransactionList();
-        statisticsListPanel = new StatisticsListPanel(sort(productList, transactionsList), transactionsList);
+        statisticsListPanel = new StatisticsListPanel(logic);
         statisticsListPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());
     }
 
-    /**
-     * Sorts the product list according to product revenue.
-     * @param products
-     * @return sorted list
-     */
-    private ObservableList<Product> sort(ObservableList<Product> products, ObservableList<Transaction> transactions) {
-        List<Product> modifiableProducts = new ArrayList<>(products);
-        List<Transaction> modifiableTransactions = new ArrayList<>(transactions);
-
-        Collections.sort(modifiableProducts, new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                int o1Sales = o1.getProfit(transactions);
-                int o2Sales = o2.getProfit(transactions);
-                return o2Sales - o1Sales;
-            }
-        });
-
-        return FXCollections.observableArrayList(modifiableProducts);
-    }
 
     /**
      * Shows the statistics window.

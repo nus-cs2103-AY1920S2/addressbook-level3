@@ -25,6 +25,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.customer.PersonListPanel;
 import seedu.address.ui.product.ProductListPanel;
+import seedu.address.ui.statistics.StatisticsListPanel;
 import seedu.address.ui.transaction.TransactionListPanel;
 
 /**
@@ -44,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ProductListPanel productListPanel;
     private TransactionListPanel transactionListPanel;
+    private StatisticsListPanel statisticsListPanel;
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -73,6 +75,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane transactionListPanelPlaceholder;
 
     @FXML
+    private StackPane statisticsPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -91,7 +96,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statisticsWindow = new StatisticsWindow(logic);
+//        statisticsWindow = new StatisticsWindow(logic);
         inventoryWindow = new InventoryWindow(logic);
         plotWindow = new PlotWindow();
     }
@@ -148,6 +153,9 @@ public class MainWindow extends UiPart<Stage> {
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
         transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+
+        statisticsListPanel = new StatisticsListPanel(logic);
+        statisticsPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

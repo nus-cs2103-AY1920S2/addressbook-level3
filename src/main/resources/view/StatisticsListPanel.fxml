@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-<?import java.net.URL?>
+<?import javafx.scene.text.Font?>
 
 <VBox style="-fx-background-color: #242424;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@StatisticsListPanel.css"/>
+        <URL value="@StatisticsListPanel.css" />
     </stylesheets>
+   <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Top Selling Products" textAlignment="CENTER" textFill="#e797fd">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Label>
     <ListView fx:id="statisticsListView" style="-fx-background-color: #242424;" VBox.vgrow="ALWAYS" />
 </VBox>

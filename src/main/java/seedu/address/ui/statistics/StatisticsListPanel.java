@@ -1,15 +1,19 @@
 package seedu.address.ui.statistics;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.ui.UiPart;
@@ -25,11 +29,31 @@ public class StatisticsListPanel extends UiPart<Region> {
     @FXML
     private ListView<Product> statisticsListView;
 
-    public StatisticsListPanel(ObservableList<Product> productList, List<Transaction> transactions) {
+    public StatisticsListPanel(Logic logic) {
         super(FXML);
-        this.transactions = transactions;
-        statisticsListView.setItems(productList);
+        transactions = logic.getInventorySystem().getTransactionList();
+        statisticsListView.setItems(getSortedProductList(logic));
         statisticsListView.setCellFactory(listView -> new StatisticsListViewCell());
+    }
+
+    /**
+     * Sorts the product list according to product revenue.
+     * @param logic
+     * @return sorted list
+     */
+    private ObservableList<Product> getSortedProductList(Logic logic) {
+        List<Product> modifiableProducts = new ArrayList<>(logic.getInventorySystem().getProductList());
+
+        Collections.sort(modifiableProducts, new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                int o1Sales = o1.getProfit(transactions);
+                int o2Sales = o2.getProfit(transactions);
+                return o2Sales - o1Sales;
+            }
+        });
+
+        return FXCollections.observableArrayList(modifiableProducts);
     }
 
     /**

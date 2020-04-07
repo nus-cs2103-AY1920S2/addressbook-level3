@@ -38,31 +38,19 @@
                 <MenuItem fx:id="inventory" mnemonicParsing="false" onAction="#handleInventory" text="Inventory" />
             </Menu>
         </MenuBar>
-
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
                 <Tab text="Main">
                      <content>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox>
                            <children>
-                          <VBox fx:id="customerList" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                          <VBox fx:id="customerList" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <padding>
                               <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>
                             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                           </VBox>
-                          <VBox fx:id="productList" minWidth="150.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                          <VBox fx:id="productList" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                              <padding>
                                 <Insets bottom="10" left="10" right="10" top="10" />
                              </padding>
@@ -86,8 +74,29 @@
                     </VBox>
                      </content>
                 </Tab>
+                  <Tab text="Statistics">
+                     <content>
+                        <VBox styleClass="pane-with-border">
+                           <children>
+                              <StackPane fx:id="statisticsPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
               </tabs>
             </TabPane>
+
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
+
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5" />
+          </padding>
+        </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
