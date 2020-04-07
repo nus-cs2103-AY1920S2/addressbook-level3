@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ScrollPane?>
 <StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="baseNode" >
   <VBox id="summary-tab" alignment="CENTER" minHeight="300" StackPane.alignment="CENTER">
     <Label id="saved-text" fx:id="savedText" styleClass="summary-bold-text" contentDisplay="CENTER"
@@ -26,8 +27,10 @@
       <VBox id="saveables-box" alignment="CENTER" prefHeight="338.0" prefWidth="301.0">
         <Label id="saveables-text" styleClass="saveable-label" fx:id="saveablesText"
                contentDisplay="CENTER" prefHeight="17.0" />
-        <VBox id="all-saveables" fx:id="allSaveables" alignment="CENTER"
-              prefHeight="303.0" prefWidth="277.0" />
+        <ScrollPane id="all-saveables" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefHeight="303.0" prefWidth="277.0">
+        <VBox id="saveables" fx:id="allSaveables" alignment="CENTER" prefHeight="303.0" prefWidth="277.0"
+               />
+        </ScrollPane>
       </VBox>
     </HBox>
   </VBox>
