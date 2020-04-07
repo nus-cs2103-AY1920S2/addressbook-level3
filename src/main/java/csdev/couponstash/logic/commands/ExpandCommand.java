@@ -24,7 +24,8 @@ public class ExpandCommand extends IndexedCommand {
             + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EXPAND_COUPON_SUCCESS = "Coupon opened in new window: %s";
+    public static final String MESSAGE_EXPAND_COUPON_SUCCESS = "Coupon opened in new window: %s\n\n"
+            + "To exit, press Alt + F4 (Windows)";
 
     /**
      * @param index of the coupon in the filtered coupon list to expand

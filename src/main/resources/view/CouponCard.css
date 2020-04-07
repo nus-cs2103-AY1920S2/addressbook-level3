@@ -56,12 +56,12 @@
 }
 
 /* For tags */
-#tags {
+.tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+.tags .label {
     -fx-text-fill: white;
     -fx-background-color: #DF6D54;
     -fx-padding: 1 8 1 8;

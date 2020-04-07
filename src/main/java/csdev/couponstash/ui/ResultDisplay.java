@@ -24,7 +24,6 @@ public class ResultDisplay extends UiPart<Region> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         feedbackDisplay.setText(feedbackToUser);
-        feedbackDisplay.setEditable(false);
     }
 
 }
