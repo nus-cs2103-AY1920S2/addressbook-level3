@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.exceptions.InvalidReminderException;
 
@@ -86,6 +88,15 @@ public class ParserUtil {
             throw new ParseException(Reminder.MESSAGE_CONSTRAINTS);
         }
         return new Reminder(reminderString);
+    }
+
+    public static Recurring parseRecurring(String recurringString) throws ParseException {
+        requireNonNull(recurringString);
+        String trimmedRecurring = recurringString.trim();
+        if (!Recurring.isValidRecurring(trimmedRecurring)) {
+            throw new ParseException(Recurring.MESSAGE_CONSTRAINTS);
+        }
+        return new Recurring(trimmedRecurring, LocalDateTime.now());
     }
 
     /**

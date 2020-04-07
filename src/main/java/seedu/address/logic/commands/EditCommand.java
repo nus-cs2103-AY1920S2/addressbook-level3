@@ -22,6 +22,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
@@ -101,6 +102,7 @@ public class EditCommand extends Command {
         }
 
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        editedTask.triggerRecurringIfPresent(model);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
@@ -122,6 +124,9 @@ public class EditCommand extends Command {
                 editTaskDescriptor.getReminder().isPresent()
                         ? editTaskDescriptor.getReminder()
                         : taskToEdit.getOptionalReminder();
+        Optional<Recurring> updatedOptionalRecurring = editTaskDescriptor.getRecurring().isPresent()
+                        ? editTaskDescriptor.getRecurring()
+                        : taskToEdit.getOptionalRecurring();
 
         return new Task(
                 updatedName,
@@ -129,7 +134,8 @@ public class EditCommand extends Command {
                 updatedDescription,
                 updatedDone,
                 updatedTags,
-                updatedOptionalReminder);
+                updatedOptionalReminder,
+                updatedOptionalRecurring);
     }
 
     @Override
@@ -160,6 +166,7 @@ public class EditCommand extends Command {
         private Done done;
         private Set<Tag> tags;
         private Reminder reminder;
+        private Recurring recurring;
 
         public EditTaskDescriptor() {}
 
@@ -171,11 +178,12 @@ public class EditCommand extends Command {
             setDone(toCopy.done);
             setTags(toCopy.tags);
             setReminder(toCopy.reminder);
+            setRecurring(toCopy.recurring);
         }
 
         /** Returns true if at least one field is edited. */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, priority, description, tags, reminder);
+            return CollectionUtil.isAnyNonNull(name, priority, description, tags, reminder, recurring);
         }
 
         public void setName(Name name) {
@@ -234,6 +242,14 @@ public class EditCommand extends Command {
 
         public Optional<Reminder> getReminder() {
             return Optional.ofNullable(reminder);
+        }
+
+        public void setRecurring(Recurring recurring) {
+            this.recurring = recurring;
+        }
+
+        public Optional<Recurring> getRecurring() {
+            return Optional.ofNullable(recurring);
         }
 
         @Override

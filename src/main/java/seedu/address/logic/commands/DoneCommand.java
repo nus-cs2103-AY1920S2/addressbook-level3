@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -20,6 +21,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
 
 /** Deletes a task identified using it's displayed index from the task list. */
@@ -110,9 +112,10 @@ public class DoneCommand extends Command {
         Priority updatedPriority = taskToEdit.getPriority();
         Description updatedDescription = taskToEdit.getDescription();
         Set<Tag> updatedTags = taskToEdit.getTags();
+        Optional<Recurring> optionalRecurring = taskToEdit.getOptionalRecurring();
 
         return new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
+                updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags, optionalRecurring);
     }
 
     private static void updateStatisticsRegularDone(Model model) {
