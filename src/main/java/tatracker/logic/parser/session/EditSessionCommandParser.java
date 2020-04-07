@@ -1,7 +1,6 @@
 package tatracker.logic.parser.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
 import static tatracker.logic.parser.Prefixes.MODULE;
@@ -14,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.session.EditSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
@@ -51,9 +51,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditSessionCommand.DETAILS.getUsage()),
-                    pe);
+            throw new ParseException(Messages.getInvalidCommandMessage(EditSessionCommand.DETAILS.getUsage()), pe);
         }
 
         EditSessionCommand.EditSessionDescriptor editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor();

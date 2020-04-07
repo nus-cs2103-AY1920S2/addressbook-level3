@@ -1,6 +1,5 @@
 package tatracker.logic.parser.group;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NEWGROUP;
@@ -8,6 +7,7 @@ import static tatracker.logic.parser.Prefixes.NEWTYPE;
 
 import java.util.stream.Stream;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.group.EditGroupCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -34,8 +34,7 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditGroupCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(EditGroupCommand.DETAILS.getUsage()));
         }
 
         String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();

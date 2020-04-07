@@ -1,11 +1,11 @@
 package tatracker.logic.parser.module;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NAME;
 
 import java.util.stream.Stream;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.module.AddModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -30,8 +30,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
         if (!arePrefixesPresent(argMultimap, MODULE, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddModuleCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(AddModuleCommand.DETAILS.getUsage()));
         }
 
         // No need to parse trimmed strings

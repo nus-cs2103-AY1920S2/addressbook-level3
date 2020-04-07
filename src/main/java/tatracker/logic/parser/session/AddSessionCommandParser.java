@@ -1,6 +1,5 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
 import static tatracker.logic.parser.Prefixes.MODULE;
@@ -13,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.session.AddSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -45,8 +45,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
                 DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddSessionCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(AddSessionCommand.DETAILS.getUsage()));
         }
 
         LocalDate date = LocalDate.now();

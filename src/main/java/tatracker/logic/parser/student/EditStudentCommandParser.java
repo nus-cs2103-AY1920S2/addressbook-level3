@@ -1,7 +1,6 @@
 package tatracker.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -17,6 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.logic.parser.ArgumentMultimap;
@@ -45,8 +45,7 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
 
         if (!arePrefixesPresent(argMultimap, MATRIC, MODULE, GROUP)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditStudentCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(EditStudentCommand.DETAILS.getUsage()));
         }
 
         // ==== Identity fields ====

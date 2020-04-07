@@ -1,6 +1,5 @@
 package tatracker.logic.parser.sort;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.TYPE;
@@ -8,6 +7,7 @@ import static tatracker.logic.parser.Prefixes.TYPE;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.sort.SortCommand;
@@ -38,7 +38,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(HelpCommand.DETAILS.getUsage()));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -58,28 +58,24 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         case CommandWords.SORT_ALL:
             if (!hasType) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortCommand.DETAILS.getUsage()));
+                throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
             }
             return new SortCommand(type);
 
         case CommandWords.SORT_MODULE:
             if (!(hasType && hasModule)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortModuleCommand.DETAILS.getUsage()));
+                throw new ParseException(Messages.getInvalidCommandMessage(SortModuleCommand.DETAILS.getUsage()));
             }
             return new SortModuleCommand(type, moduleCode);
 
         case CommandWords.SORT_GROUP:
             if (!(hasType && hasModule && hasGroup)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        SortGroupCommand.DETAILS.getUsage()));
+                throw new ParseException(Messages.getInvalidCommandMessage(SortGroupCommand.DETAILS.getUsage()));
             }
             return new SortGroupCommand(type, groupCode, moduleCode);
 
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SortCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
         }
     }
 }
