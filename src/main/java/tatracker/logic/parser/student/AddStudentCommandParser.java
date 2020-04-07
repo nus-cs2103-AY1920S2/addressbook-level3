@@ -11,14 +11,12 @@ import static tatracker.logic.parser.Prefixes.RATING;
 import static tatracker.logic.parser.Prefixes.TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -44,7 +42,7 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
                 ArgumentTokenizer.tokenize(args, MATRIC, MODULE, GROUP,
                         NAME, PHONE, EMAIL, RATING, TAG);
 
-        if (!arePrefixesPresent(argMultimap, MATRIC, MODULE, GROUP, NAME)
+        if (!argMultimap.arePrefixesPresent(MATRIC, MODULE, GROUP, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddStudentCommand.DETAILS.getUsage()));
@@ -84,13 +82,4 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         return new AddStudentCommand(student, group, module);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }
