@@ -95,7 +95,7 @@ public class EditStudentCommand extends Command {
         }
 
         if (!model.hasStudent(matric, groupCode, moduleCode)) {
-            throw new CommandException(MESSAGE_INVALID_STUDENT_FORMAT);
+            throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT, matric, moduleCode, groupCode));
         }
 
         Student studentToEdit = model.getStudent(matric, groupCode, moduleCode);
