@@ -899,7 +899,7 @@ You can use this command to mark a session as done.
 
 If the session marked done has a recurring period, a new session with the updated date
 and timing will be added to Session View.
-The session marked done will be removed from Session View and
+The session marked done will be removed from *Session View* and
 will automatically appear as a new claim in the *Claims View*.
 
 You will automatically be switched to the claims
