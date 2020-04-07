@@ -16,13 +16,17 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteInfoCommand;
 import seedu.address.logic.commands.DeleteRestaurantCommand;
 import seedu.address.logic.commands.EditAssignmentCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditInfoCommand;
+import seedu.address.logic.commands.EditRestaurantNoteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindRestaurantCommand;
 import seedu.address.logic.commands.GetCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAssignmentCommand;
@@ -73,11 +77,17 @@ public class AddressBookParser {
         case ListRestaurantCommand.COMMAND_WORD:
             return new ListRestaurantCommand();
 
+        case FindRestaurantCommand.COMMAND_WORD:
+            return new FindRestaurantCommandParser().parse(arguments);
+
         case VisitedRestaurantCommand.COMMAND_WORD:
             return new VisitedRestaurantCommandParser().parse(arguments);
 
         case AddRestaurantNoteCommand.COMMAND_WORD:
             return new AddRestaurantNoteCommandParser().parse(arguments);
+
+        case EditRestaurantNoteCommand.COMMAND_WORD:
+            return new EditRestaurantNoteCommandParser().parse(arguments);
 
         case AddAssignmentCommand.COMMAND_WORD:
             return new AddAssignmentCommandParser().parse(arguments);
@@ -93,6 +103,12 @@ public class AddressBookParser {
 
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
+
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventCommandParser().parse(arguments);
+
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
 
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommandParser().parse(arguments);

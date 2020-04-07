@@ -23,7 +23,6 @@ public class GroupContainsKeywordsPredicate implements Predicate<Person> {
         return keywords.size();
     }
 
-    // this one need to edit when you have implemented Group
     @Override
     public boolean test(Person person) {
         return keywords.stream()

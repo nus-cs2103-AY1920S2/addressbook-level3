@@ -201,6 +201,8 @@ image::stScheduleResult.png[]
 ** Pros: Easier to implement.
 ** Cons: Does not take into account approaching deadlines and may result in some days having impossibly high workload.
 
+// end::schedule[]
+
 // tag::get[]
 === Detailed Contact Viewer
 ==== Implementation

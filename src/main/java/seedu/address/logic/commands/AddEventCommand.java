@@ -14,7 +14,7 @@ import seedu.address.model.event.Event;
  * Adds an Event to the schedule.
  */
 public class AddEventCommand extends Command {
-    public static final String COMMAND_WORD = "event";
+    public static final String COMMAND_WORD = "(ev)add";
     public static final String COMMAND_FUNCTION = "Adds an event to your schedule. ";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: "
