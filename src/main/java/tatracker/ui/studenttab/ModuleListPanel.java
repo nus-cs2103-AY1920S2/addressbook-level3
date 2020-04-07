@@ -50,7 +50,7 @@ public class ModuleListPanel extends UiPart<Region> implements Focusable {
      * @param moduleList the updated moduleList
      */
     public void updateCells(ObservableList<Module> moduleList) {
-        System.out.println("reached updateCells");
+        logger.fine("reached updateCells");
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }

@@ -1,15 +1,20 @@
 package tatracker.logic.parser.commons;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.logic.commands.commons.SetRateCommand;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
+
+import java.util.logging.Logger;
 
 
 /**
  * Parses input arguments and creates a new SetRateCommand object
  */
 public class SetRateCommandParser implements Parser<SetRateCommand> {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetRateCommand
@@ -18,7 +23,7 @@ public class SetRateCommandParser implements Parser<SetRateCommand> {
      */
     public SetRateCommand parse(String args) throws ParseException {
         int rate = ParserUtil.parseRate(args);
-        System.out.println("return new SetRateCommand:" + rate);
+        logger.fine("return new SetRateCommand:" + rate);
         return new SetRateCommand(rate);
     }
 }

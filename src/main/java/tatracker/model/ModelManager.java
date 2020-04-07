@@ -33,7 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Module> filteredModules;
-
+    
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
      */
@@ -213,7 +213,7 @@ public class ModelManager implements Model {
     public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
         taTracker.setCurrentlyShownModuleClaim(moduleCode);
-        System.out.println("filtered: " + moduleCode);
+        logger.fine("filtered: " + moduleCode);
         filteredDoneSessions.setPredicate(predicate);
     }
 
