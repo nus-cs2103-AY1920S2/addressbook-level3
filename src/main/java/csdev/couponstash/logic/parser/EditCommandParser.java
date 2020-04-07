@@ -11,7 +11,6 @@ import java.util.Set;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.EditCommand;
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -61,9 +60,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
-        } catch (OverflowException oe) {
-            throw new ParseException(oe.getMessage());
+            throw new ParseException(
+                    String.format(
+                            pe.getMessage() + "\n\n"
+                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            EditCommand.MESSAGE_USAGE
+                    ),
+                    pe
+            );
         }
 
         EditCommand.EditCouponDescriptor editCouponDescriptor = new EditCommand.EditCouponDescriptor();

@@ -4,7 +4,6 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.DeleteCommand;
-import csdev.couponstash.logic.parser.exceptions.OverflowException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
@@ -23,9 +22,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-        } catch (OverflowException oe) {
-            throw new ParseException(oe.getMessage());
+                    String.format(
+                            pe.getMessage() + "\n\n"
+                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            DeleteCommand.MESSAGE_USAGE
+                    ),
+                    pe
+            );
         }
     }
 
