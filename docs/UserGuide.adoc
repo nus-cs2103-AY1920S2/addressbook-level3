@@ -374,13 +374,26 @@ Example: +
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
-You can display all the person(s) and the amount they owe you.
+Listing the amount of money each Person owes you.
 
-Format: +
+*Summary of List Amount Command: `listamount` shows you how much each Person owes you*.
+
+*How to use the List Amount Command:*
+
+Format of List Amount Command: +
 `listamount` +
 
-Example: +
+Example of valid List Amount Command: +
 `listamount`
+
+*Expected outcome after using Paid Command:*
+image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
+
+[TIP]
+====
+* Use `listamount` command to find the index of the person who paid you. The index is useful for commands
+such as `paid`.
+====
 
 '''
 
@@ -423,7 +436,6 @@ Example of valid Paid Commands: +
 *Expected outcome after using Paid Command:*
 
 image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
-
 
 *Additional tips and notes for Paid Command*
 
