@@ -1,8 +1,11 @@
 package com.notably.view.blockcontent;
 
-import java.util.Objects;
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
+import static java.util.Objects.requireNonNull;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.Logic;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.view.ViewPart;
@@ -18,15 +21,17 @@ import javafx.scene.layout.Region;
 public class BlockContentEditView extends ViewPart<Region> {
     private static final String FXML = "blockcontent/BlockContentEditView.fxml";
 
+    private final Logic logic;
     private final Model model;
 
     @FXML
     private TextArea blockContentTextArea;
 
-    public BlockContentEditView(Model model) {
+    public BlockContentEditView(Logic logic, Model model) {
         super(FXML);
 
-        Objects.requireNonNull(model);
+        requireAllNonNull(model, logic);
+        this.logic = logic;
         this.model = model;
 
         setup();
@@ -46,12 +51,12 @@ public class BlockContentEditView extends ViewPart<Region> {
     }
 
     /**
-     * Sets the {@link TextArea}'s content of with the currently open block's Markdown body.
+     * Sets the {@link TextArea}'s content to the currently open block's Markdown body.
      *
      * @param model App's model
      */
     private void setText(Model model) {
-        Objects.requireNonNull(model);
+        requireNonNull(model);
 
         AbsolutePath currentlyOpenPath = model.getCurrentlyOpenPath();
         BlockTreeItem currentlyOpenBlock = model.getBlockTree().get(currentlyOpenPath);

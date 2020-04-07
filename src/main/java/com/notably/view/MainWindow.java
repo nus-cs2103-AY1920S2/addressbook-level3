@@ -125,7 +125,7 @@ public class MainWindow extends ViewPart<Stage> {
         sidebarTreeView = new SideBarTreeView(model.getBlockTree(), model.currentlyOpenPathProperty());
         sideBarPlaceholder.getChildren().add(sidebarTreeView.getRoot());
 
-        blockContent = new BlockContent(blockContentPlaceholder, model);
+        blockContent = new BlockContent(blockContentPlaceholder, logic, model);
 
         suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(), model.responseTextProperty());
         suggestionsWindow.getChildren().add(suggestionsWindowView.getRoot());
