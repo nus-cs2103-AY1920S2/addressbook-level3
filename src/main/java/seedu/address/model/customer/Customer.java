@@ -93,7 +93,8 @@ public class Customer {
                 && (otherCustomer.getId().equals(getId())
                 || (otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getEmail().equals(getEmail())));
+                && otherCustomer.getEmail().equals(getEmail())))
+                && otherCustomer.getAddress().equals(getAddress());
     }
 
     /**
@@ -114,7 +115,8 @@ public class Customer {
         return otherCustomer.getId().equals(getId())
                 || (otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
-                && otherCustomer.getEmail().equals(getEmail()));
+                && otherCustomer.getEmail().equals(getEmail()))
+                && otherCustomer.getAddress().equals(getAddress());
     }
 
     @Override
