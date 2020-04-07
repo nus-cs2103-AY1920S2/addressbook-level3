@@ -300,9 +300,14 @@ public class ParserUtil {
     public static int parseRate(String rate) throws ParseException {
         requireNonNull(rate);
         String trimmedRate = rate.trim();
+
+        if (!StringUtil.isUnsignedInteger(trimmedRate)) {
+            throw new ParseException(MESSAGE_INVALID_RATE);
+        }
+
         try {
-            int parsedRate = Integer.parseInt(trimmedRate);
-            if (!StringUtil.isNonZeroUnsignedInteger(trimmedRate)) {
+            int parsedRate = Integer.parseUnsignedInt(trimmedRate);
+            if (parsedRate == 0) {
                 throw new ParseException(MESSAGE_INVALID_RATE);
             }
             return parsedRate;
