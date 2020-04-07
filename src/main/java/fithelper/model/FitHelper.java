@@ -514,8 +514,10 @@ public class FitHelper implements ReadOnlyFitHelper {
     public void sortFilteredFoodEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         if (isAscendingSort) {
             foodEntries.sortAscending(sortBy);
+            reminderEntries.sortAscending(sortBy);
         } else {
             foodEntries.sortDescending(sortBy);
+            reminderEntries.sortDescending(sortBy);
         }
     }
 
@@ -529,8 +531,10 @@ public class FitHelper implements ReadOnlyFitHelper {
     public void sortFilteredSportsEntryList(SortBy sortBy, boolean isAscendingSort) throws IllegalValueException {
         if (isAscendingSort) {
             sportsEntries.sortAscending(sortBy);
+            reminderEntries.sortAscending(sortBy);
         } else {
             sportsEntries.sortDescending(sortBy);
+            reminderEntries.sortDescending(sortBy);
         }
     }
 }
