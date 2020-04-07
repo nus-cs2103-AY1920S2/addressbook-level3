@@ -44,6 +44,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+* ** `(ab)list` : Lists all contacts
 * **`(ab)add`**` n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 * **`(ab)delete`** `3` : Deletes the 3rd contact shown in the current list
 * ** `(st)list`* : Lists all assignments
@@ -213,20 +214,14 @@ Examples:
 * `(ab)find -g/NUS -n/Lim` +
 Finds and lists all contacts that is in group “NUS” and have the word “Lim” in his name
 
-==== List contacts in a particular order : `(ab)sort`
+==== Lists all contacts: `(ab)list`
 
-Displays the list of contacts in a certain sorted order +
-Format: `ab sort [-g] [-b]`
+Lists all contacts stored in the address book, only displaying the name, phone number and tags (if any) +
+Format: `(ab)list`
 
-****
-* Only one of the optional switches may be indicated at any time.
-* [-g] indicates sorting by groups’ names.
-* [-b] indicates sorting by birthday from the current date.
-****
-
-Examples:
-* `(ab)sort -a` +
-Lists all contacts alphabetically
+[TIP]
+* If you want to search for a particular contact, see `(ab)find`
+* If you want more information about a particular contact, see `(ab)get`
 
 ==== List everything about a contact in field : `(ab)get`
 
@@ -473,6 +468,7 @@ _{explain how the user can enable/disable data encryption}_
 ** `(ab)find [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
 ** `(rt)find [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
 * *List* :
+** `(ab)list`
 ** `(rt)list`
 ** `(st)list [-d] [-e]`
 * *Add notes* :
