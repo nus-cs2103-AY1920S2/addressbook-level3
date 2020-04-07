@@ -2,8 +2,11 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
+
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
+import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
@@ -32,7 +35,7 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
      * @throws ParseException if the user input is in a wrong format and/ or path cannot be found.
      */
     @Override
-    public DeleteSuggestionCommand parse(String userInput) throws ParseException {
+    public Optional<SuggestionCommand> parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
 
@@ -48,15 +51,19 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
-            throw new ParseException("Cannot delete \"" + title + "\". Invalid path.");
+            if (title.isBlank()) {
+                throw new ParseException("Open a note");
+            } else {
+                throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+            }
         }
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Cannot delete \"" + title + "\". Invalid path.");
+            throw new ParseException("Open a note with title: " + title);
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return new DeleteSuggestionCommand(correctionResult.getCorrectedItems().get(0), title);
+        return Optional.of(new DeleteSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
     }
 }

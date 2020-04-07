@@ -1,6 +1,7 @@
 package com.notably.logic.suggestion;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,8 +52,8 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     @Override
     public void suggest(String userInput) {
         if (userInput.length() >= 2) {
-            SuggestionCommand suggestionCommand = parseCommand(userInput);
-            suggestionCommand.execute(model);
+            Optional<SuggestionCommand> suggestionCommand = parseCommand(userInput);
+            suggestionCommand.ifPresent(s -> suggestionCommand.get().execute(model));
         }
     }
 
@@ -61,18 +62,18 @@ public class SuggestionEngineImpl implements SuggestionEngine {
      * @param userInput The user's input.
      * @return The corresponding SuggestionCommand.
      */
-    private SuggestionCommand parseCommand(String userInput) {
+    private Optional<SuggestionCommand> parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new ErrorSuggestionCommand(
-                    "Invalid command format. To see the list of available commands, type: help");
+            return Optional.of(new ErrorSuggestionCommand(
+                    "Invalid command format. To see the list of available commands, type: help"));
         }
 
         String commandWord = matcher.group("commandWord");
         CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            return new ErrorSuggestionCommand(
-                    "Invalid command. To see the list of available commands, type: help");
+            return Optional.of(new ErrorSuggestionCommand(
+                    "Invalid command. To see the list of available commands, type: help"));
         }
         commandWord = correctionResult.getCorrectedItems().get(0);
 
@@ -83,34 +84,34 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             try {
                 return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
             } catch (ParseException e) {
-                return new ErrorSuggestionCommand(e.getMessage());
+                return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
             }
 
         case DeleteSuggestionCommand.COMMAND_WORD:
             try {
                 return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
             } catch (ParseException e) {
-                return new ErrorSuggestionCommand(e.getMessage());
+                return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
             }
 
         /*case SearchSuggestionCommand.COMMAND_WORD:
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
         case NewSuggestionCommand.COMMAND_WORD:
-            return new NewSuggestionCommand();
+            return Optional.of(new NewSuggestionCommand());
 
         case EditSuggestionCommand.COMMAND_WORD:
-            return new EditSuggestionCommand();
+            return Optional.of(new EditSuggestionCommand());
 
         case HelpSuggestionCommand.COMMAND_WORD:
-            return new HelpSuggestionCommand();
+            return Optional.of(new HelpSuggestionCommand());
 
         case ExitSuggestionCommand.COMMAND_WORD:
-            return new ExitSuggestionCommand();
+            return Optional.of(new ExitSuggestionCommand());
 
         default:
-            return new ErrorSuggestionCommand(
-                    "Invalid command. To see the list of available commands, type: help");
+            return Optional.of(new ErrorSuggestionCommand(
+                    "Invalid command. To see the list of available commands, type: help"));
         }
     }
 

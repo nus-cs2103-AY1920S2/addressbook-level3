@@ -2,8 +2,11 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
+
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
+import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
@@ -28,11 +31,11 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
     /**
      * Parses user input in the context of the OpenSuggestionCommand.
      * @param userInput The user's input.
-     * @return An OpenSuggestionCommand object with a corrected absolute path.
+     * @return An OpenSuggestionCommand object, if it can be created, with a corrected absolute path.
      * @throws ParseException if the user input is in a wrong format and/ or path cannot be found.
      */
     @Override
-    public OpenSuggestionCommand parse(String userInput) throws ParseException {
+    public Optional<SuggestionCommand> parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
 
@@ -48,15 +51,19 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
-            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+            if (title.isBlank()) {
+                throw new ParseException("Open a note");
+            } else {
+                throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+            }
         }
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+            throw new ParseException("Open a note with title: " + title);
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title);
+        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
     }
 }
