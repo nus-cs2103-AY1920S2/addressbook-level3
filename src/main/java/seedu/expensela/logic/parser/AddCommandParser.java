@@ -1,7 +1,14 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.*;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_RECURRING;
+
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
@@ -43,18 +50,29 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         try {
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Name name;
+
+            if (argMultimap.getValue(PREFIX_NAME).get().length() <= 44) {
+                name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            } else {
+                throw new ParseException("Name is too long!");
+            }
+
             Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
 
-            Date date;
-            if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-                //Set date to today's date
-                date = ParserUtil.parseDate(LocalDate.now().toString());
-            } else {
+            if(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) > 999999) {
+                throw new ParseException("Income cannot be 1 million dollars or more!");
+            }
+
+            //Set date to today's date first
+            Date date = ParserUtil.parseDate(LocalDate.now().toString());
+            if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+                //If date is present, set it to today's date
+                date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+                //Checks if date exceeds today's date
                 if (LocalDate.parse(argMultimap.getValue(PREFIX_DATE).get()).isAfter(LocalDate.now())) {
                     throw new ParseException("Date input cannot be a date in the future (after today)");
-                } else {
-                    date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
                 }
             }
 

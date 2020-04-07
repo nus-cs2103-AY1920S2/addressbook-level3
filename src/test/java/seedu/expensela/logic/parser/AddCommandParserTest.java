@@ -109,9 +109,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_AIRPODS + INVALID_AMOUNT_DESC + DATE_DESC_AIRPODS
                 + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Amount.MESSAGE_CONSTRAINTS);
 
-//        // invalid date
-//        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC
-//                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
+        // invalid date
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
 
         //invalid category
         assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
