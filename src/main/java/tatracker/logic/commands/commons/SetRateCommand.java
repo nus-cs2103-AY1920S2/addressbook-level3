@@ -1,5 +1,7 @@
 package tatracker.logic.commands.commons;
 
+//import static tatracker.logic.parser.Prefixes.RATE;
+
 import java.util.List;
 
 import tatracker.logic.commands.Command;
@@ -8,6 +10,7 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
+
 
 /**
  * Switches between tabs
