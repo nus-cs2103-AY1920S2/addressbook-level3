@@ -44,6 +44,7 @@ public class RecipeBuilder {
     private Serving serving;
     private Rating rating;
     private Difficulty difficulty;
+    private Time timing;
     private Set<Tag> tags;
 
     private Recipe recipe;
@@ -150,12 +151,12 @@ public class RecipeBuilder {
     public Recipe build() {
         Recipe toReturn = new Recipe(name, ingredients, instructions, photograph, calorie, serving, rating, difficulty,
                 tags);
-        recipe = toReturn;
+        toReturn.setTime(timing);
         return toReturn;
     }
 
-    public Recipe addTime(int h, int m, int s) {
-        recipe.setTime(new Time(h, m, s));
-        return recipe;
+    public RecipeBuilder addTime(int h, int m, int s) {
+        this.timing = new Time(h, m, s);
+        return this;
     }
 }

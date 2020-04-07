@@ -14,9 +14,8 @@ import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import cookbuddy.testutil.RecipeBuilder;
+import org.junit.jupiter.api.Test;
 
 public class RecipeTest {
 
@@ -54,8 +53,8 @@ public class RecipeTest {
         assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
 
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).addTime(VALID_HOUR_HAM_SANDWICH,
-                VALID_MIN_HAM_SANDWICH, VALID_SEC_HAM_SANDWICH);
-        assertFalse(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
+                VALID_MIN_HAM_SANDWICH, VALID_SEC_HAM_SANDWICH).build();
+        assertTrue(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
 
 
 

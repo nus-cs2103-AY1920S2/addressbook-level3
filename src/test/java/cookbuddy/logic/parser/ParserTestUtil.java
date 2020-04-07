@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ParserTestUtil {
    
-    private static final String INVALID_NAME = "12";
+    private static final String INVALID_NAME = "";
     private static final String INVALID_INGREDIENTS = "";
     private static final String INVALID_INSTRUCTIONS = "";
     private static final String INVALID_RATING = "12";
