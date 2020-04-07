@@ -1,6 +1,6 @@
 package tatracker.logic.commands.commons;
 
-import static tatracker.model.TaTracker.setRate;
+import static tatracker.logic.parser.Prefixes.RATE;
 
 import java.util.List;
 
@@ -29,12 +29,12 @@ public class SetRateCommand extends Command {
 
     public SetRateCommand(int rate) {
         this.rate = rate;
-        setRate(rate);
     }
 
 
     @Override
     public CommandResult execute(Model model) {
+        model.setRate(rate);
         return new CommandResult(String.format(MESSAGE_SET_RATE, rate), Action.GOTO_CLAIMS);
     }
 }

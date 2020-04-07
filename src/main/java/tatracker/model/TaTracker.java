@@ -41,7 +41,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static Module currentlyShownModule;
     private static Module currentlyShownModuleClaim;
 
-    private static int rate;
+    private int rate;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
@@ -223,8 +223,8 @@ public class TaTracker implements ReadOnlyTaTracker {
         return rate;
     }
 
-    public static void setRate(int newRate) {
-        System.out.println("Reached SetRate in TaTracker");
+    public void setRate(int newRate) {
+        logger.fine("Reached SetRate in TaTracker");
         rate = newRate;
     }
 
@@ -271,13 +271,6 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     public static Module getCurrentlyShownModuleClaim() {
-        if (currentlyShownModuleClaim == null) {
-            System.out.println("no filter");
-        } else {
-            System.out.println("reached");
-            System.out.println(currentlyShownModuleClaim.getIdentifier());
-            System.out.println(currentlyShownModuleClaim.getName());
-        }
         return currentlyShownModuleClaim;
     }
 

@@ -217,6 +217,11 @@ public class ModelManager implements Model {
         filteredDoneSessions.setPredicate(predicate);
     }
 
+    @Override
+    public void setRate (int rate) {
+        taTracker.setRate(rate);
+    }
+
     // ======== Module Methods =================================================
 
     public Module getModule(String code) {
