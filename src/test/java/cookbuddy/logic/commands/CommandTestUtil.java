@@ -56,6 +56,14 @@ public class CommandTestUtil {
     public static final String VALID_TAG_LUNCH = "lunch";
     public static final String VALID_TAG_DINNER = "dinner";
 
+    public static final int VALID_HOUR_HAM_SANDWICH = 2;
+    public static final int VALID_MIN_HAM_SANDWICH = 0;
+    public static final int VALID_SEC_HAM_SANDWICH = 0;
+    public static final int VALID_HOUR_EGGS_ON_TOAST = 0;
+    public static final int VALID_MIN_HAM_EGGS_ON_TOAST = 5;
+    public static final int VALID_SEC_EGGS_ON_TOAST = 30;
+
+
 
     public static final String NAME_DESC_HAM_SANDWICH = " " + PREFIX_NAME + VALID_NAME_HAM_SANDWICH;
     public static final String NAME_DESC_EGGS_ON_TOAST = " " + PREFIX_NAME + VALID_NAME_EGGS_ON_TOAST;
