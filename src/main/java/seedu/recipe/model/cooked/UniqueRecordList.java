@@ -137,6 +137,7 @@ public class UniqueRecordList implements Iterable<Record> {
     public void setGoalsTally() {
         HashMap<String, Integer> goalMap = new HashMap<String, Integer>();
         goalMap.put("Herbivore", 0);
+        goalMap.put("Fruity Fiesta", 0);
         goalMap.put("Bulk like the Hulk", 0);
         goalMap.put("Wholesome Wholemeal", 0);
 
@@ -154,12 +155,15 @@ public class UniqueRecordList implements Iterable<Record> {
         }
         internalGoalsList.addAll(
                 goalMap.get("Herbivore"),
+                goalMap.get("Fruity Fiesta"),
                 goalMap.get("Bulk like the Hulk"),
                 goalMap.get("Wholesome Wholemeal"));
     }
 
     /**
-     * Updates goals for a record where index 0: Herbivores 1: Bulk Like the Hulk 2: Wholesome Wholemeal.
+     * Updates goals for a record where index.
+     * 0: Herbivores 1: Fruity Fiesta.
+     * 2: Bulk Like the Hulk. 3:Wholesome Wholemeal.
      * @param record
      */
     public void updateGoalsTally(Record record) {
@@ -174,16 +178,20 @@ public class UniqueRecordList implements Iterable<Record> {
                 currCount = internalGoalsList.get(0);
                 internalGoalsList.set(0, currCount + 1);
                 break;
-            case "Bulk like the Hulk":
+            case "Fruity Fiesta":
                 currCount = internalGoalsList.get(1);
                 internalGoalsList.set(1, currCount + 1);
                 break;
-            case "Wholesome Wholemeal":
+            case "Bulk like the Hulk":
                 currCount = internalGoalsList.get(2);
                 internalGoalsList.set(2, currCount + 1);
                 break;
+            case "Wholesome Wholemeal":
+                currCount = internalGoalsList.get(3);
+                internalGoalsList.set(3, currCount + 1);
+                break;
             default:
-                //no update to counter - not part of main 3 goals
+                //not part of main 4 goals
                 break;
             }
         }

@@ -37,8 +37,9 @@ public class CookedListPanel extends UiPart<Region> {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Herbivores", goalCountList.get(0)),
-                        new PieChart.Data("Bulk like the Hulk", goalCountList.get(1)),
-                        new PieChart.Data("Wholesome Wholemeal", goalCountList.get(2)));
+                        new PieChart.Data("Fruity Fiesta", goalCountList.get(1)),
+                        new PieChart.Data("Bulk like the Hulk", goalCountList.get(2)),
+                        new PieChart.Data("Wholesome Wholemeal", goalCountList.get(3)));
 
         pieChart.setTitle("My Healthy Plate");
         pieChart.setData(pieChartData);

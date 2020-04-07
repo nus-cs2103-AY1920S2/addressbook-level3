@@ -19,8 +19,10 @@
 
 /* Colors of JavaFX pie chart slices. */
 .data0.chart-pie { -fx-pie-color: #00fa9a; }
-.data1.chart-pie { -fx-pie-color: cornflowerblue; }
-.data2.chart-pie { -fx-pie-color: sienna; }
+.data1.chart-pie { -fx-pie-color: #820000; }
+.data2.chart-pie { -fx-pie-color: cornflowerblue; }
+.data3.chart-pie { -fx-pie-color: sienna; }
+
 
 /* Pie Chart legend background color and stroke. */
 .chart-legend {
