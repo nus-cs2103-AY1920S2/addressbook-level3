@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NEW_TASK_OR_DEADLINE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_OLD_TASK;
 import static seedu.address.logic.commands.CommandTestUtil.COURSE_DESC_AMY;
@@ -11,7 +12,10 @@ import static seedu.address.logic.commands.CommandTestUtil.FOCUS_AREA_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.FOCUS_AREA_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COURSE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SEMESTER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MODCODE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MODCODE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -184,10 +188,23 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parse_invalidProfileValue_failure() {
+        // Invalid name
+        assertParseFailure(parser, INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+
+        // Invalid course
+        assertParseFailure(parser, INVALID_COURSE_DESC, MESSAGE_INVALID_COURSE);
+
+        // Invalid current semester
+        assertParseFailure(parser, INVALID_SEMESTER_DESC, Year.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_invalidModuleValue_failure() {
         // Invalid module code
         assertParseFailure(parser, INVALID_MODCODE_DESC, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        // Invalid current semester
+        // Invalid module semester
+        assertParseFailure(parser, MODCODE_DESC_AMY + INVALID_SEMESTER_DESC, Year.MESSAGE_CONSTRAINTS);
     }
 }
