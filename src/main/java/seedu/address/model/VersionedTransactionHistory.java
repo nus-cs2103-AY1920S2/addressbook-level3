@@ -30,7 +30,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * Resets the history to an empty state as well.
      */
     public void resetData(ReadOnlyList<Transaction> newData) {
-        getCurrentState().setTransactions(newData.getReadOnlyList());
+        getCurrentState().resetData(newData);
         updateDisplayedTransactions();
     }
 

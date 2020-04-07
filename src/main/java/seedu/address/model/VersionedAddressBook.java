@@ -27,7 +27,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
      * Resets the existing data of the current state with {@code newData}.
      */
     public void resetData(ReadOnlyList<Supplier> newData) {
-        getCurrentState().setSuppliers(newData.getReadOnlyList());
+        getCurrentState().resetData(newData);
         updateDisplayedSuppliers();
     }
 

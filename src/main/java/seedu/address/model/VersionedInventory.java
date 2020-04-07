@@ -27,7 +27,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
      * Resets the existing data in the current state with {@code newData}.
      */
     public void resetData(ReadOnlyList<Good> newData) {
-        getCurrentState().setGoods(newData.getReadOnlyList());
+        getCurrentState().resetData(newData);
         updateDisplayedGoods();
     }
 
