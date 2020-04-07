@@ -106,7 +106,7 @@ to to improve your user experience of EYLAH.
 
 [cols="50%, 50%"]
 |===
-|Diet Tracker | Expense Spliter
+|*Diet Tracker*  | *Expense Splitter*
 | <<mode, mode>>
 | <<additem, additem>>
 
