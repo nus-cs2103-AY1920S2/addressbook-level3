@@ -27,6 +27,7 @@ import seedu.foodiebot.logic.commands.ActionCommandResult;
 import seedu.foodiebot.logic.commands.BackCommand;
 import seedu.foodiebot.logic.commands.BudgetCommand;
 import seedu.foodiebot.logic.commands.CommandResult;
+import seedu.foodiebot.logic.commands.DeleteCommand;
 import seedu.foodiebot.logic.commands.DirectionsCommandResult;
 import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.FavoritesCommand;
@@ -361,12 +362,18 @@ public class BaseScene {
                 handleListTransactions();
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
+            case DeleteCommand.COMMAND_WORD:
+                if (ParserContext.getCurrentContext().equals(ParserContext.TRANSACTIONS_CONTEXT)) {
+                    handleListTransactions();
+                    updateResultDisplay(commandResult.getFeedbackToUser());
+                }
+                break;
             case ReportCommand.COMMAND_WORD:
                 ParserContext.setCurrentContext(ParserContext.REPORT_CONTEXT);
-                topLabel.setText("Report: ");
                 changeScene("MainScene.fxml");
                 // VBox pane = (VBox) loadFxmlFile("NoResultDisplayScene.fxml");
                 // primaryStage.getScene().setRoot(pane);
+                topLabel.setText("Report: ");
                 new ReportScene(primaryStage, logic);
                 updateResultDisplay(commandResult.getFeedbackToUser());
                 break;
@@ -375,12 +382,16 @@ public class BaseScene {
                 updateResultDisplayBudget(commandResult.getFeedbackToUser(), logic.getFoodieBot().getBudget());
                 break;
             case RateCommand.COMMAND_WORD:
-                handleListTransactions();
-                updateResultDisplay(commandResult.getFeedbackToUser());
+                if (ParserContext.getCurrentContext().equals(ParserContext.TRANSACTIONS_CONTEXT)) {
+                    handleListTransactions();
+                    updateResultDisplay(commandResult.getFeedbackToUser());
+                }
                 break;
             case ReviewCommand.COMMAND_WORD:
-                handleListTransactions();
-                updateResultDisplay(commandResult.getFeedbackToUser());
+                if (ParserContext.getCurrentContext().equals(ParserContext.TRANSACTIONS_CONTEXT)) {
+                    handleListTransactions();
+                    updateResultDisplay(commandResult.getFeedbackToUser());
+                }
                 break;
             case RandomizeCommand.COMMAND_WORD:
                 handleListRandomize();

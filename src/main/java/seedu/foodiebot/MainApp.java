@@ -129,6 +129,8 @@ public class MainApp extends Application {
             storage.saveFoodieBot(initialData, "Canteen");
             storage.saveFoodieBot(initialData, "Stall");
             storage.saveFoodieBot(initialData, "Food");
+            storage.saveFoodieBot(initialData, "Budget");
+
         } catch (IOException e) {
             logger.warning("Failed to save foodiebot");
         }

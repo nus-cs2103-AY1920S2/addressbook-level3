@@ -34,6 +34,7 @@ public interface ReadOnlyFoodieBot {
 
     ObservableList<PurchasedFood> getTransactionsList();
 
+    void removePurchasedFood(PurchasedFood pf);
 
     void removeFavorite(Food food);
 

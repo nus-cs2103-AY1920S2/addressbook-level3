@@ -123,6 +123,8 @@ public interface Model {
 
     void addPurchasedFood(PurchasedFood food);
 
+    void removePurchasedFood(PurchasedFood food);
+
     ObservableList<Stall> getFilteredRandomizeList();
 
     void removeFavorite(Food food);

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.foodiebot.logic.commands.BackCommand;
 import seedu.foodiebot.logic.commands.BudgetCommand;
 import seedu.foodiebot.logic.commands.Command;
+import seedu.foodiebot.logic.commands.DeleteCommand;
 import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.FavoritesCommand;
@@ -98,6 +99,9 @@ public class FoodieBotParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
         case BackCommand.COMMAND_WORD:
             return new BackCommand();

@@ -116,7 +116,8 @@ public class SelectItemCommand extends Command {
         Rating rating = new Rating();
         Review review = new Review();
         PurchasedFood purchase = new PurchasedFood(food.get(), dateAdded, timeAdded, rating, review);
-        if (!model.getBudget().get().equals(new Budget())) {
+
+        if (model.getBudget().get().getTotalBudget() != 0) {
             Budget savedBudget = model.getFoodieBot().getBudget();
 
             if (savedBudget.getRemainingBudget() < priceOfFood) {

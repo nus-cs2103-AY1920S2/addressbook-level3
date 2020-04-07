@@ -236,6 +236,11 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     }
 
     @Override
+    public void removePurchasedFood(PurchasedFood pf) {
+        transactions.remove(pf);
+    }
+
+    @Override
     public ObservableList<PurchasedFood> getTransactionsList() {
         return transactions.getList();
     }

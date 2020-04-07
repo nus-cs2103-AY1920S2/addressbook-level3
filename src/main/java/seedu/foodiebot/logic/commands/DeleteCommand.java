@@ -1,29 +1,35 @@
 package seedu.foodiebot.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.foodiebot.logic.parser.ParserContext.SUGGESTED_CONTEXT_MESSAGE;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.core.Messages;
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
-import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.transaction.PurchasedFood;
 
-/** Deletes a person identified using it's displayed index from the address book. */
+/** Deletes a purchased food using its displayed index from the transactions list. */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD
-                    + ": Deletes the person identified by the index number used in the displayed person list.\n"
+                    + ": Deletes the purchased food in the transactions list.\n"
                     + "Parameters: INDEX (must be a positive integer)\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_SUCCESS = "Successfully deleted %s purchased on %s";
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
 
     private final Index targetIndex;
 
@@ -34,15 +40,26 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Canteen> lastShownList = model.getFilteredCanteenList();
+        model.loadFilteredTransactionsList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (!ParserContext.getCurrentContext().equals(ParserContext.TRANSACTIONS_CONTEXT)) {
+            throw new CommandException(ParserContext.INVALID_CONTEXT_MESSAGE
+                    + ParserContext.getCurrentContext()
+                    + SUGGESTED_CONTEXT_MESSAGE
+                    + ParserContext.TRANSACTIONS_CONTEXT);
+        }
+
+        List<PurchasedFood> purchasedFoodList = model.getFilteredTransactionsList();
+        if (targetIndex.getZeroBased() < 0 || targetIndex.getZeroBased() >= purchasedFoodList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        Canteen canteenToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCanteen(canteenToDelete);
-        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DELETE_PERSON_SUCCESS, canteenToDelete));
+        PurchasedFood foodToDelete = purchasedFoodList.get(targetIndex.getZeroBased());
+        String foodName = foodToDelete.getName();
+        LocalDate purchaseDate = foodToDelete.getDateAdded();
+        model.removePurchasedFood(foodToDelete);
+
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, foodName, purchaseDate));
     }
 
     @Override
@@ -50,5 +67,10 @@ public class DeleteCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                         && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public boolean needToSaveCommand() {
+        return true;
     }
 }

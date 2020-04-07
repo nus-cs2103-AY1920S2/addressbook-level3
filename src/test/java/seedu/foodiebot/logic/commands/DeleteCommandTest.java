@@ -1,39 +1,40 @@
 package seedu.foodiebot.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.foodiebot.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.foodiebot.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.foodiebot.testutil.TypicalCanteens.getTypicalFoodieBot;
-import static seedu.foodiebot.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+// import static seedu.foodiebot.logic.commands.CommandTestUtil.assertCommandFailure;
+// import static seedu.foodiebot.logic.commands.CommandTestUtil.assertCommandSuccess;
+// import static seedu.foodiebot.logic.commands.DeleteCommand.MESSAGE_SUCCESS;
+// import static seedu.foodiebot.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
-import org.junit.jupiter.api.Test;
+import static seedu.foodiebot.testutil.TypicalTransactions.getTypicalFoodieBot;
 
-import seedu.foodiebot.commons.core.Messages;
-import seedu.foodiebot.commons.core.index.Index;
+// import org.junit.jupiter.api.Test;
+
+// import seedu.foodiebot.commons.core.Messages;
+// import seedu.foodiebot.commons.core.index.Index;
+
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.UserPrefs;
-import seedu.foodiebot.model.canteen.Canteen;
+// import seedu.foodiebot.model.transaction.PurchasedFood;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit
  * tests for {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
-
     private Model model = new ModelManager(getTypicalFoodieBot(), new UserPrefs());
 
+    /*
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Canteen personToDelete =
-            model.getFilteredCanteenList().get(INDEX_FIRST_ITEM.getZeroBased());
+        PurchasedFood foodToDelete = model.getFoodieBot().getTransactionsList().get(INDEX_FIRST_ITEM.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ITEM);
 
-        String expectedMessage =
-            String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, foodToDelete.getName(), foodToDelete.getDateAdded());
 
         ModelManager expectedModel = new ModelManager(model.getFoodieBot(), new UserPrefs());
-        expectedModel.deleteCanteen(personToDelete);
+        expectedModel.getFoodieBot().removePurchasedFood(foodToDelete);
 
         assertCommandSuccess(deleteCommand, DeleteCommand.COMMAND_WORD, model, expectedMessage,
                 expectedModel);
@@ -41,12 +42,13 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCanteenList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionsList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
         assertCommandFailure(deleteCommand, model,
                 Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
-    }
+    }*/
+
+
 
     /*@Test
     public void execute_validIndexFilteredList_success() {

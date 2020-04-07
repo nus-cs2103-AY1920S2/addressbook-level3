@@ -150,6 +150,11 @@ public class FoodieBotTest {
         }
 
         @Override
+        public void removePurchasedFood(PurchasedFood pf) {
+            //
+        }
+
+        @Override
         public void removeFavorite(Food food) {
             //
         }

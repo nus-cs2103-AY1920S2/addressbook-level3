@@ -12,6 +12,7 @@ import seedu.foodiebot.logic.commands.BudgetCommand;
 import seedu.foodiebot.logic.commands.ClearCommand;
 import seedu.foodiebot.logic.commands.Command;
 import seedu.foodiebot.logic.commands.CommandResult;
+import seedu.foodiebot.logic.commands.DeleteCommand;
 import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.FavoritesCommand;
@@ -126,6 +127,8 @@ public class LogicManager implements Logic {
         case HelpCommand.COMMAND_WORD:
             //TODO Not Implemented
         case SelectItemCommand.COMMAND_WORD:
+            return "Transactions";
+        case DeleteCommand.COMMAND_WORD:
             return "Transactions";
         default:
             return "";

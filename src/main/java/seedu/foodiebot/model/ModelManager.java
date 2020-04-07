@@ -352,6 +352,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removePurchasedFood(PurchasedFood food) {
+        requireNonNull(food);
+        foodieBot.removePurchasedFood(food);
+        filteredTransactionsList = new FilteredList<PurchasedFood>(foodieBot.getTransactionsList());
+    }
+
+    @Override
     public void loadFilteredTransactionsList() {
         try {
             FoodieBotStorage foodieBotStorage =
