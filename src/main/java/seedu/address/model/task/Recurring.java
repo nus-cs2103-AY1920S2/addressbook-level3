@@ -11,6 +11,8 @@ import java.util.TimerTask;
 import java.util.Timer;
 import javafx.application.Platform;
 
+import seedu.address.commons.util.StringUtil;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
@@ -85,8 +87,7 @@ public class Recurring {
     * Returns Daily or Weekly for display on the card.
     */
    public String displayRecurring() {
-       String result = type.name().substring(0, 1) + type.name().substring(1).toLowerCase();
-       return result;
+       return StringUtil.getTitleCase(type.name());
    } 
 
 
@@ -98,10 +99,10 @@ public class Recurring {
             Platform.runLater(() -> {
                 requireNonNull(model);
 
-                Task resetedTask = resetDone(taskToReset);
-
-                model.setTask(taskToReset, resetedTask);
-                model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+                if (taskToReset.getDone().getIsDone()) {
+                    Task resetedTask = resetDone(taskToReset);
+                    model.setTask(taskToReset, resetedTask);
+                }
                 }
             );
             
@@ -112,22 +113,12 @@ public class Recurring {
    public void triggerRecurring(Model model, Task taskToReset) {
        TimerTask repeatedTask = generateTimerTask(model, taskToReset);
        Timer timer = new Timer("Timer");
-       long period = getInterval();
+       long period = type.getInterval();
        long delayToFirstTrigger = Duration.between(LocalDateTime.now(), referenceDateTime).getSeconds();
        delayToFirstTrigger = delayToFirstTrigger >= 0 ? delayToFirstTrigger*1000 : 0;
        timer.scheduleAtFixedRate(repeatedTask, delayToFirstTrigger, period); //might run twice in the first time
    }
    
-   public long getInterval() {
-       long period = 0;
-       if (type == RecurType.DAILY) {
-           period = 1000l*60*60*24;
-        // period = 12000l;  //for testing      
-       } else if (type == RecurType.WEEKLY) {
-           period = 1000l*60*60*24*7;
-       }
-       return period;
-   }
 
    @Override
    public String toString() {
