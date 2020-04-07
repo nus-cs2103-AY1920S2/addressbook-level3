@@ -62,8 +62,9 @@ unexpected behaviour.
 [TIP]
 This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
 
-2+.^a +
-  WARNING: This symbol indicates warnings.
+2+.^a - WARNING: This symbol indicates warnings.
+//I dont know how this group manage to get this warning symbol out. I already
+//imported whatever they imported.. https://raw.githubusercontent.com/AY1920S2-CS2103T-W12-3/main/master/docs/UserGuide.adoc
 
 kbd:[Enter] - This symbol indicates the enter button on the keyboard.
 
