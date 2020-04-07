@@ -219,6 +219,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setEvent(Event eventToUpdate, Event updatedEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteEvent(Event toDelete) {
         throw new AssertionError("This method should not be called.");
     }

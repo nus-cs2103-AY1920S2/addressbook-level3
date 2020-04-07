@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTTITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENTTITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 
 import seedu.address.commons.core.index.Index;
@@ -39,7 +39,8 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
 
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
         if (argMultimap.getValue(PREFIX_EVENTTITLE).isPresent()) {
-            editEventDescriptor.setEventTitle(ParserUtil.parseEventTitle(argMultimap.getValue(PREFIX_EVENTTITLE).get()));
+            editEventDescriptor.setEventTitle(ParserUtil.parseEventTitle(
+                    argMultimap.getValue(PREFIX_EVENTTITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_EVENTDATE).isPresent()) {
             editEventDescriptor.setEventDate(ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENTDATE).get()));
