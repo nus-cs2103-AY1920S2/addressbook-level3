@@ -71,6 +71,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setMonthlyData(MonthlyData monthlyData) {
+        model.setMonthlyData(monthlyData);
+    }
+
+    @Override
     public Filter getFilter() {
         return model.getFilter();
     }
