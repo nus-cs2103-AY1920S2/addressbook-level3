@@ -1,10 +1,13 @@
 package seedu.address.model.diary;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.Weather;
 
 
 /**
@@ -47,10 +50,55 @@ public class DiaryBook {
     }
 
     public String showEntry(int entryId) {
-        return diaryEntries.get(entryId - 1).toString();
+        return diaryEntries.get(calibrateIndex(entryId)).toString();
     }
 
+    /*
     public void addEntry(DiaryEntry diaryEntry) {
         this.internalList.add(diaryEntry);
+    }
+    */
+    public void addEntry(DiaryEntry diaryEntry) {
+        diaryEntries.add(diaryEntry);
+    }
+
+    public void deleteEntry(int entryId) {
+        diaryEntries.remove(calibrateIndex(entryId));
+    }
+
+    public void tagWeather(int entryId, Weather weather) {
+        diaryEntries.get(calibrateIndex(entryId)).setWeather(weather);
+    }
+
+    public void tagMood(int entryId, Mood mood) {
+        diaryEntries.get(calibrateIndex(entryId)).setMood(mood);
+    }
+
+    public DiaryEntry getDiaryEntryById(int entryId) {
+        return diaryEntries.get(calibrateIndex(entryId));
+    }
+
+    public List<Integer> getListOfIdsByDate(LocalDate date) {
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 1; i <= diaryEntries.size(); i++) {
+            if (getDiaryEntryById(i).getDate().equals(date)) {
+                ids.add(i);
+            }
+        }
+        return ids;
+    }
+
+    public boolean isExistingDate(LocalDate date) {
+        return getListOfIdsByDate(date).size() != 0;
+    }
+
+
+    public List<DiaryEntry> getDiaryEntries() {
+        return this.diaryEntries;
+    }
+
+
+    private int calibrateIndex(int index) {
+        return index - 1;
     }
 }
