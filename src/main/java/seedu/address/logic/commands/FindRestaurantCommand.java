@@ -2,10 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.restaurant.RNameContainsKeywordsPredicate;
 import seedu.address.model.restaurant.LocationContainsKeywordsPredicate;
+import seedu.address.model.restaurant.RNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all restaurants in restaurant book whose name contains any of the argument keywords.
@@ -44,11 +43,11 @@ public class FindRestaurantCommand extends Command {
         } // we don't do anything for the case 00
 
         int numRestaurants = model.getFilteredRestaurantList().size();
-        String MESSAGE_RESTAURANTS_LISTED_OVERVIEW = Integer.toString(numRestaurants) + " restaurant(s) listed!";
+        String successMessage = Integer.toString(numRestaurants) + " restaurant(s) listed!";
 
         // We edit the commandResult so it shows the restaurant panel.
         return new CommandResult(
-                String.format(MESSAGE_RESTAURANTS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
+                String.format(successMessage, model.getFilteredPersonList().size()),
                 false, false, false, false, false, false, true, false);
 
     }

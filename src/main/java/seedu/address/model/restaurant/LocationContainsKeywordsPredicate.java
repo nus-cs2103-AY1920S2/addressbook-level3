@@ -34,6 +34,7 @@ public class LocationContainsKeywordsPredicate implements Predicate<Restaurant> 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof seedu.address.model.restaurant.LocationContainsKeywordsPredicate
-                && keywords.equals(((seedu.address.model.restaurant.LocationContainsKeywordsPredicate) other).keywords)); // state check
+                && keywords.equals(((seedu.address.model.restaurant.LocationContainsKeywordsPredicate) other)
+                .keywords)); // state check
     }
 }
