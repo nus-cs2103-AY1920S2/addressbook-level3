@@ -99,4 +99,25 @@ public class LogicManager implements Logic {
     public ObservableList<Student> getFilteredStudentList() {
         return model.getFilteredStudentList();
     }
+
+    @Override
+    public String getCurrSessionFilter() {
+        return model.getCurrSessionFilter();
+    }
+
+    @Override
+    public String getCurrSessionDateFilter() {
+        return model.getCurrSessionDateFilter();
+    }
+
+    @Override
+    public String getCurrSessionModuleFilter() {
+        return model.getCurrSessionModuleFilter();
+    }
+
+    @Override
+    public String getCurrSessionTypeFilter() {
+        return model.getCurrSessionTypeFilter();
+    }
+
 }

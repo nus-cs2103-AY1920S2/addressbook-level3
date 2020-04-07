@@ -73,6 +73,7 @@ public class StatisticWindow extends UiPart<Stage> {
     @FXML
     private Label rating5Label;
 
+
     /**
      * Creates a new HelpWindow.
      *
@@ -80,12 +81,6 @@ public class StatisticWindow extends UiPart<Stage> {
      */
     public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
         super(FXML, root);
-
-        root.setHeight(guiSettings.getWindowHeight());
-        if (guiSettings.getWindowCoordinates() != null) {
-            root.setX(guiSettings.getWindowCoordinates().getX());
-            root.setY(guiSettings.getWindowCoordinates().getY());
-        }
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
@@ -111,7 +106,7 @@ public class StatisticWindow extends UiPart<Stage> {
         numHoursGradingLabel.setText(stats.numHoursPerCategory[3] + " Hours");
         numHoursPreparationLabel.setText(stats.numHoursPerCategory[4] + " Hours");
         numHoursOtherLabel.setText(stats.numHoursPerCategory[5] + " Hours");
-        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalPay() + ")");
+        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalEarnings() + ")");
 
         studentName1Label.setText(stats.worstStudents[0].getFullName());
         rating1Label.setText(Integer.toString(stats.worstStudents[0].getRating()));

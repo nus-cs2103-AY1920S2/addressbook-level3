@@ -86,6 +86,36 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setCurrSessionDateFilter(String params) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getCurrSessionDateFilter() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCurrSessionModuleFilter(String params) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getCurrSessionModuleFilter() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCurrSessionTypeFilter(String params) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getCurrSessionTypeFilter() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setCurrStudentFilter(String params) {
         throw new AssertionError("This method should not be called.");
     }
@@ -308,6 +338,11 @@ public class ModelStub implements Model {
 
     @Override
     public void setFilteredStudentList(String moduleCode, int n) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setRate(int rate) {
         throw new AssertionError("This method should not be called.");
     }
 
