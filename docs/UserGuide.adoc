@@ -2,6 +2,7 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 5
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -15,7 +16,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
 
@@ -62,7 +63,7 @@ unexpected behaviour.
 This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
 
 2+.^a +
-WARNING: This symbol indicates warnings.
+  WARNING: This symbol indicates warnings.
 
 kbd:[Enter] - This symbol indicates the enter button on the keyboard.
 
