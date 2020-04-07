@@ -39,7 +39,8 @@ public class ViewCommand extends Command {
 
         model.updateFilteredPlannedList(predicate);
         // model.commitBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, type), false, planTab, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, type), false, false,
+                planTab, false);
     }
 
 }

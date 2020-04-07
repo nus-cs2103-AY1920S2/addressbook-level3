@@ -23,6 +23,6 @@ public class ClearCommand extends Command {
         model.setRecipeBook(new RecipeBook());
         model.setPlannedBook(new PlannedBook());
         model.commitBook(commandType);
-        return new CommandResult(MESSAGE_SUCCESS, false, recipesTab, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, recipesTab, false);
     }
 }

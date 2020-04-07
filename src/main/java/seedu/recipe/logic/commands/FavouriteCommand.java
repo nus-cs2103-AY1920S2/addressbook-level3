@@ -74,7 +74,7 @@ public class FavouriteCommand extends Command {
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(sb.toString(), false, recipesTab, false);
+        return new CommandResult(sb.toString(), false, false, recipesTab, false);
     }
 
     /**

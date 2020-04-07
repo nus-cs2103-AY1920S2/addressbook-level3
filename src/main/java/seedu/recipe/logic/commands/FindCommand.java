@@ -32,7 +32,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredRecipeList(predicate);
         String message = String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredRecipeList().size());
-        return new CommandResult(message, false, recipesTab, false);
+        return new CommandResult(message, false, false, recipesTab, false);
     }
 
     @Override

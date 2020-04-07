@@ -100,7 +100,7 @@ public class DeleteIngredientCommand extends Command {
         model.commitBook(commandType);
 
         String finalMessage = String.format(MESSAGE_DELETE_INGREDIENTS_SUCCESS, recipeToEdit.getName().toString());
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     /**

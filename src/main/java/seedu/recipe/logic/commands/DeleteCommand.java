@@ -55,7 +55,7 @@ public class DeleteCommand extends Command {
 
         model.commitBook(commandType);
         String finalMessage = String.format(MESSAGE_SUCCESS, getListAsFormattedString(deletedRecipesList));
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     /**

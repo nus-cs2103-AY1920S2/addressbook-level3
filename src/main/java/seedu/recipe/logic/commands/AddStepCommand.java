@@ -71,7 +71,7 @@ public class AddStepCommand extends Command {
         model.commitBook(commandType);
 
         String finalMessage = String.format(MESSAGE_ADD_STEPS_SUCCESS, recipeToEdit.getName().toString());
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     @Override

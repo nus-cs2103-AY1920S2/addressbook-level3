@@ -70,7 +70,7 @@ public class AddCommand extends Command {
         model.addRecipe(toAdd);
         model.commitBook(commandType);
         String message = String.format(MESSAGE_SUCCESS, toAdd);
-        return new CommandResult(message, false, recipesTab, false);
+        return new CommandResult(message, false, false, recipesTab, false);
     }
 
     @Override

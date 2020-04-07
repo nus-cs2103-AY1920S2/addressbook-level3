@@ -114,7 +114,7 @@ public class EditCommand extends Command {
         model.commitBook(commandType);
 
         String finalMessage = String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     /**

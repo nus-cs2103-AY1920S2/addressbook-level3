@@ -136,26 +136,6 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         }
     }
 
-    /**
-     * Favourites a recipe.
-     */
-    public void favouriteRecipe(Recipe toFavourite) {
-        Recipe newRecipe = new Recipe(toFavourite.getName(), toFavourite.getTime(), toFavourite.getGrains(),
-                toFavourite.getVegetables(), toFavourite.getProteins(), toFavourite.getFruits(),
-                toFavourite.getOthers(), toFavourite.getSteps(), toFavourite.getGoals(), true);
-        setRecipe(toFavourite, newRecipe);
-    }
-
-    /**
-     * Unfavourites a recipe.
-     */
-    public void unfavouriteRecipe(Recipe toUnfavourite) {
-        Recipe newRecipe = new Recipe(toUnfavourite.getName(), toUnfavourite.getTime(), toUnfavourite.getGrains(),
-                toUnfavourite.getVegetables(), toUnfavourite.getProteins(), toUnfavourite.getFruits(),
-                toUnfavourite.getOthers(), toUnfavourite.getSteps(), toUnfavourite.getGoals(), false);
-        setRecipe(toUnfavourite, newRecipe);
-    }
-
     // ===== Util methods =====
 
     @Override

@@ -80,7 +80,7 @@ public class EditStepCommand extends Command {
 
         String finalMessage = String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1,
                 recipeToEdit.getName().toString());
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     /**
