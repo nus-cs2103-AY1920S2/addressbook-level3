@@ -1,5 +1,6 @@
 package cookbuddy.ui;
 
+import cookbuddy.logic.CommandHistory;
 import cookbuddy.logic.commands.CommandResult;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
@@ -19,6 +20,7 @@ public class CommandBox extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
+    private final CommandHistory commandHistory = new CommandHistory();
     private final CommandExecutor commandExecutor;
 
     @FXML
@@ -44,11 +46,23 @@ public class CommandBox extends UiPart<Region> {
                     commandString = commandTextArea.getText();
                     try {
                         commandExecutor.execute(commandString);
+                        commandHistory.addCommand(commandString);
+                        commandHistory.resetIterator();
                         commandTextArea.setText("");
                     } catch (ParseException | CommandException e) {
                         ;
                     } finally {
                         keyEvent.consume();
+                    }
+                } else if (keyEvent.getCode().equals(KeyCode.PAGE_UP)) {
+                    String text = commandHistory.iterateNext();
+                    if (text != null) {
+                        commandTextArea.setText(text);
+                    }
+                } else if (keyEvent.getCode().equals(KeyCode.PAGE_DOWN)) {
+                    String text = commandHistory.iteratePrevious();
+                    if (text != null) {
+                        commandTextArea.setText(text);
                     }
                 }
             }
