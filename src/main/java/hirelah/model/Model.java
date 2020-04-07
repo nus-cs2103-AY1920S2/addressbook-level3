@@ -59,7 +59,7 @@ public interface Model {
     ObservableList<Question> getQuestionListView();
 
     /** Returns an unmodifiable view of the filtered interviewee list */
-    ObservableList<Interviewee> getFilteredIntervieweeListView();
+    ObservableList<Interviewee> getIntervieweeListView();
 
     /** Returns an unmodifiable view of the metric list */
     ObservableList<Metric> getMetricListView();

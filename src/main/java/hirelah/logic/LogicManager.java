@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import hirelah.commons.core.GuiSettings;
 import hirelah.commons.core.LogsCenter;
-import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.logic.commands.Command;
 import hirelah.logic.commands.CommandResult;
 import hirelah.logic.commands.exceptions.CommandException;
@@ -64,7 +63,7 @@ public class LogicManager implements Logic {
             storage.saveQuestion(model.getQuestionList());
             storage.saveMetric(model.getMetricList());
             storage.saveModel(model.isFinalisedInterviewProperties());
-        } catch (IOException | IllegalValueException ioe) {
+        } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
@@ -97,8 +96,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Interviewee> getFilteredIntervieweeListView() {
-        return model.getFilteredIntervieweeListView();
+    public ObservableList<Interviewee> getIntervieweeListView() {
+        return model.getIntervieweeListView();
     }
 
     @Override

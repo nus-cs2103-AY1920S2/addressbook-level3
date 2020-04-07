@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import hirelah.commons.core.LogsCenter;
 import hirelah.commons.exceptions.DataConversionException;
-import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.model.ReadOnlyUserPrefs;
 import hirelah.model.UserPrefs;
 import hirelah.model.hirelah.AttributeList;
@@ -79,7 +78,7 @@ public class StorageManager implements Storage {
     // ================ AttributeStorage methods ==============================
     /** Save all the AttributeList into their Json file*/
     @Override
-    public void saveAttribute(AttributeList source) throws IOException, IllegalValueException {
+    public void saveAttribute(AttributeList source) throws IOException {
         logger.fine("Attempting to write to Attribute data file: " + getAttributeDirectory());
         attributeStorage.saveAttributes(source);
     }
@@ -125,7 +124,7 @@ public class StorageManager implements Storage {
     // ================ MetricStorage methods ================================
     /** Save all the MetricList into their Json file*/
     @Override
-    public void saveMetric(MetricList source) throws IOException, IllegalValueException {
+    public void saveMetric(MetricList source) throws IOException {
         logger.fine("Attempting to write to Metric data file: " + getMetricDirectory());
         metricStorage.saveMetrics(source);
     }
@@ -195,7 +194,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException {
         return userPrefsStorage.readUserPrefs();
     }
 

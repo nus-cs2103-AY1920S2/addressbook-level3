@@ -29,8 +29,8 @@ public interface Logic {
     /** Returns an unmodifiable view of the list of attributes */
     ObservableList<Attribute> getAttributeListView();
 
-    /** Returns an unmodifiable view of the filtered list of interviewees */
-    ObservableList<Interviewee> getFilteredIntervieweeListView();
+    /** Returns an unmodifiable view of the list of interviewees */
+    ObservableList<Interviewee> getIntervieweeListView();
 
     /** Returns an unmodifiable view of the list of questions */
     ObservableList<Question> getQuestionListView();

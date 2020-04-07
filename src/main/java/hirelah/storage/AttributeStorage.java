@@ -63,7 +63,7 @@ public class AttributeStorage {
      * Save the information of the Attribute
      * @param  source of the data. Cannot be null.
      */
-    public void saveAttributes(AttributeList source) throws IOException, IllegalValueException {
+    public void saveAttributes(AttributeList source) throws IOException {
         requireNonNull(source);
         requireNonNull(path);
         FileUtil.createIfMissing(path);

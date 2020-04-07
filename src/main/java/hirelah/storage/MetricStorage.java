@@ -55,7 +55,7 @@ public class MetricStorage {
      * Save the information of the Metric
      * @param  source of the data. Cannot be null.
      */
-    public void saveMetrics(MetricList source) throws IOException, IllegalValueException {
+    public void saveMetrics(MetricList source) throws IOException {
         requireNonNull(source);
         requireNonNull(path);
         FileUtil.createIfMissing(path);

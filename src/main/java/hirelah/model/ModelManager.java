@@ -1,5 +1,6 @@
 package hirelah.model;
 
+import static hirelah.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -7,7 +8,6 @@ import java.util.logging.Logger;
 
 import hirelah.commons.core.GuiSettings;
 import hirelah.commons.core.LogsCenter;
-import hirelah.commons.util.CollectionUtil;
 import hirelah.model.hirelah.AppPhase;
 import hirelah.model.hirelah.Attribute;
 import hirelah.model.hirelah.AttributeList;
@@ -41,7 +41,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs) {
-        CollectionUtil.requireAllNonNull(userPrefs);
+        requireAllNonNull(userPrefs);
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
@@ -194,7 +194,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Interviewee> getFilteredIntervieweeListView() {
+    public ObservableList<Interviewee> getIntervieweeListView() {
         return intervieweeList.getObservableList();
     }
 

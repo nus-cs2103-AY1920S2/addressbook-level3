@@ -93,7 +93,7 @@ public class BestCommand extends Command {
      * @param model The model of the app.
      */
     private void getBestN(Comparator<Interviewee> comparator, int size, Model model) throws IllegalValueException {
-        ObservableList<Interviewee> observableInterviewees = model.getFilteredIntervieweeListView();
+        ObservableList<Interviewee> observableInterviewees = model.getIntervieweeListView();
         ObservableList<IntervieweeToScore> bestNInterviewees = model.getBestNInterviewees();
         bestNInterviewees.clear();
         FilteredList<Interviewee> filtered = new FilteredList<>(observableInterviewees, Interviewee::isInterviewed);

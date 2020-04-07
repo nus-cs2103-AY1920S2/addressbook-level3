@@ -15,21 +15,21 @@ import hirelah.model.hirelah.QuestionList;
  * API of the Storage component.
  */
 public interface Storage extends UserPrefsStorage {
-    void saveInterviewee(IntervieweeList source) throws IOException, IllegalValueException;
+    void saveInterviewee(IntervieweeList source) throws IOException;
 
     Optional<IntervieweeList> readInterviewee(QuestionList questionList,
                                               AttributeList attributeList,
                                               Boolean initialModel) throws DataConversionException;
 
-    void saveAttribute(AttributeList source) throws IOException, IllegalValueException;
+    void saveAttribute(AttributeList source) throws IOException;
 
     Optional<AttributeList> readAttribute() throws DataConversionException;
 
-    void saveQuestion(QuestionList source) throws IOException, IllegalValueException;
+    void saveQuestion(QuestionList source) throws IOException;
 
     Optional<QuestionList> readQuestion() throws DataConversionException;
 
-    void saveMetric(MetricList source) throws IOException, IllegalValueException;
+    void saveMetric(MetricList source) throws IOException;
 
     Optional<MetricList> readMetric() throws DataConversionException;
 
