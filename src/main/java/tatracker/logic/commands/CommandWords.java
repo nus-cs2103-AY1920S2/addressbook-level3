@@ -29,6 +29,7 @@ public final class CommandWords {
     public static final String CLEAR = "clear";
     public static final String GOTO = "goto";
     public static final String REPORT = "report";
+    public static final String SET_RATE = "setrate";
     public static final String HELP = "help";
     public static final String EXIT = "exit";
 

@@ -246,8 +246,13 @@ public class ModelManager implements Model {
     public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
         taTracker.setCurrentlyShownModuleClaim(moduleCode);
-        System.out.println("filtered: " + moduleCode);
+        logger.fine("filtered: " + moduleCode);
         filteredDoneSessions.setPredicate(predicate);
+    }
+
+    @Override
+    public void setRate (int rate) {
+        taTracker.setRate(rate);
     }
 
     // ======== Module Methods =================================================

@@ -411,4 +411,10 @@ public interface Model {
      * Sets the filtered student list to be an that of given index group in given module.
      */
     void setFilteredStudentList(String moduleCode, int groupIndex);
+
+    /**
+     * Sets the pay rate to a integer specified by the user
+     * @param rate the new rate
+     */
+    void setRate(int rate);
 }
