@@ -19,6 +19,12 @@ public interface Logic {
     void execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Edit the body of the current opened block.
+     * @param bodyContent The content of the body entered by the user.
+     */
+    void editCurrentBlockBody(String bodyContent);
+
+    /**
      * Gets the path of the block data file.
      */
     Path getBlockDataFilePath();
