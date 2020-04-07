@@ -137,7 +137,7 @@ public class SuggestionEngineImplTest {
         model.setInput("delete " + title);
 
         // Expected result
-        String expectedResponseText = "Delete a note with title: " + title;
+        String expectedResponseText = "Delete a note entitled: " + title;
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -183,7 +183,7 @@ public class SuggestionEngineImplTest {
         model.setInput("dele -t " + title);
 
         // Expected result
-        String expectedResponseText = "Delete a note with title: " + title;
+        String expectedResponseText = "Delete a note entitled: " + title;
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -229,7 +229,7 @@ public class SuggestionEngineImplTest {
         model.setInput("opn -t " + title);
 
         // Expected result
-        String expectedResponseText = "Open a note with title: " + title;
+        String expectedResponseText = "Open a note entitled: " + title;
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -239,7 +239,7 @@ public class SuggestionEngineImplTest {
         model.setInput("nw -t " + title);
 
         // Expected result
-        String expectedResponseText = "Create a new note with title \"" + title + "\"";
+        String expectedResponseText = "Create a new note entitled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 

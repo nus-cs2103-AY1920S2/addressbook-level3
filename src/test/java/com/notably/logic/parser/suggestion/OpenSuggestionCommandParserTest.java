@@ -94,7 +94,7 @@ public class OpenSuggestionCommandParserTest {
     public void parse_uncorrectedPath_throwsParseException() {
         String title = "randomBlock";
         assertParseFailure(openSuggestionCommandParser, " -t " + title,
-                "Open a note with title: " + title);
+                "Open a note entitled: " + title);
     }
 
     @Test

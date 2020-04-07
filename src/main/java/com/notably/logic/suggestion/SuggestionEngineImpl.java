@@ -86,21 +86,13 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             }
 
         case "delete":
-            try {
-                return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
-            } catch (ParseException e) {
-                return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
-            }
+            return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         /*case SearchSuggestionCommand.COMMAND_WORD:
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
         case "new":
-            try {
-                return new NewSuggestionCommandParser(model).parse(arguments);
-            } catch (ParseException e) {
-                return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
-            }
+            return new NewSuggestionCommandParser(model).parse(arguments);
 
         case "edit":
             return Optional.of(new EditSuggestionCommand());

@@ -18,7 +18,7 @@ import com.notably.model.Model;
  */
 public class NewSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
     private static final String RESPONSE_MESSAGE = "Create a new note";
-    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note with title ";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note entitled ";
 
     private Model model;
 
@@ -31,7 +31,7 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
      * @return List of command to execute.
      * @throws ParseException when input is invalid.
      */
-    public Optional<SuggestionCommand> parse(String userInput) throws ParseException {
+    public Optional<SuggestionCommand> parse(String userInput) {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
 

@@ -18,8 +18,6 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to delete a note.
  */
 public class DeleteSuggestionCommand implements SuggestionCommand {
-    private static final String RESPONSE_MESSAGE = "Delete a note";
-
     private AbsolutePath path;
     private String oldTitle;
 
@@ -34,9 +32,6 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
     public void execute(Model model) {
         // Nullity check
         Objects.requireNonNull(model);
-
-        // Set response text
-        model.setResponseText(RESPONSE_MESSAGE);
 
         if (!oldTitle.isEmpty()) {
             // Set suggestions

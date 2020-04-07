@@ -60,7 +60,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Open a note with title: " + title);
+            throw new ParseException("Open a note entitled: " + title);
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
