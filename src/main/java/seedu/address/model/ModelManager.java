@@ -209,6 +209,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setEvent(Event target, Event markedEvent) {
+        requireAllNonNull(target, markedEvent);
+        createNewState("EVENTS");
+        eventSchedule.setEvent(target, markedEvent);
+    }
+
+    @Override
+    public void deleteEvent(Event target) {
+        eventSchedule.removeEvent(target);
+    }
+
+    @Override
     public void sortEvent(Comparator<Event> comparator) {
         eventSchedule.sortEvent(comparator);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);

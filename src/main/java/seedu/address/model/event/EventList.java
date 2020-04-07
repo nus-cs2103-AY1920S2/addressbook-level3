@@ -1,6 +1,7 @@
 package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.exceptions.ClashingEventException;
+import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
 
 /**
@@ -34,6 +36,20 @@ public class EventList {
             throw new ClashingEventException();
         }
         internalList.setAll(replacement);
+    }
+
+    public void setEvent(Event target, Event markedEvent) {
+        requireAllNonNull(target, markedEvent);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new EventNotFoundException();
+        }
+        if (!target.isSameEvent(markedEvent) && contains(markedEvent)) {
+            throw new DuplicateEventException();
+        }
+
+        internalList.set(index, markedEvent);
     }
 
     /**
