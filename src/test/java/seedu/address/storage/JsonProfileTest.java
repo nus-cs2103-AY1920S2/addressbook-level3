@@ -2,12 +2,14 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -30,12 +32,9 @@ import seedu.address.model.profile.course.module.personal.ModuleStatus;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.course.module.personal.Status;
 
-import static seedu.address.storage.JsonProfile.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.Assert.assertThrows;
-
 public class JsonProfileTest {
 
-    // JsonProfile
+    // JsonProfile variable declarations
     public static final String INVALID_NAME = "John&";
     public static final String INVALID_CURRENT_SEMESTER = "a";
 
@@ -47,73 +46,12 @@ public class JsonProfileTest {
     public static final Profile VALID_PROFILE = new Profile(new Name(VALID_NAME), new CourseName(VALID_COURSENAME),
             Integer.parseInt(VALID_CURRENT_SEMESTER), new FocusArea(VALID_SPECIALISATION));
 
-    @Test
-    public void toModelType_validProfile_returnsProfile() throws Exception {
-        JsonProfile profile = new JsonProfile(VALID_PROFILE);
-        assertEquals(VALID_PROFILE, profile.toModelType());
-    }
-
-    @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonProfile profile = new JsonProfile(INVALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
-                VALID_CURRENT_SEMESTER, VALID_RECORDS);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
-        JsonProfile profile = new JsonProfile(null, VALID_COURSENAME, VALID_SPECIALISATION,
-                VALID_CURRENT_SEMESTER, VALID_RECORDS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullCourseName_throwsIllegalValueException() {
-        JsonProfile profile = new JsonProfile(VALID_NAME, null, VALID_SPECIALISATION,
-                VALID_CURRENT_SEMESTER, VALID_RECORDS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, CourseName.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidCurrentSemester_throwsIllegalValueException() {
-        JsonProfile profile = new JsonProfile(VALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
-                INVALID_CURRENT_SEMESTER, VALID_RECORDS);
-        String expectedMessage = "Semester number should be a positive integer";
-        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullCurrentSemester_throwsIllegalValueException() {
-        JsonProfile profile = new JsonProfile(VALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
-                null, VALID_RECORDS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "current semester");
-        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
-    }
-
-    @Test
-    public void toModelType_nullRecord_throwsIllegalValueException() {
-        JsonProfile profile = new JsonProfile(VALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
-                VALID_CURRENT_SEMESTER, null);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "records");
-        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
-    }
-
-    // JsonSemesterRecord
+    // JsonSemesterRecord variable declarations
     public static final String INVALID_SEMESTER = "A";
 
     public static final List<JsonPersonalModule> VALID_MODULES = new ArrayList<>();
 
-    @Test
-    public void toModelType_invalidSemester_throwsIllegalValueException() {
-        JsonSemesterRecord profile = new JsonSemesterRecord(INVALID_SEMESTER, VALID_MODULES);
-        String expectedMessage = "Semester number should be a positive integer";
-        assertThrows(IllegalValueException.class, expectedMessage, profile::getSemester);
-    }
-
-    // JsonPersonalModule
+    // JsonPersonalModule variable declarations
     private static final String INVALID_STATUS = "status";
     private static final String INVALID_GRADE = "abc";
 
@@ -135,6 +73,93 @@ public class JsonProfileTest {
                     .map(JsonSemesterData::toString)
                     .collect(Collectors.toList())),
             new PrereqTreeNode(new ModuleCode(VALID_MODULE_CODE)));
+
+    // JsonDeadline variable declarations
+    private static final String INVALID_DATE = "2020-01-32";
+    private static final String INVALID_TIME = "25:00";
+
+    private static final String VALID_DESCRIPTION = "ABC";
+    private static final String VALID_DATE = "2020-01-31";
+    private static final String VALID_TIME = "23:59";
+    private static final Deadline VALID_DEADLINE;
+
+    static {
+        Deadline tempDeadline;
+        try {
+            tempDeadline = new Deadline(VALID_MODULE_CODE, VALID_DESCRIPTION, VALID_DATE, VALID_TIME);
+        } catch (DateTimeException e) {
+            tempDeadline = null;
+        }
+        VALID_DEADLINE = tempDeadline;
+    }
+
+    // JsonProfile tests
+
+    @Test
+    public void toModelType_validProfile_returnsProfile() throws Exception {
+        JsonProfile profile = new JsonProfile(VALID_PROFILE);
+        assertEquals(VALID_PROFILE, profile.toModelType());
+    }
+
+    @Test
+    public void toModelType_invalidName_throwsIllegalValueException() {
+        JsonProfile profile = new JsonProfile(INVALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
+                VALID_CURRENT_SEMESTER, VALID_RECORDS);
+        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullName_throwsIllegalValueException() {
+        JsonProfile profile = new JsonProfile(null, VALID_COURSENAME, VALID_SPECIALISATION,
+                VALID_CURRENT_SEMESTER, VALID_RECORDS);
+        String expectedMessage = String.format(JsonProfile.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullCourseName_throwsIllegalValueException() {
+        JsonProfile profile = new JsonProfile(VALID_NAME, null, VALID_SPECIALISATION,
+                VALID_CURRENT_SEMESTER, VALID_RECORDS);
+        String expectedMessage = String.format(JsonProfile.MISSING_FIELD_MESSAGE_FORMAT,
+                CourseName.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidCurrentSemester_throwsIllegalValueException() {
+        JsonProfile profile = new JsonProfile(VALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
+                INVALID_CURRENT_SEMESTER, VALID_RECORDS);
+        String expectedMessage = "Semester number should be a positive integer";
+        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullCurrentSemester_throwsIllegalValueException() {
+        JsonProfile profile = new JsonProfile(VALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
+                null, VALID_RECORDS);
+        String expectedMessage = String.format(JsonProfile.MISSING_FIELD_MESSAGE_FORMAT, "current semester");
+        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullRecord_throwsIllegalValueException() {
+        JsonProfile profile = new JsonProfile(VALID_NAME, VALID_COURSENAME, VALID_SPECIALISATION,
+                VALID_CURRENT_SEMESTER, null);
+        String expectedMessage = String.format(JsonProfile.MISSING_FIELD_MESSAGE_FORMAT, "records");
+        assertThrows(IllegalValueException.class, expectedMessage, profile::toModelType);
+    }
+
+    // JsonSemesterRecord tests
+
+    @Test
+    public void toModelType_invalidSemester_throwsIllegalValueException() {
+        JsonSemesterRecord profile = new JsonSemesterRecord(INVALID_SEMESTER, VALID_MODULES);
+        String expectedMessage = "Semester number should be a positive integer";
+        assertThrows(IllegalValueException.class, expectedMessage, profile::getSemester);
+    }
+
+    // JsonPersonalModule tests
 
     @Test
     public void toModelType_validModule_returnsModule() throws Exception {
@@ -173,24 +198,7 @@ public class JsonProfileTest {
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
-    // JsonDeadline
-    public static final String INVALID_DATE = "2020-01-32";
-    public static final String INVALID_TIME = "25:00";
-
-    public static final String VALID_DESCRIPTION = "ABC";
-    public static final String VALID_DATE = "2020-01-31";
-    public static final String VALID_TIME = "23:59";
-    private static final Deadline VALID_DEADLINE;
-
-    static {
-        Deadline VALID_DEADLINE1;
-        try {
-            VALID_DEADLINE1 = new Deadline(VALID_MODULE_CODE, VALID_DESCRIPTION, VALID_DATE, VALID_TIME);
-        } catch (DateTimeException e) {
-            VALID_DEADLINE1 = null;
-        }
-        VALID_DEADLINE = VALID_DEADLINE1;
-    }
+    // JsonDeadline tests
 
     @Test
     public void toModelType_validDeadline_returnsDeadline() throws Exception {
