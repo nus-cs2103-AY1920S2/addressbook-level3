@@ -1,0 +1,140 @@
+= Ng Jun Guang, Jarrod - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EYLAH
+
+---
+
+== Overview
+
+EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
+at halls/residential colleges by providing them with an application to split bills easily and help
+them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
+
+== Summary of contributions
+
+* *Major enhancement*: [In Process]
+** What it does:
+** Justification:
+** Highlights:
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+** *Adding of Height, Weight, Mode, Bmi and Self classes for the Diet Tracker portion of EYLAH*
+*** What it does: Height and Weight are used when the User wants to store their personal health metrics into Eylah for the ease of Diet Tracking. Self is the object that represents the User in Eylah. Bmi is used to do calculations using the Height and Weight of the User.
+*** Justification:
+*** Highlights:
+*** Credits:
+
+** *Adding of HeightCommand, WeightCommand, BmiCommand, ModeCommand for the Diet Tracker portion of EYLAH*
+*** What it does: HeightCommand, WeightCommand and BmiCommand are all health metric commands that are essential for any diet tracking app to help the User. BmiCommand is a simple function to allow the user to gauge their current health status.
+*** Justification:
+*** Highlights:
+*** Credits:
+
+** *Adapted most of the beginning classes for the DietModel class from Addressbook 3*
+*** What it does: The Model and Parsers are extremely important in order to ensure a functioning pre-product.
+*** Justification:
+*** Highlights:
+*** Credits:
+
+** *Suggested for the renaming of same sounding class components across both DietTracker and ExpenseSplitter for EYLAH*
+*** What it does: Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified Eylah class.
+*** Justification: Otherwise, the name usages in the code would be lengthy and hard to read also. Class names in the unified Eylah files would include the entire path name of the Class file.
+*** Highlights: I noticed this in my review of my team mate, Shee Xiong's, initial reorganisation of the code to allow for unification of both components. Upon further research as to why he may have left the class names as they were, I realised that it was because Java does not support **class name aliasing**, so we could not import the same named classes from DietTracker and ExpenseSplitter without first renaming them.
+*** Credits: Understanding more about Java from "https://stackoverflow.com/questions/2204157/class-or-method-alias-in-java"
+
+
+* *Minor enhancement*: [In Process]
+** *Drew Diet Tracker component of UML Class diagram*
++
+image::diet_tracker_uml_class_diagram.png[]
++
+** *Added tests for HeightCommand, WeightCommand, BmiCommand, ModeCommand, and some of the tests for EditCommand*
++
+** *Added tests for the respective Command Parser classes as seen in the previous point. Also added tests for the FoodBookParser and Parser classes.*
+
+** *Assisted in downscaling of AddressBook3 by removing Email object*
+
+** *Drew Activity Diagrams for various Diet Tracker functions.*
++
+image::BmiActivityDiagram.png[]
++
+image::BmiNILSequenceDiagram.png[]
+
+** *Drew Sequence Diagrams for various Diet Tracker functions.*
++
+image::BmiNILSequenceDiagram.png[]
++
+image::BmiSequenceDiagram.png[]
++
+image::DietTrackerHeightCommandSequenceDiagram.png[]
++
+image::DietTrackerWeightCommandSequenceDiagram.png[]
++
+image::DietTrackerModeCommandSequenceDiagram.png[]
+
+
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+
+** Project management:
+*** In charge of Diet Tracker functionalities for EYLAH.
+*** Drew most UML Diagrams for the various Diet Tracker classes and functions for EYLAH.
+*** Participated in planning the project timeline for EYLAH.
+
+
+** Enhancements to existing features:
+*** Adapted the given Parser and Command Design into Diet Tracker's Design for EYLAH. https://github.com/
+
+** Documentation:
+*** To be added
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+** Tools:
+
+==== Code contributed
+Please click the following link to see my code contributions dashboard.
+https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jarrod-bob[Code Report]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
+
+Questions to ask: +
+1. is BigDecimal the best way to represent currency? +
+2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
+will throw an exception? Because in AB3 everything there is assertFalse +
+3.
