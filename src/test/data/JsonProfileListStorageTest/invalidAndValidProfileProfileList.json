@@ -1,0 +1,17 @@
+{
+  "profiles": [
+    {
+      "name" : "Valid profile",
+      "courseName" : "COMPUTER SCIENCE",
+      "specialisation" : "UNDECIDED",
+      "currentSemester" : "4",
+      "records" : []
+    }, {
+      "name" : "Invalid profile",
+      "courseName" : "COMPUTER SCIENCE",
+      "specialisation" : "UNDECIDED",
+      "currentSemester" : "A",
+      "records" : []
+    }
+  ]
+}
