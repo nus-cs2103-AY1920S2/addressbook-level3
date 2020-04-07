@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.DeleteCommand;
-import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -16,14 +16,12 @@ import com.notably.model.Model;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
-    private static final int DISTANCE_THRESHOLD = 2;
-
     private Model notablyModel;
-    private AbsolutePathCorrectionEngine correctionEngine;
+    private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
-    public DeleteCommandParser(Model notablyModel) {
+    public DeleteCommandParser(Model notablyModel, CorrectionEngine<AbsolutePath> pathCorrectionEngine) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD, false);
+        this.pathCorrectionEngine = pathCorrectionEngine;
     }
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -46,7 +44,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
-        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedPath);
+        CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
             throw new ParseException("Invalid Path");
         }
