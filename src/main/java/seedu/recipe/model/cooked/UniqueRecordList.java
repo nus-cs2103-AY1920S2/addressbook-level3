@@ -53,6 +53,7 @@ public class UniqueRecordList implements Iterable<Record> {
         }
 
         internalList.setAll(records);
+        setGoalsTally();
     }
 
     /**
@@ -131,10 +132,9 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Returns goalTally for all main {@code goal} in cookedRecordBook.
+     * Sets goal tally when records are set initially.
      */
-
-    public ObservableList<Integer> getGoalsTally() {
+    public void setGoalsTally() {
         HashMap<String, Integer> goalMap = new HashMap<String, Integer>();
         goalMap.put("Herbivore", 0);
         goalMap.put("Bulk like the Hulk", 0);
@@ -156,7 +156,6 @@ public class UniqueRecordList implements Iterable<Record> {
                 goalMap.get("Herbivore"),
                 goalMap.get("Bulk like the Hulk"),
                 goalMap.get("Wholesome Wholemeal"));
-        return internalUnmodifiableGoalsList;
     }
 
     /**
@@ -188,5 +187,12 @@ public class UniqueRecordList implements Iterable<Record> {
                 break;
             }
         }
+    }
+
+    /**
+     * Returns goalTally for all main {@code goal} in cookedRecordBook.
+     */
+    public ObservableList<Integer> getGoalsTally() {
+        return internalUnmodifiableGoalsList;
     }
 }
