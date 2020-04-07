@@ -9,12 +9,15 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.logic.parser.ParserUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Tag;
 import cookbuddy.model.recipe.attribute.Time;
-import org.junit.jupiter.api.Test;
+
+
 
 /**
  * Contains helper methods for testing commands.
@@ -85,7 +88,7 @@ public class ParserTestUtil {
 
     @Test
     public void parseTiming_validValid_returnsTime() throws Exception {
-        Time time = new Time(12,00,00);
+        Time time = new Time(12, 00, 00);
         assertEquals(time, (ParserUtil.parseTime(VALID_TIME)));
     }
 

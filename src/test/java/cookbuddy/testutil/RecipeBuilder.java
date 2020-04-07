@@ -148,6 +148,10 @@ public class RecipeBuilder {
         return this;
     }
 
+    /**
+     * builds a Recipe.
+     * @return the Recipe.
+     */
     public Recipe build() {
         Recipe toReturn = new Recipe(name, ingredients, instructions, photograph, calorie, serving, rating, difficulty,
                 tags);
@@ -155,6 +159,13 @@ public class RecipeBuilder {
         return toReturn;
     }
 
+    /**
+     * adds a time to the recipe.
+     * @param h the hour component of the time.
+     * @param m the minute component of the time.
+     * @param s the second component of the time.
+     * @return
+     */
     public RecipeBuilder addTime(int h, int m, int s) {
         this.timing = new Time(h, m, s);
         return this;

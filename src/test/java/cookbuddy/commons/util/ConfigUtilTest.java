@@ -9,10 +9,12 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import cookbuddy.commons.core.Config;
-import cookbuddy.commons.exceptions.DataConversionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import cookbuddy.commons.core.Config;
+import cookbuddy.commons.exceptions.DataConversionException;
+
 
 public class ConfigUtilTest {
 

@@ -14,8 +14,9 @@ import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import cookbuddy.testutil.RecipeBuilder;
 import org.junit.jupiter.api.Test;
+
+import cookbuddy.testutil.RecipeBuilder;
 
 public class RecipeTest {
 
