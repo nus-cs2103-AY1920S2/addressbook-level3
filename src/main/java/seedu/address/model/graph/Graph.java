@@ -84,8 +84,10 @@ public class Graph {
             return true;
         }
 
-        return otherGraph != null && otherGraph.getExerciseName().equals(getExerciseName())
-                && otherGraph.getAxis().equals(getAxis()) && otherGraph.getStartDate().equals(getStartDate())
+        return otherGraph != null 
+                && otherGraph.getExerciseName().equals(getExerciseName())
+                && otherGraph.getAxis().equals(getAxis()) 
+                && otherGraph.getStartDate().equals(getStartDate())
                 && otherGraph.getEndDate().equals(getEndDate());
     }
 
