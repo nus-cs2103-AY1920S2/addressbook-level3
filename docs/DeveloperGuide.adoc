@@ -137,7 +137,7 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/hirelah/storage/Storage.java[`Storage.java`]
 
 // tag::storage[]
 The `Storage` component,

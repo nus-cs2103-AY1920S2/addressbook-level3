@@ -22,7 +22,7 @@ import seedu.address.storage.UserPrefsStorage;
  */
 public class StorageManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(seedu.address.storage.StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(seedu.address.model.hirelah.storage.StorageManager.class);
     private UserPrefsStorage userPrefsStorage;
     private IntervieweeStorage intervieweeStorage;
     private AttributeStorage attributeStorage;

@@ -198,4 +198,16 @@ public class MetricList {
     private boolean isDuplicate(Metric metric) {
         return metrics.stream().anyMatch(x -> x.getName().equals(metric.getName()));
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MetricList // instanceof handles nulls
+                && metrics.equals(((MetricList) other).metrics)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return metrics.hashCode();
+    }
 }
+

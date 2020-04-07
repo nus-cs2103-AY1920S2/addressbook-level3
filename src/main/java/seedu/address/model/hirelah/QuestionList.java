@@ -117,4 +117,15 @@ public class QuestionList {
     public boolean isDuplicate(Question question) {
         return questions.stream().anyMatch(question::equals);
     }
+
+    @Override
+    public int hashCode() {
+        return questions.hashCode();
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Question // instanceof handles nulls
+                && questions.equals(((QuestionList) other).questions)); // state check
+    }
 }

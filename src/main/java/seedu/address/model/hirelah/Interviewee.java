@@ -1,6 +1,7 @@
 package seedu.address.model.hirelah;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.beans.property.ObjectProperty;
@@ -158,5 +159,24 @@ public class Interviewee {
     @Override
     public String toString() {
         return getFullName();
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) { // short circuit if it is the same object
+            return true;
+        } else if (!(other instanceof Interviewee)) {
+            return false;
+        }
+        Interviewee interviewee = (Interviewee) other;
+        return interviewee.toString().equals(toString())
+                && interviewee.getAlias().equals(getAlias())
+                && (interviewee.getId() == getId())
+                && interviewee.isInterviewed() == isInterviewed()
+                && interviewee.getTranscript().equals(getTranscript())
+                && interviewee.getResume().equals(getResume());
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, id, alias, resume, transcript);
     }
 }

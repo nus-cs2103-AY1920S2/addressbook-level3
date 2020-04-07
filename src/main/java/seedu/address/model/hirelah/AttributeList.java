@@ -127,4 +127,16 @@ public class AttributeList implements Iterable<Attribute> {
     public Iterator<Attribute> iterator() {
         return attributes.iterator();
     }
+
+    @Override
+    public int hashCode() {
+        return attributes.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AttributeList // instanceof handles nulls
+                && attributes.equals(((AttributeList) other).attributes)); // state check
+    }
 }
