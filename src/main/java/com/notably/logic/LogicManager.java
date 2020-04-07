@@ -64,7 +64,7 @@ public class LogicManager implements Logic {
         // Throws exception if current block is a Root.
         try {
             model.updateCurrentlyOpenBlockBody(body);
-        } catch(CannotModifyRootException ex) {
+        } catch (CannotModifyRootException ex) {
             throw new EditBlockBodyException(ex.getMessage());
         }
     }

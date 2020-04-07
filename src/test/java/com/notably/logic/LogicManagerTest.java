@@ -56,11 +56,4 @@ public class LogicManagerTest {
         assertThrows(CommandException.class, () -> logic.execute(invalidCommand));
     }
 
-    @Test
-    public void () {
-        String invalidCommand = "delete /";
-        assertThrows(CommandException.class, () -> logic.execute(invalidCommand));
-    }
-
-
 }
