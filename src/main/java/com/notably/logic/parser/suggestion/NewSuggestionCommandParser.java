@@ -4,39 +4,27 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_BODY;
 import static com.notably.logic.parser.CliSyntax.PREFIX_JUMP;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.Command;
-import com.notably.logic.commands.NewCommand;
-import com.notably.logic.commands.OpenCommand;
-import com.notably.logic.commands.suggestion.NewSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.parser.ArgumentMultimap;
 import com.notably.logic.parser.ArgumentTokenizer;
 import com.notably.logic.parser.ParserUtil;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
-import com.notably.model.block.Block;
-import com.notably.model.block.BlockImpl;
-import com.notably.model.block.Body;
-import com.notably.model.block.Title;
 
 /**
  * Represents a Parser for New Command.
  */
 public class NewSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
-    private Model model;
-
     private static final String RESPONSE_MESSAGE = "Create a new note";
-    private static final String RESPONSE_MESSAGE_WITH_TITLE = RESPONSE_MESSAGE + " with title ";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note with title ";
+
+    private Model model;
 
     public NewSuggestionCommandParser(Model model) {
         this.model = model;
     }
-    
     /**
      * Parses input and displays the appropriate response text.
      * @param userInput .
