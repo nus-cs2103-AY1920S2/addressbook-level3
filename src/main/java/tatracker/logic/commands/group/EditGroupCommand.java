@@ -71,7 +71,7 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_NO_CHANGES);
         }
 
-        if (newGroupCode.equals("")) {
+        if (newGroupCode.isBlank()) {
             throw new CommandException(INVALID_GROUP_CODE);
         }
 

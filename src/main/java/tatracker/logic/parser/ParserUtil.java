@@ -59,6 +59,9 @@ public class ParserUtil {
         String[] nameParts = trimmedName.split(" ");
 
         for (int i = 0; i < nameParts.length; ++i) {
+            if (nameParts[i].isBlank()) {
+                continue;
+            }
             nameBuilder.append(Character.toUpperCase(nameParts[i].charAt(0)));
             nameBuilder.append(nameParts[i].substring(1) + " ");
         }
