@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.exceptions.InvalidReminderException;
 import seedu.address.storage.Storage;
 
 public class Recurring {
@@ -76,6 +77,36 @@ public class Recurring {
         Optional<Recurring> sameOptRecurring = taskToReset.getOptionalRecurring();
         return new Task(
                 updatedName, updatedPriority, updatedDescription, new Done("N"), updatedTags, sameOptReminder, sameOptRecurring);
+   }
+
+   public Task resetReminder(Task taskToReset) {
+       assert taskToReset != null;
+        Name updatedName = taskToReset.getName();
+        Priority updatedPriority = taskToReset.getPriority();
+        Description updatedDescription = taskToReset.getDescription();
+        Set<Tag> updatedTags = taskToReset.getTags();
+        Optional<Reminder> currentOptReminder = taskToReset.getOptionalReminder();
+        Optional<Recurring> sameOptRecurring = taskToReset.getOptionalRecurring();
+        if (currentOptReminder.isPresent()) {
+            Reminder currentReminder = currentOptReminder.get();
+            LocalDateTime currentDateTime = currentReminder.getDateTime();
+            if (shouldUpdateReminder(currentDateTime)) {
+                LocalDateTime newDateTime = currentDateTime.plusDays(type.getDayInterval());
+                try {
+                    currentOptReminder = Optional.of(new Reminder(newDateTime));
+                } catch (InvalidReminderException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return new Task(
+                updatedName, updatedPriority, updatedDescription, new Done("N"), updatedTags, currentOptReminder, sameOptRecurring);
+   }
+
+   public boolean shouldUpdateReminder(LocalDateTime reminderDateTime) {
+       Duration duration = Duration.between(LocalDateTime.now(), reminderDateTime);   
+       boolean hasPassed = duration.getSeconds() < 0;
+       return hasPassed;
    }
 
    /** Returns true if a given string is a valid name. */
