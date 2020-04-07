@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,6 @@ import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 import seedu.address.model.profile.course.module.personal.Personal;
@@ -264,17 +264,12 @@ class JsonDeadline {
 
         if (date != null && time != null) {
             try {
-                LocalDate.parse(date);
-                LocalTime.parse(time);
-            } catch (DateTimeParseException | NullPointerException e) {
+                LocalDate modelDate = LocalDate.parse(date);
+                LocalTime modelTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+                return new Deadline(moduleCode, description, modelDate, modelTime);
+            } catch (DateTimeParseException e) {
                 throw new IllegalValueException("Deadline's date field should be a valid date in the format YYYY-MM-DD "
                         + "and time field should be a valid time in the format HH:mm");
-            }
-
-            try {
-                return new Deadline(moduleCode, description, date, time);
-            } catch (DateTimeException e) {
-                throw new IllegalValueException("Unknown error occurred");
             }
         }
 

@@ -25,25 +25,22 @@ public class Deadline {
     private String inputTimePattern = "HH:mm";
     private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
 
-    public Deadline(String moduleCode, String description, String date, String time) throws DateTimeException {
+    public Deadline(String moduleCode, String description, LocalDate date, LocalTime time) {
         this.moduleCode = moduleCode;
         this.description = description;
-        try {
-            this.date = LocalDate.parse(date);
-            this.time = LocalTime.parse(time, inputTimeFormatter);
+        this.date = date;
+        this.time = time;
 
-            LocalDate today = LocalDate.now();
-            if (this.date.isBefore(today.plusDays(5))) {
-                tag = "RED";
-            } else if (this.date.isBefore(today.plusDays(10))) {
-                tag = "YELLOW";
-            } else {
-                tag = "GREEN";
-            }
-
-        } catch (DateTimeParseException e) {
-            throw new DateTimeException("Try: d/YYYY-MM-DD HH:mm");
+        LocalDate today = LocalDate.now();
+        if (this.date.isBefore(today.plusDays(5))) {
+            tag = "RED";
+        } else if (this.date.isBefore(today.plusDays(10))) {
+            tag = "YELLOW";
+        } else {
+            tag = "GREEN";
         }
+
+
     }
 
     public Deadline(String moduleCode, String description) {
