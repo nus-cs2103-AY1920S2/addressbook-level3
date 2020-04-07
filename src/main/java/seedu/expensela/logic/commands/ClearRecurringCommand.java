@@ -1,9 +1,12 @@
 package seedu.expensela.logic.commands;
 
-import seedu.expensela.model.Model;
-
 import static java.util.Objects.requireNonNull;
 
+import seedu.expensela.model.Model;
+
+/**
+ * Clear all recurring transactions
+ */
 public class ClearRecurringCommand extends Command {
 
     public static final String COMMAND_WORD = "clearrecurring";

@@ -48,6 +48,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveExpenseLa(model.getExpenseLa());
+            storage.saveGlobalData(model.getGlobalData());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

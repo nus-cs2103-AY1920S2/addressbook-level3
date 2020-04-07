@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.commands.BudgetCommand;
 import seedu.expensela.logic.commands.ClearCommand;
+import seedu.expensela.logic.commands.ClearRecurringCommand;
 import seedu.expensela.logic.commands.Command;
 import seedu.expensela.logic.commands.DeleteCommand;
 import seedu.expensela.logic.commands.EditCommand;
@@ -19,7 +20,6 @@ import seedu.expensela.logic.commands.HelpCommand;
 import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.commands.ResetBalanceCommand;
 import seedu.expensela.logic.commands.ToggleCommand;
-import seedu.expensela.logic.commands.ClearRecurringCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**

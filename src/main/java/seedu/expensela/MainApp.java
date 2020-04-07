@@ -72,7 +72,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs, globalData);
 
-        dateCheck(model, globalData);
+        dateCheck(model);
 
         logic = new LogicManager(model, storage);
 
@@ -113,10 +113,10 @@ public class MainApp extends Application {
      * budget and transaction accordingly from recurring budget variable and recurring transactions
      * list
      * @param model
-     * @param globalData
      */
-    private void dateCheck(Model model, GlobalData globalData) {
+    private void dateCheck(Model model) {
         LocalDate today = LocalDate.now();
+        GlobalData globalData = model.getGlobalData();
         if (globalData.getLastUpdatedDate().isBefore(today)) {
             int from = 0;
             if (today.getMonthValue() > globalData.getLastUpdatedDate().getMonthValue()) {
@@ -136,7 +136,6 @@ public class MainApp extends Application {
             }
         }
         globalData.setLastUpdatedDate(LocalDate.now());
-        model.setGlobalData(globalData);
     }
 
     /**
@@ -249,12 +248,12 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping ExpenseLa ] =============================");
         try {
-            GlobalData globalData = model.getGlobalData();
+            GlobalData globalData = new GlobalData(model.getGlobalData());
             globalData.setLastUpdatedDate(LocalDate.now());
             model.setGlobalData(globalData);
+            storage.saveGlobalData(model.getGlobalData());
             storage.saveExpenseLa(model.getExpenseLa());
             storage.saveUserPrefs(model.getUserPrefs());
-            storage.saveGlobalData(model.getGlobalData());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
