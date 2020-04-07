@@ -3,7 +3,7 @@ package seedu.address.model.task;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's address in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a Task's address in the task list. Guarantees: immutable; is valid as declared in
  * {@link #isValidDescription(String)}
  */
 public class Description {

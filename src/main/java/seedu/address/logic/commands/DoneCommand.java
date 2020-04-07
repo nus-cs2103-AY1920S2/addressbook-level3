@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
@@ -21,18 +22,18 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 
-/** Deletes a person identified using it's displayed index from the address book. */
+/** Deletes a task identified using it's displayed index from the task list. */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD
-                    + ": Marks the task identified by the index number used in the displayed task list as done.\n"
-                    + "Parameters: 1-INDEXed (must be a positive integer)\n"
+                    + ": Marks one or multiple tasks identified by the index number(s) used in the displayed task list as done.\n"
+                    + "Parameters: INDEX1, INDEX2 (must be positive integers)\n"
                     + "Example: "
                     + COMMAND_WORD
-                    + " 1";
+                    + " 1, 2";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Done Task(s): ";
 
@@ -47,20 +48,24 @@ public class DoneCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownList = model.getFilteredTaskList();
         StringBuilder tasksDone = new StringBuilder(MESSAGE_DONE_TASK_SUCCESS);
+        HashSet<Task> toDoneTaskList = new HashSet<>();
 
         Task pommedTask = null;
 
         for (Index targetIndex : targetIndices) {
             targetIndex.getZeroBased();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            // Person person = lastShownList.get(targetIndex.getZeroBased());
+            // Task task = lastShownList.get(targetIndex.getZeroBased());
             Task taskToEdit = lastShownList.get(targetIndex.getZeroBased());
-            if (taskToEdit.getDone().isDone) {
+            if (taskToEdit.getDone().getIsDone()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TASK_TO_BE_DONED);
             }
+            toDoneTaskList.add(taskToEdit);
+        }
 
+        for (Task taskToEdit : toDoneTaskList) {
             Task editedTask = createDoneTask(taskToEdit);
 
             // Normal statistics update
@@ -75,9 +80,6 @@ public class DoneCommand extends Command {
                 model.setTask(taskToEdit, editedTask);
                 updateStatisticsRegularDone(model);
             }
-            // increment Pet EXP after completing a task
-            model.incrementExp();
-            model.updateMoodWhenDone();
         }
 
         // The last task to show is the pommed task
@@ -92,7 +94,7 @@ public class DoneCommand extends Command {
             pm.checkMidPomDoneActions();
         }
 
-        return new CommandResult(tasksDone.toString());
+        return new DoneCommandResult(tasksDone.toString());
     }
 
     private static Date getCurrentDate() {

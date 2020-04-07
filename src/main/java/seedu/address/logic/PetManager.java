@@ -1,45 +1,23 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import seedu.address.model.Pet;
-import seedu.address.ui.PetDisplay;
 
 public class PetManager {
-    // DEFAULT HAPPY and HANGRY STRING.... peepee
-
-    private Path DEFAULT_ACCESSORY_PLACEHOLDER = Paths.get("images", "pet", "medal.png");
 
     public final String HANGRY_MOOD_STRING = "HANGRY";
     public final String HAPPY_MOOD_STRING = "HAPPY";
 
     private Pet pet;
+    private String petImage;
+    private String expBarImage;
+    private String expBarText;
+    private String levelText;
+
     private LocalDateTime lastDoneTaskTime;
     private LocalDateTime timeForHangry;
-    private PetDisplay petDisplay;
-    private Timer timer;
-    private TimerTask timerTask;
-    // private Timer secondTimer;
-    // private Timer thirdTimer;
-    private boolean hasStarted;
 
-    public PetManager() {
-        this.timer = new Timer();
-        this.timerTask =
-                new TimerTask() {
-                    public void run() {
-                        changeToHangry();
-                        updatePetDisplayToHangry();
-                    }
-                };
-        this.hasStarted = false;
-    }
+    public PetManager() {}
 
     public void setPet(Pet pet) {
         this.pet = pet;
@@ -50,225 +28,136 @@ public class PetManager {
         this.timeForHangry = lastDoneTaskTime.plusMinutes(1);
     }
 
-    public void setPetDisplay(PetDisplay petDisplay) {
-        this.petDisplay = petDisplay;
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
     }
 
-    public void updateMoodWhenLogIn() {
-        LocalDateTime now = LocalDateTime.now();
-        if (pet.getMood().equals(HAPPY_MOOD_STRING)) {
-            Duration duration = Duration.between(now, timeForHangry);
-            if (duration.isNegative()) {
-                changeToHangry();
-            } else {
-                hasStarted = true;
-                // System.out.println("HASSTARTED IS TRUE WHEN LOG IN");
-                Date timeForMoodChange =
-                        Date.from(timeForHangry.atZone(ZoneId.systemDefault()).toInstant());
-                // System.out.println("task is scheduled when logged in");
-                timer.schedule(timerTask, timeForMoodChange);
-
-                // System.out.print("THIS IS FIRST COUNTDOWN??!!!");
-                // secondTimer = new Timer();
-                // TimerTask task = new TimerTask() {
-                // public void run() {
-                // Duration duration = Duration.between(LocalDateTime.now(), timeForHangry);
-                // System.out.println("DURATION LOG IN: " + duration);
-                // if (duration.isNegative()) {
-                // cancel();
-                // }
-                // }
-                // };
-                // Date date =
-                // Date.from(lastDoneTaskTime.atZone(ZoneId.systemDefault()).toInstant());
-                // secondTimer.scheduleAtFixedRate(task, date, 10000);
-
-            }
-        }
+    public void incrementExp() {
+        this.pet.incrementExp();
+        updateDisplayElements();
     }
 
-    public void updateMoodWhenTaskDone() {
-        if (hasStarted) {
-            // System.out.println("timer has been cancelled starting new one");
-            // secondTimer.cancel();
-            timer.cancel();
-        }
-        timer = new Timer();
+    public void updateLastDoneTaskWhenDone() {
         lastDoneTaskTime = LocalDateTime.now();
         pet.setLastDoneTaskTime(lastDoneTaskTime.toString());
         // For ACTUAL
         // timeForHangry = lastDoneTaskTime.plusHours(24);
         // For TESTING
         timeForHangry = lastDoneTaskTime.plusMinutes(1);
-        timerTask =
-                new TimerTask() {
-                    @Override
-                    public void run() {
-                        changeToHangry();
-                        updatePetDisplayToHangry();
-                    }
-                };
-        Date timeForMoodChange =
-                Date.from(timeForHangry.atZone(ZoneId.systemDefault()).toInstant());
-        timer.schedule(timerTask, timeForMoodChange);
-        changeToHappy();
-
-        // System.out.print("SCEHDULE TIMERTASK....... THIS IS FINAL COUNTDOWN??!!!");
-        // thirdTimer = new Timer();
-        // TimerTask task = new TimerTask() {
-        // public void run() {
-        // Duration duration = Duration.between(LocalDateTime.now(), timeForHangry);
-        // System.out.println("DURATION: " + duration);
-        // if (duration.isNegative()) {
-        // cancel();
-        // }
-        // }
-        // };
-        // Date date =
-        // Date.from(lastDoneTaskTime.atZone(ZoneId.systemDefault()).toInstant());
-        // thirdTimer.scheduleAtFixedRate(task, date, 10000);
     }
 
-    public void updatePetDisplayWhenDone() {
-        Path petFilepath;
-        String levelText = this.pet.getLevel();
-
-        if (levelText.equals("1")) {
-            petFilepath = Paths.get("images", "pet", "level1.png");
-        } else if (levelText.equals("2")) {
-            petFilepath = Paths.get("images", "pet", "level2.png");
-        } else {
-            petFilepath = Paths.get("images", "pet", "level3.png");
-        }
-
-        petDisplay.setPetImage(petFilepath);
-    }
-
-    public void updatePetDisplayToHangry() {
-        Path petFilepath;
-        String levelText = this.pet.getLevel();
-
-        if (levelText.equals("1")) {
-            petFilepath = Paths.get("images", "pet", "level1hangry.png");
-        } else if (levelText.equals("2")) {
-            petFilepath = Paths.get("images", "pet", "level2hangry.png");
-        } else {
-            petFilepath = Paths.get("images", "pet", "level3.png");
-        }
-
-        petDisplay.setPetImage(petFilepath);
-    }
-
-    public void handleExit() {
-        hasStarted = false;
-        timer.cancel();
-        // secondTimer.cancel();
-        // thirdTimer.cancel();
-    }
-
-    void changeToHangry() {
+    public void changeToHangry() {
         pet.changeHangry();
     }
 
-    void changeToHappy() {
+    public void changeToHappy() {
         pet.changeHappy();
     }
 
-    public void updatePetDisplay() {
+    public void updateDisplayElements() {
+
         int exp = Integer.parseInt(pet.getExp());
         int expBarInt = exp % 100;
-        String expBarText = String.format("%d XP / 100 XP", expBarInt);
+        expBarText = String.format("%d XP / 100 XP", expBarInt);
 
-        String levelText = this.pet.getLevel();
+        levelText = this.pet.getLevel();
 
         String mood = pet.getMood();
-        Path petFilepath;
 
         if (levelText.equals("1")) {
-            Path path =
+            String str =
                     (mood.equals(HAPPY_MOOD_STRING)
-                            ? Paths.get("images", "pet", "level1.png")
-                            : Paths.get("images", "pet", "level1hangry.png"));
-            petFilepath = path;
+                            ? "/images/pet/level1.png"
+                            : "/images/pet/level1hangry.png");
+            petImage = str;
         } else if (levelText.equals("2")) {
-            Path path =
+            String str =
                     (mood.equals(HAPPY_MOOD_STRING)
-                            ? Paths.get("images", "pet", "level1.png")
-                            : Paths.get("images", "pet", "level1hangry.png"));
-            petFilepath = path;
+                            ? "/images/pet/level2.png"
+                            : "/images/pet/level2hangry.png");
+            petImage = str;
         } else {
-            petFilepath = Paths.get("images", "pet", "level3.png");
+            petImage = "/images/pet/level3.png";
         }
 
         int expBarPerc = expBarInt / 10;
 
-        Path expBarFilepath;
-
         switch (expBarPerc) {
             case 0:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar0%.png");
+                expBarImage = "/images/pet/ProgressBar0%.png";
                 break;
 
             case 1:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar10%.png");
+                expBarImage = "/images/pet/ProgressBar10%.png";
                 break;
 
             case 2:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar20%.png");
+                expBarImage = "/images/pet/ProgressBar20%.png";
                 break;
 
             case 3:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar30%.png");
+                expBarImage = "/images/pet/ProgressBar30%.png";
                 break;
 
             case 4:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar40%.png");
+                expBarImage = "/images/pet/ProgressBar40%.png";
                 break;
 
             case 5:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar50%.png");
+                expBarImage = "/images/pet/ProgressBar50%.png";
                 break;
 
             case 6:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar60%.png");
+                expBarImage = "/images/pet/ProgressBar60%.png";
                 break;
 
             case 7:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar70%.png");
+                expBarImage = "/images/pet/ProgressBar70%.png";
                 break;
 
             case 8:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar80%.png");
+                expBarImage = "/images/pet/ProgressBar80%.png";
                 break;
 
             case 9:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar90%.png");
+                expBarImage = "/images/pet/ProgressBar90%.png";
                 break;
 
             case 10:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar100%.png");
+                expBarImage = "/images/pet/ProgressBar100%.png";
                 break;
 
             default:
-                expBarFilepath = Paths.get("images", "pet", "ProgressBar0%.png");
+                expBarImage = "/images/pet/ProgressBar0%.png";
                 break;
         }
+    }
 
-        Path accessoryFilepath = DEFAULT_ACCESSORY_PLACEHOLDER;
+    public String getPetName() {
+        return pet.getName();
+    }
 
-        // if (accessoryFilepath != null) {
-        // this.accessoryFilepath = accessoryFilepath;
-        // Image image = new Image(String.valueOf(accessoryFilepath));
-        // accessoryPic.setImage(image);
-        // }
+    public String getLevelText() {
+        return levelText;
+    }
 
-        petDisplay.setExpBarText(expBarText);
-        petDisplay.setLevelText(levelText);
+    public String getExpBarInt() {
+        return expBarText;
+    }
 
-        // set up pet image
-        petDisplay.setPetImage(petFilepath);
+    public String getExpBarImage() {
+        return expBarImage;
+    }
 
-        // set up experience bar image
-        petDisplay.setExpBarImage(expBarFilepath);
+    public String getPetImage() {
+        return petImage;
+    }
+
+    public String getMood() {
+        return pet.getMood();
+    }
+
+    public LocalDateTime getTimeForHangry() {
+        return timeForHangry;
     }
 }

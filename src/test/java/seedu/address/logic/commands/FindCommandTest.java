@@ -3,7 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTasks.FEED_CAT;
 import static seedu.address.testutil.TypicalTasks.RUN;
@@ -61,13 +62,13 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different task -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
     public void execute_zeroKeywords_noTaskFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
@@ -77,12 +78,12 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleTaskFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("mum tells me to");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TUTORIAL_1, FEED_CAT, RUN), model.getFilteredTaskList());
+        assertEquals(Arrays.asList(RUN, FEED_CAT, TUTORIAL_1), model.getFilteredTaskList());
     }
 
     /** Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}. */

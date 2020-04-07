@@ -9,16 +9,16 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
+import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
 
-/** Represents the in-memory model of the address book data. */
+/** Represents the in-memory model of the task list data. */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -28,7 +28,7 @@ public class ModelManager implements Model {
     private final Pet pet;
     private final UserPrefs userPrefs;
     private FilteredList<Task> filteredTasks;
-    private Comparator<Task>[] comparators;
+    private Comparator<Task>[] comparators = new Comparator[0];
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
@@ -50,6 +50,9 @@ public class ModelManager implements Model {
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
         logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
+
+        this.petManager = new PetManager();
+        this.petManager.setPet(this.pet);
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
@@ -122,14 +125,15 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         taskList.addTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
+        this.sortList();
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-
         taskList.setTask(target, editedTask);
+        this.sortList();
     }
 
     // =========== Filtered Task List Accessors
@@ -148,18 +152,37 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        filteredTasks.setPredicate(predicate);
+        filteredTasks.setPredicate(predicate); // predicate should now be applied and evaluate to true for certain threshold
+        if (predicate instanceof NameContainsKeywordsPredicate) {
+            System.out.println("list called??");
+            NameContainsKeywordsPredicate namePredicate = (NameContainsKeywordsPredicate) predicate;
+            Comparator<Task> comparator = new Comparator<>() {
+                @Override
+                public int compare(Task task1, Task task2) {
+                    namePredicate.test(task1);
+                    int score1 = namePredicate.getScore();
+                    namePredicate.test(task2);
+                    int score2 = namePredicate.getScore();
+                    return score1 < score2 ? -1 : 1;
+                }
+            };
+            this.taskList.sort(comparator);
+        }
     }
+
 
     @Override
     public void setComparator(Comparator<Task>[] comparators) {
         requireNonNull(comparators);
         this.comparators = comparators;
-        SortedList<Task> sortedFilteredTasks = new SortedList<>(filteredTasks);
-        for (int i = comparators.length - 1; i >= 0; i--) {
-            sortedFilteredTasks.setComparator(comparators[i]);
+        this.sortList();
+    }
+
+    @Override
+    public void sortList() {
+        for (int i = this.comparators.length - 1; i >= 0; i--) {
+            this.taskList.sort(comparators[i]);
         }
-        this.filteredTasks = new FilteredList<Task>(sortedFilteredTasks);
     }
 
     @Override
@@ -178,8 +201,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return taskList.equals(other.taskList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredTasks.equals(other.filteredTasks)
-                && comparators.equals(other.comparators);
+                && filteredTasks.equals(other.filteredTasks);
     }
 
     // ============================ Pet Manager
@@ -190,32 +212,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public PetManager getPetManager() {
+        return petManager;
+    }
+
+    @Override
     public void setPetName(String name) {
         this.pet.setName(name);
     }
 
     @Override
-    public void incrementPomExp() {
-        this.pet.incrementPomExp();
-    }
-
-    @Override
-    public void incrementExp() {
-        this.pet.incrementExp();
-    }
-
-    @Override
     public void setPetManager(PetManager petManager) {
         this.petManager = petManager;
-        this.petManager.setPet(pet);
+        this.petManager.setPet(this.pet);
     }
-
-    @Override
-    public void updateMoodWhenDone() {
-        petManager.updateMoodWhenTaskDone();
-        petManager.updatePetDisplayWhenDone();
-    }
-
     // ============================ Pomodoro Manager
 
     public ReadOnlyPomodoro getPomodoro() {
@@ -224,6 +234,18 @@ public class ModelManager implements Model {
 
     public void setPomodoroTask(Task task) {
         this.pomodoro.setTask(task);
+    }
+
+    public Task getPomodoroTask() {
+        return this.pomodoro.getRunningTask();
+    }
+
+    public void setPomodoroRestTime(float restTimeInMin) {
+        this.pomodoro.setRestTime(Float.toString(restTimeInMin));
+    }
+
+    public void setPomodoroDefaultTime(float defaultTimeInMin) {
+        this.pomodoro.setDefaultTime(Float.toString(defaultTimeInMin));
     }
 
     public void setPomodoroManager(PomodoroManager pomodoroManager) {
