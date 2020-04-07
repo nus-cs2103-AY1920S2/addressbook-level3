@@ -101,8 +101,8 @@ public class ShowCommandTest {
                         new ModuleManagerStub()));
     }
 
-    // No profile has been added, user inputs "show y/1"
-    // One profile has been added but with no modules, user inputs "show y/1"
+    // No profile has been added, user inputs "show y/1.1"
+    // One profile has been added but with no modules, user inputs "show y/1.1"
     @Test
     public void execute_semesterNoModules_throwsCommandException() {
         ShowCommand showCommandSem = new ShowCommand(new Year("1.1"));
@@ -113,7 +113,7 @@ public class ShowCommandTest {
                         new ProfileManagerWithEmptyProfile(), new CourseManagerStub(), new ModuleManagerStub()));
     }
 
-    // One profile has been added with a module. Valid semester, user inputs "show y/1"
+    // One profile has been added with a module. Valid semester, user inputs "show y/1.1"
     @Test
     public void execute_validSemesterWithModules_success() {
         ShowCommand showCommandSem = new ShowCommand(new Year("1.1"));
@@ -125,7 +125,7 @@ public class ShowCommandTest {
         }
     }
 
-    // One profile has been added with a module. Invalid semester, user inputs "show y/2"
+    // One profile has been added with a module. Invalid semester, user inputs "show y/1.2"
     @Test
     public void execute_invalidSemesterWithModules_throwsCommandException() {
         ShowCommand showCommandSem = new ShowCommand(new Year("1.2"));

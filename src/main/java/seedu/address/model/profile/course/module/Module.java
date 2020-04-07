@@ -147,4 +147,11 @@ public class Module {
                 && moduleCode.equals(((Module) other).moduleCode)); // state check
     }
     // && (personal.getSemester() == ((Module) other).getPersonal().getSemester())
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Module // instanceof handles nulls
+                && moduleCode.equals(((Module) other).moduleCode)); // state check
+    }
 }
