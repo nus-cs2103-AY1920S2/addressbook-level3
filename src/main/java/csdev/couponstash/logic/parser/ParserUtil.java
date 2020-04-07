@@ -259,9 +259,15 @@ public class ParserUtil {
     public static Limit parseLimit(String limit) throws ParseException {
         requireNonNull(limit);
         String trimmedLimit = limit.trim();
+
         if (!Limit.isValidLimit(trimmedLimit)) {
             throw new ParseException(Limit.MESSAGE_CONSTRAINTS);
         }
+
+        if (StringUtil.isIntegerOverflow(trimmedLimit)) {
+            throw new ParseException(MESSAGE_INDEX_OVERFLOW);
+        }
+
         return new Limit(trimmedLimit);
     }
 

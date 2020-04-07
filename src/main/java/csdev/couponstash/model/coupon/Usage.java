@@ -48,7 +48,7 @@ public class Usage {
      */
     public static boolean isUsageAtLimit(Usage usage, Limit limit) {
         Double currentUsage = Double.parseDouble(usage.value);
-        Double usageLimit = limit.getParsedLimit();
+        int usageLimit = limit.value;
         return currentUsage >= usageLimit;
     }
 
@@ -58,7 +58,7 @@ public class Usage {
      */
     public static boolean isUsageGreaterThanLimit(Usage usage, Limit limit) {
         Double currentUsage = Double.parseDouble(usage.value);
-        Double usageLimit = limit.getParsedLimit();
+        int usageLimit = limit.value;
         return currentUsage > usageLimit;
     }
 
@@ -76,10 +76,6 @@ public class Usage {
         Integer currentValue = Integer.parseInt(value);
         Integer finalValue = Integer.parseInt(numberOfTimes) + currentValue;
         return new Usage(finalValue.toString());
-    }
-
-    public String toUiLabelText() {
-        return String.format("You have used it %s time(s)", value);
     }
 
     @Override

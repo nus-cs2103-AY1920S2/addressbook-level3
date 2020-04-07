@@ -87,7 +87,7 @@ class JsonAdaptedCoupon {
         expiryDate = source.getExpiryDate().value;
         startDate = source.getStartDate().value;
         usage = source.getUsage().value;
-        limit = source.getLimit().value;
+        limit = source.getLimit().toString();
         totalSaved = new JsonAdaptedDssm(source.getSavingsMap());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
