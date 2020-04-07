@@ -41,7 +41,7 @@ public class EditCourseCommand extends EditCommand {
           + "[" + PREFIX_NAME + "NAME] "
           + "[" + PREFIX_AMOUNT + "AMOUNT] "
           + "[" + PREFIX_TAG + "TAG]...\n"
-          + "Example: " + COMMAND_WORD + " 1 "
+          + "Example: " + COMMAND_WORD + " 16100 "
           + PREFIX_NAME + "Java 101 "
           + PREFIX_AMOUNT + "1000 "
           + PREFIX_TAG + "intermediate";
