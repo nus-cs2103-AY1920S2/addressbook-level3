@@ -38,6 +38,8 @@ public class DateUtil {
     public static final DateTimeFormatter DAY_MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter
             .ofPattern("d LLLL yyyy");
     public static final DateTimeFormatter MONTH_YEAR_FORMATTER_FOR_CALENDAR = DateTimeFormatter.ofPattern("LLLL yyyy");
+    public static final DateTimeFormatter DAY_SHORT_MONTH_YEAR_FORMATTER = DateTimeFormatter
+            .ofPattern("d LLL yyyy");
 
 
     public static final String START_DATE_EXPIRY_DATE_CONSTRAINT = "Start Date must be before Expiry Date!";
