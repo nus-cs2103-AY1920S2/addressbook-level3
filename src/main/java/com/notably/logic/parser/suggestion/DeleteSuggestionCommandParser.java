@@ -52,15 +52,15 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
             if (title.isBlank()) {
-                throw new ParseException("Open a note");
+                throw new ParseException("Delete a note");
             } else {
-                throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+                throw new ParseException("Cannot delete \"" + title + "\". Invalid path.");
             }
         }
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Open a note with title: " + title);
+            throw new ParseException("Delete a note with title: " + title);
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
