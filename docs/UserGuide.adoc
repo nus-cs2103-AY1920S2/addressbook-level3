@@ -21,16 +21,24 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
 This user guide provides in-depth documentation on the EYLAH desktop application:
 features summary, getting started, features, FAQ, command summary, and glossary.
 
-Are you someone who *lives in one of the Halls Of Residences* in the National University of Singapore and
-often goes out to *eat with hall mates?*  And do you also sometimes feel that you might be eating too much?
-If yes, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that will make your life much easier!
+Hello there, welcome to EYLAH's User Guide.
+Are you someone who *lives in Temasek hall* in the National University of Singapore and
+have *supper frequently with your hall mates?* Do you dread the *tedious and irritating portion of
+splitting large bills*? Have you wished for a *Command Line Interface* (CLI) application that can solve the
+above mentioned issues?
+
+If you answered *YES!!*, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that
+developed just for you that will make your
+lives at halls much easier!
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
-app to solve issues. More importantly, EYLAH is *optimized for residents who prefer to work with a Command Line Interface*
-(CLI).
+app to solve issues.* More importantly, EYLAH is optimized for residents who prefer to work with a *Command Line Interface*
+(CLI) that can match
 
-EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
-and splitting the cost after each outing or late-night party session with a few pokes of your keyboard. Interested?
+EYLAH can solve your problems in halls by *tracking your diet* after those unhealthy suppers
+and *splitting the cost* after each outing or late-night party session with a few pokes of your keyboard.
+Interested?
+
 Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
@@ -59,6 +67,10 @@ This block of text with a yellow lightbulb indicate *additional tips* that will 
 (e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
 
 Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
+
+
+== About this guide
+
 
 
 == Getting Started
