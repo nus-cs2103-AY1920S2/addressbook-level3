@@ -566,7 +566,7 @@ whose name **contains one of the keywords**.
 * If no datum is added after all the steps, replies user that search failed.
 Otherwise, shows user the data.
 
-format: `check x/TYPE k/ONE_OR_MOR_ KEYWORDS`
+format: `check x/TYPE k/ONE_OR_MORE_KEYWORDS`
 
 Examples:
 
