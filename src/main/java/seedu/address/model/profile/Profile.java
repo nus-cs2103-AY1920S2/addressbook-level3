@@ -241,7 +241,8 @@ public class Profile {
         }
 
         Profile otherProfile = (Profile) other;
-        return otherProfile.getName().equals(getName());
+        return otherProfile.getName().equals(getName())
+                && otherProfile.getCourseName().equals(getCourseName());
     }
 
     @Override
