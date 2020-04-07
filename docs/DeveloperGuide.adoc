@@ -243,9 +243,9 @@ Given below is an example usage scenario and how the sort mechanism behaves at e
 Step 1. The user launches the application for the first time. The 'AssignmentList' will be initialized with the initial state, which is an empty list.
 
 Step 2. The user executes the following commands to add new assignments.
-* `(st)add t/CS2103 Project d/2020-04-18 23:59 e/180`
-* `(st)add t/DBA3702 Project d/2020-04-19 19:00 e/150`
-* `(st)add t/CS2106 Lab d/2020-04-11 20:00 e/20`
+* 1. `(st)add t/CS2103 Project d/2020-04-18 23:59 e/180`
+* 2. `(st)add t/DBA3702 Project d/2020-04-19 19:00 e/150`
+* 3. `(st)add t/CS2106 Lab d/2020-04-11 20:00 e/20`
 
 Step 3. The user executes the `(st)list -d` command to sort the assignments by deadline.
 
@@ -275,8 +275,8 @@ Given below is an example usage scenario and how the editing of note mechanism b
 Step 1: The user launches the application for the first time. The `RestaurantBook` will be initialized with the initial state, which is an empty list.
 
 Step 2: The user executes the following commands to add notes to a restaurant.
-* `(rt)add n/Ameens l/Clementi v/No o/09:2300 p/$ c/Indian`
-* `(rt)addnote r/Cheese fries`
+* 1. `(rt)add n/Ameens l/Clementi v/No o/09:2300 p/$ c/Indian`
+* 2. `(rt)addnote r/Cheese fries`
 
 Step 3: The user executes the `(rt)editnote 1 rl/1 r/Butter chicken` command to edit the first recommended food of the restaurant at index 1, to Butter chicken.
 
