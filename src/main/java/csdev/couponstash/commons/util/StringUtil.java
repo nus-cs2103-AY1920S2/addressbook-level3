@@ -75,10 +75,6 @@ public class StringUtil {
      */
     public static boolean isIntegerOverflow(String s) {
         try {
-            if (s.length() == 0) {
-                return false;
-            }
-
             long value = Long.parseLong(s);
             return value > Integer.MAX_VALUE || value < Integer.MIN_VALUE;
         } catch (NumberFormatException e) {
@@ -92,5 +88,4 @@ public class StringUtil {
             return true;
         }
     }
-
 }

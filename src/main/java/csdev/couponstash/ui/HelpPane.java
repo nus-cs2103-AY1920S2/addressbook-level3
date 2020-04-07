@@ -11,6 +11,7 @@ import csdev.couponstash.logic.commands.CopyCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.ExitCommand;
+import csdev.couponstash.logic.commands.ExpandCommand;
 import csdev.couponstash.logic.commands.ExpiringCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.GoToCommand;
@@ -47,6 +48,7 @@ public class HelpPane extends UiPart<Region> {
                     new CommandCard(DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE),
                     new CommandCard(EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE),
                     new CommandCard(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE),
+                    new CommandCard(ExpandCommand.COMMAND_WORD, ExpandCommand.MESSAGE_USAGE),
                     new CommandCard(ExpiringCommand.COMMAND_WORD, ExpiringCommand.MESSAGE_USAGE),
                     new CommandCard(FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE),
                     new CommandCard(GoToCommand.COMMAND_WORD, GoToCommand.MESSAGE_USAGE),

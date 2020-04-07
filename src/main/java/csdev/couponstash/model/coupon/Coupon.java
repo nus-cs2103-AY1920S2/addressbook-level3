@@ -243,6 +243,14 @@ public class Coupon {
                 this.tags, this.totalSavings, this.remind, this.condition, new Archived(state));
     }
 
+
+    /**
+     * Returns true if coupon is archived.
+     */
+    public boolean isArchived() {
+        return this.archived.state;
+    }
+
     /**
      * Returns true if the coupon has expired.
      */
