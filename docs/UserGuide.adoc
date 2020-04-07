@@ -170,6 +170,7 @@ Opening resume...
 ....
 
 [[Attributes]]
+// tag::attributes[]
 ==== Add, Edit and Delete Attributes
 
 In an interview, you often look out for a particular set of attributes in your candidates.
@@ -212,7 +213,9 @@ Deleted attribute: teamwork
 ....
 
 image::Screenshots/Attribute.png[]
+// end::attributes[]
 
+// tag::questions[]
 ==== Add, Edit and Delete Interview Questions
 
 Before the interview process, the interviewer may one to review the
@@ -254,6 +257,8 @@ Deleted question: What do you hope to accomplish in 5 years?
 ....
 
 image::Screenshots/Question.png[]
+
+// end::questions[]
 
 ==== Switching views
 
@@ -486,6 +491,7 @@ image::Screenshots/EndInterview.png[]
 === Decision Phase
 
 [[Metrics]]
+// tag::metrics[]
 ==== Add, Edit and Delete Metrics
 
 After the interview process, the interviewer may want to compare the interviewed interviewees by
@@ -532,6 +538,7 @@ New metric added: extremeLeader
 ....
 
 image::Screenshots/Metric.png[]
+// end::metrics[]
 
 ==== Viewing Interviewee Reports
 
@@ -619,6 +626,7 @@ Here is the remark at time 1.00!
 
 image::Screenshots/NavigationTime.png[]
 
+// tag::best[]
 ==== Find Best Candidates
 
 After interviewing all the candidates, HireLah! can help you analyse the candidates and show
@@ -669,6 +677,8 @@ Here are the best 3 interviewees.
 ....
 
 image::Screenshots/Best.png[]
+
+// end::best[]
 
 == Advanced Features
 
@@ -767,6 +777,7 @@ the `interview <interviewee>` command again. Note that you cannot perform the us
 decision phase commands (finding best interviewee, viewing report) on an interviewee whose
 interview is incomplete!
 
+// tag::summary[]
 == Command Summary
 
 
@@ -823,3 +834,4 @@ e.g. `add metric -a ambition -w 0.9 -a leadership -w 0.1`
 e.g. `best 3 -a strength`
 * Find the Best N candidates based on a metric: `best <no_of_candidates> -m <metric>` +
 e.g. `best 5 -m extremeDictatorship`
+//end::summary[]
