@@ -34,14 +34,6 @@ public class LessonCard extends UiPart<Region> {
     private Label startDate;
     @FXML
     private Label endDate;
-    @FXML
-    private Label note;
-    @FXML
-    private Label status;
-    @FXML
-    private Label priority;
-
-
 
     public LessonCard(Lesson activity) {
         super(FXML);
@@ -49,9 +41,6 @@ public class LessonCard extends UiPart<Region> {
         name.setText(activity.getName().toString());
         startDate.setText("From " + activity.getDateFrom().toString());
         endDate.setText("To " + activity.getDateTo().toString());
-        note.setText(activity.getNote().toString());
-        status.setText(activity.getStatus().toString());
-        priority.setText("Priority: " + activity.getPriority().toString());
     }
 
     @Override

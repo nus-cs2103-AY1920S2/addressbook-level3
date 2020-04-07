@@ -23,6 +23,10 @@ public class Priority {
 
     private final int priorityLevel;
 
+    public int getPriorityLevel() {
+        return priorityLevel;
+    }
+
     /**
      * Constructs a {@code Priority} with default priority level, when no argument is passed.
      */
@@ -57,6 +61,7 @@ public class Priority {
     public String toString() {
         return Integer.toString(priorityLevel);
     }
+
 
     @Override
     public boolean equals(Object other) {
