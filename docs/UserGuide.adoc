@@ -56,29 +56,29 @@ Write terminology here.
 === TaskList (Branson)
 Write CRUD stuff
 
-== Pet (Fyonn)
+=== Pet (Fyonn)
 Write pet
 
-== Pomodoro (Hardy)
+=== Pomodoro (Hardy)
 Write pomodoro
 
-== Statistics (Permas)
+=== Statistics (Permas)
 
 Views statistics generated through the app usage.
 stats SPEED/DONE
 SPEED : Displays average time taken to complete tasks over past week/month/year.
 DONE : Displays average number of tasks done over past week/month/year.
 
-== AutoComplete (Branson)
+=== AutoComplete (Branson)
 Write autocomplete
 
-== Reminders (Arthur)
+=== Reminders (Arthur)
 Write reminders
 
-== Navigation (Hardy)
+=== Navigation (Hardy)
 Write navigation
 
-== Storage (Permas)
+=== Storage (Permas)
 Write storage
 
 == Command Table Summary (Hardy)
