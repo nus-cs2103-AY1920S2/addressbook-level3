@@ -81,6 +81,11 @@ public class EventSchedule implements ReadOnlyEventSchedule {
         events.remove(key);
     }
 
+    public void setEvent(Event target, Event markedEvent) {
+        requireNonNull(markedEvent);
+        events.setEvent(target, markedEvent);
+    }
+
     @Override
     public ObservableList<Event> getEventsList() {
         return events.asUnmodifiableObservableList();
