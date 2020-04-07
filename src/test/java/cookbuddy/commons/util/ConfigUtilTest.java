@@ -2,7 +2,6 @@ package cookbuddy.commons.util;
 
 import static cookbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,11 +9,10 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import cookbuddy.commons.core.Config;
 import cookbuddy.commons.exceptions.DataConversionException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class ConfigUtilTest {
 
@@ -28,6 +26,7 @@ public class ConfigUtilTest {
         assertThrows(NullPointerException.class, () -> read(null));
     }
 
+    /*
     @Test
     public void read_missingFile_emptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
@@ -36,7 +35,7 @@ public class ConfigUtilTest {
     @Test
     public void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> read("NotJsonFormatConfig.json"));
-    }
+    }*/
 
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {

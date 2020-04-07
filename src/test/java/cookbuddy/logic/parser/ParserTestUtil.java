@@ -13,6 +13,7 @@ import cookbuddy.logic.parser.ParserUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -35,6 +36,7 @@ public class ParserTestUtil {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TIME = "12:00:00";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -77,7 +79,18 @@ public class ParserTestUtil {
     @Test
     public void parseDifficulty_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDifficulty(INVALID_DIFFICULTY));
-    }    
+    }
+
+    @Test
+    public void parseTiming_invalidValue_throwsParseException() {
+        assertThrows(NumberFormatException.class, () -> ParserUtil.parseTime("abc"));
+    }
+
+    @Test
+    public void parseTiming_validValid_returnsTime() throws Exception {
+        Time time = new Time(12,00,00);
+        assertEquals(time, (ParserUtil.parseTime(VALID_TIME)));
+    }
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
