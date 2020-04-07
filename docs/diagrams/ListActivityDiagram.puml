@@ -3,26 +3,20 @@ start
 :User inputs List Command;
 
 If () then ([Command is 'list done'])
-    :UpdateFilteredList with predicate to list all
-    delivered orders;
-    :Returns Message that indicates successful
-     command to list all delivered orders;
+    :List all completed orders;
+    :Returns success message;
 else ([Command is not 'list done'])
     If () then ([Command is 'list undone])
-        :UpdateFilteredList with predicate to list all
-        orders not delivered;
-        :Returns Message that indicates successful
-        command to list all orders not delivered;
+        :List all orders that are not completed;
+        :Returns success message;
         else ([Command is not 'list undone'])
             If () then ([Command is 'list'])
-                :UpdateFilteredList with predicate
-                that always result to true (List all orders);
-                :Returns Message that indicates successful
-                command to list all orders
-                (Both delivered and undelivered);
+                :List all orders
+                (completed and not completed);
+                :Returns success message;
             else ([Command is neither of the three commands])
-                :Returns Message that indicates
-                 an invalid command;
+                :Returns failure message
+                (Invalid Command);
 
         endif
 endif

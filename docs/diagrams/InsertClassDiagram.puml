@@ -13,7 +13,7 @@ interface Model <<interface>> {
 }
 
 abstract class "{abstract}\nParcel" {
-
+    + isDelivered(): boolean
 }
 
 class Order {
@@ -39,10 +39,6 @@ class Order {
 
 class InsertCommand implements Model {
     /' Fields '/
-    + {static} COMMAND_WORD : String
-    + {static} MESSAGE_USAGE : String
-    + {static} MESSAGE_SUCCESS : String
-    + {static} MESSAGE_DUPLICATE_ORDER : String
     - toAdd : Order
 
     /' Methods '/

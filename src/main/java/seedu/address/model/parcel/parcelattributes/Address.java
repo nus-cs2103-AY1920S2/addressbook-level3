@@ -9,18 +9,21 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Please enter a Singapore address with it's postal code. "
+    public static final String MESSAGE_CONSTRAINTS = "Please enter a Singapore address with a valid postal code. "
             + "\n"
-            + "The Postal Code should start with the letter 'S'";
+            + "The Postal Code should start with the letter 'S'/'s'";
 
-    /*
+    /**
      * The VALIDATION_REGEX checks if the address has a
-     * postal code in it. The postal code should start with a letter 'S'.
-     * Valid: 123 Serangoon Garden Blk 20 S537992
-     * Invalid: 123 Serangoon Garden Blk 20
-     *
+     * valid postal code in it. The postal code should start with a letter 'S'.
+     * The Valid Postal Sectors are in the range of 01-82.
+     * Valid Address: 123 Serangoon Garden Blk 20 S537992
+     * Valid Postal Code: 123 Seranggon Garden Blk 20 S537992
+     * Invalid Address: 123 Serangoon Garden Blk 20
+     * Invalid Postal Code: 123 Serangoon Garden Blk 20 S847120
      */
-    public static final String VALIDATION_REGEX = "^(.*?)S\\d{6}$";
+    public static final String VALIDATION_REGEX = "^(.*?)[S,s]([0][1-9]|[1-7][0-9]|[8][0-2])\\d{4}$";
+        //"^(.*?)S\\d{6}$";
 
     public final String value;
 
