@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
-import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.session.SessionType;
 import tatracker.model.statistic.Statistic;
 

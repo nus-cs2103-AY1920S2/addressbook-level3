@@ -23,9 +23,9 @@ public class Statistic {
     public final int[] numHoursPerCategory = new int [SessionType.NUM_SESSION_TYPES];
     public final int[] studentRatingBinValues = new int[Rating.RANGE];
     public final RatedStudent[] worstStudents = new RatedStudent[StatisticWindow.NUM_STUDENTS_TO_DISPLAY];
-    private final ReadOnlyTaTracker taTracker;
-
     public final String targetModuleCode;
+
+    private final ReadOnlyTaTracker taTracker;
 
     public Statistic(ReadOnlyTaTracker taTracker, String targetModuleCode) {
 
