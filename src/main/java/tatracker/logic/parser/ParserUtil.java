@@ -29,6 +29,7 @@ import tatracker.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_RATE = "RATE is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
 
     /**
@@ -273,7 +274,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses and returns the tab na`me specified by the user in the goto command
+     * Parses and returns the tab name specified by the user in the goto command
      *
      * @param tabName user input
      * @return the tab specified by the user
@@ -287,5 +288,31 @@ public class ParserUtil {
             throw new ParseException(Tab.MESSAGE_CONSTRAINTS);
         }
         return Tab.getTab(trimmedType);
+    }
+
+    /**
+     * Parses and returns the pay rate specified by the user in the setrate command
+     *
+     * @param rate user input
+     * @return the pay rate specified by the user
+     * @throws ParseException invalid pay rate
+     */
+    public static int parseRate(String rate) throws ParseException {
+        requireNonNull(rate);
+        String trimmedRate = rate.trim();
+
+        if (!StringUtil.isUnsignedInteger(trimmedRate)) {
+            throw new ParseException(MESSAGE_INVALID_RATE);
+        }
+
+        try {
+            int parsedRate = Integer.parseUnsignedInt(trimmedRate);
+            if (parsedRate == 0) {
+                throw new ParseException(MESSAGE_INVALID_RATE);
+            }
+            return parsedRate;
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_RATE);
+        }
     }
 }

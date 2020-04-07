@@ -274,8 +274,9 @@ public class TaTracker implements ReadOnlyTaTracker {
         return rate;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setRate(int newRate) {
+        logger.fine("Reached SetRate in TaTracker");
+        rate = newRate;
     }
 
     @Override
@@ -322,13 +323,6 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     public static Module getCurrentlyShownModuleClaim() {
-        if (currentlyShownModuleClaim == null) {
-            System.out.println("no filter");
-        } else {
-            System.out.println("reached");
-            System.out.println(currentlyShownModuleClaim.getIdentifier());
-            System.out.println(currentlyShownModuleClaim.getName());
-        }
         return currentlyShownModuleClaim;
     }
 
