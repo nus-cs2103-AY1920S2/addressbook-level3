@@ -42,7 +42,8 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
 
         String newGroupCode;
         if (argMultimap.getValue(NEWGROUP).isPresent()) {
-            newGroupCode = ParserUtil.parseValue(argMultimap.getValue(NEWGROUP).get());
+            newGroupCode = ParserUtil.parseValue(argMultimap.getValue(NEWGROUP)
+                    .get().toUpperCase());
         } else {
             newGroupCode = groupCode;
         }
