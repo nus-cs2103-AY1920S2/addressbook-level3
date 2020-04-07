@@ -2,6 +2,7 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 5
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -11,43 +12,75 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
 
 This user guide provides in-depth documentation on the EYLAH desktop application:
 features summary, getting started, features, FAQ, command summary, and glossary.
 
-Are you someone who *lives in one of the Halls Of Residences* in the National University of Singapore and
-often goes out to *eat with hall mates?*  And do you also sometimes feel that you might be eating too much?
-If yes, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that will make your life much easier!
+Hello there! welcome to EYLAH's User Guide.
+Are you someone who *lives in Temasek hall* in the National University of Singapore and
+have *supper frequently with your hall mates?* Do you dread the *tedious and irritating portion of
+splitting large bills*? Have you wished for a *Command Line Interface* (CLI) application that can solve the
+above mentioned issues?
+
+If you answered *YES!!*, Ease Your Life At Halls (EYLAH) is a revolutionary new super-application that
+developed just for you that will make your
+lives at halls much easier!
 
 EYLAH is an Expense Splitter and Diet Tracker rolled into one, for Temasek Hall residents who *prefer to use a desktop
-app to solve issues. More importantly, EYLAH is *optimized for residents who prefer to work with a Command Line Interface*
-(CLI) while still having the benefits of a Graphical User Interface (GUI).
+app to solve issues.* More importantly, EYLAH is optimized for residents who prefer to work with a *Command Line Interface*
+(CLI).
 
-If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
-and splitting the cost after each outing or late-night party session with a few pokes of your keyboard. Interested?
-Jump to <<Getting Started>> to get started. Enjoy!
+EYLAH can solve your problems in halls by *tracking your diet* after those unhealthy suppers
+and *splitting the cost* after each outing or late-night party session with a few pokes of your keyboard.
+Interested? Jump to <<Getting Started>> to get started. Let's go!
 
 image::Ui.png[width="790"]
-
-
-=== How to use?
-Below is some special syntax used throughout the documentation:
-
-* `Markup` - Text in markup are inputs into the application through the CLI.
-* NOTE - Text in NOTE indicates important things to consider to prevent unexpected behaviour.
-* TIP - Text in TIP shows certain actions to make using the application easier.
+Figure 1. Photo of EYLAH
 
 === Purpose
-* This documentation serves as an introduction to the features and proper use of EYLAH, and is made for users who wish
-to use the application to improve their lives on campus.
+* This documentation serves as an introduction to the features and proper usage of EYLAH, and is made for you
+to aid you in using the application to improve your lives on campus.
+
+
+=== Tips on reading the User Guide
+We encourage you to read EYLAH's User Guide from top to bottom.
+
+While reading the User Guide you may encounter some symbols.
+These symbols are used to highlight crucial information and in this portion we are explaining (or will be explaining)
+the symbols and their meaning.
+
+
+[NOTE]
+This block of text with a blue exclamation mark indicates *additional notes* that you should consider to prevent
+unexpected behaviour.
+
+[TIP]
+This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
+
+2+.^a - WARNING: This symbol indicates warnings.
+//I dont know how this group manage to get this warning symbol out. I already
+//imported whatever they imported.. https://raw.githubusercontent.com/AY1920S2-CS2103T-W12-3/main/master/docs/UserGuide.adoc
+
+kbd:[Enter] - This symbol indicates the enter button on the keyboard.
+
+`markup` - A grey highlight (known as a mark-up) indicates that this is a command you can type into EYLAH. +
+
+`[-c Calories]` - For some commands there are optional fields. Keywords placed in square brackets are optional fields. +
+(e.g. `edit INDEX [-n NAME] [-c CALORIES]` )
+
+Lastly, blue underline words like link:[this] will lead you to other portions of the User Guide or an external website.
+
 
 == Getting Started
+
+Follow the steps below to help you set up EYLAH in no time!
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `eylah.jar` link:{repoURL}/releases[here].
@@ -57,7 +90,7 @@ to use the application to improve their lives on campus.
 
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will show you the commands you can type.
 .  Some example commands you can try:
 
 * `1` : enters the Diet Tracker component of EYLAH.
@@ -70,59 +103,67 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+In this section, you can find *all* the commands of EYLAH and some tips and trick you can use
+to to improve your user experience of EYLAH.
+
+[cols= "50%, 50%"]
+
 |===
-|Current Features |Future Features
+|*Diet Tracker*  | *Expense Splitter*
+| <<mode, mode>>
 | <<additem, additem>>
-| <<export, export>>
 
+| <<storeheight, storeheight>>
 | <<deleteitem, deleteitem>>
-| <<reminder, reminder>>
 
+| <<storeweight, storeweight>>
 | <<listreceipt, listreceipt>>
-|
 
+| <<addfood, addfood>>
 | <<listamount, listamount>>
-|
 
+| <<listfooditem, list>>
 | <<paid, paid>>
-|
 
+| <<deletefooditem, delete>>
 | <<donereceipt, donereceipt>>
-|
 
+| <<editfooditem, edit>>
 | <<clearreceipt, clearreceipt>>
-|
 
-| <<help, help>>
-|
+| <<calculatebmi, bmi>>
+| <<expensesplitterhelp, help>>
 
+| <<diettrackerhelp, help>>
 | <<back, back>>
-|
 
 |===
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters are compulsory and have to be supplied by the user,
+* Words in `UPPER_CASE` are the parameters supplied by the user,
 e.g: in `additem -i ITEM -p PRICE -n NAME`.
 `NAME`, `ITEM` and `PRICE` are parameters which can decided by the user ,
-e.g:`additem -i beer tower -p 19.90 -n charlotte`.
+e.g: `additem -i beer tower -p 19.90 -n charlotte`.
 * Items in square brackets are optional, e.g: `paid INDEX [AMOUNT]` can be used as `paid 1` or as
 `paid 1 3.90`.
 * Parameters with `…`​ after them can be used multiple times including zero times, e.g: `[-n NAME]...` can be used as `{nbsp}`
 (i.e. 0 times), `-n Charlotte`, `-n John Doe -n Daniel` etc.
-* Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 To provide help for users +
 Format: `help`
 
+'''
+
 === Diet Tracker : `diet`
 
 Tracks our daily calories intake. Add food, then calculate
 
+'''
+[[mode]]
 ==== Dieting Mode `mode`
 Allows users to decide which dieting mode they want, based on the following modes: +
 
@@ -133,6 +174,9 @@ Allows users to decide which dieting mode they want, based on the following mode
 Format: `mode [-m] [-l] [-g]` +
 Example: `mode -m`
 
+'''
+
+[[storeheight]]
 ==== Store Height `height`
 Allows user to input their height.
 
@@ -141,6 +185,8 @@ Example: `height 172`
 
 NOTE: Height in centimetres (cm)
 
+'''
+[[storeweight]]
 ==== Store Weight `weight`
 Allows user to input their weight.
 
@@ -149,7 +195,9 @@ Example: `weight 65.7`
 
 NOTE: Weight in kilograms (kg)
 
+'''
 
+[[addfood]]
 ==== Add food `add`
 Adds food to the list.
 
@@ -162,6 +210,8 @@ Adds food to the list.
 Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
 
+'''
+[[listfooditem]]
 ==== List items `list`
 List food in your current diet tracker along with the total calorie count.
 Watch your diet intake for different time frames and food of different categories.
@@ -180,6 +230,9 @@ NOTE: Default value of list is food consumed for the day.
 Format: `list [-a] [-d NUMDAYS] [-t TAGNAME]` +
 Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
 
+'''
+
+[[deletefooditem]]
 ==== Delete Food Item `delete`
 
 Deletes a Food item from the list of foods stored. +
@@ -200,6 +253,9 @@ Example:
 `delete 2` +
 Deletes the 2nd row of food data from the past 7 days of food.
 
+'''
+
+[[editfooditem]]
 ==== Editing a Food Item `edit`
 
 Allows you to edit either the Food name, or the calories.  +
@@ -218,6 +274,9 @@ Example:
 * `edit 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
+'''
+
+[[calculatebmi]]
 ==== Calculate Body Mass Index (BMI) `bmi`
 
 Allows the user to calculate their BMI based on the height and weight stored in the program. +
@@ -244,9 +303,21 @@ BMI is calculated based off the stored height and weight in this instance.
 * `bmi -h 172 -w 65.5` +
 Calculate BMI based on the input height and weight values.
 
+'''
+
+[[diettrackerhelp]]
+==== Diet Tracker `help`
+
+
+
+'''
+
+
+
+
 === Expense Splitter : `split`
-Splitting the items' cost with friends. All you have to do is add the item,
-price and the names involved in splitting that item and EYLAH will
+Splitting a large receipt with friends has never been easier with EYLAH! All you have to do is add the item,
+its price and the names involved in splitting that item and EYLAH will
 calculate the rest for you!
 
 We have drawn some diagrams to help you visualize how Expense Splitter works, click <<AppendixA, here>> to find out more!
@@ -268,6 +339,7 @@ Example: +
 Price can be up to 2 decimal places, i.e. 7.99.
 There is no need to add the dollar sign ($).
 
+'''
 
 [[deleteitem]]
 ==== Deleting an item: `deleteitem`
@@ -283,6 +355,8 @@ Use `listreceipt` to view your item indices before deletion.
 Example: +
 `deleteitem 3`
 
+'''
+
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
@@ -295,47 +369,97 @@ Format: +
 Example: +
 `listreceipt`
 
+'''
+
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
-You can display all the person(s) and the amount they owe you.
+Listing the amount of money each Person owes you.
 
-Format: +
+OR
+
+If you want to find how much each Person(s) owes you!
+
+*Summary of List Amount Command: `listamount` shows you how much each Person owes you*.
+
+*How to use the List Amount Command:*
+
+Format of List Amount Command: +
 `listamount` +
 
-Example: +
+Example of valid List Amount Command: +
 `listamount`
+
+*Expected outcome after using Paid Command:*
+
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional tips and notes for List Amount Command* +
+
+[TIP]
+====
+* Use `listamount` command to find the index of the person who paid you. The index is useful for commands
+such as `paid`.
+====
+
+'''
 
 [[paid]]
 ==== Paying money: `paid`
 
-In this section, you will learn more about the `paid` command, how to use it and the possible usage scenarios of the
+In this section, you will learn more about the `paid` command, <<howtousepaidcommand,how to use it>> and the
+<<paidcommandexpectedoutcome,expected outcome>> after using the
 `paid` command.
 
-Summary: `paid` subtracts the amount paid by a Person.
+*Summary of Paid Command: `paid` subtracts the amount a Person owes you.*
 
+[[howtousepaidcommand]]
+*How to use the Paid Command:*
 
-Format: +
+Format of Paid Command: +
+
 `paid INDEX [AMOUNT]` +
 
-Example: +
-`paid 2` +
-`paid 2 3.90`
+[NOTE]
+====
+* `INDEX` is a *compulsory* field that must be stated by you. Instead of typing a Person's name,
+you can type his/her index thus saving you time and effort. To find out his/her index, use the command
+ `listamount`.
+
+* `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
+empty is equivalent to the Person paying you the full amount he/she owes you.
+
+* `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+====
+
+Example of valid Paid Commands: +
+
+`paid 2` - This commmand means that the Person at index 2 has paid you the full amount they owe you. +
+
+`paid 3 3.90` - This command means that the Perosn at index 3 has paid you $3.90. +
+
+
+[[paidcommandexpectedoutcome]]
+*Expected outcome after using Paid Command:*
+
+image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional tips and notes for Paid Command*
 
 [TIP]
 ====
 * Use `listamount` command to find the index of the person who paid you.
-* Leaving the amount empty is equivalent to paying the full amount. As seen in `paid 2` above.
 ====
 
 [NOTE]
 ====
 * You will only be able to use this command after you have marked the receipt as done using the
 `donereceipt` command.
-* The person will automatically be removed from the list if the amount owed is $0.
-* Price can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+* The person will automatically be removed from the list if the amount he owes you drops to $0.
 ====
 
+
+'''
 [[donereceipt]]
 ==== Mark receipt as done `donereceipt`
 
@@ -355,6 +479,8 @@ or delete any items using the `deleteitem` command.
 * However, you are now able to use the `paid` command.
 ====
 
+'''
+
 [[clearreceipt]]
 ==== Clears the receipt `clearreceipt`
 
@@ -373,7 +499,9 @@ and delete items using the `deleteitem` command.
 * However, you will be unable to use the `paid` command.
 ====
 
-[[help]]
+'''
+
+[[expensesplitterhelp]]
 ==== Display the available commands `help`
 
 Use this command to view the available commands.
@@ -383,6 +511,8 @@ Format: +
 
 Example: +
 `help`
+
+'''
 
 [[back]]
 ==== Exiting split to go back to main menu `back`
@@ -395,10 +525,14 @@ Format: +
 Example: +
 `back`
 
+'''
+
 ==== Saving the data
 
 EYLAH data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+'''
 
 == FAQ
 
