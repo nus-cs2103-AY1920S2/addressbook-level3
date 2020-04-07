@@ -3,7 +3,6 @@ package seedu.address.logic.commands.commandEdit;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
@@ -13,12 +12,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
@@ -28,7 +26,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing student in the address book.
  */
-public class EditStudentCommand extends Command {
+public class EditStudentCommand extends EditCommand {
 
   public static final String COMMAND_WORD = "edit-student";
 
@@ -39,12 +37,10 @@ public class EditStudentCommand extends Command {
           + "Parameters: ID (must be an existing positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
           + "[" + PREFIX_GENDER + "GENDER] "
-          + "[" + PREFIX_STUDENTID + "STUDENTID] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 16100 "
           + PREFIX_NAME + "Bob Ross "
-          + PREFIX_GENDER + "m "
-          + PREFIX_STUDENTID + "123 ";
+          + PREFIX_GENDER + "m ";
 
   public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -52,9 +48,10 @@ public class EditStudentCommand extends Command {
 
   private final ID targetID;
   private final EditStudentDescriptor editStudentDescriptor;
+  private EditStudentDescriptor toEdit;
 
   /**
-   * @param targetID                 of the student in the filtered student list to edit
+   * @param targetID              of the student in the filtered student list to edit
    * @param editStudentDescriptor details to edit the student with
    */
   public EditStudentCommand(ID targetID, EditStudentDescriptor editStudentDescriptor) {
@@ -83,7 +80,12 @@ public class EditStudentCommand extends Command {
   }
 
   @Override
-  public CommandResult execute(Model model) throws CommandException {
+  protected void generateOppositeCommand() {
+    oppositeCommand = new EditStudentCommand(targetID, new EditStudentDescriptor(toEdit));
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Student> lastShownList = model.getFilteredStudentList();
 
@@ -92,6 +94,7 @@ public class EditStudentCommand extends Command {
     }
 
     Student studentToEdit = getStudent(lastShownList);
+    this.toEdit = new EditStudentDescriptor(studentToEdit);
     Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
     if (!studentToEdit.weakEquals(editedStudent) && model.has(editedStudent)) {
@@ -110,7 +113,7 @@ public class EditStudentCommand extends Command {
         return student;
       }
     }
-    throw new CommandException("This staff ID does not exist");
+    throw new CommandException("This student ID does not exist");
   }
 
   @Override
@@ -153,6 +156,16 @@ public class EditStudentCommand extends Command {
       setGender(toCopy.gender);
       setID(toCopy.studentID);
       setTags(toCopy.tags);
+    }
+
+    /**
+     * Copy constructor. A defensive copy of {@code tags} is used internally.
+     */
+    public EditStudentDescriptor(Student toCopy) {
+      setName(toCopy.getName());
+      setGender(toCopy.getGender());
+      setID(toCopy.getId());
+      setTags(toCopy.getTags());
     }
 
     /**

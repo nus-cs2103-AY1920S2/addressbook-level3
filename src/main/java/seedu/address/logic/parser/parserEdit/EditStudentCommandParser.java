@@ -50,6 +50,10 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
       editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
     }
 
+    if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+      editStudentDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
+    }
+
     parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
         .ifPresent(editStudentDescriptor::setTags);
 
