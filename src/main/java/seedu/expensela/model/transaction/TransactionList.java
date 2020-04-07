@@ -124,4 +124,7 @@ public class TransactionList implements Iterable<Transaction> {
         return internalList.hashCode();
     }
 
+    public void clear() {
+        internalList.clear();
+    }
 }

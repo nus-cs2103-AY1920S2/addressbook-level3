@@ -77,6 +77,10 @@ public class GlobalData implements ReadOnlyGlobalData {
         this.recurringTransactionsList.setTransaction(recurringTransactionsList);
     }
 
+    public void clearRecurringTransactionsList(ObservableList<Transaction> recurringTransactionsList) {
+        this.recurringTransactionsList.clear();
+    }
+
     public void setLastUpdatedDate(LocalDate date) {
         this.lastUpdatedDate = date;
     }

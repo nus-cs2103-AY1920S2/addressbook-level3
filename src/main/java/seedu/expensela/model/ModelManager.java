@@ -275,6 +275,12 @@ public class ModelManager implements Model {
         globalData.setTotalBalance(balance);
     }
 
+    @Override
+    public void addTransactionToGlobalData(Transaction transaction) { globalData.addTransaction(transaction);}
+
+    @Override
+    public void resetGlobalData() {globalData.resetData(globalData);}
+
     //=========== Monthly Data Accessors =============================================================
     /**
      * Returns toggle list or chart object

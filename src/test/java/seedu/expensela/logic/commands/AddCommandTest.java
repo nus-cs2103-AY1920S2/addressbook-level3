@@ -213,6 +213,16 @@ public class AddCommandTest {
         @Override
         public void updateTotalBalance(Balance balance) {
         }
+
+        @Override
+        public void addTransactionToGlobalData(Transaction transaction) {
+
+        }
+
+        @Override
+        public void resetGlobalData() {
+
+        }
     }
 
     /**

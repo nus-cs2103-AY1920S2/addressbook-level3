@@ -134,4 +134,15 @@ public interface Model {
      * Updates total balance of the user.
      */
     void updateTotalBalance(Balance balance);
+
+    /**
+     * Adds a recurring transaction to the Global Data
+     */
+    void addTransactionToGlobalData(Transaction transaction);
+
+    /**
+     * Resets the Global Data and clears it of all recurring transactions
+     */
+    void resetGlobalData();
+
 }
