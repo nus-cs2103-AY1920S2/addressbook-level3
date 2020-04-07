@@ -97,8 +97,8 @@ public class EditRestaurantNoteCommand extends Command {
             if (restaurantToEdit.getGoodFood().size() == 0) {
                 throw new CommandException(Messages.MESSAGE_NO_GOOD_FOOD);
             }
-            if (lineGood > restaurantToEdit.getBadFood().size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_BAD);
+            if (lineGood > restaurantToEdit.getGoodFood().size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_GOOD);
             }
             restaurantToEdit.getGoodFood().set(lineGood - 1, goodFood);
         }
@@ -106,8 +106,8 @@ public class EditRestaurantNoteCommand extends Command {
             if (restaurantToEdit.getBadFood().size() == 0) {
                 throw new CommandException(Messages.MESSAGE_NO_BAD_FOOD);
             }
-            if (lineBad > restaurantToEdit.getGoodFood().size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_GOOD);
+            if (lineBad > restaurantToEdit.getBadFood().size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_BAD);
             }
             restaurantToEdit.getBadFood().set(lineBad - 1, badFood);
         }

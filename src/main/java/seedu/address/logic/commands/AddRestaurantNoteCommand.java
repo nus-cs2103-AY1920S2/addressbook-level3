@@ -39,7 +39,9 @@ public class AddRestaurantNoteCommand extends Command {
             + PREFIX_BAD + "Risotto";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Restaurant: %1$s";
-    public static final String MESSAGE_EMPTY = "No note added to Restaurant";
+    public static final String MESSAGE_EMPTY_REC = "No recommended food to be added is provided.";
+    public static final String MESSAGE_EMPTY_GOOD = "No good food to be added is provided.";
+    public static final String MESSAGE_EMPTY_BAD = "No bad food to be added is provided.";
 
     private final Index index;
     private final ArrayList<Note> recommendedFood;
@@ -73,10 +75,6 @@ public class AddRestaurantNoteCommand extends Command {
         }
 
         Restaurant restaurantToEdit = lastShownList.get(index.getZeroBased());
-        //Checks if the relevant notes are empty
-        if (recommendedFood.size() == 0 || goodFood.size() == 0 || badFood.size() == 0) {
-            throw new CommandException(MESSAGE_EMPTY);
-        }
 
         if (recommendedFood.size() != 0) {
             for (int i = 0; i < recommendedFood.size(); i++) {

@@ -41,10 +41,28 @@ public class AddRestaurantNoteCommandParser implements Parser<AddRestaurantNoteC
                 && !argMultimap.getValue(PREFIX_BAD).isPresent()) {
             throw new ParseException(String.format(MESSAGE_NO_PREFIX, AddRestaurantNoteCommand.MESSAGE_USAGE));
         }
+        ArrayList<Note> recommendedFood = new ArrayList<>();
+        ArrayList<Note> goodFood = new ArrayList<>();
+        ArrayList<Note> badFood = new ArrayList<>();
 
-        ArrayList<Note> recommendedFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_RECOMMENDED));
-        ArrayList<Note> goodFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_GOOD));
-        ArrayList<Note> badFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_BAD));
+        if (argMultimap.getValue(PREFIX_RECOMMENDED).isPresent()) {
+            if (argMultimap.getValue(PREFIX_RECOMMENDED).isEmpty()) {
+                throw new ParseException(AddRestaurantNoteCommand.MESSAGE_EMPTY_REC);
+            }
+            recommendedFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_RECOMMENDED));
+        }
+        if (argMultimap.getValue(PREFIX_GOOD).isPresent()) {
+            if (argMultimap.getValue(PREFIX_GOOD).isEmpty()) {
+                throw new ParseException(AddRestaurantNoteCommand.MESSAGE_EMPTY_GOOD);
+            }
+            goodFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_GOOD));
+        }
+        if (argMultimap.getValue(PREFIX_BAD).isPresent()) {
+            if (argMultimap.getValue(PREFIX_BAD).isEmpty()) {
+                throw new ParseException(AddRestaurantNoteCommand.MESSAGE_EMPTY_BAD);
+            }
+            badFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_BAD));
+        }
 
         return new AddRestaurantNoteCommand(index, recommendedFood, goodFood, badFood);
     }

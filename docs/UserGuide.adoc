@@ -238,13 +238,17 @@ Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD1] [r/RECOMMENDED_FOOD2] [a/GOOD_F
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective restaurant as displayed in the LIST function.
-* There should be at least one r/RECOMMENDED_FOOD, one g/GOOD_FOOD, and one b/BAD_FOOD specified.
+* There should be at least either one r/RECOMMENDED_FOOD, one g/GOOD_FOOD, or one b/BAD_FOOD specified.
 ****
 
 Examples:
 
-* `(rt)addnote 5 r/chicken chop a/truffle fries b/risotto` +
+* `(rt)addnote 5 r/chicken chop g/truffle fries b/risotto` +
 Adds a note to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+* `(rt)addnote 2 g/Cheese baked rice`
+Adds a note to the restaurant at index 2 with good food Cheese baked rice.
+* `(rt)addnote 1 b/Fried rice b/Latte`
+Adds a note to the restaurant at index 1 with bad food Fried rice and Latte.
 
 === Edit notes to a restaurant : `(rt)editnote`
 
@@ -254,6 +258,7 @@ Format: `(rt)editnote INDEX [rl/LINE_NUMBER] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBE
 ****
 * INDEX must be a positive integer. It refers to the index of the respective restaurant as displayed in the LIST function.
 * There should be at least either one r/RECOMMENDED_FOOD, one g/GOOD_FOOD, or one b/BAD_FOOD specified to be edited.
+* For each of the food notes, at most one can be edited each time.
 * Line number for the respective food notes to be edited should be present.
 ****
 
@@ -261,6 +266,8 @@ Examples:
 
 * '(rt)editnote 1 rl/2 r/Lobster pasta gl/1 g/Mushroom soup bl/3 b/Salad'
 Edits a note to the restaurant at index 1 with recommend food Lobster pasta at line number 2, good food Mushroom soup at line number 1, and bad food Salad at line number 3.
+* `(rt)editnote 2 gl/2 g/Chicken chop`
+Edits a note to the restaurant at index 2 with good food Chicken chop.
 
 ==== Change visited status of restaurant : `(rt)visited`
 

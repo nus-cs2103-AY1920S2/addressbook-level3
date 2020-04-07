@@ -52,7 +52,7 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
 
         int lineRec = -1;
         String recommendedFood = "";
-        //Checks if user wants to add recommended food
+        //Checks if user wants to edit recommended food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).isPresent()) {
             //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED).get(0).isEmpty()) {
@@ -71,7 +71,7 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
 
         int lineGood = -1;
         String goodFood = "";
-        //Checks if user wants to add good food
+        //Checks if user wants to edit good food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).isPresent()) {
             //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD).get(0).isEmpty()) {
@@ -90,7 +90,7 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
 
         int lineBad = -1;
         String badFood = "";
-        //Checks if user wants to add bad food
+        //Checks if user wants to edit bad food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).isPresent()) {
             //Checks if line number is empty
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD).get(0).isEmpty()) {
