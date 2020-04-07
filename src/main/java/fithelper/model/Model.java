@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.model.calorietable.CalorieEntry;
+import fithelper.model.calorietable.CalorieDatum;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
@@ -188,13 +188,13 @@ public interface Model {
      * Search the pre-defined FoodCalorie dataset for entries that match the given keyword.
      * @param keyword keyword for searching
      */
-    Set<CalorieEntry> searchFoodCalorieTable(String keyword);
+    Set<CalorieDatum> searchFoodCalorieTable(String keyword);
 
     /**
      * Search the pre-defined SportsCalorie dataset for entries that match the given keyword.
      * @param keyword keyword for searching
      */
-    Set<CalorieEntry> searchSportsCalorieTable(String keyword);
+    Set<CalorieDatum> searchSportsCalorieTable(String keyword);
 
     ObservableList<VEvent> getVEvents();
 

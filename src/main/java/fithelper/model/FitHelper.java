@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.model.calorietable.CalorieEntry;
+import fithelper.model.calorietable.CalorieDatum;
 import fithelper.model.calorietable.FoodCalorieTable;
 import fithelper.model.calorietable.SportsCalorieTable;
 import fithelper.model.diary.Diary;
@@ -398,49 +398,49 @@ public class FitHelper implements ReadOnlyFitHelper {
      *
      * @param type type of entries to check (either f/food OR s/sports)
      * @param words keywords to match
-     * @return a set of {@code CalorieEntry} with matching keywords.
+     * @return a set of {@code CalorieDatum} with matching keywords.
      */
-    public Set<CalorieEntry> addCalorieEntries(String type, String words) {
+    public Set<CalorieDatum> addCalorieData(String type, String words) {
         assert "f".equals(type) || "s".equals(type) : "check type can only be f(food) or s(sports)";
-        Set<CalorieEntry> result = new HashSet<>();
-        Set<? extends CalorieEntry> entries;
+        Set<CalorieDatum> result = new HashSet<>();
+        Set<? extends CalorieDatum> data;
         String keywords = words.toLowerCase();
         String[] keywordsByWord = keywords.split(" ");
         if ("f".equals(type)) {
-            entries = foodCalorieTable.getEntries();
+            data = foodCalorieTable.getData();
         } else {
-            entries = sportsCalorieTable.getEntries();
+            data = sportsCalorieTable.getData();
         }
         int count = 0;
-        count = searchEachWordCompleteMatch(keywordsByWord, result, entries, count);
+        count = searchEachWordCompleteMatch(keywordsByWord, result, data, count);
         if (count < 3) {
-            count = searchWholeWordPartialMatch(keywords, result, entries, count);
+            count = searchWholeWordPartialMatch(keywords, result, data, count);
         }
         if (count < 3 && keywordsByWord.length > 1) {
-            searchEachWordPartialMatch(keywordsByWord, result, entries, count);
+            searchEachWordPartialMatch(keywordsByWord, result, data, count);
         }
         return result;
     }
 
     /**
-     * Checks if any {@code CalorieEntry} in the entry set whose name is the same of one of the keywords.
+     * Checks if any {@code CalorieDatum} in the entry set whose name is the same of one of the keywordsByWord.
      * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
      *
-     * @param keywords array of keywords
+     * @param keywordsByWord array of keywordsByWord
      * @param result set to contain matching entries
      * @param entries entry set
      * @param count number of entries in the set so far
-     * @return number of {@code CalorieEntry} added at the end of the method.
+     * @return number of {@code CalorieDatum} added at the end of the method.
      */
-    private int searchEachWordCompleteMatch(String[] keywords, Set<CalorieEntry> result,
-                                            Set<? extends CalorieEntry> entries, int count) {
+    private int searchEachWordCompleteMatch(String[] keywordsByWord, Set<CalorieDatum> result,
+                                            Set<? extends CalorieDatum> entries, int count) {
         int currentCount = count;
-        for (CalorieEntry entry : entries) {
+        for (CalorieDatum entry : entries) {
             String name = entry.getName();
             if (currentCount == 3) {
                 break;
             }
-            for (String keyword : keywords) {
+            for (String keyword : keywordsByWord) {
                 if (name.equalsIgnoreCase(keyword)) {
                     result.add(entry);
                     currentCount++;
@@ -452,19 +452,19 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Checks if any {@code CalorieEntry} in the entry set whose name contains the keywords as a whole.
+     * Checks if any {@code CalorieDatum} in the entry set whose name contains the keywords as a whole.
      * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
      *
      * @param keywords keywords as a whole
      * @param result set to contain matching entries
      * @param entries entry set
      * @param count number of entries in the set so far
-     * @return number of {@code CalorieEntry} added at the end of the method.
+     * @return number of {@code CalorieDatum} added at the end of the method.
      */
-    private int searchWholeWordPartialMatch(String keywords, Set<CalorieEntry> result,
-                                            Set<? extends CalorieEntry> entries, int count) {
+    private int searchWholeWordPartialMatch(String keywords, Set<CalorieDatum> result,
+                                            Set<? extends CalorieDatum> entries, int count) {
         int currentCount = count;
-        for (CalorieEntry entry : entries) {
+        for (CalorieDatum entry : entries) {
             String name = entry.getName();
             if (currentCount == 3) {
                 break;
@@ -478,23 +478,23 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Checks if any {@code CalorieEntry} in the entry set whose name contains one of the keywords.
+     * Checks if any {@code CalorieDatum} in the entry set whose name contains one of the keywordsByWord.
      * If so, add the entry in a set. Stop when all entries all checked or the set already contains 3 entries.
      *
-     * @param keywords array of keywords
+     * @param keywordsByWord array of keywordsByWord
      * @param result set to contain matching entries
      * @param entries entry set
      * @param count number of entries in the set so far
      */
-    private void searchEachWordPartialMatch(String[] keywords, Set<CalorieEntry> result,
-                                            Set<? extends CalorieEntry> entries, int count) {
+    private void searchEachWordPartialMatch(String[] keywordsByWord, Set<CalorieDatum> result,
+                                            Set<? extends CalorieDatum> entries, int count) {
         int currentCount = count;
-        for (CalorieEntry entry : entries) {
+        for (CalorieDatum entry : entries) {
             String name = entry.getName();
             if (currentCount == 3) {
                 break;
             }
-            for (String keyword : keywords) {
+            for (String keyword : keywordsByWord) {
                 if (name.toLowerCase().contains(keyword)) {
                     result.add(entry);
                     currentCount++;

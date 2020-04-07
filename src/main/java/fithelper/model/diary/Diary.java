@@ -18,7 +18,7 @@ public class Diary {
     //Identity field
     private final DiaryId diaryId;
 
-    //FoodCalorieEntry fields
+    //FoodCalorieDatum fields
     private DiaryDate diaryDate;
     private Content content;
 

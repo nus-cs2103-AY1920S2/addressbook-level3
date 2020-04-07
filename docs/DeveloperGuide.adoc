@@ -443,29 +443,29 @@ image:AddWeightSequenceDiagram.png[]
 
 ==== Implementation
 The check function is achieved by calling the `FitHelper` inside the `ModelManager` to search
-through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieEntry` that contain the
+through either `FoodCalorieTable` or `SportsCalorieTable` for `CalorieDatum` that contain the
 keywords specified by the user.
 
 Given below are example usage scenario:
 
 Initialization: when the application is launched, `ModelManager` will initialize a `FitHelper`, which
 will in turn initialize both `FoodCalorieTable` and `SportsCalorieTable` to contain pre-set data
-which is a list of one type of `CalorieEntry` (either `FoodCalorieEntry` or `SportsCalorieEntry`).
+which is a list of one type of `CalorieDatum` (either `FoodCalorieDatum` or `SportsCalorieDatum`).
 
 image::InitializationOfCalorieTables.png[test, 50%]
 
 Case 1: when the user enter the command `check x/sports k/swim`, the `LogicManager` will create
 a `CheckCommand`, which askes `ModelManager` to let `FitHelper` to search through `SportsCalorieTable`
-to add first 3 `CalorieEntry` whose name contains the keyword `swim` into a List, and return the
-list to `CheckCommand`. Since the list contains at least one `CalorieEntry` (meaning there is
-some matching entries), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser`
-contains a success message followed by the string representation of each matching entries.
+to add first 3 `CalorieDatum` whose name contains the keyword `swim` into a List, and return the
+list to `CheckCommand`. Since the list contains at least one `CalorieDatum` (meaning there is
+some matching data), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser`
+contains a success message followed by the string representation of each matching datum.
 
 Case 2: when the user enter the command `check x/f k/swim`, the `LogicManager` will create
 a `CheckCommand`, which askes `ModelManager` to let ` FitHelper` to search through `FoodCalorieTable`
-to add first 3 `CalorieEntry`s whose name contains the keyword `swim` into a List, and return
-the list to `CheckCommand`. Since the list contains no `CalorieEntry` (meaning there is no
-matching entries), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser` contains
+to add first 3 `CalorieDatum`s whose name contains the keyword `swim` into a List, and return
+the list to `CheckCommand`. Since the list contains no `CalorieDatum` (meaning there is no
+matching data), the `CheckCommand` returns a `CommandResult` whose `feedbackToUser` contains
 a failure message followed by the string representation of the keyword.
 
 image::SequenceDiagramForCheckCommand.png[test, 150%]

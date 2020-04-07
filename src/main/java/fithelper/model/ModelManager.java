@@ -13,7 +13,7 @@ import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.ModeUtil;
 import fithelper.model.calendar.CalendarSettings;
-import fithelper.model.calorietable.CalorieEntry;
+import fithelper.model.calorietable.CalorieDatum;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
@@ -352,10 +352,10 @@ public class ModelManager implements Model {
      * add returns the set.
      *
      * @param keywords keyword for searching
-     * @return a set of {@code CalorieEntry} with matching keyword
+     * @return a set of {@code CalorieDatum} with matching keyword
      */
-    public Set<CalorieEntry> searchFoodCalorieTable(String keywords) {
-        return fitHelper.addCalorieEntries("f", keywords);
+    public Set<CalorieDatum> searchFoodCalorieTable(String keywords) {
+        return fitHelper.addCalorieData("f", keywords);
     }
 
     /**
@@ -363,10 +363,10 @@ public class ModelManager implements Model {
      * add returns the list.
      *
      * @param keywords keywords for searching
-     * @return a list of {@code CalorieEntry} with matching keywords
+     * @return a list of {@code CalorieDatum} with matching keywords
      */
-    public Set<CalorieEntry> searchSportsCalorieTable(String keywords) {
-        return fitHelper.addCalorieEntries("s", keywords);
+    public Set<CalorieDatum> searchSportsCalorieTable(String keywords) {
+        return fitHelper.addCalorieData("s", keywords);
     }
 
     @Override
