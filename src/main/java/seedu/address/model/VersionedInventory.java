@@ -9,8 +9,7 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
     private LinearHistory<Inventory> history;
 
     public VersionedInventory() {
-        super();
-        history = new LinearHistory<>(super.copy());
+        history = new LinearHistory<>(new Inventory());
     }
 
     /**

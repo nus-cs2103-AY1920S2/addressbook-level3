@@ -10,8 +10,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
     private LinearHistory<TransactionHistory> history;
 
     public VersionedTransactionHistory() {
-        super();
-        history = new LinearHistory<>(super.copy());
+        history = new LinearHistory<>(new TransactionHistory());
     }
 
     /**

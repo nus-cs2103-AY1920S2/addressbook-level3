@@ -9,8 +9,7 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
     private LinearHistory<AddressBook> history;
 
     public VersionedAddressBook() {
-        super();
-        history = new LinearHistory<>(super.copy());
+        history = new LinearHistory<>(new AddressBook());
     }
 
     /**
