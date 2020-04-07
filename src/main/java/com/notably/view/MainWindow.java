@@ -10,6 +10,7 @@ import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.view.blockcontent.BlockContent;
 
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -71,7 +72,7 @@ public class MainWindow extends ViewPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        initializeHelpWindow(model);
     }
 
     public Stage getPrimaryStage() {
@@ -140,6 +141,22 @@ public class MainWindow extends ViewPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Creates and returns the HelpWindow component. In the process, sets a listener to ensure
+     * that the Help Window is opened when activated.
+     * @param model
+     */
+    private void initializeHelpWindow(Model model) {
+        helpWindow = new HelpWindow();
+
+        model.helpOpenProperty().addListener((Observable observable) -> {
+            if (model.isHelpOpen()) {
+                handleHelp();
+            }
+            model.setHelpOpen(false);
+        });
     }
 
     /**

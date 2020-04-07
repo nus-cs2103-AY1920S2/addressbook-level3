@@ -41,10 +41,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
 
     @Override
     public void suggest(String userInput) {
-        if (userInput.length() < 2) {
-            model.clearSuggestions();
-            model.clearResponseText();
-        } else {
+        if (userInput.length() >= 2) {
             SuggestionCommand suggestionCommand = parseCommand(userInput);
             suggestionCommand.execute(model);
         }
@@ -108,8 +105,14 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         }
     }
 
+    /**
+     * Generates new suggestions whenever the command input line changes.
+     * @param inputProperty The user's input.
+     */
     private void autoUpdateInput(StringProperty inputProperty) {
         inputProperty.addListener((observable, oldValue, newValue) -> {
+            model.clearSuggestions();
+            model.clearResponseText();
             suggest(newValue);
         });
     }
