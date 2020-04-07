@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.EditCommand;
@@ -11,6 +12,8 @@ import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
@@ -23,16 +26,20 @@ import com.notably.model.Model;
 public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete",
-            "open", "help", "exit");
-    private static final int DISTANCE_THRESHOLD = 2;
+
+    private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit");
+    private static final int CORRECTION_THRESHOLD = 2;
+    private static final boolean USE_PATH_FORWARD_MATCHING = false;
 
     private Model notablyModel;
-    private StringCorrectionEngine correctionEngine;
+    private final CorrectionEngine<String> commandCorrectionEngine;
+    private final CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
     public NotablyParser(Model notablyModel) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new StringCorrectionEngine(COMMAND_LIST, DISTANCE_THRESHOLD);
+        this.commandCorrectionEngine = new StringCorrectionEngine(COMMAND_LIST, CORRECTION_THRESHOLD);
+        this.pathCorrectionEngine = new AbsolutePathCorrectionEngine(notablyModel, CORRECTION_THRESHOLD,
+                USE_PATH_FORWARD_MATCHING);
     }
     /**
      * Create list of different Commands base on user input.
@@ -48,7 +55,7 @@ public class NotablyParser {
 
         String commandWord = matcher.group("commandWord");
         if (commandWord.length() > 1) {
-            CorrectionResult<String> correctionResult = correctionEngine.correct(commandWord);
+            CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
             if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
                 throw new ParseException("Invalid command");
             }
@@ -64,11 +71,11 @@ public class NotablyParser {
 
         case OpenCommand.COMMAND_WORD:
         case OpenCommand.COMMAND_SHORTHAND :
-            return new OpenCommandParser(notablyModel).parse(arguments);
+            return new OpenCommandParser(notablyModel, pathCorrectionEngine).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_SHORTHAND:
-            return new DeleteCommandParser(notablyModel).parse(arguments);
+            return new DeleteCommandParser(notablyModel, pathCorrectionEngine).parse(arguments);
 
         case EditCommand.COMMAND_WORD:
         case EditCommand.COMMAND_SHORTHAND:

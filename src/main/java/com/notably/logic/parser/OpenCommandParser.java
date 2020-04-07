@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
-import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -16,14 +16,12 @@ import com.notably.model.Model;
  * Represent a Parser for OpenCommand.
  */
 public class OpenCommandParser implements CommandParser<OpenCommand> {
-    private static final int DISTANCE_THRESHOLD = 2;
-
     private Model notablyModel;
-    private AbsolutePathCorrectionEngine correctionEngine;
+    private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
-    public OpenCommandParser(Model notablyModel) {
+    public OpenCommandParser(Model notablyModel, CorrectionEngine<AbsolutePath> pathCorrectionEngine) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, DISTANCE_THRESHOLD, false);
+        this.pathCorrectionEngine = pathCorrectionEngine;
     }
     /**
      * Creates OpenCommand with user input.
@@ -47,7 +45,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(titles, notablyModel.getCurrentlyOpenPath());
-        CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedPath);
+        CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
             throw new ParseException("Invalid Path");
         }
