@@ -253,4 +253,15 @@ public class IntervieweeList {
             throw new IllegalValueException("An Interviewee with this name or alias already exists!");
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof IntervieweeList // instanceof handles nulls
+                && interviewees.equals(((IntervieweeList) other).interviewees)); // state check
+    }
+    @Override
+    public int hashCode() {
+        return observableList.hashCode();
+    }
 }

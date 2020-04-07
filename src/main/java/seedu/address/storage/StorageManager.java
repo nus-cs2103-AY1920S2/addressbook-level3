@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.hirelah.storage.*;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -19,7 +20,7 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, IntervieweeStorage intervieweeStorage, AttributeStorage attributeStorage, QuestionStorage questionStorage, MetricStorage metricStorage, TranscriptStorage transcriptStorage, ModelStorage modelStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
     }
