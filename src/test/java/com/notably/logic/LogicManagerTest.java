@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -47,6 +48,18 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertThrows(ParseException.class, () -> logic.execute(invalidCommand));
+    }
+
+    @Test
+    public void execute_invalidCommand_throwsCommandException() {
+        String invalidCommand = "delete /";
+        assertThrows(CommandException.class, () -> logic.execute(invalidCommand));
+    }
+
+    @Test
+    public void () {
+        String invalidCommand = "delete /";
+        assertThrows(CommandException.class, () -> logic.execute(invalidCommand));
     }
 
 

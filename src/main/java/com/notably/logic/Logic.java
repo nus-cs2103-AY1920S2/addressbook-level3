@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import com.notably.commons.GuiSettings;
 import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.exceptions.EditBlockBodyException;
 import com.notably.logic.parser.exceptions.ParseException;
 
 /**
@@ -22,7 +23,7 @@ public interface Logic {
      * Edit the body of the current opened block.
      * @param bodyContent The content of the body entered by the user.
      */
-    void editCurrentBlockBody(String bodyContent);
+    void editCurrentBlockBody(String bodyContent) throws EditBlockBodyException;
 
     /**
      * Gets the path of the block data file.

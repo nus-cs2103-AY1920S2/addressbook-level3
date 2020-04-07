@@ -10,6 +10,7 @@ import com.notably.commons.GuiSettings;
 import com.notably.commons.LogsCenter;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.exceptions.EditBlockBodyException;
 import com.notably.logic.parser.NotablyParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.suggestion.SuggestionEngine;
@@ -56,12 +57,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void editCurrentBlockBody(String bodyContent) throws CannotModifyRootException {
+    public void editCurrentBlockBody(String bodyContent) throws EditBlockBodyException {
         requireNonNull(bodyContent);
         Body body = new Body(bodyContent);
 
         // Throws exception if current block is a Root.
-        model.updateCurrentlyOpenBlockBody(body);
+        try {
+            model.updateCurrentlyOpenBlockBody(body);
+        } catch(CannotModifyRootException ex) {
+            throw new EditBlockBodyException(ex.getMessage());
+        }
     }
 
     @Override
