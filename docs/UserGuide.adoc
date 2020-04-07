@@ -119,7 +119,8 @@ This is to help the user easier to know which products are running low on stock.
 image::ProductCard.png[align="center"]
 
 [NOTE]
-This is a passive feature. The progress bar indicator beside the products' name visualises the remaining balance.
+This is a passive feature. The progress bar indicator beside the products' name visualises the remaining balance. +
+The bar color changes as the level decreases, from green -> yellow -> orange -> red.
 
 // end::lowstockproducts[]
 
