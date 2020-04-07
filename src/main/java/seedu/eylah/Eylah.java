@@ -249,9 +249,15 @@ public class Eylah {
                 receiptBookOptional = splitterStorage.readReceiptBook();
                 if (personAmountBookOptional.isEmpty()) {
                     logger.info("Data file not found. Will be starting with a sample PersonAmountBook");
+                    initialPersonData = new PersonAmountBook();
+                } else {
+                    initialPersonData = personAmountBookOptional.get();
                 }
                 if (receiptBookOptional.isEmpty()) {
                     logger.info("Data file not found. Will be starting with a sample ReceiptBook");
+                    initialReceiptData = new ReceiptBook();
+                } else {
+                    initialReceiptData = receiptBookOptional.get();
                 }
 
                 /*
@@ -260,8 +266,6 @@ public class Eylah {
                 initialReceiptData = receiptBookOptional.orElseGet(SampleReceiptDataUtil::getSampleReceiptBook);
 
                  */
-                initialPersonData = new PersonAmountBook();
-                initialReceiptData = new ReceiptBook();
 
             } catch (DataConversionException e) {
                 logger.warning("Data file not in the correct format. Will be starting with an empty "
