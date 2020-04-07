@@ -9,12 +9,12 @@ public enum AxisType {
 
     public static AxisType getAxisType (String value) {
         switch (value) {
-            case "reps":
-                return REPS;
-            case "weight":
-                return WEIGHT;
-            default:
-                throw new IllegalArgumentException();
+        case "reps":
+            return REPS;
+        case "weight":
+            return WEIGHT;
+        default:
+            throw new IllegalArgumentException();
         }
     }
 

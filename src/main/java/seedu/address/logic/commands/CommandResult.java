@@ -14,7 +14,7 @@ import seedu.address.model.graph.AxisType;
  */
 public class CommandResult {
 
-    public static final List<Exercise> noGraphList = new ArrayList<Exercise>();
+    public static final List<Exercise> NO_GRAPH_LIST = new ArrayList<Exercise>();
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
@@ -35,7 +35,7 @@ public class CommandResult {
         this.showHelp = showHelp;
 
         this.openGraph = false;
-        this.exerciseGraphList = noGraphList;
+        this.exerciseGraphList = NO_GRAPH_LIST;
         this.axisType = AxisType.NA;
 
         this.exit = exit;

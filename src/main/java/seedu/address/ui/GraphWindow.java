@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -24,10 +25,11 @@ public class GraphWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(GraphWindow.class);
     private static final String FXML = "GraphWindow.fxml";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final List<Exercise> graphList;
     private final AxisType axisType;
-    public XYChart.Series<Number, Number> series;
+    private XYChart.Series<Number, Number> series;
 
     @FXML
     private LineChart<Number, Number> exerciseGraph;
@@ -59,11 +61,14 @@ public class GraphWindow extends UiPart<Stage> {
         }
 
         //series.setName("Exercise Graph");
-        
+
         formatDateLabels();
         exerciseGraph.getData().add(series);
     }
 
+    /**
+     * Adds data values with Reps as yAxis to the series.
+     */
     private void fillRepsSeries() {
         series = new XYChart.Series<Number, Number>();
 
@@ -74,6 +79,9 @@ public class GraphWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Adds data values with Weight as yAxis to the series.
+     */
     private void fillWeightSeries() {
         series = new XYChart.Series<Number, Number>();
 
@@ -84,12 +92,18 @@ public class GraphWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Changes the xAxis labels from numbers to dates(dd-MM-yyyy).
+     */
     private void formatDateLabels() {
         StringConverter<Number> converter = new NumberAxis.DefaultFormatter(xAxis) {
             @Override
             public String toString(Number object) {
-                return LocalDate.ofEpochDay(object.longValue()).toString();
+                LocalDate date = LocalDate.ofEpochDay(object.longValue());
+                String formattedDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                return formattedDate;
             }
+
             @Override
             public Number fromString(String string) {
                 return null;
@@ -101,7 +115,7 @@ public class GraphWindow extends UiPart<Stage> {
 
     /**
      * Shows the graph window.
-     * 
+     *
      * @throws IllegalStateException
      *                               <ul>
      *                               <li>if this method is called on a thread other

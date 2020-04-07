@@ -266,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
-            if (commandResult.isOpenGraph()){
+            if (commandResult.isOpenGraph()) {
                 handleGraph(commandResult);
             }
 
