@@ -228,17 +228,6 @@ public class ProfileManager implements Model {
         }
     }
 
-    //MODULE LIST VIEW
-    @Override
-    public Optional<Object> getDisplayedView() {
-        return this.displayedView;
-    }
-
-    @Override
-    public void setDisplayedView(ObservableList<Module> toDisplay) {
-        this.displayedView = Optional.ofNullable(toDisplay);
-    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -255,7 +244,18 @@ public class ProfileManager implements Model {
         ProfileManager other = (ProfileManager) obj;
         return profileList.equals(other.profileList)
                 && userPrefs.equals(other.userPrefs);
-                //&& filteredPersons.equals(other.filteredPersons);
+        //&& filteredPersons.equals(other.filteredPersons);
+    }
+
+    //MODULE LIST VIEW
+    @Override
+    public Optional<Object> getDisplayedView() {
+        return this.displayedView;
+    }
+
+    @Override
+    public void setDisplayedView(ObservableList<Module> toDisplay) {
+        this.displayedView = Optional.ofNullable(toDisplay);
     }
 
     @Override
