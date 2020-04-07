@@ -2,6 +2,7 @@ package seedu.address.model.graph;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,11 +54,14 @@ public class Graph {
      */
     public List<Exercise> generateGraphList(Client client) {
         List<Exercise> exerciseList = client.getExerciseList().asUnmodifiableObservableList();
+        Comparator<Exercise> exerciseComparator = (e1, e2)
+            -> e1.getExerciseDate().value.compareTo(e2.getExerciseDate().value);
 
         Stream<Exercise> graphList = exerciseList.stream()
                 .filter(exercise -> exercise.getExerciseName().equals(exerciseName))
                 .filter(exercise -> (exercise.getExerciseDate().value.compareTo(startDate.value) >= 0))
-                .filter(exercise -> (exercise.getExerciseDate().value.compareTo(endDate.value) <= 0));
+                .filter(exercise -> (exercise.getExerciseDate().value.compareTo(endDate.value) <= 0))
+                .sorted(exerciseComparator);
 
         if (axis.value.equals("reps")) {
             graphList = graphList.filter(exercise -> !exercise.getExerciseReps().value.isEmpty());
