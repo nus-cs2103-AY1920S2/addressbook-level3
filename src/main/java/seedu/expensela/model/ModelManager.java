@@ -293,6 +293,13 @@ public class ModelManager implements Model {
         globalData.setTotalBalance(balance);
     }
 
+
+    @Override
+    public void addTransactionToGlobalData(Transaction transaction) { globalData.addTransaction(transaction);}
+
+    @Override
+    public void clearRecurringTransactions() {globalData.clearRecurringTransactionsList();}
+  
     /**
      * update balance given positive or not and amount
      * @param positive
@@ -309,6 +316,7 @@ public class ModelManager implements Model {
             );
         }
     }
+
 
     //=========== Monthly Data Accessors =============================================================
     /**

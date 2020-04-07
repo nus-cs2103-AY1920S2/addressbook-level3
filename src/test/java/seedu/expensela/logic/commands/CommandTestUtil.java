@@ -48,7 +48,15 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_SHOPPING = " " + PREFIX_CATEGORY + VALID_CATEGORY_SHOPPING;
     public static final String CATEGORY_DESC_FOOD = " " + PREFIX_CATEGORY + VALID_CATEGORY_FOOD;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // name cannot start with space
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // name cannot start with these
+    public static final String INVALID_NAME_DESC_1 = " " + PREFIX_NAME + "#";
+    public static final String INVALID_NAME_DESC_2 = " " + PREFIX_NAME + "%";
+    public static final String INVALID_NAME_DESC_3 = " " + PREFIX_NAME + "$";
+    public static final String INVALID_NAME_DESC_4 = " " + PREFIX_NAME + "^";
+    public static final String INVALID_NAME_DESC_5 = " " + PREFIX_NAME + "&";
+    public static final String INVALID_NAME_DESC_6 = " " + PREFIX_NAME + "*";
+    public static final String INVALID_NAME_DESC_7 = " " + PREFIX_NAME + "(";
+    public static final String INVALID_NAME_DESC_8 = " " + PREFIX_NAME + ")";
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'a' not allowed in amount
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2017/02/02"; // needs '-' instead of '/'
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "*"; // '*' is not allowed in remark
