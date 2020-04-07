@@ -27,8 +27,10 @@ public class GraphWindow extends UiPart<Stage> {
     private static final String FXML = "GraphWindow.fxml";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    private final Stage stage;
     private final List<Exercise> graphList;
     private final AxisType axisType;
+    private final String clientName;
     private XYChart.Series<Number, Number> series;
 
     @FXML
@@ -43,11 +45,25 @@ public class GraphWindow extends UiPart<Stage> {
     /**
      * Creates a new GraphWindow.
      */
-    public GraphWindow(List<Exercise> graphList, AxisType axisType) {
-        super(FXML, new Stage());
+    private GraphWindow(Stage stage, List<Exercise> graphList, AxisType axisType, String clientName) {
+        super(FXML, stage);
+        this.stage =  stage;
         this.graphList = graphList;
         this.axisType = axisType;
+        this.clientName = clientName;
 
+        fillSeries();
+        setGraphName();
+        formatDateLabels();
+        addToGraph();
+    }
+
+    public static GraphWindow createNewGraph(List<Exercise> graphList, AxisType axisType, String clientName) {
+        Stage stage = new Stage();
+        return new GraphWindow(stage, graphList, axisType, clientName);
+    }
+
+    private void fillSeries() {
         switch (axisType) {
         case REPS:
             fillRepsSeries();
@@ -59,11 +75,6 @@ public class GraphWindow extends UiPart<Stage> {
             break;
         default:
         }
-
-        //series.setName("Exercise Graph");
-
-        formatDateLabels();
-        exerciseGraph.getData().add(series);
     }
 
     /**
@@ -111,6 +122,20 @@ public class GraphWindow extends UiPart<Stage> {
         };
 
         xAxis.setTickLabelFormatter(converter);
+    }
+
+    private void addToGraph() {
+        exerciseGraph.getData().add(series);
+    }
+
+    private void setGraphName() {
+        series.setName(clientName + " (" + getExerciseName() + ")");
+        stage.setTitle(clientName + " (" + getExerciseName() + ")");
+    }
+
+    private String getExerciseName() {
+        Exercise exercise = graphList.get(0);
+        return exercise.getExerciseName().toString();
     }
 
     /**
