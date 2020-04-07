@@ -387,6 +387,7 @@ Example of valid List Amount Command: +
 `listamount`
 
 *Expected outcome after using Paid Command:*
+
 image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 
 [TIP]
