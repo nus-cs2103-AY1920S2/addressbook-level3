@@ -1,5 +1,7 @@
 package tatracker.ui.claimstab;
 
+import static tatracker.model.TaTracker.getCurrentlyShownModuleClaim;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -20,6 +22,11 @@ import tatracker.ui.sessiontab.SessionCard;
  */
 public class ClaimsListPanel extends UiPart<Region> {
     private static final String FXML = "ClaimsListPanel.fxml";
+    private static final String BACKGROUND_COLOUR = "#5f4d42";
+    private static final String BORDER_COLOUR = "#917b3e";
+    private static final String LABEL_BACKGROUND_COLOUR = "#424d5f";
+    private static final String LABEL_BORDER_COLOUR = "#3e7b91";
+    private static final String BORDER_WIDTH = "1";
     private final Logger logger = LogsCenter.getLogger(ClaimsListPanel.class);
 
     @FXML
@@ -37,6 +44,9 @@ public class ClaimsListPanel extends UiPart<Region> {
         claimsListView.setItems(claimsList);
         claimsListView.setCellFactory(listView -> new ClaimsListViewCell());
         totalEarnings.setText("Total Earnings: " + this.taTracker.getTotalEarnings());
+        totalEarnings.setStyle("-fx-background-color: " + LABEL_BACKGROUND_COLOUR + "; "
+                + "-fx-border-color: " + LABEL_BORDER_COLOUR + "; "
+                + "-fx-border-width: " + BORDER_WIDTH + ";");
     }
 
     /**
@@ -57,8 +67,16 @@ public class ClaimsListPanel extends UiPart<Region> {
             if (empty || claims == null) {
                 setGraphic(null);
                 setText(null);
+                setStyle("");
             } else {
                 setGraphic(new SessionCard(claims, getIndex() + 1).getRoot());
+                if ((getCurrentlyShownModuleClaim() != null)) {
+                    setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
+                            + "-fx-border-color: " + BORDER_COLOUR + "; "
+                            + "-fx-border-width: " + BORDER_WIDTH + ";");
+                } else {
+                    setStyle("");
+                }
             }
         }
     }

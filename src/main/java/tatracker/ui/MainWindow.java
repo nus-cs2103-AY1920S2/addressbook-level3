@@ -325,7 +325,7 @@ public class MainWindow extends UiPart<Stage> {
      * Alternates the focus on the module, group, and student list in the StudentView.
      */
     private void handleSwitchingStudentViewLists(KeyEvent event) {
-        if (!isSelectedTab(studentListTab)) {
+        if (!isSelectedTab(studentListTab) || commandBox.isFocused()) {
             return;
         }
         switch (event.getCode()) {
@@ -413,6 +413,8 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case FILTER_SESSION:
+                sessionListPanel.updateLabel(logic.getCurrSessionDateFilter(), logic.getCurrSessionModuleFilter(),
+                        logic.getCurrSessionTypeFilter());
                 handleGoto(sessionListTab);
                 break;
 
@@ -424,6 +426,7 @@ public class MainWindow extends UiPart<Stage> {
 
             case GOTO_CLAIMS:
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                claimsListPanel.updateLabel();
                 handleGoto(claimsListTab);
                 break;
 
@@ -433,12 +436,18 @@ public class MainWindow extends UiPart<Stage> {
 
             case GOTO_STUDENT:
                 moduleListPanel.updateCells(logic.getFilteredModuleList());
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
                 break;
 
             case HELP:
                 handleHelp();
+                break;
+
+            case LIST:
+                claimsListPanel.updateLabel();
+                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 break;
 
             default:

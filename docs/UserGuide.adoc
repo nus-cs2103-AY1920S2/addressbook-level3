@@ -190,6 +190,17 @@ These missing parameters will be stated in a later section of the guide. |
 This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
 into three different views - the *Student View*, the *Session View* and the *Claims View*.
 
+When you enter a new command, you will be automatically switched to the relevant view
+so that you can instantly see the command results. The tab will also be highlighted in
+orange.
+
+[NOTE]
+====
+* The tab that you were switched to when you enter commands will remain highlighted even if
+you click on other tabs. That way, it is easier for you to remember where you last
+made changes to TA-Tracker.
+====
+
 === Student View
 Under the `student` tab, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
@@ -233,16 +244,24 @@ what claims to submit for each of the modules that you teach.
 
 [[Usage]]
 == Usage
-You can interact with TA-Tracker using the following commands.
+You can interact with TA-Tracker using `CLI` commands!
 
 [NOTE]
 ====
 As you type a command:
 
-* *valid inputs* will be highlighted in green
-* *invalid inputs* will be highlighted in red
+* *valid inputs* will be highlighted in `green`
+* *invalid inputs* will be highlighted in `red`
 
-Furthermore, you will see the help information for the command that you are typing out.
+By *default* the font colour is `white`. You will see this colour when you use whitespaces between words in your input.
+====
+
+[NOTE]
+====
+You will also see some helpful information when you are typing out a command:
+
+* *The command usage* will be appear when you `_first type the command word_`, and after `_every two whitespaces_`.
+* *The first invalid prefix* of your commands will be indicated.
 ====
 
 === Navigation
@@ -541,7 +560,7 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 ====
 Examples:
 
-* `student delete m/A0123456J g/G03 m/CS2103`
+* `student delete id/A0123456J g/G03 m/CS2103`
 +
 Deletes the student with the matriculation number `A0123456J` from group `G03` of
 the module `CS2103`.
@@ -583,7 +602,7 @@ Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 ====
 Examples:
 
-* `edit m/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
+* `edit id/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
 +
 Edits the student with the matriculation number `A0123456J` to have:
 
@@ -829,9 +848,10 @@ tab as well, if you were currently on a different tab.
 
 Format: `session delete INDEX`
 
+[CAUTION]
 ====
 [horizontal]
-CAUTION: Do not confuse delete and done session commands.
+Do not confuse delete and done session commands.
 ====
 
 ====
@@ -876,7 +896,7 @@ Edits the session at index 1 to have:
 
 You can use this command to mark a session as done.
 
-The session will automatically appear as a new claim in the *Claims Vieww*.
+The session will automatically appear as a new claim in the *Claims View*.
 
 You will automatically be switched to the claims
 tab as well, if you were currently on a different tab.
@@ -935,27 +955,26 @@ You will see the module with the specified `MOD_CODE` highlighted in the list.
 
 All completed sessions with matching module code are displayed. Keyword is case-insensitive.
 
-Format: `module filter [m/MOD_CODE]
+Format: `claims filter [m/MOD_CODE]`
 
 ====
 Example:
 
-* `module filter m/CS2103T`
+* `claims filter m/CS2103T`
 +
 All sessions in the *Claims View* with module code `CS2103T` are displayed.
 ====
 
 ==== Changing the hourly rate : `set rate`
 
-TODO: EDIT ONCE IMPLEMENTED
-
 Sets the hourly rate for the total income and claim computation.
 
-Format: `set rate AMOUNT`
+Format: `setrate RATE`
 
 [NOTE]
 ====
-* AMOUNT is the amount you want to change the hourly rate to.
+* AMOUNT is the amount you want to change the hourly rate to, this value will be used to calulate the
+`Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * To specify in exact dollars, you can write it as just the number (example: 20).
 * To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
 ====
@@ -1016,5 +1035,5 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 * *Filter:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
 === Claims View
-* *Set Rate:*
-* *Filter:* `module filter m/MOD_CODE`
+* *Set Rate:* `setrate RATE`
+* *Filter:* `claims filter m/MOD_CODE`

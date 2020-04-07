@@ -26,7 +26,7 @@ import tatracker.logic.commands.statistic.ShowStatisticCommand;
 import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.commands.student.DeleteStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand;
-import tatracker.logic.commands.student.FilterStudentViewCommand;
+import tatracker.logic.commands.student.FilterStudentCommand;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.PrefixDictionary;
 
@@ -47,7 +47,7 @@ public enum CommandEntry {
     STUDENT_ADD(AddStudentCommand.DETAILS),
     STUDENT_DELETE(DeleteStudentCommand.DETAILS),
     STUDENT_EDIT(EditStudentCommand.DETAILS),
-    STUDENT_FILTER(FilterStudentViewCommand.DETAILS),
+    STUDENT_FILTER(FilterStudentCommand.DETAILS),
 
     SORT_ALL(SortCommand.DETAILS),
     SORT_GROUP(SortGroupCommand.DETAILS),

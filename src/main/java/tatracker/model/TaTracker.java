@@ -35,6 +35,9 @@ public class TaTracker implements ReadOnlyTaTracker {
     private static final int DEFAULT_RATE = 40;
     private static String currClaimFilter;
     private static String currSessionFilter;
+    private static String currSessionDateFilter;
+    private static String currSessionModuleFilter;
+    private static String currSessionTypeFilter;
     private static String currStudentFilter;
 
     private static Group currentlyShownGroup;
@@ -63,6 +66,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         currClaimFilter = "";
         currSessionFilter = "";
+        currSessionDateFilter = "No Filter";
+        currSessionModuleFilter = "No Filter";
+        currSessionTypeFilter = "No Filter";
         currStudentFilter = "";
 
         rate = DEFAULT_RATE;
@@ -121,6 +127,51 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public String getCurrSessionFilter() {
         return currSessionFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionDateFilter(String params) {
+        requireNonNull(params);
+        currSessionDateFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionDateFilter() {
+        return currSessionDateFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionModuleFilter(String params) {
+        requireNonNull(params);
+        currSessionModuleFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionModuleFilter() {
+        return currSessionModuleFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionTypeFilter(String params) {
+        requireNonNull(params);
+        currSessionTypeFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionTypeFilter() {
+        return currSessionTypeFilter;
     }
 
     /**
@@ -223,8 +274,9 @@ public class TaTracker implements ReadOnlyTaTracker {
         return rate;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setRate(int newRate) {
+        logger.fine("Reached SetRate in TaTracker");
+        rate = newRate;
     }
 
     @Override
@@ -263,17 +315,14 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     public void setCurrentlyShownModuleClaim(String moduleCode) {
-        currentlyShownModuleClaim = modules.getModule(moduleCode);
+        if (moduleCode.equals("")) {
+            currentlyShownModuleClaim = null;
+        } else {
+            currentlyShownModuleClaim = modules.getModule(moduleCode);
+        }
     }
 
     public static Module getCurrentlyShownModuleClaim() {
-        if (currentlyShownModuleClaim == null) {
-            System.out.println("no filter");
-        } else {
-            System.out.println("reached");
-            System.out.println(currentlyShownModuleClaim.getIdentifier());
-            System.out.println(currentlyShownModuleClaim.getName());
-        }
         return currentlyShownModuleClaim;
     }
 

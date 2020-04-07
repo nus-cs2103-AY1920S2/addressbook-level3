@@ -141,8 +141,41 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCurrSessionDateFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrSessionDateFilter(params);
+    }
+
+    @Override
+    public void setCurrSessionModuleFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrSessionModuleFilter(params);
+    }
+
+    @Override
+    public void setCurrSessionTypeFilter(String params) {
+        requireAllNonNull(params);
+        taTracker.setCurrSessionTypeFilter(params);
+    }
+
+    @Override
     public String getCurrSessionFilter() {
         return taTracker.getCurrSessionFilter();
+    }
+
+    @Override
+    public String getCurrSessionDateFilter() {
+        return taTracker.getCurrSessionDateFilter();
+    }
+
+    @Override
+    public String getCurrSessionModuleFilter() {
+        return taTracker.getCurrSessionModuleFilter();
+    }
+
+    @Override
+    public String getCurrSessionTypeFilter() {
+        return taTracker.getCurrSessionTypeFilter();
     }
 
     @Override
@@ -212,11 +245,14 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
-        if (!predicate.equals(PREDICATE_SHOW_ALL_SESSIONS)) {
-            taTracker.setCurrentlyShownModuleClaim(moduleCode);
-            System.out.println("filtered: " + moduleCode);
-        }
+        taTracker.setCurrentlyShownModuleClaim(moduleCode);
+        logger.fine("filtered: " + moduleCode);
         filteredDoneSessions.setPredicate(predicate);
+    }
+
+    @Override
+    public void setRate (int rate) {
+        taTracker.setRate(rate);
     }
 
     // ======== Module Methods =================================================
