@@ -98,7 +98,7 @@ tasks.coveralls {
 
 test {
     useJUnitPlatform()
-
+    ignoreFailures(true)
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
