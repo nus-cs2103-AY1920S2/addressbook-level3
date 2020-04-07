@@ -378,6 +378,18 @@
     -fx-border-color: -fx-primary;
 }
 
+#listTab, #showTab {
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 13;
+    -fx-font-style: italic;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-primary;
+    -fx-border-radius: 10 10 0 0;
+    -fx-background-radius: 10 10 0 0;
+}
+
 #orderList, #returnOrderList{
     -fx-border-radius: 5, 0, 0, 0;
 }

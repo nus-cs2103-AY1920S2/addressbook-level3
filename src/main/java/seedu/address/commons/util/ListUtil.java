@@ -1,10 +1,11 @@
 package seedu.address.commons.util;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.ShowCommand.endDate;
+import static seedu.address.logic.commands.ShowCommand.startDate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+import seedu.address.logic.commands.ShowCommand;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 
@@ -12,19 +13,61 @@ import seedu.address.model.parcel.returnorder.ReturnOrder;
  * Functions for filtering the list
  */
 public class ListUtil {
-    private static LocalDate dateToday = LocalDate.now();
-    private static LocalDateTime timeToday = LocalDateTime.now();
+    private static LocalDate today = LocalDate.now();
+
+    public static String ALL_DATES = "All Dates";
+
+    private static LocalDate start;
+    private static LocalDate end;
+    private static boolean isAll;
+
 
     /**
-     * Overloaded method for Delivery Order.
-     * Checks if the Order is to be delivered today using the isBeforeDeadline() method.
-     * @param order Delivery Order to be delivered
-     * @return boolean True if is Today's order, false if not
+     * Initialize the variables for the purpose
+     * of filtering the lists
      *
      */
-    public static boolean isToday(Order order) {
-        requireNonNull(order);
-        return isBeforeDeadline(order.getTimestamp().getOrderTimeStamp());
+    public static void init() {
+        start = ShowCommand.getStartDate();
+        end = ShowCommand.getEndDate();
+        isAll = ShowCommand.isAll();
+    }
+
+    /**
+     * Overloaded method for Delivery Orders
+     *
+     * The method is used by the filter method to
+     * filter the dates given by the user
+     *
+     * @param order Delivery order
+     * @return boolean
+     */
+    public static boolean filterListByDates(Order order) {
+        return isAll ? listAll() : isDateInclusive(order);
+    }
+
+    /**
+     * Overloaded method for Return Orders
+     *
+     * The method is used by the filter method to
+     * filter the dates given by the user
+     *
+     * @param order Return order
+     * @return boolean
+     */
+    public static boolean filterListByDates(ReturnOrder order) {
+        return isAll ? listAll() : isDateInclusive(order);
+    }
+    /**
+     * Overloaded method for Delivery Order.
+     * Checks if the Order is to within the start and end date
+     * @param order Delivery Order to be delivered
+     * @return boolean True if is within the date, false if not
+     *
+     */
+    public static boolean isDateInclusive(Order order) {
+        LocalDate date = order.getTimestamp().getOrderTimeStamp().toLocalDate();
+        return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
     }
 
     /**
@@ -34,19 +77,29 @@ public class ListUtil {
      * @return boolean True if is Today's order, false if not
      *
      */
-    public static boolean isToday(ReturnOrder order) {
-        requireNonNull(order);
-        return isBeforeDeadline(order.getTimestamp().getOrderTimeStamp());
+    public static boolean isDateInclusive(ReturnOrder order) {
+        LocalDate date = order.getTimestamp().getOrderTimeStamp().toLocalDate();
+        return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
     }
 
     /**
-     * Check if the Order's LocalDateTime has past the current Date and Time Today.
-     * @param ldt Parse in the LocalDateTime object and compare with the Date and Time now
-     * @return Boolean A Boolean of whether the order has past its deadline
+     * Get all the orders from both lists
+     *
+     * @return boolean Always return true
      */
-    public static boolean isBeforeDeadline(LocalDateTime ldt) {
-        requireNonNull(ldt);
-        LocalDate orderDate = ldt.toLocalDate();
-        return orderDate.equals(dateToday) && ldt.isAfter(timeToday);
+    public static boolean listAll() {
+        return true;
+    }
+
+    public static LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public static LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public static boolean isAll() {
+        return isAll;
     }
 }
