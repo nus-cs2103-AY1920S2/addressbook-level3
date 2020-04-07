@@ -39,9 +39,13 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
 
-    public ChartAnalyticsPanel(ObservableList<Transaction> transactionList) {
+    public ChartAnalyticsPanel(ObservableList<Transaction> transactionList, boolean isFilterMonth) {
         super(FXML);
-        graphByWeek(transactionList);
+        if (isFilterMonth) {
+            graphByWeek(transactionList);
+        } else {
+            graphByMonth(transactionList);
+        }
         graphByCategory(transactionList);
     }
 
@@ -86,6 +90,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
         xAxis.setLabel("Day");
         xAxis.getCategories().addAll("Week 1", "Week 2", "Week 3", "Week 4", "Week 5");
         yAxis.setLabel("Spent");
+        stackedBarChart.setTitle("Expenditure This Month");
 
         double[][] spentByWeekAndDay = new double[5][7];
 
@@ -146,5 +151,45 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
             seriesWeek5.getData().add(new XYChart.Data(dayOfWeek[i], spentByWeekAndDay[4][i]));
         }
         stackedBarChart.getData().addAll(seriesWeek1, seriesWeek2, seriesWeek3, seriesWeek4, seriesWeek5);
+    }
+
+    /**
+     * Creates a stacked bar chart, X axis is months of the year and Y axis is total expenditure.
+     * Stacks last year's and this year's transactions.
+     * @param transactionList Transaction List filtered by a certain month.
+     */
+    private void graphByMonth(ObservableList<Transaction> transactionList) {
+        xAxis.setLabel("Month");
+        yAxis.setLabel("Spent");
+        stackedBarChart.setTitle("Expenditure This Year and Last Year");
+
+        double[][] spentByYearAndMonth = new double[2][12];
+        int currYear = LocalDate.now().getYear();
+
+        for (Transaction transaction : transactionList) {
+            Amount amount = transaction.getAmount();
+            LocalDate transactionLocalDate = transaction.getDate().transactionDate;
+            if (amount.positive) {
+                continue;
+            } else if (transactionLocalDate.getYear() < currYear - 1) {
+                break;
+            }
+
+            int yearIndex = currYear - transactionLocalDate.getYear();
+            int month = transactionLocalDate.getMonthValue();
+            spentByYearAndMonth[yearIndex][month - 1] += amount.transactionAmount;
+        }
+
+        XYChart.Series<String, Number> seriesPrevYear = new XYChart.Series();
+        seriesPrevYear.setName(currYear - 1 + "");
+        XYChart.Series<String, Number> seriesCurrYear = new XYChart.Series();
+        seriesCurrYear.setName(currYear + "");
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        for (int i = 0; i < 12; i++) {
+            seriesPrevYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[0][i]));
+            seriesCurrYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[1][i]));
+        }
+        stackedBarChart.getData().addAll(seriesPrevYear, seriesCurrYear);
     }
 }

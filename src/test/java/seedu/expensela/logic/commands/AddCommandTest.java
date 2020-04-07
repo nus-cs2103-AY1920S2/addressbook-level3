@@ -185,6 +185,11 @@ public class AddCommandTest {
 
         }
 
+        @Override
+        public boolean getIsFilterMonth() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public ToggleView getToggleView() {
             throw new AssertionError("This method should not be called.");
         }

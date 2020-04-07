@@ -267,6 +267,11 @@ public class ModelManager implements Model {
         updateFilteredTransactionList(filter.getCategoryNamePredicate(), filter.getDateMonthPredicate());
     }
 
+    @Override
+    public boolean getIsFilterMonth() {
+        return expenseLa.getIsFilterMonth();
+    }
+
     //=========== Global Data Accessors =============================================================
     @Override
     public GlobalData getGlobalData() {
