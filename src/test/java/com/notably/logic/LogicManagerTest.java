@@ -1,6 +1,7 @@
 package com.notably.logic;
 
 import static com.notably.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 
@@ -8,7 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.exceptions.EditBlockBodyException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -46,14 +49,36 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
+        final String invalidCommand = "uicfhmowqewca";
         assertThrows(ParseException.class, () -> logic.execute(invalidCommand));
     }
 
     @Test
     public void execute_invalidCommand_throwsCommandException() {
-        String invalidCommand = "delete /";
+        final String invalidCommand = "delete /";
         assertThrows(CommandException.class, () -> logic.execute(invalidCommand));
     }
 
+    @Test
+    public void editCurrentBlockBody_editRoot_throwEditBlockBodyException() {
+        final String body = "This does not matter";
+
+        assertThrows(EditBlockBodyException.class, () -> logic.editCurrentBlockBody(body));
+    }
+
+    @Test
+    public void editCurrentBlockBody_validCurrentBlock_throwEditBlockBodyException()
+            throws CommandException, ParseException, EditBlockBodyException {
+        final String newCommandText = "new -t iLoveTesting -b really? -o";
+        final String editBody = "This does not matter";
+        logic.execute(newCommandText);
+        logic.editCurrentBlockBody(editBody);
+
+        final AbsolutePath expectedCurrentPath = AbsolutePath.fromString("/iLoveTesting");
+        final String expectedBody = "This does not matter";
+
+
+
+        assertEquals(expectedBody, model.getBlockTree().get(expectedCurrentPath).getBlock().getBody().getText());
+    }
 }
