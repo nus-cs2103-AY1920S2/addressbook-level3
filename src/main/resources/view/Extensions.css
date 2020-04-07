@@ -4,8 +4,7 @@
 }
 
 .list-cell:empty {
-    /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background-color: transparent;
 }
 
 .tag-selector {
@@ -17,4 +16,8 @@
 
 .tooltip-text {
     -fx-text-fill: white;
+}
+
+.text-area {
+    -fx-font-family: "Consolas", "SF Mono", "Menlo", "Hack", "Liberation Mono", "Fira Mono", monospace;
 }

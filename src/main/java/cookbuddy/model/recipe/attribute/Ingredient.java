@@ -3,7 +3,9 @@ package cookbuddy.model.recipe.attribute;
 import static cookbuddy.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a Recipe's ingredient in its {@code IngredientList}. Guarantees:
@@ -11,9 +13,10 @@ import java.util.List;
  */
 public class Ingredient {
 
-    public static final String MESSAGE_CONSTRAINTS = "Each ingredient should be of the form:"
-            + "'ing/ing1, ing1qty; ing2, ing2qty;...'."
-            + "Spaces are optional. Valid ingredient quantities are specified in the User Guide. ";
+    public static final String MESSAGE_CONSTRAINTS = "Each ingredient should be of the form: "
+            + "'ing1, ing1qty'.\n"
+            + "Each ingredient-quantity pair must be separated by ';'. Spaces are optional.\n"
+            + "Example: 'ing/bread, 2 slices; ham, 3 slices'";
 
     public final String name;
     private String quantity;
@@ -28,8 +31,9 @@ public class Ingredient {
     public Ingredient(String ingredientString) {
         requireNonNull(ingredientString);
 
-        List<String> ingredientParts = List.of(ingredientString.split(","));
-        ingredientParts.forEach(String::trim);
+        List<String> ingredientParts = Arrays.stream(ingredientString.split(",")).map(String::trim).collect(
+                Collectors.toList());
+
 
         checkArgument(isValidName(ingredientParts.get(0)), MESSAGE_CONSTRAINTS);
         checkArgument(isValidName(ingredientParts.get(1)), MESSAGE_CONSTRAINTS);

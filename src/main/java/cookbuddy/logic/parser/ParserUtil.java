@@ -2,24 +2,31 @@ package cookbuddy.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import cookbuddy.commons.core.index.Index;
+import cookbuddy.commons.util.FileUtil;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
+import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
 import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.Instruction;
 import cookbuddy.model.recipe.attribute.InstructionList;
 import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Photograph;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Serving;
 import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser
@@ -27,7 +34,8 @@ import cookbuddy.model.recipe.attribute.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index must be a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_FILEPATH = Photograph.IMAGE_UTIL.MESSAGE_CONSTRAINTS;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -38,6 +46,9 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        if (trimmedIndex.equals("")) {
+            throw new ParseException("No index has been provided for the command!");
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -69,11 +80,22 @@ public class ParserUtil {
         requireNonNull(ingredientString);
 
         if (ingredientString.isBlank()) {
-            throw new ParseException("Recipes need to have instructions; please enter some instructions.");
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        return new IngredientList(Stream.of(ingredientString.trim().split(";")).map(String::trim).map(Ingredient::new)
-                .collect(Collectors.toList()));
+        try {
+            List<Ingredient> ingredientList = Stream.of(ingredientString.trim().split(";"))
+                    .map(String::trim).map(Ingredient::new).collect(Collectors.toList());
+
+            if (ingredientList.isEmpty()) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            return new IngredientList(ingredientList);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException("No ingredient name has been provided for one or more ingredients!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException("No quantity has been provided for one or more ingredients!");
+        }
     }
 
     /**
@@ -87,11 +109,36 @@ public class ParserUtil {
         requireNonNull(instructionString);
 
         if (instructionString.isBlank()) {
-            throw new ParseException("Recipes need to have ingredients; please enter some ingredients.");
+            throw new ParseException("Recipes need to have instructions; please enter some instructions.");
         }
 
         return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
                 .map(Instruction::new).collect(Collectors.toList()));
+    }
+
+    /**
+     * Parses {@code filePathString} as a {@link Photograph}.
+     *
+     * @param filePathString The file path of a {@link Recipe}'s photo, as a
+     *                       {@link String}
+     * @return A Photograph from the file at {@code filePathString}
+     * @throws ParseException If {@code filePathString} is an invalid path, or the
+     *                        file does not exist.
+     */
+    public static Photograph parsePhotoFilePath(String filePathString) throws ParseException {
+        requireNonNull(filePathString);
+        String trimmedPath = filePathString.trim().replaceAll("^['\"]*", "").replaceAll("['\"]*$", "");
+        if (!FileUtil.isValidPathString(trimmedPath)) {
+            throw new ParseException(MESSAGE_INVALID_FILEPATH);
+        }
+        if (Photograph.IMAGE_UTIL.isPlaceHolderImage(filePathString)) {
+            return Photograph.PLACEHOLDER_PHOTOGRAPH;
+        }
+        try {
+            return new Photograph(trimmedPath);
+        } catch (IOException e) {
+            throw new ParseException(MESSAGE_INVALID_FILEPATH);
+        }
     }
 
     /**
@@ -132,11 +179,31 @@ public class ParserUtil {
      */
     public static Rating parseRating(String ratingString) throws ParseException {
         requireNonNull(ratingString);
-        int rating = Integer.parseInt(ratingString.trim());
+        int rating;
+        try {
+            rating = Integer.parseInt(ratingString.trim());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Input provided is not a valid integer!");
+        }
         if (!Rating.isValidRating(rating)) {
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
         return new Rating(rating);
+    }
+
+    /**
+     * Parses a {@code String difficultyString} into a {@code Difficulty}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code difficultyString} is invalid.
+     */
+    public static Difficulty parseDifficulty(String difficultyString) throws ParseException {
+        requireNonNull(difficultyString);
+        int difficulty = Integer.parseInt(difficultyString.trim());
+        if (!Difficulty.isValidDifficulty(difficulty)) {
+            throw new ParseException(Difficulty.MESSAGE_CONSTRAINTS);
+        }
+        return new Difficulty(difficulty);
     }
 
     /**
@@ -154,15 +221,69 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String timeString} into a {@code Time}
+     *
+     * @param timeString the string to be parsed
+     * @return the Time of the recipe
+     * @throws ParseException if the given {@timeString} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Time parseTime(String timeString) throws ParseException {
+        int hour;
+        int min = 0;
+        int sec = 0;
+        requireNonNull(timeString);
+        String trimmedTime = timeString.trim();
+        String[] timeArray = trimmedTime.split(":");
+        hour = Integer.parseInt(timeArray[0]);
+        if (timeArray.length > 1) {
+            min = Integer.parseInt(timeArray[1]);
+            if (timeArray.length > 2) {
+                sec = Integer.parseInt(timeArray[2]);
+            }
         }
+        if (!Time.isValidHour(hour)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_HOUR);
+        }
+
+        if (!Time.isValidMin(min)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_MIN);
+        }
+
+        if (!Time.isValidSec(sec)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS_SEC);
+        }
+
+        return new Time(hour, min, sec);
+
+    }
+
+    /**
+     * Parses a {@code String command} into a {@Code string}
+     * @param command the command to be parsed.
+     * @return a trimmed string of the command word.
+     */
+    public static String parseHelp (String command) {
+        requireNonNull(command);
+        String trimmedCommand = command.trim();
+        return trimmedCommand;
+    }
+
+    /**
+     * Parses {@code Optional<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Optional<String> tags) throws ParseException {
+        final Set<Tag> tagSet = new HashSet<>();
+        if (tags.isPresent() && !tags.get().equals("")) {
+            String tagsString = tags.get();
+            List<String> tagList = Stream.of(tagsString.split(",")).map(String::trim).collect(
+                Collectors.toList());
+            for (String tagName : tagList) {
+                tagSet.add(parseTag(tagName));
+            }
+        }
+
         return tagSet;
     }
 }

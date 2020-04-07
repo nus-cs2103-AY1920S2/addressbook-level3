@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Represents a Recipe's ingredients in the recipe book.
  */
 public class IngredientList {
-    private final ArrayList<Ingredient> ingredientData;
+    public final ArrayList<Ingredient> ingredientData;
 
     /**
      * Constructs an ingredient list from {@code ingredientList}. Requires that the
@@ -44,6 +44,10 @@ public class IngredientList {
         ingredientData.remove(ingredient);
     }
 
+    public List<Ingredient> asList() {
+        return List.copyOf(this.ingredientData);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -64,6 +68,6 @@ public class IngredientList {
 
     @Override
     public String toString() {
-        return ingredientData.stream().map(Ingredient::toString).collect(Collectors.joining(System.lineSeparator()));
+        return ingredientData.stream().map(Ingredient::toString).collect(Collectors.joining(";"));
     }
 }

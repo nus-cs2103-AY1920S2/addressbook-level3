@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import cookbuddy.model.Model;
 import cookbuddy.model.RecipeBook;
+import cookbuddy.ui.UiManager;
 
 /**
  * Clears the recipe book.
@@ -11,6 +12,8 @@ import cookbuddy.model.RecipeBook;
 public class ResetCommand extends Command {
 
     public static final String COMMAND_WORD = "reset";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes all recipes from CookBuddy.\n"
+            + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "The recipe book has been cleared!";
 
 
@@ -18,6 +21,8 @@ public class ResetCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setRecipeBook(new RecipeBook());
+        UiManager.removeRecipe();
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

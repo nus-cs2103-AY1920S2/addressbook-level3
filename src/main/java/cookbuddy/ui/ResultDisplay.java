@@ -18,6 +18,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     public ResultDisplay() {
         super(FXML);
+        resultDisplay.setStyle("-fx-font-family: Consolas, 'SF Mono', 'Menlo', 'Hack', 'Liberation Mono', 'monospace'");
     }
 
     public void setFeedbackToUser(String feedbackToUser) {

@@ -11,6 +11,7 @@ import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.commons.exceptions.DataConversionException;
 import cookbuddy.commons.exceptions.IllegalValueException;
 import cookbuddy.commons.util.FileUtil;
+import cookbuddy.commons.util.ImageUtil;
 import cookbuddy.commons.util.JsonUtil;
 import cookbuddy.model.ReadOnlyRecipeBook;
 
@@ -22,9 +23,11 @@ public class JsonRecipeBookStorage implements RecipeBookStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonRecipeBookStorage.class);
 
     private Path filePath;
+    private Path imagesPath;
 
-    public JsonRecipeBookStorage(Path filePath) {
+    public JsonRecipeBookStorage(Path filePath, Path imagesPath) {
         this.filePath = filePath;
+        this.imagesPath = imagesPath;
     }
 
     public Path getRecipeBookFilePath() {
@@ -52,7 +55,7 @@ public class JsonRecipeBookStorage implements RecipeBookStorage {
         }
 
         try {
-            return Optional.of(jsonRecipeBook.get().toModelType());
+            return Optional.of(jsonRecipeBook.get().toModelType(imagesPath));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -67,14 +70,14 @@ public class JsonRecipeBookStorage implements RecipeBookStorage {
     /**
      * Similar to {@link #saveRecipeBook(ReadOnlyRecipeBook)}.
      *
-     * @param filePath location of the data. Cannot be null.
+     *
      */
-    public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
+    public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path dataFilePath) throws IOException {
         requireNonNull(recipeBook);
-        requireNonNull(filePath);
+        requireNonNull(dataFilePath);
 
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableRecipeBook(recipeBook), filePath);
+        FileUtil.createIfMissing(dataFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableRecipeBook(recipeBook), dataFilePath);
+        ImageUtil.imageUtil().saveAllImages(recipeBook.getRecipeList(), imagesPath);
     }
-
 }

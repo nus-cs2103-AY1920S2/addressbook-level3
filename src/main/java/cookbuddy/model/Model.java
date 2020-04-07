@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.attribute.Time;
 import javafx.collections.ObservableList;
 
 /**
@@ -13,6 +14,8 @@ import javafx.collections.ObservableList;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+    /** {@code Predicate} that always evaluates to false */
+    Predicate<Recipe> PREDICATE_SHOW_NO_RECIPES = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -56,6 +59,43 @@ public interface Model {
      * Returns true if a recipe with the same identity as {@code recipe} exists in the recipe book.
      */
     boolean hasRecipe(Recipe recipe);
+
+    /**
+     * Returns the total number of recipes in the recipe book.
+     */
+    long count();
+
+
+    /**
+     * Marks a recipe as attempted/done
+     * @param recipe the recipe to be marked.
+     */
+    void attemptRecipe(Recipe recipe);
+
+    /**
+     * Un-Makrs a recipe as attempted/done
+     * @param recipe the recipe to be un-marked.
+     */
+    void unAttemptRecipe(Recipe recipe);
+
+    /**
+     *
+     * Favourites the recipe
+     */
+    void favRecipe(Recipe recipe);
+
+    /**
+     * Un-Favourites the recipe
+     *
+     */
+    void unFavRecipe(Recipe recipe);
+
+    /**
+     * Sets a time to the recipe
+     * @param recipe the recipe to be set
+     * @param time the prep time of the recipe.
+     */
+    void setTime(Recipe recipe, Time time);
 
     /**
      * Deletes the given recipe.

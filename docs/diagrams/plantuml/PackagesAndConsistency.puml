@@ -1,4 +1,4 @@
-@startuml
+@startuml PackagesAndConsistency
 !include ../style.puml
 
 package "Rule Of Thumb"{

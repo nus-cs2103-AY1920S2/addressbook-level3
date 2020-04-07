@@ -1,5 +1,6 @@
 package cookbuddy.storage;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,10 +46,10 @@ class JsonSerializableRecipeBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public RecipeBook toModelType() throws IllegalValueException {
+    public RecipeBook toModelType(Path imagesPath) throws IllegalValueException {
         RecipeBook recipeBook = new RecipeBook();
         for (JsonAdaptedRecipe jsonAdaptedRecipe : recipes) {
-            Recipe recipe = jsonAdaptedRecipe.toModelType();
+            Recipe recipe = jsonAdaptedRecipe.toModelType(imagesPath);
             if (recipeBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RECIPE);
             }

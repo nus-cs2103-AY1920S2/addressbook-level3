@@ -9,13 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w12-4.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
@@ -37,11 +39,13 @@ public class HelpWindow extends UiPart<Stage> {
         helpMessage.setText(HELP_MESSAGE);
     }
 
+
     /**
      * Creates a new HelpWindow.
      */
     public HelpWindow() {
         this(new Stage());
+        new JMetro(Style.LIGHT).setScene(this.getRoot().getScene());
     }
 
     /**
@@ -69,6 +73,19 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays the help window
+     * @param toBeShown the message to be displayed in the help window.
+     */
+    public void show(String toBeShown) {
+        if (toBeShown.equals("")) {
+            helpMessage.setText(HELP_MESSAGE);
+        } else {
+            helpMessage.setText(toBeShown);
+        }
+        show();
+    }
+
+    /**
      * Returns true if the help window is currently being shown.
      */
     public boolean isShowing() {
@@ -87,6 +104,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public void setCommandDescription(String commandDescription) {
+        helpMessage.setText(commandDescription);
     }
 
     /**

@@ -1,10 +1,10 @@
-@startuml
+@startuml ArchitectureDiagram
 !include <office/Concepts/globe_internet>
 !include <office/Concepts/documents>
 !include <office/Users/user>
 !include style.puml
 
-Package " "<<Rectangle>>{
+Package "CookBuddy" <<Rectangle>>{
     Class UI UI_COLOR
     Class Logic LOGIC_COLOR
     Class Storage STORAGE_COLOR
@@ -15,9 +15,8 @@ Package " "<<Rectangle>>{
     Class Hidden #FFFFFF
     Class HiddenUI #FFFFFF
     Class HiddenModel #FFFFFF
-
-
 }
+
 Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
 

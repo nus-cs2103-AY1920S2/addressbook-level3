@@ -37,6 +37,13 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     }
 
     /**
+     * Returns the total number of recipes in the list.
+     */
+    public long count() {
+        return internalList.size();
+    }
+
+    /**
      * Adds a recipe to the list.
      * The recipe must not already exist in the list.
      */
@@ -47,6 +54,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
         internalList.add(toAdd);
     }
+
 
     /**
      * Replaces the recipe {@code target} in the list with {@code editedRecipe}.
@@ -64,8 +72,12 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
             throw new DuplicateRecipeException();
         }
+        if (target.getFavStatus().toString().equals("\2665") == true) {
+            editedRecipe.favRecipe();
+        }
 
         internalList.set(index, editedRecipe);
+
     }
 
     /**

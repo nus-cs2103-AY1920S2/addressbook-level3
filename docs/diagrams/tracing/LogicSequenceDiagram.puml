@@ -1,4 +1,4 @@
-@startuml
+@startuml LogicSequenceDiagram
 !include ../style.puml
 
 Participant ":LogicManager" as logic LOGIC_COLOR
