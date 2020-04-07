@@ -18,6 +18,7 @@ public class Name {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}{\'}][\\p{Alnum}{\'} ]*";
+    public static final int STRING_LENGTH_LIMIT = 40;
 
     public final String fullName;
 

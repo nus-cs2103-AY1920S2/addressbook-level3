@@ -9,6 +9,8 @@ import static java.util.Objects.requireNonNull;
 public class Condition {
     public static final String MESSAGE_CONSTRAINTS =
             "Do input a term and condition, if neccessary. Please limit to a max of 50 words.";
+    public static final int STRING_LENGTH_LIMIT = 100;
+
     public final String value;
 
     public Condition(String condition) {
@@ -21,7 +23,7 @@ public class Condition {
      */
     public static boolean isValidCondition(String test) {
         int wordCount = test.trim().split("\\s+").length;
-        if (wordCount > 50) {
+        if (wordCount > 100) {
             return false;
         }
         return true;
