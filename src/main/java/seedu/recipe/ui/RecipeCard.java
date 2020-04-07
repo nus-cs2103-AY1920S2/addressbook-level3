@@ -30,11 +30,11 @@ public class RecipeCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
+    private static final double INGREDIENT_WIDTH = 300;
     public final Recipe recipe;
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
             + "-fx-text-fill: #FFFFFF;\n";
-    private final double windowWidth = 2;
 
     @FXML
     private HBox cardPane;
@@ -83,8 +83,7 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         name.setWrapText(true);
-        //cardPane.get
-        //System.out.println(windowWidth);
+
         if (recipe.isFavourite()) {
             favourite.setImage(new Image("/images/favourite.png"));
         }
@@ -101,29 +100,33 @@ public class RecipeCard extends UiPart<Region> {
         if (!recipe.getGrains().isEmpty()) {
             setHeader(grainsHeader, "Grains");
             recipe.getGrains().forEach(grain -> addIngredientToVerticalBox(grain, grains));
-
-            grains.setPrefWidth(300);
+            grains.setPrefWidth(INGREDIENT_WIDTH);
         }
 
         if (!recipe.getVegetables().isEmpty()) {
             setHeader(vegetablesHeader, "Vegetables");
             recipe.getVegetables().forEach(vegetable -> addIngredientToVerticalBox(vegetable, vegetables));
+            vegetables.setPrefWidth(INGREDIENT_WIDTH);
         }
 
         if (!recipe.getProteins().isEmpty()) {
             setHeader(proteinsHeader, "Proteins");
             recipe.getProteins().forEach(protein -> addIngredientToVerticalBox(protein, proteins));
+            proteins.setPrefWidth(INGREDIENT_WIDTH);
         }
 
         if (!recipe.getFruits().isEmpty()) {
             setHeader(fruitsHeader, "Fruits");
             recipe.getFruits().forEach(fruit -> addIngredientToVerticalBox(fruit, fruits));
+            fruits.setPrefWidth(INGREDIENT_WIDTH);
         }
 
         if (!recipe.getOthers().isEmpty()) {
             setHeader(othersHeader, "Others");
             recipe.getOthers().forEach(other -> addIngredientToVerticalBox(other, others));
+            others.setPrefWidth(INGREDIENT_WIDTH);
         }
+
 
         if (!recipe.getSteps().isEmpty()) {
             setHeader(stepsHeader, "Steps");
@@ -148,8 +151,11 @@ public class RecipeCard extends UiPart<Region> {
         label.setWrapText(true);
     }
 
+    /**
+     * Creates a new label for the ingredient and adds it into the vertical box.
+     */
     private void addIngredientToVerticalBox(Ingredient ingredient, VBox box) {
-        Label label = new Label(ingredient.toString());
+        Label label = new Label(ingredient.toDisplayedString());
         label.setWrapText(true);
         label.setStyle(styleIngredientsAndSteps);
         box.getChildren().add(label);
