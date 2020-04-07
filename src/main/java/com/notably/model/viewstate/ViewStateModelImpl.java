@@ -17,17 +17,20 @@ import javafx.beans.property.StringProperty;
 public class ViewStateModelImpl implements ViewStateModel {
 
     private final StringProperty input;
-    private final Property<Optional<String>> responseText;
     private final BooleanProperty helpOpen;
+    private final BooleanProperty blockEditable;
+    private final Property<Optional<String>> responseText;
 
     public ViewStateModelImpl() {
-        this("", Optional.empty(), false);
+        this("", false, false, Optional.empty());
     }
 
-    private ViewStateModelImpl(String initialInput, Optional<String> initialResponseText, boolean initialHelpBool) {
+    private ViewStateModelImpl(String initialInput, boolean initialHelpBool,
+                               boolean initialBlockEditBool, Optional<String> initialResponseText) {
         this.input = new SimpleStringProperty(initialInput);
-        responseText = new SimpleObjectProperty<>(initialResponseText);
         this.helpOpen = new SimpleBooleanProperty(initialHelpBool);
+        this.blockEditable = new SimpleBooleanProperty(initialBlockEditBool);
+        this.responseText = new SimpleObjectProperty<>(initialResponseText);
     }
 
     //=========== CommandInputModel ===============================================================
@@ -62,7 +65,23 @@ public class ViewStateModelImpl implements ViewStateModel {
         this.helpOpen.setValue(bool);
     }
 
-    //============ Response Text ===========================================================
+    //============ BlockEditFlagModel =============================================================
+    @Override
+    public BooleanProperty blockEditableProperty() {
+        return this.blockEditable;
+    }
+
+    @Override
+    public Boolean isBlockEditable() {
+        return this.blockEditable.getValue();
+    }
+
+    @Override
+    public void setBlockEditable(Boolean bool) {
+        this.blockEditable.setValue(bool);
+    }
+
+    //============ Response Text ==================================================================
     @Override
     public Property<Optional<String>> responseTextProperty() {
         return responseText;
@@ -79,4 +98,3 @@ public class ViewStateModelImpl implements ViewStateModel {
         responseText.setValue(Optional.empty());
     }
 }
-
