@@ -90,7 +90,7 @@ class NewCommandParserTest {
     }
 
     @Test
-    void parse_sameTitleArgument_throwsCommandException() throws ParseException, CommandException {
+    void parse_duplicateTitleArgument_throwsCommandException() throws ParseException, CommandException {
         final NewCommand newCommand = (NewCommand) newCommandParser.parse(" -t block -b lorem").get(0);
 
         assertThrows(CommandException.class, () -> newCommand.execute(model));
