@@ -878,6 +878,7 @@ Priorities: +
 |* * * * |user |get a list of all the vouchers/_promo codes_ that are expiring soon |make use of them before they expire
 |* * * * |user |track how many times I can use the _promo codes_/coupons |use them multiple times if possible
 |* * * * |user |track how much I have saved from using these _promo codes_/coupons |know how much I save within a period.
+|* * * * |user |have an overview of when my coupons are expiring |use them before they expire.
 |* * * * |thrifty student with student loan |apply discount codes/coupons |maximise my savings
 |* * * * |highly competent _SoC_ student |execute simple tasks like add, sorting and finding a coupon |showcase how easy it is to use command-line
 |* * * * |organized student |have a easy visualisation representation of all my coupons |can efficiently update any coupons' details

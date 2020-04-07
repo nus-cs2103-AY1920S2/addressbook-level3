@@ -69,6 +69,7 @@ public class ExpiringCommand extends Command {
                         filteredListSize, date));
             }
         } else { // Empty list
+            assert filteredListSize == 0 : "Filtered list should be empty.";
             model.updateMonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
             return new CommandResult(String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, date));
         }
