@@ -43,6 +43,8 @@ public interface Logic {
 
     void setFilter(Filter filter);
 
+    boolean getIsFilterMonth();
+
     ToggleView getToggleView();
 
     /**

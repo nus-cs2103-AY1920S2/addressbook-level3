@@ -81,6 +81,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public boolean getIsFilterMonth() {
+        return model.getIsFilterMonth();
+    }
+
+    @Override
     public ToggleView getToggleView() {
         return model.getToggleView();
     }

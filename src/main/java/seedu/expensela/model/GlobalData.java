@@ -15,7 +15,7 @@ import seedu.expensela.model.transaction.TransactionList;
  */
 public class GlobalData implements ReadOnlyGlobalData {
 
-    private Budget recurringBudget = null;
+    private Budget recurringBudget = new Budget("0.0");
     private TransactionList recurringTransactionsList = new TransactionList();
     private Balance totalBalance = new Balance("0.0");
     private LocalDate lastUpdatedDate = LocalDate.now();
@@ -100,13 +100,7 @@ public class GlobalData implements ReadOnlyGlobalData {
 
         GlobalData o = (GlobalData) other;
 
-        if ((recurringBudget == null && o.recurringBudget != null)
-                || (o.recurringBudget == null && recurringBudget != null)) {
-            return false;
-        }
-
-        return ((recurringBudget == null && o.recurringBudget == null)
-                || (recurringBudget.equals(o.recurringBudget)))
+        return (recurringBudget.equals(o.recurringBudget))
                 && recurringTransactionsList.equals(o.recurringTransactionsList)
                 && totalBalance.equals(o.totalBalance)
                 && lastUpdatedDate.equals(o.lastUpdatedDate);
