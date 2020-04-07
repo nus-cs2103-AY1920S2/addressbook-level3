@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INITIAL_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COSTPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -51,6 +52,10 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Money sales = getSales(argMultimap);
         QuantityThreshold threshold = getThreshold(argMultimap, quantity);
+
+        if (quantity.value == 0) {
+            throw new ParseException(MESSAGE_INVALID_INITIAL_QUANTITY);
+        }
 
         Product product = new Product(description, costPrice, price, quantity, sales, threshold, 1);
 

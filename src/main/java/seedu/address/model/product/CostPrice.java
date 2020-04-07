@@ -15,7 +15,7 @@ public class CostPrice {
     /*
      * There must be one or more digits entered.
      */
-    public static final String VALIDATION_REGEX = "\\d+";
+    public static final String VALIDATION_REGEX = "^\\d{1,7}$";
 
     public static final int MAX_VALUE = 1000000;
     public static final int MIN_VALUE = 1;
