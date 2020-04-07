@@ -19,6 +19,7 @@ public class EventDate {
             + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
     private static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+    private static final DateTimeFormatter internalFormat = DateTimeFormatter.ofPattern("yyyy MM dd");
 
     // Instance variables
     public final LocalDateTime dateTime;
@@ -30,6 +31,13 @@ public class EventDate {
         requireAllNonNull(eventDate);
         checkArgument(isValidEventDate(eventDate), MESSAGE_CONSTRAINTS);
         dateTime = LocalDateTime.parse(eventDate, inputFormat);
+    }
+
+    /**
+     * Returns the date for the event.
+     */
+    public String getDate() {
+        return dateTime.format(internalFormat);
     }
 
     /**

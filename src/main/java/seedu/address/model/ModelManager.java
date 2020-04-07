@@ -216,6 +216,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAssignmentDueOnSameDate(Event toAdd) {
+        String[] eventDate = toAdd.getEventDate().getDate().split(" ");
+        ObservableList<Assignment> assignments = getAssignmentList();
+        for (int i = 0; i < assignments.size(); i++) {
+            String[] assignmentDate = assignments.get(i).getDeadline().getDate().split(" ");
+
+            if (eventDate[0].equals(assignmentDate[0]) && eventDate[1].equals(assignmentDate[1])
+            && eventDate[2].equals(assignmentDate[2])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void deleteEvent(Event target) {
         eventSchedule.removeEvent(target);
     }
