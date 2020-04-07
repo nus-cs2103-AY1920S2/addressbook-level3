@@ -79,7 +79,7 @@ class DeleteCommandParserTest {
     }
 
     @Test
-    void parse_absolutePathWithoutPrefix_validEditCommand() throws ParseException {
+    void parse_absolutePathWithoutPrefix_validDeleteCommand() throws ParseException {
         final DeleteCommand deleteCommand = deleteCommandParser.parse(" /another/block").get(0);
 
         assertNotNull(deleteCommand);
