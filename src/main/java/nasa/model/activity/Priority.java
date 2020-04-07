@@ -23,10 +23,6 @@ public class Priority {
 
     private final int priorityLevel;
 
-    public int getPriorityLevel() {
-        return priorityLevel;
-    }
-
     /**
      * Constructs a {@code Priority} with default priority level, when no argument is passed.
      */
@@ -43,6 +39,11 @@ public class Priority {
         checkArgument(isValidPriorityValue(priorityLevel), MESSAGE_CONSTRAINTS);
         this.priorityLevel = Integer.parseInt(priorityLevel);
     }
+
+    public int getPriorityLevel() {
+        return priorityLevel;
+    }
+
 
     public static int getDefaultPriorityLevel() {
         return defaultPriorityLevel;

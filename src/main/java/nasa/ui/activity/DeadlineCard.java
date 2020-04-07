@@ -57,34 +57,33 @@ public class DeadlineCard extends UiPart<Region> {
     }
 
     /**
-     * Returns a Ui String representation of the priority.
-     * @return String representing the priority level
+     * Returns a Ui representation of the priority.
      */
     public void setPriority() {
         switch (activity.getPriority().getPriorityLevel()) {
-            case 1:
-                priority.setText("!");
-                priority.setStyle("-fx-text-fill:#00bc6b;");
-                break;
-            case 2:
-                priority.setText("!!");
-                priority.setStyle("-fx-text-fill:#85ba00;");
-                break;
-            case 3:
-                priority.setText("!!!");
-                priority.setStyle("-fx-text-fill:#d0d000;");
-                break;
-            case 4:
-                priority.setText("!!!!");
-                priority.setStyle("-fx-text-fill:#e1b400;");
-                break;
-            case 5:
-                priority.setText("!!!!!");
-                priority.setStyle("-fx-text-fill:#e80303;");
-                break;
-            default:
-                priority.setStyle("");
-                break;
+        case 1:
+            priority.setText("!");
+            priority.setStyle("-fx-text-fill:#00bc6b;");
+            break;
+        case 2:
+            priority.setText("!!");
+            priority.setStyle("-fx-text-fill:#85ba00;");
+            break;
+        case 3:
+            priority.setText("!!!");
+            priority.setStyle("-fx-text-fill:#d0d000;");
+            break;
+        case 4:
+            priority.setText("!!!!");
+            priority.setStyle("-fx-text-fill:#e1b400;");
+            break;
+        case 5:
+            priority.setText("!!!!!");
+            priority.setStyle("-fx-text-fill:#e80303;");
+            break;
+        default:
+            priority.setStyle("");
+            break;
         }
     }
 
