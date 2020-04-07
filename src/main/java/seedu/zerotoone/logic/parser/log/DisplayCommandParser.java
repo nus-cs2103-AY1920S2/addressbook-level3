@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
+import seedu.zerotoone.logic.commands.log.DisplayCommand;
 import seedu.zerotoone.logic.commands.log.FindCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
@@ -18,25 +19,20 @@ import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
 import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new DisplayCommand object
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class DisplayCommandParser implements Parser<DisplayCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public DisplayCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        Optional<WorkoutName> workoutNameOptional = Optional.empty();
         Optional<LocalDateTime> startTimeOptional = Optional.empty();
         Optional<LocalDateTime> endTimeOptional = Optional.empty();
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WORKOUT_NAME, PREFIX_LOG_START,
-            PREFIX_LOG_END);
-        if (argMultimap.getValue(PREFIX_WORKOUT_NAME).isPresent()) {
-            workoutNameOptional = Optional.of(new WorkoutName(argMultimap.getValue(PREFIX_WORKOUT_NAME).get()));
-        }
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LOG_START, PREFIX_LOG_END);
 
         if (argMultimap.getValue(PREFIX_LOG_START).isPresent()) {
             try {
@@ -56,6 +52,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
-        return new FindCommand(startTimeOptional, endTimeOptional, workoutNameOptional);
+        return new DisplayCommand(startTimeOptional, endTimeOptional);
     }
 }

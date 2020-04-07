@@ -5,6 +5,7 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -75,6 +76,7 @@ public class ModelManager implements Model {
     // Log
     private final LogList logList;
     private final FilteredList<CompletedWorkout> filteredLogList;
+    private ArrayList<CompletedWorkout> statisticLogList;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -115,6 +117,7 @@ public class ModelManager implements Model {
 
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
+        statisticLogList = new ArrayList<>(this.logList.getLogList());
     }
 
     public ModelManager() {
@@ -231,6 +234,17 @@ public class ModelManager implements Model {
     public void updateFilteredLogList(Predicate<CompletedWorkout> predicate) {
         requireNonNull(predicate);
         filteredLogList.setPredicate(predicate);
+    }
+
+    @Override
+    public void initStatisticsLogList(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
+        statisticLogList = new ArrayList<>(this.getLogList().getLogList());
+
+        startRange.ifPresent(
+            localDateTime -> statisticLogList.removeIf(workout -> workout.getStartTime().isBefore(localDateTime)));
+
+        endRange.ifPresent(
+            localDateTime -> statisticLogList.removeIf(workout -> workout.getStartTime().isAfter(localDateTime)));
     }
 
     // -----------------------------------------------------------------------------------------

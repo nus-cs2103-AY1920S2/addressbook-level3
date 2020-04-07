@@ -51,7 +51,7 @@ public class CompletedWorkoutCard extends UiPart<Region> {
     }
 
     private String formatTitle(CompletedWorkout completedWorkout, int displayedIndex) {
-        return "Workout #" + displayedIndex + ": " + completedWorkout.getWorkoutName().fullName;
+        return "LOG #" + displayedIndex + ": " + completedWorkout.getWorkoutName().fullName;
     }
 
     @Override

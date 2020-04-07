@@ -137,16 +137,19 @@ public interface Model extends WorkoutModel, SchedulerModel {
 
     // -----------------------------------------------------------------------------------------
     // Log
-
-
     ReadOnlyLogList getLogList();
+
     void deleteLog(int target);
 
     ObservableList<CompletedWorkout> getFilteredLogList();
+
     void updateFilteredLogList(Predicate<CompletedWorkout> predicate);
 
     Path getLogListFilePath();
+
     void setLogListFilePath(Path logListFilePath);
+
+    public void initStatisticsLogList(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange);
 
     void shutdownTimer();
 }
