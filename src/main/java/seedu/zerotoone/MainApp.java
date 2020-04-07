@@ -1,16 +1,20 @@
 package seedu.zerotoone;
 
+import static seedu.zerotoone.commons.util.AppUtil.getImage;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.Config;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.core.Version;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
+import seedu.zerotoone.commons.util.AppUtil;
 import seedu.zerotoone.commons.util.ConfigUtil;
 import seedu.zerotoone.commons.util.StringUtil;
 import seedu.zerotoone.logic.Logic;
@@ -50,6 +54,7 @@ import seedu.zerotoone.ui.UiManager;
  */
 public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 6, 0, true);
+    private static final String ICON_APPLICATION = "/images/icon.png";
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -255,6 +260,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting ZeroToOne " + MainApp.VERSION);
         ui.start(primaryStage);
+
     }
 
     @Override

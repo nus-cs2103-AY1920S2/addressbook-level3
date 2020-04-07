@@ -13,7 +13,7 @@ import seedu.zerotoone.ui.util.UiPart;
  */
 public class ReportWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
-    private static final String FXML = "ReportWindow.fxml";
+    private static final String FXML = "StatisticsWindow.fxml";
 
     @FXML
     private Label message;
