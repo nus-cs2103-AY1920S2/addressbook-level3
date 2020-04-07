@@ -10,6 +10,9 @@ import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
 
 /**
  * Deletes a finance identified using it's displayed index from the address book.
@@ -25,12 +28,12 @@ public class DeleteFinanceCommand extends DeleteCommand {
 
   public static final String MESSAGE_DELETE_FINANCE_SUCCESS = "Deleted Finance: %1$s";
 
+  private ID targetID;
   private Index targetIndex;
-
   private Finance toDelete;
 
-  public DeleteFinanceCommand(Index targetIndex) {
-    this.targetIndex = targetIndex;
+  public DeleteFinanceCommand(ID targetID) {
+    this.targetID = targetID;
   }
 
   public DeleteFinanceCommand(Finance toDelete) {
@@ -51,20 +54,41 @@ public class DeleteFinanceCommand extends DeleteCommand {
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     List<Finance> lastShownList = model.getFilteredFinanceList();
     if (this.toDelete == null) {
-      if (targetIndex.getZeroBased() >= lastShownList.size()) {
+      if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
       }
-
-      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
+      this.toDelete = getFinance(lastShownList);
     }
-
+    if (this.targetID == null) {
+      this.targetID = getID(lastShownList);
+    }
     if (this.targetIndex == null) {
       this.targetIndex = getIndex(lastShownList);
     }
   }
 
+  // Find way to abstract this
+  public ID getID(List<Finance> lastShownList) throws CommandException {
+    for (Finance finance : lastShownList) {
+      if (finance.getId().equals(this.toDelete.getId())) {
+        return finance.getId();
+      }
+    }
+    throw new CommandException("Cannot find this finance in the list");
+  }
+
+  // Find way to abstract this
+  public Finance getFinance(List<Finance> lastShownList) throws CommandException {
+    for (Finance finance : lastShownList) {
+      if (finance.getId().equals(this.targetID)) {
+        return finance;
+      }
+    }
+    throw new CommandException("This staff ID does not exist");
+  }
+
   @Override
-  protected void generateOppositeCommand() throws CommandException {
+  protected void generateOppositeCommand() {
     oppositeCommand = new AddFinanceCommand(toDelete, targetIndex.getZeroBased());
   }
 
@@ -79,6 +103,6 @@ public class DeleteFinanceCommand extends DeleteCommand {
   public boolean equals(Object other) {
     return other == this // short circuit if same object
         || (other instanceof DeleteFinanceCommand // instanceof handles nulls
-        && targetIndex.equals(((DeleteFinanceCommand) other).targetIndex)); // state check
+        && targetID.equals(((DeleteFinanceCommand) other).targetID)); // state check
   }
 }
