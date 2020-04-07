@@ -73,9 +73,12 @@ public class DoneSessionCommand extends Command {
             model.addSession(newSession);
             model.deleteSession(session);
             model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
+            model.addDoneSession(session);
+            model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS, "");
             return new CommandResult(String.format(AddSessionCommand.MESSAGE_SUCCESS, newSession), Action.DONE);
         }
 
+        model.deleteSession(session);
         model.addDoneSession(session);
         model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS, "");
 
