@@ -15,7 +15,7 @@ public class Price {
     /*
      * There must be one or more digits entered.
      */
-    public static final String VALIDATION_REGEX = "\\d+";
+    public static final String VALIDATION_REGEX = "^\\d{1,7}$";
 
     public static final int MAX_VALUE = 1000000;
     public static final int MIN_VALUE = 1;
@@ -24,7 +24,7 @@ public class Price {
 
     /**
      * Constructs an {@code Price}.
-     *
+     *th
      * @param price A valid price.
      */
     public Price(String price) {

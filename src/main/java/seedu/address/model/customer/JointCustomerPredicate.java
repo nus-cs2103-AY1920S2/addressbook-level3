@@ -28,20 +28,43 @@ public class JointCustomerPredicate implements Predicate<Customer> {
 
     @Override
     public String toString() {
-        String msg = "No customer found!";
-        for (Predicate predicate : predicates) {
+        String msg = "";
+
+        if (predicates.size() > 1) {
+            for (Predicate predicate : predicates) {
+                if (msg.isEmpty()) {
+                    if (predicate instanceof NameContainsKeywordsPredicate) {
+                        msg = String.format("No customers named %s ", predicate.toString());
+                    } else if (predicate instanceof AddressContainsKeywordsPredicate) {
+                        msg = String.format("No customers staying in the area %s ", predicate.toString());
+                    } else if (predicate instanceof EmailContainsKeywordsPredicate) {
+                        msg = String.format("No customers with email %s ", predicate.toString());
+                    } else if (predicate instanceof PhoneContainsKeywordsPredicate) {
+                        msg = String.format("No customers with phone number %s ", predicate.toString());
+                    }
+                } else {
+                    if (predicate instanceof NameContainsKeywordsPredicate) {
+                        msg += String.format("named %s ", predicate.toString());
+                    } else if (predicate instanceof AddressContainsKeywordsPredicate) {
+                        msg += String.format("staying in the area %s ", predicate.toString());
+                    } else if (predicate instanceof EmailContainsKeywordsPredicate) {
+                        msg += String.format("with email %s ", predicate.toString());
+                    } else if (predicate instanceof PhoneContainsKeywordsPredicate) {
+                        msg += String.format("with phone number %s ", predicate.toString());
+                    }
+                }
+            }
+            msg += "found!";
+        } else {
+            Predicate<Customer> predicate = predicates.get(0);
             if (predicate instanceof NameContainsKeywordsPredicate) {
                 msg = String.format("No customers named %s found!", predicate.toString());
-                break;
             } else if (predicate instanceof AddressContainsKeywordsPredicate) {
                 msg = String.format("No customers staying in the area %s found!", predicate.toString());
-                break;
             } else if (predicate instanceof EmailContainsKeywordsPredicate) {
                 msg = String.format("No customers with email %s found!", predicate.toString());
-                break;
             } else if (predicate instanceof PhoneContainsKeywordsPredicate) {
                 msg = String.format("No customers with phone number %s found!", predicate.toString());
-                break;
             }
         }
         return msg;

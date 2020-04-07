@@ -53,6 +53,9 @@ public class EditCustomerCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Customer: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_MAX_NUMBER_OF_TAGS = "Only a maximum of 5 tags are allowed";
+
+    public static final int MAX_NUMBER_OF_TAGS = 5;
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -82,6 +85,10 @@ public class EditCustomerCommand extends Command {
 
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedPerson(customerToEdit, editPersonDescriptor);
+
+        if (editedCustomer.getTags().size() > MAX_NUMBER_OF_TAGS) {
+            throw new CommandException(MESSAGE_MAX_NUMBER_OF_TAGS);
+        }
 
         if (modelHasDuplicateCustomer(model, editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
