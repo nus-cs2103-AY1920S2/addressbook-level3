@@ -7,7 +7,7 @@ import javafx.beans.property.Property;
 /**
  * API for the ViewStateModel component.
  */
-public interface ViewStateModel extends CommandInputModel, HelpFlagModel {
+public interface ViewStateModel extends CommandInputModel, HelpFlagModel, BlockEditFlagModel {
 
     /**
      * Shows user the meaning of their input, e.g. "Create a new note".
