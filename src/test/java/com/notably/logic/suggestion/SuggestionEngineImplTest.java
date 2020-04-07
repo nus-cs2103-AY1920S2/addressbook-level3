@@ -133,10 +133,11 @@ public class SuggestionEngineImplTest {
 
     @Test
     public void suggest_correctDeleteCommandInvalidArgs_returnsErrorSuggestionCommand() {
-        model.setInput("delete CS2222");
+        String title = "CS2222";
+        model.setInput("delete " + title);
 
         // Expected result
-        String expectedResponseText = "Invalid path";
+        String expectedResponseText = "Cannot delete \"" + title + "\". Invalid path.";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -177,10 +178,11 @@ public class SuggestionEngineImplTest {
 
     @Test
     public void suggest_correctedDeleteCommandInvalidArgs_returnsErrorSuggestionCommand() {
-        model.setInput("dele -t CS2222");
+        String title = "CS2222";
+        model.setInput("dele -t " + title);
 
         // Expected result
-        String expectedResponseText = "Invalid path";
+        String expectedResponseText = "Cannot delete \"" + title + "\". Invalid path.";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
@@ -221,10 +223,11 @@ public class SuggestionEngineImplTest {
 
     @Test
     public void suggest_correctedOpenCommandInvalidArgs_returnsErrorSuggestionCommand() {
-        model.setInput("opn -t CS2222");
+        String title = "CS2222";
+        model.setInput("opn -t " + title);
 
         // Expected result
-        String expectedResponseText = "Invalid path";
+        String expectedResponseText = "Cannot open \"" + title + "\". Invalid path.";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 

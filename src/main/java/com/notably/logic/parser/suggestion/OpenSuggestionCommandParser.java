@@ -2,11 +2,11 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Optional;
-
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
-import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
+import com.notably.logic.correction.CorrectionResult;
+import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.parser.ArgumentMultimap;
 import com.notably.logic.parser.ArgumentTokenizer;
 import com.notably.logic.parser.ParserUtil;
@@ -17,14 +17,12 @@ import com.notably.model.Model;
  * Represents a Parser for OpenSuggestionCommand.
  */
 public class OpenSuggestionCommandParser implements SuggestionCommandParser<OpenSuggestionCommand> {
-    private static final int DISTANCE_THRESHOLD = 2;
-
     private Model model;
-    private AbsolutePathCorrectionEngine correctionEngine;
+    private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
-    public OpenSuggestionCommandParser(Model model) {
+    public OpenSuggestionCommandParser(Model model, CorrectionEngine<AbsolutePath> pathCorrectionEngine) {
         this.model = model;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(model, DISTANCE_THRESHOLD, true);
+        this.pathCorrectionEngine = pathCorrectionEngine;
     }
 
     /**
@@ -46,11 +44,19 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
             title = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
-        AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
-        Optional<AbsolutePath> correctedPath = correctionEngine.correct(uncorrectedPath).getCorrectedItem();
+        AbsolutePath uncorrectedPath;
+        try {
+            uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
+        } catch (ParseException pe) {
+            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+        }
 
-        return correctedPath
-            .map(path -> new OpenSuggestionCommand(path, title))
-            .orElseThrow(() -> new ParseException("Invalid path"));
+        CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+        }
+
+        // TODO: Pass in the list of corrected items and create suggestions based on that
+        return new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title);
     }
 }

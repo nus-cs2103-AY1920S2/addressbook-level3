@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
+import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -43,6 +45,9 @@ public class DeleteSuggestionCommandParserTest {
 
     private static final String COMMAND_WORD = "delete";
     private static final String RESPONSE_MESSAGE = "Delete a note";
+
+    private static final int CORRECTION_THRESHOLD = 2;
+    private static final boolean USE_FORWARD_MATCHING = true;
 
     @BeforeAll
     public static void setUp() {
@@ -80,27 +85,37 @@ public class DeleteSuggestionCommandParserTest {
         model.addBlockToCurrentPath(lecture);
 
         // initialize parser
-        deleteSuggestionCommandParser = new DeleteSuggestionCommandParser(model);
+        CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
+                CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
+        deleteSuggestionCommandParser = new DeleteSuggestionCommandParser(model, pathCorrectionEngine);
     }
 
     @Test
     public void parse_uncorrectedAbsolutePathWithPrefix_throwsParseException() {
-        assertParseFailure(deleteSuggestionCommandParser, " -t /RandomBlock", "Invalid path");
+        String title = "/RandomBlock";
+        assertParseFailure(deleteSuggestionCommandParser, " -t" + title,
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test
     public void parse_uncorrectedAbsolutePathWithoutPrefix_throwsParseException() {
-        assertParseFailure(deleteSuggestionCommandParser, " /RandomBlock", "Invalid path");
+        String title = "/RandomBlock";
+        assertParseFailure(deleteSuggestionCommandParser, title,
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test
     public void parse_uncorrectedRelativePathWithPrefix_throwsParseException() {
-        assertParseFailure(deleteSuggestionCommandParser, " -t randomBlock", "Invalid path");
+        String title = "randomBlock";
+        assertParseFailure(deleteSuggestionCommandParser, " -t" + title,
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test
     public void parse_uncorrectedRelativePathWithoutPrefix_throwsParseException() {
-        assertParseFailure(deleteSuggestionCommandParser, " randomBlock", "Invalid path");
+        String title = "randomBlock";
+        assertParseFailure(deleteSuggestionCommandParser, title,
+            "Cannot delete \"" + title + "\". Invalid path.");
     }
 
     @Test

@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
+import com.notably.logic.correction.AbsolutePathCorrectionEngine;
+import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
@@ -43,6 +45,9 @@ public class OpenSuggestionCommandParserTest {
 
     private static final String COMMAND_WORD = "open";
     private static final String RESPONSE_MESSAGE = "Open a note";
+
+    private static final int CORRECTION_THRESHOLD = 2;
+    private static final boolean USE_FORWARD_MATCHING = true;
 
     @BeforeAll
     public static void setUp() {
@@ -80,12 +85,16 @@ public class OpenSuggestionCommandParserTest {
         model.addBlockToCurrentPath(lecture);
 
         // initialize parser
-        openSuggestionCommandParser = new OpenSuggestionCommandParser(model);
+        CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
+                CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
+        openSuggestionCommandParser = new OpenSuggestionCommandParser(model, pathCorrectionEngine);
     }
 
     @Test
     public void parse_uncorrectedPath_throwsParseException() {
-        assertParseFailure(openSuggestionCommandParser, " -t randomBlock", "Invalid path");
+        String title = "randomBlock";
+        assertParseFailure(openSuggestionCommandParser, " -t " + title,
+            "Cannot open \"" + title + "\". Invalid path.");
     }
 
     @Test
