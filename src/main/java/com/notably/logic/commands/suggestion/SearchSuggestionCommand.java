@@ -20,7 +20,6 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to search through all the notes based on keyword.
  */
 public class SearchSuggestionCommand implements SuggestionCommand {
-    public static final String COMMAND_WORD = "search";
     private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword";
 
     private String keyword;

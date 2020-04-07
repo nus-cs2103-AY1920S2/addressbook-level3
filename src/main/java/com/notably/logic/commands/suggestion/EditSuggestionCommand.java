@@ -8,7 +8,6 @@ import com.notably.model.Model;
  * Represents a suggestion command object to edit a currently open note.
  */
 public class EditSuggestionCommand implements SuggestionCommand {
-    public static final String COMMAND_WORD = "edit";
     private static final String RESPONSE_MESSAGE = "Edit this note";
 
     @Override

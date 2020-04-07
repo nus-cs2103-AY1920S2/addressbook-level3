@@ -6,13 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.commands.suggestion.EditSuggestionCommand;
 import com.notably.logic.commands.suggestion.ErrorSuggestionCommand;
 import com.notably.logic.commands.suggestion.ExitSuggestionCommand;
 import com.notably.logic.commands.suggestion.HelpSuggestionCommand;
-import com.notably.logic.commands.suggestion.NewSuggestionCommand;
-import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
@@ -81,14 +78,14 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case OpenSuggestionCommand.COMMAND_WORD:
+        case "open":
             try {
                 return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
             } catch (ParseException e) {
                 return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
             }
 
-        case DeleteSuggestionCommand.COMMAND_WORD:
+        case "delete":
             try {
                 return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
             } catch (ParseException e) {
@@ -98,20 +95,20 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         /*case SearchSuggestionCommand.COMMAND_WORD:
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
-        case NewSuggestionCommand.COMMAND_WORD:
+        case "new":
             try {
                 return new NewSuggestionCommandParser(model).parse(arguments);
             } catch (ParseException e) {
                 return Optional.of(new ErrorSuggestionCommand(e.getMessage()));
             }
 
-        case EditSuggestionCommand.COMMAND_WORD:
+        case "edit":
             return Optional.of(new EditSuggestionCommand());
 
-        case HelpSuggestionCommand.COMMAND_WORD:
+        case "help":
             return Optional.of(new HelpSuggestionCommand());
 
-        case ExitSuggestionCommand.COMMAND_WORD:
+        case "exit":
             return Optional.of(new ExitSuggestionCommand());
 
         default:
