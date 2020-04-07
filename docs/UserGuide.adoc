@@ -312,6 +312,11 @@ Format: `module add m/MOD_CODE n/NAME`
 * You can't have two modules with the same module code in the TA-Tracker.
 
 * MOD_CODE can't be an empty string or a sequence of spaces.
+
+* You can give a module your own custom MOD_CODE or NAME if you find it easier
+to remember. However, for ease of remembrance, we recommend you use the official
+module code and name for it.
+
 ====
 
 [TIP]
@@ -370,8 +375,10 @@ Format: `module edit m/MOD_CODE n/NEW NAME`
 ====
 * You can only use this command to change the name of the module. The module
 code can't be changed.
+
 * Editing a module doesn't affect the students and
 groups inside the module.
+
 * You cannot edit a module that doesn't exist.
 ====
 
@@ -407,6 +414,10 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 * The GROUP_CODE can't be an empty string or a sequences of spaces.
 
 * You cannot add multiple groups with the same group code into the same module.
+
+* You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
+to remember. However, for ease of remembrance, we recommend you use the official
+group code for it.
 ====
 
 ====
