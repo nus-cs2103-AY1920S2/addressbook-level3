@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -24,11 +25,15 @@ import seedu.expensela.model.transaction.Transaction;
  * Panel containing the bar graph to break down expenditure according to category.
  */
 public class ChartAnalyticsPanel extends UiPart<Region> {
-    private static final String FXML = "ChartAnalyticsPanel.fxml";
+    private static final String GraphByWeek_Fxml = "GraphByWeekPanel.fxml";
+    private static final String GraphByMonth_Fxml = "GraphByMonthPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ChartAnalyticsPanel.class);
 
     @FXML
     private StackedBarChart<String, Number> stackedBarChart;
+
+    @FXML
+    private BarChart<String, Number> barChart;
 
     @FXML
     private CategoryAxis xAxis;
@@ -40,13 +45,26 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     private PieChart pieChart;
 
     public ChartAnalyticsPanel(ObservableList<Transaction> transactionList, boolean isFilterMonth) {
-        super(FXML);
+        super(chooseFxml(isFilterMonth));
         if (isFilterMonth) {
             graphByWeek(transactionList);
         } else {
             graphByMonth(transactionList);
         }
         graphByCategory(transactionList);
+    }
+
+    /**
+     * Choose which FXML file to use based on whether filter is by month
+     * @param isFilterMonth True if filter is by month
+     * @return String of which FXML to use
+     */
+    private static String chooseFxml(boolean isFilterMonth) {
+        if (isFilterMonth) {
+            return GraphByWeek_Fxml;
+        } else {
+            return GraphByMonth_Fxml;
+        }
     }
 
     /**
@@ -161,7 +179,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     private void graphByMonth(ObservableList<Transaction> transactionList) {
         xAxis.setLabel("Month");
         yAxis.setLabel("Spent");
-        stackedBarChart.setTitle("Expenditure This Year and Last Year");
+        barChart.setTitle("Expenditure This Year and Last Year");
 
         double[][] spentByYearAndMonth = new double[2][12];
         int currYear = LocalDate.now().getYear();
@@ -187,9 +205,9 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
         for (int i = 0; i < 12; i++) {
-            seriesPrevYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[0][i]));
-            seriesCurrYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[1][i]));
+            seriesPrevYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[1][i]));
+            seriesCurrYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[0][i]));
         }
-        stackedBarChart.getData().addAll(seriesPrevYear, seriesCurrYear);
+        barChart.getData().addAll(seriesPrevYear, seriesCurrYear);
     }
 }
