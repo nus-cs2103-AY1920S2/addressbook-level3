@@ -23,6 +23,9 @@ public class RemarkCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
+        if (remark.equals("")) {
+            throw new CommandException("Remark can not be blank.");
+        }
         model.getCurrentTranscript().addRemark(this.remark);
         try {
             storage.saveTranscript(model.getCurrentInterviewee());
