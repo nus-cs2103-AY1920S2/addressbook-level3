@@ -29,7 +29,7 @@ public class BestCommandParser implements Parser<BestCommand> {
 
     public BestCommand parse(String arguments) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_METRIC, PREFIX_ATTRIBUTE);
-        if (arguments.equals("")) {
+        if (arguments.trim().equals("")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, BestCommand.MESSAGE_USAGE));
         } else {

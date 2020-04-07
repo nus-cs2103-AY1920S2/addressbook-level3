@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.EditIntervieweeCommand;
-import seedu.address.logic.commands.EditQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,7 +40,8 @@ public class EditIntervieweeCommandParser implements Parser<EditIntervieweeComma
      */
     private void checkArgument(ArgumentMultimap argMultimap) throws ParseException {
         if (!argMultimap.arePrefixesPresent(PREFIX_NAME) && !argMultimap.arePrefixesPresent(PREFIX_ALIAS)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditQuestionCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditIntervieweeCommand.MESSAGE_USAGE));
         }
         if (argMultimap.getPreamble().equals("")
             || (argMultimap.getValue(PREFIX_ALIAS).isPresent() && argMultimap.getValue(PREFIX_ALIAS).get().equals(""))
