@@ -19,6 +19,7 @@ import seedu.expensela.logic.commands.HelpCommand;
 import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.commands.ResetBalanceCommand;
 import seedu.expensela.logic.commands.ToggleCommand;
+import seedu.expensela.logic.commands.ClearRecurringCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**
@@ -83,6 +84,9 @@ public class ExpenseLaParser {
 
         case ToggleCommand.COMMAND_WORD:
             return new ToggleCommand();
+
+        case ClearRecurringCommand.COMMAND_WORD:
+            return new ClearRecurringCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
