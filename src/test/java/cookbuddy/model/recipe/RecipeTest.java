@@ -14,9 +14,9 @@ import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
+import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.testutil.RecipeBuilder;
+import org.junit.jupiter.api.Test;
 
 public class RecipeTest {
 
@@ -62,6 +62,26 @@ public class RecipeTest {
         // same name, same ingredients, same instructions, different attributes -> returns true
         editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST).build();
         assertTrue(HAM_SANDWICH.isSameRecipe(editedHamSandwich));
+    }
+
+    @Test
+    public void sameCalorieStringChecker() {
+        assertTrue(HAM_SANDWICH.getCalorie().toString().equals(HAM_SANDWICH.getCalorie().toString()));
+    }
+
+    @Test
+    public void equalCalorieStringChecker() {
+        assertTrue(HAM_SANDWICH.getCalorie().equals(new Calorie("300")));
+    }
+
+    @Test
+    public void equalCalorieHashChecker() {
+        assertTrue(new Calorie("200").hashCode() == new Calorie("200").hashCode());
+    }
+
+    @Test
+    public void unEqualCalorieStringChecker() {
+        assertFalse(HAM_SANDWICH.getCalorie().toString().equals(new Calorie("200").toString()));
     }
 
     @Test
