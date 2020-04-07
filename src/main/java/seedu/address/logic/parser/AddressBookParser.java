@@ -15,10 +15,14 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
-import seedu.address.logic.commands.DiaryAddCommand;
+
 import seedu.address.logic.commands.DiaryCommand;
-import seedu.address.logic.commands.DiaryLogCommand;
+import seedu.address.logic.commands.diarycommand.DiaryAddCommand;
+import seedu.address.logic.commands.diarycommand.DiaryLogCommand;
+import seedu.address.logic.commands.diarycommand.DiaryDeleteCommand;
+
 import seedu.address.logic.commands.DoneCommand;
+
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -33,6 +37,9 @@ import seedu.address.logic.commands.NotesListCommand;
 import seedu.address.logic.commands.NotesOpenCommand;
 import seedu.address.logic.commands.ProfileCommand;
 import seedu.address.logic.commands.SearchCommand;
+import seedu.address.logic.commands.diarycommand.DiaryMoodCommand;
+import seedu.address.logic.commands.diarycommand.DiaryShowCommand;
+import seedu.address.logic.commands.diarycommand.DiaryWeatherCommand;
 import seedu.address.logic.commands.modulecommand.AddModuleCommand;
 import seedu.address.logic.commands.modulecommand.CapCommand;
 import seedu.address.logic.commands.modulecommand.DeleteModuleCommand;
@@ -94,14 +101,14 @@ public class AddressBookParser {
         case CalenderCommand.COMMAND_WORD:
             return new CalenderCommand();
 
+        case DiaryCommand.COMMAND_WORD:
+            return new DiaryCommand();
+
         case AddBookCommand.COMMAND_WORD:
             return new AddBookCommand();
 
         case ProfileCommand.COMMAND_WORD:
             return new ProfileCommand();
-
-        case DiaryCommand.COMMAND_WORD:
-            return new DiaryCommand();
 
         case ModPlanCommand.COMMAND_WORD:
             return new ModPlanCommand();
@@ -114,6 +121,18 @@ public class AddressBookParser {
 
         case DiaryLogCommand.COMMAND_WORD:
             return new DiaryLogCommand();
+
+        case DiaryDeleteCommand.COMMAND_WORD:
+            return new DiaryDeleteCommandParser().parse(arguments);
+
+        case DiaryWeatherCommand.COMMAND_WORD:
+            return new DiaryWeatherCommandParser().parse(arguments);
+
+        case DiaryMoodCommand.COMMAND_WORD:
+            return new DiaryMoodCommandParser().parse(arguments);
+
+        case DiaryShowCommand.COMMAND_WORD:
+            return new DiaryShowCommandParser().parse(arguments);
 
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);

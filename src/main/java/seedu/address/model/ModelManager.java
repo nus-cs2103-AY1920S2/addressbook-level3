@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,6 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.StudentProfile.Profile;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -150,6 +154,43 @@ public class ModelManager implements Model {
     public boolean isEmptyDiaryEntry(DiaryEntry diaryEntry) {
         // implement later
         return false;
+    }
+
+    @Override
+    public boolean isValidEntryId(int entryId) {
+        int minId = 1;
+        int maxId = diaryBook.getDiaryEntries().size();
+        return (entryId >= minId) && (entryId <= maxId);
+    }
+
+    @Override
+    public void deleteDiaryEntry(int entryId) {
+        diaryBook.deleteEntry(entryId);
+    }
+
+    @Override
+    public void tagWeather(int entryId, Weather weather) {
+        diaryBook.tagWeather(entryId, weather);
+    }
+
+    @Override
+    public void tagMood(int entryId, Mood mood) {
+        diaryBook.tagMood(entryId, mood);
+    }
+
+    @Override
+    public DiaryEntry getDiaryEntryById(int entryId) {
+        return diaryBook.getDiaryEntryById(entryId);
+    }
+
+    @Override
+    public List<Integer> getListOfIdsByDate(LocalDate date) {
+        return diaryBook.getListOfIdsByDate(date);
+    }
+
+    @Override
+    public boolean isExistingDate(LocalDate date) {
+        return diaryBook.isExistingDate(date);
     }
 
     @Override

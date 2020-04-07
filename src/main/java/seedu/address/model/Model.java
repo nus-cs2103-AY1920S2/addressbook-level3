@@ -1,12 +1,17 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -117,6 +122,20 @@ public interface Model {
 
     ObservableList<DiaryEntry> getDiaryList();
 
+    boolean isValidEntryId(int entryId);
+
+    void deleteDiaryEntry(int entryId);
+
+    void tagWeather(int entryId, Weather weather);
+
+    void tagMood(int entryId, Mood mood);
+
+    DiaryEntry getDiaryEntryById(int entryId);
+
+    List<Integer> getListOfIdsByDate(LocalDate date);
+
+    boolean isExistingDate(LocalDate date);
+
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */
     ObservableList<Notes> getFilesInFolderList();
@@ -193,5 +212,6 @@ public interface Model {
      * Checks if content of todo is empty
      */
     boolean isEmptyToDo(Task todo);
+
 
 }
