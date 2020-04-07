@@ -13,6 +13,7 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -33,12 +34,16 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(ListCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult =
+                new CommandResult(ListCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 }

@@ -54,6 +54,7 @@ public class CookedCommand extends Command {
             //add record to internal list and update goals tally for each record added
             model.addRecord(record);
             model.updateGoalsTally(record);
+            //TODO: remove recipe from planned list if exists once done
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");
             }

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.PlannedRecipeWithinDateRangePredicate;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Schedules a recipe to a date.
@@ -19,6 +20,8 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_SUCCESS = "View format changed to %1$s";
 
     private final PlannedRecipeWithinDateRangePredicate predicate;
+
+    private final Tab planTab = Tab.PLANNING;
 
     private final String type = "week"; // change to enum types?
 
@@ -36,7 +39,7 @@ public class ViewCommand extends Command {
 
         model.updateFilteredPlannedList(predicate);
         // model.commitBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, type));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, type), false, planTab, false);
     }
 
 }

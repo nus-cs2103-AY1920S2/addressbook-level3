@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.cooked;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -32,10 +32,10 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.storage.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.JsonRecipeBookStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
 import seedu.recipe.storage.StorageManager;
+import seedu.recipe.storage.cooked.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.plan.JsonPlannedBookStorage;
 import seedu.recipe.testutil.RecipeBuilder;
 
