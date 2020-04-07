@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTasks.FEED_CAT;
 import static seedu.address.testutil.TypicalTasks.RUN;
@@ -82,7 +83,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TUTORIAL_1, FEED_CAT, RUN), model.getFilteredTaskList());
+        assertEquals(Arrays.asList(RUN, FEED_CAT, TUTORIAL_1), model.getFilteredTaskList());
     }
 
     /** Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}. */
