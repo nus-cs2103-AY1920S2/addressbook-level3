@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -18,10 +19,10 @@ public class GraphWindow extends UiPart<Stage> {
     private static final String FXML = "GraphWindow.fxml";
 
     @FXML
-    private LineChart<Number, Number> exerciseGraph;
+    private LineChart<String, Number> exerciseGraph;
 
     @FXML
-    private NumberAxis xAxis;
+    private CategoryAxis xAxis;
 
     @FXML
     private NumberAxis yAxis;
@@ -41,29 +42,27 @@ public class GraphWindow extends UiPart<Stage> {
     public GraphWindow() {
         this(new Stage());
         // defining the axes
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
+        xAxis = new CategoryAxis();
+        yAxis = new NumberAxis();
         xAxis.setLabel("Number of Month");
-        // creating the chart
-        final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
-        lineChart.setTitle("Stock Monitoring, 2010");
-        // defining a series
-        XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
         series.setName("My portfolio");
         // populating the series with data
-        series.getData().add(new XYChart.Data<Number, Number>(1, 23));
-        series.getData().add(new XYChart.Data<Number, Number>(2, 14));
-        series.getData().add(new XYChart.Data<Number, Number>(3, 15));
-        series.getData().add(new XYChart.Data<Number, Number>(4, 24));
-        series.getData().add(new XYChart.Data<Number, Number>(5, 34));
-        series.getData().add(new XYChart.Data<Number, Number>(6, 36));
-        series.getData().add(new XYChart.Data<Number, Number>(7, 22));
-        series.getData().add(new XYChart.Data<Number, Number>(8, 45));
-        series.getData().add(new XYChart.Data<Number, Number>(9, 43));
-        series.getData().add(new XYChart.Data<Number, Number>(10, 17));
-        series.getData().add(new XYChart.Data<Number, Number>(11, 29));
-        series.getData().add(new XYChart.Data<Number, Number>(12, 25));
+        series.getData().add(new XYChart.Data<String, Number>("1", 23));
+        series.getData().add(new XYChart.Data<String, Number>("2", 14));
+        series.getData().add(new XYChart.Data<String, Number>("3", 15));
+        series.getData().add(new XYChart.Data<String, Number>("4", 24));
+        series.getData().add(new XYChart.Data<String, Number>("5", 34));
+        series.getData().add(new XYChart.Data<String, Number>("6", 36));
+        series.getData().add(new XYChart.Data<String, Number>("7", 22));
+        series.getData().add(new XYChart.Data<String, Number>("8", 45));
+        series.getData().add(new XYChart.Data<String, Number>("9", 43));
+        series.getData().add(new XYChart.Data<String, Number>("10", 17));
+        series.getData().add(new XYChart.Data<String, Number>("11", 29));
+        series.getData().add(new XYChart.Data<String, Number>("12", 25));
+
+        exerciseGraph.getData().addAll(series);
     }
 
     /**

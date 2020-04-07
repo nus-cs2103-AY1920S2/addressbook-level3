@@ -42,7 +42,6 @@ public class MainWindow extends UiPart<Stage> {
     private ClientViewDisplay clientViewDisplay;
     private SchedulePanel schedulePanel;
     private ResultDisplay resultDisplay;
-    private GraphWindow graphWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -85,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // set the font
         setFont(primaryStage);
+
     }
 
     public Stage getPrimaryStage() {
@@ -175,7 +175,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void handleGraph() {
-        //graphWindow.show();
+        GraphWindow graphWindow = new GraphWindow();
+        graphWindow.show();
     }
 
     void show() {
