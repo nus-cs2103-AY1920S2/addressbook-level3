@@ -12,10 +12,12 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.storage.cooked.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.plan.JsonPlannedBookStorage;
+import seedu.recipe.storage.recipe.JsonRecipeBookStorage;
+import seedu.recipe.storage.userpref.JsonUserPrefsStorage;
 
 public class StorageManagerTest {
 

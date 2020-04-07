@@ -14,6 +14,8 @@ import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.storage.cooked.CookedRecordBookStorage;
 import seedu.recipe.storage.plan.PlannedBookStorage;
+import seedu.recipe.storage.recipe.RecipeBookStorage;
+import seedu.recipe.storage.userpref.UserPrefsStorage;
 
 /**
  * Manages storage of RecipeBook data in local storage.

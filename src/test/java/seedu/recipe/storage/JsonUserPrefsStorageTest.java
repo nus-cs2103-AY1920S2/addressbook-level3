@@ -15,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.exceptions.DataConversionException;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.storage.userpref.JsonUserPrefsStorage;
 
 public class JsonUserPrefsStorageTest {
 

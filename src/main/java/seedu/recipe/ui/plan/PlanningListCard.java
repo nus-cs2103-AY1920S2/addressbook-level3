@@ -1,4 +1,4 @@
-package seedu.recipe.ui;
+package seedu.recipe.ui.plan;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.RecipeCard;
+import seedu.recipe.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Recipe}.

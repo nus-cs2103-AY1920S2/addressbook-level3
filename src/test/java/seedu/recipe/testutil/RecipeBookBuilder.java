@@ -1,6 +1,6 @@
 package seedu.recipe.testutil;
 
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**

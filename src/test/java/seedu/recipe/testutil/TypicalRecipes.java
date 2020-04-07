@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**

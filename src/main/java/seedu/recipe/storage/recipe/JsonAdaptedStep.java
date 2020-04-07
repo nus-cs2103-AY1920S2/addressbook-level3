@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.recipe;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

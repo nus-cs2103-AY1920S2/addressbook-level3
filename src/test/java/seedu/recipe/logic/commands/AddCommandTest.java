@@ -22,7 +22,7 @@ import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;

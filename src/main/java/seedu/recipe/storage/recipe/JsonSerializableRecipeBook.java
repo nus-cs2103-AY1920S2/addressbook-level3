@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
 
 /**

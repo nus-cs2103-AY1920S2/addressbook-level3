@@ -12,7 +12,7 @@ import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.JsonAdaptedDate;
-import seedu.recipe.storage.JsonAdaptedRecipe;
+import seedu.recipe.storage.recipe.JsonAdaptedRecipe;
 
 /**
  * Jackson-friendly version of {@link PlannedDate}.

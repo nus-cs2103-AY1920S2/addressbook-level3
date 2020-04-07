@@ -1,7 +1,7 @@
 package seedu.recipe.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.recipe.storage.JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.recipe.storage.recipe.JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.recipe.testutil.Assert.assertThrows;
 import static seedu.recipe.testutil.TypicalRecipes.GRILLED_SANDWICH;
 
@@ -16,6 +16,13 @@ import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedFruit;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedGrain;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedOther;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedProtein;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedVegetable;
+import seedu.recipe.storage.recipe.JsonAdaptedRecipe;
+import seedu.recipe.storage.recipe.JsonAdaptedStep;
 
 public class JsonAdaptedRecipeTest {
     private static final String INVALID_NAME = "R@chel";

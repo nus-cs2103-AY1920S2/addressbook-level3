@@ -22,7 +22,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;

@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.recipe;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -6,9 +6,10 @@ import java.util.Optional;
 
 import seedu.recipe.commons.exceptions.DataConversionException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
- * Represents a storage for {@link seedu.recipe.model.RecipeBook}.
+ * Represents a storage for {@link RecipeBook}.
  */
 public interface RecipeBookStorage {
 

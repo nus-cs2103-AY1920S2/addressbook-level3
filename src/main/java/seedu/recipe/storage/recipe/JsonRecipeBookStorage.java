@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.recipe;
 
 import static java.util.Objects.requireNonNull;
 

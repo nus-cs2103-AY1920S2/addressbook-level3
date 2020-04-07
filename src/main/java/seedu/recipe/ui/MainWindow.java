@@ -23,6 +23,8 @@ import seedu.recipe.model.achievement.Streak;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.plan.GroceryListWindow;
+import seedu.recipe.ui.plan.PlanningListPanel;
 import seedu.recipe.ui.tab.Tab;
 
 /**

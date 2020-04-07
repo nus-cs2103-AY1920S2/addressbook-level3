@@ -3,7 +3,7 @@ package seedu.recipe.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.recipe.model.Model;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.ui.tab.Tab;
 

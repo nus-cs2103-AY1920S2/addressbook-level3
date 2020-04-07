@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.Goal;

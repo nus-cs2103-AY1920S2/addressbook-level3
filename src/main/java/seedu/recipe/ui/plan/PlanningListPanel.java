@@ -1,4 +1,4 @@
-package seedu.recipe.ui;
+package seedu.recipe.ui.plan;
 
 import java.util.logging.Logger;
 
@@ -14,6 +14,8 @@ import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.UniquePlannedList;
+import seedu.recipe.ui.RecipeListPanel;
+import seedu.recipe.ui.UiPart;
 
 /**
  * Panel containing the list of recipes.

@@ -1,4 +1,4 @@
-package seedu.recipe.storage;
+package seedu.recipe.storage.recipe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,6 +23,12 @@ import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
+import seedu.recipe.storage.JsonAdaptedGoal;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedFruit;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedGrain;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedOther;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedProtein;
+import seedu.recipe.storage.recipe.ingredient.JsonAdaptedVegetable;
 
 /**
  * Jackson-friendly version of {@link Recipe}.

@@ -1,8 +1,7 @@
-package seedu.recipe.ui;
+package seedu.recipe.ui.plan;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,7 +9,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.recipe.commons.core.LogsCenter;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.ui.UiPart;
 
 public class GroceryListWindow extends UiPart<Stage> {
     
