@@ -3,12 +3,16 @@ package seedu.address.ui.statistics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -24,16 +28,28 @@ import seedu.address.ui.UiPart;
 public class StatisticsListPanel extends UiPart<Region> {
     private static final String FXML = "StatisticsListPanel.fxml";
     private static List<Transaction> transactions = new ArrayList<>();
+    private static List<Product> products = new ArrayList<>();
     private final Logger logger = LogsCenter.getLogger(StatisticsListPanel.class);
 
     @FXML
     private ListView<Product> statisticsListView;
 
+    @FXML
+    private LineChart<Integer, Integer> quantityLineChart;
+
+    @FXML
+    private LineChart<Integer, Integer> salesLineChart;
+
+
     public StatisticsListPanel(Logic logic) {
         super(FXML);
         transactions = logic.getInventorySystem().getTransactionList();
+        products = logic.getInventorySystem().getProductList();
         statisticsListView.setItems(getSortedProductList(logic));
         statisticsListView.setCellFactory(listView -> new StatisticsListViewCell());
+
+        quantityLineChart.getData().setAll(fetchProductQuantity());
+        salesLineChart.getData().setAll(fetchProductSales());
     }
 
     /**
@@ -54,6 +70,56 @@ public class StatisticsListPanel extends UiPart<Region> {
         });
 
         return FXCollections.observableArrayList(modifiableProducts);
+    }
+
+    /**
+     * Sorts the product list according to product revenue.
+     * @return sorted list
+     */
+    private XYChart.Series fetchProductQuantity() {
+        XYChart.Series dataSeries = new XYChart.Series();
+        HashMap<Integer, Integer> allProductQuantities = new HashMap<>();
+
+        products.forEach(p -> {
+            if (allProductQuantities.containsKey(p.getQuantity().value)) {
+                int oldValue = allProductQuantities.get(p.getQuantity().value);
+                allProductQuantities.put(p.getQuantity().value, oldValue + 1);
+            } else {
+                allProductQuantities.put(p.getQuantity().value, 1);
+            }
+        });
+
+        for (Map.Entry<Integer, Integer> entry: allProductQuantities.entrySet()) {
+            XYChart.Data nextData = new XYChart.Data(entry.getKey().intValue(), entry.getValue().intValue());
+            dataSeries.getData().add(nextData);
+        }
+
+        return dataSeries;
+    }
+
+    /**
+     * Sorts the product list according to product revenue.
+     * @return sorted list
+     */
+    private XYChart.Series fetchProductSales() {
+        XYChart.Series dataSeries = new XYChart.Series();
+        HashMap<Integer, Integer> allProductSales = new HashMap<>();
+
+        products.forEach(p -> {
+            if (allProductSales.containsKey(p.getMoney().value)) {
+                int oldValue = allProductSales.get(p.getMoney().value);
+                allProductSales.put(p.getMoney().value, oldValue + 1);
+            } else {
+                allProductSales.put(p.getMoney().value, 1);
+            }
+        });
+
+        for (Map.Entry<Integer, Integer> entry: allProductSales.entrySet()) {
+            XYChart.Data nextData = new XYChart.Data(entry.getKey().intValue(), entry.getValue().intValue());
+            dataSeries.getData().add(nextData);
+        }
+
+        return dataSeries;
     }
 
     /**

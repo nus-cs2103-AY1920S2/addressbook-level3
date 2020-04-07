@@ -31,9 +31,6 @@ public class InventoryWindow extends UiPart<Stage> {
     @FXML
     private LineChart<Integer, Integer> salesLineChart;
 
-    @FXML
-    private Label title;
-
     /**
      * Creates a new InventoryWindow.
      *
