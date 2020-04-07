@@ -42,6 +42,9 @@ public class NameContainsKeywordsPredicate implements Predicate<Task> {
                 if (StringUtil.keywordMatchStartOfPhrase(key, name)) {
                     this.score = 1;
                 }
+                if (StringUtil.keywordMatchPhrase(key, name)) {
+                    this.score = 0;
+                }
             }
         }
         

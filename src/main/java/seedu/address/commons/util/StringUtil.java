@@ -76,6 +76,12 @@ public class StringUtil {
         return matcher.matches() || matcher.hitEnd();
     }
 
+    public static boolean keywordMatchPhrase(String keyword, String phrase) {
+        Pattern pattern = Pattern.compile(String.format("^%s", phrase.toLowerCase()));
+        Matcher matcher = pattern.matcher(keyword.toLowerCase());
+        return matcher.matches();
+    }
+
     public static int limitedCompare(CharSequence left, CharSequence right, final int threshold) {
         if (left == null || right == null) {
             throw new IllegalArgumentException("Strings must not be null");
