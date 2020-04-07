@@ -1,6 +1,7 @@
 package com.notably.model.viewstate;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 
 import javafx.beans.property.BooleanProperty;
@@ -62,6 +63,7 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     @Override
     public void setHelpOpen(Boolean bool) {
+        requireNonNull(bool);
         this.helpOpen.setValue(bool);
     }
 
@@ -78,6 +80,7 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     @Override
     public void setBlockEditable(Boolean bool) {
+        requireNonNull(bool);
         this.blockEditable.setValue(bool);
     }
 
@@ -89,7 +92,7 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     @Override
     public void setResponseText(String responseTextStr) {
-        Objects.requireNonNull(responseTextStr);
+        requireNonNull(responseTextStr);
         responseText.setValue(Optional.of(responseTextStr));
     }
 
