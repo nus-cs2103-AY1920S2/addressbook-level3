@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.commandUnassign;
 
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
@@ -46,20 +47,20 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
 
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
-        ID AssignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 
-        boolean courseExists = model.hasCourse(courseID);
-        boolean AssignmentExists = model.hasAssignment(AssignmentID);
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean assignmentExists = model.has(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-        } else if (!AssignmentExists) {
+        } else if (!assignmentExists) {
             throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ID);
         } else {
-            Course assignedCourse = model.getCourse(courseID);
-            Assignment assigningAssignment = model.getAssignment(AssignmentID);
+            Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Assignment assigningAssignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
 
-            boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(AssignmentID);
+            boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(assignmentID);
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
             if(!assignedCourseContainsAssignment) {
@@ -67,12 +68,12 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
             } else if(!assigningAssignmentContainsCourse) {
                 throw new CommandException("The assignment isn't assigned to this course! :(");
             } else {
-                EdgeManager.unassignAssignmentFromCourse(AssignmentID, courseID);
-                ProgressManager.removeOneAssignmentsFromAllStudents(courseID, AssignmentID);
+                EdgeManager.unassignAssignmentFromCourse(assignmentID, courseID);
+                ProgressManager.removeOneAssignmentsFromAllStudents(courseID, assignmentID);
 
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningAssignment.getName(), AssignmentID.value,
+                        assigningAssignment.getName(), assignmentID.value,
                         assignedCourse.getName(), courseID.value));
             }
         }

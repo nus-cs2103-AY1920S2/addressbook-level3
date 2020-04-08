@@ -384,17 +384,22 @@ public class ModelManager extends BaseManager implements Model {
   }
 
 
-  // ======================================================================================================
 
   // =================================== CRUD METHODS =====================================================
-  public boolean has(ModelObject obj) throws CommandException {
-    requireNonNull(obj);
-    return getAddressBook(obj).has(obj);
-  }
-
   public boolean has(ID id, Constants.ENTITY_TYPE type) throws CommandException {
     requireAllNonNull(id, type);
     return getAddressBook(type).has(id);
+  }
+
+  @Override
+  public ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException {
+    requireAllNonNull(id, type);
+    return getAddressBook(type).get(id);
+  }
+
+  public boolean has(ModelObject obj) throws CommandException {
+    requireNonNull(obj);
+    return getAddressBook(obj).has(obj);
   }
 
   @Override
@@ -426,75 +431,24 @@ public class ModelManager extends BaseManager implements Model {
     getAddressBook(target).set(target, editedTarget);
     postDataStorageChangeEvent(getReadOnlyAddressBook(target), getEntityType(target));
   }
-
-  @Override
-  public ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException {
-    requireAllNonNull(id, type);
-    return getAddressBook(type).get(id);
-  }
-
-  // =========================== CRUD METHODS DONE VIA ID =====================================================
-
-  @Override
-  public boolean hasStudent(ID studentID) {
-    return studentAddressBook.has(studentID);
-  }
-
-  @Override
-  public Student getStudent(ID studentID) {
-    return studentAddressBook.get(studentID);
-  }
-
-  @Override
-  public boolean hasCourse(ID courseID) {
-    return courseAddressBook.has(courseID);
-  }
-
-  @Override
-  public Course getCourse(ID courseID) {
-    return courseAddressBook.get(courseID);
-  }
-
-  @Override
-  public boolean hasAssignment(ID assignmentID) {
-    return assignmentAddressBook.has(assignmentID);
-  }
-
-  @Override
-  public Assignment getAssignment(ID assignmentID) {
-    return assignmentAddressBook.get(assignmentID);
-  }
-
-  @Override
-  public boolean hasStaff(ID staffID) {
-    return staffAddressBook.has(staffID);
-  }
-
-  @Override
-  public Staff getStaff(ID staffID) {
-    return staffAddressBook.get(staffID);
-  }
+  // =========================== CRUD METHODS FOR PROGRESS =====================================================
 
   @Override
   public boolean hasProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    logger.info("compositeID for hasProgress:" + target.toString());
-
     return progressAddressBook.has(target);
   }
 
   @Override
   public Progress getProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    logger.info("compositeID for getProgress:" + target.toString());
     return progressAddressBook.get(target);
   }
 
   @Override
   public void removeProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    logger.info("compositeID for getProgress:" + target.toString());
-    Progress test = progressAddressBook.remove(target);
+    progressAddressBook.remove(target);
   }
 
   // =====================================================================================================

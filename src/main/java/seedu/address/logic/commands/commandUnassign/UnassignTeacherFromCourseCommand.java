@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.commandUnassign;
 
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
@@ -42,32 +43,32 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
-        ID teacherID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
+        ID staffID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
-        boolean courseExists = model.hasCourse(courseID);
-        boolean teacherExists = model.hasStaff(teacherID);
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean staffExists = model.has(staffID, Constants.ENTITY_TYPE.STAFF);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-        } else if (!teacherExists) {
+        } else if (!staffExists) {
             throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
         } else {
-            Course assignedCourse = model.getCourse(courseID);
-            Staff assigningStaff = model.getStaff(teacherID);
+            Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Staff foundStaff = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
 
-            boolean assignedCourseContainsStaff = assignedCourse.containsStaff(teacherID);
-            boolean assigningStaffContainsCourse = assigningStaff.containsCourse(courseID);
+            boolean assignedCourseContainsStaff = foundCourse.containsStaff(staffID);
+            boolean assigningStaffContainsCourse = foundStaff.containsCourse(courseID);
 
             if(!assignedCourseContainsStaff) {
                 throw new CommandException("This course doesn't have the specified teacher! :(");
             } else if(!assigningStaffContainsCourse) {
                 throw new CommandException("The teacher isn't even assigned to this course! :(");
             } else {
-                EdgeManager.unassignTeacherFromCourse(teacherID, courseID);
+                EdgeManager.unassignTeacherFromCourse(staffID, courseID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningStaff.getName(), teacherID.value,
-                        assignedCourse.getName(), courseID.value));
+                        foundStaff.getName(), staffID.value,
+                        foundCourse.getName(), courseID.value));
             }
         }
     }

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandAssign;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignAssignmentFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,6 +25,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such Course that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
+    public static final String MESSAGE_INVALID_ASSIGNMENT_ALREADY_ASSIGNED = "The assignment has already been assigned already! Each assignment can only be assigned to one course.";
     public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
@@ -43,30 +45,30 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
-        ID AssignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 
-        boolean courseExists = model.hasCourse(courseID);
-        boolean AssignmentExists = model.hasAssignment(AssignmentID);
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean assignmentExists = model.has(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-        } else if (!AssignmentExists) {
+        } else if (!assignmentExists) {
             throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ID);
         } else {
-            Course assignedCourse = model.getCourse(courseID);
-            Assignment assigningAssignment = model.getAssignment(AssignmentID);
+            Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Assignment assigningAssignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
 
-            boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(AssignmentID);
+            boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(assignmentID);
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
             if(assigningAssignmentContainsCourse) {
-                throw new CommandException("The assignment has already been assigned already! Each assignment can only be assigned to one course.");
+                throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ALREADY_ASSIGNED);
             } else {
-                EdgeManager.assignAssignmentToCourse(AssignmentID, courseID);
-                ProgressManager.addOneAssignmentToAllStudents(courseID, AssignmentID);
+                EdgeManager.assignAssignmentToCourse(assignmentID, courseID);
+                ProgressManager.addOneAssignmentToAllStudents(courseID, assignmentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningAssignment.getName(), AssignmentID.value,
+                        assigningAssignment.getName(), assignmentID.value,
                         assignedCourse.getName(), courseID.value));
             }
         }

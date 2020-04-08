@@ -30,8 +30,8 @@ public class EdgeManager extends BaseManager {
     // ========================== For Assigning of X TO Y =========================
 
     public static void assignStudentToCourse(ID studentID, ID courseID) throws CommandException {
-        Course foundCourse = model.getCourse(courseID);
-        Student foundStudent = model.getStudent(studentID);
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Student foundStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
         foundCourse.addStudent(studentID);
         foundStudent.addCourse(courseID);
@@ -48,8 +48,8 @@ public class EdgeManager extends BaseManager {
     }
 
     public static void assignAssignmentToCourse(ID assignmentID, ID courseID) throws CommandException {
-        Course foundCourse = model.getCourse(courseID);
-        Assignment foundAssignment = model.getAssignment(assignmentID);
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Assignment foundAssignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
         logger.info(foundCourse.toString());
         foundCourse.addAssignment(assignmentID);
         foundAssignment.addCourseID(courseID);
@@ -59,8 +59,8 @@ public class EdgeManager extends BaseManager {
     }
 
     public static void assignTeacherToCourse(ID staffID, ID courseID) throws CommandException {
-        Course foundCourse = model.getCourse(courseID);
-        Staff foundTeacher = model.getStaff(staffID);
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Staff foundTeacher = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
 
         foundCourse.assignStaff(staffID);
         foundTeacher.addCourse(courseID);
@@ -78,8 +78,8 @@ public class EdgeManager extends BaseManager {
     // ========================== For Unassigning of X FROM Y =========================
 
     public static void unassignAssignmentFromCourse(ID assignmentID, ID courseID) throws CommandException {
-        Course foundCourse = model.getCourse(courseID);
-        Assignment foundAssignment = model.getAssignment(assignmentID);
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Assignment foundAssignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
 
         foundCourse.removeAssignment(assignmentID);
         foundAssignment.removeCourseID(courseID);
@@ -89,8 +89,8 @@ public class EdgeManager extends BaseManager {
     }
 
     public static void unassignStudentFromCourse(ID studentID, ID courseID) throws CommandException {
-        Course foundCourse = model.getCourse(courseID);
-        Student foundStudent = model.getStudent(studentID);
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Student foundStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
         foundCourse.removeStudent(studentID);
         foundStudent.removeCourse(courseID);
@@ -106,8 +106,8 @@ public class EdgeManager extends BaseManager {
     }
 
     public static void unassignTeacherFromCourse(ID teacherID, ID courseID) throws CommandException {
-        Course foundCourse = model.getCourse(courseID);
-        Staff foundStaff = model.getStaff(teacherID);
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Staff foundStaff = (Staff) model.get(teacherID, Constants.ENTITY_TYPE.STAFF);
 
         foundCourse.removeStaff();
         foundStaff.removeCourse(courseID);
