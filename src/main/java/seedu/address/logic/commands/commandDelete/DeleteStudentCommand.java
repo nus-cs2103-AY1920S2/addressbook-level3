@@ -5,10 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddStudentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 
@@ -45,10 +47,13 @@ public class DeleteStudentCommand extends DeleteCommand {
       if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_ID);
       }
-      this.toDelete = getStudent(lastShownList);
+      if (!model.has(targetID, Constants.ENTITY_TYPE.STUDENT)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_STUDENT_DISPLAYED_ID);
+      }
+      this.toDelete = (Student) model.get(targetID, Constants.ENTITY_TYPE.STUDENT);
     }
     if (this.targetID == null) {
-      this.targetID = getID(lastShownList);
+      this.targetID = toDelete.getId();
     }
     if (this.targetIndex == null) {
       this.targetIndex = getIndex(lastShownList);
@@ -68,26 +73,6 @@ public class DeleteStudentCommand extends DeleteCommand {
       }
     }
     throw new CommandException("This id not in list");
-  }
-
-  // Find way to abstract this
-  public ID getID(List<Student> lastShownList) throws CommandException {
-    for (int i = 0; i < lastShownList.size(); i++) {
-      if (lastShownList.get(i).getId().equals(this.toDelete.getId())) {
-        return lastShownList.get(i).getId();
-      }
-    }
-    throw new CommandException("Cannot find this student in the list");
-  }
-
-  // Find way to abstract this
-  public Student getStudent(List<Student> lastShownList) throws CommandException {
-    for (int i = 0; i < lastShownList.size(); i++) {
-      if (lastShownList.get(i).getId().equals(this.targetID)) {
-        return lastShownList.get(i);
-      }
-    }
-    throw new CommandException("This student ID does not exist");
   }
 
   @Override

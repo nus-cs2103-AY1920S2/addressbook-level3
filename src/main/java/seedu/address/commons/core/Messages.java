@@ -15,6 +15,7 @@ public class Messages {
   public static final String MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID = "The assignment ID provided is invalid";
 
   public static final String MESSAGE_NOTFOUND_FINANCE_DISPLAYED_ID = "The finance ID provided does not exist";
+  public static final String MESSAGE_NOTFOUND_STUDENT_DISPLAYED_ID = "The student ID provided does not exist";
 
   public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
   public static final String MESSAGE_TEACHERS_LISTED_OVERVIEW = "%1$d teachers listed!";
