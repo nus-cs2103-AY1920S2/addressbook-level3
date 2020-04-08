@@ -78,7 +78,7 @@ https://stackoverflow.com/questions/36779642/javafx-css-styling-change-highlight
 }
 
 .tab-pane .tab-header-area {
-    -fx-padding: 10 10 10 50;
+    -fx-padding: 5 10 5 10;
     -fx-min-height: 0;
     -fx-max-height: 0;
 }
