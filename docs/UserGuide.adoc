@@ -636,6 +636,8 @@ you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_&_TIME`.
 * `PHONE_NUMBER` should not have a spacing in between. `n/90011009` is allowed, +
 but `n/9001 1009` is not allowed.
 * Only numbers are allowed in `PHONE_NUMBER`.
+* `CASH_ON_DELIVERY` value must be strictly less than 10 trillion dollars.If there is a need
+to add decimal places, you can only add two.
 ====
 
 There are two different scenarios on how to insert the orders :
