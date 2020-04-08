@@ -85,6 +85,9 @@ public class CourseFocusArea {
         return sb.toString();
     }
 
+    /**
+     * Initialise primariesMod and electivesMod list with ModuleList.
+     */
     public void initListModule(ModuleList moduleList) {
         for (ModuleCode mc : primaries) {
             primariesMod.add(moduleList.getModuleWithModuleCode(mc));

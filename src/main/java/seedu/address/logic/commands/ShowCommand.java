@@ -131,8 +131,8 @@ public class ShowCommand extends Command {
             } else if (toParse instanceof String) {
                 message = MESSAGE_SUCCESS_FOCUS_AREA;
                 String focusArea = (String) toParse;
-                toShow = courseManager.getCourseFocusArea(focusArea);
-                ((CourseFocusArea) toShow).initListModule(moduleManager.getModuleList());
+                toShow = courseManager.getCourseFocusArea(focusArea); (
+                        (CourseFocusArea) toShow).initListModule(moduleManager.getModuleList());
                 profileManager.setDisplayedView((CourseFocusArea) toShow);
 
             } else if (toParse instanceof CourseName) {

@@ -31,5 +31,7 @@ public class ModuleManager {
         return moduleList.getModuleWithModuleCode(moduleCode);
     }
 
-    public ModuleList getModuleList() { return moduleList; }
+    public ModuleList getModuleList() {
+        return moduleList;
+    }
 }
