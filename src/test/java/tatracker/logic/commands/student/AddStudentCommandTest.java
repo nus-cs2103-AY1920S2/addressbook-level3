@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.CommandResult;
@@ -14,8 +16,6 @@ import tatracker.model.ModelStub.ModelStubAcceptingStudentAdded;
 import tatracker.model.ModelStub.ModelStubWithStudent;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.StudentBuilder;
-
-import java.util.Arrays;
 
 public class AddStudentCommandTest {
 
