@@ -3,6 +3,7 @@ package seedu.address.model.notes;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
@@ -10,7 +11,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.ui.NotesListPanel;
 
 
 /**
@@ -92,9 +92,22 @@ public class Notes {
     public static void setList(ArrayList<Notes> notesList) {
 
         filesArrayListFiltered.setAll(notesList);
+        Comparator<Notes> comparator = new Comparator<Notes>() {
+            @Override
+            public int compare(Notes o1, Notes o2) {
+                return (o1.getPath().compareToIgnoreCase(o2.getPath()));
+            }
+        };
+        FXCollections.sort(filesArrayListFiltered, comparator);
+
 
     }
 
+    /**
+     * Return if it is a valid type.
+     * @param checkType type that is to be checked
+     * @return true if valid false if not
+     */
     public static boolean isValidType(String checkType) {
 
         for (String type : validType) {
@@ -107,6 +120,11 @@ public class Notes {
 
     }
 
+    /**
+     * Return if it is a valid path.
+     * @param checkPathType path that is to be checked
+     * @return true if valid false if not
+     */
     public static boolean isValidPathType(String checkPathType) {
 
         for (String pathType : validPathType) {

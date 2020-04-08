@@ -2,17 +2,20 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.calender.Task;
+import seedu.address.model.studentprofile.Profile;
+
 
 /**
  * API of the Logic component
@@ -78,5 +81,9 @@ public interface Logic {
 
     //=========== Profile Module ==================================================================================
     ObservableList<NusModule> getModulesListTaken();
+
+    ObservableValue<String> getMajor();
+
+    Profile getProfile();
 
 }

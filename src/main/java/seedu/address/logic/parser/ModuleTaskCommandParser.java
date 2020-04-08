@@ -9,9 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 
 import java.util.stream.Stream;
 
-import seedu.address.calender.Task;
 import seedu.address.logic.commands.taskcommand.addcommand.ModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.Priority;

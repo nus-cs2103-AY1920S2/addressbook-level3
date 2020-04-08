@@ -3,11 +3,11 @@ package seedu.address.logic.commands.taskcommand.addcommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
-import seedu.address.calender.Task;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.calender.Task;
 
 /**
  * Adds a deadline.

@@ -7,11 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESC;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
-import seedu.address.calender.Task;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleTask;
 
 /**

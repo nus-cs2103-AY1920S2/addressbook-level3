@@ -23,8 +23,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.StudentProfile.Profile;
 import seedu.address.model.nusmodule.Major;
+import seedu.address.model.studentprofile.Profile;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -49,6 +50,8 @@ public class MainWindow extends UiPart<Stage> {
     private CalenderListPanel calenderListPanel;
     private ModulesTakenListPanel modulesTakenListPanel;
     private ProfileMainScreen profileMainScreen;
+    private DiaryEntryMainPage diaryEntryMainPage;
+    private ModulesYetTaken modulesYetTaken;
 
 
     @FXML
@@ -67,7 +70,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane notesListPanelPlaceholder;
 
     @FXML
-    private StackPane diaryListPanelPlaceholder;
+    private AnchorPane diaryListPanelPlaceholder;
+
+    @FXML
+    private AnchorPane diaryFullViewPlaceholder;
 
     @FXML
     private AnchorPane modulesTaken;
@@ -88,13 +94,25 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane deadlinePanelPlaceholder;
 
     @FXML
+    private AnchorPane modulesTakenBefore;
+
+    @FXML
+    private AnchorPane modulesYetTakenplaceholder;
+
+    @FXML
     private SplitPane profileSplitPane;
 
     @FXML
     private SplitPane calenderSplitPane;
 
     @FXML
-    private SplitPane  profilePlaceholder;
+    private SplitPane profilePlaceholder;
+
+    @FXML
+    private SplitPane diarySplitPane;
+
+    @FXML
+    private SplitPane modPlanSplitPane;
 
     @FXML
     private TabPane tabPane;
@@ -186,6 +204,14 @@ public class MainWindow extends UiPart<Stage> {
 
         diaryListPanel = new DiaryListPanel(logic.getDiaryList());
         diaryListPanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+        setAnchorPaneSize(diaryListPanelPlaceholder, diaryListPanelPlaceholder.getChildren().get(0));
+
+        /**
+         * haven finish implementing
+         */
+        diaryEntryMainPage = new DiaryEntryMainPage(logic.getDiaryList().get(0));
+        diaryFullViewPlaceholder.getChildren().add(diaryEntryMainPage.getRoot());
+        setAnchorPaneSize(diaryFullViewPlaceholder, diaryFullViewPlaceholder.getChildren().get(0));
 
         notesListPanel = new NotesListPanel(logic.getFilesInFolderList());
         notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -202,7 +228,15 @@ public class MainWindow extends UiPart<Stage> {
         modulesTaken.getChildren().add(modulesTakenListPanel.getRoot());
         setAnchorPaneSize(modulesTaken, modulesTaken.getChildren().get(0));
 
-        profileMainScreen = new ProfileMainScreen(new Profile("Zhou Xinwei", new Major("Computer Science"), "4.2", "4.5"));
+        modulesTakenBefore.getChildren().add(modulesTakenListPanel.getRoot());
+
+        modulesYetTaken = new ModulesYetTaken("asd");
+
+        modulesYetTakenplaceholder.getChildren().add(modulesYetTaken.getRoot());
+
+
+        profileMainScreen = new ProfileMainScreen(new Profile("Zhou Xinwei",
+                new Major("Computer Science"), "4.2", "4.5"));
         profileMainScreenplaceholder.getChildren().add(profileMainScreen.getRoot());
         setAnchorPaneSize(profile, profile.getChildren().get(0));
 
@@ -229,6 +263,14 @@ public class MainWindow extends UiPart<Stage> {
 
         profilePlaceholder.setDividerPositions(0.75f, 0.25f);
         profilePlaceholder.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true));
+
+        diarySplitPane.setDividerPositions(0.25f, 0.75f);
+        diarySplitPane.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true));
+
+        modPlanSplitPane.setDividerPositions(0.50f, 0.50f);
+        modPlanSplitPane.lookupAll(".split-pane-divider").stream()
                 .forEach(div -> div.setMouseTransparent(true));
 
 
@@ -319,6 +361,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
 
+    /**
+     * Shows the selected tab based on the command text.
+     * @param commandText the selected tab to be shown
+     */
     private void showSelectedTab(String commandText) {
 
         // diary = 0, modplan = 1, addbook = 2, calender = 3, notes = 4, profile = 5

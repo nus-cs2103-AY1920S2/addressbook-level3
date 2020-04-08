@@ -7,12 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_CAT;
 
 import java.util.stream.Stream;
 
-import seedu.address.calender.Deadline;
 import seedu.address.logic.commands.taskcommand.findcommand.FindTasksByCatCommand;
 import seedu.address.logic.commands.taskcommand.findcommand.FindTasksByDateCommand;
 import seedu.address.logic.commands.taskcommand.findcommand.FindTasksByModuleCodeCommand;
 import seedu.address.logic.commands.taskcommand.findcommand.FindTasksCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calender.Deadline;
 import seedu.address.model.nusmodule.ModuleCode;
 
 /**

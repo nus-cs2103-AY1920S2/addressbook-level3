@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import seedu.address.calender.Task;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.StudentProfile.Profile;
+import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.mood.Mood;
@@ -31,6 +31,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.model.studentprofile.Profile;
 
 
 /**
@@ -62,8 +63,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        diaryEntries = this.addressBook.getDiaryList();
         diaryBook = new DiaryBook();
+        diaryEntries = diaryBook.getInternalList();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
         moduleBook = new ModuleBook();
@@ -404,6 +405,16 @@ public class ModelManager implements Model {
     public void updateMajor(Major major) {
         studentProfile.setMajor(major);
     }
+
+    public ObservableValue<String> getMajor() {
+        return studentProfile.getMajor();
+    }
+
+    public Profile getProfile() {
+        return studentProfile;
+    }
+
+
 
 
 }

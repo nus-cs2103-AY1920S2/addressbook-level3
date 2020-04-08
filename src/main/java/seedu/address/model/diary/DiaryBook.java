@@ -6,19 +6,26 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.diary.mood.HappyMood;
 import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.CloudyWeather;
 import seedu.address.model.diary.weather.Weather;
-
 
 /**
  * dummy javadocs
  */
 public class DiaryBook {
-    private List<DiaryEntry> diaryEntries;
-    private final ObservableList<DiaryEntry> internalList = FXCollections.observableArrayList();
+    private static List<DiaryEntry> diaryEntries;
+    private static ObservableList<DiaryEntry> internalList;
 
     public DiaryBook() {
         this.diaryEntries = new ArrayList<>();
+        DiaryEntry dummyDiary = new DiaryEntry(LocalDate.now(),
+                new CloudyWeather(),
+                new HappyMood(),
+                "First dummy entry");
+        diaryEntries.add(dummyDiary);
+        internalList = FXCollections.observableList(diaryEntries);
     }
 
     public DiaryBook(List<DiaryEntry> diaryEntries) {
@@ -35,6 +42,7 @@ public class DiaryBook {
 
     /**
      * Dummy java docs
+     *
      * @return
      */
     public String showLog() {
@@ -55,9 +63,13 @@ public class DiaryBook {
 
     /*
     public void addEntry(DiaryEntry diaryEntry) {
-        this.internalList.add(diaryEntry);
+        internalList.add(diaryEntry);
     }
     */
+    public static ObservableList<DiaryEntry> getInternalList() {
+        return internalList;
+    }
+
     public void addEntry(DiaryEntry diaryEntry) {
         diaryEntries.add(diaryEntry);
     }

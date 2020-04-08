@@ -1,4 +1,4 @@
-package seedu.address.calender;
+package seedu.address.model.calender;
 
 /**
  * <h1> To Do Class </h1>

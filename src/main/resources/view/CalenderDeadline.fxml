@@ -32,7 +32,7 @@
                         <Label fx:id="category" styleClass="cell_big_label" text="\$category" />
                      </children>
                   </HBox>
-                  <FlowPane fx:id="modCode" />
+                  <FlowPane fx:id="modCode" maxWidth="30.0" prefHeight="0.0" prefWidth="30.0" />
                   <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
                   <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
                </children>

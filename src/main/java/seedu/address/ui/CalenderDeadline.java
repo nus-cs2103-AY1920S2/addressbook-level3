@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.calender.Task;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleTask;
 
 /**
@@ -50,14 +50,13 @@ public class CalenderDeadline extends UiPart<Region> {
             setModuleTask(deadline);
         }
         setStatusColor();
-//        category.setStyle("-fx-background-color: teal");
 
     }
 
     private void setModuleTask(Task deadline) {
         category.setText("School");
         modCode.getChildren().add(new Label(((ModuleTask) deadline).getModuleRelated().toString()));
-        modCode.setStyle("-fx-background-color: teal");
+        modCode.setStyle("-fx-background-color: #5b8c5a");
 
     }
 
@@ -66,7 +65,7 @@ public class CalenderDeadline extends UiPart<Region> {
         if (deadline.getStatus()) {
             cardPane.setStyle("-fx-background-color: #323232");
         } else {
-            cardPane.setStyle("-fx-background-color: #f78259");
+            cardPane.setStyle("-fx-background-color: #596157");
         }
     }
 

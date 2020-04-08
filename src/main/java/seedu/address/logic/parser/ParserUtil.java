@@ -6,12 +6,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.calender.Deadline;
-import seedu.address.calender.Task;
-import seedu.address.calender.ToDo;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import seedu.address.model.calender.Deadline;
+import seedu.address.model.calender.Task;
+import seedu.address.model.calender.ToDo;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;

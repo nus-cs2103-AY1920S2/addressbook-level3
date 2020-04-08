@@ -1,4 +1,4 @@
-package seedu.address.calender;
+package seedu.address.model.calender;
 
 /**
  * <h1> Deadline Class </h1>
@@ -24,7 +24,6 @@ public class Deadline extends Task {
         this.by = by;
         this.category = category;
         this.operation = operation;
-        //this.priority = new Priority();
     }
 
     public Deadline(int index, String operation) {

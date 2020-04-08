@@ -74,51 +74,52 @@ public class ModPlanClass {
 
     /**
      * Takes in a major and a mod code
+     *
      * @param major (e.g Computer Science or Information Systems)
-     * @param mod (any mod code e.g CS1101S)
+     * @param mod   (any mod code e.g CS1101S)
      * @return true if mod (mod code) is a compulsory core mod of Major
      */
     public static boolean checkIfCoreMod(String major, String mod) {
         switch (major.toUpperCase()) {
-            case "COMPUTER SCIENCE" :
-                for (String curr : computerScienceReq) {
-                    if (curr.equals(mod)) {
-                        return true;
-                    }
+        case "COMPUTER SCIENCE":
+            for (String curr : computerScienceReq) {
+                if (curr.equals(mod)) {
+                    return true;
                 }
-                return false;
+            }
+            return false;
 
-            case "INFORMATION SYSTEMS" :
-                for (String curr : informationSystemsReq) {
-                    if (curr.equals(mod)) {
-                        return true;
-                    }
+        case "INFORMATION SYSTEMS":
+            for (String curr : informationSystemsReq) {
+                if (curr.equals(mod)) {
+                    return true;
                 }
-                return false;
+            }
+            return false;
 
-            case "COMPUTER ENGINEERING" :
-                for (String curr : computerEngineeringReq) {
-                    if (curr.equals(mod)) {
-                        return true;
-                    }
+        case "COMPUTER ENGINEERING":
+            for (String curr : computerEngineeringReq) {
+                if (curr.equals(mod)) {
+                    return true;
                 }
-                return false;
-            case "BUSINESS ANALYTICS" :
-                for (String curr : businessAnalyticsReq) {
-                    if (curr.equals(mod)) {
-                        return true;
-                    }
+            }
+            return false;
+        case "BUSINESS ANALYTICS":
+            for (String curr : businessAnalyticsReq) {
+                if (curr.equals(mod)) {
+                    return true;
                 }
-                return false;
-            case "INFORMATION SECURITY" :
-                for (String curr : informationSecurityReq) {
-                    if (curr.equals(mod)) {
-                        return true;
-                    }
+            }
+            return false;
+        case "INFORMATION SECURITY":
+            for (String curr : informationSecurityReq) {
+                if (curr.equals(mod)) {
+                    return true;
                 }
-                return false;
-            default :
-                return false;
+            }
+            return false;
+        default:
+            return false;
         }
     }
 }

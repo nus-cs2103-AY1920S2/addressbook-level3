@@ -3,18 +3,17 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_CAT;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 
-import seedu.address.calender.Deadline;
 import seedu.address.logic.commands.diarycommand.DiaryShowCommand;
 import seedu.address.logic.commands.diarycommand.DiaryShowDateCommand;
 import seedu.address.logic.commands.diarycommand.DiaryShowIdCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses input arguments and creates a new DiaryShowCommand object
