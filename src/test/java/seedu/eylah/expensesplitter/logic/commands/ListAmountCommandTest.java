@@ -2,6 +2,7 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.expensesplitter.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.eylah.expensesplitter.testutil.TypicalEntries.getTypicalReceiptBook;
 import static seedu.eylah.expensesplitter.testutil.TypicalPersons.getTypicalPersonAmountBook;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.eylah.commons.model.UserPrefs;
-import seedu.eylah.expensesplitter.model.ReceiptBook;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.SplitterModelManager;
 
@@ -23,9 +23,10 @@ public class ListAmountCommandTest {
 
     @BeforeEach
     public void setUp() {
-        splitterModel = new SplitterModelManager(new ReceiptBook(), getTypicalPersonAmountBook(), new UserPrefs());
-        expectedSplitterModel = new SplitterModelManager(new ReceiptBook(), splitterModel.getPersonAmountBook(),
-                new UserPrefs());
+        splitterModel = new SplitterModelManager(getTypicalReceiptBook(), getTypicalPersonAmountBook(),
+            new UserPrefs());
+        expectedSplitterModel = new SplitterModelManager(splitterModel.getReceiptBook(),
+            splitterModel.getPersonAmountBook(), new UserPrefs());
     }
 
 

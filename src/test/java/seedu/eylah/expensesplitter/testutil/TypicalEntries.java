@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import seedu.eylah.expensesplitter.model.ReceiptBook;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
@@ -33,12 +34,15 @@ public class TypicalEntries {
     public static final Entry ENTRY_THREE = new EntryBuilder().withItem(PASTA)
             .withPersons(PERSONS_LIST_THREE).build();
 
-    public static Receipt getTypicalReceipt() {
+    public static ReceiptBook getTypicalReceiptBook() {
+        ReceiptBook receiptBook = new ReceiptBook();
         Receipt receipt = new Receipt();
         for (Entry entry : getTypicalEntries()) {
+            //receipt.addEntry(entry);
             receipt.addEntry(entry);
         }
-        return receipt;
+        receiptBook.addReceipt(receipt);
+        return receiptBook;
     }
 
     public static ArrayList<Entry> getTypicalEntries() {
