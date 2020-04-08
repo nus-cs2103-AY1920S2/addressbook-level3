@@ -10,8 +10,7 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.ingredient.MainIngredientType;
-import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
+import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 
 /**
  * The API of the Model component.
@@ -119,7 +118,7 @@ public interface Model {
     ObservableList<Recipe> getFilteredRecipeList();
 
     /** Returns an unmodifiable view of the filtered quantity list for each record*/
-    ObservableList<MainTypeMagnitude> getFilteredQuantityTally();
+    ObservableList<MainIngredientTypeMagnitude> getFilteredQuantityTally();
 
     /**
      * Updates the filter of the filtered recipe list to filter by the given {@code predicate}.

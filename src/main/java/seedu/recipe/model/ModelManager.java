@@ -18,7 +18,7 @@ import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
+import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 
 /**
  * Represents the in-memory model of the recipe book data.
@@ -186,7 +186,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<MainTypeMagnitude> getFilteredQuantityTally() {
+    public ObservableList<MainIngredientTypeMagnitude> getFilteredQuantityTally() {
         return recipeBook.getQuantityList();
     }
 

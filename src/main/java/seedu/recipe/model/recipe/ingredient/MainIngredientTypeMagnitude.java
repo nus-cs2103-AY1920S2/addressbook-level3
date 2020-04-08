@@ -3,22 +3,25 @@ package seedu.recipe.model.recipe.ingredient;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MainTypeMagnitude {
+/**
+ * Consists of magnitudes of main ingredient types being tracked by goals.
+ */
+public class MainIngredientTypeMagnitude {
 
     private double vegCount = 0;
     private double fruitCount = 0;
     private double proteinCount = 0;
-    private  double grainCount = 0;
+    private double grainCount = 0;
     private int index;
-    Set<MainIngredientType> mainTypes;
+    private Set<MainIngredientType> mainIngredientTypes;
 
-    public MainTypeMagnitude(double vegCount, double fruitCount, double proteinCount, double grainCount) {
+    public MainIngredientTypeMagnitude(double vegCount, double fruitCount, double proteinCount, double grainCount) {
         this.fruitCount = fruitCount;
         this.grainCount = grainCount;
         this.proteinCount = proteinCount;
         this.vegCount = vegCount;
         this.index = index;
-        mainTypes = getMainIngredientTypes();
+        this.mainIngredientTypes = getMainIngredientTypes();
     }
 
     public double getVegCount() {
@@ -52,19 +55,19 @@ public class MainTypeMagnitude {
      */
     private Set<MainIngredientType> getMainIngredientTypes() {
         Set<MainIngredientType> setOfMainTypes = new TreeSet<MainIngredientType>();
-        if(this.vegCount >= 300) {
+        if (this.vegCount >= 300) {
             setOfMainTypes.add(MainIngredientType.VEGETABLE);
         }
 
-        if(this.fruitCount >= 300) {
+        if (this.fruitCount >= 300) {
             setOfMainTypes.add(MainIngredientType.FRUIT);
         }
 
-        if(this.proteinCount >= 200) {
+        if (this.proteinCount >= 200) {
             setOfMainTypes.add(MainIngredientType.PROTEIN);
         }
 
-        if(this.grainCount >= 145) {
+        if (this.grainCount >= 145) {
             setOfMainTypes.add(MainIngredientType.GRAIN);
         }
 
@@ -72,7 +75,7 @@ public class MainTypeMagnitude {
     }
 
     public Set<MainIngredientType> getMainTypes() {
-        return this.mainTypes;
+        return this.mainIngredientTypes;
     }
     @Override
     public String toString() {

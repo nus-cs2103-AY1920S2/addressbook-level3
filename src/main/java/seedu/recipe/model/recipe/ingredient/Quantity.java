@@ -25,35 +25,35 @@ public class Quantity {
     public double convertToGram(MainIngredientType ingredientType) {
         double newMagnitude = this.magnitude;
         switch(this.unit) {
-            case CUP:
-                if(ingredientType == MainIngredientType.GRAIN) {
-                    //eg rice
-                    newMagnitude = this.magnitude * 145;
-                } else if(ingredientType == MainIngredientType.PROTEIN) {
-                    //eg minced beef
-                    newMagnitude = this.magnitude * 225;
-                } else if(ingredientType == MainIngredientType.VEGETABLE) {
-                    //eg beans
-                    newMagnitude = this.magnitude * 200;
-                } else if (ingredientType == MainIngredientType.FRUIT) {
-                    //eg apple
-                    newMagnitude = this.magnitude * 160;
-                }
-                break;
-            case MILLILITER:
-                //same magnitude
-                break;
-            case TABLESPOON:
-                newMagnitude = this.magnitude * 15;
-                break;
-            case TEASPOON:
-                newMagnitude = this.magnitude * 4;
-                break;
-            case GRAM:
-                //same magnitude
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + this.unit);
+        case CUP:
+            if (ingredientType == MainIngredientType.GRAIN) {
+                //eg rice
+                newMagnitude = this.magnitude * 145;
+            } else if (ingredientType == MainIngredientType.PROTEIN) {
+                //eg minced beef
+                newMagnitude = this.magnitude * 225;
+            } else if (ingredientType == MainIngredientType.VEGETABLE) {
+                //eg beans
+                newMagnitude = this.magnitude * 200;
+            } else if (ingredientType == MainIngredientType.FRUIT) {
+                //eg apple
+                newMagnitude = this.magnitude * 160;
+            }
+            break;
+        case MILLILITER:
+            //same magnitude
+            break;
+        case TABLESPOON:
+            newMagnitude = this.magnitude * 15;
+            break;
+        case TEASPOON:
+            newMagnitude = this.magnitude * 4;
+            break;
+        case GRAM:
+            //same magnitude
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + this.unit);
         }
         return newMagnitude;
     }

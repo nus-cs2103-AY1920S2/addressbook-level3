@@ -10,15 +10,9 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
-import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.ingredient.MainIngredientType;
-import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
 import seedu.recipe.ui.tab.Tab;
 
 /**

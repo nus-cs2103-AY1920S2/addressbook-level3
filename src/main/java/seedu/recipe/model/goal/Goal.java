@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
-import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
 
 /**
  * Represents a Goal in the recipe book.
@@ -46,8 +45,8 @@ public class Goal {
         String name;
         switch (mainIngredientType) {
         case VEGETABLE:
-           name = "Herbivore";
-           break;
+            name = "Herbivore";
+            break;
         case PROTEIN:
             name = "Bulk like the Hulk";
             break;
@@ -67,20 +66,20 @@ public class Goal {
     public MainIngredientType setMainIngredientType() {
         MainIngredientType main;
         switch (this.goalName) {
-            case "Herbivore":
-                main = MainIngredientType.VEGETABLE;
-                break;
-            case "Bulk like the Hulk":
-                main = MainIngredientType.PROTEIN;
-                break;
-            case "Wholesome Wholemeal":
-                main = MainIngredientType.GRAIN;
-                break;
-            case "Fruity Fiesta":
-                main = MainIngredientType.FRUIT;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + goalName);
+        case "Herbivore":
+            main = MainIngredientType.VEGETABLE;
+            break;
+        case "Bulk like the Hulk":
+            main = MainIngredientType.PROTEIN;
+            break;
+        case "Wholesome Wholemeal":
+            main = MainIngredientType.GRAIN;
+            break;
+        case "Fruity Fiesta":
+            main = MainIngredientType.FRUIT;
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + goalName);
         }
         return main;
     }

@@ -14,7 +14,7 @@ import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
-import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
+import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
 
@@ -35,11 +35,12 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private final ObservableList<Recipe> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    private final ObservableList<MainTypeMagnitude> internalQuantityList = FXCollections.observableArrayList();
-    private final ObservableList<MainTypeMagnitude> internalUnmodifiableQuantityList =
+    private final ObservableList<MainIngredientTypeMagnitude> internalQuantityList =
+            FXCollections.observableArrayList();
+    private final ObservableList<MainIngredientTypeMagnitude> internalUnmodifiableQuantityList =
             FXCollections.unmodifiableObservableList(internalQuantityList);
 
-//======================================RECIPE======================================
+    //======================================RECIPE======================================
     /**
      * Returns true if the list contains an equivalent recipe as the given argument.
      */
@@ -58,6 +59,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             throw new DuplicateRecipeException();
         }
         internalList.add(toAdd);
+        internalQuantityList.add(calculateTally(toAdd));
     }
 
     /**
@@ -91,7 +93,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!internalList.remove(toRemove)) {
             throw new RecipeNotFoundException();
         }
-        //if removed
+        //if recipe is removed, remove from quantity list
         internalQuantityList.remove(index);
     }
 
@@ -113,9 +115,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
 
         internalList.setAll(recipes);
         setAllQuantityTally();
-        for(MainTypeMagnitude main: internalQuantityList) {
-            System.out.println(main.getMainTypes());
-        }
     }
 
     /**
@@ -156,7 +155,10 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         return true;
     }
 
-//======================================QUANTITY======================================
+    //======================================QUANTITY======================================
+    /**
+     * Sets quantity of {@code recipe} in {@code ObservableList}.
+     */
     private void setAllQuantityTally() {
         for (int i = 0; i < internalList.size(); i++) {
             Recipe recipe = internalList.get(i);
@@ -164,46 +166,59 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
     }
 
-    public MainTypeMagnitude calculateTally(Recipe recipe) {
-        double vegCount = 0;
-        double fruitCount = 0;
-        double proteinCount = 0;
-        double grainCount = 0;
-        fruitCount += calculateFruitsQuantity(recipe.getFruits());
-        grainCount += calculateGrainsQuantity(recipe.getGrains());
-        proteinCount += calculateProteinQuantity(recipe.getProteins());
-        vegCount += calculateVegQuantity(recipe.getVegetables());
-        MainTypeMagnitude tally = new MainTypeMagnitude(vegCount, fruitCount, proteinCount, grainCount);
+    /**
+     * Calculates all quantities of {@code recipe}.
+     */
+    private MainIngredientTypeMagnitude calculateTally(Recipe recipe) {
+        double fruitCount = calculateFruitsQuantity(recipe.getFruits());
+        double grainCount = calculateGrainsQuantity(recipe.getGrains());
+        double proteinCount = calculateProteinQuantity(recipe.getProteins());
+        double vegCount = calculateVegQuantity(recipe.getVegetables());
+        MainIngredientTypeMagnitude tally = new MainIngredientTypeMagnitude(
+                vegCount, fruitCount, proteinCount, grainCount);
         return tally;
+
     }
 
+    /**
+     * Calculates quantity of {@code fruits}.
+     */
     private double calculateFruitsQuantity(Set<Fruit> fruits) {
         double totalMagnitude = 0;
-        for(Fruit fruit: fruits) {
+        for (Fruit fruit: fruits) {
             totalMagnitude += fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
         }
         return totalMagnitude;
     }
 
+    /**
+     * Calculates quantity of {@code vegetables}.
+     */
     private double calculateVegQuantity(Set<Vegetable> vegetables) {
         double totalMagnitude = 0;
-        for(Vegetable veg: vegetables) {
+        for (Vegetable veg: vegetables) {
             totalMagnitude += veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
         }
         return totalMagnitude;
     }
 
+    /**
+     * Calculates quantity of {@code proteins}.
+     */
     private double calculateProteinQuantity(Set<Protein> proteins) {
         double totalMagnitude = 0;
-        for(Protein protein: proteins) {
+        for (Protein protein: proteins) {
             totalMagnitude += protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
         }
         return totalMagnitude;
     }
 
+    /**
+     * Calculates quantity of {@code grains}.
+     */
     private double calculateGrainsQuantity(Set<Grain> grains) {
         double totalMagnitude = 0;
-        for(Grain grain: grains) {
+        for (Grain grain: grains) {
             totalMagnitude += grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
         }
         return totalMagnitude;
@@ -212,7 +227,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     /**
      * Returns the quantity tally list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<MainTypeMagnitude> getQuantityTally() {
+    public ObservableList<MainIngredientTypeMagnitude> getQuantityTally() {
         return internalUnmodifiableQuantityList;
     }
 }

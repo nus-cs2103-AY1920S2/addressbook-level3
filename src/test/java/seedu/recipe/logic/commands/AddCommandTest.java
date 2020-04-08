@@ -26,6 +26,7 @@ import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class AddCommandTest {
@@ -175,6 +176,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Recipe> getFilteredRecipeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<MainIngredientTypeMagnitude> getFilteredQuantityTally() {
             throw new AssertionError("This method should not be called.");
         }
 

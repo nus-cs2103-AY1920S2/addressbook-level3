@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.UniqueRecipeList;
-import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
+import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 
 /**
  * Wraps all data at the recipe-book level
@@ -120,7 +120,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         return recipes.hashCode();
     }
 
-    public ObservableList<MainTypeMagnitude> getQuantityList() {
+    public ObservableList<MainIngredientTypeMagnitude> getQuantityList() {
         return recipes.getQuantityTally();
     }
 }
