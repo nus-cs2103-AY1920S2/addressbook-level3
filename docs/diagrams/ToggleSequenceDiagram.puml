@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExpenseLaParser" as ExpenseLaParser LOGIC_COLOR
+participant "d:ToggleCommand" as ToggleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("budget b/1000")
+activate LogicManager
+
+LogicManager -> ExpenseLaParser : parseCommand("toggle")
+activate ExpenseLaParser
+
+create ToggleCommand
+ExpenseLaParser -> ToggleCommand
+activate ToggleCommand
+
+ToggleCommand --> ExpenseLaParser : d
+deactivate ToggleCommand
+
+ExpenseLaParser --> LogicManager : d
+deactivate ExpenseLaParser
+
+LogicManager -> ToggleCommand : execute()
+activate ToggleCommand
+
+create ModelManager
+ToggleCommand -> ModelManager : switchToggleView()
+activate ModelManager
+
+ModelManager --> ToggleCommand
+deactivate ModelManager
+
+create CommandResult
+ToggleCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ToggleCommand
+deactivate CommandResult
+
+ToggleCommand --> LogicManager : result
+deactivate ToggleCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
