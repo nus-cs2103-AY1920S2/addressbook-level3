@@ -53,55 +53,53 @@ public class OverviewPanel extends UiPart<Region> {
 
         //Modules panel
         HBox modPane = new HBox();
-        System.out.println("TEST:!!!" + profile.getAllModules().get(2));
 
         for (Integer i : profile.getAllModules().keySet()) {
 
-            if (profile.getAllModules().get(i).getModuleList().isEmpty()) {
-                break;
+            if (!profile.getAllModules().get(i).getModuleList().isEmpty()) {
+                HBox temp = new HBox();
+                temp.setAlignment(Pos.CENTER);
+                temp.setMaxWidth(40);
+                temp.setBackground(new Background(
+                        new BackgroundFill(Color.valueOf("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
+                String yearSem;
+                if (i == 1) {
+                    yearSem = "Year 1 Semester 1";
+                } else if (i == 2) {
+                    yearSem = "Year 1 Semester 2";
+                } else if (i == 3) {
+                    yearSem = "Year 2 Semester 1";
+                } else if (i == 4) {
+                    yearSem = "Year 2 Semester 2";
+                } else if (i == 5) {
+                    yearSem = "Year 3 Semester 1";
+                } else if (i == 6) {
+                    yearSem = "Year 3 Semester 2";
+                } else if (i == 7) {
+                    yearSem = "Year 4 Semester 1";
+                } else {
+                    yearSem = "Year 4 Semester 2";
+                }
+                Label listTitle = new Label(yearSem.toUpperCase());
+
+
+                listTitle.setRotate(-90);
+                listTitle.setWrapText(true);
+                listTitle.setStyle("-fx-font-family: \"Segoe Pro Display\"; -fx-font-weight: bold; "
+                        + "-fx-font-size: 15; -fx-text-fill: #f7c4bb;");
+
+                temp.getChildren().addAll(new Group(listTitle));
+
+                ListView<Module> moduleSemPanel = new ListView<>();
+                moduleSemPanel.setItems(profile.getModules(i).getModuleList());
+                moduleSemPanel.setCellFactory(listView -> new ModuleListViewCell());
+
+                modPane.setBackground(new Background(
+                        new BackgroundFill(Color.valueOf("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
+                modPane.setSpacing(5);
+                modPane.getChildren().addAll(temp, moduleSemPanel);
             }
 
-            HBox temp = new HBox();
-            temp.setAlignment(Pos.CENTER);
-            temp.setMaxWidth(40);
-            temp.setBackground(new Background(
-                    new BackgroundFill(Color.valueOf("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
-            String yearSem;
-            if (i == 1) {
-                yearSem = "Year 1 Semester 1";
-            } else if (i == 2) {
-                yearSem = "Year 1 Semester 2";
-            } else if (i == 3) {
-                yearSem = "Year 2 Semester 1";
-            } else if (i == 4) {
-                yearSem = "Year 2 Semester 2";
-            } else if (i == 5) {
-                yearSem = "Year 3 Semester 1";
-            } else if (i == 6) {
-                yearSem = "Year 3 Semester 2";
-            } else if (i == 7) {
-                yearSem = "Year 4 Semester 1";
-            } else {
-                yearSem = "Year 4 Semester 2";
-            }
-            Label listTitle = new Label(yearSem.toUpperCase());
-
-
-            listTitle.setRotate(-90);
-            listTitle.setWrapText(true);
-            listTitle.setStyle("-fx-font-family: \"Segoe Pro Display\"; -fx-font-weight: bold; "
-                    + "-fx-font-size: 15; -fx-text-fill: #f7c4bb;");
-
-            temp.getChildren().addAll(new Group(listTitle));
-
-            ListView<Module> moduleSemPanel = new ListView<>();
-            moduleSemPanel.setItems(profile.getModules(i).getModuleList());
-            moduleSemPanel.setCellFactory(listView -> new ModuleListViewCell());
-
-            modPane.setBackground(new Background(
-                    new BackgroundFill(Color.valueOf("#383838"), CornerRadii.EMPTY, Insets.EMPTY)));
-            modPane.setSpacing(5);
-            modPane.getChildren().addAll(temp, moduleSemPanel);
         }
 
         modulesPanel.setContent(modPane);

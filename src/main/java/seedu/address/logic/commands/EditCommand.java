@@ -163,6 +163,8 @@ public class EditCommand extends Command {
 
                 profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
+                profileManager.setDisplayedView(profileToEdit);
+                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), true);
             }
 
             Deadline oldDeadline = null;
