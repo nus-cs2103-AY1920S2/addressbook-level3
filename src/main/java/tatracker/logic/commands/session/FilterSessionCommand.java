@@ -38,7 +38,7 @@ public class FilterSessionCommand extends Command {
     // public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date";
     // public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type";
 
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d");
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     private final SessionPredicate predicate;
 
