@@ -66,6 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+// tag::command_format[]
 ====
 *Command Format*
 
@@ -78,6 +79,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
 * The field `DURATION` should be a postive double number, representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
 ====
+//end::command_format[]
 
 === Viewing help : `help`
 
@@ -90,6 +92,7 @@ the url of the User Guide is copied to the clipboard, so the user
 can directly access the Guide by pasting the url into the browser.
 Format: `help`
 
+// tag::add[]
 === Adding an entry: `add`
 
 Adds an entry to the fitness log book. The entry added will be displayed in DashBoard, Calendar
@@ -99,13 +102,18 @@ Note that due to space constraint, entry card in DashBoard and Today page will o
 first 14 characters of its name and first 21 characters of its location. The entry icon in
 Calendar Page are even more constrained.
 
+[WARNING]
+FitHelper accepts duplicate fields, but only the last value specified under this field will be taken.
+
 Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMARK]...`
 
 Examples:
 
 * `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500 r/relly fun`
 * `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200 r/cheap and yummy`
+//end::add[]
 
+// tag::list[]
 === Listing all entries : `list`
 
 Shows a list of all entries in the fitness log book. +
@@ -114,7 +122,9 @@ Format: `list`
 Examples:
 
 * `list`
+//end::list[]
 
+// tag::reminder[]
 === View Reminder : `reminder`
 
 Shows a list of all undone tasks in the fitness log book, which can be seen from a fixed field in the home page. +
@@ -123,7 +133,9 @@ Format: `reminders`
 Examples:
 
 * `reminder`
+//end::remind[]
 
+// tag::edit[]
 === Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
@@ -153,11 +165,14 @@ Format: `edit x/TYPE i/INDEX s/Done`
 
 Similar to the previous command, marking an entry as undone edits the `s/` field and modify it as `Undone`.
 Format: `edit x/TYPE i/INDEX s/Undone`
+//end::edit[]
 
+// tag::find[]
 === Locating entries by name: `find`
 
 Finds entries whose names contain any of the given keywords. +
-Format: `find x/TYPE k/ONE_OR_MORE_KEYWORDS`
+Format: `find [x/TYPE] k/ONE_OR_MORE_KEYWORDS`
+If the `TYPE` field is empty, FitHelper will search from the whole list.
 
 ****
 * The search is case insensitive. e.g `apples` will match `Apples`
@@ -173,13 +188,18 @@ Examples:
 Returns `running` and `slow running`
 * `find x/food k/Juice Apple` +
 Returns any entry having names `Juice`,  or `Apple`
+//end::find[]
 
-// remark::delete[]
+// tag::delete[]
 === Deleting an entry : `delete`
 
 Deletes the specified entry from the fitness log book. +
 Format: `delete x/TYPE i/INDEX`
 
+[WARNING]
+If `delete` is called right after a `find` command (when a shortened list is displayed), the index follows the current list view
+after executing `find` command. i.e. If entry X originally has an index 3 and currently has an index 1 after the `find` command,
+calling `delete ... i/1` will successfully delete entry X.
 ****
 * Deletes the entry at the specified `INDEX`.
 * The index refers to the index number shown in the displayed entry list.
@@ -190,7 +210,9 @@ Examples:
 
 * `delete x/sports index/2`
 Deletes the 2nd sports entry in the sports list from dashboard.
+//end::delete[]
 
+// tag::diary[]
 === Keep a diary
 
 The user can keep a diary in FitHelper, and command for adding/editing/deleting/searching/clearing diary logs.
@@ -283,15 +305,17 @@ Returns the diary on the date of `2020-03-31` regardless of the `KEYWORDS` field
 clears all diary logs in this FitHelper.
 [TIP]
 The user can always revoke the clearing command by calling `undo`, which will be explained in a later section.
+//end::diary[]
 
-
-// end::delete[]
+// tag::clear[]
 === Clearing all data in FitHelper : `clear`
 
 Clears all entries from the fitness log book. +
 
 Format: `clear`
+//end::clear[]
 
+//tag::undo[]
 === Undo : `undo`
 
 `undo` revokes the last undoable command. +
@@ -306,7 +330,9 @@ Examples:
 
 * `undo` (after `addDiary d/2020-03-31 dc/I am happy.`) +
 This `undo` commands remove the added diary log from FitHelper.
+//end::undo
 
+//tag::redo
 === Redo : `redo`
 
 `redo` is the reverse of `undo`. +
@@ -318,12 +344,16 @@ Examples:
 
 * `redo` (after `undo`-ing the previous `addDiary d/2020-03-31 dc/I am happy.`) +
 This `undo` commands adds the diary log back to FitHelper.
+//end::redo[]
 
+//tag::exit[]
 === Exiting the program : `exit`
 
 Exits the program. +
 
 Format: `exit`
+//end::exit[]
+
 
 === Saving the data
 
@@ -455,6 +485,7 @@ Examples:
 * `calendar m/ls d/2020-04-20`
 * `calendar sh/2020-05-01`
 
+//tag::today[]
 === Today Page
 
 Today page serves to be a summary for the daily arrangements. +
@@ -522,6 +553,7 @@ Examples:
 
 * `weekreport`
 * `weekreport 2020-02-14`
+//end::today[]
 
 === Sort food/sports entry list: `sort`
 
