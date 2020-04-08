@@ -50,6 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [gp/GOOD PRICE]` can be used as `n/John Doe gp/apple 4.50` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[gp/GOOD PRICE]...` can be used as `{nbsp}` (i.e. 0 times), `gp/apple 4.50`, `gp/orange 2.00 gp/pear 5.00` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
+* For parameters where only one value is expected, only the last specified value will be taken e.g. `c/12345 c/54321` will use only `c/54321`.
 * All dates follow the format `yyyy-MM-dd`
 ====
 
