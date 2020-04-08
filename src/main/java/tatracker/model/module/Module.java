@@ -40,6 +40,15 @@ public class Module {
     }
 
     /**
+     * Constructor for use in testing.
+     */
+    public Module(String identifier, String name, UniqueGroupList groups) {
+        this.identifier = identifier;
+        this.name = name;
+        this.groups = groups;
+    }
+
+    /**
      * Returns the module identifier.
      */
     public String getIdentifier() {
@@ -92,6 +101,7 @@ public class Module {
 
     /**
      * Adds a group to the list of module groups.
+     * Returns the unique sessions list.
      */
     public void setStudent(Student student, Student editedStudent, String targetGroup) {
         groups.get(targetGroup).setStudent(student, editedStudent);
