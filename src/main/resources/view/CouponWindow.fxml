@@ -20,7 +20,7 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@Extensions.css"/>
+        <URL value="@Stylesheet.css"/>
         <URL value="@CouponCard.css"/>
       </stylesheets>
       <VBox prefHeight="560.0" prefWidth="500.0" style="-fx-background-color: #46998F;"

@@ -17,8 +17,7 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css"/>
-        <URL value="@Extensions.css"/>
+        <URL value="@Stylesheet.css"/>
       </stylesheets>
 
       <VBox alignment="TOP_CENTER" styleClass="background" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
