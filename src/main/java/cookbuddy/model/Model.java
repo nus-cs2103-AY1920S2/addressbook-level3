@@ -109,6 +109,8 @@ public interface Model {
      */
     void addRecipe(Recipe recipe);
 
+    void duplicateRecipe(Recipe recipe);
+
     /**
      * Replaces the given recipe {@code target} with {@code editedRecipe}.
      * {@code target} must exist in the recipe book.
