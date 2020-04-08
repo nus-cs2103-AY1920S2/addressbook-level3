@@ -49,9 +49,9 @@ public class FilterSessionCommand extends Command {
         requireNonNull(model);
         String returnMsg = "";
 
-        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("");
-        String date = predicate.getDate().map(LocalDate::toString).orElse("");
-        String moduleCode = predicate.getModuleCode().orElse("");
+        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("No Filters");
+        String date = predicate.getDate().map(LocalDate::toString).orElse("No Filters");
+        String moduleCode = predicate.getModuleCode().orElse("No Filters");
 
         if (!model.hasModule(moduleCode)) {
             returnMsg += "\n" + MESSAGE_NO_SESSIONS_IN_MODULE;
@@ -59,8 +59,12 @@ public class FilterSessionCommand extends Command {
             returnMsg += "\n" + String.format(MESSAGE_FILTERED_SESSIONS_SUCCESS, sessionType + " " + date);
         } else {
 
-            String result = buildParams(date, moduleCode, sessionType);
-            model.setCurrSessionFilter(result);
+            model.setCurrSessionDateFilter(date);
+            model.setCurrSessionModuleFilter(moduleCode);
+            model.setCurrSessionTypeFilter(sessionType);
+
+            //String result = buildParams(date, moduleCode, sessionType);
+            //model.setCurrSessionFilter(result);
             model.updateFilteredSessionList(predicate);
             returnMsg += "\n" + String.format(MESSAGE_FILTERED_SESSIONS_SUCCESS,
                     date + " " + moduleCode + " " + sessionType);
@@ -74,9 +78,9 @@ public class FilterSessionCommand extends Command {
      */
     public String buildParams(String date, String module, String sessionType) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Date: ").append(date).append("\n");
-        builder.append("Module Code: ").append(module).append("\n");
-        builder.append("Session Type: ").append(sessionType).append("\n");
+        builder.append("Date: ").append(date);
+        builder.append("Module Code: ").append(module);
+        builder.append("Session Type: ").append(sessionType);
         String result = builder.toString();
         return result;
     }

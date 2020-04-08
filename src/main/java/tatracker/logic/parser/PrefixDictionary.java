@@ -102,7 +102,8 @@ public class PrefixDictionary {
                 || dictionary.containsValue(PrefixEntry.KEYWORD)
                 || dictionary.containsValue(PrefixEntry.MORE_KEYWORDS)
                 || dictionary.containsValue(PrefixEntry.TAB_NAME)
-                || dictionary.containsValue(PrefixEntry.MODULE_ID);
+                || dictionary.containsValue(PrefixEntry.MODULE_ID)
+                || dictionary.containsValue(PrefixEntry.RATE);
     }
 
     /**

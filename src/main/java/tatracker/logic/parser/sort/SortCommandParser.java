@@ -46,30 +46,31 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, TYPE, MODULE, GROUP);
 
-        boolean hasType = argMultimap.getValue(TYPE).isPresent();
+        if (!argMultimap.arePrefixesPresent(TYPE) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
+        }
+
+        SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
+
         boolean hasModule = argMultimap.getValue(MODULE).isPresent();
         boolean hasGroup = argMultimap.getValue(GROUP).isPresent();
 
-        SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
         String moduleCode = argMultimap.getValue(MODULE).map(String::trim).orElse("").toUpperCase();
         String groupCode = argMultimap.getValue(GROUP).map(String::trim).orElse("").toUpperCase();
 
         switch (commandWord) {
 
         case CommandWords.SORT_ALL:
-            if (!hasType) {
-                throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
-            }
             return new SortCommand(type);
 
         case CommandWords.SORT_MODULE:
-            if (!(hasType && hasModule)) {
+            if (!hasModule) {
                 throw new ParseException(Messages.getInvalidCommandMessage(SortModuleCommand.DETAILS.getUsage()));
             }
             return new SortModuleCommand(type, moduleCode);
 
         case CommandWords.SORT_GROUP:
-            if (!(hasType && hasModule && hasGroup)) {
+            if (!hasModule && !hasGroup) {
                 throw new ParseException(Messages.getInvalidCommandMessage(SortGroupCommand.DETAILS.getUsage()));
             }
             return new SortGroupCommand(type, groupCode, moduleCode);

@@ -49,13 +49,16 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
+        if (newName.isBlank()) {
+            throw new CommandException(Module.CONSTRAINTS_MODULE_NAME);
+        }
         Module actualModule = model.getModule(targetModule);
         actualModule.setName(newName);
 
         model.showAllModules();
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
-        if (model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList() == null || model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.setFilteredStudentList(actualModule.getIdentifier(), FIRST_GROUP_INDEX);
@@ -76,6 +79,6 @@ public class EditModuleCommand extends Command {
         }
 
         EditModuleCommand otherCommand = (EditModuleCommand) other;
-        return targetModule.equals(otherCommand.targetModule);
+        return targetModule.equals(otherCommand.targetModule) && newName.equals(otherCommand.newName);
     }
 }

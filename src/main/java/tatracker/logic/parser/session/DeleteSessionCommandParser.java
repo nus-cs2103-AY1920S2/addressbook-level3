@@ -20,7 +20,6 @@ public class DeleteSessionCommandParser implements Parser<DeleteSessionCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteSessionCommand parse(String args) throws ParseException {
-
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteSessionCommand(index);

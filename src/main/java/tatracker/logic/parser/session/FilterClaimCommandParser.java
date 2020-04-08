@@ -2,15 +2,12 @@ package tatracker.logic.parser.session;
 
 import static tatracker.logic.parser.Prefixes.MODULE;
 
-import java.util.stream.Stream;
-
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.session.FilterClaimCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.DoneSessionPredicate;
 
@@ -28,7 +25,7 @@ public class FilterClaimCommandParser implements Parser<FilterClaimCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE);
 
-        if (!arePrefixesPresent(argMultimap, MODULE)
+        if (!argMultimap.arePrefixesPresent(MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(Messages.getInvalidCommandMessage(FilterClaimCommand.DETAILS.getUsage()));
         }
@@ -39,13 +36,5 @@ public class FilterClaimCommandParser implements Parser<FilterClaimCommand> {
             moduleCode = ParserUtil.parseValue(argMultimap.getValue(MODULE).get()).toUpperCase();
         }
         return new FilterClaimCommand(new DoneSessionPredicate(moduleCode));
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

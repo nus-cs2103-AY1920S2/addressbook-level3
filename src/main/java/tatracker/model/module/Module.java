@@ -6,8 +6,6 @@ import javafx.collections.ObservableList;
 
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
-import tatracker.model.session.Session;
-import tatracker.model.session.UniqueSessionList;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
@@ -15,12 +13,15 @@ import tatracker.model.student.Student;
  * Represents a module in the TAT.
  */
 public class Module {
+
+    public static final String CONSTRAINTS_MODULE_CODE = "Module codes cannot be blank";
+    public static final String CONSTRAINTS_MODULE_NAME = "Module names cannot be blank";
+
     private static final String DEFAULT_NAME = "";
 
     private final String identifier;
     private String name;
     private final UniqueGroupList groups;
-    private final UniqueSessionList doneSessions;
 
     /**
      * Constructs a module object with no name.
@@ -40,7 +41,15 @@ public class Module {
         this.identifier = identifier;
         this.name = name;
         this.groups = new UniqueGroupList();
-        this.doneSessions = new UniqueSessionList();
+    }
+
+    /**
+     * Constructor for use in testing.
+     */
+    public Module(String identifier, String name, UniqueGroupList groups) {
+        this.identifier = identifier;
+        this.name = name;
+        this.groups = groups;
     }
 
     /**
@@ -89,12 +98,6 @@ public class Module {
         return groups;
     }
 
-    /**
-     * Returns the session list.
-     */
-    public ObservableList<Session> getSessionList() {
-        return doneSessions.asUnmodifiableObservableList();
-    }
 
     public boolean hasStudent(Matric matric, String targetGroup) {
         return groups.get(targetGroup).hasStudent(matric);
@@ -102,6 +105,7 @@ public class Module {
 
     /**
      * Adds a group to the list of module groups.
+     * Returns the unique sessions list.
      */
     public void setStudent(Student student, Student editedStudent, String targetGroup) {
         groups.get(targetGroup).setStudent(student, editedStudent);
@@ -143,10 +147,6 @@ public class Module {
         groups.setGroup(target, editedGroup);
     }
 
-    public boolean hasDoneSession(Session session) {
-        return doneSessions.contains(session);
-    }
-
     /**
      * Sorts students in the groups alphabetically.
      */
@@ -181,14 +181,6 @@ public class Module {
         for (Group group : groups) {
             group.sortStudentsByMatricNumber();
         }
-    }
-
-
-    /**
-     * Adds a done session to the list of done sessions for this module.
-     */
-    public void addDoneSession(Session session) {
-        doneSessions.add(session);
     }
 
     /**

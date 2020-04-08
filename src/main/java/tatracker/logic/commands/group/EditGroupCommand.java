@@ -3,6 +3,7 @@ package tatracker.logic.commands.group;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NEWGROUP;
@@ -65,8 +66,16 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
+        if (newGroupCode.equals(group.getIdentifier()) && newGroupType == null) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
+        if (newGroupCode.isBlank()) {
+            throw new CommandException(Group.CONSTRAINTS_GROUP_CODE);
+        }
+
         if (!newGroupCode.equals(group.getIdentifier())) {
-            if (actualModule.hasGroup(group)) {
+            if (actualModule.hasGroup(new Group(newGroupCode))) {
                 throw new CommandException(MESSAGE_EDIT_GROUP_FAILURE);
             }
         }
@@ -79,7 +88,7 @@ public class EditGroupCommand extends Command {
 
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
-        if (model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList() == null || model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
