@@ -26,7 +26,7 @@ import seedu.recipe.model.recipe.ingredient.Quantity;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
- * Contains utility methods for populating {@code RecipeBook} with sample data. todo: populate with real recipes
+ * Contains utility methods for populating {@code RecipeBook} with sample data
  */
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
