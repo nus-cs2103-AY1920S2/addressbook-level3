@@ -59,29 +59,42 @@ public class EditCommandParserTest {
         CommandParserTestUtil.assertParseFailure(
                 parser,
                 VALID_NAME_AMY,
-                MESSAGE_INVALID_FORMAT
+                String.format(MESSAGE_INVALID_FORMAT, VALID_NAME_AMY)
         );
 
         // no field specified
         CommandParserTestUtil.assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        CommandParserTestUtil.assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser, "", String.format(MESSAGE_INVALID_FORMAT, ""));
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        CommandParserTestUtil.assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(
+                parser, "-5" + NAME_DESC_AMY, String.format(MESSAGE_INVALID_FORMAT, "-5")
+        );
 
         // zero index
-        CommandParserTestUtil.assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(
+                parser,
+                "0" + NAME_DESC_AMY, String.format(MESSAGE_INVALID_FORMAT, "0")
+        );
 
         // invalid arguments being parsed as preamble
-        CommandParserTestUtil.assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(
+                parser,
+                "1 some random string",
+                String.format(MESSAGE_INVALID_FORMAT, "1 some random string")
+        );
 
         // invalid prefix being parsed as preamble
-        CommandParserTestUtil.assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(
+                parser,
+                "1 i/ string",
+                String.format(MESSAGE_INVALID_FORMAT, "1 i/ string")
+        );
     }
 
     @Test

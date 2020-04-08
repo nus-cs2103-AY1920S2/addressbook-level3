@@ -18,9 +18,10 @@ public class ArchiveCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        String index = "a";
         CommandParserTestUtil.assertParseFailure(parser,
-                "a", String.format(
-                        ParserUtil.MESSAGE_INVALID_INDEX + "\n\n"
+                index, String.format(
+                        String.format(ParserUtil.MESSAGE_INVALID_INDEX, index) + "\n\n"
                                 + MESSAGE_INVALID_COMMAND_FORMAT,
                         ArchiveCommand.MESSAGE_USAGE
                 ));
