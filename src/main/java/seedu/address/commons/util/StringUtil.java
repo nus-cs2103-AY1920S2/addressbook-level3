@@ -49,6 +49,11 @@ public class StringUtil {
         return t.getMessage() + "\n" + sw.toString();
     }
 
+    public static String getTitleCase(String s) {
+        String result = s.substring(0, 1) + s.substring(1).toLowerCase();
+        return result;
+    }
+
     /**
      * Returns true if {@code s} represents a non-zero unsigned integer e.g. 1, 2, 3, ..., {@code
      * Integer.MAX_VALUE} <br>

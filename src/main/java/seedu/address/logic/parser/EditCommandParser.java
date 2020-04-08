@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRING;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +37,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                         PREFIX_PRIORITY,
                         PREFIX_DESCRIPTION,
                         PREFIX_TAG,
-                        PREFIX_REMINDER);
+                        PREFIX_REMINDER,
+                        PREFIX_RECURRING);
 
         Index index;
 
@@ -64,6 +66,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_REMINDER).isPresent()) {
             editTaskDescriptor.setReminder(
                     ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_RECURRING).isPresent()) {
+            editTaskDescriptor.setRecurring(
+                    ParserUtil.parseRecurring(argMultimap.getValue(PREFIX_RECURRING).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
