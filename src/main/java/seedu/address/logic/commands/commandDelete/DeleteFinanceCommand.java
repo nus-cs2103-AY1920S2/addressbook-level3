@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -57,10 +58,13 @@ public class DeleteFinanceCommand extends DeleteCommand {
       if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
       }
-      this.toDelete = getFinance(lastShownList);
+      if (!model.has(targetID, Constants.ENTITY_TYPE.FINANCE)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_FINANCE_DISPLAYED_ID);
+      }
+      this.toDelete = (Finance) model.get(targetID, Constants.ENTITY_TYPE.FINANCE);
     }
     if (this.targetID == null) {
-      this.targetID = getID(lastShownList);
+      this.targetID = toDelete.getId();
     }
     if (this.targetIndex == null) {
       this.targetIndex = getIndex(lastShownList);
