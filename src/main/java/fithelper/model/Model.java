@@ -12,7 +12,10 @@ import fithelper.model.entry.Entry;
 import fithelper.model.entry.SortBy;
 import fithelper.model.profile.Profile;
 import fithelper.model.today.Today;
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.Date;
 import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 
@@ -244,6 +247,12 @@ public interface Model {
      * {@code weight} must not already exist in the log book.
      */
     void addWeight(Weight weight);
+
+    void deleteWeight(Weight weight);
+
+    void editWeight(Weight weight, WeightValue weightValue, Bmi bmi);
+
+    Weight getWeightByDate(Date date);
 
     /** Returns an unmodifiable view of the filtered weight list */
     ObservableList<Weight> getFilteredWeightList();

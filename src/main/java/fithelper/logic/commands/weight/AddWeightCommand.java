@@ -1,4 +1,4 @@
-package fithelper.logic.commands;
+package fithelper.logic.commands.weight;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.logic.commands.Command;
+import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.profile.Height;

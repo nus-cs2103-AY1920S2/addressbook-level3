@@ -9,6 +9,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX = "The entry index provided is invalid";
     public static final String MESSAGE_INVALID_DIARY_DATE = "The diary date provided is invalid";
+    public static final String MESSAGE_INVALID_WEIGHT_DATE = "The weight date provided is invalid!"
+        + "No weight record is on that day.";
     public static final String MESSAGE_FOOD_LISTED_OVERVIEW = "%1$d food listed!";
     public static final String MESSAGE_SPORTS_LISTED_OVERVIEW = "%1$d sports listed!";
     public static final String MESSAGE_DIARY_LISTED_OVERVIEW = "%1$d diary listed!";

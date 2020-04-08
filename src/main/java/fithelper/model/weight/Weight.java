@@ -11,8 +11,8 @@ import java.util.Objects;
 public class Weight {
 
     private final Date date;
-    private final WeightValue weightValue;
-    private final Bmi bmi;
+    private WeightValue weightValue;
+    private Bmi bmi;
 
 
     /**
@@ -33,8 +33,16 @@ public class Weight {
         return weightValue;
     }
 
+    public void setWeightValue(WeightValue weightValue) {
+        this.weightValue = weightValue;
+    }
+
     public Bmi getBmi() {
         return bmi;
+    }
+
+    public void setBmi(Bmi bmi) {
+        this.bmi = bmi;
     }
 
     /**
