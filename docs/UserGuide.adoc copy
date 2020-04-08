@@ -80,6 +80,7 @@ Navigate around NASA using the following keyboard shortcuts.
 
 
 
+====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `Madd m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `Madd m/CS1231`.
@@ -105,19 +106,22 @@ Examples:
 
 === Adding a activity into a module activity-list: `TYPE_OF_ACTIVITY`
 Adds an activity into the specified module activity-list +
-Format: `TYPE_OF_ACTIVITY m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES]`
+Types of activities available and how to add them are shown in the table below.
 
-** Type of activities include `deadline`, `events` and `lessons`.
-** Deadline are meant for activities that need to be done within a certain time.
-** Events means any related module activities that happen from a time and ends at another time.
-** Lessons are tutorials/classes for the modules and will auto reappear every week.
-** Date format varies! For deadlines: `d/DD-MM-YYYY HH:MM`, for lessons and events: `sd/DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM ed/DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM` where sd/ is for start-time and ed/ is for end-time.
-** Default priority is 1 (priority value is from 1 to 5, where 1 is highest priority and 5 is lowest).
+|===
+| Type of activity | Description | Format | Example
+| Deadline | Deadline are activities that need to be completed before a specific deadline | `deadline m/MODULE_CODE d/DATE a/ACTIVITY_NAME [p/PRIORITY] [n/NOTES] | deadline m/CS1020 d/20-05-2020 23:59 a/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
+| Lessons  | Lessons are essentially tutorials and lectures that has a duration and are fixed in schedule | `lesson m/MODULE_CODE sd/START_DATE ed/END_DATE [p/PRIORITY] [n/NOTES] | `lesson m/CS1020 a/Tutorial sd/20-05-2020 23:00 ed/20-05-2020 23:59`
+| Events | Events are other activities that has a duration (eg: remedial, examinations, consultations) | `event m/MODULE_CODE sd/START_DATE ed/END_DATE [p/PRIORITY] [n/NOTES]` | `event m/CS2030 sd/20-05-2020 23:00 ed/20-05-2020 23:59 p/1`
+|===
 
-Examples:
-
-** `lesson m/CS1020 a/Tutorial sd/20-02-2020 23:00 ed/20-02-2020 23:59`
-** `deadline m/CS1020 d/20-02-2020 23:59 a/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing`
+[NOTE]
+====
+** It is not allowed to add deadlines past their due dates.
+** Similar to deadlines, it is not allowed to add events and lessons that already passed.
+** Priority has values from 1 to 5, where 1 indicates highest priority and 5 indicates lowest priority.
+** If priority is not specified, the default priority of the activity is set to 1 (highest priority).
+====
 
 === Listing all activities : `list`
 
@@ -188,6 +192,7 @@ Format: `delete INDEX m/MODULE_CODE`
 
 ****
 * Deletes the activity at the specified `INDEX` in the specified `MODULE_CODE`.
+* `INDEX` must be specified first before the `MODULE_CODE`
 * The index refers to the index number shown in the activity-list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -286,18 +291,14 @@ Example :
 
 ** `redo` : "redo last action" else "no last action to redo"
 
-=== Export to calendar `export` `[coming in v2.0]`
-Exports all module activity-lists onto a calendar (.ics format) for users. +
-Format: `export`
+=== Calendar View
+Allows the user to see the activities onto a calendar.
 
+* Switch to calendar tab using TAB key.
 
 Examples:
 
-image::export_example.png[width="300", align="middle"]
-
-** Activities are listed as calendar events as shown. Full design not confirmed, image courtesy of [https://www.knack.com/templates/event-calendar[knack]]
-
-// end::delete[]
+image::calendar.png[width="300", align="middle"]
 
 === Sort activities `sort`
 Sorts all activities in their respective modules by a specified criteria. +

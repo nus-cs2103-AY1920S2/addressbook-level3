@@ -1,0 +1,22 @@
+@startuml
+start
+:User enters add deadline command;
+
+if () then ([invalid format])
+    :Shows invalid command;
+
+else ([valid format])
+    if () then ([module does not exist])
+        :Shows module cannot be found;
+    else ([module does exist])
+        :creates deadline;
+        if () then ([deadline already exist in module])
+            :Shows deadline already exist;
+        else ([deadline is unique])
+            :Add deadline into module's activity list;
+endif
+endif
+endif
+:Return Command Result to UI;
+stop
+@enduml
