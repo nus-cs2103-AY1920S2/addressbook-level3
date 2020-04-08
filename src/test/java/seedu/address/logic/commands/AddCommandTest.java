@@ -64,45 +64,11 @@ import seedu.address.storage.JsonModuleListStorage;
 
 public class AddCommandTest {
 
-    private static final Logger logger = LogsCenter.getLogger(AddCommandParserTest.class);
-    private final ModuleCode moduleCode;
-    private final int semester;
-    private final String grade;
-    private final String task;
-    private final String deadline;
-    private ProfileManager profileManager;
-    private CourseManager courseManager;
-    private ModuleManager moduleManager;
-
-    public AddCommandTest() {
-        String moduleListFilePath = "/data/modulesPrereq.json";
-        JsonModuleListStorage modules = new JsonModuleListStorage(moduleListFilePath);
-        try {
-            Optional<ModuleList> moduleListOptional = modules.readModuleList();
-            if (!moduleListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty ModuleList");
-                new ModuleManager();
-            } else {
-                ModuleList moduleList = moduleListOptional.get();
-                new ModuleManager(moduleList);
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
-            new ModuleManager();
-        }
-
-        moduleCode = new ModuleCode(VALID_MODCODE_BOB);
-        semester = new Year(VALID_SEMESTER_BOB).getSemester();
-        grade = VALID_GRADE_BOB;
-        task = VALID_TASK_BOB;
-        deadline = VALID_DEADLINE_BOB;
-    }
-
     // No module code added, user inputs "add m/"
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new AddCommand(null, semester, grade, task, deadline));
+                new AddCommand(null, 0, null, null, null));
     }
 
     @Test
