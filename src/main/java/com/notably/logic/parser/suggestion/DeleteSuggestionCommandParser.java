@@ -23,7 +23,11 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
 
     private static final String RESPONSE_MESSAGE = "Delete a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
+<<<<<<< HEAD
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
+=======
+    private static final String RESPONSE_MESSAGE_CANNOT_DELETE_NOTE = "\"%s\" is an invalid path";
+>>>>>>> 84b9cf35... Update OpenSugCmdParserTest
 
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;

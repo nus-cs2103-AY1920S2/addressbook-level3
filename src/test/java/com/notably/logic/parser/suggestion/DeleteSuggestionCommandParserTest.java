@@ -329,7 +329,7 @@ public class DeleteSuggestionCommandParserTest {
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_CANNOT_DELETE_NOTE, path)),
+        assertEquals(Optional.of(String.format(ERROR_MESSAGE_CANNOT_DELETE_NOTE, path)),
                 model.responseTextProperty().getValue());
     }
 }
