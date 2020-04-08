@@ -19,9 +19,8 @@ public class StatisticsDisplay extends UiPart<Region> {
     private static final String FXML = "StatisticsDisplay.fxml";
     private static final String DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER =
             "/images/progress/ProgressBar0%.png";
-    private static final String DEFAULT_PROGRESS_DAILY = "NaN mins";
-    private static final String DEFAULT_PROGRESS_TARGET = "100 mins";
-
+    private static final String DEFAULT_PROGRESS_DAILY = "NaN";
+    private static final String DEFAULT_PROGRESS_TARGET = "100";
     private final String PROGRESS_UNITS = " mins";
 
     public String progressBarDailyFilepathString;
@@ -43,19 +42,24 @@ public class StatisticsDisplay extends UiPart<Region> {
         this.progressDailyText = DEFAULT_PROGRESS_DAILY;
         this.progressTargetText = DEFAULT_PROGRESS_TARGET;
 
-        progressDaily.setText(progressDailyText);
+        progressDaily.setText(progressDailyText + PROGRESS_UNITS);
         Image progressBarDailyImage = new Image(DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER);
         progressBarDaily.setImage(progressBarDailyImage);
-        progressTarget.setText(progressTargetText);
+        progressTarget.setText(progressTargetText + PROGRESS_UNITS);
     }
 
     public void updateGraphs(ObservableList<DayData> customQueue) {
         DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
         int currProgress = latestDayData.getPomDurationData().value;
+        int currTarget = Integer.parseInt(progressTargetText);
+        if (currProgress >= currTarget) {
+            currProgress = currTarget;
+        }
+
         progressDaily.setText(currProgress + PROGRESS_UNITS);
         progressTarget.setText(progressTargetText + PROGRESS_UNITS);
 
-        int expBarPerc = currProgress / Integer.parseInt(progressTargetText) * 10;
+        int expBarPerc = (currProgress* 10)/currTarget;
         if (expBarPerc >= 10) {
             expBarPerc = 10;
         }
