@@ -53,7 +53,7 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "2-12-2020",
-    "startDate" : "31-7-2020",
+    "startDate" : "31-7-2019",
     "remindDate" : "29-11-2020"
   }, {
     "name" : "Benson Meier",
@@ -102,7 +102,7 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "31-12-2020",
-    "startDate" : "31-7-2020",
+    "startDate" : "31-7-2019",
     "remindDate" : "28-11-2020"
   }, {
     "name" : "Carl Kurz",
@@ -160,7 +160,7 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "30-8-2020",
-    "startDate" : "31-7-2020",
+    "startDate" : "31-7-2019",
     "remindDate" : "27-8-2020"
   }, {
     "name" : "Daniel Meier",
@@ -276,7 +276,7 @@
     "condition" : "While Stock Last",
     "archived" : "true",
     "expiryDate" : "30-8-2020",
-    "startDate" : "31-7-2020",
+    "startDate" : "31-7-2019",
     "remindDate" : "27-8-2020"
   }, {
     "name" : "Fiona Kunz",
@@ -325,7 +325,7 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "30-8-2020",
-    "startDate" : "31-7-2020",
+    "startDate" : "31-7-2019",
     "remindDate" : "27-8-2020"
   }, {
     "name" : "George Best",
@@ -374,7 +374,7 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "31-12-2020",
-    "startDate" : "31-7-2020",
+    "startDate" : "31-7-2019",
     "remindDate" : "28-12-2020"
   } ]
 }
