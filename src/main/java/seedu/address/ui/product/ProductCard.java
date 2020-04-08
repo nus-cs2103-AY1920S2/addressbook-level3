@@ -51,15 +51,17 @@ public class ProductCard extends UiPart<Region> {
 
     private double progress;
 
+    private static final String DISPLAY_CURRENCY = "$";
+
     public ProductCard(Product product, int displayedIndex) {
         super(FXML);
         this.product = product;
         id.setText(displayedIndex + ". ");
         description.setText(product.getDescription().value);
-        costPrice.setText("$" + product.getCostPrice().value);
-        price.setText("$" + product.getPrice().value);
+        costPrice.setText(DISPLAY_CURRENCY + product.getCostPrice().value);
+        price.setText(DISPLAY_CURRENCY + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantity().value));
-        sales.setText("$" + product.getMoney().value);
+        sales.setText(DISPLAY_CURRENCY + product.getMoney().value);
         threshold.setText(product.getThreshold().value);
         updateProgressBar();
     }
