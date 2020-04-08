@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class EditStudentCommandParser implements Parser<EditStudentCommand> {
+public class EditStudentCommandParser extends EditCommandParser {
 
   /**
    * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
@@ -48,6 +48,10 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
     EditStudentDescriptor editStudentDescriptor = new EditStudentDescriptor();
     if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
       editStudentDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+    }
+
+    if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+      editStudentDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
     }
 
     parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))

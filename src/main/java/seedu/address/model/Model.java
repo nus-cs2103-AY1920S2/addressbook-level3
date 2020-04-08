@@ -80,6 +80,8 @@ public interface Model {
 
     boolean has(ModelObject obj) throws CommandException;
 
+    boolean has(ID id, Constants.ENTITY_TYPE type) throws CommandException;
+
     void delete(ModelObject obj) throws CommandException;
 
     void add(ModelObject obj) throws CommandException;
@@ -473,9 +475,10 @@ public interface Model {
 
     public Predicate<Course> getExtraStudentCoursePredicate();
 
-  public Predicate<Course> getExtraStaffCoursePredicate();
+    public Predicate<Course> getExtraStaffCoursePredicate();
 
     public Predicate<Assignment> getExtraAssignmentPredicate();
 
     Constants.ENTITY_TYPE getEntityType(ModelObject obj) throws CommandException;
+
 }

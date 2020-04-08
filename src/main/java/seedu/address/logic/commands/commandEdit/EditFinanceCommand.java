@@ -13,14 +13,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.FinanceType;
@@ -31,7 +30,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing finance in the address book.
  */
-public class EditFinanceCommand extends Command {
+public class EditFinanceCommand extends EditCommand {
 
   public static final String COMMAND_WORD = "edit-finance";
 
@@ -52,19 +51,21 @@ public class EditFinanceCommand extends Command {
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_FINANCE = "This finance already exists in the address book.";
 
-  private final Index index;
-  private final EditFinanceDescriptor editFinanceDescriptor;
+  private ID targetID;
+  private EditFinanceDescriptor editFinanceDescriptor;
+  private Finance toEdit;
+  private Finance editedFinance;
 
   /**
-   * @param index                 of the finance in the filtered finance list to edit
+   * @param targetID                 of the finance in the filtered finance list to edit
    * @param editFinanceDescriptor details to edit the finance with
    */
-  public EditFinanceCommand(Index index, EditFinanceDescriptor editFinanceDescriptor) {
-    requireNonNull(index);
+  public EditFinanceCommand(ID targetID, EditFinanceDescriptor editFinanceDescriptor) {
+    requireNonNull(targetID);
     requireNonNull(editFinanceDescriptor);
-
-    this.index = index;
+    this.targetID = targetID;
     this.editFinanceDescriptor = new EditFinanceDescriptor(editFinanceDescriptor);
+
   }
 
   /**
@@ -72,38 +73,52 @@ public class EditFinanceCommand extends Command {
    * {@code editFinanceDescriptor}.
    */
   private static Finance createEditedFinance(Finance financeToEdit,
-      EditFinanceDescriptor editFinanceDescriptor) throws ParseException {
+      EditFinanceDescriptor editFinanceDescriptor) {
     assert financeToEdit != null;
 
     Name updatedName = editFinanceDescriptor.getName().orElse(financeToEdit.getName());
     Date updatedDate = editFinanceDescriptor.getDate().orElse(financeToEdit.getDate());
-    FinanceType updatedFinanceType = editFinanceDescriptor.getFinanceType().orElse(financeToEdit.getFinanceType());
     Amount updatedAmount = editFinanceDescriptor.getAmount().orElse(financeToEdit.getAmount());
     ID updatedCourseID = editFinanceDescriptor.getCourseID().orElse(financeToEdit.getCourseID());
-    ID updatedStudentiD = editFinanceDescriptor.getStudentID().orElse(financeToEdit.getStudentID());
+    ID updatedStudentID = editFinanceDescriptor.getStudentID().orElse(financeToEdit.getStudentID());
     ID updatedTeacherID = editFinanceDescriptor.getTeacherID().orElse(financeToEdit.getStaffID());
     Set<Tag> updatedTags = editFinanceDescriptor.getTags().orElse(financeToEdit.getTags());
 
-    return new Finance(updatedName, financeToEdit.getId(), updatedFinanceType, updatedDate, updatedAmount, updatedCourseID, updatedStudentiD, updatedTeacherID, updatedTags);
+    // fields that cannot edit
+    FinanceType updatedFinanceType = financeToEdit.getFinanceType();
+
+    return new Finance(updatedName, financeToEdit.getId(), updatedFinanceType, updatedDate, updatedAmount, updatedCourseID, updatedStudentID, updatedTeacherID, updatedTags);
   }
 
   @Override
-  public CommandResult execute(Model model) throws CommandException, ParseException {
+  protected void generateOppositeCommand() {
+    oppositeCommand = new EditFinanceCommand(targetID, new EditFinanceCommand.EditFinanceDescriptor(toEdit));
+  }
+
+  @Override
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Finance> lastShownList = model.getFilteredFinanceList();
-
-    if (index.getZeroBased() >= lastShownList.size()) {
-      throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
+    if (this.toEdit == null) {
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
+      }
+      if (!model.has(targetID, Constants.ENTITY_TYPE.FINANCE)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_FINANCE_DISPLAYED_ID);
+      }
+      this.toEdit = (Finance) model.get(targetID, Constants.ENTITY_TYPE.FINANCE);
+      this.editedFinance = createEditedFinance(toEdit, editFinanceDescriptor);
     }
 
-    Finance financeToEdit = lastShownList.get(index.getZeroBased());
-    Finance editedFinance = createEditedFinance(financeToEdit, editFinanceDescriptor);
-
-    if (!financeToEdit.weakEquals(editedFinance) && model.has(editedFinance)) {
+    if (!this.toEdit.weakEquals(editedFinance) && model.has(editedFinance)) {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);
     }
+  }
 
-    model.set(financeToEdit, editedFinance);
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
+    model.set(toEdit, editedFinance);
     model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
     return new CommandResult(String.format(MESSAGE_EDIT_FINANCE_SUCCESS, editedFinance));
   }
@@ -122,7 +137,7 @@ public class EditFinanceCommand extends Command {
 
     // state check
     EditFinanceCommand e = (EditFinanceCommand) other;
-    return index.equals(e.index)
+    return targetID.equals(e.targetID)
         && editFinanceDescriptor.equals(e.editFinanceDescriptor);
   }
 
@@ -153,6 +168,17 @@ public class EditFinanceCommand extends Command {
       setDate(toCopy.date);
       setAmount(toCopy.amount);
       setTags(toCopy.tags);
+    }
+
+    /**
+     * Copy constructor. A defensive copy of {@code tags} is used internally.
+     */
+    public EditFinanceDescriptor(Finance toCopy) {
+      setName(toCopy.getName());
+      setFinanceType(toCopy.getFinanceType());
+      setDate(toCopy.getDate());
+      setAmount(toCopy.getAmount());
+      setTags(toCopy.getTags());
     }
 
     /**

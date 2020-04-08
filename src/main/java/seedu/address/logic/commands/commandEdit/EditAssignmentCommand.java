@@ -3,6 +3,7 @@ package seedu.address.logic.commands.commandEdit;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing Assignment in the address book.
  */
-public class EditAssignmentCommand extends Command {
+public class EditAssignmentCommand extends EditCommand {
 
     public static final String COMMAND_WORD = "edit-assignment";
 
@@ -37,15 +38,17 @@ public class EditAssignmentCommand extends Command {
                     + "[" + PREFIX_NAME + "NAME] "
                     + "[" + PREFIX_DEADLINE + "DEADLINE] "
                     + "[" + PREFIX_TAG + "TAG]...\n"
-                    + "Example: " + COMMAND_WORD + " 1 "
+                    + "Example: " + COMMAND_WORD + " 16100 "
                     + PREFIX_NAME + "Python Tutorial 3 ";
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This Assignment already exists in the address book.";
 
-    private final ID targetID;
-    private final EditAssignmentDescriptor editAssignmentDescriptor;
+    private ID targetID;
+    private EditAssignmentDescriptor editAssignmentDescriptor;
+    private Assignment toEdit;
+    private Assignment editedAssignment;
 
     /**
      * @param id                 of the Assignment in the filtered Assignment list to edit
@@ -78,7 +81,12 @@ public class EditAssignmentCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    protected void generateOppositeCommand() {
+        oppositeCommand = new EditAssignmentCommand(targetID, new EditAssignmentCommand.EditAssignmentDescriptor(toEdit));
+    }
+
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
         List<Assignment> lastShownList = model.getFilteredAssignmentList();
 
@@ -86,14 +94,19 @@ public class EditAssignmentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
         }
 
-        Assignment AssignmentToEdit = getAssignment(lastShownList);
-        Assignment editedAssignment = createEditedAssignment(AssignmentToEdit, editAssignmentDescriptor);
-
-        if (!AssignmentToEdit.weakEquals(editedAssignment) && model.has(editedAssignment)) {
+        Assignment assignmentToEdit = getAssignment(lastShownList);
+        this.toEdit = assignmentToEdit;
+        Assignment editedAssignment = createEditedAssignment(assignmentToEdit, editAssignmentDescriptor);
+        this.editedAssignment = editedAssignment;
+        if (!assignmentToEdit.weakEquals(editedAssignment) && model.has(editedAssignment)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
         }
+    }
 
-        model.set(AssignmentToEdit, editedAssignment);
+    @Override
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
+        requireNonNull(model);
+        model.set(toEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment));
     }
@@ -148,6 +161,16 @@ public class EditAssignmentCommand extends Command {
             setID(toCopy.AssignmentID);
             setDeadline(toCopy.deadline);
             setTags(toCopy.tags);
+        }
+
+        /**
+         * Copy constructor. A defensive copy of {@code tags} is used internally.
+         */
+        public EditAssignmentDescriptor(Assignment toCopy) {
+            setName(toCopy.getName());
+            setID(toCopy.getId());
+            setDeadline(toCopy.getDeadline());
+            setTags(toCopy.getTags());
         }
 
         /**

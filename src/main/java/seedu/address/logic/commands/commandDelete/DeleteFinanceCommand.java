@@ -5,14 +5,15 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
 
 /**
  * Deletes a finance identified using it's displayed index from the address book.
@@ -28,12 +29,12 @@ public class DeleteFinanceCommand extends DeleteCommand {
 
   public static final String MESSAGE_DELETE_FINANCE_SUCCESS = "Deleted Finance: %1$s";
 
+  private ID targetID;
   private Index targetIndex;
-
   private Finance toDelete;
 
-  public DeleteFinanceCommand(Index targetIndex) {
-    this.targetIndex = targetIndex;
+  public DeleteFinanceCommand(ID targetID) {
+    this.targetID = targetID;
   }
 
   public DeleteFinanceCommand(Finance toDelete) {
@@ -54,20 +55,24 @@ public class DeleteFinanceCommand extends DeleteCommand {
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     List<Finance> lastShownList = model.getFilteredFinanceList();
     if (this.toDelete == null) {
-      if (targetIndex.getZeroBased() >= lastShownList.size()) {
-        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
       }
-
-      this.toDelete = lastShownList.get(targetIndex.getZeroBased());
+      if (!model.has(targetID, Constants.ENTITY_TYPE.FINANCE)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_FINANCE_DISPLAYED_ID);
+      }
+      this.toDelete = (Finance) model.get(targetID, Constants.ENTITY_TYPE.FINANCE);
     }
-
+    if (this.targetID == null) {
+      this.targetID = toDelete.getId();
+    }
     if (this.targetIndex == null) {
       this.targetIndex = getIndex(lastShownList);
     }
   }
 
   @Override
-  protected void generateOppositeCommand() throws CommandException {
+  protected void generateOppositeCommand() {
     oppositeCommand = new AddFinanceCommand(toDelete, targetIndex.getZeroBased());
   }
 
@@ -82,6 +87,6 @@ public class DeleteFinanceCommand extends DeleteCommand {
   public boolean equals(Object other) {
     return other == this // short circuit if same object
         || (other instanceof DeleteFinanceCommand // instanceof handles nulls
-        && targetIndex.equals(((DeleteFinanceCommand) other).targetIndex)); // state check
+        && targetID.equals(((DeleteFinanceCommand) other).targetID)); // state check
   }
 }
