@@ -423,6 +423,31 @@ NOTE: `FROM_DATE` cannot be a future date. +
 
 image::wireframe/transaction.png[width="700", align="left"]
 
+=== Delete A Transaction: `*delete*`
+
+Accidentally added a wrong food to your purchases? The `delete` command allows you to do just that, by
+giving the index of the food to delete.
+
+NOTE: The index to delete has to be within the range of the list of transactions.
+
+
+Format: `delete` INDEX
+
+Parameters:
+
+* `INDEX` - The index of the item in the list of transactions.
+
+====
+Example:: You had accidentally selected the same food twice in a row too quickly, and want to delete one of them.
+====
+. Type in `transactions` from the main screen to enter the transactions page.
+. Locate the index number of the food you wish to delete.
+. Type in `delete` followed by the index number of the purchase, then hit kbd:[enter].
+. The additional purchase is now removed!
+
+TIP: Removing a food purchased only during a current budget cycle will add the amount back to your remaining budget!
+
+
 === Review Food Items: `*review*`
 
 From the *transactions* screen, leave a food review for a food item you have consumed to help you jog

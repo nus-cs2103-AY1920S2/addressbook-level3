@@ -27,7 +27,7 @@ public class ReportCommandParser implements Parser<ReportCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_TO,
                 PREFIX_DATE_BY_WEEK, PREFIX_DATE_BY_MONTH, PREFIX_DATE_BY_YEAR);
 
-        if (argMultimap.getValue(new Prefix("")).get().equals("")) {
+        if (argMultimap.size() == 1 && argMultimap.getValue(new Prefix("")).get().equals("")) {
             // The multimap only contains the preamble. No prefixes are present.
             return new ReportCommand(DateRange.generate());
 
@@ -69,6 +69,7 @@ public class ReportCommandParser implements Parser<ReportCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReportCommand.MESSAGE_USAGE));
         }
+
     }
 
     /** Extracts the argument tagged to the given prefix. Throws {@code ParseException}

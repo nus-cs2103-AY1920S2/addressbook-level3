@@ -190,7 +190,7 @@ public class Budget {
     }
     /** Check if this is a default value */
     public boolean isDefaultBudget() {
-        return this.totalBudget == Float.MAX_VALUE;
+        return this.totalBudget == 0;
     }
 
     @Override

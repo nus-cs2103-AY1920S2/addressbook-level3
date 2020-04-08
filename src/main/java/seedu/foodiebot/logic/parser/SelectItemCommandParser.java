@@ -26,10 +26,24 @@ public class SelectItemCommandParser implements Parser<SelectItemCommand> {
         }
 
         try {
+            int i = Integer.parseInt(enteredText);
+            index = Index.fromOneBased(i);
+            return new SelectItemCommand(index);
+
+        } catch (NumberFormatException nfe) {
+            return new SelectItemCommand(enteredText);
+
+        } catch (IndexOutOfBoundsException oob) {
+            index = Index.fromOneBased(999);
+            return new SelectItemCommand(index);
+        }
+
+        /*
+        try {
             index = ParserUtil.parseIndex(enteredText);
             return new SelectItemCommand(index);
         } catch (ParseException pe) {
             return new SelectItemCommand(enteredText);
-        }
+        }*/
     }
 }

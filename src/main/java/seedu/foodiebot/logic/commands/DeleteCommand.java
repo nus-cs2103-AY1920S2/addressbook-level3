@@ -13,6 +13,7 @@ import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.transaction.PurchasedFood;
 
 /** Deletes a purchased food using its displayed index from the transactions list. */
@@ -58,6 +59,20 @@ public class DeleteCommand extends Command {
         String foodName = foodToDelete.getName();
         LocalDate purchaseDate = foodToDelete.getDateAdded();
         model.removePurchasedFood(foodToDelete);
+
+        if (model.getBudget().get().getTotalBudget() != 0) {
+            Budget savedBudget = model.getFoodieBot().getBudget();
+
+            if (savedBudget.getRemainingBudget() + foodToDelete.getPrice() > savedBudget.getTotalBudget()) {
+
+                model.setBudget(new Budget(savedBudget.getTotalBudget(), savedBudget.getTotalBudget(),
+                        savedBudget.getDuration(), savedBudget.getDateTimeOfCreation(), savedBudget.getCycleRange()));
+
+            } else {
+                savedBudget.addToRemainingBudget(foodToDelete.getPrice());
+                model.setBudget(savedBudget);
+            }
+        }
 
         return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, foodName, purchaseDate));
     }

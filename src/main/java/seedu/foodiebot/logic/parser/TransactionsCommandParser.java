@@ -27,7 +27,7 @@ public class TransactionsCommandParser implements Parser<TransactionsCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_TO,
                 PREFIX_DATE_BY_WEEK, PREFIX_DATE_BY_MONTH, PREFIX_DATE_BY_YEAR);
 
-        if (argMultimap.getValue(new Prefix("")).get().equals("")) {
+        if (argMultimap.size() == 1 && argMultimap.getValue(new Prefix("")).get().equals("")) {
             // The multimap only contains the preamble. No prefixes are present.
             return new TransactionsCommand(DateRange.generate());
 
@@ -69,6 +69,7 @@ public class TransactionsCommandParser implements Parser<TransactionsCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TransactionsCommand.MESSAGE_USAGE));
         }
+
     }
 
     /** Extracts the argument tagged to the given prefix. Throws {@code} ParseException if no value is present.*/
