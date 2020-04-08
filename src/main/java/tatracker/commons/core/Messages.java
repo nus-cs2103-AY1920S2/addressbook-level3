@@ -18,6 +18,14 @@ public class Messages {
     public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "%1$d sessions listed!";
     public static final String MESSAGE_INVALID_STUDENTS = "No students created in this module!";
 
+    public static String getUnknownCommandWithHelpMessage() {
+        return MESSAGE_UNKNOWN_COMMAND + MESSAGE_HELP;
+    }
+
+    public static String getInvalidCommandWithHelpMessage() {
+        return MESSAGE_INVALID_COMMAND + MESSAGE_HELP;
+    }
+
     public static String getInvalidCommandMessage(String commandUsage) {
         return String.format(MESSAGE_INVALID_COMMAND_FORMAT, commandUsage);
     }
