@@ -19,7 +19,6 @@ public class Deadline {
                 + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
     private static final DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-    private static final DateTimeFormatter internalFormat = DateTimeFormatter.ofPattern("yyyy MM dd");
 
     // Instance variables
     public final LocalDateTime dateTime;
@@ -73,14 +72,6 @@ public class Deadline {
         } else {
             return false;
         }
-    }
-
-    /**
-     * Returns the date ONLY, no time.
-     * Only used internally.
-     */
-    public String getDate() {
-        return dateTime.format(internalFormat);
     }
 
     @Override
