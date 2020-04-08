@@ -43,7 +43,7 @@ public class ProfileManager implements Model {
         super();
         requireAllNonNull(profileList, userPrefs);
 
-        logger.fine("Initializing with address book: " + profileList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MODdy " + profileList + " and user prefs " + userPrefs);
 
         this.profileList = profileList;
         this.userPrefs = new UserPrefs(userPrefs);

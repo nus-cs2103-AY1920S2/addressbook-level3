@@ -9,11 +9,12 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_COURSE = "Error: This course is invalid or unavailable";
     public static final String MESSAGE_INVALID_COURSE_FOCUS_AREA = "Error: This focus area is not available";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The profile index provided is invalid";
     public static final String MESSAGE_INVALID_SEMESTER = "Error: No modules have been added to this semester";
-    public static final String MESSAGE_INVALID_GRADE = "Error: Invalid Grade.";
+    public static final String MESSAGE_INVALID_SEMESTER_FORMAT = "Please enter the year in the form Y.S, where " +
+            "Y is the year (positive integer less than 10) and S is the semester (1 or 2).";
+    public static final String MESSAGE_INVALID_GRADE = "Module's grade field should contain only " +
+            "one of these values: [A+, A, A-, B+, B, B-, C+, C, D+, D, F, S, U, CS, CU]";
     public static final String MESSAGE_INVALID_DATETIME = "Error: Invalid date or time!";
 
     public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created.";
@@ -34,4 +35,6 @@ public class Messages {
     public static final String MESSAGE_ADD_FUTURE_GRADE_ERROR = "You cannot add a grade to future semesters!";
     public static final String MESSAGE_DEADLINE_DOES_NOT_EXIST = "Error: Deadline to be edited does not exist";
 
+    public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as PLANNING, "
+            + "please specify specify name and deadline if you would like to add a task";
 }

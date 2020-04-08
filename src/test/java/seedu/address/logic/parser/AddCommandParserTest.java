@@ -51,7 +51,6 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        //Profile expectedProfile = new PersonBuilder(BOB).build();
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
