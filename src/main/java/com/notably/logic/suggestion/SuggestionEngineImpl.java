@@ -1,25 +1,23 @@
 package com.notably.logic.suggestion;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
-import com.notably.logic.commands.suggestion.EditSuggestionCommand;
-import com.notably.logic.commands.suggestion.ErrorSuggestionCommand;
-import com.notably.logic.commands.suggestion.ExitSuggestionCommand;
-import com.notably.logic.commands.suggestion.HelpSuggestionCommand;
-import com.notably.logic.commands.suggestion.NewSuggestionCommand;
-import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
-import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.EditSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.ErrorSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.ExitSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.HelpSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.NewSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
 import com.notably.model.Model;
 
@@ -34,6 +32,9 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit");
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_PATH_FORWARD_MATCHING = true;
+
+    private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
+            + "To see the list of available commands, type: help";
 
     private Model model;
     private CorrectionEngine<String> commandCorrectionEngine;
@@ -51,8 +52,8 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     @Override
     public void suggest(String userInput) {
         if (userInput.length() >= 2) {
-            SuggestionCommand suggestionCommand = parseCommand(userInput);
-            suggestionCommand.execute(model);
+            Optional<? extends SuggestionCommand> suggestionCommand = parseCommand(userInput);
+            suggestionCommand.ifPresent(s -> s.execute(model));
         }
     }
 
@@ -61,56 +62,47 @@ public class SuggestionEngineImpl implements SuggestionEngine {
      * @param userInput The user's input.
      * @return The corresponding SuggestionCommand.
      */
-    private SuggestionCommand parseCommand(String userInput) {
+    private Optional<? extends SuggestionCommand> parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new ErrorSuggestionCommand(
-                    "Invalid command format. To see the list of available commands, type: help");
+            model.setResponseText(String.format(ERROR_MESSAGE, userInput));
+            return Optional.empty();
         }
 
         String commandWord = matcher.group("commandWord");
         CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            return new ErrorSuggestionCommand(
-                    "Invalid command. To see the list of available commands, type: help");
+            model.setResponseText(String.format(ERROR_MESSAGE, userInput));
+            return Optional.empty();
         }
         commandWord = correctionResult.getCorrectedItems().get(0);
 
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case OpenSuggestionCommand.COMMAND_WORD:
-            try {
-                return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
-            } catch (ParseException e) {
-                return new ErrorSuggestionCommand(e.getMessage());
-            }
+        case OpenSuggestionCommandParser.COMMAND_WORD:
+            return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
-        case DeleteSuggestionCommand.COMMAND_WORD:
-            try {
-                return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
-            } catch (ParseException e) {
-                return new ErrorSuggestionCommand(e.getMessage());
-            }
+        case DeleteSuggestionCommandParser.COMMAND_WORD:
+            return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         /*case SearchSuggestionCommand.COMMAND_WORD:
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
-        case NewSuggestionCommand.COMMAND_WORD:
-            return new NewSuggestionCommand();
+        case NewSuggestionCommandParser.COMMAND_WORD:
+            return new NewSuggestionCommandParser(model).parse(arguments);
 
-        case EditSuggestionCommand.COMMAND_WORD:
-            return new EditSuggestionCommand();
+        case EditSuggestionCommandParser.COMMAND_WORD:
+            return new EditSuggestionCommandParser(model).parse(arguments);
 
-        case HelpSuggestionCommand.COMMAND_WORD:
-            return new HelpSuggestionCommand();
+        case HelpSuggestionCommandParser.COMMAND_WORD:
+            return new HelpSuggestionCommandParser(model).parse(arguments);
 
-        case ExitSuggestionCommand.COMMAND_WORD:
-            return new ExitSuggestionCommand();
+        case ExitSuggestionCommandParser.COMMAND_WORD:
+            return new ExitSuggestionCommandParser(model).parse(arguments);
 
         default:
-            return new ErrorSuggestionCommand(
-                    "Invalid command. To see the list of available commands, type: help");
+            return new ErrorSuggestionCommandParser(model).parse(arguments);
         }
     }
 
