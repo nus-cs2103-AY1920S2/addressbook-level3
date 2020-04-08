@@ -1,7 +1,6 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
@@ -33,15 +32,13 @@ public class AddCommand extends Command {
             + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
             + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]... "
             + "[" + PREFIX_STEP + "STEP]... "
-            + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Caesar Salad "
             + PREFIX_TIME + "10 "
             + PREFIX_INGREDIENT_VEGE + "100g, Tomato "
             + PREFIX_INGREDIENT_OTHER + "100g, 100% Parmesan cheese (grandma's favourite)"
             + PREFIX_STEP + "Cut tomatoes "
-            + PREFIX_STEP + "Remove honeydew skin "
-            + PREFIX_GOAL + "Herbivore ";
+            + PREFIX_STEP + "Remove honeydew skin ";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";

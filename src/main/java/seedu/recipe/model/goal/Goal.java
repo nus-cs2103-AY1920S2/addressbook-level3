@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
+import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
 
 /**
  * Represents a Goal in the recipe book.
@@ -15,19 +16,17 @@ public class Goal {
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     public final String goalName;
-    private final MainIngredientType ingredientType;
+    private final MainIngredientType mainIngredientType;
 
     /**
-     * Constructs a {@code Goal}.
+     * Constructs a {@code Goal} based on main ingredient type that hits the basic nutrition requirement.
      *
-     * @param goalName A valid goal name.
      */
-    public Goal(String goalName) {
-        requireNonNull(goalName);
+    public Goal(MainIngredientType mainTypeMagnitude) {
+        requireNonNull(mainTypeMagnitude);
+        this.mainIngredientType = mainTypeMagnitude;
+        this.goalName = setGoalName();
         checkArgument(isValidGoalName(goalName), MESSAGE_CONSTRAINTS);
-        this.goalName = goalName;
-        //this.goalName = setGoalName();
-        this.ingredientType = null;
     }
 
     /**
@@ -39,7 +38,7 @@ public class Goal {
 
     public String setGoalName() {
         String name;
-        switch (ingredientType) {
+        switch (mainIngredientType) {
         case VEGETABLE:
            name = "Herbivore";
            break;
