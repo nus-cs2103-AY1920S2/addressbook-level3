@@ -847,13 +847,14 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 ====
 Examples:
 
-* `session add m/CS2103T s/14:00 e/16:00 d/19-02-2020 t/consultation n/with Alice and Bob`
+* `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
 +
 Adds a new session with:
 
-** `START_TIME` at 14:00
-** `END_TIME` at 16:00
-** `DATE` on 19-02-2020
+** `START_TIME` at 14:00 in `24hr` format
+** `END_TIME` at 16:00 in `24hr` format
+** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
+** `WEEK` recurring period of 2 weeks
 ** `MOD_CODE` of CS2103T
 ** `TYPE` consultation
 ** `NOTE` "with Alice and Bob"
@@ -916,7 +917,10 @@ Edits the session at index 1 to have:
 
 You can use this command to mark a session as done.
 
-The session will automatically appear as a new claim in the *Claims View*.
+The session marked done will be removed from the *Session View* and
+will automatically appear as a new claim in the *Claims View*.
+If the session marked done has a recurring period, a new session with the updated date
+and timing will be added to Session View.
 
 You will automatically be switched to the claims
 tab as well, if you were currently on a different tab.
@@ -928,7 +932,7 @@ Marks the session with the given unique index as done.
 ====
 Examples:
 
-* `done 25` +
+* `session done 25` +
 This will mark the 25th session in the *Session View* as done.
 ====
 

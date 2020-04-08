@@ -58,7 +58,7 @@ public class DoneSessionCommand extends Command {
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
 
-        if (session.getRecurring() != 0) {
+        if (session.getRecurring() > 0) {
 
             int recurring = session.getRecurring();
             LocalDateTime startTime = session.getStartDateTime().plusWeeks(recurring);

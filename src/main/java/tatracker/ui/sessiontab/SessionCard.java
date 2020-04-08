@@ -57,7 +57,7 @@ public class SessionCard extends UiPart<Region> {
                 + session.getEndDateTime().format(timeFormat));
         module.setText(session.getModuleCode().toUpperCase());
         description.setText(session.getDescription());
-        if (session.getRecurring() != 0) {
+        if (session.getRecurring() > 0) {
             recur.setText("Every " + session.getRecurring() + " Week(s)");
         } else {
             recur.setText("Not Recurring");

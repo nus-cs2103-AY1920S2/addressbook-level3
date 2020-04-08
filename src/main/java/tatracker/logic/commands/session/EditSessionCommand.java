@@ -99,7 +99,7 @@ public class EditSessionCommand extends Command {
 
         LocalDateTime startTime = editSessionDescriptor.getStartTime().orElse(sessionToEdit.getStartDateTime());
         LocalDateTime endTime = editSessionDescriptor.getEndTime().orElse(sessionToEdit.getEndDateTime());
-        int isRecurring = editSessionDescriptor.getRecurring();
+        int isRecurring = editSessionDescriptor.getRecurring().orElse(sessionToEdit.getRecurring());
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
         SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
@@ -141,10 +141,13 @@ public class EditSessionCommand extends Command {
      * corresponding field value of the student.
      */
     public static class EditSessionDescriptor {
+
+        private static final int NO_RECURRING_VALUE = -1;
+
         private LocalDateTime newStartTime;
         private LocalDateTime newEndTime;
         private boolean isDateChanged;
-        private int isRecurring;
+        private int newRecurring = NO_RECURRING_VALUE;
         private String newModuleCode;
         private SessionType newSessionType;
         private String newDescription;
@@ -159,7 +162,7 @@ public class EditSessionCommand extends Command {
         public EditSessionDescriptor(EditSessionDescriptor toCopy) {
             setStartTime(toCopy.newStartTime);
             setEndTime(toCopy.newEndTime);
-            setRecurring(toCopy.isRecurring);
+            setRecurring(toCopy.newRecurring);
             setModuleCode(toCopy.newModuleCode);
             setSessionType(toCopy.newSessionType);
             setDescription(toCopy.newDescription);
@@ -170,8 +173,11 @@ public class EditSessionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return isDateChanged || CollectionUtil.isAnyNonNull(newStartTime, newEndTime,
-                    newModuleCode, newDescription, newSessionType, isRecurring);
+            boolean dateChanged = isDateChanged;
+            boolean recurringChanged = newRecurring >= 0;
+            boolean otherVariables = CollectionUtil.isAnyNonNull(newStartTime, newEndTime,
+                    newModuleCode, newDescription, newSessionType);
+            return dateChanged || otherVariables || recurringChanged;
         }
 
         public void setStartTime(LocalDateTime startTime) {
@@ -191,11 +197,15 @@ public class EditSessionCommand extends Command {
         }
 
         public void setRecurring(int isRecurring) {
-            this.isRecurring = isRecurring;
+            this.newRecurring = isRecurring;
         }
 
-        public int getRecurring() {
-            return this.isRecurring;
+        public Optional<Integer> getRecurring() {
+            if (newRecurring < 0) {
+                return Optional.empty();
+            } else {
+                return Optional.of(newRecurring);
+            }
         }
 
         public void setIsDateChanged(boolean isChanged) {
@@ -248,6 +258,7 @@ public class EditSessionCommand extends Command {
             return getStartTime().equals(e.getStartTime())
                     && getEndTime().equals(e.getEndTime())
                     && getSessionType().equals(e.getSessionType())
+                    && getRecurring() == e.getRecurring()
                     && getDescription().equals(e.getDescription());
         }
     }
