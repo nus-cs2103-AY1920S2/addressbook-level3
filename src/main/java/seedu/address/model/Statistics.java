@@ -11,10 +11,12 @@ import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
 
-/** Wraps all DayData objects. */
+/** Wraps all DayData objects. Stores daily target. Manager to StatisticsDisplau */
 public class Statistics implements ReadOnlyStatistics {
 
     private final CustomQueue customQueue;
+    private final String DEFAULT_DAILY_TARGET = "100";
+    private String dailyTarget;
 
     public Statistics() {
         customQueue = new CustomQueue();
@@ -22,6 +24,7 @@ public class Statistics implements ReadOnlyStatistics {
             customQueue.init();
         } catch (InvalidTableException e) {
         }
+        this.dailyTarget = DEFAULT_DAILY_TARGET;
     }
 
     public Statistics(LocalDate localDate) {
@@ -30,14 +33,26 @@ public class Statistics implements ReadOnlyStatistics {
             customQueue.init(localDate);
         } catch (InvalidTableException e) {
         }
+        this.dailyTarget = DEFAULT_DAILY_TARGET;
     }
 
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
     public Statistics(ReadOnlyStatistics toBeCopied) {
         this();
         resetData(toBeCopied);
+        this.dailyTarget = toBeCopied.getDailyTarget();
     }
 
+    //// daily challenge operations
+
+    public void setDailyTarget(String dailyTarget) {
+        this.dailyTarget = dailyTarget;
+    }
+
+    public String getDailyTarget() {
+        return dailyTarget;
+    }
+    
     //// list overwrite operations
 
     /** Replaces the contents of the list with {@code dayDataList}. */
