@@ -51,24 +51,25 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Sugg
         if (title.isEmpty()) {
             model.setResponseText(RESPONSE_MESSAGE);
             return Optional.empty();
-        } else {
-            AbsolutePath uncorrectedPath;
-            try {
-                uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
-            } catch (ParseException pe) {
-                model.setResponseText("Cannot open \"" + title + "\". Invalid path.");
-                return Optional.empty();
-            }
-
-            model.setResponseText(RESPONSE_MESSAGE + " entitled \"" + title + "\"");
-
-            CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
-            if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-                return Optional.empty();
-            }
-
-            // TODO: Pass in the list of corrected items and create suggestions based on that
-            return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
         }
+
+        AbsolutePath uncorrectedPath;
+        try {
+            uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
+        } catch (ParseException pe) {
+            model.setResponseText("Cannot open \"" + title + "\". Invalid path.");
+            return Optional.empty();
+        }
+
+        model.setResponseText(RESPONSE_MESSAGE + " entitled \"" + title + "\"");
+
+        CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
+        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            return Optional.empty();
+        }
+
+        // TODO: Pass in the list of corrected items and create suggestions based on that
+        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
+
     }
 }
