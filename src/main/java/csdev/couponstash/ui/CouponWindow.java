@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 import javafx.fxml.FXML;
@@ -134,7 +133,7 @@ public class CouponWindow extends UiPart<Stage> {
         // or MonetaryAmount, but never both
         StringBuilder sb = new StringBuilder();
         s.getPercentageAmount().ifPresent(pc ->
-                sb.append(pc.getValue()).append(PercentageAmount.PERCENT_SUFFIX));
+                sb.append(pc.toString()));
         s.getMonetaryAmount().ifPresent(ma ->
                 sb.append(ma.getStringWithMoneySymbol(moneySymbol)));
         return sb.toString();

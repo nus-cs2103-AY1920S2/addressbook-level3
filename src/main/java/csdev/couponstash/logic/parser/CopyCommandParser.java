@@ -14,6 +14,7 @@ public class CopyCommandParser implements Parser<CopyCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the CopyCommand
      * and returns a CopyCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
@@ -23,14 +24,8 @@ public class CopyCommandParser implements Parser<CopyCommand> {
             return new CopyCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
-                            CopyCommand.MESSAGE_USAGE
-                    ),
-                    pe
-            );
+                    String.format(pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT, CopyCommand.MESSAGE_USAGE),
+                    pe);
         }
     }
-
 }
