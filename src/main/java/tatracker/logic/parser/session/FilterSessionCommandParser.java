@@ -11,6 +11,7 @@ import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.module.Module;
 import tatracker.model.session.SessionPredicate;
 
 
@@ -40,7 +41,13 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            predicate.setModuleCode(argMultimap.getValue(MODULE).map(String::trim).get());
+            String moduleCode = argMultimap.getValue(MODULE).map(String::trim).get();
+
+            if (moduleCode.isBlank()) {
+                throw new ParseException(Module.CONSTRAINTS_MODULE_CODE);
+            }
+
+            predicate.setModuleCode(moduleCode);
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {

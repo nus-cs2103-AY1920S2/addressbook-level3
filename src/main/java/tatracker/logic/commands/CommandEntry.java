@@ -58,13 +58,14 @@ public enum CommandEntry {
     SESSION_ADD(AddSessionCommand.DETAILS),
     SESSION_DELETE(DeleteSessionCommand.DETAILS),
     SESSION_EDIT(EditSessionCommand.DETAILS),
-    SESSION_FILTER(FilterSessionCommand.DETAILS),
     SESSION_DONE(DoneSessionCommand.DETAILS),
 
+    /* Session - Claims Filtering */
+    SESSION_FILTER(FilterSessionCommand.DETAILS),
+    CLAIM_FILTER(FilterClaimCommand.DETAILS),
     LIST(ListCommand.DETAILS),
 
-    /* TSS View */
-    CLAIM_FILTER(FilterClaimCommand.DETAILS),
+    /* Claims View */
     SET_RATE(SetRateCommand.DETAILS),
 
     /* Storage Operations */
@@ -72,8 +73,8 @@ public enum CommandEntry {
 
     /* Navigation */
     GOTO(GotoCommand.DETAILS),
-    REPORT(ShowStatisticCommand.DETAILS),
     HELP(HelpCommand.DETAILS),
+    REPORT(ShowStatisticCommand.DETAILS),
     EXIT(ExitCommand.DETAILS);
 
     private final CommandDetails details;
