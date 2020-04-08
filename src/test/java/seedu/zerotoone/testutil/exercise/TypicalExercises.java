@@ -47,7 +47,8 @@ public class TypicalExercises {
      */
     public static ExerciseList getTypicalExerciseList() {
         ExerciseList el = new ExerciseList();
-        List<ExerciseBuilder> typicalExerciseBuilders = new ArrayList<>(Arrays.asList(BENCH_PRESS_BUILDER, DEADLIFT_BUILDER));
+        List<ExerciseBuilder> typicalExerciseBuilders = new ArrayList<>(
+                Arrays.asList(BENCH_PRESS_BUILDER, DEADLIFT_BUILDER));
 
         for (ExerciseBuilder exerciseBuilder : typicalExerciseBuilders) {
             el.addExercise(exerciseBuilder.build());

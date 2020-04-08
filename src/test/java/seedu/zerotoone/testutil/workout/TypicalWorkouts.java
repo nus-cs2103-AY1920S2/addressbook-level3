@@ -30,7 +30,6 @@ public class TypicalWorkouts {
             .withWorkoutExercise(VALID_EXERCISE_LUNGES);
     public static final Workout LEGS_WORKOUT = LEGS_WORKOUT_BUILDER.build();
 
-    
     public static final WorkoutBuilder ABS_WORKOUT_BUILDER = new WorkoutBuilder()
             .withWorkoutName(VALID_WORKOUT_NAME_ABS_WORKOUT)
             .withWorkoutExercise(VALID_EXERCISE_DUMBBELL_CRUNCH);
@@ -45,8 +44,8 @@ public class TypicalWorkouts {
      */
     public static WorkoutList getTypicalWorkoutList() {
         WorkoutList el = new WorkoutList();
-        List<WorkoutBuilder> typicalWorkoutBuilders = new ArrayList<>(Arrays.asList(ARMS_WORKOUT_BUILDER,
-                LEGS_WORKOUT_BUILDER, ABS_WORKOUT_BUILDER));
+        List<WorkoutBuilder> typicalWorkoutBuilders = new ArrayList<>(
+                Arrays.asList(ARMS_WORKOUT_BUILDER, LEGS_WORKOUT_BUILDER, ABS_WORKOUT_BUILDER));
 
         for (WorkoutBuilder workoutBuilder : typicalWorkoutBuilders) {
             el.addWorkout(workoutBuilder.build());
