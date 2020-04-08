@@ -239,7 +239,7 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::session[]
+// tag::completedExercise[]
 === Session
 ==== Implementation
 The Session feature resides on the Home page and is comprised of `Start`, `Stop`, `Done`, and `Skip` commands.
@@ -251,7 +251,7 @@ The activity diagram below demonstrates the actions of a user with this feature.
 image::StartStopActivityDiagram.png[]
 
 Start depicts the start of a valid Session (non-zero sets remaining).
-Upon depletion of all remaining sets, the session automatically stops and is saved.
+Upon depletion of all remaining sets, the completedExercise automatically stops and is saved.
 The only inputs the user is required to give throughout the activity are `done` (corresponding to the yes of the conditional branch)
 and `skip` (no of the conditional branch).
 This is a conscious design choice as elaborated in the next section.
@@ -270,7 +270,7 @@ Further operations are exposed in the `Model` interface as `Model#startSession()
 The inner workings of the feature are briefly expounded below through example usage.
 `Arms Day` is a `Workout` with ID = `2` and consists of 2 sets of one exercise called `Benchpress`.
 
-Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a session with `start 2`.
+Step 1. The user selects an existing `Workout` called `Arms Day` with ID = `2` and starts a completedExercise with `start 2`.
 
 * `Logic` and `Parser` redirects control to `StartCommand#execute()` where an instance of `OngoingSession` is created with
 `Arms Day`. The upcoming set of the next exercise is displayed for the user.
@@ -289,23 +289,23 @@ Step 3. The user fails the last and final set of `Benchpress` and types `skip`.
 
 * `SkipCommand#execute()` is invoked. The instance of `OngoingSession` is updated. Since `OngoingSession#hasSetLeft()`
 returns false, `OngoingSession#finish()` is called which creates and returns an immutable `Session` object. This object
-is saved into the `sessionList` of `ModelManager` for saving and use by the `Log` feature.
+is saved into the `completedExerciseList` of `ModelManager` for saving and use by the `Log` feature.
 
 [Note] In the usual flow, the `stop` command is not used, and is reserved only for a premature (incomplete) ending of a
-session.
+completedExercise.
 
 ==== Design Considerations
 ===== Aspect: Seamless user-first experience
-* **Current Implementation:** Minimal commands and typing during an ongoing session.
+* **Current Implementation:** Minimal commands and typing during an ongoing completedExercise.
 ** Pros: Less interruption during actual exercising to enter commands.
 ** Cons: More experienced users are not able to have a more customizable workout.
 
 
 ===== Aspect: Beginner-friendly automatic set-ordering
 * **Current Implementation:** Exercises and sets have fixed ordering based on their creation.
-** Pros: Easier for new user to follow a session, less typing required during ongoing session.
+** Pros: Easier for new user to follow a completedExercise, less typing required during ongoing completedExercise.
 ** Cons: Experienced users are not able to have an ad-hoc customizable workout without creating a new workout with the specific order they want.
-// end::session[]
+// end::completedExercise[]
 
 // tag::exercise[]
 === Exercise
@@ -424,7 +424,7 @@ requested.
 
 // tag::log[]
 === Log
-For logging, we propose saving the session data in the following class architecture.
+For logging, we propose saving the completedExercise data in the following class architecture.
 
 ==== Implementation
 
@@ -483,11 +483,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |User who has exercise goals |Set and adjust goals accordingly |Make plans to reach my goals, and improve upon those plans as I see fit
 
-|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout session I do
+|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout completedExercise I do
 
 |`* *` |User who does exercises in sets |Keep track of how many repetitions per exercise |Know the details of each exercise
 
-|`* *` |User who has a regular workout schedule, but likes to schedule one-off sessions |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
+|`* *` |User who has a regular workout schedule, but likes to schedule one-off completedExercises |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
 
 |`* *` |User who loses motivation over a long period of time |Something to help me stay motivated |Keep going and not give up halfway
 

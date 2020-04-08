@@ -10,8 +10,8 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
-import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.ui.util.ViewType;
 
 /**
@@ -71,7 +71,7 @@ public interface Logic extends WorkoutLogic {
      *
      * @see seedu.zerotoone.model.Model#getSessionList()
      */
-    ObservableList<Session> getSessionList();
+    ObservableList<CompletedWorkout> getLogList();
 
     /**
      * Returns the OngoingSessionList.
@@ -80,13 +80,14 @@ public interface Logic extends WorkoutLogic {
      */
     ObservableList<OngoingSet> getOngoingSetList();
 
-    /** Returns an unmodifiable view of the filtered list of sessions */
-    ObservableList<Session> getFilteredSessionList();
+    /** Returns an unmodifiable view of the filtered list of workouts.
+     */
+    ObservableList<CompletedWorkout> getFilteredLogList();
 
     /**
      * Returns the user prefs' session list file path.
      */
-    Path getSessionListFilePath();
+    Path getLogListFilePath();
 
     // -----------------------------------------------------------------------------------------
     // Schedule List

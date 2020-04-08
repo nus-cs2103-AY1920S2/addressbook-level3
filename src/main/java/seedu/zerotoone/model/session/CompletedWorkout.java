@@ -18,12 +18,13 @@ public class CompletedWorkout {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final WorkoutName workoutName;
-    private final List<Session> exercises;
+    private final List<CompletedExercise> exercises;
 
     /**
      * Every field must be present and not null.
      */
-    public CompletedWorkout(WorkoutName name, List<Session> exercises, LocalDateTime start, LocalDateTime end) {
+    public CompletedWorkout(WorkoutName name,
+            List<CompletedExercise> exercises, LocalDateTime start, LocalDateTime end) {
         requireAllNonNull(name, exercises, start, end);
         this.workoutName = name;
         this.startTime = start;
@@ -35,7 +36,7 @@ public class CompletedWorkout {
         return this.workoutName;
     }
 
-    public List<Session> getExercises() {
+    public List<CompletedExercise> getExercises() {
         return Collections.unmodifiableList(exercises);
     }
 

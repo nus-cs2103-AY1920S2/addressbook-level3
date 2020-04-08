@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage.session;
+package seedu.zerotoone.storage.log;
 
 import static java.util.Objects.requireNonNull;
 
@@ -12,42 +12,42 @@ import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.FileUtil;
 import seedu.zerotoone.commons.util.JsonUtil;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.storage.session.util.JacksonSessionList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
+import seedu.zerotoone.storage.log.util.JacksonLogList;
 
 /**
  * A class to access SessionList data stored as a json file on the hard disk.
  */
-public class SessionListStorageManager implements SessionListStorage {
+public class LogListStorageManager implements LogListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(SessionListStorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(LogListStorageManager.class);
 
     private Path filePath;
 
-    public SessionListStorageManager(Path filePath) {
+    public LogListStorageManager(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getSessionListFilePath() {
+    public Path getLogListFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlySessionList> readSessionList() throws DataConversionException {
-        return readSessionList(filePath);
+    public Optional<ReadOnlyLogList> readLogList() throws DataConversionException {
+        return readLogList(filePath);
     }
 
     /**
-     * Similar to {@link #readSessionList()}.
+     * Similar to {@link #readLogList()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlySessionList> readSessionList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyLogList> readLogList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JacksonSessionList> jacksonSessionList = JsonUtil.readJsonFile(
-                filePath, JacksonSessionList.class);
+        Optional<JacksonLogList> jacksonSessionList = JsonUtil.readJsonFile(
+                filePath, JacksonLogList.class);
         if (jacksonSessionList.isEmpty()) {
             return Optional.empty();
         }
@@ -61,21 +61,21 @@ public class SessionListStorageManager implements SessionListStorage {
     }
 
     @Override
-    public void saveSessionList(ReadOnlySessionList sessionList) throws IOException {
-        saveSessionList(sessionList, filePath);
+    public void saveLogList(ReadOnlyLogList sessionList) throws IOException {
+        saveLogList(sessionList, filePath);
     }
 
     /**
-     * Similar to {@link #saveSessionList(ReadOnlySessionList)}.
+     * Similar to {@link #saveLogList(ReadOnlyLogList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveSessionList(ReadOnlySessionList sessionList, Path filePath) throws IOException {
+    public void saveLogList(ReadOnlyLogList sessionList, Path filePath) throws IOException {
         requireNonNull(sessionList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JacksonSessionList(sessionList), filePath);
+        JsonUtil.saveJsonFile(new JacksonLogList(sessionList), filePath);
     }
 
 }

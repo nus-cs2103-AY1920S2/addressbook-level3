@@ -118,7 +118,8 @@ public class MainWindow extends UiPart<Stage> {
         scheduledWorkoutListPanel = new ScheduledWorkoutListPanel(logic.getSortedScheduledWorkoutList());
         scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
 
-        logListPanel = new LogListPanel(logic.getFilteredSessionList());
+
+        logListPanel = new LogListPanel(logic.getFilteredLogList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
         helpDisplay = new HelpDisplay(new AllCommands().getCommandList());

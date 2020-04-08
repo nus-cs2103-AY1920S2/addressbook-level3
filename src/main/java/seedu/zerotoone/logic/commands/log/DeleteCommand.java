@@ -10,37 +10,37 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedWorkout;
 
 /**
- * Deletes a session identified using it's displayed index from the session list.
+ * Deletes a Log identified using it's displayed index from the log list.
  */
 public class DeleteCommand extends LogCommand {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = "Usage: log delete LOG_ID";
-    public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted Session: %1$s on %2$s";
-    private final Index sessionId;
+    public static final String MESSAGE_DELETE_LOG_SUCCESS = "Deleted log: %1$s on %2$s";
+    private final Index logId;
 
     public DeleteCommand(Index targetIndex) {
         requireNonNull(targetIndex);
-        this.sessionId = targetIndex;
+        this.logId = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Session> lastShownList = model.getFilteredSessionList();
+        List<CompletedWorkout> lastShownList = model.getFilteredLogList();
 
-        if (sessionId.getZeroBased() >= lastShownList.size()) {
+        if (logId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
-        Session sessionToDelete = lastShownList.get(sessionId.getZeroBased());
-        model.deleteSession(sessionId.getZeroBased());
+        CompletedWorkout completedWorkoutToDelete = lastShownList.get(logId.getZeroBased());
+        model.deleteLog(logId.getZeroBased());
 
-        String outputMessage = String.format(MESSAGE_DELETE_SESSION_SUCCESS,
-            sessionToDelete.getExerciseName().toString(),
-            getPrettyDateTimeString(sessionToDelete.getStartTime()));
+        String outputMessage = String.format(MESSAGE_DELETE_LOG_SUCCESS,
+            completedWorkoutToDelete.getWorkoutName().toString(),
+            getPrettyDateTimeString(completedWorkoutToDelete.getStartTime()));
         return new CommandResult(outputMessage);
     }
 
@@ -48,6 +48,6 @@ public class DeleteCommand extends LogCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && sessionId.equals(((DeleteCommand) other).sessionId)); // state check
+                && logId.equals(((DeleteCommand) other).logId)); // state check
     }
 }

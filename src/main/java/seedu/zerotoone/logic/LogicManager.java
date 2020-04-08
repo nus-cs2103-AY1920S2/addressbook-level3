@@ -16,8 +16,8 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
-import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.storage.Storage;
@@ -52,6 +52,7 @@ public class LogicManager implements Logic {
             storage.saveExerciseList(model.getExerciseList());
             storage.saveWorkoutList(model.getWorkoutList());
             storage.saveScheduleList(model.getScheduleList());
+            storage.saveLogList(model.getLogList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -93,19 +94,21 @@ public class LogicManager implements Logic {
         return model.getExerciseListFilePath();
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Log List
     @Override
-    public ObservableList<Session> getSessionList() {
-        return model.getSessionList().getSessionList();
+    public ObservableList<CompletedWorkout> getLogList() {
+        return model.getLogList().getLogList();
     }
 
     @Override
-    public ObservableList<Session> getFilteredSessionList() {
-        return model.getFilteredSessionList();
+    public ObservableList<CompletedWorkout> getFilteredLogList() {
+        return model.getFilteredLogList();
     }
 
     @Override
-    public Path getSessionListFilePath() {
-        return model.getSessionListFilePath();
+    public Path getLogListFilePath() {
+        return model.getLogListFilePath();
     }
 
     // -----------------------------------------------------------------------------------------

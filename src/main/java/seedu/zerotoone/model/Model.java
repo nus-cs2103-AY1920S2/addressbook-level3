@@ -9,11 +9,11 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.schedule.SchedulerModel;
+import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutModel;
@@ -24,7 +24,7 @@ import seedu.zerotoone.model.workout.WorkoutModel;
 public interface Model extends WorkoutModel, SchedulerModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
-    Predicate<Session> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
+    Predicate<CompletedWorkout> PREDICATE_SHOW_ALL_LOGS = unused -> true;
 
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
@@ -122,16 +122,18 @@ public interface Model extends WorkoutModel, SchedulerModel {
 
     Optional<OngoingWorkout> getCurrentWorkout();
 
-    ReadOnlySessionList getSessionList();
-
-    ObservableList<Session> getFilteredSessionList();
-
-    void updateFilteredSessionList(Predicate<Session> predicate);
-
-    Path getSessionListFilePath();
 
 
-    void deleteSession(int target);
+    // -----------------------------------------------------------------------------------------
+    // Log
 
-    void setSessionListFilePath(Path sessionListFilePath);
+
+    ReadOnlyLogList getLogList();
+    void deleteLog(int target);
+
+    ObservableList<CompletedWorkout> getFilteredLogList();
+    void updateFilteredLogList(Predicate<CompletedWorkout> predicate);
+
+    Path getLogListFilePath();
+    void setLogListFilePath(Path logListFilePath);
 }

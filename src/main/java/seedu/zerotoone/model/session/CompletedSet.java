@@ -12,7 +12,7 @@ import seedu.zerotoone.model.exercise.Weight;
  * Represents a Session Set in the exercise list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class SessionSet {
+public class CompletedSet {
     /*
      * The first character of the exercise set must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -24,14 +24,14 @@ public class SessionSet {
     /**
      * Every field must be present and not null.
      */
-    public SessionSet(Weight weight, NumReps numReps, boolean isFinished) {
+    public CompletedSet(Weight weight, NumReps numReps, boolean isFinished) {
         requireAllNonNull(weight, numReps);
         this.weight = weight;
         this.numReps = numReps;
         this.isFinished = isFinished;
     }
 
-    public SessionSet(ExerciseSet exerciseSet, boolean isFinished) {
+    public CompletedSet(ExerciseSet exerciseSet, boolean isFinished) {
         requireAllNonNull(exerciseSet.getWeight(), exerciseSet.getNumReps());
         this.weight = exerciseSet.getWeight();
         this.numReps = exerciseSet.getNumReps();
@@ -66,11 +66,11 @@ public class SessionSet {
             return true;
         }
 
-        if (!(other instanceof SessionSet)) {
+        if (!(other instanceof CompletedSet)) {
             return false;
         }
 
-        SessionSet otherExerciseSet = (SessionSet) other;
+        CompletedSet otherExerciseSet = (CompletedSet) other;
         return otherExerciseSet.getWeight().equals(getWeight())
                 && otherExerciseSet.getNumReps().equals(getNumReps());
     }

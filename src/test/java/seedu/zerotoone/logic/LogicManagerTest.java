@@ -22,8 +22,8 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.log.LogListStorageManager;
 import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
-import seedu.zerotoone.storage.session.SessionListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 import seedu.zerotoone.testutil.LogicManagerTestUtil;
@@ -48,8 +48,8 @@ public class LogicManagerTest {
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
         ScheduleListStorageManager scheduleListStorage =
                 new ScheduleListStorageManager(temporaryFolder.resolve("scheduleList.json"));
-        SessionListStorageManager sessionListStorage =
-            new SessionListStorageManager(temporaryFolder.resolve("sessionList.json"));
+        LogListStorageManager sessionListStorage =
+            new LogListStorageManager(temporaryFolder.resolve("sessionList.json"));
         StorageManager storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
                 workoutListStorage,
@@ -82,8 +82,8 @@ public class LogicManagerTest {
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         ScheduleListStorageManager scheduleListStorage =
                 new ScheduleListStorageManager(temporaryFolder.resolve("ioExceptionScheduleList.json"));
-        SessionListStorageManager sessionListStorage =
-            new SessionListStorageManager(temporaryFolder.resolve("ioExceptionSessionList.json"));
+        LogListStorageManager sessionListStorage =
+            new LogListStorageManager(temporaryFolder.resolve("ioExceptionSessionList.json"));
         StorageManager storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
                 workoutListStorage,
