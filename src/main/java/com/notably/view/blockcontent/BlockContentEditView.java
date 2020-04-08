@@ -63,7 +63,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
      * Customizes the appearance and attributes of the Block Edit Modal
      */
     private void setStageStyle() {
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.initOwner(parentStage);
         stage.initModality(Modality.WINDOW_MODAL);
     }
