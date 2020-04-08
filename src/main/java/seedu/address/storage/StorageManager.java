@@ -314,7 +314,7 @@ public class StorageManager extends BaseManager implements Storage {
   @Override
   public void saveProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook, Path filePath)
       throws IOException {
-    logger.fine("Attempting to write to data file: " + filePath);
+    logger.fine("Attempting to write to SAVE PROFRESS AB: " + filePath);
     progressAddressBookStorage.saveProgressAddressBook(progressAddressBook, filePath);
   }
 

@@ -43,7 +43,6 @@ public class CompositeID extends ID {
         ids.put(PREFIX_ASSIGNMENTID, assignmentID);
     }
 
-
     @Override
     public String toString() {
         return ids.toString() ;

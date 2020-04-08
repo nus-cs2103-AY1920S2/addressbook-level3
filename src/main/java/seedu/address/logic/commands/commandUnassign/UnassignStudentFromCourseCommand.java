@@ -7,6 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -67,6 +68,7 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
                 throw new CommandException("The student isn't even assigned to this course! :(");
             } else {
                 EdgeManager.unassignStudentFromCourse(studentID, courseID);
+                ProgressManager.removeAllAssignmentsToOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,
