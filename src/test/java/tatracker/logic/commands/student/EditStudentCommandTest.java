@@ -8,7 +8,6 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertEditStudentCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
-import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_NONEXISTENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_SECOND_STUDENT;
@@ -19,7 +18,6 @@ import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudent
 import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
-import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.Model;
