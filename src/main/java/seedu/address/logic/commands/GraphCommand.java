@@ -49,8 +49,10 @@ public class GraphCommand extends Command {
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
 
-    public static final String MESSAGE_EXERCISE_NOT_IN_LIST = "This client currently does not have this"
-            + " exercise recorded.";
+    public static final String MESSAGE_EXERCISE_NOT_IN_LIST = "Graph cannot be plotted as no such exercise is"
+            + " recorded for this client from %1$s to %2$s.";
+
+    public static final String MESSAGE_NO_GRAPH_FOR_AXIS = "There is no graph to plot for this axis specified. ";
 
     private final Graph graph;
 
@@ -73,8 +75,10 @@ public class GraphCommand extends Command {
         Client clientInView = model.getClientInView();
         UniqueExerciseList clientInViewExerciseList = clientInView.getExerciseList();
 
-        if (!clientInViewExerciseList.containsName(graph.getExerciseName())) {
-            throw new CommandException(MESSAGE_EXERCISE_NOT_IN_LIST);
+        if (!clientInViewExerciseList.containsNameWithinDate(graph.getExerciseName(),
+                graph.getStartDate(), graph.getEndDate())) {
+            throw new CommandException(String.format(MESSAGE_EXERCISE_NOT_IN_LIST,
+                    graph.getStartDate(), graph.getEndDate()));
         }
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
