@@ -44,6 +44,7 @@ public class NotesCreateCommand extends Command {
     private String path;
     private String type;
     private String filePath;
+    private Notes note;
 
     /**
      * Creates a new NotesCommand to Create/Open/Delete a new note.
@@ -51,6 +52,7 @@ public class NotesCreateCommand extends Command {
      * @param note the operation and location that will be done to the note.
      */
     public NotesCreateCommand(Notes note) {
+        this.note = note;
         this.type = note.getType();
         this.path = note.getPath();
         this.filePath = note.getFilePathType();
@@ -129,6 +131,10 @@ public class NotesCreateCommand extends Command {
 
     }
 
+    public Notes getNote() {
+        return this.note;
+    }
+
 
     @Override
     public CommandResult execute(Model model) {
@@ -144,8 +150,11 @@ public class NotesCreateCommand extends Command {
         return new CommandResult(MESSAGE_NOTHING_HAPPENED);
     }
 
-    @Override // not yet finish implementing
+    @Override
     public boolean equals(Object other) {
-        return other == this;
+
+        NotesCreateCommand otherNotesOpen = (NotesCreateCommand) other;
+        return this.note.equals(otherNotesOpen.getNote());
+
     }
 }

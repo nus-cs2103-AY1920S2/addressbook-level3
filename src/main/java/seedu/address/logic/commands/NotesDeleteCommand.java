@@ -36,6 +36,7 @@ public class NotesDeleteCommand extends Command {
 
     private String path;
     private String filePath;
+    private Notes note;
 
     /**
      * Creates a new NotesCommand to Create/Open/Delete a new note.
@@ -43,6 +44,7 @@ public class NotesDeleteCommand extends Command {
      * @param note the operation and location that will be done to the note.
      */
     public NotesDeleteCommand(Notes note) {
+        this.note = note;
         this.path = note.getPath();
         this.filePath = note.getFilePathType();
     }
@@ -96,6 +98,10 @@ public class NotesDeleteCommand extends Command {
 
     }
 
+    public Notes getNote() {
+        return this.note;
+    }
+
 
     @Override
     public CommandResult execute(Model model) {
@@ -105,8 +111,11 @@ public class NotesDeleteCommand extends Command {
         return deleteDoc(this.path);
     }
 
-    @Override // not yet finish implementing
+    @Override
     public boolean equals(Object other) {
-        return other == this;
+
+        NotesDeleteCommand otherNotesOpen = (NotesDeleteCommand) other;
+        return this.note.equals(otherNotesOpen.getNote());
+
     }
 }

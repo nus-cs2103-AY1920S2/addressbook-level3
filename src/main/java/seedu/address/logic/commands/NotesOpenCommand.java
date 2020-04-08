@@ -36,6 +36,7 @@ public class NotesOpenCommand extends Command {
 
     private String path;
     private String filePath;
+    private Notes note;
 
     /**
      * Creates a new NotesOpenCommand to Open a new note.
@@ -43,7 +44,7 @@ public class NotesOpenCommand extends Command {
      * @param note the operation and location that will be done to the note.
      */
     public NotesOpenCommand(Notes note) {
-
+        this.note = note;
         this.path = note.getPath();
         this.filePath = note.getFilePathType();
     }
@@ -100,6 +101,10 @@ public class NotesOpenCommand extends Command {
 
     }
 
+    public Notes getNote() {
+        return this.note;
+    }
+
 
     @Override
     public CommandResult execute(Model model) {
@@ -109,8 +114,11 @@ public class NotesOpenCommand extends Command {
 
     }
 
-    @Override // not yet finish implementing
+    @Override
     public boolean equals(Object other) {
-        return other == this;
+
+        NotesOpenCommand otherNotesOpen = (NotesOpenCommand) other;
+        return this.note.equals(otherNotesOpen.getNote());
+
     }
 }

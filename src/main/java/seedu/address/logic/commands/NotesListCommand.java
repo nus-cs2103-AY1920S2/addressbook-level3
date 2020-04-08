@@ -35,6 +35,7 @@ public class NotesListCommand extends Command {
 
     private String path;
     private String filePath;
+    private Notes note;
 
     /**
      * Creates a new NotesListCommand to list a new note.
@@ -43,6 +44,7 @@ public class NotesListCommand extends Command {
      */
     public NotesListCommand(Notes note) {
 
+        this.note = note;
         this.path = note.getPath();
         this.filePath = note.getFilePathType();
     }
@@ -110,6 +112,10 @@ public class NotesListCommand extends Command {
 
     }
 
+    public Notes getNote() {
+        return this.note;
+    }
+
 
     @Override
     public CommandResult execute(Model model) {
@@ -117,11 +123,13 @@ public class NotesListCommand extends Command {
         model.updateNotesList(PREDICATE_SHOW_ALL_NOTES);
         return listFiles(this.path);
 
-
     }
 
-    @Override // not yet finish implementing
+    @Override
     public boolean equals(Object other) {
-        return other == this;
+
+        NotesListCommand otherNotesOpen = (NotesListCommand) other;
+        return this.note.equals(otherNotesOpen.getNote());
+
     }
 }
