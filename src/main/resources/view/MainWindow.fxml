@@ -55,7 +55,7 @@
                         </ImageView>
                      </graphic>
                 </Tab>
-                <Tab text="Transations">
+                <Tab text="Transactions">
                      <content>
                     <VBox fx:id="transactionList" minWidth="150.0" styleClass="pane-with-border">
                        <padding>

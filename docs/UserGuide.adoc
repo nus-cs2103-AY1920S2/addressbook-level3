@@ -208,6 +208,7 @@ Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 ****
 
 image::FindCustomerByAddress.png[width="790" align="center"]
+image::FindCustomerByAddress2.png[width="790" align="center"]
 
 Examples:
 
@@ -333,9 +334,9 @@ image::FindProduct.png[width="790" align="center"]
 Examples:
 
 * `findp camera` +
-Returns camera.
+Returns all product with description `camera` in it.
 * `findp iphone` +
-Returns iPhone.
+Returns all product with description `iPhone` in it.
 // end::findp[]
 
 // tag::deletep[]
@@ -376,6 +377,10 @@ Deletes all transactions as well.
 
 === Transaction
 
+User can navigate to the transaction panel by clicking on the transactions tab.
+
+image::TransactionTab.png[align="center"]
+
 // tag::addt[]
 ==== Adding a transaction : `addt`
 
@@ -396,6 +401,9 @@ The description field [d/] is optional, will be recorded as N/A if left empty.
 Only need to enter if user wants to add notes to the transaction.
 
 image::AddTransaction.png[width="790" align="center"]
+After adding transactions, the transaction list can be viewed under the transaction tab.
+
+image::AddTransaction2.png[width="790" align="center"]
 
 Examples:
 
@@ -444,6 +452,7 @@ Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
 ****
 
 image::FindTransactionByProduct.png[width="790" align="center"]
+image::FindTransactionByCustomer.png[width="790" align="center"]
 
 Examples:
 
@@ -500,6 +509,10 @@ Permanently deletes all the stored transaction data in the application.
 
 === Statistics
 
+User can navigate to the statistics panel by clicking on the statistics tab.
+
+image::StatisticsTab.png[align="center"]
+
 // tag::viewtopsellingproducts[]
 ==== Viewing the top-selling and worst-selling products.
 
@@ -522,7 +535,7 @@ Plots 2 graphs: +
 [NOTE]
 This is a passive feature.
 
-image::ViewInventory.png[align="center"]
+image::ViewInventory2.png[align="center"]
 // end::viewproductsalesquantity[]
 
 // tag::revenue[]
@@ -594,7 +607,7 @@ The average of the profits made in the past three months is the predicted sales 
 // end::predict[]
 
 // tag::plotsales[]
-==== Plotting sales: `plotsales`.
+==== Plotting sales: `plotsales`
 
 Plots a graph with the sales of the selected product in a given time period. +
 Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
