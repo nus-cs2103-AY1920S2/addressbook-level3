@@ -3,7 +3,6 @@ package csdev.couponstash.logic.parser;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONEY_SYMBOL;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
-import csdev.couponstash.logic.commands.ConditionCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.ExitCommand;
@@ -25,7 +23,6 @@ import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 import csdev.couponstash.testutil.CouponBuilder;
@@ -106,13 +103,6 @@ public class CouponStashParserTest {
         assertEquals(new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON), command);
     }
 
-    @Test
-    public void parseCommand_condition() throws Exception {
-        final Condition condition = new Condition("Some remark.");
-        ConditionCommand command = (ConditionCommand) parser.parseCommand(ConditionCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased() + " " + PREFIX_CONDITION + condition.value);
-        assertEquals(new ConditionCommand(TypicalIndexes.INDEX_FIRST_COUPON, condition), command);
-    }
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class,
