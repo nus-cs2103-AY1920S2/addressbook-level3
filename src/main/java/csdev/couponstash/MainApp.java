@@ -14,7 +14,6 @@ import csdev.couponstash.commons.util.ConfigUtil;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.LogicManager;
-import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
@@ -29,6 +28,7 @@ import csdev.couponstash.storage.JsonUserPrefsStorage;
 import csdev.couponstash.storage.Storage;
 import csdev.couponstash.storage.StorageManager;
 import csdev.couponstash.storage.UserPrefsStorage;
+import csdev.couponstash.ui.RemindWindow;
 import csdev.couponstash.ui.Ui;
 import csdev.couponstash.ui.UiManager;
 
@@ -175,7 +175,7 @@ public class MainApp extends Application {
         ui.start(primaryStage);
 
         List<Coupon> lastShownList = model.getFilteredCouponList();
-        RemindCommand.showRemind(lastShownList);
+        RemindWindow.showRemind(lastShownList);
     }
 
     @Override

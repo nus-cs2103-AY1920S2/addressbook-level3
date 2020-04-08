@@ -12,9 +12,6 @@ import csdev.couponstash.model.tag.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -98,23 +95,11 @@ public class CouponWindow extends UiPart<Stage> {
         root.setTitle("Coupon Details of : " + name.getText());
         logger.info("CouponWindow created for " + name.getText() + ".");
 
-        setExitAccelerators();
+        UiUtil.setExitAccelerator(root, scene, logger, "Coupon Window");
     }
 
     public CouponWindow(Coupon coupon, String moneySymbol) {
         this(new Stage(), coupon, moneySymbol);
-    }
-
-    /**
-     * Sets up the exit accelerator for the CouponWindow.
-     */
-    public void setExitAccelerators() {
-        KeyCombination kc = new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN);
-        Runnable r = () -> {
-            logger.info("Ctrl + Q is pressed. CouponWindow will close.");
-            root.close();
-        };
-        scene.getAccelerators().put(kc, r);
     }
 
     public void setTags(Coupon coupon, FlowPane tagFlowPane) {
