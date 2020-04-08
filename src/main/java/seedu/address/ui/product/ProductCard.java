@@ -19,6 +19,7 @@ public class ProductCard extends UiPart<Region> {
     private static final String ORANGE_BAR = "orange-bar";
     private static final String YELLOW_BAR = "yellow-bar";
     private static final String GREEN_BAR = "green-bar";
+    private static final String DISPLAY_CURRENCY = "$";
     private static final String[] barColorStyleClasses = { RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR };
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,7 +32,7 @@ public class ProductCard extends UiPart<Region> {
     public final Product product;
 
     @FXML
-    private HBox cardPane;
+    private HBox cardPaneProduct;
     @FXML
     private Label id;
     @FXML
@@ -56,10 +57,10 @@ public class ProductCard extends UiPart<Region> {
         this.product = product;
         id.setText(displayedIndex + ". ");
         description.setText(product.getDescription().value);
-        costPrice.setText("$" + product.getCostPrice().value);
-        price.setText("$" + product.getPrice().value);
+        costPrice.setText(DISPLAY_CURRENCY + product.getCostPrice().value);
+        price.setText(DISPLAY_CURRENCY + product.getPrice().value);
         quantity.setText(String.valueOf(product.getQuantity().value));
-        sales.setText("$" + product.getMoney().value);
+        sales.setText(DISPLAY_CURRENCY + product.getMoney().value);
         threshold.setText(product.getThreshold().value);
         updateProgressBar();
     }

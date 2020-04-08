@@ -16,10 +16,10 @@
      <columns>
        <TableColumn fx:id="customerCol" prefWidth="125.0" sortable="false" text="Customer" />
        <TableColumn fx:id="productCol" prefWidth="125.0" sortable="false" text="Product" />
-         <TableColumn fx:id="dateTimeCol" prefWidth="150.0" sortable="false" text="DateTime" />
-         <TableColumn fx:id="quantityCol" sortable="false" text="Quantity" />
-         <TableColumn fx:id="amountCol" sortable="false" text="Amount" />
-         <TableColumn fx:id="descriptionCol" prefWidth="300.0" sortable="false" text="Description" />
+         <TableColumn fx:id="dateTimeCol" minWidth="15.0" prefWidth="170.0" sortable="false" text="DateTime" />
+         <TableColumn fx:id="quantityCol" prefWidth="81.0" sortable="false" text="Quantity" />
+         <TableColumn fx:id="amountCol" prefWidth="72.0" sortable="false" text="Amount" />
+         <TableColumn fx:id="descriptionCol" prefWidth="287.0" sortable="false" text="Description" />
      </columns>
       <columnResizePolicy>
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

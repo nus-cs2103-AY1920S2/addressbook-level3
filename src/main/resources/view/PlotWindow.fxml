@@ -25,7 +25,7 @@
                <children>
                   <AnchorPane style="-fx-background-color: #101010;" styleClass="notification-window">
                      <children>
-                        <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                        <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                            <children>
                               <Group>
                                  <children>
