@@ -26,7 +26,7 @@ public class StatisticsDisplay extends UiPart<Region> {
 
     public String progressBarDailyFilepathString;
     public String progressDailyText;
-    public String progressTargetText; // TODO @Fyonn will set
+    public String progressTargetText;
 
     @FXML private VBox statisticsPane;
     @FXML private BarChart<String, Integer> barChartPomDurationData;
@@ -53,8 +53,9 @@ public class StatisticsDisplay extends UiPart<Region> {
         DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
         int currProgress = latestDayData.getPomDurationData().value;
         progressDaily.setText(currProgress + PROGRESS_UNITS);
+        progressTarget.setText(progressTargetText + PROGRESS_UNITS);
 
-        int expBarPerc = currProgress / 10;
+        int expBarPerc = currProgress / Integer.parseInt(progressTargetText) * 10;
         if (expBarPerc >= 10) {
             expBarPerc = 10;
         }
@@ -123,5 +124,13 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeriesTasksDoneData.getChart().getXAxis().setAnimated(false);
         dataSeriesPomDurationData.getChart().setAnimated(false);
         dataSeriesTasksDoneData.getChart().setAnimated(false);
+    }
+
+    public void setDailyTarget(String dailyTarget) {
+        this.progressTargetText = dailyTarget;
+    }
+
+    public String getDailyTarget() {
+        return progressTargetText;
     }
 }

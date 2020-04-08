@@ -59,8 +59,7 @@ class JsonAdaptedTask {
             @JsonProperty("done") String done,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("reminder") String reminder,
-            @JsonProperty("recurring") String recurring
-            ) {
+            @JsonProperty("recurring") String recurring) {
         this.name = name;
         this.priority = priority;
         this.description = description;
@@ -84,7 +83,8 @@ class JsonAdaptedTask {
                 (source.getOptionalReminder().isPresent())
                         ? source.getOptionalReminder().get().toString()
                         : "";
-        recurring = (source.getOptionalRecurring().isPresent())
+        recurring =
+                (source.getOptionalRecurring().isPresent())
                         ? source.getOptionalRecurring().get().toString()
                         : "";
     }
@@ -150,6 +150,12 @@ class JsonAdaptedTask {
         }
 
         return new Task(
-                modelName, modelPriority, modelDescription, modelDone, modelTags, optReminder, optRecurring);
+                modelName,
+                modelPriority,
+                modelDescription,
+                modelDone,
+                modelTags,
+                optReminder,
+                optRecurring);
     }
 }
