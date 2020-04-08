@@ -59,7 +59,7 @@ public class LowLimitCommand extends Command {
         }
 
         Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        int thresholdValue = Integer.parseInt(threshold.value);
+        int thresholdValue = threshold.value;
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
         if (thresholdValue > 0) {
             editedProduct.setThreshold(String.valueOf(thresholdValue));
@@ -72,7 +72,7 @@ public class LowLimitCommand extends Command {
         model.updateFilteredProductList(PREDICATE_SHOW_ALL_PRODUCTS);
 
         // show notification if quantity < threshold
-        if (editedProduct.getQuantity().value <= thresholdValue) {
+        if (editedProduct.getQuantity().getValue() <= thresholdValue) {
             NotificationWindow window = new NotificationWindow();
             window.show(editedProduct.getDescription(), editedProduct.getQuantity());
         }

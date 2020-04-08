@@ -49,11 +49,11 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         CostPrice costPrice = ParserUtil.parseCostPrice(argMultimap.getValue(PREFIX_COSTPRICE).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
+        Quantity quantity = ParserUtil.parseProductQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Money sales = getSales(argMultimap);
         QuantityThreshold threshold = getThreshold(argMultimap, quantity);
 
-        if (quantity.value == 0) {
+        if (quantity.getValue() == 0) {
             throw new ParseException(MESSAGE_INVALID_INITIAL_QUANTITY);
         }
 
@@ -76,7 +76,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
             return ParserUtil.parseThreshold(argMultimap.getValue(PREFIX_THRESHOLD).get());
         } else {
             // sets the default threshold at 20% of initial quantity
-            String lowLimit = String.valueOf(quantity.value / 5);
+            String lowLimit = String.valueOf(quantity.getValue() / 5);
             return new QuantityThreshold(lowLimit);
         }
     }

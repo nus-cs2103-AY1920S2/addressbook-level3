@@ -17,7 +17,7 @@ public class QuantityThreshold {
 
     public static final int MAX_VALUE = 1000000;
 
-    public final String value;
+    public final int value;
 
     /**
      * Constructs an {@code QuantityThreshold}.
@@ -27,6 +27,12 @@ public class QuantityThreshold {
     public QuantityThreshold(String quantityThreshold) {
         requireNonNull(quantityThreshold);
         checkArgument(isValidQuantity(quantityThreshold), MESSAGE_CONSTRAINTS);
+        value = Integer.parseInt(quantityThreshold);
+    }
+
+    public QuantityThreshold(int quantityThreshold) {
+        requireNonNull(quantityThreshold);
+        checkArgument(isValidQuantityValue(quantityThreshold), MESSAGE_CONSTRAINTS);
         value = quantityThreshold;
     }
 
@@ -38,24 +44,28 @@ public class QuantityThreshold {
                 && Integer.parseInt(test) < MAX_VALUE;
     }
 
+    public static boolean isValidQuantityValue(int test) {
+        return test > 0 && test < MAX_VALUE;
+    }
+
     public double getDouble() {
-        return Double.parseDouble(value);
+        return Double.valueOf(value);
     }
 
     @Override
     public String toString() {
-        return value;
+        return String.valueOf(value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof QuantityThreshold // instanceof handles nulls
-                && value.equals(((QuantityThreshold) other).value)); // state check
+                && value == ((QuantityThreshold) other).value); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Integer.hashCode(value);
     }
 }

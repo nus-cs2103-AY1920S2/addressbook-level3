@@ -15,11 +15,12 @@ import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
+import seedu.address.model.product.ProductQuantity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
+import seedu.address.model.transaction.TransactionQuantity;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
-import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
 /**
@@ -180,17 +181,36 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Quantity parseQuantity(String quantity) throws ParseException {
+    public static TransactionQuantity parseTransactionQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
-        if (!Quantity.isValidQuantity(trimmedQuantity)) {
-            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
+        if (!TransactionQuantity.isValidFormat(trimmedQuantity)) {
+            throw new ParseException(TransactionQuantity.MESSAGE_CONSTRAINTS_FORMAT);
         }
 
-        if (!Quantity.isValidValue(Integer.parseInt(trimmedQuantity))) {
-            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
+        if (!TransactionQuantity.isValidValue(Integer.parseInt(trimmedQuantity))) {
+            throw new ParseException(TransactionQuantity.MESSAGE_CONSTRAINTS_VALUE);
         }
-        return new Quantity(trimmedQuantity);
+        return new TransactionQuantity(trimmedQuantity);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static ProductQuantity parseProductQuantity(String quantity) throws ParseException {
+        requireNonNull(quantity);
+        String trimmedQuantity = quantity.trim();
+        if (!ProductQuantity.isValidFormat(trimmedQuantity)) {
+            throw new ParseException(ProductQuantity.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+
+        if (!ProductQuantity.isValidValue(Integer.parseInt(trimmedQuantity))) {
+            throw new ParseException(ProductQuantity.MESSAGE_CONSTRAINTS_VALUE);
+        }
+        return new ProductQuantity(trimmedQuantity);
     }
 
     /**

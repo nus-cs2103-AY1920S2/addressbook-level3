@@ -15,7 +15,13 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback",
-                null, "", false, false, false)));
+                null,
+                null,
+                "",
+                false,
+                false,
+                false,
+                false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -31,11 +37,23 @@ public class CommandResultTest {
 
         // different showHelp value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback",
-                null, "", true, false, false)));
+                null,
+                null,
+                "",
+                true,
+                false,
+                false,
+                false)));
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback",
-                null, "", false, false, true)));
+                null,
+                null,
+                "",
+                false,
+                false,
+                false,
+                true)));
     }
 
     @Test
@@ -50,10 +68,22 @@ public class CommandResultTest {
 
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
-                null, "", true, false, false).hashCode());
+                null,
+                null,
+                "",
+                true,
+                false,
+                false,
+                false).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
-                null, "", false, false, true).hashCode());
+                null,
+                null,
+                "",
+                false,
+                false,
+                false,
+                true).hashCode());
     }
 }

@@ -9,6 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
+import seedu.address.model.product.ProductQuantity;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
@@ -55,7 +56,7 @@ public class JsonAdaptedProduct {
         price = source.getPrice().value;
         quantity = source.getQuantity().toString();
         money = source.getMoney().toString();
-        threshold = source.getThreshold().value;
+        threshold = source.getThreshold().toString();
         id = source.getId().toString();
     }
 
@@ -121,13 +122,13 @@ public class JsonAdaptedProduct {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Quantity.class.getSimpleName()));
         }
-        if (!Quantity.isValidQuantity(quantity)) {
-            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
+        if (!ProductQuantity.isValidFormat(quantity)) {
+            throw new IllegalValueException(ProductQuantity.MESSAGE_CONSTRAINTS_FORMAT);
         }
-        if (!Quantity.isValidValue(Integer.parseInt(quantity))) {
-            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
+        if (!ProductQuantity.isValidValue(Integer.parseInt(quantity))) {
+            throw new IllegalValueException(ProductQuantity.MESSAGE_CONSTRAINTS_VALUE);
         }
-        return new Quantity(quantity);
+        return new ProductQuantity(quantity);
     }
 
     private Money getMoney() throws IllegalValueException {
