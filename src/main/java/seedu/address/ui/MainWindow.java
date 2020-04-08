@@ -138,10 +138,6 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public StatisticsDisplay getStatisticsDisplay() {
-        return statisticsDisplay;
-    }
-
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -219,9 +215,6 @@ public class MainWindow extends UiPart<Stage> {
 
         settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro(), statisticsDisplay);
         settingsPlaceholder.getChildren().add(settingsDisplay.getRoot());
-
-        // tabPanePlaceholder.getSelectionModel().select(1);
-
     }
 
     /** Sets the default size based on {@code guiSettings}. */
@@ -263,10 +256,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return taskListPanel;
-    }
-
     /** */
     private String suggestCommand(String commandText) throws CompletorException {
         try {
@@ -295,6 +284,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
 
             // Done Command related results
             try {
@@ -336,9 +326,6 @@ public class MainWindow extends UiPart<Stage> {
             } catch (ClassCastException ce) {
 
             }
-
-            // Swap to tasks tab
-            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
 
             // Switch tabs related results
             try {

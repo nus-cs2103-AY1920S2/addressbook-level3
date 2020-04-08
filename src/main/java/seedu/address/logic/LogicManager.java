@@ -97,7 +97,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<DayData> getCustomQueue() {
-        return model.getStatistics().getCustomQueue();
+        return model.getCustomQueue();
     }
 
     @Override

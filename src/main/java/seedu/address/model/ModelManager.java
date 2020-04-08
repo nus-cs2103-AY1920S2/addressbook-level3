@@ -286,15 +286,11 @@ public class ModelManager implements Model {
         return statistics;
     }
 
+    public ObservableList<DayData> getCustomQueue() {
+        return statistics.getCustomQueue();
+    }
+
     public void updateDataDatesStatistics() {
         statistics.updateDataDates();
-    }
-
-    public void updatesDayDataStatistics(DayData dayData) {
-        statistics.updatesDayData(dayData);
-    }
-
-    public DayData getDayDataFromDate(Date date) {
-        return statistics.getDayDataFromDate(date);
     }
 }
