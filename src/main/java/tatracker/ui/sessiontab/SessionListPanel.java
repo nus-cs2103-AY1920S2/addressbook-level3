@@ -19,6 +19,8 @@ import tatracker.ui.UiPart;
  * Panel containing the list of sessions.
  */
 public class SessionListPanel extends UiPart<Region> implements Focusable {
+    private static final String NO_FILTER = "No filter";
+
     private static final String FXML = "SessionListPanel.fxml";
     private static final String BACKGROUND_COLOUR = "#5f4d42";
     private static final String BORDER_COLOUR = "#917b3e";
@@ -45,9 +47,9 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
         super(FXML);
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
-        currentDateFilters.setText("Date: No Filters");
-        currentModuleFilters.setText("Module: No Filters");
-        currentTypeFilters.setText("Type: No Filters");
+        currentDateFilters.setText(NO_FILTER);
+        currentModuleFilters.setText(NO_FILTER);
+        currentTypeFilters.setText(NO_FILTER);
         currentFiltersGrid.setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                 + "-fx-border-color: " + BORDER_COLOUR + "; "
                 + "-fx-border-width: " + BORDER_WIDTH + ";");
@@ -57,9 +59,24 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
      * Update Label in order to facilitate changing current filters
      */
     public void updateLabel(String dateFilter, String moduleFilter, String typeFilter) {
-        currentDateFilters.setText("Date: " + dateFilter);
-        currentModuleFilters.setText("Module: " + moduleFilter);
-        currentTypeFilters.setText("Type: " + typeFilter);
+        String actualDateFilter = dateFilter;
+        if (dateFilter.isBlank()) {
+            actualDateFilter = NO_FILTER;
+        }
+
+        String actualModuleFilter = moduleFilter;
+        if (moduleFilter.isBlank()) {
+            actualModuleFilter = NO_FILTER;
+        }
+
+        String actualTypeFilter = typeFilter;
+        if (typeFilter.isBlank()) {
+            actualTypeFilter = NO_FILTER;
+        }
+
+        currentDateFilters.setText(actualDateFilter);
+        currentModuleFilters.setText(actualModuleFilter);
+        currentTypeFilters.setText(actualTypeFilter);
     }
 
     @Override
