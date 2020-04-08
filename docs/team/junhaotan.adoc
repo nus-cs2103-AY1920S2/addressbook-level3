@@ -1,0 +1,74 @@
+= Tan Jun Hao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iTrack Pro
+
+---
+
+== Overview
+
+iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers. It is also able to provide an analysis of the entire business to help the owner manage the shop.
+
+== Summary of contributions
+
+* *Major enhancement*:
+1. Added *the ability to find customers by specified attributes*
+** What it does: allows the user to locate customers easily by name, address, email or phone number.
+** Justification: This feature improves the application significantly because user can have many customers, and it can be difficult to keep track of customers manually.
+** Highlights: The original find feature was only by name, the implementation has to be changed and refactored to accommodate finding by other attributes too.
+
+2. Added *functionality of reusing previous inputs*
+** What it does: allows the user to type in their commands faster by reusing previous inputs.
+** Justification: This feature improves the application significantly as there are commands that are repeatedly being entered. It can be tedious and tiring for the user to type the command from scratch every time.
+** Highlights:
+
+* *Minor enhancement*:
+** added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*:
+
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (4 releases) on GitHub
+*** Reviewed and merged teammates' pull requests
+*** Created and managed milestones & issues
+** Enhancements to existing features:
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addc]
+
+include::../UserGuide.adoc[tag=editc]
+
+include::../UserGuide.adoc[tag=clearc]
+
+include::../UserGuide.adoc[tag=deletec]
+
+include::../UserGuide.adoc[tag=findc]
+
+include::../UserGuide.adoc[tag=listc]
+
+include::../UserGuide.adoc[tag=lowlimit]
+
+include::../UserGuide.adoc[tag=lowstockproducts]
+
+include::../UserGuide.adoc[tag=receivenotif]
+
+include::../UserGuide.adoc[tag=reuseinputs]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+
