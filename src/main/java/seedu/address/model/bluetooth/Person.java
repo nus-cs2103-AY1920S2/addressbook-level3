@@ -1,24 +1,28 @@
 package seedu.address.model.bluetooth;
 
 public class Person {
+    private int userId;
     private String name;
-    private String address;
     private String mobile;
+    private String nric;
     private int age;
-    private int userID;
 
-    public Person(String name, int userID) {
+    public Person(String name) {
         this.name   = name;
-        this.userID = userID;
+    }
+
+    public Person withUserId(int userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public Person withNric(String nric) {
+        this.nric   = nric;
+        return this;
     }
 
     public Person withMobile(String number) {
         this.mobile = number;
-        return this;
-    }
-
-    public Person withAddress(String address) {
-        this.address = address;
         return this;
     }
 
@@ -27,11 +31,15 @@ public class Person {
         return this;
     }
 
+    public int getUserId() { return this.userId; }
+
     public String getName() {
         return this.name;
     }
 
-    public String getAddress() { return this.address; }
+    public String getNric() {
+        return this.nric;
+    }
 
     public String getMobile() { return this.mobile; }
 
@@ -39,7 +47,7 @@ public class Person {
         return this.age;
     }
 
-    public int getUserID() {
-        return this.userID;
+    public Boolean equals(Person obj) {
+        return this.nric.equals(obj.nric);
     }
 }

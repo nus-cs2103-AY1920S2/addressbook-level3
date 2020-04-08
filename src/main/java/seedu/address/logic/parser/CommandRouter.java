@@ -43,6 +43,9 @@ public class CommandRouter {
         case FilterPersonCommand.COMMAND_WORD:
             return new FilterPersonCommand().validate(arguments);
 
+        case PersonAddCommand.COMMAND_WORD:
+            return new PersonAddCommand().validate(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

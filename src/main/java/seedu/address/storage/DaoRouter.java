@@ -6,7 +6,7 @@ import seedu.address.model.bluetooth.Person;
 
 public class DaoRouter {
     private static final InMemoryStorage<BluetoothPings> bluetoothPingStorage = new BluetoothPingsStorage();
-    private static final InMemoryStorage<Person> userStorage = new UserStorage();
+    private static final InMemoryStorage<Person> userStorage = new PersonStorage();
     private static DaoRouter routerSingleton = null;
 
     /**

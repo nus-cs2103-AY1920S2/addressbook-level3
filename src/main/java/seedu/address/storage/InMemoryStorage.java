@@ -19,18 +19,29 @@ public abstract class InMemoryStorage<T> implements AppStorage<T> {
     protected ArrayList<T> fakeStorage;
 
     @Override
-    public void delete(T templateClass) {
-        // TODO: Write some code here
+    public ArrayList<T> search(T obj) {
+        return this.fakeStorage.stream()
+                                .filter(each -> each.equals(obj))
+                                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
-    public void create(T templateClass) {
-        // TODO: Write some code here
+    public void create(T obj) throws Exception {
+        ArrayList<T> duplicates = this.search(obj);
+        if (duplicates.size() > 0) {
+            throw new Exception("Person exists in database");
+        }
+        this.fakeStorage.add(obj);
     }
 
     @Override
-    public void update(T oldTemplateClass, T newTemplateClass) {
+    public void update(T objPast, T objNew) {
         // TODO: write some code here
+    }
+
+    @Override
+    public void delete(T obj) {
+        // TODO: Write some code here
     }
 
     @Override
