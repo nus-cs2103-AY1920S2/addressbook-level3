@@ -90,8 +90,4 @@ public class StatisticsDisplay extends UiPart<Region> {
         Image progressBarDailyImage = new Image(progressBarDailyFilepathString);
         progressBarDaily.setImage(progressBarDailyImage);
     }
-
-    public String getDailyTarget() {
-        return progressTargetText;
-    }
 }
