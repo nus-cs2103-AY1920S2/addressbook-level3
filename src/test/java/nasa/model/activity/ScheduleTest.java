@@ -14,25 +14,26 @@ class ScheduleTest {
 
     @Test
     void initialisation() {
-        assertEquals(date, schedule.getDate());
+        assertEquals(date, schedule.getRepeatDate());
         assertEquals(0, schedule.getType());
     }
 
     @Test
     void checkChangeType() {
+        Date dateExpected = new Date(date.toString()).addDaysToCurrDate(7);
         schedule.setType(1);
-        //System.out.println(schedule.getDate());
-        assertTrue(Date.now().isBefore(schedule.getDate()));
+        assertEquals(dateExpected, schedule.getRepeatDate());
 
+        dateExpected = new Date(date.toString()).addDaysToCurrDate(14);
         schedule.setType(2);
-        //System.out.println(schedule.getDate());
-        assertTrue(Date.now().isBefore(schedule.getDate()));
+        assertEquals(dateExpected, schedule.getRepeatDate());
 
+        dateExpected = new Date(date.toString()).addMonthsToCurrDate(1);
         schedule.setType(3);
-        assertTrue(Date.now().isBefore(schedule.getDate()));
+        assertEquals(dateExpected, schedule.getRepeatDate());
 
         schedule.cancel();
-        assertEquals(temp, schedule.getDate());
+        assertEquals(temp, schedule.getRepeatDate());
     }
 
     @Test

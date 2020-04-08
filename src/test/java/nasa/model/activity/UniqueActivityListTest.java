@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
  */
 class UniqueActivityListTest {
 
+    /*
     private final UniqueActivityList uniqueActivityList = new UniqueActivityList();
     private final UniqueActivityList newUniqueActivityList = new UniqueActivityList();
 
@@ -81,5 +82,5 @@ class UniqueActivityListTest {
         Activity activity = uniqueActivityList.getActivityByName(new Name("Homework for tut"));
         assertEquals(DEADLINE, activity);
     }
-
+*/
 }

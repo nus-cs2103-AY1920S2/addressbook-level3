@@ -21,8 +21,15 @@ public class JsonAdaptedModuleTest {
 
     private static final String VALID_CODE = "CS2103T";
     private static final String VALID_NAME = CS2103T.getModuleCode().toString();
-    private static final List<JsonAdaptedActivity> VALID_ACTIVITIES = CS2103T.getActivities().getActivityList().stream()
-            .map(JsonAdaptedActivity::new)
+    private static final List<JsonAdaptedDeadline> VALID_DEADLINES =
+        CS2103T.getDeadlineList().getActivityList()
+            .stream()
+            .map(JsonAdaptedDeadline::new)
+            .collect(Collectors.toList());
+    private static final List<JsonAdaptedEvent> VALID_EVENTS =
+        CS2103T.getEventList().getActivityList()
+            .stream()
+            .map(JsonAdaptedEvent::new)
             .collect(Collectors.toList());
 
     @Test
@@ -34,14 +41,14 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_invalidCode_throwsIllegalValueException() {
         JsonAdaptedModule module =
-                new JsonAdaptedModule(INVALID_CODE, VALID_NAME, VALID_ACTIVITIES);
+            new JsonAdaptedModule(INVALID_CODE, VALID_NAME, VALID_DEADLINES, VALID_EVENTS);
         String expectedMessage = ModuleCode.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
     @Test
     public void toModelType_nullCode_throwsIllegalValueException() {
-        JsonAdaptedModule module = new JsonAdaptedModule(null, VALID_NAME, VALID_ACTIVITIES);
+        JsonAdaptedModule module = new JsonAdaptedModule(null, VALID_NAME, VALID_DEADLINES, VALID_EVENTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
@@ -49,14 +56,14 @@ public class JsonAdaptedModuleTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedModule module =
-                new JsonAdaptedModule(VALID_CODE, INVALID_NAME, VALID_ACTIVITIES);
+            new JsonAdaptedModule(VALID_CODE, INVALID_NAME, VALID_DEADLINES, VALID_EVENTS);
         String expectedMessage = ModuleName.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedModule module = new JsonAdaptedModule(VALID_CODE, null, VALID_ACTIVITIES);
+        JsonAdaptedModule module = new JsonAdaptedModule(VALID_CODE, null, VALID_DEADLINES, VALID_EVENTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleName.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }

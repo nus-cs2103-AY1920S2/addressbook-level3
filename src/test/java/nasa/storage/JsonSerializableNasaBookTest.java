@@ -41,7 +41,7 @@ public class JsonSerializableNasaBookTest {
     public void toModelType_duplicateModules_throwsIllegalValueException() throws Exception {
         JsonSerializableNasaBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MODULE_FILE,
                 JsonSerializableNasaBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableNasaBook.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, JsonSerializableNasaBook.MESSAGE_DUPLICATE_MODULE,
                 dataFromFile::toModelType);
     }
 

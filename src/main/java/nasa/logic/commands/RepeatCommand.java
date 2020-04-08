@@ -44,7 +44,8 @@ public class RepeatCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
+        return new CommandResult(MESSAGE_SUCCESS);
+        /*
         if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_NO_MODULE);
         } else {
@@ -58,7 +59,7 @@ public class RepeatCommand extends Command {
                     schedule.getZeroBased()));
         } else {
             return new CommandResult(MESSAGE_FAILURE);
-        }
+        }*/
     }
 
     @Override

@@ -14,11 +14,14 @@ import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
 /**
- * Parses input arguments and creates a new EditModuleCommand object
+ * Parses input arguments and creates a new EditModuleCommand object.
+ * Valid format: edit m/MODULE CODE [m/MODULE CODE] [n/MODULE NAME]
+ * Exactly 1 or 2 module code must be provided.
+ * Any number of module name can be provided, only the last module name will be used.
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
-    private static final int EDIT_MODULE_CODE = 2; // Number of modules to trigger an edit of module code
+    private static final int NUM_ARGS_TO_EDIT_MODULE_CODE = 2; // Number of module code args to trigger an edit of module code
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditModuleCommand
@@ -27,7 +30,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      */
     public EditModuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        String argsWithWhitespace = addStartWhitespace(args);
+        String argsWithWhitespace = addStartWhitespace(args); // helper method to provide empty string as preamble arg
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(argsWithWhitespace, PREFIX_MODULE, PREFIX_MODULE_NAME);
 
@@ -41,8 +44,10 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         }
 
         EditModuleDescriptor editModuleDescriptor = new EditModuleDescriptor();
+
         List<String> allModuleCodeParsed = argMultimap.getAllValues(PREFIX_MODULE);
-        if (isModuleCodeEditable(allModuleCodeParsed)) {
+
+        if (isModuleCodeEditable(allModuleCodeParsed)) { // case when exactly 2 module code is entered, allowing for module code to be edited
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULE_NAME).isPresent()) {
@@ -77,7 +82,10 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * @return true if exactly two module codes provided, otherwise false
      */
     private boolean isModuleCodeEditable(List<String> moduleCodes) {
-        return moduleCodes.size() == EDIT_MODULE_CODE;
+        if (moduleCodes.size() == NUM_ARGS_TO_EDIT_MODULE_CODE) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -87,6 +95,9 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * @return true if more than two module codes provided, otherwise false
      */
     private boolean isExcessModuleCodeParsed(List<String> moduleCodes) {
-        return moduleCodes.size() > EDIT_MODULE_CODE;
+        if (moduleCodes.size() > NUM_ARGS_TO_EDIT_MODULE_CODE) {
+            return true;
+        }
+        return false;
     }
 }

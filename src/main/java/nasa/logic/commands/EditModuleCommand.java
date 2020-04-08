@@ -13,7 +13,11 @@ import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
@@ -23,7 +27,7 @@ import nasa.model.module.ModuleName;
  */
 public class EditModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "medit";
+    public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
             + "by the module code in the displayed NASA application. "
@@ -42,6 +46,7 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the list.";
     public static final String EXCESS_MODULE_CODE = "Failed to edit module code. EXACTLY 2 module codes must be "
             + "entered to edit module code.";
+    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
 
     private final ModuleCode moduleCode;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
@@ -64,16 +69,20 @@ public class EditModuleCommand extends Command {
         requireNonNull(model);
 
         ModuleCode moduleCodeToEdit = this.moduleCode;
-        Module moduleToEdit = model.getNasaBook().getUniqueModuleList().getModule(moduleCodeToEdit);
+        Module moduleToEdit = model.getModule(moduleCodeToEdit);
         requireNonNull(moduleToEdit);
+
+        if (!model.hasModule(moduleToEdit.getModuleCode())) { // case when module to be edited is not found in the NasaBook
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
 
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
-        if (moduleToEdit.isSameModule(editedModule) || model.hasModule(editedModule)) {
+        if (moduleToEdit.equals(editedModule)) { // case when edit made is exactly the same as original
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        model.setModule(moduleToEdit, editedModule);
+        model.setModule(moduleToEdit.getModuleCode(), editedModule);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
 
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
@@ -89,13 +98,20 @@ public class EditModuleCommand extends Command {
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         ModuleName updatedModuleName = editModuleDescriptor.getModuleName().orElse(moduleToEdit.getModuleName());
-        UniqueActivityList activityList = moduleToEdit.getActivities(); // original module's activity list is preserved
-        ObservableList<Activity> filteredActivityList = moduleToEdit.getFilteredActivityList();
+
+        UniqueDeadlineList deadlineList = moduleToEdit.getDeadlineList();
+        ObservableList<Deadline> obsDeadlineList = moduleToEdit.getFilteredDeadlineList();
+
+        UniqueEventList eventList = moduleToEdit.getEventList();
+        ObservableList<Event> obsEventList = moduleToEdit.getFilteredEventList();
 
         Module newModule = new Module(updatedModuleCode, updatedModuleName);
 
-        newModule.setActivities(activityList);
-        newModule.setActivities(filteredActivityList);
+        newModule.setDeadlines(deadlineList);
+        newModule.setDeadlines(obsDeadlineList);
+
+        newModule.setEvents(eventList);
+        newModule.setEvents(obsEventList);
 
         return newModule;
     }

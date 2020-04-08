@@ -33,7 +33,7 @@ public class AddLessonCommandParser extends AddCommandParser {
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
-                        PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
+                        PREFIX_END_DATE, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_ACTIVITY_NAME,
                 PREFIX_START_DATE, PREFIX_END_DATE)
@@ -58,12 +58,6 @@ public class AddLessonCommandParser extends AddCommandParser {
             } else {
                 note = null;
             }
-
-            Priority priority = new Priority();
-            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-            }
-            lesson.setPriority(priority);
             return new AddLessonCommand(lesson, moduleCode);
         } catch (IllegalArgumentException e) {
             // if the start date is > end date or end date is already in the past

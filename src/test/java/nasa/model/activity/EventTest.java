@@ -16,13 +16,5 @@ class EventTest {
     @Test
     void isValidEvent() {
 
-        //invalid date sequence
-        assertFalse(Event.isValidEvent(WRONG_EVENT));
-
-        //invalid date expired
-        assertFalse(Event.isValidEvent(PAST_EVENT));
-
-        //valid date sequence
-        assertTrue(Event.isValidEvent(CORRECT_EVENT));
     }
 }

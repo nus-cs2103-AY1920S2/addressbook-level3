@@ -1,11 +1,8 @@
 package nasa.model.quote;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
+import java.io.InputStream;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -13,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.LogsCenter;
+import nasa.commons.util.FileUtil;
 
 /**
  * Class to store motivation quotes.
@@ -33,10 +31,15 @@ public class Quote {
      */
     public static void readFile() {
         try {
-            Path relative = Paths.get(Objects.requireNonNull(Quote.class.getClassLoader()
-                    .getResource("text/quotes.txt")).toURI());
-            lines.addAll(Files.readAllLines(relative));
-        } catch (IOException | URISyntaxException error) {
+            Path relative = Path.of("data/quotes.txt");
+            InputStream readQuote = Quote.class.getClassLoader()
+                    .getResourceAsStream("text/quotes.txt");
+            assert readQuote != null;
+            String res = new String(readQuote.readAllBytes());
+            FileUtil.createIfMissing(relative);
+            FileUtil.writeToFile(relative, res);
+            lines.addAll(FileUtil.readFromFile(relative).split("\n"));
+        } catch (IOException error) {
             Logger logger = LogsCenter.getLogger(LogsCenter.class);
             logger.info(error.getMessage());
         }

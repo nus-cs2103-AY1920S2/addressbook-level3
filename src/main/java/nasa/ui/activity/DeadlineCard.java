@@ -7,7 +7,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.ui.UiPart;
 
@@ -26,9 +25,11 @@ public class DeadlineCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Activity activity;
+    public final Deadline deadline;
     @FXML
     private GridPane deadlinePane;
+    @FXML
+    private Label index;
     @FXML
     private Label name;
     @FXML
@@ -45,22 +46,30 @@ public class DeadlineCard extends UiPart<Region> {
     private Label labelForCircle;
     @FXML
     private Circle circle;
+    @FXML
+    private Label dateToRepeat;
 
-    public DeadlineCard(Deadline activity) {
+    public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
-        this.activity = activity;
-        name.setText(activity.getName().toString());
-        date.setText("Due by: " + activity.getDueDate().toString());
-        note.setText(activity.getNote().toString());
-        status.setText(activity.getStatus().toString());
         setPriority();
+        this.deadline = deadline;
+        index.setText(String.valueOf(displayedIndex));
+        name.setText(deadline.getName().toString());
+        date.setText("Due by: " + deadline.getDueDate().toString());
+        note.setText(deadline.getNote().toString());
+        //status.setText(deadline.getStatus().toString());
+        priority.setText("Priority: " + deadline.getPriority().toString());
+        dateToRepeat.setText("-");
+        if (deadline.getSchedule().getType() != 0) {
+            dateToRepeat.setText("Repeat: " + deadline.getScheduleDate().toString());
+        }
     }
 
     /**
      * Returns a Ui representation of the priority.
      */
     public void setPriority() {
-        switch (activity.getPriority().getPriorityLevel()) {
+        switch (deadline.getPriority().getPriorityLevel()) {
         case 1:
             priority.setText("!");
             priority.setStyle("-fx-text-fill:#00bc6b;");

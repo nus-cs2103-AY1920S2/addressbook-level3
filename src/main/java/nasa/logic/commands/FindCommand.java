@@ -62,7 +62,8 @@ public class FindCommand extends Command {
     private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {
         int numberOfActivities = 0;
         for (Module module : moduleList) {
-            numberOfActivities += module.getFilteredActivityList().size();
+            numberOfActivities += module.getFilteredDeadlineList().size();
+            numberOfActivities += module.getFilteredEventList().size();
         }
         return numberOfActivities;
     }

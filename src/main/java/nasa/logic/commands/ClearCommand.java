@@ -11,7 +11,7 @@ import nasa.model.NasaBook;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Nasa has been cleared!";
+    public static final String MESSAGE_SUCCESS = "NASA has been cleared!";
 
 
     @Override

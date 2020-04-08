@@ -12,7 +12,7 @@ import nasa.model.module.ModuleCode;
  */
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "mdelete";
+    public static final String COMMAND_WORD = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module specified by the code in NASA.\n"
