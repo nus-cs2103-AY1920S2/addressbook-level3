@@ -1,5 +1,7 @@
 package seedu.expensela.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_FILTER;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -105,5 +107,50 @@ class FilterCommandParserTest {
         // month and category swapped
         assertParseFailure(parser, " c/2020-01 m/FOOD", String.format(MESSAGE_INVALID_FILTER,
                 FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void isValidCategory() {
+        // invalid categories
+        assertFalse(parser.isValidCategory(""));
+        assertFalse(parser.isValidCategory("           "));
+        assertFalse(parser.isValidCategory("~$%&*"));
+        assertFalse(parser.isValidCategory("  FOOD"));
+        assertFalse(parser.isValidCategory("FOODS    "));
+        assertFalse(parser.isValidCategory("FOODS"));
+        assertFalse(parser.isValidCategory("1234"));
+
+        // valid categories
+        assertTrue(parser.isValidCategory("FOOD"));
+        assertTrue(parser.isValidCategory("MISC"));
+        assertTrue(parser.isValidCategory("SHOPPING"));
+        assertTrue(parser.isValidCategory("GROCERIES"));
+        assertTrue(parser.isValidCategory("TRANSPORT"));
+        assertTrue(parser.isValidCategory("HEALTH"));
+        assertTrue(parser.isValidCategory("RECREATION"));
+        assertTrue(parser.isValidCategory("ALL"));
+        assertTrue(parser.isValidCategory("UTILITIES"));
+        assertTrue(parser.isValidCategory("INCOME"));
+    }
+
+    @Test
+    public void isValidMonth() {
+        // invalid categories
+        assertFalse(parser.isValidMonth(""));
+        assertFalse(parser.isValidMonth("           "));
+        assertFalse(parser.isValidMonth("~$%&*"));
+        assertFalse(parser.isValidMonth("JANUARY"));
+        assertFalse(parser.isValidMonth("1900-00"));
+        assertFalse(parser.isValidMonth("1899-01"));
+        assertFalse(parser.isValidMonth("2020"));
+        assertFalse(parser.isValidMonth("12"));
+        assertFalse(parser.isValidMonth("2020/06"));
+        assertFalse(parser.isValidMonth(" 2020-02"));
+        assertFalse(parser.isValidMonth("2020-02 "));
+
+        // valid categories
+        assertTrue(parser.isValidMonth("1900-01"));
+        assertTrue(parser.isValidMonth("9999-12"));
+        assertTrue(parser.isValidMonth("2020-06"));
     }
 }
