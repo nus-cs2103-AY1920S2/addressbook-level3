@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NEW_TASK_OR_DEADLINE;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_OLD_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
@@ -60,20 +62,20 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
 
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
-                grade = argMultimap.getValue(PREFIX_GRADE).get();
+                grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get());
             }
 
             // Reject when deadline is given but task name not given
             if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
                     && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-                throw new ParseException("Error: Please provide the name of the task you are trying to edit.");
+                throw new ParseException(MESSAGE_MISSING_OLD_TASK);
             }
 
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
                 oldTask = argMultimap.getValue(PREFIX_TASK).get();
                 if (!arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
                         && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
-                    throw new ParseException("Error: Please specify a new task name or deadline to be edited.");
+                    throw new ParseException(MESSAGE_MISSING_NEW_TASK_OR_DEADLINE);
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
                     newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();

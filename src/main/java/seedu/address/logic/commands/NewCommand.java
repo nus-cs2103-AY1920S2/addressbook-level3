@@ -47,6 +47,11 @@ public class NewCommand extends Command {
         requireNonNull(courseManager);
         requireNonNull(moduleManager);
 
+        if (!profileManager.getProfileList().isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PROFILE,
+                    profileManager.getFirstProfile().getName()));
+        }
+
         try {
             profileManager.addPerson(toAdd);
         } catch (DuplicatePersonException e) {
