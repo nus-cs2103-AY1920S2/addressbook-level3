@@ -446,6 +446,11 @@ public class ModelManager implements Model {
     public void deleteWorkout(Workout target) {
         workoutList.removeWorkout(target);
     }
+    
+    @Override
+    public void deleteExerciseFromWorkouts(Exercise exercise) {
+        workoutList.removeExerciseFromWorkouts(exercise);
+    }
 
     @Override
     public void addWorkout(Workout workout) {

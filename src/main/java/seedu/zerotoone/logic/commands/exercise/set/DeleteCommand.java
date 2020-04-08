@@ -45,6 +45,9 @@ public class DeleteCommand extends SetCommand {
         Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
 
         List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
+        if (setId.getZeroBased() >= updatedExerciseSets.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
+        }
         updatedExerciseSets.remove(setId.getZeroBased());
 
         Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);

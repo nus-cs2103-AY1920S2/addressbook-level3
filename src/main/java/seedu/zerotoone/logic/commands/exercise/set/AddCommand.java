@@ -46,14 +46,13 @@ public class AddCommand extends SetCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
-
         if (exerciseId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
-
         List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
+
         ExerciseSet exerciseSetToAdd = new ExerciseSet(weight, numReps);
         updatedExerciseSets.add(exerciseSetToAdd);
         Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);

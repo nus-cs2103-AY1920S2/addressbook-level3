@@ -19,8 +19,6 @@ import seedu.zerotoone.model.workout.WorkoutName;
  * Contains utility methods for populating {@code CompletedSessionList} with sample data.
  */
 public class SampleLogDataUtil {
-
-
     public static List<CompletedWorkout> getCompletedWorkouts() {
         List<CompletedWorkout> completedWorkouts = new ArrayList<>();
 
