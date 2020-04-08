@@ -18,11 +18,6 @@ import tatracker.testutil.module.ModuleBuilder;
 public class DeleteModuleCommandTest {
 
     @Test
-    public void constructor_nullModule_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DeleteModuleCommand(null));
-    }
-
-    @Test
     public void execute_moduleRemovedFromModel_deleteSuccessful() throws Exception {
 
         Module validModule = new ModuleBuilder().build();
