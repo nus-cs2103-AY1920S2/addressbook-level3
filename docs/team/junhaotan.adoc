@@ -19,13 +19,17 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 ** Justification: This feature improves the application significantly because user can have many customers, and it can be difficult to keep track of customers manually.
 ** Highlights: The original find feature was only by name, the implementation has to be changed and refactored to accommodate finding by other attributes too.
 
-2. Added *functionality of reusing previous inputs*
-** What it does: allows the user to type in their commands faster by reusing previous inputs.
-** Justification: This feature improves the application significantly as there are commands that are repeatedly being entered. It can be tedious and tiring for the user to type the command from scratch every time.
-** Highlights:
+2. Added *visualisation of product balance on Product Ui via progress bar indicator*
+** What it does: allows the user to easily identify stocks that are running low.
+** Justification: This feature improves the application significantly as users would not have to struggle looking at numbers only to see which stock is running low soon.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The difficult part was to determine how the remaining stock was to be calculated, and the best way to structure the classes.
 
 * *Minor enhancement*:
-** added a history command that allows the user to navigate to previous commands using up/down keys.
+** Added a history command that allows the user to navigate to previous commands using up/down keys (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/92[#92])
+** Added lowlimit command that allows the user to set individual product low quantity threshold (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/98[#98])
+** Added notification popup window when stock quantity goes below threshold (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/99[#99])
+** Added cost price field to Product class to calculate profit (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/114[#114])
+** Updated ui for statistics window (Pull request https://github.com/AY1920S2-CS2103-T09-2/main/pull/129[#129])
 
 * *Code contributed*:
 
