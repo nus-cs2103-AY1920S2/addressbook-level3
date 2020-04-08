@@ -282,8 +282,8 @@ e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 * *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
 e.g. `find-s James Jake`
 * *List supplier for a goods*: `source`
-* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
-e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
+* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY` +
+e.g. `buy n/Dave g/apple q/4`
 * *Sell goods*: `sell g/GOOD_NAME q/QUANTITY p/PRICE` +
 e.g. `sell g/apple q/4 p/5`
 * *Set minimum quantity for goods*: `warn INDEX q/MIN_QUANTITY`
