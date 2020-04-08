@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_DAYS;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -132,7 +131,7 @@ public class ScheduleCommand extends Command {
 
         if (noOfDaysBetween == 0) {
             // Allocate only the remaining time the user has before the deadline
-            float diffInHours = Duration.between(currDateTime, deadline).toHours();
+            float diffInHours = (float) (ChronoUnit.SECONDS.between(currDateTime, deadline) / 3600.0);
 
             distributedHoursAllAssignments.set(0, distributedHoursAllAssignments.get(0)
                 + Math.min(diffInHours, hoursToBeAllocated));
@@ -152,17 +151,8 @@ public class ScheduleCommand extends Command {
 
             // Allocate hours to new days first (if any)
             int numNewDays = noOfDaysBetween - (currSize - 1);
-
-            if (numNewDays != 0) {
-                float hoursToAdd = hoursToBeAllocated / numNewDays;
-                float hoursAdded = Math.min(currMinAndSecondMin[0], hoursToAdd);
-
-                for (int i = 0; i < numNewDays; i++) {
-                    distributedHoursAllAssignments.add(hoursAdded);
-                    allocationResultThisAssignment.add(hoursAdded);
-                    hoursToBeAllocated -= hoursAdded;
-                }
-            }
+            hoursToBeAllocated -= allocateHoursToNewDays(numNewDays, hoursToBeAllocated, currMinAndSecondMin[0],
+                distributedHoursAllAssignments, allocationResultThisAssignment);
 
             // Allocate hours to days with the least amount of work allocated in increasing order
             while (currMinAndSecondMin[0] != currMinAndSecondMin[1] && hoursToBeAllocated != 0) {
@@ -193,8 +183,8 @@ public class ScheduleCommand extends Command {
                 distributedHoursAllAssignments.get(0) - allocationResultThisAssignment.get(0);
 
             // Amount of time on query day that can be allocated to this current assignment
-            float hoursLeftToToday = Math.abs(ChronoUnit.HOURS.between(currDateTime, midnightToday))
-                - prevHoursAlrAllocatedToToday;
+            float hoursLeftToToday = (float) (Math.abs(ChronoUnit.SECONDS.between(currDateTime, midnightToday))
+                / 3600.0) - prevHoursAlrAllocatedToToday;
 
             LocalDateTime midnightDeadline = LocalDateTime.of(deadline.toLocalDate(), LocalTime.MIDNIGHT);
 
@@ -203,8 +193,8 @@ public class ScheduleCommand extends Command {
                 - allocationResultThisAssignment.get(noOfDaysBetween);
 
             // Amount of time on the day the assignment is due that can be allocated to this current assignment
-            float hoursLeftToDeadlineDay = Math.max(Math.abs(ChronoUnit.HOURS.between(midnightDeadline, deadline))
-                - prevHoursAlrAllocatedToDeadline, 0);
+            float hoursLeftToDeadlineDay = Math.max((float) (Math.abs(ChronoUnit.SECONDS.between(midnightDeadline,
+                deadline)) / 3600.0) - prevHoursAlrAllocatedToDeadline, 0);
 
             // Excess hours allocated to query date will be redistributed across the next few days up to deadline
             // Excess hours allocated to deadline day will be redistributed over previous days, starting from query date
@@ -251,6 +241,28 @@ public class ScheduleCommand extends Command {
         }
 
         return allocationResultThisAssignment;
+    }
+
+    /**
+     * Allocate the least number of hours possible to new days first.
+     */
+    private float allocateHoursToNewDays(int numNewDays, float hoursToBeAllocated, float currMin,
+                                        ArrayList<Float> distributedHoursAllAssignments,
+                                        ArrayList<Float> allocationResultThisAssignment) {
+
+        float allocatedHours = 0;
+
+        if (numNewDays != 0) {
+            float hoursToAdd = hoursToBeAllocated / numNewDays;
+            float hoursAdded = Math.min(currMin, hoursToAdd);
+
+            for (int i = 0; i < numNewDays; i++) {
+                distributedHoursAllAssignments.add(hoursAdded);
+                allocationResultThisAssignment.add(hoursAdded);
+                allocatedHours += hoursAdded;
+            }
+        }
+        return allocatedHours;
     }
 
     /**
