@@ -58,7 +58,7 @@ public class AddStudentCommandIntegrationTest {
         AddStudentCommand command = new AddStudentCommand(
                 validStudent, testGroup.getIdentifier(), testModule.getIdentifier());
 
-        String expectedFeedback = String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent,
+        String expectedFeedback = String.format(AddStudentCommand.MESSAGE_ADD_STUDENT_SUCCESS, validStudent,
                 testModule.getIdentifier(), testGroup.getIdentifier());
 
         assertAddStudentCommandSuccess(command, model, expectedFeedback, expectedModel);

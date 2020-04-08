@@ -35,7 +35,7 @@ public class AddStudentCommand extends Command {
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
     );
 
-    public static final String MESSAGE_SUCCESS = "New student added: %s\n To Module: %s\n To Group: %s";
+    public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %s\n To Module: %s\n To Group: %s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";
     public static final String MESSAGE_INVALID_MODULE_FORMAT = "There is no module with the given module code: %s";
     public static final String MESSAGE_INVALID_GROUP_FORMAT =
@@ -81,7 +81,7 @@ public class AddStudentCommand extends Command {
         model.updateFilteredGroupList(targetModule);
         model.updateFilteredStudentList(targetGroup, targetModule);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, targetModule, targetGroup), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd, targetModule, targetGroup), Action.GOTO_STUDENT);
     }
 
     @Override
