@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.Storage;
@@ -113,10 +114,10 @@ public class Task {
         }
     }
 
-    public void triggerRecurringIfPresent(Model model) {
+    public void triggerRecurringIfPresent(Model model, Index index) {
         if (optionalRecurring.isPresent()) {
             Recurring recurring = optionalRecurring.get();
-            recurring.triggerRecurring(model, this);
+            recurring.triggerRecurring(model, index);
         }
     }
     

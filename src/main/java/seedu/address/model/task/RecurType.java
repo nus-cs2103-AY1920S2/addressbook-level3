@@ -4,8 +4,8 @@ public enum RecurType {
     DAILY {
         @Override 
         public long getInterval() {
-            // return 1000l*60*60*24;
-            return 15000l; // for testing
+            return 1000l*60*60*24;
+            // return 60000l; // for testing
         }
 
         @Override

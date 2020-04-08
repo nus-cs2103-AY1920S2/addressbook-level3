@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TimerTask;
 import java.util.Timer;
 import javafx.application.Platform;
-
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 
 import static java.util.Objects.requireNonNull;
@@ -66,27 +66,14 @@ public class Recurring {
     * @param taskToReset
     * @return copied task with done set to undone
     */
-   public Task resetDone(Task taskToReset) {
-       assert taskToReset != null;
-
-        Name updatedName = taskToReset.getName();
-        Priority updatedPriority = taskToReset.getPriority();
-        Description updatedDescription = taskToReset.getDescription();
-        Set<Tag> updatedTags = taskToReset.getTags();
-        Optional<Reminder> sameOptReminder = taskToReset.getOptionalReminder();
-        Optional<Recurring> sameOptRecurring = taskToReset.getOptionalRecurring();
-        return new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("N"), updatedTags, sameOptReminder, sameOptRecurring);
+   public Done resetDone(Done done) {
+        if (done.getIsDone()) {
+            done = new Done("N");
+        }
+        return done;
    }
 
-   public Task resetReminder(Task taskToReset) {
-       assert taskToReset != null;
-        Name updatedName = taskToReset.getName();
-        Priority updatedPriority = taskToReset.getPriority();
-        Description updatedDescription = taskToReset.getDescription();
-        Set<Tag> updatedTags = taskToReset.getTags();
-        Optional<Reminder> currentOptReminder = taskToReset.getOptionalReminder();
-        Optional<Recurring> sameOptRecurring = taskToReset.getOptionalRecurring();
+   public Optional<Reminder> resetReminder(Optional<Reminder> currentOptReminder) {
         if (currentOptReminder.isPresent()) {
             Reminder currentReminder = currentOptReminder.get();
             LocalDateTime currentDateTime = currentReminder.getDateTime();
@@ -99,14 +86,26 @@ public class Recurring {
                 }
             }
         }
-        return new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("N"), updatedTags, currentOptReminder, sameOptRecurring);
+        return currentOptReminder;
    }
 
    public boolean shouldUpdateReminder(LocalDateTime reminderDateTime) {
        Duration duration = Duration.between(LocalDateTime.now(), reminderDateTime);   
        boolean hasPassed = duration.getSeconds() < 0;
        return hasPassed;
+   }
+
+   public Task resetTask(Task taskToReset) {
+       assert taskToReset != null;
+       Name updatedName = taskToReset.getName();
+       Priority updatedPriority = taskToReset.getPriority();
+       Description updatedDescription = taskToReset.getDescription();
+       Set<Tag> updatedTags = taskToReset.getTags();
+       Done updatedDone = resetDone(taskToReset.getDone());
+       Optional<Reminder> updatedOptReminder = resetReminder(taskToReset.getOptionalReminder());
+       Optional<Recurring> sameOptRecurring = taskToReset.getOptionalRecurring();
+       return new Task(
+        updatedName, updatedPriority, updatedDescription, updatedDone, updatedTags, updatedOptReminder, sameOptRecurring);
    }
 
    /** Returns true if a given string is a valid name. */
@@ -122,7 +121,7 @@ public class Recurring {
    } 
 
 
-   public TimerTask generateTimerTask(Model model, Task taskToReset) {    
+   public TimerTask generateTimerTask(Model model, Index index) {    
     
     return new TimerTask(){
         @Override
@@ -130,22 +129,26 @@ public class Recurring {
             Platform.runLater(() -> {
                 requireNonNull(model);
 
-                if (taskToReset.getDone().getIsDone()) {
-                    Task resetedTask = resetDone(taskToReset);
-                    model.setTask(taskToReset, resetedTask);
-                }
+                List<Task> lastShownList = model.getFilteredTaskList();
+                Task taskToReset = lastShownList.get(index.getZeroBased());
+                Task resetedTask = resetTask(taskToReset);
+                model.setTask(taskToReset, resetedTask);
                 }
             );
-            
         }
     };
    }
 
-   public void triggerRecurring(Model model, Task taskToReset) {
-       TimerTask repeatedTask = generateTimerTask(model, taskToReset);
+   /**
+    * Handles the triggering of the recurring behaviour. First time it is triggered is either a day or week after the reference date.
+    * @param model
+    * @param index
+    */
+   public void triggerRecurring(Model model, Index index) {
+       TimerTask repeatedTask = generateTimerTask(model, index);
        Timer timer = new Timer("Timer");
        long period = type.getInterval();
-       long delayToFirstTrigger = Duration.between(LocalDateTime.now(), referenceDateTime).getSeconds();
+       long delayToFirstTrigger = Duration.between(LocalDateTime.now(), referenceDateTime.plusDays(type.getDayInterval())).getSeconds();
        delayToFirstTrigger = delayToFirstTrigger >= 0 ? delayToFirstTrigger*1000 : 0;
        timer.scheduleAtFixedRate(repeatedTask, delayToFirstTrigger, period); //might run twice in the first time
    }

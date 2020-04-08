@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
@@ -63,8 +64,9 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
+        Index indexOfNewTask = model.getIndexOfNewTask();
         model.addTask(toAdd);
-        toAdd.triggerRecurringIfPresent(model);
+        toAdd.triggerRecurringIfPresent(model, indexOfNewTask);
         // ^ Sample use of model to adjust objects
         // model.setPetName("Jeff");
         // model.setPomodoroTask(toAdd);

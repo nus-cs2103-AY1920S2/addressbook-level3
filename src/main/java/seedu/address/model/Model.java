@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
@@ -45,6 +46,9 @@ public interface Model {
 
     /** Deletes the given task. The task must exist in the task list. */
     void deleteTask(Task target);
+
+    /** Gets the Index of a task that will be added to the task list. */
+    Index getIndexOfNewTask();
 
     /** Adds the given task. {@code task} must not already exist in the task list. */
     void addTask(Task task);
