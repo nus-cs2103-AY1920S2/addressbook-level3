@@ -81,7 +81,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     }
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Staff teacher = new Staff(name, gender, Staff.Level.TEACHER, phone, email, salary, address, tagList);
+    Staff teacher = new Staff(name, gender, level, phone, email, salary, address, tagList);
 
     return new AddTeacherCommand(teacher);
   }
