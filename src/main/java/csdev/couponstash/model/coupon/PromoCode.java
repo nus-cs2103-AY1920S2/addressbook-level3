@@ -8,6 +8,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class PromoCode {
 
+    public static final int STRING_LENGTH_LIMIT = 40;
+
     public final String value;
 
     /**
