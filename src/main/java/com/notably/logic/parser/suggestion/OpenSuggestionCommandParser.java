@@ -61,7 +61,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Sugg
             return Optional.empty();
         }
 
-        model.setResponseText(RESPONSE_MESSAGE + " entitled \"" + title + "\"");
+        model.setResponseText(RESPONSE_MESSAGE + " titled \"" + title + "\"");
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {

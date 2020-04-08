@@ -18,7 +18,7 @@ import com.notably.model.Model;
  */
 public class NewSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
     private static final String RESPONSE_MESSAGE = "Create a new note";
-    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note entitled ";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled ";
 
     private Model model;
 

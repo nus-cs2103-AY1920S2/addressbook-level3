@@ -97,7 +97,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"/CS2103\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"/CS2103\""),
                 model.responseTextProperty().getValue());
 
         // Expected result
@@ -149,7 +149,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"" + arg + "\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
                 model.responseTextProperty().getValue());
 
         // Expected result
@@ -201,7 +201,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectedPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"/CS2104\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"/CS2104\""),
                 model.responseTextProperty().getValue());
 
         // Expected result
@@ -253,7 +253,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"" + arg + "\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
                 model.responseTextProperty().getValue());
 
         // Expected result
@@ -305,7 +305,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"Lecture\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"Lecture\""),
                 model.responseTextProperty().getValue());
 
         //Expected result
@@ -346,7 +346,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"" + arg + "\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
                 model.responseTextProperty().getValue());
 
         //Expected result
@@ -387,7 +387,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"Lectre\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"Lectre\""),
                 model.responseTextProperty().getValue());
 
         //Expected result
@@ -428,7 +428,7 @@ public class OpenSuggestionCommandParserTest {
 
         commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE + " entitled \"" + arg + "\""),
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
                 model.responseTextProperty().getValue());
 
         //Expected result
