@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.ingredient.Ingredient;
 
 /**
  * An UI component that displays information of a {@code Recipe}.
@@ -29,6 +30,7 @@ public class RecipeCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
+    private static final double INGREDIENT_WIDTH = 300;
     public final Recipe recipe;
     private final String styleIngredientsAndSteps = "-fx-font-size: 11pt;\n"
             + "-fx-font-family: \"Segoe UI\";\n"
@@ -40,6 +42,8 @@ public class RecipeCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private VBox details;
     @FXML
     private ImageView favourite;
     @FXML
@@ -61,6 +65,16 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label ingredientsHeader;
     @FXML
+    private Label grainsHeader;
+    @FXML
+    private Label vegetablesHeader;
+    @FXML
+    private Label proteinsHeader;
+    @FXML
+    private Label fruitsHeader;
+    @FXML
+    private Label othersHeader;
+    @FXML
     private Label stepsHeader;
 
     public RecipeCard(Recipe recipe, int displayedIndex) {
@@ -80,28 +94,42 @@ public class RecipeCard extends UiPart<Region> {
 
         time.setText(recipe.getTime().value + " min");
 
-        ingredientsHeader.setText("Ingredients");
-        ingredientsHeader.setUnderline(true);
+        setHeader(ingredientsHeader, "Ingredients");
         ingredientsHeader.setPadding(new Insets(10, 0, 0, 0));
 
-        recipe.getGrains().forEach(grain -> grains.getChildren().add(new Label(grain.toString())));
-        grains.getChildren().forEach(grain -> grain.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getGrains().isEmpty()) {
+            setHeader(grainsHeader, "Grains");
+            recipe.getGrains().forEach(grain -> addIngredientToVerticalBox(grain, grains));
+            grains.setPrefWidth(INGREDIENT_WIDTH);
+        }
 
-        recipe.getVegetables().forEach(vegetable -> vegetables.getChildren().add(new Label(vegetable.toString())));
-        vegetables.getChildren().forEach(vegetable -> vegetable.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getVegetables().isEmpty()) {
+            setHeader(vegetablesHeader, "Vegetables");
+            recipe.getVegetables().forEach(vegetable -> addIngredientToVerticalBox(vegetable, vegetables));
+            vegetables.setPrefWidth(INGREDIENT_WIDTH);
+        }
 
-        recipe.getProteins().forEach(protein -> proteins.getChildren().add(new Label(protein.toString())));
-        proteins.getChildren().forEach(protein -> protein.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getProteins().isEmpty()) {
+            setHeader(proteinsHeader, "Proteins");
+            recipe.getProteins().forEach(protein -> addIngredientToVerticalBox(protein, proteins));
+            proteins.setPrefWidth(INGREDIENT_WIDTH);
+        }
 
-        recipe.getFruits().forEach(fruit -> fruits.getChildren().add(new Label(fruit.toString())));
-        fruits.getChildren().forEach(fruit -> fruit.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getFruits().isEmpty()) {
+            setHeader(fruitsHeader, "Fruits");
+            recipe.getFruits().forEach(fruit -> addIngredientToVerticalBox(fruit, fruits));
+            fruits.setPrefWidth(INGREDIENT_WIDTH);
+        }
 
-        recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
-        others.getChildren().forEach(other -> other.setStyle(styleIngredientsAndSteps));
+        if (!recipe.getOthers().isEmpty()) {
+            setHeader(othersHeader, "Others");
+            recipe.getOthers().forEach(other -> addIngredientToVerticalBox(other, others));
+            others.setPrefWidth(INGREDIENT_WIDTH);
+        }
+
 
         if (!recipe.getSteps().isEmpty()) {
-            stepsHeader.setText("Steps");
-            stepsHeader.setUnderline(true);
+            setHeader(stepsHeader, "Steps");
             stepsHeader.setPadding(new Insets(10, 0, 0, 0));
 
             // Calculates step number and displays with along with the step
@@ -115,6 +143,22 @@ public class RecipeCard extends UiPart<Region> {
             steps.setSpacing(5);
         }
 
+    }
+
+    private void setHeader(Label label, String text) {
+        label.setText(text);
+        label.setUnderline(true);
+        label.setWrapText(true);
+    }
+
+    /**
+     * Creates a new label for the ingredient and adds it into the vertical box.
+     */
+    private void addIngredientToVerticalBox(Ingredient ingredient, VBox box) {
+        Label label = new Label(ingredient.toDisplayedString());
+        label.setWrapText(true);
+        label.setStyle(styleIngredientsAndSteps);
+        box.getChildren().add(label);
     }
 
     @Override

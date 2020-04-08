@@ -30,8 +30,9 @@ public class Goal {
     }
 
     public Goal(MainIngredientType mainIngredientType) {
-        this.goalName = setGoalName();
         this.mainIngredientType = mainIngredientType;
+        this.goalName = setGoalName();
+
     }
 
     /**

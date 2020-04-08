@@ -68,6 +68,6 @@ public class Quantity {
 
     @Override
     public String toString() {
-        return "" + magnitude + unit;
+        return String.format("%.01f", magnitude) + unit;
     }
 }

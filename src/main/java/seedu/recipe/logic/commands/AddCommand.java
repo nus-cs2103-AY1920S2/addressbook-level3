@@ -10,9 +10,15 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
+import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.ingredient.MainIngredientType;
+import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
 import seedu.recipe.ui.tab.Tab;
 
 /**
@@ -22,7 +28,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the recipe book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_TIME + "TIME "
@@ -64,6 +70,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 
+        toAdd.calculateGoals();
         model.addRecipe(toAdd);
         model.commitBook(commandType);
         String message = String.format(MESSAGE_SUCCESS, toAdd);

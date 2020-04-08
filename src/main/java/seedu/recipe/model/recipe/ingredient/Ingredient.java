@@ -72,6 +72,10 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         return stringToProcess.replaceAll("\\s{2,}", " ");
     }
 
+    public String toDisplayedString() {
+        return "- " + toString();
+    }
+
     @Override
     public String toString() {
         if (quantity == null) {

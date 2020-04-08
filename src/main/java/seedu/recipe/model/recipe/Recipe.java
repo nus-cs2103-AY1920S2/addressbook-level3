@@ -13,6 +13,8 @@ import java.util.TreeSet;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
+import seedu.recipe.model.recipe.ingredient.MainIngredientType;
+import seedu.recipe.model.recipe.ingredient.MainTypeMagnitude;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
@@ -29,7 +31,7 @@ public class Recipe {
 
     // Data fields
     private final List<Step> steps = new ArrayList<>();
-    private final Set<Goal> goals = new HashSet<>();
+    private Set<Goal> goals = new HashSet<>();
     private final Set<Grain> grains = new TreeSet<>();
     private final Set<Vegetable> vegetables = new TreeSet<>();
     private final Set<Protein> proteins = new TreeSet<>();
@@ -124,6 +126,61 @@ public class Recipe {
      */
     public Set<Goal> getGoals() {
         return Collections.unmodifiableSet(goals);
+    }
+
+    /**
+     * Returns an updates goal set.
+     * TODO make final
+     */
+    private void updateGoals(Set<Goal> newGoals) {
+        this.goals = newGoals;
+    }
+
+    public void calculateGoals() {
+        double fruitCount = calculateFruitsQuantity(getFruits());
+        double grainCount = calculateGrainsQuantity(getGrains());
+        double proteinCount = calculateProteinQuantity(getProteins());
+        double vegCount = calculateVegQuantity(getVegetables());
+        MainTypeMagnitude tally = new MainTypeMagnitude(vegCount, fruitCount, proteinCount, grainCount);
+        Set<Goal> newGoals = new HashSet<Goal>();
+        for(MainIngredientType main : tally.getMainTypes()) {
+            Goal goal = new Goal(main);
+            newGoals.add(goal);
+            System.out.println(goal);
+        }
+        updateGoals(newGoals);
+    }
+
+    private double calculateFruitsQuantity(Set<Fruit> fruits) {
+        double totalMagnitude = 0;
+        for(Fruit fruit: fruits) {
+            totalMagnitude += fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
+        }
+        return totalMagnitude;
+    }
+
+    private double calculateVegQuantity(Set<Vegetable> vegetables) {
+        double totalMagnitude = 0;
+        for(Vegetable veg: vegetables) {
+            totalMagnitude += veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
+        }
+        return totalMagnitude;
+    }
+
+    private double calculateProteinQuantity(Set<Protein> proteins) {
+        double totalMagnitude = 0;
+        for(Protein protein: proteins) {
+            totalMagnitude += protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
+        }
+        return totalMagnitude;
+    }
+
+    private double calculateGrainsQuantity(Set<Grain> grains) {
+        double totalMagnitude = 0;
+        for(Grain grain: grains) {
+            totalMagnitude += grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
+        }
+        return totalMagnitude;
     }
 
     /**

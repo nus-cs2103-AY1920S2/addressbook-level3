@@ -58,7 +58,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             throw new DuplicateRecipeException();
         }
         internalList.add(toAdd);
-        internalQuantityList.add(calculateTally(toAdd, internalList.size()-1));
     }
 
     /**
@@ -79,7 +78,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
 
         internalList.set(index, editedRecipe);
-        internalQuantityList.set(index, calculateTally(editedRecipe, index));
+        internalQuantityList.set(index, calculateTally(editedRecipe));
     }
 
     /**
@@ -114,6 +113,9 @@ public class UniqueRecipeList implements Iterable<Recipe> {
 
         internalList.setAll(recipes);
         setAllQuantityTally();
+        for(MainTypeMagnitude main: internalQuantityList) {
+            System.out.println(main.getMainTypes());
+        }
     }
 
     /**
@@ -158,11 +160,11 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private void setAllQuantityTally() {
         for (int i = 0; i < internalList.size(); i++) {
             Recipe recipe = internalList.get(i);
-            internalQuantityList.add(i, calculateTally(recipe, i));
+            internalQuantityList.add(i, calculateTally(recipe));
         }
     }
 
-    private MainTypeMagnitude calculateTally(Recipe recipe, int index) {
+    public MainTypeMagnitude calculateTally(Recipe recipe) {
         double vegCount = 0;
         double fruitCount = 0;
         double proteinCount = 0;
@@ -171,9 +173,8 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         grainCount += calculateGrainsQuantity(recipe.getGrains());
         proteinCount += calculateProteinQuantity(recipe.getProteins());
         vegCount += calculateVegQuantity(recipe.getVegetables());
-        MainTypeMagnitude tally = new MainTypeMagnitude(index, vegCount, fruitCount, proteinCount, grainCount);
+        MainTypeMagnitude tally = new MainTypeMagnitude(vegCount, fruitCount, proteinCount, grainCount);
         return tally;
-
     }
 
     private double calculateFruitsQuantity(Set<Fruit> fruits) {

@@ -12,7 +12,7 @@ public class MainTypeMagnitude {
     private int index;
     Set<MainIngredientType> mainTypes;
 
-    public MainTypeMagnitude( int index, double vegCount, double fruitCount, double proteinCount, double grainCount) {
+    public MainTypeMagnitude(double vegCount, double fruitCount, double proteinCount, double grainCount) {
         this.fruitCount = fruitCount;
         this.grainCount = grainCount;
         this.proteinCount = proteinCount;
@@ -52,19 +52,19 @@ public class MainTypeMagnitude {
      */
     private Set<MainIngredientType> getMainIngredientTypes() {
         Set<MainIngredientType> setOfMainTypes = new TreeSet<MainIngredientType>();
-        if(this.vegCount > 300) {
+        if(this.vegCount >= 300) {
             setOfMainTypes.add(MainIngredientType.VEGETABLE);
         }
 
-        if(this.fruitCount > 300) {
+        if(this.fruitCount >= 300) {
             setOfMainTypes.add(MainIngredientType.FRUIT);
         }
 
-        if(this.proteinCount > 200) {
+        if(this.proteinCount >= 200) {
             setOfMainTypes.add(MainIngredientType.PROTEIN);
         }
 
-        if(this.grainCount > 145) {
+        if(this.grainCount >= 145) {
             setOfMainTypes.add(MainIngredientType.GRAIN);
         }
 
