@@ -5,7 +5,7 @@
   -fx-primary-green: #46998F;
   -fx-secondary-blue: #6C96BE;
   -fx-secondary-green: #1C8585;
-  -fx-tertiary-green: #75be86;
+  -fx-tertiary-green: #75BE86;
   -fx-quartenary-green: #afd6a7;
   -fx-text: white;
   -fx-paneShadow: dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
@@ -123,13 +123,13 @@
 
 /* Styles for Coupon Window */
 .feedback-display {
-  -fx-background-color: #6C96BE;
+  -fx-background-color: -fx-secondary-blue;
   -fx-text-fill: white;
   -fx-font-size: 15px;
 }
 
 .feedback-display .scroll-bar .track{
-  -fx-background-color: #6C96BE;
+  -fx-background-color: -fx-secondary-blue;
 }
 
 .feedback-display .scroll-bar .thumb{
@@ -183,7 +183,7 @@
 }
 
 #history-pane {
-  -fx-background-color: #75BE85;
+  -fx-background-color: -fx-tertiary-green;
   -fx-background-radius: 10px;
   -fx-border-radius: 10px;
   -fx-effect: -fx-paneShadow;
@@ -192,13 +192,13 @@
 }
 
 #history-text-area {
-  -fx-background-color: #75BE85;
+  -fx-background-color: -fx-tertiary-green;
   -fx-text-fill: white;
   -fx-font-size: 12px;
 }
 
 #history-text-area .scroll-bar .track{
-  -fx-background-color: #6C96BE;
+  -fx-background-color: -fx-secondary-blue;
 }
 
 #history-text-area .scroll-bar .thumb{
@@ -217,6 +217,30 @@
   -fx-background-insets: 4 8 5 8;
   -fx-text-alignment: center;
   -fx-effect: -fx-paneShadow;
+}
+
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport{
+  -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+  -fx-background-color: transparent;
+}
+
+#summary-tab #all-saveables .scroll-bar .track{
+  -fx-background-color: -fx-tertiary-green;
+}
+
+#summary-tab #all-saveables .scroll-bar .thumb{
+  -fx-background-color: white;
+}
+
+#summary-tab #saveables {
+  -fx-background-color: transparent;
 }
 
 #summary-tab #all-saveables {
