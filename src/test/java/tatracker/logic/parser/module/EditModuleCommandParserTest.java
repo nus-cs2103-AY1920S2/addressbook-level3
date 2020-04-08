@@ -6,10 +6,7 @@ import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
-import tatracker.logic.commands.module.AddModuleCommand;
 import tatracker.logic.commands.module.EditModuleCommand;
-import tatracker.model.module.Module;
-import tatracker.testutil.module.ModuleBuilder;
 
 public class EditModuleCommandParserTest {
 
@@ -28,7 +25,8 @@ public class EditModuleCommandParserTest {
 
         // multiple names - last name accepted
         // different order
-        assertParseSuccess(parser, " n/Fake Name n/Intro To AI m/CS3243", new EditModuleCommand(expectedModule, expectedName));
+        assertParseSuccess(parser, " n/Fake Name n/Intro To AI m/CS3243",
+                new EditModuleCommand(expectedModule, expectedName));
     }
 
     @Test

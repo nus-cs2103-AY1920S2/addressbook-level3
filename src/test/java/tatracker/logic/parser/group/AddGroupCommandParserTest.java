@@ -7,12 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.group.AddGroupCommand;
-import tatracker.logic.commands.module.AddModuleCommand;
-import tatracker.logic.parser.module.AddModuleCommandParser;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
-import tatracker.model.module.Module;
-import tatracker.testutil.module.ModuleBuilder;
 
 public class AddGroupCommandParserTest {
 
