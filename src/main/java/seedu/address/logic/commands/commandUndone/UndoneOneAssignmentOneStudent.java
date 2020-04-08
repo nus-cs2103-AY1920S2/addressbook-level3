@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.commandUndone;
 
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandDone.DoneOneAssignmentOneStudent;
@@ -29,7 +30,7 @@ public class UndoneOneAssignmentOneStudent extends UndoneCommandBase {
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such Student that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
     public static final String MESSAGE_INVALID_STUDENT_ASSIGNMENT = "Student has not been assigned this assignment currently!";
-    public static final String MESSAGE_SUCCESS = "Successfully marked Assignment %s (%s) as done by Student %s (%s)";
+    public static final String MESSAGE_SUCCESS = "Successfully marked Assignment %s (%s) as UNDONE by Student %s (%s)";
 
     /*
         AssignDescriptor used as it takes in two prefixes just like assign commands. Essentially performs the same functionality
@@ -54,9 +55,9 @@ public class UndoneOneAssignmentOneStudent extends UndoneCommandBase {
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
         ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 
-        boolean studentExists = model.hasCourse(studentID);
-        boolean assignmentExists = model.hasAssignment(assignmentID);
-        boolean progressExists = model.hasProgress(studentID, assignmentID);
+        boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
+        boolean assignmentExists = model.has(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
+        boolean progressExists = model.hasProgress(assignmentID, studentID);
 
         if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
@@ -65,8 +66,8 @@ public class UndoneOneAssignmentOneStudent extends UndoneCommandBase {
         } else if (!progressExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ASSIGNMENT);
         } else {
-            Assignment assignment = model.getAssignment(assignmentID);
-            Student student = model.getStudent(studentID);
+            Assignment assignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
+            Student student = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
             ProgressManager.markUndoneOneProgressOfOneStudent(assignmentID, studentID);
 

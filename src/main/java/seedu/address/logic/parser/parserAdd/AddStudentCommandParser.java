@@ -44,7 +44,7 @@ public class AddStudentCommandParser extends AddCommandParser {
     ArgumentMultimap argMultimap =
         ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_TAG);
 
-    if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENDER)
         || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
@@ -52,7 +52,6 @@ public class AddStudentCommandParser extends AddCommandParser {
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
     Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
-    AssignedCourses assignedCourses = new AssignedCourses("");
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
     Student student = new Student(name, gender, tagList);

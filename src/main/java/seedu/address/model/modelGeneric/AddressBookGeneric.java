@@ -65,15 +65,6 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     /**
      * Returns true if a course with the same identity as {@code course} exists in the address book.
      */
-    public boolean has(ID objID) {
-        requireNonNull(objID);
-        return objects.contains(objID);
-    }
-
-    public K get(ID objID) {
-        requireNonNull(objID);
-        return objects.get(objID);
-    }
 
     /**
      * Returns the index of the first occurrence of the specified element in this list.
@@ -114,15 +105,22 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         objects.remove(key);
     }
 
-    public boolean containsID(ID objectID) {
-        for (K object : objects) {
-            if (object.getId().equals(objectID)) {
-                return true;
-            }
-        }
-        return false;
+    //  ============== ID Operations ===========
+    public boolean has(ID objID) {
+        requireNonNull(objID);
+        return objects.contains(objID);
     }
 
+    public K get(ID objID) {
+        requireNonNull(objID);
+        return objects.get(objID);
+    }
+
+    public K remove(ID id) {
+        return objects.remove(id);
+    }
+
+    // ==========================================
     //// util methods
     @Override
     public String toString() {

@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.NotFoundException;
 import seedu.address.model.person.ID;
 
 /**
@@ -33,25 +34,6 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     public boolean contains(K toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::weakEquals);
-    }
-
-    /**
-     * Returns true if the list contains an equivalent item as the given argument.
-     */
-    public boolean contains(ID toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(x -> x.getId().equals(toCheck));
-    }
-
-    /**
-     * Returns object if the ID matches.
-     */
-    public K get(ID toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream()
-                .filter(x -> x.getId().equals(toCheck))
-                .findFirst()
-                .get();
     }
 
     /**
@@ -134,6 +116,39 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
         }
 
         internalList.setAll(objects);
+    }
+
+    // Operations by ID
+    /**
+     * Returns true if the list contains an equivalent item as the given argument.
+     */
+    public boolean contains(ID toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(x -> x.getId().equals(toCheck));
+    }
+
+    /**
+     * Returns object if the ID matches.
+     */
+    public K get(ID toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream()
+                .filter(x -> x.getId().equals(toCheck))
+                .findFirst()
+                .get();
+    }
+
+    // allow removal by IDs
+    public K remove(ID toRemove) {
+        requireNonNull(toRemove);
+        boolean containsID = contains(toRemove);
+        if (!containsID) {
+            throw new NotFoundException("There's nothing with this ID to remove");
+        } else {
+            K toBeRemoved = get(toRemove);
+            remove(toBeRemoved);
+            return toBeRemoved;
+        }
     }
 
     /**
