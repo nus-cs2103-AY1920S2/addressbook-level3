@@ -19,9 +19,8 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 * *Major enhancement*:
 
-. Adding of *Item, ItemPrice, ItemName for the Expense Splitter* portion of EYLAH +
-
-(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181[#181])
+. Adding of *Item, ItemPrice, ItemName for the Expense Splitter* portion of EYLAH
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/121[#121])
 
 *** What it does: Allows the user to perform the `additem` command successfully hence adding an Entry which consists
 of an Item into the current Receipt.
