@@ -93,7 +93,7 @@ public class TransactionQuantity implements Quantity {
     }
 
     /**
-     * Returns true if two transaction quantities are equal in terms of value.
+     * Returns true if two transaction quantities are equal in value.
      */
     public boolean equals(Object other) {
         return other == this // short circuit if same object
