@@ -48,20 +48,20 @@ public class BuyCommandTest {
 
     @Test
     public void constructor_nullSupplier_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new BuyCommand(null));
+        assertThrows(NullPointerException.class, () -> new BuyCommand(null, index));
     }
 
     @Test
     public void equals() {
-        BuyCommand buyCommand = new BuyCommand(boughtGood);
-        BuyCommand buyCommandDiffName = new BuyCommand(boughtGoodDiffGoodName);
-        BuyCommand buyCommandDiffQty = new BuyCommand(boughtGoodDiffGoodQuantity);
+        BuyCommand buyCommand = new BuyCommand(boughtGood, index);
+        BuyCommand buyCommandDiffName = new BuyCommand(boughtGoodDiffGoodName, index);
+        BuyCommand buyCommandDiffQty = new BuyCommand(boughtGoodDiffGoodQuantity, index);
 
         // same object -> returns true
         assertTrue(buyCommand.equals(buyCommand));
 
         // same values -> returns true
-        BuyCommand buyCommandCopy = new BuyCommand(boughtGood);
+        BuyCommand buyCommandCopy = new BuyCommand(boughtGood, index);
         assertTrue(buyCommand.equals(buyCommandCopy));
 
         // different types -> returns false
@@ -82,7 +82,7 @@ public class BuyCommandTest {
     public void execute_buyExistingGood_buySuccessful() throws CommandException {
         ModelStubWithExistingGood modelStub = new ModelStubWithExistingGood();
 
-        CommandResult commandResult = new BuyCommand(boughtGood)
+        CommandResult commandResult = new BuyCommand(boughtGood, index)
                 .execute(modelStub);
 
         String expectedFeedback = String.format(BuyCommand.MESSAGE_SUCCESS,
@@ -96,7 +96,7 @@ public class BuyCommandTest {
     public void execute_buyNewGood_buySuccessful() throws CommandException {
         ModelStubEmptyInventory modelStub = new ModelStubEmptyInventory();
 
-        CommandResult commandResult = new BuyCommand(boughtGood)
+        CommandResult commandResult = new BuyCommand(boughtGood, index)
                 .execute(modelStub);
 
         String expectedFeedback = String.format(BuyCommand.MESSAGE_SUCCESS,
@@ -115,7 +115,7 @@ public class BuyCommandTest {
     @Test
     public void execute_validTransaction_callsModelCommit() throws CommandException {
         ModelStubWithExistingGood modelStub = new ModelStubWithExistingGood();
-        new BuyCommand(boughtGood).execute(modelStub);
+        new BuyCommand(boughtGood, index).execute(modelStub);
 
         assertTrue(modelStub.isCommitted());
     }

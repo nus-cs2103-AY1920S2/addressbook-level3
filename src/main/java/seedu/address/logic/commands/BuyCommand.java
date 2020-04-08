@@ -7,6 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DATE;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.good.Good;
@@ -52,31 +56,29 @@ public class BuyCommand extends Command {
 
 
     private Good boughtGood;
+    private Index index;
 
-    public BuyCommand(Good boughtGood) {
+    public BuyCommand(Good boughtGood, Index index) {
         requireNonNull(boughtGood);
         this.boughtGood = boughtGood;
+        this.index = index;
     }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // supplier could be absent in the model
-        Name supplierNameToFind = boughtGood.getSupplierName();
-        int numMatchingSuppliers = (int) model.getFilteredSupplierList().stream()
-                .filter(supplier -> supplier.getName().equals(supplierNameToFind)).count();
-        if (numMatchingSuppliers <= 0) {
-            throw new CommandException(MESSAGE_BUYING_FROM_NONEXISTENT_SUPPLIER);
+        requireNonNull(model);
+
+        List<Supplier> lastShownList = model.getFilteredSupplierList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_GOOD_DISPLAYED_INDEX);
         }
 
-        // good could be absent in the model
-        // currently takes the first supplier with matching Name if there are >1 such suppliers
-        Supplier foundSupplier = model.getFilteredSupplierList().stream()
-                .filter(supplier -> supplier.getName().equals(supplierNameToFind))
-                .findFirst()
-                .get();
+        // verify that seller has good on offer
+        Supplier seller = lastShownList.get(index.getZeroBased());
 
-        int numMatchingGoods = (int) foundSupplier.getOffers().stream()
+        int numMatchingGoods = (int) seller.getOffers().stream()
                 .filter(offer -> offer.getGoodName()
                 .equals(boughtGood.getGoodName()))
                 .count();

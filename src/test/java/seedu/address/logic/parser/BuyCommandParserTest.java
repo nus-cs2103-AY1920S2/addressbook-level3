@@ -41,22 +41,22 @@ class BuyCommandParserTest {
 
     @Test
     void parse_allFieldsPresent_success() {
-        BuyCommand expectedCommand = new BuyCommand(validGood);
+        BuyCommand expectedCommand = new BuyCommand(validGood, index);
         // Happy case
         assertParseSuccess(parser, VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC
-                + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood));
+                + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood, index));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC
-                + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood));
+                + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood, index));
 
         // multiple goodNames, only last one accepted
         assertParseSuccess(parser, VALID_GOOD_NAME_EXTRA_DESC + VALID_GOOD_NAME_DESC
-                + VALID_GOOD_QUANTITY_DESC + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood));
+                + VALID_GOOD_QUANTITY_DESC + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood, index));
 
         // multiple quantities, only last one accepted
         assertParseSuccess(parser, VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_EXTRA_DESC
-                + VALID_GOOD_QUANTITY_DESC + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood));
+                + VALID_GOOD_QUANTITY_DESC + VALID_SUPPLIER_NAME_DESC, new BuyCommand(validGood, index));
     }
 
     @Test
