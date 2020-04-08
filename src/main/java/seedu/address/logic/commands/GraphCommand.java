@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.exercise.Exercise;
@@ -20,6 +21,9 @@ import seedu.address.model.graph.Graph;
  * Displays a graph of exercises done by a client in FitBiz.
  */
 public class GraphCommand extends Command {
+
+    public static final List<Prefix> PREFIXES = List.of(PREFIX_EXERCISE_NAME, PREFIX_AXIS,
+            PREFIX_STARTDATE, PREFIX_ENDDATE);
 
     public static final String COMMAND_WORD = "graph";
 
