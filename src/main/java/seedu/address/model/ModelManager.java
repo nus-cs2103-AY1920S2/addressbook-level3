@@ -446,10 +446,9 @@ public class ModelManager extends BaseManager implements Model {
   }
 
   @Override
-  public Progress removeProgress(ID assignmentID, ID studentID) throws CommandException {
+  public void removeProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    Progress removedProgress = progressAddressBook.remove(target);
-    return removedProgress;
+    progressAddressBook.remove(target);
   }
 
   // =====================================================================================================

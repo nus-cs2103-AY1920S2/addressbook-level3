@@ -98,11 +98,9 @@ public class ProgressManager extends BaseManager {
 
         Course selectedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
         Set<ID> allStudentsInCourse = selectedCourse.getAssignedStudentsID();
-        Set<Progress> allRemovedProgresses = new HashSet<Progress>();
 
         for (ID studentID : allStudentsInCourse) {
-            Progress removedProgress = model.removeProgress(assignmentID, studentID);
-            allRemovedProgresses.add(removedProgress);
+            model.removeProgress(assignmentID, studentID);
         }
 
         postDataStorageChangeEvent(

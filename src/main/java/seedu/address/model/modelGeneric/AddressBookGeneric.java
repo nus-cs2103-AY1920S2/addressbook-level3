@@ -106,8 +106,8 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
         return objects.get(objID);
     }
 
-    public K remove(ID id) {
-        return objects.remove(id);
+    public void remove(ID id) {
+        objects.remove(id);
     }
 
     // ==========================================
