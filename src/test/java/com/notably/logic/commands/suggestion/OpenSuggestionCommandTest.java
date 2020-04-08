@@ -22,7 +22,7 @@ public class OpenSuggestionCommandTest {
     private static final String COMMAND_WORD = "open";
 
     @BeforeAll
-    public static void setUpTree() {
+    public static void setUp() {
         toCs2103t = SuggestionTestUtil.getToCs2103t();
         model = SuggestionTestUtil.getModel();
     }
@@ -30,7 +30,6 @@ public class OpenSuggestionCommandTest {
     @AfterEach
     public void clearSuggestions() {
         model.clearSuggestions();
-        System.out.println("inside clear sug");
     }
 
     @Test
