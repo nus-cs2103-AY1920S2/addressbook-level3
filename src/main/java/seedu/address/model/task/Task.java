@@ -11,7 +11,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.storage.Storage;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -24,7 +23,7 @@ public class Task {
     private final Name name;
     private final Priority priority;
 
-    // Data fields'
+    // Data fields
     private final Description description;
     private final Done done;
     private final Set<Tag> tags = new HashSet<>();
@@ -39,8 +38,7 @@ public class Task {
             Done done,
             Set<Tag> tags,
             Optional<Reminder> optionalReminder,
-            Optional<Recurring> optionalRecurring
-            ) {
+            Optional<Recurring> optionalRecurring) {
         requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
@@ -65,7 +63,13 @@ public class Task {
     }
 
     /** With done, no reminder but with recurring */
-    public Task(Name name, Priority priority, Description description, Done done, Set<Tag> tags, Optional<Recurring> optionalRecurring) {
+    public Task(
+            Name name,
+            Priority priority,
+            Description description,
+            Done done,
+            Set<Tag> tags,
+            Optional<Recurring> optionalRecurring) {
         requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
@@ -120,7 +124,7 @@ public class Task {
             recurring.triggerRecurring(model, index);
         }
     }
-    
+
     public Name getName() {
         return name;
     }

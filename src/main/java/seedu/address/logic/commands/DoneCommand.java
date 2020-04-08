@@ -115,7 +115,12 @@ public class DoneCommand extends Command {
         Optional<Recurring> optionalRecurring = taskToEdit.getOptionalRecurring();
 
         return new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags, optionalRecurring);
+                updatedName,
+                updatedPriority,
+                updatedDescription,
+                new Done("Y"),
+                updatedTags,
+                optionalRecurring);
     }
 
     private static void updateStatisticsRegularDone(Model model) {

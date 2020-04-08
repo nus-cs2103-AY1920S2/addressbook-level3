@@ -17,6 +17,7 @@ public class SettingsDisplay extends UiPart<Region> {
 
     private ReadOnlyPomodoro pomodoro;
     private PetManager petManager;
+    private StatisticsDisplay statisticsDisplay;
 
     @FXML private VBox settingsPane;
     @FXML private Label petNameLabel;
@@ -26,18 +27,24 @@ public class SettingsDisplay extends UiPart<Region> {
     @FXML private Label challengeLabel;
     @FXML private TextField challengeTextField;
 
-    public SettingsDisplay(PetManager petManager, ReadOnlyPomodoro pomodoro) {
+    public SettingsDisplay(
+            PetManager petManager, ReadOnlyPomodoro pomodoro, StatisticsDisplay statisticsDisplay) {
         super(FXML);
         this.pomodoro = pomodoro;
         this.petManager = petManager;
+        this.statisticsDisplay = statisticsDisplay;
 
+        update();
+    }
+
+    public void update() {
         String name = petManager.getPetName();
         petNameTextField.setText(name);
 
         String duration = pomodoro.getDefaultTime();
         pomodoroTextField.setText(duration);
 
-        String dailyChallenge = DEFAULT_DAILY_CHALLENGE;
+        String dailyChallenge = statisticsDisplay.getDailyTarget();
         challengeTextField.setText(dailyChallenge);
     }
 }

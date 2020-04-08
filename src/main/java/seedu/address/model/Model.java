@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.model.dayData.DayData;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.task.Task;
 
@@ -98,13 +99,16 @@ public interface Model {
 
     Statistics getStatistics();
 
+    ObservableList<DayData> getCustomQueue();
+  
     /**
      * Notifies observers when a change is made. Observer in this case is the logic manager.
+     *
      * @throws CommandException
      */
     void notifyObservers() throws CommandException;
 
-    void addObserver(Observer observer); 
+    void addObserver(Observer observer);
 
     public void updateDataDatesStatistics();
 }

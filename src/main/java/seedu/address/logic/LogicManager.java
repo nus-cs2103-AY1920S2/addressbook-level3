@@ -101,7 +101,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<DayData> getCustomQueue() {
-        return model.getStatistics().getCustomQueue();
+        return model.getCustomQueue();
     }
 
     @Override
@@ -117,5 +117,4 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
     }
-
 }

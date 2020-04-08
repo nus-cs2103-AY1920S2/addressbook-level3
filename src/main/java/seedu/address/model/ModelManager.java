@@ -15,14 +15,14 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
-import seedu.address.logic.Observer;
-import seedu.address.logic.commands.exceptions.CommandException;
 
 /** Represents the in-memory model of the task list data. */
 public class ModelManager implements Model {
@@ -149,10 +149,10 @@ public class ModelManager implements Model {
         taskList.setTask(target, editedTask);
         this.sortList();
         try {
-			notifyObservers();
-		} catch (CommandException e) {
-			e.printStackTrace();
-		}
+            notifyObservers();
+        } catch (CommandException e) {
+            e.printStackTrace();
+        }
     }
 
     // =========== Subject Methods for Observer
@@ -183,24 +183,26 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        filteredTasks.setPredicate(predicate); // predicate should now be applied and evaluate to true for certain threshold
+        filteredTasks.setPredicate(
+                predicate); // predicate should now be applied and evaluate to true for certain
+                            // threshold
         if (predicate instanceof NameContainsKeywordsPredicate) {
             System.out.println("list called??");
             NameContainsKeywordsPredicate namePredicate = (NameContainsKeywordsPredicate) predicate;
-            Comparator<Task> comparator = new Comparator<>() {
-                @Override
-                public int compare(Task task1, Task task2) {
-                    namePredicate.test(task1);
-                    int score1 = namePredicate.getScore();
-                    namePredicate.test(task2);
-                    int score2 = namePredicate.getScore();
-                    return score1 < score2 ? -1 : 1;
-                }
-            };
+            Comparator<Task> comparator =
+                    new Comparator<>() {
+                        @Override
+                        public int compare(Task task1, Task task2) {
+                            namePredicate.test(task1);
+                            int score1 = namePredicate.getScore();
+                            namePredicate.test(task2);
+                            int score2 = namePredicate.getScore();
+                            return score1 < score2 ? -1 : 1;
+                        }
+                    };
             this.taskList.sort(comparator);
         }
     }
-
 
     @Override
     public void setComparator(Comparator<Task>[] comparators) {
@@ -293,15 +295,11 @@ public class ModelManager implements Model {
         return statistics;
     }
 
+    public ObservableList<DayData> getCustomQueue() {
+        return statistics.getCustomQueue();
+    }
+
     public void updateDataDatesStatistics() {
         statistics.updateDataDates();
-    }
-
-    public void updatesDayDataStatistics(DayData dayData) {
-        statistics.updatesDayData(dayData);
-    }
-
-    public DayData getDayDataFromDate(Date date) {
-        return statistics.getDayDataFromDate(date);
     }
 }

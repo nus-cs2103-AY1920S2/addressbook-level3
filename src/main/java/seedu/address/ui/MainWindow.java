@@ -35,12 +35,16 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CompletorResult;
 import seedu.address.logic.commands.DoneCommandResult;
 import seedu.address.logic.commands.PomCommandResult;
+import seedu.address.logic.commands.SetCommandResult;
 import seedu.address.logic.commands.SwitchTabCommand;
 import seedu.address.logic.commands.SwitchTabCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.CompletorException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.dayData.DayData;
+import seedu.address.model.settings.DailyTarget;
+import seedu.address.model.settings.PetName;
+import seedu.address.model.settings.PomDuration;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -134,10 +138,6 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    public StatisticsDisplay getStatisticsDisplay() {
-        return statisticsDisplay;
-    }
-
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -213,11 +213,8 @@ public class MainWindow extends UiPart<Stage> {
         statisticsDisplay = new StatisticsDisplay();
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
 
-        settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro());
+        settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro(), statisticsDisplay);
         settingsPlaceholder.getChildren().add(settingsDisplay.getRoot());
-
-        // tabPanePlaceholder.getSelectionModel().select(1);
-
     }
 
     /** Sets the default size based on {@code guiSettings}. */
@@ -259,10 +256,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return taskListPanel;
-    }
-
     /** */
     private String suggestCommand(String commandText) throws CompletorException {
         try {
@@ -291,6 +284,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
 
             // Done Command related results
             try {
@@ -303,8 +297,35 @@ public class MainWindow extends UiPart<Stage> {
 
             }
 
-            // Swap to tasks tab
-            tabPanePlaceholder.getSelectionModel().select(TASKS_TAB_INDEX);
+            // set Command related results
+            try {
+                SetCommandResult setCommandResult = (SetCommandResult) commandResult;
+
+                PetName petName = setCommandResult.getPetName();
+                PomDuration pomDuration = setCommandResult.getPomDuration();
+                DailyTarget dailyTarget = setCommandResult.getDailyTarget();
+
+                if (!petName.isEmpty()) {
+                    updatePetDisplay();
+                }
+
+                if (!pomDuration.isEmpty()) {
+                    String str = pomDuration.toString();
+                    float f = Float.parseFloat(str);
+                    pomodoro.setDefaultStartTime(f);
+                    pomodoroDisplay.setDefaultTimeText(pomodoro.getDefaultStartTimeAsString());
+                    pomodoroDisplay.setTimerText(pomodoro.getDefaultStartTimeAsString());
+                }
+
+                if (!dailyTarget.isEmpty()) {
+                    statisticsDisplay.setDailyTarget(dailyTarget.toString());
+                }
+
+                settingsDisplay.update();
+
+            } catch (ClassCastException ce) {
+
+            }
 
             // Switch tabs related results
             try {
@@ -343,6 +364,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExit()) {
+                hasStarted = false;
                 timer.cancel();
                 timer.purge();
                 handleExit();

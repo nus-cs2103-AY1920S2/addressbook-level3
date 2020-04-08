@@ -1,23 +1,18 @@
 package seedu.address.model.task;
 
-import java.io.IOException;
+import static java.util.Objects.requireNonNull;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TimerTask;
 import java.util.Timer;
+import java.util.TimerTask;
 import javafx.application.Platform;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
-
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
@@ -25,18 +20,19 @@ import seedu.address.model.task.exceptions.InvalidReminderException;
 import seedu.address.storage.Storage;
 
 public class Recurring {
-   private final RecurType type;
-   private final LocalDateTime referenceDateTime;
+    private final RecurType type;
+    private final LocalDateTime referenceDateTime;
 
-   public static final String MESSAGE_CONSTRAINTS = "Recurring should be in the format d or w, for eg: rec/d";
-   public static final String MESSAGE_RECURRING_TASK_SUCCESS = "Recurring Task: %1$s";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Recurring should be in the format d or w, for eg: rec/d";
+    public static final String MESSAGE_RECURRING_TASK_SUCCESS = "Recurring Task: %1$s";
 
-   public static final String VALIDATION_REGEX = "[dw]"; 
-   public static final DateTimeFormatter stringFormatter =
+    public static final String VALIDATION_REGEX = "[dw]";
+    public static final DateTimeFormatter stringFormatter =
             DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
 
-   public Recurring(String recurringStringStorage) throws ParseException {
-        String recurTypeString = recurringStringStorage.substring(0,1);
+    public Recurring(String recurringStringStorage) throws ParseException {
+        String recurTypeString = recurringStringStorage.substring(0, 1);
         String dateTimeString = recurringStringStorage.substring(1);
         this.type = parseRecurType(recurTypeString);
         this.referenceDateTime = parseDateTime(dateTimeString);

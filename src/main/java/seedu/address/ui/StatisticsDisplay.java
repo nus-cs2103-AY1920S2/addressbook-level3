@@ -18,7 +18,7 @@ public class StatisticsDisplay extends UiPart<Region> {
 
     private static final String FXML = "StatisticsDisplay.fxml";
     private static final String DEFAULT_PROGRESS_BAR_DAILY_PLACEHOLDER =
-            "/images/pet/ProgressBar0%.png";
+            "/images/progress/ProgressBar0%.png";
     private static final String DEFAULT_PROGRESS_DAILY = "NaN mins";
     private static final String DEFAULT_PROGRESS_TARGET = "100 mins";
 
@@ -26,7 +26,7 @@ public class StatisticsDisplay extends UiPart<Region> {
 
     public String progressBarDailyFilepathString;
     public String progressDailyText;
-    public String progressTargetText; // TODO @Fyonn will set
+    public String progressTargetText;
 
     @FXML private VBox statisticsPane;
     @FXML private BarChart<String, Integer> barChartPomDurationData;
@@ -53,45 +53,46 @@ public class StatisticsDisplay extends UiPart<Region> {
         DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
         int currProgress = latestDayData.getPomDurationData().value;
         progressDaily.setText(currProgress + PROGRESS_UNITS);
+        progressTarget.setText(progressTargetText + PROGRESS_UNITS);
 
-        int expBarPerc = currProgress / 10;
+        int expBarPerc = currProgress / Integer.parseInt(progressTargetText) * 10;
         if (expBarPerc >= 10) {
             expBarPerc = 10;
         }
 
         switch (expBarPerc) {
             case 0:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar0%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar0%.png";
                 break;
             case 1:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar10%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar10%.png";
                 break;
             case 2:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar20%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar20%.png";
                 break;
             case 3:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar30%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar30%.png";
                 break;
             case 4:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar40%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar40%.png";
                 break;
             case 5:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar50%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar50%.png";
                 break;
             case 6:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar60%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar60%.png";
                 break;
             case 7:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar70%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar70%.png";
                 break;
             case 8:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar80%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar80%.png";
                 break;
             case 9:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar90%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar90%.png";
                 break;
             case 10:
-                this.progressBarDailyFilepathString = "/images/pet/ProgressBar100%.png";
+                this.progressBarDailyFilepathString = "/images/progress/ProgressBar100%.png";
                 break;
         }
 
@@ -124,21 +125,12 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeriesPomDurationData.getChart().setAnimated(false);
         dataSeriesTasksDoneData.getChart().setAnimated(false);
     }
-    /*
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
 
-        // instanceof handles nulls
-        if (!(other instanceof StatisticsDisplay)) {
-            return false;
-        }
+    public void setDailyTarget(String dailyTarget) {
+        this.progressTargetText = dailyTarget;
+    }
 
-        // state check
-        StatisticsDisplay card = (StatisticsDisplay) other;
-        return barChartTitle.getText().equals(card.barChartTitle.getText());
-    } */
+    public String getDailyTarget() {
+        return progressTargetText;
+    }
 }
