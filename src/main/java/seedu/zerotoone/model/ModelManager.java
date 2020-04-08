@@ -488,7 +488,7 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
-                && logList.equals(other.logList);
-        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
+                && logList.equals(other.logList)
+                && scheduler.equals(other.scheduler);
     }
 }

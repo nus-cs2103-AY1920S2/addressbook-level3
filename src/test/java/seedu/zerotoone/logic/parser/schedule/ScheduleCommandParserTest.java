@@ -7,7 +7,7 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
-import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME;
+import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_JUNE;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ class ScheduleCommandParserTest {
     @Test
     public void parse_create() throws Exception {
         Index index = INDEX_SECOND_OBJECT;
-        DateTime dateTime = new DateTime(VALID_DATETIME);
+        DateTime dateTime = new DateTime(VALID_DATETIME_JUNE);
         String input =
                 CreateCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_DATETIME + dateTime.toString();
 
@@ -46,7 +46,7 @@ class ScheduleCommandParserTest {
     @Test
     public void parse_edit() throws Exception {
         Index index = INDEX_SECOND_OBJECT;
-        DateTime dateTime = new DateTime(VALID_DATETIME);
+        DateTime dateTime = new DateTime(VALID_DATETIME_JUNE);
         String input =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_DATETIME + dateTime.toString();
 

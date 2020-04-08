@@ -50,6 +50,21 @@ public class OneTimeSchedule implements Schedule {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof OneTimeSchedule)) {
+            return false;
+        }
+
+        OneTimeSchedule otherSchedule = (OneTimeSchedule) other;
+        return otherSchedule.getWorkoutToSchedule().equals(getWorkoutToSchedule())
+                && otherSchedule.getDateTime().equals(getDateTime());
+    }
+
+    @Override
     public String toString() {
         return workoutToSchedule.getWorkoutName() + " at " + dateTime.toString();
     }

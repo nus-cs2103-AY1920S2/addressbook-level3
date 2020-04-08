@@ -5,8 +5,8 @@ import static seedu.zerotoone.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
-import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.DATETIME_DESC;
-import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME;
+import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.DATETIME_DESC_JUNE;
+import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_JUNE;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +22,10 @@ class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + DATETIME_DESC, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "-5" + DATETIME_DESC_JUNE, MESSAGE_INVALID_INDEX);
 
         // zero index
-        assertParseFailure(parser, "0" + DATETIME_DESC, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, "0" + DATETIME_DESC_JUNE, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -37,9 +37,9 @@ class EditCommandParserTest {
     @Test
     void parse_allFieldsPresent_success() {
         Index targetIndex = INDEX_SECOND_OBJECT;
-        String userInput = targetIndex.getOneBased() + DATETIME_DESC;
+        String userInput = targetIndex.getOneBased() + DATETIME_DESC_JUNE;
         EditCommand expectedCommand = new EditCommand(targetIndex,
-                new DateTime(VALID_DATETIME));
+                new DateTime(VALID_DATETIME_JUNE));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }
