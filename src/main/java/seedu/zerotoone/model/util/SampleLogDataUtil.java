@@ -23,12 +23,14 @@ public class SampleLogDataUtil {
 
     public static List<CompletedWorkout> getCompletedWorkouts() {
         List<CompletedWorkout> completedWorkouts = new ArrayList<>();
+
+        String[] workoutNames = new String[] {"Legs Day", "Arms day", "Strength"};
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime end = start.plusMinutes(90);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             completedWorkouts.add(
-                new CompletedWorkout(new WorkoutName("Workout " + i), getCompletedExercises(start), start, end));
+                new CompletedWorkout(new WorkoutName(workoutNames[i % 3]), getCompletedExercises(start), start, end));
         }
 
         return completedWorkouts;
@@ -36,16 +38,16 @@ public class SampleLogDataUtil {
 
     public static List<CompletedExercise> getCompletedExercises(LocalDateTime workoutStart) {
         List<CompletedExercise> completedExercises = new ArrayList<>();
-        String[] names = new String[] {"Bench Press", "Overhead Press", "Triceps Pushdown", "Push Up"};
+        String[] exerciseNames = new String[] {"Bench Press", "Overhead Press", "Triceps Pushdown", "Push Up"};
         workoutStart = workoutStart.plusMinutes(5);
 
         for (int i = 0; i < 5; i++) {
             List<CompletedSet> completedSets = new LinkedList<>();
             completedSets.add(new CompletedSet(new Weight("20"), new NumReps("5"), true));
-            completedSets.add(new CompletedSet(new Weight("30"), new NumReps("6"), true));
+            completedSets.add(new CompletedSet(new Weight("30"), new NumReps("6"), false));
             completedSets.add(new CompletedSet(new Weight("40"), new NumReps("8"), true));
 
-            ExerciseName name = new ExerciseName(names[i % 4]);
+            ExerciseName name = new ExerciseName(exerciseNames[i % 4]);
             LocalDateTime start = workoutStart.plusMinutes(2);
             LocalDateTime end = workoutStart.plusMinutes(10);
             completedExercises.add(new CompletedExercise(name, completedSets, start, end));
