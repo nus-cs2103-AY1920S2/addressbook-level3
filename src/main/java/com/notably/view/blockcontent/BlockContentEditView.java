@@ -105,7 +105,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
-     * Updates the dimensions of the Block Edit Modal whenever the main app window is resized.
+     * Sets listeners that change the dimensions of the Block Edit modal.
      */
     private void setStageDimensionListeners() {
         ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
@@ -120,6 +120,13 @@ public class BlockContentEditView extends ViewPart<Stage> {
         setDimensionsOnResize(widthListener, heightListener);
     }
 
+    /**
+     * Sets the initial X and Y coordinates of the Block Edit modal such that it is centered
+     * to the main app window.
+     *
+     * @param widthListener listener that sets the width of the target with respect to the parent.
+     * @param heightListener listener that sets the height of the target with respect to the parent.
+     */
     private void setInitialDimensions(ChangeListener<Number> widthListener,
                                       ChangeListener<Number> heightListener) {
         stage.widthProperty().addListener(widthListener);
@@ -132,7 +139,10 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
-     * Updates the dimensions of the Block Edit Modal whenever the main app window is resized.
+     * Updates the dimensions of the Block Edit modal whenever the main app window is resized.
+     *
+     * @param widthListener listener that sets the width of the target with respect to the parent.
+     * @param heightListener listener that sets the height of the target with respect to the parent.
      */
     private void setDimensionsOnResize(ChangeListener<Number> widthListener,
                                        ChangeListener<Number> heightListener) {
