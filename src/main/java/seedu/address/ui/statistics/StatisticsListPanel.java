@@ -123,7 +123,7 @@ public class StatisticsListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code CustomerCard}.
      */
     class StatisticsListViewCell extends ListCell<Product> {
         @Override

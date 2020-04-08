@@ -24,7 +24,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.product.Product;
-import seedu.address.ui.customer.PersonListPanel;
+import seedu.address.ui.customer.CustomerListPanel;
 import seedu.address.ui.product.ProductListPanel;
 import seedu.address.ui.statistics.StatisticsListPanel;
 import seedu.address.ui.transaction.TransactionListPanel;
@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private CustomerListPanel personListPanel;
     private ProductListPanel productListPanel;
     private TransactionListPanel transactionListPanel;
     private StatisticsListPanel statisticsListPanel;
@@ -57,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane customerListPanelPlaceholder;
 
     @FXML
     private StackPane productListPanelPlaceholder;
@@ -83,7 +83,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
         setAccelerators();
 
         helpWindow = new HelpWindow();
@@ -96,7 +95,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-    //        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        // setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -133,8 +132,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredCustomerList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+        customerListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         productListPanel = new ProductListPanel(logic.getFilteredProductList());
         productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());

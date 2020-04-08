@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox id="cardPaneStatistics" fx:id="cardPaneStatistics" style="-fx-background-color: #1fcbff; -fx-border-width: 0; -fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
@@ -26,9 +28,17 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="description" text="\$first" />
+                <Label fx:id="description" text="\$first">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
             </HBox>
             <FlowPane fx:id="tags" />
+         <Separator prefWidth="200.0">
+            <padding>
+               <Insets bottom="5.0" top="5.0" />
+            </padding>
+         </Separator>
          <HBox>
             <children>
                <Label text="Cost Price">

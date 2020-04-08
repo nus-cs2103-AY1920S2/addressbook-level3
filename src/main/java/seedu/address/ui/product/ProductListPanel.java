@@ -28,7 +28,7 @@ public class ProductListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code CustomerCard}.
      */
     class ProductListViewCell extends ListCell<Product> {
         @Override

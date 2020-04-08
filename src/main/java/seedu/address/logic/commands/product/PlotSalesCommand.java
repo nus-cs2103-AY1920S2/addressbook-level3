@@ -119,5 +119,4 @@ public class PlotSalesCommand extends Command {
 
         return dataSeries;
     }
-
 }
