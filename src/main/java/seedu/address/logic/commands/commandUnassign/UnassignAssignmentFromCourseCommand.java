@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -28,7 +29,6 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
     public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
-    private Set<Tag> ArrayList;
 
     public UnassignAssignmentFromCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
@@ -68,6 +68,8 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
                 throw new CommandException("The assignment isn't assigned to this course! :(");
             } else {
                 EdgeManager.unassignAssignmentFromCourse(AssignmentID, courseID);
+                ProgressManager.removeOneAssignmentsFromAllStudents(courseID, AssignmentID);
+
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,

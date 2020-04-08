@@ -73,9 +73,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
                 EdgeManager.assignStudentToCourse(studentID, courseID);
-
-                Set<ID> allAssignmentInCourse = model.getCourse(courseID).getAssignedAssignmentsID();
-                ProgressManager.addAllAssignmentsToOneStudent(allAssignmentInCourse, studentID);
+                ProgressManager.addAllAssignmentsToOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,

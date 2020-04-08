@@ -17,17 +17,18 @@ import java.util.logging.Logger;
 
 import java.util.Set;
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class ProgressManager extends BaseManager {
     private static Model model = ModelManager.getInstance();
     private static final Logger logger = LogsCenter.getLogger(ProgressManager.class);
 
     // Called by AssignStudentToCourse
-    public static void addAllAssignmentsToOneStudent(Set<ID> setOfAssignmentIDs, ID studentID) throws CommandException {
-        requireNonNull(setOfAssignmentIDs);
-        requireNonNull(studentID);
+    public static void addAllAssignmentsToOneStudent(ID courseID, ID studentID) throws CommandException {
+        requireAllNonNull(courseID, studentID);
+        Set<ID> allAssignmentInCourse = model.getCourse(courseID).getAssignedAssignmentsID();
 
-        for (ID assignmentID : setOfAssignmentIDs) {
+        for (ID assignmentID : allAssignmentInCourse) {
             CompositeID currProgressID = new CompositeID(assignmentID, studentID);
             model.add(new Progress(currProgressID));
         }
@@ -37,11 +38,10 @@ public class ProgressManager extends BaseManager {
                 model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
                 Constants.ENTITY_TYPE.PROGRESS
         );
-        logger.info(test.getList().toString());
     }
 
-    // Called when unassign student from course
-    public static void removeAllAssignmentsToOneStudent(ID courseID, ID studentID) throws CommandException {
+    // Called by UnassignStudentFromCourse
+    public static void removeAllAssignmentsFromOneStudent(ID courseID, ID studentID) throws CommandException {
         requireNonNull(courseID);
         requireNonNull(studentID);
 
@@ -50,7 +50,7 @@ public class ProgressManager extends BaseManager {
         for (ID assignmentID : setOfAssignmentIDs) {
             model.removeProgress(assignmentID, studentID);
         }
-        ReadOnlyAddressBookGeneric<Progress> test =  model.getProgressAddressBook();
+
         postDataStorageChangeEvent(
                 model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
                 Constants.ENTITY_TYPE.PROGRESS
@@ -58,11 +58,12 @@ public class ProgressManager extends BaseManager {
     }
 
     // Called by AssignAssignmentToCourse
-    public static void addOneAssignmentToAllStudents(Set<ID> setOfStudentIDs, ID assignmentID) throws CommandException {
-        requireNonNull(setOfStudentIDs);
-        requireNonNull(assignmentID);
+    public static void addOneAssignmentToAllStudents(ID courseID, ID assignmentID) throws CommandException {
+        requireAllNonNull(courseID, assignmentID);
 
-        for (ID studentID : setOfStudentIDs) {
+        Set<ID> allStudentsInCourse = model.getCourse(courseID).getAssignedStudentsID();
+
+        for (ID studentID : allStudentsInCourse) {
             CompositeID currProgressID = new CompositeID(assignmentID, studentID);
             model.add(new Progress(currProgressID));
         }
@@ -73,7 +74,23 @@ public class ProgressManager extends BaseManager {
         );
     }
 
-    public static Set<Progress> getProgress(ID courseID, ID studentID) throws CommandException {
+    // called by UnassignAssignmentFromCourse
+    public static void removeOneAssignmentsFromAllStudents(ID courseID, ID assignmentID) throws CommandException {
+        requireAllNonNull(courseID, assignmentID);
+
+        Set<ID> allStudentsInCourse = model.getCourse(courseID).getAssignedStudentsID();
+
+        for (ID studentID : allStudentsInCourse) {
+            model.removeProgress(assignmentID, studentID);
+        }
+
+        postDataStorageChangeEvent(
+                model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS),
+                Constants.ENTITY_TYPE.PROGRESS
+        );
+    }
+
+        public static Set<Progress> getProgress(ID courseID, ID studentID) throws CommandException {
         Set<Progress> allProgressOfOneStudentInOneCourse = new HashSet<>();
 
         Set<ID> setOfAssignmentIDs = model.getCourse(courseID).getAssignedAssignmentsID();

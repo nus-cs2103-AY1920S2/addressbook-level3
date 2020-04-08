@@ -68,7 +68,7 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
                 throw new CommandException("The student isn't even assigned to this course! :(");
             } else {
                 EdgeManager.unassignStudentFromCourse(studentID, courseID);
-                ProgressManager.removeAllAssignmentsToOneStudent(courseID, studentID);
+                ProgressManager.removeAllAssignmentsFromOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,

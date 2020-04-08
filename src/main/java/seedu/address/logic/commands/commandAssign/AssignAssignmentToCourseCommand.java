@@ -70,8 +70,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
                 logger.info("CourseID check:" + courseID);
                 EdgeManager.assignAssignmentToCourse(AssignmentID, courseID);
 
-                Set<ID> allStudentsInCourse = model.getCourse(courseID).getAssignedStudentsID();
-                ProgressManager.addOneAssignmentToAllStudents(allStudentsInCourse, AssignmentID);
+                ProgressManager.addOneAssignmentToAllStudents(courseID, AssignmentID);
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,
                         assignedCourse.getName(), courseID.value));
