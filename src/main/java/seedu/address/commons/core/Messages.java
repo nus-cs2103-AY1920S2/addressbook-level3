@@ -13,8 +13,12 @@ public class Messages {
     public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The profile index provided is invalid";
     public static final String MESSAGE_INVALID_SEMESTER = "Error: No modules have been added to this semester";
+    public static final String MESSAGE_INVALID_GRADE = "Error: Invalid Grade.";
+    public static final String MESSAGE_INVALID_DATETIME = "Error: Invalid date or time!";
+
     public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created.";
     public static final String MESSAGE_EMPTY_MODULE_DATA = "No module data has been added to any semesters.";
+
     public static final String MESSAGE_MISSING_COURSE = "Error: Please input a course name";
     public static final String MESSAGE_MISSING_COURSE_FOCUS_AREA = "Error: Please input a focus area";
     public static final String MESSAGE_MISSING_MODULE = "Error: Please input a module code";
@@ -24,5 +28,8 @@ public class Messages {
     public static final String MESSAGE_MISSING_OLD_TASK = "Error: Please provide the name of the task you are trying to edit.";
     public static final String MESSAGE_MISSING_NEW_TASK_OR_DEADLINE = "Error: Please specify a new task name or deadline to be edited.";
 
+    public static final String MESSAGE_MODULE_NOT_ADDED = "Error: This module has not been added before.";
+    public static final String MESSAGE_ADD_FUTURE_GRADE_ERROR = "You cannot add a grade to future semesters!";
+    public static final String MESSAGE_DEADLINE_DOES_NOT_EXIST = "Error: Deadline to be edited does not exist";
 
 }

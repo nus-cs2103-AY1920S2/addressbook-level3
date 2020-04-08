@@ -62,7 +62,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
 
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
-                grade = argMultimap.getValue(PREFIX_GRADE).get();
+                grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get());
             }
 
             // Reject when deadline is given but task name not given

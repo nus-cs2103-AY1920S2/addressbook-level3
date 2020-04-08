@@ -33,7 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_GRADE_AMY = "A-";
     public static final String VALID_TASK_AMY = "homework";
     public static final String VALID_NEW_TASK_AMY = "new homework";
-    public static final String VALID_DEADLINE_AMY = "2020-03-23 23:59";
+    public static final String VALID_DEADLINE_AMY = "2020-05-23 23:59";
     public static final String VALID_COURSE_AMY = "Computer Science";
     public static final String VALID_FOCUS_AREA_AMY = "Software Engineering";
 
@@ -43,7 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_GRADE_BOB = "C+";
     public static final String VALID_TASK_BOB = "assignment";
     public static final String VALID_NEW_TASK_BOB = "new assignment";
-    public static final String VALID_DEADLINE_BOB = "2021-01-01 12:35";
+    public static final String VALID_DEADLINE_BOB = "2020-05-05 12:35";
     public static final String VALID_COURSE_BOB = "Business Analytics";
     public static final String VALID_FOCUS_AREA_BOB = "Financial Analytics";
 

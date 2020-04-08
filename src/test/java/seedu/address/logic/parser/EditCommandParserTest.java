@@ -13,6 +13,8 @@ import static seedu.address.logic.commands.CommandTestUtil.FOCUS_AREA_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COURSE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SEMESTER_DESC;
@@ -46,6 +48,8 @@ import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.course.module.personal.Grade;
 
 public class EditCommandParserTest {
 
@@ -206,5 +210,11 @@ public class EditCommandParserTest {
 
         // Invalid module semester
         assertParseFailure(parser, MODCODE_DESC_AMY + INVALID_SEMESTER_DESC, Year.MESSAGE_CONSTRAINTS);
+
+        // Invalid grade
+        assertParseFailure(parser, MODCODE_DESC_AMY + INVALID_GRADE_DESC, Grade.MESSAGE_CONSTRAINTS);
+
+        // Invalid deadline
+        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + INVALID_DEADLINE_DESC, Deadline.MESSAGE_CONSTRAINTS);
     }
 }
