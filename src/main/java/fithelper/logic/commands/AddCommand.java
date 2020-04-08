@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "food "
             + PREFIX_NAME + "noodles "
-            + PREFIX_TIME + "2020-03-01 15:30 "
+            + PREFIX_TIME + "2020-04-01-15:30 "
             + PREFIX_LOCATION + "Utown canteen "
             + PREFIX_CALORIE + "100 "
             + PREFIX_REMARK + "too expensive "
@@ -44,7 +44,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
-    public static final String MESSAGE_TIME_CLASHES = "Maximum one entry can have time clashes";
+    public static final String MESSAGE_TIME_CLASHES = "No entries can have time clashes";
     private static final String MESSAGE_COMMIT = "Add an entry";
 
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);

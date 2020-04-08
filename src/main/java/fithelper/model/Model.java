@@ -1,7 +1,6 @@
 package fithelper.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -199,13 +198,13 @@ public interface Model {
     ObservableList<VEvent> getVEvents();
 
     void setCalendarDate(String date);
-    LocalDateTime getCalendarDate();
+    LocalDate getCalendarDate();
 
     void setCalendarMode(String mode);
     String getCalendarMode();
 
     void setCalendarShow(String show);
-    LocalDateTime getCalendarShow();
+    LocalDate getCalendarShow();
 
     // Methods about user profile.
 

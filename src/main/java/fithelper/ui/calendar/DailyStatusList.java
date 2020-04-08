@@ -28,11 +28,11 @@ public class DailyStatusList extends UiPart<AnchorPane> {
     @FXML
     private ListView<ObservableList<Entry>> daysListView;
 
-    private LocalDateTime time;
+    private LocalDate time;
     private ObservableList<Entry> combined;
     private ObservableList<ObservableList<Entry>> entries;
 
-    public DailyStatusList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime
+    public DailyStatusList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDate
             dateToSet) {
         super(FXML);
         time = dateToSet;

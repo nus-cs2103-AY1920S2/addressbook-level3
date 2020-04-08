@@ -1,7 +1,7 @@
 package fithelper.logic;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
@@ -139,7 +139,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public LocalDateTime getCalendarDate() {
+    public LocalDate getCalendarDate() {
         return model.getCalendarDate();
     }
 
@@ -149,7 +149,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public LocalDateTime getCalendarShow() {
+    public LocalDate getCalendarShow() {
         return model.getCalendarShow();
     }
 
