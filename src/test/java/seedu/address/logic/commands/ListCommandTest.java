@@ -18,6 +18,8 @@ import seedu.address.testutil.OrderBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * @author Amoscheong97
+ *
  */
 public class ListCommandTest {
 

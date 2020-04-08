@@ -14,7 +14,7 @@ public class CashOnDelivery {
     /*
      * Must have a $ sign followed by the value
      */
-    public static final String VALIDATION_REGEX = "\\$\\d+(?:.(\\d+))?";
+    public static final String VALIDATION_REGEX = "^\\$\\d{1,13}(?:[.]\\d{2})?$";
 
     public final String cashOnDelivery;
 

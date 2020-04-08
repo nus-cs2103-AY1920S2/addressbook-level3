@@ -25,9 +25,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.ListUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.parcel.order.Order;
@@ -248,7 +248,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Populate the PieChart with the data filtered by the
-     * ListUtil class
+     * ShowCommand Class
      *
      */
     public void populatePieChart() {
@@ -273,7 +273,7 @@ public class MainWindow extends UiPart<Stage> {
     public void getDeliveryData() {
         orderList = (new FilteredList<>(logic.getOrderBook().getOrderList()))
                 .stream()
-                .filter(ListUtil::filterListByDates)
+                .filter(ShowCommand::filterListByDates)
                 .collect(Collectors.toList());
 
         deliveredList = orderList
@@ -298,7 +298,7 @@ public class MainWindow extends UiPart<Stage> {
     public void getReturnData() {
         returnList = (new FilteredList<>(logic.getReturnOrderBook().getReturnOrderList()))
                 .stream()
-                .filter(ListUtil::filterListByDates)
+                .filter(ShowCommand::filterListByDates)
                 .collect(Collectors.toList());
 
         returnedList = returnList
@@ -320,19 +320,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowCommand() {
-        // Initialize the constraints
-        // for the statistics
-        ListUtil.init();
-
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-        LocalDate dateFrom = ListUtil.getStartDate();
-        LocalDate dateTo = ListUtil.getEndDate();
+        DateTimeFormatter dateFormatter = ShowCommand.getFormatter();
+        LocalDate dateFrom = ShowCommand.getStartDate();
+        LocalDate dateTo = ShowCommand.getEndDate();
 
         // Go to the Show Tab
         tabPane.getSelectionModel().select(showTab);
 
-        if (ListUtil.isAll()) {
-            dateToday.setText((ListUtil.getAllDates()));
+        if (ShowCommand.isAll()) {
+            dateToday.setText((ShowCommand.ALL_DATES));
         } else if (dateFrom.compareTo(dateTo) == 0) {
             dateToday.setText(dateFrom.format(dateFormatter));
         } else {

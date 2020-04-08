@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 
 /**
  * Lists all orders in the order book to the user.
+ * @author Amoscheong97
+ *
  */
 public class ListCommand extends Command {
 

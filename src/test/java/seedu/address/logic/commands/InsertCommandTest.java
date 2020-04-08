@@ -26,6 +26,12 @@ import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 import seedu.address.testutil.OrderBuilder;
 
+/**
+ * Insert Command Testing
+ *
+ * @author Amoscheong97
+ *
+ */
 public class InsertCommandTest {
 
     @Test

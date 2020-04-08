@@ -283,10 +283,10 @@ public class OrderContainsKeywordsPredicateTest {
             // check no matching keywords given in COD
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("$4")),
-                new OrderBuilder().withCash("$0.4").build()
+                new OrderBuilder().withCash("$0.40").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("$44", "$4.0")),
+                new OrderContainsKeywordsPredicate(Arrays.asList("$44", "$4.00")),
                 new OrderBuilder().withCash("$4").build()
             ),
             // check no matching keywords given in comments
