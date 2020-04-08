@@ -33,7 +33,7 @@ import seedu.address.testutil.SupplierUtil;
 
 public class AddressBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final InventoryManagerParser parser = new InventoryManagerParser();
 
     @Test
     public void parseCommand_add() throws Exception {
