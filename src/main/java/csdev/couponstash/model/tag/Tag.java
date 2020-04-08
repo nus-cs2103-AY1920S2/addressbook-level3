@@ -13,6 +13,8 @@ public class Tag {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
     // limit for the length of string possible
     public static final int STRING_LENGTH_LIMIT = 15;
+    public static final int TOTAL_STRING_LENGTH_LIMIT = 200;
+    public static final int MAX_NUMBER_OF_TAGS = 20;
 
     public final String tagName;
 

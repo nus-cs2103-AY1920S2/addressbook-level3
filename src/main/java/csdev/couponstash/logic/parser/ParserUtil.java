@@ -40,10 +40,13 @@ public class ParserUtil {
     public static final String MESSAGE_INDEX_OVERFLOW =
             String.format("Index is too large. Why do you need so many coupons? "
             + "Try something less than or equals to %d.", Integer.MAX_VALUE);
-    // used to reject user input for text that is too long
-    // to be displayed properly by Coupon Stash
+    // used to reject user input for text that is too long to be displayed properly by Coupon Stash
     public static final String MESSAGE_STRING_TOO_LONG = "\"%1$s\" is too long! Length of"
             + " %2$d exceeds the limit of %3$d characters.";
+    public static final String MESSAGE_TOTAL_TAGS_TOO_LONG = "The combined length of all your tags is above the "
+            + "limit of %d. Remove/reduce some tags!";
+    public static final String MESSAGE_TOO_MANY_TAGS = "There are too many tags! "
+            + "You have %1$d tags, which exceeds the limit of %2$d.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -71,10 +74,12 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = checkStringLength(name.trim(), Name.STRING_LENGTH_LIMIT);
+
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
+
         return new Name(trimmedName);
     }
 
@@ -84,9 +89,9 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code promoCode} is invalid.
      */
-    public static PromoCode parsePromoCode(String promoCode) {
+    public static PromoCode parsePromoCode(String promoCode) throws ParseException {
         requireNonNull(promoCode);
-        String trimmedPromoCode = promoCode.trim();
+        String trimmedPromoCode = checkStringLength(promoCode.trim(), PromoCode.STRING_LENGTH_LIMIT);
 
         return new PromoCode(trimmedPromoCode);
     }
@@ -258,9 +263,15 @@ public class ParserUtil {
     public static Limit parseLimit(String limit) throws ParseException {
         requireNonNull(limit);
         String trimmedLimit = limit.trim();
+
         if (!Limit.isValidLimit(trimmedLimit)) {
             throw new ParseException(Limit.MESSAGE_CONSTRAINTS);
         }
+
+        if (StringUtil.isIntegerOverflow(trimmedLimit)) {
+            throw new ParseException(MESSAGE_INDEX_OVERFLOW);
+        }
+
         return new Limit(trimmedLimit);
     }
 
@@ -272,7 +283,7 @@ public class ParserUtil {
      */
     public static Condition parseCondition(String condition) throws ParseException {
         requireNonNull(condition);
-        String trimmedCondition = condition.trim();
+        String trimmedCondition = checkStringLength(condition.trim(), Condition.STRING_LENGTH_LIMIT);
 
         if (!Condition.isValidCondition(trimmedCondition)) {
             throw new ParseException(Condition.MESSAGE_CONSTRAINTS);
@@ -317,10 +328,22 @@ public class ParserUtil {
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+        if (tags.size() > Tag.MAX_NUMBER_OF_TAGS) {
+            throw new ParseException(String.format(MESSAGE_TOO_MANY_TAGS, tags.size(), Tag.MAX_NUMBER_OF_TAGS));
         }
+
+        final Set<Tag> tagSet = new HashSet<>();
+        int totalLength = 0;
+        for (String tagName : tags) {
+            Tag trimmedTag = parseTag(tagName);
+            tagSet.add(trimmedTag);
+            totalLength += trimmedTag.toString().length();
+        }
+
+        if (totalLength > Tag.TOTAL_STRING_LENGTH_LIMIT) {
+            throw new ParseException(String.format(MESSAGE_TOTAL_TAGS_TOO_LONG, Tag.TOTAL_STRING_LENGTH_LIMIT));
+        }
+
         return tagSet;
     }
 
@@ -356,8 +379,7 @@ public class ParserUtil {
     private static String checkStringLength(String s, int limit) throws ParseException {
         int currentLength = s.length();
         if (currentLength > limit) {
-            throw new ParseException(String.format(
-                    ParserUtil.MESSAGE_STRING_TOO_LONG, s, currentLength, limit));
+            throw new ParseException(String.format(MESSAGE_STRING_TOO_LONG, s, currentLength, limit));
         }
         return s;
     }

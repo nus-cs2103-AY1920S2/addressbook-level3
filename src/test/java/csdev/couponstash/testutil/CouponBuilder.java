@@ -175,7 +175,7 @@ public class CouponBuilder {
     /**
      * Sets the {@code Usage} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withUsage(String usage) {
+    public CouponBuilder withUsage(int usage) {
         this.usage = new Usage(usage);
         this.isUsageChanged = true;
         return this;
@@ -184,7 +184,7 @@ public class CouponBuilder {
     /**
      * Sets the {@code Limit} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withLimit(String limit) {
+    public CouponBuilder withLimit(int limit) {
         this.limit = new Limit(limit);
         return this;
     }

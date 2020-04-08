@@ -25,14 +25,15 @@ public class LimitTest {
         assertThrows(NullPointerException.class, () -> Limit.isValidLimit(null));
 
         // invalid limit
-        assertFalse(Limit.isValidLimit("" + Double.NEGATIVE_INFINITY)); // min value
+        assertFalse(Limit.isValidLimit("" + (Integer.MIN_VALUE - 1.0))); // Integer.MIN_VALUE - 1
+        assertFalse(Limit.isValidLimit("" + (Integer.MAX_VALUE + 1.0))); // Integer.MAX_VALUE + 1
         assertFalse(Limit.isValidLimit("")); // empty string
         assertFalse(Limit.isValidLimit(" ")); // spaces only
-        assertFalse(Limit.isValidLimit("^")); // only non-alphanumeric characters
-        assertFalse(Limit.isValidLimit("peter*")); // contains non-alphanumeric characters
+        assertFalse(Limit.isValidLimit("peter*1234")); // string
 
         // valid limit
-        assertTrue(Limit.isValidLimit("" + Double.POSITIVE_INFINITY)); // max value
-        assertTrue(Limit.isValidLimit("Infinity")); // Infinity
+        assertTrue(Limit.isValidLimit("" + Integer.MAX_VALUE)); // max value
+        assertTrue(Limit.isValidLimit("" + Integer.MIN_VALUE)); // min value
+        assertTrue(Limit.isValidLimit("0")); // zero
     }
 }
