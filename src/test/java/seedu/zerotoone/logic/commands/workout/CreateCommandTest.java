@@ -383,6 +383,11 @@ public class CreateCommandTest {
         }
 
         @Override
+        public boolean isInSession() {
+            return false;
+        }
+
+        @Override
         public boolean hasWorkout(Workout workout) {
             requireNonNull(workout);
             return this.workout.isSameWorkout(workout);
@@ -394,6 +399,11 @@ public class CreateCommandTest {
      */
     private class ModelStubAcceptingWorkoutAdded extends ModelStub {
         final ArrayList<Workout> workoutsAdded = new ArrayList<>();
+
+        @Override
+        public boolean isInSession() {
+            return false;
+        }
 
         @Override
         public boolean hasWorkout(Workout workout) {
