@@ -16,16 +16,16 @@ public class Goal {
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     public final String goalName;
-    private final MainIngredientType mainIngredientType;
+    private final MainIngredientType mainIngredientType =  MainIngredientType.GRAIN;
 
     /**
      * Constructs a {@code Goal} based on main ingredient type that hits the basic nutrition requirement.
      *
      */
-    public Goal(MainIngredientType mainTypeMagnitude) {
-        requireNonNull(mainTypeMagnitude);
-        this.mainIngredientType = mainTypeMagnitude;
-        this.goalName = setGoalName();
+    public Goal(String goalName) {
+        requireNonNull(goalName);
+        this.goalName = goalName;
+        //this.goalName = setGoalName();
         checkArgument(isValidGoalName(goalName), MESSAGE_CONSTRAINTS);
     }
 

@@ -487,6 +487,34 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String goal} into a {@code Goal}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code goal} is invalid.
+     */
+    public static Goal parseGoal(String goal) throws ParseException {
+        requireNonNull(goal);
+        String trimmedGoal = goal.trim();
+        if (!Goal.isValidGoalName(trimmedGoal)) {
+            throw new ParseException(Goal.MESSAGE_CONSTRAINTS);
+        }
+        return new Goal(trimmedGoal);
+    }
+
+    /**
+     * Parses {@code Collection<String> goals} into a {@code Set<Goal>}.
+     */
+    public static Set<Goal> parseGoals(Collection<String> goals) throws ParseException {
+        requireNonNull(goals);
+        final Set<Goal> goalSet = new HashSet<>();
+        for (String goalName : goals) {
+            goalSet.add(parseGoal(goalName));
+        }
+        return goalSet;
+    }
+
+
+    /**
      * Parses {@code String date} into a {@code Date}.
      *
      * @throws ParseException if the given {@code date} is invalid.
