@@ -1,7 +1,6 @@
 package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
-import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,7 +16,6 @@ import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
-import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
@@ -45,6 +43,8 @@ public class DeleteSuggestionCommandParserTest {
 
     private static final String COMMAND_WORD = "delete";
     private static final String RESPONSE_MESSAGE = "Delete a note";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
+    private static final String RESPONSE_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\". Invalid path.";
 
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
@@ -91,44 +91,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_uncorrectedAbsolutePathWithPrefix_throwsParseException() {
-        String title = "/RandomBlock";
-        assertParseFailure(deleteSuggestionCommandParser, " -t" + title,
-            "Cannot delete \"" + title + "\". Invalid path.");
-    }
-
-    @Test
-    public void parse_uncorrectedAbsolutePathWithoutPrefix_throwsParseException() {
-        String title = "/RandomBlock";
-        assertParseFailure(deleteSuggestionCommandParser, title,
-            "Cannot delete \"" + title + "\". Invalid path.");
-    }
-
-    @Test
-    public void parse_uncorrectedRelativePathWithPrefix_throwsParseException() {
-        String title = "randomBlock";
-        assertParseFailure(deleteSuggestionCommandParser, " -t" + title,
-            "Cannot delete \"" + title + "\". Invalid path.");
-    }
-
-    @Test
-    public void parse_uncorrectedRelativePathWithoutPrefix_throwsParseException() {
-        String title = "randomBlock";
-        assertParseFailure(deleteSuggestionCommandParser, title,
-            "Cannot delete \"" + title + "\". Invalid path.");
-    }
-
-    @Test
-    public void parse_correctAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() throws ParseException {
+    public void parse_correctAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() {
         String arg = " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation();
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-                deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"/CS2103\""),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -171,16 +143,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() throws ParseException {
-        String arg = " " + toCs2103.getStringRepresentation();
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-                deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+    public void parse_correctAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() {
+        String arg = toCs2103.getStringRepresentation();
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, arg)),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -223,16 +195,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() throws ParseException {
+    public void parse_correctedAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() {
         String arg = " " + PREFIX_TITLE + " /CS2104";
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectedPath =
-                deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectedPath instanceof DeleteSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectedPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectedPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectedPath.execute(model);
+        commandCorrectedPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"/CS2104\""),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -275,15 +247,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() throws ParseException {
-        String arg = " /CS2104";
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+    public void parse_correctedAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() {
+        String arg = "/CS2104";
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -326,15 +299,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctRelativePathWithPrefix_returnsDeleteSuggestionCommand() throws ParseException {
+    public void parse_correctRelativePathWithPrefix_returnsDeleteSuggestionCommand() {
         String arg = " -t Lecture";
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"Lecture\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -366,15 +340,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() throws ParseException {
-        String arg = " Lecture";
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+    public void parse_correctRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() {
+        String arg = "Lecture";
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -406,16 +381,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedRelativePathWithPrefix_returnsDeleteSuggestionCommand() throws ParseException {
+    public void parse_correctedRelativePathWithPrefix_returnsDeleteSuggestionCommand() {
         String arg = " " + PREFIX_TITLE + " Lectre";
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-                deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"Lectre\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -447,16 +422,16 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() throws ParseException {
-        String arg = " Lectre";
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-                deleteSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof DeleteSuggestionCommand);
+    public void parse_correctedRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() {
+        String arg = "Lectre";
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = deleteSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof DeleteSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
