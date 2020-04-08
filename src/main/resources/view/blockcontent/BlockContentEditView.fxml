@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +15,11 @@
     </icons>
     <scene>
         <Scene>
-            <VBox alignment="CENTER" styleClass="app">
+            <stylesheets>
+                <URL value="@/view/NotablyTheme.css" />
+                <URL value="@/view/Extensions.css" />
+            </stylesheets>
+            <VBox alignment="CENTER" >
                 <children>
                     <TextArea fx:id="blockContentTextArea" editable="true" wrapText="true" VBox.vgrow="ALWAYS">
                         <VBox.margin>

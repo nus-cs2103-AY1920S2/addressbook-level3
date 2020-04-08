@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -48,6 +50,9 @@ public class MainWindow extends ViewPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private VBox mainWindow;
+
+    @FXML
     private StackPane sideBarPlaceholder;
 
     @FXML
@@ -62,14 +67,12 @@ public class MainWindow extends ViewPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
 
-        // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.model = model;
 
-        // Configure the VIEW
         setWindowDefaultSize(logic.getGuiSettings());
-
+        setWindowSettings(primaryStage);
         setAccelerators();
 
         initializeHelpWindow(model);
@@ -77,6 +80,24 @@ public class MainWindow extends ViewPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Provides an alternative way to set the settings of the main window, as an alternative
+     * to doing so via fxml tags.
+     *
+     * @param primaryStage the stage corresponding to the main app window.
+     */
+    private void setWindowSettings(Stage primaryStage) {
+        primaryStage.focusedProperty().addListener(((observable, unused, isFocused) -> {
+            if (isFocused) {
+                mainWindow.setEffect(null);
+            } else {
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setBrightness(-0.4);
+                mainWindow.setEffect(colorAdjust);
+            }
+        }));
     }
 
     private void setAccelerators() {
