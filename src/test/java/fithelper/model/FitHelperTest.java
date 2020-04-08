@@ -52,7 +52,7 @@ public class FitHelperTest {
     }
 
     @Test
-    public void hasEntry_entryInFitHelperreturnsTrue() {
+    public void hasEntryentryInFitHelperreturnsTrue() {
         fitHelper.addEntry(FOOD);
         assertTrue(fitHelper.hasEntry(FOOD));
     }
