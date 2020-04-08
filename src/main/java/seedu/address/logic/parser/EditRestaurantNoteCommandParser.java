@@ -20,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Note;
 
 /**
- * Parses input arguments and creates a new {@code EditInfoCommand} object
+ * Parses input arguments and creates a new {@code EditRestaurantNoteCommand} object
  */
 public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNoteCommand> {
     /**

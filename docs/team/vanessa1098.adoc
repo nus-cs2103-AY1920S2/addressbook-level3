@@ -62,9 +62,6 @@ It is an application that allows users to manage all aspects of their social lif
 ** Community:
 *** Reviewed PRs and provided suggestions for my teammates
 *** Reported bugs and suggestions for other teams in the module
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
 == Contributions to the User Guide
 

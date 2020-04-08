@@ -24,7 +24,7 @@ import seedu.address.model.restaurant.Restaurant;
 public class EditRestaurantNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "(rt)editnote";
-    public static final String COMMAND_FUNCTION = "Edit the information of the restaurant identified "
+    public static final String COMMAND_FUNCTION = "Edits the food note of the restaurant identified "
             + "by the index number used in the last restaurant listing. "
             + "If there is existing information at the line number, "
             + "the input will added on to the existing information.";
@@ -39,7 +39,7 @@ public class EditRestaurantNoteCommand extends Command {
             + PREFIX_LINE_NUMBER_GOOD + "1 " + PREFIX_GOOD + "Mushroom soup "
             + PREFIX_LINE_NUMBER_BAD + "3 " + PREFIX_BAD + "Salad";
 
-    public static final String MESSAGE_EDIT_REMARK_SUCCESS = "Edited notes for restaurant: %1$s";
+    public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited notes for restaurant: %1$s";
     public static final String MESSAGE_EMPTY_REC = "No recommended food to be edited is provided.";
     public static final String MESSAGE_EMPTY_GOOD = "No good food to be edited is provided.";
     public static final String MESSAGE_EMPTY_BAD = "No bad food to be edited is provided.";
@@ -91,7 +91,6 @@ public class EditRestaurantNoteCommand extends Command {
             if (lineRec > restaurantToEdit.getRecommendedFood().size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_REC);
             }
-            restaurantToEdit.getRecommendedFood().set(lineRec - 1, recommendedFood);
         }
         if (lineGood != -1) { //Checks if good food is to be edited
             if (restaurantToEdit.getGoodFood().size() == 0) {
@@ -100,7 +99,6 @@ public class EditRestaurantNoteCommand extends Command {
             if (lineGood > restaurantToEdit.getGoodFood().size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_GOOD);
             }
-            restaurantToEdit.getGoodFood().set(lineGood - 1, goodFood);
         }
         if (lineBad != -1) { //Checks if bad food is to be edited
             if (restaurantToEdit.getBadFood().size() == 0) {
@@ -109,8 +107,18 @@ public class EditRestaurantNoteCommand extends Command {
             if (lineBad > restaurantToEdit.getBadFood().size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER_BAD);
             }
+        }
+
+        if (lineRec != -1) {
+            restaurantToEdit.getRecommendedFood().set(lineRec - 1, recommendedFood);
+        }
+        if (lineGood != -1) {
+            restaurantToEdit.getGoodFood().set(lineGood - 1, goodFood);
+        }
+        if (lineBad != -1) {
             restaurantToEdit.getBadFood().set(lineBad - 1, badFood);
         }
+
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
                 restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), restaurantToEdit.getRecommendedFood(),
@@ -119,7 +127,7 @@ public class EditRestaurantNoteCommand extends Command {
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_REMARK_SUCCESS, editedRestaurant),
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedRestaurant),
                 false, false, false, false, false, false, true, false);
     }
 
@@ -131,7 +139,7 @@ public class EditRestaurantNoteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditInfoCommand)) {
+        if (!(other instanceof EditRestaurantNoteCommand)) {
             return false;
         }
 

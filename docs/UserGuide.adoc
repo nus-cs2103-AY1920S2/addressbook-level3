@@ -298,11 +298,11 @@ Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD1] [r/RECOMMENDED_FOOD2] [g/GOOD_F
 Examples:
 
 * `(rt)addnote 5 r/chicken chop g/truffle fries b/risotto` +
-Adds a note to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+Add notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 * `(rt)addnote 2 g/Cheese baked rice`
 Adds a note to the restaurant at index 2 with good food Cheese baked rice.
 * `(rt)addnote 1 b/Fried rice b/Latte`
-Adds a note to the restaurant at index 1 with bad food Fried rice and Latte.
+Add notes to the restaurant at index 1 with bad food Fried rice and Latte.
 
 ==== Edit notes to a restaurant : `(rt)editnote`
 
@@ -319,9 +319,26 @@ Format: `(rt)editnote INDEX [rl/LINE_NUMBER] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBE
 Examples:
 
 * '(rt)editnote 1 rl/2 r/Lobster pasta gl/1 g/Mushroom soup bl/3 b/Salad'
-Edits a note to the restaurant at index 1 with recommend food Lobster pasta at line number 2, good food Mushroom soup at line number 1, and bad food Salad at line number 3.
+Edit notes to the restaurant at index 1 with recommend food Lobster pasta at line number 2, good food Mushroom soup at line number 1, and bad food Salad at line number 3.
 * `(rt)editnote 2 gl/2 g/Chicken chop`
-Edits a note to the restaurant at index 2 with good food Chicken chop.
+Edits note to the restaurant at index 2 with good food Chicken chop.
+
+==== Delete notes to a restaurant : `(rt)deletenote`
+
+Deletes a note to a restaurant +
+Format: `(rt)deletenote INDEX [rl/LINE_NUMBER1] [rl/LINE_NUMBER2] [gl/LINE_NUMBER] [bl/BAD_FOOD]`
+
+****
+* INDEX must be a positive integer. It refers to the index of the respective restaurant as displayed in the LIST function.
+* There should be at least either one rl/LINE_NUMBER, one gl/LINE_NUMBER, or one bl/LINE_NUMBER specified to be deleted from the respective notes.
+****
+
+Examples:
+
+* '(rt)deletenote 1 rl/2 gl/1 bl/3
+Delete notes to the restaurant at index 1, at line number 2 of recommended food notes, at line number 1 of good food notes, at line number 3 of bad food notes.
+* `(rt)editnote 2 gl/1 gl/2`
+Edits a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
 
 ==== Change visited status of restaurant : `(rt)visited`
 
