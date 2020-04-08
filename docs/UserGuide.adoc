@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list-s`* : lists all suppliers
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 gp/apple 4.50` : adds a supplier named `John Doe` selling apples at 4.50 each to the InventoryManager.
+* **`add`**`n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01 gp/apple 4.50` : adds a supplier named `John Doe` selling apples at 4.50 each to the InventoryManager.
 * **`delete-s 3`** : deletes the 3rd supplier shown in the current list
 * *`exit`* : exits the app
 
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [gp/GOOD PRICE]` can be used as `n/John Doe gp/apple 4.50` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[gp/GOOD PRICE]...` can be used as `{nbsp}` (i.e. 0 times), `gp/apple 4.50`, `gp/orange 2.00 gp/pear 5.00` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
 * All dates follow the format `yyyy-MM-dd`
 ====
 
@@ -60,15 +60,15 @@ Format: `help`
 === Adding a supplier: `add`
 
 Adds a supplier to the inventory manager +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
+Format: `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...`
 
 [TIP]
 A supplier can have any number of good-price pairs (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 gp/drugs 500`
+* `add n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison c/1234567 gp/drugs 500`
 
 === Listing all suppliers : `list-s`
 
@@ -78,7 +78,7 @@ Format: `list-s`
 === Editing a supplier : `edit-s`
 
 Edits an existing supplier in the inventory manager. +
-Format: `edit-s INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...`
+Format: `edit-s INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...`
 
 ****
 * Edits the supplier at the specified `INDEX`. The index refers to the index number shown in the displayed supplier list. The index *must be a positive integer* 1, 2, 3, ...
@@ -92,8 +92,8 @@ You can add any number of good-price pairs to the existing suppliers at one time
 
 Examples:
 
-* `edit-s 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st supplier to be `91234567` and `johndoe@example.com` respectively.
+* `edit-s 1 c/91234567 e/johndoe@example.com` +
+Edits the contact number and email address of the 1st supplier to be `91234567` and `johndoe@example.com` respectively.
 * `edit-s 2 gp/apple 5 gp/banana 10` +
 The existing second supplier only has apple priced at 1 dollar. Hence, this command will edit the price of apple to 5 dollar and add the good price pair of banana into the supplier's good list.
 
@@ -271,13 +271,13 @@ For security concerns, all data will be encrypted by default.
 
 == Command Summary
 
-* *Add supplier* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
+* *Add supplier* `add n/NAME c/CONTACT_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...` +
+e.g. `add n/James Ho c/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
 * *List supplier* : `list-s`
 * *Clear suppliers* : `clear-s`
 * *Delete supplier* : `delete-s INDEX [g/GOOD NAME]` +
 e.g. `delete-s 3 g/apple`
-* *Edit supplier* : `edit-s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...` +
+* *Edit supplier* : `edit-s INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...` +
 e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 * *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
 e.g. `find-s James Jake`
