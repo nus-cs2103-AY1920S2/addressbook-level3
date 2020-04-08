@@ -45,7 +45,7 @@ public class UniquePlannedList {
      */
     public void setPlannedDate(PlannedDate target, PlannedDate newPlannedDate) {
         int index = internalList.indexOf(target);
-        System.out.println("planneddate index is: " + index);
+        System.out.println("planneddate index is: " + index); //todo remove after cooked command debugged
         internalList.set(index, newPlannedDate);
         System.out.println("============Recipes in internalList =============\n" + internalList);
     }
@@ -142,10 +142,6 @@ public class UniquePlannedList {
         return other == this // short circuit if same object
                 || (other instanceof UniquePlannedList // instanceof handles nulls
                 && internalList.equals(((UniquePlannedList) other).internalList));
-    }
-
-    public String size() {
-        return internalList.size() + "";
     }
 
 }

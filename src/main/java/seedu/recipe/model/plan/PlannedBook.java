@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.model.ReadOnlyPlannedBook;
@@ -17,6 +18,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
 
     private final UniquePlannedList plannedDates;
     private final PlannedRecipeMap recipeMap;
+    private String groceryList = "";
 
     public PlannedBook() {
         plannedDates = new UniquePlannedList();
@@ -151,10 +153,22 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         recipeMap.deleteOnePlannedRecipe(recipeCooked, plannedDate);
     }*/ // todo remove once cooked command is complete
 
+    // ===== Grocery list methods =====
+
+    /**
+     * Returns all the ingredients used in the planned recipes.
+     */
     public String getGroceryList() {
-        return "Testing 1 2 3 4\n"
-                +"5, 6 new linee";
+        return groceryList;
     }
+
+    /**
+     * Sets the grocery list to {@code groceryList}.
+     */
+    public void setGroceryList(String groceryList) {
+        this.groceryList = groceryList;
+    }
+
 
     // ===== Util methods =====
 

@@ -14,8 +14,7 @@ public class Quantity {
         this.unit = unit;
     }
 
-    public Quantity() {
-    }
+    public Quantity() {}
 
     public Unit getUnit() {
         return unit;

@@ -10,11 +10,14 @@ import seedu.recipe.model.plan.PlannedRecipeMap;
 public interface ReadOnlyPlannedBook {
 
     /**
-     * Returns an unmodifiable view of the planned recipes map.
-     * This map will not contain duplicate recipes on the same day.
+     * Returns an unmodifiable view of the planned recipes list.
+     * The list will not have duplicate recipes planned on the same day.
      */
     ObservableList<PlannedDate> getPlannedList();
 
+    /**
+     * Returns an unmodifiable view of the planned recipes map.
+     */
     PlannedRecipeMap getPlannedMap();
 
 }

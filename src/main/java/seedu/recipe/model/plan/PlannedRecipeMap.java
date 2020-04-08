@@ -110,7 +110,8 @@ public class PlannedRecipeMap {
     /**
      * Returns a new copy of the recipe to list-of-planned-recipes mapping.
      */
-    private Map<Recipe, List<PlannedDate>> getInternalMap() {
+    public Map<Recipe, List<PlannedDate>> getInternalMap() {
         return new HashMap<>(internalMap);
     }
+
 }

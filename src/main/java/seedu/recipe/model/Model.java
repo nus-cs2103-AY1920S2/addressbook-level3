@@ -2,6 +2,7 @@ package seedu.recipe.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -148,6 +150,11 @@ public interface Model {
     void updateFilteredPlannedList(Predicate<PlannedDate> predicate) throws NullPointerException;
 
     /**
+     * Returns the mapping of recipes to planned dates.
+     */
+    PlannedRecipeMap getPlannedMap();
+
+    /**
      * Returns the list of plans that uses {@code recipe}.
      */
     List<PlannedDate> getPlans(Recipe recipe);
@@ -156,6 +163,11 @@ public interface Model {
      * Returns the grocery list containing all the ingredients in the planned recipes.
      */
     String getGroceryList();
+
+    /**
+     * Sets the grocery list containing all the ingredients in the planned recipes.
+     */
+    void setGroceryList(String groceryList);
 
     /**
      * Adds a record in the cookedRecord list

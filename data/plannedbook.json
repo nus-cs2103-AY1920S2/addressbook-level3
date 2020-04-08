@@ -13,5 +13,52 @@
       "goals" : [ "Wholesome Wholemeal" ]
     } ],
     "date" : "2020-04-09"
+  }, {
+    "recipes" : [ {
+      "name" : "Quick Carrot Daikon Stir-fry",
+      "time" : "25",
+      "isFavourite" : true,
+      "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
+      "vegetables" : [ "30.0g,  Carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  Garlic clove (smashed and chopped)", "20.0g,  Ginger (julienned sliced)", "30.0g,  Scallions" ],
+      "proteins" : [ ],
+      "fruits" : [ ],
+      "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
+      "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
+      "goals" : [ "Herbivore" ]
+    }, {
+      "name" : "5 Ingredient Spelt Spaghetti",
+      "time" : "25",
+      "isFavourite" : false,
+      "grains" : [ "80.0g,  Spelt spaghetti" ],
+      "vegetables" : [ "2.0cup,  Arugula (salad rockets)", "50.0g,  Leek", "300.0g,  Tomatoes", "300.0g,  Zucchini" ],
+      "proteins" : [ "50.0g,  Egg" ],
+      "fruits" : [ ],
+      "others" : [ "1.0tbsp,  Fresh basil", "2.0tbsp,  Italian herbs", "0.5tbsp,  Olive oil", "1.0tbsp,  Pepper", "2.0tbsp,  Salt", "2.0tbsp,  Xucker ketchup" ],
+      "steps" : [ "Thinly slice Tomatoes and Leek and shred your Zucchini.", "Heat up Oil in a large Pan on a medium-high Level and roast Leek until golden.", "Now add Zucchini.", "When the Zucchini´s roasted, stir in Tomatoes and turn down Heat to a lower Level.", "Let cook for 5-7 Minutes until it turn into a Sauce.", "Meanwhile, prepare Spaghetti according to the Directions stated on the Package.", "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.", "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg, Parmesan and more fresh Basil." ],
+      "goals" : [ "Wholesome Wholemeal" ]
+    }, {
+      "name" : "Bacon, Spinach Caramelized Onion Pasta",
+      "time" : "25",
+      "isFavourite" : false,
+      "grains" : [ "170.0g,  Whole wheat penne pasta" ],
+      "vegetables" : [ "1.5cup,  Large yellow onion diced", "1.0cup,  Spinach" ],
+      "proteins" : [ "120.0g,  Chopped bacon" ],
+      "fruits" : [ ],
+      "others" : [ "1.0tbsp,  Brown sugar", "2.0tbsp,  Butter", "1.0tbsp,  Garlic powder", "0.5cup,  Parmesan cheese sprinkles", "1.0tbsp,  Pepper", "1.0tbsp,  Salt" ],
+      "steps" : [ "In a large skillet, add your bacon and cook for 1-2 mins until bacon is halfway done", "In that same pan, and some butter, sugar, spices, and onion; sautee until the onion becomes tender, and bacon starts to crisp up.", "Boil pasta in salted water until al dente", "Once the pasta is done, drain it loosely, but leave a tiny amount of water and add it to the skillet with the bacon, and onion mixture.", "Mix in the spinach and stir until tender", "Sprinkle with Parmesan before serving." ],
+      "goals" : [ "Wholesome Wholemeal" ]
+    }, {
+      "name" : "All Veggie Sandwich",
+      "time" : "10",
+      "isFavourite" : false,
+      "grains" : [ "300.0g,  Whole-wheat bread" ],
+      "vegetables" : [ "1.0cup,  Baby spinach leaves", "1.0cup,  Fresh pea shoots or your favorite fresh sprouts", "20.0g,  Red bell pepper(seeded and sliced)", "40.0g,  Thinly sliced cucumber" ],
+      "proteins" : [ ],
+      "fruits" : [ "50.0g,  Ripe avocados" ],
+      "others" : [ "1.0tbsp,  Cilantro leaves", "2.0tbsp,  Kosher salt and fresh black pepper", "4.0tbsp,  Plain hummus" ],
+      "steps" : [ "Spread 1 tablespoon of hummus on each slice of bread. Then add the avocado pulp of 1/2 avocado per slice and lightly mash with a fork. Depending on the size of your bread slices you may need to use little less avocado. I used about 1 avocado per sandwich.", "Layer on spinach leaves, cucumber slices, red pepper, pea shoots, and cilantro leaves. Generously season with salt and pepper. Top with other slice of bread and enjoy." ],
+      "goals" : [ "Wholesome Wholemeal", "Herbivore" ]
+    } ],
+    "date" : "2020-05-06"
   } ]
 }

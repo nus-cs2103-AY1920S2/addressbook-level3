@@ -5,6 +5,7 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.RecipeBook;
 
@@ -229,6 +231,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setGroceryList(String groceryList) {
+        plannedBook.setGroceryList(groceryList);
+    }
+
+    @Override
     public ObservableList<PlannedDate> getFilteredPlannedList() {
         return filteredPlannedDates;
     }
@@ -237,6 +244,11 @@ public class ModelManager implements Model {
     public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
         requireNonNull(predicate);
         filteredPlannedDates.setPredicate(predicate);
+    }
+
+    @Override
+    public PlannedRecipeMap getPlannedMap() {
+        return plannedBook.getPlannedMap();
     }
 
 /*    @Override
