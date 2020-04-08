@@ -9,17 +9,17 @@ import seedu.address.model.version.Version;
  * An {@code AddressBook} that keeps track of its history. Snapshots of its state are done based on external commands.
  */
 public class VersionedAddressBook extends AddressBook implements Version<AddressBook> {
-    private LinearHistory<AddressBook> history;
+    private Version<AddressBook> version;
 
     public VersionedAddressBook() {
-        history = new LinearHistory<>(new AddressBook());
+        version = new LinearHistory<>(new AddressBook());
     }
 
     /**
      * Creates a VersionedAddressBook with an initial state containing the {@code Supplier}s in the {@code toBeCopied}.
      */
     public VersionedAddressBook(ReadOnlyList<Supplier> toBeCopied) {
-        history = new LinearHistory<>(new AddressBook(toBeCopied));
+        version = new LinearHistory<>(new AddressBook(toBeCopied));
         updateDisplayedSuppliers();
     }
 
@@ -75,24 +75,24 @@ public class VersionedAddressBook extends AddressBook implements Version<Address
 
     @Override
     public void commit() {
-        history.commit();
+        version.commit();
     }
 
     @Override
     public void undo() throws StateNotFoundException {
-        history.undo();
+        version.undo();
         updateDisplayedSuppliers();
     }
 
     @Override
     public void redo() throws StateNotFoundException {
-        history.redo();
+        version.redo();
         updateDisplayedSuppliers();
     }
 
     @Override
     public AddressBook getCurrentState() {
-        return history.getCurrentState();
+        return version.getCurrentState();
     }
 
     //=========== Util Methods =========================================================================

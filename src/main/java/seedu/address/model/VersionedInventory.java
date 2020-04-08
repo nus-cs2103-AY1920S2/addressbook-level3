@@ -9,17 +9,17 @@ import seedu.address.model.version.Version;
  * An {@code Inventory} that keeps track of its history. Snapshots of its state are done based on external commands.
  */
 public class VersionedInventory extends Inventory implements Version<Inventory> {
-    private LinearHistory<Inventory> history;
+    private Version<Inventory> version;
 
     public VersionedInventory() {
-        history = new LinearHistory<>(new Inventory());
+        version = new LinearHistory<>(new Inventory());
     }
 
     /**
      * Creates a VersionedInventory with an initial state containing the {@code Good}s in the {@code toBeCopied}.
      */
     public VersionedInventory(ReadOnlyList<Good> toBeCopied) {
-        history = new LinearHistory<>(new Inventory(toBeCopied));
+        version = new LinearHistory<>(new Inventory(toBeCopied));
         updateDisplayedGoods();
     }
 
@@ -78,24 +78,24 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
 
     @Override
     public void commit() {
-        history.commit();
+        version.commit();
     }
 
     @Override
     public void undo() throws StateNotFoundException {
-        history.undo();
+        version.undo();
         updateDisplayedGoods();
     }
 
     @Override
     public void redo() throws StateNotFoundException {
-        history.redo();
+        version.redo();
         updateDisplayedGoods();
     }
 
     @Override
     public Inventory getCurrentState() {
-        return history.getCurrentState();
+        return version.getCurrentState();
     }
 
     //=========== Util Methods =========================================================================

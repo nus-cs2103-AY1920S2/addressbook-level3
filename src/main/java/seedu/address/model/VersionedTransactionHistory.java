@@ -10,10 +10,10 @@ import seedu.address.model.version.Version;
  * commands.
  */
 public class VersionedTransactionHistory extends TransactionHistory implements Version<TransactionHistory> {
-    private LinearHistory<TransactionHistory> history;
+    private Version<TransactionHistory> version;
 
     public VersionedTransactionHistory() {
-        history = new LinearHistory<>(new TransactionHistory());
+        version = new LinearHistory<>(new TransactionHistory());
     }
 
     /**
@@ -21,7 +21,7 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
      * in the {@code toBeCopied}.
      */
     public VersionedTransactionHistory(ReadOnlyList<Transaction> toBeCopied) {
-        history = new LinearHistory<>(new TransactionHistory(toBeCopied));
+        version = new LinearHistory<>(new TransactionHistory(toBeCopied));
         updateDisplayedTransactions();
     }
 
@@ -67,24 +67,24 @@ public class VersionedTransactionHistory extends TransactionHistory implements V
 
     @Override
     public void commit() {
-        history.commit();
+        version.commit();
     }
 
     @Override
     public void undo() throws StateNotFoundException {
-        history.undo();
+        version.undo();
         updateDisplayedTransactions();
     }
 
     @Override
     public void redo() throws StateNotFoundException {
-        history.redo();
+        version.redo();
         updateDisplayedTransactions();
     }
 
     @Override
     public TransactionHistory getCurrentState() {
-        return history.getCurrentState();
+        return version.getCurrentState();
     }
 
     //=========== Util Methods =========================================================================
