@@ -29,7 +29,6 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private CalorieCalculatorByDateRange stats;
-    private ObservableList<VEvent> events;
 
     @FXML
     private StackPane calendarPagePlaceholder;
@@ -52,7 +51,6 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         super(FXML);
         this.foodList = foodList;
         this.sportList = sportList;
-        this.events = events;
         logger.info("Initializing Calendar Page");
         this.calendarPage = new CalendarPage(events);
         daysPage = new DaysCard(foodList, sportList, LocalDate.now());

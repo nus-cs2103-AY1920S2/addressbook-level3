@@ -56,9 +56,6 @@ public class EntryTest {
         // same object -> returns true
         assertTrue(FOOD.equals(FOOD));
 
-        // null -> returns false
-        assertFalse(FOOD.equals(null));
-
         // different type -> returns false
         assertFalse(FOOD.equals(5));
 

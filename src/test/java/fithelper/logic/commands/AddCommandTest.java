@@ -38,7 +38,7 @@ import jfxtras.icalendarfx.components.VEvent;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructornullPersonthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
@@ -141,6 +141,7 @@ public class AddCommandTest {
 
         @Override
         public void commit(String commitMessage) {
+            System.out.println("add command test");
         }
 
         @Override
@@ -267,6 +268,7 @@ public class AddCommandTest {
 
         @Override
         public void addVEvent(Entry entry) throws IllegalValueException {
+            System.out.println("add command test");
         }
 
         @Override
@@ -405,7 +407,7 @@ public class AddCommandTest {
      * A Model stub that always accept the entry being added.
      */
     private class ModelStubAcceptingEntryAdded extends ModelStub {
-        final ArrayList<Entry> entriesAdded = new ArrayList<>();
+        final ArrayList<Entry> entriesAdded = new ArrayList<Entry>();
 
         @Override
         public boolean hasEntry(Entry entry) {

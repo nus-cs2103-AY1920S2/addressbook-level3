@@ -9,12 +9,10 @@ public class CalendarSettings {
     private LocalDate date;
     private LocalDate show;
     private String mode;
-    private boolean needsReset;
     public CalendarSettings(LocalDate date, String mode) {
         this.date = date;
         this.mode = mode;
         this.show = null;
-        this.needsReset = false;
     }
     public LocalDate getDate() {
         return this.date;

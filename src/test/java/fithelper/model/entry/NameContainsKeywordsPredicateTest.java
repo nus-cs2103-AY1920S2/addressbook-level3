@@ -31,15 +31,12 @@ public class NameContainsKeywordsPredicateTest {
         // different types -> returns false
         assertFalse(firstPredicate.equals(1));
 
-        // null -> returns false
-        assertFalse(firstPredicate.equals(null));
-
         // different person -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    public void testnameContainsKeywordsreturnsTrue() {
         // One keyword
         NameContainsKeywordsPredicate predicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("Chicken"));
@@ -59,7 +56,7 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void testnameDoesNotContainKeywordsreturnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new EntryBuilder().withName("Chicken").build()));
