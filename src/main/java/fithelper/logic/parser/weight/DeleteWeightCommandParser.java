@@ -1,5 +1,12 @@
 package fithelper.logic.parser.weight;
 
+import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
 import fithelper.logic.commands.weight.DeleteWeightCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
@@ -8,13 +15,6 @@ import fithelper.logic.parser.ParserUtil;
 import fithelper.logic.parser.Prefix;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.weight.Date;
-
-import java.time.LocalDate;
-import java.util.stream.Stream;
-
-import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Parses input arguments and creates a new DeleteWeightCommand object

@@ -41,7 +41,7 @@ public class Weight {
         return bmi;
     }
 
-    public void setBmi(Bmi bmi){
+    public void setBmi(Bmi bmi) {
         this.bmi = bmi;
     }
 

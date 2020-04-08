@@ -96,6 +96,12 @@ public class WeightRecords implements ReadOnlyWeightRecords {
         return null;
     }
 
+    /**
+     * Edit weight value and BMI value of a weight record.
+     * @param newWeight the weight record to be edited.
+     * @param weightValue new weight value.
+     * @param bmi new BMI value.
+     */
     public void editWeight(Weight newWeight, WeightValue weightValue, Bmi bmi) {
         for (Weight weight: weightRecords) {
             if (weight.equals(newWeight)) {

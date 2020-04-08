@@ -1,5 +1,10 @@
 package fithelper.logic.commands.weight;
 
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
+import static java.util.Objects.requireNonNull;
+
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.logic.commands.Command;
@@ -9,11 +14,6 @@ import fithelper.model.Model;
 import fithelper.model.profile.Profile;
 import fithelper.model.weight.Date;
 import fithelper.model.weight.Weight;
-
-import java.util.logging.Logger;
-
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a weight identified using it's displayed index from the address book.

@@ -34,21 +34,25 @@ import fithelper.logic.commands.diary.DeleteDiaryCommand;
 import fithelper.logic.commands.diary.DiaryCommand;
 import fithelper.logic.commands.diary.EditDiaryCommand;
 import fithelper.logic.commands.diary.FindDiaryCommand;
+
+import fithelper.logic.commands.weight.AddWeightCommand;
+import fithelper.logic.commands.weight.ClearWeightCommand;
 import fithelper.logic.commands.weight.DeleteWeightCommand;
 import fithelper.logic.commands.weight.EditWeightCommand;
+import fithelper.logic.commands.weight.WeightCommand;
+
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.diary.AppendDiaryCommandParser;
 import fithelper.logic.parser.diary.ClearDiaryCommandParser;
 import fithelper.logic.parser.diary.DeleteDiaryCommandParser;
 import fithelper.logic.parser.diary.EditDiaryCommandParser;
 import fithelper.logic.parser.diary.FindDiaryCommandParser;
+
 import fithelper.logic.parser.exceptions.ParseException;
+
 import fithelper.logic.parser.revoke.RedoCommandParser;
 import fithelper.logic.parser.revoke.UndoCommandParser;
 
-import fithelper.logic.commands.weight.AddWeightCommand;
-import fithelper.logic.commands.weight.ClearWeightCommand;
-import fithelper.logic.commands.weight.WeightCommand;
 import fithelper.logic.parser.weight.AddWeightCommandParser;
 import fithelper.logic.parser.weight.DeleteWeightCommandParser;
 import fithelper.logic.parser.weight.EditWeightCommandParser;

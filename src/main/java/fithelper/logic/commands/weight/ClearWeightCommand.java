@@ -1,15 +1,15 @@
 package fithelper.logic.commands.weight;
 
-import fithelper.commons.core.LogsCenter;
-import fithelper.logic.commands.Command;
-import fithelper.logic.commands.CommandResult;
-import fithelper.model.WeightRecords;
-import fithelper.model.Model;
-import fithelper.model.profile.Profile;
+import static java.util.Objects.requireNonNull;
 
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import fithelper.commons.core.LogsCenter;
+import fithelper.logic.commands.Command;
+import fithelper.logic.commands.CommandResult;
+import fithelper.model.Model;
+import fithelper.model.WeightRecords;
+import fithelper.model.profile.Profile;
 
 /**
  * Clears the address book.
