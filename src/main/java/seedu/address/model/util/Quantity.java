@@ -1,8 +1,7 @@
 package seedu.address.model.util;
 
 /**
- * Represents a Product's quantity in the product list
- * Guarantees: immutable;
+ * The API of quantity.
  */
 public interface Quantity extends Comparable<Quantity> {
 

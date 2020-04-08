@@ -172,7 +172,8 @@ public class Product {
         return otherProduct.getId().equals(getId())
                 || (otherProduct.getDescription().equals(getDescription())
                 && otherProduct.getCostPrice().equals(getCostPrice())
-                && otherProduct.getPrice().equals(getPrice()));
+                && otherProduct.getPrice().equals(getPrice()))
+                && otherProduct.getQuantity().equals(getQuantity());
     }
 
     @Override

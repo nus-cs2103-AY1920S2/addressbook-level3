@@ -26,7 +26,6 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
-import seedu.address.ui.NotificationWindow;
 
 /**
  * Adds a transaction to the system.

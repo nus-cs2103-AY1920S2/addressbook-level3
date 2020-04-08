@@ -9,7 +9,6 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.ProductQuantity;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
-import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
 
 /**

@@ -68,13 +68,17 @@ public class CommandResult {
         return title;
     }
 
-    public Product getNotificationData() { return product; }
+    public Product getNotificationData() {
+        return product;
+    }
 
     public boolean isShowPlot() {
         return showPlot;
     }
 
-    public boolean isShowNotification() { return showNotification; }
+    public boolean isShowNotification() {
+        return showNotification;
+    }
 
     public boolean isShowHelp() {
         return showHelp;

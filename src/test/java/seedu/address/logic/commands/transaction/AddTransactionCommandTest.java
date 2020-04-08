@@ -1,15 +1,29 @@
 package seedu.address.logic.commands.transaction;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.customer.TypicalPersons.ALICE;
+import static seedu.address.testutil.product.TypicalProducts.BAG;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.transaction.AddTransactionCommand;
-import seedu.address.logic.commands.transaction.AddTransactionCommandTest;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventorySystem;
@@ -19,23 +33,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.testutil.product.ProductBuilder;
-import seedu.address.testutil.transaction.TransactionBuilder;
 import seedu.address.testutil.transaction.TransactionFactoryBuilder;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.UUID;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.product.TypicalProducts.BAG;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
 
 public class AddTransactionCommandTest {
 
@@ -268,9 +266,9 @@ public class AddTransactionCommandTest {
      */
     private class ModelStubWithTransaction extends AddTransactionCommandTest.ModelStub {
         private Transaction transaction;
-        final FilteredList<Customer> filteredCustomerList =
+        private final FilteredList<Customer> filteredCustomerList =
                 new FilteredList<>(FXCollections.observableArrayList(ALICE));
-        final FilteredList<Product> filteredProductList =
+        private final FilteredList<Product> filteredProductList =
                 new FilteredList<>(FXCollections.observableArrayList(BAG));
 
 
@@ -307,8 +305,8 @@ public class AddTransactionCommandTest {
         final FilteredList<Product> filteredProductList =
                 new FilteredList<>(FXCollections.observableArrayList(BAG));
 
-        Product productToEdit;
-        Product editedProduct;
+        private Product productToEdit;
+        private Product editedProduct;
 
         @Override
         public ObservableList<Customer> getFilteredCustomerList() {
@@ -341,6 +339,14 @@ public class AddTransactionCommandTest {
         @Override
         public void updateFilteredProductList() {
 
+        }
+
+        public Product getProductToEdit() {
+            return productToEdit;
+        }
+
+        public Product getEditedProduct() {
+            return editedProduct;
         }
 
         @Override

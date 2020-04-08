@@ -81,9 +81,13 @@ public class TransactionFactory {
         return money;
     }
 
-    public DateTime getDateTime() { return dateTime; }
+    public DateTime getDateTime() {
+        return dateTime;
+    }
 
-    public Description getDescription() { return description; }
+    public Description getDescription() {
+        return description;
+    }
 
     @Override
     public boolean equals(Object other) {

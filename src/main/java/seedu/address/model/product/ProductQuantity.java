@@ -1,10 +1,14 @@
 package seedu.address.model.product;
 
-import seedu.address.model.util.Quantity;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.util.Quantity;
+
+/**
+ * Represents a Product's quantity in the product list
+ * Guarantees: immutable;
+ */
 public class ProductQuantity implements Quantity {
 
     public static final int MIN_VALUE = 0;
@@ -38,6 +42,9 @@ public class ProductQuantity implements Quantity {
         return value;
     }
 
+    /**
+     * Returns true if a given string matches the regex of a valid product quantity.
+     */
     public static boolean isValidFormat(String test) {
         if (test.matches(VALIDATION_REGEX)) {
             try {
@@ -50,6 +57,9 @@ public class ProductQuantity implements Quantity {
         return false;
     }
 
+    /**
+     * Returns true if a integer is a valid value for quantity.
+     */
     public static boolean isValidValue(int test) {
         return test >= MIN_VALUE && test <= MAX_VALUE;
     }
@@ -82,6 +92,9 @@ public class ProductQuantity implements Quantity {
         return String.valueOf(value);
     }
 
+    /**
+     * Returns true if two product quantities are equal in terms of value.
+     */
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Quantity // instanceof handles nulls
