@@ -286,7 +286,7 @@ e.g. `find-s James Jake`
 e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
 * *Sell goods*: `sell g/GOOD_NAME q/QUANTITY p/PRICE` +
 e.g. `sell g/apple q/4 p/5`
-* *Set minimum quantity for goods*: `warn g/GOOD_NAME q/MIN_QUANTITY`
+* *Set minimum quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *Undo*: `undo`
 * *Redo*: `redo`
 * *Help* : `help`
