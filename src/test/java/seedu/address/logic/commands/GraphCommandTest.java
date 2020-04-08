@@ -23,7 +23,7 @@ public class GraphCommandTest {
     private Graph validGraphFirst;
     private Graph validGraphSecond;
     private Model model;
-    
+
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
@@ -50,7 +50,7 @@ public class GraphCommandTest {
     public void equals() {
         GraphCommand graphFirstCommand = new GraphCommand(validGraphFirst);
         GraphCommand graphSecondCommand = new GraphCommand(validGraphSecond);
-        
+
         // same object -> returns true
         assertTrue(graphFirstCommand.equals(graphFirstCommand));
 

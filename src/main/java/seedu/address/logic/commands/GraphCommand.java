@@ -41,8 +41,9 @@ public class GraphCommand extends Command {
             + PREFIX_STARTDATE + "01-01-2020 "
             + PREFIX_ENDDATE + "01-04-2020";
 
-    public static final String MESSAGE_SUCCESS = "Showing exercise graph for %1$s's %2$s from %3$s to %4$s. "
-            + "Any new updates are not reflected. ";
+    public static final String MESSAGE_SUCCESS = "Showing exercise graph for %1$s's %2$s from %3$s to %4$s. \n"
+            + "Note that any new updates to the exercises (via add-e, edit-e, delete-e) will not be reflected "
+            + "on the current graph.";
 
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
