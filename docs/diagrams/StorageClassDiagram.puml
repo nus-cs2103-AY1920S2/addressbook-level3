@@ -10,15 +10,15 @@ Interface AddressBookStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonNasaBookStorage
+Class JsonAddressBookStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> NasaBookStorage
+StorageManager o--> AddressBookStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonNasaBookStorage .left.|> NasaBookStorage
-JsonNasaBookStorage .down.> JsonSerializableNasaBookStorage
-JsonSerializableNasaBookStorage .right.> JsonAdaptedModule
-JsonAdaptedModule .right.> JsonAdaptedActivity
+JsonAddressBookStorage .left.|> AddressBookStorage
+JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
+JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
+JsonSerializablePerson .right.> JsonAdaptedTag
 @enduml
