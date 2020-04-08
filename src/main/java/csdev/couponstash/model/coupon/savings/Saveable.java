@@ -1,5 +1,8 @@
 package csdev.couponstash.model.coupon.savings;
 
+import static csdev.couponstash.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 /**
@@ -25,6 +28,8 @@ public class Saveable implements Comparable<Saveable> {
      * @param s String representing saved item.
      */
     public Saveable(String s) {
+        requireNonNull(s);
+        checkArgument(Saveable.isValidSaveableValue(s, 1), Saveable.MESSAGE_CONSTRAINTS);
         this.savedItem = s;
         this.count = 1;
     }
@@ -38,6 +43,8 @@ public class Saveable implements Comparable<Saveable> {
      *              saved item.
      */
     public Saveable(String s, int count) {
+        requireNonNull(s);
+        checkArgument(Saveable.isValidSaveableValue(s, count), Saveable.MESSAGE_CONSTRAINTS);
         this.savedItem = s;
         this.count = count;
     }
@@ -49,7 +56,7 @@ public class Saveable implements Comparable<Saveable> {
      * @param s The String to be checked.
      */
     public static boolean isValidSaveableValue(String s, int count) {
-        return s != null && !s.isBlank() && count > 0;
+        return s != null && s.length() <= Saveable.STRING_LENGTH_LIMIT && !s.isBlank() && count > 0;
     }
 
     /**
@@ -87,7 +94,13 @@ public class Saveable implements Comparable<Saveable> {
      *     and the increment provided.
      */
     public Saveable increaseCount(int increment) {
-        return new Saveable(this.savedItem, this.count + increment);
+        int sum = this.count + increment;
+        if (sum < 0) {
+            // possible overflow
+            return this;
+        } else {
+            return new Saveable(this.savedItem, sum);
+        }
     }
 
     /**
@@ -119,7 +132,12 @@ public class Saveable implements Comparable<Saveable> {
     public int compareTo(Saveable p) {
         // compare count first, before comparing length of string
         if (this.count == p.count) {
-            return (int) Math.signum(this.savedItem.length() - p.savedItem.length());
+            if (this.savedItem.length() == p.savedItem.length()) {
+                // compare alphabetically if possible
+                return this.savedItem.compareTo(p.savedItem);
+            } else {
+                return (int) Math.signum(this.savedItem.length() - p.savedItem.length());
+            }
         } else {
             return (int) Math.signum(this.count - p.count);
         }
