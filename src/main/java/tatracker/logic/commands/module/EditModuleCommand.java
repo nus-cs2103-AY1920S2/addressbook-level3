@@ -1,6 +1,7 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.MODULE_NEW_NAME;
 
@@ -29,8 +30,7 @@ public class EditModuleCommand extends Command {
             MODULE, MODULE_NEW_NAME
     );
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %s.";
     private static final int FIRST_GROUP_INDEX = 0;
 
     private final String targetModule;
@@ -61,7 +61,8 @@ public class EditModuleCommand extends Command {
             model.setFilteredStudentList(actualModule.getIdentifier(), FIRST_GROUP_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule.getIdentifier()),
+                Action.GOTO_STUDENT);
     }
 
     @Override

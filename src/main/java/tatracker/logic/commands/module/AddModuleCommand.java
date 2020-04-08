@@ -1,6 +1,7 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_MODULE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.MODULE_NAME;
 
@@ -29,9 +30,7 @@ public class AddModuleCommand extends Command {
             MODULE, MODULE_NAME
     );
 
-    public static final String MESSAGE_SUCCESS = "New Module added: %s";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the TA-Tracker";
-    public static final int FIRST_GROUP_INDEX = 0;
+    public static final String MESSAGE_ADD_MODULE_SUCCESS = "New Module added: %s.";
 
     private final Module toAdd;
 
@@ -57,7 +56,7 @@ public class AddModuleCommand extends Command {
 
         model.setFilteredStudentList();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_ADD_MODULE_SUCCESS, toAdd.getIdentifier()), Action.GOTO_STUDENT);
     }
 
     @Override
