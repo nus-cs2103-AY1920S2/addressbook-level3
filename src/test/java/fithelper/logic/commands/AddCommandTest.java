@@ -27,7 +27,10 @@ import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.SortBy;
 import fithelper.model.profile.Profile;
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.Date;
 import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 
 import fithelper.testutil.EntryBuilder;
 
@@ -78,9 +81,6 @@ public class AddCommandTest {
 
         // different types -> returns false
         assertFalse(addFoodCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addFoodCommand.equals(null));
 
         // different person -> returns false
         assertFalse(addFoodCommand.equals(addSportsCommand));
@@ -211,6 +211,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Entry> getFilteredReminderEntryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReminderEntryList(Predicate<Entry> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -348,12 +353,28 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteWeight(Weight weight) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Weight getWeightByDate(Date date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasWeight(Weight weight) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addWeight(Weight weight) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void editWeight(Weight weight, WeightValue weightValue, Bmi bmi) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -407,7 +428,7 @@ public class AddCommandTest {
      * A Model stub that always accept the entry being added.
      */
     private class ModelStubAcceptingEntryAdded extends ModelStub {
-        final ArrayList<Entry> entriesAdded = new ArrayList<Entry>();
+        private final ArrayList<Entry> entriesAdded = new ArrayList<Entry>();
 
         @Override
         public boolean hasEntry(Entry entry) {
