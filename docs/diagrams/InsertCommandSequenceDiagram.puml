@@ -20,12 +20,12 @@ create LogicManager
 [-> LogicManager : execute("insert tid/A11 n/Amos p/91234567"...")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("insert tid/A11 n/Amos p/91234567"...")
+LogicManager -> OrderBookParser : parseCommand()
 activate OrderBookParser
 
 create InsertCommandParser
 
-OrderBookParser -> InsertCommandParser ++ : parse("tid/A11 n/Amos p/91234567"...")
+OrderBookParser -> InsertCommandParser ++ : parse()
 activate InsertCommandParser
 create ArgumentTokenizer
 

@@ -158,7 +158,8 @@ This section describes some noteworthy details on how certain features are imple
 [[insert]]
 === Insert Feature
 This section, will <<what-is-insert, introduce>> the Insert Feature. In addition, it will show the expected
-<<insert-sequence, path-execution>>, the <<insert-class, structure>> of the of the *InsertCommand* class and
+<<insert-sequence, path-execution>>, the <<insert-class, structure>> of the of the *InsertCommand* class,
+<<insertparser-class, structure>> of the *InsertCommandParser* class and
 it will also describe the <<insert-activity, interaction>> of objects between the *InsertCommand* object and other object classes.
 
 [[what-is-insert]]
@@ -177,6 +178,11 @@ The order also consists of two optional fields that can be added:
 ==== Structure of Insert feature
 .Insert Class Diagram
 image::InsertClassDiagram.svg[]
+
+[[insertparser-class]]
+==== Structure of InsertCommandParser
+.InsertCommandParser Class Diagram
+image::InsertParserClassDiagram.svg[]
 
 [[insert-activity]]
 ==== Path Execution of Insert Command

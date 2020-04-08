@@ -14,13 +14,329 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 
 == Summary of contributions
 
-* *Major enhancement*: *
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+====
+* *Major enhancement*: +
+Add `nearby` command +
+(searching by postal sector) +
+(March 17 2020) +
+*(+1091 -45 LOC)* +
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181[#181])
+
+** *What it does*: +
+Allows the user to find all orders located at a specified postal sector.
+** *Justification*: +
+It is helpful for our target audience, couriers, to find all relevant orders
+at a specific postal sector. +
+This would allow them to deliver their pending orders in
+a more efficient manner.
+** *Highlights*: +
+Ability to find orders based on all postal codes in Singapore. +
+A helpful message regarding the specified postal code is also shown. +
+Parsing has been done to user input of a valid postal sector (the first two digits of a six digit Singapore postal code)
+
+[[postal_sector]]
+.Postal Sectors in Singapore
+|===
+|Postal Sector |General Location
+
+|01, 02, 03, 04, 05, 06 |Raffles Place, Cecil, Marina, People's Park
+|07, 08 |Anson, Tanjong Pagar
+|14, 15, 16 |Queenstown, Tiong Bahru
+|09, 10 |Telok Blangah, Harbourfront
+|11, 12, 13 |Pasir Panjang, Hong Leong Garden, Clementi New Town
+|17 |High Street, Beach Road (part)
+|18, 19 |Middle Road, Golden Mile
+|20, 21 |Little India
+|22, 23 |Orchard, Cairnhill, River Valley
+|24, 25, 26, 27 |Ardmore, Bukit Timah, Holland Road, Tanglin
+|28, 29, 30 |Watten Estate, Novena, Thomson
+|31, 32, 33 |Balestier, Toa Payoh, Serangoon
+|34, 35, 36, 37 |Macpherson, Braddell
+|38, 39, 40, 41 |Geylang, Eunos
+|42, 43, 44, 45 |Katong, Joo Chiat, Amber Road
+|46, 47, 48 |Bedok, Upper East Coast, Eastwood, Kew Drive
+|49, 50, 81 |Loyang, Changi
+|51, 52 |Tampines, Pasir Ris
+|53, 54, 55, 82 |Serangoon Garden, Hougang, Punggol
+|56, 57 |Bishan, Ang Mo Kio
+|58, 59 |Upper Bukit Timah, Clementi Park, Ulu Pandan
+|60, 61, 62, 63, 64 |Jurong
+|65, 66, 67, 68 |Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang
+|69, 70, 71 |Lim Chu Kang, Tengah
+|72, 73 |Kranji, Woodgrove
+|77, 78 |Upper Thomson, Springleaf
+|75, 76 |Yishun, Sembawang
+|79, 80 |Seletar
+|===
+** Credits: N.A
+====
+
+====
+* *Major enhancement*:
+
+image::https://user-images.githubusercontent.com/38811217/77161742-5b4c3f00-6ae5-11ea-9572-17d6953d5ce1.png[]
+Enhancement to `nearby` command to search the 5 general regions of Singapore +
+Add ability for `nearby` command to search orders located at one of the 5 areas of Singapore: +
+
+1. Central
+2. East
+3. North-east
+4. West
+5. North
+
+(March 22 2020) +
+*(+1,579 −164 LOC)* +
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/194[#194]) +
+
+** *What it does*: +
+Allows the user to find all orders located at a specified region of Singapore. +
+** *Justification*: +
+This makes it easy for couriers in a certain area to select orders to be done in that region.
+** *Highlights*: +
+Ability to find orders based on the 5 regions in Singapore. +
+A helpful message regarding the specified area is also shown. +
+
+The following table shows more information about the 5 regions of Singapore:
+
+[[area_table]]
+*Area Information of Singapore*
+
+.Central
+|===
+|District |Areas |Location
+
+|1 |Marina Area
+a|
+* Boat Quay
+* Chinatown
+* Havelock Road
+* Marina Square
+* Raffles Place
+* Suntec City
+
+|2 |CBD
+a|
+* Anson Road
+* Chinatown
+* Neil Road
+* Raffles Place
+* Shenton Way
+* Tanjong Pagar
+
+|3 |Central South
+a|
+* Alexandra Road
+* Tiong Bahru
+* Queenstown
+
+|4 |Keppel
+a|
+* Keppel
+* Mount Faber
+* Sentosa
+* Telok Blangah
+
+|5 |South West
+a|
+* Buona Vista
+* Dover
+* Pasir Panjang
+* West Coast
+
+|6 |City Hall
+a|
+* City Hall
+* High Street
+* North Bridge Road
+
+|7 |Beach Road
+a|
+* Beach Road
+* Bencoolen Road
+* Bugis
+* Rochor
+
+|8 |Little India
+a|
+* Little India
+* Farrer Park
+* Serangoon Road
+
+|9 |Orchard
+a|
+* Cairnhill
+* Killiney
+* Leonie Hill
+* Orchard
+* Oxley
+
+|10 |Tanglin
+a|
+* Balmoral
+* Bukit Timah
+* Grange Road
+* Holland
+* Orchard Boulevard
+* River Valley
+* Tanglin Road
+
+|11 |Newton
+a|
+* Chancery
+* Bukit Timah
+* Dunearn Road
+* Newton
+
+|12 |Toa Payoh
+a|
+* Balestier
+* Moulmein
+* Novena
+* Toa Payoh
+
+|13 |Central East
+a|
+* Potong Pasir
+* Macpherson
+
+|14 |Eunos
+a|
+* Eunos
+* Geylang
+* Kembangan
+* Paya Lebar
+
+|15 |East Coast
+a|
+* Katong
+* Marine Parade
+* Siglap
+* Tanjong Rhu
+
+|21 |Central West
+a|
+* Clementi
+* Upper Bukit Timah
+* Hume Avenue
+|===
+
+.East +
+|===
+|District |Areas |Location
+
+|16 |Upper East Coast
+a|
+* Bayshore
+* Bedok
+* Chai Chee
+
+|17 |Far East
+a|
+* Changi
+* Loyang
+* Pasir Ris
+
+|18 |Tampines
+a|
+* Pasir Ris
+* Simei
+* Tampines
+|===
+
+.North East
+|===
+|District |Areas |Location
+
+|19 |North East
+a|
+* Hougang
+* Punggol
+* Sengkang
+
+|20 |Ang Mo Kio
+a|
+* Ang Mo Kio
+* Bishan
+* Braddell Road
+* Thomson
+
+|28 |North East
+a|
+* Seletar
+* Yio Chu Kang
+|===
+
+.West
+|===
+|District |Areas |Location
+
+|22 |Far West
+a|
+* Boon Lay
+* Jurong
+* Tuas
+
+|23 |North West
+a|
+* Bukit Batok
+* Choa Chu Kang
+* Hillview Avenue
+* Upper Bukit Timah
+
+|24 |Far North West
+a|
+* Kranji
+* Lim Chu Kang
+* Sungei Gedong
+* Tengah
+|===
+
+.North
+|===
+|District |Areas |Location
+
+|25 |Far North
+a|
+* Admiralty
+* Woodlands
+
+|26 |North
+a|
+* Tagore
+* Yio Chu Kang
+
+|27 |Far North
+a|
+* Admiralty
+* Sembawang
+* Yishun
+|===
+
+
+** Credits: Information about the various areas was obtained from https://keylocation.sg/singapore/districts-map
+====
 
 * *Minor enhancement*:
+** Add Warehouse field for Orders. +
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/174[#174])
+*** What it does: Allows for orders to keep track of warehouse.
+*** Justification: It is a must have. Couriers need to keep track of the warehouse they need to collect/return
+the order to.
+
+* *Minor enhancement*:
+** Modify Ui for application (temporary change). +
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/192[#192])
+*** What it does: Cosmetic change to UI (change in colours and placement of UI elements).
+*** Justification: A temporary UI change to differentiate our application from the
+original UI of AddressBook Level 3.
+
+* *Minor enhancement*:
+** Modify delete command to take in flags. +
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/240[#240])
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/304[#304])
+*** What it does: Allows for deletion of orders or return orders.
+*** Justification: It is a must have. Couriers need to be able to delete from a specific list.
+Our application has two lists: Order list and Return Order list.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -39,6 +355,7 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
 *** Integrated a third party library (Coveralls) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/248bb4db86666270ee5025f1d4f9276ef1d530ec[248bb4d])
+*** Configure Repo to Provide Additional Data to RepoSense (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/220[#220])
 
 
 == Contributions to the User Guide

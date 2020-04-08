@@ -68,7 +68,7 @@ public class TypicalOrders {
             .withItemType("bottle").build();
     public static final Order ELLE = new OrderBuilder().withTid("E939393")
             .withName("Elle Meyer")
-            .withPhone("9482224")
+            .withPhone("94822242")
             .withEmail("example@example.com")
             .withCash("$6")
             .withAddress("Upper Thomson Road S787130")
@@ -76,7 +76,7 @@ public class TypicalOrders {
             .withWarehouse("5 Toh Guan Rd E #02-30 S608831").build();
     public static final Order FIONA = new OrderBuilder().withTid("F01010101")
             .withName("Fiona Kunz")
-            .withPhone("9482427")
+            .withPhone("94824272")
             .withEmail("example@example.com")
             .withCash("$2")
             .withAddress("Jurong S600101")
@@ -84,7 +84,7 @@ public class TypicalOrders {
             .withWarehouse("5 Toh Guan Rd E #02-30 S608831").build();
     public static final Order GEORGE = new OrderBuilder().withTid("G9999")
             .withName("George Best")
-            .withPhone("9482442")
+            .withPhone("94824422")
             .withEmail("example@example.com")
             .withCash("$6")
             .withAddress("Little India S218202")
@@ -94,7 +94,7 @@ public class TypicalOrders {
     // Manually added
     public static final Order HOON = new OrderBuilder().withTid("H111111")
             .withName("Hoon Meier")
-            .withPhone("8482424")
+            .withPhone("84824241")
             .withEmail("example@example.com")
             .withCash("$5")
             .withAddress("little india S218202")
@@ -102,7 +102,7 @@ public class TypicalOrders {
             .withWarehouse("5 Toh Guan Rd E #02-30 S608831").build();
     public static final Order IDA = new OrderBuilder().withTid("I0000")
             .withName("Ida Mueller")
-            .withPhone("8482131")
+            .withPhone("84821313")
             .withEmail("example@example.com")
             .withCash("$1")
             .withAddress("Macpherson Road Chengkek S369225")

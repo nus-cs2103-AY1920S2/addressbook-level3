@@ -1,6 +1,16 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import static seedu.address.logic.commands.ImportCommand.MESSAGE_INVALID_CSV_FILEPATH;
 
 import java.nio.file.Path;
@@ -46,6 +56,133 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses using {@code argMultimap} with {@code prefixList} to validate every single
+     * prefix values
+     *
+     * @param prefixList A list of prefixes
+     * @param argMultimap Used to get the value from a prefix
+     * @throws ParseException A message that includes the combination of all the errors
+     */
+    public static void parse(List<Prefix> prefixList, ArgumentMultimap argMultimap) throws ParseException {
+        prefixList.add(PREFIX_COMMENT);
+        prefixList.add(PREFIX_TYPE);
+        String errorMessage = "";
+
+        for (Prefix prefix : prefixList) {
+            String valueValidation = "";
+            switch(prefix.toString()) {
+            case "tid/":
+                valueValidation = argMultimap.getValue(PREFIX_TID).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!TransactionId.isValidTid(valueValidation)) {
+                    errorMessage = errorMessage + TransactionId.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "n/":
+                valueValidation = argMultimap.getValue(PREFIX_NAME).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!Name.isValidName(valueValidation)) {
+                    errorMessage = errorMessage + Name.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "p/":
+                valueValidation = argMultimap.getValue(PREFIX_PHONE).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!Phone.isValidPhone(valueValidation)) {
+                    errorMessage = errorMessage + Phone.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "a/":
+                valueValidation = argMultimap.getValue(PREFIX_ADDRESS).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!Address.isValidAddress(valueValidation)) {
+                    errorMessage = errorMessage + Address.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "e/":
+                valueValidation = argMultimap.getValue(PREFIX_EMAIL).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!Email.isValidEmail(valueValidation)) {
+                    errorMessage = errorMessage + Email.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "dts/":
+                valueValidation = argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                logger.fine("Checking whether it is valid timestamp");
+
+                int result = TimeStamp.checkTimestamp(valueValidation);
+                if (result == TimeStamp.PARSE_ERROR) {
+                    logger.info("Invalid timestamp: " + valueValidation);
+                    errorMessage = errorMessage + TimeStamp.MESSAGE_CONSTRAINTS + "\n";
+                } else if (result == TimeStamp.TIMESTAMP_BEFORE_NOW_ERROR) {
+                    logger.info("Input date and time before current timestamp: " + valueValidation);
+                    errorMessage = errorMessage + TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW + "\n";
+                }
+                break;
+
+            case "w/":
+                valueValidation = argMultimap.getValue(PREFIX_WAREHOUSE).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!Warehouse.isValidAddress(valueValidation)) {
+                    errorMessage = errorMessage + Warehouse.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "cod/":
+                valueValidation = argMultimap.getValue(PREFIX_COD).get();
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!CashOnDelivery.isValidCashValue(valueValidation)) {
+                    errorMessage = errorMessage + CashOnDelivery.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            case "c/":
+                valueValidation = argMultimap.getValue(PREFIX_COMMENT).isEmpty()
+                        ? "NIL"
+                        : argMultimap.getValue(PREFIX_COMMENT).get();
+
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                logger.fine("Check if it is a valid comment" + valueValidation);
+                if (!Comment.isValidComment(valueValidation)) {
+                    logger.info("Invalid Comment encountered: " + valueValidation);
+                    errorMessage = errorMessage + Comment.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+
+            default:
+                valueValidation = argMultimap.getValue(PREFIX_TYPE).isEmpty()
+                        ? "NIL"
+                        : argMultimap.getValue(PREFIX_TYPE).get();
+
+                requireNonNull(valueValidation);
+                valueValidation = valueValidation.trim();
+                if (!TypeOfItem.isValidItemType(valueValidation)) {
+                    errorMessage = errorMessage + TypeOfItem.MESSAGE_CONSTRAINTS + "\n";
+                }
+                break;
+            }
+        }
+
+        if (!errorMessage.isEmpty()) {
+            throw new ParseException(errorMessage);
+        }
+    }
     /**
      * Parses a {@code String tid} into a {@code TransactionId}.
      * Leading and trailing whitespaces will be trimmed.

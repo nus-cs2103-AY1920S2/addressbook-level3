@@ -65,6 +65,7 @@ import seedu.address.model.parcel.parcelattributes.Phone;
 import seedu.address.model.parcel.parcelattributes.TimeStamp;
 import seedu.address.testutil.EditParcelDescriptorBuilder;
 
+//@@author khsc96
 public class EditCommandParserTest {
 
     private static final String COMMENT_EMPTY = " " + PREFIX_COMMENT;
