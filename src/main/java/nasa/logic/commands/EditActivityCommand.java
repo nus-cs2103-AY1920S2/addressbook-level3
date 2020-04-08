@@ -115,7 +115,7 @@ public class EditActivityCommand extends Command {
         requireNonNull(activityToEdit);
 
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
-        Date updatedDate = editActivityDescriptor.getDate().orElse(activityToEdit.getDate());
+        Date updatedDate = editActivityDescriptor.getDate().orElse(activityToEdit.getRepeatDate());
         Note updatedNote = editActivityDescriptor.getNote().orElse(activityToEdit.getNote());
         Priority updatedPriority = editActivityDescriptor.getPriority().orElse(activityToEdit.getPriority());
         Status status = activityToEdit.getStatus(); // original moduleCode's activity list is preserved

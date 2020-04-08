@@ -47,6 +47,8 @@ public class DeadlineCard extends UiPart<Region> {
     private Label labelForCircle;
     @FXML
     private Circle circle;
+    @FXML
+    private Label dateToRepeat;
 
     public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
@@ -57,6 +59,10 @@ public class DeadlineCard extends UiPart<Region> {
         note.setText(deadline.getNote().toString());
         //status.setText(deadline.getStatus().toString());
         priority.setText("Priority: " + deadline.getPriority().toString());
+        dateToRepeat.setText("-");
+        if (activity.getSchedule().getType() != 0) {
+            dateToRepeat.setText("Repeat: " + activity.getScheduleDate().toString());
+        }
     }
 
     @Override

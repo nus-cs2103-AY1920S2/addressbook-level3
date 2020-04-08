@@ -52,8 +52,7 @@ public class AddDeadlineCommand extends AddCommand {
             throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
         }
 
-        Module module = model.getModule(moduleCode);
-        module.addDeadline((Deadline) toAdd);
+        model.addDeadline(moduleCode, (Deadline) toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

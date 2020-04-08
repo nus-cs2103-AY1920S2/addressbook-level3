@@ -4,14 +4,14 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
+import nasa.model.activity.Name;
 import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.activity.UniqueEventList;
 
@@ -29,13 +29,12 @@ public class Module {
 
     /**
      * Constructs a {@code module}
-     *
      * @param moduleCode ModuleCode
      * @param moduleName ModuleName
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
-
+        
         this.eventList = new UniqueEventList();
         this.deadlineList = new UniqueDeadlineList();
         this.filteredEvent = new FilteredList<>(eventList.getActivityList());
@@ -45,7 +44,6 @@ public class Module {
 
     /**
      * Retrieve the moduleCode of the module.
-     *
      * @return String moduleCode
      */
     public ModuleCode getModuleCode() {
@@ -55,7 +53,6 @@ public class Module {
     /**
      * Sets the module moduleCode to a new moduleCode.
      * Used for editing module code.
-     *
      * @param moduleCode of the module
      */
     public void setModuleCode(ModuleCode moduleCode) {
@@ -68,14 +65,6 @@ public class Module {
 
     public void addEvent(Event event) {
         eventList.add(event);
-    }
-
-    public void setDeadline(Deadline target, Deadline editedDeadline) {
-        deadlineList.setActivity(target, editedDeadline);
-    }
-
-    public void setEvent(Event target, Event editedEvent) {
-        eventList.setActivity(target, editedEvent);
     }
 
     public ModuleName getModuleName() {
@@ -114,6 +103,11 @@ public class Module {
         eventList.setActivities(events);
     }
 
+    public void setSchedule(Name activityName, Index index) {
+        deadlineList.setSchedule(activityName, index);
+        updateFilteredActivityList(x -> true);
+    }
+
     public ObservableList<Deadline> getFilteredDeadlineList() {
         return filteredDeadline;
     }
@@ -139,7 +133,6 @@ public class Module {
         }
         newModule.setDeadlines(deadlinesCopy);
         ObservableList<Activity> events = eventList.getDeepCopyList();
-
         ObservableList<Event> eventsCopy = FXCollections.observableArrayList();
         for (Activity activity : events) {
             eventsCopy.add((Event) activity);
@@ -152,7 +145,7 @@ public class Module {
         return deadlineList.iterator();
     }
 
-    public Iterator<Event> eventIterator() {
+    public Iterator<Event>eventIterator() {
         return eventList.iterator();
     }
 
@@ -163,7 +156,6 @@ public class Module {
 
     /**
      * Sorts module's activity list by the specified {@code sortMethod}.
-     *
      * @param sortMethod Method of sorting the activities in the module activity list.
      */
     public void sortActivityList(SortMethod sortMethod) {
@@ -173,23 +165,8 @@ public class Module {
     }
 
     /**
-     * Returns true if both modules of the same module code.
-     *
-     * @param otherModule the module to be compared to
-     * @return true if both modules are the same instance, or both have the same module code, otherwise, false
-     */
-    public boolean isSameModule(Module otherModule) {
-        if (otherModule == this) {
-            return true;
-        }
-
-        return otherModule != null
-            && otherModule.getModuleCode().equals(getModuleCode());
-    }
-
-    /**
-     * Returns true if both are the same module.
-     * This defines a stronger notion of equality between two activities.
+     * Returns true if both are the same module with same module name and module code.
+     * This defines a stronger notion of equality between two modules.
      */
     @Override
     public boolean equals(Object other) {
@@ -202,7 +179,7 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode());
+        return otherModule.getModuleCode().equals(getModuleCode()) && otherModule.getModuleName().equals(getModuleName());
     }
 
     @Override

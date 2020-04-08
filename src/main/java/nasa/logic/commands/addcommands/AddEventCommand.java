@@ -55,8 +55,7 @@ public class AddEventCommand extends AddCommand {
             throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
         }
 
-        Module module = model.getModule(moduleCode);
-        module.addEvent((Event) toAdd);
+        model.addEvent(moduleCode,  (Event) toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

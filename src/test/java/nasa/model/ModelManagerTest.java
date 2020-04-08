@@ -24,9 +24,13 @@ import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
 
+    /**
+     * Initialized model manager with NasaBook, NASABOOK_TYPE_1
+     */
     private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<>(),
             new UserPrefs());
 
+    /*
     @Test
     void initialisation() {
         assertTrue(modelManager.getNasaBook().equals(NASABOOK_TYPE_1));
@@ -37,21 +41,38 @@ class ModelManagerTest {
     }
 
     @Test
-    void getFilteredActivityListTest() {
-        ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
+    void getFilteredModuleListTest() {
+        ObservableList<Activity> list = modelManager.getFilteredModuleList();
 
-        assertEquals("Homework", list.get(0).getName().toString());
-        assertEquals("Test", list.get(1).getName().toString());
-        assertEquals("Prepare group meeting", list.get(2).getName().toString());
-        assertEquals("Exam", list.get(3).getName().toString());
-        assertEquals("MPSH", list.get(4).getName().toString());
+        assertEquals(new ModuleCode("CS2106"), list.get(0).getModuleCode());
+        assertEquals(new ModuleCode("GEH1001"), list.get(1).getModuleCode());
+        assertEquals(new ModuleCode("CS2102T"), list.get(2).getModuleCode());
+    }
+
+    @Test
+    void getFilteredDeadlineListTest() {
+        ObservableList<Activity> deadlineList = modelManager.getFilteredDeadlineList(new ModuleCode("CS2103T"));
+
+        assertEquals(DEADLINE_1, deadlineList.get(0));
+        assertEquals(DEADLINE_2, deadlineList.get(1));
+        assertEquals(DEADLINE_3, deadlineList.get(2));
+        assertEquals(DEADLINE_4, deadlineList.get(3));
+    }
+
+    @Test
+    void getFilteredEventListTest() {
+        ObservableList<Activity> eventList = modelManager.getFilteredEventList(new ModuleCode("CS2103T"));
+
+        assertEquals(EVENT_1, eventList.get(0));
+        assertEquals(EVENT_2, eventList.get(1));
+        assertEquals(EVENT_3, eventList.get(2));
     }
 
     @Test
     public void constructor() {
-        modelManager.deleteModule(GEH1001);
-        modelManager.deleteModule(CS2103T);
-        modelManager.deleteModule(CS2106);
+        modelManager.deleteModule(GEH1001.getModuleCode());
+        modelManager.deleteModule(CS2103T.getModuleCode());
+        modelManager.deleteModule(CS2106.getModuleCode());
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new NasaBook(), new NasaBook(modelManager.getNasaBook()));
@@ -101,19 +122,19 @@ class ModelManagerTest {
     }
 
     @Test
-    public void hasModule_nullModule_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasModule((nasa.model.module.Module) null));
+    public void hasModule_nullModule_throwsNullPointerException() { 
+        assertThrows(NullPointerException.class, () -> modelManager.hasModule((nasa.model.module.ModuleCode) null));
     }
 
     @Test
     public void hasModule_moduleNotInNasaBook_returnsFalse() {
-        modelManager.deleteModule(GEH1001);
-        assertFalse(modelManager.hasModule(GEH1001));
+        modelManager.deleteModule(GEH1001.getModuleCode()); // module code
+        assertFalse(modelManager.hasModule(GEH1001.getModuleCode()));
     }
 
     @Test
-    public void hasModule_personInNasaBook_returnsTrue() {
-        assertTrue(modelManager.hasModule(GEH1001));
+    public void hasModule_moduleInNasaBook_returnsTrue() {
+        assertTrue(modelManager.hasModule(GEH1001.getModuleCode())); // module code
     }
 
     @Test
@@ -156,5 +177,6 @@ class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setNasaBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(nasaBook, new HistoryBook<>(), differentUserPrefs)));
-    }
+    }*/
+
 }

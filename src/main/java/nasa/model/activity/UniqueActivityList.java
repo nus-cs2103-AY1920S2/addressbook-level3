@@ -138,4 +138,12 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    public ObservableList<T> getInternalList() {
+        return internalList;
+    }
+
+    public ObservableList<T> getInternalUnmodifiableList() {
+        return internalUnmodifiableList;
+    }
 }

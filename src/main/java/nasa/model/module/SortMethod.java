@@ -60,7 +60,7 @@ public class SortMethod {
          */
         Comparator<Activity> nameSorter = Comparator.comparing(l -> l.getName().toString(),
                 String.CASE_INSENSITIVE_ORDER);
-        Comparator<Activity> dateSorter = Comparator.comparing(l -> l.getDate().getDate(),
+        Comparator<Activity> dateSorter = Comparator.comparing(l -> l.getRepeatDate().getRepeatDate(),
                 Comparator.reverseOrder());
         Comparator<Activity> prioritySorter = Comparator.comparing(l -> l.getPriority().toString(),
                 Comparator.reverseOrder());

@@ -61,10 +61,18 @@ public class ModelManager implements Model {
      * Startup setup for Nasa book.
      */
     public void initialisation() {
-        //updateSchedule();
-        //updateHistory();
-        //Quote.readFile();
+        updateSchedule();
+        updateHistory();
+        Quote.readFile();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    /**
+     * Update the schedule for each activity.
+     */
+    public void updateSchedule() {
+        nasaBook.scheduleAll();
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     /**
@@ -79,7 +87,7 @@ public class ModelManager implements Model {
     @Override
     public void undoHistory() {
         if (historyManager.undo()) {
-            nasaBook.setModuleList(historyManager.getItem());
+            nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
             updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         }
     }
@@ -88,7 +96,7 @@ public class ModelManager implements Model {
     public boolean redoHistory() {
         boolean hasRedo = historyManager.redo();
         if (hasRedo) {
-            nasaBook.setModuleList(historyManager.getItem());
+            nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
             updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         }
         return hasRedo;
@@ -203,6 +211,14 @@ public class ModelManager implements Model {
 
         nasaBook.setModule(target, editedModule);
         updateHistory();
+    }
+
+    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
+        requireAllNonNull(module, activity, type);
+        boolean hasExecuted = nasaBook.setSchedule(module, activity, type);
+        updateHistory();
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        return hasExecuted;
     }
 
     //=========== Filtered Module List Accessors =============================================================

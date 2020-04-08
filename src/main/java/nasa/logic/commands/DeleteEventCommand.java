@@ -44,7 +44,7 @@ public class DeleteEventCommand extends Command {
         try {
             Module module = model.getModule(moduleCode);
             Event event = module.getFilteredEventList().get(index.getZeroBased());
-            module.removeEvent(event);
+            model.removeEvent(moduleCode, event);
         } catch (Exception e) {
             throw new CommandException(MESSAGE_FAILURE);
         }

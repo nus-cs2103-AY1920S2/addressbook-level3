@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
+import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -7,9 +8,12 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Deadline extends Activity {
+    public static final String DATE_CONSTRAINTS =
+        "Deadline has already passed.";
 
     private Date dueDate;
     private Priority priority;
+    private Schedule schedule;
 
     private boolean isDone;
     private boolean isOverdue;
@@ -22,6 +26,7 @@ public class Deadline extends Activity {
     public Deadline(Name name, Date dueDate) {
         super(name);
         requireAllNonNull(dueDate);
+        checkArgument(isValidDeadline(dueDate), DATE_CONSTRAINTS);
         this.dueDate = dueDate;
         priority = new Priority();
         isDone = false;
@@ -34,12 +39,12 @@ public class Deadline extends Activity {
      * @param name Name
      * @param date Date
      * @param note Note
-     * @param status Status
      * @param priority Priority
      * @param dueDate Date
      */
     public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate) {
         super(name, date, note);
+        requireAllNonNull(priority, dueDate);
         this.priority = priority;
         this.dueDate = dueDate;
     }
@@ -50,6 +55,14 @@ public class Deadline extends Activity {
      */
     public Date getDueDate() {
         return dueDate;
+    }
+
+    /**
+     * Return the difference in due date and date of creation.
+     * @return int
+     */
+    public int getDifferenceInDay() {
+        return dueDate.getDifference(getDate());
     }
 
     /**
@@ -75,6 +88,22 @@ public class Deadline extends Activity {
     public void setPriority(Priority priority) {
         requireAllNonNull(priority);
         this.priority = priority;
+    }
+
+    public Date getScheduleDate() {
+        return schedule.getDate();
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(int type) {
+        schedule.setType(type);
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public void markAsDone() {
@@ -112,11 +141,24 @@ public class Deadline extends Activity {
         return copy;
     }
 
+    public Deadline regenerate() {
+        super.getSchedule().update();
+        if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
+            setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
+            super.setDate(super.getSchedule().getRepeatDate());
+        }
+        return this;
+    }
+
     public boolean isDone() {
         return isDone;
     }
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public boolean isValidDeadline(Date dueDate) {
+        return !(dueDate.isBefore(Date.now()));
     }
 }

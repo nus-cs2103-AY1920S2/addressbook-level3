@@ -44,7 +44,7 @@ public class DeleteDeadlineCommand extends Command {
         try {
             Module module = model.getModule(moduleCode);
             Deadline deadline = module.getFilteredDeadlineList().get(index.getZeroBased());
-            module.removeDeadline(deadline);
+            model.removeDeadline(moduleCode, deadline);
         } catch (Exception e) {
             throw new CommandException(MESSAGE_FAILURE);
         }

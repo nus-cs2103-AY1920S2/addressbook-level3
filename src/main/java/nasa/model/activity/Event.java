@@ -1,6 +1,5 @@
 package nasa.model.activity;
 
-import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -13,6 +12,8 @@ public class Event extends Activity {
         "Event provided is invalid!";
     public static final String DATE_CONSTRAINTS =
         "Start date should be before end date.";
+    public static final String PAST_CONSTRAINTS =
+        "The event has already passed.";
 
     private Date startDate;
     private Date endDate;
@@ -20,6 +21,7 @@ public class Event extends Activity {
 
     public Event(Name name, Date startDate, Date endDate){
         super(name);
+        requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
         this.isOver = endDate.isBefore(Date.now());
@@ -38,7 +40,8 @@ public class Event extends Activity {
         super(name, date, note);
         this.startDate = startDate;
         this.endDate = endDate;
-        checkArgument(isValidStartDate(startDate), DATE_CONSTRAINTS);
+        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
+        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
     }
 
     public Date getStartDate() {
@@ -88,11 +91,23 @@ public class Event extends Activity {
         return false;
     }
 
+    public boolean isValidStartEndDates(Date start, Date end) {
+        return !(end.isBefore(start));
+    }
+
+    public boolean isValidFutureEvent(Date end) {
+        return (!end.isBefore(Date.now()));
+    }
+
     @Override
     public Activity deepCopy() {
         Event event = new Event(getName(), getStartDate(), getStartDate());
         event.setNote(getNote());
         event.setDateCreated(getDateCreated());
         return event;
+    }
+
+    public boolean isOver() {
+        return isOver;
     }
 }

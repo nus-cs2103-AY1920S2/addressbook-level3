@@ -43,23 +43,21 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
-     * Replaces the contents of the activities of module {@code moduleCode} with {@code activities}
-     * {@code activities} must not contain duplicate activities.
-     * @param module Module
-     * @return UniqueEventList
-     */
-    public UniqueEventList getEvents(Module module) {
-        return moduleList.getEvents(module.getModuleCode());
-    }
-
-    /**
-     * Replaces the contents of the activities of module {@code moduleCode} with {@code activities}
-     * {@code activities} must not contain duplicate activities.
+     * Get the {@code UniqueEventList} of module {@code moduleCode} with
      * @param moduleCode ModuleCode
      * @return UniqueEventList
      */
+    public UniqueEventList getEvents(ModuleCode moduleCode) {
+        return moduleList.getModule(moduleCode).getEventList();
+    }
+
+    /**
+     * Get the contents of the activities of module {@code moduleCode} with {@code activities}
+     * @param moduleCode ModuleCode
+     * @return UniqueDeadlineList
+     */
     public UniqueDeadlineList getDeadline(ModuleCode moduleCode) {
-        return moduleList.getDeadlines(moduleCode);
+        return moduleList.getModule(moduleCode).getDeadlineList();
     }
 
     /**
@@ -201,6 +199,29 @@ public class NasaBook implements ReadOnlyNasaBook {
         newNasaBook.setModuleList(getDeepCopyList());
         return newNasaBook;
     }
+
+    /**
+     * Reschedule all activity based on user presets.
+     */
+    public void scheduleAll() {
+        moduleList.asModifiableObservableList()
+                .forEach(x -> x.getDeepCopyDeadlineList()
+                        .forEach(x -> {
+                            ((Deadline) x).regenerate();
+                        }));
+    }
+
+    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
+        if (hasModule(module)) {
+            Module item = moduleList.getModule(module);
+            if (item.hasActivity(activity)) {
+                moduleList.setSchedule(module, activity, type);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //// util methods
 
     @Override

@@ -33,6 +33,7 @@ public class UniqueModuleList implements Iterable<Module> {
 
     /**
      * Returns true if the list contains an equivalent ModuleCode as the given argument.
+     * Note: Underlying implementation of equality check on ModuleCode is case-insensitive.
      * @param toCheck ModuleCode
      * @return boolean
      */
@@ -105,16 +106,6 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.setAll(modules);
     }
 
-    public UniqueDeadlineList getDeadlines(ModuleCode moduleCode) {
-        requireAllNonNull(moduleCode);
-        return getModule(moduleCode).getDeadlineList();
-    }
-
-    public UniqueEventList getEvents(ModuleCode moduleCode) {
-        requireAllNonNull(moduleCode);
-        return getModule(moduleCode).getEventList();
-    }
-
     /**
      * get a particular module from the list
      * @param moduleCode ModuleCode
@@ -126,6 +117,12 @@ public class UniqueModuleList implements Iterable<Module> {
                 .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void setSchedule(ModuleCode moduleCode, Name activity, Index index) {
+        Module moduleSelected = getModule(moduleCode);
+        moduleSelected.setSchedule(activity, index);
+        moduleSelected.updateFilteredActivityList(x -> true);
     }
 
     public ObservableList<Module> getDeepCopyList() {
