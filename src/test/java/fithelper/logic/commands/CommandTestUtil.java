@@ -31,6 +31,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_SPORTS = "running";
     public static final String VALID_CALORIE_FOOD = "300";
     public static final String VALID_CALORIE_SPORTS = "200";
+    public static final String VALID_DURATION_SPORTS = "1.5";
     public static final String VALID_TIME_SPORTS = "2020-05-11-11:00";
     public static final String VALID_TIME_FOOD = "2020-05-10-12:00";
     public static final String VALID_LOCATION_SPORTS = "TRACK";
@@ -67,7 +68,7 @@ public class CommandTestUtil {
                 .withCalorie(VALID_CALORIE_FOOD).withLocation(VALID_LOCATION_FOOD).withTime(VALID_TIME_FOOD)
                 .withType(VALID_TYPE_FOOD).build();
         DESC_SPORTS = new EditEntryDescriptorBuilder().withName(VALID_NAME_SPORTS)
-                .withCalorie(VALID_CALORIE_SPORTS).withLocation(VALID_LOCATION_SPORTS).withTime(VALID_TYPE_SPORTS)
+                .withCalorie(VALID_CALORIE_SPORTS).withLocation(VALID_LOCATION_SPORTS).withTime(VALID_TIME_SPORTS)
                 .withType(VALID_TYPE_SPORTS).build();
     }
 

@@ -23,12 +23,13 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     private static final String FXML = "CalendarPanel.fxml";
     private ObservableList<Entry> foodList;
     private ObservableList<Entry> sportList;
-    private final CalendarPage calendarPage;
+    private CalendarPage calendarPage;
     private DaysCard daysPage;
     private MonthView monthView;
     private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
     private CalorieCalculatorByDateRange stats;
+    private ObservableList<VEvent> events;
 
     @FXML
     private StackPane calendarPagePlaceholder;
@@ -51,8 +52,9 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         super(FXML);
         this.foodList = foodList;
         this.sportList = sportList;
+        this.events = events;
         logger.info("Initializing Calendar Page");
-        calendarPage = new CalendarPage(events);
+        this.calendarPage = new CalendarPage(events);
         daysPage = new DaysCard(foodList, sportList, LocalDate.now());
         set(LocalDate.now());
     }

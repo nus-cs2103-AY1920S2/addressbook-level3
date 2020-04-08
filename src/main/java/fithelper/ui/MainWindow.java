@@ -171,6 +171,7 @@ public class MainWindow extends UiPart<Stage> {
             showDiaryPage();
             break;
         case CALENDAR:
+            updateCalendarPage();
             showCalendarPanel();
             break;
         case HELP:
@@ -283,6 +284,18 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void updateProfilePage() {
         profilePage = new ProfilePage(logic.getUserProfile());
+    }
+
+    /**
+     * Update content of calendar page with latest values.
+     */
+    private void updateCalendarPage() {
+        if ("tb".equals(logic.getCalendarMode())) {
+            calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
+                    logic.getFilteredSportsEntryList(), logic.getVEvents());
+        } else {
+            listPanel = new ListPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        }
     }
 
     /**

@@ -445,6 +445,9 @@ public class ModelManager implements Model {
         return calendarSettings.getShow();
     }
 
+    public void clearVevents() {
+        vEventList.clearList();
+    }
 
     // Methods about user profile.
 

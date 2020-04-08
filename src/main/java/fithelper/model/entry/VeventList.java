@@ -22,8 +22,8 @@ import jfxtras.icalendarfx.components.VEvent;
  *  A list of VEvents.
  */
 public class VeventList {
-    private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
-    private final ObservableList<VEvent> vEventUnmodifiableList =
+    private ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
+    private ObservableList<VEvent> vEventUnmodifiableList =
         FXCollections.unmodifiableObservableList(vEvents);
 
     public VeventList() {
@@ -134,5 +134,9 @@ public class VeventList {
         if (!vEvents.remove(temp)) {
             throw new EntryNotFoundException();
         }
+    }
+
+    public void clearList() {
+        this.vEvents.clear();
     }
 }

@@ -1,5 +1,6 @@
 package fithelper.model;
 
+import static fithelper.logic.commands.CommandTestUtil.VALID_DURATION_SPORTS;
 import static fithelper.testutil.AssertUtil.assertThrows;
 import static fithelper.testutil.TypicalEntriesUtil.FOOD;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
@@ -8,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
+import fithelper.model.entry.exceptions.DuplicateEntryException;
+import fithelper.testutil.EntryBuilder;
 
 import javafx.collections.ObservableList;
 
@@ -39,6 +43,14 @@ public class FitHelperTest {
         FitHelper newData = getTypicalFitHelper();
         fitHelper.resetData(newData);
         assertEquals(newData, fitHelper);
+    }
+
+    @Test
+    public void resetDatawithDuplicateEntriesthrowsDuplicateEntryException() {
+        // Two entries with the same identity fields
+        Entry editedFood = new EntryBuilder(FOOD).withDuration(VALID_DURATION_SPORTS).build();
+        List<Entry> newEntries = Arrays.asList(FOOD, editedFood);
+        assertThrows(DuplicateEntryException.class, () -> new FitHelperStub(newEntries));
     }
 
     @Test

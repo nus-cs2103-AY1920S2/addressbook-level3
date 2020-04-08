@@ -25,14 +25,17 @@ public class CalendarPage extends UiPart<AnchorPane> {
     private static final Locale UK_LOCALE = Locale.UK;
     private static final String FXML = "CalendarPanel.fxml";
     private ICalendarAgenda agenda;
+    private ObservableList<VEvent> events;
+    private VCalendar vCalendar;
 
     @FXML
     private BorderPane calendarBorderPane;
 
     public CalendarPage(ObservableList<VEvent> events) {
         super(FXML);
-        VCalendar vCalendar = new VCalendar();
-        vCalendar.setVEvents(events);
+        this.events = events;
+        this.vCalendar = new VCalendar();
+        this.vCalendar.setVEvents(events);
         this.agenda = new ICalendarAgenda(vCalendar);
         initCalendar(this.agenda);
         calendarBorderPane.setCenter(agenda);
