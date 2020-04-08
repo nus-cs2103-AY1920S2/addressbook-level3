@@ -57,4 +57,12 @@ public class TypicalTaTracker {
         return tat;
     }
 
+    public static Module getTypicalModule() {
+        return new Module("CS3243", "Introduction to AI");
+    }
+
+    public static Group getTypicalGroup() {
+        return new Group("G06", GroupType.LAB);
+    }
+
 }

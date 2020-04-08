@@ -1,23 +1,22 @@
 package tatracker.logic.commands.student;
 
-/*import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
+import static tatracker.logic.commands.CommandTestUtil.assertDeleteStudentCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
-import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_NONEXISTENT;
+import static tatracker.testutil.TypicalTaTracker.getTypicalGroup;
+import static tatracker.testutil.TypicalTaTracker.getTypicalModule;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.Test;
+
 import tatracker.commons.core.Messages;
-import tatracker.commons.core.index.Index;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
- */
-
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,31 +24,32 @@ import tatracker.model.student.Student;
  */
 public class DeleteStudentCommandTest {
 
-    /*private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validMatricUnfilteredList_success() {
         Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalGroup().getIdentifier(), getTypicalModule().getIdentifier());
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.deleteStudent(studentToDelete);
 
-        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+        assertDeleteStudentCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
+        Matric nonexistentMatric = MATRIC_NONEXISTENT;
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(nonexistentMatric,
+                getTypicalGroup().getIdentifier(), getTypicalModule().getIdentifier());
 
-        assertCommandFailure(deleteStudentCommand,
-                model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
-    @Test
+    /*@Test
     public void execute_validIndexFilteredList_success() {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
 
@@ -71,7 +71,7 @@ public class DeleteStudentCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_STUDENT;
         // ensures that outOfBoundIndex is still in bounds of ta-tracker list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getStudentList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getCompleteStudentList().size());
 
         DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
 

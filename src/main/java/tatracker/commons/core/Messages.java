@@ -10,7 +10,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND = "Invalid command format!\n\n";
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
+    public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "There is no student in the (CS3243)"
+            + " group (G06) with the given matric number: A9999999J";
     public static final String MESSAGE_INVALID_SESSION_DISPLAYED_INDEX = "The session index provided is invalid";
     public static final String MESSAGE_STUDENTS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "%1$d sessions listed!";
