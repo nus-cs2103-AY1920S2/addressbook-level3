@@ -93,4 +93,13 @@ public class SuggestionTestUtil {
             assertEquals(expectedInput, input);
         }
     }
+
+    public static void testDisplayTexts(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions,
+            Model model) {
+                for (int i = 0; i < expectedSuggestions.size(); i++) {
+                    SuggestionItem suggestion = suggestions.get(i);
+                    SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+                    assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+                }
+    }
 }
