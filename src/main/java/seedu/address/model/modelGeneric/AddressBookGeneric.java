@@ -1,6 +1,7 @@
 package seedu.address.model.modelGeneric;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ID;
 
 import java.util.List;
@@ -72,6 +73,15 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     public K get(ID objID) {
         requireNonNull(objID);
         return objects.get(objID);
+    }
+
+    /**
+     * Returns the index of the first occurrence of the specified element in this list.
+     * The element should already be unique in unique list.
+     */
+    public Index getIndex(K object) {
+        requireNonNull(object);
+        return objects.getIndex(object);
     }
 
 

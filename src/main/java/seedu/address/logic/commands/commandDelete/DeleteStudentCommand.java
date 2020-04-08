@@ -42,7 +42,6 @@ public class DeleteStudentCommand extends DeleteCommand {
 
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
-    List<Student> lastShownList = model.getFilteredStudentList();
     if (this.toDelete == null) {
       if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_ID);
@@ -56,23 +55,13 @@ public class DeleteStudentCommand extends DeleteCommand {
       this.targetID = toDelete.getId();
     }
     if (this.targetIndex == null) {
-      this.targetIndex = getIndex(lastShownList);
+      this.targetIndex = model.getIndex(this.toDelete);
     }
   }
 
   @Override
   protected void generateOppositeCommand() {
     oppositeCommand = new AddStudentCommand(toDelete, targetIndex.getZeroBased());
-  }
-
-  // Find way to abstract this
-  public Index getIndex(List<Student> lastShownList) throws CommandException {
-    for (int i = 0; i < lastShownList.size(); i++) {
-      if (lastShownList.get(i).equals(this.toDelete)) {
-        return Index.fromZeroBased(i);
-      }
-    }
-    throw new CommandException("This id not in list");
   }
 
   @Override
