@@ -74,6 +74,4 @@ public class AddStudentCommand extends AddCommand {
         || (other instanceof AddStudentCommand // instanceof handles nulls
         && toAdd.equals(((AddStudentCommand) other).toAdd));
   }
-
-
 }
