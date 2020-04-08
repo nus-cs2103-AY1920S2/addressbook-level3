@@ -50,7 +50,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses multiple {@code oneBasedIndex} into an {@code Index} array and returns it.
+     * Parses multiple {@code oneBasedIndex} into a distinct {@code Index} array and returns it.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */

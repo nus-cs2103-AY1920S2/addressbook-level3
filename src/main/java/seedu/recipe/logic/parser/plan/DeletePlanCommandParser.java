@@ -3,9 +3,6 @@ package seedu.recipe.logic.parser.plan;
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.recipe.commons.core.index.Index;
@@ -31,24 +28,13 @@ public class DeletePlanCommandParser implements Parser<DeletePlanCommand> {
     public DeletePlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
-        Index index;
-
-        String[] individualIndexes = argMultimap.getPreamble().split(" ");
-        List<Index> indexes = new ArrayList<>();
-        try {
-            for (int i = 0; i < individualIndexes.length; i++) {
-                indexes.add(ParserUtil.parseIndex(individualIndexes[i]));
-            }
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeletePlanCommand.MESSAGE_USAGE), pe);
-        }
-
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePlanCommand.MESSAGE_USAGE));
         }
-
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+        String allIndexes = argMultimap.getPreamble();
+        Index[] indexes = ParserUtil.parseMultipleIndex(allIndexes);
 
         return new DeletePlanCommand(indexes, date);
     }

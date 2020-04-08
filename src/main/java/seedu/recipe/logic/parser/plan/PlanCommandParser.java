@@ -3,6 +3,8 @@ package seedu.recipe.logic.parser.plan;
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.recipe.commons.core.index.Index;
@@ -27,15 +29,6 @@ public class PlanCommandParser implements Parser<PlanCommand> {
      */
     public PlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE), pe);
-        }
-
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
@@ -45,7 +38,10 @@ public class PlanCommandParser implements Parser<PlanCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE));
         }
 
-        return new PlanCommand(index, date);
+        String allIndexes = argMultimap.getPreamble();
+        Index[] indexes = ParserUtil.parseMultipleIndex(allIndexes);
+
+        return new PlanCommand(indexes, date);
     }
 
     /**
