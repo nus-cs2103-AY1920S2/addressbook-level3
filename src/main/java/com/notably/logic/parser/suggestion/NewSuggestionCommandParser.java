@@ -9,7 +9,6 @@ import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.parser.ArgumentMultimap;
 import com.notably.logic.parser.ArgumentTokenizer;
 import com.notably.logic.parser.ParserUtil;
-import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.block.Title;
 
@@ -36,7 +35,6 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
      * Parses input and displays the appropriate response text.
      * @param userInput .
      * @return List of command to execute.
-     * @throws ParseException when input is invalid.
      */
     public Optional<SuggestionCommand> parse(String userInput) {
         ArgumentMultimap argMultimap =
