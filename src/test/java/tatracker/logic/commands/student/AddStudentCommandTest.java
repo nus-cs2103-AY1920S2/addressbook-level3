@@ -33,8 +33,8 @@ public class AddStudentCommandTest {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(testStudent, testGroup, null));
     }
 
-    /*
-    @Test
+
+    /*@Test
     public void execute_studentAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
         Student validStudent = new StudentBuilder().build();
@@ -44,7 +44,7 @@ public class AddStudentCommandTest {
         assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent, testModule, testGroup),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
-    }*/
+    } */
 
     @Test
     public void execute_duplicateStudent_throwsCommandException() {
