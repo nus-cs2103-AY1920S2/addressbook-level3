@@ -3,6 +3,7 @@ package fithelper.logic.commands;
 import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static fithelper.model.Model.PREDICATE_SHOW_NO_ENTRIES;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;
@@ -28,7 +29,6 @@ public class FindCommand extends Command {
             + PREFIX_KEYWORD + "noodles ";
 
     private final NameContainsKeywordsPredicate predicate;
-    private final NameContainsKeywordsPredicate vaguePredicate = NameContainsKeywordsPredicate.getVaguePredicate();
     private final Type findType;
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
@@ -45,6 +45,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String feedback = "";
+        model.updateFilteredReminderEntryList(predicate);
         if (this.findType == null) {
             model.updateFilteredEntryList(predicate);
             feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW, model.getFilteredFoodEntryList().size())
@@ -53,12 +54,12 @@ public class FindCommand extends Command {
         } else {
             if (this.findType.getValue().equalsIgnoreCase("food")) {
                 model.updateFilteredFoodEntryList(predicate);
-                model.updateFilteredSportEntryList(vaguePredicate);
+                model.updateFilteredSportEntryList(PREDICATE_SHOW_NO_ENTRIES);
                 feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW,
                         model.getFilteredFoodEntryList().size());
             } else {
                 model.updateFilteredSportEntryList(predicate);
-                model.updateFilteredFoodEntryList(vaguePredicate);
+                model.updateFilteredFoodEntryList(PREDICATE_SHOW_NO_ENTRIES);
                 feedback = String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW,
                         model.getFilteredSportsEntryList().size());
             }

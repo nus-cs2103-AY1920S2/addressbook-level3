@@ -26,6 +26,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_NO_ENTRIES = unused -> false;
     Predicate<Weight> PREDICATE_SHOW_ALL_WEIGHTS = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_UNDONE_ENTRIES = entry -> entry.getStatus().value.equals("Undone");
     Predicate<Entry> PREDICATE_SHOW_TODAY_ENTRIES = entry ->
@@ -175,16 +176,22 @@ public interface Model {
     void updateFilteredEntryList(Predicate<Entry> predicate);
 
     /**
-     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered food entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodEntryList(Predicate<Entry> predicate);
 
     /**
-     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered sports entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSportEntryList(Predicate<Entry> predicate);
+
+    /**
+     * Updates the filter of the filtered reminder entry list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredReminderEntryList(Predicate<Entry> predicate);
 
     /**
      * Search the pre-defined FoodCalorie dataset for entries that match the given keyword.
