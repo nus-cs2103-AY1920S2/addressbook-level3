@@ -483,8 +483,8 @@ public class ModelStub implements Model {
      */
     public static class ModelStubAcceptingModuleAdded extends ModelStub {
         public final ArrayList<Module> modulesAdded = new ArrayList<>();
-        String moduleShown = "";
-        String groupShown = "";
+        private String moduleShown = "";
+        private String groupShown = "";
 
         @Override
         public boolean hasModule(String moduleCode) {
@@ -511,17 +511,17 @@ public class ModelStub implements Model {
 
         @Override
         public void setFilteredStudentList() {
-           groupShown = "";
+            groupShown = "";
         }
 
         @Override
         public void setDefaultStudentViewList() {
-            if(modulesAdded.size() == 0) {
+            if (modulesAdded.size() == 0) {
                 moduleShown = "";
                 groupShown = "";
             } else {
                 moduleShown = modulesAdded.get(0).getIdentifier();
-                if(modulesAdded.get(0).getUniqueGroupList().size() == 0) {
+                if (modulesAdded.get(0).getUniqueGroupList().size() == 0) {
                     groupShown = "";
                 } else {
                     groupShown = modulesAdded.get(0).get(0).getIdentifier();
@@ -531,12 +531,12 @@ public class ModelStub implements Model {
 
         @Override
         public Module getModule(String moduleId) {
-           for (int i = 0; i < modulesAdded.size(); ++i) {
-               if(moduleId.equals(modulesAdded.get(i).getIdentifier())) {
-                   return modulesAdded.get(i);
-               }
-           }
-           return null;
+            for (int i = 0; i < modulesAdded.size(); ++i) {
+                if (moduleId.equals(modulesAdded.get(i).getIdentifier())) {
+                    return modulesAdded.get(i);
+                }
+            }
+            return null;
         }
 
         @Override
@@ -551,6 +551,12 @@ public class ModelStub implements Model {
         @Override
         public ObservableList<Group> getFilteredGroupList() {
             return null;
+        }
+
+        @Override
+        public void updateFilteredStudentList(String groupCode, String moduleCode) {
+            moduleShown = moduleCode;
+            groupShown = groupCode;
         }
     }
 

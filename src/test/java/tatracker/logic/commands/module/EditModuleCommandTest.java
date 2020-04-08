@@ -31,7 +31,8 @@ public class EditModuleCommandTest {
 
         CommandResult commandResult = editModuleCommand.execute(modelStub);
 
-        assertEquals(String.format(EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS, validModule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS, validModule),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
     }
 
@@ -57,11 +58,13 @@ public class EditModuleCommandTest {
         assertTrue(editSoftwareEngineeringCommand.equals(editSoftwareEngineeringCommand));
 
         // same values -> returns true
-        EditModuleCommand editSoftwareEngineeringCommandCopy = new EditModuleCommand(CS2103T.getIdentifier(), "New Name");
+        EditModuleCommand editSoftwareEngineeringCommandCopy = new EditModuleCommand(CS2103T.getIdentifier(),
+                "New Name");
         assertTrue(editSoftwareEngineeringCommand.equals(editSoftwareEngineeringCommandCopy));
 
         // different values -> returns false
-        EditModuleCommand editSoftwareEngineeringCommandCopyTwo = new EditModuleCommand(CS2103T.getIdentifier(), "New Name2");
+        EditModuleCommand editSoftwareEngineeringCommandCopyTwo = new EditModuleCommand(CS2103T.getIdentifier(),
+                "New Name2");
         assertFalse(editSoftwareEngineeringCommand.equals(editSoftwareEngineeringCommandCopyTwo));
 
         // different types -> returns false
