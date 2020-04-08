@@ -10,7 +10,6 @@ import tatracker.logic.commands.module.DeleteModuleCommand;
 
 public class DeleteModuleCommandParserTest {
 
-
     private DeleteModuleCommandParser parser = new DeleteModuleCommandParser();
 
     @Test
