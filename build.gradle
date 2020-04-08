@@ -3,6 +3,7 @@
 // user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
@@ -27,13 +28,17 @@ repositories {
 }
 
 githook {
-    gradleCommand = file("./gradlew")
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        gradleCommand = file("gradlew.bat")
+    } else {
+        gradleCommand = file("./gradlew")
+    }
     hooksDir = file(".git/hooks")
     failOnMissingHooksDir = false
     createHooksDirIfNotExist = true
     hooks {
         "pre-push" {
-            task = "checkstyleMain checkstyleTest"
+            task = "checkstyleMain checkstyleTest test"
             shell = "bash config/travis/run-checks.sh"
         }
     }

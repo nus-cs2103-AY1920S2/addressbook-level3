@@ -448,6 +448,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteExerciseFromWorkouts(Exercise exercise) {
+        workoutList.removeExerciseFromWorkouts(exercise);
+    }
+
+    @Override
     public void addWorkout(Workout workout) {
         workoutList.addWorkout(workout);
         updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
