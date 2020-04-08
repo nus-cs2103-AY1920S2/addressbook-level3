@@ -12,7 +12,7 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
-import tatracker.testutil.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
 public class EditStudentDescriptorTest {
 

@@ -368,9 +368,15 @@ public class ModelStub implements Model {
      * A Model stub that contains a single module.
      */
     public static class ModelStubWithModule extends ModelStub {
-        private final Module module;
+        private Module module;
 
         public ModelStubWithModule(Module module) {
+            requireNonNull(module);
+            this.module = module;
+        }
+
+        @Override
+        public void addModule(Module module) {
             requireNonNull(module);
             this.module = module;
         }
@@ -477,6 +483,8 @@ public class ModelStub implements Model {
      */
     public static class ModelStubAcceptingModuleAdded extends ModelStub {
         public final ArrayList<Module> modulesAdded = new ArrayList<>();
+        private String moduleShown = "";
+        private String groupShown = "";
 
         @Override
         public boolean hasModule(String moduleCode) {
@@ -491,8 +499,75 @@ public class ModelStub implements Model {
         }
 
         @Override
+        public void deleteModule(Module module) {
+            requireNonNull(module);
+            modulesAdded.remove(module);
+        }
+
+        @Override
+        public void updateFilteredGroupList(String moduleCode) {
+            moduleShown = moduleCode;
+        }
+
+        @Override
+        public void setFilteredStudentList() {
+            groupShown = "";
+        }
+
+        @Override
+        public void setDefaultStudentViewList() {
+            if (modulesAdded.size() == 0) {
+                moduleShown = "";
+                groupShown = "";
+            } else {
+                moduleShown = modulesAdded.get(0).getIdentifier();
+                if (modulesAdded.get(0).getUniqueGroupList().size() == 0) {
+                    groupShown = "";
+                } else {
+                    groupShown = modulesAdded.get(0).get(0).getIdentifier();
+                }
+            }
+        }
+
+        @Override
+        public Module getModule(String moduleId) {
+            for (int i = 0; i < modulesAdded.size(); ++i) {
+                if (moduleId.equals(modulesAdded.get(i).getIdentifier())) {
+                    return modulesAdded.get(i);
+                }
+            }
+            return null;
+        }
+
+        @Override
         public ReadOnlyTaTracker getTaTracker() {
             return new TaTracker();
+        }
+
+        @Override
+        public void showAllModules() {
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredStudentList(String groupCode, String moduleCode) {
+            moduleShown = moduleCode;
+            groupShown = groupCode;
+        }
+
+        @Override
+        public boolean hasGroup(String groupCode, String moduleCode) {
+            return getModule(moduleCode).hasGroup(new Group(groupCode));
+        }
+
+        @Override
+        public void deleteGroup(String target, String targetModule) {
+            Module module = getModule(targetModule);
+            module.deleteGroup(new Group(target));
         }
     }
 }

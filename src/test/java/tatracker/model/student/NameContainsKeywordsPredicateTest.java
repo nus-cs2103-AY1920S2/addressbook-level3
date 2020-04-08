@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

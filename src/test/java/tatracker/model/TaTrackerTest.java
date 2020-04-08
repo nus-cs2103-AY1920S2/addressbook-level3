@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
+import static tatracker.testutil.student.TypicalStudents.ALICE;
 
 import java.util.Collection;
 
@@ -19,7 +19,7 @@ import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class TaTrackerTest {
 
@@ -38,7 +38,7 @@ public class TaTrackerTest {
 
     @Test
     public void resetData_withValidReadOnlyTaTracker_replacesData() {
-        TaTracker newData = getTypicalTaTracker();
+        TaTracker newData = getTypicalTaTrackerWithStudents();
         taTracker.resetData(newData);
         assertEquals(newData, taTracker);
     }

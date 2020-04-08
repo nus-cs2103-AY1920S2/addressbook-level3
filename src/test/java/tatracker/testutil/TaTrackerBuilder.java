@@ -1,6 +1,7 @@
 package tatracker.testutil;
 
 import tatracker.model.TaTracker;
+import tatracker.model.module.Module;
 import tatracker.model.student.Student;
 
 /**
@@ -25,6 +26,14 @@ public class TaTrackerBuilder {
      */
     public TaTrackerBuilder withStudent(Student student) {
         taTracker.addStudent(student);
+        return this;
+    }
+
+    /**
+     * Adds a new module to the ta tracker.
+     */
+    public TaTrackerBuilder withModule(Module module) {
+        taTracker.addModule(module);
         return this;
     }
 
