@@ -118,7 +118,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyInventorySystem getSampleAddressBook() {
+    public static ReadOnlyInventorySystem getSampleInventorySystem() {
         InventorySystem sampleAb = new InventorySystem();
         for (Customer sampleCustomer : getSamplePersons()) {
             sampleAb.addPerson(sampleCustomer);
