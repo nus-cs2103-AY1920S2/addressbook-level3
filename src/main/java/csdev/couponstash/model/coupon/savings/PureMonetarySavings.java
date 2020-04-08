@@ -157,10 +157,11 @@ public class PureMonetarySavings extends Savings {
      *
      * @return a copy of the current PureMonetarySavings
      */
+    @Override
     public PureMonetarySavings copy() {
         Optional<MonetaryAmount> monetaryAmountCopy =
-                getMonetaryAmount().map(x -> new MonetaryAmount(x));
-        Optional<List<Saveable>> savablesCopy = getSaveables().map(x -> new ArrayList<>(x));
+                getMonetaryAmount().map(MonetaryAmount::new);
+        Optional<List<Saveable>> savablesCopy = getSaveables().map(ArrayList::new);
 
         if (monetaryAmountCopy.isEmpty() && savablesCopy.isEmpty()) {
             return new PureMonetarySavings();
