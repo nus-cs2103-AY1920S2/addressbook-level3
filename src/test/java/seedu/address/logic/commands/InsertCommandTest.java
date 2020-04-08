@@ -219,6 +219,11 @@ public class InsertCommandTest {
             this.order = order;
         }
 
+        @Override
+        public boolean hasParcel(Parcel parcel) {
+            requireNonNull(parcel);
+            return this.order.isSameParcel(order);
+        }
     }
 
     /**
@@ -226,6 +231,12 @@ public class InsertCommandTest {
      */
     private class ModelStubAcceptingOrderAdded extends ModelStub {
         final ArrayList<Order> ordersAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasParcel(Parcel parcel) {
+            requireNonNull(parcel);
+            return ordersAdded.stream().anyMatch(parcel::isSameParcel);
+        }
 
         @Override
         public void addOrder(Order order) {
