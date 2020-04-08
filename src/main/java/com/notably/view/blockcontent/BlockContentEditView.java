@@ -152,6 +152,15 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
+     * Closes the Block Edit modal after saving the changes to the note's contents.
+     */
+    @FXML
+    public void handleClose() {
+        saveData();
+        hide();
+    }
+
+    /**
      * Opens the Block Edit modal or focuses on it if it's already opened.
      */
     private void handleEdit() {
@@ -215,15 +224,9 @@ public class BlockContentEditView extends ViewPart<Stage> {
         try {
             this.logic.editCurrentBlockBody(blockContentTextArea.getText());
             logger.info("Writing new Note's contents to file...");
-        } catch(EditBlockBodyException e) {
+        } catch (EditBlockBodyException e) {
             logger.warning("Unable to write new contents to file.");
         }
-    }
-
-    @FXML
-    public void handleClose() {
-        saveData();
-        hide();
     }
 }
 
