@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-image::bransonng.png[width="400", align="left"]
+image::bransonng.png[width="200", align="left"]
 {empty}[http://github.com/bransonng[github]] [<<bransonng#, portfolio>>]
 
 Role: Git expert, Integration +
