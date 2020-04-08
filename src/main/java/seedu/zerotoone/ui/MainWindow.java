@@ -51,7 +51,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
     @FXML
     private StackPane helpDisplayPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
     @FXML
@@ -113,8 +112,7 @@ public class MainWindow extends UiPart<Stage> {
 
         tabPanePlaceHolder.setMinWidth(530);
         tabPanePlaceHolder.setMinHeight(200);
-
-
+ 
         VBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
 
         resultDisplay = new ResultDisplay();
