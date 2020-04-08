@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.NoSuchElementException;
 
@@ -22,7 +24,7 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditEventCommand
-     * and returns an EditCommand object for execution.
+     * and returns an EditEventCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditEventCommand parse(String args) throws ParseException {
@@ -47,14 +49,15 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
 
         EditEventCommand.EditEventDescriptor editEventDescriptor =
                 new EditEventCommand.EditEventDescriptor();
+
         if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
-            editEventDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get()));
+            editEventDescriptor.setStartDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            editEventDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
+            editEventDescriptor.setEndDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_ACTIVITY_NAME).isPresent()) {
-            editEventDescriptor.setName(ParserUtil.parseEventName(
+            editEventDescriptor.setName(ParserUtil.parseActivityName(
                     argMultimap.getValue(PREFIX_ACTIVITY_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {

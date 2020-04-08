@@ -22,6 +22,8 @@ public class Event extends Activity {
     public Event(Name name, Date startDate, Date endDate){
         super(name);
         requireAllNonNull(startDate, endDate);
+        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
+        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
         this.startDate = startDate;
         this.endDate = endDate;
         this.isOver = endDate.isBefore(Date.now());
@@ -66,17 +68,12 @@ public class Event extends Activity {
 
     public boolean isValidStartDate(Date startDate) {
         requireAllNonNull(startDate);
-        if (startDate.isBefore(this.endDate)) {
-            return true;
-        }
-        return false;
+        return startDate.isBefore(endDate);
     }
 
     public boolean isValidEndDate(Date endDate) {
-        if (this.startDate.isBefore(endDate)) {
-            return true;
-        }
-        return false;
+        requireAllNonNull(endDate);
+        return startDate.isBefore(endDate);
     }
 
     @Override
@@ -99,6 +96,25 @@ public class Event extends Activity {
         return (!end.isBefore(Date.now()));
     }
 
+    /**
+     * Return the difference in due date and date of creation.
+     * @return int
+     */
+    public int getDuration() {
+        return endDate.getDifference(startDate);
+    }
+
+    @Override
+    public Event regenerate() {
+        getSchedule().update();
+        if (Date.now().isAfter(endDate) && getSchedule().getType() != 0) {
+            setEndDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDuration()));
+            setStartDate(getSchedule().getRepeatDate());
+            setDateCreated(getSchedule().getRepeatDate());
+        }
+        return this;
+    }
+
     @Override
     public Activity deepCopy() {
         Event event = new Event(getName(), getStartDate(), getStartDate());
@@ -109,5 +125,18 @@ public class Event extends Activity {
 
     public boolean isOver() {
         return isOver;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event event = (Event) other;
+        return event.startDate.equals(((Event) other).startDate)
+            && event.endDate.equals(((Event) other).endDate)
+            && event.getNote().equals(((Event) other).getNote())
+            && event.getName().equals(((Event) other).getName());
     }
 }

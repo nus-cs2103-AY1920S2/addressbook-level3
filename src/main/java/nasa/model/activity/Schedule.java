@@ -95,7 +95,7 @@ public class Schedule {
     }
 
     /**
-     * Initialise schedules.
+     * Initialize schedules.
      * @param type int
      */
     public void init() {

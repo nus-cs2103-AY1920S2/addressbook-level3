@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.UniqueDeadlineList;
-import nasa.model.activity.UniqueEventList;
+import nasa.model.activity.Name;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;
 
@@ -68,7 +68,7 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new ModuleNotFoundException();
         }
 
-        if (!target.equals(editedModule) && contains(editedModule.getModuleCode())) {
+        if (!target.equals(editedModule) && contains(editedModule.getModuleCode())) { // case when editedModule is a non-target module that already exists in { @code UniqueModuleList }
             throw new DuplicateModuleException();
         }
 
@@ -119,9 +119,15 @@ public class UniqueModuleList implements Iterable<Module> {
                 .orElse(null);
     }
 
-    public void setSchedule(ModuleCode moduleCode, Name activity, Index index) {
+    public void setDeadlineSchedule(ModuleCode moduleCode, Index index, Index type) {
         Module moduleSelected = getModule(moduleCode);
-        moduleSelected.setSchedule(activity, index);
+        moduleSelected.setDeadlineSchedule(index, type);
+        moduleSelected.updateFilteredActivityList(x -> true);
+    }
+
+    public void setEventSchedule(ModuleCode moduleCode, Index index, Index type) {
+        Module moduleSelected = getModule(moduleCode);
+        moduleSelected.setEventSchedule(index, type);
         moduleSelected.updateFilteredActivityList(x -> true);
     }
 

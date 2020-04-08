@@ -18,27 +18,27 @@ import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.activity.Date;
-import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.activity.Event;
 import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**
- * Edits a specific deadline in the moduleCode's list.
+ * Edits a specific event in the moduleCode's list.
  */
-public class EditDeadlineCommand extends Command {
+public class EditEventCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit-d";
+    public static final String COMMAND_WORD = "edit-e";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the deadline identified "
-            + "by the index number used in the displayed moduleCode's deadline list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
+            + "by the index number used in the displayed moduleCode's event list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
@@ -53,28 +53,28 @@ public class EditDeadlineCommand extends Command {
             + PREFIX_DATE + "2020-03-20 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
-    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Edited Deadline";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_DEADLINE = "This deadline already exists in the "
-            + "module's deadline list.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the "
+            + "module's event list.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
 
     private final Index index;
     private final ModuleCode moduleCode;
-    private final EditDeadlineCommand.EditDeadlineDescriptor editDeadlineDescriptor;
+    private final EditEventCommand.EditEventDescriptor editEventDescriptor;
 
     /**
-     * Creates an EditDeadlineCommand to edit a deadline
+     * Creates an EditEventCommand to edit a event
      * with the specified {@code index} from the specified {@code moduleCode} list.
-     * @param index index of the deadline item as specified in the corresponding module
-     * @param moduleCode module code which the deadline item is found in
-     * @param editDeadlineDescriptor
+     * @param index index of the event item as specified in the corresponding module
+     * @param moduleCode module code which the event item is found in
+     * @param editEventDescriptor
      */
-    public EditDeadlineCommand(Index index, ModuleCode moduleCode, EditDeadlineDescriptor editDeadlineDescriptor) {
-        requireAllNonNull(index, moduleCode, editDeadlineDescriptor);
+    public EditEventCommand(Index index, ModuleCode moduleCode, EditEventDescriptor editEventDescriptor) {
+        requireAllNonNull(index, moduleCode, editEventDescriptor);
         this.index = index;
         this.moduleCode = moduleCode;
-        this.editDeadlineDescriptor = new EditDeadlineDescriptor(editDeadlineDescriptor);
+        this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
     }
 
     @Override
@@ -85,86 +85,88 @@ public class EditDeadlineCommand extends Command {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
-       List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
+       List<Event> lastShownList = model.getFilteredEventList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
                     Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        Deadline deadlineToEdit = lastShownList.get(index.getZeroBased());
-        Deadline editedDeadline = createEditedDeadline(deadlineToEdit, editDeadlineDescriptor);
+        Event eventToEdit = lastShownList.get(index.getZeroBased());
+        Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
 
-        requireNonNull(editedDeadline);
+        requireNonNull(editedEvent);
 
-        // if (!deadlineToEdit.equals(editedDeadline) && model.hasDeadline(editedDeadline)) {
-        //     throw new CommandException(MESSAGE_DUPLICATE_DEADLINE);
-        // }
+        if (eventToEdit.equals(editedEvent)) { // if edit is exactly the same as the original
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
 
-        model.setDeadline(moduleCode, deadlineToEdit, editedDeadline);
+        model.setEvent(moduleCode, eventToEdit, editedEvent);
 
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_DEADLINE_SUCCESS, editedDeadline));
+        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
     /**
-     * Creates and returns an {@code Deadline} with the details of {@code deadlineToEdit}
+     * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editModuleDescriptor}.
      */
-    private static Deadline createEditedDeadline(Deadline deadlineToEdit,
-                                                  EditDeadlineDescriptor editDeadlineDescriptor) {
-        requireNonNull(deadlineToEdit);
+    private static Event createEditedEvent(Event eventToEdit,
+                                                  EditEventDescriptor editEventDescriptor) {
+        requireNonNull(eventToEdit);
 
-        Name updatedName = editDeadlineDescriptor.getName().orElse(deadlineToEdit.getName());
-        Date updatedDateCreated = editDeadlineDescriptor.getDateCreated().orElse(deadlineToEdit.getDateCreated()); // by default date created cannot be edited, and will take previous value
-        Note updatedNote = editDeadlineDescriptor.getNote().orElse(deadlineToEdit.getNote());
-        Priority updatedPriority = editDeadlineDescriptor.getPriority().orElse(deadlineToEdit.getPriority());
-        Date updatedDueDate =  editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
+        Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
+        Date updatedDateCreated = editEventDescriptor.getDateCreated().orElse(eventToEdit.getDateCreated()); // by default date created cannot be edited, and will take previous value
+        Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
+        Date updatedStartDate =  editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
+        Date updatedEndDate =  editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
 
-        return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate);
+        return new Event(updatedName, updatedDateCreated, updatedNote, updatedStartDate, updatedEndDate);
 
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EditDeadlineCommand // instanceof handles nulls
-                && index.equals(((EditDeadlineCommand) other).index)
-                && moduleCode.equals(((EditDeadlineCommand) other).moduleCode)
-                && editDeadlineDescriptor.equals(((EditDeadlineCommand) other).editDeadlineDescriptor));
+                || (other instanceof EditEventCommand // instanceof handles nulls
+                && index.equals(((EditEventCommand) other).index)
+                && moduleCode.equals(((EditEventCommand) other).moduleCode)
+                && editEventDescriptor.equals(((EditEventCommand) other).editEventDescriptor));
     }
 
     /**
-     * Stores the details to edit the deadline with. Each non-empty field value will replace the
+     * Stores the details to edit the event with. Each non-empty field value will replace the
      * corresponding field value of the moduleCode.
      */
-    public static class EditDeadlineDescriptor {
+    public static class EditEventDescriptor {
         private Name name;
         private Date dateCreated;
         private Note note;
         private Priority priority;
-        private Date dueDate;
+        private Date startDate;
+        private Date endDate;
 
-        public EditDeadlineDescriptor() {}
+        public EditEventDescriptor() {}
 
         /**
          * Copy constructor.
          */
-        public EditDeadlineDescriptor(EditDeadlineCommand.EditDeadlineDescriptor toCopy) {
+        public EditEventDescriptor(EditEventCommand.EditEventDescriptor toCopy) {
             setName(toCopy.name);
             setDateCreated(toCopy.dateCreated);
             setNote(toCopy.note);
             setPriority(toCopy.priority);
-            setDueDate(toCopy.dueDate);
+            setStartDate(toCopy.startDate);
+            setEndDate(toCopy.endDate);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, dateCreated, note, priority, dueDate);
+            return CollectionUtil.isAnyNonNull(name, dateCreated, note, priority, startDate, endDate);
         }
 
         public void setName(Name name) {
@@ -183,12 +185,20 @@ public class EditDeadlineCommand extends Command {
             return Optional.ofNullable(dateCreated);
         }
 
-        public void setDueDate(Date dueDate) {
-            this.dueDate = dueDate;
+        public void setStartDate(Date startDate) {
+            this.startDate = startDate;
         }
 
-        public Optional<Date> getDueDate() {
-            return Optional.ofNullable(dueDate);
+        public Optional<Date> getStartDate() {
+            return Optional.ofNullable(startDate);
+        }
+
+        public void setEndDate(Date endDate) {
+            this.endDate = endDate;
+        }
+
+        public Optional<Date> getEndDate() {
+            return Optional.ofNullable(endDate);
         }
 
         public void setNote(Note note) {
@@ -215,15 +225,15 @@ public class EditDeadlineCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditDeadlineCommand.EditDeadlineDescriptor)) {
+            if (!(other instanceof EditEventCommand.EditEventDescriptor)) {
                 return false;
             }
 
             // state check
-            EditDeadlineCommand.EditDeadlineDescriptor e = (EditDeadlineCommand.EditDeadlineDescriptor) other;
+            EditEventCommand.EditEventDescriptor e = (EditEventCommand.EditEventDescriptor) other;
 
             return getName().equals(e.getName()) && getDateCreated().equals(e.getDateCreated()) && getNote().equals(e.getNote())
-                    && getPriority().equals(e.getPriority()) && getDueDate().equals(e.getDueDate());
+                    && getPriority().equals(e.getPriority()) && getStartDate().equals(e.getStartDate()) && getEndDate().equals(e.getEndDate());
         }
     }
 }

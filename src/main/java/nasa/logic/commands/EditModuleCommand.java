@@ -13,8 +13,11 @@ import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.activity.UniqueDeadlineList;
+import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
@@ -69,7 +72,7 @@ public class EditModuleCommand extends Command {
         Module moduleToEdit = model.getModule(moduleCodeToEdit);
         requireNonNull(moduleToEdit);
 
-        if (!model.hasModule(editedModule.getModuleCode())) { // case when module to be edited is not found in the NasaBook
+        if (!model.hasModule(moduleToEdit.getModuleCode())) { // case when module to be edited is not found in the NasaBook
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 

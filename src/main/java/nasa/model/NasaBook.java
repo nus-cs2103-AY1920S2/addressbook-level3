@@ -1,9 +1,12 @@
 package nasa.model;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nasa.commons.core.index.Index;
+import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.activity.UniqueDeadlineList;
@@ -56,7 +59,7 @@ public class NasaBook implements ReadOnlyNasaBook {
      * @param moduleCode ModuleCode
      * @return UniqueDeadlineList
      */
-    public UniqueDeadlineList getDeadline(ModuleCode moduleCode) {
+    public UniqueDeadlineList getDeadlines(ModuleCode moduleCode) {
         return moduleList.getModule(moduleCode).getDeadlineList();
     }
 
@@ -90,9 +93,23 @@ public class NasaBook implements ReadOnlyNasaBook {
         toEditModule.addEvent(event);
     }
 
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exit in the NasaBook.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in Nasa Book.
+     * @param target Event
+     * @param editedEvent Event
+     */
+    public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
+        requireAllNonNull(moduleCode, target, editedEvent);
+
+        UniqueEventList eventList = getEvents(moduleCode);
+        assert eventList != null;
+        eventList.setActivity(target, editedEvent);
+    }
 
     /**
-     * Remove a single event from module {@code module} with {@code event}
+     * Remove a single event from module code with {@code moduleCode} with {@code event}
      * {@code event} must exist in the list.
      * @param event Event
      * @param moduleCode ModuleCode
@@ -102,7 +119,6 @@ public class NasaBook implements ReadOnlyNasaBook {
 
         Module toEditModule = moduleList.getModule(moduleCode);
         toEditModule.removeEvent(event);
-        moduleList.setModule(moduleCode, toEditModule);
     }
 
     /**
@@ -118,6 +134,20 @@ public class NasaBook implements ReadOnlyNasaBook {
         toEditModule.addDeadline(deadline);
     }
 
+    /**
+     * Replaces the given deadline {@code target} in the list with {@code editedDeadline}.
+     * {@code target} must exit in the NasaBook.
+     * The deadline identity of {@code editedDeadline} must not be the same as another existing deadline in Nasa Book.
+     * @param target Deadline
+     * @param editedDeadline Deadline
+     */
+    public void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline) {
+        requireAllNonNull(moduleCode, target, editedDeadline);
+        
+        UniqueDeadlineList deadlineList = getDeadlines(moduleCode);
+        assert deadlineList != null;
+        deadlineList.setActivity(target, editedDeadline);
+    }
 
     /**
      * Remove a single deadline from module {@code module} with {@code deadline}
@@ -130,8 +160,8 @@ public class NasaBook implements ReadOnlyNasaBook {
 
         Module toEditModule = moduleList.getModule(moduleCode);
         toEditModule.removeDeadline(deadline);
-        moduleList.setModule(moduleCode, toEditModule);
     }
+
 
     /**
      * Resets the existing data of this {@code NasaBook} with {@code newData}
@@ -165,16 +195,16 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
-     * Replaces the given module {@code target} in the list with {@code editedEvent}.
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
      * {@code target} must exit in the NasaBook.
-     * The module identity of {@code editedEvent} must not be the same as another existing module in Nasa Book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in Nasa Book.
      * @param target Module
-     * @param editedEvent Module
+     * @param editedModule Module
      */
-    public void setModule(ModuleCode target, Module editedEvent) {
-        requireNonNull(editedEvent);
+    public void setModule(ModuleCode target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
 
-        moduleList.setModule(target, editedEvent);
+        moduleList.setModule(target, editedModule);
     }
 
     /**
@@ -206,23 +236,26 @@ public class NasaBook implements ReadOnlyNasaBook {
     public void scheduleAll() {
         moduleList.asModifiableObservableList()
                 .forEach(x -> x.getDeepCopyDeadlineList()
-                        .forEach(x -> {
-                            ((Deadline) x).regenerate();
-                        }));
+                        .forEach(y -> y.regenerate()));
     }
 
-    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
+    public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
         if (hasModule(module)) {
             Module item = moduleList.getModule(module);
-            if (item.hasActivity(activity)) {
-                moduleList.setSchedule(module, activity, type);
-                return true;
-            }
+            item.setDeadlineSchedule(index, type);
+            return true;
         }
         return false;
     }
 
-    //// util methods
+    public boolean setEventSchedule(ModuleCode module, Index index, Index type) {
+        if (hasModule(module)) {
+            Module item = moduleList.getModule(module);
+            item.setEventSchedule(index, type);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
@@ -266,5 +299,10 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     public Module getModule(ModuleCode moduleCode) {
         return moduleList.getModule(moduleCode);
+    }
+
+    public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
+        Module module = getModule(moduleCode);
+        return module.hasActivity(activity);
     }
 }

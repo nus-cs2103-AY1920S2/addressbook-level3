@@ -13,7 +13,6 @@ public class Deadline extends Activity {
 
     private Date dueDate;
     private Priority priority;
-    private Schedule schedule;
 
     private boolean isDone;
     private boolean isOverdue;
@@ -62,7 +61,7 @@ public class Deadline extends Activity {
      * @return int
      */
     public int getDifferenceInDay() {
-        return dueDate.getDifference(getDate());
+        return dueDate.getDifference(getDateCreated());
     }
 
     /**
@@ -88,22 +87,6 @@ public class Deadline extends Activity {
     public void setPriority(Priority priority) {
         requireAllNonNull(priority);
         this.priority = priority;
-    }
-
-    public Date getScheduleDate() {
-        return schedule.getDate();
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(int type) {
-        schedule.setType(type);
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
     }
 
     public void markAsDone() {
@@ -141,11 +124,12 @@ public class Deadline extends Activity {
         return copy;
     }
 
+    @Override
     public Deadline regenerate() {
-        super.getSchedule().update();
+        getSchedule().update();
         if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
             setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
-            super.setDate(super.getSchedule().getRepeatDate());
+            setDateCreated(getSchedule().getRepeatDate());
         }
         return this;
     }
@@ -161,4 +145,19 @@ public class Deadline extends Activity {
     public boolean isValidDeadline(Date dueDate) {
         return !(dueDate.isBefore(Date.now()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) other;
+        return deadline.dueDate.equals(((Deadline) other).dueDate)
+            && deadline.priority.equals(((Deadline) other).priority)
+            && deadline.isDone == ((Deadline) other).isDone
+            && deadline.isOverdue == ((Deadline) other).isOverdue
+            && deadline.getName().equals(((Deadline) other).getName());
+    }
+
 }

@@ -8,6 +8,7 @@ import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
+import nasa.model.activity.Schedule;
 
 /**
  * Jackson-friendly version of {@link Deadline}.
@@ -21,21 +22,23 @@ class JsonAdaptedDeadline {
     private final String note;
     private final String priority;
     private final String dueDate;
+    private final String schedule;
 
     /**
      * Constructs a {@code JsonAdaptedDeadline} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedDeadline(@JsonProperty("type") String type, @JsonProperty("name") String name,
+    public JsonAdaptedDeadline(@JsonProperty("name") String name,
                                @JsonProperty("date") String date, @JsonProperty("note") String note,
-                               @JsonProperty("status") String status,
                                @JsonProperty("priority") String priority,
-                               @JsonProperty("dueDate") String dueDate) {
+                               @JsonProperty("dueDate") String dueDate,
+                               @JsonProperty("schedule") String schedule) {
         this.name = name;
         this.date = date;
         this.note = note;
         this.priority = priority;
         this.dueDate = dueDate;
+        this.schedule = schedule;
     }
 
     /**
@@ -47,6 +50,7 @@ class JsonAdaptedDeadline {
         note = source.getNote().toString();
         priority = source.getPriority().toString();
         dueDate = source.getDueDate().toString();
+        schedule = source.getSchedule().toString();
     }
 
     /**
@@ -99,6 +103,11 @@ class JsonAdaptedDeadline {
         }
         final Date modelDueDate = new Date(dueDate);
 
-        return new Deadline(modelName, modelDate, modelNote, modelPriority, modelDueDate);
+        Schedule modelSchedule = new Schedule(schedule);
+
+        Deadline deadline = new Deadline(modelName, modelDate, modelNote, modelPriority, modelDueDate);
+        deadline.setSchedule(modelSchedule);
+
+        return deadline;
     }
 }

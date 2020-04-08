@@ -45,22 +45,26 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
-        Deadline deadline = new Deadline(activityName, dueDate);
+        try {
+            Deadline deadline = new Deadline(activityName, dueDate);
 
-        // optional fields - must see if it exist, else create null
-        Note note;
-        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
-            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-            deadline.setNote(note);
-        } else {
-            note = null;
-        }
+            // optional fields - must see if it exist, else create null
+            Note note;
+            if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
+                note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+                deadline.setNote(note);
+            } else {
+                note = null;
+            }
 
-        Priority priority = new Priority();
-        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
-            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+            Priority priority = new Priority();
+            if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+                priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+            }
+            deadline.setPriority(priority);
+            return new AddDeadlineCommand(deadline, moduleCode);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Deadline.DATE_CONSTRAINTS);
         }
-        deadline.setPriority(priority);
-        return new AddDeadlineCommand(deadline, moduleCode);
     }
 }

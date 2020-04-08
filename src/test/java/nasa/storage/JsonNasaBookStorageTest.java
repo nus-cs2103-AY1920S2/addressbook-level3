@@ -75,7 +75,7 @@ public class JsonNasaBookStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addModule(GEH1001);
-        original.removeModule(CS2103T);
+        original.removeModule(CS2103T.getModuleCode());
         jsonNasaBookStorage.saveNasaBook(original, filePath);
         readBack = jsonNasaBookStorage.readNasaBook(filePath).get();
         assertEquals(original, new NasaBook(readBack));

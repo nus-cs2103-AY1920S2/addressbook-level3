@@ -7,6 +7,7 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
+import nasa.model.activity.Schedule;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -19,6 +20,8 @@ class JsonAdaptedEvent {
     private final String note;
     private final String startDate;
     private final String endDate;
+    private final String schedule;
+
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given activity details.
@@ -26,12 +29,14 @@ class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("name") String name, @JsonProperty("date") String date, 
                             @JsonProperty("note") String note, @JsonProperty("startDate") String startDate,
-                            @JsonProperty("endDate") String endDate) {
+                            @JsonProperty("endDate") String endDate,
+                            @JsonProperty("schedule") String schedule) {
         this.name = name;
         this.date = date;
         this.note = note;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.schedule = schedule;
     }
 
     /**
@@ -43,6 +48,7 @@ class JsonAdaptedEvent {
         note = source.getNote().toString();
         startDate = source.getStartDate().toString();
         endDate = source.getEndDate().toString();
+        schedule = source.getSchedule().toString();
     }
 
     /**
@@ -94,7 +100,12 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelEndDate = new Date(endDate);
+        
+        Schedule modelSchedule = new Schedule(schedule);
 
-        return new Event(modelName, modelDate, modelNote, eventStartDate, modelEndDate);
+        Event event = new Event(modelName, modelDate, modelNote, eventStartDate, modelEndDate);
+        event.setSchedule(modelSchedule);
+
+        return event;
     }
 }

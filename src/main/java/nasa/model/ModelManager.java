@@ -9,11 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
+import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
 import nasa.model.quote.Quote;
 
@@ -213,9 +215,33 @@ public class ModelManager implements Model {
         updateHistory();
     }
 
-    public boolean setSchedule(ModuleCode module, Name activity, Index type) {
-        requireAllNonNull(module, activity, type);
-        boolean hasExecuted = nasaBook.setSchedule(module, activity, type);
+    @Override
+    public void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline) {
+        requireAllNonNull(target, editedDeadline);
+
+        nasaBook.setDeadline(moduleCode, target, editedDeadline);
+        updateHistory();
+    }
+    
+    @Override
+    public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        nasaBook.setEvent(moduleCode, target, editedEvent);
+        updateHistory();
+    }
+
+    public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
+        requireAllNonNull(module, index, type);
+        boolean hasExecuted = nasaBook.setDeadlineSchedule(module, index, type);
+        updateHistory();
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        return hasExecuted;
+    }
+
+    public boolean setEventSchedule(ModuleCode module, Index index, Index type) {
+        requireAllNonNull(module, index, type);
+        boolean hasExecuted = nasaBook.setEventSchedule(module, index, type);
         updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         return hasExecuted;
@@ -223,10 +249,10 @@ public class ModelManager implements Model {
 
     //=========== Filtered Module List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
-     * {@code versionedNasaBook}
-     */
+    public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
+        return nasaBook.hasActivity(moduleCode, activity);
+    }
+    
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
@@ -248,6 +274,14 @@ public class ModelManager implements Model {
     public ObservableList<Deadline> getFilteredDeadlineList(ModuleCode moduleCode) {
         Module module = nasaBook.getModule(moduleCode);
         return module.getDeadlineList().getActivityList();
+    }
+
+    @Override
+    public void sortDeadlineList(SortMethod sortMethod) {
+        requireNonNull(sortMethod);
+        for (Module module : filteredModules) {
+            module.sortDeadlineList(sortMethod);
+        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.Locale;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -208,6 +209,9 @@ public class CalendarView extends UiPart<Region> {
                 module.getFilteredDeadlineList();
             for (Deadline deadline : deadlineObservableList) {
                 if (deadline.occurInMonth(currentMonth)) {
+                    if (deadline.getDueDate().getDate().getYear() != currentYear) {
+                        continue;
+                    }
                     int activityDate = getDayOfMonth(deadline);
                     if (activityHashMap.containsKey(activityDate)) {
                         activityHashMap.get(activityDate).add(deadline);
@@ -247,6 +251,8 @@ public class CalendarView extends UiPart<Region> {
                 for (Activity activity : dateActivities) {
                     if (counter <= 3) {
                         Label activityLabel = getActivityLabel(activity);
+                        Bounds bounds = calendarGrid.getCellBounds(2, 2);
+                        activityLabel.setMinWidth(bounds.getWidth() - 5);
                         dateContent.getChildren().add(activityLabel);
                         counter++;
                     } else {
@@ -274,7 +280,7 @@ public class CalendarView extends UiPart<Region> {
      */
     private Label getActivityLabel(Activity activity) {
         Label activityLabel = new Label();
-        activityLabel.setText(activity.toString());
+        activityLabel.setText(activity.getName().toString());
         activityLabel.setPadding(new Insets(0, 5, 0, 5));
         if (activity instanceof Deadline) {
             // color it red
@@ -287,6 +293,7 @@ public class CalendarView extends UiPart<Region> {
             activityLabel.setStyle("-fx-background-color:green; -fx-background-radius: 5 5 5 5");
         }
         activityLabel.setTextFill(Color.BLACK);
+        activityLabel.setAlignment(Pos.CENTER);
         return activityLabel;
     }
 

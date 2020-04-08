@@ -3,7 +3,7 @@ package nasa.model.module;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 import java.util.Comparator;
-import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
 
 /**
  * Represents a SortMethod in NASA.
@@ -13,7 +13,7 @@ public class SortMethod {
 
     public static final String MESSAGE_CONSTRAINTS = "Sort method must be either name, date, or priority.";
     private final String sortMethodString;
-    private final Comparator<Activity> comparator;
+    private final Comparator<Deadline> comparator;
 
     /**
      * Constructs a {@code SortMethod}.
@@ -43,26 +43,25 @@ public class SortMethod {
 
     /**
      * Returns the Comparator of the sort method.
-     * @return The Comparator used to sort the activity list.
+     * @return The Comparator used to sort the deadline list.
      */
-    public Comparator<Activity> getComparator() {
+    public Comparator<Deadline> getComparator() {
         return comparator;
     }
 
     /**
-     * Returns the comparator used to sort the activity list.
+     * Returns the comparator used to sort the deadline list.
      * @return The comparator of this instance of {@code SortMethod}.
      */
-    public Comparator<Activity> generateComparator(String method) {
+    public Comparator<Deadline> generateComparator(String method) {
         /*
         Default comparator, sorts in ascending order.
-        Lexicographically biggest, latest added, highest priority at the top of the module activity list.
+        Lexicographically smallest(a-z), earliest due date, highest priority at the top of the module deadline list.
          */
-        Comparator<Activity> nameSorter = Comparator.comparing(l -> l.getName().toString(),
+        Comparator<Deadline> nameSorter = Comparator.comparing(l -> l.getName().toString(),
                 String.CASE_INSENSITIVE_ORDER);
-        Comparator<Activity> dateSorter = Comparator.comparing(l -> l.getRepeatDate().getRepeatDate(),
-                Comparator.reverseOrder());
-        Comparator<Activity> prioritySorter = Comparator.comparing(l -> l.getPriority().toString(),
+        Comparator<Deadline> dateSorter = Comparator.comparing(l -> l.getDueDate().toString());
+        Comparator<Deadline> prioritySorter = Comparator.comparing(l -> l.getPriority().toString(),
                 Comparator.reverseOrder());
 
         switch (method) {

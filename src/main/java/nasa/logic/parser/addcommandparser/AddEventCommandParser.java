@@ -47,7 +47,6 @@ public class AddEventCommandParser extends AddCommandParser {
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         try {
             Event event = new Event(activityName, startDate, endDate);
-
             // optional fields - must see if it exist, else create null
             Note note;
             if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {

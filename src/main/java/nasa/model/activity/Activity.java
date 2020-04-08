@@ -10,6 +10,7 @@ public abstract class Activity {
     private Name name;
     private Note note;
     private Date dateCreated;
+    private Schedule schedule;
 
     /**
      * Constructor to create an activity.
@@ -20,6 +21,7 @@ public abstract class Activity {
         this.name = name;
         dateCreated = Date.now();
         note = new Note("-");
+        schedule = new Schedule(dateCreated);
     }
 
 
@@ -32,6 +34,7 @@ public abstract class Activity {
         this.name = name;
         this.dateCreated = dateCreated;
         this.note = note;
+        schedule = new Schedule(dateCreated);
     }
 
     /**
@@ -61,7 +64,7 @@ public abstract class Activity {
 
     /**
      * Method to the set the name of the activity.
-     * @param Name
+     * @param name
      */
     public void setName(Name name) {
         requireAllNonNull(name);
@@ -85,6 +88,22 @@ public abstract class Activity {
         this.dateCreated = dateCreated;
     }
 
+    public Date getScheduleDate() {
+        return schedule.getRepeatDate();
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(int type) {
+        schedule.setType(type);
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
     /**
      * Method to check if the activity occurs in that month.
      * @param month Month currently in
@@ -92,15 +111,7 @@ public abstract class Activity {
      */
     public abstract boolean occurInMonth(int month);
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Activity)) {
-            return false;
-        }
-
-        Activity activity = (Activity) o;
-        return ((Activity) o).name == this.name;
-    }
-
     public abstract Activity deepCopy();
+
+    public abstract Activity regenerate();
 }

@@ -17,12 +17,13 @@ import nasa.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates a new EditDeadlineCommand object
+ * Format: edit-d INDEX 
  */
 public class EditDeadlineCommandParser implements Parser<EditDeadlineCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditDeadlineCommand
-     * and returns an EditCommand object for execution.
+     * and returns an EditDeadlineCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditDeadlineCommand parse(String args) throws ParseException {
@@ -47,11 +48,12 @@ public class EditDeadlineCommandParser implements Parser<EditDeadlineCommand> {
 
         EditDeadlineCommand.EditDeadlineDescriptor editDeadlineDescriptor =
                 new EditDeadlineCommand.EditDeadlineDescriptor();
+
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editDeadlineDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+            editDeadlineDescriptor.setDueDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_ACTIVITY_NAME).isPresent()) {
-            editDeadlineDescriptor.setName(ParserUtil.parseDeadlineName(
+            editDeadlineDescriptor.setName(ParserUtil.parseActivityName(
                     argMultimap.getValue(PREFIX_ACTIVITY_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {

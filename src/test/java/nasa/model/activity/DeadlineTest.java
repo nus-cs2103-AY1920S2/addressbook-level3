@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import jdk.internal.jline.internal.TestAccessible;
+import jdk.jfr.Timestamp;
 import nasa.testutil.Assert;
 
 class DeadlineTest {
@@ -14,8 +16,7 @@ class DeadlineTest {
     @Test
     void create_deadline() {
         Deadline subject = new Deadline(new Name("Test"), new Date("20-04-2020 03:00"), new Note("Practice"));
-        subject.updateStatus();
-        assertFalse(subject.isLate());
+        assertFalse(subject.isOverDue());
     }
 
     @Test
@@ -36,12 +37,11 @@ class DeadlineTest {
     }
 
     @Test
-    void percentage() {
+    void set_done() {
         Deadline subject = (Deadline) DEADLINE;
-        subject.setDate(new Date("20-03-2020 00:00"));
-        subject.setDueDate(new Date("30-03-2020 03:00"));
-        Date currentDate = new Date("26-03-2020 03:00");
+        subject.setDone(true);
 
-        assertTrue(subject.percentage(currentDate) > 50);
+        assertTrue(subject.isDone());
     }
+
 }

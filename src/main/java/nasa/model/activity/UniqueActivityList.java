@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
+import nasa.model.activity.exceptions.DuplicateActivityException;
 
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
@@ -26,6 +27,14 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
     private final ObservableList<T> internalList = FXCollections.observableArrayList();
     private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Returns true if the list contains an equivalent T as the given argument.
+     */
+    public boolean contains(T toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
 
     /**
      * Adds a activity to the list.
@@ -52,10 +61,20 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
                 .get();
     }
 
-    public void setActivityByIndex(Index index, T activity) {
-        requireNonNull(activity);
+    public void setActivity(T targetActivity, T editedActivity) {
+        requireAllNonNull(targetActivity, editedActivity);
 
-        internalList.set(index.getZeroBased(), activity);
+        int index = internalList.indexOf(targetActivity);
+        
+        if (index == -1) {
+            throw new ActivityNotFoundException();
+        }
+
+        if (targetActivity.equals(editedActivity) && contains(editedActivity)) {
+            throw new DuplicateActivityException();
+        }
+        
+        internalList.set(index, editedActivity);
     }
 
     /**
@@ -120,6 +139,10 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
      */
     public ObservableList<T> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    public void setSchedule(Index index, Index type) {
+        internalList.get(index.getZeroBased()).setSchedule(type.getZeroBased());
     }
 
     @Override

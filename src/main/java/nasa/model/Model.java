@@ -108,8 +108,8 @@ public interface Model {
      * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the nasa book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
-     * @param target Module
-     * @param editedModule Module
+     * @param target Module code of the module that exists in model's nasaBook
+     * @param editedModule newly edited Module
      */
     void setModule(ModuleCode target, Module editedModule);
 
@@ -121,11 +121,17 @@ public interface Model {
 
     void removeDeadline(ModuleCode moduleCode, Deadline deadline);
 
+    void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline);
+
+    void setEvent(ModuleCode moduleCode, Event target, Event editedEvent);
+
     ObservableList<Module> getFilteredModuleList();
 
     void updateFilteredModuleList(Predicate<Module> predicate);
 
     ObservableList<Deadline> getFilteredDeadlineList(ModuleCode moduleCode);
+
+    void sortDeadlineList(SortMethod sortMethod);
 
     ObservableList<Event> getFilteredEventList(ModuleCode moduleCode);
 

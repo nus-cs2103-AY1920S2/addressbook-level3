@@ -103,8 +103,13 @@ public class Module {
         eventList.setActivities(events);
     }
 
-    public void setSchedule(Name activityName, Index index) {
-        deadlineList.setSchedule(activityName, index);
+    public void setDeadlineSchedule(Index index, Index type) {
+        deadlineList.setSchedule(index, type);
+        updateFilteredActivityList(x -> true);
+    }
+    
+    public void setEventSchedule(Index index, Index type) {
+        eventList.setSchedule(index, type);
         updateFilteredActivityList(x -> true);
     }
 
@@ -155,12 +160,11 @@ public class Module {
     }
 
     /**
-     * Sorts module's activity list by the specified {@code sortMethod}.
-     * @param sortMethod Method of sorting the activities in the module activity list.
+     * Sorts module's deadline list by the specified {@code sortMethod}.
+     * @param sortMethod Method of sorting the activities in the module deadline list.
      */
-    public void sortActivityList(SortMethod sortMethod) {
-        Comparator<Activity> comparator = sortMethod.getComparator();
-        this.eventList.getActivityList().sort(comparator);
+    public void sortDeadlineList(SortMethod sortMethod) {
+        Comparator<Deadline> comparator = sortMethod.getComparator();
         this.deadlineList.getActivityList().sort(comparator);
     }
 
@@ -185,5 +189,31 @@ public class Module {
     @Override
     public String toString() {
         return String.format("%s %s", moduleCode, moduleName);
+    }
+
+    public boolean hasDeadline(Deadline deadline) {
+        for (Deadline currentDeadline : deadlineList.getActivityList()) {
+            if (currentDeadline == deadline) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasEvent(Event event) {
+        for (Event currentEvent : eventList.getActivityList()) {
+            if (currentEvent == event) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasActivity(Activity activity) {
+        if (activity instanceof Deadline) {
+            return hasDeadline((Deadline) activity);
+        } else {
+            return hasEvent((Event) activity);
+        }
     }
 }

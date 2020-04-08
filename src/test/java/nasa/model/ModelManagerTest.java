@@ -2,6 +2,13 @@ package nasa.model;
 
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static nasa.testutil.Assert.assertThrows;
+import static nasa.testutil.ModuleBuilder.DEADLINE_1;
+import static nasa.testutil.ModuleBuilder.DEADLINE_2;
+import static nasa.testutil.ModuleBuilder.DEADLINE_3;
+import static nasa.testutil.ModuleBuilder.DEADLINE_4;
+import static nasa.testutil.ModuleBuilder.EVENT_1;
+import static nasa.testutil.ModuleBuilder.EVENT_2;
+import static nasa.testutil.ModuleBuilder.EVENT_3;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
@@ -18,8 +25,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
-import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
+import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.testutil.NasaBookBuilder;
 
 class ModelManagerTest {
@@ -30,7 +40,6 @@ class ModelManagerTest {
     private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<>(),
             new UserPrefs());
 
-    /*
     @Test
     void initialisation() {
         assertTrue(modelManager.getNasaBook().equals(NASABOOK_TYPE_1));
@@ -42,7 +51,7 @@ class ModelManagerTest {
 
     @Test
     void getFilteredModuleListTest() {
-        ObservableList<Activity> list = modelManager.getFilteredModuleList();
+        ObservableList<Module> list = modelManager.getFilteredModuleList();
 
         assertEquals(new ModuleCode("CS2106"), list.get(0).getModuleCode());
         assertEquals(new ModuleCode("GEH1001"), list.get(1).getModuleCode());
@@ -51,7 +60,7 @@ class ModelManagerTest {
 
     @Test
     void getFilteredDeadlineListTest() {
-        ObservableList<Activity> deadlineList = modelManager.getFilteredDeadlineList(new ModuleCode("CS2103T"));
+        ObservableList<Deadline> deadlineList = modelManager.getFilteredDeadlineList(new ModuleCode("CS2103T"));
 
         assertEquals(DEADLINE_1, deadlineList.get(0));
         assertEquals(DEADLINE_2, deadlineList.get(1));
@@ -61,7 +70,7 @@ class ModelManagerTest {
 
     @Test
     void getFilteredEventListTest() {
-        ObservableList<Activity> eventList = modelManager.getFilteredEventList(new ModuleCode("CS2103T"));
+        ObservableList<Event> eventList = modelManager.getFilteredEventList(new ModuleCode("CS2103T"));
 
         assertEquals(EVENT_1, eventList.get(0));
         assertEquals(EVENT_2, eventList.get(1));
@@ -76,6 +85,54 @@ class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new NasaBook(), new NasaBook(modelManager.getNasaBook()));
+    }
+
+    @Test
+    public void addModule_uniqueModule_success() {
+        modelManager.addModule(GEH1001);
+        assertTrue(modelManager.hasModule(GEH1001.getModuleCode()));
+    }
+
+    @Test
+    public void addModule_duplicateModule_failure() {
+        modelManager.addModule(GEH1001);
+        assertThrows(DuplicateModuleException.class, () -> modelManager.addModule(GEH1001));
+    }
+
+    @Test
+    public void removeModule_success() {
+        modelManager.addModule(GEH1001);
+        modelManager.deleteModule(GEH1001.getModuleCode());
+        assertFalse(modelManager.hasModule(GEH1001.getModuleCode()));
+    }
+
+    @Test
+    public void removeDeadline_success() {
+        modelManager.addModule(GEH1001);
+        modelManager.addDeadline(GEH1001.getModuleCode(), DEADLINE_1);
+        modelManager.removeDeadline(GEH1001.getModuleCode(), DEADLINE_1);
+        assertFalse(modelManager.hasActivity(GEH1001.getModuleCode(), DEADLINE_1));
+    }
+
+    @Test
+    public void removeEvent_success() {
+        modelManager.addModule(GEH1001);
+        modelManager.addEvent(GEH1001.getModuleCode(), EVENT_1);
+        modelManager.removeEvent(GEH1001.getModuleCode(), EVENT_1);
+        assertFalse(modelManager.hasActivity(GEH1001.getModuleCode(), EVENT_1));
+    }
+
+    @Test
+    public void hasActivity_success() {
+        modelManager.addModule(CS2106);
+        modelManager.addDeadline(CS2106.getModuleCode(), DEADLINE_3);
+        assertTrue(modelManager.hasActivity(CS2106.getModuleCode(), DEADLINE_3));
+    }
+
+    @Test
+    public void hasActivity_failure() {
+        modelManager.addModule(CS2106);
+        assertFalse(modelManager.hasActivity(CS2106.getModuleCode(), EVENT_2));
     }
 
     @Test
@@ -177,6 +234,5 @@ class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setNasaBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(nasaBook, new HistoryBook<>(), differentUserPrefs)));
-    }*/
-
+    }
 }
