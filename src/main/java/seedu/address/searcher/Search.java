@@ -87,6 +87,6 @@ public class Search {
                 e.printStackTrace();
             }
         }
-        return output;
+        return output + "\n";
     }
 }
