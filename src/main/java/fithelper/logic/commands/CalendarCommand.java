@@ -21,7 +21,7 @@ public class CalendarCommand extends Command {
             + PREFIX_MODE + "MODE "
             + PREFIX_SHOW + "SHOW "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "tmr"
+            + PREFIX_DATE + "2020-04-20"
             + PREFIX_MODE + "list"
             + PREFIX_SHOW + "2020-04-20";
 
@@ -51,7 +51,7 @@ public class CalendarCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date: "
-                + model.getCalendarDate().toLocalDate())
+                + model.getCalendarDate())
                 + "\nMode: " + mode, CALENDAR, false);
     }
 

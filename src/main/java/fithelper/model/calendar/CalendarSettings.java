@@ -1,35 +1,35 @@
 package fithelper.model.calendar;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * Stores information about user preferences
  */
 public class CalendarSettings {
-    private LocalDateTime date;
-    private LocalDateTime show;
+    private LocalDate date;
+    private LocalDate show;
     private String mode;
-    public CalendarSettings(LocalDateTime date, String mode) {
+    public CalendarSettings(LocalDate date, String mode) {
         this.date = date;
         this.mode = mode;
         this.show = null;
     }
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
     public String getMode() {
         return this.mode;
     }
-    public LocalDateTime getShow() {
+    public LocalDate getShow() {
         return this.show;
     }
-    public void setDate(LocalDateTime dateToSet) {
+    public void setDate(LocalDate dateToSet) {
         this.date = dateToSet;
     }
     public void setMode(String modeToSet) {
         this.mode = modeToSet;
     }
-    public void setShow(LocalDateTime show) {
+    public void setShow(LocalDate show) {
         this.show = show;
     }
 }

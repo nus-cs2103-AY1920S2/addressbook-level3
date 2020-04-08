@@ -3,7 +3,6 @@ package fithelper.ui.calendar;
 import java.time.LocalDateTime;
 
 import fithelper.model.entry.Entry;
-import fithelper.ui.FoodCard;
 import fithelper.ui.UiPart;
 
 import javafx.collections.FXCollections;
@@ -49,7 +48,7 @@ public class UpcomingList extends UiPart<StackPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FoodCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new EntryCardSmallerWidth(entry, getIndex() + 1).getRoot());
             }
         }
     }
@@ -73,7 +72,8 @@ public class UpcomingList extends UiPart<StackPane> {
      */
     public void addFilteredEntries(ObservableList<Entry> list) {
         for (Entry entry : list) {
-            if (time.isBefore(entry.getDateTime()) && time.getMonth().equals(entry.getDateTime().getMonth())) {
+            if (time.isBefore(entry.getDateTime()) && time.getMonth().equals(entry.getDateTime().getMonth())
+                    && !entry.isDone()) {
                 combined.add(entry);
             }
         }

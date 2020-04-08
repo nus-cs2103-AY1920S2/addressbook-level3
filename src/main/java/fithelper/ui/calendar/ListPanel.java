@@ -1,7 +1,6 @@
 package fithelper.ui.calendar;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
@@ -43,12 +42,12 @@ public class ListPanel extends UiPart<AnchorPane> {
         this.foodList = foodList;
         this.sportList = sportList;
         logger.info("Initializing Calendar Page");
-        daysPage = new DaysCard(foodList, sportList, LocalDateTime.now());
-        set(LocalDateTime.now());
+        daysPage = new DaysCard(foodList, sportList, LocalDate.now());
+        set(LocalDate.now());
     }
 
     // set date reference based on parameter date
-    public void set(LocalDateTime date) {
+    public void set(LocalDate date) {
         getGenerator(date);
         MonthView monthView = new MonthView(date, stats, foodList, sportList);
         monthViewPlaceholder.getChildren().clear();
@@ -61,8 +60,7 @@ public class ListPanel extends UiPart<AnchorPane> {
         dailyStatusListPlaceholder.getChildren().add(dailyStatusList.getRoot());
     }
 
-    public void getGenerator(LocalDateTime date) {
-        LocalDate givenDate = date.toLocalDate();
+    public void getGenerator(LocalDate givenDate) {
         LocalDate start = givenDate.withDayOfMonth(1);
         LocalDate end = givenDate.withDayOfMonth(givenDate.lengthOfMonth());
         stats = new CalorieCalculatorByDateRange(foodList, sportList, start, end);

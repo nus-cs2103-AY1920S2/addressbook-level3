@@ -12,9 +12,9 @@ import javafx.scene.text.Text;
 /**
  * An UI component that displays information of a {@code Entry}.
  */
-public class EntryCard extends UiPart<AnchorPane> {
+public class EntryCardSmallerWidth extends UiPart<AnchorPane> {
 
-    private static final String FXML = "EntryCard.fxml";
+    private static final String FXML = "EntryCardSmallerWidth.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -35,21 +35,18 @@ public class EntryCard extends UiPart<AnchorPane> {
     @FXML
     private Text place;
     @FXML
-    private Label calorie;
-    @FXML
     private Text name;
     @FXML
     private HBox box1;
     @FXML
     private HBox box2;
 
-    public EntryCard(Entry entry) {
+    public EntryCardSmallerWidth(Entry entry) {
         super(FXML);
         this.entry = entry;
         name.setText(entry.getName().toString());
         time.setText(entry.getTime().toString());
         place.setText(entry.getLocation().toString());
-        calorie.setText(entry.getCalorie().toString());
     }
 
     /**
@@ -58,7 +55,7 @@ public class EntryCard extends UiPart<AnchorPane> {
      * @param entry a list of sport entries
      * @param displayedIndex the index of the order to show on the card
      */
-    public EntryCard(Entry entry, int displayedIndex) {
+    public EntryCardSmallerWidth(Entry entry, int displayedIndex) {
         super(FXML);
         this.entry = entry;
         fillInDetails(entry, displayedIndex);
@@ -75,26 +72,22 @@ public class EntryCard extends UiPart<AnchorPane> {
         time.setText(entry.getTime().toString() + " - "
                 + entry.getEndTime().toLocalTime().toString());
         place.setText(entry.getLocation().toString());
-        calorie.setText(entry.getCalorie().toString());
         if (entry.isDone()) {
             name.setStrikethrough(true);
             place.setStrikethrough(true);
             time.setStrikethrough(true);
-            calorie.setTextFill(Color.GREY);
             box1.setStyle("-fx-background-color:GREY; -fx-border-color:GREY");
             box2.setStyle("-fx-border-color:GREY");
             index.setStyle("-fx-background-color: GREY;");
             place.setFill(Color.GREY);
             time.setFill(Color.GREY);
         } else if (entry.isFood()) {
-            calorie.setTextFill(Color.valueOf("#789cce"));
             box1.setStyle("-fx-background-color:#789cce; -fx-border-color:#789cce");
             box2.setStyle("-fx-border-color:#789cce");
             index.setStyle("-fx-background-color: #789cce;");
             place.setFill(Color.valueOf("#789cce"));
             time.setFill(Color.valueOf("#789cce"));
         } else {
-            calorie.setTextFill(Color.valueOf("#ef827d"));
             box1.setStyle("-fx-background-color:#ef827d; -fx-border-color:#ef827d");
             box2.setStyle("-fx-border-color:#ef827d");
             index.setStyle("-fx-background-color: #ef827d");
@@ -117,7 +110,7 @@ public class EntryCard extends UiPart<AnchorPane> {
         }
 
         // state check
-        EntryCard card = (EntryCard) other;
+        EntryCardSmallerWidth card = (EntryCardSmallerWidth) other;
         return entry.equals(card.entry);
     }
 }

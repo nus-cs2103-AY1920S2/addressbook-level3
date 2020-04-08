@@ -261,8 +261,8 @@ public class MainWindow extends UiPart<Stage> {
         if (logic.getCalendarShow() != null) {
             logger.info("Showing day page about this date.");
             ObservableList<Entry> entries = EntriesUtil.getEntries(logic.getFilteredFoodEntryList(),
-                    logic.getFilteredSportsEntryList(), logic.getCalendarShow().toLocalDate());
-            DayCardWithStage temp = new DayCardWithStage(entries, logic.getCalendarShow().toLocalDate());
+                    logic.getFilteredSportsEntryList(), logic.getCalendarShow());
+            DayCardWithStage temp = new DayCardWithStage(entries, logic.getCalendarShow());
             temp.getRoot().show();
             temp.getRoot().centerOnScreen();
             logic.setCalendarShow();

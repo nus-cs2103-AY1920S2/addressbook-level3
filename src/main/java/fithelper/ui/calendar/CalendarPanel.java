@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.calculator.CalorieCalculatorByDateRange;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Time;
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
@@ -52,8 +53,8 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         this.sportList = sportList;
         logger.info("Initializing Calendar Page");
         calendarPage = new CalendarPage(events);
-        daysPage = new DaysCard(foodList, sportList, LocalDateTime.now());
-        set(LocalDateTime.now());
+        daysPage = new DaysCard(foodList, sportList, LocalDate.now());
+        set(LocalDate.now());
     }
 
     public void updateScheduler() {
@@ -61,23 +62,23 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     }
 
     // set date reference based on parameter date
-    public void set(LocalDateTime date) {
+    public void set(LocalDate date) {
         getGenerator(date);
+        LocalDateTime temp = new Time(date + "-12:00").getDateTime();
         monthView = new MonthView(date, stats, foodList, sportList);
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
-        upcomingList = new UpcomingList(foodList, sportList, date);
+        upcomingList = new UpcomingList(foodList, sportList, temp);
         upcomingListPlaceholder.getChildren().clear();
         upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         daysPagePlaceholder.getChildren().clear();
-        calendarPage.setDate(date);
+        calendarPage.setDate(temp);
         calendarPage.updateScheduler();
         calendarPagePlaceholder.getChildren().clear();
         calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
     }
 
-    public void getGenerator(LocalDateTime date) {
-        LocalDate givenDate = date.toLocalDate();
+    public void getGenerator(LocalDate givenDate) {
         LocalDate start = givenDate.withDayOfMonth(1);
         LocalDate end = givenDate.withDayOfMonth(givenDate.lengthOfMonth());
         stats = new CalorieCalculatorByDateRange(foodList, sportList, start, end);
