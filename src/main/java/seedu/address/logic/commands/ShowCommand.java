@@ -132,6 +132,7 @@ public class ShowCommand extends Command {
                 message = MESSAGE_SUCCESS_FOCUS_AREA;
                 String focusArea = (String) toParse;
                 toShow = courseManager.getCourseFocusArea(focusArea);
+                ((CourseFocusArea) toShow).initListModule(moduleManager.getModuleList());
                 profileManager.setDisplayedView((CourseFocusArea) toShow);
 
             } else if (toParse instanceof CourseName) {

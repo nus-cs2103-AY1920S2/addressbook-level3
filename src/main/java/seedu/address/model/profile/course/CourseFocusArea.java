@@ -1,7 +1,10 @@
 package seedu.address.model.profile.course;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.ModuleList;
+import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
 /**
@@ -13,6 +16,8 @@ public class CourseFocusArea {
     private final String focusAreaName;
     private final List<ModuleCode> primaries;
     private final List<ModuleCode> electives;
+    private final List<Module> primariesMod = new ArrayList<>();
+    private final List<Module> electivesMod = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -80,11 +85,21 @@ public class CourseFocusArea {
         return sb.toString();
     }
 
-    public List<ModuleCode> getPrim() {
-        return this.primaries;
+    public void initListModule(ModuleList moduleList) {
+        for (ModuleCode mc : primaries) {
+            primariesMod.add(moduleList.getModuleWithModuleCode(mc));
+        }
+
+        for (ModuleCode mc : electives) {
+            electivesMod.add(moduleList.getModuleWithModuleCode(mc));
+        }
     }
 
-    public List<ModuleCode> getElec() {
-        return this.electives;
+    public List<Module> getPrim() {
+        return this.primariesMod;
+    }
+
+    public List<Module> getElec() {
+        return this.electivesMod;
     }
 }
