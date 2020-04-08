@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
@@ -40,9 +41,9 @@ public class TypicalPersons {
 
     // Manually added - Profile's details found in {@code CommandTestUtil}
     public static final Profile AMY = new PersonBuilder().withName(VALID_NAME_AMY)
-            .withCourseName(VALID_COURSE_CS).build();
+            .withCourseName(VALID_COURSE_AMY).build();
     public static final Profile BOB = new PersonBuilder().withName(VALID_NAME_BOB)
-            .withCourseName(VALID_COURSE_CS).build();
+            .withCourseName(VALID_COURSE_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
