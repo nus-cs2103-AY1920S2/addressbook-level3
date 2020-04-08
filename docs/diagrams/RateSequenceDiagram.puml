@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":RateCommandParser" as RateCommandParser LOGIC_COLOR
+participant "rc:RateCommand" as RateCommand LOGIC_COLOR
+participant "pf:PurchasedFood" as PurchasedFood LOGIC_COLOR
+participant ":Rating" as Rating LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("rate " + INDEX + RATING)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("rate " + INDEX + RATING)
+activate FoodieBotParser
+
+FoodieBotParser -> RateCommandParser : parse(INDEX + RATING)
+activate RateCommandParser
+
+create Rating
+RateCommandParser -> Rating : new Rating(RATING)
+
+Rating --> RateCommandParser
+
+create RateCommand
+RateCommandParser -> RateCommand
+activate RateCommand
+
+RateCommand --> RateCommandParser :
+deactivate RateCommand
+
+RateCommandParser --> FoodieBotParser : rc
+deactivate RateCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+RateCommandParser -[hidden]-> FoodieBotParser
+destroy RateCommandParser
+
+FoodieBotParser --> LogicManager : rc
+deactivate FoodieBotParser
+
+LogicManager -> RateCommand : execute(model)
+activate RateCommand
+
+RateCommand -> Model : loadFilteredTransactionsList()
+activate Model
+
+Model --> RateCommand :
+deactivate Model
+
+RateCommand -> Model : getFoodieBot().getTransactionsList()
+activate Model
+
+Model --> RateCommand
+deactivate Model
+
+create PurchasedFood
+RateCommand -> PurchasedFood
+activate PurchasedFood
+
+PurchasedFood -> Rating : setRating()
+activate Rating
+
+Rating --> PurchasedFood
+deactivate Rating
+
+PurchasedFood --> RateCommand
+deactivate PurchasedFood
+
+create CommandResult
+RateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RateCommand
+deactivate CommandResult
+
+RateCommand --> LogicManager : cr
+deactivate RateCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

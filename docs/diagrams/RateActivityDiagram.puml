@@ -1,0 +1,18 @@
+@startuml
+start
+:User Executes Rate Command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+
+:Check validity of Index;
+if () then ([INDEX is valid])
+    :Retrieve Transactions List;
+    :Get Food from Transactions List;
+    :Set Rating to Food;
+else ([else])
+
+endif
+stop
+@enduml

@@ -98,7 +98,6 @@ public class BudgetCommand extends Command {
         if (action.equals("set")) {
             saveBudget(model, budget);
 
-            // Displays an empty list
             model.loadFilteredTransactionsList();
             model.updateFilteredTransactionsList(Objects::isNull);
 
@@ -115,10 +114,12 @@ public class BudgetCommand extends Command {
                             savedBudget.getDateTimeOfCreation()
                     ));
 
+
             if (!savedBudget.equals(new Budget())) {
+                /*
                 if (!systemDateIsInCycleRange(savedBudget)) {
                     savedBudget.resetRemainingBudget();
-                }
+                }*/
                 saveBudget(model, savedBudget);
                 return commandViewSuccess(savedBudget);
             }

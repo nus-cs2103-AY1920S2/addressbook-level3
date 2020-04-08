@@ -1,0 +1,27 @@
+@startuml
+start
+:User Executes Budget Command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+
+if () then ([budget set])
+    :Create New Budget Object;
+    :Save Budget to Model;
+    :Display Empty Transactions List;
+
+else ([budget view])
+    :Load Budget from Model;
+    if () then ([System Date is in DateRange of Budget])
+
+    else
+        :Reset Cycle of Budget;
+    endif
+    :Retrieve Transactions List;
+    :Filter Transactions List between DateRange of Budget;
+    :Display Filtered Transactions List;
+
+endif
+stop
+@enduml

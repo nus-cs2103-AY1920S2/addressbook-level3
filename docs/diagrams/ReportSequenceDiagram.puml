@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":ReportCommandParser" as ReportCommandParser LOGIC_COLOR
+participant "rc:ReportCommand" as ReportCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("report")
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("report")
+activate FoodieBotParser
+
+FoodieBotParser -> ReportCommandParser : parse("report")
+activate ReportCommandParser
+
+create ReportCommand
+ReportCommandParser -> ReportCommand
+activate ReportCommand
+
+ReportCommand --> ReportCommandParser :
+deactivate ReportCommand
+
+ReportCommandParser --> FoodieBotParser : rc
+deactivate ReportCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReportCommandParser -[hidden]-> FoodieBotParser
+destroy ReportCommandParser
+
+FoodieBotParser --> LogicManager : rc
+deactivate FoodieBotParser
+
+LogicManager -> ReportCommand : execute(model)
+activate ReportCommand
+
+ReportCommand -> Model : loadFilteredTransactionsList()
+activate Model
+
+Model --> ReportCommand :
+deactivate Model
+
+ReportCommand -> Model : getReport().create()
+activate Model
+
+Model --> ReportCommand
+deactivate Model
+
+create CommandResult
+ReportCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ReportCommand
+deactivate CommandResult
+
+ReportCommand --> LogicManager : cr
+deactivate ReportCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

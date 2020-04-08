@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":ReviewCommandParser" as ReviewCommandParser LOGIC_COLOR
+participant "rc:ReviewCommand" as ReviewCommand LOGIC_COLOR
+participant "pf:PurchasedFood" as PurchasedFood LOGIC_COLOR
+participant ":Review" as Review LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("review " + INDEX + Review)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("review " + INDEX + Review)
+activate FoodieBotParser
+
+FoodieBotParser -> ReviewCommandParser : parse(INDEX + Review)
+activate ReviewCommandParser
+
+create Review
+ReviewCommandParser -> Review : new Review(Review)
+
+Review --> ReviewCommandParser
+
+create ReviewCommand
+ReviewCommandParser -> ReviewCommand
+activate ReviewCommand
+
+ReviewCommand --> ReviewCommandParser :
+deactivate ReviewCommand
+
+ReviewCommandParser --> FoodieBotParser : rc
+deactivate ReviewCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReviewCommandParser -[hidden]-> FoodieBotParser
+destroy ReviewCommandParser
+
+FoodieBotParser --> LogicManager : rc
+deactivate FoodieBotParser
+
+LogicManager -> ReviewCommand : execute(model)
+activate ReviewCommand
+
+ReviewCommand -> Model : loadFilteredTransactionsList()
+activate Model
+
+Model --> ReviewCommand :
+deactivate Model
+
+ReviewCommand -> Model : getFoodieBot().getTransactionsList()
+activate Model
+
+Model --> ReviewCommand
+deactivate Model
+
+create PurchasedFood
+ReviewCommand -> PurchasedFood
+activate PurchasedFood
+
+PurchasedFood -> Review : setReview()
+activate Review
+
+Review --> PurchasedFood
+deactivate Review
+
+PurchasedFood --> ReviewCommand
+deactivate PurchasedFood
+
+create CommandResult
+ReviewCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ReviewCommand
+deactivate CommandResult
+
+ReviewCommand --> LogicManager : cr
+deactivate ReviewCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

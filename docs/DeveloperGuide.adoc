@@ -241,9 +241,9 @@ The `budget` command is implemented by the `BudgetCommand` class.
 
 This command is accessed by the `LogicManager#execute()` to set the budget for the user or to view the current budget of the user.
 
-The following _activity diagram_ illustrate the different scenario for the budge command:
+The following _activity diagram_ illustrate the different scenario for the budget command:
 
-//image::
+image::BudgetActivityDiagram.png[]
 
 ==== Budget Command Implementation
 
@@ -257,7 +257,7 @@ This process returns a new `BudgetCommand` object.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `budget` command:
 
-//image::
+image::BudgetSequenceDiagram.png[]
 
 ==== Budget Design Considerations
 ===== Aspect: `Budget view` shows the transactions screen
@@ -472,7 +472,7 @@ This command is accessed by the `LogicManager#execute()` to rate a food item.
 
 The following _activity diagram_ illustrates what happens when a user executes the `rate` command:
 
-//image::
+image::RateActivityDiagram.png[]
 
 ==== Rate Command Implementation
 
@@ -486,7 +486,7 @@ update the rating of the food.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `rate` command:
 
-//image::
+image::RateSequenceDiagram.png[]
 
 ==== Rate Design Considerations
 ===== Aspect: Rate command allows 0
@@ -503,7 +503,7 @@ This command is accessed by the `LogicManager#execute()` to review a food item.
 
 The following _activity diagram_ illustrates what happens when a user executes the `review` command:
 
-//image::
+image::ReviewActivityDiagram.png[]
 
 ==== Review Command Implementation
 
@@ -517,7 +517,7 @@ update the review of the food.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `review` command:
 
-//image::
+image::ReviewSequenceDiagram.png[]
 
 ==== Review Design Considerations
 ===== Aspect: `review` uses a separate screen
@@ -531,7 +531,7 @@ Below is the _sequence diagram_ that summarizes what happens during the executio
 If the back command is accepted, the user can't enter the single word `back` as the review message.
 
 
-=== Report Command (Please Update, IDK how it works)
+=== Report Command
 
 The `report` command is implemented by the `ReportCommand` class.
 
@@ -539,7 +539,7 @@ This command is accessed by the `LogicManager#execute()` to review a food item.
 
 The following _activity diagram_ illustrates what happens when a user executes the `report` command:
 
-//image::
+image::ReportActivityDiagram.png[]
 
 ==== Report Command Implementation
 
@@ -552,7 +552,7 @@ This Process returns a `ReportCommand` object to the `LogicManager`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `report` command:
 
-//image::
+image::ReportSequenceDiagram.png[]
 
 ==== Report Design Considerations
 ===== Aspect: Functionality aspect of report
@@ -584,7 +584,8 @@ The following _activity diagram_ illustrates what happens when a user executes t
 This process also checks if the user input is the food index or the food name that is available in that stall.
 Returning a `SelectItemCommand` object to the `LogicManager`.
 . The `LogicManager` then access `SelectItemCommand#execute()`.
-. The `SelectItemCommand#execute()` retrieve that food selected and update other variables within its class for storage.
+. The `SelectItemCommand#execute()` retrieve the selected `Food` and creates a `PurchasedFood` object with additional variables.
+. The `SelectItemCommand#execute()` adds the `PurchasedFood` to the existing transactions list for storage.
 . The `SelectItemCommand#execute()` returns a  `CommandResult` object to the `LogicManger`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `select` command:
@@ -606,7 +607,7 @@ This command is accessed by the `LogicManager#execute()` to display the transact
 
 The following _activity diagram_ illustrates what happens when a user executes the `transactions` command:
 
-//image::
+image::TransactionsActivityDiagram.png[]
 
 ==== Transactions Command Implementation
 
@@ -619,7 +620,7 @@ This Process returns a `TransactionsCommand` object to the `LogicManager`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `transactions` command:
 
-//image::
+image::TransactionsSequenceDiagram.png[]
 
 ==== Transactions Design Considerations
 ===== Aspect: `transactions` should be included as a feature

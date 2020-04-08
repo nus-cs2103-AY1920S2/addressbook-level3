@@ -161,6 +161,11 @@ public class ModelManager implements Model {
 
             Budget budget = newBot.get().getBudget();
 
+            if (!budget.getCycleRange().contains(LocalDate.now())) {
+                budget.resetRemainingBudget();
+                setBudget(budget);
+            }
+
 
             return Optional.of(budget);
         } catch (DataConversionException | IOException e) {
