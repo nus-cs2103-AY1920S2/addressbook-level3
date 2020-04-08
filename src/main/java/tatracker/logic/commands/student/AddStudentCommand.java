@@ -81,7 +81,8 @@ public class AddStudentCommand extends Command {
         model.updateFilteredGroupList(targetModule);
         model.updateFilteredStudentList(targetGroup, targetModule);
 
-        return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd, targetModule, targetGroup), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd, targetModule, targetGroup),
+                Action.GOTO_STUDENT);
     }
 
     @Override
