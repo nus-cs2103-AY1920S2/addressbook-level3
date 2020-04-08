@@ -1,11 +1,11 @@
 package csdev.couponstash.model.coupon.savings;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit tests for the methods in SavingsConversionUtil.
