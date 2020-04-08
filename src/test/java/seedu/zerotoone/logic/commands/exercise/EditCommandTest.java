@@ -52,7 +52,7 @@ public class EditCommandTest {
         assertThrows(CommandException.class, Command.MESSAGE_SESSION_STARTED, () ->
                 editCommand.execute(modelStub));
     }
-    
+
     @Test
     public void execute_invalidIndex_throwsCommandException() {
         EditCommand editCommand = new EditCommand(INDEX_SECOND_OBJECT,
@@ -66,9 +66,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_OBJECT, new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS));
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OBJECT,
+                new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS));
         Exercise validExercise = new ExerciseBuilder()
-                .withExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS) 
+                .withExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS)
                 .build();
         ModelStub modelStub = new ModelStubOneExerciseEnableEditing(validExercise);
         assertThrows(CommandException.class, EditCommand.MESSAGE_DUPLICATE_EXERCISE, () ->
@@ -81,7 +82,7 @@ public class EditCommandTest {
         Exercise validExercise = new ExerciseBuilder()
                 .withExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS).build();
         ModelStubOneExerciseEnableEditing modelStub = new ModelStubOneExerciseEnableEditing(validExercise);
-        
+
         CommandResult commandResult = editCommand.execute(modelStub);
         Exercise exerciseDeadlift = new ExerciseBuilder()
                 .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT).build();
@@ -112,7 +113,7 @@ public class EditCommandTest {
 
         // different exercise -> returns false
         assertFalse(editBenchPressCommand.equals(editDeadliftCommand));
-        
+
         // different index -> returns false
         assertFalse(editBenchPressCommand.equals(editBenchPressCommandTwo));
     }
