@@ -15,7 +15,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_FLAG = "Please provide flag -o or -r";
     public static final String MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP = "Seems like you gave the wrong combination to "
         + "edit the date!" + NEWLINE + "Please provide flag -o with dts/ to edit Order Delivery date"
-        + " or -r with rts/ to edit Return order delivery date."
+        + " or -r with rts/ to edit Return Order Delivery date."
         + NEWLINE + "Any other combinations are not allowed!";
     public static final String MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER =
         "There is no cash on delivery field in Return order please check your input.";
