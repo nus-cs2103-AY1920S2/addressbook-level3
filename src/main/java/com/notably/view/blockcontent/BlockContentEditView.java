@@ -67,6 +67,57 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
+     * Sets listeners that update the content in the Block Edit modal to that of the
+     * currently opened note, and toggle the visibility of the edit modal.
+     */
+    private void setChangeListeners() {
+        model.currentlyOpenPathProperty().addListener(observable -> setText(model));
+        model.getBlockTree().getRootBlock().getTreeItem()
+                .addEventHandler(TreeItem.treeNotificationEvent(), event -> setText(model));
+        model.blockEditableProperty().addListener(observable -> {
+            if (model.isBlockEditable()) {
+                handleEdit();
+                model.setBlockEditable(false);
+            }
+        });
+
+        setInitialDimensions();
+        setStageDimensionListeners();
+    }
+
+    /**
+     * Sets the initial X and Y coordinates of the Block Edit modal such that it is centered
+     * to the main app window.
+     */
+    private void setInitialDimensions() {
+        ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
+            setXDisplacement();
+        };
+        ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
+            setYDisplacement();
+        };
+        stage.widthProperty().addListener(widthListener);
+        stage.heightProperty().addListener(heightListener);
+
+        stage.setOnShown(e -> {
+            stage.widthProperty().removeListener(widthListener);
+            stage.heightProperty().removeListener(heightListener);
+        });
+    }
+
+    /**
+     * Sets listeners that change the dimensions of the Block Edit modal upon being repeatedly
+     * opened and closed.
+     */
+    private void setStageDimensionListeners() {
+        setXDisplacement();
+        setYDisplacement();
+        stage.setOnShowing(event -> {
+            setStageDimensionListeners();
+        });
+    }
+
+    /**
      * Sets up the view's initial data and wire up all required change listeners.
      */
     private void setInitialData() {
@@ -86,69 +137,6 @@ public class BlockContentEditView extends ViewPart<Stage> {
         String markdownBody = currentlyOpenBlock.getBody().getText();
 
         blockContentTextArea.setText(markdownBody);
-    }
-
-    /**
-     * Sets listeners that update the content in the Block Edit modal to that of the
-     * currently opened note, and toggle the visibility of the edit modal.
-     */
-    private void setChangeListeners() {
-        model.currentlyOpenPathProperty().addListener(observable -> setText(model));
-        model.getBlockTree().getRootBlock().getTreeItem()
-                .addEventHandler(TreeItem.treeNotificationEvent(), event -> setText(model));
-        model.blockEditableProperty().addListener(observable -> {
-            if (model.isBlockEditable()) {
-                handleEdit();
-                model.setBlockEditable(false);
-            }
-        });
-        setStageDimensionListeners();
-    }
-
-    /**
-     * Sets listeners that change the dimensions of the Block Edit modal.
-     */
-    private void setStageDimensionListeners() {
-        ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
-            double stageWidth = newValue.doubleValue();
-            stage.setX(parentStage.getX() + parentStage.getWidth() / 2 - stageWidth / 2);
-        };
-        ChangeListener<Number> heightListener = (observable, oldValue, newValue) -> {
-            double stageHeight = newValue.doubleValue();
-            stage.setY(parentStage.getY() + parentStage.getHeight() / 2 - stageHeight / 2);
-        };
-        setInitialDimensions(widthListener, heightListener);
-        setDimensionsOnResize(widthListener, heightListener);
-    }
-
-    /**
-     * Sets the initial X and Y coordinates of the Block Edit modal such that it is centered
-     * to the main app window.
-     *
-     * @param widthListener listener that sets the width of the target with respect to the parent.
-     * @param heightListener listener that sets the height of the target with respect to the parent.
-     */
-    private void setInitialDimensions(ChangeListener<Number> widthListener,
-                                      ChangeListener<Number> heightListener) {
-        stage.widthProperty().addListener(widthListener);
-        stage.heightProperty().addListener(heightListener);
-
-        stage.setOnShown(e -> {
-            stage.widthProperty().removeListener(widthListener);
-            stage.heightProperty().removeListener(heightListener);
-        });
-    }
-
-    /**
-     * Updates the dimensions of the Block Edit modal whenever the main app window is resized.
-     *
-     * @param widthListener listener that sets the width of the target with respect to the parent.
-     * @param heightListener listener that sets the height of the target with respect to the parent.
-     */
-    private void setDimensionsOnResize(ChangeListener<Number> widthListener,
-                                       ChangeListener<Number> heightListener) {
-        parentStage.widthProperty().addListener(widthListener);
-        parentStage.heightProperty().addListener(heightListener);
     }
 
     /**
@@ -227,6 +215,24 @@ public class BlockContentEditView extends ViewPart<Stage> {
         } catch (EditBlockBodyException e) {
             logger.warning("Unable to write new contents to file.");
         }
+    }
+
+    /**
+     * Calculates and sets the width of the Block Edit modal with respect to the main app window.
+     */
+    private void setXDisplacement() {
+        Double newWidth = parentStage.getWidth() * 0.8;
+        stage.setWidth(newWidth);
+        stage.setX(parentStage.getX() + parentStage.getWidth() / 2 - newWidth / 2);
+    }
+
+    /**
+     * Calculates and sets the height of the Block Edit modal with respect to the main app window.
+     */
+    private void setYDisplacement() {
+        Double newHeight = parentStage.getHeight() * 0.7;
+        stage.setHeight(newHeight);
+        stage.setY(parentStage.getY() + parentStage.getHeight() / 3 - newHeight / 3);
     }
 }
 
