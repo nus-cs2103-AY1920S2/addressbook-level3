@@ -15,6 +15,7 @@ if () then ([command arguments is valid])
         :Obtain return order to edit;
         :Edit the return order of given index;
         endif
+        :Display success edit message;
     else ([else])
         :Display wrong
         format warning message;
