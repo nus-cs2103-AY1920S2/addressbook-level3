@@ -64,7 +64,9 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
      */
     public MonetaryAmount(String monetaryAmount) {
         String[] intAndDecimalAmounts = monetaryAmount.split("\\.");
-        if (intAndDecimalAmounts.length == 0 || intAndDecimalAmounts.length > 2) {
+        if (intAndDecimalAmounts.length == 0 || intAndDecimalAmounts.length > 2
+                // throw exception if dot present with nothing after
+                || monetaryAmount.endsWith(".")) {
             throw new IllegalArgumentException(MonetaryAmount.MESSAGE_CONSTRAINTS);
         }
 
@@ -77,6 +79,9 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
             } else if (intAndDecimalAmounts[1].length() == 1) {
                 // add a zero, so that 8.3 means 8.30 instead of 8.03
                 decAmount = Integer.parseInt(intAndDecimalAmounts[1] + "0");
+            } else if (intAndDecimalAmounts[1].length() > 2) {
+                // restrict monetary amounts to 1 or 2 decimal places
+                throw new IllegalArgumentException(MonetaryAmount.MESSAGE_CONSTRAINTS);
             } else {
                 decAmount = Integer.parseInt(intAndDecimalAmounts[1]);
             }
