@@ -26,7 +26,8 @@ public class DeleteSessionCommandTest {
         Session sessionToDelete = model.getFilteredSessionList().get(INDEX_FIRST_SESSION.getZeroBased());
         DeleteSessionCommand deleteSessionCommand = new DeleteSessionCommand(INDEX_FIRST_SESSION);
 
-        String expectedMessage = String.format(DeleteSessionCommand.MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete);
+        String expectedMessage = String.format(DeleteSessionCommand.MESSAGE_DELETE_SESSION_SUCCESS,
+                sessionToDelete.getMinimalDescription());
 
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.deleteSession(sessionToDelete);
