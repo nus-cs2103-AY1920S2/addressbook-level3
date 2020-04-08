@@ -2,11 +2,13 @@ package seedu.address.logic.commands.commandDelete;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 
 import java.util.List;
@@ -41,53 +43,25 @@ public class DeleteTeacherCommand extends DeleteCommand {
 
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
-    List<Staff> lastShownList = model.getFilteredStaffList();
     if (this.toDelete == null) {
       if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_STAFF_DISPLAYED_ID);
       }
-      this.toDelete = getStaff(lastShownList);
+      if (!model.has(targetID, Constants.ENTITY_TYPE.STAFF)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_STAFF_DISPLAYED_ID);
+      }
+      this.toDelete = (Staff) model.get(targetID, Constants.ENTITY_TYPE.STAFF);
     }
     if (this.targetID == null) {
-      this.targetID = getID(lastShownList);
+      this.targetID = toDelete.getId();
     }
     if (this.targetIndex == null) {
-      this.targetIndex = getIndex(lastShownList);
+      this.targetIndex = model.getIndex(this.toDelete);
     }
   }
 
   protected void generateOppositeCommand() {
     oppositeCommand = new AddTeacherCommand(toDelete, targetIndex.getZeroBased());
-  }
-
-  // Find way to abstract this
-  public Index getIndex(List<Staff> lastShownList) throws CommandException {
-    for (int i = 0; i < lastShownList.size(); i++) {
-      if (lastShownList.get(i).equals(this.toDelete)) {
-        return Index.fromZeroBased(i);
-      }
-    }
-    throw new CommandException("This id not in list");
-  }
-
-  // Find way to abstract this
-  public ID getID(List<Staff> lastShownList) throws CommandException {
-    for (Staff staff : lastShownList) {
-      if (staff.getId().equals(this.toDelete.getId())) {
-        return staff.getId();
-      }
-    }
-    throw new CommandException("Cannot find this staff in the list");
-  }
-
-  // Find way to abstract this
-  public Staff getStaff(List<Staff> lastShownList) throws CommandException {
-    for (Staff staff : lastShownList) {
-      if (staff.getId().equals(this.targetID)) {
-        return staff;
-      }
-    }
-    throw new CommandException("This staff ID does not exist");
   }
 
   @Override
