@@ -42,7 +42,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void save_nullFile_throwsNullPointerException() {
+    public void savenullFilethrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(new Config(), null));
     }
 

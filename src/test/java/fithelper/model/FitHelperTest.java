@@ -35,7 +35,7 @@ public class FitHelperTest {
     }
 
     @Test
-    public void resetDatawithValidReadOnlyFitHelper_replacesData() {
+    public void resetDatawithValidReadOnlyFitHelperreplacesData() {
         FitHelper newData = getTypicalFitHelper();
         fitHelper.resetData(newData);
         assertEquals(newData, fitHelper);
@@ -52,7 +52,7 @@ public class FitHelperTest {
     }
 
     @Test
-    public void hasEntry_entryInFitHelper_returnsTrue() {
+    public void hasEntry_entryInFitHelperreturnsTrue() {
         fitHelper.addEntry(FOOD);
         assertTrue(fitHelper.hasEntry(FOOD));
     }
