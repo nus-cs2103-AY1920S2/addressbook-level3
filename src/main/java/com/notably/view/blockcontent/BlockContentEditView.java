@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.Logic;
+import com.notably.logic.exceptions.EditBlockBodyException;
 import com.notably.model.Model;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.view.ViewPart;
@@ -23,7 +24,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 /**
- * Controller class for the Editable view of the currently open block's content.
+ * View-Controller for the Editable view of the currently open block's content.
  */
 public class BlockContentEditView extends ViewPart<Stage> {
 
@@ -181,7 +182,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
      *                               </ul>
      */
     public void show() {
-        logger.fine("Showing Edit Modal for currently open note.");
+        logger.info("Showing Edit Modal for currently open note...");
         getRoot().show();
     }
 
@@ -193,17 +194,36 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
-     * Hides the Block Edit Modal.
+     * Hides the Block Edit modal.
      */
     public void hide() {
         getRoot().hide();
+        logger.info("Closing Edit Modal for currently open note.");
     }
 
     /**
-     * Focuses on the Block Edit Modal.
+     * Focuses on the Block Edit modal.
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Saves the data in the Block Edit Modal by notifying the {@link Logic} layer of the app.
+     */
+    private void saveData() {
+        try {
+            this.logic.editCurrentBlockBody(blockContentTextArea.getText());
+            logger.info("Writing new Note's contents to file...");
+        } catch(EditBlockBodyException e) {
+            logger.warning("Unable to write new contents to file.");
+        }
+    }
+
+    @FXML
+    public void handleClose() {
+        saveData();
+        hide();
     }
 }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.Scene?>
 
 <fx:root resizable="true" title="Edit Note Body" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
-         xmlns:fx="http://javafx.com/fxml/1">
+         xmlns:fx="http://javafx.com/fxml/1" onCloseRequest="#handleClose">
     <icons>
         <Image url="@/images/notably_logo_48.png"/>
     </icons>
