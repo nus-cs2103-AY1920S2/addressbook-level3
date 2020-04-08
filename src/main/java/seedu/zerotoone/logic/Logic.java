@@ -10,6 +10,7 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
+import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.model.session.CompletedWorkout;
 import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.ui.util.ViewType;
@@ -17,7 +18,7 @@ import seedu.zerotoone.ui.util.ViewType;
 /**
  * API of the Logic component
  */
-public interface Logic extends WorkoutLogic {
+public interface Logic extends WorkoutLogic, StatisticsLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -69,7 +70,7 @@ public interface Logic extends WorkoutLogic {
     /**
      * Returns the SessionList.
      *
-     * @see seedu.zerotoone.model.Model#getSessionList()
+     * @see seedu.zerotoone.model.Model#getLogList()
      */
     ObservableList<CompletedWorkout> getLogList();
 
@@ -79,6 +80,10 @@ public interface Logic extends WorkoutLogic {
      * @see seedu.zerotoone.model.Model#getOngoingSetList()
      */
     ObservableList<OngoingSet> getOngoingSetList();
+
+    ObservableList<CompletedSet> getLastSet();
+
+    ObservableList<Integer> getTimerList();
 
     /** Returns an unmodifiable view of the filtered list of workouts.
      */
@@ -92,4 +97,6 @@ public interface Logic extends WorkoutLogic {
     // -----------------------------------------------------------------------------------------
     // Schedule List
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
+
+    void showdownTimer();
 }

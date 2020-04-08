@@ -29,9 +29,7 @@ import seedu.zerotoone.ui.views.workout.WorkoutListPanel;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
-
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
@@ -43,54 +41,40 @@ public class MainWindow extends UiPart<Stage> {
     private WorkoutListPanel workoutListPanel;
     private ScheduledWorkoutListPanel scheduledWorkoutListPanel;
     private LogListPanel logListPanel;
-
     private ResultDisplay resultDisplay;
-
-    private ReportWindow reportWindow;
-
-    @FXML
-    private VBox tabsVBox;
-
+    private StatisticsWindow statisticsWindow;
     private HelpDisplay helpDisplay;
 
     @FXML
+    private VBox tabsVBox;
+    @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private StackPane helpDisplayPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private TabPane tabPanePlaceHolder;
-
     @FXML
     private StackPane homeContentPlaceholder;
-
     @FXML
     private StackPane exerciseContentPlaceholder;
-
     @FXML
     private StackPane workoutContentPlaceholder;
-
     @FXML
     private StackPane scheduleContentPlaceholder;
-
     @FXML
     private StackPane logContentPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-
-        // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
-        reportWindow = new ReportWindow();
+        statisticsWindow = new StatisticsWindow();
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
@@ -103,10 +87,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Initialises the MainWindow
      */
-    void fillInnerParts() {
-        homePanel = new HomePanel(logic.getOngoingSetList());
+    void start() {
+        primaryStage.show();
+
+        // Fills up all the placeholders of this window.
+        homePanel = new HomePanel(logic.getOngoingSetList(), logic.getLastSet(), logic.getTimerList());
         homeContentPlaceholder.getChildren().add(homePanel.getRoot());
 
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
@@ -117,7 +104,6 @@ public class MainWindow extends UiPart<Stage> {
 
         scheduledWorkoutListPanel = new ScheduledWorkoutListPanel(logic.getSortedScheduledWorkoutList());
         scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
-
 
         logListPanel = new LogListPanel(logic.getFilteredLogList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
@@ -136,6 +122,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Focus on command box
+        commandBox.requestFocus();
     }
 
     /**
@@ -155,10 +144,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleReport() {
-        if (!reportWindow.isShowing()) {
-            reportWindow.show();
+        if (!statisticsWindow.isShowing()) {
+            statisticsWindow.show(logic.generateStatistics());
         } else {
-            reportWindow.focus();
+            statisticsWindow.focus();
         }
     }
 
@@ -182,7 +171,8 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        reportWindow.hide();
+        logic.showdownTimer();
+        statisticsWindow.hide();
         primaryStage.hide();
     }
 
