@@ -60,7 +60,9 @@ public class PlannedDate implements Comparable<PlannedDate> {
      */
     public PlannedDate deleteRecipe(Recipe recipe) {
         List<Recipe> newRecipes = new ArrayList<>(recipes);
+        System.out.println("Before deletion ===============\n " + recipes);
         newRecipes.remove(recipe);
+        System.out.println("After deletion ===============\n " + recipes);
         return new PlannedDate(newRecipes, date);
     }
 

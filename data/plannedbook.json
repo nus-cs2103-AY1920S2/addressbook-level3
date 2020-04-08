@@ -1,28 +1,3 @@
 {
-  "plannedRecipes" : [ {
-    "recipes" : [ {
-      "name" : "testest",
-      "time" : "15",
-      "isFavourite" : true,
-      "grains" : [ "50.0g,  Grain", "30.0g,  Rice" ],
-      "vegetables" : [ ],
-      "proteins" : [ ],
-      "fruits" : [ "50.0g,  Fruit" ],
-      "others" : [ ],
-      "steps" : [ "step 1", "edited step 2" ],
-      "goals" : [ ]
-    }, {
-      "name" : "chicken rice",
-      "time" : "30",
-      "isFavourite" : false,
-      "grains" : [ "300.0g,  Rice" ],
-      "vegetables" : [ ],
-      "proteins" : [ "300.0g,  Chicken thigh" ],
-      "fruits" : [ ],
-      "others" : [ ],
-      "steps" : [ "Boil chicken", "While chicken is cooking, add sesame oil and crushed ginger into rice and cook it", "When chicken is done, dip it into iced water", "Serve while rice is hot" ],
-      "goals" : [ "Bulk like the Hulk" ]
-    } ],
-    "date" : "2020-04-08"
-  } ]
+  "plannedRecipes" : [ ]
 }

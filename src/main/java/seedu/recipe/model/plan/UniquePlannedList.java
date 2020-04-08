@@ -45,7 +45,9 @@ public class UniquePlannedList {
      */
     public void setPlannedDate(PlannedDate target, PlannedDate newPlannedDate) {
         int index = internalList.indexOf(target);
+        System.out.println("planneddate index is: " + index);
         internalList.set(index, newPlannedDate);
+        System.out.println("============Recipes in internalList =============\n" + internalList);
     }
 
     /**

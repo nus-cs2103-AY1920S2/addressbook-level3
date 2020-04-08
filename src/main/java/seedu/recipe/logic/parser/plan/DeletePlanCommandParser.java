@@ -3,6 +3,9 @@ package seedu.recipe.logic.parser.plan;
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.recipe.commons.core.index.Index;
@@ -30,8 +33,12 @@ public class DeletePlanCommandParser implements Parser<DeletePlanCommand> {
 
         Index index;
 
+        String[] individualIndexes = argMultimap.getPreamble().split(" ");
+        List<Index> indexes = new ArrayList<>();
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            for (int i = 0; i < individualIndexes.length; i++) {
+                indexes.add(ParserUtil.parseIndex(individualIndexes[i]));
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeletePlanCommand.MESSAGE_USAGE), pe);
@@ -43,7 +50,7 @@ public class DeletePlanCommandParser implements Parser<DeletePlanCommand> {
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
-        return new DeletePlanCommand(index, date);
+        return new DeletePlanCommand(indexes, date);
     }
 
     /**

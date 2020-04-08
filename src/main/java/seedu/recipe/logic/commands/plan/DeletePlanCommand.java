@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.recipe.commons.core.Messages;
@@ -32,10 +33,9 @@ public class DeletePlanCommand extends Command {
             + "Example: " + COMMAND_WORD + " 3 "
             + PREFIX_DATE + "2020-03-16 ";
 
-    public static final String MESSAGE_SUCCESS = "Planned recipe at Index %2$s is deleted:\n"
-            + "%1$s\n";
+    public static final String MESSAGE_SUCCESS = "The following planned recipes have been deleted: \n";
 
-    private final Index plannedIndex;
+    private final List<Index> indexes;
     private final Date atDate;
     private final Tab planTab = Tab.PLANNING;
     private final CommandType commandType;
@@ -43,10 +43,10 @@ public class DeletePlanCommand extends Command {
     /**
      * Creates an DeletePlanCommand to delete the specified planned recipe on {@code date} at {@code index}.
      */
-    public DeletePlanCommand(Index plannedIndex, Date date) {
-        requireNonNull(plannedIndex);
+    public DeletePlanCommand(List<Index> indexes, Date date) {
+        requireNonNull(indexes);
         requireNonNull(date);
-        this.plannedIndex = plannedIndex;
+        this.indexes = indexes;
         this.commandType = CommandType.PLAN;
         this.atDate = date;
     }
@@ -56,24 +56,47 @@ public class DeletePlanCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredPlannedList(new PlannedRecipeOnDatePredicate(atDate));
-        List<PlannedDate> plannedListAtDate = model.getFilteredPlannedList();
+        List<PlannedDate> plansOnDate = model.getFilteredPlannedList();
 
-        if (plannedListAtDate.size() != 1) {
+        if (plansOnDate.size() != 1) {
             throw new CommandException(Messages.MESSAGE_INVALID_PLANNED_DATE);
         }
 
-        PlannedDate plannedDateToEdit = plannedListAtDate.get(0);
-        List<Recipe> recipesAtPlannedDate = plannedDateToEdit.getRecipes();
-        if (plannedIndex.getOneBased() > recipesAtPlannedDate.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PLANNED_RECIPE_DISPLAYED_INDEX);
+        PlannedDate plannedDateToEdit = plansOnDate.get(0);
+        List<Recipe> allPlannedRecipes = plannedDateToEdit.getRecipes();
+        List<Recipe> recipesToDelete = parseIndexToRecipe(indexes, allPlannedRecipes);
+
+        StringBuilder sb = new StringBuilder(MESSAGE_SUCCESS);
+        sb.append("Date: " + plannedDateToEdit.getDate().toString() + "\nRecipe(es): ");
+
+        for (int i = 0; i < recipesToDelete.size(); i ++) {
+            Recipe recipeToDelete = recipesToDelete.get(i);
+            model.deleteOnePlan(recipeToDelete, plannedDateToEdit);
+
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(recipeToDelete.getName());
+            plannedDateToEdit = model.getFilteredPlannedList().get(0); // update plans after deletion
         }
 
-        Recipe recipeToDelete = recipesAtPlannedDate.get(plannedIndex.getZeroBased());
-        model.deleteOnePlan(recipeToDelete, plannedDateToEdit);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
+        return new CommandResult(sb.toString(), false, false, planTab, false);
+    }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToDelete, plannedIndex.getOneBased()),
-                false, false, planTab, false);
+    private List<Recipe> parseIndexToRecipe(List<Index> indexes, List<Recipe> allRecipes) throws CommandException {
+        List<Recipe> recipesToDelete = new ArrayList<>();
+
+        for (int i = 0; i < indexes.size(); i++) {
+            Index currentIndex = indexes.get(i);
+            if (currentIndex.getOneBased() > allRecipes.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PLANNED_RECIPE_DISPLAYED_INDEX);
+            }
+
+            recipesToDelete.add(allRecipes.get(currentIndex.getZeroBased()));
+        }
+
+        return recipesToDelete;
     }
 }
