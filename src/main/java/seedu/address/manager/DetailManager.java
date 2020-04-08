@@ -6,15 +6,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import com.google.common.eventbus.Subscribe;
+
+import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.BaseManager;
+import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
@@ -139,20 +141,29 @@ public class DetailManager extends BaseManager {
                              List<ID> selectMetaDataIDs) throws CommandException {
         updateType(positions, selectMetaDataIDs);
         if (type.equals(TYPE.STUDENT_DETAILS)) {
+            studentDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_STUDENTID))));
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
         } else if (type.equals(TYPE.STUDENT_COURSE_DETAILS)) {
+            studentDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_STUDENTID),
+                                                                                IdMapping.get(PREFIX_COURSEID))));
             updateStudentDetailsMap(IdMapping.get(PREFIX_STUDENTID));
             updateProgressStudentCourse(IdMapping.get(PREFIX_STUDENTID), IdMapping.get(PREFIX_COURSEID));
         } else if (type.equals(TYPE.COURSE_DETAILS)) {
+            courseDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_COURSEID))));
             updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
         } else if (type.equals(TYPE.COURSE_STUDENT_DETAILS)) {
+            courseDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_COURSEID),
+                                                                                IdMapping.get(PREFIX_STUDENTID))));
             updateCourseDetailsMap(IdMapping.get(PREFIX_COURSEID));
             updateProgressCourseStudent(IdMapping.get(PREFIX_COURSEID), IdMapping.get(PREFIX_STUDENTID));
         } else if (type.equals(TYPE.STAFF_DETAILS)) {
+            staffDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_TEACHERID))));
             updateStaffDetailsMap(IdMapping.get(PREFIX_TEACHERID));
         } else if (type.equals(TYPE.FINANCE_DETAILS)) {
+            financeDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_FINANCEID))));
             updateFinanceDetailsMap(IdMapping.get(PREFIX_FINANCEID));
         } else if (type.equals(TYPE.ASSIGNMENT_DETAILS)) {
+            assignmentDetailsMap.put("select_ids", new ArrayList<ID>(Arrays.asList(IdMapping.get(PREFIX_ASSIGNMENTID))));
             updateAssignmentDetailsMap(IdMapping.get(PREFIX_ASSIGNMENTID));
         }
     }
@@ -256,4 +267,64 @@ public class DetailManager extends BaseManager {
         assignmentDetailsMap.put("details", assignment);
     }
     // ####################################################################################################
+
+
+    // #################### Handle sub-view map data update on model data update ##########################
+    private void resetStudentDetailsMap() throws CommandException {
+        if (studentDetailsMap.containsKey("select_ids")) {
+            ArrayList<ID> idsList = (ArrayList<ID>)studentDetailsMap.get("select_ids");
+            updateStudentDetailsMap(idsList.get(0));
+            if (idsList.size() == 2) {
+                updateProgressStudentCourse(idsList.get(0), idsList.get(1));
+            }
+        }
+    }
+
+    private void resetCourseDetailsMap() throws CommandException {
+        if (courseDetailsMap.containsKey("select_ids")) {
+            ArrayList<ID> idsList = (ArrayList<ID>)courseDetailsMap.get("select_ids");
+            updateCourseDetailsMap(idsList.get(0));
+            if (idsList.size() == 2) {
+                updateProgressCourseStudent(idsList.get(0), idsList.get(1));
+            }
+        }
+    }
+
+    private void resetStaffDetailsMap() throws CommandException {
+        if (staffDetailsMap.containsKey("select_ids")) {
+            ArrayList<ID> idsList = (ArrayList<ID>)staffDetailsMap.get("select_ids");
+            updateStaffDetailsMap(idsList.get(0));
+        }
+    }
+
+    private void resetFinanceDetailsMap() throws CommandException {
+        if (financeDetailsMap.containsKey("select_ids")) {
+            ArrayList<ID> idsList = (ArrayList<ID>)financeDetailsMap.get("select_ids");
+            updateFinanceDetailsMap(idsList.get(0));
+        }
+    }
+
+    private void resetAssignmentDetailsMap() throws CommandException {
+        if (assignmentDetailsMap.containsKey("select_ids")) {
+            ArrayList<ID> idsList = (ArrayList<ID>)assignmentDetailsMap.get("select_ids");
+            updateAssignmentDetailsMap(idsList.get(0));
+        }
+    }
+
+    private void resetAllSubViewMaps() throws CommandException {
+        resetStudentDetailsMap();
+        resetCourseDetailsMap();
+        resetStaffDetailsMap();
+        resetFinanceDetailsMap();
+        resetAssignmentDetailsMap();
+    }
+
+    @Subscribe
+    public void handleDataStorageChangeEvent(DataStorageChangeEvent event) {
+        try {
+            resetAllSubViewMaps();
+        } catch (CommandException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
