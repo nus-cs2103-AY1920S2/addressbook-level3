@@ -115,17 +115,14 @@ Examples:
 
 * `list`
 
-=== View Reminder : `reminder (optional)DATE`
+=== View Reminder : `reminder`
 
-Shows a list of all undone tasks in the fitness log book. +
-Format: `reminders (optional)DATE`
-
-If the field `DATE` is null, FitHelper will displays the undone tasks for the coming 7 days, otherwise, undone tasks for the specified date will be displayed.
+Shows a list of all undone tasks in the fitness log book, which can be seen from a fixed field in the home page. +
+Format: `reminders`
 
 Examples:
 
 * `reminder`
-* `reminder 2019-11-28`
 
 === Editing an entry : `edit`
 

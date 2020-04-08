@@ -33,9 +33,11 @@ public class ListCommand extends Command {
         requireNonNull(model);
         if (this.dateStr == null) {
             model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+            model.updateFilteredReminderEntryList(PREDICATE_SHOW_ALL_ENTRIES);
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
             model.updateFilteredEntryList(model.someDatePredicate(this.dateStr));
+            model.updateFilteredReminderEntryList(model.someDatePredicate(this.dateStr));
             return new CommandResult(MESSAGE_SUCCESS);
         }
     }
