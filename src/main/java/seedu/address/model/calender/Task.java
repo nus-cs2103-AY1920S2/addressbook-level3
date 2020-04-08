@@ -130,6 +130,10 @@ public class Task {
         return deadlineTaskList;
     }
 
+    public static void setDeadlineTaskList(ObservableList<Task> initialiedList) {
+        deadlineTaskList = initialiedList;
+    }
+
     /**
      * Returns the observable list required for the UI.
      *

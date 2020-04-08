@@ -2,9 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.person.Person;
@@ -18,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private DiaryBook diaryBook;
     private final UniquePersonList persons;
+    private ObservableList<Task> taskList;
 
 
     /*
@@ -30,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         diaryBook = new DiaryBook();
+        taskList = FXCollections.observableList(new ArrayList<>());
     }
 
     public AddressBook() {
@@ -82,6 +87,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
+    public void addTasks(Task t) {
+        taskList.add(t);
+    }
+
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -127,6 +136,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
 
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTaskList() {
+        return taskList;
     }
 
     @Override

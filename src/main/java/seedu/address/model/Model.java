@@ -45,6 +45,8 @@ public interface Model {
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
+    void setDeadlineTaskList(ObservableList<Task> taskList);
+
     /**
      * Returns the user prefs.
      */
