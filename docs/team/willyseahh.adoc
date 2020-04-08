@@ -57,15 +57,22 @@ resolved it by not allowing users to use the `paid` command until after a receip
 *** *Credits:* +
 N.A
 
-. Integrating Storage into Expense Splitter portion of EYLAH*
-*** What it does: Storage component is essential for Expense Splitter of EYLAH as it needs to save PersonName and Amount
-*** Justifcation:
-*** Highlights:
-*** Credits:
+. Added *the storage component that allowed the user to automatically save a Person and their amount owed after
+each command*
+
+*** *Justification:* +
+This feature allows the user to automatically save the amount of money each person owes him after every command.
+This is important so the user do not have to manually input every entry again in the unlikely event where EYLAH crash.
+
+*** *Highlights:* +
+Ability to save a Person name and their amount owed automatically.
+
+*** *Credits:* +
+N.A
 
 
 
-* *Minor enhancement*: [In Process]
+* *Minor enhancement*:
 ** *Drew Expense Spliter portion of UML Class diagram*
 +
 image::expense_splitter_uml_class_diagram.png[]
@@ -136,8 +143,3 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 
 _{Optionally, you may include other projects in your portfolio.}_
 
-Questions to ask: +
-1. is BigDecimal the best way to represent currency? +
-2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
-will throw an exception? Because in AB3 everything there is assertFalse +
-3.
