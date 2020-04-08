@@ -20,12 +20,12 @@ import tatracker.model.Model;
  * A module can contains many groups.
  * A group contains students related it its group and module.
  */
-public class FilterStudentViewCommand extends Command {
+public class FilterStudentCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
-            "Filters the students in the TA-Tracker.",
+            "Filters the students inside TA-Tracker.",
             List.of(),
             List.of(GROUP, MODULE),
             GROUP, MODULE
@@ -42,7 +42,7 @@ public class FilterStudentViewCommand extends Command {
     private final String moduleCode;
     private final String groupCode;
 
-    public FilterStudentViewCommand(String moduleCode, String groupCode) {
+    public FilterStudentCommand(String moduleCode, String groupCode) {
 
         this.moduleCode = moduleCode;
         this.groupCode = groupCode;
@@ -85,6 +85,9 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList();
                 throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
             } else {
+                String result = buildParams(groupCode, moduleCode);
+                model.setCurrStudentFilter(result);
+                model.updateFilteredGroupList(moduleCode);
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
@@ -108,17 +111,29 @@ public class FilterStudentViewCommand extends Command {
                 model.setFilteredStudentList();
                 throw new CommandException(MESSAGE_INVALID_STUDENTS);
             } else {
+                model.setCurrStudentFilter("Module Code: " + moduleCode);
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode), Action.FILTER_STUDENT);
     }
 
+    /**
+     *Creates a string consisting of all the params inputted by users.
+     */
+    public String buildParams(String group, String module) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Module Code: ").append(module).append("\n");
+        builder.append("Group Code: ").append(group).append("\n");
+        String result = builder.toString();
+        return result;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterStudentViewCommand // instanceof handles nulls
-                && (moduleCode.equals(((FilterStudentViewCommand) other).moduleCode)
-                      && groupCode.equals(((FilterStudentViewCommand) other).groupCode))); // state check
+                || (other instanceof FilterStudentCommand // instanceof handles nulls
+                && (moduleCode.equals(((FilterStudentCommand) other).moduleCode)
+                      && groupCode.equals(((FilterStudentCommand) other).groupCode))); // state check
     }
 }

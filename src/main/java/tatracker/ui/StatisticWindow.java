@@ -4,12 +4,16 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import tatracker.commons.core.GuiSettings;
 import tatracker.commons.core.LogsCenter;
 import tatracker.model.session.SessionType;
 import tatracker.model.statistic.Statistic;
@@ -69,12 +73,13 @@ public class StatisticWindow extends UiPart<Stage> {
     @FXML
     private Label rating5Label;
 
+
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticWindow(Stage root, Statistic stats) {
+    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
         super(FXML, root);
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -101,7 +106,7 @@ public class StatisticWindow extends UiPart<Stage> {
         numHoursGradingLabel.setText(stats.numHoursPerCategory[3] + " Hours");
         numHoursPreparationLabel.setText(stats.numHoursPerCategory[4] + " Hours");
         numHoursOtherLabel.setText(stats.numHoursPerCategory[5] + " Hours");
-        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalPay() + ")");
+        numHoursTotalLabel.setText(stats.getTotalHours() + " (S$" + stats.getTotalEarnings() + ")");
 
         studentName1Label.setText(stats.worstStudents[0].getFullName());
         rating1Label.setText(Integer.toString(stats.worstStudents[0].getRating()));
@@ -113,13 +118,23 @@ public class StatisticWindow extends UiPart<Stage> {
         rating4Label.setText(Integer.toString(stats.worstStudents[3].getRating()));
         studentName5Label.setText(stats.worstStudents[4].getFullName());
         rating5Label.setText(Integer.toString(stats.worstStudents[4].getRating()));
+
+        root.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.ESCAPE) {
+                    logger.info("click on escape");
+                    root.close();
+                }
+            }
+        });
     }
 
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticWindow(Statistic stats) {
-        this(new Stage(), stats);
+    public StatisticWindow(Statistic stats, GuiSettings guiSettings) {
+        this(new Stage(), stats, guiSettings);
     }
 
     /**

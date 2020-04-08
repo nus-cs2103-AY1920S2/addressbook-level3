@@ -23,7 +23,7 @@ public class EditModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.EDIT_MODEL,
-            "Edits the module identified by the module code.",
+            "Edits the module with the given module code.",
             List.of(MODULE, MODULE_NEW_NAME),
             List.of(),
             MODULE, MODULE_NEW_NAME
@@ -32,6 +32,8 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
     private static final int FIRST_GROUP_INDEX = 0;
+    private static final String INVALID_MODULE_NAME = "You can't use empty string or "
+            + "a bunch of spaces for module name.";
 
     private final String targetModule;
     private final String newName;
@@ -49,6 +51,9 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
+        if (newName.isBlank()) {
+            throw new CommandException(INVALID_MODULE_NAME);
+        }
         Module actualModule = model.getModule(targetModule);
         actualModule.setName(newName);
 

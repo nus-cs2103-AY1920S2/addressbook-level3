@@ -9,13 +9,16 @@ import tatracker.commons.util.StringUtil;
  * where 1 represents the poorest rating, and 5 represents the best rating.
  * Guarantees: immutable; rating is valid as declared in {@link #isValidRating(int)}
  */
-public class Rating {
+public class Rating implements Comparable<Rating> {
 
     public static final String MESSAGE_CONSTRAINTS = "Ratings should be a number"
             + " between 1 (POOR) to 5 (EXCELLENT) inclusive";
 
     public static final int MIN_RATING = 1;
     public static final int MAX_RATING = 5;
+
+    /* The range of rating values. */
+    public static final int RANGE = MAX_RATING - MIN_RATING + 1;
 
     private static final int DEFAULT_VALUE = 3;
 
@@ -56,14 +59,6 @@ public class Rating {
         return isValidRating(parsedRating);
     }
 
-    /**
-     * Returns the range of rating values.
-     * @return the range of rating values.
-     */
-    public static int getRatingRange() {
-        return MAX_RATING - MIN_RATING + 1;
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -84,4 +79,8 @@ public class Rating {
         return String.format("%d/5", value);
     }
 
+    @Override
+    public int compareTo(Rating other) {
+        return value - other.value;
+    }
 }

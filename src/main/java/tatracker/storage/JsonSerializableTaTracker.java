@@ -24,6 +24,7 @@ class JsonSerializableTaTracker {
     public static final String MESSAGE_DUPLICATE_MODULES = "Module list contains duplicate module(s).";
 
     private final List<JsonAdaptedSession> sessions = new ArrayList<>();
+    private final List<JsonAdaptedSession> doneSessions = new ArrayList<>();
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
@@ -31,8 +32,10 @@ class JsonSerializableTaTracker {
      */
     @JsonCreator
     public JsonSerializableTaTracker(@JsonProperty("sessions") List<JsonAdaptedSession> sessions,
+                                     @JsonProperty("doneSessions") List<JsonAdaptedSession> doneSessions,
                                      @JsonProperty("modules") List<JsonAdaptedModule> modules) {
         this.sessions.addAll(sessions);
+        this.doneSessions.addAll(doneSessions);
         this.modules.addAll(modules);
     }
 
@@ -43,6 +46,11 @@ class JsonSerializableTaTracker {
      */
     public JsonSerializableTaTracker(ReadOnlyTaTracker source) {
         sessions.addAll(source.getSessionList()
+                .stream()
+                .map(JsonAdaptedSession::new)
+                .collect(Collectors.toList()));
+
+        doneSessions.addAll(source.getDoneSessionList()
                 .stream()
                 .map(JsonAdaptedSession::new)
                 .collect(Collectors.toList()));
@@ -69,6 +77,16 @@ class JsonSerializableTaTracker {
             modelSessions.add(session);
         }
 
+        // ==== Done Sessions ====
+        final List<Session> modelDoneSessions = new ArrayList<>();
+        for (JsonAdaptedSession jsonAdaptedSession : doneSessions) {
+            Session session = jsonAdaptedSession.toModelType();
+            if (modelDoneSessions.contains(session)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSIONS);
+            }
+            modelDoneSessions.add(session);
+        }
+
         // ==== Modules ====
         final List<Module> modelModules = new ArrayList<>();
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
@@ -82,6 +100,7 @@ class JsonSerializableTaTracker {
         // ==== Build ====
         TaTracker taTracker = new TaTracker();
         modelSessions.forEach(taTracker::addSession);
+        modelDoneSessions.forEach(taTracker::addDoneSession);
         modelModules.forEach(taTracker::addModule);
 
         return taTracker;

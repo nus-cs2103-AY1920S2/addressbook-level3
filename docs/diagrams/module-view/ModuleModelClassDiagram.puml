@@ -16,10 +16,7 @@ package Group {
 class Group
 class UniqueGroupList
 }
-package Session {
-class Session
-class UniqueSessionList
-}
+
 package Student {
 class Student
 class UniqueStudentList
@@ -30,14 +27,12 @@ TaTracker --> "1 " UniqueModuleList
 
 UniqueModuleList -right-> "*" Module
 
-Module --> "1" UniqueGroupList
-Module --> "1  " UniqueSessionList
+Module -right-> "1" UniqueGroupList
 
-UniqueGroupList -left-> "*" Group
-UniqueSessionList -right-> "*" Session
+UniqueGroupList -right-> "*" Group
 
 Group --> "1 " UniqueStudentList
-UniqueStudentList -right-> "*" Student
+UniqueStudentList -left-> "*" Student
 
 @enduml
 

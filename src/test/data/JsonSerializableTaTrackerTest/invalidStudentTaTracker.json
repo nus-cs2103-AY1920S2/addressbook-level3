@@ -8,6 +8,7 @@
     "startDateTime" : "2020-03-28T20:51:20.482832",
     "endDateTime" : "2020-03-28T20:51:20.482853"
   } ],
+  "doneSessions" : [ ],
   "modules" : [ {
     "id" : "CS3243",
     "name" : "Introduction to AI",

@@ -163,12 +163,9 @@ public class UniqueSessionList implements Iterable<Session> {
      * @return the total duration of all sessions in this session list.
      */
     public Duration getTotalDuration() {
-        Duration totalDuration = Duration.ofHours(0);
-        for (Session session : internalList) {
-            totalDuration = totalDuration.plus(session.getDuration());
-        }
-
-        return totalDuration;
+        return internalList.stream()
+                .map(Session::getDurationToNearestHour)
+                .reduce(Duration.ZERO, Duration::plus);
     }
 
     @Override

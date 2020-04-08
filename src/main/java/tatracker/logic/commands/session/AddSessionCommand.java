@@ -9,6 +9,7 @@ import static tatracker.logic.parser.Prefixes.RECUR;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 import static tatracker.logic.parser.Prefixes.START_TIME;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
@@ -28,15 +29,16 @@ public class AddSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.ADD_MODEL,
-            "Adds a session in the TA-Tracker.",
-            List.of(),
-            List.of(START_TIME, END_TIME, DATE, RECUR, MODULE, SESSION_TYPE, NOTES),
-            START_TIME, END_TIME, DATE, MODULE, SESSION_TYPE, NOTES
+            "Adds a session into TA-Tracker.",
+            List.of(MODULE),
+            List.of(START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
+            MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
     private static final String MESSAGE_INVALID_MODULE_CODE = "A module with the given module code doesn't exist";
+    private static final String MESSAGE_INVALID_TIME = "[Session] Start time is set to after end time!";
 
     private final Session toAdd;
 
@@ -51,6 +53,15 @@ public class AddSessionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        LocalDateTime start = toAdd.getStartDateTime();
+        LocalDateTime end = toAdd.getEndDateTime();
+
+
+
+        if (start.compareTo(end) > 0) {
+            throw new CommandException(MESSAGE_INVALID_TIME);
+        }
 
         if (!model.hasModule(toAdd.getModuleCode())) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);

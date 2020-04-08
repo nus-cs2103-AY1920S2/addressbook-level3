@@ -22,7 +22,7 @@ public class DeleteModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.DELETE_MODEL,
-            "Deletes the module identified by the module code.",
+            "Deletes the module with the given module code.",
             List.of(MODULE),
             List.of(),
             MODULE
@@ -44,6 +44,8 @@ public class DeleteModuleCommand extends Command {
         if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
+
+        model.setDefaultStudentViewList();
 
         Module moduleToDelete = model.getModule(module);
         model.deleteModule(moduleToDelete);

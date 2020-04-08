@@ -43,7 +43,11 @@ public class CommandDetails {
     }
 
     public String getFullCommandWord() {
-        return commandWord + " " + subWord;
+        if (subWord.isEmpty()) {
+            return commandWord;
+        } else {
+            return commandWord + " " + subWord;
+        }
     }
 
     public String getCommandWord() {

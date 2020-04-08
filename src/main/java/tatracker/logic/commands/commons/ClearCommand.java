@@ -19,7 +19,7 @@ public class ClearCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLEAR,
-            "Clears all TA-Tracker stored data.",
+            "Clears all data stored inside TA-Tracker.",
             List.of(),
             List.of()
     );

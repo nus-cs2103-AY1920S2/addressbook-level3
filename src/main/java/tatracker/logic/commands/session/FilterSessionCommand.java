@@ -5,6 +5,7 @@ import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
@@ -14,6 +15,7 @@ import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 import tatracker.model.session.SessionPredicate;
+import tatracker.model.session.SessionType;
 
 /**
  * Filters sessions based on user's inputs.
@@ -23,10 +25,10 @@ public class FilterSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
-            "Filters all the sessions.",
+            "Filters all the sessions inside TA-Tracker.",
             List.of(),
-            List.of(DATE, MODULE, SESSION_TYPE),
-            DATE, MODULE, SESSION_TYPE
+            List.of(MODULE, DATE, SESSION_TYPE),
+            MODULE, DATE, SESSION_TYPE
     );
 
     public static final String MESSAGE_SUCCESS = "Filtered Session List: %1$s";
@@ -43,11 +45,41 @@ public class FilterSessionCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredSessionList(predicate);
-        String keywords = predicate.getKeywords();
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, keywords),
-                Action.FILTER_SESSION);
+        String returnMsg = "";
+
+        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("No Filters");
+        String date = predicate.getDate().map(LocalDate::toString).orElse("No Filters");
+        String moduleCode = predicate.getModuleCode().orElse("No Filters");
+
+        if (!model.hasModule(moduleCode)) {
+            returnMsg += "\n" + String.format(MESSAGE_INVALID_MODULE_CODE);
+            model.updateFilteredSessionList(predicate);
+            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, sessionType + " " + date);
+        } else {
+
+            model.setCurrSessionDateFilter(date);
+            model.setCurrSessionModuleFilter(moduleCode);
+            model.setCurrSessionTypeFilter(sessionType);
+
+            //String result = buildParams(date, moduleCode, sessionType);
+            //model.setCurrSessionFilter(result);
+            model.updateFilteredSessionList(predicate);
+            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
+        }
+
+        return new CommandResult(returnMsg, Action.FILTER_SESSION);
+    }
+
+    /**
+     *Creates a string consisting of all the params inputted by users.
+     */
+    public String buildParams(String date, String module, String sessionType) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Date: ").append(date);
+        builder.append("Module Code: ").append(module);
+        builder.append("Session Type: ").append(sessionType);
+        String result = builder.toString();
+        return result;
     }
 
     @Override

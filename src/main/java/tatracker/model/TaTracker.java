@@ -3,10 +3,13 @@ package tatracker.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupNotFoundException;
 import tatracker.model.group.UniqueGroupList;
@@ -16,6 +19,7 @@ import tatracker.model.module.UniqueModuleList;
 import tatracker.model.session.Session;
 import tatracker.model.session.UniqueDoneSessionList;
 import tatracker.model.session.UniqueSessionList;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
@@ -27,17 +31,28 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
+    private static final long DEFAULT_HOURS = 0;
+    private static final int DEFAULT_RATE = 40;
+    private static String currClaimFilter;
+    private static String currSessionFilter;
+    private static String currSessionDateFilter;
+    private static String currSessionModuleFilter;
+    private static String currSessionTypeFilter;
+    private static String currStudentFilter;
+
     private static Group currentlyShownGroup;
     private static Module currentlyShownModule;
     private static Module currentlyShownModuleClaim;
-    private static long totalHours;
-    private static int rate;
+
+    private int rate;
 
     private final UniqueSessionList sessions;
     private final UniqueDoneSessionList doneSessions;
     private final UniqueModuleList modules;
     private final UniqueGroupList currentlyShownGroups;
     private final UniqueStudentList currentlyShownStudents;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public TaTracker() {
         sessions = new UniqueSessionList();
@@ -48,8 +63,15 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownGroup = null;
         currentlyShownModule = null;
         currentlyShownModuleClaim = null;
-        totalHours = 0;
-        rate = 40;
+
+        currClaimFilter = "";
+        currSessionFilter = "";
+        currSessionDateFilter = "No Filter";
+        currSessionModuleFilter = "No Filter";
+        currSessionTypeFilter = "No Filter";
+        currStudentFilter = "";
+
+        rate = DEFAULT_RATE;
     }
 
     /**
@@ -71,6 +93,100 @@ public class TaTracker implements ReadOnlyTaTracker {
         setModules(newData.getModuleList());
         setCurrentlyShownGroups(newData.getCurrentlyShownGroupList());
         setCurrentlyShownStudents(newData.getCurrentlyShownStudentList());
+
+        this.rate = newData.getRate();
+    }
+
+    // ======== Filter Methods ================================================
+
+    /**
+     *Sets the currently used filter under Claim View.
+     */
+    public void setCurrClaimFilter(String module) {
+        requireNonNull(module);
+        currClaimFilter = module;
+    }
+
+    /**
+     * Get the currently used filter under Claim View.
+     */
+    public String getCurrClaimFilter() {
+        return currClaimFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionFilter(String params) {
+        requireNonNull(params);
+        currSessionFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionFilter() {
+        return currSessionFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionDateFilter(String params) {
+        requireNonNull(params);
+        currSessionDateFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionDateFilter() {
+        return currSessionDateFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionModuleFilter(String params) {
+        requireNonNull(params);
+        currSessionModuleFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionModuleFilter() {
+        return currSessionModuleFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Session View.
+     */
+    public void setCurrSessionTypeFilter(String params) {
+        requireNonNull(params);
+        currSessionTypeFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Session View.
+     */
+    public String getCurrSessionTypeFilter() {
+        return currSessionTypeFilter;
+    }
+
+    /**
+     *Sets the currently used filter under Student View.
+     */
+    public void setCurrStudentFilter(String params) {
+        requireNonNull(params);
+        currStudentFilter = params;
+    }
+
+    /**
+     * Get the currently used filter under Student View.
+     */
+    public String getCurrStudentFilter() {
+        return currStudentFilter;
     }
 
     // ======== Session Methods ================================================
@@ -132,11 +248,40 @@ public class TaTracker implements ReadOnlyTaTracker {
      */
     public void addDoneSession(Session s) {
         doneSessions.add(s);
-        totalHours += Math.ceil(s.getDuration().toHours());
     }
 
-    public static long getTotalEarnings() {
-        return rate * totalHours;
+    @Override
+    public long getTotalHours() {
+        long totalHours = 0;
+        for (int i = 0; i < doneSessions.size(); i += 1) {
+            if (currentlyShownModuleClaim != null) {
+                if (doneSessions.get(i).getModuleCode().equals(currentlyShownModuleClaim.getIdentifier())) {
+                    logger.info("reached: has claim filter" + currentlyShownModuleClaim.toString());
+                    totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                    logger.info(String.valueOf(totalHours));
+                }
+            } else {
+                logger.info("reached: no claim filter");
+                totalHours += doneSessions.get(i).getDurationToNearestHour().toHours();
+                logger.info(String.valueOf(totalHours));
+            }
+        }
+        return totalHours;
+    }
+
+    @Override
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int newRate) {
+        logger.fine("Reached SetRate in TaTracker");
+        rate = newRate;
+    }
+
+    @Override
+    public long getTotalEarnings() {
+        return rate * getTotalHours();
     }
 
     /**
@@ -154,32 +299,30 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     @Override
     public ObservableList<Student> getCompleteStudentList() {
-        UniqueStudentList hack = new UniqueStudentList();
-        List<Student> allStudents = new ArrayList<>();
-        for (Module m : modules) {
-            for (Group g : m.getGroupList()) {
-                for (Student s : g.getStudentList()) {
-                    allStudents.add(s);
-                }
+        UniqueStudentList completeStudentList = new UniqueStudentList();
+
+        // TODO: Fix this before PE, when the master student list is not stored per module group.
+        // There should be a master list of students managed by TaTracker
+
+        HashSet<Student> allStudents = new HashSet<>();
+        for (Module module : modules) {
+            for (Group group : module.getGroupList()) {
+                allStudents.addAll(group.getStudentList());
             }
         }
-
-        hack.setStudents(allStudents);
-        return hack.asUnmodifiableObservableList();
+        completeStudentList.setStudents(new ArrayList<>(allStudents));
+        return completeStudentList.asUnmodifiableObservableList();
     }
 
     public void setCurrentlyShownModuleClaim(String moduleCode) {
-        currentlyShownModuleClaim = modules.getModule(moduleCode);
+        if (moduleCode.equals("")) {
+            currentlyShownModuleClaim = null;
+        } else {
+            currentlyShownModuleClaim = modules.getModule(moduleCode);
+        }
     }
 
     public static Module getCurrentlyShownModuleClaim() {
-        if (currentlyShownModuleClaim == null) {
-            System.out.println("no filter");
-        } else {
-            System.out.println("reached");
-            System.out.println(currentlyShownModuleClaim.getIdentifier());
-            System.out.println(currentlyShownModuleClaim.getName());
-        }
         return currentlyShownModuleClaim;
     }
 
@@ -218,7 +361,10 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
-        for (Session session : sessions) {
+        UniqueSessionList copiedSessions = new UniqueSessionList();
+        copiedSessions.setSessions(sessions);
+
+        for (Session session : copiedSessions) {
             if (session.getModuleCode().equals(module.getIdentifier())) {
                 sessions.remove(session);
             }
@@ -362,6 +508,9 @@ public class TaTracker implements ReadOnlyTaTracker {
      * {@code groups} must not contain duplicate groups.
      */
     public void setCurrentlyShownGroups(List<Group> groups) {
+        if (groups.isEmpty()) {
+            this.currentlyShownGroup = null;
+        }
         this.currentlyShownGroups.setGroups(groups);
     }
 
@@ -417,11 +566,31 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Returns true if a given student with the same identity as {@code student}
+     * exists in a module group that is in TaTracker.
+     * @param targetGroup id of group to check if {@code student} is enrolled in.
+     * @param targetModule id of module that contains {@code group}.
+     */
+    public boolean hasStudent(Matric matric, String targetGroup, String targetModule) {
+        requireNonNull(matric);
+
+        if (!hasGroup(targetGroup, targetModule)) {
+            return false;
+        }
+        return modules.getModule(targetModule).hasStudent(matric, targetGroup);
+    }
+
+    /**
      * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
         return currentlyShownStudents.contains(student);
+    }
+
+    public Student getStudent(Matric matric, String groupCode, String moduleCode) {
+        requireNonNull(matric);
+        return modules.getModule(moduleCode).getStudent(matric, groupCode);
     }
 
     /**
@@ -488,18 +657,16 @@ public class TaTracker implements ReadOnlyTaTracker {
      * @param targetGroup group with the student to edit, which must exist in the TaTracker module.
      * @param targetModule module with the student to edit, which must exist in the TaTracker.
      */
-    public void setStudent(Student target, Student editedStudent, Group targetGroup, Module targetModule) {
-        if (!hasModule(targetModule.getIdentifier())) {
+    public void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule) {
+        if (!hasModule(targetModule)) {
             throw new ModuleNotFoundException();
         }
 
-        if (!hasGroup(targetGroup.getIdentifier(), targetModule.getIdentifier())) {
+        if (!hasGroup(targetGroup, targetModule)) {
             throw new GroupNotFoundException();
         }
 
-        Module module = getModule(targetModule.getIdentifier());
-        Group group = module.getGroup(targetGroup.getIdentifier());
-        group.setStudent(target, editedStudent);
+        modules.getModule(targetModule).setStudent(target, editedStudent, targetGroup);
     }
 
     /**

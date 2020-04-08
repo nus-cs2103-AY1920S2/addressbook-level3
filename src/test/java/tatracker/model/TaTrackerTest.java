@@ -129,6 +129,17 @@ public class TaTrackerTest {
             return null;
         }
 
+        public long getTotalHours() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public int getRate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public long getTotalEarnings() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
 }

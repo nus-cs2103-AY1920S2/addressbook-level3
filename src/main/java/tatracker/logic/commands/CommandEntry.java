@@ -7,6 +7,7 @@ import tatracker.logic.commands.commons.ExitCommand;
 import tatracker.logic.commands.commons.GotoCommand;
 import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.commons.ListCommand;
+import tatracker.logic.commands.commons.SetRateCommand;
 import tatracker.logic.commands.group.AddGroupCommand;
 import tatracker.logic.commands.group.DeleteGroupCommand;
 import tatracker.logic.commands.group.EditGroupCommand;
@@ -26,6 +27,7 @@ import tatracker.logic.commands.statistic.ShowStatisticCommand;
 import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.commands.student.DeleteStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand;
+import tatracker.logic.commands.student.FilterStudentCommand;
 import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.PrefixDictionary;
 
@@ -46,6 +48,7 @@ public enum CommandEntry {
     STUDENT_ADD(AddStudentCommand.DETAILS),
     STUDENT_DELETE(DeleteStudentCommand.DETAILS),
     STUDENT_EDIT(EditStudentCommand.DETAILS),
+    STUDENT_FILTER(FilterStudentCommand.DETAILS),
 
     SORT_ALL(SortCommand.DETAILS),
     SORT_GROUP(SortGroupCommand.DETAILS),
@@ -62,6 +65,7 @@ public enum CommandEntry {
 
     /* TSS View */
     CLAIM_FILTER(FilterClaimCommand.DETAILS),
+    SET_RATE(SetRateCommand.DETAILS),
 
     /* Storage Operations */
     CLEAR(ClearCommand.DETAILS),
@@ -76,6 +80,10 @@ public enum CommandEntry {
 
     CommandEntry(CommandDetails details) {
         this.details = details;
+    }
+
+    public CommandDetails getCommandDetails() {
+        return details;
     }
 
     public String getFullCommandWord() {

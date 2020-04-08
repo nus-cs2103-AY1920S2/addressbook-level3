@@ -33,7 +33,6 @@ public class ModuleBuilder {
         name = moduleToCopy.getName();
         identifier = moduleToCopy.getIdentifier();
         groups = moduleToCopy.getUniqueGroupList();
-        doneSessions = moduleToCopy.getUniqueSessionList();
     }
 
     /**
@@ -69,6 +68,6 @@ public class ModuleBuilder {
     }
 
     public Module build() {
-        return new Module(identifier, name, groups, doneSessions);
+        return new Module(identifier, name, groups);
     }
 }

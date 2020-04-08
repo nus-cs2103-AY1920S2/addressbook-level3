@@ -18,7 +18,7 @@ public class ListCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             "list",
-            "Listed all students",
+            "Lists all sessions inside TA-Tracker",
             List.of(),
             List.of()
     );
@@ -31,6 +31,6 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
         model.updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
-        return new CommandResult(MESSAGE_SUCCESS, Action.NONE);
+        return new CommandResult(MESSAGE_SUCCESS, Action.LIST);
     }
 }
