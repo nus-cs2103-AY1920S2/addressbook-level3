@@ -114,9 +114,6 @@ public class CouponStashParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case RemindCommand.COMMAND_WORD:
-            return new RemindCommandParser().parse(arguments);
-
         case SavedCommand.COMMAND_WORD:
             return new SavedCommandParser().parse(arguments);
 

@@ -55,7 +55,6 @@ public class HelpPane extends UiPart<Region> {
                     new CommandCard(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE),
                     new CommandCard(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_USAGE),
                     new CommandCard(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_USAGE),
-                    new CommandCard(RemindCommand.COMMAND_WORD, RemindCommand.MESSAGE_USAGE),
                     new CommandCard(SavedCommand.COMMAND_WORD, SavedCommand.MESSAGE_USAGE),
                     new CommandCard(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE),
                     new CommandCard(SetPrefCommand.COMMAND_WORD, SetPrefCommand.MESSAGE_USAGE),
