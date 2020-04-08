@@ -96,6 +96,7 @@ public class SuggestionTestUtil {
             assertEquals(expectedInput, input);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Checks the correctness of the display text of a suggestion.
@@ -112,4 +113,6 @@ public class SuggestionTestUtil {
             assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
         }
     }
+=======
+>>>>>>> 098b188c... Update DeleteSugCmdParserTest
 }
