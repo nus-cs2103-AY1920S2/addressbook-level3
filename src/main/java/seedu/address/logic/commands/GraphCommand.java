@@ -49,7 +49,8 @@ public class GraphCommand extends Command {
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
 
-    public static final String MESSAGE_EXERCISE_NOT_IN_LIST = "This client currently does not have this exercise recorded.";
+    public static final String MESSAGE_EXERCISE_NOT_IN_LIST = "This client currently does not have this"
+            + " exercise recorded.";
 
     private final Graph graph;
 
