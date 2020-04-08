@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
 
+import java.util.ArrayList;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddRestaurantNoteCommand;
@@ -39,12 +41,30 @@ public class AddRestaurantNoteCommandParser implements Parser<AddRestaurantNoteC
                 && !argMultimap.getValue(PREFIX_BAD).isPresent()) {
             throw new ParseException(String.format(MESSAGE_NO_PREFIX, AddRestaurantNoteCommand.MESSAGE_USAGE));
         }
+        ArrayList<Note> recommendedFood = new ArrayList<>();
+        ArrayList<Note> goodFood = new ArrayList<>();
+        ArrayList<Note> badFood = new ArrayList<>();
 
-        String recommendedFood = argMultimap.getValue(PREFIX_RECOMMENDED).orElse("");
-        String goodFood = argMultimap.getValue(PREFIX_GOOD).orElse("");
-        String badFood = argMultimap.getValue(PREFIX_BAD).orElse("");
+        if (argMultimap.getValue(PREFIX_RECOMMENDED).isPresent()) {
+            if (argMultimap.getValue(PREFIX_RECOMMENDED).isEmpty()) {
+                throw new ParseException(AddRestaurantNoteCommand.MESSAGE_EMPTY_REC);
+            }
+            recommendedFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_RECOMMENDED));
+        }
+        if (argMultimap.getValue(PREFIX_GOOD).isPresent()) {
+            if (argMultimap.getValue(PREFIX_GOOD).isEmpty()) {
+                throw new ParseException(AddRestaurantNoteCommand.MESSAGE_EMPTY_GOOD);
+            }
+            goodFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_GOOD));
+        }
+        if (argMultimap.getValue(PREFIX_BAD).isPresent()) {
+            if (argMultimap.getValue(PREFIX_BAD).isEmpty()) {
+                throw new ParseException(AddRestaurantNoteCommand.MESSAGE_EMPTY_BAD);
+            }
+            badFood = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_BAD));
+        }
 
-        return new AddRestaurantNoteCommand(index, new Note(recommendedFood), new Note(goodFood), new Note(badFood));
+        return new AddRestaurantNoteCommand(index, recommendedFood, goodFood, badFood);
     }
 
 }
