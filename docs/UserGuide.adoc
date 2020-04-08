@@ -93,7 +93,8 @@ This section provides you with the features that you can perform in *MODdy*. It 
 [[Help]]
 === Viewing help : `help`
 
-This command opens up a help window, providing you a link, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
+If you are unsure about the commands and wants to seek help, this command opens up a help window. There are basic command format as well as the respective parameter.
+For more detailed help, you can visit the link provided, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
 
@@ -325,7 +326,7 @@ NOTE: Your profile, including all modules, grades and deadlines under your name,
 [[Home]]
 === Returning to Homepage : `home`
 
-This command returns you to *MODdy*'s Homepage, as shown in the figure below.
+If you want to return to *MODdy*'s Homepage, use this command, as shown in the figure below.
 
 Format: `home`
 
@@ -346,7 +347,7 @@ image::Clear.png[width="790"]
 [[Exit]]
 === Exiting *MODdy*: `exit`
 
-This command closes the GUI and exits *MODdy*.
+If you want to close the GUI and exit *MODdy*, use this command.
 
 Format: `exit`
 

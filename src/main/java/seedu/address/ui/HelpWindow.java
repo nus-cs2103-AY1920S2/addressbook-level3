@@ -62,7 +62,7 @@ public class HelpWindow extends UiPart<Stage> {
         Text newCommands = new Text("1. `new` command \n"
                 + "       - n/USER_NAME\n"
                 + "       - c/COURSE_NAME\n"
-                + "       - cs/CURRENT_SEMESTER\n"
+                + "       - y/CURRENTYEAR_CURRENTSEMESTER\n"
                 + "       - [s/SPECIALISATION]\n");
 
         Text addCommands = new Text("2. `add` command \n"

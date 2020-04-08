@@ -17,6 +17,16 @@ Class StatusBarFooter
 Class CommandBox
 Class DeadlineListPanel
 Class DeadlineCard
+Class FocusAreaPanel
+Class CourseFocusAreaCard
+Class CoursePanel
+Class CourseRequirementCard
+Class IndividualModulePanel
+Class ModuleListPanel
+Class ModuleCard
+Class OverviewPanel
+Class OverviewModuleCard
+
 }
 
 package Model <<Rectangle>> {
