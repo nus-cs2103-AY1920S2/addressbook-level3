@@ -2,9 +2,9 @@ package seedu.zerotoone.logic.parser.log;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_SESSION_END;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_SESSION_START;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_LOG_END;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_LOG_START;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -15,7 +15,7 @@ import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
-import seedu.zerotoone.model.exercise.ExerciseName;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -29,34 +29,33 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        Optional<ExerciseName> exerciseNameOptional = Optional.empty();
+        Optional<WorkoutName> workoutNameOptional = Optional.empty();
         Optional<LocalDateTime> startTimeOptional = Optional.empty();
         Optional<LocalDateTime> endTimeOptional = Optional.empty();
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME, PREFIX_SESSION_START,
-            PREFIX_SESSION_END);
-        if (argMultimap.getValue(PREFIX_EXERCISE_NAME).isPresent()) {
-            exerciseNameOptional = Optional.of(new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get()));
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WORKOUT_NAME, PREFIX_LOG_START,
+            PREFIX_LOG_END);
+        if (argMultimap.getValue(PREFIX_WORKOUT_NAME).isPresent()) {
+            workoutNameOptional = Optional.of(new WorkoutName(argMultimap.getValue(PREFIX_WORKOUT_NAME).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_START).isPresent()) {
+        if (argMultimap.getValue(PREFIX_LOG_START).isPresent()) {
             try {
                 startTimeOptional =
-                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_SESSION_START).get()));
+                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_START).get()));
             } catch (DateTimeParseException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
         }
 
-        if (argMultimap.getValue(PREFIX_SESSION_END).isPresent()) {
+        if (argMultimap.getValue(PREFIX_LOG_END).isPresent()) {
             try {
                 endTimeOptional =
-                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_SESSION_END).get()));
+                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_END).get()));
             } catch (DateTimeParseException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
         }
 
-        // workout session not implemented yet
-        return new FindCommand(startTimeOptional, endTimeOptional, exerciseNameOptional, Optional.empty());
+        return new FindCommand(startTimeOptional, endTimeOptional, workoutNameOptional);
     }
 }

@@ -1,0 +1,13 @@
+{
+    "workouts": [
+        {
+            "workoutName": "inValid#&*#Name",
+            "workoutSets": [
+                {
+                    "weight": "invalidWeight",
+                    "numReps": "invalidNumReps"
+                }
+            ]
+        }
+    ]
+}

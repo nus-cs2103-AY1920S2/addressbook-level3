@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="timer" alignment="CENTER" prefHeight="130.0" prefWidth="223.0" styleClass="cell_big_label" text="00:00" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="System Bold" size="65.0" />
+         </font>
+      </Label>
+   </children>
+</VBox>
