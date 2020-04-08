@@ -144,12 +144,12 @@ public class AssignmentList {
      * Aim is to have the workload as evenly spread out across days (from current date to deadline) as possible.
      */
     public void generateSchedule(int numDays) {
-        ArrayList<Float> cumulativeHoursPerDayList = new ArrayList<Float>();
+        ArrayList<Float> distributedHoursAllAssignments = new ArrayList<Float>();
         LocalDateTime currDateTime = LocalDateTime.now(ZoneId.of("Singapore"));
         ObservableList<Assignment> assignmentList = internalList.sorted(new DeadlineComparator());
         int currSize = scheduleVisual.size();
 
-        cumulativeHoursPerDayList.add((float) 0.0);
+        distributedHoursAllAssignments.add((float) 0.0);
 
         if (numDays > currSize) {
             for (int i = 0; i < (numDays - currSize); i++) {
@@ -166,6 +166,7 @@ public class AssignmentList {
             scheduleVisual.get(k).resetAllocatedAssignments();
         }
 
+        // Assignments are iterated through in sorted order according to deadline
         for (int l = 0; l < assignmentList.size(); l++) {
             String assignmentStatus = assignmentList.get(l).getStatus().status;
             String assignmentTitle = assignmentList.get(l).getTitle().title;
@@ -175,7 +176,7 @@ public class AssignmentList {
                 float hoursToBeAllocated = Float.parseFloat(assignmentList.get(l).getWorkload().estHours);
                 int noOfDaysBetween = (int) ChronoUnit.DAYS.between(currDateTime.toLocalDate(), deadline.toLocalDate());
 
-                ArrayList<Float> allocationResult = allocateHours(cumulativeHoursPerDayList, deadline,
+                ArrayList<Float> allocationResult = allocateHours(distributedHoursAllAssignments, deadline,
                     hoursToBeAllocated, noOfDaysBetween, currDateTime);
 
                 populateScheduledAssignments(allocationResult, numDays, noOfDaysBetween, assignmentTitle);
@@ -183,10 +184,10 @@ public class AssignmentList {
         }
 
         // Set hours per day in result list with a cap of 24 hours per day
-        for (int k = 0; k < Math.min(numDays, cumulativeHoursPerDayList.size()); k++) {
-            System.out.println(cumulativeHoursPerDayList.get(k));
+        for (int k = 0; k < Math.min(numDays, distributedHoursAllAssignments.size()); k++) {
+            System.out.println(distributedHoursAllAssignments.get(k));
             scheduleVisual.get(k)
-                .setHours((float) Math.min(Math.round((cumulativeHoursPerDayList.get(k) * 2)) / 2.0, 24));
+                .setHours((float) Math.min(Math.round((distributedHoursAllAssignments.get(k) * 2)) / 2.0, 24));
         }
     }
 
@@ -209,31 +210,32 @@ public class AssignmentList {
 
     /**
      * Allocates the current assignments estimated workload across several days (today included).
-     * Allocates time to the day the assignment is due as well but re-allocates the time if the user.
+     * Excess amount of time allocated to query date and day deadline is due will be redistributed.
      */
-    public ArrayList<Float> allocateHours(ArrayList<Float> cumulativeHoursPerDayList, LocalDateTime deadline,
+    public ArrayList<Float> allocateHours(ArrayList<Float> distributedHoursAllAssignments, LocalDateTime deadline,
                                           float hoursToBeAllocated, int noOfDaysBetween, LocalDateTime currDateTime) {
 
         // Keeps track of the amount of time allocated to each day for this assignment.
-        ArrayList<Float> hoursPerDayList = new ArrayList<>();
+        ArrayList<Float> distributedHoursThisAssignment = new ArrayList<>();
 
         if (noOfDaysBetween == 0) {
             // Allocate only the remaining time the user has before the deadline
             float diffInHours = Duration.between(currDateTime, deadline).toHours();
-            cumulativeHoursPerDayList.set(0, cumulativeHoursPerDayList.get(0)
-                + Math.min(diffInHours, hoursToBeAllocated));
-            hoursPerDayList.add(Math.min(diffInHours, hoursToBeAllocated));
 
-            return hoursPerDayList;
+            distributedHoursAllAssignments.set(0, distributedHoursAllAssignments.get(0)
+                + Math.min(diffInHours, hoursToBeAllocated));
+            distributedHoursThisAssignment.add(Math.min(diffInHours, hoursToBeAllocated));
+
+            return distributedHoursThisAssignment;
 
         } else if (noOfDaysBetween > 0) {
-            float[] currMinAndSecondMin = getMinAndSecondMin(cumulativeHoursPerDayList, noOfDaysBetween);
+            float[] currMinAndSecondMin = getMinAndSecondMin(distributedHoursAllAssignments, noOfDaysBetween);
 
-            int currSize = cumulativeHoursPerDayList.size();
+            int currSize = distributedHoursAllAssignments.size();
 
-            // Initialise hoursPerDayList
+            // Initialise distributedHoursThisAssignment
             for (int i = 0; i < currSize; i++) {
-                hoursPerDayList.add((float) 0);
+                distributedHoursThisAssignment.add((float) 0);
             }
 
             // Allocate hours to new days first (if any)
@@ -244,37 +246,40 @@ public class AssignmentList {
                 float hoursAdded = Math.min(currMinAndSecondMin[0], hoursToAdd);
 
                 for (int i = 0; i < numNewDays; i++) {
-                    cumulativeHoursPerDayList.add(hoursAdded);
-                    hoursPerDayList.add(hoursAdded);
+                    distributedHoursAllAssignments.add(hoursAdded);
+                    distributedHoursThisAssignment.add(hoursAdded);
                     hoursToBeAllocated -= hoursAdded;
                 }
             }
 
             // Allocate hours to days with the least amount of work allocated in increasing order
             while (currMinAndSecondMin[0] != currMinAndSecondMin[1] && hoursToBeAllocated != 0) {
-                int daysWithMinHours = getMinDays(cumulativeHoursPerDayList, noOfDaysBetween, currMinAndSecondMin[0]);
+                int daysWithMinHours = getMinDays(distributedHoursAllAssignments, noOfDaysBetween,
+                    currMinAndSecondMin[0]);
                 float diffBetweenMinAndSecondMin = currMinAndSecondMin[1] - currMinAndSecondMin[0];
                 float hoursToAdd = hoursToBeAllocated / daysWithMinHours;
                 float hoursAdded = Math.min(hoursToAdd, diffBetweenMinAndSecondMin);
 
-                hoursToBeAllocated -= allocateHoursToMinDays(cumulativeHoursPerDayList, noOfDaysBetween, hoursAdded,
-                    currMinAndSecondMin[0], hoursPerDayList);
+                hoursToBeAllocated -= allocateHoursToMinDays(distributedHoursAllAssignments, noOfDaysBetween,
+                    hoursAdded, currMinAndSecondMin[0], distributedHoursThisAssignment);
 
-                currMinAndSecondMin = getMinAndSecondMin(cumulativeHoursPerDayList, noOfDaysBetween);
+                currMinAndSecondMin = getMinAndSecondMin(distributedHoursAllAssignments, noOfDaysBetween);
             }
 
             // Allocate remaining hours equally across the days up to deadline of assignment (if any)
             float hoursAdded = hoursToBeAllocated / (noOfDaysBetween + 1);
 
-            for (int k = 0; k < Math.min(cumulativeHoursPerDayList.size(), noOfDaysBetween + 1); k++) {
-                cumulativeHoursPerDayList.set(k, cumulativeHoursPerDayList.get(k) + hoursAdded);
-                hoursPerDayList.set(k, hoursPerDayList.get(k) + hoursAdded);
+            for (int k = 0; k < Math.min(distributedHoursAllAssignments.size(), noOfDaysBetween + 1); k++) {
+                distributedHoursAllAssignments.set(k, distributedHoursAllAssignments.get(k) + hoursAdded);
+                distributedHoursThisAssignment.set(k, distributedHoursThisAssignment.get(k) + hoursAdded);
             }
 
             LocalDateTime midnightToday = LocalDateTime.of(currDateTime.toLocalDate().plusDays(1), LocalTime.MIDNIGHT);
 
             // Number of hours that have already been allocated to query day before this assignment
-            float prevHoursAlrAllocatedToToday = cumulativeHoursPerDayList.get(0) - hoursPerDayList.get(0);
+            float prevHoursAlrAllocatedToToday =
+                distributedHoursAllAssignments.get(0) - distributedHoursThisAssignment.get(0);
+
             // Amount of time on query day that can be allocated to this current assignment
             float hoursLeftToToday = Math.abs(ChronoUnit.HOURS.between(currDateTime, midnightToday))
                 - prevHoursAlrAllocatedToToday;
@@ -282,79 +287,86 @@ public class AssignmentList {
             LocalDateTime midnightDeadline = LocalDateTime.of(deadline.toLocalDate(), LocalTime.MIDNIGHT);
 
             // Number of hours that have already been allocated to the day of the deadline before this assignment
-            float prevHoursAlrAllocatedToDeadline = cumulativeHoursPerDayList.get(noOfDaysBetween)
-                - hoursPerDayList.get(noOfDaysBetween);
+            float prevHoursAlrAllocatedToDeadline = distributedHoursAllAssignments.get(noOfDaysBetween)
+                - distributedHoursThisAssignment.get(noOfDaysBetween);
+
             // Amount of time on the day the assignment is due that can be allocated to this current assignment
             float hoursLeftToDeadlineDay = Math.max(Math.abs(ChronoUnit.HOURS.between(midnightDeadline, deadline))
                 - prevHoursAlrAllocatedToDeadline, 0);
 
             // Excess hours allocated to query date will be redistributed across the next few days up to deadline
             // Excess hours allocated to deadline day will be redistributed over previous days, starting from query date
-            if (hoursLeftToToday < hoursPerDayList.get(0)
-                && hoursLeftToDeadlineDay < hoursPerDayList.get(noOfDaysBetween)) {
+            if (hoursLeftToToday < distributedHoursThisAssignment.get(0)
+                && hoursLeftToDeadlineDay < distributedHoursThisAssignment.get(noOfDaysBetween)) {
 
-                float excessToday = hoursPerDayList.get(0) - hoursLeftToToday;
-                float excessDeadline = hoursPerDayList.get(noOfDaysBetween) - hoursLeftToDeadlineDay;
+                float excessToday = distributedHoursThisAssignment.get(0) - hoursLeftToToday;
+                float excessDeadline = distributedHoursThisAssignment.get(noOfDaysBetween) - hoursLeftToDeadlineDay;
 
-                cumulativeHoursPerDayList.set(0, cumulativeHoursPerDayList.get(0) - excessToday);
-                hoursPerDayList.set(0, hoursPerDayList.get(0) - excessToday);
+                distributedHoursAllAssignments.set(0, distributedHoursAllAssignments.get(0) - excessToday);
+                distributedHoursThisAssignment.set(0, distributedHoursThisAssignment.get(0) - excessToday);
 
-                cumulativeHoursPerDayList.set(noOfDaysBetween, cumulativeHoursPerDayList.get(noOfDaysBetween)
+                distributedHoursAllAssignments.set(noOfDaysBetween, distributedHoursAllAssignments.get(noOfDaysBetween)
                     - excessDeadline);
-                hoursPerDayList.set(noOfDaysBetween, hoursPerDayList.get(noOfDaysBetween) - excessDeadline);
+                distributedHoursThisAssignment.set(noOfDaysBetween,
+                    distributedHoursThisAssignment.get(noOfDaysBetween) - excessDeadline);
 
                 hoursAdded = (excessToday + excessDeadline) / (noOfDaysBetween - 1);
-                redistributeHours(1, noOfDaysBetween, hoursAdded, cumulativeHoursPerDayList, hoursPerDayList);
+                redistributeHours(1, noOfDaysBetween, hoursAdded, distributedHoursAllAssignments,
+                    distributedHoursThisAssignment);
 
-            } else if (hoursLeftToToday < hoursPerDayList.get(0)) {
-                float excessToday = hoursPerDayList.get(0) - hoursLeftToToday;
+            } else if (hoursLeftToToday < distributedHoursThisAssignment.get(0)) {
+                float excessToday = distributedHoursThisAssignment.get(0) - hoursLeftToToday;
 
-                cumulativeHoursPerDayList.set(0, cumulativeHoursPerDayList.get(0) - excessToday);
-                hoursPerDayList.set(0, hoursPerDayList.get(0) - excessToday);
+                distributedHoursAllAssignments.set(0, distributedHoursAllAssignments.get(0) - excessToday);
+                distributedHoursThisAssignment.set(0, distributedHoursThisAssignment.get(0) - excessToday);
 
                 hoursAdded = excessToday / (noOfDaysBetween);
-                redistributeHours(1, noOfDaysBetween + 1, hoursAdded, cumulativeHoursPerDayList,
-                    hoursPerDayList);
+                redistributeHours(1, noOfDaysBetween + 1, hoursAdded, distributedHoursAllAssignments,
+                    distributedHoursThisAssignment);
 
-            } else if (hoursLeftToDeadlineDay < hoursPerDayList.get(noOfDaysBetween)) {
-                float excessDeadline = hoursPerDayList.get(noOfDaysBetween) - hoursLeftToDeadlineDay;
+            } else if (hoursLeftToDeadlineDay < distributedHoursThisAssignment.get(noOfDaysBetween)) {
+                float excessDeadline = distributedHoursThisAssignment.get(noOfDaysBetween) - hoursLeftToDeadlineDay;
 
-                cumulativeHoursPerDayList.set(noOfDaysBetween, cumulativeHoursPerDayList.get(noOfDaysBetween)
+                distributedHoursAllAssignments.set(noOfDaysBetween, distributedHoursAllAssignments.get(noOfDaysBetween)
                     - excessDeadline);
-                hoursPerDayList.set(noOfDaysBetween, hoursPerDayList.get(noOfDaysBetween) - excessDeadline);
+                distributedHoursThisAssignment.set(noOfDaysBetween,
+                    distributedHoursThisAssignment.get(noOfDaysBetween) - excessDeadline);
 
                 hoursAdded = excessDeadline / (noOfDaysBetween);
-                redistributeHours(0, noOfDaysBetween, hoursAdded, cumulativeHoursPerDayList, hoursPerDayList);
+                redistributeHours(0, noOfDaysBetween, hoursAdded, distributedHoursAllAssignments,
+                    distributedHoursThisAssignment);
             }
         }
 
-        return hoursPerDayList;
+        return distributedHoursThisAssignment;
     }
 
     /**
      * Redistributes any excess hours to days between start (including) and end (excluding).
      */
-    private void redistributeHours(int start, int end, float hoursAdded, ArrayList<Float> cumulativeHoursPerDayList,
-                                   ArrayList<Float> hoursPerDayList) {
+    private void redistributeHours(int start, int end, float hoursAdded,
+                                   ArrayList<Float> distributedHoursAllAssignments,
+                                   ArrayList<Float> distributedHoursThisAssignment) {
 
         for (int i = start; i < end; i++) {
-            cumulativeHoursPerDayList.set(i, cumulativeHoursPerDayList.get(i) + hoursAdded);
-            hoursPerDayList.set(i, hoursPerDayList.get(i) + hoursAdded);
+            distributedHoursAllAssignments.set(i, distributedHoursAllAssignments.get(i) + hoursAdded);
+            distributedHoursThisAssignment.set(i, distributedHoursThisAssignment.get(i) + hoursAdded);
         }
     }
 
     /**
      * Allocates hours to days which currently have the least amount of hours allocated.
      */
-    private float allocateHoursToMinDays(ArrayList<Float> cumulativeHoursPerDayList, int daysInBetween,
-                                         float hoursAdded, float currMin, ArrayList<Float> hoursPerDayList) {
+    private float allocateHoursToMinDays(ArrayList<Float> distributedHoursAllAssignments, int daysInBetween,
+                                         float hoursAdded, float currMin,
+                                         ArrayList<Float> distributedHoursThisAssignment) {
 
         float allocatedHours = 0;
 
-        for (int j = 0; j < Math.min(cumulativeHoursPerDayList.size(), daysInBetween + 1); j++) {
-            if (cumulativeHoursPerDayList.get(j) == currMin) {
-                cumulativeHoursPerDayList.set(j, cumulativeHoursPerDayList.get(j) + hoursAdded);
-                hoursPerDayList.set(j, hoursPerDayList.get(j) + hoursAdded);
+        for (int j = 0; j < Math.min(distributedHoursAllAssignments.size(), daysInBetween + 1); j++) {
+            if (distributedHoursAllAssignments.get(j) == currMin) {
+                distributedHoursAllAssignments.set(j, distributedHoursAllAssignments.get(j) + hoursAdded);
+                distributedHoursThisAssignment.set(j, distributedHoursThisAssignment.get(j) + hoursAdded);
                 allocatedHours += hoursAdded;
             }
         }
@@ -366,15 +378,15 @@ public class AssignmentList {
      * result[0]: Minimum hours allocated to a day.
      * result[1]: Second minimum hours allocated to a day.
      */
-    private float[] getMinAndSecondMin(ArrayList<Float> cumulativeHoursPerDayList, int daysInBetween) {
+    private float[] getMinAndSecondMin(ArrayList<Float> distributedHoursAllAssignments, int daysInBetween) {
         float[] result = {Float.MAX_VALUE, Float.MAX_VALUE};
 
-        for (int i = 0; i < Math.min(cumulativeHoursPerDayList.size(), daysInBetween + 1); i++) {
-            if (cumulativeHoursPerDayList.get(i) < result[0]) {
-                result[0] = cumulativeHoursPerDayList.get(i);
-                result[1] = cumulativeHoursPerDayList.get(i);
-            } else if (cumulativeHoursPerDayList.get(i) < result[1]) {
-                result[1] = cumulativeHoursPerDayList.get(i);
+        for (int i = 0; i < Math.min(distributedHoursAllAssignments.size(), daysInBetween + 1); i++) {
+            if (distributedHoursAllAssignments.get(i) < result[0]) {
+                result[0] = distributedHoursAllAssignments.get(i);
+                result[1] = distributedHoursAllAssignments.get(i);
+            } else if (distributedHoursAllAssignments.get(i) < result[1]) {
+                result[1] = distributedHoursAllAssignments.get(i);
             }
         }
         return result;
@@ -383,11 +395,11 @@ public class AssignmentList {
     /**
      * Returns the number of days that have been allocated the least workload from today to deadline.
      */
-    private int getMinDays(ArrayList<Float> hoursPerDayList, int daysInBetween, float currMin) {
+    private int getMinDays(ArrayList<Float> distributedHoursAllAssignments, int daysInBetween, float currMin) {
         int count = 0;
 
-        for (int i = 0; i < Math.min(hoursPerDayList.size(), daysInBetween + 1); i++) {
-            if (hoursPerDayList.get(i) == currMin) {
+        for (int i = 0; i < Math.min(distributedHoursAllAssignments.size(), daysInBetween + 1); i++) {
+            if (distributedHoursAllAssignments.get(i) == currMin) {
                 count++;
             }
         }

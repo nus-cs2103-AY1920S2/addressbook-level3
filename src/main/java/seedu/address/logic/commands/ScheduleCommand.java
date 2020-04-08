@@ -14,7 +14,8 @@ public class ScheduleCommand extends Command {
         + "NUM_DAYS days (including today) based on stored assignments, their deadlines and estimated work hours "
         + "per assignment.";
     public static final String MESSAGE_SUCCESS = "Your expected workload can be found in the panel on the right!\n"
-        + "Note that this only takes into account your stored assignments and nothing else...";
+        + "NOTE: This only takes into account your stored assignments and nothing else...\n"
+        + "NOTE: A hard cap of 24 hours is placed";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
         + "Parameters: "
         + PREFIX_NUM_DAYS + "NUM_DAYS "
