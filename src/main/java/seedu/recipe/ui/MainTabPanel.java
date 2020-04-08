@@ -34,7 +34,7 @@ public class MainTabPanel extends UiPart<Region> {
 
     //TODO: change last argument's RecipeListPanel to AchievementsListPanel once class is created
     public MainTabPanel(RecipeListPanel recipeListPanel, PlanningListPanel planningListPanel,
-                        CookedListPanel cookedListPanel, RecipeListPanel achievementsListPanel) {
+                        CookedListPanel cookedListPanel, AchievementCard achievementsListPanel) {
         super(FXML);
 
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
