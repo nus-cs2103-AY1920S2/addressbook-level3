@@ -81,6 +81,10 @@ public class TransactionFactory {
         return money;
     }
 
+    public DateTime getDateTime() { return dateTime; }
+
+    public Description getDescription() { return description; }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -94,6 +98,9 @@ public class TransactionFactory {
         TransactionFactory otherTransactionFactory = (TransactionFactory) other;
         return otherTransactionFactory.customerIndex.equals(customerIndex)
                 && otherTransactionFactory.productIndex.equals(productIndex)
-                && otherTransactionFactory.dateTime.equals(dateTime);
+                && otherTransactionFactory.dateTime.equals(dateTime)
+                && otherTransactionFactory.money.equals(money)
+                && otherTransactionFactory.quantity.equals(quantity)
+                && otherTransactionFactory.description.equals(description);
     }
 }

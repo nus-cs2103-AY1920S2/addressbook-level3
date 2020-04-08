@@ -164,7 +164,7 @@ public class AddProductCommandTest {
 
         @Override
         public void deleteTransaction(Transaction target) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

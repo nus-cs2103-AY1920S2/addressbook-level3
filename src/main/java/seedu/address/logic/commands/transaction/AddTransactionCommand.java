@@ -52,7 +52,6 @@ public class AddTransactionCommand extends Command {
             + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_ZERO_QUANTITY = "A transaction with 0 quantity is not allowed";
 
     private final TransactionFactory transactionFactory;
 
@@ -64,15 +63,28 @@ public class AddTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Product> lastShownList = model.getFilteredProductList();
+        Index productIndex = getProductIndex(lastShownList);
+
+        Product productToEdit = lastShownList.get(productIndex.getZeroBased());
+
         Transaction toAdd = transactionFactory.createTransaction(model);
 
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
+
+        Product editedProduct = updateProduct(productToEdit, toAdd);
+
+        if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
+        }
+
         model.addTransaction(toAdd);
 
-        Product editedProduct = updateProduct(model, toAdd);
+        model.setProduct(productToEdit, editedProduct);
+        model.updateFilteredProductList();
 
         if (editedProduct.isBelowThreshold()) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
@@ -90,28 +102,18 @@ public class AddTransactionCommand extends Command {
 
     /**
      * Updates product details based on transaction to be added.
-     * @param model
+     * @param productToEdit
      * @param toAdd
      * @throws CommandException
      */
-    private Product updateProduct(Model model, Transaction toAdd) throws CommandException {
-        List<Product> lastShownList = model.getFilteredProductList();
+    private Product updateProduct(Product productToEdit, Transaction toAdd) throws CommandException {
         EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
 
-        Index productIndex = getProductIndex(lastShownList);
-
-        Product productToEdit = lastShownList.get(productIndex.getZeroBased());
         editProductDescriptor.setQuantity(getNewQuantity(toAdd, productToEdit));
         editProductDescriptor.setSales(getNewSales(toAdd, productToEdit));
         editProductDescriptor.setThreshold(productToEdit.getThreshold());
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
-        if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
-        }
-
-        model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList();
 
         return editedProduct;
     }
@@ -144,5 +146,12 @@ public class AddTransactionCommand extends Command {
         newSales = oldSales.plus(toAdd.getMoney());
 
         return newSales;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTransactionCommand // instanceof handles nulls
+                && transactionFactory.equals(((AddTransactionCommand) other).transactionFactory));
     }
 }
