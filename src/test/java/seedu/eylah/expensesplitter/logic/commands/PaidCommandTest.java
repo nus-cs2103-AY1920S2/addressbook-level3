@@ -136,13 +136,6 @@ public class PaidCommandTest {
 
 
 
-
-
-
-
-
-
-
     private class ModelStubPaidCommand extends ModelStub {
 
         private final PersonAmountBook personAmountBook;

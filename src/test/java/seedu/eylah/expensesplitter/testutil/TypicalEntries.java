@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import seedu.eylah.expensesplitter.model.ReceiptBook;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
@@ -22,6 +23,8 @@ public class TypicalEntries {
             .withPrice(new BigDecimal("19.00")).build();
     private static final Item PASTA = new ItemBuilder().withName("Pasta")
             .withPrice(new BigDecimal("5.00")).build();
+    private static final Item NOODLES = new ItemBuilder().withName("Noodles")
+            .withPrice(new BigDecimal("10.00")).build();
     private static final Person ANNABELLE = new PersonBuilder().withName("Annabelle").build();
     private static final Person BOBBY = new PersonBuilder().withName("Bobby").build();
     private static final ArrayList<Person> PERSONS_LIST_TWO = new ArrayList<>(Arrays.asList(ANNABELLE, BOBBY));
@@ -32,16 +35,20 @@ public class TypicalEntries {
             .withPersons(PERSONS_LIST_TWO).build();
     public static final Entry ENTRY_THREE = new EntryBuilder().withItem(PASTA)
             .withPersons(PERSONS_LIST_THREE).build();
+    public static final Entry ENTRY_FOUR = new EntryBuilder().withItem(NOODLES)
+            .withPersons(PERSONS_LIST_THREE).build();
 
-    public static Receipt getTypicalReceipt() {
+    public static ReceiptBook getTypicalReceiptBook() {
+        ReceiptBook receiptBook = new ReceiptBook();
         Receipt receipt = new Receipt();
         for (Entry entry : getTypicalEntries()) {
             receipt.addEntry(entry);
         }
-        return receipt;
+        receiptBook.addReceipt(receipt);
+        return receiptBook;
     }
 
     public static ArrayList<Entry> getTypicalEntries() {
-        return new ArrayList<>(Arrays.asList(ENTRY_ONE, ENTRY_TWO, ENTRY_THREE));
+        return new ArrayList<>(Arrays.asList(ENTRY_ONE, ENTRY_TWO, ENTRY_THREE, ENTRY_FOUR));
     }
 }

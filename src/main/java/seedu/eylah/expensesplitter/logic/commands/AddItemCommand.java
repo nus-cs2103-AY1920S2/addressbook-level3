@@ -57,16 +57,19 @@ public class AddItemCommand extends Command {
 
     @Override
     public CommandResult execute(SplitterModel splitterModel) throws CommandException {
+
         requireNonNull(splitterModel);
         if (splitterModel.isReceiptDone()) {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
             splitterModel.addEntry(toBeAdded);
             for (Person person : persons) {
+
                 if (!splitterModel.hasPerson(person)) {
                     splitterModel.addPerson(person);
                 } else {
                     splitterModel.addAmount(splitterModel.getPerson(person), amount);
+
                 }
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));

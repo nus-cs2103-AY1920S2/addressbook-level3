@@ -112,7 +112,23 @@ public class Receipt {
         }
 
         Receipt otherItem = (Receipt) other;
-        return otherItem.getReceipt().equals(getReceipt());
+
+        //return otherItem.getReceipt().equals(getReceipt());
+        /*
+        The above .equals() method do not work because you are using the inherent AL .equals() method.
+        A Receipt should be equal if the Entries all are equals, but if you are using the inherent .equals()
+        method then it won't work.
+         */
+
+        for (int i = 0; i < getReceipt().size(); i++) {
+            if (getReceipt().get(i).equals(otherItem.receipt.get(i))) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
