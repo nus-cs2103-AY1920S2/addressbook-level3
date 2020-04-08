@@ -26,6 +26,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
 import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
 
+//@@author khsc96
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
