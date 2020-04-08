@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_INVALID_CSV_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
@@ -11,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
-import static seedu.address.logic.commands.ImportCommand.MESSAGE_INVALID_CSV_FILEPATH;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
