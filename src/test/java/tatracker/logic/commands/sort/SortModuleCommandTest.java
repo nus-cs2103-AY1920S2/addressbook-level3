@@ -2,6 +2,7 @@ package tatracker.logic.commands.sort;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class SortModuleCommandTest {
                         "CS2030");
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
 
-        assertThrows(CommandException.class, SortModuleCommand.MESSAGE_INVALID_MODULE_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () ->
                 sortModuleCommand.execute(modelStub));
     }
 

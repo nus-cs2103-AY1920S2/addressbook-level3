@@ -2,6 +2,8 @@ package tatracker.logic.commands.module;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_MODULE;
+import static tatracker.logic.commands.module.AddModuleCommand.MESSAGE_ADD_MODULE_SUCCESS;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTracker;
 
@@ -32,7 +34,8 @@ public class AddModuleIntegrationTest {
 
         CommandResult commandResult = new AddModuleCommand(validModule).execute(model);
 
-        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(MESSAGE_ADD_MODULE_SUCCESS, validModule.getIdentifier()),
+                commandResult.getFeedbackToUser());
         assertTrue(model.hasModule(validModule.getIdentifier()));
     }
 
@@ -42,7 +45,7 @@ public class AddModuleIntegrationTest {
         model.addModule(validModule);
         AddModuleCommand addModuleCommand = new AddModuleCommand(validModule);
 
-        assertThrows(CommandException.class, AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () ->
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_MODULE, () ->
                 addModuleCommand.execute(model));
     }
 

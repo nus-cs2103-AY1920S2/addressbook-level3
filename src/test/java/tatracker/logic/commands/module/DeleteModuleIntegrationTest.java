@@ -2,6 +2,7 @@ package tatracker.logic.commands.module;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTracker;
 
@@ -35,7 +36,7 @@ public class DeleteModuleIntegrationTest {
         CommandResult commandResult = deleteModuleCommand.execute(model);
 
         assertEquals(String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
-                validModule), commandResult.getFeedbackToUser());
+                validModule.getIdentifier()), commandResult.getFeedbackToUser());
         assertFalse(model.hasModule(validModule.getIdentifier()));
     }
 
@@ -46,7 +47,7 @@ public class DeleteModuleIntegrationTest {
         model.addModule(validModule);
         DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand("CS1232");
 
-        assertThrows(CommandException.class, DeleteModuleCommand.MESSAGE_INVALID_MODULE_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () ->
                 deleteModuleCommand.execute(model));
     }
 }
