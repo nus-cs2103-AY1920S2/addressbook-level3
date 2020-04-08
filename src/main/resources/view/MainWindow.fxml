@@ -10,7 +10,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="670" minWidth="1000" onCloseRequest="#handleExit" title="Coupon Stash" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+         xmlns="http://javafx.com/javafx/11.0" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/coupon_stash_32.png"/>
   </icons>

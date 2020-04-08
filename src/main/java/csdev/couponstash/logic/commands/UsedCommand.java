@@ -41,7 +41,7 @@ public class UsedCommand extends IndexedCommand {
             + "Example: " + COMMAND_WORD + " 1 %s100";
     public static final String MESSAGE_ARCHIVED_COUPON = "Coupon has been archived!\n"
             + "To use the coupon again, type the command `unarchive %s` first.";
-    public static final String MESSAGE_COUPON_HAVENT_START = "Coupon's start date is after today!"
+    public static final String MESSAGE_COUPON_HAVENT_START = "Coupon's start date is after today! "
             + "You can edit the start date with the `edit` command if you still wish to use this coupon.";
 
     private final MonetaryAmount originalAmount;

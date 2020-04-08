@@ -241,11 +241,14 @@
 
 #summary-tab #saveables {
   -fx-background-color: transparent;
+  -fx-border-radius: 10px;
+  -fx-padding: 10px;
 }
 
 #summary-tab #all-saveables {
   -fx-background-color: -fx-tertiary-green;
-  -fx-background-radius: 10;
+  -fx-background-radius: 10px;
+  -fx-padding: 10px;
   -fx-effect: -fx-paneShadow;
 }
 
