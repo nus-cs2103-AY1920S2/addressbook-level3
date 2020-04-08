@@ -15,6 +15,9 @@ public class Session implements Comparable<Session> {
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /** For formatting sessions with minimal notation. */
+    private static final String FORMAT_MIN_DESCRIPTION = "%s %s\nStart: %s\nEnd: %s";
+
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String moduleCode;
@@ -182,12 +185,25 @@ public class Session implements Comparable<Session> {
         return Duration.ofHours(hours);
     }
 
+    public String getStartDateTimeDescription() {
+        return startDateTime.format(FORMAT_DATE_TIME);
+    }
+
+    public String getEndDateTimeDescription() {
+        return endDateTime.format(FORMAT_DATE_TIME);
+    }
+
+    public String getMinimalDescription() {
+        return String.format(FORMAT_MIN_DESCRIPTION, moduleCode, type,
+                getStartDateTimeDescription(), getEndDateTimeDescription());
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Type: ").append(type)
-                .append(" Start: ").append(startDateTime.format(FORMAT_DATE_TIME))
-                .append(" End: ").append(endDateTime.format(FORMAT_DATE_TIME))
+                .append(" Start: ").append(getStartDateTimeDescription())
+                .append(" End: ").append(getEndDateTimeDescription())
                 .append(" Module Code: ").append(moduleCode)
                 .append(" Description: ").append(description)
                 .append(" Recurs: ").append(recurring);
