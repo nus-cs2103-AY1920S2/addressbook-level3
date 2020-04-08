@@ -7,13 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.DoneDeadlineCommand;
-import seedu.address.logic.commands.DoneModuleTaskCommand;
+import seedu.address.logic.commands.taskcommand.donecommand.DoneCommand;
+import seedu.address.logic.commands.taskcommand.donecommand.DoneDeadlineCommand;
+import seedu.address.logic.commands.taskcommand.donecommand.DoneModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
-
 
 /**
  * Parses input arguments and creates a new DoneCommand object

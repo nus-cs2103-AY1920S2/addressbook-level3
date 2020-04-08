@@ -1,6 +1,5 @@
 package seedu.address.model.calender;
 
-
 /**
  * <h1> Deadline Class </h1>
  * Returns an extended type of Task, Deadline, where tasks have to be completed by a set date

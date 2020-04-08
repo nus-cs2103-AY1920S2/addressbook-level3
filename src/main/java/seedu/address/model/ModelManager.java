@@ -4,18 +4,25 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -25,7 +32,6 @@ import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.model.studentprofile.Profile;
-
 
 
 /**
@@ -155,6 +161,43 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isValidEntryId(int entryId) {
+        int minId = 1;
+        int maxId = diaryBook.getDiaryEntries().size();
+        return (entryId >= minId) && (entryId <= maxId);
+    }
+
+    @Override
+    public void deleteDiaryEntry(int entryId) {
+        diaryBook.deleteEntry(entryId);
+    }
+
+    @Override
+    public void tagWeather(int entryId, Weather weather) {
+        diaryBook.tagWeather(entryId, weather);
+    }
+
+    @Override
+    public void tagMood(int entryId, Mood mood) {
+        diaryBook.tagMood(entryId, mood);
+    }
+
+    @Override
+    public DiaryEntry getDiaryEntryById(int entryId) {
+        return diaryBook.getDiaryEntryById(entryId);
+    }
+
+    @Override
+    public List<Integer> getListOfIdsByDate(LocalDate date) {
+        return diaryBook.getListOfIdsByDate(date);
+    }
+
+    @Override
+    public boolean isExistingDate(LocalDate date) {
+        return diaryBook.isExistingDate(date);
+    }
+
+    @Override
     public String showDiaryLog() {
         return diaryBook.showLog();
     }
@@ -222,6 +265,10 @@ public class ModelManager implements Model {
         return moduleBook.getSizeOfModuleTaskList(moduleCode);
     }
 
+    @Override
+    public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
+        return moduleBook.getModuleTaskList(moduleCode);
+    }
     @Override
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         moduleBook.deleteModuleTask(moduleCode, index);
@@ -314,6 +361,28 @@ public class ModelManager implements Model {
     public void updateDeadlineTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         deadlineTaskList.setPredicate(predicate);
+    }
+
+    @Override
+    public List<Task> findTasksByDate(String date) {
+        List<Task> targetTasks = new ArrayList<>();
+        for (Task task: deadlineTaskList) {
+            if (task.getDate().equals(date)) {
+                targetTasks.add(task);
+            }
+        }
+        return targetTasks;
+    }
+
+    @Override
+    public List<Task> findTasksByCat(String cat) {
+        List<Task> targetTasks = new ArrayList<>();
+        for (Task task: deadlineTaskList) {
+            if (task.getCategory().equals(cat)) {
+                targetTasks.add(task);
+            }
+        }
+        return targetTasks;
     }
 
 

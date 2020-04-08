@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.modulecommand;
+package seedu.address.logic.commands.taskcommand.addcommand;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETASK_TIMING;

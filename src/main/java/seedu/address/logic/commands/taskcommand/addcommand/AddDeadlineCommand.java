@@ -1,8 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.taskcommand.addcommand;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calender.Task;
@@ -20,8 +22,6 @@ public class AddDeadlineCommand extends Command {
             + "Example: deadlineAdd desc/CS2101 presentation script by/02-04-2020 cat/School Work";
 
     public static final String MESSAGE_SUCCESS = "Deadline added: ";
-
-
 
     private final Task deadlineToAdd;
 

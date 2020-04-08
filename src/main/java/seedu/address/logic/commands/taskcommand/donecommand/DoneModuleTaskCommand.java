@@ -1,24 +1,26 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.taskcommand.donecommand;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
 
 /**
- * Deletes a task of certain module identified using it's displayed index from the module book.
+ * Mark a task of certain module identified using it's displayed index from the module book as done.
  */
-public class DeleteModuleTaskCommand extends DeleteTaskCommand {
+public class DoneModuleTaskCommand extends DoneCommand {
 
-    public static final String MESSAGE_SUCCESS = "Task Deleted: ";
+    public static final String MESSAGE_SUCCESS = "Task done: ";
 
     private final Index targetIndex;
     private final ModuleCode targetModule;
 
-    public DeleteModuleTaskCommand(ModuleCode moduleCode, Index targetIndex) {
+    public DoneModuleTaskCommand(ModuleCode moduleCode, Index targetIndex) {
         requireNonNull(targetIndex);
         requireNonNull(moduleCode);
         this.targetIndex = targetIndex;
@@ -37,7 +39,13 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_TASK_INDEX);
         }
 
-        model.deleteModuleTask(targetModule, targetIndex);
+        model.doneModuleTask(targetModule, targetIndex);
+        Task.getDeadlineTaskList().get(targetIndex.getZeroBased()).markAsDone();
+
+        Task done = Task.getDeadlineTaskList().get(targetIndex.getZeroBased() - 1);
+        Task.getDeadlineTaskList().remove(targetIndex.getZeroBased() - 1);
+        Task.getDeadlineTaskList().add(done);
+        model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
                 + targetIndex.getOneBased());
     }
@@ -45,9 +53,8 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteModuleTaskCommand // instanceof handles nulls
-                && targetModule.equals(((DeleteModuleTaskCommand) other).targetModule)
-                && targetIndex.equals(((DeleteModuleTaskCommand) other).targetIndex));
+                || (other instanceof DoneModuleTaskCommand // instanceof handles nulls
+                && targetModule.equals(((DoneModuleTaskCommand) other).targetModule)
+                && targetIndex.equals(((DoneModuleTaskCommand) other).targetIndex));
     }
 }
-
