@@ -13,6 +13,9 @@ import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.SplitterModelManager;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for ListAmountCommand.
+ */
 public class ListReceiptCommandTest {
 
     private SplitterModel splitterModel;
