@@ -24,6 +24,13 @@ public class ProfileList {
     public ProfileList() {};
 
     /**
+     * Returns true if profileList is empty.
+     */
+    public boolean isEmpty() {
+        return profileList.isEmpty();
+    }
+
+    /**
      * Returns true if the list contains an equivalent profile as the given argument.
      */
     public boolean contains(Profile toCheck) {
