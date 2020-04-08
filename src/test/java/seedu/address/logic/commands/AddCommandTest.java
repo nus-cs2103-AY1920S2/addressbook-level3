@@ -7,8 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -175,6 +179,41 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isValidEntryId(int entryId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDiaryEntry(int entryId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void tagWeather(int entryId, Weather weather) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void tagMood(int entryId, Mood mood) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public DiaryEntry getDiaryEntryById(int entryId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Integer> getListOfIdsByDate(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isExistingDate(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Notes> getFilesInFolderList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -216,6 +255,21 @@ public class AddCommandTest {
 
         @Override
         public void doneModuleTask(ModuleCode moduleCode, Index index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Task> findTasksByDate(String date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Task> findTasksByCat(String cat) {
             throw new AssertionError("This method should not be called.");
         }
 
