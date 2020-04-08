@@ -110,7 +110,7 @@ public class Product {
             Transaction transaction = transactions.get(i);
 
             if (transaction.getProduct().equals(this)) {
-                int quantity = transaction.getQuantity().value;
+                int quantity = transaction.getQuantity().getValue();
                 count += quantity;
             }
         }
@@ -125,7 +125,7 @@ public class Product {
 
             if (transaction.getProduct().equals(this)) {
                 int price = transaction.getMoney().value;
-                int quantity = transaction.getQuantity().value;
+                int quantity = transaction.getQuantity().getValue();
                 int costPrice = Integer.parseInt(transaction.getProduct().getCostPrice().value);
                 profit += (price - costPrice * quantity);
             }
@@ -152,7 +152,7 @@ public class Product {
      * Returns true if the product's quantity is below its threshold.
      */
     public boolean isBelowThreshold() {
-        return this.quantity.value < this.threshold.value;
+        return this.quantity.getValue() < this.threshold.value;
     }
 
     /**

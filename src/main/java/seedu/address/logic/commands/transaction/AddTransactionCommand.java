@@ -66,10 +66,6 @@ public class AddTransactionCommand extends Command {
         requireNonNull(model);
         Transaction toAdd = transactionFactory.createTransaction(model);
 
-        if (toAdd.getQuantity().value == 0) {
-            throw new CommandException(MESSAGE_ZERO_QUANTITY);
-        }
-
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
@@ -135,7 +131,7 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ZERO_PRODUCT_QUANTITY);
         } else if (oldQuantity.compareTo(toAdd.getQuantity()) < 0) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_QUANTITY,
-                    oldQuantity.value, productToEdit.getDescription().value));
+                    oldQuantity.getValue(), productToEdit.getDescription().value));
         }
 
         return oldQuantity.minus(toAdd.getQuantity());

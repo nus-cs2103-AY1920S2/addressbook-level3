@@ -58,7 +58,7 @@ public class TransactionFactory {
         UUID productId = model.getFilteredProductList().get(productIndex.getZeroBased()).getId();
 
         if (money.value == Money.DEFAULT_VALUE) {
-            updatedMoney = new Money(Integer.parseInt(product.getPrice().value) * quantity.value);
+            updatedMoney = new Money(Integer.parseInt(product.getPrice().value) * quantity.getValue());
         } else {
             updatedMoney = money;
         }

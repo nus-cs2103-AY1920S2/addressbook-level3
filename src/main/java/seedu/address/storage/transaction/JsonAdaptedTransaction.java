@@ -10,6 +10,7 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.TransactionQuantity;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
@@ -129,13 +130,13 @@ public class JsonAdaptedTransaction {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Quantity.class.getSimpleName()));
         }
-        if (!Quantity.isValidQuantity(quantity)) {
+        if (!TransactionQuantity.isValidFormat(quantity)) {
             throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_FORMAT);
         }
-        if (!Quantity.isValidValue(Integer.parseInt(quantity))) {
-            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS_VALUE);
+        if (!TransactionQuantity.isValidValue(Integer.parseInt(quantity))) {
+            throw new IllegalValueException(TransactionQuantity.MESSAGE_CONSTRAINTS_VALUE);
         }
-        return new Quantity(quantity);
+        return new TransactionQuantity(quantity);
     }
 
     private Money getMoney() throws IllegalValueException {

@@ -81,11 +81,11 @@ public class StatisticsListPanel extends UiPart<Region> {
         HashMap<Integer, Integer> allProductQuantities = new HashMap<>();
 
         products.forEach(p -> {
-            if (allProductQuantities.containsKey(p.getQuantity().value)) {
-                int oldValue = allProductQuantities.get(p.getQuantity().value);
-                allProductQuantities.put(p.getQuantity().value, oldValue + 1);
+            if (allProductQuantities.containsKey(p.getQuantity().getValue())) {
+                int oldValue = allProductQuantities.get(p.getQuantity().getValue());
+                allProductQuantities.put(p.getQuantity().getValue(), oldValue + 1);
             } else {
-                allProductQuantities.put(p.getQuantity().value, 1);
+                allProductQuantities.put(p.getQuantity().getValue(), 1);
             }
         });
 

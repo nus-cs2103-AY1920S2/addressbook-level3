@@ -1,68 +1,25 @@
 package seedu.address.model.util;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Represents a Product's quantity in the product list
- * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
+ * Guarantees: immutable;
  */
-public class Quantity implements Comparable<Quantity> {
+public interface Quantity extends Comparable<Quantity> {
 
-    public static final String MESSAGE_CONSTRAINTS_FORMAT =
+    String MESSAGE_CONSTRAINTS_FORMAT =
             "Quantity should take non-negative integer values, and it should not be blank";
-    public static final String MESSAGE_CONSTRAINTS_VALUE =
-            "The numeric value of Quantity must not be negative and smaller than 1000000";
 
-    /*
+    /**
      * There must be one or more digits entered.
      */
-    public static final String VALIDATION_REGEX = "^\\d{1,7}$";
+    String VALIDATION_REGEX = "^\\d{1,7}$";
 
-    public static final int MAX_VALUE = 1000000;
-
-    public final int value;
+    int MAX_VALUE = 1000000;
 
     /**
-     * Constructs an {@code Quantity}.
-     *
-     * @param quantity A valid quantity in string type.
+     * Returns the value of the quantity
      */
-    public Quantity(String quantity) {
-        requireNonNull(quantity);
-        checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS_FORMAT);
-        int numericValue = Integer.parseInt(quantity);
-        checkArgument(isValidValue(numericValue), MESSAGE_CONSTRAINTS_VALUE);
-        value = numericValue;
-    }
-
-    public Quantity(int q) {
-        requireNonNull(q);
-        checkArgument(isValidValue(q), MESSAGE_CONSTRAINTS_VALUE);
-        value = q;
-    }
-
-    /**
-     * Returns true if a given string is a valid quantity.
-     */
-    public static boolean isValidQuantity(String test) {
-        if (test.matches(VALIDATION_REGEX)) {
-            try {
-                int value = Integer.parseInt(test);
-                return value <= MAX_VALUE;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Returns true if a given integer is a valid quantity, e.g. not negative.
-     */
-    public static boolean isValidValue(int test) {
-        return test >= 0;
-    }
+    int getValue();
 
     /**
      * Returns a new quantity whose value is the difference between this value and the
@@ -70,11 +27,7 @@ public class Quantity implements Comparable<Quantity> {
      * @param q other quantity.
      * @return new quantity.
      */
-    public Quantity minus(Quantity q) {
-        requireNonNull(q);
-        int newValue = value - q.value;
-        return new Quantity(newValue);
-    }
+    Quantity minus(Quantity q);
 
     /**
      * Returns a new quantity whose value is the summation between this value and the
@@ -82,32 +35,18 @@ public class Quantity implements Comparable<Quantity> {
      * @param q other quantity.
      * @return new quantity.
      */
-    public Quantity plus(Quantity q) {
-        requireNonNull(q);
-        int newValue = value + q.value;
-        return new Quantity(newValue);
-    }
+    Quantity plus(Quantity q);
 
     @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
+    String toString();
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Quantity // instanceof handles nulls
-                && value == ((Quantity) other).value); // state check
-    }
+    boolean equals(Object other);
 
     @Override
-    public int hashCode() {
-        return Integer.hashCode(value);
-    }
+    int hashCode();
 
     @Override
-    public int compareTo(Quantity q) {
-        return value - q.value;
-    }
+    int compareTo(Quantity q);
 
 }

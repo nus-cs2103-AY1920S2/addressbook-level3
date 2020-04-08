@@ -43,7 +43,7 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
 
         Index customerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
         Index productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT).get());
-        Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
+        Quantity quantity = ParserUtil.parseTransactionQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         DateTime dateTime = getDateTime(argMultimap);
         Money money = getMoney(argMultimap);
         Description description = getDescription(argMultimap);

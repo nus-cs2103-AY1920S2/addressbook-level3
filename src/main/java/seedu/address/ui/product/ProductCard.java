@@ -58,7 +58,7 @@ public class ProductCard extends UiPart<Region> {
         description.setText(product.getDescription().value);
         costPrice.setText("$" + product.getCostPrice().value);
         price.setText("$" + product.getPrice().value);
-        quantity.setText(String.valueOf(product.getQuantity().value));
+        quantity.setText(String.valueOf(product.getQuantity().getValue()));
         sales.setText("$" + product.getMoney().value);
         threshold.setText(product.getThreshold().toString());
         updateProgressBar();
@@ -68,7 +68,7 @@ public class ProductCard extends UiPart<Region> {
      * Updates the progress bar to visualise remaining stock quantity.
      */
     private void updateProgressBar() {
-        progress = product.getQuantity().value / (product.getThreshold().getDouble() * 5);
+        progress = product.getQuantity().getValue() / (product.getThreshold().getDouble() * 5);
         product.setProgress(progress);
         progressBar.setProgress(progress);
         if (progress <= 0.2) {
