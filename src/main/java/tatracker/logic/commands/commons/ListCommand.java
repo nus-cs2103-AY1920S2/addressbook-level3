@@ -9,6 +9,7 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 
 /**
@@ -17,13 +18,13 @@ import tatracker.model.Model;
 public class ListCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
-            "list",
-            "Lists all sessions inside TA-Tracker",
+            CommandWords.LIST,
+            "Lists all sessions inside TA-Tracker.",
             List.of(),
             List.of()
     );
 
-    public static final String MESSAGE_SUCCESS = "Listed all sessions";
+    public static final String MESSAGE_LISTED_SESSIONS = "Listed all sessions.";
 
 
     @Override
@@ -31,6 +32,6 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
         model.updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
-        return new CommandResult(MESSAGE_SUCCESS, Action.LIST);
+        return new CommandResult(MESSAGE_LISTED_SESSIONS, Action.LIST);
     }
 }
