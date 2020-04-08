@@ -58,6 +58,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             throw new DuplicateRecipeException();
         }
         internalList.add(toAdd);
+        internalQuantityList.add(calculateTally(toAdd, internalList.size()-1));
     }
 
     /**
@@ -78,6 +79,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
 
         internalList.set(index, editedRecipe);
+        internalQuantityList.set(index, calculateTally(editedRecipe, index));
     }
 
     /**
@@ -86,14 +88,18 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      */
     public void remove(Recipe toRemove) {
         requireNonNull(toRemove);
+        int index = internalList.indexOf(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new RecipeNotFoundException();
         }
+        //if removed
+        internalQuantityList.remove(index);
     }
 
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        setAllQuantityTally();
     }
 
     /**
@@ -152,11 +158,11 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private void setAllQuantityTally() {
         for (int i = 0; i < internalList.size(); i++) {
             Recipe recipe = internalList.get(i);
-            internalQuantityList.add(i, calculateTally(recipe));
+            internalQuantityList.add(i, calculateTally(recipe, i));
         }
     }
 
-    private MainTypeMagnitude calculateTally(Recipe recipe) {
+    private MainTypeMagnitude calculateTally(Recipe recipe, int index) {
         double vegCount = 0;
         double fruitCount = 0;
         double proteinCount = 0;
@@ -165,7 +171,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         grainCount += calculateGrainsQuantity(recipe.getGrains());
         proteinCount += calculateProteinQuantity(recipe.getProteins());
         vegCount += calculateVegQuantity(recipe.getVegetables());
-        MainTypeMagnitude tally = new MainTypeMagnitude(vegCount, fruitCount, proteinCount, grainCount);
+        MainTypeMagnitude tally = new MainTypeMagnitude(index, vegCount, fruitCount, proteinCount, grainCount);
         return tally;
 
     }
@@ -208,5 +214,4 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     public ObservableList<MainTypeMagnitude> getQuantityTally() {
         return internalUnmodifiableQuantityList;
     }
-
 }

@@ -134,7 +134,7 @@ public class UniqueRecordList implements Iterable<Record> {
     /**
      * Sets goal tally when records are set initially.
      */
-    public void setGoalsTally() {
+    private void setGoalsTally() {
         HashMap<String, Integer> goalMap = new HashMap<String, Integer>();
         goalMap.put("Herbivore", 0);
         goalMap.put("Fruity Fiesta", 0);
