@@ -102,7 +102,7 @@ public class EditStudentCommand extends Command {
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         model.setStudent(studentToEdit, editedStudent, groupCode, moduleCode);
-        String feedback = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent, groupCode, moduleCode);
+        String feedback = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent, moduleCode, groupCode);
 
         model.updateFilteredGroupList(moduleCode);
         model.updateFilteredStudentList(groupCode, moduleCode);

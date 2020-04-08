@@ -15,7 +15,10 @@ import static tatracker.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
+import tatracker.MainApp;
+import tatracker.commons.core.LogsCenter;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
@@ -80,6 +83,8 @@ public class CommandTestUtil {
     public static final EditStudentCommand.EditStudentDescriptor DESC_AMY;
     public static final EditStudentCommand.EditStudentDescriptor DESC_BOB;
 
+    private static final Logger logger = LogsCenter.getLogger(CommandTestUtil.class);
+
     static {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY)
@@ -103,6 +108,7 @@ public class CommandTestUtil {
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
+            logger.warning(ce.getMessage());
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -114,6 +120,16 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.NONE);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertEditStudentCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

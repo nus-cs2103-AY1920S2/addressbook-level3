@@ -1,31 +1,20 @@
 package tatracker.logic.commands.student;
 
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static tatracker.logic.commands.CommandTestUtil.DESC_AMY;
-// import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
-// import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-// import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-// import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-// import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-// import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-// import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
-// import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
-// import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
-//
-// import org.junit.jupiter.api.Test;
-//
-// import tatracker.commons.core.Messages;
-// import tatracker.commons.core.index.Index;
-// import tatracker.logic.commands.ClearCommand;
-// import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
-// import tatracker.model.Model;
-// import tatracker.model.ModelManager;
-// import tatracker.model.TaTracker;
-// import tatracker.model.UserPrefs;
-// import tatracker.model.student.Student;
-// import tatracker.testutil.EditStudentDescriptorBuilder;
-// import tatracker.testutil.StudentBuilder;
+import org.junit.jupiter.api.Test;
+import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
+import tatracker.model.Model;
+import tatracker.model.ModelManager;
+import tatracker.model.TaTracker;
+import tatracker.model.UserPrefs;
+import tatracker.model.student.Student;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.StudentBuilder;
+
+import static tatracker.logic.commands.CommandTestUtil.assertEditStudentCommandSuccess;
+import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
+import static tatracker.testutil.TypicalTaTracker.getTypicalGroup;
+import static tatracker.testutil.TypicalTaTracker.getTypicalModule;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -33,21 +22,24 @@ package tatracker.logic.commands.student;
  */
 public class EditStudentCommandTest {
 
-    // private Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
-    // @Test
-    // public void execute_allFieldsSpecifiedUnfilteredList_success() {
-    //     Student editedStudent = new StudentBuilder().build();
-    //     EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(editedStudent).build();
-    //     EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT, descriptor);
-    //
-    //     String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
-    //
-    //     Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
-    //     expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
-    //
-    //     assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
-    // }
+    @Test
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        Student editedStudent = new StudentBuilder().build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(editedStudent).build();
+        EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), descriptor);
+
+        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS,
+                editedStudent, getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier());
+
+        ModelManager expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+        expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent,
+                getTypicalGroup().getIdentifier(), getTypicalModule().getIdentifier());
+
+        assertEditStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+    }
 
     // @Test
     // public void execute_someFieldsSpecifiedUnfilteredList_success() {
