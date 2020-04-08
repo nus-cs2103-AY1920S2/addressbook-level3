@@ -121,4 +121,29 @@ public class ProfileList {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ProfileList)) { //this handles null as well.
+            return false;
+        }
+
+        ProfileList otherList = (ProfileList) other;
+
+        if (profileList.size() == 0 && otherList.getProfileList().size() == 0) {
+            return true; // both lists are empty and hence are equal
+        }
+
+        for (Profile profile : profileList) {
+            if (!otherList.contains(profile)) {
+                // the other list does not have this profile, immediately not equal
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

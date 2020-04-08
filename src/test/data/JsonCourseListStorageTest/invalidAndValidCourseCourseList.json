@@ -1,0 +1,12 @@
+{
+  "courses": [
+    {
+      "courseName": "Valid course",
+      "requirements": [],
+      "focusAreas": []
+    }, {
+      "courseName": "Invalid course",
+      "focusAreas": []
+    }
+  ]
+}
