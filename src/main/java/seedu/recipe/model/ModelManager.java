@@ -207,27 +207,20 @@ public class ModelManager implements Model {
 
     @Override
     public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        requireAllNonNull(recipe, plannedDate);
         plannedBook.addOnePlan(recipe, plannedDate);
     }
 
     @Override
-    public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
-        plannedBook.addAllRecipesToPlan(recipes, plannedDate);
-    }
-
-    @Override
     public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        requireAllNonNull(recipe, plannedDate);
         plannedBook.deleteOnePlan(recipe, plannedDate);
     }
 
     @Override
-    public void deleteAllRecipePlans(Recipe recipe) {
-        plannedBook.deleteAllRecipePlans(recipe);
-    }
-
-    @Override
-    public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
-        plannedBook.setRecipe(target, editedRecipe);
+    public List<PlannedDate> getPlans(Recipe recipe) {
+        requireNonNull(recipe);
+        return plannedBook.getPlans(recipe);
     }
 
     @Override
@@ -241,6 +234,11 @@ public class ModelManager implements Model {
         filteredPlannedDates.setPredicate(predicate);
     }
 
+/*    @Override
+    public void completePlan(Recipe recipeCooked, PlannedDate plannedDate) {
+        requireAllNonNull(recipeCooked, plannedDate);
+        plannedBook.completePlan(recipeCooked, plannedDate);
+    }*/
 
     @Override
     public boolean equals(Object obj) {

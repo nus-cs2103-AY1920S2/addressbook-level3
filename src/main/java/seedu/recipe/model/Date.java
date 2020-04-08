@@ -81,6 +81,13 @@ public class Date implements Comparable<Date> {
     }
 
     /**
+     * Returns true if the date is the same as {@code otherDate}.
+     */
+    public boolean isOnDate(Date otherDate) {
+        return date.isEqual(otherDate.date);
+    }
+
+    /**
      * Checks whether the current date falls within the range of {@code start} Date and {@code end} Date.
      * The start and end dates are non-inclusive.
      */

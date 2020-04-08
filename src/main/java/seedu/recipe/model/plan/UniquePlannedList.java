@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.recipe.model.recipe.Recipe;
 
 /**
  * A list of planned dates that enforces uniqueness between its elements and does not allow nulls.
@@ -40,6 +41,14 @@ public class UniquePlannedList {
     }
 
     /**
+     * Replaces {@code target} with {@code newPlannedDate}.
+     */
+    public void setPlannedDate(PlannedDate target, PlannedDate newPlannedDate) {
+        int index = internalList.indexOf(target);
+        internalList.set(index, newPlannedDate);
+    }
+
+    /**
      * Adds {@code plannedDate} to the list.
      */
     public void add(PlannedDate plannedDate) {
@@ -55,7 +64,6 @@ public class UniquePlannedList {
             internalList.remove(sameDate);
             sameDate = sameDate.addRecipes(plannedDate);
             internalList.add(sameDate);
-            System.out.println("reached, internal list: " + internalList.size());
         }
     }
 
@@ -64,7 +72,6 @@ public class UniquePlannedList {
      */
     public void remove(PlannedDate plannedDate) {
         requireNonNull(plannedDate);
-        System.out.println("removing + " + plannedDate); //todo remove
         if (!internalList.remove(plannedDate)) {
             throw new PlannedRecipeNotFoundException();
         }
@@ -138,4 +145,5 @@ public class UniquePlannedList {
     public String size() {
         return internalList.size() + "";
     }
+
 }

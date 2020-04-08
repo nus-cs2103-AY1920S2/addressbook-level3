@@ -11,7 +11,7 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 
 /**
- * Represents a planned recipe in the planned recipes book.
+ * Represents a planned date in the planned recipes book.
  * Stores the list of all recipes planned on a date.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
@@ -86,7 +86,7 @@ public class PlannedDate implements Comparable<PlannedDate> {
      * Returns true if it is planned on {@code onDate}.
      */
     public boolean isOnDate(Date onDate) {
-        return date.equals(onDate);
+        return date.isOnDate(onDate);
     }
 
     /**

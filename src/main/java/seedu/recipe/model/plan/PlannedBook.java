@@ -57,12 +57,12 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         setRecipeMap(newData.getPlannedMap());
     }
 
-    // ===== PlannedDate-level methods =====
+    // ===== PlannedDate and Recipe level methods =====
 
     /**
      * Checks whether the planned book contains {@code plannedDate}.
      */
-    public boolean contains(PlannedDate plannedDate) {
+    public boolean containsPlan(PlannedDate plannedDate) {
         return plannedDates.hasPlannedDate(plannedDate);
     }
 
@@ -112,9 +112,8 @@ public class PlannedBook implements ReadOnlyPlannedBook {
         if (plannedDate.isOneRecipe()) { // if one recipe is left, remove plannedDate
             plannedDates.remove(plannedDate);
         } else {
-            plannedDates.remove(plannedDate);
-            plannedDate = plannedDate.deleteRecipe(recipe);
-            plannedDates.add(plannedDate);
+            PlannedDate updatedPlan = plannedDate.deleteRecipe(recipe);
+            plannedDates.setPlannedDate(plannedDate, updatedPlan);
         }
         recipeMap.deleteOnePlannedRecipe(recipe, plannedDate);
     }
@@ -134,6 +133,27 @@ public class PlannedBook implements ReadOnlyPlannedBook {
             }
             recipeMap.setRecipe(target, editedRecipe, newPlans);
         }
+    }
+
+    /**
+     * Returns the list of plans that uses {@code recipe}.
+     * Returns an empty list of there are no recipes.
+     */
+    public List<PlannedDate> getPlans(Recipe recipe) {
+        return recipeMap.getPlans(recipe);
+    }
+
+/*    *//**
+     * Marks the {@code recipeCooked} in {@code plannedDate} as completed.
+     * Removes {@code recipeCooked} from the mapping as well.
+     *//*
+    public void completePlan(Recipe recipeCooked, PlannedDate plannedDate) {
+        plannedDates.complete(recipeCooked, plannedDate);
+        recipeMap.deleteOnePlannedRecipe(recipeCooked, plannedDate);
+    }*/
+
+    private void removeMapping(Recipe recipe, PlannedDate plannedDate) {
+        // todo
     }
 
     // ===== Util methods =====

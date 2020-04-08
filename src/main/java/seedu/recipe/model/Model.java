@@ -133,24 +133,9 @@ public interface Model {
     void addOnePlan(Recipe recipe, PlannedDate plannedDate);
 
     /**
-     * Adds the {@code plannedDate} that plans for all {@code recipes}.
-     */
-    void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate);
-
-    /**
      * Deletes the {@code recipe} plan.
      */
     void deleteOnePlan(Recipe recipe, PlannedDate plannedDate);
-
-    /**
-     * Deletes all plans for {@code recipe}.
-     */
-    void deleteAllRecipePlans(Recipe recipe);
-
-    /**
-     * Updates the recipe in the planned recipes from {@code target} to {@code editedRecipe}.
-     */
-    void setRecipeInPlans(Recipe target, Recipe editedRecipe);
 
     /**
      * Returns an unmodifiable view of the planned recipes.
@@ -158,9 +143,19 @@ public interface Model {
     ObservableList<PlannedDate> getFilteredPlannedList();
 
     /**
-     * Updates the filtered planned list to be filtered using the {@code predicate}. //todo: throw exception
+     * Updates the filtered planned list to be filtered using the {@code predicate}.
      */
     void updateFilteredPlannedList(Predicate<PlannedDate> predicate) throws NullPointerException;
+
+    /**
+     * Marks {@code recipeCooked} as completed if {@code recipeCooked}
+     */
+    //void completePlan(Recipe recipeCooked, PlannedDate plannedDate);
+
+    /**
+     * Returns the list of plans that uses {@code recipe}.
+     */
+    List<PlannedDate> getPlans(Recipe recipe);
 
     //updateAndFillPlannedList //todo: implement for weekly view
 
@@ -190,6 +185,5 @@ public interface Model {
      * Returns true if a record with the same identity as {@code record} exists in the record book.
      */
     boolean hasRecord(Record record);
-
 
 }

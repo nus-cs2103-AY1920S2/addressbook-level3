@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
@@ -11,6 +13,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -55,6 +58,18 @@ public class CookedCommand extends Command {
             model.addRecord(record);
             model.updateGoalsTally(record);
             //TODO: remove recipe from planned list if exists once done
+            List<PlannedDate> plans = model.getPlans(recipeCooked);
+            Optional<PlannedDate> planToday = plans.stream()
+                    .filter(plan -> plan.isOnDate(Date.today()))
+                    .findFirst();
+            if (planToday.isPresent()) {
+                PlannedDate plan = planToday.get();
+                System.out.println("deleting plan for " + recipeCooked + "with plan" + plan);
+                model.deleteOnePlan(recipeCooked, plan); //Today.get());
+                sb.append("and removed the plans for ");
+            }
+
+
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");
             }
