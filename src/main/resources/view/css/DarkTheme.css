@@ -372,11 +372,7 @@
     -fx-padding: 4px 0px 6px 0px;
 }
 
-<<<<<<< HEAD
 #exerciseId, #exerciseTitle, #exerciseName, #workoutId, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName, #sectionName {
-=======
-#exerciseTitle, #exerciseName, #workoutName, #scheduledWorkoutId, #scheduledWorkoutName, #sectionName {
->>>>>>> 6ce5cfe7fe302c929516b7e0a9f35bb6841e831f
     -fx-font-family: "Open Sans SemiBold";
     -fx-font-size: 16px;
     -fx-text-fill: #FFA372;
