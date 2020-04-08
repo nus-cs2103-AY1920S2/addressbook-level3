@@ -1,6 +1,7 @@
 package fithelper.testutil;
 
 import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Duration;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
@@ -17,12 +18,14 @@ public class EntryBuilder {
     public static final String DEFAULT_LOCATION = "711";
     public static final String DEFAULT_CALORIE = "100";
     public static final String DEFAULT_TYPE = "food";
+    public static final String DEFAULT_DURATION = "1";
 
     private Name name;
     private Location location;
     private Time time;
     private Calorie calorie;
     private Type type;
+    private Duration duration;
 
     public EntryBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -30,6 +33,7 @@ public class EntryBuilder {
         calorie = new Calorie(DEFAULT_CALORIE);
         time = new Time(DEFAULT_TIME);
         type = new Type(DEFAULT_TYPE);
+        duration = new Duration(DEFAULT_DURATION);
     }
 
     /**
@@ -41,6 +45,7 @@ public class EntryBuilder {
         calorie = entryToCopy.getCalorie();
         location = entryToCopy.getLocation();
         type = entryToCopy.getType();
+        duration = entryToCopy.getDuration();
     }
 
     /**
@@ -48,6 +53,14 @@ public class EntryBuilder {
      */
     public EntryBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Duration} of the {@code Entry} that we are building.
+     */
+    public EntryBuilder withDuration(String duration) {
+        this.duration = new Duration(duration);
         return this;
     }
 
@@ -84,7 +97,7 @@ public class EntryBuilder {
     }
 
     public Entry build() {
-        return new Entry(type, name, time, location, calorie);
+        return new Entry(type, name, time, location, calorie, duration);
     }
 
 }

@@ -214,7 +214,10 @@ public interface Model {
     String getCalendarMode();
 
     void setCalendarShow(String show);
+
     LocalDate getCalendarShow();
+
+    public void clearVevents();
 
     // Methods about user profile.
 

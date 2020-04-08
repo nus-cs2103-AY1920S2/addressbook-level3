@@ -24,7 +24,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setFitHelper(new FitHelper());
-
+        model.clearVevents();
         model.commit(MESSAGE_COMMIT);
         logger.info("Clear the current FitHelper");
 
