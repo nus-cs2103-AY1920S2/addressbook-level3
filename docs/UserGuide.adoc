@@ -144,7 +144,7 @@ image::add_success.png[width=790]
 image::edit_success.png[width=790]
 
 ==== Done Command
-`done <<index, INDEX>>, INDEX...`
+`done <<index, INDEX>> INDEX...`
 You can also mark multiple tasks as done by using comma separated indexes.
 
 .Done success
@@ -176,7 +176,7 @@ You can perform a search for tasks by name that are important. BB Productive wil
 image::find_success.png[width=790]
 
 ==== Delete Command
-`delete <<index, INDEX>>, INDEX...`
+`delete <<index, INDEX>> INDEX...`
 You can delete multiple tasks.
 
 .Delete success
@@ -267,7 +267,6 @@ You can expect: +
 * Auto completion of command words: `del -> delete`
 * Addition of prefixes for common values: `20/10/20@10:30 -> r/20/10/20@10:30`
 ** Figure 14
-* Comma separation of indexes: `done 1 2 3` -> `done 1, 2, 3`
 * Auto completion of sort fields `sort pri` -> `sort priority`
 ** Figure 15
 
