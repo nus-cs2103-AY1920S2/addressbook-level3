@@ -29,7 +29,8 @@ public class TitleTest {
         assertFalse(Title.isValidTitle(" ")); // Spaces only
         assertFalse(Title.isValidTitle(" Week 2 Lecture")); // Leading whitespace
         assertFalse(Title.isValidTitle("Week 2 Lecture ")); // Trailing whitespace
-        assertFalse(Title.isValidTitle("Week 2: Lecture!")); // Contains non-alphanumeric characters
+        assertFalse(Title.isValidTitle("-t Title")); // Contains '-' character
+        assertFalse(Title.isValidTitle("Weird/Title")); // Contains '/' character
 
         // Valid title
         assertTrue(Title.isValidTitle("A")); // Single character title
@@ -38,5 +39,6 @@ public class TitleTest {
         assertTrue(Title.isValidTitle("lecture 2")); // Alphanumeric characters
         assertTrue(Title.isValidTitle("Lecture Week 2")); // With uppercase characters
         assertTrue(Title.isValidTitle("2018 Year 1 Semester 1 CS2103 Week 2 Lecture Notes")); // Long title
+        assertTrue(Title.isValidTitle("!\"#$%&'()*+,.:;<=>?@[\\]^_`{|}~")); // Accepted symbols
     }
 }
