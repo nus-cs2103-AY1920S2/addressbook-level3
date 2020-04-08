@@ -22,7 +22,7 @@ import fithelper.model.entry.Entry;
 /**
  * A utility class containing a list of {@code Entry} objects to be used in tests.
  */
-public class TypicalEntries {
+public class TypicalEntriesUtil {
     public static final Entry ENTRY1 = new EntryBuilder().withType("food")
             .withName("Noodles").withTime(new DiaryDate().toString() + "-15:30")
             .withLocation("Utown canteen").withCalorie("300").build();
@@ -44,7 +44,7 @@ public class TypicalEntries {
     public static final Entry SPORTS = new EntryBuilder().withName(VALID_NAME_SPORTS).withCalorie(VALID_CALORIE_SPORTS)
             .withLocation(VALID_LOCATION_SPORTS).withTime(VALID_TIME_SPORTS).withType(VALID_TYPE_SPORTS).build();
 
-    private TypicalEntries() {} // prevents instantiation
+    private TypicalEntriesUtil() {} // prevents instantiation
 
     /**
      * Returns an {@code FitHelper} with all the typical entries.

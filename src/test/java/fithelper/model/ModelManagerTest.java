@@ -1,8 +1,8 @@
 package fithelper.model;
 
-import static fithelper.testutil.Assert.assertThrows;
-import static fithelper.testutil.TypicalEntries.FOOD;
-import static fithelper.testutil.TypicalEntries.SPORTS;
+import static fithelper.testutil.AssertUtil.assertThrows;
+import static fithelper.testutil.TypicalEntriesUtil.FOOD;
+import static fithelper.testutil.TypicalEntriesUtil.SPORTS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,27 +21,27 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasEntry_nullPerson_throwsNullPointerException() {
+    public void hasEntrynullPersonthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasEntry(null));
     }
 
     @Test
-    public void hasEntry_entryNotInFitHelper_returnsFalse() {
+    public void hasEntryentryNotInFitHelperreturnsFalse() {
         assertFalse(modelManager.hasEntry(FOOD));
     }
 
     @Test
-    public void hasEntry_entryInFitHelper_returnsTrue() {
+    public void hasEntryentryInFitHelperreturnsTrue() {
         modelManager.addEntry(FOOD);
         assertTrue(modelManager.hasEntry(FOOD));
     }
 
     @Test
-    public void getFilteredFoodEntryList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredFoodEntryListmodifyListthrowsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredFoodEntryList().remove(0));
     }
     @Test
-    public void getFilteredSportsEntryList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredSportsEntryListmodifyListthrowsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredSportsEntryList().remove(0));
     }
 
@@ -59,9 +59,6 @@ public class ModelManagerTest {
 
         // same object -> returns true
         assertTrue(modelManager.equals(modelManager));
-
-        // null -> returns false
-        assertFalse(modelManager.equals(null));
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));

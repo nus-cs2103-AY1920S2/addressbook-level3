@@ -1,6 +1,6 @@
 package fithelper.commons.util;
 
-import static fithelper.testutil.Assert.assertThrows;
+import static fithelper.testutil.AssertUtil.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
@@ -22,18 +22,13 @@ public class ConfigUtilTest {
     public Path tempDir;
 
     @Test
-    public void read_null_throwsNullPointerException() {
+    public void readnullthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> read(null));
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws DataConversionException {
+    public void readmissingFileemptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
-    }
-
-    private Config getTypicalConfig() {
-        Config config = new Config();
-        return config;
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
@@ -42,7 +37,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void save_nullConfig_throwsNullPointerException() {
+    public void savenullConfigthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
     }
 

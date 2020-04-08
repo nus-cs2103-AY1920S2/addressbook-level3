@@ -1,8 +1,8 @@
 package fithelper.model;
 
-import static fithelper.testutil.Assert.assertThrows;
-import static fithelper.testutil.TypicalEntries.FOOD;
-import static fithelper.testutil.TypicalEntries.getTypicalFitHelper;
+import static fithelper.testutil.AssertUtil.assertThrows;
+import static fithelper.testutil.TypicalEntriesUtil.FOOD;
+import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,24 +30,24 @@ public class FitHelperTest {
     }
 
     @Test
-    public void resetData_null_throwsNullPointerException() {
+    public void resetDatanullthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> fitHelper.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyFitHelper_replacesData() {
+    public void resetDatawithValidReadOnlyFitHelper_replacesData() {
         FitHelper newData = getTypicalFitHelper();
         fitHelper.resetData(newData);
         assertEquals(newData, fitHelper);
     }
 
     @Test
-    public void hasEntry_nullEntry_throwsNullPointerException() {
+    public void hasEntrynullEntrythrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> fitHelper.hasEntry(null));
     }
 
     @Test
-    public void hasEntry_entryNotInFitHelper_returnsFalse() {
+    public void hasEntryentryNotInFitHelperreturnsFalse() {
         assertFalse(fitHelper.hasEntry(FOOD));
     }
 
@@ -58,7 +58,7 @@ public class FitHelperTest {
     }
 
     @Test
-    public void getEntryList_modifyList_throwsUnsupportedOperationException() {
+    public void getEntryListmodifyListthrowsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> fitHelper.getFoodList().remove(0));
     }
 

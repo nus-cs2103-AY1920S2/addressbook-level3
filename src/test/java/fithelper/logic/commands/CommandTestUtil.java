@@ -5,7 +5,7 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
-import static fithelper.testutil.Assert.assertThrows;
+import static fithelper.testutil.AssertUtil.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
