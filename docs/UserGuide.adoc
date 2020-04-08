@@ -14,8 +14,6 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-TEMP PLSSS REAL UPDATED UG HERE: https://docs.google.com/document/d/1I60enPj3FDsfB5Z92C-Q6713hL_Hhvetfa0gf1etOuw/edit?usp=sharing
-
 By: `AY1920S2-CS2103T-W16-1`      Since: `Jan 2020`      Licence: `NUS`
 
 == What is BB Productive?
@@ -25,6 +23,20 @@ BB Productive is for those who looking for motivation in their work. This app se
 == About this document
 
 BB Productive is for those who looking for motivation in their work. This app serves as a great task manager and includes a Pomodoro feature and a Pet companion. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can get you to get tasks done faster. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+[#index]
+=== Command Format
+* Characters like `this` are all commands that can be used for BBPoroductive
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in add `n/NAME`, `NAME` is a parameter which can be used as add `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…​` after them can be used multiple times including zero times e.g. `[t/TAG]…`​ can be used as   (i.e. 0 times), `t/friend, t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+=== Indexes
+[IMPORTANT]
+====
+Indexes refer to the current tasklist on display, it does not refer to the indices of the entire task list. Note also that indexes start from 1 and not 0.
+====
 
 == Quick Start
 
@@ -60,8 +72,122 @@ _This section provides a quick description for the common terminologies used in 
 [[Features]]
 == Features
 
-=== TaskList (Branson)
-Write CRUD stuff
+=== TaskList
+image::tasks.png[width=790]
+
+==== Task Fields
+You may use `add` and `edit <<index, INDEX>>`  to begin the add and edit commands, next attach any combination of the following commands.
+
+.Task Fields
+[cols="1,2m,3m", frame="topbot",options="header"]
+|===
+|Field |Format |Notes
+
+|Name
+a|`n/NAME`+
+`n/Any name is possible`
+a|
+* Name provided has to be unique in the tasklist and is used as an identifying field.
+* It is the **only compulsory** field when creating a task.
+
+|Description
+a|`[des/DESCRIPTION]` +
+`des/Lab of weightage 20% about NP-Cmpleteness`
+a|* Optional description that accompanies a task
+
+|Priority
+|`[p/PRIORITY]` +
+`p/1` 
+a|
+* If not provided, task is created with the low priority.
+* `PRIORITY` can only be one of these numbers `1,2,3` ranging from low to high in that order.
+
+|Reminder
+|`[r/REMINDER]` +
+`r/10/06/20@12:30`
+a|
+* A datetime value in this format `DD/MM/YY@HH:mm`.
+
+|Recurring tag
+|`[rec/FREQUENCY]` +
+`rec/daily`
+a|
+* Can only be `DAILY` or `WEEKLY`.
+
+|Tag
+a|`[t/TAG]...` +
+`t/errand t/home`
+a|
+* There can be multiple tags or none at all.
+* Only alphanumeric characters are allowed, spaces and symbols are disallowed.
+
+|Done
+a|_No prefix available_
+a|
+* When a task is created, it is set as undone.
+* Task can then be marked with `done INDEX`.
+|===
+
+==== Add Command
+`add n/This is a new task p/3 des/We have alot of work to do today! t/This t/Is t/Fun` +
+You only need the `n/` prefix when adding a new task as name fields are compulsory. +
+
+.Add success
+image::add_success.png[width=790]
+
+==== Edit Command
+`edit n/Look edited the task des/BB Productive is the best app I've every used t/NewTag` +
+* You can edit all fields except the done field.
+* Please indicate an `<<index, INDEX>>` so that BB Productive knows which task to edit.
+
+.Edit success
+image::edit_success.png[width=790]
+
+==== Done Command
+`done <<index, INDEX>>, INDEX...`
+You can also mark multiple tasks as done by using comma separated indexes.
+
+.Done success
+image::done_success.png[width=790]
+
+==== Sort Command
+`sort FIELD FIELD...`
+You can choose to change the current ordering of your task list to something more suitable by sorting it one or more of these task fields:
+
+_All fields with r- prepended refers to a reverse of the original._
+
+. priority -> Shows task of highest priority first.
+. r-priority -> Shows task of lowest priority first.
+. done -> Shows task of undone first.
+. r-done -> Shows task of done first.
+. date -> Shows tasks with reminders closer to today first then tasks without reminders.
+. r-date -> Shows tasks with no remidners first then tasks with reminders further from today.
+. name -> Shows tasks in alphanumeric order.
+. r-name -> Shows tasks in reverse alphanumeric order.
+
+.Sort success
+image::sort_success.png[width=790]
+
+==== Find Command
+`find PHRASE`
+You can perform a search for tasks by name that are important. BB Productive will then search through the names of the tasks and bring tasks that match the `PHRASE`. It is also typo tolerant and will show tasks that differ from the `PHRASE` by a little.
+
+.Find success
+image::find_success.png[width=790]
+
+==== Delete Command
+`delete <<index, INDEX>>, INDEX...`
+You can delete multiple tasks.
+
+.Delete success
+image::delete_success.png[width=790]
+
+==== Clear Command
+`clear`
+You may delete all tasks from your list by issuing a clear command.
+
+.Clear success
+image::clear_success.png[width=790]
 
 === Pet (Fyonn)
 Write pet
@@ -102,6 +228,7 @@ You can resume a paused Pomodoro timer.
 
 .Example screen when pom is successfully resumed
 image::pom_continuing.png[width=790]
+
 
 ==== What happens when the timer's up?
 
@@ -215,6 +342,7 @@ _The following table summarizes all the commands that you can use. Input contain
 |Settings
 |settings
 |settings
+
 |===
 
 == FAQ
