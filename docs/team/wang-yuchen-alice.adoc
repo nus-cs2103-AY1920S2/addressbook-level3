@@ -21,27 +21,32 @@ FitHelper is a desktop address book application used for teaching Software Engin
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/model/VersionedFitHelper.java](VersionedFitHelper.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/UndoCommand.java](UndoCommand.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/RedoCommand.java](RedoCommand.java)
 
 * *Other contributions*:
-
+link to tP Code Dashboard [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D]
+** Project Refactor
+*** Initialize new model for FitHelper
+*** Modify and refactor basic commands (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/85, https://github.com/AY1920S2-CS2103-T09-4/main/pull/86)
+** GUI
+*** Set up GUI main structure, enabling page switches and logic-model-GUI connection. (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/145, https://github.com/AY1920S2-CS2103-T09-4/main/pull/147)
+** Documentation
+*** UG structure (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/90, https://github.com/AY1920S2-CS2103-T09-4/main/pull/91, https://github.com/AY1920S2-CS2103-T09-4/main/pull/95)
+*** DG Use Cases (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/97, https://github.com/AY1920S2-CS2103-T09-4/main/pull/99)
+** Basic Functions with GUI
+*** Add, Edit, Clear, Delete
+** Enhanced Functions
+*** Reminder, Find,
+** DashBoard
+** Today Page
+** Diary Page
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Participated in releases `v1.3` - `v1.4` (2 releases) on GitHub by creating and updating jar files
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/WANG-Yuchen-Alice/ped/issues)
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Set up Travis to perform Continuous Integration (CI) for the group fork
+*** Integrated a third party Tool (Coverall) to the project (https://github.com[#42])
 
 == Contributions to the User Guide
 
@@ -50,8 +55,17 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=add]
+include::../UserGuide.adoc[tag=edit]
 include::../UserGuide.adoc[tag=delete]
-
+include::../UserGuide.adoc[tag=clear]
+include::../UserGuide.adoc[tag=exit]
+include::../UserGuide.adoc[tag=find]
+include::../UserGuide.adoc[tag=reminder]
+include::../UserGuide.adoc[tag=undo]
+include::../UserGuide.adoc[tag=redo]
+include::../UserGuide.adoc[tag=diary]
+include::../UserGuide.adoc[tag=today]
 include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
@@ -60,9 +74,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=today]
+include::../DeveloperGuide.adoc[tag=diary]
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs

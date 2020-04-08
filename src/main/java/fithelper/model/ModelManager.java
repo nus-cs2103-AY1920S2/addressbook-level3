@@ -347,6 +347,18 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Updates the filter of the filtered reminder entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredReminderEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        filteredReminderEntries.setPredicate(predicate);
+    }
+
+    /**
      * Searches the {@code FoodCalorieTable} and add at most 3 entries whose name matches the keyword into a set
      * add returns the set.
      *
