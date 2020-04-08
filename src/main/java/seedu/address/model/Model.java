@@ -80,7 +80,6 @@ public interface Model {
 
     boolean has(ModelObject obj) throws CommandException;
 
-    boolean has(ID id, Constants.ENTITY_TYPE type) throws CommandException;
 
     void delete(ModelObject obj) throws CommandException;
 
@@ -92,29 +91,13 @@ public interface Model {
 
     ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException;
 
-    boolean hasStudent(ID studentID);
-
-    Student getStudent(ID studentID);
-
-    boolean hasCourse(ID courseID);
-
-    Course getCourse(ID courseID);
-
-    boolean hasAssignment(ID assignmentID);
-
-    Assignment getAssignment(ID assignmentID);
-
-    boolean hasStaff(ID staffID);
-
-    Staff getStaff(ID staffID);
+    boolean has(ID id, Constants.ENTITY_TYPE type) throws CommandException;
 
     boolean hasProgress(ID assignmentID, ID studentID) throws CommandException;
 
     Progress getProgress(ID assignmentID, ID studentID) throws CommandException;
 
     void removeProgress(ID assignmentID, ID studentID) throws CommandException;
-
-
   /**
      * Returns the AddressBook
      */
@@ -139,8 +122,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
-    ///
 
     /**
      * Returns the user prefs' address book file path.
