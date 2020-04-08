@@ -37,7 +37,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
-     * Adds a specific ModelObject to the list. The course must not already exist in the list.
+     * Adds a specific ModelObject to the list. It must not already exist in the list.
      */
     public void add(K toAdd) {
         requireNonNull(toAdd);

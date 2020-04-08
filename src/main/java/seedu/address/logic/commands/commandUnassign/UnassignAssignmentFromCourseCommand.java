@@ -70,15 +70,27 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
                 throw new CommandException("The assignment isn't assigned to this course! :(");
             } else {
                 EdgeManager.unassignAssignmentFromCourse(assignmentID, courseID);
-                Set<Progress> undoProgress = ProgressManager.getOneProgressFromAllStudents(courseID, assignmentID);
                 ProgressManager.removeOneProgressFromAllStudents(courseID, assignmentID);
-                this.undoProgresses = undoProgress;
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), assignmentID.value,
                         assignedCourse.getName(), courseID.value));
             }
         }
+    }
+
+    /**
+     * If require this preprocessing step should override this method.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+
+        Set<Progress> undoProgress = ProgressManager.getOneProgressFromAllStudents(courseID, assignmentID);
+        this.undoProgresses = undoProgress;
     }
 
     @Override

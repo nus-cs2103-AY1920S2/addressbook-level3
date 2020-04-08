@@ -12,6 +12,7 @@ import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
@@ -29,7 +30,7 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
     public static final String MESSAGE_SUCCESS = "Successfully unassigned student %s (%s) from course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
-    private Set<Tag> ArrayList;
+    private Set<Progress> undoProgresses;
 
     public UnassignStudentFromCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
@@ -78,8 +79,23 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
         }
     }
 
+    /**
+     * If require this preprocessing step should override this method.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+
+        Set<Progress> undoProgress = ProgressManager.getAllProgressesForOneStudent(courseID, studentID);
+        this.undoProgresses = undoProgress;
+    }
+
+
     @Override
     protected void generateOppositeCommand() throws CommandException {
-        oppositeCommand = new AssignStudentToCourseCommand(this.assignDescriptor);
+        oppositeCommand = new AssignStudentToCourseCommand(this.assignDescriptor, this.undoProgresses);
     }
 }

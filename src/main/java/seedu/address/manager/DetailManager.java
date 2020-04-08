@@ -30,7 +30,6 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 
-// TODO: Think of better name?
 public class DetailManager extends BaseManager {
     enum TYPE {
         STUDENT_DETAILS,

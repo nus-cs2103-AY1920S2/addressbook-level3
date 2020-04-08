@@ -80,7 +80,6 @@ public interface Model {
 
     boolean has(ModelObject obj) throws CommandException;
 
-
     void delete(ModelObject obj) throws CommandException;
 
     void add(ModelObject obj) throws CommandException;
