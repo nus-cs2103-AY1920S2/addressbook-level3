@@ -6,7 +6,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.diary.mood.HappyMood;
 import seedu.address.model.diary.mood.Mood;
+import seedu.address.model.diary.weather.CloudyWeather;
 import seedu.address.model.diary.weather.Weather;
 
 /**
@@ -18,6 +20,11 @@ public class DiaryBook {
 
     public DiaryBook() {
         this.diaryEntries = new ArrayList<>();
+        DiaryEntry dummyDiary = new DiaryEntry(LocalDate.now(),
+                new CloudyWeather(),
+                new HappyMood(),
+                "First dummy entry");
+        diaryEntries.add(dummyDiary);
         internalList = FXCollections.observableList(diaryEntries);
     }
 
