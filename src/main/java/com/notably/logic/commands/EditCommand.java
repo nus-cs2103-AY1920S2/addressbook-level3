@@ -29,6 +29,7 @@ public class EditCommand extends Command {
         requireNonNull(notablyModel);
         try {
             notablyModel.updateCurrentlyOpenBlockBody(body);
+            notablyModel.setBlockEditable(true);
         } catch (CannotModifyRootException ex) {
             throw new CommandException(ex.getMessage());
         }
