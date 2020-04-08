@@ -18,7 +18,7 @@
     <Image url="@/images/coupon_stash_32.png"/>
   </icons>
   <scene>
-    <Scene>
+    <Scene fx:id="scene">
       <stylesheets>
         <URL value="@Stylesheet.css"/>
         <URL value="@CouponCard.css"/>
