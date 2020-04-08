@@ -54,7 +54,6 @@ public class EditStudentCommand extends Command {
     public static final String MESSAGE_INVALID_STUDENT_FORMAT = "There is no student with the given matric number: %s"
             + " inside the module group %s [%s].";
 
-
     private final Matric matric;
     private final String moduleCode;
     private final String groupCode;

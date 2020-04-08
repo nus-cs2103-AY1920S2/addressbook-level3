@@ -37,10 +37,9 @@ public class DeleteStudentCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_FORMAT =
             "There is no module with the given module code: %s";
     public static final String MESSAGE_INVALID_GROUP_FORMAT =
-            "There is no group in the module (%s) with the given group code: %s";
+            "There is no group in the module %s with the given group code: %s";
     public static final String MESSAGE_INVALID_STUDENT_FORMAT =
-            "There is no student in the (%s) group (%s) with the given matric number: %s";
-
+            "There is no student with the given matric number: %s inside the module group %s [%s].";
     private final Matric toDelete;
     private final String targetGroup;
     private final String targetModule;
@@ -75,9 +74,9 @@ public class DeleteStudentCommand extends Command {
 
         if (studentToDelete == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT,
-                    targetModule,
+                    toDelete,
                     targetGroup,
-                    toDelete));
+                    targetModule));
         }
 
         model.deleteStudent(studentToDelete, targetGroup, targetModule);

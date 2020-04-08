@@ -1,17 +1,31 @@
 package tatracker.logic.commands.student;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.logic.commands.CommandTestUtil.DESC_AMY;
+import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertEditStudentCommandSuccess;
+import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_NONEXISTENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_SECOND_STUDENT;
 import static tatracker.testutil.TypicalTaTracker.getTypicalGroup;
 import static tatracker.testutil.TypicalTaTracker.getTypicalModule;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.Messages;
+import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 import tatracker.testutil.student.StudentBuilder;
@@ -62,18 +76,20 @@ public class EditStudentCommandTest {
     //     assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     // }
 
-    // @Test
-    // public void execute_noFieldSpecifiedUnfilteredList_success() {
-    //     EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
-    //             new EditStudentDescriptor());
-    //     Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-    //
-    //     String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
-    //
-    //     Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
-    //
-    //     assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
-    // }
+    @Test
+    public void execute_noFieldSpecifiedUnfilteredList_success() {
+        EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), new EditStudentDescriptor());
+
+        Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
+
+        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS,
+                editedStudent, getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier());
+
+        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
+
+        assertEditStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+    }
 
     /*
     @Test
@@ -93,14 +109,19 @@ public class EditStudentCommandTest {
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }*/
 
-    // @Test
-    // public void execute_duplicateStudentUnfilteredList_failure() {
-    //     Student firstStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-    //     EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(firstStudent).build();
-    //     EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_SECOND_STUDENT, descriptor);
-    //
-    //     assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_STUDENT);
-    // }
+    /*@Test
+    public void execute_duplicateStudentUnfilteredList_failure() {
+        Student firstStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(firstStudent).build();
+        EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_SECOND_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), descriptor);
+
+        assertCommandFailure(editStudentCommand, model, String.format(EditStudentCommand
+                .MESSAGE_INVALID_STUDENT_FORMAT,
+                firstStudent.getMatric().value,
+                getTypicalGroup().getIdentifier(),
+                getTypicalModule().getIdentifier()));
+    }*/
 
     /*
     @Test
@@ -115,14 +136,15 @@ public class EditStudentCommandTest {
         assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_STUDENT);
     }*/
 
-    // @Test
-    // public void execute_invalidStudentIndexUnfilteredList_failure() {
-    //     Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
-    //     EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build();
-    //     EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex, descriptor);
-    //
-    //     assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-    // }
+    @Test
+    public void execute_invalidStudentIndexUnfilteredList_failure() {
+        Matric nonexistentMatric = MATRIC_NONEXISTENT;
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditStudentCommand editStudentCommand = new EditStudentCommand(nonexistentMatric,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), descriptor);
+
+        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+    }
 
     // /**
     //  * Edit filtered list where index is larger than size of filtered list,
@@ -141,29 +163,33 @@ public class EditStudentCommandTest {
     //     assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     // }
 
-    // @Test
-    // public void equals() {
-    //     final EditStudentCommand standardCommand = new EditStudentCommand(INDEX_FIRST_STUDENT, DESC_AMY);
-    //
-    //     // same values -> returns true
-    //     EditStudentDescriptor copyDescriptor = new EditStudentDescriptor(DESC_AMY);
-    //     EditStudentCommand commandWithSameValues = new EditStudentCommand(INDEX_FIRST_STUDENT, copyDescriptor);
-    //     assertTrue(standardCommand.equals(commandWithSameValues));
-    //
-    //     // same object -> returns true
-    //     assertTrue(standardCommand.equals(standardCommand));
-    //
-    //     // null -> returns false
-    //     assertFalse(standardCommand.equals(null));
-    //
-    //     // different types -> returns false
-    //     assertFalse(standardCommand.equals(new ClearCommand()));
-    //
-    //     // different index -> returns false
-    //     assertFalse(standardCommand.equals(new EditStudentCommand(INDEX_SECOND_STUDENT, DESC_AMY)));
-    //
-    //     // different descriptor -> returns false
-    //     assertFalse(standardCommand.equals(new EditStudentCommand(INDEX_FIRST_STUDENT, DESC_BOB)));
-    // }
+    @Test
+    public void equals() {
+        final EditStudentCommand standardCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), DESC_AMY);
+
+        // same values -> returns true
+        EditStudentDescriptor copyDescriptor = new EditStudentDescriptor(DESC_AMY);
+        EditStudentCommand commandWithSameValues = new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditStudentCommand(MATRIC_SECOND_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), DESC_AMY)));
+
+        // different descriptor -> returns false
+        assertFalse(standardCommand.equals(new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), DESC_BOB)));
+    }
 
 }
