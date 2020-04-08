@@ -21,10 +21,11 @@ FitHelper is a desktop address book application used for teaching Software Engin
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/model/VersionedFitHelper.java](VersionedFitHelper.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/UndoCommand.java](UndoCommand.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/RedoCommand.java](RedoCommand.java)
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alice&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D[Functional code]]
+
+[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=alice&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D][https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/model/VersionedFitHelper.java](VersionedFitHelper.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/UndoCommand.java](UndoCommand.java) [https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/src/main/java/fithelper/logic/commands/RedoCommand.java](RedoCommand.java)
 
 * *Other contributions*:
-link to tP Code Dashboard [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WANG-Yuchen-Alice&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D]
 ** Project Refactor
 *** Initialize new model for FitHelper
 *** Modify and refactor basic commands (Pull requests https://github.com/AY1920S2-CS2103-T09-4/main/pull/85, https://github.com/AY1920S2-CS2103-T09-4/main/pull/86)
