@@ -68,7 +68,7 @@ A supplier can have any number of good-price pairs (including 0)
 Examples:
 
 * `add n/John Doe c/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison c/1234567 gp/drugs 500`
+* `add n/Betsy Crowe e/betsycrowe@example.com a/Newgate Prison c/1234567 gp/drugs 500`
 
 === Listing all suppliers : `list-s`
 
