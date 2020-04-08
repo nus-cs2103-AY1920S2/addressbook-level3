@@ -70,6 +70,8 @@ public class TypicalCoupons {
 
     public static final DateSavingsSumMap NO_TOTAL_SAVINGS = new DateSavingsSumMap();
 
+    public static final LocalDate SHARED_DATE = LocalDate.of(2019, 2, 7);
+
     public static final DateSavingsSumMap ALICE_TOTAL_SAVINGS = new DateSavingsSumMap();
     public static final LocalDate ALICE_DATE_1 = LocalDate.of(2019, 2, 11);
     public static final LocalDate ALICE_DATE_2 = LocalDate.of(2019, 9, 14);
@@ -109,7 +111,6 @@ public class TypicalCoupons {
     public static final DateSavingsSumMap CARL_TOTAL_SAVINGS = new DateSavingsSumMap();
     public static final LocalDate CARL_DATE_1 = LocalDate.of(2019, 1, 14);
     public static final LocalDate CARL_DATE_2 = LocalDate.of(2019, 9, 6);
-    public static final LocalDate CARL_DATE_3 = LocalDate.of(2019, 10, 28);
     public static final PureMonetarySavings CARL_PMS_1 = new PureMonetarySavings(new MonetaryAmount(39, 52));
     public static final PureMonetarySavings CARL_PMS_2 = new PureMonetarySavings(
             Arrays.asList(new Saveable("Cabinet"), new Saveable("Intention"))
@@ -121,7 +122,7 @@ public class TypicalCoupons {
     static {
         CARL_TOTAL_SAVINGS.add(CARL_DATE_1, CARL_PMS_1);
         CARL_TOTAL_SAVINGS.add(CARL_DATE_2, CARL_PMS_2);
-        CARL_TOTAL_SAVINGS.add(CARL_DATE_3, CARL_PMS_3);
+        CARL_TOTAL_SAVINGS.add(SHARED_DATE, CARL_PMS_3);
     }
 
     public static final DateSavingsSumMap DANIEL_TOTAL_SAVINGS = new DateSavingsSumMap();
@@ -145,7 +146,6 @@ public class TypicalCoupons {
     public static final DateSavingsSumMap ELLE_TOTAL_SAVINGS = new DateSavingsSumMap();
     public static final LocalDate ELLE_DATE_1 = LocalDate.of(2019, 3, 30);
     public static final LocalDate ELLE_DATE_2 = LocalDate.of(2019, 4, 17);
-    public static final LocalDate ELLE_DATE_3 = LocalDate.of(2019, 10, 3);
     public static final PureMonetarySavings ELLE_PMS_1 = new PureMonetarySavings(new MonetaryAmount(50, 21));
     public static final PureMonetarySavings ELLE_PMS_2 = new PureMonetarySavings(
             Arrays.asList(new Saveable("Conclusion", 3), new Saveable("Strategy"))
@@ -157,11 +157,10 @@ public class TypicalCoupons {
     static {
         ELLE_TOTAL_SAVINGS.add(ELLE_DATE_1, ELLE_PMS_1);
         ELLE_TOTAL_SAVINGS.add(ELLE_DATE_2, ELLE_PMS_2);
-        ELLE_TOTAL_SAVINGS.add(ELLE_DATE_3, ELLE_PMS_3);
+        ELLE_TOTAL_SAVINGS.add(SHARED_DATE, ELLE_PMS_3);
     }
 
     public static final DateSavingsSumMap FIONA_TOTAL_SAVINGS = new DateSavingsSumMap();
-    public static final LocalDate FIONA_DATE_1 = LocalDate.of(2019, 9, 23);
     public static final LocalDate FIONA_DATE_2 = LocalDate.of(2019, 9, 28);
     public static final LocalDate FIONA_DATE_3 = LocalDate.of(2019, 10, 5);
     public static final PureMonetarySavings FIONA_PMS_1 = new PureMonetarySavings(new MonetaryAmount(216, 54));
@@ -173,14 +172,13 @@ public class TypicalCoupons {
             Arrays.asList(new Saveable("Performance"), new Saveable("Proposal"))
     );
     static {
-        FIONA_TOTAL_SAVINGS.add(FIONA_DATE_1, FIONA_PMS_1);
+        FIONA_TOTAL_SAVINGS.add(SHARED_DATE, FIONA_PMS_1);
         FIONA_TOTAL_SAVINGS.add(FIONA_DATE_2, FIONA_PMS_2);
         FIONA_TOTAL_SAVINGS.add(FIONA_DATE_3, FIONA_PMS_3);
     }
 
     public static final DateSavingsSumMap GEORGE_TOTAL_SAVINGS = new DateSavingsSumMap();
     public static final LocalDate GEORGE_DATE_1 = LocalDate.of(2019, 2, 10);
-    public static final LocalDate GEORGE_DATE_2 = LocalDate.of(2019, 7, 24);
     public static final LocalDate GEORGE_DATE_3 = LocalDate.of(2019, 12, 14);
     public static final PureMonetarySavings GEORGE_PMS_1 = new PureMonetarySavings(new MonetaryAmount(3648, 7));
     public static final PureMonetarySavings GEORGE_PMS_2 = new PureMonetarySavings(
@@ -192,7 +190,7 @@ public class TypicalCoupons {
     );
     static {
         GEORGE_TOTAL_SAVINGS.add(GEORGE_DATE_1, GEORGE_PMS_1);
-        GEORGE_TOTAL_SAVINGS.add(GEORGE_DATE_2, GEORGE_PMS_2);
+        GEORGE_TOTAL_SAVINGS.add(SHARED_DATE, GEORGE_PMS_2);
         GEORGE_TOTAL_SAVINGS.add(GEORGE_DATE_3, GEORGE_PMS_3);
     }
 

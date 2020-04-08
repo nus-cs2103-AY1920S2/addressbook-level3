@@ -142,6 +142,7 @@ public class SavedCommand extends Command {
         List<Saveable> saveables = pms.getListOfSaveables();
         if (!saveables.isEmpty()) {
             moneySaved.append(" as well as earned ");
+            saveables.sort(Saveable::compareTo);
             for (Saveable sv : saveables) {
                 moneySaved.append(sv.toString()).append(", ");
             }
@@ -180,7 +181,7 @@ public class SavedCommand extends Command {
      * @param ld The LocalDate to be formatted.
      * @return String holding the formatted date.
      */
-    private static String formatDate(LocalDate ld) {
+    protected static String formatDate(LocalDate ld) {
         return ld.format(DateUtil.DAY_MONTH_YEAR_FORMATTER_FOR_CALENDAR);
     }
 }
