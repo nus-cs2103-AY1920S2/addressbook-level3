@@ -43,7 +43,8 @@ public class TypicalCoupons {
     public static final MonetaryAmount ALICE_MONETARY_AMOUNT = new MonetaryAmount(0, 50);
     public static final PercentageAmount BENSON_PERCENTAGE_AMOUNT = new PercentageAmount(30.0);
 
-    public static final Savings ALICE_SAVINGS = new Savings(ALICE_MONETARY_AMOUNT);
+    public static final Savings ALICE_SAVINGS = new Savings(ALICE_MONETARY_AMOUNT,
+            Arrays.asList(new Saveable("Album", 3), new Saveable("MRT Ticket")));
     public static final Savings BENSON_SAVINGS = new Savings(BENSON_PERCENTAGE_AMOUNT);
     public static final Savings CARL_SAVINGS = new Savings(
             new MonetaryAmount(20, 0),
