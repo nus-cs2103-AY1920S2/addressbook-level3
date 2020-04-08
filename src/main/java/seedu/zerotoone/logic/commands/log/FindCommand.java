@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.log.PredicateFilterLogWorkoutName;
 import seedu.zerotoone.model.session.CompletedWorkout;
@@ -35,8 +37,12 @@ public class FindCommand extends LogCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.isInSession()) {
+            throw new CommandException(Command.MESSAGE_SESSION_STARTED);
+        }
+
         Predicate<CompletedWorkout> predicate = session -> true;
 
         if (workoutNameOptional.isPresent()) {
