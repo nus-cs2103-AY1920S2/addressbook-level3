@@ -4,7 +4,6 @@ import static csdev.couponstash.commons.util.DateUtil.REMIND_DATE_EXCEED_EXPIRY_
 import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;

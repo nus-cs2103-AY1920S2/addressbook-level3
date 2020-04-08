@@ -11,9 +11,6 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-
-import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;

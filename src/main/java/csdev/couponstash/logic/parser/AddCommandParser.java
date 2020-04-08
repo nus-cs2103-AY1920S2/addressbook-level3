@@ -92,7 +92,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Condition condition = ParserUtil.parseCondition(
                 argMultimap.getValueForOptionalField(PREFIX_CONDITION, Condition.DEFAULT_NO_CONDITION).get());
 
-        Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList, remindDate, condition);
+        Coupon coupon = new Coupon(
+                name, promoCode, savings, expiryDate, startDate, usage, limit, tagList, remindDate, condition
+        );
 
         return new AddCommand(coupon);
     }

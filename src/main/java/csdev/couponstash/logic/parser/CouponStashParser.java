@@ -22,7 +22,6 @@ import csdev.couponstash.logic.commands.GoToCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
-import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.commands.SetPrefCommand;
 import csdev.couponstash.logic.commands.ShareCommand;
