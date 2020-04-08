@@ -109,6 +109,9 @@ public interface Model {
      */
     void addRecipe(Recipe recipe);
 
+    /**
+     * Adds a duplicate of a recipe to the list.
+     */
     void duplicateRecipe(Recipe recipe);
 
     /**

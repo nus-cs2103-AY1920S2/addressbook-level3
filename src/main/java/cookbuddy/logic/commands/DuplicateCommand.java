@@ -11,7 +11,7 @@ import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
 
 /**
- * Deletes a recipe identified using it's displayed index from the recipe book.
+ * Adds a duplicate of the recipe identified using it's displayed index from the recipe book.
  */
 public class DuplicateCommand extends Command {
 
