@@ -141,10 +141,13 @@ public class EditSessionCommand extends Command {
      * corresponding field value of the student.
      */
     public static class EditSessionDescriptor {
+
+        private static final int NO_RECURRING_VALUE = -1;
+
         private LocalDateTime newStartTime;
         private LocalDateTime newEndTime;
         private boolean isDateChanged;
-        private int newRecurring;
+        private int newRecurring = NO_RECURRING_VALUE;
         private String newModuleCode;
         private SessionType newSessionType;
         private String newDescription;
@@ -171,10 +174,10 @@ public class EditSessionCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             boolean dateChanged = isDateChanged;
-            boolean recurringChanged = (newRecurring == -1);
+            boolean recurringChanged = newRecurring >= 0;
             boolean otherVariables = CollectionUtil.isAnyNonNull(newStartTime, newEndTime,
                     newModuleCode, newDescription, newSessionType);
-            return dateChanged || otherVariables || !recurringChanged;
+            return dateChanged || otherVariables || recurringChanged;
         }
 
         public void setStartTime(LocalDateTime startTime) {
@@ -198,7 +201,11 @@ public class EditSessionCommand extends Command {
         }
 
         public Optional<Integer> getRecurring() {
-            return Optional.ofNullable(newRecurring);
+            if (newRecurring < 0) {
+                return Optional.empty();
+            } else {
+                return Optional.of(newRecurring);
+            }
         }
 
         public void setIsDateChanged(boolean isChanged) {

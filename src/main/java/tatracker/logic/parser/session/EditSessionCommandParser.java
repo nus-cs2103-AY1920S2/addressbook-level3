@@ -78,8 +78,6 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
 
         if (argMultimap.getValue(RECUR).isPresent()) {
             editSessionDescriptor.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
-        } else {
-            editSessionDescriptor.setRecurring(-1);
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
@@ -96,12 +94,9 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
             editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(NOTES).get()));
         }
 
-        // TODO: Check if editing should be allowed if there are no fields
         if (!editSessionDescriptor.isAnyFieldEdited()) {
-            System.out.println("here");
             throw new ParseException(EditSessionCommand.MESSAGE_NOT_EDITED);
         }
-        //System.out.println(!editSessionDescriptor.isAnyFieldEdited());
 
         return new EditSessionCommand(index, editSessionDescriptor);
     }

@@ -30,7 +30,7 @@ public class Session implements Comparable<Session> {
     public Session() {
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = LocalDateTime.now();
-        this.recurring = -1;
+        this.recurring = 0;
         this.moduleCode = "";
         this.type = SessionType.OTHER;
         this.description = "Default Session";
