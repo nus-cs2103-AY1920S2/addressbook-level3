@@ -60,7 +60,8 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
-        model.setInput(COMMAND_WORD + " " + PREFIX_TITLE + " " + toCs2103t.getStringRepresentation());
+        String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
+        model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
             toCs2103t.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
@@ -68,21 +69,22 @@ public class DeleteSuggestionCommandTest {
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         // Expected suggestions
-        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSuggestionsToCs2103t();
+        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
         // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
         // Expected inputs
-        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsToCs2103t(COMMAND_WORD, true);
+        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
         // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions);
+        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
     @Test
     public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
-        model.setInput(COMMAND_WORD + " " + toCs2103t.getStringRepresentation());
+        String userInputWithoutPath = COMMAND_WORD + " ";
+        model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
                 toCs2103t.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
@@ -90,15 +92,15 @@ public class DeleteSuggestionCommandTest {
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         // Expected suggestions
-        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSuggestionsToCs2103t();
+        List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
         // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
         // Expected inputs
-        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsToCs2103t(COMMAND_WORD, false);
+        List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
         // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions);
+        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.notably.commons.path.AbsolutePath;
 import com.notably.model.Model;
@@ -21,13 +22,11 @@ import com.notably.testutil.TypicalBlockModel;
  * Contains helper methods for testing suggestion feature.
  */
 public class SuggestionTestUtil {
-    private static Model model;
-
     public static Model getModel() {
         BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
-        model = new ModelManager(blockModel, suggestionModel, viewStateModel);
+        Model model = new ModelManager(blockModel, suggestionModel, viewStateModel);
 
         return model;
     }
@@ -36,44 +35,35 @@ public class SuggestionTestUtil {
         return TypicalBlockModel.PATH_TO_CS2103T;
     }
 
-    public static List<SuggestionItem> getExpectedSuggestionsToCs2103t() {
+    public static List<SuggestionItem> getExpectedSugForCs2103tPathInput() {
         SuggestionItem cs2103t = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T.getStringRepresentation(), null);
+                TypicalBlockModel.PATH_TO_CS2103T.getStringRepresentation(), () -> {});
         SuggestionItem cs2103tLect = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_LECTURES.getStringRepresentation(), null);
+                TypicalBlockModel.PATH_TO_CS2103T_LECTURES.getStringRepresentation(), () -> {});
         SuggestionItem cs2103tTut = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIALS.getStringRepresentation(), null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIALS.getStringRepresentation(), () -> {});
         SuggestionItem cs2103tTut1 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), () -> {});
         SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), () -> {});
 
-        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
-        expectedSuggestions.add(cs2103t);
-        expectedSuggestions.add(cs2103tLect);
-        expectedSuggestions.add(cs2103tTut);
-        expectedSuggestions.add(cs2103tTut1);
-        expectedSuggestions.add(cs2103tTut2);
+        List<SuggestionItem> expectedSuggestions;
+        SuggestionItem[] items = new SuggestionItem[]{cs2103t, cs2103tLect, cs2103tTut, cs2103tTut1, cs2103tTut2};
+        expectedSuggestions = List.of(items);
 
         return expectedSuggestions;
     }
 
-    public static List<String> getExpectedInputsToCs2103t(String commandWord, boolean hasPrefixTitle) {
+    public static List<String> getExpectedInputsForCs2103tPathInput(String userInputWithoutPath) {
         List<String> expectedInputs = new ArrayList<>();
-        String prefix = "";
 
-        if (hasPrefixTitle) {
-            prefix = "-t ";
-        }
-
-        expectedInputs.add(commandWord + " " + prefix + TypicalBlockModel.PATH_TO_CS2103T.getStringRepresentation());
-        expectedInputs.add(commandWord + " " + prefix
-                + TypicalBlockModel.PATH_TO_CS2103T_LECTURES.getStringRepresentation());
-        expectedInputs.add(commandWord + " " + prefix
+        expectedInputs.add(userInputWithoutPath + TypicalBlockModel.PATH_TO_CS2103T.getStringRepresentation());
+        expectedInputs.add(userInputWithoutPath + TypicalBlockModel.PATH_TO_CS2103T_LECTURES.getStringRepresentation());
+        expectedInputs.add(userInputWithoutPath
                 + TypicalBlockModel.PATH_TO_CS2103T_TUTORIALS.getStringRepresentation());
-        expectedInputs.add(commandWord + " " + prefix
+        expectedInputs.add(userInputWithoutPath
                 + TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation());
-        expectedInputs.add(commandWord + " " + prefix
+        expectedInputs.add(userInputWithoutPath
                 + TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation());
 
         return expectedInputs;
@@ -85,11 +75,8 @@ public class SuggestionTestUtil {
      * @param suggestions The actual suggestions list.
      */
     public static void testSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
-        for (int i = 0; i < expectedSuggestions.size(); i++) {
-            SuggestionItem suggestion = suggestions.get(i);
-            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
-            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
-        }
+        assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
+                suggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()));
     }
 
     /**
@@ -97,7 +84,7 @@ public class SuggestionTestUtil {
      * @param expectedInputs The expected list of inputs.
      * @param suggestions The actual suggestions list.
      */
-    public static void testInputs(List<String> expectedInputs, List<SuggestionItem> suggestions) {
+    public static void testInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
             String expectedInput = expectedInputs.get(i);
