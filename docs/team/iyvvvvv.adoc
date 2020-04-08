@@ -21,7 +21,7 @@ FitHelper is a desktop address book application used for teaching Software Engin
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=iyvvvvv&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=IYVVVVV&tabRepo=AY1920S2-CS2103-T09-4%2Fmain%5Bmaster%5D[Functional code]]
 
 * *Other contributions*:
 
