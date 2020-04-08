@@ -851,9 +851,9 @@ Examples:
 +
 Adds a new session with:
 
-** `START_TIME` at 14:00
-** `END_TIME` at 16:00
-** `DATE` on 2020-06-20
+** `START_TIME` at 14:00 in `24hr` format
+** `END_TIME` at 16:00 in `24hr` format
+** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
 ** `WEEK` recurring period of 2
 ** `MOD_CODE` of CS2103T
 ** `TYPE` consultation
@@ -917,10 +917,10 @@ Edits the session at index 1 to have:
 
 You can use this command to mark a session as done.
 
+The session marked done will be removed from the *Session View* and
+will automatically appear as a new claim in the *Claims View*.
 If the session marked done has a recurring period, a new session with the updated date
 and timing will be added to Session View.
-The session marked done will be removed from *Session View* and
-will automatically appear as a new claim in the *Claims View*.
 
 You will automatically be switched to the claims
 tab as well, if you were currently on a different tab.
