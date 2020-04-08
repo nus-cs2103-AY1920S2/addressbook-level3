@@ -49,18 +49,6 @@ public class Savings implements Comparable<Savings> {
     private final List<Saveable> saveables;
 
     /**
-     * Private constructor facilitating copy of current Savings
-     */
-    private Savings(MonetaryAmount monetaryAmount,
-                    PercentageAmount percentage,
-                    List<Saveable> saveables
-    ) {
-        this.monetaryAmount = monetaryAmount;
-        this.percentage = percentage;
-        this.saveables = saveables;
-    }
-
-    /**
      * Constructor for a Savings value, given only
      * a MonetaryAmount representing the amount
      * in terms of some denomination of currency.
