@@ -17,10 +17,10 @@ public class PersonSummaryCard extends UiPart<Region>  {
     private Label userid;
 
     @FXML
-    private Label age;
+    private Label nric;
 
     @FXML
-    private Label address;
+    private Label age;
 
     @FXML
     private Label mobile;
@@ -31,10 +31,10 @@ public class PersonSummaryCard extends UiPart<Region>  {
         this.person = person;
 
         name.setText(person.getName());
-        userid.setText(Integer.toString(person.getUserID()));
-        age.setText(Integer.toString(person.getAge()));
-        address.setText(person.getAddress());
+        nric.setText(person.getNric());
         mobile.setText(person.getMobile());
+        age.setText(Integer.toString(person.getAge()));
+        userid.setText(Integer.toString(person.getUserId()));
     }
 
     @Override

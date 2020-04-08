@@ -11,6 +11,6 @@ public class PersonIDConditions implements Conditions<Person> {
 
     @Override
     public Boolean satisfies(Person objToTest) {
-        return this.personId == objToTest.getUserID();
+        return this.personId == objToTest.getUserId();
     }
 }

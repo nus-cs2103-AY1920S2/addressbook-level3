@@ -7,11 +7,15 @@ import java.util.ArrayList;
 
 public interface AppStorage<T> {
 
-    public void create(T templateClass);
+    public ArrayList<T> search(T obj);
 
-    public void delete(T templateClass);
+    public void create(T obj) throws Exception;
 
-    public void update(T oldTemplateClass, T newTemplateClass);
+    public void delete(ArrayList<T> objs);
+
+    public void delete(T obj);
+
+    public void update(T objPast, T objNew);
 
     /**
      * Performs an aggregated search over records passed in to identify groups of records which satisfies a condition
