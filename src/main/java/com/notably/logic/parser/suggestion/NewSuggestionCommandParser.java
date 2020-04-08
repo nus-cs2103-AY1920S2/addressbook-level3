@@ -22,6 +22,8 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
     private static final String RESPONSE_MESSAGE = "Create a new note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled \"%s\".";
     private static final String RESPONSE_MESSAGE_WITH_TITLE_AND_OPEN = "Create a new note titled \"%s\" and open it.";
+    private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
+            + "The correct format is \"new -t TITLE [-b BODY] [-o]\"";
 
     private Model model;
 
@@ -38,17 +40,20 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
 
-        String title;
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            title = userInput.trim();
-        } else {
-            title = argMultimap.getValue(PREFIX_TITLE).get();
+        if (userInput.isBlank()) {
+            model.setResponseText(RESPONSE_MESSAGE);
+            return Optional.empty();
         }
 
-        if (title.isBlank()) {
-            model.setResponseText(RESPONSE_MESSAGE);
-        } else if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) { // If user does NOT type "-o"
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            model.setResponseText(String.format(ERROR_MESSAGE, model.getInput()));
+            return Optional.empty();
+        }
+
+        String title = argMultimap.getValue(PREFIX_TITLE).get();
+
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) { // If user does NOT type "-o"
             model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_TITLE, title));
         } else {
             model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_TITLE_AND_OPEN, title));
