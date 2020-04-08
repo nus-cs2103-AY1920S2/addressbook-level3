@@ -23,7 +23,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
 
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
-    private static final String RESPONSE_MESSAGE_CANNOT_OPEN_NOTE = "Open \"%s\". Invalid path.";
+    private static final String RESPONSE_MESSAGE_CANNOT_OPEN_NOTE = "\"%s\" is an invalid path";
 
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
