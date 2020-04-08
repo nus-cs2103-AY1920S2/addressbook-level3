@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for Savings, this also tests the
  * integration between MonetaryAmount, PercentageAmount
- * and Saveables.
+ * Saveables and Savings.
  */
 public class SavingsTest {
 
