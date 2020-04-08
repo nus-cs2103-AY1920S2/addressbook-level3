@@ -2,6 +2,7 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -306,6 +307,8 @@ public class OpenSuggestionCommandParserTest {
 
         assertEquals(Optional.of(RESPONSE_MESSAGE),
                 model.responseTextProperty().getValue());
+
+        assertFalse(command.isPresent());
     }
 
     @Test
@@ -319,6 +322,7 @@ public class OpenSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
+        assertFalse(command.isPresent());
     }
 
     @Test
@@ -331,5 +335,7 @@ public class OpenSuggestionCommandParserTest {
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_CANNOT_DELETE_NOTE, path)),
                 model.responseTextProperty().getValue());
+
+        assertFalse(command.isPresent());
     }
 }
