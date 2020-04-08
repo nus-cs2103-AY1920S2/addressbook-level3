@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertDeleteSessionCommandSuccess;
-import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithSessions;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_SESSION;
 import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_SESSION;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithSessions;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,36 +34,36 @@ public class DeleteSessionCommandTest {
         assertDeleteSessionCommandSuccess(deleteSessionCommand, model, expectedMessage, expectedModel);
     }
 
-     @Test
-     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSessionList().size() + 1);
-         DeleteSessionCommand deleteSessionCommand = new DeleteSessionCommand(outOfBoundIndex);
+    @Test
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSessionList().size() + 1);
+        DeleteSessionCommand deleteSessionCommand = new DeleteSessionCommand(outOfBoundIndex);
 
-         assertCommandFailure(deleteSessionCommand,
+        assertCommandFailure(deleteSessionCommand,
                  model, Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
-     }
+    }
 
-     @Test
-     public void equals() {
-         DeleteSessionCommand deleteFirstCommand = new DeleteSessionCommand(INDEX_FIRST_SESSION);
-         DeleteSessionCommand deleteSecondCommand = new DeleteSessionCommand(INDEX_SECOND_SESSION);
+    @Test
+    public void equals() {
+        DeleteSessionCommand deleteFirstCommand = new DeleteSessionCommand(INDEX_FIRST_SESSION);
+        DeleteSessionCommand deleteSecondCommand = new DeleteSessionCommand(INDEX_SECOND_SESSION);
 
-         // same object -> returns true
-         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        // same object -> returns true
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
-         // same values -> returns true
-         DeleteSessionCommand deleteFirstCommandCopy = new DeleteSessionCommand(INDEX_FIRST_SESSION);
-         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        // same values -> returns true
+        DeleteSessionCommand deleteFirstCommandCopy = new DeleteSessionCommand(INDEX_FIRST_SESSION);
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
-         // different types -> returns false
-         assertFalse(deleteFirstCommand.equals(1));
+        // different types -> returns false
+        assertFalse(deleteFirstCommand.equals(1));
 
-         // null -> returns false
-         assertFalse(deleteFirstCommand.equals(null));
+        // null -> returns false
+        assertFalse(deleteFirstCommand.equals(null));
 
-         // different sessions -> returns false
-         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-     }
+        // different sessions -> returns false
+        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
 
     /**
      * Updates {@code model}'s filtered list to show no one.

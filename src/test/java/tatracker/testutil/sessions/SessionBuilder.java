@@ -1,6 +1,5 @@
 package tatracker.testutil.sessions;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,7 +16,7 @@ import tatracker.model.session.SessionType;
 public class SessionBuilder {
 
     private static final LocalDateTime DEFAULT_START = LocalDateTime.of(2020, 05, 20, 17, 30);
-    private static final LocalDateTime DEFAULT_END =  LocalDateTime.of(2020, 05, 20, 19, 30);
+    private static final LocalDateTime DEFAULT_END = LocalDateTime.of(2020, 05, 20, 19, 30);
     private static final String DEFAULT_MODULE = "CS2103T";
     private static final SessionType DEFAULT_TYPE = SessionType.TUTORIAL;
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
@@ -115,6 +114,9 @@ public class SessionBuilder {
         return this;
     }
 
+    /**
+     * Builds the Session.
+     */
     public Session build() {
         return new Session(startTime, endTime, sessionType, recurringWeeks, moduleCode,
                 description);

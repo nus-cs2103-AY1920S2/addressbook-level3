@@ -39,16 +39,16 @@ public class AddSessionCommandTest {
 
     @Test
     public void equals() {
-        Session CS3243 = new SessionBuilder().withModule("CS3243").build();
-        Session CS2103T = new SessionBuilder().withModule("CS2103T").build();
-        AddSessionCommand addCS3243Command = new AddSessionCommand(CS3243);
-        AddSessionCommand addCS2103TCommand = new AddSessionCommand(CS2103T);
+        Session first = new SessionBuilder().withModule("CS3243").build();
+        Session second = new SessionBuilder().withModule("CS2103T").build();
+        AddSessionCommand addCS3243Command = new AddSessionCommand(first);
+        AddSessionCommand addCS2103TCommand = new AddSessionCommand(second);
 
         // same object -> returns true
         assertTrue(addCS2103TCommand.equals(addCS2103TCommand));
 
         // same values -> returns true
-        AddSessionCommand addCS2103TCommandCopy = new AddSessionCommand(CS2103T);
+        AddSessionCommand addCS2103TCommandCopy = new AddSessionCommand(second);
         assertTrue(addCS2103TCommand.equals(addCS2103TCommandCopy));
 
         // different types -> returns false

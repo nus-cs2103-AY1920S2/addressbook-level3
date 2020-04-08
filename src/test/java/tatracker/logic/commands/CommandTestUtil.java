@@ -21,7 +21,6 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
-import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 

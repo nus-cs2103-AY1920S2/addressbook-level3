@@ -62,16 +62,16 @@ public class TypicalTaTracker {
     /**
      * Returns an {@code TaTracker} with all the typical sessions.
      */
-//    public static TaTracker getTypicalTaTrackerWithSessions() {
-//        Module typicalCS3243 = new Module("CS3243", "Introduction to AI");
-//
-//        for (Group group : getTypicalGroups()) {
-//            typicalCS3243.addGroup(group);
-//        }
-//        TaTracker tat = new TaTracker();
-//        tat.addModule(typicalCS3243);
-//        return tat;
-//    }
+    //public static TaTracker getTypicalTaTrackerWithSessions() {
+    //  Module typicalCS3243 = new Module("CS3243", "Introduction to AI");
+    //
+    //  for (Group group : getTypicalGroups()) {
+    //  typicalCS3243.addGroup(group);
+    //  }
+    //  TaTracker tat = new TaTracker();
+    //  tat.addModule(typicalCS3243);
+    //  return tat;
+    //}
 
     /**
      * Returns an {@code TaTracker} with all the typical modules.

@@ -1,13 +1,11 @@
 package tatracker.testutil.sessions;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
-import tatracker.model.student.Student;
 
 /**
  * A utility class containing a list of {@code Sessions} objects to be used in tests.
