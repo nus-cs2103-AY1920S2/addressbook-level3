@@ -14,12 +14,10 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
@@ -185,7 +183,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTasks.setPredicate(
                 predicate); // predicate should now be applied and evaluate to true for certain
-                            // threshold
+        // threshold
         if (predicate instanceof NameContainsKeywordsPredicate) {
             System.out.println("list called??");
             NameContainsKeywordsPredicate namePredicate = (NameContainsKeywordsPredicate) predicate;

@@ -77,7 +77,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         ObservableList<Task> tasklist = model.getFilteredTaskList();
-        for (int i=0; i < tasklist.size(); i++) {
+        for (int i = 0; i < tasklist.size(); i++) {
             Task currentTask = tasklist.get(i);
             currentTask.triggerRecurringIfPresent(model, Index.fromZeroBased(i));
         }
