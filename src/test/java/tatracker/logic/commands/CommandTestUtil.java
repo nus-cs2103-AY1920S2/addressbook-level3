@@ -21,6 +21,7 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
+import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
@@ -163,6 +164,16 @@ public class CommandTestUtil {
         //model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertDeleteSessionCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                         Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_SESSION);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
 }

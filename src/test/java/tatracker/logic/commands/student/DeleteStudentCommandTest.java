@@ -27,18 +27,18 @@ public class DeleteStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
-    // @Test
-    // public void execute_validIndexUnfilteredList_success() {
-    //     Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-    //     DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
-    //
-    //     String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
-    //
-    //     ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
-    //     expectedModel.deleteStudent(studentToDelete);
-    //
-    //     assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
-    // }
+//     @Test
+//     public void execute_validIndexUnfilteredList_success() {
+//         Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
+//         DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
+//
+//         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
+//
+//         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
+//         expectedModel.deleteStudent(studentToDelete);
+//
+//         assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+//     }
     //
     // @Test
     // public void execute_invalidIndexUnfilteredList_throwsCommandException() {

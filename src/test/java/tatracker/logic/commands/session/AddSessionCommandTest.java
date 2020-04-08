@@ -7,7 +7,7 @@ import static tatracker.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import tatracker.model.session.Session;
-import tatracker.testutil.SessionBuilder;
+import tatracker.testutil.sessions.SessionBuilder;
 
 public class AddSessionCommandTest {
 

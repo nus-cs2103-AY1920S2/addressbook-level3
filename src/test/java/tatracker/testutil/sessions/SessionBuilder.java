@@ -1,22 +1,15 @@
-package tatracker.testutil;
+package tatracker.testutil.sessions;
 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashSet;
 
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.student.Rating;
-import tatracker.model.student.Student;
-import tatracker.model.util.SampleDataUtil;
+
 
 /**
  * A utility class to help with building Session objects.
