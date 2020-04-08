@@ -124,6 +124,55 @@ public class CommandTestUtil {
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "*"; // '*' is not allowed in remark
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "CLOTHES"; // 'CLOTHES' is not a category
 
+    public static final String INVALID_FILTER_MONTH_PREDICATE_1 = "";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_2 = "    ";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_3 = "`";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_4 = "~";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_5 = "!";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_6 = "@";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_7 = "#";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_8 = "$";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_9 = "%";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_10 = "^";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_11 = "&";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_12 = "*";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_13 = "(";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_14 = ")";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_15 = "-";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_16 = "_";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_17 = "=";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_18 = "+";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_19 = "1900-13";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_20 = "JANUARY";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_21 = " 2020-01";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_22 = "2020-01 ";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_23 = "2020/01";
+    public static final String INVALID_FILTER_MONTH_PREDICATE_24 = "1899-01";
+
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_1 = "";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_2 = "    ";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_3 = "`";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_4 = "~";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_5 = "!";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_6 = "@";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_7 = "#";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_8 = "$";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_9 = "%";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_10 = "^";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_11 = "&";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_12 = "*";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_13 = "(";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_14 = ")";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_15 = "-";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_16 = "_";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_17 = "=";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_18 = "+";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_19 = " FOOD";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_20 = "FOOD ";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_21 = "food";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_22 = "ABCD";
+    public static final String INVALID_FILTER_CATEGORY_PREDICATE_23 = "2020-01";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

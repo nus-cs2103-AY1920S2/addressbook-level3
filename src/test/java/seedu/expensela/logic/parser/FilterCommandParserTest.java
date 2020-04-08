@@ -3,6 +3,53 @@ package seedu.expensela.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_FILTER;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_1;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_2;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_3;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_4;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_5;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_6;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_7;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_8;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_9;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_10;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_11;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_12;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_13;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_14;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_15;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_16;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_17;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_18;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_19;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_20;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_21;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_22;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_23;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_MONTH_PREDICATE_24;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_1;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_2;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_3;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_4;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_5;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_6;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_7;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_8;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_9;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_10;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_11;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_12;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_13;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_14;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_15;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_16;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_17;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_18;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_19;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_20;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_21;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_22;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_FILTER_CATEGORY_PREDICATE_23;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -112,13 +159,29 @@ class FilterCommandParserTest {
     @Test
     public void isValidCategory() {
         // invalid categories
-        assertFalse(parser.isValidCategory(""));
-        assertFalse(parser.isValidCategory("           "));
-        assertFalse(parser.isValidCategory("~$%&*"));
-        assertFalse(parser.isValidCategory("  FOOD"));
-        assertFalse(parser.isValidCategory("FOODS    "));
-        assertFalse(parser.isValidCategory("FOODS"));
-        assertFalse(parser.isValidCategory("1234"));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_1));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_2));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_3));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_4));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_5));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_6));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_7));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_8));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_9));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_10));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_11));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_12));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_13));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_14));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_15));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_16));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_17));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_18));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_19));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_20));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_21));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_22));
+        assertFalse(parser.isValidCategory(INVALID_FILTER_CATEGORY_PREDICATE_23));
 
         // valid categories
         assertTrue(parser.isValidCategory("FOOD"));
@@ -135,20 +198,33 @@ class FilterCommandParserTest {
 
     @Test
     public void isValidMonth() {
-        // invalid categories
-        assertFalse(parser.isValidMonth(""));
-        assertFalse(parser.isValidMonth("           "));
-        assertFalse(parser.isValidMonth("~$%&*"));
-        assertFalse(parser.isValidMonth("JANUARY"));
-        assertFalse(parser.isValidMonth("1900-00"));
-        assertFalse(parser.isValidMonth("1899-01"));
-        assertFalse(parser.isValidMonth("2020"));
-        assertFalse(parser.isValidMonth("12"));
-        assertFalse(parser.isValidMonth("2020/06"));
-        assertFalse(parser.isValidMonth(" 2020-02"));
-        assertFalse(parser.isValidMonth("2020-02 "));
+        // invalid month
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_1));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_2));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_3));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_4));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_5));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_6));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_7));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_8));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_9));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_10));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_11));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_12));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_13));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_14));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_15));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_16));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_17));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_18));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_19));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_20));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_21));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_22));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_23));
+        assertFalse(parser.isValidMonth(INVALID_FILTER_MONTH_PREDICATE_24));
 
-        // valid categories
+        // valid month
         assertTrue(parser.isValidMonth("1900-01"));
         assertTrue(parser.isValidMonth("9999-12"));
         assertTrue(parser.isValidMonth("2020-06"));
