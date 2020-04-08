@@ -57,6 +57,7 @@ public class Entry {
         }
 
         Entry otherItem = (Entry) other;
+
         return otherItem.getItem().equals(getItem())
                 && otherItem.getPersonsList().equals(getPersonsList());
     }

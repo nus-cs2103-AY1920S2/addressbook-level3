@@ -65,7 +65,6 @@ public class Item {
         if (otherItem == this) {
             return true;
         }
-
         return otherItem != null
                 && otherItem.getItemName().equals(getItemName())
                 && otherItem.getItemPrice().equals(getItemPrice());
