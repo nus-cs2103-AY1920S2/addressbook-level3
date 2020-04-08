@@ -9,20 +9,29 @@ import seedu.address.model.diary.weather.SunnyWeather;
 import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.diary.weather.WindyWeather;
 
+/**
+ * Dummy java docs.
+ */
 public class WeatherParser {
-    private static HashMap<String, Weather> WEATHER_IDENTIFIERS = new HashMap<>();
+    private static HashMap<String, Weather> weatherIdentifiers = new HashMap<>();
 
     static {
-        WEATHER_IDENTIFIERS.put("cloudy", new CloudyWeather());
-        WEATHER_IDENTIFIERS.put("rainy", new RainyWeather());
-        WEATHER_IDENTIFIERS.put("sunny", new SunnyWeather());
-        WEATHER_IDENTIFIERS.put("windy", new WindyWeather());
+        weatherIdentifiers.put("cloudy", new CloudyWeather());
+        weatherIdentifiers.put("rainy", new RainyWeather());
+        weatherIdentifiers.put("sunny", new SunnyWeather());
+        weatherIdentifiers.put("windy", new WindyWeather());
     }
 
+    /**
+     * Dummy java docs.
+     * @param weatherString
+     * @return
+     * @throws IllegalValueException
+     */
     public Weather parseWeather(String weatherString) throws IllegalValueException {
-        if (WEATHER_IDENTIFIERS.get(weatherString) == null) {
+        if (weatherIdentifiers.get(weatherString) == null) {
             throw new IllegalValueException("Please enter a valid weather!");
         }
-        return WEATHER_IDENTIFIERS.get(weatherString);
+        return weatherIdentifiers.get(weatherString);
     }
 }

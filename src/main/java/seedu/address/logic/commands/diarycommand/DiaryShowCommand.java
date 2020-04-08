@@ -8,6 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Dummy java docs.
+ */
 public abstract class DiaryShowCommand extends Command {
     public static final String COMMAND_WORD = "diaryShow";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a particular diary entry\n"

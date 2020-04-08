@@ -115,7 +115,6 @@ public class NotesListCommand extends Command {
     public CommandResult execute(Model model) {
 
         model.updateNotesList(PREDICATE_SHOW_ALL_NOTES);
-        System.out.println(Notes.getCurrentDirectory());
         return listFiles(this.path);
 
 
