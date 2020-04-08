@@ -3,6 +3,7 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +45,7 @@ public class EditCommand extends IndexedCommand {
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
             + "[" + CliSyntax.PREFIX_START_DATE + "START_DATE] "
+            + "[" + CliSyntax.PREFIX_REMIND + "REMIND_DATE] "
             + "[" + CliSyntax.PREFIX_LIMIT + "LIMIT "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -95,9 +97,19 @@ public class EditCommand extends IndexedCommand {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
-        //Conditions for start date & expiry date
+        // Conditions for start date & expiry date
         if (!editedCoupon.getExpiryDate().isAfterOrEqual(editedCoupon.getStartDate())) {
             throw new CommandException(START_DATE_EXPIRY_DATE_CONSTRAINT);
+        }
+
+        // date.isAfter(sd.getDate()) || date.isEqual(sd.getDate());
+
+        // Conditions for remind date
+        if (editedCoupon.getRemindDate().getDate().isAfter(editedCoupon.getExpiryDate().getDate())) {
+            throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
+        }
+        if (editedCoupon.getRemindDate().getDate().isBefore(LocalDate.now())) {
+            throw new CommandException(Messages.MESSAGE_REMIND_DATE_BEFORE_TODAYS);
         }
 
         Usage currentUsage = couponToEdit.getUsage();
@@ -125,10 +137,12 @@ public class EditCommand extends IndexedCommand {
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
-        Archived archived = couponToEdit.getArchived();
         RemindDate remindDate = editCouponDescriptor.getExpiryDate().isPresent()
                 ? new RemindDate(updatedExpiryDate)
                 : editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
+
+        // Archived state cannot be edited
+        Archived archived = couponToEdit.getArchived();
 
         return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
                 // avoid changing the usage

@@ -115,7 +115,8 @@ public class RemindCommand extends IndexedCommand {
                 throw new CommandException(DateUtil.MESSAGE_DATE_WRONG_FORMAT);
             }
 
-            //check if input's date is not after the coupon's expiry date
+            // check if input's date is not after the coupon's expiry date and
+            // that it is after today
             if (tempDate.isAfter(couponToBeRemind.getExpiryDate().date)) {
                 throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
             } else if (tempDate.isBefore((LocalDate.now()))) {
