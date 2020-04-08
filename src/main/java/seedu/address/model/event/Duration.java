@@ -10,11 +10,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Duration {
     public static final String MESSAGE_CONSTRAINTS = "Duration cannot be left empty, "
             + "please give an estimate of duration if you are unable to get exact timing"
-            + " and round off estimates to the nearest 1 decimal place. "
+            + " and round off to the nearest hour. "
             + "For instance, if your appointment is half an hour long, please input "
             + "0.5 as the duration.";
-    // double check if the validation regex is okay (need to support decimals!)
-    public static final String VALIDATION_REGEX = "^\\d+\\.?(\\d{0,1}[5])?";
+    public static final String VALIDATION_REGEX = "[0-9]{1,2}";
 
     // Instance field
     public final String duration;
@@ -33,15 +32,8 @@ public class Duration {
      * @param testDuration The input duration to be tested.
      * Returns true if the input duration contains only numbers and at least one digit.
      */
-    /*
     public static boolean isValidDuration(String testDuration) {
         return testDuration.matches(VALIDATION_REGEX);
-    }
-    */
-
-    /** Dummy method, until I figure out regex. */
-    public static boolean isValidDuration(String testDuration) {
-        return true;
     }
 
     @Override

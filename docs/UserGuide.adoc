@@ -298,11 +298,11 @@ Format: `(rt)addnote INDEX [r/RECOMMENDED_FOOD1] [r/RECOMMENDED_FOOD2] [g/GOOD_F
 Examples:
 
 * `(rt)addnote 5 r/chicken chop g/truffle fries b/risotto` +
-Adds a note to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
+Add notes to the restaurant at index 5 with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 * `(rt)addnote 2 g/Cheese baked rice`
 Adds a note to the restaurant at index 2 with good food Cheese baked rice.
 * `(rt)addnote 1 b/Fried rice b/Latte`
-Adds a note to the restaurant at index 1 with bad food Fried rice and Latte.
+Add notes to the restaurant at index 1 with bad food Fried rice and Latte.
 
 ==== Edit notes to a restaurant : `(rt)editnote`
 
@@ -319,9 +319,26 @@ Format: `(rt)editnote INDEX [rl/LINE_NUMBER] [r/RECOMMENDED_FOOD] [gl/LINE_NUMBE
 Examples:
 
 * '(rt)editnote 1 rl/2 r/Lobster pasta gl/1 g/Mushroom soup bl/3 b/Salad'
-Edits a note to the restaurant at index 1 with recommend food Lobster pasta at line number 2, good food Mushroom soup at line number 1, and bad food Salad at line number 3.
+Edit notes to the restaurant at index 1 with recommend food Lobster pasta at line number 2, good food Mushroom soup at line number 1, and bad food Salad at line number 3.
 * `(rt)editnote 2 gl/2 g/Chicken chop`
-Edits a note to the restaurant at index 2 with good food Chicken chop.
+Edits note to the restaurant at index 2 with good food Chicken chop.
+
+==== Delete notes to a restaurant : `(rt)deletenote`
+
+Deletes a note to a restaurant +
+Format: `(rt)deletenote INDEX [rl/LINE_NUMBER1] [rl/LINE_NUMBER2] [gl/LINE_NUMBER] [bl/BAD_FOOD]`
+
+****
+* INDEX must be a positive integer. It refers to the index of the respective restaurant as displayed in the LIST function.
+* There should be at least either one rl/LINE_NUMBER, one gl/LINE_NUMBER, or one bl/LINE_NUMBER specified to be deleted from the respective notes.
+****
+
+Examples:
+
+* '(rt)deletenote 1 rl/2 gl/1 bl/3
+Delete notes to the restaurant at index 1, at line number 2 of recommended food notes, at line number 1 of good food notes, at line number 3 of bad food notes.
+* `(rt)editnote 2 gl/1 gl/2`
+Edits a note to the restaurant at index 2, at line numbers 1 and 2 of good food notes.
 
 ==== Change visited status of restaurant : `(rt)visited`
 
@@ -343,25 +360,28 @@ Examples:
 * `(rt)list` +
 Lists all restaurants.
 
-==== [Coming Soon] Find restaurant : `(rt)find`
+==== Search : `(rt)find`
 
-Finds restaurants based on a number of criteria. +
-Format: `(rt)find [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
+Searches for restaurants based on a number of criteria. +
+Format: `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 
 ****
 * At least one search criteria must be filled in.
-* There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is `$`. The medium price point is `$$`. The highest price point is `$$$`.
+* All are case insensitive.
 * If more than 1 optional parameters are filled, they are viewed as a conjunction of filters
-* All are case insensitive
-* LOCATION, PRICE_POINT, and OPERATING_HOURS must be exact matches (case insensitive)
 ****
 
-Examples:
-
+Examples: 
+* `(rt)find n/no signboard` +
+Searches for restaurants with the keyword `no signboard`.
+* `(rt)find l/bedok` +
+Searches for restaurants in the `Bedok` area.
 * `(rt)find k/no signboard p/$$` +
 Finds restaurants with the keyword no signboard which is at a medium price point.
 * `(rt)find l/bedok p/$` +
 Finds restaurants in the bedok area at a low price point.
+
+* [COMING SOON] Ability to search by price point and operating hours.
 
 === Schoolwork Tracker commands
 
@@ -445,11 +465,7 @@ Format: `(st)schedule n/NUM_DAYS`
 * Green: The expected work hours for the day is less than or equals to 5 hours
 ****
 
-Example:
-* `(st)schedule n/5` +
-Shows the user's upcoming schedule for the next 5 days colour-coded based on the estimated work hours per day.
-
-=== Event Book commands
+=== Event Schedule commands
 
 ==== Create a new social event : `(ev)add`
 
@@ -464,6 +480,35 @@ Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 
 Lists all social events in your Event Book. +
 Format: `(ev)list`
+
+==== Edit a social event : `(ev)edit`
+
+Allows editing of a social event. +
+Format: `(ev)edit [et/EVENT_TITLE] [edt/EVENT_DATE] [ed/DURATION] [ep/LOCATION]`
+
+****
+* At least one field must be non-empty.
+* All the non-empty fields will replace their respective previous data fields.
+****
+
+Examples:
+
+* `(ev)edit 2 edt/2020-04-09 22:00 ed/2` +
+Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
+
+==== Deletes a social event : `(ev)delete`
+
+Deletes a social event. +
+Format: `(ev)delete INDEX`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the event as shown when you list all events in the Event Schedule using the default event list function (see above).
+****
+
+Examples:
+
+* `(ev)delete 1` +
+Deletes the 1st Event in the Event Schedule.
 
 === Saving the data
 
