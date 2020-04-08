@@ -17,13 +17,13 @@ public class UuidManager {
 
     public static boolean containsID(ModelObject object, ID id) {
         if (object instanceof Course) {
-            return new AddressBookGeneric<Course>().containsID(id);
+            return new AddressBookGeneric<Course>().has(id);
         } else if (object instanceof Student) {
-            return new AddressBookGeneric<Student>().containsID(id);
+            return new AddressBookGeneric<Student>().has(id);
         } else if (object instanceof Staff) {
-            return new AddressBookGeneric<Staff>().containsID(id);
+            return new AddressBookGeneric<Staff>().has(id);
         }
-        return new AddressBookGeneric<ModelObject>().containsID(id);
+        return new AddressBookGeneric<ModelObject>().has(id);
     }
 
     public static ID assignNewUUID(ModelObject object) throws ParseException {

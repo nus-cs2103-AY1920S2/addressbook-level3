@@ -5,15 +5,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignAssignmentFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.person.ID;
-import seedu.address.model.tag.Tag;
 
 import java.util.Set;
 
@@ -30,7 +27,6 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
     public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
-    private Set<Tag> ArrayList;
 
     public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
@@ -66,11 +62,9 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             if(assigningAssignmentContainsCourse) {
                 throw new CommandException("The assignment has already been assigned already! Each assignment can only be assigned to one course.");
             } else {
-                logger.info("AssignmentID check:" + AssignmentID);
-                logger.info("CourseID check:" + courseID);
                 EdgeManager.assignAssignmentToCourse(AssignmentID, courseID);
-
                 ProgressManager.addOneAssignmentToAllStudents(courseID, AssignmentID);
+
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), AssignmentID.value,
                         assignedCourse.getName(), courseID.value));
