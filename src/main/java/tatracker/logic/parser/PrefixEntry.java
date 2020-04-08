@@ -10,6 +10,7 @@ import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.commands.sort.SortType;
 import tatracker.model.group.GroupType;
+import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -61,7 +62,7 @@ public enum PrefixEntry {
     ),
     RECUR(
             Prefixes.RECUR,
-            "Recurring weeks must be an unsigned number", StringUtil::isNonZeroUnsignedInteger,
+            Session.CONSTRAINTS_RECURRING_WEEKS, StringUtil::isNonZeroUnsignedInteger,
             "1" // Number of weeks
     ),
     SESSION_TYPE(

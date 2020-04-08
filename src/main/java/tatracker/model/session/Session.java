@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Session implements Comparable<Session> {
 
+    public static final String CONSTRAINTS_RECURRING_WEEKS = "Recurring weeks must be an unsigned number";
+
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
