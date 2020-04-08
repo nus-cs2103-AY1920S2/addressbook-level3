@@ -2,6 +2,7 @@ package seedu.zerotoone.ui.views.help;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -15,6 +16,12 @@ public class HelpDisplay extends UiPart<Region> {
     private static final String FXML = "help/HelpDisplay.fxml";
 
     @FXML
+    private Label appName;
+
+    @FXML
+    private Label appInfo;
+
+    @FXML
     private ListView<CommandSection> allCommands;
 
     /**
@@ -22,8 +29,15 @@ public class HelpDisplay extends UiPart<Region> {
      */
     public HelpDisplay(ObservableList<CommandSection> commandSectionList) {
         super(FXML);
+        initialize();
         allCommands.setItems(commandSectionList);
         allCommands.setCellFactory(listView -> new CommandSectionViewCell());
+    }
+
+    private void initialize() {
+        appName.setText("ZeroToOne v1.3");
+        appInfo.setText("ZeroToOne is a one-stop application to manage your fitness regimes.\n"
+                + "Made by group CS2103T-W16-2. Visit our product website for more info!");
     }
 
     /**

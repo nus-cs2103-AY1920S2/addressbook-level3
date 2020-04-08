@@ -93,8 +93,8 @@ public class MainWindow extends UiPart<Stage> {
         reportWindow = new ReportWindow();
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
-            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 6);
-            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 6);
+            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
+            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
         });
     }
 
@@ -118,13 +118,11 @@ public class MainWindow extends UiPart<Stage> {
         scheduledWorkoutListPanel = new ScheduledWorkoutListPanel(logic.getSortedScheduledWorkoutList());
         scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
 
-
         logListPanel = new LogListPanel(logic.getFilteredSessionList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
         helpDisplay = new HelpDisplay(new AllCommands().getCommandList());
         helpDisplayPlaceholder.getChildren().add(helpDisplay.getRoot());
-        helpDisplayPlaceholder.setVisible(false);
 
         tabPanePlaceHolder.setMinWidth(530);
         tabPanePlaceHolder.setMinHeight(200);
@@ -168,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleHelp() {
-        helpDisplayPlaceholder.setVisible(true);
+        tabPanePlaceHolder.getSelectionModel().select(5);
     }
 
     void show() {
@@ -194,7 +192,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            helpDisplayPlaceholder.setVisible(false);
             this.switchViews(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
