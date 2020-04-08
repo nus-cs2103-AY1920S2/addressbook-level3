@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.ShowCommand.MESSAGE_ALL;
 import static seedu.address.logic.commands.ShowCommand.SHOW_MESSAGE;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class ShowCommandTest {
 
     @Test
     public void execute_show_success() {
-        CommandResult expectedCommandResult = new CommandResult(SHOW_MESSAGE, false, false, false, true);
-        assertCommandSuccess(new ShowCommand(), model, expectedCommandResult, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(SHOW_MESSAGE + MESSAGE_ALL, false, false, false, true);
+        assertCommandSuccess(new ShowCommand("all"), model, expectedCommandResult, expectedModel);
     }
 }

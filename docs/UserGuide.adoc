@@ -496,31 +496,81 @@ In this section, you will learn how to use the Show Command.
 
 Here is how you can show the statistics of your orders: +
 
-*Step 1* : Type : `show` +
+*Step 1* : Type `show` +
 
-*Step 2* : Press `Enter` on your keyboard to see the magic!
+*Step 2* : If you want to see your statistics for all the orders, simply type `all` and skip to Step 5 +
+
+*Step 3* : Type `today` to show the statistics for today or simply type in a date
+in a date format of `yyyy-mm-dd` +
+
+*Step 4 (Optional)* : Type another date in `yyyy-mm-dd` format to see the statistics within the date range.
+This date must be after or equal to the date provided previously +
+
+*Step 5* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
 ====
 The `show` command opens up a new window that displays the following information :
 
-* Earnings Today
-* Deliveries Made
-* Deliveries Today (The number of delivery orders to make today)
+* Earnings
+* Orders Delivered
 * Orders Returned
-* Returns Today (The number of return orders to make today)
-* Total Orders Today (The total number of all the orders to make today)
+* PieChart that display numbers for orders delivered, not delivered, returned and not returned
 ====
 
 [[show-examples]]
 ==== What constitutes a valid Show Command
+In this section, you will learn about the correct syntax for a valid `show` command and all the
+different combinations of the command. +
 
-This is the only syntax of the Show Command: `show`
+All the syntax for a valid `show` command is shown below:
+
+* `show` `START_DATE` `[END_DATE]`
+* `show` `all`
 
 [NOTE]
 ====
-* No other keywords is allowed other than `show`
+* Only one or two arguments is allowed for the `show` command.
+* The value of `START_DATE` can be just the word `today` (Showing statistics just for today)
+* `END_DATE` is an optional field. If included, the command will show statistics based on the given range (inclusive)
+of dates
+* `START_DATE` cannot be a date after `END_DATE`
+* `show` `all` command is the only command that accepts only one argument. It shows all the statistics in the list
+regardless of the dates
 ====
+
+Here are the different scenarios of showing statistics :
+
+.Possible combinations of Show Command
+|===
+|Scenario |Command |Result
+
+| Showing all the orders statistics regardless of date
+| `show` `all`
+| You will be brought to the Statistics tab and the statistics of all orders will be displayed to you
+
+| Showing the statistics for today
+| `show` `today`
+| You will be brought to the Statistics tab and the statistics for today's orders will be displayed to you
+
+| Showing the statistics for the date between today and the end date provided
+| `show` `today` `2020-12-03`
+| You will be brought to the Statistics tab and the statistics between today's date and
+`2020-12-03` will be displayed to you
+
+| Showing the statistics for just the given date
+| `show` `2020-12-03`
+| You will be brought to the Statistics tab and the statistics in `2020-12-03` will be displayed to you
+
+| Showing the statistics within two given dates
+| `show` `2020-12-03` `2021-01-01`
+| You will be brought to the Statistics tab and the statistics for the date between `2020-12-03` and `2021-01-01`
+will be displayed to you
+
+|===
+
+
+
 
 [[insert]]
 === Inserting an order: `insert` [Done by Amos Cheong Jit Hon]

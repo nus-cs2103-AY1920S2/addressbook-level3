@@ -20,14 +20,16 @@ public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
 
-    public static final String MESSAGE_USAGE = "Example: " + COMMAND_WORD + " START_DATE " + "END_DATE \n"
-            + "START_DATE should be before or equals to the END_DATE";
+    public static final String MESSAGE_USAGE = "Example 1: " + COMMAND_WORD + " START_DATE " + "END_DATE \n"
+            + "START_DATE should be before or equals to the END_DATE \n"
+            + "Example 2: " + COMMAND_WORD + " today \n"
+            + "Example 3: " + COMMAND_WORD + " all";
 
     public static final String SHOW_MESSAGE = "Showing your delivery statistics";
 
     public static final String PARSE_DATE_ERROR_MESSAGE = "Please provide a valid date! \n";
 
-    public static final String ILLEGAL_ARGUMENT = "Please provide exactly two dates. \n";
+    public static final String ILLEGAL_ARGUMENT = "Please provide only one or two dates. \n";
 
     public static final String WRONG_DATE_ORDER = "The Start Date should not be after than the End Date! \n";
 
@@ -40,6 +42,7 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_ALL = " for all the lists";
 
     public static final String MESSAGE_INCLUSIVE = " within the given dates (including the start and end dates)";
+
     private String intendedMessage;
 
     private boolean isCommandSuccessful;
@@ -65,39 +68,8 @@ public class ShowCommand extends Command {
         String argumentTrimmed = arguments.trim();
         argument = argumentTrimmed;
         requireNonNull(argumentTrimmed);
-        if (isToday(argumentTrimmed)){
-            intendedMessage = SHOW_MESSAGE + MESSAGE_TODAY;
-            isCommandSuccessful = true;
-            startDate = DATE_TODAY;
-            endDate = DATE_TODAY;
-        } else if (isAll(argumentTrimmed)) {
-            intendedMessage = SHOW_MESSAGE + MESSAGE_ALL;
-            isCommandSuccessful = true;
-        } else {
-            String[] arrOfDate = argumentTrimmed.replaceAll("\\s+", " ").split("\\s");
 
-            try {
-                if (arrOfDate.length != 2) {
-                    throw new ParseException(ILLEGAL_ARGUMENT);
-                }
-                startDate = LocalDate.parse(arrOfDate[0], FORMAT_CHECKER);
-                endDate = LocalDate.parse(arrOfDate[1], FORMAT_CHECKER);
-
-                if (startDate.compareTo(endDate) > 0) {
-                    throw new ParseException(WRONG_DATE_ORDER);
-                }
-                intendedMessage = startDate.compareTo(endDate) == 0
-                        ? SHOW_MESSAGE + MESSAGE_TODAY
-                        : SHOW_MESSAGE + MESSAGE_INCLUSIVE;
-                isCommandSuccessful = true;
-            } catch (DateTimeParseException ex) {
-                intendedMessage = PARSE_DATE_ERROR_MESSAGE + MESSAGE_USAGE;
-                isCommandSuccessful = false;
-            } catch (ParseException pex) {
-                intendedMessage = pex.getMessage() + MESSAGE_USAGE;
-                isCommandSuccessful = false;
-            }
-        }
+        parseData(argumentTrimmed);
     }
 
     public boolean isToday(String arguments) {
@@ -119,6 +91,51 @@ public class ShowCommand extends Command {
 
     public static LocalDate getEndDate() {
         return endDate;
+    }
+
+    public void parseData(String argText) {
+        if (isToday(argText)) {
+            intendedMessage = SHOW_MESSAGE + MESSAGE_TODAY;
+            isCommandSuccessful = true;
+            startDate = DATE_TODAY;
+            endDate = DATE_TODAY;
+        } else if (isAll(argText)) {
+            intendedMessage = SHOW_MESSAGE + MESSAGE_ALL;
+            isCommandSuccessful = true;
+        } else {
+            String[] arrOfDate = argText.replaceAll("\\s+", " ").split("\\s");
+            System.out.println(arrOfDate.length);
+            try {
+                if (arrOfDate[0].equals("") || arrOfDate.length > 2) {
+                    throw new ParseException(ILLEGAL_ARGUMENT);
+                }
+
+                startDate = isToday(arrOfDate[0]) ? DATE_TODAY :
+                        LocalDate.parse(arrOfDate[0], FORMAT_CHECKER);
+
+                endDate = (arrOfDate.length == 1)
+                        ? startDate
+                        : (isToday(arrOfDate[1])
+                        ? DATE_TODAY
+                        : LocalDate.parse(arrOfDate[1], FORMAT_CHECKER));
+
+                if (startDate.compareTo(endDate) > 0) {
+                    throw new ParseException(WRONG_DATE_ORDER);
+                }
+
+                intendedMessage = startDate.compareTo(endDate) == 0
+                        ? SHOW_MESSAGE + MESSAGE_TODAY
+                        : SHOW_MESSAGE + MESSAGE_INCLUSIVE;
+
+                isCommandSuccessful = true;
+            } catch (DateTimeParseException ex) {
+                intendedMessage = PARSE_DATE_ERROR_MESSAGE + MESSAGE_USAGE;
+                isCommandSuccessful = false;
+            } catch (ParseException pex) {
+                intendedMessage = pex.getMessage() + MESSAGE_USAGE;
+                isCommandSuccessful = false;
+            }
+        }
     }
 
     @Override

@@ -342,13 +342,34 @@
     -fx-border-color: -fx-primary;
 }
 
-#itemType {
+#tagFlowPane {
     -fx-vgap: 3;
+    -fx-padding-right: 8;
 }
 
-#itemType .label {
+#tagFlowPane .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#tagFlowPane #cod {
+    -fx-text-fill: white;
+    -fx-background-color: green;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-min-width: 30;
+    -fx-font-size: 11;
+    -fx-alignment: center;
+}
+
+#tagFlowPane #dateTimeId {
+    -fx-text-fill: white;
+    -fx-background-color: red;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
@@ -385,18 +406,25 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
 .tab {
     -fx-border-radius: 10 10 0 0;
     -fx-background-radius: 10 10 0 0;
-    -fx-background-color: -fx-primary;
+    -fx-background-color: derive(-fx-primary, 40%);
     -fx-border-color: -fx-primary;
+    -fx-background-insets: 0;
 }
 
-.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator{
+.tab:selected {
+    -fx-background-color: -fx-primary;
+}
+
+.tab-header-area > .headers-region > .tab:selected .focus-indicator{
     -fx-background-radius: 0;
-    -fx-border-width: 0 0 4 0;
+    -fx-border-width: 0 0 0 0;
     -fx-background-insets: 0;
     -fx-border-color: white;
+
 }
 
 #orderList, #returnOrderList{
@@ -406,4 +434,49 @@
 .chart-legend {
    -fx-background-color: -fx-secondary;
    -fx-stroke: #daa520;
+   -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#statHBox {
+   -fx-background-color: -fx-secondary;
+}
+
+.default-color0.chart-pie { -fx-pie-color: red; }
+.default-color1.chart-pie { -fx-pie-color: blue; }
+.default-color2.chart-pie { -fx-pie-color: yellow; }
+.default-color3.chart-pie { -fx-pie-color: green; }
+
+.chart-pie-label {
+   -fx-font-family: "Roboto Light";
+    -fx-text-fill: -fx-primary;
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+}
+
+
+.chart-title {
+   -fx-font-family: "Roboto Light";
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-text-fill: black;
+}
+
+#cashText, #doneText, #returnText {
+   -fx-font-family: "Roboto Light";
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-fill: black;
+}
+
+#totalCash, #doneOrders, #returnedOrders {
+    -fx-font-weight: bold;
+    -fx-font-size: 24;
+    -fx-text-fill: black;
+}
+
+#dateText, #dateToday {
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 16;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
 }

@@ -320,6 +320,8 @@ public class MainWindow extends UiPart<Stage> {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         LocalDate dateFrom = ListUtil.getStartDate();
         LocalDate dateTo = ListUtil.getEndDate();
+
+        // Go to the Show Tab
         tabPane.getSelectionModel().select(showTab);
 
         if (ListUtil.isAll()) {
@@ -379,12 +381,15 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowHelp()) {
                 handleHelp();
             } else {
+                // Go to the list tab
                 tabPane.getSelectionModel().select(listTab);
+
                 if (commandResult.isClearList()) {
                     handleClearWarning(commandResult.getFeedbackToUser());
                     clearWindow.setComponent(resultDisplay);
                 }
 
+                // Show Command
                 if (commandResult.isDisplayEarnings()) {
                     handleShowCommand();
                 }

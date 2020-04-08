@@ -57,7 +57,8 @@ public class CsvUtil {
             .withEmail(0, 0, 0, VALID_EMAIL_BOB).withTypeOfItem(0, 0, 0, VALID_TYPE_PLASTIC).build();
 
     public static final String ADDTIONAL_NAME_CSV_ORDER_AMY = new CsvBuilder()
-            .withOutOrderTypePrefix(OT_ORDER).withTid(0, 0, 0, VALID_TID_AMY).withName(0, 0, 0, VALID_NAME_AMY)
+            .withOutOrderTypePrefix(OT_ORDER).withTid(0, 0, 0, VALID_TID_AMY + VALID_TID_BOB).
+                    withName(0, 0, 0, VALID_NAME_AMY)
             .withAddress(0, 0, 0, VALID_ADDRESS_AMY).withPhone(0, 0, 0, VALID_PHONE_AMY)
             .withDeliveryTimeStamp(0, 0, 0, VALID_TIMESTAMP_AMY).withWarehouse(0, 0, 0, VALID_WAREHOUSE_AMY)
             .withName(0, 0, 0, VALID_NAME_BOB).withCod(0, 0, 0, VALID_COD_AMY)

@@ -113,9 +113,7 @@ public class Order extends Parcel {
         }
 
         return otherOrder != null
-                && otherOrder.getTid().equals(getTid())
-                && otherOrder.getName().equals(getName())
-                && otherOrder.getPhone().equals(getPhone());
+                && otherOrder.getTid().equals(getTid());
     }
 
     /**

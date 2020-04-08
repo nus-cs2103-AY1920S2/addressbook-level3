@@ -28,15 +28,6 @@ public class OrderTest {
 
         // different transaction ID -> returns false
         Order editedAlice = new OrderBuilder(ALICE).withTid(VALID_TID_BOB).build();
-
-        assertFalse(ALICE.isSameParcel(editedAlice));
-
-        // different name -> returns false
-        editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameParcel(editedAlice));
-
-        // different phone -> returns false
-        editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.isSameParcel(editedAlice));
 
         // same name, same phone, different attributes -> returns true

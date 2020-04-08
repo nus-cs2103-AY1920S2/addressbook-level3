@@ -1,11 +1,21 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.parcel.order.Order;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * An UI component that displays information of a {@code Order}.
@@ -18,6 +28,9 @@ public class OrderCard extends UiPart<Region> {
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
+     *
+     * Images adopted from:
+     * https://icons8.com/
      *
      */
 
@@ -40,39 +53,84 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label warehouse;
     @FXML
-    private Label cashOnDelivery;
-    @FXML
     private Label comment;
     @FXML
-    private Label timeStamp;
+    private FlowPane tagFlowPane;
     @FXML
-    private Label deliveryStatus;
+    private ImageView phoneImage;
     @FXML
-    private FlowPane itemType;
+    private ImageView nameImage;
+    @FXML
+    private ImageView warehouseImage;
+    @FXML
+    private ImageView commentImage;
+    @FXML
+    private ImageView emailImage;
+    @FXML
+    private ImageView addressImage;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
+
+        id.setWrapText(true);
+        tid.setWrapText(true);
+        name.setWrapText(true);
+        phone.setWrapText(true);
+        email.setWrapText(true);
+        address.setWrapText(true);
+        warehouse.setWrapText(true);
+        comment.setWrapText(true);
+
+        phoneImage.setImage(getImage("/images/phone.png"));
+        nameImage.setImage(getImage("/images/name.png"));
+        warehouseImage.setImage(getImage("/images/warehouse.png"));
+        commentImage.setImage(getImage("/images/comments_icon.png"));
+        emailImage.setImage(getImage("/images/email.png"));
+        addressImage.setImage(getImage("/images/address.png"));
+
         id.setText(displayedIndex + ". ");
         tid.setText("Transaction ID: " + order.getTid().tid);
-        name.setText("Name: " + order.getName().fullName);
-        phone.setText("Phone: " + order.getPhone().value);
-        email.setText("Email: " + order.getEmail().value);
-        address.setText("Address: " + order.getAddress().value);
-        timeStamp.setText("Delivery Date: " + order.getTimestamp().value);
-        warehouse.setText("Warehouse: " + order.getWarehouse().address);
-        comment.setText("Comment: " + order.getComment().commentMade);
-        cashOnDelivery.setText("Cash: " + order.getCash().cashOnDelivery);
+        name.setText(order.getName().fullName);
+        phone.setText(order.getPhone().value);
+        email.setText(order.getEmail().value);
+        address.setText(order.getAddress().value);
+        warehouse.setText(order.getWarehouse().address);
+        comment.setText(order.getComment().commentMade);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
+        LocalDateTime ldt = order.getTimestamp().timeStamp;
+
+        Label dts = new Label(ldt.format(dtf));
+        dts.setId("dateTimeId");
+        tagFlowPane.getChildren().add(dts);
+
+        Label cod = new Label(order.getCash().cashOnDelivery);
+        cod.setId("cod");
+        cod.setWrapText(true);
+        tagFlowPane.getChildren().add(cod);
 
         if (!(order.getItemType().itemType).equals("NIL")) {
-            itemType.getChildren().add(new Label(order.getItemType().itemType));
+            Label item = new Label(order.getItemType().itemType);
+            tagFlowPane.getChildren().add(item);
         }
 
         if (order.isDelivered()) {
-            deliveryStatus.setText("Delivered");
+            ImageView deliveredImage = new ImageView(getImage("/images/delivered.png"));
+            deliveredImage.setFitHeight(40);
+            deliveredImage.setFitWidth(40);
+            tagFlowPane.getChildren().add(deliveredImage);
         } else {
-            deliveryStatus.setText("Not Delivered");
+            ImageView undeliveredImage = new ImageView(getImage("/images/not_delivered.png"));
+            undeliveredImage.setFitHeight(40);
+            undeliveredImage.setFitWidth(40);
+            tagFlowPane.getChildren().add(undeliveredImage);
         }
+
+    }
+
+    private Image getImage(String imagePath) {
+        return new Image(OrderCard.class.getResourceAsStream(imagePath));
     }
 
     @Override

@@ -1735,11 +1735,19 @@ Expected: Invalid command input, as space is required in between flags. +
 
 === Show
 
-. Opens a window which shows the statistics of the current list of orders.
+. Opens a window which shows the statistics of the current lists of orders. It displays information such
+as earnings made, orders delivered and orders returned (Including a PieChart).
 
-.. Test case: `show` +
-   Expected: A new window will appear and it will show the earnings, orders delivered and the total
-number of orders the courier has to deliver today. There should be a PieChart displayed as well.
+.. Test case: `show` `all` +
+   Expected: All statistical information of all the orders shown in the statistics tab.
+.. Test case: `show` `today` +
+   Expected: All statistical information today shown in the statistics tab.
+.. Test case: `show` `today` `2020-12-03` +
+   Expected: All statistical information between the dates shown in the statistics tab.
+.. Test case: `show` `2020-12-03` +
+   Expected: All statistical information for the given date shown in the statistics tab.
+.. Test case: `show` `2020-12-03` `2021-01-01` +
+   Expected: All statistical information within the dates shown in the statistics tab.
 .. Test case: Invalid syntax +
    Expected: An error will occur and the response box will show an error message.
 
