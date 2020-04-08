@@ -40,8 +40,13 @@ public abstract class InMemoryStorage<T> implements AppStorage<T> {
     }
 
     @Override
+    public void delete(ArrayList<T> objs) {
+        this.fakeStorage.removeAll(objs);
+    }
+
+    @Override
     public void delete(T obj) {
-        // TODO: Write some code here
+        this.fakeStorage.remove(obj);
     }
 
     @Override

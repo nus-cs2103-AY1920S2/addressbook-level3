@@ -11,6 +11,8 @@ public interface AppStorage<T> {
 
     public void create(T obj) throws Exception;
 
+    public void delete(ArrayList<T> objs);
+
     public void delete(T obj);
 
     public void update(T objPast, T objNew);
