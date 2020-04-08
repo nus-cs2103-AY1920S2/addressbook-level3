@@ -18,6 +18,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -81,8 +83,21 @@ public class BlockContentEditView extends ViewPart<Stage> {
             }
         });
 
+        setKeyboardListeners();
         setInitialDimensions();
         setStageDimensionListeners();
+    }
+
+    /**
+     * Triggers changes in the visibility of the Edit modal when certain Keystrokes are registered.
+     * Primarily, allows for the user to exit the Block Edit modal using the "ESC" keyboard shortcut.
+     */
+    private void setKeyboardListeners() {
+        stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
+            if (KeyCode.ESCAPE == event.getCode()) {
+                handleClose();
+            }
+        });
     }
 
     /**
