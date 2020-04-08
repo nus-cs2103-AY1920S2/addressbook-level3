@@ -44,6 +44,19 @@ class FilterCommandParserTest {
     }
 
     @Test
+    public void parse_validCaseInsensitiveCatArgs_returnsFilterCommand() {
+        FilterCommand expectedFilterCommand =
+                new FilterCommand(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
+                        new DateEqualsKeywordPredicate(Arrays.asList("ALL")));
+
+        //lower case category name
+        assertParseSuccess(parser, " c/food", expectedFilterCommand);
+
+        // mixed case category name
+        assertParseSuccess(parser, " c/fOoD", expectedFilterCommand);
+    }
+
+    @Test
     public void parse_validDateArgs_returnsFilterCommand() {
         // no leading and trailing whitespaces
         FilterCommand expectedFilterCommand =
@@ -58,10 +71,6 @@ class FilterCommandParserTest {
         assertParseFailure(parser, " c/PETS", String.format(MESSAGE_INVALID_FILTER,
                 FilterCommand.MESSAGE_USAGE));
 
-        // category not in uppercase
-        assertParseFailure(parser, " c/food", String.format(MESSAGE_INVALID_FILTER,
-                FilterCommand.MESSAGE_USAGE));
-
         // category mispelt
         assertParseFailure(parser, " c/HEATH", String.format(MESSAGE_INVALID_FILTER,
                 FilterCommand.MESSAGE_USAGE));
@@ -73,8 +82,8 @@ class FilterCommandParserTest {
 
     @Test
     public void parse_invalidDateArgs_throwsParseException() {
-        // date year before 2000
-        assertParseFailure(parser, " m/1999-12", String.format(MESSAGE_INVALID_FILTER,
+        // date year before 1900
+        assertParseFailure(parser, " m/1899-12", String.format(MESSAGE_INVALID_FILTER,
                 FilterCommand.MESSAGE_USAGE));
 
         // date year is not an integer

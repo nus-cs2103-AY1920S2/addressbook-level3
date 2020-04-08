@@ -141,7 +141,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             if (inputYear.length() != 4) {
                 return false;
             }
-            if (inputYearInteger < 2000) {
+            if (inputYearInteger < 1900) {
                 return false;
             }
             if (inputMonth == null) {
