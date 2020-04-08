@@ -65,9 +65,10 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
+the command `mdelete m/CS2103T`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `mdelete m/CS2103T` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -80,10 +81,13 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/nasa/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`ChatBox`, `ModuleListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`HelpWindow`, `TabPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/Nasa/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -108,7 +112,7 @@ link:{repoURL}/src/main/java/nasa/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `mdelete m/CS2103T` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -156,44 +160,45 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `NasaBook` with an undo/redo history, stored internally as an `addressBookStateList` and
+The undo/redo mechanism is facilitated by `VersionedNasaBook`.
+It extends `NasaBook` with an undo/redo history, stored internally as an `NasaBookStateList` and
 `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current NASA book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous NASA book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone NASA book state from its history.
+* `VersionedNasaBook#commit()` -- Saves the current NASA book state in its history.
+* `VersionedNasaBook#undo()` -- Restores the previous NASA book state from its history.
+* `VersionedNasaBook#redo()` -- Restores a previously undone NASA book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitNasaBook()`, `Model#undoNasaBook()` and
+`Model#redoNasaBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
+Step 1. The user launches the application for the first time. The `VersionedNasaBook` will be initialized with the
 initial NASA book state, and the `currentStatePointer` pointing to that single NASA book state.
 
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th module in the NASA book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the NASA book after the `delete 5` command executes to be
+`Model#commitNasaBook()`, causing the modified state of the NASA book after the `delete 5` command executes to be
 saved
 
 in the `NASABookStateList`, and the `currentStatePointer` is shifted to the newly inserted NASA book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new module. The `add` command also calls `Model#commitAddressBook()
+Step 3. The user executes `add n/David ...` to add a new module. The `add` command also calls `Model#commitNasaBook()
 `, causing another modified NASA book state to be saved into the `NASABookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the NASA book state will not be saved
+If a command fails its execution, it will not call `Model#commitNasaBook()`, so the NASA book state will not be saved
 
 into the `NASABookStateList`.
 
 Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once
+`undo` command. The `undo` command will call `Model#undoNasaBook()`, which will shift the `currentStatePointer` once
 to the left, pointing it to the previous NASA book state, and restores the NASA book to that state.
 
 image::UndoRedoState3.png[]
@@ -201,7 +206,8 @@ image::UndoRedoState3.png[]
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial NASA book state, then there are no previous NASA
 book
-states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+states to restore. The `undo` command uses `Model#canUndoNasaBook()` to check if this is the case. If so, it will return
+an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -209,22 +215,22 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once
+The `redo` command does the opposite -- it calls `Model#redoNasaBook()`, which shifts the `currentStatePointer` once
 to the right, pointing to the previously undone state, and restores the NASA book to that state.
 
 [NOTE]
 If the `currentStatePointer` is at index `NASABookStateList.size() - 1`, pointing to the latest NASA book state, then
 there
-are no undone NASA book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the
+are no undone NASA book states to restore. The `redo` command uses `Model#canRedoNasaBook()` to check if this is the
 case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the NASA book, such as `list`,
-will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the
+will usually not call `Model#commitNasaBook()`, `Model#undoNasaBook()` or `Model#redoNasaBook()`. Thus, the
 `NASABookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not
+Step 6. The user executes `clear`, which calls `Model#commitNasaBook()`. Since the `currentStatePointer` is not
 pointing at the end of the `NASABookStateList`, all NASA book states after the `currentStatePointer` will be purged. We
 designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
@@ -249,7 +255,8 @@ image::CommitActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a list to store the history of NASA book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
+`HistoryManager` and `VersionedNasaBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -381,7 +388,7 @@ This is how it goes :
 .. If scheduler sees `0` nothing will be done and the activity will get deleted.
 .. If scheduler sees `1`,`2` or `3` it will update to the new date.
 
-=== Sort Activity Feature (To be implemented)
+=== Sort Activity Feature
 
 Activities (ie. deadlines, lessons and events) are sorted by a specific criteria, such as date added or priority.
 By default, activities are sorted by date added.
@@ -442,7 +449,7 @@ sort criteria is ensured, removing the need to enter the sort command after CRUD
 performance, and affect responsiveness of application when there are many entries of activities.
 |=======================================================================
 
-=== Statistics Feature (To be implemented)
+=== Statistics Feature
 
 Statistics on the status of activities based on a specific criteria such as time period is shown. By default, the
 overall statistics for all activities are shown.
@@ -458,7 +465,7 @@ The list of criteria to be sorted are as follows:
 . Time (Weekly/Monthly/Yearly)
 
 Refer to the user guide for the specific commands. Generating statistics is facilitated by
-ModelManager#calculateStatistics.
+ModelManager#statistics.
 
 ==== Implementation
 To generate statistics for activities, the command will use the keyword `statistics` followed by a specific criteria.
@@ -478,28 +485,8 @@ current status for each module over the past week.
 
 . The view is switched to the statistics tab to display the overalls statistics for the week.
 
-
-=== Chat bot Feature (To be implemented)
-
-The CLI implementation is done through a chat bot like interface through a redesign of the user interface.
-
-==== Implementation
-The user interface is split into 2 sections where commands will be keyed into the chat box on the left side. Feedback
-from the programme on the result of the command will be displayed directly by the chat bot where the command history
-can be viewed. Changes made to the model will be updated in the user interface on the right side
-
-==== Internal workings for the chat bot
-
-Below is an example of a user requesting for statistics by for the week and how the underlying system works.
-
-. The user enters a command `statistics`
-
-. The NASA application will process the command. (Refer to section 3.8 for details)
-
-. Command result generated by the logic manager is returned and displayed in the chat bot.
-
-. User interface switches tabs to the statistics tab where the overall statistics are displayed.
-
+The figure below shows the sequence diagram on what happens with the execution of the aforementioned command.
+image::StatisticsLogicSequenceDiagram.png[]
 
 === Logging
 
