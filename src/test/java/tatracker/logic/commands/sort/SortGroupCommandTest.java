@@ -7,7 +7,6 @@ import static tatracker.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.commands.group.EditGroupCommand;
 import tatracker.model.ModelStub;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -39,7 +38,7 @@ public class SortGroupCommandTest {
                         "CS2030");
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
 
-        assertThrows(CommandException.class, EditGroupCommand.MESSAGE_INVALID_MODULE_CODE, () ->
+        assertThrows(CommandException.class, SortGroupCommand.MESSAGE_INVALID_MODULE_CODE, () ->
                 sortGroupCommand.execute(modelStub));
     }
 
