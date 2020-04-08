@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
@@ -17,11 +18,13 @@ import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 
@@ -66,17 +69,24 @@ public class CopyCommand extends IndexedCommand {
         PromoCode promoCode = coupon.getPromoCode();
         ExpiryDate expiryDate = coupon.getExpiryDate();
         Limit limit = coupon.getLimit();
+        Condition condition = coupon.getCondition();
+        String conditionString = "";
+        if (!condition.value.equals(Condition.DEFAULT_NO_CONDITION)) {
+            conditionString = PREFIX_CONDITION + condition.value + " ";
+        }
+
         Savings savings = coupon.getSavingsForEachUse();
         String totalSavings = "";
         if (savings.hasMonetaryAmount()) {
             totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, savings.getMonetaryAmount().get().toString());
         }
         if (savings.hasPercentageAmount()) {
-            totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, savings.getPercentageAmount().get().toString());
+            totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, savings.getPercentageAmount().get().getValue()
+                    + PercentageAmount.PERCENT_SUFFIX);
         }
         if (savings.hasSaveables()) {
             List<Saveable> saveableList = savings.getSaveables().get();
-            for (Saveable s: saveableList) {
+            for (Saveable s : saveableList) {
                 String saving = s.toString().substring(3);
                 totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, saving);
             }
@@ -87,6 +97,7 @@ public class CopyCommand extends IndexedCommand {
                 + PREFIX_PROMO_CODE + promoCode + " "
                 + PREFIX_EXPIRY_DATE + expiryDate + " "
                 + totalSavings
+                + conditionString
                 + PREFIX_LIMIT + limit + " ";
         return copyCommand;
     }
@@ -99,6 +110,7 @@ public class CopyCommand extends IndexedCommand {
 
     /**
      * Copies the {@String copyCommand} to the system's clipboard;
+     *
      * @param copyCommand Copied add command.
      */
     private void copyToClipboard(String copyCommand) {

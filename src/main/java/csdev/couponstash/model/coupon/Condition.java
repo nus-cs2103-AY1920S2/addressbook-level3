@@ -10,6 +10,8 @@ public class Condition {
     public static final String MESSAGE_CONSTRAINTS =
             "Do input a term and condition, if neccessary. Please limit to a max of 50 words.";
     public static final int STRING_LENGTH_LIMIT = 100;
+    public static final String DEFAULT_NO_CONDITION = "No condition stated.";
+
 
     public final String value;
 
