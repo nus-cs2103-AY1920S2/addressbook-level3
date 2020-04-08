@@ -108,7 +108,7 @@ public class CouponCard extends UiPart<Region> {
                 .toArray();
 
         int maxTotalLength = 44;
-        boolean isSkiped = false;
+        boolean isSkipped = false;
 
         for (Object tag : tagsArr) {
             Tag currentTag = ((Tag) tag);
@@ -117,7 +117,7 @@ public class CouponCard extends UiPart<Region> {
                 tagFlowPane.getChildren().add(new Label(currentTag.tagName));
                 maxTotalLength -= currentTagNameLength;
             } else {
-                isSkiped = true;
+                isSkipped = true;
             }
         }
 
@@ -125,7 +125,7 @@ public class CouponCard extends UiPart<Region> {
         int initialNumberOfTags = couponTags.size();
         boolean isNumberOfTagsAboveLimit = initialNumberOfTags > maxTags;
 
-        if (isSkiped || isNumberOfTagsAboveLimit) {
+        if (isSkipped || isNumberOfTagsAboveLimit) {
             tagFlowPane.getChildren().add(new Label("and more..."));
         }
     }
