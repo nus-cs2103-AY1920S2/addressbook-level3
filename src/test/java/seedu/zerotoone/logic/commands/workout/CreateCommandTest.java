@@ -319,6 +319,11 @@ public class CreateCommandTest {
         }
 
         @Override
+        public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<CompletedWorkout> getFilteredLogList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -334,6 +339,16 @@ public class CreateCommandTest {
         }
 
         @Override
+        public Optional<LocalDateTime> getStatisticsStartDateRange() {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<LocalDateTime> getStatisticsEndDateRange() {
+            return Optional.empty();
+        }
+
+        @Override
         public void deleteLog(int target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -341,6 +356,11 @@ public class CreateCommandTest {
         @Override
         public void setLogListFilePath(Path logListFilePath) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatisticsDateRange(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
+
         }
     }
 
