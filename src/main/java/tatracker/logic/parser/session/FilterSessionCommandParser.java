@@ -1,10 +1,10 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.session.FilterSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -30,8 +30,7 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
                 MODULE, SESSION_TYPE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            FilterSessionCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(FilterSessionCommand.DETAILS.getUsage()));
         }
 
         SessionPredicate predicate = new SessionPredicate();
@@ -49,8 +48,7 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         if (!predicate.isAnyFieldEdited()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                        FilterSessionCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(FilterSessionCommand.DETAILS.getUsage()));
         }
 
         return new FilterSessionCommand(predicate);

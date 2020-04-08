@@ -1,9 +1,9 @@
 package tatracker.logic.parser.module;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NAME;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.module.EditModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -27,8 +27,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
         if (!argMultimap.arePrefixesPresent(MODULE, NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditModuleCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(EditModuleCommand.DETAILS.getUsage()));
         }
 
         String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();

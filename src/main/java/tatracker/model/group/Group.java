@@ -17,6 +17,8 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class Group {
 
+    public static final String CONSTRAINTS_GROUP_CODE = "Group codes cannot be blank";
+
     private static final GroupType DEFAULT_GROUP_TYPE = GroupType.TUTORIAL;
 
     private String identifier;

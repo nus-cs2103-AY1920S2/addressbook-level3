@@ -3,6 +3,8 @@ package tatracker.logic.commands.group;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.group.TypicalGroups.MANY_STUDENTS;
 import static tatracker.testutil.module.TypicalModules.CS2103T;
@@ -33,14 +35,16 @@ public class DeleteGroupCommandTest {
         CommandResult commandResult = new DeleteGroupCommand(validGroup.getIdentifier(),
                 validModule.getIdentifier()).execute(modelStub);
 
-        assertEquals(String.format(DeleteGroupCommand.MESSAGE_DELETE_GROUP_SUCCESS, validGroup),
+        assertEquals(String.format(DeleteGroupCommand.MESSAGE_DELETE_GROUP_SUCCESS,
+                validModule.getIdentifier(),
+                validGroup.getIdentifier()),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
         assertEquals(Arrays.asList(), modelStub.modulesAdded.get(0).getGroupList());
     }
 
     @Test
-    public void execute_invalidGroup_throwsCommandException() throws CommandException {
+    public void execute_invalidGroup_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         Group validGroup = new GroupBuilder().build();
         DeleteGroupCommand deleteGroupCommand =
@@ -48,19 +52,19 @@ public class DeleteGroupCommandTest {
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
 
-        assertThrows(CommandException.class, DeleteGroupCommand.MESSAGE_INVALID_GROUP_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_GROUP_CODE, () ->
                 deleteGroupCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_invalidModule_throwsCommandException() throws CommandException {
+    public void execute_invalidModule_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         Group validGroup = new GroupBuilder().build();
         DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand(validGroup.getIdentifier(), "CS3243");
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
 
-        assertThrows(CommandException.class, DeleteGroupCommand.MESSAGE_INVALID_MODULE_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () ->
                 deleteGroupCommand.execute(modelStub));
     }
 

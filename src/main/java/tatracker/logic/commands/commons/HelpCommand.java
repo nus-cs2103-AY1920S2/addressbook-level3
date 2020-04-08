@@ -6,6 +6,7 @@ import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.CommandResult.Action;
+import tatracker.logic.commands.CommandWords;
 import tatracker.model.Model;
 
 /**
@@ -14,16 +15,16 @@ import tatracker.model.Model;
 public class HelpCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
-            "help",
-            "Shows the help window.",
+            CommandWords.HELP,
+            "Shows the help window",
             List.of(),
             List.of()
     );
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String MESSAGE_SHOWING_HELP = "Opened help window";
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, Action.HELP);
+        return new CommandResult(MESSAGE_SHOWING_HELP, Action.HELP);
     }
 }

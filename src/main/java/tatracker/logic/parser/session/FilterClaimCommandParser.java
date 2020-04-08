@@ -1,8 +1,8 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.session.FilterClaimCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
@@ -27,8 +27,7 @@ public class FilterClaimCommandParser implements Parser<FilterClaimCommand> {
 
         if (!argMultimap.arePrefixesPresent(MODULE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    FilterClaimCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(FilterClaimCommand.DETAILS.getUsage()));
         }
 
         String moduleCode = "";
