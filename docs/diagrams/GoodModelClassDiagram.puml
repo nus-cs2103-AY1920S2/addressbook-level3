@@ -7,9 +7,9 @@ skinparam classBackgroundColor MODEL_COLOR
 ModelManager -->"1" Good : filtered list
 Inventory *-right-> "1" UniqueGoodList
 
-UniqueGoodList o-right-> Good
+UniqueGoodList o-right-> "*" Good
 
-Good *--> GoodName
-Good *--> Quantity
-Good *--> ThresholdQuantity
+Good *--> "1" GoodName
+Good *--> "1" Quantity
+Good *--> "1" ThresholdQuantity
 @enduml

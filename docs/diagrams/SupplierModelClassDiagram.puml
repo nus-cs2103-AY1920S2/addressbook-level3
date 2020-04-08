@@ -11,12 +11,12 @@ UniqueOfferList -[hidden]down- UniqueSupplierList
 UniqueOfferList -[hidden]down- UniqueSupplierList
 
 UniqueOfferList *-right-> "*" Offer
-UniqueSupplierList o-right-> Supplier
+UniqueSupplierList o-right-> "*" Supplier
 
 Supplier o-up-> "*" Offer
 
-Supplier *--> Name
-Supplier *--> Phone
-Supplier *--> Email
-Supplier *--> Address
+Supplier *-->"1" Name
+Supplier *-->"1" Phone
+Supplier *-->"1" Email
+Supplier *-->"1" Address
 @enduml

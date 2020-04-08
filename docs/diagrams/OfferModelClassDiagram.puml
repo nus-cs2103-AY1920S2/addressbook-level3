@@ -6,7 +6,7 @@ skinparam classBackgroundColor MODEL_COLOR
 
 UniqueOfferList *-right-> "*" Offer
 
-Offer *--> GoodName
-Offer *--> Price
+Offer *--> "1" GoodName
+Offer *--> "1" Price
 
 @enduml

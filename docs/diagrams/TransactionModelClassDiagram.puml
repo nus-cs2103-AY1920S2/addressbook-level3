@@ -7,19 +7,19 @@ skinparam classBackgroundColor MODEL_COLOR
 ModelManager -->"1" Transaction : filtered list
 TransactionHistory *-right-> "1" UniqueTransactionList
 
-UniqueTransactionList o-right-> Transaction
+UniqueTransactionList o-right-> "*" Transaction
 
-Transaction *-right->TransactionId
-Transaction *-->Good
-Transaction *-->Quantity
+Transaction *-right-> "1" TransactionId
+Transaction *-->"1" Good
+Transaction *-->"1" Quantity
 
 SellTransaction -up-|> Transaction
 BuyTransaction -up-|> Transaction
 
 SellTransaction -[hidden]left- BuyTransaction
 
-BuyTransaction *--> Supplier
-BuyTransaction *--> Price
-SellTransaction *--> Price
+BuyTransaction *--> "1" Supplier
+BuyTransaction *--> "1" Price
+SellTransaction *--> "1" Price
 
 @enduml
