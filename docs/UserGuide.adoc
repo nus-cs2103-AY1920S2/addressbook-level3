@@ -119,20 +119,20 @@ emphasis and easy reference!
 * Coupon Stash command words are enclosed in `code blocks`
 
 [[link]]
-* Blue, underlined words are <<UserGuide.adoc#link, links>>! Try clicking on 
+* Blue, underlined words are <<UserGuide.adoc#link, links>>! Try clicking on
 the link on the left!
 
 
 == Quick Start
 
-.  Ensure you have Java (recommended: version 11 or above) installed in your 
+.  Ensure you have Java (recommended: version 11 or above) installed in your
 Computer.
 .  Download the latest link:{repoURL}/archive/v1.2.zip[`CouponStash.jar`]
-.  Copy the file to the folder you want to use as the home folder for your 
+.  Copy the file to the folder you want to use as the home folder for your
 Coupon Stash.
-.  Double-click the file to start the app. The GUI should appear in a few 
+.  Double-click the file to start the app. The GUI should appear in a few
 seconds. If nothing occurs, use the command
-`java -jar CouponStash.jar` in your computer's Command Line Interface (CLI) to 
+`java -jar CouponStash.jar` in your computer's Command Line Interface (CLI) to
 open the file up.
 .  Type the command in the command box and press Enter to execute it. +
 e.g. typing *help* and pressing Enter will open a browser window showing
@@ -143,18 +143,18 @@ executed commands.
 * *list* : lists all coupons
 * *add:* `add n/Domino's Pizza Extra Large s/40% p/ILOVEDOMINOS e/30-4-2020 l/5
           t/pizza t/delivery`
-*** adds a coupon named Domino's Pizza Extra Large to the Coupon Stash, with an 
-expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a 
+*** adds a coupon named Domino's Pizza Extra Large to the Coupon Stash, with an
+expiry date of 30th April 2020, 40% savings with promo code ILOVEDOMINOS, and a
 limit of 5 usages.
 * *delete*: `delete 3` : deletes the 3rd coupon shown in the current list
 * *exit* : exits the app (your data will be saved automatically)
-.  Refer to the <<Features, Features>> section below for the details of each 
+.  Refer to the <<Features, Features>> section below for the details of each
 command.
 
 
 [[Features]]
 == Features
-This section introduces the features of Coupon Stash. There are some examples 
+This section introduces the features of Coupon Stash. There are some examples
 for you to try out in Coupon Stash too! +
 Also, take note of the general format of all the commands below!
 
@@ -189,11 +189,11 @@ times)
 
 === Adding a coupon: `add`
 
-Adds a coupon. Some fields like `name`, `expiry date` and `savings` are 
+Adds a coupon. Some fields like `name`, `expiry date` and `savings` are
 required.
 Optional fields like `promo code` and `tags` may be provided as well.
 
-Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] 
+Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE]
 [p/PROMO_CODE]
 [c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
 
@@ -212,7 +212,7 @@ monetary amounts or percentage amounts.
 
 Examples:
 
-* `add n/The Deck Chicken Rice s/20% s/Free Add Rice sd/5-5-2020 e/6-5-2020 
+* `add n/The Deck Chicken Rice s/20% s/Free Add Rice sd/5-5-2020 e/6-5-2020
 t/value`
 +
 Adds a new Coupon: +
@@ -224,7 +224,7 @@ Adds a new Coupon: +
 image:ug_pgp_mala.png[]
 
 [TIP]
-If your coupon has unlimited use, set the limit of the coupon to a number less 
+If your coupon has unlimited use, set the limit of the coupon to a number less
 than 1! E.g. `l/0`
 
 === Editing a coupon: `edit`
@@ -242,7 +242,7 @@ integer* 1, 2, 3, …​
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the coupon will be removed i.e
 adding of tags is not cumulative.
-* You can remove all the coupon’s tags by typing t/ without specifying any 
+* You can remove all the coupon’s tags by typing t/ without specifying any
 tags after it.
 * When editing savings, existing savings of the coupon will also
 be removed.
@@ -305,12 +305,12 @@ Format: `list [PREFIX]` +
 
 ****
 * The `PREFIX` can be either `a/` or `u/`.
-* Using `a/` lists all coupons that are archived, while `u/` lists all coupons 
+* Using `a/` lists all coupons that are archived, while `u/` lists all coupons
 that are used.
 ****
 
 [NOTE]
-`PREFIX` can be left blank to list all active coupons (coupons that are not 
+`PREFIX` can be left blank to list all active coupons (coupons that are not
 expired/ not fully used/ not archived).
 
 Examples:
@@ -345,7 +345,7 @@ Reminders will be displayed as a pop up when you launch the app.
 
 === Using a coupon: `used`
 Uses a coupon if its usage has yet to reached its limit.
-Requires an original amount of purchase if the coupon has savings in a 
+Requires an original amount of purchase if the coupon has savings in a
 percentage value. +
 
 Format: `used INDEX` or `used INDEX MONETARY_AMOUNT`
@@ -371,7 +371,7 @@ stating the maximum number of usages for first coupon.
 
 * `used 1 $10.0` +
 Uses the first coupon in the coupon stash, which also has a percentage savings.
-The total savings of the coupon will be calculated, and can be seen with the 
+The total savings of the coupon will be calculated, and can be seen with the
 command `saved`.
 
 === Viewing savings: `saved`
@@ -397,19 +397,19 @@ and end date, inclusive of those dates as well.
 Format: `saved sd/(start date) e/(end date)`
 
 ****
-* Dates are given in Coupon Stash date format, namely D-M-YYYY where D and M 
+* Dates are given in Coupon Stash date format, namely D-M-YYYY where D and M
 can be single or double digits.
-* Shows you a numeric value (e.g. 12.00 to represent twelve 
+* Shows you a numeric value (e.g. 12.00 to represent twelve
 dollars/euros/pounds/pesos) that represents how much money
-you saved since a certain date, as well as certain items that you might have 
+you saved since a certain date, as well as certain items that you might have
 saved.
-* This value changes depending on which coupons were marked as used during the 
+* This value changes depending on which coupons were marked as used during the
 time period specified.
 ****
 Examples:
 
 * `saved d/1-3-2020` +
-A message will be displayed: You have saved $6.50 as well as earned 2x Brattby 
+A message will be displayed: You have saved $6.50 as well as earned 2x Brattby
 Bag
 on 1 March 2020.
 
@@ -425,9 +425,9 @@ Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
 
 [NOTE]
-To view archived coupons, the user can run the <<Listing coupons: `list`, `list 
+To view archived coupons, the user can run the <<Listing coupons: `list`, `list
 a/`>> command to list all
-archived coupons. Alternatively, the <<Locating coupons by name: `find`, 
+archived coupons. Alternatively, the <<Locating coupons by name: `find`,
 `find`>> command explained below will
 search all archived coupons, thus displaying archives that match the supplied
 keywords below unarchived coupons. Finally, the
@@ -452,7 +452,7 @@ Examples:
 Archives the first coupon in the coupon stash.
 
 [NOTE]
-Coupon Stash will automatically archive your coupons once their usage limit has 
+Coupon Stash will automatically archive your coupons once their usage limit has
 been reached,
 or when they have expired, to keep your stash more organized!
 
@@ -487,7 +487,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g mALa will match Mala
-* The order of the keywords does not matter. e.g. Rice Chicken will match 
+* The order of the keywords does not matter. e.g. Rice Chicken will match
 Chicken Rice
 * Only full words will be matched e.g. Chicken will not match Chickens
 * Coupons matching at least one keyword will be returned (i.e. OR search).
@@ -505,7 +505,7 @@ Returns Ken sKitchen, KEN RIDGE Optical, Chic ken Rice
 
 [NOTE]
 The <<Locating coupons by name: `find`, `find`>> command searches the
-<<Archiving a coupon: `archive`, `archive`>> for matches too. Coupons that are 
+<<Archiving a coupon: `archive`, `archive`>> for matches too. Coupons that are
 found
 in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
 non-archived matches.
@@ -518,7 +518,7 @@ Shows a list of all your coupons expiring on a date or during a Month-Year.
 Format: `expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR`
 
 ****
-* Lists all coupons that are expiring on the specified EXPIRY_DATE or during 
+* Lists all coupons that are expiring on the specified EXPIRY_DATE or during
 the specified MONTH_YEAR
 * The date or MonthYear must be in Coupon Stash date format
 ****
@@ -532,9 +532,9 @@ Shows you all the coupons that will expire on 11 September 2020.
 Shows you all the coupons that will expire during September 2020.
 
 [NOTE]
-The <<Listing all expiring coupons: `expiring`, `expiring`>> command will 
+The <<Listing all expiring coupons: `expiring`, `expiring`>> command will
 include coupons in the
-<<Archiving a coupon: `archive`, `archive`>> in its results too. Coupons that 
+<<Archiving a coupon: `archive`, `archive`>> in its results too. Coupons that
 are expiring
 in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
 non-archived matches.
@@ -542,14 +542,14 @@ non-archived matches.
 
 === Sorting coupons: `sort`
 
-Sorts the coupons in CouponStash in ascending order. It is possible to sort by 
+Sorts the coupons in CouponStash in ascending order. It is possible to sort by
 coupon name or expiry date.
 
 [NOTE]
 The sorting order will persist throughout the runtime of the program.
-The command will sort any coupons currently on screen, including ones in the 
+The command will sort any coupons currently on screen, including ones in the
 <<Archiving a coupon: `archive`, `archive`>>, if
-they are present on screen. Coupons in the <<Archiving a coupon: `archive`, 
+they are present on screen. Coupons in the <<Archiving a coupon: `archive`,
 `archive`>> will always appear **below** coupons not
 in the archive.
 // Put GIF here
@@ -558,7 +558,7 @@ Format: `sort PREFIX`
 
 ****
 * The `PREFIX` can be either `n/` or `e/`.
-* Using `n/` would mean sorting by name, while `e/` would mean sorting by 
+* Using `n/` would mean sorting by name, while `e/` would mean sorting by
 expiry date.
 ****
 
@@ -570,7 +570,7 @@ Sorts the coupon stash by name in ascending order.
 Sorts the coupon stash by expiry date from earliest to latest.
 
 === Copying a coupon: `copy`
-Copies a coupon as an <<Adding a coupon: `add`, `add`>> command to your 
+Copies a coupon as an <<Adding a coupon: `add`, `add`>> command to your
 clipboard so that you can easily share it with your friends/ family!
 
 Format: `copy INDEX`
@@ -580,7 +580,7 @@ Format: `copy INDEX`
 * The index refers to the index number shown in the displayed coupon
 list.
 * The index *must be a positive integer* 1, 2, 3, …​
-* The <<Adding a coupon: `add`, `add`>> command of the coupon will be copied to 
+* The <<Adding a coupon: `add`, `add`>> command of the coupon will be copied to
 your clipboard. Simply ctrl + v to paste it!
 ****
 // Put GIF
@@ -588,7 +588,7 @@ your clipboard. Simply ctrl + v to paste it!
 [NOTE]
 ====
 ****
-* Statistics like number of times used or amount of savings accumulated will 
+* Statistics like number of times used or amount of savings accumulated will
 not be copied.
 * The copied add command will only contain the following fields: +
 ** Name
@@ -604,15 +604,15 @@ Examples:
 
 * `list` +
 `copy 2` +
-Copies the 2nd coupon in the coupon stash to an `add` command and copies it to 
+Copies the 2nd coupon in the coupon stash to an `add` command and copies it to
 your clipboard.
 * `find chicken` +
 `copy 1` +
-Copies the 1st coupon in the results of the find command to an `add` command 
+Copies the 1st coupon in the results of the find command to an `add` command
 and copies it to your clipboard.
 
 === Sharing a coupon: `share`
-Shares a coupon as a `.png` image file. Now you can post your coupons on 
+Shares a coupon as a `.png` image file. Now you can post your coupons on
 Instagram!
 
 Format: `share INDEX`
@@ -625,12 +625,12 @@ image::example_shared_coupon.png[]
 
 
 === Undo the previous command: `undo`
-Undo previous operation. Only operations that change the coupons in the coupon 
+Undo previous operation. Only operations that change the coupons in the coupon
 stash can be undone.
 
 Format: `undo`
 ====
-Undo only works on the following commands: (i.e. commands that change the 
+Undo only works on the following commands: (i.e. commands that change the
 coupons in the coupon stash) +
 
 * <<Adding a coupon: `add`, `add`>>
@@ -755,13 +755,13 @@ be visible immediately.
 
 *Q*: How do I transfer my data to another computer?
 
-*A*: Simply install Stash in the other computer and overwrite the empty data 
+*A*: Simply install Stash in the other computer and overwrite the empty data
 file with your intended data file. +
 {empty} +
 
 *Q*: Can I add multiple coupons using a command line?
 
-*A:*  Sorry, not at the moment. We may consider adding this feature in version 
+*A:*  Sorry, not at the moment. We may consider adding this feature in version
 2.0.0. +
 {empty} +
 
@@ -793,12 +793,12 @@ This section has a summary of all the commands.
 |===
 | *Action* | *Format*
 |*Add*
-| `add n/NAME e/EXPIRY_DATE s/SAVINGS [u/USAGE] [l/USAGE_LIMIT] [p/PROMO_CODE] 
+| `add n/NAME e/EXPIRY_DATE s/SAVINGS [u/USAGE] [l/USAGE_LIMIT] [p/PROMO_CODE]
 [sd/START_DATE] [r/REMIND_DATE] [c/CONDITION] [s/SAVINGS]... [t/TAG]…`​ +
-e.g. `add n/The Deck Chicken Rice s/20% sd/2-3-2020 e/30-8-2020 t/friend 
+e.g. `add n/The Deck Chicken Rice s/20% sd/2-3-2020 e/30-8-2020 t/friend
 t/value`
 |*Edit*
-|`edit INDEX [n/name] [e/EXPIRY_DATE] [l/USAGE_LIMIT] [p/PROMO_CODE] 
+|`edit INDEX [n/name] [e/EXPIRY_DATE] [l/USAGE_LIMIT] [p/PROMO_CODE]
 [sd/START_DATE] [r/REMIND_DATE] [c/CONDITION] [s/SAVINGS]... [t/TAG]...` +
 e.g. `edit 2 n/Chicken Up s/50%`
 |*Delete*
