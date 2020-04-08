@@ -29,7 +29,6 @@ import tatracker.logic.commands.student.DeleteStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.student.FilterStudentCommand;
 import tatracker.logic.parser.Prefix;
-import tatracker.logic.parser.PrefixDictionary;
 
 /**
  * Stores a list of all the commands.
@@ -103,9 +102,9 @@ public enum CommandEntry {
         return details.getInfo();
     }
 
-    public PrefixDictionary getDictionary() {
-        return details.getDictionary();
-    }
+    // public PrefixDictionary getDictionary() {
+    //     return details.getDictionary();
+    // }
 
     public List<Prefix> getParameters() {
         return details.getParameters();

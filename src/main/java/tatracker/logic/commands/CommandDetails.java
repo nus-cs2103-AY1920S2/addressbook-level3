@@ -62,7 +62,7 @@ public class CommandDetails {
         return info;
     }
 
-    public PrefixDictionary getDictionary() {
+    public PrefixDictionary getPrefixDictionary() {
         return dictionary;
     }
 
