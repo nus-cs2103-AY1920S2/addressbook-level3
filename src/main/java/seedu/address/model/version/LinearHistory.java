@@ -1,5 +1,7 @@
 package seedu.address.model.version;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class LinearHistory<T extends Copyable<T>> implements Version<T> {
      * @param object the initial state
      */
     public LinearHistory(T object) {
+        requireNonNull(object);
+
         history.add(object);
         currentState = object.copy();
         statePointer = 0;
@@ -26,9 +30,13 @@ public class LinearHistory<T extends Copyable<T>> implements Version<T> {
 
     @Override
     public void commit() {
+        assert currentState != null;
+
         history = history.subList(0, statePointer + 1);
         history.add(getCurrentState().copy());
         statePointer++;
+
+        assert history.contains(currentState);
     }
 
     @Override
@@ -36,10 +44,14 @@ public class LinearHistory<T extends Copyable<T>> implements Version<T> {
         try {
             T previousState = history.get(statePointer - 1);
             statePointer--;
+
+            assert previousState != null;
             currentState = previousState.copy();
         } catch (IndexOutOfBoundsException e) {
             throw new StateNotFoundException();
         }
+
+        assert currentState != null;
     }
 
     @Override
@@ -47,14 +59,19 @@ public class LinearHistory<T extends Copyable<T>> implements Version<T> {
         try {
             T nextState = history.get(statePointer + 1);
             statePointer++;
+
+            assert nextState != null;
             currentState = nextState.copy();
         } catch (IndexOutOfBoundsException e) {
             throw new StateNotFoundException();
         }
+
+        assert currentState != null;
     }
 
     @Override
     public T getCurrentState() {
+        assert currentState != null;
         return currentState;
     }
 }
