@@ -80,6 +80,7 @@ public interface Model {
 
     boolean has(ModelObject obj) throws CommandException;
 
+
     void delete(ModelObject obj) throws CommandException;
 
     void add(ModelObject obj) throws CommandException;
@@ -96,7 +97,8 @@ public interface Model {
 
     Progress getProgress(ID assignmentID, ID studentID) throws CommandException;
 
-    Progress removeProgress(ID assignmentID, ID studentID) throws CommandException;
+    void removeProgress(ID assignmentID, ID studentID) throws CommandException;
+
   /**
      * Returns the AddressBook
      */
