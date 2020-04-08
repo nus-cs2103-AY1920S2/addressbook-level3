@@ -343,25 +343,28 @@ Examples:
 * `(rt)list` +
 Lists all restaurants.
 
-==== [Coming Soon] Find restaurant : `(rt)find`
+==== Search : `(rt)find`
 
-Finds restaurants based on a number of criteria. +
-Format: `(rt)find [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
+Searches for restaurants based on a number of criteria. +
+Format: `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 
 ****
 * At least one search criteria must be filled in.
-* There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is `$`. The medium price point is `$$`. The highest price point is `$$$`.
+* All are case insensitive.
 * If more than 1 optional parameters are filled, they are viewed as a conjunction of filters
-* All are case insensitive
-* LOCATION, PRICE_POINT, and OPERATING_HOURS must be exact matches (case insensitive)
 ****
 
-Examples:
-
+Examples: 
+* `(rt)find n/no signboard` +
+Searches for restaurants with the keyword `no signboard`.
+* `(rt)find l/bedok` +
+Searches for restaurants in the `Bedok` area.
 * `(rt)find k/no signboard p/$$` +
 Finds restaurants with the keyword no signboard which is at a medium price point.
 * `(rt)find l/bedok p/$` +
 Finds restaurants in the bedok area at a low price point.
+
+* [COMING SOON] Ability to search by price point and operating hours.
 
 === Schoolwork Tracker commands
 
@@ -445,11 +448,7 @@ Format: `(st)schedule n/NUM_DAYS`
 * Green: The expected work hours for the day is less than or equals to 5 hours
 ****
 
-Example:
-* `(st)schedule n/5` +
-Shows the user's upcoming schedule for the next 5 days colour-coded based on the estimated work hours per day.
-
-=== Event Book commands
+=== Event Schedule commands
 
 ==== Create a new social event : `(ev)add`
 
@@ -464,6 +463,35 @@ Format: `(ev)add et/EVENT_TITLE edt/EVENT_DATE ed/DURATION ep/LOCATION`
 
 Lists all social events in your Event Book. +
 Format: `(ev)list`
+
+==== Edit a social event : `(ev)edit`
+
+Allows editing of a social event. +
+Format: `(ev)edit [et/EVENT_TITLE] [edt/EVENT_DATE] [ed/DURATION] [ep/LOCATION]`
+
+****
+* At least one field must be non-empty.
+* All the non-empty fields will replace their respective previous data fields.
+****
+
+Examples:
+
+* `(ev)edit 2 edt/2020-04-09 22:00 ed/2` +
+Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
+
+==== Deletes a social event : `(ev)delete`
+
+Deletes a social event. +
+Format: `(ev)delete INDEX`
+
+****
+* INDEX must be a positive integer. It corresponds to the INDEX of the event as shown when you list all events in the Event Schedule using the default event list function (see above).
+****
+
+Examples:
+
+* `(ev)delete 1` +
+Deletes the 1st Event in the Event Schedule.
 
 === Saving the data
 
