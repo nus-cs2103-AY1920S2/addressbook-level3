@@ -11,6 +11,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Name;
 
 
 /**
@@ -105,6 +106,7 @@ public class Notes {
 
     /**
      * Return if it is a valid type.
+     *
      * @param checkType type that is to be checked
      * @return true if valid false if not
      */
@@ -122,6 +124,7 @@ public class Notes {
 
     /**
      * Return if it is a valid path.
+     *
      * @param checkPathType path that is to be checked
      * @return true if valid false if not
      */
@@ -158,7 +161,30 @@ public class Notes {
         return this.type;
     }
 
+    @Override
+    public boolean equals(Object other) {
 
+        boolean flag = other == this // short circuit if same object
+                || (other instanceof Notes // instanceof handles nulls
+                && this.path.equals(((Notes) other).getPath())
+                && this.pathType.equals(((Notes) other).getFilePathType()));
+        if (flag == false) {
+            return false;
+        } else {
+            boolean typeFlag = false;
+            if (type == null) {
+                typeFlag = true;
+            } else {
+                typeFlag = this.type.equals(((Notes) other).getType());
+            }
+            return flag && typeFlag;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return (path + pathType).hashCode();
+    }
 
 
 }

@@ -115,22 +115,6 @@ public class ParserUtil {
         return tagSet;
     }
 
-    /**
-     * Parses a {@code String NotesOperation, @code String path} into a {@code Notes}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @param notesOperation operation done, to check if it is either open, create or delete.
-     * @param path path and filename to be created
-     * @return a new note object.
-     * @throws ParseException when the given {@code notesoperation} is invalid.
-     */
-    public static Notes parseNotesOperation(String notesOperation, String path) throws ParseException {
-        requireNonNull(notesOperation);
-        String trimmedOperation = notesOperation.trim();
-        if (!Notes.isValidOperation(trimmedOperation)) {
-            throw new ParseException(Notes.MESSAGE_CONSTRAINTS);
-        }
-        return new Notes(notesOperation, path);
-    }
 
     /**
      * Parses a {@code String path, @code String pathType} into a {@code Notes}.
