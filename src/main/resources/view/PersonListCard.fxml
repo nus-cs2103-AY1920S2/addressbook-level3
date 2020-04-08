@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -26,9 +29,19 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/customer_icon.png" />
+               </image>
+            </ImageView>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
       <FlowPane fx:id="tags" />
+         <Separator prefWidth="200.0">
+            <padding>
+               <Insets bottom="5.0" top="5.0" />
+            </padding>
+         </Separator>
          <HBox>
             <children>
                <Label text="Phone" HBox.hgrow="ALWAYS">
@@ -48,7 +61,7 @@
                   </HBox.margin>
                </Label>
                <Region HBox.hgrow="ALWAYS" />
-            <Label fx:id="address" styleClass="cell_small_label" text="Address: \$address" wrapText="true" textAlignment="RIGHT"/>
+            <Label fx:id="address" styleClass="cell_small_label" text="Address: \$address" textAlignment="RIGHT" wrapText="true" />
             </children>
          </HBox>
          <HBox>
