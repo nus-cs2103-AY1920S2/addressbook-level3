@@ -16,6 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author JeremyLoh
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */

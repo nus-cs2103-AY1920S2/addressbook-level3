@@ -39,12 +39,12 @@ public class CommandTestUtil {
     public static final String VALID_TID_BOB = "B12345678";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "91111111";
+    public static final String VALID_PHONE_BOB = "82222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312 Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123 Bobby Street 3";
+    public static final String VALID_ADDRESS_AMY = "Block 312 Amy Street 1 S530511";
+    public static final String VALID_ADDRESS_BOB = "Block 123 Bobby Street 3 S123456";
     public static final String VALID_TIMESTAMP_AMY = "2020-05-13 2200";
     public static final String VALID_TIMESTAMP_BOB = "2020-05-20 1500";
     public static final String VALID_WAREHOUSE_AMY = "5 Toh Guan Rd E #02-30 S608831";

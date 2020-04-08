@@ -70,7 +70,7 @@ public class TypicalReturnOrders {
 
     public static final ReturnOrder ELLE_RETURN = new ReturnOrderBuilder().withTid("E939393")
             .withName("Elle Meyer")
-            .withPhone("9482224")
+            .withPhone("94822242")
             .withEmail("example@example.com")
             .withAddress("Upper Thomson Road S787130")
             .withTimeStamp("2020-05-20 1500")
@@ -79,7 +79,7 @@ public class TypicalReturnOrders {
 
     public static final ReturnOrder FIONA_RETURN = new ReturnOrderBuilder().withTid("F01010101")
             .withName("Fiona Kunz")
-            .withPhone("9482427")
+            .withPhone("94824272")
             .withEmail("example@example.com")
             .withAddress("Jurong S600101")
             .withTimeStamp("2020-05-20 1500")
@@ -88,7 +88,7 @@ public class TypicalReturnOrders {
 
     public static final ReturnOrder GEORGE_RETURN = new ReturnOrderBuilder().withTid("G9999")
             .withName("George Best")
-            .withPhone("9482442")
+            .withPhone("94824422")
             .withAddress("Little India S218202")
             .withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
@@ -99,7 +99,7 @@ public class TypicalReturnOrders {
     // Manually added
     public static final ReturnOrder HOON_RETURN = new ReturnOrderBuilder().withTid("H111111")
             .withName("Hoon Meier")
-            .withPhone("8482424")
+            .withPhone("84824249")
             .withAddress("little india S218202")
             .withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
@@ -108,7 +108,7 @@ public class TypicalReturnOrders {
 
     public static final ReturnOrder IDA_RETURN = new ReturnOrderBuilder().withTid("I0000")
             .withName("Ida Mueller")
-            .withPhone("8482131")
+            .withPhone("84821319")
             .withAddress("Macpherson Road Chengkek S369225")
             .withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E #02-30 S608831")
