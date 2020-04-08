@@ -8,6 +8,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignTeacherFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -50,16 +51,17 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID staffID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
-        boolean courseExists = model.hasCourse(courseID);
-        boolean staffExists = model.hasStaff(staffID);
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean staffExists = model.has(staffID, Constants.ENTITY_TYPE.STAFF);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!staffExists) {
             throw new CommandException(MESSAGE_INVALID_STAFF_ID);
         } else {
-            Staff foundStaff = model.getStaff(staffID);
-            Course foundCourse = model.getCourse(courseID);
+            Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Staff foundStaff = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
+
             Boolean isTeacher = foundStaff.isTeacher();
 
             if (!isTeacher) {

@@ -3,14 +3,17 @@ package seedu.address.storage.storageProgress;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelGeneric.ReadOnlyAddressBookGeneric;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelProgress.ProgressAddressBook;
+import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
  */
 @JsonRootName(value = "progressaddressbook")
 class JsonProgressSerializableAddressBook {
+  private static final Logger logger = LogsCenter.getLogger(JsonProgressSerializableAddressBook.class);
 
   public static final String MESSAGE_DUPLICATE_PROGRESS = "Assignment list contains duplicate assignment(s).";
 
@@ -50,11 +54,14 @@ class JsonProgressSerializableAddressBook {
    */
   public ProgressAddressBook toModelType() throws IllegalValueException, CommandException {
     ProgressAddressBook progressAddressBook = new ProgressAddressBook();
+    logger.info("Number of Progresses:" + progresses.size());
     for (JsonAdaptedProgress jsonAdaptedProgress : progresses) {
       Progress progress = jsonAdaptedProgress.toModelType();
+
       if (progressAddressBook.has(progress)) {
         throw new IllegalValueException(MESSAGE_DUPLICATE_PROGRESS);
       }
+
       progressAddressBook.add(progress);
     }
     return progressAddressBook;

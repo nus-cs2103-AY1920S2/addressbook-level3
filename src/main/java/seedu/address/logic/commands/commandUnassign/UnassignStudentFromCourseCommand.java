@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.commandUnassign;
 
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
@@ -7,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
@@ -47,16 +49,16 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 
-        boolean courseExists = model.hasCourse(courseID);
-        boolean StudentExists = model.hasStudent(studentID);
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-        } else if (!StudentExists) {
+        } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
         } else {
-            Course assignedCourse = model.getCourse(courseID);
-            Student assigningStudent = model.getStudent(studentID);
+            Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
             boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
             boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
@@ -67,6 +69,7 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
                 throw new CommandException("The student isn't even assigned to this course! :(");
             } else {
                 EdgeManager.unassignStudentFromCourse(studentID, courseID);
+                ProgressManager.removeAllAssignmentsFromOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,

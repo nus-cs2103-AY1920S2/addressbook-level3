@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import java.util.HashMap;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignStudentFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -53,16 +54,16 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 
-        boolean courseExists = model.hasCourse(courseID);
-        boolean studentExists = model.hasStudent(studentID);
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
 
         if (!courseExists) {
             throw new CommandException(MESSAGE_INVALID_COURSE_ID);
         } else if (!studentExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
         } else {
-            Course assignedCourse = model.getCourse(courseID);
-            Student assigningStudent = model.getStudent(studentID);
+            Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
             boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
             boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
@@ -73,9 +74,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
                 EdgeManager.assignStudentToCourse(studentID, courseID);
-
-                Set<ID> allAssignmentInCourse = model.getCourse(courseID).getAssignedAssignmentsID();
-                ProgressManager.addAllAssignmentsToOneStudent(allAssignmentInCourse, studentID);
+                ProgressManager.addAllAssignmentsToOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,
