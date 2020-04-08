@@ -38,7 +38,7 @@ Main difference is from the Command box, we will draw arrows to the Model box an
 === How our components are tied together
 We organize our whole structure around two principles, model-view-viewmodel and event-driven design
 
-=== Model-View-ViewModel Control flow
+==== Model-View-ViewModel Control flow
 Ref link: https://www.raywenderlich.com/34-design-patterns-by-tutorials-mvvm
 
 Explain why we decide to use MVVM instead of MVC
@@ -50,7 +50,7 @@ Rationale: "Use this pattern when you need to transform models into another repr
             This leads what developers jokingly refer to as “MVC: Massive View Controller”."
 (paraphrase again), imagine each viewmodel now is the map inside
 
-=== Event-driven design
+==== Event-driven design
 Explain two types of managers ,
     + one is publishing managers (those in Model section, i.e EdgeManager, ProgressManager, etc)
     + the other one is subscribing managers, one is the ViewModel (which is DetailManager) and StorageManager.
@@ -80,9 +80,13 @@ Explain flow for capturing delete event (and unassign correspondingly)
 What to write? hmm
 
 === Undo/Redo feature
+
 Explain flow for extending from undoableCommand
+
 ==== Opposite Command for edit
+
 ==== Opposite command for assign/ unassign
+
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
 
 [[Design-Architecture]]
