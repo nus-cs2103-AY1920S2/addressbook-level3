@@ -16,12 +16,12 @@ public class HelpCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.HELP,
-            "Shows the help window.",
+            "Shows the help window",
             List.of(),
             List.of()
     );
 
-    public static final String MESSAGE_SHOWING_HELP = "Opened help window.";
+    public static final String MESSAGE_SHOWING_HELP = "Opened help window";
 
     @Override
     public CommandResult execute(Model model) {

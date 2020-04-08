@@ -26,13 +26,13 @@ public class SortGroupCommand extends SortCommand {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_GROUP,
-            "Sorts all students in the given group.",
+            "Sorts all students in the given group",
             List.of(GROUP, MODULE, SORT_TYPE),
             List.of(),
             GROUP, MODULE, SORT_TYPE
     );
 
-    public static final String MESSAGE_SORT_GROUP_SUCCESS = "All students in %s [%s] have been sorted.";
+    public static final String MESSAGE_SORT_GROUP_SUCCESS = "All students in %s [%s] have been sorted";
 
     private final String groupCode;
     private final String moduleCode;

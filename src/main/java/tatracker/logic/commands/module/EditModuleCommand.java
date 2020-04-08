@@ -24,13 +24,13 @@ public class EditModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.EDIT_MODEL,
-            "Edits the module with the given module code.",
+            "Edits the module with the given module code",
             List.of(MODULE, MODULE_NEW_NAME),
             List.of(),
             MODULE, MODULE_NEW_NAME
     );
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %s.";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %s";
     private static final int FIRST_GROUP_INDEX = 0;
 
     private final String targetModule;

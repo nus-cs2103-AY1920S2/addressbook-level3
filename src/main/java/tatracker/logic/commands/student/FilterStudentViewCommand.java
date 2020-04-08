@@ -26,7 +26,7 @@ public class FilterStudentViewCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
-            "Filters the students in the TA-Tracker.",
+            "Filters the students in the TA-Tracker",
             List.of(),
             List.of(GROUP, MODULE),
             GROUP, MODULE
@@ -34,9 +34,9 @@ public class FilterStudentViewCommand extends Command {
 
     public static final String MESSAGE_FILTERED_STUDENTS_SUCCESS = "Filtered Student List: %1$s ";
     public static final String MESSAGE_NO_STUDENTS_IN_MODULE = "There are no students in the module"
-            + " with the given module code.";
+            + " with the given module code";
     public static final String MESSAGE_NO_STUDENTS_IN_GROUP = "There are no students in the module group"
-            + " with the given group code.";
+            + " with the given group code";
 
     public static final int FIRST_GROUP_INDEX = 0;
 

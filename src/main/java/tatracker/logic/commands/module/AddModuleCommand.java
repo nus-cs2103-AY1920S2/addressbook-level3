@@ -24,13 +24,13 @@ public class AddModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.ADD_MODEL,
-            "Adds a module into TA-Tracker.",
+            "Adds a module into TA-Tracker",
             List.of(MODULE, MODULE_NAME),
             List.of(),
             MODULE, MODULE_NAME
     );
 
-    public static final String MESSAGE_ADD_MODULE_SUCCESS = "New Module added: %s.";
+    public static final String MESSAGE_ADD_MODULE_SUCCESS = "New module added: %s";
 
     private final Module toAdd;
 

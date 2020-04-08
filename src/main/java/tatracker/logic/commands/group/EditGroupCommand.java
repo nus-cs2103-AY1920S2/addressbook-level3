@@ -29,13 +29,13 @@ public class EditGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.EDIT_MODEL,
-            "Edits the group with the given group code.",
+            "Edits the group with the given group code",
             List.of(MODULE, GROUP),
             List.of(NEWGROUP, NEWTYPE), // TODO: new type not needed?
             MODULE, GROUP, NEWGROUP, NEWTYPE
     );
 
-    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited group: %s [%s].";
+    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited group: %s [%s]";
     public static final String MESSAGE_EDIT_GROUP_FAILURE = "There is already a group with the group code"
             + " that you are editing with.";
 

@@ -20,13 +20,13 @@ public class ShowStatisticCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.REPORT,
-            "Shows the statistics report of a particular module.",
+            "Shows the statistics report of a particular module",
             List.of(MODULE_ID),
             List.of(),
             MODULE_ID
     );
 
-    public static final String MESSAGE_OPENED_STATS = "Opened statistic window.";
+    public static final String MESSAGE_OPENED_STATS = "Opened statistic window";
 
     private final String module;
 

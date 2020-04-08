@@ -24,13 +24,13 @@ public class DeleteGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.DELETE_MODEL,
-            "Deletes the group with the given group code.",
+            "Deletes the group with the given group code",
             List.of(MODULE, GROUP),
             List.of(),
             MODULE, GROUP
     );
 
-    public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted group: %s [%s].";
+    public static final String MESSAGE_DELETE_GROUP_SUCCESS = "Deleted group: %s [%s]";
     private static final int FIRST_GROUP_INDEX = 0;
 
     private final String group;

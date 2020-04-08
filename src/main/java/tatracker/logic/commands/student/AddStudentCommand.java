@@ -32,7 +32,7 @@ public class AddStudentCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.ADD_MODEL,
-            "Adds a student into the given module group.",
+            "Adds a student into the given module group",
             List.of(MATRIC, MODULE, GROUP, NAME),
             List.of(PHONE, EMAIL, RATING, TAG),
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG

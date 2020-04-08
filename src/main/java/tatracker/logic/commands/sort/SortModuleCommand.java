@@ -23,13 +23,13 @@ public class SortModuleCommand extends SortCommand {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_MODULE,
-            "Sorts all students in all groups of the given module.",
+            "Sorts all students in all groups of the given module",
             List.of(MODULE, SORT_TYPE),
             List.of(),
             MODULE, SORT_TYPE
     );
 
-    public static final String MESSAGE_SORT_MODULE_SUCCESS = "All students in %s have been sorted.";
+    public static final String MESSAGE_SORT_MODULE_SUCCESS = "All students in %s have been sorted";
     public static final int FIRST_GROUP_INDEX = 0;
 
     private final String moduleCode;

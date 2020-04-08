@@ -30,7 +30,7 @@ public class DeleteStudentCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.DELETE_MODEL,
-            "Deletes the student with the given matric number from the given module group.",
+            "Deletes the student with the given matric number from the given module group",
             List.of(MATRIC, MODULE, GROUP),
             List.of(),
             MATRIC, MODULE, GROUP

@@ -25,7 +25,7 @@ public class FilterSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
-            "Filters all the sessions inside TA-Tracker.",
+            "Filters all the sessions inside TA-Tracker",
             List.of(),
             List.of(MODULE, DATE, SESSION_TYPE),
             MODULE, DATE, SESSION_TYPE
@@ -35,8 +35,8 @@ public class FilterSessionCommand extends Command {
     public static final String MESSAGE_NO_SESSIONS_IN_MODULE = "There are no sessions"
             + " for the module with the given module code.";
 
-    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date.";
-    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type.";
+    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date";
+    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type";
 
     private final SessionPredicate predicate;
 

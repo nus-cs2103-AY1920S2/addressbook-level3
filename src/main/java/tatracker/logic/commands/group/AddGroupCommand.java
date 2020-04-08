@@ -27,13 +27,13 @@ public class AddGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.ADD_MODEL,
-            "Adds a group into TA-Tracker.",
+            "Adds a group into TA-Tracker",
             List.of(GROUP, MODULE, TYPE),
             List.of(),
             GROUP, MODULE, TYPE
     );
 
-    public static final String MESSAGE_ADD_GROUP_SUCCESS = "New group added: %s [%s].";
+    public static final String MESSAGE_ADD_GROUP_SUCCESS = "New group added: %s [%s]";
 
     private final Group toAdd;
     private final String targetModule;

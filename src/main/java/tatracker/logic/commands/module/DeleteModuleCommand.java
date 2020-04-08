@@ -23,13 +23,13 @@ public class DeleteModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.DELETE_MODEL,
-            "Deletes the module with the given module code.",
+            "Deletes the module with the given module code",
             List.of(MODULE),
             List.of(),
             MODULE
     );
 
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted module: %s.";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted module: %s";
 
     private final String module;
 

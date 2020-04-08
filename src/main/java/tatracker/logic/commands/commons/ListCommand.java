@@ -19,12 +19,12 @@ public class ListCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.LIST,
-            "Lists all sessions inside TA-Tracker.",
+            "Lists all sessions inside TA-Tracker",
             List.of(),
             List.of()
     );
 
-    public static final String MESSAGE_LISTED_SESSIONS = "Listed all sessions.";
+    public static final String MESSAGE_LISTED_SESSIONS = "Listed all sessions";
 
 
     @Override
