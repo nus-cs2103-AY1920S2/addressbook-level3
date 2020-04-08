@@ -34,7 +34,7 @@ public class SavingsTest {
     }
 
     @Test
-    public void condenseSaveablesList_duplicateSaveables_addsUpToOne() {
+    public void condenseSaveablesList_duplicateSaveables_addsDuplicatesTogether() {
         List<Saveable> saveablesList = Arrays.asList(new Saveable("Planet"), new Saveable("Galaxy"),
                 new Saveable("Planet"), new Saveable("Galaxy"), new Saveable("Planet"));
         List<Saveable> resultList = Savings.condenseSaveablesList(saveablesList);
@@ -45,7 +45,7 @@ public class SavingsTest {
     }
 
     @Test
-    public void condenseSaveablesList_distinctSaveables_doesNothing() {
+    public void condenseSaveablesList_distinctSaveables_returnsSameItems() {
         List<Saveable> saveablesList = Arrays.asList(new Saveable("Mercury"), new Saveable("Venus"),
                 new Saveable("Earth"), new Saveable("Mars"), new Saveable("Jupiter"));
         List<Saveable> clonedList = new ArrayList<Saveable>(saveablesList);
