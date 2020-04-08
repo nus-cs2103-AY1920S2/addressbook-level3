@@ -9,7 +9,7 @@ import tatracker.commons.util.StringUtil;
  * where 1 represents the poorest rating, and 5 represents the best rating.
  * Guarantees: immutable; rating is valid as declared in {@link #isValidRating(int)}
  */
-public class Rating {
+public class Rating implements Comparable<Rating> {
 
     public static final String MESSAGE_CONSTRAINTS = "Ratings should be a number"
             + " between 1 (POOR) to 5 (EXCELLENT) inclusive";
@@ -79,4 +79,8 @@ public class Rating {
         return String.format("%d/5", value);
     }
 
+    @Override
+    public int compareTo(Rating other) {
+        return value - other.value;
+    }
 }

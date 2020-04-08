@@ -427,14 +427,11 @@ image::ModuleModelClassDiagram.png[]
 
 The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
 of the different *modules* the user is associated with. Each `Module` contains a
-`UniqueGroupList` and a `UniqueSessionList`.
+`UniqueGroupList``.
 
 The `UniqueGroupList` contains a list of all the *groups* of a module that the user
 is affiliated with. Each `Group` contains a `UniqueStudentsList` that contains the
 *students* in that group.
-
-The `UniqueSessionList` contains a list of all the *sessions that have already been
-done* associated with the module. This list is used in the TSS view.
 
 ====
 *Alternative Implementation*

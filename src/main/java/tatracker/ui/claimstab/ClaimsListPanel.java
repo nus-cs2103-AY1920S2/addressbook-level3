@@ -15,10 +15,9 @@ import tatracker.commons.core.LogsCenter;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.session.Session;
 import tatracker.ui.UiPart;
-import tatracker.ui.sessiontab.SessionCard;
 
 /**
- * Panel containing the list of sessions.
+ * Panel containing the list of done sessions.
  */
 public class ClaimsListPanel extends UiPart<Region> {
     private static final String FXML = "ClaimsListPanel.fxml";
@@ -57,19 +56,19 @@ public class ClaimsListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Session} using a {@code ClaimsCard}.
+     * Custom {@code ListCell} that displays the graphics of a done {@code Session} using a {@code ClaimsCard}.
      */
     class ClaimsListViewCell extends ListCell<Session> {
         @Override
-        protected void updateItem(Session claims, boolean empty) {
-            super.updateItem(claims, empty);
+        protected void updateItem(Session claim, boolean empty) {
+            super.updateItem(claim, empty);
 
-            if (empty || claims == null) {
+            if (empty || claim == null) {
                 setGraphic(null);
                 setText(null);
                 setStyle("");
             } else {
-                setGraphic(new SessionCard(claims, getIndex() + 1).getRoot());
+                setGraphic(new ClaimsCard(claim, getIndex() + 1).getRoot());
                 if ((getCurrentlyShownModuleClaim() != null)) {
                     setStyle("-fx-background-color: " + BACKGROUND_COLOUR + "; "
                             + "-fx-border-color: " + BORDER_COLOUR + "; "

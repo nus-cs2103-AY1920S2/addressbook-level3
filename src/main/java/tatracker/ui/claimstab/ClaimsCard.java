@@ -1,4 +1,4 @@
-package tatracker.ui.sessiontab;
+package tatracker.ui.claimstab;
 
 import java.time.format.DateTimeFormatter;
 
@@ -11,11 +11,11 @@ import tatracker.model.session.Session;
 import tatracker.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Session}.
+ * An UI component that displays information of a done {@code Session}.
  */
-public class SessionCard extends UiPart<Region> {
+public class ClaimsCard extends UiPart<Region> {
 
-    private static final String FXML = "SessionListCard.fxml";
+    private static final String FXML = "ClaimsListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,7 +25,7 @@ public class SessionCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Session session;
+    public final Session claim;
 
     @FXML
     private HBox cardPane;
@@ -41,27 +41,20 @@ public class SessionCard extends UiPart<Region> {
     private Label module;
     @FXML
     private Label description;
-    @FXML
-    private Label recur;
 
     private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mma");
     private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d");
 
-    public SessionCard(Session session, int displayedIndex) {
+    public ClaimsCard(Session claim, int displayedIndex) {
         super(FXML);
-        this.session = session;
+        this.claim = claim;
         id.setText(displayedIndex + ". ");
-        type.setText(session.getSessionType().toString());
-        date.setText(session.getStartDateTime().format(dateFormat));
-        time.setText(session.getStartDateTime().format(timeFormat) + " - "
-                + session.getEndDateTime().format(timeFormat));
-        module.setText(session.getModuleCode().toUpperCase());
-        description.setText(session.getDescription());
-        if (session.getRecurring() != 0) {
-            recur.setText("Every " + session.getRecurring() + " Week(s)");
-        } else {
-            recur.setText("Not Recurring");
-        }
+        type.setText(claim.getSessionType().toString());
+        date.setText(claim.getStartDateTime().format(dateFormat));
+        time.setText(claim.getStartDateTime().format(timeFormat) + " - "
+                + claim.getEndDateTime().format(timeFormat));
+        module.setText(claim.getModuleCode().toUpperCase());
+        description.setText(claim.getDescription());
     }
 
     @Override
@@ -72,13 +65,13 @@ public class SessionCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SessionCard)) {
+        if (!(other instanceof ClaimsCard)) {
             return false;
         }
 
         // state check
-        SessionCard card = (SessionCard) other;
+        ClaimsCard card = (ClaimsCard) other;
         return id.getText().equals(card.id.getText())
-                && session.equals(card.session);
+                && claim.equals(card.claim);
     }
 }

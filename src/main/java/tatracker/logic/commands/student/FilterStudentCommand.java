@@ -25,7 +25,7 @@ public class FilterStudentCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
-            "Filters the students in the TA-Tracker.",
+            "Filters the students inside TA-Tracker.",
             List.of(),
             List.of(GROUP, MODULE),
             GROUP, MODULE

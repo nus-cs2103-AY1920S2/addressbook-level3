@@ -2,14 +2,10 @@ package tatracker.logic.parser.commons;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.stream.Stream;
-
 import tatracker.logic.commands.commons.GotoCommand;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
-import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 
 
@@ -30,13 +26,5 @@ public class GotoCommandParser implements Parser<GotoCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.DETAILS.getUsage()));
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
