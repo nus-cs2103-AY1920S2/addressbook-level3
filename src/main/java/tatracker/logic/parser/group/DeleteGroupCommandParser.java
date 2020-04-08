@@ -1,16 +1,13 @@
 package tatracker.logic.parser.group;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
-import java.util.stream.Stream;
-
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.group.DeleteGroupCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -27,10 +24,9 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, GROUP, MODULE);
 
-        if (!arePrefixesPresent(argMultimap, GROUP, MODULE)
+        if (!argMultimap.arePrefixesPresent(GROUP, MODULE)
                  || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteGroupCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(DeleteGroupCommand.DETAILS.getUsage()));
         }
 
         String groupCode = argMultimap.getValue(GROUP).get().toUpperCase();
@@ -38,13 +34,4 @@ public class DeleteGroupCommandParser implements Parser<DeleteGroupCommand> {
 
         return new DeleteGroupCommand(groupCode, moduleCode);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

@@ -29,30 +29,13 @@ public class UniqueStudentList implements Iterable<Student> {
     private final ObservableList<Student> internalList = FXCollections.observableArrayList();
     private final ObservableList<Student> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private Comparator<Student> alphabetically = new Comparator<Student>() {
-        @Override
-        public int compare(Student student, Student other) {
-            return (student.getName().toString()).compareTo(other.getName().toString());
-        }
-    };
-    private Comparator<Student> ratingAscending = new Comparator<Student>() {
-        @Override
-        public int compare(Student student, Student other) {
-            return (student.getRating().toString()).compareTo(other.getRating().toString());
-        }
-    };
-    private Comparator<Student> ratingDescending = new Comparator<Student>() {
-        @Override
-        public int compare(Student student, Student other) {
-            return (-1) * (student.getRating().toString()).compareTo(other.getRating().toString());
-        }
-    };
-    private Comparator<Student> matric = new Comparator<Student>() {
-        @Override
-        public int compare(Student student, Student other) {
-            return (student.getMatric().toString()).compareTo(other.getMatric().toString());
-        }
-    };
+
+    private Comparator<Student> alphabetically = Comparator.comparing(Student::getName);
+
+    private Comparator<Student> ratingAscending = Comparator.comparing(Student::getRating);
+    private Comparator<Student> ratingDescending = ratingAscending.reversed();
+
+    private Comparator<Student> matric = Comparator.comparing(Student::getMatric);
 
     public int size() {
         return internalList.size();

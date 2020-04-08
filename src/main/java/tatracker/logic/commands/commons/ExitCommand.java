@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.EXIT,
-            "Exits TA-Tracker.",
+            "Exits TA-Tracker",
             List.of(),
             List.of()
     );

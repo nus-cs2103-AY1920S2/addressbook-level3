@@ -1,4 +1,4 @@
-package tatracker.testutil;
+package tatracker.testutil.student;
 
 import java.util.Set;
 import java.util.stream.Collectors;

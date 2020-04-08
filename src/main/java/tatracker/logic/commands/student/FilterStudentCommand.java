@@ -1,7 +1,8 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENTS;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
@@ -20,29 +21,29 @@ import tatracker.model.Model;
  * A module can contains many groups.
  * A group contains students related it its group and module.
  */
-public class FilterStudentViewCommand extends Command {
+public class FilterStudentCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
-            "Filters the students in the TA-Tracker.",
+            "Filters the students inside TA-Tracker",
             List.of(),
             List.of(GROUP, MODULE),
             GROUP, MODULE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered Student List: %1$s ";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "Invalid Module Code. "
-                        + "There are no students in the module code.";
-    public static final String MESSAGE_INVALID_GROUP_CODE = "Invalid Group Code. "
-                        + "There are no students in the group code.";
+    public static final String MESSAGE_FILTERED_STUDENTS_SUCCESS = "Filtered Student List: %1$s ";
+    public static final String MESSAGE_NO_STUDENTS_IN_MODULE = "There are no students in the module"
+            + " with the given module code";
+    public static final String MESSAGE_NO_STUDENTS_IN_GROUP = "There are no students in the module group"
+            + " with the given group code";
 
     public static final int FIRST_GROUP_INDEX = 0;
 
     private final String moduleCode;
     private final String groupCode;
 
-    public FilterStudentViewCommand(String moduleCode, String groupCode) {
+    public FilterStudentCommand(String moduleCode, String groupCode) {
 
         this.moduleCode = moduleCode;
         this.groupCode = groupCode;
@@ -91,7 +92,8 @@ public class FilterStudentViewCommand extends Command {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode + " " + groupCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_STUDENTS_SUCCESS, moduleCode + " " + groupCode),
+                Action.FILTER_STUDENT);
     }
 
     /**
@@ -109,13 +111,13 @@ public class FilterStudentViewCommand extends Command {
             model.updateFilteredGroupList(moduleCode);
             if (model.getFilteredGroupList().isEmpty()) {
                 model.setFilteredStudentList();
-                throw new CommandException(MESSAGE_INVALID_STUDENTS);
+                throw new CommandException(MESSAGE_NO_STUDENTS_IN_MODULE);
             } else {
                 model.setCurrStudentFilter("Module Code: " + moduleCode);
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_STUDENTS_SUCCESS, moduleCode), Action.FILTER_STUDENT);
     }
 
     /**
@@ -132,8 +134,8 @@ public class FilterStudentViewCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterStudentViewCommand // instanceof handles nulls
-                && (moduleCode.equals(((FilterStudentViewCommand) other).moduleCode)
-                      && groupCode.equals(((FilterStudentViewCommand) other).groupCode))); // state check
+                || (other instanceof FilterStudentCommand // instanceof handles nulls
+                && (moduleCode.equals(((FilterStudentCommand) other).moduleCode)
+                      && groupCode.equals(((FilterStudentCommand) other).groupCode))); // state check
     }
 }

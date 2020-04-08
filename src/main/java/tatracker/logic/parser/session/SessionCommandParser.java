@@ -1,11 +1,9 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND;
-import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.parser.exceptions.ParseException;
@@ -20,8 +18,6 @@ public class SessionCommandParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final String UNIMPLEMENTED_CODE_FORMAT = "%s not yet implemented!";
-
     /**
      * Parses user input into command for execution.
      *
@@ -32,7 +28,7 @@ public class SessionCommandParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND);
+            throw new ParseException(Messages.getInvalidCommandWithHelpMessage());
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -56,7 +52,7 @@ public class SessionCommandParser {
             return new DoneSessionCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(Messages.getUnknownCommandWithHelpMessage());
         }
     }
 }

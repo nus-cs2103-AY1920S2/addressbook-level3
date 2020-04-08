@@ -1,7 +1,7 @@
 package tatracker.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -15,15 +15,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.student.Matric;
 import tatracker.model.tag.Tag;
@@ -43,10 +42,9 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer
                 .tokenize(args, MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG);
 
-        if (!arePrefixesPresent(argMultimap, MATRIC, MODULE, GROUP)
+        if (!argMultimap.arePrefixesPresent(MATRIC, MODULE, GROUP)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditStudentCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(EditStudentCommand.DETAILS.getUsage()));
         }
 
         // ==== Identity fields ====
@@ -76,7 +74,7 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         // ==== Build Student  ====
 
         if (!editStudentDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditStudentCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new EditStudentCommand(matric, moduleCode, groupCode, editStudentDescriptor);
@@ -95,14 +93,6 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 

@@ -1,7 +1,7 @@
 package tatracker.logic.commands;
 
 import static tatracker.logic.commands.CommandTestUtil.assertListCommandSuccess;
-import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
+import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+        model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertListCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertListCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_LISTED_SESSIONS, expectedModel);
     }
 
     /*

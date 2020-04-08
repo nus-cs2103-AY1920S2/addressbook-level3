@@ -25,16 +25,18 @@ public class FilterSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
-            "Filters all the sessions inside TA-Tracker.",
+            "Filters all the sessions inside TA-Tracker",
             List.of(),
             List.of(MODULE, DATE, SESSION_TYPE),
             MODULE, DATE, SESSION_TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered Session List: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There are no sessions with the given module code.";
-    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date.";
-    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type.";
+    public static final String MESSAGE_FILTERED_SESSIONS_SUCCESS = "Filtered Session List: %s";
+    public static final String MESSAGE_NO_SESSIONS_IN_MODULE = "There are no sessions"
+            + " for the module with the given module code.";
+
+    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date";
+    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type";
 
     private final SessionPredicate predicate;
 
@@ -47,20 +49,25 @@ public class FilterSessionCommand extends Command {
         requireNonNull(model);
         String returnMsg = "";
 
-        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("");
-        String date = predicate.getDate().map(LocalDate::toString).orElse("");
-        String moduleCode = predicate.getModuleCode().orElse("");
+        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("No Filters");
+        String date = predicate.getDate().map(LocalDate::toString).orElse("No Filters");
+        String moduleCode = predicate.getModuleCode().orElse("No Filters");
 
         if (!model.hasModule(moduleCode)) {
-            returnMsg += "\n" + String.format(MESSAGE_INVALID_MODULE_CODE);
+            returnMsg += "\n" + MESSAGE_NO_SESSIONS_IN_MODULE;
             model.updateFilteredSessionList(predicate);
-            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, sessionType + " " + date);
+            returnMsg += "\n" + String.format(MESSAGE_FILTERED_SESSIONS_SUCCESS, sessionType + " " + date);
         } else {
 
-            String result = buildParams(date, moduleCode, sessionType);
-            model.setCurrSessionFilter(result);
+            model.setCurrSessionDateFilter(date);
+            model.setCurrSessionModuleFilter(moduleCode);
+            model.setCurrSessionTypeFilter(sessionType);
+
+            //String result = buildParams(date, moduleCode, sessionType);
+            //model.setCurrSessionFilter(result);
             model.updateFilteredSessionList(predicate);
-            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
+            returnMsg += "\n" + String.format(MESSAGE_FILTERED_SESSIONS_SUCCESS,
+                    date + " " + moduleCode + " " + sessionType);
         }
 
         return new CommandResult(returnMsg, Action.FILTER_SESSION);
@@ -71,9 +78,9 @@ public class FilterSessionCommand extends Command {
      */
     public String buildParams(String date, String module, String sessionType) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Date: ").append(date).append("\n");
-        builder.append("Module Code: ").append(module).append("\n");
-        builder.append("Session Type: ").append(sessionType).append("\n");
+        builder.append("Date: ").append(date);
+        builder.append("Module Code: ").append(module);
+        builder.append("Session Type: ").append(sessionType);
         String result = builder.toString();
         return result;
     }

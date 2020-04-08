@@ -1,6 +1,7 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.MODULE_NEW_NAME;
 
@@ -23,14 +24,13 @@ public class EditModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.EDIT_MODEL,
-            "Edits the module with the given module code.",
+            "Edits the module with the given module code",
             List.of(MODULE, MODULE_NEW_NAME),
             List.of(),
             MODULE, MODULE_NEW_NAME
     );
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %s";
     private static final int FIRST_GROUP_INDEX = 0;
 
     private final String targetModule;
@@ -49,19 +49,23 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
+        if (newName.isBlank()) {
+            throw new CommandException(Module.CONSTRAINTS_MODULE_NAME);
+        }
         Module actualModule = model.getModule(targetModule);
         actualModule.setName(newName);
 
         model.showAllModules();
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
-        if (model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList() == null || model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.setFilteredStudentList(actualModule.getIdentifier(), FIRST_GROUP_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, actualModule.getIdentifier()),
+                Action.GOTO_STUDENT);
     }
 
     @Override
@@ -75,6 +79,6 @@ public class EditModuleCommand extends Command {
         }
 
         EditModuleCommand otherCommand = (EditModuleCommand) other;
-        return targetModule.equals(otherCommand.targetModule);
+        return targetModule.equals(otherCommand.targetModule) && newName.equals(otherCommand.newName);
     }
 }

@@ -14,7 +14,9 @@ import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.TaTracker;
 import tatracker.model.group.GroupType;
+import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -28,8 +30,23 @@ import tatracker.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
+
+    /**
+     * Parses a {@code String integer} into an integer primitive.
+     * This is different from the standard Java version as it does not
+     * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
+     */
+    public static int parseUnsignedInteger(String integer) throws ParseException {
+        requireNonNull(integer);
+        String trimmedInteger = integer.trim();
+
+        if (!StringUtil.isUnsignedInteger(trimmedInteger)) {
+            throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
+        }
+
+        return Integer.parseUnsignedInt(integer);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -40,7 +57,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(Index.MESSAGE_CONSTRAINTS);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -53,7 +70,20 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = name.trim().toLowerCase();
+        StringBuilder nameBuilder = new StringBuilder();
+        String[] nameParts = trimmedName.split(" ");
+
+        for (int i = 0; i < nameParts.length; ++i) {
+            if (nameParts[i].isBlank()) {
+                continue;
+            }
+            nameBuilder.append(Character.toUpperCase(nameParts[i].charAt(0)));
+            nameBuilder.append(nameParts[i].substring(1) + " ");
+        }
+
+        trimmedName = nameBuilder.toString().trim();
+
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -246,34 +276,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String integer} into an integer primitive.
-     * This is different from the standard Java version as it does not
-     * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
-     */
-    public static int parseUnsignedInteger(String integer) throws ParseException {
-        requireNonNull(integer);
-        String trimmedInteger = integer.trim();
-
-        if (!StringUtil.isUnsignedInteger(trimmedInteger)) {
-            throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
-        }
-
-        return Integer.parseUnsignedInt(integer);
-    }
-
-    /**
      * Parses a {@code String numWeeks} into a number of weeks.
      */
     public static int parseNumWeeks(String numWeeks) throws ParseException {
         try {
             return parseUnsignedInteger(numWeeks);
         } catch (ParseException pe) {
-            throw new ParseException("Recurring weeks must be an unsigned number");
+            throw new ParseException(Session.CONSTRAINTS_RECURRING_WEEKS);
         }
     }
 
     /**
-     * Parses and returns the tab na`me specified by the user in the goto command
+     * Parses and returns the tab name specified by the user in the goto command
      *
      * @param tabName user input
      * @return the tab specified by the user
@@ -287,5 +301,31 @@ public class ParserUtil {
             throw new ParseException(Tab.MESSAGE_CONSTRAINTS);
         }
         return Tab.getTab(trimmedType);
+    }
+
+    /**
+     * Parses and returns the pay rate specified by the user in the setrate command
+     *
+     * @param rate user input
+     * @return the pay rate specified by the user
+     * @throws ParseException invalid pay rate
+     */
+    public static int parseRate(String rate) throws ParseException {
+        requireNonNull(rate);
+        String trimmedRate = rate.trim();
+
+        if (!StringUtil.isUnsignedInteger(trimmedRate)) {
+            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
+        }
+
+        try {
+            int parsedRate = Integer.parseUnsignedInt(trimmedRate);
+            if (parsedRate == 0) {
+                throw new ParseException(TaTracker.CONSTRAINTS_RATE);
+            }
+            return parsedRate;
+        } catch (NumberFormatException e) {
+            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
+        }
     }
 }

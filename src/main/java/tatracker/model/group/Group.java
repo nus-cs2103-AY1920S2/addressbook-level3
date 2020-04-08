@@ -17,6 +17,8 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class Group {
 
+    public static final String CONSTRAINTS_GROUP_CODE = "Group codes cannot be blank";
+
     private static final GroupType DEFAULT_GROUP_TYPE = GroupType.TUTORIAL;
 
     private String identifier;
@@ -40,6 +42,15 @@ public class Group {
         this.identifier = identifier;
         this.groupType = groupType;
         this.students = new UniqueStudentList();
+    }
+
+    /**
+     * Constructor to be used in testing.
+     */
+    public Group(String identifier, GroupType groupType, UniqueStudentList students) {
+        this.identifier = identifier;
+        this.groupType = groupType;
+        this.students = students;
     }
 
     /**
@@ -75,6 +86,13 @@ public class Group {
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Returns the list of students in the group.
+     */
+    public UniqueStudentList getUniqueStudentList() {
+        return students;
     }
 
     /**
@@ -121,6 +139,13 @@ public class Group {
      */
     public Student getStudent(Matric studentId) {
         return students.get(studentId);
+    }
+
+    /**
+     * Returns the student at index i.
+     */
+    public Student get(int i) {
+        return students.get(i);
     }
 
     /**

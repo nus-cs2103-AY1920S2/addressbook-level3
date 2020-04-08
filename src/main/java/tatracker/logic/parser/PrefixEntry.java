@@ -9,7 +9,11 @@ import tatracker.commons.util.DateTimeUtil;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.commands.sort.SortType;
+import tatracker.model.TaTracker;
+import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
+import tatracker.model.module.Module;
+import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -42,6 +46,11 @@ public enum PrefixEntry {
             Tab.MESSAGE_CONSTRAINTS, Tab::isValidTab,
             "student"
     ),
+    RATE(
+            Prefixes.RATE,
+            TaTracker.CONSTRAINTS_RATE, StringUtil::isNonZeroUnsignedInteger,
+            "40"
+    ),
 
     /* Session definitions */
     START_TIME(
@@ -61,7 +70,7 @@ public enum PrefixEntry {
     ),
     RECUR(
             Prefixes.RECUR,
-            "Recurring weeks must be an unsigned number", StringUtil::isNonZeroUnsignedInteger,
+            Session.CONSTRAINTS_RECURRING_WEEKS, StringUtil::isUnsignedInteger,
             "1" // Number of weeks
     ),
     SESSION_TYPE(
@@ -77,34 +86,34 @@ public enum PrefixEntry {
     /* Module definitions */
     MODULE(
             Prefixes.MODULE,
-            "", value -> true,
+            Module.CONSTRAINTS_MODULE_CODE, value -> !value.isBlank(),
             "CS3243"
     ),
     MODULE_ID(
             Prefixes.MODULE_ID,
-            "", value -> true,
+            Module.CONSTRAINTS_MODULE_CODE, value -> !value.isBlank(),
             "CS3243"
     ),
     MODULE_NAME(
             Prefixes.MODULE_NAME,
-            "", value -> true,
+            Module.CONSTRAINTS_MODULE_NAME, value -> !value.isBlank(),
             "Introduction to AI"
     ),
     MODULE_NEW_NAME(
             Prefixes.MODULE_NEW_NAME,
-            "", value -> true,
+            Module.CONSTRAINTS_MODULE_NAME, value -> !value.isBlank(),
             "Software Engineering"
     ),
 
     /* Group definitions */
     GROUP(
             Prefixes.GROUP,
-            "", value -> true,
+            Group.CONSTRAINTS_GROUP_CODE, value -> !value.isBlank(),
             "G06"
     ),
     NEWGROUP(
             Prefixes.NEWGROUP,
-            "", value -> true,
+            Group.CONSTRAINTS_GROUP_CODE, value -> !value.isBlank(),
             "G05"
     ),
     TYPE(

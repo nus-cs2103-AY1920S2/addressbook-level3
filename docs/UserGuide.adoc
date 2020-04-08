@@ -310,6 +310,13 @@ Format: `module add m/MOD_CODE n/NAME`
 [NOTE]
 ====
 * You can't have two modules with the same module code in the TA-Tracker.
+
+* MOD_CODE can't be an empty string or a sequence of spaces.
+
+* You can give a module your own custom MOD_CODE or NAME if you find it easier
+to remember. However, for ease of remembrance, we recommend you use the official
+module code and name for it.
+
 ====
 
 [TIP]
@@ -368,8 +375,10 @@ Format: `module edit m/MOD_CODE n/NEW NAME`
 ====
 * You can only use this command to change the name of the module. The module
 code can't be changed.
+
 * Editing a module doesn't affect the students and
 groups inside the module.
+
 * You cannot edit a module that doesn't exist.
 ====
 
@@ -402,7 +411,13 @@ Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
 * You cannot add a group to a module that doesn't exist.
 
+* The GROUP_CODE can't be an empty string or a sequences of spaces.
+
 * You cannot add multiple groups with the same group code into the same module.
+
+* You can give a group your own custom GROUP_CODE (ex: 10AMGROUP) if you find it easier
+to remember. However, for ease of remembrance, we recommend you use the official
+group code   for it.
 ====
 
 ====
@@ -511,6 +526,9 @@ Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 * You cannot add a student to a group that does not exist inside the given module.
 
 * You cannot add multiple students with the same matric number inside the same module group.
+
+* Student names are auto-capitalized. However, if the name includes a hyphen (-) with no
+space after the hyphen, the second half of the name will not be capitalised.
 ====
 
 ====
@@ -602,7 +620,7 @@ Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 ====
 Examples:
 
-* `edit m/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
+* `edit id/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
 +
 Edits the student with the matriculation number `A0123456J` to have:
 
@@ -743,7 +761,7 @@ Sorts all groups inside all modules `alphabetically`.
 [[FilterStudent]]
 ==== Filter : `filter`
 
-You can use this command to find the students in a particular group
+You can use this command to view the students in a particular group
 and module.
 
 You can filter the students in *Student View* in the following ways:
@@ -780,6 +798,8 @@ If you use just the module code, you will see:
 
 * the first group of the module specified by the given module code highlighted
 * all the students belonging to that group
+* you can use this command when you want to see all the groups belonging to a
+particular module.
 
 Format: `student filter m/MOD_CODE`
 
@@ -964,22 +984,21 @@ Format: `claims filter [m/MOD_CODE]`
 ====
 Example:
 
-* `module filter m/CS2103T`
+* `claims filter m/CS2103T`
 +
 All sessions in the *Claims View* with module code `CS2103T` are displayed.
 ====
 
 ==== Changing the hourly rate : `set rate`
 
-TODO: EDIT ONCE IMPLEMENTED
-
 Sets the hourly rate for the total income and claim computation.
 
-Format: `set rate AMOUNT`
+Format: `setrate RATE`
 
 [NOTE]
 ====
-* AMOUNT is the amount you want to change the hourly rate to.
+* AMOUNT is the amount you want to change the hourly rate to, this value will be used to calulate the
+`Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * To specify in exact dollars, you can write it as just the number (example: 20).
 * To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
 ====
@@ -1040,5 +1059,5 @@ TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
 * *Filter:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
 === Claims View
-* *Set Rate:*
-* *Filter:* `module filter m/MOD_CODE`
+* *Set Rate:* `setrate RATE`
+* *Filter:* `claims filter m/MOD_CODE`

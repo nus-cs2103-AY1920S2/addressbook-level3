@@ -11,12 +11,12 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.testutil.Assert.assertThrows;
-import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.BOB;
+import static tatracker.testutil.student.TypicalStudents.ALICE;
+import static tatracker.testutil.student.TypicalStudents.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class StudentTest {
 

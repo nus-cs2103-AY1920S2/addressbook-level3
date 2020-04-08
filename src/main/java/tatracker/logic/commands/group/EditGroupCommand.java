@@ -1,6 +1,9 @@
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NEWGROUP;
@@ -27,17 +30,15 @@ public class EditGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.EDIT_MODEL,
-            "Edits the group with the given group code.",
+            "Edits the group with the given group code",
             List.of(MODULE, GROUP),
             List.of(NEWGROUP, NEWTYPE), // TODO: new type not needed?
             MODULE, GROUP, NEWGROUP, NEWTYPE
     );
 
-    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited Group: %1$s";
-    public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    public static final String MESSAGE_DUPLICATE_GROUP = "There is already a group with the group code"
-        + " you want to change it to.";
+    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited group: %s [%s]";
+    public static final String MESSAGE_EDIT_GROUP_FAILURE = "There is already a group with the group code"
+            + " that you are editing with.";
 
     private final Group group;
     private final String targetModule;
@@ -65,9 +66,17 @@ public class EditGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
+        if (newGroupCode.equals(group.getIdentifier()) && newGroupType == null) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
+        if (newGroupCode.isBlank()) {
+            throw new CommandException(Group.CONSTRAINTS_GROUP_CODE);
+        }
+
         if (!newGroupCode.equals(group.getIdentifier())) {
-            if (actualModule.hasGroup(group)) {
-                throw new CommandException(MESSAGE_DUPLICATE_GROUP);
+            if (actualModule.hasGroup(new Group(newGroupCode))) {
+                throw new CommandException(MESSAGE_EDIT_GROUP_FAILURE);
             }
         }
         Group editedGroup = actualModule.getGroup(group.getIdentifier());
@@ -79,13 +88,14 @@ public class EditGroupCommand extends Command {
 
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
-        if (model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList() == null || model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, targetModule, editedGroup.getIdentifier()),
+                Action.GOTO_STUDENT);
     }
 
     @Override
