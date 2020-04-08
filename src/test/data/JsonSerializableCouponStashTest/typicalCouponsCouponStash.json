@@ -216,7 +216,7 @@
     },
     "tagged" : [ "friends" ],
     "condition" : "While Stock Last",
-    "archived" : "true",
+    "archived" : "false",
     "expiryDate" : "31-12-2019",
     "startDate" : "31-7-2019",
     "remindDate" : "28-12-2019"
