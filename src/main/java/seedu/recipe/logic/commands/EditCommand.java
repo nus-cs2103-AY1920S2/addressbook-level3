@@ -1,7 +1,6 @@
 package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
@@ -57,13 +56,11 @@ public class EditCommand extends Command {
             + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
             + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]... "
             + "[" + PREFIX_STEP + "STEP]... "
-            + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "10 "
             + PREFIX_INGREDIENT_VEGE + "Insert new vegetable here "
             + PREFIX_INGREDIENT_PROTEIN + "Inser t new protein-rich ingredient here "
-            + PREFIX_STEP + "Insert new step here "
-            + PREFIX_GOAL + "Insert new goal here ";
+            + PREFIX_STEP + "Insert new step here ";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
