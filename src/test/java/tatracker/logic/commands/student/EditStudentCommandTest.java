@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.commands.CommandTestUtil.DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertEditStudentCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
@@ -18,6 +20,7 @@ import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudent
 import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
+import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.Model;
@@ -53,26 +56,28 @@ public class EditStudentCommandTest {
         assertEditStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
 
-    // @Test
-    // public void execute_someFieldsSpecifiedUnfilteredList_success() {
-    //     Index indexLastStudent = Index.fromOneBased(model.getFilteredStudentList().size());
-    //     Student lastStudent = model.getFilteredStudentList().get(indexLastStudent.getZeroBased());
-    //
-    //     StudentBuilder studentInList = new StudentBuilder(lastStudent);
-    //     Student editedStudent = studentInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-    //             .withTags(VALID_TAG_HUSBAND).build();
-    //
-    //     EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
-    //             .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-    //     EditStudentCommand editStudentCommand = new EditStudentCommand(indexLastStudent, descriptor);
-    //
-    //     String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
-    //
-    //     Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
-    //     expectedModel.setStudent(lastStudent, editedStudent);
-    //
-    //     assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
-    // }
+    @Test
+    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        Index indexLastStudent = Index.fromOneBased(model.getFilteredStudentList().size());
+        Student lastStudent = model.getFilteredStudentList().get(indexLastStudent.getZeroBased());
+
+        StudentBuilder studentInList = new StudentBuilder(lastStudent);
+        Student editedStudent = studentInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditStudentCommand editStudentCommand = new EditStudentCommand(lastStudent.getMatric(),
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(), descriptor);
+
+        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS,
+                editedStudent, getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier());
+
+        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
+        expectedModel.setStudent(lastStudent, editedStudent);
+
+        assertEditStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
@@ -89,23 +94,24 @@ public class EditStudentCommandTest {
         assertEditStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
 
-    /*
     @Test
     public void execute_filteredList_success() {
-        showStudentAtIndex(model, INDEX_FIRST_STUDENT);
+        //showStudentAtIndex(model, INDEX_FIRST_STUDENT);
 
         Student studentInFilteredList = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
         Student editedStudent = new StudentBuilder(studentInFilteredList).withName(VALID_NAME_BOB).build();
-        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
+        EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(),
                 new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
+        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier());
 
-        Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
 
-        assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
-    }*/
+        assertEditStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+    }
 
     /*@Test
     public void execute_duplicateStudentUnfilteredList_failure() {
@@ -121,17 +127,21 @@ public class EditStudentCommandTest {
                 getTypicalModule().getIdentifier()));
     }*/
 
-    /*
-    @Test
+    /*@Test
     public void execute_duplicateStudentFilteredList_failure() {
-        showStudentAtIndex(model, INDEX_FIRST_STUDENT);
+        //showStudentAtIndex(model, INDEX_FIRST_STUDENT);
 
         // edit student in filtered list into a duplicate in TA-Tracker
-        //Student studentInList = model.getTaTracker().getStudentList().get(INDEX_SECOND_STUDENT.getZeroBased());
-        EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
+        Student studentInList = model.getTaTracker().getCompleteStudentList().get(INDEX_SECOND_STUDENT.getZeroBased());
+        EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(),
                 new EditStudentDescriptorBuilder(studentInList).build());
 
-        assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_STUDENT);
+        assertCommandFailure(editStudentCommand, model, String.format(EditStudentCommand
+                .MESSAGE_INVALID_STUDENT_FORMAT,
+                firstStudent.getMatric().value,
+                getTypicalGroup().getIdentifier(),
+                getTypicalModule().getIdentifier()));
     }*/
 
     @Test
@@ -144,22 +154,23 @@ public class EditStudentCommandTest {
         assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
-    // /**
-    //  * Edit filtered list where index is larger than size of filtered list,
-    //  * but smaller than size of TA-Tracker
-    //  */
-    // @Test
-    // public void execute_invalidStudentIndexFilteredList_failure() {
-    //     showStudentAtIndex(model, INDEX_FIRST_STUDENT);
-    //     Index outOfBoundIndex = INDEX_SECOND_STUDENT;
-    //     // ensures that outOfBoundIndex is still in bounds of TA-Tracker list
-    //     assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getStudentList().size());
-    //
-    //     EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex,
-    //             new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build());
-    //
-    //     assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-    // }
+    /**
+     * Edit filtered list where index is larger than size of filtered list,
+     * but smaller than size of TA-Tracker
+     */
+    @Test
+    public void execute_invalidStudentIndexFilteredList_failure() {
+        //showStudentAtIndex(model, INDEX_FIRST_STUDENT);
+        Matric nonexistentMatric = MATRIC_NONEXISTENT;
+        // ensures that outOfBoundIndex is still in bounds of TA-Tracker list
+        //assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getStudentList().size());
+
+        EditStudentCommand editStudentCommand = new EditStudentCommand(nonexistentMatric,
+                getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier(),
+                new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+        assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+    }
 
     @Test
     public void equals() {
