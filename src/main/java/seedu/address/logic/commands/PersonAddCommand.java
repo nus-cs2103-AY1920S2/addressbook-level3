@@ -18,7 +18,7 @@ public class PersonAddCommand implements AppCommand, UserStorageAccess {
     public static final String COMMAND_WORD = "person_add";
 
     private static final Pattern COMMAND_FORMAT = Pattern.compile(  "/name (?<name>\\w.*) " +
-                                                                    "/mobile (?<mobile>\\S+) " +
+                                                                    "/mobile (?<mobile>\\d+) " +
                                                                     "/nric (?<nric>\\S+) " +
                                                                     "/age (?<age>\\d+)");
 
