@@ -36,6 +36,7 @@ import csdev.couponstash.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
     private final String moneySymbol;
 
+
     /**
      * Constructor for a AddCommandParser. Requires the
      * money symbol set in UserPrefs as this will be
@@ -79,7 +80,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Condition condition = ParserUtil.parseCondition(
-                argMultimap.getValueForOptionalField(PREFIX_CONDITION, "No condition stated.").get());
+                argMultimap.getValueForOptionalField(PREFIX_CONDITION, Condition.DEFAULT_NO_CONDITION).get());
 
         Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList, condition);
 
