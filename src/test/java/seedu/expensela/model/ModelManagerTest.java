@@ -39,14 +39,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setExpenseLaFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setExpenseLaFilePath(Paths.get("expenseLa/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setExpenseLaFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setExpenseLaFilePath(Paths.get("new/expenseLa/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -69,7 +69,7 @@ public class ModelManagerTest {
 
     @Test
     public void setExpenseLaFilePath_validPath_setsExpenseLaFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("expenseLa/file/path");
         modelManager.setExpenseLaFilePath(path);
         assertEquals(path, modelManager.getExpenseLaFilePath());
     }
@@ -120,6 +120,7 @@ public class ModelManagerTest {
         // different expenseLa -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentExpenseLa, userPrefs, globalData)));
 
+        // different filteredList -> returns false
         modelManager.updateFilteredTransactionList(new CategoryEqualsKeywordPredicate(Arrays.asList("FOOD")),
                 new DateEqualsKeywordPredicate(Arrays.asList("ALL")));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs, globalData)));
