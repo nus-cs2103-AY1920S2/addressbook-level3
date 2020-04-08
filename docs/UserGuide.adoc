@@ -351,7 +351,6 @@ Format: `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 ****
 * At least one search criteria must be filled in.
 * All are case insensitive.
-* LOCATION must be exact matches (case insensitive).
 * If more than 1 optional parameters are filled, they are viewed as a conjunction of filters
 ****
 
@@ -475,6 +474,11 @@ Format: `(ev)edit [et/EVENT_TITLE] [edt/EVENT_DATE] [ed/DURATION] [ep/LOCATION]`
 * All the non-empty fields will replace their respective previous data fields.
 ****
 
+Examples:
+
+* `(ev)edit 2 edt/2020-04-09 22:00 ed/2` +
+Edits the 2nd event in the Event Schedule by changing the timing to 10PM on the 9th of April and the estimated duration to be 2 hours.
+
 ==== Deletes a social event : `(ev)delete`
 
 Deletes a social event. +
@@ -483,6 +487,11 @@ Format: `(ev)delete INDEX`
 ****
 * INDEX must be a positive integer. It corresponds to the INDEX of the event as shown when you list all events in the Event Schedule using the default event list function (see above).
 ****
+
+Examples:
+
+* `(ev)delete 1` +
+Deletes the 1st Event in the Event Schedule.
 
 === Saving the data
 

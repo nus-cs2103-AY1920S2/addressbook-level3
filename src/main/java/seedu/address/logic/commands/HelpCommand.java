@@ -102,7 +102,7 @@ public class HelpCommand extends Command {
         commands.add("20. " + VisitedRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("21. " + ListRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("22. " + FindRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("23. " + EditRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("23. " + EditRestaurantNoteCommand.MESSAGE_USAGE + "\n");
         commands.add("24. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("25. " + DeleteAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("26. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
