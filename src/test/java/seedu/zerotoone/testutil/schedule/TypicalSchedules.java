@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.zerotoone.model.schedule.DateTime;
+import seedu.zerotoone.model.schedule.OneTimeSchedule;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.workout.Workout;
@@ -20,11 +21,11 @@ public class TypicalSchedules {
 
     private static final List<Workout> workouts = getTypicalWorkouts();
 
-    public static final Schedule SCHEDULE_AT_FIRST_JUNE = new OneTimeScheduleBuilder()
+    public static final OneTimeSchedule SCHEDULE_AT_FIRST_JUNE = new OneTimeScheduleBuilder()
             .withWorkout(workouts.get(0))
             .withDateTime(new DateTime(VALID_DATETIME_JUNE))
             .build();
-    public static final Schedule SCHEDULE_AT_FIRST_JULY = new OneTimeScheduleBuilder()
+    public static final OneTimeSchedule SCHEDULE_AT_FIRST_JULY = new OneTimeScheduleBuilder()
             .withWorkout(workouts.get(1))
             .withDateTime(new DateTime(VALID_DATETIME_JULY))
             .build();

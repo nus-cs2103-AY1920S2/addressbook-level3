@@ -8,7 +8,7 @@ import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
-import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.INVALID_DATETIME_IN_THE_PAST;
+import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_IN_THE_PAST;
 import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_JULY;
 import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_JUNE;
 import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
@@ -92,7 +92,7 @@ class EditCommandTest {
 
     @Test
     public void execute_datetimeInThePast_throwsCommandException() {
-        DateTime dateTime = new DateTime(INVALID_DATETIME_IN_THE_PAST);
+        DateTime dateTime = new DateTime(VALID_DATETIME_IN_THE_PAST);
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OBJECT, dateTime);
 
         assertThrows(CommandException.class,

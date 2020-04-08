@@ -36,17 +36,7 @@ public class OneTimeSchedule implements Schedule {
 
     @Override
     public boolean isSameSchedule(Schedule other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof OneTimeSchedule)) {
-            return false;
-        }
-
-        OneTimeSchedule otherSchedule = (OneTimeSchedule) other;
-        return otherSchedule.workoutToSchedule.equals(workoutToSchedule)
-                && otherSchedule.getDateTime().equals(getDateTime());
+        return equals(other);
     }
 
     @Override
