@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class PersonAddCommand implements AppCommand, UserStorageAccess {
     public static final String COMMAND_WORD = "person_add";
 
-    private static final Pattern COMMAND_FORMAT = Pattern.compile(  "/name (?<name>\\S+) " +
+    private static final Pattern COMMAND_FORMAT = Pattern.compile(  "/name (?<name>\\w.*) " +
                                                                     "/mobile (?<mobile>\\S+) " +
                                                                     "/nric (?<nric>\\S+) " +
                                                                     "/age (?<age>\\d+)");
