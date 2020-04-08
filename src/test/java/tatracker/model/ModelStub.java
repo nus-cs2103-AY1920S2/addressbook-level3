@@ -543,6 +543,15 @@ public class ModelStub implements Model {
         public ReadOnlyTaTracker getTaTracker() {
             return new TaTracker();
         }
+
+        @Override
+        public void showAllModules() {
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupList() {
+            return null;
+        }
     }
 
 
