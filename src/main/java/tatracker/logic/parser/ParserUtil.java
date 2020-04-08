@@ -14,6 +14,7 @@ import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.TaTracker;
 import tatracker.model.group.GroupType;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
@@ -30,7 +31,6 @@ import tatracker.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
-    public static final String MESSAGE_INVALID_RATE = "RATE is not a non-zero unsigned integer.";
 
     /**
      * Parses a {@code String integer} into an integer primitive.
@@ -315,17 +315,17 @@ public class ParserUtil {
         String trimmedRate = rate.trim();
 
         if (!StringUtil.isUnsignedInteger(trimmedRate)) {
-            throw new ParseException(MESSAGE_INVALID_RATE);
+            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
         }
 
         try {
             int parsedRate = Integer.parseUnsignedInt(trimmedRate);
             if (parsedRate == 0) {
-                throw new ParseException(MESSAGE_INVALID_RATE);
+                throw new ParseException(TaTracker.CONSTRAINTS_RATE);
             }
             return parsedRate;
         } catch (NumberFormatException e) {
-            throw new ParseException(MESSAGE_INVALID_RATE);
+            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
         }
     }
 }
