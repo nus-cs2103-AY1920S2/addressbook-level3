@@ -7,9 +7,11 @@
 <ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane styleClass="pane-with-border" HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="60.0" />
+            <ColumnConstraints hgrow="SOMETIMES"/>
         </columnConstraints>
-
+        <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        </rowConstraints>
         <BarChart fx:id="barChart" GridPane.columnIndex="0">
             <xAxis>
                 <CategoryAxis fx:id="xAxis" side="BOTTOM" />
