@@ -1,5 +1,7 @@
 package seedu.address.model.calender;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * <h1> Deadline Class </h1>
  * Returns an extended type of Task, Deadline, where tasks have to be completed by a set date
@@ -21,6 +23,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, String category, String operation) {
         super(description);
+        requireAllNonNull(operation);
         this.by = by;
         this.category = category;
         this.operation = operation;
@@ -28,6 +31,7 @@ public class Deadline extends Task {
 
     public Deadline(int index, String operation) {
         super("Delete task");
+        requireAllNonNull(operation);
         this.index = index;
         this.operation = operation;
     }
