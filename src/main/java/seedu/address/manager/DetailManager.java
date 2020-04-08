@@ -181,7 +181,7 @@ public class DetailManager extends BaseManager {
             Course course = (Course)courseDetail.get("info");
             if (course.getId().equals(courseID)) {
                 courseDetail.put("progress_list",
-                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getAllProgressesForOneStudent(courseID, studentID))));
             } else {
                 courseDetail.put("progress_list",
                         FXCollections.observableArrayList(new ArrayList<Progress>()));
@@ -216,7 +216,7 @@ public class DetailManager extends BaseManager {
             Student student = (Student)studentDetail.get("info");
             if (student.getId().equals(studentID)) {
                 studentDetail.put("progress_list",
-                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getAllProgressesForOneStudent(courseID, studentID))));
             } else {
                 studentDetail.put("progress_list",
                         FXCollections.observableArrayList(new ArrayList<Progress>()));

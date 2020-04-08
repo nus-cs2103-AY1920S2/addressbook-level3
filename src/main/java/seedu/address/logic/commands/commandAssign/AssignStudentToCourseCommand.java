@@ -74,7 +74,7 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
                 EdgeManager.assignStudentToCourse(studentID, courseID);
-                ProgressManager.addAllAssignmentsToOneStudent(courseID, studentID);
+                ProgressManager.addAllProgressesToOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,
