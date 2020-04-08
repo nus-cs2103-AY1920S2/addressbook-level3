@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import java.util.List;
 
-import csdev.couponstash.model.coupon.savings.Saveable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +14,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
+import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 
