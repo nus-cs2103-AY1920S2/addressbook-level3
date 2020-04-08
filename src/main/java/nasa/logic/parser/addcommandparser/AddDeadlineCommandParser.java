@@ -62,11 +62,9 @@ public class AddDeadlineCommandParser extends AddCommandParser {
                 priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
             }
             deadline.setPriority(priority);
-
             return new AddDeadlineCommand(deadline, moduleCode);
         } catch (IllegalArgumentException e) {
-            // if user provides a due date that is already past
-            throw new ParseException(Deadline.DUE_DATE_CONSTRAINTS);
+            throw new ParseException(Deadline.DATE_CONSTRAINTS);
         }
     }
 }

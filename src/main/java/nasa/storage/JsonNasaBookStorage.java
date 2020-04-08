@@ -1,12 +1,10 @@
 package nasa.storage;
 
 import static java.util.Objects.requireNonNull;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import nasa.commons.core.LogsCenter;
 import nasa.commons.exceptions.DataConversionException;
 import nasa.commons.exceptions.IllegalValueException;

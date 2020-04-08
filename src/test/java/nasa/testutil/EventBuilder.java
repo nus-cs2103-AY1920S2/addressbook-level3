@@ -45,7 +45,7 @@ public class EventBuilder {
     public EventBuilder(Object activityToCopy) {
         Activity activity = (Activity) activityToCopy;
         name = activity.getName();
-        date = activity.getDate();
+        date = activity.getDateCreated();
         note = activity.getNote();
         toDate = new Date(DEFAULT_TO_DATE);
         fromDate = new Date(DEFAULT_FROM_DATE);
@@ -95,6 +95,8 @@ public class EventBuilder {
      * Build an activity accordingly.
      */
     public Event build() {
-        return new Event(name, note, fromDate, toDate);
+        Event event =  new Event(name, fromDate, toDate);
+        event.setNote(note);
+        return event;
     }
 }

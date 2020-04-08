@@ -16,8 +16,17 @@ public class Schedule {
     public static final String VALID_INTEGER_REGEX = "([0-3]\\d{0})";
 
     private int type;
-    private Date date;
+    private Date dateToRepeat;
     private Date defaultDate;
+
+    /**
+     * Construct an empty Schedule
+     */
+    public Schedule() {
+        type = 0;
+        dateToRepeat = null;
+        defaultDate = null;
+    }
 
     /**
      * Construct a schedule from string.
@@ -26,7 +35,7 @@ public class Schedule {
     public Schedule(String input) {
         String[] in = input.split(",");
         type = Integer.parseInt(in[0]);
-        date = new Date(in[1]);
+        dateToRepeat = new Date(in[1]);
         defaultDate = new Date(in[2]);
     }
 
@@ -35,7 +44,7 @@ public class Schedule {
      * @param date Date
      */
     public Schedule(Date date) {
-        this.date = date;
+        this.dateToRepeat = date;
         this.defaultDate = date;
         type = 0;
     }
@@ -47,10 +56,10 @@ public class Schedule {
      */
     public Schedule(Date date, int type) {
         checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
-        this.date = date;
+        this.dateToRepeat = date;
         this.defaultDate = date;
         this.type = type;
-        init(type);
+        init();
     }
 
     /**
@@ -59,8 +68,8 @@ public class Schedule {
      */
     public boolean update() {
         boolean hasUpdate = false;
-        while (Date.now().isAfter(date) && type != 0) {
-            init(type);
+        while (Date.now().isAfter(dateToRepeat) && type != 0) {
+            init();
             hasUpdate = true;
         }
         return hasUpdate;
@@ -73,8 +82,8 @@ public class Schedule {
     public void setType(int type) {
         checkArgument(isValidSchedule(String.valueOf(type)), MESSAGE_CONSTRAINTS);
         this.type = type;
-        date = defaultDate;
-        update();
+        dateToRepeat = defaultDate;
+        init();
     }
 
     /**
@@ -82,14 +91,14 @@ public class Schedule {
      */
     public void cancel() {
         this.type = 0;
-        date = defaultDate;
+        dateToRepeat = defaultDate;
     }
 
     /**
-     * Initialise schedules.
+     * Initialize schedules.
      * @param type int
      */
-    public void init(int type) {
+    public void init() {
         switch (type) {
         case 0 :
             cancel();
@@ -109,6 +118,20 @@ public class Schedule {
     }
 
     /**
+     * Set default date
+     */
+    public void setDefaultDate(Date date) {
+        this.defaultDate = date;
+    }
+
+    /**
+     * Set date to repeat
+     */
+    public void setRepeatDate(Date date) {
+        this.dateToRepeat = date;
+    }
+
+    /**
      * Get type of schedule.
      * @return int
      */
@@ -120,29 +143,37 @@ public class Schedule {
      * Get next running date.
      * @return Date
      */
-    public Date getDate() {
-        return date;
+    public Date getRepeatDate() {
+        return dateToRepeat;
     }
 
     /**
      * Set new date by refreshing it weekly.
      */
     private void runOnceAWeek() {
-        date = date.addDaysToCurrDate(7);
+        dateToRepeat = dateToRepeat.addDaysToCurrDate(7);
     }
 
     /**
      * Set new date by refreshing it twice weekly.
      */
     private void runTwiceAWeek() {
-        date = date.addDaysToCurrDate(14);
+        dateToRepeat = dateToRepeat.addDaysToCurrDate(14);
     }
 
     /**
      * Set new date by refreshing it monthly.
      */
     private void runMonthly() {
-        date = date.addMonthsToCurrDate(1);
+        dateToRepeat = dateToRepeat.addMonthsToCurrDate(1);
+    }
+
+    public Schedule getDeepCopy() {
+        Schedule temp = new Schedule();
+        temp.setType(type);
+        temp.setDefaultDate(defaultDate);
+        temp.setRepeatDate(dateToRepeat);
+        return temp;
     }
 
     private static boolean isValidSchedule(String test) {
@@ -151,7 +182,6 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return String.format("%d,%s,%s", type, date, defaultDate);
+        return String.format("%d,%s,%s", type, dateToRepeat, defaultDate);
     }
-
 }

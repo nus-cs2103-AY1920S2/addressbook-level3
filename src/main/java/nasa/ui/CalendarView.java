@@ -13,11 +13,14 @@ import java.util.Locale;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -37,12 +40,22 @@ public class CalendarView extends UiPart<Region> {
     private static final String FXML = "CalendarView.fxml";
     private int currentYear;
     private int currentMonth;
+    private ObservableList<Module> moduleObservableList;
 
     @FXML
     private Label monthAndYear;
 
     @FXML
     private GridPane calendarGrid;
+
+    @FXML
+    private Button next;
+
+    @FXML
+    private Button prev;
+
+    @FXML
+    private HBox calendarDetails;
 
     /**
      * Constructor for the controller.
@@ -55,10 +68,10 @@ public class CalendarView extends UiPart<Region> {
         LocalDateTime currentDateTime = LocalDateTime.now();
         currentYear = currentDateTime.getYear();
         currentMonth = currentDateTime.getMonthValue();
+        this.moduleObservableList = moduleObservableList;
 
-        // update the Label and the grids
-        monthAndYear.setText(String.format("%s %s", Month.of(currentMonth), Year.of(currentYear)));
-        monthAndYear.setTextFill(Color.WHITE);
+        // update the Label
+        updateLabel();
 
         // update calendar
         initializeWholeCalendar();
@@ -85,10 +98,18 @@ public class CalendarView extends UiPart<Region> {
      */
     private void updateCalendar(ObservableList<Module> moduleObservableList) {
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> activityObservableList = module.getFilteredActivityList();
-            activityObservableList.addListener(new ListChangeListener<Activity>() {
+            ObservableList<Deadline> deadlineObservableList = module.getFilteredDeadlineList();
+            ObservableList<Event> eventObservableList = module.getFilteredEventList();
+            deadlineObservableList.addListener(new ListChangeListener<Deadline>() {
                 @Override
-                public void onChanged(Change<? extends Activity> c) {
+                public void onChanged(Change<? extends Deadline> c) {
+                    resetCalendar();
+                    loadActivities(moduleObservableList);
+                }
+            });
+            eventObservableList.addListener(new ListChangeListener<Event>() {
+                @Override
+                public void onChanged(Change<? extends Event> c) {
                     resetCalendar();
                     loadActivities(moduleObservableList);
                 }
@@ -184,16 +205,34 @@ public class CalendarView extends UiPart<Region> {
     public void loadActivities(ObservableList<Module> moduleObservableList) {
         HashMap<Integer, ArrayList<Activity>> activityHashMap = new HashMap<>();
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> activityObservableList =
-                module.getFilteredActivityList();
-            for (Activity activity : activityObservableList) {
-                if (activity.occurInMonth(currentMonth)) {
-                    int activityDate = getMonth(activity);
+            ObservableList<Deadline> deadlineObservableList =
+                module.getFilteredDeadlineList();
+            for (Deadline deadline : deadlineObservableList) {
+                if (deadline.occurInMonth(currentMonth)) {
+                    if (deadline.getDueDate().getDate().getYear() != currentYear) {
+                        continue;
+                    }
+                    int activityDate = getDayOfMonth(deadline);
                     if (activityHashMap.containsKey(activityDate)) {
-                        activityHashMap.get(activityDate).add(activity);
+                        activityHashMap.get(activityDate).add(deadline);
                     } else {
                         ArrayList<Activity> activities = new ArrayList<>();
-                        activities.add(activity);
+                        activities.add(deadline);
+                        activityHashMap.put(activityDate, activities);
+                    }
+                }
+            }
+
+            ObservableList<Event> eventObservableList =
+                module.getFilteredEventList();
+            for (Event event : eventObservableList) {
+                if (event.occurInMonth(currentMonth)) {
+                    int activityDate = getDayOfMonth(event);
+                    if (activityHashMap.containsKey(activityDate)) {
+                        activityHashMap.get(activityDate).add(event);
+                    } else {
+                        ArrayList<Activity> activities = new ArrayList<>();
+                        activities.add(event);
                         activityHashMap.put(activityDate, activities);
                     }
                 }
@@ -212,6 +251,8 @@ public class CalendarView extends UiPart<Region> {
                 for (Activity activity : dateActivities) {
                     if (counter <= 3) {
                         Label activityLabel = getActivityLabel(activity);
+                        Bounds bounds = calendarGrid.getCellBounds(2, 2);
+                        activityLabel.setMinWidth(bounds.getWidth() - 5);
                         dateContent.getChildren().add(activityLabel);
                         counter++;
                     } else {
@@ -239,7 +280,7 @@ public class CalendarView extends UiPart<Region> {
      */
     private Label getActivityLabel(Activity activity) {
         Label activityLabel = new Label();
-        activityLabel.setText(activity.toString());
+        activityLabel.setText(activity.getName().toString());
         activityLabel.setPadding(new Insets(0, 5, 0, 5));
         if (activity instanceof Deadline) {
             // color it red
@@ -252,6 +293,7 @@ public class CalendarView extends UiPart<Region> {
             activityLabel.setStyle("-fx-background-color:green; -fx-background-radius: 5 5 5 5");
         }
         activityLabel.setTextFill(Color.BLACK);
+        activityLabel.setAlignment(Pos.CENTER);
         return activityLabel;
     }
 
@@ -268,13 +310,13 @@ public class CalendarView extends UiPart<Region> {
      * @param activity activity to be listed on calendar
      * @return
      */
-    private int getMonth(Activity activity) {
+    private int getDayOfMonth(Activity activity) {
         if (activity instanceof Deadline) {
             return ((Deadline) activity).getDueDate().getDate().getDayOfMonth();
         } else if (activity instanceof Event) {
-            return ((Event) activity).getDateFrom().getDate().getDayOfMonth();
+            return ((Event) activity).getStartDate().getDate().getDayOfMonth();
         } else {
-            return ((Lesson) activity).getDateFrom().getDate().getDayOfMonth();
+            return ((Lesson) activity).getEndDate().getDate().getDayOfMonth();
         }
     }
 
@@ -292,5 +334,53 @@ public class CalendarView extends UiPart<Region> {
                 }
             }
         }
+    }
+
+    /**
+     * Updates the calendar to the next month's schedule.
+     */
+    public void onClickNext() {
+        if (currentMonth == 12) {
+            // set to first month of next year
+            currentMonth = 1;
+            currentYear += 1;
+        } else {
+            currentMonth += 1;
+        }
+
+        updateLabel();
+        calendarGrid.getChildren().clear();
+        initializeWholeCalendar();
+        loadActivities(moduleObservableList);
+        /*
+        initializeDateGrids();
+        loadActivities(moduleObservableList);*/
+    }
+
+    /**
+     * Update the calendar to previous month's schedule.
+     */
+    public void onClickPrevious() {
+        if (currentMonth == 1) {
+            // set to last month of last year
+            currentMonth = 12;
+            currentYear -= 1;
+        } else {
+            currentMonth -= 1;
+        }
+
+        updateLabel();
+        calendarGrid.getChildren().clear();
+        initializeWholeCalendar();
+        loadActivities(moduleObservableList);
+    }
+
+    /**
+     * Update label based on current months.
+     */
+    public void updateLabel() {
+        monthAndYear.setText(String.format("%s %s", Month.of(currentMonth), Year.of(currentYear)));
+        monthAndYear.setTextFill(Color.WHITE);
+        monthAndYear.setAlignment(Pos.CENTER);
     }
 }

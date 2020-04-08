@@ -10,10 +10,12 @@ import nasa.logic.commands.AddModuleCommand;
 import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.ContinueCommand;
-import nasa.logic.commands.DeleteActivityCommand;
+import nasa.logic.commands.DeleteDeadlineCommand;
+import nasa.logic.commands.DeleteEventCommand;
 import nasa.logic.commands.DeleteModuleCommand;
 import nasa.logic.commands.DoneCommand;
-import nasa.logic.commands.EditActivityCommand;
+import nasa.logic.commands.EditDeadlineCommand;
+import nasa.logic.commands.EditEventCommand;
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
@@ -73,8 +75,17 @@ public class NasaBookParser {
         case AddDeadlineCommand.COMMAND_WORD:
             return new AddDeadlineCommandParser().parse(arguments);
 
-        case DeleteActivityCommand.COMMAND_WORD:
-            return new DeleteActivityCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+        
+        case ContinueCommand.COMMAND_WORD:
+            return new ContinueCommandParser().parse(arguments);
+
+        case DeleteDeadlineCommand.COMMAND_WORD:
+            return new DeleteDeadlineCommandParser().parse(arguments);
+
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
 
         case DeleteModuleCommand.COMMAND_WORD:
             return new DeleteModuleCommandParser().parse(arguments);
@@ -82,32 +93,26 @@ public class NasaBookParser {
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments);
 
-        case ContinueCommand.COMMAND_WORD:
-            return new ContinueCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case EditActivityCommand.COMMAND_WORD:
-            return new EditActivityCommandParser().parse(arguments);
-
+        case EditDeadlineCommand.COMMAND_WORD:
+            return new EditDeadlineCommandParser().parse(arguments);
+        
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventCommandParser().parse(arguments);
+        
         case EditModuleCommand.COMMAND_WORD:
             return new EditModuleCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
@@ -117,11 +122,15 @@ public class NasaBookParser {
 
         case QuoteCommand.COMMAND_WORD:
             return new QuoteCommand();
+
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -23,20 +23,6 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
     public StatisticsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TIME);
-
-        if (arePrefixesPresent(argMultimap, PREFIX_TIME)) {
-            String activityPredicate = ParserUtil.parseStatistics(argMultimap.getValue(PREFIX_TIME).get());
-            switch (activityPredicate) {
-            case "deadline":
-                return new StatisticsCommand(activity -> activity instanceof Deadline);
-            case "event":
-                return new StatisticsCommand(activity -> activity instanceof Event);
-            case "lesson":
-                return new StatisticsCommand(activity -> activity instanceof Lesson);
-            default:
-                return new StatisticsCommand(null);
-            }
-        }
         return new StatisticsCommand(null);
     }
 

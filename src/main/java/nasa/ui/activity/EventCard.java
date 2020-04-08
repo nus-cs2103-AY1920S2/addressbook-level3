@@ -24,9 +24,11 @@ public class EventCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Event activity;
+    public final Event event;
     @FXML
     private GridPane eventPane;
+    @FXML
+    private Label index;
     @FXML
     private Label name;
     @FXML
@@ -37,20 +39,16 @@ public class EventCard extends UiPart<Region> {
     private Label note;
     @FXML
     private Label status;
-    @FXML
-    private Label priority;
 
-
-
-    public EventCard(Event activity, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex) {
         super(FXML);
-        this.activity = activity;
-        name.setText(activity.getName().toString());
-        startDate.setText("From " + activity.getDateFrom().toString());
-        endDate.setText("To " + activity.getDateTo().toString());
-        note.setText(activity.getNote().toString());
-        status.setText(activity.getStatus().toString());
-        priority.setText("Priority: " + activity.getPriority().toString());
+        this.event = event;
+        index.setText(String.valueOf(displayedIndex));
+        name.setText(event.getName().toString());
+        startDate.setText("From " + event.getStartDate().toString());
+        endDate.setText("To " + event.getEndDate().toString());
+        note.setText(event.getNote().toString());
+        //status.setText(event.getStatus().toString());
     }
 
     @Override
