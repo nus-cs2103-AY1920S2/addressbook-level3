@@ -47,6 +47,7 @@ public class SaveableTest {
     @Test
     public void isValidSaveableValue() {
         assertFalse(Saveable.isValidSaveableValue(null, 1)); // null
+        assertFalse(Saveable.isValidSaveableValue("", 1)); // empty String
         assertFalse(Saveable.isValidSaveableValue("Watermelon", 0)); // non-positive count
         assertFalse(Saveable.isValidSaveableValue("CoconutCoconutCoconut", 1)); // String too long
 

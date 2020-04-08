@@ -132,7 +132,12 @@ public class Saveable implements Comparable<Saveable> {
     public int compareTo(Saveable p) {
         // compare count first, before comparing length of string
         if (this.count == p.count) {
-            return (int) Math.signum(this.savedItem.length() - p.savedItem.length());
+            if (this.savedItem.length() == p.savedItem.length()) {
+                // compare alphabetically if possible
+                return this.savedItem.compareTo(p.savedItem);
+            } else {
+                return (int) Math.signum(this.savedItem.length() - p.savedItem.length());
+            }
         } else {
             return (int) Math.signum(this.count - p.count);
         }
