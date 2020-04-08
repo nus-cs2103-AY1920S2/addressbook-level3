@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
@@ -165,6 +166,18 @@ class UsedCommandTest {
 
         assertCommandFailure(usedCommand, model,
                 String.format(UsedCommand.MESSAGE_ARCHIVED_COUPON, 1));
+    }
+
+    @Test
+    public void execute_beforeStartDateCoupon_throwsCommandException() {
+        Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        Coupon editedCoupon = new CouponBuilder()
+                .withStartDate(LocalDate.now().plusDays(1).format(DateUtil.DATE_FORMATTER)).build();
+        model.setCoupon(couponToBeUsed, editedCoupon, "");
+
+        UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
+
+        assertCommandFailure(usedCommand, model, UsedCommand.MESSAGE_COUPON_HAVENT_START);
     }
 
     @Test
