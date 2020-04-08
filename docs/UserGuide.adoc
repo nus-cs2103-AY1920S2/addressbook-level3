@@ -38,13 +38,14 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* `From <ts: start> to <ts: end>`: Searches for all interactions from start to end timestamp
+* `from <ts: start> to <ts: end>`: Searches for all interactions from start to end timestamp
 * `id is <user: id>`: Searches for all interactions with the user ID
 * `pairs <user1: id> and <user2: id>`: Searches for all interactions with the containing user 1 and user 2
 * `danger <threshold: counts>`: Searches for user pairs which has occured more than *threshold
-* `list users`: Shows all registered users in the system
-* `find <user: id>`: Shows all information wrt to a user
-* `add users`: Adds a new user to the system
+* `person`: Shows all registered users in the system
+* `person_by <person: id>`: Shows all information wrt to a user
+* `person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age>`: Adds a new user to the system
+* `person_delete /userid <person: id>`: Deletes an existing user to the system
 
 * *`reports`* : list all recent reports about virus transmission and current situation.
 * *`exit`* : Exits the app.
@@ -58,9 +59,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Searching over timestamp : `From`
 Retrieves collected trace data based on by timestamp filter.
 
-Format: `From <ts: start> to <ts: end>`
+Format: `from <ts: start> to <ts: end>`
 
-Example: `From 1500000000 to 1500001000`
+Example: `from 1500000000 to 1500001000`
 
 *Note: Currently accepted timestamp is in epoch timing. For example on how to use the timing, refer link:{epochTiming}/releases[here]
 
@@ -87,24 +88,35 @@ Format: `danger <threshold: counts>`
 Example: `danger 10` will flag out user pairs which are present more than 10 times
 
 == Querying user related information
-=== Searching all users: `list`
+=== Searching all users: `person`
 Shows all users registered in the system
 
-Format: `list`
+Format: `person`
 
-=== Filtering by user: `find`
+=== Filtering by user: `person_by`
 Applies a filter to perform quick search on a user
 
-Format: `find <user: id>`
+Format: `person_by <person: id>`
 
-Example: `find 1` will find information on user ID 1
+Example: `person_by 1` will find information on user ID 1
 
-=== Adding a new user: `add`
+=== Adding a new user: `person_add`
 Registers a new user to the system
 
-Format: `add n/<name> m/<mobile no.>`
+Format: `person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age>`
 
-Example: `add n/John Doe m/99119911`
+Example: `person_add /name John Doe /mobile 92139231 /nric S1323923P /age 50` adds a new user with fields
+
+==== Constraints
+* Sequence must abide in sequence /name, /mobile, /nric, /age
+* Cannot add same NRIC number
+
+=== Adding a new user: `person_deletes`
+Registers a new user to the system
+
+Format: `person_delete /userid <person: id>`
+
+Example: `person_delete /userid 1` deletes any record with user ID 1
 
 == FAQ
 
