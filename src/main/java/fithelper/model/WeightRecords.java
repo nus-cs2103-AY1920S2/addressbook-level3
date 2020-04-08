@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.Date;
 import fithelper.model.weight.UniqueWeightList;
 import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -84,6 +87,29 @@ public class WeightRecords implements ReadOnlyWeightRecords {
         weightRecords.remove(key);
     }
 
+    public Weight getWeightByDate(Date date) {
+        for (Weight weight: weightRecords) {
+            if (weight.getDate().equals(date)) {
+                return weight;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Edit weight value and BMI value of a weight record.
+     * @param newWeight the weight record to be edited.
+     * @param weightValue new weight value.
+     * @param bmi new BMI value.
+     */
+    public void editWeight(Weight newWeight, WeightValue weightValue, Bmi bmi) {
+        for (Weight weight: weightRecords) {
+            if (weight.equals(newWeight)) {
+                weight.setWeightValue(weightValue);
+                weight.setBmi(bmi);
+            }
+        }
+    }
 
     //// util methods
 

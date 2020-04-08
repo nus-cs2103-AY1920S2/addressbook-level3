@@ -203,6 +203,7 @@ The Sequence Diagram below shows how the components interact with each other for
 
 .Sequence Diagram for Today Feature
 image::InitiateTodayPageSequenceDiagram.png[]
+//end::today[]
 
 // tag::diary[]
 === Diary Feature
@@ -262,7 +263,7 @@ The Sequence Diagram below shows how the components interact with each other for
 
 .Sequence Diagram for Diary Feature
 image::DiarySequenceDiagram.png[]
-
+//tag:diary[]
 
 // tag::undoredo[]
 === Undo/Redo feature

@@ -21,6 +21,7 @@ public class HomeCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        model.updateFilteredReminderEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(String.format(MESSAGE_SUCCESS), HOME, false);
     }
 

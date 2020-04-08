@@ -21,7 +21,10 @@ import fithelper.model.entry.SortBy;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.Date;
 import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -347,6 +350,18 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Updates the filter of the filtered reminder entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredReminderEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        filteredReminderEntries.setPredicate(predicate);
+    }
+
+    /**
      * Searches the {@code FoodCalorieTable} and add at most 3 entries whose name matches the keyword into a set
      * add returns the set.
      *
@@ -495,6 +510,21 @@ public class ModelManager implements Model {
         updateFilteredWeightList(PREDICATE_SHOW_ALL_WEIGHTS);
     }
 
+    @Override
+    public void deleteWeight(Weight weight) {
+        weightRecords.removeWeight(weight);
+    }
+
+    @Override
+    public Weight getWeightByDate(Date date) {
+        return weightRecords.getWeightByDate(date);
+    }
+
+    @Override
+    public void editWeight(Weight weight, WeightValue weightValue, Bmi bmi) {
+        weightRecords.editWeight(weight, weightValue, bmi);
+    }
+
     /**
      * Returns an unmodifiable view of the weight list of {@code Weight} backed by the internal list of
      * {@code WeightRecords}
@@ -524,7 +554,7 @@ public class ModelManager implements Model {
         } else {
             LocalDate last = weights.get(0).getDate().value;
             for (int i = 1; i < weights.size(); i++) {
-                if (weights.get(i).getDate().value.compareTo(last) > 0) {
+                if (weights.get(i).getDate().value.isAfter(last)) {
                     last = weights.get(i).getDate().value;
                 }
             }
