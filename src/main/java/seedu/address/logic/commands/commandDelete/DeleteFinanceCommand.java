@@ -71,26 +71,6 @@ public class DeleteFinanceCommand extends DeleteCommand {
     }
   }
 
-  // Find way to abstract this
-  public ID getID(List<Finance> lastShownList) throws CommandException {
-    for (Finance finance : lastShownList) {
-      if (finance.getId().equals(this.toDelete.getId())) {
-        return finance.getId();
-      }
-    }
-    throw new CommandException("Cannot find this finance in the list");
-  }
-
-  // Find way to abstract this
-  public Finance getFinance(List<Finance> lastShownList) throws CommandException {
-    for (Finance finance : lastShownList) {
-      if (finance.getId().equals(this.targetID)) {
-        return finance;
-      }
-    }
-    throw new CommandException("This staff ID does not exist");
-  }
-
   @Override
   protected void generateOppositeCommand() {
     oppositeCommand = new AddFinanceCommand(toDelete, targetIndex.getZeroBased());
