@@ -72,7 +72,6 @@ public class SortCommandParser implements Parser<SortCommand> {
         switch (commandWord) {
 
         case CommandWords.SORT_ALL:
-            System.out.println(hasType);
             if (!hasType) {
                 throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
             }

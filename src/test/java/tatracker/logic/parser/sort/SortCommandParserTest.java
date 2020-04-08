@@ -22,7 +22,6 @@ public class SortCommandParserTest {
         String expectedGroup = "G04";
 
 
-        // whitespace only preamble
         assertParseSuccess(parser, " group m/CS3243 g/G04 t/alpha",
                 new SortGroupCommand(type, expectedGroup, expectedModule));
 
@@ -30,7 +29,6 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, " group t/alphabetically m/CS3243 g/G04",
                 new SortGroupCommand(type, expectedGroup, expectedModule));
 
-        // whitespace only preamble
         assertParseSuccess(parser, " module m/CS3243 t/alphabetically",
                 new SortModuleCommand(type, expectedModule));
 
@@ -61,6 +59,10 @@ public class SortCommandParserTest {
         assertParseFailure(parser, " group g/G04 m/CS3243",
                 expectedGroupMessage);
 
+        // missing all prefixes
+        assertParseFailure(parser, " group",
+                expectedGroupMessage);
+
         // missing module prefix
         assertParseFailure(parser, " module t/alphabetically",
                 expectedModuleMessage);
@@ -69,8 +71,13 @@ public class SortCommandParserTest {
         assertParseFailure(parser, " module m/CS3243",
                 expectedModuleMessage);
 
+        // missing all prefixes
+        assertParseFailure(parser, " module",
+                expectedModuleMessage);
+
+
         // missing type prefix
-        assertParseFailure(parser, " all m/CS3243",
+        assertParseFailure(parser, " all",
                 expectedAllMessage);
 
     }
