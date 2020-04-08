@@ -41,8 +41,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given model parts.
      */
-    public ModelManager(BlockModel blockModel, SuggestionModel suggestionModel, ViewStateModel viewStateModel,
-            ReadOnlyUserPrefModel userPrefModel) {
+    public ModelManager(BlockModel blockModel, SuggestionModel suggestionModel,
+                        ViewStateModel viewStateModel, ReadOnlyUserPrefModel userPrefModel) {
         requireAllNonNull(blockModel, suggestionModel, viewStateModel, userPrefModel);
 
         this.suggestionModel = suggestionModel;
@@ -161,6 +161,21 @@ public class ModelManager implements Model {
     @Override
     public void setHelpOpen(Boolean bool) {
         viewStateModel.setHelpOpen(bool);
+    }
+
+    @Override
+    public BooleanProperty blockEditableProperty() {
+        return viewStateModel.blockEditableProperty();
+    }
+
+    @Override
+    public Boolean isBlockEditable() {
+        return viewStateModel.isBlockEditable();
+    }
+
+    @Override
+    public void setBlockEditable(Boolean bool) {
+        viewStateModel.setBlockEditable(bool);
     }
 
     //========= BlockModel========================================================================
