@@ -9,7 +9,7 @@ public class ProductQuantity implements Quantity {
 
     public static final int MIN_VALUE = 0;
 
-    public static final String MESSAGE_CONSTRAINTS_VALUE = "The numeric value of Transaction Quantity must be "
+    public static final String MESSAGE_CONSTRAINTS_VALUE = "The numeric value of Product Quantity must be "
             + "larger than or equal to " + MIN_VALUE
             + "and smaller than " + MAX_VALUE;
 
@@ -51,7 +51,7 @@ public class ProductQuantity implements Quantity {
     }
 
     public static boolean isValidValue(int test) {
-        return test > MIN_VALUE && test <= MAX_VALUE;
+        return test >= MIN_VALUE && test <= MAX_VALUE;
     }
 
     /**
@@ -76,6 +76,10 @@ public class ProductQuantity implements Quantity {
         requireNonNull(q);
         int newValue = value + q.getValue();
         return new ProductQuantity(newValue);
+    }
+
+    public String toString() {
+        return String.valueOf(value);
     }
 
     public boolean equals(Object other) {

@@ -48,5 +48,4 @@ public interface Quantity extends Comparable<Quantity> {
 
     @Override
     int compareTo(Quantity q);
-
 }

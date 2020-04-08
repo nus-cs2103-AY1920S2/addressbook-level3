@@ -51,7 +51,7 @@ public class TransactionQuantity implements Quantity {
     }
 
     public static boolean isValidValue(int test) {
-        return test > MIN_VALUE && test <= MAX_VALUE;
+        return test >= MIN_VALUE && test <= MAX_VALUE;
     }
 
     /**
@@ -76,6 +76,10 @@ public class TransactionQuantity implements Quantity {
         requireNonNull(q);
         int newValue = value + q.getValue();
         return new TransactionQuantity(newValue);
+    }
+
+    public String toString() {
+        return String.valueOf(value);
     }
 
     public boolean equals(Object other) {

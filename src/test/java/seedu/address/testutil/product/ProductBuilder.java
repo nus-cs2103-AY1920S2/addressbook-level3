@@ -5,6 +5,7 @@ import java.util.UUID;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
+import seedu.address.model.product.ProductQuantity;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
@@ -34,7 +35,7 @@ public class ProductBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         costPrice = new CostPrice(DEFAULT_COSTPRICE);
         price = new Price(DEFAULT_PRICE);
-        quantity = new Quantity(DEFAULT_QUANTITY);
+        quantity = new ProductQuantity(DEFAULT_QUANTITY);
         money = new Money(DEFAULT_SALES);
         int calculatedThreshold = Integer.parseInt(DEFAULT_QUANTITY) / 5;
         threshold = new QuantityThreshold(String.valueOf(calculatedThreshold));
@@ -89,7 +90,7 @@ public class ProductBuilder {
      * Sets the {@code Quantity} of the {@code Product} that we are building.
      */
     public ProductBuilder withQuantity(String quantity) {
-        this.quantity = new Quantity(quantity);
+        this.quantity = new ProductQuantity(quantity);
         return this;
     }
 
