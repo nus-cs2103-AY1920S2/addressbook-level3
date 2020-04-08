@@ -1,6 +1,8 @@
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SORT_TYPE;
@@ -24,15 +26,13 @@ public class SortGroupCommand extends SortCommand {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_GROUP,
-            "Sorts all students in the given group.",
+            "Sorts all students in the given group",
             List.of(GROUP, MODULE, SORT_TYPE),
             List.of(),
             GROUP, MODULE, SORT_TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "Group %s has been sorted.";
-    public static final String MESSAGE_INVALID_GROUP_CODE = "This group doesn't exist in the TA-Tracker";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_SORT_GROUP_SUCCESS = "All students in %s [%s] have been sorted";
 
     private final String groupCode;
     private final String moduleCode;
@@ -90,6 +90,6 @@ public class SortGroupCommand extends SortCommand {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, group), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_SORT_GROUP_SUCCESS, moduleCode, groupCode), Action.GOTO_STUDENT);
     }
 }

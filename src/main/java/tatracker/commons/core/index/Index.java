@@ -10,7 +10,7 @@ package tatracker.commons.core.index;
  */
 public class Index {
 
-    public static final String MESSAGE_CONSTRAINTS = "An index must be a positive integer";
+    public static final String MESSAGE_CONSTRAINTS = "An index must be a list item number (a positive number)";
     private int zeroBasedIndex;
 
     /**

@@ -1,6 +1,6 @@
 package tatracker.logic.parser.student;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_L08;
@@ -40,6 +40,7 @@ import static tatracker.logic.parser.Prefixes.TAG;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.student.Email;
@@ -47,14 +48,14 @@ import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
 import tatracker.model.tag.Tag;
-import tatracker.testutil.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
 public class EditStudentCommandParserTest {
 
     private static final String TAG_EMPTY = " " + TAG;
 
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.DETAILS.getUsage());
+    private static final String MESSAGE_INVALID_FORMAT = Messages
+            .getInvalidCommandMessage(EditStudentCommand.DETAILS.getUsage());
 
     private EditStudentCommandParser parser = new EditStudentCommandParser();
 
@@ -74,8 +75,7 @@ public class EditStudentCommandParserTest {
 
         // no field specified
         assertParseFailure(parser,
-                GROUP_DESC_T04 + MODULE_DESC_CS2030 + MATRIC_DESC_AMY,
-                EditStudentCommand.MESSAGE_NOT_EDITED);
+                GROUP_DESC_T04 + MODULE_DESC_CS2030 + MATRIC_DESC_AMY, MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);

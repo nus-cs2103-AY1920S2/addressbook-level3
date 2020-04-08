@@ -1,6 +1,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
 import static tatracker.logic.parser.Prefixes.INDEX;
@@ -15,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
 import tatracker.logic.commands.Command;
@@ -37,14 +37,13 @@ public class EditSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.EDIT_MODEL,
-            "Edits a session at the shown list index.",
+            "Edits a session at the shown list index",
             List.of(INDEX),
             List.of(MODULE, START_TIME, END_TIME, DATE, RECUR, SESSION_TYPE, NOTES),
             MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
 
-    public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_EDITED_SESSION_SUCCESS = "Edited session: %s";
 
     private final Index index;
     private final EditSessionCommand.EditSessionDescriptor editSessionDescriptor;
@@ -68,7 +67,7 @@ public class EditSessionCommand extends Command {
         List<Session> lastShownList = model.getFilteredSessionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         }
 
         Session sessionToEdit = lastShownList.get(index.getZeroBased());
@@ -86,7 +85,8 @@ public class EditSessionCommand extends Command {
         model.setSession(sessionToEdit, editedSession);
         model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedSession), Action.GOTO_SESSION);
+        return new CommandResult(String.format(MESSAGE_EDITED_SESSION_SUCCESS, editedSession.getMinimalDescription()),
+                Action.GOTO_SESSION);
     }
 
     /**

@@ -1,6 +1,7 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.List;
@@ -22,14 +23,13 @@ public class DeleteModuleCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.MODULE,
             CommandWords.DELETE_MODEL,
-            "Deletes the module with the given module code.",
+            "Deletes the module with the given module code",
             List.of(MODULE),
             List.of(),
             MODULE
     );
 
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with this module code.";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted module: %s";
 
     private final String module;
 
@@ -52,7 +52,7 @@ public class DeleteModuleCommand extends Command {
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, module), Action.GOTO_STUDENT);
     }
 
     @Override

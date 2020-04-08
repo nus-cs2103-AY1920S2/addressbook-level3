@@ -2,6 +2,7 @@ package tatracker.logic.commands.student;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_STUDENT;
 import static tatracker.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubWithStudent;
 import tatracker.model.student.Student;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 public class AddStudentCommandTest {
 
@@ -52,7 +53,7 @@ public class AddStudentCommandTest {
         AddStudentCommand addStudentCommand = new AddStudentCommand(validStudent, testGroup, testModule);
         ModelStub modelStub = new ModelStubWithStudent(validStudent);
 
-        assertThrows(CommandException.class, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, ()
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_STUDENT, ()
             -> addStudentCommand.execute(modelStub));
     }
 

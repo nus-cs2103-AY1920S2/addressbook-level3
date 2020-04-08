@@ -1,6 +1,7 @@
 package tatracker.logic.commands.statistic;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.MODULE_ID;
 
 import java.util.List;
@@ -19,14 +20,13 @@ public class ShowStatisticCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.REPORT,
-            "Shows the statistics report of a particular module.",
+            "Shows the statistics report of a particular module",
             List.of(MODULE_ID),
             List.of(),
             MODULE_ID
     );
 
-    public static final String MESSAGE_OPENED_STATS = "Opened Statistic Window.";
-    public static final String MESSAGE_INVALID_MODULE = "Target module not found!";
+    public static final String MESSAGE_OPENED_STATS = "Opened statistic window";
 
     private final String module;
 
@@ -47,7 +47,7 @@ public class ShowStatisticCommand extends Command {
         }
 
         if (!model.hasModule(module)) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
         return new StatisticCommandResult(MESSAGE_OPENED_STATS, module);
