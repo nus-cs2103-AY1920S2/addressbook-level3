@@ -19,10 +19,12 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
@@ -114,20 +116,19 @@ public class EditTeacherCommand extends EditCommand {
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-    List<Staff> lastShownList = model.getFilteredStaffList();
-
-    if (!ID.isValidId(targetID.toString())) {
-      throw new CommandException(Messages.MESSAGE_INVALID_STAFF_DISPLAYED_ID);
+    if (toEdit == null) {
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_STAFF_DISPLAYED_ID);
+      }
+      if (!model.has(targetID, Constants.ENTITY_TYPE.STAFF)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_STAFF_DISPLAYED_ID);
+      }
+      this.toEdit = (Staff) model.get(targetID, Constants.ENTITY_TYPE.STAFF);
+      this.editedStaff = createEditedTeacher(this.toEdit, this.editTeacherDescriptor);
     }
-
-    Staff teacherToEdit = getStaff(lastShownList);
-    this.toEdit = teacherToEdit;
-    Staff editedTeacher = createEditedTeacher(teacherToEdit, editTeacherDescriptor);
-    this.editedStaff = editedTeacher;
-    if (!teacherToEdit.weakEquals(editedTeacher) && model.has(editedTeacher)) {
+    if (!this.toEdit.weakEquals(this.editedStaff) && model.has(this.editedStaff)) {
       throw new CommandException(MESSAGE_DUPLICATE_STAFF);
     }
-
   }
 
   @Override

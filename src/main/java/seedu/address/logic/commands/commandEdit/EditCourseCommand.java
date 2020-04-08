@@ -15,12 +15,14 @@ import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -96,21 +98,19 @@ public class EditCourseCommand extends EditCommand {
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-    List<Course> lastShownList = model.getFilteredCourseList();
-
-    if (!ID.isValidId(targetID.toString())) {
-      throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_ID);
+    if(toEdit == null) {
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_ID);
+      }
+      if (!model.has(targetID, Constants.ENTITY_TYPE.COURSE)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_COURSE_DISPLAYED_ID);
+      }
+      this.toEdit = (Course) model.get(targetID, Constants.ENTITY_TYPE.COURSE);
+      this.editedCourse = createEditedCourse(toEdit, editCourseDescriptor);
     }
-
-    Course courseToEdit = getCourse(lastShownList);
-    this.toEdit = courseToEdit;
-    Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
-    this.editedCourse = editedCourse;
-    if (!courseToEdit.weakEquals(editedCourse) && model.has(editedCourse)) {
+    if (!toEdit.weakEquals(editedCourse) && model.has(editedCourse)) {
       throw new CommandException(MESSAGE_DUPLICATE_COURSE);
     }
-
-
   }
 
   @Override
@@ -119,16 +119,6 @@ public class EditCourseCommand extends EditCommand {
     model.set(toEdit, editedCourse);
     model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
-  }
-
-  // Find way to abstract this
-  public Course getCourse(List<Course> lastShownList) throws CommandException {
-    for (Course course : lastShownList) {
-      if (course.getId().equals(this.targetID)) {
-        return course;
-      }
-    }
-    throw new CommandException("This course ID does not exist");
   }
 
   @Override
