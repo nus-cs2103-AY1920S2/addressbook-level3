@@ -8,14 +8,14 @@ import com.notably.model.Model;
 /**
  * Represents a parser for the command word "edit".
  */
-public class EditSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
-    public static final String COMMAND_WORD = "edit";
+public class HelpSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
+    public static final String COMMAND_WORD = "help";
 
-    private static final String RESPONSE_MESSAGE = "Edit this note";
+    private static final String RESPONSE_MESSAGE = "Display a list of available commands";
 
     private Model model;
 
-    public EditSuggestionCommandParser(Model model) {
+    public HelpSuggestionCommandParser(Model model) {
         this.model = model;
     }
 

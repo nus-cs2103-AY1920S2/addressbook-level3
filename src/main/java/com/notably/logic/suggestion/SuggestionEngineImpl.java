@@ -14,6 +14,7 @@ import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.EditSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.HelpSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.NewSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
 import com.notably.model.Model;
@@ -90,11 +91,10 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return new NewSuggestionCommandParser(model).parse(arguments);
 
         case EditSuggestionCommandParser.COMMAND_WORD:
-            return Optional.empty();
+            return new EditSuggestionCommandParser(model).parse(arguments);
 
-        case "help":
-            model.setResponseText("Display a list of available commands");
-            return Optional.empty();
+        case HelpSuggestionCommandParser.COMMAND_WORD:
+            return new HelpSuggestionCommandParser(model).parse(arguments);
 
         case "exit":
             model.setResponseText("Exit the application");
