@@ -17,8 +17,11 @@ import com.notably.model.Model;
  * Represents a Parser for New Command.
  */
 public class NewSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
+    public static final String COMMAND_WORD = "new";
+
     private static final String RESPONSE_MESSAGE = "Create a new note";
-    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled ";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled \"%s\".";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE_AND_OPEN = "Create a new note titled \"%s\" and open it.";
 
     private Model model;
 
@@ -46,9 +49,9 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
         if (title.isBlank()) {
             model.setResponseText(RESPONSE_MESSAGE);
         } else if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) { // If user does NOT type "-o"
-            model.setResponseText(RESPONSE_MESSAGE_WITH_TITLE + "\"" + title + "\"");
+            model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_TITLE, title));
         } else {
-            model.setResponseText(RESPONSE_MESSAGE_WITH_TITLE + "\"" + title + "\"" + " and open this note");
+            model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_TITLE_AND_OPEN, title));
         }
 
         return Optional.empty();

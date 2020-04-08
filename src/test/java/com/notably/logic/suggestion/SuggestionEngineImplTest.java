@@ -227,11 +227,12 @@ public class SuggestionEngineImplTest {
 
     @Test
     public void suggest_correctedNewCommand_returnsNewSuggestionCommand() {
+        String responseText = "Create a new note titled \"%s\".";
         String title = "NewNote";
         model.setInput("nw -t " + title);
 
         // Expected result
-        String expectedResponseText = "Create a new note titled \"" + title + "\"";
+        String expectedResponseText = String.format(responseText, title);
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 

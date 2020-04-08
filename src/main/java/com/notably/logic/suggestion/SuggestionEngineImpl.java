@@ -13,6 +13,7 @@ import com.notably.logic.correction.CorrectionResult;
 import com.notably.logic.correction.CorrectionStatus;
 import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
+import com.notably.logic.parser.suggestion.EditSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.NewSuggestionCommandParser;
 import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
 import com.notably.model.Model;
@@ -28,6 +29,9 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit");
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_PATH_FORWARD_MATCHING = true;
+
+    private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
+            + "To see the list of available commands, type: help";
 
     private Model model;
     private CorrectionEngine<String> commandCorrectionEngine;
@@ -45,7 +49,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
     @Override
     public void suggest(String userInput) {
         if (userInput.length() >= 2) {
-            Optional<SuggestionCommand> suggestionCommand = parseCommand(userInput);
+            Optional<? extends SuggestionCommand> suggestionCommand = parseCommand(userInput);
             suggestionCommand.ifPresent(s -> s.execute(model));
         }
     }
@@ -55,19 +59,17 @@ public class SuggestionEngineImpl implements SuggestionEngine {
      * @param userInput The user's input.
      * @return The corresponding SuggestionCommand.
      */
-    private Optional<SuggestionCommand> parseCommand(String userInput) {
+    private Optional<? extends SuggestionCommand> parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            model.setResponseText("\"" + userInput + "\" is an invalid command format. "
-                    + "To see the list of available commands, type: help");
+            model.setResponseText(String.format(ERROR_MESSAGE, userInput));
             return Optional.empty();
         }
 
         String commandWord = matcher.group("commandWord");
         CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            model.setResponseText("\"" + userInput + "\" is an invalid command format. "
-                    + "To see the list of available commands, type: help");
+            model.setResponseText(String.format(ERROR_MESSAGE, userInput));
             return Optional.empty();
         }
         commandWord = correctionResult.getCorrectedItems().get(0);
@@ -75,20 +77,19 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case "open":
+        case OpenSuggestionCommandParser.COMMAND_WORD:
             return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
-        case "delete":
+        case DeleteSuggestionCommandParser.COMMAND_WORD:
             return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         /*case SearchSuggestionCommand.COMMAND_WORD:
             return new SearchSuggestionCommandParser(model).parse(arguments);*/
 
-        case "new":
+        case NewSuggestionCommandParser.COMMAND_WORD:
             return new NewSuggestionCommandParser(model).parse(arguments);
 
-        case "edit":
-            model.setResponseText("Edit this note");
+        case EditSuggestionCommandParser.COMMAND_WORD:
             return Optional.empty();
 
         case "help":
@@ -100,8 +101,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             return Optional.empty();
 
         default:
-            model.setResponseText("\"" + userInput + "\" is an invalid command format. "
-                    + "To see the list of available commands, type: help");
+            model.setResponseText(String.format(ERROR_MESSAGE, userInput));
             return Optional.empty();
         }
     }
