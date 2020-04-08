@@ -1,0 +1,85 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class ReturnCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : ReturnCommand
+    - onlyTransactionIdPresent(ArgumentMultimap argMultimap) : boolean
+    - anyCompulsoryPrefixMissing(ArgumentMultimap argMultimap) : boolean
+    - createReturnOrder(ArgumentMultimap argMultimap) : ReturnOrder
+    - arePrefixesPresent(ArgumentMultimap argMultimap) : boolean
+}
+
+interface Parser<T extends Command> {
+    parse(userInput : String) : ReturnCommand
+}
+
+abstract class Command {
+    {abstract} execute(Model model) : CommandResult
+}
+
+class ReturnCommand extends Command {
+    /' Fields '/
+    - tid : TransactionId
+    - toBeCreated : ReturnOrder
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    - getOrderByTransactionId(Model model) : Order
+}
+
+interface Model <<Interface>> {
+    + deleteOrder(order : Order) : void
+    + hasReturnOrder(returnOrder : ReturnOrder) : boolean
+    + addReturnOrder(returnOrder : ReturnOrder) : void
+    + isDelivered() : boolean
+}
+
+abstract class "{abstract}\nParcel" {
+    + getTid() : TransactionId
+    + getName() : Name
+    + getPhone() : Phone
+    + getEmail() : Email
+    + getAddress() : Address
+    + getTimestamp() : Timestamp
+    + getWarehouse() : Warehouse
+    + getComment() : Comment
+    + getItemType() : TypeOfItem
+    + isDelivered() : boolean
+    + setDeliveryStatus(status : boolean) : void
+}
+
+class ReturnOrder {
+    /' Fields '/
+    - tid : TransactionId
+    - name : Name
+    - phone : Phone
+    - email : Email
+    - address : Address
+    - timestamp : Timestamp
+    - warehouse : Warehouse
+    - comment : Comment
+    - itemType : TypeOfItem
+    - deliveryStatus : boolean
+
+    /' Methods '/
+    + equals(other : Object) : boolean
+    + hashCode() : int
+    + toString() : String
+    + isSameParcel(otherOrder : Parcel) : boolean
+}
+
+class TransactionId {
+    - tid : String
+
+    + isValidTid(test : String) : boolean
+}
+
+ReturnCommandParser ..> ReturnCommand
+ReturnCommand ..> Model
+ReturnCommand ..> TransactionId
+ReturnCommand --> ReturnOrder
+ReturnOrder --left|> "{abstract}\nParcel"
+@enduml

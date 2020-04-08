@@ -93,8 +93,11 @@ public class ReturnCommand extends Command {
      * @throws CommandException
      */
     private Order getOrderByTransactionId(Model model) throws CommandException {
-        List<Order> ordersToBeReturned = model.getOrderBook().getOrderList()
-                .stream().filter(order -> order.getTid().equals(tid)).collect(Collectors.toList());
+        List<Order> ordersToBeReturned = model.getOrderBook()
+                .getOrderList()
+                .stream()
+                .filter(order -> order.getTid().equals(tid))
+                .collect(Collectors.toList());
         if (ordersToBeReturned.isEmpty()) {
             throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
         }
