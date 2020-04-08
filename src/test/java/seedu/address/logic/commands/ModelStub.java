@@ -9,9 +9,9 @@ import seedu.address.commons.core.GuiSettings;
 
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
-import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.day.Day;
@@ -89,7 +89,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ReadOnlyScheduler getScheduler() {
+    public ReadOnlyAssignmentSchedule getAssignmentSchedule() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -154,7 +154,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setScheduler(ReadOnlyScheduler scheduler) {
+    public void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule) {
         throw new AssertionError("This method should not be called.");
     }
 

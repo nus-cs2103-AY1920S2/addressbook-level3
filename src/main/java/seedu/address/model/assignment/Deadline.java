@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an Assignment's Deadline in the Schoolwork Tracker.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)} and {@link #isValidTime(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
 public class Deadline {
     public static final String MESSAGE_CONSTRAINTS =
@@ -26,8 +26,7 @@ public class Deadline {
     /**
      * Constructs a {@code Deadline}
      *
-     * @param date The due date of the assignment.
-     * @param time The time by which the assignment needs to be submitted on the due date.
+     * @param deadline The deadline of the assignment.
      */
     public Deadline(String deadline) {
         requireAllNonNull(deadline);

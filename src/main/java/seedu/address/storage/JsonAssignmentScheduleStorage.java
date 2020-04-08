@@ -12,17 +12,17 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.ReadOnlyAssignmentSchedule;
 
 /**
- * A class to access Scheduler data stored on a JSON file on the hard disk.
+ * A class to access AssignmentSchedule data stored on a JSON file on the hard disk.
  */
-public class JsonSchedulerStorage implements SchedulerStorage {
-    private static final Logger logger = LogsCenter.getLogger(JsonSchedulerStorage.class);
+public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage {
+    private static final Logger logger = LogsCenter.getLogger(JsonAssignmentScheduleStorage.class);
 
     private Path filePath;
 
-    public JsonSchedulerStorage(Path filePath) {
+    public JsonAssignmentScheduleStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -31,7 +31,7 @@ public class JsonSchedulerStorage implements SchedulerStorage {
     }
 
     @Override
-    public Optional<ReadOnlyScheduler> readScheduler() throws DataConversionException {
+    public Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException {
         return readScheduler(filePath);
     }
 
@@ -41,11 +41,11 @@ public class JsonSchedulerStorage implements SchedulerStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyScheduler> readScheduler(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableScheduler> jsonScheduler = JsonUtil.readJsonFile(
-                filePath, JsonSerializableScheduler.class);
+        Optional<JsonSerializableAssignmentSchedule> jsonScheduler = JsonUtil.readJsonFile(
+                filePath, JsonSerializableAssignmentSchedule.class);
         if (!jsonScheduler.isPresent()) {
             return Optional.empty();
         }
@@ -60,21 +60,21 @@ public class JsonSchedulerStorage implements SchedulerStorage {
     }
 
     @Override
-    public void saveScheduler(ReadOnlyScheduler scheduler) throws IOException {
+    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException {
         saveScheduler(scheduler, filePath);
     }
 
     /**
-     * Similar to {@link #saveScheduler(ReadOnlyScheduler)}.
+     * Similar to {@link #saveScheduler(ReadOnlyAssignmentSchedule)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveScheduler(ReadOnlyScheduler scheduler, Path filePath) throws IOException {
+    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
         requireNonNull(scheduler);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableScheduler(scheduler), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAssignmentSchedule(scheduler), filePath);
     }
 
 }

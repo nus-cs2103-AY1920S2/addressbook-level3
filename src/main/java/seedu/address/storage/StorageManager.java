@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
-import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -22,20 +22,20 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private RestaurantBookStorage restaurantBookStorage;
-    private SchedulerStorage schedulerStorage;
+    private AssignmentScheduleStorage assignmentScheduleStorage;
     private EventScheduleStorage eventScheduleStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage,
                           RestaurantBookStorage restaurantBookStorage,
-                          SchedulerStorage schedulerStorage,
+                          AssignmentScheduleStorage assignmentScheduleStorage,
                           EventScheduleStorage eventScheduleStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.restaurantBookStorage = restaurantBookStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.schedulerStorage = schedulerStorage;
+        this.assignmentScheduleStorage = assignmentScheduleStorage;
         this.eventScheduleStorage = eventScheduleStorage;
     }
 
@@ -116,36 +116,37 @@ public class StorageManager implements Storage {
         restaurantBookStorage.saveRestaurantBook(restaurantBook, filePath);
     }
 
-    // ============== Scheduler methods =======================================
+    // ============== AssignmentSchedule methods =======================================
 
     @Override
     public Path getSchedulerFilePath() {
-        return schedulerStorage.getSchedulerFilePath();
+        return assignmentScheduleStorage.getSchedulerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyScheduler> readScheduler() throws DataConversionException, IOException {
-        return readScheduler(schedulerStorage.getSchedulerFilePath());
+    public Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException, IOException {
+        return readScheduler(assignmentScheduleStorage.getSchedulerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyScheduler> readScheduler(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException,
+        IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return schedulerStorage.readScheduler(filePath);
+        return assignmentScheduleStorage.readScheduler(filePath);
     }
 
     @Override
-    public void saveScheduler(ReadOnlyScheduler scheduler) throws IOException {
-        saveScheduler(scheduler, schedulerStorage.getSchedulerFilePath());
+    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException {
+        saveScheduler(scheduler, assignmentScheduleStorage.getSchedulerFilePath());
     }
 
     @Override
-    public void saveScheduler(ReadOnlyScheduler scheduler, Path filePath) throws IOException {
+    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        schedulerStorage.saveScheduler(scheduler, filePath);
+        assignmentScheduleStorage.saveScheduler(scheduler, filePath);
     }
 
-    // ============== Event Scheduler methods =================================
+    // ============== Event AssignmentSchedule methods =================================
 
     @Override
     public Path getEventScheduleFilePath() {

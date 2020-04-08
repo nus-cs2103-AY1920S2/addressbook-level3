@@ -166,12 +166,12 @@ public interface Model {
     //=================  Schoolwork Tracker ==========================================================
 
     /**
-     * Replaces scheduler data with the data in {@code scheduler}.
+     * Replaces assignmentSchedule data with the data in {@code assignmentSchedule}.
      */
-    void setScheduler(ReadOnlyScheduler scheduler);
+    void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule);
 
-    /** Returns the Scheduler */
-    ReadOnlyScheduler getScheduler();
+    /** Returns the AssignmentSchedule */
+    ReadOnlyAssignmentSchedule getAssignmentSchedule();
 
     /**
      * Adds the given assignment.

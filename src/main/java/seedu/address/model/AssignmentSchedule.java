@@ -13,7 +13,7 @@ import seedu.address.model.day.Day;
  * Wraps all data at the scheduler level.
  * Duplicates are not allowed (by .isSameAssignment comparison)
  */
-public class Scheduler implements ReadOnlyScheduler {
+public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
     private final AssignmentList assignments;
 
     /*
@@ -27,12 +27,12 @@ public class Scheduler implements ReadOnlyScheduler {
         assignments = new AssignmentList();
 
     }
-    public Scheduler() {}
+    public AssignmentSchedule() {}
 
     /**
      * Creates an AssignmentList using the Assignments in the {@code toBeCopied}
      */
-    public Scheduler(ReadOnlyScheduler toBeCopied) {
+    public AssignmentSchedule(ReadOnlyAssignmentSchedule toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,7 +48,7 @@ public class Scheduler implements ReadOnlyScheduler {
     /**
      * Resets the existing data of this {@code AssignmentList} with {@code newData}.
      */
-    public void resetData(ReadOnlyScheduler newData) {
+    public void resetData(ReadOnlyAssignmentSchedule newData) {
         requireNonNull(newData);
         setAssignments(newData.getAssignmentsList());
     }
@@ -82,7 +82,7 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Removes {@code key} from this {@code Scheduler}.
+     * Removes {@code key} from this {@code AssignmentSchedule}.
      * {@code key} must exist in the scheduler.
      */
     public void removeAssignment(Assignment key) {
@@ -97,8 +97,8 @@ public class Scheduler implements ReadOnlyScheduler {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Scheduler // instanceof handles nulls
-                && assignments.equals(((Scheduler) other).assignments));
+                || (other instanceof AssignmentSchedule // instanceof handles nulls
+                && assignments.equals(((AssignmentSchedule) other).assignments));
     }
 
     @Override
