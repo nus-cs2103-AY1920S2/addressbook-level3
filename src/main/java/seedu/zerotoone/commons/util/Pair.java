@@ -1,5 +1,10 @@
 package seedu.zerotoone.commons.util;
 
+/**
+ * A class created to store a Pair of values.
+ * @param <T> The type of the first value.
+ * @param <U> The type of the second value.
+ */
 public class Pair<T, U> {
     private T firstObject;
     private U secondObject;

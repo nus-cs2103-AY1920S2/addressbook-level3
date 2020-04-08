@@ -107,6 +107,9 @@ public class SampleExerciseDataUtil {
         return sampleExerciseList;
     }
 
+    /**
+     * A convenience class to easily navigate within the array returned by getSampleExercises()
+     */
     class SampleExerciseIndex {
         static final int BENCH_PRESS = 0;
         static final int OVERHEAD_PRESS = 1;

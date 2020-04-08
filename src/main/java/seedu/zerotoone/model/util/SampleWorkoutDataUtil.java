@@ -52,6 +52,9 @@ public class SampleWorkoutDataUtil {
         return sampleWorkoutList;
     }
 
+    /**
+     * A convenience class to easily navigate within the array returned by getSampleWorkouts()
+     */
     class SampleWorkoutIndex {
         static final int PUSH_DAY = 0;
         static final int PULL_DAY = 1;

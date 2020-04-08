@@ -50,7 +50,7 @@ public class ParserManager {
         Pair<String, String> separatedInput = separateCommandAndArguments(input);
         String commandWord = separatedInput.getFirstObject();
         String arguments = separatedInput.getSecondObject();
-        
+
         switch (commandWord) {
         case StartCommand.COMMAND_WORD:
             return new StartCommandParser().parse(arguments);
@@ -113,6 +113,13 @@ public class ParserManager {
         }
     }
 
+    /**
+     * A convenience method that separates the command and arguments of an input.
+     * @param input The user input.
+     * @return A pair contaning the command word and arguments.
+     * @throws ParseException If the input does not match the stipulated
+     * command format.
+     */
     private Pair<String, String> separateCommandAndArguments(String input) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {

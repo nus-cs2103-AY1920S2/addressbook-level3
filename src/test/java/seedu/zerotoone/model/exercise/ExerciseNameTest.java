@@ -28,7 +28,8 @@ public class ExerciseNameTest {
         assertFalse(ExerciseName.isValidExerciseName(" ")); // spaces only
         assertFalse(ExerciseName.isValidExerciseName("^")); // only non-alphanumeric characters
         assertFalse(ExerciseName.isValidExerciseName("deadlift*")); // contains non-alphanumeric characters
-        assertFalse(ExerciseName.isValidExerciseName("2 directional elbow circles")); // starts with non [a-zA-Z] characters
+        assertFalse(ExerciseName.isValidExerciseName("2 directional"
+                + "elbow circles")); // starts with non [a-zA-Z] characters
 
         // valid Exercise Name
         assertTrue(ExerciseName.isValidExerciseName("jumping jacks")); // alphabets only

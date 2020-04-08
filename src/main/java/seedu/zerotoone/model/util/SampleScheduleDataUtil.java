@@ -37,6 +37,9 @@ public class SampleScheduleDataUtil {
         return sampleScheduleList;
     }
 
+    /**
+     * A convenience class to easily navigate within the array returned by getSampleSchedules()
+     */
     class SampleScheduleIndex {
         static final int PUSH_DAY = 0;
         static final int PULL_DAY = 1;

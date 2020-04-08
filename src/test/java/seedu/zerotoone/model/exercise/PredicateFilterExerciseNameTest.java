@@ -47,7 +47,7 @@ public class PredicateFilterExerciseNameTest {
         // Mixed-case substrings
         predicate = new PredicateFilterExerciseName("bEnCh");
         assertTrue(predicate.test(new ExerciseBuilder().withExerciseName("Bench Press").build()));
-   
+
         // Partial substring
         predicate = new PredicateFilterExerciseName("ben");
         assertTrue(predicate.test(new ExerciseBuilder().withExerciseName("Bench Press").build()));
