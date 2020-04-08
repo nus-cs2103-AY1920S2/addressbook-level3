@@ -155,6 +155,25 @@ public class SavedCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        } else if (o instanceof SavedCommand) {
+            SavedCommand sc = (SavedCommand) o;
+            if (this.hasDate && sc.hasDate) {
+                assert this.startDate != null;
+                assert this.endDate != null;
+
+                return this.startDate.equals(sc.startDate) && this.endDate.equals(sc.endDate);
+            } else {
+                return !this.hasDate && !sc.hasDate;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Based on the start date and end date of this
      * SavedCommand, create a String that describes the
