@@ -1,6 +1,9 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_STUDENT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
 import static tatracker.logic.parser.Prefixes.MODULE;
@@ -33,13 +36,7 @@ public class DeleteStudentCommand extends Command {
             MATRIC, MODULE, GROUP
     );
 
-    public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_FORMAT =
-            "There is no module with the given module code: %s";
-    public static final String MESSAGE_INVALID_GROUP_FORMAT =
-            "There is no group in the module (%s) with the given group code: %s";
-    public static final String MESSAGE_INVALID_STUDENT_FORMAT =
-            "There is no student in the (%s) group (%s) with the given matric number: %s";
+    public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted student: %s (%s)\nIn %s [%s]";
 
     private final Matric toDelete;
     private final String targetGroup;
@@ -59,13 +56,11 @@ public class DeleteStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule));
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
         if (!model.hasGroup(targetGroup, targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT,
-                    targetModule,
-                    targetGroup));
+            throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
         Module actualModule = model.getModule(targetModule);
@@ -74,10 +69,7 @@ public class DeleteStudentCommand extends Command {
         Student studentToDelete = actualGroup.getStudent(toDelete);
 
         if (studentToDelete == null) {
-            throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT,
-                    targetModule,
-                    targetGroup,
-                    toDelete));
+            throw new CommandException(MESSAGE_INVALID_STUDENT);
         }
 
         model.deleteStudent(studentToDelete, targetGroup, targetModule);
@@ -85,7 +77,7 @@ public class DeleteStudentCommand extends Command {
         model.updateFilteredGroupList(targetModule);
         model.updateFilteredStudentList(targetGroup, targetModule);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete), Action.GOTO_STUDENT);
+        return new CommandResult(getSuccessMessage(studentToDelete), Action.GOTO_STUDENT);
     }
 
     @Override
@@ -102,5 +94,13 @@ public class DeleteStudentCommand extends Command {
         return toDelete.equals(otherCommand.toDelete)
                 && targetGroup.equals(otherCommand.targetGroup)
                 && targetModule.equals(otherCommand.targetModule);
+    }
+
+    private String getSuccessMessage(Student student) {
+        return String.format(MESSAGE_DELETE_STUDENT_SUCCESS,
+                student.getName(),
+                student.getMatric(),
+                targetModule,
+                targetGroup);
     }
 }

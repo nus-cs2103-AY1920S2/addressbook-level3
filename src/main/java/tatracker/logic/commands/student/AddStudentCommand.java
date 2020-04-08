@@ -1,6 +1,9 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_STUDENT;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -35,11 +38,7 @@ public class AddStudentCommand extends Command {
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
     );
 
-    public static final String MESSAGE_SUCCESS = "New student added: %s\n To Module: %s\n To Group: %s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";
-    public static final String MESSAGE_INVALID_MODULE_FORMAT = "There is no module with the given module code: %s";
-    public static final String MESSAGE_INVALID_GROUP_FORMAT =
-            "There is no group in the module (%s) with the given group code: %s";
+    public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %s (%s)\nIn %s [%s]";
 
     private final Student toAdd;
 
@@ -63,13 +62,11 @@ public class AddStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, targetModule));
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
         if (!model.hasGroup(targetGroup, targetModule)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT,
-                            targetModule,
-                            targetGroup));
+            throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
         if (model.hasStudent(toAdd.getMatric(), targetGroup, targetModule)) {
@@ -81,7 +78,7 @@ public class AddStudentCommand extends Command {
         model.updateFilteredGroupList(targetModule);
         model.updateFilteredStudentList(targetGroup, targetModule);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, targetModule, targetGroup), Action.GOTO_STUDENT);
+        return new CommandResult(getSuccessMessage(toAdd), Action.GOTO_STUDENT);
     }
 
     @Override
@@ -98,5 +95,13 @@ public class AddStudentCommand extends Command {
         return toAdd.equals(otherCommand.toAdd)
                 && targetGroup.equals(otherCommand.targetGroup)
                 && targetModule.equals(otherCommand.targetModule);
+    }
+
+    private String getSuccessMessage(Student student) {
+        return String.format(MESSAGE_ADD_STUDENT_SUCCESS,
+                student.getName(),
+                student.getMatric(),
+                targetModule,
+                targetGroup);
     }
 }

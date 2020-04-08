@@ -1,6 +1,9 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_STUDENT;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -46,14 +49,7 @@ public class EditStudentCommand extends Command {
             MATRIC, MODULE, GROUP, NAME, PHONE, EMAIL, RATING, TAG
     );
 
-    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %s\nIn Module: %s\nIn Group: %s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_INVALID_MODULE_FORMAT = "There is no module with the given module code: %s";
-    public static final String MESSAGE_INVALID_GROUP_FORMAT = "There is no group in the module %s"
-            + " with the given group code: %s";
-    public static final String MESSAGE_INVALID_STUDENT_FORMAT = "There is no student with the given matric number: %s"
-            + " inside the module group %s [%s].";
-
+    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited student: %s (%s)\nIn %s [%s]";
 
     private final Matric matric;
     private final String moduleCode;
@@ -87,27 +83,26 @@ public class EditStudentCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(moduleCode)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_FORMAT, moduleCode));
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
         if (!model.hasGroup(groupCode, moduleCode)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_GROUP_FORMAT, moduleCode, groupCode));
+            throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
         if (!model.hasStudent(matric, groupCode, moduleCode)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_STUDENT_FORMAT, matric, moduleCode, groupCode));
+            throw new CommandException(MESSAGE_INVALID_STUDENT);
         }
 
         Student studentToEdit = model.getStudent(matric, groupCode, moduleCode);
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         model.setStudent(studentToEdit, editedStudent, groupCode, moduleCode);
-        String feedback = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent, groupCode, moduleCode);
 
         model.updateFilteredGroupList(moduleCode);
         model.updateFilteredStudentList(groupCode, moduleCode);
 
-        return new CommandResult(feedback, Action.GOTO_STUDENT);
+        return new CommandResult(getSuccessMessage(editedStudent), Action.GOTO_STUDENT);
     }
 
     /**
@@ -146,6 +141,14 @@ public class EditStudentCommand extends Command {
                 && groupCode.equals(otherCommand.groupCode)
                 && moduleCode.equals(otherCommand.moduleCode)
                 && editStudentDescriptor.equals(otherCommand.editStudentDescriptor);
+    }
+
+    private String getSuccessMessage(Student student) {
+        return String.format(MESSAGE_EDIT_STUDENT_SUCCESS,
+                student.getName(),
+                student.getMatric(),
+                moduleCode,
+                groupCode);
     }
 
     /**

@@ -1,7 +1,8 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENTS;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
@@ -31,11 +32,11 @@ public class FilterStudentViewCommand extends Command {
             GROUP, MODULE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered Student List: %1$s ";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "Invalid Module Code. "
-                        + "There are no students in the module code.";
-    public static final String MESSAGE_INVALID_GROUP_CODE = "Invalid Group Code. "
-                        + "There are no students in the group code.";
+    public static final String MESSAGE_FILTERED_STUDENTS_SUCCESS = "Filtered Student List: %1$s ";
+    public static final String MESSAGE_NO_STUDENTS_IN_MODULE = "There are no students in the module"
+            + " with the given module code.";
+    public static final String MESSAGE_NO_STUDENTS_IN_GROUP = "There are no students in the module group"
+            + " with the given group code.";
 
     public static final int FIRST_GROUP_INDEX = 0;
 
@@ -91,7 +92,8 @@ public class FilterStudentViewCommand extends Command {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode + " " + groupCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_STUDENTS_SUCCESS, moduleCode + " " + groupCode),
+                Action.FILTER_STUDENT);
     }
 
     /**
@@ -109,13 +111,13 @@ public class FilterStudentViewCommand extends Command {
             model.updateFilteredGroupList(moduleCode);
             if (model.getFilteredGroupList().isEmpty()) {
                 model.setFilteredStudentList();
-                throw new CommandException(MESSAGE_INVALID_STUDENTS);
+                throw new CommandException(MESSAGE_NO_STUDENTS_IN_MODULE);
             } else {
                 model.setCurrStudentFilter("Module Code: " + moduleCode);
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_STUDENTS_SUCCESS, moduleCode), Action.FILTER_STUDENT);
     }
 
     /**

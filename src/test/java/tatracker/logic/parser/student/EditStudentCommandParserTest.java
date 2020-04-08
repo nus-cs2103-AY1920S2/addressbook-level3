@@ -1,5 +1,6 @@
 package tatracker.logic.parser.student;
 
+import static tatracker.logic.commands.CommandMessages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_L08;
@@ -74,8 +75,7 @@ public class EditStudentCommandParserTest {
 
         // no field specified
         assertParseFailure(parser,
-                GROUP_DESC_T04 + MODULE_DESC_CS2030 + MATRIC_DESC_AMY,
-                EditStudentCommand.MESSAGE_NOT_EDITED);
+                GROUP_DESC_T04 + MODULE_DESC_CS2030 + MATRIC_DESC_AMY, MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);

@@ -1,6 +1,7 @@
 package tatracker.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -75,7 +76,7 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
         // ==== Build Student  ====
 
         if (!editStudentDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditStudentCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new EditStudentCommand(matric, moduleCode, groupCode, editStudentDescriptor);
