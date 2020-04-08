@@ -1,4 +1,4 @@
-package fithelper.logic.parser;
+package fithelper.logic.parser.weight;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
@@ -7,7 +7,12 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import fithelper.logic.commands.AddWeightCommand;
+import fithelper.logic.commands.weight.AddWeightCommand;
+import fithelper.logic.parser.ArgumentMultimap;
+import fithelper.logic.parser.ArgumentTokenizer;
+import fithelper.logic.parser.Parser;
+import fithelper.logic.parser.ParserUtil;
+import fithelper.logic.parser.Prefix;
 import fithelper.logic.parser.exceptions.ParseException;
 
 import fithelper.model.weight.Date;

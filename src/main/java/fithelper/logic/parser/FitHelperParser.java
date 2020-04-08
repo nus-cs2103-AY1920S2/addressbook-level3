@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fithelper.logic.commands.AddCommand;
-import fithelper.logic.commands.AddWeightCommand;
 import fithelper.logic.commands.CalendarCommand;
 import fithelper.logic.commands.CheckCommand;
 import fithelper.logic.commands.ClearCommand;
@@ -27,7 +26,6 @@ import fithelper.logic.commands.SortCommand;
 import fithelper.logic.commands.TodayCommand;
 import fithelper.logic.commands.UndoCommand;
 import fithelper.logic.commands.UpdateCommand;
-import fithelper.logic.commands.WeightCommand;
 
 import fithelper.logic.commands.diary.AddDiaryCommand;
 import fithelper.logic.commands.diary.AppendDiaryCommand;
@@ -45,6 +43,11 @@ import fithelper.logic.parser.diary.FindDiaryCommandParser;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.logic.parser.revoke.RedoCommandParser;
 import fithelper.logic.parser.revoke.UndoCommandParser;
+
+import fithelper.logic.commands.weight.AddWeightCommand;
+import fithelper.logic.commands.weight.ClearWeightCommand;
+import fithelper.logic.commands.weight.WeightCommand;
+import fithelper.logic.parser.weight.AddWeightCommandParser;
 
 /**
  * Parses user input.
@@ -101,6 +104,9 @@ public class FitHelperParser {
 
         case ClearDiaryCommand.COMMAND_WORD:
             return new ClearDiaryCommandParser().parse(arguments);
+
+        case ClearWeightCommand.COMMAND_WORD:
+            return new ClearWeightCommand();
 
         case CheckCommand.COMMAND_WORD:
             return new CheckCommandParser().parse(arguments);

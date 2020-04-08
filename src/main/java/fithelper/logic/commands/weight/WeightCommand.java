@@ -1,8 +1,10 @@
-package fithelper.logic.commands;
+package fithelper.logic.commands.weight;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.WEIGHT;
 import static java.util.Objects.requireNonNull;
 
+import fithelper.logic.commands.Command;
+import fithelper.logic.commands.CommandResult;
 import fithelper.model.Model;
 
 /**
