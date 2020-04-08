@@ -8,20 +8,19 @@ import com.notably.model.Model;
 /**
  * Represents a parser for the command word "edit".
  */
-public class HelpSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
-    public static final String COMMAND_WORD = "help";
-
-    private static final String RESPONSE_MESSAGE = "Display a list of available commands";
+public class ErrorSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
+    private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
+            + "To see the list of available commands, type: help";
 
     private Model model;
 
-    public HelpSuggestionCommandParser(Model model) {
+    public ErrorSuggestionCommandParser(Model model) {
         this.model = model;
     }
 
     @Override
     public Optional<SuggestionCommand> parse(String userInput) {
-        model.setResponseText(RESPONSE_MESSAGE);
+        model.setResponseText(String.format(ERROR_MESSAGE, userInput));
         return Optional.empty();
     }
 }
