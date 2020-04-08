@@ -80,4 +80,20 @@ public class SortModuleCommand extends SortCommand {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, module), Action.GOTO_STUDENT);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+
+        if (!(other instanceof SortModuleCommand)) {
+            return false; // instanceof handles nulls
+        }
+
+        SortModuleCommand otherCommand = (SortModuleCommand) other;
+        return moduleCode.equals(otherCommand.moduleCode)
+                && type.equals(otherCommand.type);
+    }
+
 }

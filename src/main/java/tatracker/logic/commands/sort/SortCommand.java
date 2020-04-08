@@ -60,4 +60,19 @@ public class SortCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS, Action.GOTO_STUDENT);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+
+        if (!(other instanceof SortCommand)) {
+            return false; // instanceof handles nulls
+        }
+
+        SortCommand otherCommand = (SortCommand) other;
+        return type.equals(otherCommand.type);
+    }
+
 }
