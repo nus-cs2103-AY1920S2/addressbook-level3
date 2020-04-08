@@ -111,6 +111,7 @@ public class MainApp extends Application {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
                 logger.info("Data file for recipes not found. Will be starting with a sample RecipeBook");
+                initialPlannedData = new PlannedBook();
             }
             initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
 
@@ -119,10 +120,12 @@ public class MainApp extends Application {
                     + " and PlannedBook");
             initialData = new RecipeBook();
             initialPlannedData = new PlannedBook();
+
         } catch (IOException e) {
             logger.warning("Problem while reading from the file for recipes. "
                     + "Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
+            initialPlannedData = new PlannedBook();
         }
 
         try {
