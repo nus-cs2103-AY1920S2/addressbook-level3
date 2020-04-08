@@ -1,6 +1,5 @@
 package nasa.model.activity;
 
-import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,84 +8,156 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Deadline extends Activity {
-
-    public static final String DUE_DATE_CONSTRAINTS =
-            "Deadline should be after date of creation.";
+    public static final String DATE_CONSTRAINTS =
+        "Deadline has already passed.";
 
     private Date dueDate;
+    private Priority priority;
 
+    private boolean isDone;
+    private boolean isOverdue;
+
+    /**
+     * Constructor to create a new deadline.
+     * @param name Name of deadline
+     * @param dueDate date the deadline is due
+     */
     public Deadline(Name name, Date dueDate) {
         super(name);
-        requireNonNull(dueDate);
-        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
+        requireAllNonNull(dueDate);
+        checkArgument(isValidDeadline(dueDate), DATE_CONSTRAINTS);
         this.dueDate = dueDate;
-    }
-
-    public Deadline(Name name, Date dueDate, Note note) {
-        super(name, note);
-        requireNonNull(dueDate);
-        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
-        this.dueDate = dueDate;
-    }
-
-    public Deadline(Name name, Note note, Priority priority, Date dueDate) {
-        super(name, note, priority);
-        requireAllNonNull(name, dueDate);
-        this.dueDate = dueDate;
+        priority = new Priority();
+        isDone = false;
+        isOverdue = isOverdue();
     }
 
     /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
+     * @param name Name
+     * @param date Date
+     * @param note Note
+     * @param priority Priority
+     * @param dueDate Date
      */
-    public Deadline(Name name, Date date, Note note, Status status, Priority priority, Date dueDate) {
-        super(name, date, note, status, priority);
+    public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate) {
+        super(name, date, note);
+        requireAllNonNull(priority, dueDate);
+        this.priority = priority;
         this.dueDate = dueDate;
     }
 
+    /**
+     * Method to return due date of the deadline.
+     * @return dueDate
+     */
     public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date date) {
-        this.dueDate = date;
-        this.updateStatus();
-    }
-
+    /**
+     * Return the difference in due date and date of creation.
+     * @return int
+     */
     public int getDifferenceInDay() {
-        return (int) getDate().getDifference(dueDate)[0];
+        return dueDate.getDifference(getDateCreated());
     }
 
     /**
-     * Get days remaining for the task.
+     * Method to set the dueDate.
      */
-    public int getDaysRemaining() {
-        return (int) this.dueDate.getDifference(Date.now())[0];
+    public void setDueDate(Date dueDate) {
+        requireAllNonNull(dueDate);
+        this.dueDate = dueDate;
     }
 
-    @Override
-    public void updateStatus() {
-        if (status == Status.ONGOING && Date.now().isAfter(getDueDate())) {
-            status = Status.LATE;
+    /**
+     * Method to get the priority.
+     * @return
+     */
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
+     * Method to set the priority.
+     * @param priority
+     */
+    public void setPriority(Priority priority) {
+        requireAllNonNull(priority);
+        this.priority = priority;
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void unmarkAsDone() {
+        isDone = false;
+        if (isOverdue()) {
+            isOverdue = true;
+        } else {
+            isOverdue = false;
         }
     }
 
-    public static boolean isExpiredDueDate(Date date) {
-        return date.isAfter(Date.now());
-    }
-
-    @Override
-    public Deadline regenerate() {
-        if (super.getSchedule().update()) {
-            setDueDate(getSchedule().getDate().addDaysToCurrDate(getDifferenceInDay()));
-            setStatus(Status.ONGOING);
-        }
-        return this;
+    private boolean isOverdue() {
+        return !isDone && Date.now().isAfter(dueDate);
     }
 
     @Override
     public boolean occurInMonth(int month) {
-        int dueDateMonth = dueDate.getDate().getMonth().getValue();
+        int dueDateMonth = this.dueDate.getDate().getMonth().getValue();
         return month == dueDateMonth;
     }
+
+    @Override
+    public Activity deepCopy() {
+        Deadline copy = new Deadline(getName(), getDueDate());
+        copy.setDateCreated(getDateCreated());
+        copy.setPriority(priority);
+        copy.setNote(getNote());
+        if (isDone) {
+            copy.markAsDone();
+        }
+        return copy;
+    }
+
+    @Override
+    public Deadline regenerate() {
+        getSchedule().update();
+        if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
+            setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
+            setDateCreated(getSchedule().getRepeatDate());
+        }
+        return this;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    public boolean isValidDeadline(Date dueDate) {
+        return !(dueDate.isBefore(Date.now()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) other;
+        return deadline.dueDate.equals(((Deadline) other).dueDate)
+            && deadline.priority.equals(((Deadline) other).priority)
+            && deadline.isDone == ((Deadline) other).isDone
+            && deadline.isOverdue == ((Deadline) other).isOverdue
+            && deadline.getName().equals(((Deadline) other).getName());
+    }
+
 }

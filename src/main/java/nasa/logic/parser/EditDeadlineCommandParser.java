@@ -11,21 +11,22 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import java.util.NoSuchElementException;
 
 import nasa.commons.core.index.Index;
-import nasa.logic.commands.EditActivityCommand;
+import nasa.logic.commands.EditDeadlineCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
 /**
- * Parses input arguments and creates a new EditActivityCommand object
+ * Parses input arguments and creates a new EditDeadlineCommand object
+ * Format: edit-d INDEX 
  */
-public class EditActivityCommandParser implements Parser<EditActivityCommand> {
+public class EditDeadlineCommandParser implements Parser<EditDeadlineCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditActivityCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditDeadlineCommand
+     * and returns an EditDeadlineCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditActivityCommand parse(String args) throws ParseException {
+    public EditDeadlineCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_NOTE, PREFIX_PRIORITY,
@@ -38,33 +39,34 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
             moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDeadlineCommand.MESSAGE_USAGE),
                     pe);
         } catch (NoSuchElementException ne) { // case when no module code is provided
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDeadlineCommand.MESSAGE_USAGE),
                     ne);
         }
 
-        EditActivityCommand.EditActivityDescriptor editActivityDescriptor =
-                new EditActivityCommand.EditActivityDescriptor();
+        EditDeadlineCommand.EditDeadlineDescriptor editDeadlineDescriptor =
+                new EditDeadlineCommand.EditDeadlineDescriptor();
+
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editActivityDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+            editDeadlineDescriptor.setDueDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_ACTIVITY_NAME).isPresent()) {
-            editActivityDescriptor.setName(ParserUtil.parseActivityName(
+            editDeadlineDescriptor.setName(ParserUtil.parseActivityName(
                     argMultimap.getValue(PREFIX_ACTIVITY_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
-            editActivityDescriptor.setNote(ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));
+            editDeadlineDescriptor.setNote(ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));
         }
         if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
-            editActivityDescriptor.setPriority(ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get()));
+            editDeadlineDescriptor.setPriority(ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get()));
         }
 
-        if (!editActivityDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditActivityCommand.MESSAGE_NOT_EDITED);
+        if (!editDeadlineDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditDeadlineCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditActivityCommand(index, moduleCode, editActivityDescriptor);
+        return new EditDeadlineCommand(index, moduleCode, editDeadlineDescriptor);
     }
 }

@@ -17,21 +17,35 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should show statistics. */
+    private final boolean statistics;
+
+    /**
+     * The application should show quote.
+     */
+    private boolean quote;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
+     * @param feedbackToUser String
+     * @param showHelp boolean
+     * @param exit boolean
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistics) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.statistics = statistics;
+        this.quote = false;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
+     * @param feedbackToUser String
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -45,6 +59,22 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
+
+    public boolean isStatistics() {
+        return statistics;
+    }
+
+    public boolean isQuote() {
+        return quote;
+    }
+
+    /**
+     * Make quote property true.
+     */
+    public void setQuote() {
+        this.quote = true;
+    }
+    
 
     @Override
     public boolean equals(Object other) {

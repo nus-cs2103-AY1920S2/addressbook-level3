@@ -2,16 +2,15 @@ package nasa.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
-
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
 import nasa.model.module.SortMethod;
 import nasa.model.module.UniqueModuleList;
 
@@ -27,169 +26,124 @@ public interface Model {
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
+     * @param userPrefs ReadOnlyUserPrefs
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs.
+     * @return ReadOnlyUserPrefs
      */
     ReadOnlyUserPrefs getUserPrefs();
 
     /**
      * Returns the user prefs' GUI settings.
+     * @return GuiSettings
      */
     GuiSettings getGuiSettings();
 
     /**
      * Sets the user prefs' GUI settings.
+     * @param guiSettings GuiSettings
      */
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
      * Returns the user prefs' address book file path.
+     * @return Path
      */
     Path getNasaBookFilePath();
 
     /**
      * Sets the user prefs' address book file path.
+     * @param nasaBookFilePath Path
      */
     void setNasaBookFilePath(Path nasaBookFilePath);
 
     /**
      * Replaces address book data with the data in {@code nasaBook}.
+     * @param nasaBook ReadOnlyNasaBook
      */
     void setNasaBook(ReadOnlyNasaBook nasaBook);
 
-    /** Returns the NasaBook */
+    /** Returns the NasaBook
+     * @return ReadOnlyNasaBook
+     */
     ReadOnlyNasaBook getNasaBook();
 
-    /** Returns the HistoryBook */
+    /** Returns the HistoryBook
+     * @return ReadOnlyHistory
+     */
     ReadOnlyHistory getHistoryBook();
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
-     */
-    boolean hasModule(Module module);
-
-    /**
-     * Returns true if a module with the same identity as {@code module} exists in the address book.
+     * @param moduleCode ModuleCode
+     * @return boolean
      */
     boolean hasModule(ModuleCode moduleCode);
 
     /**
-     * Deletes the given module.
-     * The module must exist in the nasa book.
+     * Getter method for existing module in model's {@code UniqueModuleList} by moduleCode
+     * @param moduleCode ModuleCode
+     * @return module with module code {@code moduleCode}
      */
-    void deleteModule(Module target);
+    Module getModule(ModuleCode moduleCode);
 
     /**
      * Deletes the given module.
      * The module must exist in the nasa book.
+     * @param target ModuleCode
      */
     void deleteModule(ModuleCode target);
 
     /**
      * Adds the given module.
      * {@code module} must not already exist in the nasa book.
+     * @param module Module
      */
     void addModule(Module module);
 
     /**
-     * Adds the given module.
-     * {@code module} must not already exist in the nasa book.
-     */
-    void addModule(ModuleCode moduleCode, ModuleName moduleName);
-
-    /**
      * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the nasa book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
-     */
-    void setModule(Module target, Module editedModule);
-
-    /**
-     * Replaces the given module {@code target} with {@code editedModule}.
-     * {@code target} must exist in the nasa book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
+     * @param target Module code of the module that exists in model's nasaBook
+     * @param editedModule newly edited Module
      */
     void setModule(ModuleCode target, Module editedModule);
 
-    /**
-     * Adds the given activity.
-     * {@code activity} must not already exist in the nasa book.
-     */
-    void addActivity(Module target, Activity activity);
+    void addDeadline(ModuleCode moduleCode, Deadline deadline);
 
-    /**
-     * Adds the given activity.
-     * {@code activity} must not already exist in the nasa book.
-     */
-    void addActivity(ModuleCode target, Activity activity);
+    void addEvent(ModuleCode moduleCode, Event event);
 
-    /**
-     * Remove the given activity.
-     * {@code activity} must not already exist in the nasa book.
-     */
-    void removeActivity(Module target, Activity activity);
+    void removeEvent(ModuleCode moduleCode, Event event);
 
-    /**
-     * Remove the given activity.
-     * {@code activity} must not already exist in the nasa book.
-     */
-    void removeActivity(ModuleCode target, Activity activity);
+    void removeDeadline(ModuleCode moduleCode, Deadline deadline);
 
-    /**
-     * Returns true if a module code {@code target} has {@code activity} exists in the nasa book.
-     */
-    boolean hasActivity(ModuleCode target, Activity activity);
+    void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline);
 
-    /**
-     * Replaces the given activity in {@code target} with {@code editedActivity}.
-     * {@code target} must exist in the nasa book.
-     * The activity identity of {@code editedActivity} must not be the same as another existing activity
-     * in the address book.
-     */
-    // void setActivity(Activity target, Activity editedActivity);
+    void setEvent(ModuleCode moduleCode, Event target, Event editedEvent);
 
-    /** Returns an unmodifiable view of the filtered activity list from the module at {@code index} of
-     * the NasaBook's {@code UniqueModuleList}.
-     */
-    ObservableList<Activity> getFilteredActivityList(Index index);
+    ObservableList<Module> getFilteredModuleList();
 
-    ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode);
+    void updateFilteredModuleList(Predicate<Module> predicate);
 
-    /**
-     * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
+    ObservableList<Deadline> getFilteredDeadlineList(ModuleCode moduleCode);
+
+    void sortDeadlineList(SortMethod sortMethod);
+
+    ObservableList<Event> getFilteredEventList(ModuleCode moduleCode);
 
     void updateFilteredActivityList(Predicate<Activity> predicate);
 
-    /** Returns an unmodifiable view of the filtered module list */
-    ObservableList<Module> getFilteredModuleList();
+    String quote();
 
-    /**
-     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredModuleList(Predicate<Module> predicate);
+    void updateHistory();
 
-    /**
-     * Sorts filtered activity list of all modules by method specified by sortMethod
-     * @param sortMethod The method of sorting.
-     */
-    void sortActivityList(SortMethod sortMethod);
-
-    void setActivityByIndex(Module module, Index index, Activity activity);
-    void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity);
-    void editActivityByIndex(Module module, Index index, Object... args);
-    void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args);
-    void removeModuleByIndex(Index index);
-    void removeActivityByIndex(Module module, Index index);
-    void removeActivityByIndex(ModuleCode moduleCode, Index index);
-    HistoryManager<UniqueModuleList> getHistoryManager();
     void undoHistory();
-    void redoHistory();
-    void setSchedule(ModuleCode module, Name activity, Index type);
+
+    boolean redoHistory();
+
+    public HistoryManager<UniqueModuleList> getHistoryManager();
 }

@@ -1,11 +1,14 @@
 package nasa.model.activity;
 
+import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalActivities.DEADLINE_LATE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import jdk.internal.jline.internal.TestAccessible;
+import jdk.jfr.Timestamp;
 import nasa.testutil.Assert;
 
 class DeadlineTest {
@@ -13,8 +16,7 @@ class DeadlineTest {
     @Test
     void create_deadline() {
         Deadline subject = new Deadline(new Name("Test"), new Date("20-04-2020 03:00"), new Note("Practice"));
-        subject.updateStatus();
-        assertFalse(subject.isLate());
+        assertFalse(subject.isOverDue());
     }
 
     @Test
@@ -33,4 +35,13 @@ class DeadlineTest {
         subject.setDueDate(date);
         assertTrue(subject.getDueDate().equals(date));
     }
+
+    @Test
+    void set_done() {
+        Deadline subject = (Deadline) DEADLINE;
+        subject.setDone(true);
+
+        assertTrue(subject.isDone());
+    }
+
 }

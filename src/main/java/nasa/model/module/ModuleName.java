@@ -2,7 +2,6 @@ package nasa.model.module;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 

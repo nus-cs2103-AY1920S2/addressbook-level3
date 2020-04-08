@@ -18,6 +18,7 @@ import nasa.logic.Logic;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.ui.activity.QuotePanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private QuotePanel quotePanel;
     private TabPanel tabPanel;
 
     @FXML
@@ -152,6 +154,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+
+    public void getQuote(String input) {
+        quotePanel = new QuotePanel(input);
+        quotePanel.show(getPrimaryStage());
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -222,6 +230,16 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            if (commandResult.isStatistics()) {
+                tabPanel.getStatistics();
+            }
+
+
+            if (commandResult.isQuote()) {
+                getQuote(commandResult.getFeedbackToUser());
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

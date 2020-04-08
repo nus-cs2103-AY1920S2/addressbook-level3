@@ -33,6 +33,8 @@ public class ModuleCode {
 
     /**
      * Returns true if a given string is a valid module code.
+     * @param test String
+     * @return boolean
      */
     public static boolean isValidModuleCode(String test) {
         return test.matches(ALPHA_NUMERIC_VALIDATION_REGEX) && test.matches(NON_EMPTY_STRING_VALIDATION_REGEX);
@@ -44,6 +46,9 @@ public class ModuleCode {
         return moduleCode;
     }
 
+    /**
+     * Equality check for ModuleCode, which is case-insensitive.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

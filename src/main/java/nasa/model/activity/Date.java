@@ -2,12 +2,10 @@ package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 
@@ -48,7 +46,7 @@ public class Date {
 
     /**
      * Checks if a given string is a valid date.
-     *
+     * @param test String
      * @return true if the string matches date format.
      */
     public static boolean isValidDate(String test) {
@@ -74,13 +72,9 @@ public class Date {
         return date.isEqual(other.getDate());
     }
 
-    public long[] getDifference(Date other) {
-        Duration duration = Duration.between(date, other.getDate());
-        duration = duration.minusDays(duration.toDaysPart());
-        Period period = Period.between(date.toLocalDate(), other.getDate().toLocalDate());
-        long[] diffInTime = {period.getDays(), period.getMonths(), period.getYears(), duration.toHoursPart(),
-                duration.toMinutesPart()};
-        return diffInTime;
+    public int getDifference(Date other) {
+        Duration duration = Duration.between(other.getDate(), date);
+        return (int) duration.toDaysPart();
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -13,11 +14,11 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 
 /**
@@ -36,18 +37,21 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private NumberAxis yAxis;
 
-    public StatisticsPanel(ObservableList<Module> moduleList) {
+
+    public StatisticsPanel(ObservableList<Module> moduleObservableList) {
         super(FXML);
 
-        setStatistics(moduleList);
+        loadStatistics(moduleObservableList);
 
-        moduleList.addListener(new ListChangeListener<Module>() {
+        moduleObservableList.addListener(new ListChangeListener<Module>() {
             @Override
             public void onChanged(Change<? extends Module> c) {
-                setStatistics(moduleList);
+                resetStatistics();
+                loadStatistics(moduleObservableList);
+                updateStatistics(moduleObservableList);
             }
         });
-        updateStatistics(moduleList);
+        updateStatistics(moduleObservableList);
     }
 
 
@@ -57,36 +61,48 @@ public class StatisticsPanel extends UiPart<Region> {
      */
     private void updateStatistics(ObservableList<Module> moduleObservableList) {
         for (Module module : moduleObservableList) {
-            ObservableList<Activity> activityObservableList = module.getFilteredActivityList();
-            activityObservableList.addListener(new ListChangeListener<Activity>() {
+            ObservableList<Deadline> deadlineObservableList = module.getFilteredDeadlineList();
+            deadlineObservableList.addListener(new ListChangeListener<Deadline>() {
                 @Override
-                public void onChanged(Change<? extends Activity> c) {
-                    setStatistics(moduleObservableList);
+                public void onChanged(Change<? extends Deadline> c) {
+                    resetStatistics();
+                    loadStatistics(moduleObservableList);
                 }
             });
         }
     }
 
-    private void setStatistics(ObservableList<Module> moduleList) {
+    /**
+     * Set statistics.
+     * @param moduleList
+     */
+
+    private void loadStatistics(ObservableList<Module> moduleList) {
+
         List<PieChart.Data> pieData = new ArrayList<>();
         for (Module module : moduleList) {
             pieData.add(new PieChart.Data(module.getModuleCode().toString(),
-                    module.getActivities().getActivityList().size()));
+                    module.getFilteredDeadlineList().size()));
         }
 
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList(pieData);
         pieChart.setData(chartData);
-        pieChart.getData().forEach(data -> {
-            String percentage = String.format("%.2f%%", (data.getPieValue() / 100));
-            Tooltip toolTip = new Tooltip(percentage);
-            Tooltip.install(data.getNode(), toolTip);
-        });
+        chartData.forEach(data ->
+                data.nameProperty().bind(data.pieValueProperty().getValue() > 1
+                        ? Bindings.concat(
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " activities"
+                        )
+                        : Bindings.concat(
+                                data.getName(), " - ", data.pieValueProperty().intValue(), " activity"
+                        )
+                )
+        );
 
         //Bar chart
         XYChart.Series<String, Integer> barData = new XYChart.Series();
         for (Module module : moduleList) {
             barData.getData().add(new XYChart.Data(module.getModuleCode().toString(),
-                    module.getActivities().getActivityList().size()));
+                    module.getFilteredDeadlineList().size()));
         }
         barChart.setData(FXCollections.observableArrayList(barData));
 

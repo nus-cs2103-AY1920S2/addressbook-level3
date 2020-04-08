@@ -2,19 +2,19 @@ package nasa.ui.activity;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
-import nasa.model.activity.Activity;
+import nasa.model.activity.Event;
 import nasa.ui.UiPart;
 
 
 /**
  * An UI component that displays information of a {@code Module}.
  */
-public class ActivityCard extends UiPart<Region> {
+public class EventCard extends UiPart<Region> {
 
-    private static final String FXML = "ActivityListCard.fxml";
+    private static final String FXML = "EventCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,30 +24,31 @@ public class ActivityCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Activity activity;
+    public final Event event;
     @FXML
-    private VBox cardPane;
+    private GridPane eventPane;
+    @FXML
+    private Label index;
     @FXML
     private Label name;
     @FXML
-    private Label date;
+    private Label startDate;
+    @FXML
+    private Label endDate;
     @FXML
     private Label note;
     @FXML
     private Label status;
-    @FXML
-    private Label priority;
 
-
-
-    public ActivityCard(Activity activity, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex) {
         super(FXML);
-        this.activity = activity;
-        name.setText(activity.getName().toString());
-        date.setText(activity.getDate().toString());
-        note.setText(activity.getNote().toString());
-        status.setText(activity.getStatus().toString());
-        priority.setText(activity.getPriority().toString());
+        this.event = event;
+        index.setText(String.valueOf(displayedIndex));
+        name.setText(event.getName().toString());
+        startDate.setText("From " + event.getStartDate().toString());
+        endDate.setText("To " + event.getEndDate().toString());
+        note.setText(event.getNote().toString());
+        //status.setText(event.getStatus().toString());
     }
 
     @Override
@@ -58,12 +59,12 @@ public class ActivityCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ActivityCard)) {
+        if (!(other instanceof EventCard)) {
             return false;
         }
 
         // state check
-        ActivityCard card = (ActivityCard) other;
+        EventCard card = (EventCard) other;
         return name.getText().equals(card.name.getText());
     }
 }

@@ -8,12 +8,10 @@ import nasa.model.activity.Activity;
 public class TypicalActivities {
 
     public static final Activity DEADLINE = new DeadlineBuilder().withName("Homework for tut")
-            .withDate("19-02-2021 06:00")
             .withDueDate("19-02-2021 06:00")
             .withNote("pay attention to qns2").build();
 
     public static final Activity DEADLINE_LATE = new DeadlineBuilder().withName("Test")
-            .withDate("11-01-2021 06:00")
             .withDueDate("12-01-2021 06:00")
             .withNote("pay attention to qns2").build();
 

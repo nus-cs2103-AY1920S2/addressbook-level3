@@ -1,6 +1,5 @@
 package nasa.model.activity;
 
-import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,89 +10,133 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 public class Event extends Activity {
     public static final String INVALID_EVENT =
         "Event provided is invalid!";
+    public static final String DATE_CONSTRAINTS =
+        "Start date should be before end date.";
+    public static final String PAST_CONSTRAINTS =
+        "The event has already passed.";
 
     private Date startDate;
     private Date endDate;
+    private boolean isOver;
 
-    /**
-     * Initialise Event with default status and priority.
-     */
-    public Event(Name name, Date startDate, Date endDate) {
+    public Event(Name name, Date startDate, Date endDate){
         super(name);
         requireAllNonNull(startDate, endDate);
+        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
+        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
         this.startDate = startDate;
         this.endDate = endDate;
-        checkArgument(isValidEvent(this), INVALID_EVENT);
-    }
-
-    public Event(Name name, Note note, Date startDate, Date endDate) {
-        super(name, note);
-        requireAllNonNull(startDate, endDate);
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public Event(Name name, Note note, Priority priority, Date startDate, Date endDate) {
-        super(name, note, priority);
-        requireAllNonNull(startDate, endDate);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.isOver = endDate.isBefore(Date.now());
     }
 
     /**
      * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
+     * @param name Name
+     * @param date Date
+     * @param note Note
+     * @param startDate Date
+     * @param endDate Date
      */
-    public Event(Name name, Note note, Status status, Priority priority, Date startDate, Date endDate) {
-        super(name, Date.now(), note, status, priority);
+    public Event(Name name, Date date, Note note, Date startDate, Date endDate) {
+        super(name, date, note);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
+        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
     }
 
-    /**
-     * Initialise Event with a particular unique {@code name}.
-     * Every field must be present and not null.
-     */
-    public Event(Name name, Date date, Note note, Status status, Priority priority, Date startDate, Date endDate) {
-        super(name, date, note, status, priority);
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public Date getDateFrom() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public Date getDateTo() {
+    public void setStartDate(Date startDate) {
+        requireAllNonNull(startDate);
+        checkArgument(isValidStartDate(startDate), DATE_CONSTRAINTS);
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
         return endDate;
     }
 
-    /**
-     * Checks if the event is valid.
-     * @param activity Activity to be checked
-     * @return true if it is valid else false
-     */
-    public static boolean isValidEvent(Activity activity) {
-        requireNonNull(activity);
-
-        if (activity instanceof Event) {
-            Event event = (Event) activity;
-            boolean hasNotExpired = Date.now().isBefore(event.getDateTo());
-            boolean isLogical = event.getDateFrom().isBefore(event.getDateTo());
-            return hasNotExpired && isLogical;
-        } else {
-            return false;
-        }
+    public void setEndDate(Date endDate) {
+        requireAllNonNull(endDate);
+        checkArgument(isValidEndDate(endDate), DATE_CONSTRAINTS);
+        this.endDate = endDate;
     }
 
-    //TODO: detailed implementation of event regeneration
-    public Event regenerate() {
-        return this;
+    public boolean isValidStartDate(Date startDate) {
+        requireAllNonNull(startDate);
+        return startDate.isBefore(endDate);
+    }
+
+    public boolean isValidEndDate(Date endDate) {
+        requireAllNonNull(endDate);
+        return startDate.isBefore(endDate);
     }
 
     @Override
     public boolean occurInMonth(int month) {
-        int startDateMonth = startDate.getDate().getMonth().getValue();
-        return month == startDateMonth;
+        int startDateMonth = this.startDate.getDate().getMonth().getValue();
+        int endDateMonth = this.endDate.getDate().getMonth().getValue();
+        for (int i = startDateMonth; i <= endDateMonth; i++) {
+            if (i == month) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isValidStartEndDates(Date start, Date end) {
+        return !(end.isBefore(start));
+    }
+
+    public boolean isValidFutureEvent(Date end) {
+        return (!end.isBefore(Date.now()));
+    }
+
+    /**
+     * Return the difference in due date and date of creation.
+     * @return int
+     */
+    public int getDuration() {
+        return endDate.getDifference(startDate);
+    }
+
+    @Override
+    public Event regenerate() {
+        getSchedule().update();
+        if (Date.now().isAfter(endDate) && getSchedule().getType() != 0) {
+            setEndDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDuration()));
+            setStartDate(getSchedule().getRepeatDate());
+            setDateCreated(getSchedule().getRepeatDate());
+        }
+        return this;
+    }
+
+    @Override
+    public Activity deepCopy() {
+        Event event = new Event(getName(), getStartDate(), getStartDate());
+        event.setNote(getNote());
+        event.setDateCreated(getDateCreated());
+        return event;
+    }
+
+    public boolean isOver() {
+        return isOver;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event event = (Event) other;
+        return event.startDate.equals(((Event) other).startDate)
+            && event.endDate.equals(((Event) other).endDate)
+            && event.getNote().equals(((Event) other).getNote())
+            && event.getName().equals(((Event) other).getName());
     }
 }

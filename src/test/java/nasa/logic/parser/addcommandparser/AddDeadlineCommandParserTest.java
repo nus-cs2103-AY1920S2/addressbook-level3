@@ -12,6 +12,7 @@ import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS1231;
 import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST;
 import static nasa.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
 import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_HWK;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
@@ -40,7 +41,7 @@ public class AddDeadlineCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODULE_CODE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK
             + DATE_DESC_TEST + NOTES_DESC_TEST
-                + PRIORITY_DESC_HIGH, new AddDeadlineCommand(DeadlineBuilder.ALL_FIELDS_PRESENT, moduleCode));
+                + PRIORITY_DESC_HIGH, new AddDeadlineCommand(DeadlineBuilder.getAllFieldsPresent(), moduleCode));
     }
 
     @Test
@@ -64,12 +65,12 @@ public class AddDeadlineCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // notes parameter missing
         assertParseSuccess(parser, MODULE_CODE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST
-                + PRIORITY_DESC_HIGH, new AddDeadlineCommand(DeadlineBuilder.NOTE_FIELD_MISSING,
+                + PRIORITY_DESC_HIGH, new AddDeadlineCommand(DeadlineBuilder.getNoteFieldMissing(),
                 moduleCode));
 
         // priority parameter missing
         assertParseSuccess(parser, MODULE_CODE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST
-                + NOTES_DESC_TEST, new AddDeadlineCommand(DeadlineBuilder.PRIORITY_FIELD_MISSING, moduleCode));
+                + NOTES_DESC_TEST, new AddDeadlineCommand(DeadlineBuilder.getPriorityFieldMissing(), moduleCode));
     }
 
     @Test
@@ -102,11 +103,26 @@ public class AddDeadlineCommandParserTest {
 }
 
 class DeadlineBuilder {
-    public static final Deadline ALL_FIELDS_PRESENT = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
-        new Note(VALID_NOTES_TEST),
-        new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST));
-    public static final Deadline NOTE_FIELD_MISSING = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), null ,
-        new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST));
-    public static final Deadline PRIORITY_FIELD_MISSING = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
-            new Note(VALID_NOTES_TEST), null, new Date(VALID_DATE_TEST));
+
+    public static Deadline getAllFieldsPresent() {
+        final Deadline ALL_FIELDS_PRESENT = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+            new Date(VALID_DATE_TEST));
+        ALL_FIELDS_PRESENT.setNote(new Note(VALID_NOTES_TEST));
+        ALL_FIELDS_PRESENT.setPriority(new Priority(VALID_PRIORITY_HIGH));
+        return ALL_FIELDS_PRESENT;
+    }
+
+    public static Deadline getNoteFieldMissing() {
+        final Deadline NOTE_FIELD_MISSING = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+            new Date(VALID_DATE_TEST));
+        NOTE_FIELD_MISSING.setPriority(new Priority(VALID_PRIORITY_HIGH));
+        return NOTE_FIELD_MISSING;
+    }
+
+    public static Deadline getPriorityFieldMissing() {
+        final Deadline PRIORITY_FIELD_MISSING = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+            new Date(VALID_DATE_TEST));
+        PRIORITY_FIELD_MISSING.setNote(new Note(VALID_NOTES_TEST));
+        return PRIORITY_FIELD_MISSING;
+    }
 }

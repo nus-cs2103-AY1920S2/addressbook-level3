@@ -2,7 +2,6 @@ package nasa.model.module;
 
 import java.util.List;
 import java.util.function.Predicate;
-
 import nasa.commons.util.StringUtil;
 
 /**
@@ -19,7 +18,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Module> {
     public boolean test(Module module) {
         return keywords.stream()
                 .anyMatch(keyword ->
-                    StringUtil.containsWordIgnoreCase(module.getModuleName().getModuleName(), keyword));
+                    StringUtil.containsWordIgnoreCase(module.getModuleCode().moduleCode, keyword));
     }
 
     @Override

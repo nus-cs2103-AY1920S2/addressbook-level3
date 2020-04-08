@@ -1,12 +1,11 @@
 package nasa.model;
 
 import static java.util.Objects.requireNonNull;
-
 import javafx.collections.ObservableList;
 
 /**
  * A wrapper class to handle various history data.
- * @param <T>
+ * @param <T> Type
  */
 public class HistoryManager<T> implements HistoryModel<T> {
 
