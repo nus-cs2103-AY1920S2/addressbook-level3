@@ -72,7 +72,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseNotesCreateOperation_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseNotesCreateOperation(VALID_PATH, INVALID_FILE_TYPE, INVALID_PATH_TYPE));
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseNotesCreateOperation(VALID_PATH, INVALID_FILE_TYPE, INVALID_PATH_TYPE));
     }
 
     @Test
@@ -87,14 +88,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseNotesList_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseNotesListOperation((String) null, VALID_PATH_TYPE));
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.parseNotesListOperation((String) null, VALID_PATH_TYPE));
     }
 
     @Test
     public void parseNotesCreate_nullFile_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseNotesCreateOperation(VALID_PATH, (String) null, VALID_PATH_TYPE));
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.parseNotesCreateOperation(VALID_PATH, (String) null, VALID_PATH_TYPE));
     }
-
 
 
     // =========================== Address Book  ================================================
@@ -105,8 +107,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () ->
+                ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test

@@ -7,6 +7,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 
+/**
+ * Dummy java docs.
+ */
 public class DiaryShowIdCommand extends DiaryShowCommand {
     public static final String MESSAGE_SUCCESS = "Diary entry shown: ";
 

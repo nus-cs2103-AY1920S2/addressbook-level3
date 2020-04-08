@@ -10,11 +10,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.weather.Weather;
 
+/**
+ * Dummy java docs.
+ */
 public class DiaryWeatherCommand extends Command {
 
     public static final String COMMAND_WORD = "diaryWeather";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allows for tagging a diary entry with a specific weather "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Allows for tagging a diary entry with a specific weather "
             + "Parameters: "
             + PREFIX_ENTRY_ID + "ENTRY ID"
             + PREFIX_WEATHER + "WEATHER"

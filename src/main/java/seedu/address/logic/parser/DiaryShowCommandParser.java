@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIARY_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY_ID;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

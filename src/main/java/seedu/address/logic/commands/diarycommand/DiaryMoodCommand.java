@@ -9,8 +9,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.mood.Mood;
-import seedu.address.model.diary.weather.Weather;
 
+/**
+ * Dummy Java docs.
+ */
 public class DiaryMoodCommand extends Command {
 
     public static final String COMMAND_WORD = "diaryMood";

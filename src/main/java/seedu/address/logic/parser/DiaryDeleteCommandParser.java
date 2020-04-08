@@ -3,18 +3,22 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY_ID;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.diarycommand.DiaryDeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.nusmodule.Grade;
-import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.model.nusmodule.NusModule;
 
+/**
+ * Dummy java docs
+ */
 public class DiaryDeleteCommandParser implements Parser<DiaryDeleteCommand> {
 
+    /**
+     * Dummy java docs.
+     * @param args
+     * @return
+     * @throws ParseException
+     */
     public DiaryDeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ENTRY_ID);

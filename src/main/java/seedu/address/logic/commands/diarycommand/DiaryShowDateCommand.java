@@ -8,8 +8,10 @@ import java.util.List;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.diary.DiaryEntry;
 
+/**
+ * Dummy java docs.
+ */
 public class DiaryShowDateCommand extends DiaryShowCommand {
     public static final String MESSAGE_SUCCESS = "Entry ids with given date: ";
 
