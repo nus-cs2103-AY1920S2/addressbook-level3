@@ -40,6 +40,19 @@ public class StorageManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
+    public StorageManager(UserPrefsStorage userPrefsStorage, IntervieweeStorage intervieweeStorage,
+                          AttributeStorage attributeStorage, QuestionStorage questionStorage,
+                          MetricStorage metricStorage, TranscriptStorage transcriptStorage,
+                          ModelStorage modelStorage) {
+        this.userPrefsStorage = userPrefsStorage;
+        this.intervieweeStorage = intervieweeStorage;
+        this.attributeStorage = attributeStorage;
+        this.questionStorage = questionStorage;
+        this.metricStorage = metricStorage;
+        this.transcriptStorage = transcriptStorage;
+        this.modelStorage = modelStorage;
+    }
+
     // ================ Session methods ==============================
     @Override
     public List<File> readSessions(ReadOnlyUserPrefs userPrefs) throws IOException {
@@ -221,7 +234,7 @@ public class StorageManager implements Storage {
     }
 
     // ================ TranscriptStorage methods ================================
-    /** Save all the MetricList into their Json file */
+    /** Save the Transcript into their Json file */
     @Override
     public void saveTranscript(Interviewee source) throws IOException {
         logger.fine("Attempting to write to Transcript data file: " + getMetricDirectory());

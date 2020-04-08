@@ -121,11 +121,6 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getTranscriptPath() {
-        assertNotNull(storageManager.getTranscriptDirectory());
-    }
-
-    @Test
     public void getIntervieweePath() {
         assertNotNull(storageManager.getIntervieweeDirectory());
     }

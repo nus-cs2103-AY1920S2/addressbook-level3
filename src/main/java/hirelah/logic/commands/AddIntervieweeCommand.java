@@ -1,7 +1,7 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.parser.CliSyntax.PREFIX_ALIAS;
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
 
 import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.logic.commands.exceptions.CommandException;
