@@ -18,10 +18,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
@@ -58,8 +60,8 @@ public class NewCommandTest {
         ProfileManagerStub profileManagerStub = new ProfileManagerStub();
         profileManagerStub.addPerson(amyProfile);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()),
-                () -> newCommandAmy.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));
+        assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()), () ->
+                newCommandAmy.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));
     }
 
     // Another profile already exists.
@@ -82,8 +84,8 @@ public class NewCommandTest {
         ProfileManagerStub profileManagerStub = new ProfileManagerStub();
         profileManagerStub.addPerson(amyProfile);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()),
-                () -> newCommandBob.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));
+        assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()), () ->
+                newCommandBob.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));
     }
 
     @Test
@@ -97,7 +99,8 @@ public class NewCommandTest {
         NewCommand newCommand = new NewCommand(amyProfile);
 
         try {
-            assertEquals(newCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()).getFeedbackToUser(),
+            assertEquals(newCommand.execute(new ProfileManagerStub(), new CourseManagerStub(),
+                    new ModuleManagerStub()).getFeedbackToUser(),
                     String.format(MESSAGE_SUCCESS, amyProfile));
         } catch (CommandException e) {
             fail();

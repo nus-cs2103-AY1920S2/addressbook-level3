@@ -23,6 +23,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;

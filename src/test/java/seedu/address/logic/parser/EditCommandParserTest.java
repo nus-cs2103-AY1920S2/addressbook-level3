@@ -41,6 +41,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -215,6 +216,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, MODCODE_DESC_AMY + INVALID_GRADE_DESC, Grade.MESSAGE_CONSTRAINTS);
 
         // Invalid deadline
-        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + INVALID_DEADLINE_DESC, Deadline.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODCODE_DESC_AMY + TASK_DESC_AMY + INVALID_DEADLINE_DESC,
+                Deadline.MESSAGE_CONSTRAINTS);
     }
 }

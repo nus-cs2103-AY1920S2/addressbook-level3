@@ -303,6 +303,9 @@ public class EditCommand extends Command {
                 && (isSameProfile || isSameModule));
     }
 
+    /**
+     * Returns true if profileName is the same, including null cases
+     */
     public boolean isProfileNameEqual(Object other) {
         boolean isEqual = false;
         if ((profileName == null) && (((EditCommand) other).profileName == null)) {
@@ -313,6 +316,9 @@ public class EditCommand extends Command {
         return isEqual;
     }
 
+    /**
+     * Returns true if courseName is the same, including null cases
+     */
     public boolean isCourseNameEqual(Object other) {
         boolean isEqual = false;
         if ((courseName == null) && (((EditCommand) other).courseName == null)) {
@@ -323,6 +329,9 @@ public class EditCommand extends Command {
         return isEqual;
     }
 
+    /**
+     * Returns true if focus area is the same, including null cases
+     */
     public boolean isFocusAreaEqual(Object other) {
         boolean isEqual = false;
         if ((focusAreaString == null) && (((EditCommand) other).focusAreaString == null)) {
@@ -333,6 +342,9 @@ public class EditCommand extends Command {
         return isEqual;
     }
 
+    /**
+     * Returns true if grade is the same, including null cases
+     */
     public boolean isGradeEqual(Object other) {
         boolean isEqual = false;
         if ((grade == null) && (((EditCommand) other).grade == null)) {
@@ -343,6 +355,9 @@ public class EditCommand extends Command {
         return isEqual;
     }
 
+    /**
+     * Returns true if old task is the same, including null cases
+     */
     public boolean isOldTaskEqual(Object other) {
         boolean isEqual = false;
         if ((oldTask == null) && (((EditCommand) other).oldTask == null)) {
@@ -353,6 +368,9 @@ public class EditCommand extends Command {
         return isEqual;
     }
 
+    /**
+     * Returns true if new task is the same, including null cases
+     */
     public boolean isNewTaskEqual(Object other) {
         boolean isEqual = false;
         if ((newTask == null) && (((EditCommand) other).newTask == null)) {
@@ -363,6 +381,9 @@ public class EditCommand extends Command {
         return isEqual;
     }
 
+    /**
+     * Returns true if new deadline is the same, including null cases
+     */
     public boolean isNewDeadLineEqual(Object other) {
         boolean isEqual = false;
         if ((newDeadlineString == null) && (((EditCommand) other).newDeadlineString == null)) {

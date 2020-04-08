@@ -31,10 +31,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
@@ -77,10 +79,12 @@ public class EditCommandTest {
     @Test
     public void execute_noModuleData_throwsCommandException() {
         ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
-        EditCommand editCommand = new EditCommand(moduleCodeAmy, 0, VALID_GRADE_AMY, null, null, null);
+        EditCommand editCommand = new EditCommand(moduleCodeAmy, 0, VALID_GRADE_AMY, null,
+                null, null);
 
         assertThrows(CommandException.class, MESSAGE_EMPTY_MODULE_DATA, () ->
-                editCommand.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(), new ModuleManagerStub()));
+                editCommand.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStub()));
     }
 
     // Module to be edited has not been added before
@@ -88,20 +92,24 @@ public class EditCommandTest {
     public void execute_moduleNotAdded_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode("CS2105");
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
-        EditCommand editCommand = new EditCommand(moduleCode, semester, null, null, null, null);
+        EditCommand editCommand = new EditCommand(moduleCode, semester, null, null, null,
+                null);
 
         assertThrows(CommandException.class, MESSAGE_MODULE_NOT_ADDED, () ->
-                editCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                editCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStubCs()));
     }
 
     // Editing grade of future semesters
     @Test
     public void execute_addGradeToFutureSemester_throwsCommandException() {
         ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
-        EditCommand editCommand = new EditCommand(moduleCodeAmy, 0, VALID_GRADE_AMY, null, null, null);
+        EditCommand editCommand = new EditCommand(moduleCodeAmy, 0, VALID_GRADE_AMY, null,
+                null, null);
 
         assertThrows(CommandException.class, MESSAGE_ADD_FUTURE_GRADE_ERROR, () ->
-                editCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                editCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStubCs()));
     }
 
     // Deadline to be edited does not exist
@@ -110,28 +118,36 @@ public class EditCommandTest {
         ModuleCode moduleCodeAmy = new ModuleCode(VALID_MODCODE_AMY);
 
         // When editing task description
-        EditCommand editTaskCommand = new EditCommand(moduleCodeAmy, 0, null, VALID_TASK_AMY, VALID_NEW_TASK_AMY, null);
+        EditCommand editTaskCommand = new EditCommand(moduleCodeAmy, 0, null, VALID_TASK_AMY,
+                VALID_NEW_TASK_AMY, null);
         assertThrows(CommandException.class, MESSAGE_DEADLINE_DOES_NOT_EXIST, () ->
-                editTaskCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                editTaskCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStubCs()));
 
         // When editing deadline
-        EditCommand editDeadlineCommand = new EditCommand(moduleCodeAmy, 0, null, VALID_TASK_AMY, null, VALID_DEADLINE_AMY);
+        EditCommand editDeadlineCommand = new EditCommand(moduleCodeAmy, 0, null, VALID_TASK_AMY,
+                null, VALID_DEADLINE_AMY);
         assertThrows(CommandException.class, MESSAGE_DEADLINE_DOES_NOT_EXIST, () ->
-                editDeadlineCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                editDeadlineCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStubCs()));
     }
 
     // Invalid Focus Area (based off course)
     @Test
     public void execute_invalidFocusArea_throwsCommandException() {
         // Invalid focus area
-        EditCommand editCommandInvalid = new EditCommand(null, null, 0, INVALID_FOCUS_AREA_DESC);
+        EditCommand editCommandInvalid = new EditCommand(null, null, 0,
+                INVALID_FOCUS_AREA_DESC);
         assertThrows(CommandException.class, MESSAGE_INVALID_COURSE_FOCUS_AREA, () ->
-                editCommandInvalid.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(), new ModuleManagerStub()));
+                editCommandInvalid.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStub()));
 
         // Valid focus area, but not for the current course
-        EditCommand editCommandValidForWrongCourse = new EditCommand(null, null, 0, "f/Financial Analytics");
+        EditCommand editCommandValidForWrongCourse = new EditCommand(null, null, 0,
+                "f/Financial Analytics");
         assertThrows(CommandException.class, MESSAGE_INVALID_COURSE_FOCUS_AREA, () ->
-                editCommandInvalid.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(), new ModuleManagerStub()));
+                editCommandInvalid.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
+                        new ModuleManagerStub()));
     }
 
     @Test
@@ -163,7 +179,8 @@ public class EditCommandTest {
                     profileManagerWithEmptyProfile.getFirstProfile().getName()));
 
             // Valid focus area
-            EditCommand editFocusArea = new EditCommand(null, null, 0, VALID_FOCUS_AREA_AMY);
+            EditCommand editFocusArea = new EditCommand(null, null, 0,
+                    VALID_FOCUS_AREA_AMY);
             assertEquals(editFocusArea.execute(
                     profileManagerWithEmptyProfile, new CourseManagerStub(), new ModuleManagerStub())
                     .getFeedbackToUser(), String.format(MESSAGE_EDIT_PROFILE_SUCCESS,
@@ -183,25 +200,29 @@ public class EditCommandTest {
         try {
             // Valid semester
             int semester = new Year(VALID_SEMESTER_AMY).getSemester();
-            EditCommand editSemester = new EditCommand(moduleCodeAmy, semester, null, null, null, null);
+            EditCommand editSemester = new EditCommand(moduleCodeAmy, semester, null, null,
+                    null, null);
             assertEquals(editSemester.execute(
                     profileManagerWithNonEmptyProfile, new CourseManagerStub(), new ModuleManagerStubCs())
                     .getFeedbackToUser(), String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCodeAmy));
 
             // Valid grade
-            EditCommand editGrade = new EditCommand(moduleCodeBob, 0, VALID_GRADE_AMY, null, null, null);
+            EditCommand editGrade = new EditCommand(moduleCodeBob, 0, VALID_GRADE_AMY, null,
+                    null, null);
             assertEquals(editGrade.execute(
                     profileManagerWithNonEmptyProfile, new CourseManagerStub(), new ModuleManagerStubCs())
                     .getFeedbackToUser(), String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCodeBob));
 
             // Valid new task
-            EditCommand editTask = new EditCommand(moduleCodeBob, 0, null, VALID_TASK_BOB, VALID_NEW_TASK_BOB, null);
+            EditCommand editTask = new EditCommand(moduleCodeBob, 0, null, VALID_TASK_BOB,
+                    VALID_NEW_TASK_BOB, null);
             assertEquals(editTask.execute(
                     profileManagerWithNonEmptyProfile, new CourseManagerStub(), new ModuleManagerStubCs())
                     .getFeedbackToUser(), String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCodeBob));
 
             // Valid new deadline
-            EditCommand editDeadline = new EditCommand(moduleCodeBob, 0, null, VALID_NEW_TASK_BOB, null, VALID_DEADLINE_BOB);
+            EditCommand editDeadline = new EditCommand(moduleCodeBob, 0, null, VALID_NEW_TASK_BOB,
+                    null, VALID_DEADLINE_BOB);
             assertEquals(editDeadline.execute(
                     profileManagerWithNonEmptyProfile, new CourseManagerStub(), new ModuleManagerStubCs())
                     .getFeedbackToUser(), String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCodeBob));
@@ -246,16 +267,16 @@ public class EditCommandTest {
 
     private class ProfileManagerWithNonEmptyProfile extends ProfileManagerStub {
         private ProfileManagerWithNonEmptyProfile() {
-            Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
+            Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),
+                    new Preclusions(""), new ModularCredits("4"), new Description(""),
+                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
             Deadline deadline = new Deadline(VALID_MODCODE_BOB, VALID_TASK_BOB);
             Personal personalBob = new Personal();
             personalBob.addDeadline(deadline);
             moduleBob.setPersonal(personalBob);
-            Module moduleAmy = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
+            Module moduleAmy = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title(""), new Prereqs(""),
+                    new Preclusions(""), new ModularCredits("4"), new Description(""),
+                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
             ObservableList<Profile> profileList = FXCollections.observableArrayList();
             Profile profile = new Profile(new Name("John"), new CourseName(
                     AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
@@ -353,12 +374,12 @@ public class EditCommandTest {
 
     private class ModuleManagerStubCs extends ModuleManagerStub {
         private ModuleManagerStubCs() {
-            Module moduleAmy = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
-            Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
+            Module moduleAmy = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title(""), new Prereqs(""),
+                    new Preclusions(""), new ModularCredits("4"), new Description(""),
+                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
+            Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),
+                    new Preclusions(""), new ModularCredits("4"), new Description(""),
+                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
             Module module = new Module(new ModuleCode("CS2105"), new Title(""), new Prereqs(""), new Preclusions(""),
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());

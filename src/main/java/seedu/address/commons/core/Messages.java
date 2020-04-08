@@ -25,8 +25,10 @@ public class Messages {
     public static final String MESSAGE_MISSING_SEMESTER = "Error: Please input a semester";
     public static final String MESSAGE_MISSING_NAME = "Error: Please input a name";
     public static final String MESSAGE_MISSING_FOCUS_AREA = "Error: Please input a focus area";
-    public static final String MESSAGE_MISSING_OLD_TASK = "Error: Please provide the name of the task you are trying to edit.";
-    public static final String MESSAGE_MISSING_NEW_TASK_OR_DEADLINE = "Error: Please specify a new task name or deadline to be edited.";
+    public static final String MESSAGE_MISSING_OLD_TASK = "Error: Please provide the name of the task you are trying "
+            + "to edit.";
+    public static final String MESSAGE_MISSING_NEW_TASK_OR_DEADLINE = "Error: Please specify a new task name or "
+            + "deadline to be edited.";
 
     public static final String MESSAGE_MODULE_NOT_ADDED = "Error: This module has not been added before.";
     public static final String MESSAGE_ADD_FUTURE_GRADE_ERROR = "You cannot add a grade to future semesters!";
