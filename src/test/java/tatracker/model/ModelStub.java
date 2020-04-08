@@ -558,7 +558,16 @@ public class ModelStub implements Model {
             moduleShown = moduleCode;
             groupShown = groupCode;
         }
+
+        @Override
+        public boolean hasGroup(String groupCode, String moduleCode) {
+            return getModule(moduleCode).hasGroup(new Group(groupCode));
+        }
+
+        @Override
+        public void deleteGroup(String target, String targetModule) {
+            Module module = getModule(targetModule);
+            module.deleteGroup(new Group(target));
+        }
     }
-
-
 }
