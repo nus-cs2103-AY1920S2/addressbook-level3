@@ -259,8 +259,27 @@ stats SPEED/DONE
 SPEED : Displays average time taken to complete tasks over past week/month/year.
 DONE : Displays average number of tasks done over past week/month/year.
 
-=== AutoComplete (Branson)
-Write autocomplete
+=== AutoComplete
+As much as you enjoy typing, we've added some extra grease to make you type even faster. You can trigger our very intelligent auto complete function by pressing `tab` on the keyboard.
+
+You can expect: +
+
+* Auto completion of command words: `del -> delete`
+* Addition of prefixes for common values: `20/10/20@10:30 -> r/20/10/20@10:30`
+** Figure 14
+* Comma separation of indexes: `done 1 2 3` -> `done 1, 2, 3`
+* Auto completion of sort fields `sort pri` -> `sort priority`
+** Figure 15
+
+.Prefix auto complete
+image::prefix_complete.png[]
+.Sort auto complete
+image::sort_complete.png[]
+
+If we can't find a valid command, you will observe feedback like below:
+
+.Auto complete not found
+image::complete_fail.png[]
 
 === Reminders (Arthur)
 Write reminders
