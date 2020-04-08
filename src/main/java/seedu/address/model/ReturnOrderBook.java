@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.parcel.Parcel;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 import seedu.address.model.parcel.returnorder.UniqueReturnOrderList;
 
@@ -54,7 +55,7 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
      * Returns true if an return return order with the same identity as {@code returnOrder} exists in
      * the return order book.
      */
-    public boolean hasReturnOrder(ReturnOrder returnOrder) {
+    public boolean hasReturnOrder(Parcel returnOrder) {
         requireNonNull(returnOrder);
         return returnOrders.contains(returnOrder);
     }
