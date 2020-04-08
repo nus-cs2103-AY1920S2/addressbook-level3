@@ -21,11 +21,13 @@ import javafx.scene.layout.AnchorPane;
 /**
  * Controller for a user weight page.
  * The weight page contains all user weight and bmi information.
+ * It can be divided into three main parts: notification bar, weight line graph and BMI line graph.
+ * Weight page will be updated and shown automatically when user inputs some weight-related command.
  */
 public class WeightPage extends UiPart<AnchorPane> {
     private static final String FXML = "WeightPage.fxml";
     private final Logger logger = LogsCenter.getLogger(WeightPage.class);
-    private final List<Weight> weights;
+    private final List<Weight> weights; // a sorted version (by date) of all weight records.
     private final ReadOnlyUserProfile profile;
 
     @FXML
@@ -39,6 +41,8 @@ public class WeightPage extends UiPart<AnchorPane> {
 
     /**
      * Creates a new Weight Window displaying user weight-related data.
+     * @param profile an unmodifiable version of user profile data.
+     * @param weights an unmodifiable version of all user weight records.
      */
     public WeightPage(ReadOnlyUserProfile profile, ObservableList<Weight> weights) {
         super(FXML);
@@ -59,6 +63,7 @@ public class WeightPage extends UiPart<AnchorPane> {
 
     /**
      * Initialize the value of the title line.
+     * Three cases are considered: no weight records, not reach target goal weight and reach already.
      */
     private void initializeTitle() {
         double target = profile.getUserProfile().getTargetWeight().value;
@@ -68,7 +73,7 @@ public class WeightPage extends UiPart<AnchorPane> {
             double current = weights.get(weights.size() - 1).getWeightValue().value;
             double gap = current - target;
             if (gap > 0.0001) {
-                title.setText("Keep going! You are " + String.format("%.3f", gap) + " away from you target weight!");
+                title.setText("Keep going! You are " + String.format("%.2f", gap) + "kg away from you target weight!");
             } else {
                 title.setText("Congratulations! You have reached your target weight!");
             }
@@ -76,24 +81,38 @@ public class WeightPage extends UiPart<AnchorPane> {
     }
 
     /**
-     * Get first and last date from weights.
+     * Get the first date from weight records.
      * @param weights a list of weight.
-     * @return an array with first element equals to first date and second element equals to last date.
+     * @return a String representation of the first date.
      */
-    private String[] getDate(List<Weight> weights) {
+    private String getFirstDate(List<Weight> weights) {
         if (weights.size() == 0) {
             return null;
         } else {
             LocalDate first = weights.get(0).getDate().value;
-            LocalDate last = weights.get(weights.size() - 1).getDate().value;
-            return new String[]{first.toString(), last.toString()};
+            return first.toString();
         }
     }
 
     /**
-     * Get dates from all weights.
+     * Get the last date from weight records.
      * @param weights a list of weight.
-     * @return a list of date.
+     * @return a String representation of the last date.
+     */
+    private String getLastDate(List<Weight> weights) {
+        if (weights.size() == 0) {
+            return null;
+        } else {
+            LocalDate last = weights.get(weights.size() - 1).getDate().value;
+            return last.toString();
+        }
+    }
+
+    /**
+     * Get all dates from all weight records.
+     * The order of the dates is corresponding to each weight records in the list.
+     * @param weights a list of weight records.
+     * @return a list of dates.
      */
     private ArrayList<String> getDates(List<Weight> weights) {
         ArrayList<String> dates = new ArrayList<>();
@@ -104,8 +123,9 @@ public class WeightPage extends UiPart<AnchorPane> {
     }
 
     /**
-     * Get weight from all weights.
-     * @param weights a list of weight.
+     * Get all weight from all weight records.
+     * The order of the weight values is corresponding to each weight records in the list.
+     * @param weights a list of weight records.
      * @return a list of weight value in double.
      */
     private ArrayList<Double> getWeights(List<Weight> weights) {
@@ -117,9 +137,10 @@ public class WeightPage extends UiPart<AnchorPane> {
     }
 
     /**
-     * Get BMI from all weights.
-     * @param weights a list of weight.
-     * @return a list of BMI value in double.
+     * Get all BMI from all weight records.
+     * The order of the BMI is corresponding to each weight records in the list.
+     * @param weights a list of weight records.
+     * @return a list of BMI values in double.
      */
     private ArrayList<Double> getBmis(List<Weight> weights) {
         ArrayList<Double> bmis = new ArrayList<>();
@@ -131,6 +152,8 @@ public class WeightPage extends UiPart<AnchorPane> {
 
     /**
      * Install tooltip for line charts.
+     * The text content of the tooltip is the value of x and y in data pairs.
+     * @param data an unmodifiable version of x,y data pairs.
      */
     public void installToolTipXyChart(ObservableList<XYChart.Data<String, Double>> data) {
         data.stream().forEach(d -> {
@@ -141,44 +164,64 @@ public class WeightPage extends UiPart<AnchorPane> {
     }
 
     /**
-     * Initialize the weight line chart.
+     * Set the title of the line chart.
+     * The content and format of the title depends on the number and dates of weight records.
+     * @param lineChart the corresponding chart.
+     * @param defaultTitle the default title of there is no weight records.
      */
-    private void initializeWeightLineChart() {
-        String[] date = getDate(weights);
-        ArrayList<String> dates = getDates(weights);
-        ArrayList<Double> values = getWeights(weights);
+    private void setLineChartTitle(LineChart<String, Double> lineChart, String defaultTitle) {
+        String firstDate = getFirstDate(weights);
+        String lastDate = getLastDate(weights);
+        int size = weights.size();
 
-        weightLineChart.setAnimated(false);
-        weightLineChart.layout();
-
-        XYChart.Series<String, Double> series = new XYChart.Series<>();
-
-        int size = dates.size();
-        for (int i = 0; i < size; i++) {
-            series.getData().add(new XYChart.Data<>(dates.get(i), values.get(i)));
-        }
-
-        weightLineChart.setLegendVisible(false);
-        if (date == null) {
-            weightLineChart.setTitle("Weight Line Chart");
+        if (size == 0) {
+            lineChart.setTitle(defaultTitle);
+        } else if (size == 1) {
+            lineChart.setTitle(defaultTitle + ": [" + firstDate + "]");
         } else {
-            weightLineChart.setTitle("Weight Line Chart: [" + date[0] + "~" + date[1] + "]");
+            lineChart.setTitle(defaultTitle + ": [" + firstDate + "~" + lastDate + "]");
         }
-        weightLineChart.getData().add(series);
-
-        installToolTipXyChart(series.getData());
     }
 
     /**
-     * Initialize the bmi line chart.
+     * Initialize the weight line chart.
+     * X-value is all dates in weight records, sorted from oldest to newest.
+     * Y-value is the magnitude of all weight values, corresponding to each date.
+     * The title of the chart will show the date range if applicable.
+     */
+    private void initializeWeightLineChart() {
+        // Initialize data points value.
+        ArrayList<String> dates = getDates(weights);
+        ArrayList<Double> values = getWeights(weights);
+
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+
+        int size = dates.size(); // the number of weight records in total.
+        for (int i = 0; i < size; i++) {
+            series.getData().add(new XYChart.Data<>(dates.get(i), values.get(i)));
+        }
+
+        weightLineChart.getData().add(series);
+
+        // Initialize chart layout.
+        weightLineChart.setAnimated(false);
+        weightLineChart.layout();
+        weightLineChart.setLegendVisible(false);
+        installToolTipXyChart(series.getData());
+
+        setLineChartTitle(weightLineChart, "Weight Trend Line");
+    }
+
+    /**
+     * Initialize the BMI line chart.
+     * X-value is all dates in weight records, sorted from oldest to newest.
+     * Y-value is the BMI value corresponding to each date.
+     * The title of the chart will show the date range if applicable.
      */
     private void initializeBmiLineChart() {
-        String[] date = getDate(weights);
+        // Initialize data points value.
         ArrayList<String> dates = getDates(weights);
         ArrayList<Double> values = getBmis(weights);
-
-        bmiLineChart.setAnimated(false);
-        bmiLineChart.layout();
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
 
@@ -187,14 +230,14 @@ public class WeightPage extends UiPart<AnchorPane> {
             series.getData().add(new XYChart.Data<>(dates.get(i), values.get(i)));
         }
 
-        bmiLineChart.setLegendVisible(false);
-        if (date == null) {
-            bmiLineChart.setTitle("BMI Line Chart");
-        } else {
-            bmiLineChart.setTitle("BMI Line Chart: " + "[" + date[0] + "~" + date[1] + "]");
-        }
         bmiLineChart.getData().add(series);
 
+        // Initialize chart layout.
+        bmiLineChart.setAnimated(false);
+        bmiLineChart.layout();
+        bmiLineChart.setLegendVisible(false);
         installToolTipXyChart(series.getData());
+
+        setLineChartTitle(bmiLineChart, "BMI Trend Line");
     }
 }
