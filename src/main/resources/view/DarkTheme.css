@@ -438,3 +438,24 @@
 .scroll-pane {
     -fx-background: #383838;
 }
+
+/*HELP BOX*/
+.help_header1 {
+    -fx-font-family: "Segoe Pro Display";
+    -fx-font-weight: bold;
+    -fx-font-size: 35px;
+    -fx-fill: #f78086;
+}
+
+.help_header2 {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 25px;
+    -fx-stroke: #ffffff;
+}
+
+.help_header3 {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-stroke: #ffffff;
+}
+

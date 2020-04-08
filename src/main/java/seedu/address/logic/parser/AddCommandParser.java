@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -41,6 +44,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         String grade = null;
         String task = null;
         String deadlineString = null;
+        LocalDate date = null;
+        LocalTime time = null;
         int intSemester = 0;
 
         if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
@@ -52,12 +57,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_DEADLINE)) {
             task = argMultimap.getValue(PREFIX_TASK).get();
             deadlineString = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+            String dateString = deadlineString.split(" ")[0];
+            String timeString = deadlineString.split(" ")[1];
+
+            date = LocalDate.parse(dateString);
+            time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
             task = argMultimap.getValue(PREFIX_TASK).get();
         }
 
-        return new AddCommand(moduleCode, intSemester, grade, task, deadlineString);
+        return new AddCommand(moduleCode, intSemester, grade, task, date, time);
     }
 
     /**

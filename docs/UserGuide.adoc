@@ -18,18 +18,20 @@ By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-Welcome to MODdy!
+Welcome to *MODdy*!
 
-MODdy is a one-stop application for all your academic needs, keeping you organized and well-planned throughout your course of study.
+*MODdy* is a one-stop application for all your academic needs!
+
+It keeps you organized and well-planned throughout your course of study.
 It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-This user guide aims to give you a clearer understanding on how to use MODdy as well as a summary of its features.
+This user guide aims to give you a clearer understanding on how to use *MODdy* as well as a summary of its features.
 
-Currently, MODdy targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
+Currently, *MODdy* targets student from *School of Computing (SoC)* in the National University of Singapore (NUS).
 If you are from SoC and is looking for an application to manage all your modules and tasks throughout your degree progression, what are you waiting for?
-Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of MODdy on your SoC journey!
+Jump to <<Quick Start, Quick Start>> to get started. Hope you enjoy the company of *MODdy* on your SoC journey!
 
 == About the User Guide
-This user guide presents to you the following features of MODdy:
+This user guide presents to you the following features of *MODdy*:
 
 . View help
 . New user profile
@@ -38,14 +40,14 @@ This user guide presents to you the following features of MODdy:
 . Show profile, semester, course, focus area & module
 . Delete task, module & profile
 . Return to homepage
-. Reset MODdy
-. Exit MODdy
+. Reset *MODdy*
+. Exit *MODdy*
 
 Please note the following which may serve as points of interests:
 
 kbd:[Enter] : This grey highlight with white outline indicates a keyboard's key
 
-`word` : This grey highlight indicates commands that you can type into MODdy's command box
+`word` : This grey highlight indicates commands that you can type into *MODdy's* command box
 
 NOTE: This symbol indicates information that you may wish to note
 
@@ -53,18 +55,20 @@ TIP: This symbol indicates examples or tips provided by us
 
 == Quick Start
 
+This section provides you with a few short steps on how to get started with *MODdy*.
+
 .  Ensure you have Java *11* or above installed in your Computer.
 .  Download the latest *MODdy.jar* link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your personalised MODdy.
+.  Copy the file to the folder you want to use as the home folder for your personalised *MODdy*.
 .  Double-click the file to start the app. The GUI, as shown in the figure below, should appear in a few seconds.
 +
-.Homepage of MODdy
+.Homepage of *MODdy*
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-. Create your own profile using `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
-.  Some example commands you can try:
+. Create your own profile by entering your details in the command box using these parameters: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
+.  Some other example commands you can try:
 
 * **`add`**`m/CS2103T y/1` : adds CS2103T into your list of modules under Year 1 Semester 1
 * **`delete`**`n/NAME` : deletes your entire profile and its data
@@ -74,6 +78,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+This section provides you with the features that you can perform in *MODdy*. It is able to provide you with a better understanding of how the features work.
 
 ====
 *Command Format*
@@ -88,11 +93,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Help]]
 === Viewing help : `help`
 
-This command opens up a help window, providing you a link, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in MODdy. +
+This command opens up a help window, providing you a link, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
 
-.Help window of MODdy
+.Help window of *MODdy*
 image::Help.png[width="790"]
 
 
@@ -127,16 +132,16 @@ Creates a new profile with the name "John", currently majoring in "Computer Scie
 [[Add]]
 === Adding: `add`
 
-This command adds a module or a task to an existing module in MODdy.
+This command adds a module or a task to an existing module in *MODdy*.
 
 There are *two* ways you can use the `add` command: +
 
-==== Add a current/completed module to MODdy +
+==== Add a current/completed module to *MODdy* +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
 * `y/SEMESTER_INDEX` must be entered as an integer, e.g. if you took the module in Year 2 Semester 1, you will enter `y/3`
-* As you have already specified the current semester you are currently in when creating your profile, MODdy will indicate modules added to prior semesters as *"completed"*, and modules that are added to the current semester or to future semesters are indicated as *"currently taking"* or *"planning to take"* respectively
+* As you have already specified the current semester you are currently in when creating your profile, *MODdy* will indicate modules added to prior semesters as *"completed"*, and modules that are added to the current semester or to future semesters are indicated as *"currently taking"* or *"planning to take"* respectively
 * `g/GRADE` is optional
 ****
 
@@ -148,11 +153,11 @@ TIP: `add m/CS2105 y/3 g/A+` +
 Adds CS2105 to the list of modules under the 3rd semester (Year 2 Semester 1) with the resulting grade, A+
 
 
-==== Add a task with a deadline to an existing module in MODdy +
+==== Add a task with a deadline to an existing module in *MODdy* +
 Format: `add m/MODULE t/TASK [d/DEADLINE]` +
 
 ****
-* The module must already exist in MODdy before a task can be added
+* The module must already exist in *MODdy* before a task can be added
 * `d/DEADLINE` is optional
 * `d/DEADLINE` must be entered in the format `YYYY-MM-DD HH:mm` (e.g. 2020-03-31 23:59)
 * Completed `t/TASK` should be deleted by you using the <<Delete, `delete`>> feature
@@ -173,7 +178,7 @@ Green: ≥ 11 days
 [[Edit]]
 === Editing: `edit`
 
-This command edits your profile or a module in MODdy. +
+This command edits your profile or a module in *MODdy*. +
 
 There are *three* ways you can use the `edit` command: +
 
@@ -192,7 +197,7 @@ image::EditProfile.png[width="790"]
 TIP: `edit n/Brad c/Information Security s/Software Engineering` +
 Edits your profile name to "Brad", your course to "Information Security", and your focusArea to "Software Engineering" from what they were previously
 
-==== Edit a module's details in MODdy +
+==== Edit a module's details in *MODdy* +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
 
 ****
@@ -223,7 +228,7 @@ Edits "Assignment" under CS2105 to "Project"
 [[Show]]
 === Showing: `show`
 
-This command displays the details of your parameter. +
+To see the information you have added previously, use the `show` command to do so. +
 
 There are *five* ways you can use the `show` command:
 
@@ -268,7 +273,7 @@ Format: `show m/MODULE_CODE`
 .Details of CS3230 shown in the Main Panel
 image::ShowModule.png[width="790"]
 
-NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered will be displayed
+NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`
@@ -282,7 +287,7 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 
 [[Delete]]
 === Deleting: `delete`
-This command deletes the data in MODdy according to your parameters.
+This command deletes the data in *MODdy* according to your parameters.
 
 There are *three* ways you can use the `delete` command:
 
@@ -300,19 +305,19 @@ Deletes the task "Assignment" from the module CS2103 in your profile
 ==== Delete a module +
 Format: `delete m/MODULE_CODE`
 
-.CS2107 and its tasks deleted from MODdy
+.CS2107 and its tasks deleted from *MODdy*
 image::DeleteModule.png[width="790"]
 
-NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from MODdy
+NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
 
 
 ==== Delete your profile +
 Format: `delete n/NAME`
 
-.Entire profile deleted from MODdy
+.Entire profile deleted from *MODdy*
 image::DeleteProfile.png[width="790"]
 
-NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from MODdy
+NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
 
 
 
@@ -320,43 +325,45 @@ NOTE: Your profile, including all modules, grades and deadlines under your name,
 [[Home]]
 === Returning to Homepage : `home`
 
-This command returns you to MODdy's Homepage, as shown in the figure below.
+This command returns you to *MODdy*'s Homepage, as shown in the figure below.
 
 Format: `home`
 
-.Homepage of MODdy shown in Main Panel
+.Homepage of *MODdy* shown in Main Panel
 image::Home.png[width="790"]
 
 [[Clear]]
-=== Resetting MODdy: `clear`
+=== Resetting *MODdy*: `clear`
 
-This command clears all entries from MODdy including your profile and its data, as shown in the figure below.
+This command clears all entries from *MODdy* including your profile and its data, as shown in the figure below.
 
 Format: `clear`
 
-.All entries from MODdy cleared
+.All entries from *MODdy* cleared
 image::Clear.png[width="790"]
 
 
 [[Exit]]
-=== Exiting MODdy: `exit`
+=== Exiting *MODdy*: `exit`
 
-This command closes the GUI and exits MODdy.
+This command closes the GUI and exits *MODdy*.
 
 Format: `exit`
 
 
 === Saving your data
 
-Your MODdy's data are saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually.
+Your *MODdy*'s data are saved in the hard disk automatically after any command that changes the data. There is no need for you to save manually.
 
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MODdy folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous *MODdy* folder.
 
 == Command Summary
+
+This section provides you with a summary of the list of features that *MODdy* provides.
 
 * <<Help, *Help*>> : `help`
 * <<New, *New*>> : `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]` +
@@ -390,7 +397,7 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
 
 == Appendix
 
-. List of courses currently supported by MODdy
+. List of courses currently supported by *MODdy*
 .. Business Analytics
 .. Computer Engineering
 .. Computer Science
