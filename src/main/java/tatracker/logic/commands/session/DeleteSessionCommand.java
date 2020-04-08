@@ -1,11 +1,11 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.parser.Prefixes.INDEX;
 
 import java.util.List;
 
-import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
@@ -30,8 +30,7 @@ public class DeleteSessionCommand extends Command {
             INDEX
     );
 
-    public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted Session: %1$s";
-    public static final String MESSAGE_INVALID_INDEX = "Index does not exists";
+    public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted session: %s";
 
     private final Index index;
 
@@ -46,12 +45,14 @@ public class DeleteSessionCommand extends Command {
         List<Session> lastShownList = model.getFilteredSessionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         }
 
         Session sessionToDelete = lastShownList.get(index.getZeroBased());
         model.deleteSession(sessionToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete), Action.GOTO_SESSION);
+        return new CommandResult(
+                String.format(MESSAGE_DELETE_SESSION_SUCCESS, sessionToDelete.getMinimalDescription()),
+                Action.GOTO_SESSION);
     }
 
     @Override

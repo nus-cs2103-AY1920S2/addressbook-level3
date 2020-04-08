@@ -1,6 +1,7 @@
 package tatracker.logic.parser.session;
 
-import tatracker.commons.core.Messages;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
+
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.session.DoneSessionCommand;
 import tatracker.logic.parser.Parser;
@@ -23,7 +24,7 @@ public class DoneSessionCommandParser implements Parser<DoneSessionCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new DoneSessionCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(Messages.getInvalidCommandMessage(DoneSessionCommand.MESSAGE_INVALID_INDEX), pe);
+            throw new ParseException(MESSAGE_INVALID_SESSION_DISPLAYED_INDEX, pe);
         }
     }
 }

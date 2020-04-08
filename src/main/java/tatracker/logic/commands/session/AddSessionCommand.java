@@ -1,6 +1,9 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_SESSION;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_SESSION_TIMES;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
 import static tatracker.logic.parser.Prefixes.MODULE;
@@ -35,10 +38,7 @@ public class AddSessionCommand extends Command {
             MODULE, START_TIME, END_TIME, DATE, SESSION_TYPE, NOTES
     );
 
-    public static final String MESSAGE_SUCCESS = "New session added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
-    private static final String MESSAGE_INVALID_MODULE_CODE = "A module with the given module code doesn't exist";
-    private static final String MESSAGE_INVALID_TIME = "[Session] Start time is set to after end time!";
+    public static final String MESSAGE_ADD_SESSION_SUCCESS = "New session added: %s";
 
     private final Session toAdd;
 
@@ -58,7 +58,7 @@ public class AddSessionCommand extends Command {
         LocalDateTime end = toAdd.getEndDateTime();
 
         if (start.compareTo(end) > 0) {
-            throw new CommandException(MESSAGE_INVALID_TIME);
+            throw new CommandException(MESSAGE_INVALID_SESSION_TIMES);
         }
 
         if (!model.hasModule(toAdd.getModuleCode())) {
@@ -70,7 +70,9 @@ public class AddSessionCommand extends Command {
         }
 
         model.addSession(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_SESSION);
+        return new CommandResult(
+                String.format(MESSAGE_ADD_SESSION_SUCCESS, toAdd.getMinimalDescription()),
+                Action.GOTO_SESSION);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package tatracker.logic.parser.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
 import static tatracker.logic.parser.Prefixes.MODULE;
@@ -94,7 +95,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
 
         // TODO: Check if editing should be allowed if there are no fields
         if (!editSessionDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditSessionCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new EditSessionCommand(index, editSessionDescriptor);
