@@ -46,12 +46,10 @@ public class CalendarParser {
             argMultimap.put(PREFIX_MODE, "tb");
             return calendarCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
-            System.out.println(LocalDate.now() + "-12:00");
-            argMultimap.put(PREFIX_DATE, LocalDate.now() + "-12:00");
+            argMultimap.put(PREFIX_DATE, LocalDate.now().toString());
             return calendarCommand(argMultimap);
         } else {
-            System.out.println(LocalDate.now() + "-12:00");
-            argMultimap.put(PREFIX_DATE, LocalDate.now() + "-12:00");
+            argMultimap.put(PREFIX_DATE, LocalDate.now().toString());
             argMultimap.put(PREFIX_MODE, "tb");
             return calendarCommand(argMultimap);
         }

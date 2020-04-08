@@ -1,7 +1,6 @@
 package fithelper.ui.calendar;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
@@ -11,8 +10,6 @@ import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -38,7 +35,7 @@ public class MonthView extends UiPart<AnchorPane> {
     /**
      * Create a calendar view
      */
-    public MonthView(LocalDateTime dateToSet, CalorieCalculatorByDateRange stats,
+    public MonthView(LocalDate dateToSet, CalorieCalculatorByDateRange stats,
                      ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
         super(FXML);
         currentYearMonth = YearMonth.from(dateToSet);

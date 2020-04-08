@@ -173,6 +173,10 @@ public class Entry {
         return time.getDateTime();
     }
 
+    public LocalDateTime getEndTime() {
+        return time.getDateTime().plusMinutes(getHours() * 60 + getMinutes());
+    }
+
     public Calorie getCalorie() {
         return calorie;
     }

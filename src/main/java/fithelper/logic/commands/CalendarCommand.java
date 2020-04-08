@@ -51,7 +51,7 @@ public class CalendarCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date: "
-                + model.getCalendarDate().toLocalDate())
+                + model.getCalendarDate())
                 + "\nMode: " + mode, CALENDAR, false);
     }
 

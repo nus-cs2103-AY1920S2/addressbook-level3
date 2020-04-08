@@ -25,7 +25,6 @@ public class Time {
 
     /**
      * Constructs an {@code Time}.
-     *
      * @param timeStr A valid time.
      */
     public Time(String timeStr) {

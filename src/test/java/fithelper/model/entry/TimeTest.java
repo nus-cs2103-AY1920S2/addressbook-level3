@@ -22,18 +22,19 @@ public class TimeTest {
     @Test
     public void isValidTime() {
         // null time
-        assertThrows(NullPointerException.class, () -> Time.isValidTime(null));
+        assertFalse(Time.isValidTime(null));
 
         // invalid time
         assertFalse(Time.isValidTime("")); // empty string
         assertFalse(Time.isValidTime(" ")); // spaces only
         assertFalse(Time.isValidTime("tmr")); // date only
+        assertFalse(Time.isValidTime("01:00")); // time only
         assertFalse(Time.isValidTime("tmr 2pm")); // time not in HH:mm format
-        assertFalse(Time.isValidTime("tmr 2pm")); // time not in HH:mm format
-        assertFalse(Time.isValidTime("tmr-12:20")); // date and time not separated by space
+        assertFalse(Time.isValidTime("tmr-12:20")); // time not in HH:mm format
+        assertFalse(Time.isValidTime("2020-04-01 12:20")); // date and time not separated by space
 
         // valid time
-        assertTrue(Time.isValidTime("tmr 23:00"));
-        assertTrue(Time.isValidTime("03-23 12:00"));
+        assertTrue(Time.isValidTime("2020-04-20-23:00"));
+        assertTrue(Time.isValidTime("2020-03-23-12:00"));
     }
 }

@@ -4,13 +4,13 @@ import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.commons.util.DateUtil;
 import fithelper.commons.util.ModeUtil;
 import fithelper.model.calendar.CalendarSettings;
 import fithelper.model.calorietable.CalorieDatum;
@@ -18,7 +18,6 @@ import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.SortBy;
-import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
@@ -41,7 +40,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredTodayFoodEntries;
     private final FilteredList<Entry> filteredTodaySportsEntries;
     private final VeventList vEventList;
-    private CalendarSettings calendarSettings = new CalendarSettings(LocalDateTime.now(), "tb");
+    private CalendarSettings calendarSettings = new CalendarSettings(LocalDate.now(), "tb");
     private final UserProfile userProfile;
     private final WeightRecords weightRecords;
     private final FilteredList<Weight> filteredWeights;
@@ -414,12 +413,11 @@ public class ModelManager implements Model {
 
     @Override
     public void setCalendarDate(String date) {
-        Time time = new Time(date);
-        LocalDateTime formattedDate = time.getDateTime();
-        calendarSettings.setDate(formattedDate);
+        LocalDate tmp = DateUtil.dateParsed(date);
+        calendarSettings.setDate(tmp);
     }
 
-    public LocalDateTime getCalendarDate() {
+    public LocalDate getCalendarDate() {
         return calendarSettings.getDate();
     }
 
@@ -438,12 +436,12 @@ public class ModelManager implements Model {
         if (show == null) {
             calendarSettings.setShow(null);
         } else {
-            Time time = new Time(show);
-            calendarSettings.setShow(time.getDateTime());
+            LocalDate date = DateUtil.dateParsed(show);
+            calendarSettings.setShow(date);
         }
     }
 
-    public LocalDateTime getCalendarShow() {
+    public LocalDate getCalendarShow() {
         return calendarSettings.getShow();
     }
 

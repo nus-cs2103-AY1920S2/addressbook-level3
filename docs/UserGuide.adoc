@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all logs
-* **`add`**`x/s n/running t/Wednesday 18:00 l/utown gym c/500` : adds an entry named `swimming` to the dashboard page.
+* **`add`**`x/s n/swimming t/Wednesday 18:00 l/utown gym c/500` : adds an entry named `swimming` to the dashboard page.
 * **`delete`**`i/3 x/f` : deletes the 3rd entry from food entry list shown in the dashboard
 * *`exit`* : exits the app
 
@@ -72,9 +72,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/running`.
 * Items in square brackets are optional e.g `n/NAME [r/REMARK]` can be used as `n/swimming r/energy consuming but fun` or as `n/running`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME t/Wednesday 18:00`, `t/Wednesday 18:00 n/NAME` is also acceptable.
-* `x/` in this document refers to type of entries: food/sport, it can also be write in short form: f/s.
-* The field `TIME` can entered with natural language for the date, the time needs to be in the format of hh:MM, e.g. `t/tomorrow 03:00`
+* Parameters can be in any order e.g. if the command specifies `n/NAME t/2020-04-10-08:00`, `t/2020-04-10-18:00 n/NAME` is also acceptable.
+* The field `TYPE` or `x/` in this document refers to type of entries: food/sport, it can also be write in short form: f/s.
+* The field `TIME` needs to be in the format of yyyyy-mm-dd-hh:MM, e.g. `t/2020-04-10-03:00`
 * The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
 * The field `DURATION` should be a postive double number, representing duration in hours. e.g. `dr/1.5` for 1.5 hours.
 ====
@@ -103,8 +103,8 @@ Format: `add x/TYPE n/NAME t/DATETIME l/LOCATION c/CALORIE [dr/DURATION] [r/REMA
 
 Examples:
 
-* `add x/s n/running t/Wednesday 18:00 l/utown gym c/500 r/relly fun`
-* `add x/f n/chicken rice t/Sunday 11:00 l/Super Snacks c/200 r/cheap and yummy`
+* `add x/s n/running t/2020-04-10-18:00 l/utown gym c/500 r/relly fun`
+* `add x/f n/chicken rice t/2020-04-10-11:00 l/Super Snacks c/200 r/cheap and yummy`
 
 === Listing all entries : `list`
 
@@ -429,7 +429,7 @@ Calendar view will display all the food and sports entries for each day of the r
 The lists of entries for food and sports are display by their given dates in the referenced month. Completed entries will be strikethrough. Calorie value is also shown for each date.
 
 * *Calendar of the month* +
-On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`. The leftward and rightward arrow from the title bar can switch the calendar to previous or next month, with matching CLI command `calendar d/DATE`.
+On the top right corner, the dates of the referenced month displayed, with red-colored date if the given date has more calorie intake than calorie burnt (considering the entries with status done of that particular date), else if calorie burnt is greater than calorie intake, the font color is green. Default color is blue. For each date, upon clicking, a popup window will show all entries of the date. The ones with strikethrough in text means the status of the entry is done. For this functionality, the corresponding command is `calendar sh/DATE`.
 
 * *Daily tasks completion status* +
 On the bottom right corner, completion status for existing entries will be displayed by their dates, showing the calorie intake from food, calorie burnt from sports as well as total calorie. The calculation only considers entries which are completed.
@@ -439,13 +439,13 @@ On the bottom right corner, completion status for existing entries will be displ
 
 
 * *Weekly View* +
-The entries of food and sports of the given time period are displayed. Food entries will be in pink, sports entries will be in blue, and entries completed will be in grey regardless of their type. Maximum two entries can have time clashes. Entries with long names or locations will not be displayed fully. Only when mouse is over the entry, the details will be shown. Entries upon clicking will have console errors, caused by disabling certain functionalies from third party libraries.
+The entries of food and sports of the given time period are displayed. Food entries will be in pink, sports entries will be in blue, and entries completed will be in grey regardless of their type. No entries can have time clashes. Entries with long names or locations will not be displayed fully. Only when mouse is over the entry, the details will be shown. Entries upon clicking will have console errors, caused by disabling certain functionality from third party libraries.
 
 * *Calendar of the month* +
 Same as above.
 
 * *Upcoming list* +
-It displays all entries after the current date and time and within the referenced month. So if the referenced month is in the past, no entries will be shown. +
+It displays all entries after the current date and time and within the referenced month. Only entries with status "undone" will be shown. So if the referenced month is in the past, no entries will be shown. +
 
 Format for entering calendar view: `calendar` +
 Format for switching to timetable mode: `calendar m/tb` +
@@ -455,8 +455,8 @@ Format for showing entries of a particular date: `calendar sh/DATE`
 
 Examples:
 
-* `calendar m/ls d/tmr`
-* `calendar sh/05-01`
+* `calendar m/ls d/2020-04-20`
+* `calendar sh/2020-05-01`
 
 === Today Page
 
