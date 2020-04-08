@@ -57,8 +57,70 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC_6 = " " + PREFIX_NAME + "*";
     public static final String INVALID_NAME_DESC_7 = " " + PREFIX_NAME + "(";
     public static final String INVALID_NAME_DESC_8 = " " + PREFIX_NAME + ")";
-    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'a' not allowed in amount
-    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2017/02/02"; // needs '-' instead of '/'
+    public static final String INVALID_NAME_DESC_9 = " " + PREFIX_NAME + "-";
+    public static final String INVALID_NAME_DESC_10 = " " + PREFIX_NAME + "_";
+    public static final String INVALID_NAME_DESC_11 = " " + PREFIX_NAME + "+";
+    public static final String INVALID_NAME_DESC_12 = " " + PREFIX_NAME + "=";
+    public static final String INVALID_NAME_DESC_13 = " " + PREFIX_NAME + "!";
+    public static final String INVALID_NAME_DESC_14 = " " + PREFIX_NAME + "@";
+    public static final String INVALID_NAME_DESC_15 = " " + PREFIX_NAME + "<";
+    public static final String INVALID_NAME_DESC_16 = " " + PREFIX_NAME + ">";
+    public static final String INVALID_NAME_DESC_17 = " " + PREFIX_NAME + ",";
+    public static final String INVALID_NAME_DESC_18 = " " + PREFIX_NAME + ".";
+    public static final String INVALID_NAME_DESC_19 = " " + PREFIX_NAME + "?";
+    public static final String INVALID_NAME_DESC_20 = " " + PREFIX_NAME + "/";
+
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'alphabet' not allowed in amount
+    public static final String INVALID_AMOUNT_DESC_1 = " " + PREFIX_AMOUNT + "911#";
+    public static final String INVALID_AMOUNT_DESC_2 = " " + PREFIX_AMOUNT + "911%";
+    public static final String INVALID_AMOUNT_DESC_3 = " " + PREFIX_AMOUNT + "911$";
+    public static final String INVALID_AMOUNT_DESC_4 = " " + PREFIX_AMOUNT + "91919^";
+    public static final String INVALID_AMOUNT_DESC_5 = " " + PREFIX_AMOUNT + "123&";
+    public static final String INVALID_AMOUNT_DESC_6 = " " + PREFIX_AMOUNT + "123*";
+    public static final String INVALID_AMOUNT_DESC_7 = " " + PREFIX_AMOUNT + "123(";
+    public static final String INVALID_AMOUNT_DESC_8 = " " + PREFIX_AMOUNT + "123)";
+    public static final String INVALID_AMOUNT_DESC_9 = " " + PREFIX_AMOUNT + "123-";
+    public static final String INVALID_AMOUNT_DESC_10 = " " + PREFIX_AMOUNT + "123_";
+    public static final String INVALID_AMOUNT_DESC_11 = " " + PREFIX_AMOUNT + "123+";
+    public static final String INVALID_AMOUNT_DESC_12 = " " + PREFIX_AMOUNT + "123=";
+    public static final String INVALID_AMOUNT_DESC_13 = " " + PREFIX_AMOUNT + "213!";
+    public static final String INVALID_AMOUNT_DESC_14 = " " + PREFIX_AMOUNT + "23@";
+    public static final String INVALID_AMOUNT_DESC_15 = " " + PREFIX_AMOUNT + "123<";
+    public static final String INVALID_AMOUNT_DESC_16 = " " + PREFIX_AMOUNT + "123>";
+    public static final String INVALID_AMOUNT_DESC_17 = " " + PREFIX_AMOUNT + "123,";
+    public static final String INVALID_AMOUNT_DESC_19 = " " + PREFIX_AMOUNT + "123?";
+    public static final String INVALID_AMOUNT_DESC_20 = " " + PREFIX_AMOUNT + "123/";
+    public static final String INVALID_AMOUNT_DESC_21 = " " + PREFIX_AMOUNT + "#123";
+    public static final String INVALID_AMOUNT_DESC_22 = " " + PREFIX_AMOUNT + "%123";
+    public static final String INVALID_AMOUNT_DESC_23 = " " + PREFIX_AMOUNT + "$123";
+    public static final String INVALID_AMOUNT_DESC_24 = " " + PREFIX_AMOUNT + "^123";
+    public static final String INVALID_AMOUNT_DESC_25 = " " + PREFIX_AMOUNT + "&123";
+    public static final String INVALID_AMOUNT_DESC_26 = " " + PREFIX_AMOUNT + "*123";
+    public static final String INVALID_AMOUNT_DESC_27 = " " + PREFIX_AMOUNT + "(123";
+    public static final String INVALID_AMOUNT_DESC_28 = " " + PREFIX_AMOUNT + ")123";
+    public static final String INVALID_AMOUNT_DESC_29 = " " + PREFIX_AMOUNT + "-123";
+    public static final String INVALID_AMOUNT_DESC_30 = " " + PREFIX_AMOUNT + "_123";
+    public static final String INVALID_AMOUNT_DESC_31 = " " + PREFIX_AMOUNT + "+123";
+    public static final String INVALID_AMOUNT_DESC_32 = " " + PREFIX_AMOUNT + "=123";
+    public static final String INVALID_AMOUNT_DESC_33 = " " + PREFIX_AMOUNT + "!123";
+    public static final String INVALID_AMOUNT_DESC_34 = " " + PREFIX_AMOUNT + "@123";
+    public static final String INVALID_AMOUNT_DESC_35 = " " + PREFIX_AMOUNT + "<123";
+    public static final String INVALID_AMOUNT_DESC_36 = " " + PREFIX_AMOUNT + ">123";
+    public static final String INVALID_AMOUNT_DESC_37 = " " + PREFIX_AMOUNT + ",123";
+    public static final String INVALID_AMOUNT_DESC_39 = " " + PREFIX_AMOUNT + "?123";
+    public static final String INVALID_AMOUNT_DESC_40 = " " + PREFIX_AMOUNT + "/123";
+
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2017/02/02"; // testing invalid dates
+    public static final String INVALID_DATE_DESC_1 = " " + PREFIX_DATE + "2017-02/02";
+    public static final String INVALID_DATE_DESC_2 = " " + PREFIX_DATE + "2017/02-02";
+    public static final String INVALID_DATE_DESC_3 = " " + PREFIX_DATE + "2017/02-02";
+    public static final String INVALID_DATE_DESC_4 = " " + PREFIX_DATE + "201700-02-02";
+    public static final String INVALID_DATE_DESC_5 = " " + PREFIX_DATE + "2017-0200-02";
+    public static final String INVALID_DATE_DESC_6 = " " + PREFIX_DATE + "2017-02-02000";
+    public static final String INVALID_DATE_DESC_7 = " " + PREFIX_DATE + "2017-02-32";
+    public static final String INVALID_DATE_DESC_8 = " " + PREFIX_DATE + "2017-13-12";
+
+
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "*"; // '*' is not allowed in remark
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "CLOTHES"; // 'CLOTHES' is not a category
 
