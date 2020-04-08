@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
+import static seedu.zerotoone.testutil.schedule.TypicalScheduledWorkouts.getTypicalScheduledWorkoutList;
 import static seedu.zerotoone.testutil.schedule.TypicalSchedules.SCHEDULE_AT_FIRST_JULY;
 
 import java.util.Arrays;
@@ -29,6 +30,13 @@ class ScheduledWorkoutListTest {
     @Test
     public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> scheduledWorkoutList.resetData(null));
+    }
+
+    @Test
+    public void resetData_withValidReadOnlyScheduleList_replacesData() {
+        ScheduledWorkoutList newData = getTypicalScheduledWorkoutList();
+        scheduledWorkoutList.resetData(newData);
+        assertEquals(newData, scheduledWorkoutList);
     }
 
     @Test
