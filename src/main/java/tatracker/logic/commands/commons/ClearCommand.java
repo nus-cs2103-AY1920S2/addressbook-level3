@@ -19,17 +19,17 @@ public class ClearCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLEAR,
-            "Clears all data stored inside TA-Tracker.",
+            "Clears all data stored inside TA-Tracker",
             List.of(),
             List.of()
     );
 
-    public static final String MESSAGE_SUCCESS = "TA-Tracker has been cleared!";
+    public static final String MESSAGE_CLEAR_SUCCESS = "TA-Tracker has been cleared!";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setTaTracker(new TaTracker());
-        return new CommandResult(MESSAGE_SUCCESS, Action.NONE);
+        return new CommandResult(MESSAGE_CLEAR_SUCCESS, Action.NONE);
     }
 }

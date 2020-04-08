@@ -3,6 +3,8 @@ package tatracker.logic.commands.group;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.module.TypicalModules.CS2103T;
 
@@ -32,14 +34,16 @@ public class EditGroupCommandTest {
         CommandResult commandResult = new EditGroupCommand(validGroup, validModule.getIdentifier(),
                 "GNEW", GroupType.OTHER).execute(modelStub);
 
-        assertEquals(String.format(EditGroupCommand.MESSAGE_EDIT_GROUP_SUCCESS, validGroup),
+        assertEquals(String.format(EditGroupCommand.MESSAGE_EDIT_GROUP_SUCCESS,
+                validModule.getIdentifier(),
+                validGroup.getIdentifier()),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
         assertEquals(Arrays.asList(validGroup), modelStub.modulesAdded.get(0).getGroupList());
     }
 
     @Test
-    public void execute_invalidGroup_throwsCommandException() throws CommandException {
+    public void execute_invalidGroup_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         Group validGroup = new GroupBuilder().build();
         EditGroupCommand editGroupCommand =
@@ -48,12 +52,12 @@ public class EditGroupCommandTest {
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
 
-        assertThrows(CommandException.class, EditGroupCommand.MESSAGE_INVALID_GROUP_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_GROUP_CODE, () ->
                 editGroupCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_invalidModule_throwsCommandException() throws CommandException {
+    public void execute_invalidModule_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         Group validGroup = new GroupBuilder().build();
         EditGroupCommand editGroupCommand =
@@ -61,7 +65,7 @@ public class EditGroupCommandTest {
                         "GNEW", GroupType.OTHER);
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
 
-        assertThrows(CommandException.class, EditGroupCommand.MESSAGE_INVALID_MODULE_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () ->
                 editGroupCommand.execute(modelStub));
     }
 

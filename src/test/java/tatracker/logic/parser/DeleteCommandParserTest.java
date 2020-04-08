@@ -1,12 +1,12 @@
 package tatracker.logic.parser;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.DeleteCommand;
 
 /**
@@ -29,7 +29,6 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser,
-                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        DeleteCommand.MESSAGE_USAGE));
+                "a", Messages.getInvalidCommandMessage(DeleteCommand.MESSAGE_USAGE));
     }
 }

@@ -3,6 +3,7 @@ package tatracker.logic.commands.module;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -27,20 +28,20 @@ public class DeleteModuleCommandTest {
 
         CommandResult commandResult = deleteModuleCommand.execute(modelStub);
 
-        assertEquals(String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS,
-                validModule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS, validModule.getIdentifier()),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(), modelStub.modulesAdded);
     }
 
     @Test
-    public void execute_noModule_throwsCommandException() throws CommandException {
+    public void execute_noModule_throwsCommandException() {
 
         Module validModule = new ModuleBuilder().build();
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
         DeleteModuleCommand deleteModuleCommand = new DeleteModuleCommand("CS1232");
 
-        assertThrows(CommandException.class, DeleteModuleCommand.MESSAGE_INVALID_MODULE_CODE, () ->
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () ->
                 deleteModuleCommand.execute(modelStub));
     }
 
