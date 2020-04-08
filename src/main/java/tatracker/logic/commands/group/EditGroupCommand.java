@@ -1,6 +1,8 @@
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.NEWGROUP;
@@ -33,11 +35,9 @@ public class EditGroupCommand extends Command {
             MODULE, GROUP, NEWGROUP, NEWTYPE
     );
 
-    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited Group: %1$s";
-    public static final String MESSAGE_INVALID_GROUP_CODE = "There is no group with the given group code.";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    public static final String MESSAGE_DUPLICATE_GROUP = "There is already a group with the group code"
-        + " you want to change it to.";
+    public static final String MESSAGE_EDIT_GROUP_SUCCESS = "Edited group: %s [%s].";
+    public static final String MESSAGE_EDIT_GROUP_FAILURE = "There is already a group with the group code"
+            + " that you are editing with.";
 
     private final Group group;
     private final String targetModule;
@@ -67,7 +67,7 @@ public class EditGroupCommand extends Command {
 
         if (!newGroupCode.equals(group.getIdentifier())) {
             if (actualModule.hasGroup(group)) {
-                throw new CommandException(MESSAGE_DUPLICATE_GROUP);
+                throw new CommandException(MESSAGE_EDIT_GROUP_FAILURE);
             }
         }
         Group editedGroup = actualModule.getGroup(group.getIdentifier());
@@ -85,7 +85,8 @@ public class EditGroupCommand extends Command {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, editedGroup), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_EDIT_GROUP_SUCCESS, targetModule, editedGroup.getIdentifier()),
+                Action.GOTO_STUDENT);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_GROUP;
+import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.TYPE;
@@ -31,9 +33,7 @@ public class AddGroupCommand extends Command {
             GROUP, MODULE, TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "New Group added: %s";
-    public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_ADD_GROUP_SUCCESS = "New group added: %s [%s].";
 
     private final Group toAdd;
     private final String targetModule;
@@ -69,7 +69,8 @@ public class AddGroupCommand extends Command {
         model.updateFilteredGroupList(actualModule.getIdentifier());
         model.updateFilteredStudentList(toAdd.getIdentifier(), actualModule.getIdentifier());
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_ADD_GROUP_SUCCESS, targetModule, toAdd.getIdentifier()),
+                Action.GOTO_STUDENT);
     }
 
     @Override
