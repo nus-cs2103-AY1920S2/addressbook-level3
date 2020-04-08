@@ -57,6 +57,9 @@ public class EditTeacherCommandParser implements Parser<EditTeacherCommand> {
     if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
       editTeacherDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
     }
+    if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+      editTeacherDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
+    }
     if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
       editTeacherDescriptor
           .setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));

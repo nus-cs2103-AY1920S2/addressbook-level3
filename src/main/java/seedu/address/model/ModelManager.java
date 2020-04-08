@@ -394,6 +394,11 @@ public class ModelManager extends BaseManager implements Model {
     return getAddressBook(obj).has(obj);
   }
 
+  public boolean has(ID id, Constants.ENTITY_TYPE type) throws CommandException {
+    requireAllNonNull(id, type);
+    return getAddressBook(type).has(id);
+  }
+
   @Override
   public void delete(ModelObject obj) throws CommandException {
     // Very important: Post this event before you really delete object
