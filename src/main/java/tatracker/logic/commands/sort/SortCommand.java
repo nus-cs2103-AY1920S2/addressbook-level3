@@ -27,7 +27,7 @@ public class SortCommand extends Command {
             SORT_TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "The modules have been sorted.";
+    public static final String MESSAGE_SORT_ALL_SUCCESS = "All students in each module have been sorted.";
 
     protected final SortType type;
 
@@ -58,6 +58,6 @@ public class SortCommand extends Command {
 
         model.setDefaultStudentViewList();
 
-        return new CommandResult(MESSAGE_SUCCESS, Action.GOTO_STUDENT);
+        return new CommandResult(MESSAGE_SORT_ALL_SUCCESS, Action.GOTO_STUDENT);
     }
 }
