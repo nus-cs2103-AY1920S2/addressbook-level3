@@ -1,20 +1,20 @@
 package tatracker.logic.commands.student;
 
-import org.junit.jupiter.api.Test;
-import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
-import tatracker.model.Model;
-import tatracker.model.ModelManager;
-import tatracker.model.TaTracker;
-import tatracker.model.UserPrefs;
-import tatracker.model.student.Student;
-import tatracker.testutil.student.EditStudentDescriptorBuilder;
-import tatracker.testutil.student.StudentBuilder;
-
 import static tatracker.logic.commands.CommandTestUtil.assertEditStudentCommandSuccess;
 import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
 import static tatracker.testutil.TypicalTaTracker.getTypicalGroup;
 import static tatracker.testutil.TypicalTaTracker.getTypicalModule;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
+
+import org.junit.jupiter.api.Test;
+
+import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
+import tatracker.model.Model;
+import tatracker.model.ModelManager;
+import tatracker.model.UserPrefs;
+import tatracker.model.student.Student;
+import tatracker.testutil.student.EditStudentDescriptorBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -34,7 +34,7 @@ public class EditStudentCommandTest {
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS,
                 editedStudent, getTypicalModule().getIdentifier(), getTypicalGroup().getIdentifier());
 
-        ModelManager expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent,
                 getTypicalGroup().getIdentifier(), getTypicalModule().getIdentifier());
 

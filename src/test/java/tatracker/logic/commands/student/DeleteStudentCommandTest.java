@@ -37,7 +37,7 @@ public class DeleteStudentCommandTest {
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
-        ModelManager expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.deleteStudent(studentToDelete);
 
         assertDeleteStudentCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
@@ -62,7 +62,7 @@ public class DeleteStudentCommandTest {
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
-        Model expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
         expectedModel.deleteStudent(studentToDelete);
         //showNoStudent(expectedModel);
 

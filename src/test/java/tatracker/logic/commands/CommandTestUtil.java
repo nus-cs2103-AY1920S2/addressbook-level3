@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-import tatracker.MainApp;
 import tatracker.commons.core.LogsCenter;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.CommandResult.Action;
