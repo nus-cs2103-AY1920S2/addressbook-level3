@@ -854,7 +854,7 @@ Adds a new session with:
 ** `START_TIME` at 14:00 in `24hr` format
 ** `END_TIME` at 16:00 in `24hr` format
 ** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
-** `WEEK` recurring period of 2
+** `WEEK` recurring period of 2 weeks
 ** `MOD_CODE` of CS2103T
 ** `TYPE` consultation
 ** `NOTE` "with Alice and Bob"
