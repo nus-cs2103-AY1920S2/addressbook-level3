@@ -71,8 +71,9 @@ public class SuggestionTestUtil {
 
     /**
      * Checks the correctness of the suggestions.
+     *
      * @param expectedSuggestions The expected suggestions list.
-     * @param suggestions The actual suggestions list.
+     * @param suggestions The actual list of suggestions.
      */
     public static void testSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
         assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
@@ -81,8 +82,10 @@ public class SuggestionTestUtil {
 
     /**
      * Checks the correctness of the input stored in CommandInputModel for each suggestion.
+     *
      * @param expectedInputs The expected list of inputs.
-     * @param suggestions The actual suggestions list.
+     * @param suggestions The actual list of suggestions.
+     * @param model The app's model.
      */
     public static void testInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
         for (int i = 0; i < expectedInputs.size(); i++) {
@@ -94,12 +97,19 @@ public class SuggestionTestUtil {
         }
     }
 
+    /**
+     * Checks the correctness of the display text of a suggestion.
+     *
+     * @param expectedSuggestions The expected list of suggestions.
+     * @param suggestions The actual list of suggestions.
+     * @param model The app's model.
+     */
     public static void testDisplayTexts(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions,
             Model model) {
-                for (int i = 0; i < expectedSuggestions.size(); i++) {
-                    SuggestionItem suggestion = suggestions.get(i);
-                    SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
-                    assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
-                }
+        for (int i = 0; i < expectedSuggestions.size(); i++) {
+            SuggestionItem suggestion = suggestions.get(i);
+            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
+            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
+        }
     }
 }

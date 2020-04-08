@@ -4,7 +4,6 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +18,6 @@ import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.suggestion.SuggestionTestUtil;
 import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
-import com.notably.model.suggestion.SuggestionItemImpl;
 
 public class DeleteSuggestionCommandParserTest {
     private static AbsolutePath toCs2103t;
@@ -38,7 +36,7 @@ public class DeleteSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
-        
+
         // initialize parser
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
