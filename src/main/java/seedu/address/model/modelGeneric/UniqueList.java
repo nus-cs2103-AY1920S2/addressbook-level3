@@ -37,6 +37,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
+>>>>>>> 700703230e3e9d338e5921b09e3a7c5cccd2e9bd
      * Returns the index of the first occurrence of the specified element in this list.
      * The element should already be unique in unique list.
      */
