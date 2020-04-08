@@ -1,8 +1,8 @@
 package csdev.couponstash.model.coupon.savings;
 
-import org.junit.jupiter.api.Test;
-
 import static csdev.couponstash.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for Saveable.
