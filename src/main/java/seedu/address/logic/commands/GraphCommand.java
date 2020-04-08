@@ -15,6 +15,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.UniqueExerciseList;
 import seedu.address.model.graph.Graph;
 
 /**
@@ -48,10 +49,7 @@ public class GraphCommand extends Command {
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
 
-    public static final String MESSAGE_EXERCISE_NOT_IN_PERSONAL_BEST =
-        "This exercise does not have a personal best recorded";
-
-    public static final String MESSAGE_AXIS_UNSPECIFIED = "There was no axis specified.";
+    public static final String MESSAGE_EXERCISE_NOT_IN_LIST = "This client currently does not have this exercise recorded.";
 
     private final Graph graph;
 
@@ -72,6 +70,11 @@ public class GraphCommand extends Command {
         }
 
         Client clientInView = model.getClientInView();
+        UniqueExerciseList clientInViewExerciseList = clientInView.getExerciseList();
+
+        if (!clientInViewExerciseList.containsName(graph.getExerciseName())) {
+            throw new CommandException(MESSAGE_EXERCISE_NOT_IN_LIST);
+        }
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
 

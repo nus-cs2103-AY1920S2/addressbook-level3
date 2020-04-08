@@ -44,6 +44,15 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     }
 
     /**
+     * Returns true if the list contains an exercise with the name equivalent as the given
+     * argument.
+     */
+    public boolean containsName(ExerciseName toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(e -> e.getExerciseName().value.equals(toCheck.value));
+    }
+
+    /**
      * Returns {@code Exercise} specified by the {@code Index}.
      */
     public Exercise getExercise(Index index) {
