@@ -89,7 +89,7 @@ public class EditGroupCommand extends Command {
 
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
-        if (model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList() == null || model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.updateFilteredStudentList(editedGroup.getIdentifier(), actualModule.getIdentifier());
