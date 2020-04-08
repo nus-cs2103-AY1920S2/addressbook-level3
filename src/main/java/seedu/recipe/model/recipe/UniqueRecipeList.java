@@ -5,18 +5,11 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
-import seedu.recipe.model.recipe.ingredient.Fruit;
-import seedu.recipe.model.recipe.ingredient.Grain;
-import seedu.recipe.model.recipe.ingredient.MainIngredientType;
-import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
-import seedu.recipe.model.recipe.ingredient.Protein;
-import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
  * A list of recipes that enforces uniqueness between its elements and does not allow nulls.

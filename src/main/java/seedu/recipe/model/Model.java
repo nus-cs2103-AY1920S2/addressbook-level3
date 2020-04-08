@@ -10,7 +10,6 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 
 /**
  * The API of the Model component.
