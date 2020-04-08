@@ -135,7 +135,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Day> getScheduleVisual() {
-        return model.getScheduleVisualResult();
+    public ObservableList<Day> getSchedule() {
+        return model.getSchedule();
     }
 }

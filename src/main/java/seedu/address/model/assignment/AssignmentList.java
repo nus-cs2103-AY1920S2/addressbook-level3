@@ -131,7 +131,7 @@ public class AssignmentList {
         return true;
     }
 
-    public ObservableList<Day> getScheduleVisualList() {
+    public ObservableList<Day> getSchedule() {
         return scheduleVisual;
     }
 

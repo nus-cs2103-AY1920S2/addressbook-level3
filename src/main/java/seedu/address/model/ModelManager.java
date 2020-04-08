@@ -401,8 +401,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Day> getScheduleVisualResult() {
-        return this.scheduler.getScheduleVisual();
+    public ObservableList<Day> getSchedule() {
+        return this.scheduler.getSchedule();
     }
 
     //=========== Undo and Redo ========================================================================
