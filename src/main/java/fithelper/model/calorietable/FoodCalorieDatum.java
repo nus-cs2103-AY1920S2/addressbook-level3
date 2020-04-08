@@ -3,10 +3,10 @@ package fithelper.model.calorietable;
 /**
  * An entry storing the name of a food, its calorie intake per serving, and the weight of one serving.
  */
-public class FoodCalorieEntry extends CalorieEntry {
+public class FoodCalorieDatum extends CalorieDatum {
     private String weightPerServingInGram;
 
-    public FoodCalorieEntry(String name, String calorie, String weight) {
+    public FoodCalorieDatum(String name, String calorie, String weight) {
         super(name, calorie);
         weightPerServingInGram = weight;
     }

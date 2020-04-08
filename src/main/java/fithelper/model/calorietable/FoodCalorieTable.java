@@ -7,20 +7,20 @@ import java.util.Set;
  * The table storing pre-defined data about calorie intake of a food
  */
 public class FoodCalorieTable implements CalorieTable {
-    private Set<FoodCalorieEntry> entries = new HashSet<>();
+    private Set<FoodCalorieDatum> table = new HashSet<>();
 
     public FoodCalorieTable() {
         String data = FoodCalorieDataUtil.DATA;
-        String[] listOfEntries = data.split("\n");
-        for (String entry : listOfEntries) {
-            String[] attributes = entry.split("\t");
+        String[] listOfData = data.split("\n");
+        for (String datum : listOfData) {
+            String[] attributes = datum.split("\t");
             if (attributes.length == 3) {
-                entries.add(new FoodCalorieEntry(attributes[0], attributes[2], attributes[1]));
+                table.add(new FoodCalorieDatum(attributes[0], attributes[2], attributes[1]));
             }
         }
     }
 
-    public Set<FoodCalorieEntry> getEntries() {
-        return entries;
+    public Set<FoodCalorieDatum> getData() {
+        return table;
     }
 }

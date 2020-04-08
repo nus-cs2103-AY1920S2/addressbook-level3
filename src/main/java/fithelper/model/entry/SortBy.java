@@ -19,14 +19,30 @@ public class SortBy {
     public SortBy(String order) {
         requireNonNull(order);
         checkArgument(isValidCategory(order), MESSAGE_CONSTRAINTS);
-        value = ("cal".equals(order) || "c".equals(order)) ? "calorie" : "time";
+        switch (order) {
+        case "cal":
+            // Fallthrough
+        case "c":
+            value = "calorie";
+            break;
+        case "name":
+            // Fallthrough
+        case "n":
+            value = "name";
+            break;
+        default:
+            value = "time";
+            break;
+        }
     }
 
     /**
      * Returns true if a given string is a valid type.
      */
     public static boolean isValidCategory(String test) {
-        return "cal".equals(test) || "c".equals(test) || "time".equals(test) || "t".equals(test);
+        return "cal".equals(test) || "c".equals(test)
+                || "time".equals(test) || "t".equals(test)
+                || "name".equals(test) || "n".equals(test);
     }
 
     public String getValue() {

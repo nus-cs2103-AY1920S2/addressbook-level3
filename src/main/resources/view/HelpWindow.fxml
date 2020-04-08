@@ -15,7 +15,7 @@
         <content>
           <AnchorPane minHeight="500.0" minWidth="660.0" style="-fx-background-color: transparent;">
                <children>
-                  <Label fx:id="helpMessage" layoutY="4.0" text="Label" textFill="#ef827d" textOverrun="CLIP">
+                  <Label fx:id="helpMessage" layoutY="4.0" text="Label" textFill="#0044ff" textOverrun="CLIP">
                      <font>
                         <Font size="14.0" />
                      </font>

@@ -21,8 +21,13 @@ create Table
 Fh -> Table
 activate Table
 Table -> Data : getData()
-Table <-- Data : data in String
+activate Data
+Table <-- Data : data
+deactivate
 Table -> Table : convertDataToList()
+activate Table
+Table --> Table :
+deactivate
 Fh <-- Table
 deactivate
 Model <-- Fh

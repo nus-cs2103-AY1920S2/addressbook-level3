@@ -5,11 +5,11 @@ import java.util.Objects;
 /**
  * An entry about calorie intake/consumption of a food/sports.
  */
-public abstract class CalorieEntry {
+public abstract class CalorieDatum {
     private String name;
     private String calorie;
 
-    public CalorieEntry(String name, String calorie) {
+    public CalorieDatum(String name, String calorie) {
         this.name = name;
         this.calorie = calorie;
     }
@@ -26,8 +26,8 @@ public abstract class CalorieEntry {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        } else if (o instanceof CalorieEntry) {
-            CalorieEntry other = (CalorieEntry) o;
+        } else if (o instanceof CalorieDatum) {
+            CalorieDatum other = (CalorieDatum) o;
             return other.getName().equals(this.name);
         }
         return false;

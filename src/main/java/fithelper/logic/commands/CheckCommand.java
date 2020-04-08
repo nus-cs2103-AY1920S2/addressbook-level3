@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Set;
 
 import fithelper.model.Model;
-import fithelper.model.calorietable.CalorieEntry;
+import fithelper.model.calorietable.CalorieDatum;
 import fithelper.model.entry.Type;
 
 /**
@@ -57,7 +57,7 @@ public class CheckCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         String typeValue = checkType.getValue();
-        Set<CalorieEntry> result;
+        Set<CalorieDatum> result;
         if ("food".equals(typeValue)) {
             result = model.searchFoodCalorieTable(keywords);
         } else {
@@ -65,7 +65,7 @@ public class CheckCommand extends Command {
         }
         if (result.size() > 0) {
             StringBuilder userFeedback = new StringBuilder(MESSAGE_SUCCESS);
-            for (CalorieEntry entry : result) {
+            for (CalorieDatum entry : result) {
                 userFeedback.append(entry);
             }
             userFeedback.append(MESSAGE_HINT);

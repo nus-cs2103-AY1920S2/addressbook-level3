@@ -22,7 +22,7 @@ end box
 activate LogicManager
 
 create CheckCommand
-LogicManager -> CheckCommand : parseAndCreateCommand()
+LogicManager -> CheckCommand : parse()
 activate CheckCommand
 LogicManager <-- CheckCommand : command
 deactivate
@@ -46,33 +46,33 @@ LogicManager -> CheckCommand : execute(model)
 activate CheckCommand
 CheckCommand -> ModelManager : searchTable(checkType, keyword)
 activate ModelManager
-ModelManager -> FitHelper : addCalorieEntry(type, keyword)
+ModelManager -> FitHelper : addCalorieData(type, keyword)
 activate FitHelper
-FitHelper -> CalorieTable : getEntries(type)
+FitHelper -> CalorieTable : getData(type)
 activate CalorieTable
-FitHelper <-- CalorieTable : entries
+FitHelper <-- CalorieTable : data
 deactivate
 
-FitHelper -> FitHelper : searchEachWordCompleteMatch(keywords)
+FitHelper -> FitHelper : searchEachWordCompleteMatch(keywordsByWord)
 activate FitHelper
 FitHelper --> FitHelper : count
 deactivate
 opt fewer than 3 entries are added so far, i.e. count < 3
-FitHelper -> FitHelper : searchWholeWordPartialMatch(keyword)
+FitHelper -> FitHelper : searchWholeWordPartialMatch(keywords)
 activate FitHelper
 FitHelper --> FitHelper : count
 deactivate
 end
 opt fewer than 3 entries are added so far, i.e. count < 3
-FitHelper -> FitHelper : checkAndAddEntryToList(entry)
+FitHelper -> FitHelper : searchEachWordPartialMatch(keywordsByWord)
 activate FitHelper
 FitHelper --> FitHelper :
 deactivate
 end
 
-FitHelper --> ModelManager : List<CalorieEntry>
+FitHelper --> ModelManager : List<CalorieDatum>
 deactivate FitHelper
-ModelManager --> CheckCommand : List<CalorieEntry>
+ModelManager --> CheckCommand : List<CalorieDatum>
 deactivate ModelManager
 create Result
 CheckCommand -> Result

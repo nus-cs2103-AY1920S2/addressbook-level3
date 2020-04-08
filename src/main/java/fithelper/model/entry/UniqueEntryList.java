@@ -166,6 +166,17 @@ public class UniqueEntryList implements Iterable<Entry> {
         case "time":
             newComparator = Comparator.comparing(Entry::getDateTime);
             break;
+        case "name":
+            newComparator = (e1, e2) -> {
+                int firstCompare = e1.getName().toString().toLowerCase()
+                        .compareTo(e2.getName().toString().toLowerCase());
+                if (firstCompare != 0) {
+                    return firstCompare;
+                } else {
+                    return e1.getDateTime().compareTo(e2.getDateTime());
+                }
+            };
+            break;
         default:
             throw new IllegalValueException("Unknown sort-by type");
         }

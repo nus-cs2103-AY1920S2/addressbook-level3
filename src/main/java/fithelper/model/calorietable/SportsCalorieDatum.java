@@ -3,8 +3,8 @@ package fithelper.model.calorietable;
 /**
  * An entry storing the name of a sports and its calorie consumption (range) per hour.
  */
-public class SportsCalorieEntry extends CalorieEntry {
-    public SportsCalorieEntry(String name, String calorie) {
+public class SportsCalorieDatum extends CalorieDatum {
+    public SportsCalorieDatum(String name, String calorie) {
         super(name, calorie);
     }
 
