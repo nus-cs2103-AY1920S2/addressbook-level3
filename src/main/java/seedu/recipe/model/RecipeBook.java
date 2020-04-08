@@ -120,7 +120,4 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         return recipes.hashCode();
     }
 
-    public ObservableList<MainIngredientTypeMagnitude> getQuantityList() {
-        return recipes.getQuantityTally();
-    }
 }

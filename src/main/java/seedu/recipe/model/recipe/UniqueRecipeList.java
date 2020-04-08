@@ -35,11 +35,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private final ObservableList<Recipe> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    private final ObservableList<MainIngredientTypeMagnitude> internalQuantityList =
-            FXCollections.observableArrayList();
-    private final ObservableList<MainIngredientTypeMagnitude> internalUnmodifiableQuantityList =
-            FXCollections.unmodifiableObservableList(internalQuantityList);
-
     //======================================RECIPE======================================
     /**
      * Returns true if the list contains an equivalent recipe as the given argument.
@@ -59,7 +54,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             throw new DuplicateRecipeException();
         }
         internalList.add(toAdd);
-        internalQuantityList.add(calculateTally(toAdd));
     }
 
     /**
@@ -80,7 +74,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
 
         internalList.set(index, editedRecipe);
-        internalQuantityList.set(index, calculateTally(editedRecipe));
     }
 
     /**
@@ -93,14 +86,11 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!internalList.remove(toRemove)) {
             throw new RecipeNotFoundException();
         }
-        //if recipe is removed, remove from quantity list
-        internalQuantityList.remove(index);
     }
 
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-        setAllQuantityTally();
     }
 
     /**
@@ -112,9 +102,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!recipesAreUnique(recipes)) {
             throw new DuplicateRecipeException();
         }
-
         internalList.setAll(recipes);
-        setAllQuantityTally();
     }
 
     /**
@@ -153,81 +141,5 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             }
         }
         return true;
-    }
-
-    //======================================QUANTITY======================================
-    /**
-     * Sets quantity of {@code recipe} in {@code ObservableList}.
-     */
-    private void setAllQuantityTally() {
-        for (int i = 0; i < internalList.size(); i++) {
-            Recipe recipe = internalList.get(i);
-            internalQuantityList.add(i, calculateTally(recipe));
-        }
-    }
-
-    /**
-     * Calculates all quantities of {@code recipe}.
-     */
-    private MainIngredientTypeMagnitude calculateTally(Recipe recipe) {
-        double fruitCount = calculateFruitsQuantity(recipe.getFruits());
-        double grainCount = calculateGrainsQuantity(recipe.getGrains());
-        double proteinCount = calculateProteinQuantity(recipe.getProteins());
-        double vegCount = calculateVegQuantity(recipe.getVegetables());
-        MainIngredientTypeMagnitude tally = new MainIngredientTypeMagnitude(
-                vegCount, fruitCount, proteinCount, grainCount);
-        return tally;
-
-    }
-
-    /**
-     * Calculates quantity of {@code fruits}.
-     */
-    private double calculateFruitsQuantity(Set<Fruit> fruits) {
-        double totalMagnitude = 0;
-        for (Fruit fruit: fruits) {
-            totalMagnitude += fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Calculates quantity of {@code vegetables}.
-     */
-    private double calculateVegQuantity(Set<Vegetable> vegetables) {
-        double totalMagnitude = 0;
-        for (Vegetable veg: vegetables) {
-            totalMagnitude += veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Calculates quantity of {@code proteins}.
-     */
-    private double calculateProteinQuantity(Set<Protein> proteins) {
-        double totalMagnitude = 0;
-        for (Protein protein: proteins) {
-            totalMagnitude += protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Calculates quantity of {@code grains}.
-     */
-    private double calculateGrainsQuantity(Set<Grain> grains) {
-        double totalMagnitude = 0;
-        for (Grain grain: grains) {
-            totalMagnitude += grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Returns the quantity tally list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<MainIngredientTypeMagnitude> getQuantityTally() {
-        return internalUnmodifiableQuantityList;
     }
 }

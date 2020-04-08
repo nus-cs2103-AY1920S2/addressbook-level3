@@ -186,11 +186,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<MainIngredientTypeMagnitude> getFilteredQuantityTally() {
-        return recipeBook.getQuantityList();
-    }
-
-    @Override
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
