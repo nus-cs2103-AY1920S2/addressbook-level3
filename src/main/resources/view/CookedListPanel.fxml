@@ -15,7 +15,7 @@
             </VBox>
         </top>
         <center>
-            <ListView fx:id="cookedListView" />
+            <ListView fx:id="cookedListView"/>
         </center>
     </BorderPane>
     <BorderPane fx:id="borderPane2">
@@ -26,7 +26,7 @@
         </top>
         <center>
             <VBox spacing = "5">
-                <PieChart id="pieChart" fx:id="pieChart" layoutX="10" layoutY="110" />
+                <PieChart id="pieChart" fx:id="pieChart" layoutX="10" layoutY="110" VBox.vgrow="ALWAYS"/>
             </VBox>
         </center>
     </BorderPane>
