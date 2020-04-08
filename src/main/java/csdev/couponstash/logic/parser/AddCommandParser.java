@@ -25,6 +25,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -76,13 +77,22 @@ public class AddCommandParser implements Parser<AddCommand> {
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE,
                         DateUtil.formatDateToString(LocalDate.now())).get());
+
+        // Default remind date is 3 days before expiry date
+        RemindDate remindDate = ParserUtil.parseRemindDate(
+                argMultimap.getValueForOptionalField(
+                        PREFIX_REMIND,
+                        DateUtil.formatDateToString(expiryDate.getDate().minusDays(3))
+                ).get()
+        );
+
         Usage usage = new Usage(); // default 0 usage
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Condition condition = ParserUtil.parseCondition(
                 argMultimap.getValueForOptionalField(PREFIX_CONDITION, Condition.DEFAULT_NO_CONDITION).get());
 
-        Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList, condition);
+        Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList, remindDate, condition);
 
         return new AddCommand(coupon);
     }

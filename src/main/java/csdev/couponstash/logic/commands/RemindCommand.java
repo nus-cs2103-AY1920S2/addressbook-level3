@@ -174,6 +174,7 @@ public class RemindCommand extends IndexedCommand {
                 remindFlag = true;
                 remindMessage = remindMessage + count + ". "
                         + temp.getName().toString()
+                        + " (Starts on " + temp.getStartDate().toString() + ")"
                         + " (Expires on "
                         + temp.getExpiryDate().toString()
                         + ")" + "\n";

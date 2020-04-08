@@ -354,11 +354,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code remindDate} is invalid.
      */
-    public static RemindDate parserRemindDate(String remindDate) throws ParseException {
-
+    public static RemindDate parseRemindDate(String remindDate) throws ParseException {
         requireNonNull(remindDate);
         String trimmedDate = remindDate.trim();
-        if (!RemindDate.isValidRemindDate(trimmedDate)) {
+        if (!DateUtil.isValidDate(trimmedDate)) {
             throw new ParseException(RemindDate.MESSAGE_CONSTRAINTS);
         }
         RemindDate remind = new RemindDate();

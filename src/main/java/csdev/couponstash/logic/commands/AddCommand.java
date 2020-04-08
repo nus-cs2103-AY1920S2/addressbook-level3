@@ -11,6 +11,9 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+
+import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
@@ -69,6 +72,14 @@ public class AddCommand extends Command {
 
         if (!toAdd.getExpiryDate().isAfterOrEqual(toAdd.getStartDate())) {
             throw new CommandException(DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT);
+        }
+
+        // Conditions for remind date
+        if (toAdd.getRemindDate().getDate().isAfter(toAdd.getExpiryDate().getDate())) {
+            throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
+        }
+        if (toAdd.getRemindDate().getDate().isBefore(LocalDate.now())) {
+            throw new CommandException(Messages.MESSAGE_REMIND_DATE_BEFORE_TODAYS);
         }
 
         model.addCoupon(toAdd, commandText);
