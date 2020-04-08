@@ -19,6 +19,7 @@ public class ProductCard extends UiPart<Region> {
     private static final String ORANGE_BAR = "orange-bar";
     private static final String YELLOW_BAR = "yellow-bar";
     private static final String GREEN_BAR = "green-bar";
+    private static final String DISPLAY_CURRENCY = "$";
     private static final String[] barColorStyleClasses = { RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR };
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,7 +32,7 @@ public class ProductCard extends UiPart<Region> {
     public final Product product;
 
     @FXML
-    private HBox cardPane;
+    private HBox cardPaneProduct;
     @FXML
     private Label id;
     @FXML
@@ -50,8 +51,6 @@ public class ProductCard extends UiPart<Region> {
     private ProgressBar progressBar;
 
     private double progress;
-
-    private static final String DISPLAY_CURRENCY = "$";
 
     public ProductCard(Product product, int displayedIndex) {
         super(FXML);

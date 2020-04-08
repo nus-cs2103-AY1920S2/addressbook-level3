@@ -2,7 +2,7 @@
     -light-tab-color: #3e3f40;
     -dark-tab-color: #242424;
     -product-card-color: #1fcbff;
-    -person-card-color: #17ebe1;
+    -customer-card-color: #17ebe1;
     -transaction-card-color: #E797FD;
     -dark-background-color: #101010;
     -stack-pane-color: #008085;
@@ -364,8 +364,8 @@ https://stackoverflow.com/questions/36779642/javafx-css-styling-change-highlight
     -fx-background-radius: 10px;
 }
 
-#cardPanePerson {
-    -fx-background-color: -person-card-color;
+#cardPaneCustomer {
+    -fx-background-color: -customer-card-color;
     -fx-border-width: 0;
     -fx-background-radius: 10px;
 }

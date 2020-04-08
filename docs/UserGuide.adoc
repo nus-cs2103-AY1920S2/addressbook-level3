@@ -71,9 +71,6 @@ Pay attention to the warnings before you execute the command, or else things may
 ==== Viewing help : `help`
 
 Format: `help`
-
-[TIP]
-`F1` key for quick access to launch help window.
 // end::help[]
 
 // tag::receivenotif[]
@@ -509,11 +506,7 @@ Permanently deletes all the stored transaction data in the application.
 Displays and updates the top-selling and worst-selling products (sorted by profit) as transactions are made. +
 
 [NOTE]
-This is a passive feature. +
-Relaunch the window to get the updated information.
-
-[TIP]
-`F2` key for quick access to launch/relaunch the window.
+This is a passive feature.
 // end::viewtopsellingproducts[]
 
 image::TopSellingProducts.png[align="center"]
@@ -527,9 +520,7 @@ Plots 2 graphs: +
 2. Number of products against sales of products
 
 [NOTE]
-This is a passive feature. +
-Relaunch the histogram window to udpate the plot. +
-`F3` key is the short cut for launch/relaunch the window.
+This is a passive feature.
 
 image::ViewInventory.png[align="center"]
 // end::viewproductsalesquantity[]

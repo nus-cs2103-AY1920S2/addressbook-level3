@@ -13,9 +13,9 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Customer}.
  */
-public class PersonCard extends UiPart<Region> {
+public class CustomerCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "CustomerListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -28,7 +28,7 @@ public class PersonCard extends UiPart<Region> {
     public final Customer customer;
 
     @FXML
-    private HBox cardPane;
+    private HBox cardPaneCustomer;
     @FXML
     private Label name;
     @FXML
@@ -42,7 +42,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Customer customer, int displayedIndex) {
+    public CustomerCard(Customer customer, int displayedIndex) {
         super(FXML);
         this.customer = customer;
         id.setText(displayedIndex + ". ");
@@ -67,12 +67,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof CustomerCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        CustomerCard card = (CustomerCard) other;
         return id.getText().equals(card.id.getText())
                 && customer.equals(card.customer);
     }
