@@ -13,7 +13,7 @@ import seedu.recipe.ui.UiPart;
 
 public class GroceryListWindow extends UiPart<Stage> {
     
-    public static final String GROCERY_LIST_MESSAGE = "Displayed string";
+    public static String groceryListMessage = "";
     
     private static final Logger logger = LogsCenter.getLogger(GroceryListWindow.class);
     private static final String FXML = "GroceryListWindow.fxml"; //todo
@@ -33,7 +33,7 @@ public class GroceryListWindow extends UiPart<Stage> {
         super(FXML, root);
         // todo make getter method in list X
         // analyse how command result is being displayed, how to pass a message from logic to  model to UI
-        groceryList.setText(groceries);
+        groceryList.setWrapText(true);
     }
     
     /**
@@ -42,7 +42,12 @@ public class GroceryListWindow extends UiPart<Stage> {
     public GroceryListWindow(String groceries) {
         this(new Stage(), groceries);
     }
-    
+
+    public void setGroceryListMessage(String message) {
+        groceryListMessage = message;
+        groceryList.setText(message);
+    }
+
     /**
      * Shows the grocery list window.
      * @throws IllegalStateException
@@ -89,13 +94,13 @@ public class GroceryListWindow extends UiPart<Stage> {
     }
     
     /**
-     * Copies the URL to the user guide to the clipboard.
+     * Copies the grocery list to the clipboard.
      */
     @FXML
-    private void copyUrl() {
+    private void copyGroceryList() {
     final Clipboard clipboard = Clipboard.getSystemClipboard();
     final ClipboardContent groceryList = new ClipboardContent();
-        groceryList.putString(GROCERY_LIST_MESSAGE);
+        groceryList.putString(groceryListMessage);
         clipboard.setContent(groceryList);
     }
 }

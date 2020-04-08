@@ -1,3 +1,17 @@
 {
-  "plannedRecipes" : [ ]
+  "plannedRecipes" : [ {
+    "recipes" : [ {
+      "name" : "5 Ingredient Spelt Spaghetti",
+      "time" : "25",
+      "isFavourite" : false,
+      "grains" : [ "80.0g,  Spelt spaghetti" ],
+      "vegetables" : [ "2.0cup,  Arugula (salad rockets)", "50.0g,  Leek", "300.0g,  Tomatoes", "300.0g,  Zucchini" ],
+      "proteins" : [ "50.0g,  Egg" ],
+      "fruits" : [ ],
+      "others" : [ "1.0tbsp,  Fresh basil", "2.0tbsp,  Italian herbs", "0.5tbsp,  Olive oil", "1.0tbsp,  Pepper", "2.0tbsp,  Salt", "2.0tbsp,  Xucker ketchup" ],
+      "steps" : [ "Thinly slice Tomatoes and Leek and shred your Zucchini.", "Heat up Oil in a large Pan on a medium-high Level and roast Leek until golden.", "Now add Zucchini.", "When the Zucchini´s roasted, stir in Tomatoes and turn down Heat to a lower Level.", "Let cook for 5-7 Minutes until it turn into a Sauce.", "Meanwhile, prepare Spaghetti according to the Directions stated on the Package.", "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.", "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg, Parmesan and more fresh Basil." ],
+      "goals" : [ "Wholesome Wholemeal" ]
+    } ],
+    "date" : "2020-04-09"
+  } ]
 }

@@ -23,7 +23,6 @@ public class GroceryListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "All ingredients required have been listed down.";
 
     private final Tab planTab = Tab.PLANNING;
-    //private final CommandType commandType = CommandType.PLAN;
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

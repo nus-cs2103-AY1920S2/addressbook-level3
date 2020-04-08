@@ -224,6 +224,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getGroceryList() {
+        return plannedBook.getGroceryList();
+    }
+
+    @Override
     public ObservableList<PlannedDate> getFilteredPlannedList() {
         return filteredPlannedDates;
     }

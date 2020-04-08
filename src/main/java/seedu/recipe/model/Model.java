@@ -133,7 +133,7 @@ public interface Model {
     void addOnePlan(Recipe recipe, PlannedDate plannedDate);
 
     /**
-     * Deletes the {@code recipe} plan.
+     * Deletes the {@code recipe} plan from the {@code plannedDate}.
      */
     void deleteOnePlan(Recipe recipe, PlannedDate plannedDate);
 
@@ -148,16 +148,14 @@ public interface Model {
     void updateFilteredPlannedList(Predicate<PlannedDate> predicate) throws NullPointerException;
 
     /**
-     * Marks {@code recipeCooked} as completed if {@code recipeCooked}
-     */
-    //void completePlan(Recipe recipeCooked, PlannedDate plannedDate);
-
-    /**
      * Returns the list of plans that uses {@code recipe}.
      */
     List<PlannedDate> getPlans(Recipe recipe);
 
-    //updateAndFillPlannedList //todo: implement for weekly view
+    /**
+     * Returns the grocery list containing all the ingredients in the planned recipes.
+     */
+    String getGroceryList();
 
     /**
      * Adds a record in the cookedRecord list
@@ -168,7 +166,7 @@ public interface Model {
     ObservableList<Record> getFilteredRecordList();
 
     /**
-     * updates goal tally every time a record is added
+     * Updates goal tally every time a record is added
      * @code record
      */
     void updateGoalsTally(Record record);

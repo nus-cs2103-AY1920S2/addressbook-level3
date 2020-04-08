@@ -27,12 +27,13 @@ public interface Logic {
 
     /**
      * Returns the RecipeBook.
-     *
      * @see seedu.recipe.model.Model#getRecipeBook()
      */
     ReadOnlyRecipeBook getRecipeBook();
 
-    /** Returns an unmodifiable view of the filtered list of recipes */
+    /**
+     * Returns an unmodifiable view of the filtered list of recipes.
+     */
     ObservableList<Recipe> getFilteredRecipeList();
 
     /**
@@ -66,5 +67,10 @@ public interface Logic {
      * Returns an unmodifiable view of the scheduled recipes.
      */
     ObservableList<PlannedDate> getFilteredPlannedList();
+
+    /**
+     * Returns the grocery list.
+     */
+    String getGroceryList();
 
 }

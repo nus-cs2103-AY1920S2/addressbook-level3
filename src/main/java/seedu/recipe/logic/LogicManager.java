@@ -95,5 +95,10 @@ public class LogicManager implements Logic {
         return model.getFilteredPlannedList();
     }
 
+    @Override
+    public String getGroceryList() {
+        return model.getGroceryList();
+    }
+
 
 }

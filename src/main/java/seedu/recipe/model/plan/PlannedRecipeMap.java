@@ -80,6 +80,7 @@ public class PlannedRecipeMap {
 
     /**
      * Returns a new list of planned dates at the {@code recipe} key.
+     * If {@code recipe} does not exist, return a new list.
      */
     public List<PlannedDate> getPlans(Recipe recipe) {
         if (contains(recipe)) {

@@ -103,17 +103,16 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     }
 
     /**
-     * Deletes {@code recipe} from the planned recipes internal list in the {@code plannedDate}.
-     * If the {@code recipe} is the last recipe in the internal list, delete the {@code plannedDate}
-     * from the plannedRecipes list.
-     * Deletes {@code recipe} in the mapping as well.
+     * Deletes {@code recipe} in the mapping.
+     * And deletes the entire {@code plannedDate} if the {@code recipe} is the last plan on that day.
+     * Otherwise, deletes {@code recipe} from the planned recipes in {@code plannedDate}.
      */
     public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
         if (plannedDate.isOneRecipe()) { // if one recipe is left, remove plannedDate
             plannedDates.remove(plannedDate);
         } else {
             PlannedDate updatedPlan = plannedDate.deleteRecipe(recipe);
-            plannedDates.setPlannedDate(plannedDate, updatedPlan);
+            plannedDates.setPlannedDate(plannedDate, updatedPlan); //todo for others
         }
         recipeMap.deleteOnePlannedRecipe(recipe, plannedDate);
     }
@@ -150,10 +149,11 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     public void completePlan(Recipe recipeCooked, PlannedDate plannedDate) {
         plannedDates.complete(recipeCooked, plannedDate);
         recipeMap.deleteOnePlannedRecipe(recipeCooked, plannedDate);
-    }*/
+    }*/ // todo remove once cooked command is complete
 
-    private void removeMapping(Recipe recipe, PlannedDate plannedDate) {
-        // todo
+    public String getGroceryList() {
+        return "Testing 1 2 3 4\n"
+                +"5, 6 new linee";
     }
 
     // ===== Util methods =====

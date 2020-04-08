@@ -196,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleGroceryList() {
+        groceryListWindow.setGroceryListMessage(logic.getGroceryList());
         if (!groceryListWindow.isShowing()) {
             groceryListWindow.show();
         } else {
