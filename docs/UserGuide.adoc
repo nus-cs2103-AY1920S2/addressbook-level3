@@ -51,7 +51,7 @@ _This section provides a quick description for the common terminologies used in 
 
 *Task*: A task is something that you need to complete. It is represented as a card on the right side of the window. Set reminders, add tags and more to better manage your tasks!
 
-*Pomodoro*: A productivity technique that consists of doing focused work for 25 minutes followed by a 5 minute break. This technique prevents you from tiring out while doing work. 
+*Pomodoro*: A productivity technique that consists of doing focused work for 25 minutes followed by a 5 minute break. This technique prevents you from tiring out while doing work.
 
 *Pet*: The pet you will interact with to manage your tasks and pomodoros. You can also level up the pet by completing more tasks/pomodoros.
 
