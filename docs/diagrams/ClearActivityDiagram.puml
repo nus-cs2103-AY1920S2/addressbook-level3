@@ -3,46 +3,42 @@
 start
 :User enter clear command;
 if () then ([Arguments are empty])
-    :set Flags as null;
+    :Create a new Clear Command with no flags;
 else ([else])
-    :Retrieve flags from arguments;
+    :Create a new Clear Command with flags;
 endif
-:Create a new Clear Command based on flags;
-:Logic Manager executes the command;
+:Executes the command;
 
 if () then (([flags contains '-f' flag])
     if () then ([flags also contains '-o' flag])
-    :Clear the order book in Model;
+    :Clear the order book list;
     else ([else])
         if() then ([flags also contain '-r' flag])
-        :Clear the return order book in Model;
+        :Clear the return order book list;
         else ([flags only contains 'f' flag])
-        :Clear both order book and
-         return order book in Model;
+        :Clear both order book list and
+         return order book list;
         endif
     endif
-    :Return back CommandResult with the success message to user;
+    :Display success message to the User;
 
 else ([else])
     if() then([flags do not contains 'f' flag])
         if () then ([flags contains '-o' flag])
-            :Return back CommandResult
-            with the confirmation message
-             to clear order book to user;
+            :Display the confirmation message
+             to clear order book list to user;
         else ([flags contains 'r' flag])
-            :Return back CommandResult
-            with the confirmation message
-             to clear return order book to user;
+            :Display the confirmation message
+             to clear return order book list to user;
         endif
     else ([flags equal to null])
-    :Return back CommandResult
-    with the confirmation message
-     to clear both order book
-     and return order book to user;
+    :Display the confirmation message
+     to clear both order book list
+     and return order book list to user;
     endif
-    :Pop up appears with the confirmation message;
     if () then ([User press yes button])
-        :Clear the respective order book based on the command;
+        :Clear the respective order book list based on the command;
+        :Display clear success message to user;
     else ([User press no button])
     endif
 endif

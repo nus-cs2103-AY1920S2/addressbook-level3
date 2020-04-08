@@ -28,13 +28,14 @@ OrderBookParser -> ClearCommandParser ++ : parse("-o -f")
 ClearCommandParser -> ClearCommandParser ++ : retrieveFlags(args)
 loop until no flag in args
 
-    ClearCommandParser -> ClearCommandParser ++ : isValidFlag(flag)
-    ClearCommandParser --> ClearCommandParser -- : true
+    opt invalid flag and invalid flag format occurs
+        ClearCommandParser --> OrderBookParser : ParseException
+        OrderBookParser --> LogicManager : ParseException
 
-    ClearCommandParser -> ClearCommandParser ++ : isInvalidFlagFormat(flag, flags)
-    ClearCommandParser --> ClearCommandParser -- : false
+    end
 
     ClearCommandParser --> ClearCommandParser -- : flags
+    ClearCommandParser -[hidden]-> ClearCommandParser
 end
 
 create ClearCommand

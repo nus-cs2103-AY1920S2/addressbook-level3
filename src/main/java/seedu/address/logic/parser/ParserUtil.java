@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.ImportCommand.MESSAGE_INVALID_CSV_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
@@ -38,7 +39,6 @@ import seedu.address.storage.CsvProcessor;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-    public static final String MESSAGE_INVALID_CSV_FILEPATH = "The csv file is not found in the data folder";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final Logger logger = LogsCenter.getLogger(ParserUtil.class);
 
@@ -359,7 +359,7 @@ public class ParserUtil {
         logger.fine("Checking whether the file exists: " + filePath);
         if (!FileUtil.isFileExists(csvFilePath)) {
             logger.info("File not exists: " + filePath);
-            throw new ParseException(MESSAGE_INVALID_CSV_FILEPATH);
+            throw new ParseException(MESSAGE_INVALID_CSV_FILEPATH + filePath);
         }
         return CsvProcessor.retrieveData(csvFilePath);
     }
