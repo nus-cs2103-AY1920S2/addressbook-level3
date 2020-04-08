@@ -6,22 +6,22 @@ import java.util.ArrayList;
  * Represents a day in the schedule visual.
  */
 public class Day {
-    private Hours hours;
+    private Hours totalAllocatedHours;
     private ArrayList<Assignment> dueAssignments;
     private ArrayList<Assignment> allocatedAssignments;
 
     public Day() {
-        this.hours = new Hours(0);
+        this.totalAllocatedHours = new Hours(0);
         this.dueAssignments = new ArrayList<Assignment>();
         this.allocatedAssignments = new ArrayList<Assignment>();
     }
 
-    public Hours getHours() {
-        return hours;
+    public Hours getTotalAllocatedHours() {
+        return totalAllocatedHours;
     }
 
-    public void setHours(float toAdd) {
-        hours = new Hours(toAdd);
+    public void setTotalAllocatedHours(float toAdd) {
+        totalAllocatedHours = new Hours(toAdd);
     }
 
     public void resetDueAssignments() {
@@ -44,7 +44,7 @@ public class Day {
         return allocatedAssignments;
     }
 
-    public void addAllocatedAssignment(float hours, String title) {
-        allocatedAssignments.add(new AllocatedAssignment(hours, title));
+    public void addAllocatedAssignment(float hours, String assignment) {
+        allocatedAssignments.add(new AllocatedAssignment(hours, assignment));
     }
 }

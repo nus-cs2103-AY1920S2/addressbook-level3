@@ -49,14 +49,14 @@ public class ScheduleDayCard extends UiPart<Region> {
         this.day = day;
         date.setStyle("-fx-text-fill: #000");
         date.setText(" " + LocalDate.now().plusDays(numDays).format(DateTimeFormatter.ofPattern("dd MMM")) + " ");
-        hours.setText("Estimated workload for today: " + day.getHours().hours);
+        hours.setText("Estimated workload for today: " + day.getTotalAllocatedHours().hours);
         dueAssignments.setText("Assignments due today:" + convertAssignmentsToString(day.getDueAssignments()));
         allocatedAssignments.setText("To-Do List:" + convertAssignmentsToString(day.getAllocatedAssignments()));
 
-        if ((numDays == 0 && day.getDueAssignments().size() != 0) || day.getHours().hours > 10) {
+        if ((numDays == 0 && day.getDueAssignments().size() != 0) || day.getTotalAllocatedHours().hours > 10) {
             date.setBackground(new Background(new BackgroundFill(Color.rgb(255, 87, 51),
                 CornerRadii.EMPTY, Insets.EMPTY)));
-        } else if (day.getHours().hours > 5 && day.getHours().hours <= 10) {
+        } else if (day.getTotalAllocatedHours().hours > 5 && day.getTotalAllocatedHours().hours <= 10) {
             date.setBackground(new Background(new BackgroundFill(Color.rgb(255, 195, 0),
                 CornerRadii.EMPTY, Insets.EMPTY)));
         } else {

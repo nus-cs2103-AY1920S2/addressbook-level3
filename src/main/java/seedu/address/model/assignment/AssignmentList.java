@@ -186,7 +186,7 @@ public class AssignmentList {
         // Set hours per day in result list with a cap of 24 hours per day
         for (int k = 0; k < Math.min(numDays, distributedHoursAllAssignments.size()); k++) {
             scheduleVisual.get(k)
-                .setHours((float) Math.min(Math.round((distributedHoursAllAssignments.get(k) * 2)) / 2.0, 24));
+                .setTotalAllocatedHours((float) Math.min(Math.round((distributedHoursAllAssignments.get(k) * 2)) / 2.0, 24));
         }
     }
 
