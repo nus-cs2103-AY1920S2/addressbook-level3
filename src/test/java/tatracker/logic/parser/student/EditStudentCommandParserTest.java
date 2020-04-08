@@ -1,6 +1,6 @@
 package tatracker.logic.parser.student;
 
-import static tatracker.logic.commands.CommandMessages.MESSAGE_NOT_EDITED;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_L08;

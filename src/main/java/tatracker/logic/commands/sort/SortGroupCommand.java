@@ -1,8 +1,8 @@
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SORT_TYPE;

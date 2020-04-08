@@ -1,9 +1,9 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_GROUP_CODE;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_STUDENT;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
 import static tatracker.logic.parser.Prefixes.MODULE;

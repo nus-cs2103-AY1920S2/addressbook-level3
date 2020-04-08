@@ -1,7 +1,7 @@
 package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_MODULE;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_MODULE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.MODULE_NAME;
 

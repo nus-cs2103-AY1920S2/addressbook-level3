@@ -1,8 +1,8 @@
 package tatracker.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;

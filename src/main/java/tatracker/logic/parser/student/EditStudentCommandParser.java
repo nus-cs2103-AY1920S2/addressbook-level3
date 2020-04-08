@@ -1,7 +1,7 @@
 package tatracker.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_NOT_EDITED;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;

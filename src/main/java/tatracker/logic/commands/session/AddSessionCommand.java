@@ -1,9 +1,9 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_SESSION;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_MODULE_CODE;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_SESSION_TIMES;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_SESSION;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_TIMES;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.END_TIME;
 import static tatracker.logic.parser.Prefixes.MODULE;

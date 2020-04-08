@@ -2,7 +2,7 @@ package tatracker.logic.commands.student;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.commands.CommandMessages.MESSAGE_DUPLICATE_STUDENT;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_STUDENT;
 import static tatracker.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;

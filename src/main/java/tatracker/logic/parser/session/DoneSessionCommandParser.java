@@ -1,6 +1,6 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.logic.commands.CommandMessages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.session.DoneSessionCommand;
