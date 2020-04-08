@@ -54,7 +54,7 @@ public class CalenderDate extends UiPart<Region> {
      * Changes colour of the circle based on priority
      * @param priority
      */
-    public void setPriorityColour(Priority priority ) {
+    public void setPriorityColour(Priority priority) {
 
         String priorityLevel = priority.toString();
 

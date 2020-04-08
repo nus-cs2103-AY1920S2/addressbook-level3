@@ -114,6 +114,10 @@ public class CalenderPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Create the date format.
+     * @return a new date format
+     */
     private String makeDate() {
         String dateSkeleton = "";
         if (monthNow < 10) {

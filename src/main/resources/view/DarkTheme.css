@@ -418,3 +418,16 @@
     -fx-font-sze: 100pt;
 }
 
+.text-area {
+    text-area-background: #383838;
+    -fx-background-color: #383838;
+    -fx-border-color: #383838;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+    -fx-background-radius: 0 ;
+
+}
+
+

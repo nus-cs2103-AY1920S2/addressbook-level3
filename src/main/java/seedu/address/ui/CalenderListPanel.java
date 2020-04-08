@@ -9,9 +9,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.calender.Task;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.Priority;
+
 
 /**
  * Panel containing the list of persons.

@@ -3,9 +3,11 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
@@ -15,7 +17,8 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
-import seedu.address.calender.Task;
+import seedu.address.model.studentprofile.Profile;
+
 
 /**
  * The API of the Model component.
@@ -147,8 +150,6 @@ public interface Model {
 
     void addModuleTask(ModuleTask moduleTask);
 
-    void updateMajor(Major major);
-
     ObservableList<NusModule> getModulesListTaken();
 
     ModuleBook getModuleBook();
@@ -194,4 +195,12 @@ public interface Model {
      */
     boolean isEmptyToDo(Task todo);
 
+
+    //=========== Profile ==================================================================================
+
+    void updateMajor(Major major);
+
+    ObservableValue<String> getMajor();
+
+    Profile getProfile();
 }

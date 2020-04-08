@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.io.File;
-import java.io.IOException;
 
 import seedu.address.model.Model;
 import seedu.address.model.notes.Notes;
@@ -32,7 +31,8 @@ public class NotesDeleteCommand extends Command {
     private static final String MESSAGE_DELETE_SUCESSFUL = " is successfully deleted ";
     private static final String MESSAGE_DELETE_UNSUCCESSFUL = " is unable to be deleted ";
     private static final String MESSAGE_DELETE_NOT_FOUND = " does not exists";
-    private static final String MESSAGE_DELETE_FOLDER = "You can only delete a file through this method, not a directory";
+    private static final String MESSAGE_DELETE_FOLDER =
+            "You can only delete a file through this method, not a directory";
 
     private String path;
     private String filePath;
@@ -81,6 +81,10 @@ public class NotesDeleteCommand extends Command {
 
     }
 
+    /**
+     * Build the directory name to be shown as current directory.
+     * @param pathName current path name inputted
+     */
     public void buildDirectoryName(String pathName) {
 
         String[] splittedDirectoryName = pathName.split(File.separator);

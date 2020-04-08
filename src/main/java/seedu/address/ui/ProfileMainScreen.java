@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.StudentProfile.Profile;
+import seedu.address.model.studentprofile.Profile;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -38,8 +38,12 @@ public class ProfileMainScreen extends UiPart<Region> {
         super(FXML);
 
         name.setText(student.getName());
-        major.setText(student.getMajor());
-        currentCap.setText(student.getCap());
+        try {
+            major.setText(student.getMajor().getValue());
+        } catch (NullPointerException ex) {
+            major.setText("Dummy");
+        }
+        currentCap.setText("4.67");
         targetCap.setText(student.getTargetCap());
 
 

@@ -5,7 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.calender.Task;
+import seedu.address.model.calender.Task;
 
 /**
  * Adds a deadline.

@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_FILE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_FILE_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.awt.Desktop;
@@ -85,6 +85,10 @@ public class NotesOpenCommand extends Command {
 
     }
 
+    /**
+     * Build the directory name to be shown as current directory.
+     * @param pathName current path name inputted
+     */
     public void buildDirectoryName(String pathName) {
 
         String[] splittedDirectoryName = pathName.split(File.separator);

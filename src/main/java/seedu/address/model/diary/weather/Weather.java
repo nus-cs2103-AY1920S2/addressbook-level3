@@ -12,6 +12,6 @@ public abstract class Weather {
 
     @Override
     public String toString() {
-        return "[" + weather + "]";
+        return weather;
     }
 }

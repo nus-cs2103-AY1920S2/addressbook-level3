@@ -60,7 +60,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setDiaryEntry(newData.getDiaryList());
+
 
     }
 
@@ -127,10 +127,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Person> getPersonList() {
 
         return persons.asUnmodifiableObservableList();
-    }
-
-    public ObservableList<DiaryEntry> getDiaryList() {
-        return diaryBook.getObservableList();
     }
 
     @Override

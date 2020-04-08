@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_FILE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_TYPE;
 
 import java.io.File;
@@ -25,9 +25,11 @@ public class NotesCreateCommandParser implements Parser<NotesCreateCommand> {
      */
     public NotesCreateCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NOTES_PATH, PREFIX_NOTES_PATH_TYPE, PREFIX_NOTES_TYPE, PREFIX_NOTES_FILE_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_NOTES_PATH, PREFIX_NOTES_PATH_TYPE,
+                        PREFIX_NOTES_TYPE, PREFIX_NOTES_FILE_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NOTES_PATH, PREFIX_NOTES_PATH_TYPE, PREFIX_NOTES_TYPE, PREFIX_NOTES_FILE_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NOTES_PATH, PREFIX_NOTES_PATH_TYPE,
+                PREFIX_NOTES_TYPE, PREFIX_NOTES_FILE_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotesCreateCommand.MESSAGE_USAGE));
         }

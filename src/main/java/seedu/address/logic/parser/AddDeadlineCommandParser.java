@@ -9,7 +9,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddDeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.calender.Task;
+import seedu.address.model.calender.Task;
+
+
 
 /**
  * Parses input arguments and creates a new AddCommand object

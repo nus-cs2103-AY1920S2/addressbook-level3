@@ -48,9 +48,22 @@
                      </content></Tab>
                 <Tab id="diaryTab" fx:id="diaryTab" text="Diary">
                      <content>
-                        <StackPane fx:id="diaryListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                        <SplitPane fx:id="diarySplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="diaryListPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                            <AnchorPane fx:id="diaryFullViewPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                          </items>
+                        </SplitPane>
                      </content></Tab>
-                <Tab fx:id="modPlanTab" text="Mod plan" />
+                <Tab fx:id="modPlanTab" text="Mod plan">
+                     <content>
+                        <SplitPane fx:id="modPlanSplitPane" dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane fx:id="modulesTakenBefore" minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="132.0" />
+                            <AnchorPane fx:id="modulesYetTakenplaceholder" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
                   <Tab fx:id="addBookTab" text="Add Book">
                      <content>
 

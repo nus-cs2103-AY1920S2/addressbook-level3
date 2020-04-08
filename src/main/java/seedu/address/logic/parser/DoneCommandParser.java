@@ -11,8 +11,9 @@ import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.DoneDeadlineCommand;
 import seedu.address.logic.commands.DoneModuleTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.calender.Task;
+
 
 /**
  * Parses input arguments and creates a new DoneCommand object

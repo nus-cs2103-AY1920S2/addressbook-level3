@@ -1,24 +1,19 @@
-package seedu.address.calender;
+package seedu.address.model.calender;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.nusmodule.ModuleTask;
-import seedu.address.model.nusmodule.NusModule;
-import seedu.address.model.nusmodule.Priority;
-
 
 /**
  * <h1> Task Class </h1>
  * Represents general <code> Task </code> class such that it can be extended into more specific classes (Deadlines,
- *  To Dos)
- *  description must specify a task
+ * To Dos)
+ * description must specify a task
  */
 
 public class Task {
@@ -26,20 +21,20 @@ public class Task {
     private static HashMap<String, ArrayList<Task>> deadlineTaskHashMap = new HashMap<>();
     private String description;
     private boolean isDone;
-    protected Priority priority;
 
 
     /**
      * Constructor for task class
+     *
      * @param description describes content of task
      */
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
     /**
+     * Return the status of the Task.
      *
      * @return icon for status (tick or cross) to display if task is completed or not
      */
@@ -48,6 +43,7 @@ public class Task {
     }
 
     /**
+     * Return the description of the task.
      *
      * @return description of task
      */
@@ -55,6 +51,12 @@ public class Task {
         return description;
     }
 
+    /**
+     * Add Task to the date in the HashMap.
+     *
+     * @param date date of the task, which is the key in the HashMap
+     * @param task Task that is added
+     */
     public static void addTaskPerDate(String date, Task task) {
         if (!deadlineTaskHashMap.containsKey(date)) {
             deadlineTaskHashMap.put(date, new ArrayList<>());
@@ -65,6 +67,12 @@ public class Task {
         }
     }
 
+    /**
+     * Remove the task from the date in the HashMap
+     *
+     * @param date date of the task, which is the key in the HashMap
+     * @param task Task that is to be removed
+     */
     public static void removeTaskPerDate(String date, Task task) {
 
         deadlineTaskHashMap.get(date).remove(task);
@@ -76,8 +84,9 @@ public class Task {
 
     /**
      * Returns whether a specific date have any task present.
-     * @param date
-     * @return
+     *
+     * @param date Key of the HashMap
+     * @return true if a task is present in the date, false if not
      */
     public static boolean isTaskPresent(String date) {
 
@@ -90,21 +99,27 @@ public class Task {
         }
         return true;
 
-
     }
 
     public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
         return deadlineTaskHashMap;
     }
+
     /**
+     * Mark the task as done.
      *
-     * @return status icon of tick as task is marked as done
+     * @return true when the task is marked as done
      */
     public boolean markAsDone() {
         isDone = true;
         return isDone;
     }
 
+    /**
+     * Returns a new instance of the deadline task list.
+     *
+     * @return an empty deadline task list
+     */
     public static ObservableList<Task> getNewDeadlineTaskList() {
         ArrayList<Task> deadlineTaskListDummy = new ArrayList<>();
 
@@ -112,26 +127,33 @@ public class Task {
         return deadlineTaskList;
     }
 
+    /**
+     * Returns the observable list required for the UI.
+     *
+     * @return observable list required for the UI
+     */
     public static ObservableList<Task> getDeadlineTaskList() {
         return deadlineTaskList;
     }
 
+    /**
+     * Sort the deadline task list by value specified, value can be date or priority
+     *
+     * @param value value specified can be date or priority
+     */
     public static void sortDeadlineTaskList(String value) {
 
-        SimpleDateFormat dateParser= new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateParser = new SimpleDateFormat("dd-MM-yyyy");
 
         if (value.equals("date")) {
-            Comparator<Task> comparator = Comparator.comparing(
-                    Task::getDate, (s1, s2) -> {
-                        try {
-                            Date dateS1 = dateParser.parse(s1);
-                            Date dateS2 = dateParser.parse(s2);
-                            return dateS1.compareTo(dateS2);
-                        } catch (ParseException ex) {
-                            System.out.println("parseException");
-                        }
-                        return -1;
-                    });
+            Comparator<Task> comparator = (Task o1, Task o2) -> {
+                try {
+                    return dateParser.parse(o1.getDate()).compareTo(dateParser.parse(o2.getDate()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return -1;
+            };
 
             FXCollections.sort(deadlineTaskList, comparator);
 
@@ -162,6 +184,7 @@ public class Task {
 
     /**
      * Check whether a date is valid.
+     *
      * @param date format of the date
      * @return true if it is a valid date.
      */

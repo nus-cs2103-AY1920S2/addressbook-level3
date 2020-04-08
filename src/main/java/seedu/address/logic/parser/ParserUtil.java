@@ -10,6 +10,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.calender.Deadline;
+import seedu.address.model.calender.Task;
+import seedu.address.model.calender.ToDo;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -19,9 +22,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.calender.Deadline;
-import seedu.address.calender.Task;
-import seedu.address.calender.ToDo;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -181,7 +182,7 @@ public class ParserUtil {
      * @return a new note object.
      * @throws ParseException when the given {@code notesOpenoperation} is invalid.
      */
-    public static Notes parseNotesOpenOperation(String path,  String pathType) throws ParseException {
+    public static Notes parseNotesOpenOperation(String path, String pathType) throws ParseException {
         requireNonNull(path, pathType);
         String trimmedPath = path.trim();
         String trimmedPathType = pathType.trim();
@@ -200,7 +201,7 @@ public class ParserUtil {
      * @return a new note object.
      * @throws ParseException when the given {@code notesOpenoperation} is invalid.
      */
-    public static Notes parseNotesDeleteOperation(String path,  String pathType) throws ParseException {
+    public static Notes parseNotesDeleteOperation(String path, String pathType) throws ParseException {
         requireNonNull(path, pathType);
         String trimmedPath = path.trim();
         String trimmedPathType = pathType.trim();

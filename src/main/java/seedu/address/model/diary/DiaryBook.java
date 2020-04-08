@@ -6,16 +6,16 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 /**
  * dummy javadocs
  */
 public class DiaryBook {
-    private List<DiaryEntry> diaryEntries;
-    private final ObservableList<DiaryEntry> internalList = FXCollections.observableArrayList();
+    private static List<DiaryEntry> diaryEntries;
+    private static ObservableList<DiaryEntry> internalList;
 
     public DiaryBook() {
         this.diaryEntries = new ArrayList<>();
+        internalList = FXCollections.observableList(diaryEntries);
     }
 
     public DiaryBook(List<DiaryEntry> diaryEntries) {
@@ -32,6 +32,7 @@ public class DiaryBook {
 
     /**
      * Dummy java docs
+     *
      * @return
      */
     public String showLog() {
@@ -51,6 +52,10 @@ public class DiaryBook {
     }
 
     public void addEntry(DiaryEntry diaryEntry) {
-        this.internalList.add(diaryEntry);
+        internalList.add(diaryEntry);
+    }
+
+    public static ObservableList<DiaryEntry> getInternalList() {
+        return internalList;
     }
 }

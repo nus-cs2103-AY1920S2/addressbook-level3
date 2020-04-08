@@ -2,7 +2,7 @@ package seedu.address.model.nusmodule;
 
 import java.util.StringJoiner;
 
-import seedu.address.calender.Task;
+import seedu.address.model.calender.Task;
 
 /**
  * Represents a task related to a specific module. (e.g. an assignment of module CS2103T)

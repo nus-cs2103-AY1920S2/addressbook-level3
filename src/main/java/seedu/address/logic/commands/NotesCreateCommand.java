@@ -85,6 +85,10 @@ public class NotesCreateCommand extends Command {
 
     }
 
+    /**
+     * Build the directory name to be shown as current directory.
+     * @param pathName current path name inputted
+     */
     public void buildDirectoryName(String pathName) {
 
         String[] splittedDirectoryName = pathName.split(File.separator);
@@ -110,7 +114,7 @@ public class NotesCreateCommand extends Command {
             pathName = Notes.getCurrentDirectory() + File.separatorChar + path;
         }
         File myFile = new File(pathName);
-        if (myFile.exists()){
+        if (myFile.exists()) {
             return new CommandResult(pathName + MESSAGE_MAKEDIR_DUPLICATE);
         }
         Notes.setCurrentDirectory(pathName);

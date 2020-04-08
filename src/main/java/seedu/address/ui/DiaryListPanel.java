@@ -22,9 +22,6 @@ public class DiaryListPanel extends UiPart<Region> {
 
     public DiaryListPanel(ObservableList<DiaryEntry> diaryList) {
         super(FXML);
-        for (DiaryEntry d : diaryList) {
-            System.out.println(d instanceof DiaryEntry);
-        }
         diaryListView.setItems(diaryList);
         diaryListView.setCellFactory(listView -> new DiaryListViewCell());
     }

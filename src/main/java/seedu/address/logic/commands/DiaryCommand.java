@@ -12,7 +12,7 @@ public class DiaryCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows diary tab.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SWITCHED_MESSAGE = "Switched to diary Tab";
+    public static final String SWITCHED_MESSAGE = "Switched to Diary tab";
 
     @Override
     public CommandResult execute(Model model) {

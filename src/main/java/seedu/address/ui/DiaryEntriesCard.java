@@ -34,7 +34,8 @@ public class DiaryEntriesCard extends UiPart<Region> {
         super(FXML);
         this.diaryEntry = diaryEntry;
         id.setText(displayedIndex + ". ");
-        text.setText(diaryEntry.toString());
+
+        text.setText(diaryEntry.getDate().toString());
     }
 
     @Override

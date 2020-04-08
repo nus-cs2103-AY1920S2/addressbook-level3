@@ -12,6 +12,6 @@ public abstract class Mood {
 
     @Override
     public String toString() {
-        return "[" + mood + "]";
+        return mood;
     }
 }

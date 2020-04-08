@@ -13,6 +13,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.value.ObservableValue;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
@@ -21,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.calender.Task;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
@@ -30,8 +33,11 @@ import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.model.studentprofile.Profile;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.todolist.Task;
+
+
+
 
 public class AddCommandTest {
 
@@ -240,6 +246,16 @@ public class AddCommandTest {
 
         @Override
         public void updateMajor(Major major) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<String> getMajor() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Profile getProfile() {
             throw new AssertionError("This method should not be called.");
         }
 
