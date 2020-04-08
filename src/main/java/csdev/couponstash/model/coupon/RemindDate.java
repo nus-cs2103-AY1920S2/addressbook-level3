@@ -15,8 +15,8 @@ import csdev.couponstash.commons.util.DateUtil;
 public class RemindDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Remind Dates should not be a date after the Expiry date, "
-                    + "and it should not be before today's date (in the D-M-YYYY format).";
+            "Remind Dates should not be a date after the Expiry date "
+                    + "(in the D-M-YYYY format).";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
 
@@ -29,17 +29,11 @@ public class RemindDate {
      *
      * @param remindDate A valid remind date.
      */
-    public RemindDate(String remindDate, String expiryDate) {
-        if (remindDate.equals("")) {
-            date = null;
-            remindFlag = false;
-            value = "";
-        }
-        requireNonNull(remindDate, expiryDate);
+    public RemindDate(String remindDate) {
+        requireNonNull(remindDate);
 
         // Check if date is valid
         checkArgument(DateUtil.isValidDate(remindDate), MESSAGE_CONSTRAINTS);
-        checkArgument(isValidRemindDate(remindDate, expiryDate), MESSAGE_CONSTRAINTS);
 
         value = remindDate;
         this.date = getDate();
@@ -76,13 +70,6 @@ public class RemindDate {
 
         return remindTest.matches(VALIDATION_REGEX)
                 && !(remindDate.isAfter(expiryDate));
-    }
-
-    /**
-     * Returns remindFlag if coupon has reminder set.
-     */
-    public boolean hasReminder() {
-        return this.remindFlag;
     }
 
     /**

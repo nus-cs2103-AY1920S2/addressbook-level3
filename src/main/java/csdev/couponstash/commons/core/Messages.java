@@ -11,6 +11,4 @@ public class Messages {
     public static final String MESSAGE_COUPONS_EXPIRING_ON_DATE = "Found %s coupon(s) expiring on %s!";
     public static final String MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH = "Found %s coupon(s) expiring during %s!";
     public static final String MESSAGE_NO_COUPONS_EXPIRING = "No coupons expiring on %s! Try another date/ month!";
-    public static final String MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE = "Reminder date cannot be after Expiry Date!";
-    public static final String MESSAGE_REMIND_DATE_BEFORE_TODAYS = "Reminder date cannot be before today's date!";
 }

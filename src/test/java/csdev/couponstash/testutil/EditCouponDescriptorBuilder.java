@@ -118,8 +118,8 @@ public class EditCouponDescriptorBuilder {
     /**
      * Sets the {@code ExpiryDate} of the {@code EditCouponDescriptor} that we are building.
      */
-    public EditCouponDescriptorBuilder withRemindDate(String remindDate, String expiryDate) {
-        descriptor.setRemindDate(new RemindDate(remindDate, expiryDate));
+    public EditCouponDescriptorBuilder withRemindDate(String remindDate) {
+        descriptor.setRemindDate(new RemindDate(remindDate));
         return this;
     }
 

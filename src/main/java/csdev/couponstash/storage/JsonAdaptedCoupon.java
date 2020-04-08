@@ -185,7 +185,7 @@ class JsonAdaptedCoupon {
         if (!RemindDate.isValidRemindDate(remindDate, expiryDate)) {
             throw new IllegalValueException(RemindDate.MESSAGE_CONSTRAINTS);
         }
-        final RemindDate modelRemindDate = new RemindDate(remindDate, expiryDate);
+        final RemindDate modelRemindDate = new RemindDate(remindDate);
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 

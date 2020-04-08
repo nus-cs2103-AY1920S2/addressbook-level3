@@ -76,10 +76,7 @@ public class AddCommand extends Command {
 
         // Conditions for remind date
         if (toAdd.getRemindDate().getDate().isAfter(toAdd.getExpiryDate().getDate())) {
-            throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
-        }
-        if (toAdd.getRemindDate().getDate().isBefore(LocalDate.now())) {
-            throw new CommandException(Messages.MESSAGE_REMIND_DATE_BEFORE_TODAYS);
+            throw new CommandException(DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE);
         }
 
         model.addCoupon(toAdd, commandText);

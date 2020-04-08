@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.commons.util.DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE;
 import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static java.util.Objects.requireNonNull;
 
@@ -102,14 +103,9 @@ public class EditCommand extends IndexedCommand {
             throw new CommandException(START_DATE_EXPIRY_DATE_CONSTRAINT);
         }
 
-        // date.isAfter(sd.getDate()) || date.isEqual(sd.getDate());
-
         // Conditions for remind date
         if (editedCoupon.getRemindDate().getDate().isAfter(editedCoupon.getExpiryDate().getDate())) {
-            throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
-        }
-        if (editedCoupon.getRemindDate().getDate().isBefore(LocalDate.now())) {
-            throw new CommandException(Messages.MESSAGE_REMIND_DATE_BEFORE_TODAYS);
+            throw new CommandException(REMIND_DATE_EXCEED_EXPIRY_DATE);
         }
 
         Usage currentUsage = couponToEdit.getUsage();
@@ -137,9 +133,7 @@ public class EditCommand extends IndexedCommand {
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
-        RemindDate remindDate = editCouponDescriptor.getExpiryDate().isPresent()
-                ? new RemindDate(updatedExpiryDate)
-                : editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
+        RemindDate remindDate = editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
 
         // Archived state cannot be edited
         Archived archived = couponToEdit.getArchived();
