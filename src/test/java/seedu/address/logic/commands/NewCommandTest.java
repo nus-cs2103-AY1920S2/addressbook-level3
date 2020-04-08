@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FOCUS_AREA_AMY;
@@ -10,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_BOB;
 import static seedu.address.logic.commands.NewCommand.MESSAGE_DUPLICATE_PROFILE;
+import static seedu.address.logic.commands.NewCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -81,6 +84,25 @@ public class NewCommandTest {
 
         assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()),
                 () -> newCommandBob.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));
+    }
+
+    @Test
+    public void execute_validFields_success() {
+        Name nameAmy = new Name(VALID_NAME_AMY);
+        CourseName courseNameAmy = new CourseName(VALID_COURSE_AMY);
+        int semesterAmy = new Year(VALID_SEMESTER_AMY).getSemester();
+        FocusArea focusAreaAmy = new FocusArea(VALID_FOCUS_AREA_AMY);
+        Profile amyProfile = new Profile(nameAmy, courseNameAmy, semesterAmy, focusAreaAmy);
+
+        NewCommand newCommand = new NewCommand(amyProfile);
+
+        try {
+            assertEquals(newCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()).getFeedbackToUser(),
+                    String.format(MESSAGE_SUCCESS, amyProfile));
+        } catch (CommandException e) {
+            fail();
+        }
+
     }
 
     private class ProfileManagerStub extends ProfileManager {
