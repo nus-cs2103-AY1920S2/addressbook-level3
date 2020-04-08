@@ -34,6 +34,8 @@ import fithelper.logic.commands.diary.DeleteDiaryCommand;
 import fithelper.logic.commands.diary.DiaryCommand;
 import fithelper.logic.commands.diary.EditDiaryCommand;
 import fithelper.logic.commands.diary.FindDiaryCommand;
+import fithelper.logic.commands.weight.DeleteWeightCommand;
+import fithelper.logic.commands.weight.EditWeightCommand;
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.diary.AppendDiaryCommandParser;
 import fithelper.logic.parser.diary.ClearDiaryCommandParser;
@@ -48,6 +50,8 @@ import fithelper.logic.commands.weight.AddWeightCommand;
 import fithelper.logic.commands.weight.ClearWeightCommand;
 import fithelper.logic.commands.weight.WeightCommand;
 import fithelper.logic.parser.weight.AddWeightCommandParser;
+import fithelper.logic.parser.weight.DeleteWeightCommandParser;
+import fithelper.logic.parser.weight.EditWeightCommandParser;
 
 /**
  * Parses user input.
@@ -93,11 +97,17 @@ public class FitHelperParser {
         case EditDiaryCommand.COMMAND_WORD:
             return new EditDiaryCommandParser().parse(arguments);
 
+        case EditWeightCommand.COMMAND_WORD:
+            return new EditWeightCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case DeleteDiaryCommand.COMMAND_WORD:
             return new DeleteDiaryCommandParser().parse(arguments);
+
+        case DeleteWeightCommand.COMMAND_WORD:
+            return new DeleteWeightCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
