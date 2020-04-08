@@ -15,15 +15,15 @@ if () then ([command arguments is valid])
         :Obtain return order to edit;
         :Edit the return order of given index;
         endif
-        :Display success edit message;
+        :Generate success edit message;
     else ([else])
-        :Display wrong
+        :Generate wrong
         format warning message;
     endif
 else ([else])
-    : Display unknown
+    : Generate unknown
     command message;
 endif
-
+:Display message to user;
 stop
 @enduml
