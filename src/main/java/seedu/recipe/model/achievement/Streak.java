@@ -7,37 +7,37 @@ import static java.util.Objects.requireNonNull;
  */
 public class Streak {
 
-    private final int CurrStreak;
-    private final int HighStreak = 0;
+    private final int currStreak;
+    private final int highStreak = 0;
 
     public Streak(int streak) {
         requireNonNull(streak);
-        this.CurrStreak = streak;
+        this.currStreak = streak;
     }
 
     @Override
     public String toString() {
-        return Integer.toString(this.CurrStreak);
+        return Integer.toString(this.currStreak);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Streak // instanceof handles nulls
-                && CurrStreak == (((Streak) other).CurrStreak)) // state check
-                && HighStreak == (((Streak) other).HighStreak);
+                && currStreak == (((Streak) other).currStreak)) // state check
+                && highStreak == (((Streak) other).highStreak);
     }
 
     @Override
     public int hashCode() {
-        return Integer.toString(CurrStreak).hashCode();
+        return Integer.toString(currStreak).hashCode();
     }
 
     public int getCurrStreak() {
-        return CurrStreak;
+        return currStreak;
     }
 
     public int getHighStreak() {
-        return HighStreak;
+        return highStreak;
     }
 }
