@@ -130,10 +130,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @return
      */
     public boolean isValidMonth(String input) {
-        if (input.length() != 7) {
-            return false;
-        }
         try {
+            if (input.equals("ALL")) {
+                return true;
+            }
             String inputYear = input.split("-")[0];
             int inputYearInteger = Integer.parseInt(inputYear);
             String inputMonth = input.split("-")[1];
