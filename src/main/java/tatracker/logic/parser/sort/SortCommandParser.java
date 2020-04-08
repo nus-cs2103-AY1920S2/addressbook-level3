@@ -46,9 +46,6 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, TYPE, MODULE, GROUP);
 
-        System.out.println(1);
-
-
         if (!argMultimap.arePrefixesPresent(TYPE) || !argMultimap.getPreamble().isEmpty()) {
             switch(commandWord) {
             case CommandWords.SORT_ALL:
@@ -61,9 +58,6 @@ public class SortCommandParser implements Parser<SortCommand> {
                 throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
             }
         }
-
-        System.out.println(2);
-
 
         boolean hasType = argMultimap.getValue(TYPE).isPresent();
 

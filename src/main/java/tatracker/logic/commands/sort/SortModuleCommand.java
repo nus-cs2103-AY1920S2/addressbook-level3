@@ -20,6 +20,7 @@ import tatracker.model.module.Module;
  */
 public class SortModuleCommand extends SortCommand {
 
+
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_MODULE,
