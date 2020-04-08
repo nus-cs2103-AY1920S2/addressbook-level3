@@ -289,17 +289,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateTotalBalance(Balance balance) {
-        globalData.setTotalBalance(balance);
+    public void addTransactionToGlobalData(Transaction transaction) {
+        globalData.addTransaction(transaction);
     }
 
-
     @Override
-    public void addTransactionToGlobalData(Transaction transaction) { globalData.addTransaction(transaction);}
+    public void clearRecurringTransactions() {
+        globalData.clearRecurringTransactionsList();
+    }
 
-    @Override
-    public void clearRecurringTransactions() {globalData.clearRecurringTransactionsList();}
-  
     /**
      * update balance given positive or not and amount
      * @param positive
@@ -315,6 +313,11 @@ public class ModelManager implements Model {
                     new Balance(DECIMAL_FORMATTER.format(globalData.getTotalBalance().balanceAmount - amount))
             );
         }
+    }
+
+    @Override
+    public void updateTotalBalance(Balance balance) {
+        globalData.setTotalBalance(balance);
     }
 
 

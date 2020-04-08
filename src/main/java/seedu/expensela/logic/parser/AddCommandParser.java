@@ -6,9 +6,8 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_RECURRING;
-
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
@@ -60,8 +59,12 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
 
-            if(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) > 999999) {
-                throw new ParseException("Income cannot be 1 million dollars or more!");
+            if (!(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) < 1000000)) {
+                throw new ParseException("Transaction amount cannot be 1 million dollars or more!");
+            }
+
+            if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) <= 0) {
+                throw new ParseException("Transaction amount cannot be less than 0!");
             }
 
             //Set date to today's date first
@@ -73,6 +76,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                 //Checks if date exceeds today's date
                 if (LocalDate.parse(argMultimap.getValue(PREFIX_DATE).get()).isAfter(LocalDate.now())) {
                     throw new ParseException("Date input cannot be a date in the future (after today)");
+                }
+
+                if (LocalDate.parse(argMultimap.getValue(PREFIX_DATE).get()).getYear() < 1900) {
+                    throw new ParseException("Date is too far in the past!");
                 }
             }
 
