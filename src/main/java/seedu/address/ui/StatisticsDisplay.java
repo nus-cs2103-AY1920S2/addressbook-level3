@@ -124,21 +124,4 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeriesPomDurationData.getChart().setAnimated(false);
         dataSeriesTasksDoneData.getChart().setAnimated(false);
     }
-    /*
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof StatisticsDisplay)) {
-            return false;
-        }
-
-        // state check
-        StatisticsDisplay card = (StatisticsDisplay) other;
-        return barChartTitle.getText().equals(card.barChartTitle.getText());
-    } */
 }
