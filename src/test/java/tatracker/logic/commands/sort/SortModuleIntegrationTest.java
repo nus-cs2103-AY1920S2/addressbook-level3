@@ -20,7 +20,6 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
-import tatracker.model.ModelStub;
 import tatracker.model.UserPrefs;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;

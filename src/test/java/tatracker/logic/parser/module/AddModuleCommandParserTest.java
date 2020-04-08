@@ -1,6 +1,5 @@
 package tatracker.logic.parser.module;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -40,7 +39,7 @@ public class AddModuleCommandParserTest {
                 expectedMessage);
 
         // missing module code prefix
-        assertParseFailure(parser, " m/CS3243",
+        assertParseFailure(parser, " n/Intro to AI",
                 expectedMessage);
     }
 }
