@@ -3,7 +3,6 @@ package seedu.address.ui;
 import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
 import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;

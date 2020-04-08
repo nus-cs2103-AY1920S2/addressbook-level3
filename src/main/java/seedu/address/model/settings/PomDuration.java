@@ -6,7 +6,8 @@ public class PomDuration implements Comparable {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Pomodoro duration should be in minutes (up to 1dp) and not blank. It should be more than 0 mins and not exceed 60 mins.";
-    public static final String VALIDATION_REGEX = "^([1-5][0-9](\\.[0-9])?|[1-9](\\.[0-9])?|60(\\.[0])?)$";
+    public static final String VALIDATION_REGEX =
+            "^([1-5][0-9](\\.[0-9])?|[1-9](\\.[0-9])?|60(\\.[0])?)$";
     public final String value;
 
     public PomDuration(String pomDuration) {

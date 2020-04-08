@@ -2,16 +2,16 @@ package seedu.address.model.task;
 
 public enum RecurType {
     DAILY {
-        @Override 
+        @Override
         public long getInterval() {
             // return 1000l*60*60*24;
             return 15000l; // for testing
         }
     },
     WEEKLY {
-        @Override 
+        @Override
         public long getInterval() {
-            return 1000l*60*60*24*7;
+            return 1000l * 60 * 60 * 24 * 7;
         }
     };
 

@@ -96,11 +96,12 @@ public interface Model {
 
     /**
      * Notifies observers when a change is made. Observer in this case is the logic manager.
+     *
      * @throws CommandException
      */
     void notifyObservers() throws CommandException;
 
-    void addObserver(Observer observer); 
+    void addObserver(Observer observer);
 
     public void updateDataDatesStatistics();
 }

@@ -124,7 +124,8 @@ public class EditCommand extends Command {
                 editTaskDescriptor.getReminder().isPresent()
                         ? editTaskDescriptor.getReminder()
                         : taskToEdit.getOptionalReminder();
-        Optional<Recurring> updatedOptionalRecurring = editTaskDescriptor.getRecurring().isPresent()
+        Optional<Recurring> updatedOptionalRecurring =
+                editTaskDescriptor.getRecurring().isPresent()
                         ? editTaskDescriptor.getRecurring()
                         : taskToEdit.getOptionalRecurring();
 
@@ -183,7 +184,8 @@ public class EditCommand extends Command {
 
         /** Returns true if at least one field is edited. */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, priority, description, tags, reminder, recurring);
+            return CollectionUtil.isAnyNonNull(
+                    name, priority, description, tags, reminder, recurring);
         }
 
         public void setName(Name name) {
