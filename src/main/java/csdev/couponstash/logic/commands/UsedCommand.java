@@ -13,6 +13,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Limit;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
@@ -40,6 +41,8 @@ public class UsedCommand extends IndexedCommand {
             + "Example: " + COMMAND_WORD + " 1 %s100";
     public static final String MESSAGE_ARCHIVED_COUPON = "Coupon has been archived!\n"
             + "To use the coupon again, type the command `unarchive %s` first.";
+    public static final String MESSAGE_COUPON_HAVENT_START = "Coupon's start date is after today!"
+            + "You can edit the start date with the `edit` command if you still wish to use this coupon.";
 
     private final MonetaryAmount originalAmount;
 
@@ -73,19 +76,23 @@ public class UsedCommand extends IndexedCommand {
         }
 
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
-        Usage currentUsage = couponToBeUsed.getUsage();
-        Limit limit = couponToBeUsed.getLimit();
-        Archived archived = couponToBeUsed.getArchived();
-        boolean hasPercentageSavings = couponToBeUsed.getSavingsForEachUse().hasPercentageAmount();
+        StartDate startDate = couponToBeUsed.getStartDate();
+        if (startDate.date.isAfter(LocalDate.now())) {
+            throw new CommandException(String.format(MESSAGE_COUPON_HAVENT_START));
+        }
 
+        Archived archived = couponToBeUsed.getArchived();
         if (archived.state) {
             throw new CommandException(String.format(MESSAGE_ARCHIVED_COUPON, targetIndex.getOneBased()));
         }
 
+        Usage currentUsage = couponToBeUsed.getUsage();
+        Limit limit = couponToBeUsed.getLimit();
         if (Usage.isUsageAtLimit(currentUsage, limit)) {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));
         }
 
+        boolean hasPercentageSavings = couponToBeUsed.getSavingsForEachUse().hasPercentageAmount();
         String moneySymbol = model.getStashSettings().getMoneySymbol().getString();
         // checks if original amount of purchase is provided if the type of Savings is of percentage amount
         if (hasPercentageSavings && (originalAmount.equals(new MonetaryAmount(0, 0)))) {
