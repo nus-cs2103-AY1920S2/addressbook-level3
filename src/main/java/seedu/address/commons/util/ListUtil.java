@@ -1,8 +1,5 @@
 package seedu.address.commons.util;
 
-import static seedu.address.logic.commands.ShowCommand.endDate;
-import static seedu.address.logic.commands.ShowCommand.startDate;
-
 import java.time.LocalDate;
 
 import seedu.address.logic.commands.ShowCommand;
@@ -13,14 +10,12 @@ import seedu.address.model.parcel.returnorder.ReturnOrder;
  * Functions for filtering the list
  */
 public class ListUtil {
-    private static LocalDate today = LocalDate.now();
-
-    public static String ALL_DATES = "All Dates";
 
     private static LocalDate start;
     private static LocalDate end;
     private static boolean isAll;
 
+    private static String allDates = "All Dates";
 
     /**
      * Initialize the variables for the purpose
@@ -67,7 +62,7 @@ public class ListUtil {
      */
     public static boolean isDateInclusive(Order order) {
         LocalDate date = order.getTimestamp().getOrderTimeStamp().toLocalDate();
-        return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
+        return date.compareTo(start) >= 0 && date.compareTo(end) <= 0;
     }
 
     /**
@@ -79,7 +74,7 @@ public class ListUtil {
      */
     public static boolean isDateInclusive(ReturnOrder order) {
         LocalDate date = order.getTimestamp().getOrderTimeStamp().toLocalDate();
-        return date.compareTo(startDate) >= 0 && date.compareTo(endDate) <= 0;
+        return date.compareTo(start) >= 0 && date.compareTo(end) <= 0;
     }
 
     /**
@@ -92,14 +87,18 @@ public class ListUtil {
     }
 
     public static LocalDate getStartDate() {
-        return startDate;
+        return start;
     }
 
     public static LocalDate getEndDate() {
-        return endDate;
+        return end;
     }
 
     public static boolean isAll() {
         return isAll;
+    }
+
+    public static String getAllDates() {
+        return allDates;
     }
 }

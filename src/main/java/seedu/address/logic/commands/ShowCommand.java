@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Show the courier his/her delivery statistics
@@ -17,6 +17,13 @@ import static java.util.Objects.requireNonNull;
  * @author Amos Cheong Jit Hon
  */
 public class ShowCommand extends Command {
+
+    public static final String TODAY = "today";
+
+    public static final String ALL = "all";
+
+    public static final DateTimeFormatter FORMAT_CHECKER = DateTimeFormatter
+            .ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 
     public static final String COMMAND_WORD = "show";
 
@@ -33,32 +40,25 @@ public class ShowCommand extends Command {
 
     public static final String WRONG_DATE_ORDER = "The Start Date should not be after than the End Date! \n";
 
-    private static final String TODAY = "today";
-
-    private static final String ALL = "all";
-
-    public static final String MESSAGE_TODAY = " for " + TODAY;
-
     public static final String MESSAGE_ALL = " for all the lists";
 
     public static final String MESSAGE_INCLUSIVE = " within the given dates (including the start and end dates)";
 
-    private String intendedMessage;
+    public static final String MESSAGE_TODAY = " for " + TODAY;
 
-    private boolean isCommandSuccessful;
+    private static LocalDate dateNow = LocalDate.now();
 
-    private static LocalDate DATE_TODAY = LocalDate.now();
+    private static LocalDate endDate;
 
-    public static LocalDate startDate;
+    private static LocalDate startDate;
 
-    public static LocalDate endDate;
-
-    public static boolean showAll;
+    private static boolean showAll;
 
     private String argument;
 
-    public static final DateTimeFormatter FORMAT_CHECKER = DateTimeFormatter
-            .ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+    private String intendedMessage;
+
+    private boolean isCommandSuccessful;
 
     public ShowCommand(String arguments) {
         // Reset if it was initialized
@@ -72,51 +72,80 @@ public class ShowCommand extends Command {
         parseData(argumentTrimmed);
     }
 
+    /**
+     * Check if the arguments received is "today"
+     * @param arguments String
+     * @return boolean
+     */
     public boolean isToday(String arguments) {
         return arguments.equals(TODAY);
     }
 
+    /**
+     * Check if the value for showAll is true.
+     * It determines if the user wanted to see all the
+     * orders in the list
+     *
+     * @return boolean
+     */
     public static boolean isAll() {
         return showAll;
     }
 
+    /**
+     * Overloaded method that initializes the showAll variable
+     * and returns true or false, depending on the user input
+     * @param arguments String
+     * @return boolean
+     */
     public static boolean isAll(String arguments) {
         showAll = arguments.equals(ALL);
         return showAll;
     }
 
+    /**
+     * Return the startDate
+     * @return LocalDate
+     */
     public static LocalDate getStartDate() {
         return startDate;
     }
 
+    /**
+     * Return the endDate
+     * @return LocalDate
+     */
     public static LocalDate getEndDate() {
         return endDate;
     }
 
+    /**
+     * Make sense of the String that is parsed in
+     * @param argText arguments parsed in
+     */
     public void parseData(String argText) {
         if (isToday(argText)) {
             intendedMessage = SHOW_MESSAGE + MESSAGE_TODAY;
             isCommandSuccessful = true;
-            startDate = DATE_TODAY;
-            endDate = DATE_TODAY;
+            startDate = dateNow;
+            endDate = dateNow;
         } else if (isAll(argText)) {
             intendedMessage = SHOW_MESSAGE + MESSAGE_ALL;
             isCommandSuccessful = true;
         } else {
             String[] arrOfDate = argText.replaceAll("\\s+", " ").split("\\s");
-            System.out.println(arrOfDate.length);
             try {
                 if (arrOfDate[0].equals("") || arrOfDate.length > 2) {
                     throw new ParseException(ILLEGAL_ARGUMENT);
                 }
 
-                startDate = isToday(arrOfDate[0]) ? DATE_TODAY :
-                        LocalDate.parse(arrOfDate[0], FORMAT_CHECKER);
+                startDate = isToday(arrOfDate[0]) ? dateNow
+                        : LocalDate.parse(arrOfDate[0], FORMAT_CHECKER);
 
                 endDate = (arrOfDate.length == 1)
                         ? startDate
                         : (isToday(arrOfDate[1])
-                        ? DATE_TODAY
+                        ? dateNow
                         : LocalDate.parse(arrOfDate[1], FORMAT_CHECKER));
 
                 if (startDate.compareTo(endDate) > 0) {

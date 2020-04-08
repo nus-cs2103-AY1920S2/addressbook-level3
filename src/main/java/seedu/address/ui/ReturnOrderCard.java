@@ -1,17 +1,18 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.parcel.order.Order;
-import seedu.address.model.parcel.returnorder.ReturnOrder;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * An UI component that displays information of a {@code Order}.

@@ -33,8 +33,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -163,6 +161,10 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * A listener that listens on whether the Show Tab is clicked
+     *
+     */
     @FXML
     void showStatistics(Event ev) {
         if (showTab.isSelected()) {
@@ -244,6 +246,11 @@ public class MainWindow extends UiPart<Stage> {
         totalCash.setText(earnings);
     }
 
+    /**
+     * Populate the PieChart with the data filtered by the
+     * ListUtil class
+     *
+     */
     public void populatePieChart() {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
@@ -264,7 +271,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void getDeliveryData() {
-        orderList = (new FilteredList<>(logic.getFilteredOrderList()))
+        orderList = (new FilteredList<>(logic.getOrderBook().getOrderList()))
                 .stream()
                 .filter(ListUtil::filterListByDates)
                 .collect(Collectors.toList());
@@ -289,7 +296,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     public void getReturnData() {
-        returnList = (new FilteredList<>(logic.getFilteredReturnOrderList()))
+        returnList = (new FilteredList<>(logic.getReturnOrderBook().getReturnOrderList()))
                 .stream()
                 .filter(ListUtil::filterListByDates)
                 .collect(Collectors.toList());
@@ -325,12 +332,13 @@ public class MainWindow extends UiPart<Stage> {
         tabPane.getSelectionModel().select(showTab);
 
         if (ListUtil.isAll()) {
-            dateToday.setText((ListUtil.ALL_DATES));
+            dateToday.setText((ListUtil.getAllDates()));
         } else if (dateFrom.compareTo(dateTo) == 0) {
             dateToday.setText(dateFrom.format(dateFormatter));
-        }  else {
+        } else {
             dateToday.setText(dateFrom.format(dateFormatter) + " to " + dateTo.format(dateFormatter));
         }
+
         // Delivery orders
         getDeliveryData();
         populateDeliveryStats();
