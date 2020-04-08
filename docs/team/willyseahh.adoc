@@ -10,22 +10,26 @@
 
 == Overview
 
-EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
-at halls/residential colleges by providing them with an application to split bills easily and help
+EYLAH is a desktop application specifically programmed for students staying in National University
+of Singapore. It aims to ease their lives
+at halls by providing them with an application that split bills easily and help
 them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
 
 == Summary of contributions
 
-* *Major enhancement*: [In Process]
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*:
 
-** *Adding of ItemClass, ItemPrice, ItemName for the Expense Splitter portion of EYLAH*
-*** What it does: Item is used when User wants to calculate how much each Person(s) must pay for that Item.
-*** Justifcation:
-*** Highlights: Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency as it will lead to rounding errors. Upon further research on Stack Overflow, I decided that BigDecimal will be a better type to hold currency
+. Adding of *Item, ItemPrice, ItemName for the Expense Splitter* portion of EYLAH +
+
+(Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181[#181])
+
+*** What it does: Allows the user to perform the `additem` command successfully hence adding an Entry which consists
+of an Item into the current Receipt.
+*** Justification: These classes are crucial for Expense Splitter to work because this the User
+has to input an Item to split among his friends.
+*** Highlights: Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency
+as it will lead to rounding errors.
+Upon further research on Stack Overflow, I have decided that BigDecimal will be a better type to hold currency.
 *** Credits: Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
 
 ** *Adding of PaidCommand, ListReceipt Command and BackCommand for the Expense Splitter portion of EYLAH*
