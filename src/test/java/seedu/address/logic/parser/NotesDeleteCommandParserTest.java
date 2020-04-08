@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PATH_WITH_PREFI
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.NotesDeleteCommand;
@@ -16,7 +18,7 @@ import seedu.address.model.notes.Notes;
 public class NotesDeleteCommandParserTest {
 
     private NotesDeleteCommandParser parser = new NotesDeleteCommandParser();
-    private String validPath = "Desktop/test.doc";
+    private String validPath = "Desktop" + File.separator + "test.doc";
     private String validPathType = "abs";
     private Notes testNote = new Notes(validPath, validPathType);
 

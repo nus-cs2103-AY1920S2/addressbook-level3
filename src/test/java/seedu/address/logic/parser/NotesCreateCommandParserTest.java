@@ -9,6 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PATH_WITH_PREFI
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.NotesCreateCommand;
@@ -17,7 +19,7 @@ import seedu.address.model.notes.Notes;
 public class NotesCreateCommandParserTest {
 
     private NotesCreateCommandParser parser = new NotesCreateCommandParser();
-    private String validPath = "Desktop/test.doc";
+    private String validPath = "Desktop" + File.separator + "test.doc";
     private String validPathType = "abs";
     private String validFileType = "file";
     private Notes testNote = new Notes(validPath, validFileType, validPathType);
