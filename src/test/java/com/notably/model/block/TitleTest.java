@@ -1,6 +1,7 @@
 package com.notably.model.block;
 
 import static com.notably.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,5 +41,11 @@ public class TitleTest {
         assertTrue(Title.isValidTitle("Lecture Week 2")); // With uppercase characters
         assertTrue(Title.isValidTitle("2018 Year 1 Semester 1 CS2103 Week 2 Lecture Notes")); // Long title
         assertTrue(Title.isValidTitle("!\"#$%&'()*+,.:;<=>?@[\\]^_`{|}~")); // Accepted symbols
+    }
+
+    @Test
+    public void equals_equalsIgnoreCase() {
+        assertEquals(new Title("LECTURES"), new Title("lectures")); // All uppercase vs all lowercase
+        assertEquals(new Title("WeEK 1 tUtorIal"), new Title("week 1 TUTORIAL")); // Mixed case
     }
 }
