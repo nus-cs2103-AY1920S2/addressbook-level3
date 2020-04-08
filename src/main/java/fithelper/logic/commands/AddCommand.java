@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "food "
             + PREFIX_NAME + "noodles "
-            + PREFIX_TIME + "2020-03-01 15:30 "
+            + PREFIX_TIME + "2020-04-01-15:30 "
             + PREFIX_LOCATION + "Utown canteen "
             + PREFIX_CALORIE + "100 "
             + PREFIX_REMARK + "too expensive "

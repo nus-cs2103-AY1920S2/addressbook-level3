@@ -6,7 +6,9 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SHOW;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import fithelper.logic.commands.CalendarCommand;
 
@@ -46,10 +48,12 @@ public class CalendarParser {
             argMultimap.put(PREFIX_MODE, "tb");
             return calendarCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
-            argMultimap.put(PREFIX_DATE, LocalDateTime.now().toString());
+            System.out.println(LocalDate.now() + "-12:00");
+            argMultimap.put(PREFIX_DATE, LocalDate.now() + "-12:00");
             return calendarCommand(argMultimap);
         } else {
-            argMultimap.put(PREFIX_DATE, LocalDateTime.now().toString());
+            System.out.println(LocalDate.now() + "-12:00");
+            argMultimap.put(PREFIX_DATE, LocalDate.now() + "-12:00");
             argMultimap.put(PREFIX_MODE, "tb");
             return calendarCommand(argMultimap);
         }

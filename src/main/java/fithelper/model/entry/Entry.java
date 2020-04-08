@@ -248,9 +248,9 @@ public class Entry {
         if (anotherEntry == this) {
             return true;
         }
-        java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
+        java.time.Duration.between(anotherEntry.getDateTime(), getDateTime()).toMinutes();
         boolean hasClash;
-        if (anotherEntry.getTime().dateTime.isBefore(getTime().dateTime)) {
+        if (anotherEntry.getDateTime().isBefore(getDateTime())) {
             hasClash = anotherEntry != null && hasTimeClashes(anotherEntry, this);
         } else {
             hasClash = anotherEntry != null && hasTimeClashes(this, anotherEntry);

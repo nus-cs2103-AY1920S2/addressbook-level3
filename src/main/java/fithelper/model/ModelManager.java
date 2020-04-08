@@ -415,7 +415,7 @@ public class ModelManager implements Model {
     @Override
     public void setCalendarDate(String date) {
         Time time = new Time(date);
-        LocalDateTime formattedDate = time.dateTime;
+        LocalDateTime formattedDate = time.getDateTime();
         calendarSettings.setDate(formattedDate);
     }
 
