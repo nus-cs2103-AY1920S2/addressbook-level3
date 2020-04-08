@@ -54,4 +54,13 @@ public class SavingsTest {
         clonedList.sort(Saveable::compareTo);
         assertEquals(resultList, clonedList);
     }
+
+    @Test
+    public void copy_validSavings_copiesAreEqual() {
+        Savings savings = new Savings(
+                new PercentageAmount(50),
+                Arrays.asList(new Saveable("Saturn", 5), new Saveable("Uranus", 7), new Saveable("Neptune"))
+        );
+        assertEquals(savings.copy(), savings);
+    }
 }
