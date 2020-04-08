@@ -1,6 +1,8 @@
 package csdev.couponstash.model.coupon.savings;
 
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
+import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,18 +51,6 @@ public class Savings implements Comparable<Savings> {
     private final List<Saveable> saveables;
 
     /**
-     * Private constructor facilitating copy of current Savings
-     */
-    private Savings(MonetaryAmount monetaryAmount,
-                    PercentageAmount percentage,
-                    List<Saveable> saveables
-    ) {
-        this.monetaryAmount = monetaryAmount;
-        this.percentage = percentage;
-        this.saveables = saveables;
-    }
-
-    /**
      * Constructor for a Savings value, given only
      * a MonetaryAmount representing the amount
      * in terms of some denomination of currency.
@@ -68,6 +58,7 @@ public class Savings implements Comparable<Savings> {
      *                       amount of money.
      */
     public Savings(MonetaryAmount monetaryAmount) {
+        requireNonNull(monetaryAmount);
         this.monetaryAmount = monetaryAmount;
         this.percentage = null;
         this.saveables = null;
@@ -81,6 +72,7 @@ public class Savings implements Comparable<Savings> {
      *                   percentage off.
      */
     public Savings(PercentageAmount percentage) {
+        requireNonNull(percentage);
         this.monetaryAmount = null;
         this.percentage = percentage;
         this.saveables = null;
@@ -95,6 +87,7 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(List<Saveable> saveables) {
+        requireNonNull(saveables);
         checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = null;
@@ -113,6 +106,7 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(MonetaryAmount monetaryAmount, List<Saveable> saveables) {
+        requireAllNonNull(monetaryAmount, saveables);
         checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = monetaryAmount;
@@ -131,6 +125,7 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(PercentageAmount percentage, List<Saveable> saveables) {
+        requireAllNonNull(percentage, saveables);
         checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = null;
@@ -149,6 +144,7 @@ public class Savings implements Comparable<Savings> {
      * @param s The Savings to be cloned.
      */
     public Savings(Savings s) {
+        requireNonNull(s);
         this.monetaryAmount = s.monetaryAmount;
         this.percentage = s.percentage;
         this.saveables = s.saveables == null
@@ -312,7 +308,8 @@ public class Savings implements Comparable<Savings> {
      * @return True, if the list is non-empty.
      *     False if the list is empty.
      */
-    private static boolean isValidSaveablesList(List<Saveable> list) {
+    protected static boolean isValidSaveablesList(List<Saveable> list) {
+        requireNonNull(list);
         return !list.isEmpty() && list.stream()
                 .allMatch(sva -> Saveable.isValidSaveableValue(sva.getValue(), sva.getCount()));
     }
@@ -325,7 +322,8 @@ public class Savings implements Comparable<Savings> {
      * @param list The original Saveables list.
      * @return A new Saveables list without any duplicates.
      */
-    private static List<Saveable> condenseSaveablesList(List<Saveable> list) {
+    protected static List<Saveable> condenseSaveablesList(List<Saveable> list) {
+        assert isValidSaveablesList(list);
         HashMap<String, Integer> nameToCountMap = new HashMap<String, Integer>();
         list.forEach(sva -> {
             nameToCountMap.merge(sva.getValue(), sva.getCount(), Integer::sum);
