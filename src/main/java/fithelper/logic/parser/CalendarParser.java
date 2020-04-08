@@ -7,8 +7,6 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_SHOW;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import fithelper.logic.commands.CalendarCommand;
 

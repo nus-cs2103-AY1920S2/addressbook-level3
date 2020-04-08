@@ -11,6 +11,7 @@ import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -71,18 +72,8 @@ public class MonthView extends UiPart<AnchorPane> {
                     allCalendarDays.add(ap);
                 }
             }
-            Button previousMonth = new Button("<<");
-            previousMonth.setOnAction(e -> previousMonth());
-            Button nextMonth = new Button(">>");
-            previousMonth.setStyle("-fx-border-color:white");
-            nextMonth.setStyle("-fx-border-color:white");
-            nextMonth.setStyle("-fx-background-color:white");
-            previousMonth.setStyle("-fx-background-color:white");
-            nextMonth.setTextFill(Color.web("#789cce"));
-            previousMonth.setTextFill(Color.web("#789cce"));
-            nextMonth.setOnAction(e -> nextMonth());
             populateCalendar(currentYearMonth, stats);
-            HBox titleBar = new HBox(previousMonth, monthYearTitle, nextMonth);
+            HBox titleBar = new HBox(monthYearTitle);
             AnchorPane.setTopAnchor(titleBar, 0.0);
             AnchorPane.setLeftAnchor(titleBar, 10.0);
             AnchorPane.setTopAnchor(calendar, 20.0);
@@ -128,32 +119,7 @@ public class MonthView extends UiPart<AnchorPane> {
         monthYearTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));
     }
 
-    /**
-     * Move the month back by one. Repopulate the calendar with the correct dates.
-     */
-    private void previousMonth() {
-        currentYearMonth = currentYearMonth.minusMonths(1);
-        getGenerator(currentYearMonth.atDay(1));
-        populateCalendar(currentYearMonth, stats);
-    }
-
-    /**
-     * Move the month forward by one. Repopulate the calendar with the correct dates.
-     */
-    private void nextMonth() {
-        currentYearMonth = currentYearMonth.plusMonths(1);
-        getGenerator(currentYearMonth.atDay(1));
-        populateCalendar(currentYearMonth, stats);
-    }
-
     public AnchorPane getView() {
         return view;
-    }
-
-    public void getGenerator(LocalDate date) {
-        LocalDate givenDate = date;
-        LocalDate start = givenDate.withDayOfMonth(1);
-        LocalDate end = givenDate.withDayOfMonth(givenDate.lengthOfMonth());
-        stats = new CalorieCalculatorByDateRange(foodList, sportsList, start, end);
     }
 }
