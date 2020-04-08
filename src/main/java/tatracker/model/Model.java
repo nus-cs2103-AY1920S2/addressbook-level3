@@ -95,9 +95,39 @@ public interface Model {
     void setCurrSessionFilter(String params);
 
     /**
+     *Sets the currently used date filter under Session View.
+     */
+    void setCurrSessionDateFilter(String params);
+
+    /**
+     *Sets the currently used module filter under Session View.
+     */
+    void setCurrSessionModuleFilter(String params);
+
+    /**
+     *Sets the currently used type filter under Session View.
+     */
+    void setCurrSessionTypeFilter(String params);
+
+    /**
      * Get the currently used filter under Session View.
      */
     String getCurrSessionFilter();
+
+    /**
+     * Get the currently used date filter under Session View.
+     */
+    String getCurrSessionDateFilter();
+
+    /**
+     * Get the currently used module filter under Session View.
+     */
+    String getCurrSessionModuleFilter();
+
+    /**
+     * Get the currently used type filter under Session View.
+     */
+    String getCurrSessionTypeFilter();
 
     /**
      *Sets the currently used filter under Student View.
@@ -381,4 +411,10 @@ public interface Model {
      * Sets the filtered student list to be an that of given index group in given module.
      */
     void setFilteredStudentList(String moduleCode, int groupIndex);
+
+    /**
+     * Sets the pay rate to a integer specified by the user
+     * @param rate the new rate
+     */
+    void setRate(int rate);
 }

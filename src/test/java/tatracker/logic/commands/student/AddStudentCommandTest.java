@@ -13,7 +13,7 @@ import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubAcceptingStudentAdded;
 import tatracker.model.ModelStub.ModelStubWithStudent;
 import tatracker.model.student.Student;
-import tatracker.testutil.StudentBuilder;
+import tatracker.testutil.student.StudentBuilder;
 
 import java.util.Arrays;
 

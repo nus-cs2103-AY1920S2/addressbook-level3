@@ -1,0 +1,45 @@
+@startuml
+!include /style.puml
+package Model {
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class TaTracker
+
+package Module {
+class Module
+class UniqueModuleList
+}
+package Group {
+class Group
+class UniqueGroupList
+}
+package Session {
+class Session
+class UniqueSessionList
+class UniqueDoneSessionList
+}
+package Student {
+class Student
+class UniqueStudentList
+}
+}
+
+TaTracker --> "1 " UniqueModuleList
+
+UniqueModuleList -right-> "*" Module
+
+Module --> "1" UniqueGroupList
+TaTracker --> "1  " UniqueSessionList
+TaTracker --> "1  " UniqueDoneSessionList
+
+UniqueGroupList -left-> "*" Group
+UniqueSessionList -up-> "*" Session
+UniqueDoneSessionList -down-> "*" Session
+
+Group --> "1 " UniqueStudentList
+UniqueStudentList -right-> "*" Student
+
+@enduml

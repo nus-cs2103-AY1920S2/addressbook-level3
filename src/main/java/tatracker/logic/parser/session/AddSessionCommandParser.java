@@ -41,16 +41,22 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddSessionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, START_TIME, END_TIME,
-                DATE, RECUR, MODULE, SESSION_TYPE, NOTES);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, MODULE, START_TIME, END_TIME,
+                DATE, RECUR, SESSION_TYPE, NOTES);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(MODULE)
+               || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddSessionCommand.DETAILS.getUsage()));
         }
 
         LocalDate date = LocalDate.now();
         Session sessionToAdd = new Session();
+
+
+        if (argMultimap.getValue(MODULE).isPresent()) {
+            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
+        }
 
         if (argMultimap.getValue(DATE).isPresent()) {
             date = ParserUtil.parseDate(argMultimap.getValue(DATE).get());
@@ -66,14 +72,16 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
             LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
             sessionToAdd.setEndDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     endTime.getHour(), endTime.getMinute(), endTime.getSecond()));
+        } else {
+            if (argMultimap.getValue(START_TIME).isPresent()) {
+                LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
+                sessionToAdd.setEndDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
+                        startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
+            }
         }
 
         if (argMultimap.getValue(RECUR).isPresent()) {
             sessionToAdd.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
-        }
-
-        if (argMultimap.getValue(MODULE).isPresent()) {
-            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {

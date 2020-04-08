@@ -31,6 +31,8 @@ public class EditModuleCommand extends Command {
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String INVALID_MODULE_NAME = "You can't use empty string or "
+            + "a bunch of spaces for module name.";
     private static final int FIRST_GROUP_INDEX = 0;
 
     private final String targetModule;
@@ -49,13 +51,16 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
+        if (newName.isBlank()) {
+            throw new CommandException(INVALID_MODULE_NAME);
+        }
         Module actualModule = model.getModule(targetModule);
         actualModule.setName(newName);
 
         model.showAllModules();
         model.updateFilteredGroupList(actualModule.getIdentifier());
 
-        if (model.getFilteredGroupList().isEmpty()) {
+        if (model.getFilteredGroupList() == null || model.getFilteredGroupList().isEmpty()) {
             model.setFilteredStudentList();
         } else {
             model.setFilteredStudentList(actualModule.getIdentifier(), FIRST_GROUP_INDEX);
@@ -75,6 +80,6 @@ public class EditModuleCommand extends Command {
         }
 
         EditModuleCommand otherCommand = (EditModuleCommand) other;
-        return targetModule.equals(otherCommand.targetModule);
+        return targetModule.equals(otherCommand.targetModule) && newName.equals(otherCommand.newName);
     }
 }
