@@ -75,7 +75,9 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return model.getFilteredTaskList();
+        ObservableList<Task> tasklist = model.getFilteredTaskList();
+        tasklist.forEach((task) -> task.triggerRecurringIfPresent(model));
+        return tasklist;
     }
 
     @Override
@@ -102,4 +104,14 @@ public class LogicManager implements Logic {
     public ReadOnlyPomodoro getPomodoro() {
         return model.getPomodoro();
     }
+
+    @Override
+    public void update() throws CommandException {
+        try {
+            storage.saveTaskList(model.getTaskList());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
 }

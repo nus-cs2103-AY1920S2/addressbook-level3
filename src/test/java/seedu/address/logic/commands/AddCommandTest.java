@@ -235,6 +235,18 @@ public class AddCommandTest {
         public void setPomodoroRestTime(float restTimeInMin) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setPomodoroDefaultTime(float defaultTimeInMin) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void setPomodoroRestTime(float restTimeInMin) {
+            // TODO Auto-generated method stub
+
+        }
     }
 
     /** A Model stub that contains a single task. */

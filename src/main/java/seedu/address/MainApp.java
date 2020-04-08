@@ -103,6 +103,8 @@ public class MainApp extends Application {
 
         model.setPetManager(petManager);
 
+        model.addObserver(logic);
+
         ui = new UiManager(logic, pomodoroManager, petManager);
     }
 

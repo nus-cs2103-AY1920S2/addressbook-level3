@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.InvalidReminderException;
@@ -37,7 +39,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_PRIORITY,
                         PREFIX_DESCRIPTION,
                         PREFIX_TAG,
-                        PREFIX_REMINDER);
+                        PREFIX_REMINDER,
+                        PREFIX_RECURRING);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -66,8 +69,15 @@ public class AddCommandParser implements Parser<AddCommand> {
                         : Optional.of(
                                 ParserUtil.parseReminder(
                                         argMultimap.getValue(PREFIX_REMINDER).get()));
+        
+        Optional<Recurring> optionalRecurring =
+                (argMultimap.getValue(PREFIX_RECURRING).isEmpty())
+                        ? Optional.empty()
+                        : Optional.of(
+                                ParserUtil.parseRecurring(
+                                        argMultimap.getValue(PREFIX_RECURRING).get()));
 
-        Task task = new Task(name, priority, description, tagList, optionalReminder);
+        Task task = new Task(name, priority, description, tagList, optionalReminder, optionalRecurring);
 
         return new AddCommand(task);
     }
