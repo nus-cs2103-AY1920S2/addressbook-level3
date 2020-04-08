@@ -152,10 +152,10 @@ public class MainApp extends Application {
             }
             initialEventsData = eventScheduleOptional.orElse(new EventSchedule());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Events Schedule");
+            logger.warning("Data file not in the correct format. Will be starting with an empty EventsSchedule");
             initialEventsData = new EventSchedule();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Events Schedule");
+            logger.warning("Problem while reading from the file. Will be starting with an empty EventsSchedule");
             initialEventsData = new EventSchedule();
         }
 

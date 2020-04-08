@@ -257,7 +257,12 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    public void generateSchedule(int numDays) {
+    public void createSchedule(int numDays) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDay(int index, Day toSet) {
         throw new AssertionError("This method should not be called.");
     }
 

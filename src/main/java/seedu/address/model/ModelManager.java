@@ -32,6 +32,7 @@ public class ModelManager implements Model {
     private AddressBook addressBook;
     private RestaurantBook restaurantBook;
     private AssignmentSchedule assignmentSchedule;
+    private Schedule schedule;
     private EventSchedule eventSchedule;
     private UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
@@ -54,6 +55,7 @@ public class ModelManager implements Model {
         this.currentModel = new ModelState(addressBook, restaurantBook, scheduler, eventSchedule, userPrefs);
         this.undoStates = new Stack<>();
         this.redoStates = new Stack<>();
+        this.schedule = new Schedule();
         undoStates.push(currentModel);
         update();
     }
@@ -395,15 +397,20 @@ public class ModelManager implements Model {
         return this.addressBook.getBdayList();
     }
 
-    //=========== Schedule Visual Accessor ========================================================================
+    //=========== ScheduleList Visual Accessor ========================================================================
     @Override
-    public void generateSchedule(int numDays) {
-        this.assignmentSchedule.generateSchedule(numDays);
+    public void createSchedule(int numDays) {
+        this.schedule.createSchedule(numDays);
+    }
+
+    @Override
+    public void setDay(int index, Day toSet) {
+        this.schedule.setDay(index, toSet);
     }
 
     @Override
     public ObservableList<Day> getSchedule() {
-        return this.assignmentSchedule.getSchedule();
+        return this.schedule.getScheduleList();
     }
 
     //=========== Undo and Redo ========================================================================

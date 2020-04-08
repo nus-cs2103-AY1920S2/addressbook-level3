@@ -263,12 +263,17 @@ public interface Model {
      */
     ObservableList<Person> getBdayListResult();
 
-    //=========== Schedule Visual Accessors =======================================================================
+    //=========== ScheduleList Visual Accessors =======================================================================
 
     /**
-     * Calculates the schedule for the upcoming numDays (today inclusive).
+     * Creates the schedule for the upcoming numDays (today inclusive).
      */
-    void generateSchedule(int numDays);
+    void createSchedule(int numDays);
+
+    /**
+     * Sets a day in the scheduleList.
+     */
+    void setDay(int index, Day toSet);
 
     /**
      * Returns an unmodifiable view of the user's upcoming schedule for the next n days (today inclusive).
