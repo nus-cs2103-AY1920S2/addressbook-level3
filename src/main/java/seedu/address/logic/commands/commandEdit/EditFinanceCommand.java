@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -98,14 +99,18 @@ public class EditFinanceCommand extends EditCommand {
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
     List<Finance> lastShownList = model.getFilteredFinanceList();
-    if (!ID.isValidId(targetID.toString())) {
-      throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
+    if (this.toEdit == null) {
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
+      }
+      if (!model.has(targetID, Constants.ENTITY_TYPE.FINANCE)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_FINANCE_DISPLAYED_ID);
+      }
+      this.toEdit = (Finance) model.get(targetID, Constants.ENTITY_TYPE.FINANCE);
+      this.editedFinance = createEditedFinance(toEdit, editFinanceDescriptor);
     }
-    Finance financeToEdit = getFinance(lastShownList);
-    this.toEdit = financeToEdit;
-    Finance editedFinance = createEditedFinance(financeToEdit, editFinanceDescriptor);
-    this.editedFinance = editedFinance;
-    if (!financeToEdit.weakEquals(editedFinance) && model.has(editedFinance)) {
+
+    if (!this.toEdit.weakEquals(editedFinance) && model.has(editedFinance)) {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);
     }
   }
@@ -116,16 +121,6 @@ public class EditFinanceCommand extends EditCommand {
     model.set(toEdit, editedFinance);
     model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
     return new CommandResult(String.format(MESSAGE_EDIT_FINANCE_SUCCESS, editedFinance));
-  }
-
-  // Find way to abstract this
-  public Finance getFinance(List<Finance> lastShownList) throws CommandException {
-    for (Finance finance : lastShownList) {
-      if (finance.getId().equals(this.targetID)) {
-        return finance;
-      }
-    }
-    throw new CommandException("This staff ID does not exist");
   }
 
   @Override
