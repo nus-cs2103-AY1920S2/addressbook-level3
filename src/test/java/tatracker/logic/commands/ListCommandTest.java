@@ -27,7 +27,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertListCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertListCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_LISTED_SESSIONS, expectedModel);
     }
 
     /*

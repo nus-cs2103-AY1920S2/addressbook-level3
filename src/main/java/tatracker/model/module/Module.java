@@ -13,6 +13,10 @@ import tatracker.model.student.Student;
  * Represents a module in the TAT.
  */
 public class Module {
+
+    public static final String CONSTRAINTS_MODULE_CODE = "Module codes cannot be blank";
+    public static final String CONSTRAINTS_MODULE_NAME = "Module names cannot be blank";
+
     private static final String DEFAULT_NAME = "";
 
     private final String identifier;

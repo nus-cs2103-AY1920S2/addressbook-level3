@@ -2,7 +2,6 @@ package tatracker.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
@@ -13,6 +12,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.index.Index;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -44,7 +44,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+        assertThrows(ParseException.class, Index.MESSAGE_CONSTRAINTS, ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
@@ -190,7 +190,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }

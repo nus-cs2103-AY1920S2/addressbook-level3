@@ -1,7 +1,6 @@
 package tatracker.logic.parser.commons;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.commons.GotoCommand;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.parser.Parser;
@@ -24,7 +23,7 @@ public class GotoCommandParser implements Parser<GotoCommand> {
             Tab tabName = ParserUtil.parseTabName(args);
             return new GotoCommand(tabName);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(GotoCommand.DETAILS.getUsage()));
         }
     }
 }

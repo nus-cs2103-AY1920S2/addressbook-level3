@@ -1,6 +1,7 @@
 package tatracker.logic.commands.sort;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SORT_TYPE;
 
@@ -22,14 +23,13 @@ public class SortModuleCommand extends SortCommand {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SORT,
             CommandWords.SORT_MODULE,
-            "Sorts all students in all groups of the given module.",
+            "Sorts all students in all groups of the given module",
             List.of(MODULE, SORT_TYPE),
             List.of(),
             MODULE, SORT_TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "Module %s has been sorted.";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_SORT_MODULE_SUCCESS = "All students in %s have been sorted";
     public static final int FIRST_GROUP_INDEX = 0;
 
     private final String moduleCode;
@@ -78,7 +78,7 @@ public class SortModuleCommand extends SortCommand {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, module), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_SORT_MODULE_SUCCESS, moduleCode), Action.GOTO_STUDENT);
     }
 
     @Override
