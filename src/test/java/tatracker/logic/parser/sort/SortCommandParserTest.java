@@ -29,6 +29,10 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, " group t/alphabetically m/CS3243 g/G04",
                 new SortGroupCommand(type, expectedGroup, expectedModule));
 
+        // multiple of same prefix
+        assertParseSuccess(parser, " group t/alphabetically g/G05 m/CS3243 g/G04",
+                new SortGroupCommand(type, expectedGroup, expectedModule));
+
         assertParseSuccess(parser, " module m/CS3243 t/alphabetically",
                 new SortModuleCommand(type, expectedModule));
 
@@ -36,7 +40,15 @@ public class SortCommandParserTest {
         assertParseSuccess(parser, " module t/alphabetically m/CS3243",
                 new SortModuleCommand(type, expectedModule));
 
+        //Repeat prefixes
+        assertParseSuccess(parser, " module t/rating asc t/alphabetically m/CS3243",
+                new SortModuleCommand(type, expectedModule));
+
         assertParseSuccess(parser, " all t/alphabetically",
+                new SortCommand(type));
+
+        //repeat prefixes
+        assertParseSuccess(parser, " all t/rating asc t/alphabetically",
                 new SortCommand(type));
 
     }

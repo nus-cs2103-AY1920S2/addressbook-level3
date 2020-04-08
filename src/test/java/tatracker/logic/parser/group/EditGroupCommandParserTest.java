@@ -49,5 +49,8 @@ public class EditGroupCommandParserTest {
         assertParseFailure(parser, " g/G03 ng/G04 nt/lab",
                 expectedMessage);
 
+        // missing all prefixes
+        assertParseFailure(parser, " ",
+                expectedMessage);
     }
 }

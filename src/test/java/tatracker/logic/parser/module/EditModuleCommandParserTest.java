@@ -40,5 +40,9 @@ public class EditModuleCommandParserTest {
         // missing module code prefix
         assertParseFailure(parser, " n/Intro to AI",
                 expectedMessage);
+
+        // missing all prefixes
+        assertParseFailure(parser, " ",
+                expectedMessage);
     }
 }

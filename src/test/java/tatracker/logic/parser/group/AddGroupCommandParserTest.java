@@ -44,5 +44,9 @@ public class AddGroupCommandParserTest {
         // missing type prefix
         assertParseFailure(parser, " t/lab g/G03",
                 expectedMessage);
+
+        // missing all prefixes
+        assertParseFailure(parser, " ",
+                expectedMessage);
     }
 }

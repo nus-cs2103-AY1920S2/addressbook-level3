@@ -36,5 +36,9 @@ public class DeleteGroupCommandParserTest {
         // missing type prefix
         assertParseFailure(parser, " g/G03",
                 expectedMessage);
+
+        // missing all prefixes
+        assertParseFailure(parser, " ",
+                expectedMessage);
     }
 }

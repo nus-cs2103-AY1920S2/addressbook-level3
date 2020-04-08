@@ -1,7 +1,6 @@
 package tatracker.logic.commands.module;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTracker;
 
@@ -32,9 +31,6 @@ public class EditModuleIntegrationTest {
         String newName = "New Name";
         EditModuleCommand editModuleCommand =
                 new EditModuleCommand(validModule.getIdentifier(), newName);
-
-        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () -> new
-                EditModuleCommand("CS2030", "Invalid").execute(model));
 
         CommandResult commandResult = editModuleCommand.execute(model);
 
