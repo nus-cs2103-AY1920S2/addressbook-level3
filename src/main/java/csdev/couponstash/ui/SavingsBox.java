@@ -1,6 +1,5 @@
 package csdev.couponstash.ui;
 
-import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -87,7 +86,7 @@ public class SavingsBox extends UiPart<Region> {
         // or MonetaryAmount, but never both
         StringBuilder sb = new StringBuilder();
         s.getPercentageAmount().ifPresent(pc ->
-            sb.append(pc.getValue()).append(PercentageAmount.PERCENT_SUFFIX));
+            sb.append(pc.toString()));
         s.getMonetaryAmount().ifPresent(ma ->
             sb.append(ma.getStringWithMoneySymbol(moneySymbol)));
         return sb.toString();
