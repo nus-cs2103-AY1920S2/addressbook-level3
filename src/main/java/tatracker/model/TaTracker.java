@@ -68,9 +68,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         currClaimFilter = "";
         currSessionFilter = "";
-        currSessionDateFilter = "No Filter";
-        currSessionModuleFilter = "No Filter";
-        currSessionTypeFilter = "No Filter";
+        currSessionDateFilter = "";
+        currSessionModuleFilter = "";
+        currSessionTypeFilter = "";
         currStudentFilter = "";
 
         rate = DEFAULT_RATE;

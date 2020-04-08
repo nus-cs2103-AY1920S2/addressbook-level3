@@ -13,7 +13,7 @@ import java.time.format.ResolverStyle;
  */
 public class DateTimeUtil {
 
-    public static final String PATTERN_DATE = "uuuu-MM-dd";
+    public static final String PATTERN_DATE = "uuuu-MM-dd"; // yyyy does not work with the strict resolving mode
     public static final String PATTERN_TIME = "HH:mm";
 
     public static final DateTimeFormatter FORMAT_DATE = DateTimeFormatter
@@ -23,7 +23,7 @@ public class DateTimeUtil {
             .ofPattern(PATTERN_TIME)
             .withResolverStyle(ResolverStyle.STRICT);
 
-    public static final String CONSTRAINTS_DATE = String.format("Dates should be in %s format", PATTERN_DATE);
+    public static final String CONSTRAINTS_DATE = "Dates should be in yyyy-MM-dd format";
     public static final String CONSTRAINTS_TIME = String.format("Times should be in %s format", PATTERN_TIME);
 
     /**
