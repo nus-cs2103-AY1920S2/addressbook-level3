@@ -9,10 +9,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GOOD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_GOOD;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,19 +18,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyList;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.offer.Price;
-import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.version.StateNotFoundException;
+import seedu.address.testutil.ModelStub;
 
 public class SellCommandTest {
     private static String VALID_GOOD_NAME_STRING = "Test good name";
@@ -41,7 +34,6 @@ public class SellCommandTest {
     private static String VALID_DIFF_GOOD_QUANTITY_STRING = "20";
     private static String VALID_INSUFFICIENT_QUANTITY_STRING = "5";
     private static String VALID_ZERO_QUANTITY_STRING = "0";
-    private static String INVALID_INDEX_GOOD_STRING = "-1";
 
     private static String VALID_PRICE_STRING = "5.00";
     private static String VALID_DIFF_PRICE_STRING = "6.69";
@@ -55,8 +47,6 @@ public class SellCommandTest {
     private static GoodQuantity VALID_ZERO_QUANTITY = new GoodQuantity(VALID_ZERO_QUANTITY_STRING);
 
     private static Good soldGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good soldGoodDiffGoodName = Good.newGoodEntry(VALID_DIFF_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good soldGoodDiffGoodQuantity = Good.newGoodEntry(VALID_GOOD_NAME, VALID_DIFF_GOOD_QUANTITY);
     private static Good existingGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
     private static Good sellExistingGoodResultGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_ZERO_QUANTITY);
     private static Good insufficientQuantityGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_INSUFFICIENT_QUANTITY);
@@ -227,198 +217,6 @@ public class SellCommandTest {
         public void addGood(Good good) {
             inventory.add(good);
         }
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyList<Supplier> addressBook) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyList<Supplier> getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasSupplier(Supplier supplier) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteSupplier(Supplier target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addSupplier(Supplier supplier) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSupplier(Supplier target, Supplier editedSupplier) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Supplier> getFilteredSupplierList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredSupplierList(Predicate<Supplier> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getInventoryFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setInventoryFilePath(Path inventoryFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setInventory(ReadOnlyList<Good> inventory) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyList<Good> getInventory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasGood(Good good) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteGood(Good target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addGood(Good good) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public int indexOfGood(Good good) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGood(Good target, Good editedGood) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Good> getFilteredGoodList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredGoodList(Predicate<Good> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getTransactionHistoryFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTransactionHistoryFilePath(Path transactionHistoryFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTransactionHistory(ReadOnlyList<Transaction> transactionHistory) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyList<Transaction> getTransactionHistory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTransaction(Transaction transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteTransaction(Transaction target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTransaction(Transaction transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Transaction> getFilteredTransactionList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commit() {
-            return;
-        }
-
-        @Override
-        public void undo() throws StateNotFoundException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redo() throws StateNotFoundException {
-            throw new AssertionError("This method should not be called.");
-        }
-
     }
 }
 
