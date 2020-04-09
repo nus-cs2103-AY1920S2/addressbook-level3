@@ -64,7 +64,6 @@ class DeleteCommandTest {
 
         deleteCommand.execute(model);
 
-
         assertFalse(model.hasPath(toDeletePath));
         assertFalse(model.hasPath(expectedChildrenDeletion1));
         assertFalse(model.hasPath(expectedChildrenDeletion2));
@@ -89,7 +88,7 @@ class DeleteCommandTest {
 
     @Test
     void execute_deleteNoneExistingBlockRelativePath_throwsCommandException() {
-        final RelativePath rootPath = RelativePath.fromString("./CS2103T/NonExisiting");
+        final RelativePath rootPath = RelativePath.fromString("./CS2103T/NonExisting");
         final DeleteCommand deleteCommand = new DeleteCommand(rootPath);
 
         assertThrows(CommandException.class, () -> deleteCommand.execute(model));
