@@ -51,8 +51,6 @@ EditEventCommand extends Command {
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the "
-            + "module's event list.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited";
 
