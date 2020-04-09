@@ -35,10 +35,11 @@ public class EditEntryDescriptorTest {
 
         // different location -> returns false
         editedFood = new EditEntryDescriptorBuilder(DESC_FOOD).withLocation(VALID_LOCATION_FOOD).build();
+        assertTrue(DESC_FOOD.equals(editedFood));
 
         // different time -> returns false
         editedFood = new EditEntryDescriptorBuilder(DESC_FOOD).withTime(VALID_TIME_FOOD).build();
-        assertFalse(DESC_FOOD.equals(editedFood));
+        assertTrue(DESC_FOOD.equals(editedFood));
 
         // different calorie -> returns false
         editedFood = new EditEntryDescriptorBuilder(DESC_FOOD).withCalorie(VALID_CALORIE_FOOD).build();
