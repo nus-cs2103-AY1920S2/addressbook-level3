@@ -19,11 +19,36 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Contact Tracing App is for contract tracing during virus transmission, in order to make better
-decisions when it comes to virus spreading control. This app collect contact information from mobile
-phone users and maintains a record in a database system. A periodic and detailed report will be generlized 
-for all users including the hotpot of virus transmission. Every citizen can log into this app with 
-personal information such as citizen ID, name, etc.
+Gov Tech has recently launched the TraceTogether app to combat the rapid spread of the COVID-19
+infection. In their app, users who are within certain distances from each other will have
+their interactions recorded via message exchange using bluetooth.
+
+Our Contact Tracing App is an extension of the TraceTogether app. We forsee a scenario where
+the government has collected all the user's (anonymized) bluetooth ping data and can not
+perform analytics over them.
+
+This is for efficient contract tracing, in order to make better policies when it comes to virus spreading control.
+Our app allows efficient search over the data and generates a detailed report for upper management review.
+
+== Target audiences
+
+We target mostly the analytics teams within government agencies.
+
+=== User personas
+
+Our product is designed for the following personas:
+
+* Tech savvy:
+We assume that these users are familiar with technology and mediocre level of programming. They should be comfortable interacting with dashboards and would prefer more control over the software, as compared to the average user.
+
+* Pressed for timing:
+These users have to manage multiple projects in their day to day task. As such, speed of information retrieval and display is important to the functionality of the product, especially since we are dealing with a situation where a second delay may cause the infection to spread further.
+
+* Rich
+The govt has too much money to throw around. We need not emphasise on cost cutting measures that reduces cost at the expense of system efficiency. We are not dealing with a start up here that lacks the funds needed to pay for our solution.
+
+* Believes that security is paramount:
+Not saying that security is not important for an application, just that we are dealing with government agencies and personal user data here.
 
 == Quick Start
 
@@ -55,8 +80,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-== Querying over collected trace data
-=== Searching over timestamp : `From`
+=== Querying over collected trace data
+==== Searching over timestamp : `From`
 Retrieves collected trace data based on by timestamp filter.
 
 Format: `from <ts: start> to <ts: end>`
@@ -65,21 +90,21 @@ Example: `from 1500000000 to 1500001000`
 
 *Note: Currently accepted timestamp is in epoch timing. For example on how to use the timing, refer link:{epochTiming}/releases[here]
 
-=== Searching over user ID : `id is`
+==== Searching over user ID : `id is`
 Retrieves all trace data based on a given user id
 
 Format: `id is <user: id>`
 
 Example: `id is 1`
 
-=== Searching over user ID pairs : `pairs`
+==== Searching over user ID pairs : `pairs`
 Retrieves all trace data that contains interactions between 2 user pairs
 
 Format: `pairs <user1: id> and <user2: id>`
 
 Example: `pairs 1 and 2`
 
-=== Searching for danger signs : `danger`
+==== Searching for danger signs : `danger`
 Identifies user pairs that are most at risk, based on occurrence spanning more than a threshold count.
 These individuals are obviously not practicing good social distancing and are a threat to the community.
 
@@ -87,31 +112,31 @@ Format: `danger <threshold: counts>`
 
 Example: `danger 10` will flag out user pairs which are present more than 10 times
 
-== Querying user related information
-=== Searching all users: `person`
+=== Querying user related information
+==== Searching all users: `person`
 Shows all users registered in the system
 
 Format: `person`
 
-=== Filtering by user: `person_by`
+==== Filtering by user: `person_by`
 Applies a filter to perform quick search on a user
 
 Format: `person_by <person: id>`
 
 Example: `person_by 1` will find information on user ID 1
 
-=== Adding a new user: `person_add`
+==== Adding a new user: `person_add`
 Registers a new user to the system
 
 Format: `person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age>`
 
 Example: `person_add /name John Doe /mobile 92139231 /nric S1323923P /age 50` adds a new user with fields
 
-==== Constraints
+===== Constraints
 * Sequence must abide in sequence /name, /mobile, /nric, /age
 * Cannot add same NRIC number
 
-=== Adding a new user: `person_deletes`
+==== Adding a new user: `person_deletes`
 Registers a new user to the system
 
 Format: `person_delete /userid <person: id>`
@@ -119,6 +144,10 @@ Format: `person_delete /userid <person: id>`
 Example: `person_delete /userid 1` deletes any record with user ID 1
 
 == FAQ
+
+*Q*: Does the application need internet to run? +
+*A*: *NO*. We will be using hardcoded data for this project. Any display data you see is meant
+to simulate actual deployment conditions where our App will receive a steady stream of data.
 
 *Q*: Will my personal data be protected well? +
 *A*: There will be strict authority sytem to prevent privacy leak, all data published to public will be anonymous.
