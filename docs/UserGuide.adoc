@@ -86,19 +86,19 @@ image::command_box.png[width=300]
 The Task Tab is where you view your personal task list and the Pomodoro Timer. Any changes made to the current task list through all the commands will be displayed here! The Pomodoro Timer runs when you run the Pom Command as described in section 6.x. //TODO link
 
 .Tasks Tab
-image::tasks_tab.png[width=390]
+image::tasks_tab.png[width=400]
 
 === Statistics Tab
 The Statistics Tab consists of the Daiy Challenge and the Productivity Charts. They help you to visualise the progress of your productivity over the course of the past week, giving you momentum to hit your productivity goals! The usage of this tab will be discussed in more detail in section 6.x //TODO link
 
 .Statistics Tab
-image::stats_tab.png[width=300]
+image::stats_tab.png[width=400]
 
 === Settings Tab
 The Settings Tab lets you customise the program to suit your needs. In this tab, you can view and edit your configurations for Pet Name, Pomodoro Duration and Daily Challenge Target. The usage of this tab will be discussed in more detail in section 6.x //TODO link
 
 .Settings Tab
-image::settings_tab.png[width=350]
+image::settings_tab.png[width=400]
 
 [[Features]]
 == Features
@@ -284,11 +284,16 @@ At the end of the break, the app will return to it's "neutral" state and you can
 image::pom_break_end.png[width=790]
 
 === Statistics (Permas)
+The Statistics Tab consists of 2 features to help you keep track of your productivity. You can access this panel by using the “stats” command to switch to this tab.
 
-Views statistics generated through the app usage.
-stats SPEED/DONE
-SPEED : Displays average time taken to complete tasks over past week/month/year.
-DONE : Displays average number of tasks done over past week/month/year.
+.Statistics Tab
+image::stats_tab.png[width=400]
+
+==== Daily Challenge
+The Daily Challenge is a progress bar that tracks the total duration you have kept the Pomodoro running in the current day. You can customise the duration you aim to achieve on a daily basis by using the Set Command as introduced in section 6.x //TODO link. Try to clear the Daily Challenge everyday to hit your productivity goals!
+
+==== Productivity Chart
+The Productivity Chart tracks the number of tasks done and duration you ran the Pomodoro per day for the past 7 days. This is done so that you can track your productivity progress over time. With this information. you can make adjustments to your schedule to improve your productivity.
 
 === AutoComplete
 As much as you enjoy typing, we've added some extra grease to make you type even faster. You can trigger our very intelligent auto complete function by pressing `tab` on the keyboard.
