@@ -65,7 +65,6 @@ public class HelpPane extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(HelpPane.class);
 
-
     @FXML
     private ListView<CommandCard> commandListView;
 

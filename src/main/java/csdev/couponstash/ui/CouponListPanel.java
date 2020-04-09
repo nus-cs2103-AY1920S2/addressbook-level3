@@ -1,8 +1,5 @@
 package csdev.couponstash.ui;
 
-import java.util.logging.Logger;
-
-import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.model.coupon.Coupon;
 
@@ -17,7 +14,6 @@ import javafx.scene.layout.Region;
  */
 public class CouponListPanel extends UiPart<Region> {
     private static final String FXML = "CouponListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(CouponListPanel.class);
 
     @FXML
     private ListView<Coupon> couponListView;

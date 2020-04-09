@@ -65,8 +65,8 @@ public class RemindWindow extends UiPart<Stage> {
      * @param coupons - the current coupon's list
      */
     public static void showRemind(List<Coupon> coupons) {
-        String remindMessage = "";
         int index = 1;
+        String remindMessage = "";
         LocalDate today = LocalDate.now();
 
         List<Coupon> remindCoupons = coupons.stream()

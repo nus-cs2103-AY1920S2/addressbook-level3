@@ -41,7 +41,6 @@ public class DateCell extends UiPart<Region> {
         this.logic = logic;
         coupons = FXCollections.observableList(new ArrayList<>());
         couponsDisplayWindow = new CouponsOnDateWindow(coupons, logic.getStashSettings().getMoneySymbol());
-        //logger.info("Initializing new DateCell.");
     }
 
     /**

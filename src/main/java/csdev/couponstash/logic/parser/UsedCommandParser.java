@@ -37,33 +37,25 @@ public class UsedCommandParser implements Parser<UsedCommand> {
     public UsedCommand parse(String args) throws ParseException {
         requireNonNull(args);
         Prefix moneySymbolPrefix = new Prefix(moneySymbol);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(
-                        args,
-                        CliSyntax.PREFIX_NAME,
-                        CliSyntax.PREFIX_PROMO_CODE,
-                        CliSyntax.PREFIX_EXPIRY_DATE,
-                        CliSyntax.PREFIX_SAVINGS,
-                        CliSyntax.PREFIX_USAGE,
-                        CliSyntax.PREFIX_LIMIT,
-                        CliSyntax.PREFIX_TAG,
-                        moneySymbolPrefix);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, moneySymbolPrefix);
+
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             Optional<String> savingsArgument = argMultimap.getValue(moneySymbolPrefix);
+
             if (savingsArgument.isEmpty()) {
                 return new UsedCommand(index);
-            } else {
-                MonetaryAmount originalAmount =
-                        ParserUtil.parseMonetaryAmount(argMultimap.getValue(moneySymbolPrefix).get());
-                return new UsedCommand(index, originalAmount);
             }
+
+            MonetaryAmount originalAmount =
+                    ParserUtil.parseMonetaryAmount(argMultimap.getValue(moneySymbolPrefix).get());
+            return new UsedCommand(index, originalAmount);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
-                            String.format(UsedCommand.MESSAGE_USAGE, moneySymbol, moneySymbol)),
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
+                            String.format(UsedCommand.MESSAGE_USAGE, moneySymbol, moneySymbol)
+                    ),
                     pe
             );
         }
