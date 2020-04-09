@@ -295,8 +295,8 @@ public class ModifyCommand extends Command {
 
             return getName().equals(e.getName())
                 && getIngredients().equals(e.getIngredients())
-                && getInstructions().equals(e.getInstructions())
-                && getImageFilePath().equals(e.getImageFilePath())
+               // && getInstructions().equals(e.getInstructions());
+               // && getImageFilePath().equals(e.getImageFilePath())
                 && getCalorie().equals(e.getCalorie())
                 && getServing().equals(e.getServing())
                 && getRating().equals(e.getRating())

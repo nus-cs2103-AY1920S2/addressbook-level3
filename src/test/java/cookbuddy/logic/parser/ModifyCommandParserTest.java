@@ -29,6 +29,7 @@ import static cookbuddy.logic.commands.CommandTestUtil.VALID_NAME_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_NAME_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_PHOTOGRAPH_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_RATING_HAM_SANDWICH;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_SERVING_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_BREAKFAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
@@ -115,14 +116,14 @@ public class ModifyCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RECIPE;
         String userInput = targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + TAG_DESC_LUNCH
-                + INSTRUCTIONS_DESC_HAM_SANDWICH + NAME_DESC_HAM_SANDWICH + TAG_DESC_BREAKFAST + CALORIE_DESC_HAM_SANDWICH
+                + INSTRUCTIONS_DESC_HAM_SANDWICH + NAME_DESC_HAM_SANDWICH + CALORIE_DESC_HAM_SANDWICH
                 + RATING_DESC_HAM_SANDWICH + DIFFICULTY_DESC_EGGS_ON_TOAST + SERVING_DESC_HAM_SANDWICH + PHOTOGRAPH_DESC_EGGS_ON_TOAST;
 
         ModifyCommand.EditRecipeDescriptor descriptor =
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_HAM_SANDWICH).withInstructions(VALID_INSTRUCTIONS_HAM_SANDWICH)
-                        .withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).withDifficulty(VALID_DIFFICULTY_EGGS_ON_TOAST)
+                        .withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).withDifficulty(VALID_DIFFICULTY_EGGS_ON_TOAST).withServing(VALID_SERVING_HAM_SANDWICH)
                         .withRating(VALID_RATING_HAM_SANDWICH).withCalorie(VALID_CALORIE_HAM_SANDWICH).withPhotograph(VALID_PHOTOGRAPH_EGGS_ON_TOAST)
-                        .withTags(VALID_TAG_LUNCH, VALID_TAG_BREAKFAST).build();
+                        .withTags(VALID_TAG_LUNCH).build();
         ModifyCommand expectedCommand = new ModifyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
