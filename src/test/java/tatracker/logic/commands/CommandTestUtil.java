@@ -21,11 +21,15 @@ import tatracker.commons.core.LogsCenter;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.session.EditSessionCommand;
+import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
 import tatracker.logic.commands.student.EditStudentCommand;
+import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
+import tatracker.testutil.sessions.EditSessionDescriptorBuilder;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
 /**
@@ -82,6 +86,22 @@ public class CommandTestUtil {
     public static final EditStudentCommand.EditStudentDescriptor DESC_AMY;
     public static final EditStudentCommand.EditStudentDescriptor DESC_BOB;
 
+    public static EditSessionCommand.EditSessionDescriptor S1 = new EditSessionDescriptor();
+
+    static {
+        try {
+            S1 = new EditSessionDescriptorBuilder()
+                                .withStartTime("2020-04-20 15:20")
+                                .withEndTime("2020-04-20 19:00")
+                                .withModule("CS2103T")
+                                .withSessionType("Lab")
+                                .withDescription("prepare notes")
+                                .withRecurring(2).build();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static final Logger logger = LogsCenter.getLogger(CommandTestUtil.class);
 
     static {
@@ -94,6 +114,7 @@ public class CommandTestUtil {
                 .withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -128,6 +149,16 @@ public class CommandTestUtil {
      */
     public static void assertStudentCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertSessionCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                   Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
