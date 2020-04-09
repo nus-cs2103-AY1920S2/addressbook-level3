@@ -243,7 +243,7 @@ Format: `warn INDEX q/MIN_QUANTITY`
 Example:
 
 * `warn 5 q/100` +
-This sets the minimum quantity threshold for good at index 1 with an quantity of 100.
+This sets the minimum quantity threshold for good at index 5 with an quantity of 100.
 
 .Demo for `warn` command
 image::UG/warn.png[width="790"]
@@ -258,8 +258,8 @@ Display list of transactions that fulfills the given search criteria.
 3 types of search criteria:
 
 . transaction type
-. `Name` of `supplier`
-. `GoodName` of `Good`
+. supplier's name
+. good's name
 
 Format: `find-t [TRANSACTION TYPE] [n/NAME] [g/GOOD NAME]`;
 
@@ -272,7 +272,7 @@ Example:
 `find-t buy` +
 display all `buy` transactions.
 
-NOTE: Currently, there is only two types of transaction: `buy` and `sell`.
+NOTE: Currently, there are only two types of transaction: `buy` and `sell`. Type of transaction is case sensitive.
 
 .Demo for `find-t` command that uses only [TRANSACTION TYPE] criteria
 image::UG/find-t buy.png[width="790"]
@@ -367,9 +367,9 @@ e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 e.g. `find-s James Jake`
 * *List supplier for a goods*: `source`
 * *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
-e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
+e.g. `buy n/Dave g/apple q/4`
 * *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
-e.g. `sell g/apple q/4 d/2030-01-05`
+e.g. `sell g/apple q/4`
 * *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
 * *List expiring goods*: `list-e`
 * *List transaction history*: `list-t`

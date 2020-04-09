@@ -132,14 +132,10 @@ The `Supplier`,
 
 * stores details of supplier: `Name`, `Phone`, `Address`, `Email` and `Offer`.
 * can have no `Offer` or multiple `Offer`.
+* each offer composes of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
 
 image:SupplierModelClassDiagram.png[]
 
-The `Offer`,
-
-* compose of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
-
-image:OfferModelClassDiagram.png[]
 
 The `Good`,
 
@@ -748,9 +744,9 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2c. The given index is out of bound.
+* 2c. The given index is out of bounds.
 [none]
-** 2c1. InventoryManager shows an error message to indicate the index is bound.
+** 2c1. InventoryManager shows an error message to indicate the index is out of bounds.
 +
 Use case ends.
 
@@ -793,11 +789,11 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2b. The criteria is in invalid format
+* 2b. Any of the criteria is in invalid format
 [none]
-** 2b1. InventoryManager informs the user that there are criteria input is invalid.
+** 2b1. InventoryManager informs the user that the criteria input is invalid.
 +
-Use case ends.a
+Use case ends.
 
 === Use case: UC13 - undoing a command
 

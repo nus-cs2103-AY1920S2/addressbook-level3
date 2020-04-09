@@ -4,12 +4,12 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-ModelManager -->"1" Transaction : filtered list
+ModelManager *-->"1" TransactionHistory
 TransactionHistory *-right-> "1" UniqueTransactionList
 
 UniqueTransactionList o-right-> "*" Transaction
 
-Transaction *-right-> "1" TransactionId
+Transaction *--> "1" TransactionId
 Transaction *-->"1" Good
 Transaction *-->"1" Quantity
 
