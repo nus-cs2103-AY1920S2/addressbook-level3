@@ -19,7 +19,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RETURNS;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -80,6 +82,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided."
         + Messages.NEWLINE + "%1$s";
 
+    private static final Logger LOGGER = LogsCenter.getLogger(EditCommand.class.getName());
     private final Flag flag;
     private final Index index;
     private final EditParcelDescriptor editParcelDescriptor;
@@ -105,6 +108,7 @@ public class EditCommand extends Command {
 
         if ((index.getZeroBased() >= lastShownList.size() && flag.equals(FLAG_ORDER_BOOK))
             || index.getZeroBased() >= lastReturnShownList.size() && flag.equals(FLAG_RETURN_BOOK)) {
+            LOGGER.info("Invalid Index given, Index out of list range, Edit command execution failure.");
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
@@ -112,14 +116,19 @@ public class EditCommand extends Command {
             Order orderToEdit;
             orderToEdit = lastShownList.get(index.getZeroBased());
             Order editedOrder = createEditedOrder(orderToEdit, editParcelDescriptor);
+            LOGGER.fine(
+                String.format("Return EditCommand for editing %d Order in the list", index.getOneBased()));
             return generalSetParcel(orderToEdit, editedOrder, model);
         } else if (flag.equals(FLAG_RETURN_BOOK)) {
             ReturnOrder returnToEdit;
             returnToEdit = lastReturnShownList.get(index.getZeroBased());
             ReturnOrder editedReturnOrder = createEditedReturnOrder(returnToEdit, editParcelDescriptor);
+            LOGGER.fine(
+                String.format("Return EditCommand for editing %d ReturnOrder in the list", index.getOneBased()));
             return generalSetParcel(returnToEdit, editedReturnOrder, model);
         }
 
+        LOGGER.info("Invalid flag object given, Edit command execution failure.");
         throw new CommandException(Messages.MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
 
     }
@@ -196,17 +205,21 @@ public class EditCommand extends Command {
     private CommandResult generalSetParcel(Parcel parcelToEdit, Parcel editedParcel, Model model)
         throws CommandException {
         if (isNotEditable(parcelToEdit, editedParcel, model)) {
+            LOGGER.info("Invalid editing due to duplicate parcel after editing, edit command execution failure.");
             throw new CommandException(MESSAGE_DUPLICATE_PARCEL);
         }
         if (parcelToEdit instanceof Order && editedParcel instanceof Order) {
             model.setOrder((Order) parcelToEdit, (Order) editedParcel);
             model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+            LOGGER.fine("Edit success: Update list for edited Order.");
             return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, editedParcel));
         } else if (parcelToEdit instanceof ReturnOrder && editedParcel instanceof ReturnOrder) {
             model.setReturnOrder((ReturnOrder) parcelToEdit, (ReturnOrder) editedParcel);
             model.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
+            LOGGER.fine("Edit success: Update list for edited ReturnOrder.");
             return new CommandResult(String.format(MESSAGE_EDIT_RETURN_ORDER_SUCCESS, editedParcel));
         }
+        LOGGER.info("Invalid editing due to parcel type invalid, edit command execution failure.");
         throw new CommandException("Parcel type invalid");
     }
 

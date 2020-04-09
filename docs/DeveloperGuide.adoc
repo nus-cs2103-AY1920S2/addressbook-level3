@@ -613,15 +613,19 @@ The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
 `edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
 
 The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `<<command_flags, FLAG>>` and `INDEX`. +
-`<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>`` to represent Order or Return Order respectively. +
+`<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>` to represent Order or Return Order respectively. +
 `INDEX` to indicate which parcel the user wants to edit. +
 The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>. +
+
 [NOTE]
 This feature allows user to edit more than one field within a command.
 
 [IMPORTANT]
 ====
-Limitation to editing the delivery/return time is that the updated delivery date or return date must not be in the past.
+**Limitation **
+
+* Editing the delivery/return time is that the updated delivery date or return date must not be in the past.
+* There must be an order first for `edit` command to work.
 ====
 
 [[edit-path-execution]]
@@ -984,6 +988,9 @@ The search function allow users to search for any orders according to the provid
 
 [IMPORTANT]
 A space is needed in between each word.
+
+[NOTE]
+Keyword search is case-insensitive. E.g: Given `Jeremy` it matches `JeReMy`, `jeremy` or any permutations of alphabet casing.
 
 There are two mode of searching, *general search* or *specific search*. +
 If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be performed on orders, return orders, or both depending on the `<<command_flag, FLAG>>`. +
@@ -1706,22 +1713,24 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Edit orders
 
-. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
+. Edit the details of the delivery order by specifying the `<<command_flag, FLAG>>` (order type), `INDEX` (parcel number displayed), `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` (the field user want to change) and `NEW_VALUE` (the new value that user want to replace the old ones with). For detailed implementation explanation click <<edit,here>>.
 
-.. Edit command format: `edit` `INDEX` `PREFIX/NEW_VALUE`
+.. Prerequisite: Call the `<<list, list>>` command to show something or `<<insert, insert>>`/`<<return, return>>` command to add something before you can `<<edit, edit>>`.
 
-.. Test case: `edit` `1` `n/Xuan En` +
-   Expected: The first index customer's name is changed to Xuan En
-.. Test case: `edit` `2` `p/99521654` +
-   Expected: The second index phone number is changed to 9952 1654
-.. Test case: `edit` `1` `a/Blk 123 Pasir Ris street 51 #12-23 S510123` +
-   Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
-.. Test case: `edit` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S609601` +
-   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S609601
-.. Test case: `edit` `1` `ts/09/08/2020` +
-   Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020
-.. Test case: `edit` `1` `ts/02/02/2020` (Assuming this date has passed) +
-   Expected: The response box will display an error message as it is impossible to put a date that is already passed
+.. Edit command format: `edit` `<<command_flag, FLAG>>` `INDEX` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
+
+.. Test case: `edit` `-r` `1` `n/Xuan En` +
+   Expected: The first index customer's name is changed to Xuan En.
+.. Test case: `edit` `-o` `2` `p/99521654` +
+   Expected: The second index phone number is changed to 9952 1654.
+.. Test case: `edit` `-o` `1` `a/Blk 123 Pasir Ris street 51 #12-23 S510123` +
+   Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123.
+.. Test case: `edit` `-r` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S609601` +
+   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S609601.
+.. Test case: `edit` `-o` `1` `dts/09/08/2020` +
+   Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020.
+.. Test case: `edit` `-r` `1` `rts/02/02/1900` +
+   Expected: The response box will display an error message as it is impossible to put a date that is already passed.
 
 //tag::appendix-import[]
 === Import orders
@@ -1767,23 +1776,22 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 === Search an order
 
-. Search an order based on either the person’s Name or by the Transaction ID
+. Search an order based on the `KEYWORD` and `FLAG`(if any) given. For a more detailed explanation of the implementation click <<search, here>>.
 
-.. Search command format: `search` `FLAG` `KEYWORD`
+.. Search command format: `search` `<<command_flag, FLAG>>` `KEYWORD`
 
-.. Prerequisite: Call the list command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a `search` command, the orders from the output list is based on the list of completed orders
 .. Test case: `list` `done` +
-   `search` `-t` `A18512357Z` +
-   Expected: Specifically search the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
+   `search` `-r` `Jeremy Loh` +
+   Expected: Specifically search for any return order from the return order list that has any field matching the keyword of either `Jeremy`, `Loh` or both and print it to the user.
 .. Test case: `list` `undone` +
-   `search` `-n` `Amos` +
-   Expected: Print all uncompleted delivery orders with any person that has the name ‘Amos’ in it. It will not print out completed delivery orders with a person named ‘Amos’ despite having the same keyword
+   `search` `-o` `tid/asj2od3943` +
+   Expected: Specifically search for any order from the order list that has a Transaction id of `asj2od3943` and print it out to the user.
 .. Test case: `list` +
-   `search` `-n` `Amos` +
-   Expected: The program will look up all the delivery orders, regardless of completed or uncompleted orders and print out all orders in a list with the word ‘Amos’ in the name
+`search` `n/Jeremy` +
+   Expected: Specifically search for both return order or order from both list that has one word of the name matching the key word `Jeremy`.
 .. Test case: `list` +
    `search` +
-   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself
+   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
 
 === Mark order as Done
 

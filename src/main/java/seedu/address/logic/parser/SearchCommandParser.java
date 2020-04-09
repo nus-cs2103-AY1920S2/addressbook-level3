@@ -16,9 +16,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
@@ -29,6 +31,8 @@ import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
  * Parses input arguments and creates a new SearchCommand object
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
+
+    private static final Logger LOGGER = LogsCenter.getLogger(SearchCommandParser.class.getName());
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand
@@ -55,6 +59,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             PREFIX_WAREHOUSE, PREFIX_COMMENT, PREFIX_TYPE);
 
         if (!prefixesPresent && argMultimap.getPreamble().isEmpty()) {
+            LOGGER.info("Invalid user input, parse failure: No input given other than search keyword.");
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
@@ -64,6 +69,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         keywords = processKeywords(keywords);
 
         if (flag == null) {
+            LOGGER.fine("No flag present, SearchCommand object returned with no flag given.");
             return prefixesPresent
                 ? new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap),
                 new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
@@ -72,15 +78,18 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
 
         if (flag.equals(CliSyntax.FLAG_ORDER_BOOK)) {
+            LOGGER.fine("Order flag present, SearchCommand object returned with Order flag given.");
             return prefixesPresent
                 ? new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap))
                 : new SearchCommand(new OrderContainsKeywordsPredicate(keywords));
         } else if (flag.equals(CliSyntax.FLAG_RETURN_BOOK)) {
+            LOGGER.fine("Return flag present, SearchCommand object returned with Return flag given.");
             return prefixesPresent
                 ? new SearchCommand(new ReturnOrderContainsKeywordsPredicate(keywords, argMultimap))
                 : new SearchCommand(new ReturnOrderContainsKeywordsPredicate(keywords));
         }
 
+        LOGGER.info("Invalid input, parse failure: Flag given is not valid.");
         throw new ParseException(String.format(
             MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
     }
@@ -104,6 +113,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         StringBuilder keywords = new StringBuilder();
         List<String> currentPrefixListOfKeywords = argumentMultimap.getAllPrefixValues();
         currentPrefixListOfKeywords.stream().map(each -> each + " ").forEach(keywords::append);
+        LOGGER.finest(String.format("Values of all keywords user gave: %s", keywords.toString()));
         return keywords;
     }
 
@@ -129,12 +139,15 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         List<String> argArr = Arrays.asList(arg.trim().split("\\s"));
         if (argArr.contains(CliSyntax.FLAG_ORDER_BOOK.getFlag())
             && argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
+            LOGGER.info("Invalid input, parse failure: Multiple flags given.");
             throw new ParseException(SearchCommand.MULTIPLE_FLAGS_DETECTED);
         }
 
         if (argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
+            LOGGER.finest("Return flag found.");
             return CliSyntax.FLAG_RETURN_BOOK;
         } else {
+            LOGGER.finest("Order flag found.");
             return CliSyntax.FLAG_ORDER_BOOK;
         }
     }
@@ -153,6 +166,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
                 .noneMatch(flag -> each.equals(flag.getFlag())))
             .map(each -> each + " ")
             .collect(Collectors.joining());
+        LOGGER.finest(String.format("User input after removing flags %s", returnString));
         return returnString;
     }
 
