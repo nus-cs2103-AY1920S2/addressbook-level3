@@ -12,7 +12,7 @@ import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DA
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.core.index.Index;
-import seedu.zerotoone.logic.commands.HelpCommand;
+import seedu.zerotoone.logic.commands.AboutCommand;
 import seedu.zerotoone.logic.commands.schedule.CreateCommand;
 import seedu.zerotoone.logic.commands.schedule.DeleteCommand;
 import seedu.zerotoone.logic.commands.schedule.EditCommand;
@@ -63,7 +63,7 @@ class ScheduleCommandParserTest {
     @Test
     public void parse_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () -> parser.parse(""));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AboutCommand.MESSAGE_USAGE), () -> parser.parse(""));
     }
 
     @Test

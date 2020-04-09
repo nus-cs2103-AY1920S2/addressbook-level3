@@ -25,6 +25,7 @@ import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
+import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
@@ -78,6 +79,16 @@ public class CreateCommandTest {
                 String.format(CreateCommand.MESSAGE_SUCCESS, expectedSchedule),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(expectedSchedule), modelStub.schedulesAdded);
+    }
+
+    @Test
+    public void execute_modelInSession_throwsCommandException() {
+        DateTime dateTime = new DateTime(VALID_DATETIME_JUNE);
+        CreateCommand createCommand = new CreateCommand(INDEX_FIRST_OBJECT, dateTime);
+        Model model = new ModelStubInSession();
+
+        assertThrows(CommandException.class,
+                Command.MESSAGE_SESSION_STARTED, () -> createCommand.execute(model));
     }
 
     @Test
@@ -441,7 +452,7 @@ public class CreateCommandTest {
     }
 
     /**
-     * A Model stub that always accept the exercise being added.
+     * A Model stub that always accept the schedule being added.
      */
     private class ModelStubAcceptingScheduleAdded extends ModelStub {
         final ArrayList<Schedule> schedulesAdded = new ArrayList<>();
@@ -461,6 +472,16 @@ public class CreateCommandTest {
         @Override
         public ObservableList<Workout> getFilteredWorkoutList() {
             return model.getFilteredWorkoutList();
+        }
+    }
+
+    /**
+     * A Model stub that is always in session.
+     */
+    private class ModelStubInSession extends ModelStub {
+        @Override
+        public boolean isInSession() {
+            return true;
         }
     }
 }

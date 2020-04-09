@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.Messages;
+import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
@@ -59,6 +60,16 @@ class EditCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new EditCommand(null, null));
+    }
+
+    @Test
+    public void execute_modelInSession_throwsCommandException() {
+        DateTime dateTime = new DateTime(VALID_DATETIME_JUNE);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OBJECT, dateTime);
+        Model model = new ModelStubInSession();
+
+        assertThrows(CommandException.class,
+                Command.MESSAGE_SESSION_STARTED, () -> editCommand.execute(model));
     }
 
     @Test
@@ -458,5 +469,15 @@ class EditCommandTest {
         // public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
         //     return model.getFilteredWorkoutList();
         // }
+    }
+
+    /**
+     * A Model stub that is always in session.
+     */
+    private class ModelStubInSession extends ModelStub {
+        @Override
+        public boolean isInSession() {
+            return true;
+        }
     }
 }
