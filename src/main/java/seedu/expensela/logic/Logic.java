@@ -18,6 +18,28 @@ import seedu.expensela.model.transaction.Transaction;
  * API of the Logic component
  */
 public interface Logic {
+
+    /**
+     * Get Command from command history
+     * @param offset
+     * @return Command String
+     */
+    String getCommandFromHistory(int offset);
+
+    /**
+     * Add Command to history
+     * @param command
+     */
+    void addToCommandHistory(String command);
+
+    /**
+     * Delete command from history
+     * @param command
+     */
+    void deleteFromCommandHistory(String command);
+
+    int getCommandHistorySize();
+
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.

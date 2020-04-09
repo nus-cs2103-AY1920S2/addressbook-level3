@@ -1,9 +1,13 @@
 package seedu.expensela.ui;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.expensela.logic.Logic;
 import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
@@ -17,15 +21,42 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private Logic logic;
+    private int offset = -1;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    private EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
+        public void handle(KeyEvent event) {
+            if (event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.DOWN)) {
+                if (event.getCode().equals(KeyCode.UP)) {
+                    if (offset < logic.getCommandHistorySize() - 1) {
+                        offset++;
+                    }
+                }
+                if (event.getCode().equals(KeyCode.DOWN)) {
+                    if (offset > -1) {
+                        offset--;
+                    }
+                }
+                String command = logic.getCommandFromHistory(offset);
+                if (command != null) {
+                    commandTextField.setText(command);
+                    commandTextField.end();
+                }
+            }
+            event.consume();
+        }
+    };
+
+    public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, handler);
     }
 
     /**
@@ -34,7 +65,11 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            commandExecutor.execute(commandTextField.getText());
+            String command = commandTextField.getText();
+            commandExecutor.execute(command);
+            logic.deleteFromCommandHistory(command);
+            logic.addToCommandHistory(command);
+            offset = -1;
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();

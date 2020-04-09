@@ -85,6 +85,26 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public String getCommandFromHistory(int offset) {
+            return null;
+        }
+
+        @Override
+        public void addToCommandHistory(String command) {
+
+        }
+
+        @Override
+        public void deleteFromCommandHistory(String command) {
+
+        }
+
+        @Override
+        public int getCommandHistorySize() {
+            return 0;
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
