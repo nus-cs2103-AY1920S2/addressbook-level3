@@ -113,13 +113,13 @@ to to improve your user experience of EYLAH.
 | <<mode, mode>>
 | <<additem, additem>>
 
-| <<storeheight, storeheight>>
+| <<height, height>>
 | <<deleteitem, deleteitem>>
 
-| <<storeweight, storeweight>>
+| <<weight, weight>>
 | <<listreceipt, listreceipt>>
 
-| <<addfood, addfood>>
+| <<addfood, add>>
 | <<listamount, listamount>>
 
 | <<listfooditem, list>>
@@ -136,6 +136,9 @@ to to improve your user experience of EYLAH.
 
 | <<diettrackerhelp, help>>
 | <<back, back>>
+
+| <<back, back>>
+|
 
 |===
 
@@ -176,7 +179,7 @@ Example: `mode -m`
 
 '''
 
-[[storeheight]]
+[[height]]
 ==== Store Height `height`
 Allows user to input their height.
 
@@ -186,7 +189,7 @@ Example: `height 172`
 NOTE: Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
 
 '''
-[[storeweight]]
+[[weight]]
 ==== Store Weight `weight`
 Allows user to input their weight.
 
