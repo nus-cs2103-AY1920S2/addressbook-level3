@@ -35,7 +35,7 @@ ref over model, client
     addToSort
 end ref
 
-AddExerciseCommand -[LOGIC_COLOR]> client2 **
+AddExerciseCommand -[LOGIC_COLOR]> client2 ** : Client(...)
 activate client2 MODEL_COLOR
 
 client2 --[MODEL_COLOR]> AddExerciseCommand : editedClient

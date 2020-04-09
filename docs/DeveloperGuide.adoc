@@ -339,15 +339,15 @@ The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrap
 4. `ExerciseWeight`
 5. `ExerciseSets`
 
-All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. Below shows a UML class diagram which shows `Exercise` class interactions.
+All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omiited and will discuss in (...) section due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
 
 image::ExerciseClassDiagram.png[]
 
-An important point to note about our implementation of `Exercise` is the method `isSameExercise()`. This method executes when adding a new `Exercise`. It is used to check if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
+An important point to note about our implementation of `Exercise` is the method, `isSameExercise()`. This method executes when adding a new `Exercise`. It is used to check if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
 
 image::IsSameExerciseObjectDiagram.png[]
 
-The two `Exercise` have different values in `ExerciseSets` but the same values in:
+The two `Exercise` only have different values in `ExerciseSets` but the same values in:
 
 1. `ExerciseName`
 2. `ExerciseDate`
@@ -368,6 +368,8 @@ The commands follow a similar execution flow as other commands.
 
 image::ExerciseCommandActivityDiagram.png[]
 
+
+
 For the `add-e` command, we had to pay particular attention to the index where new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This would result in problems when using `delete-e` command as it deletes the exercise at the specified index.
 
 We will use an example of a `add-e` command to illustrate the program execution flow. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The `FitBizParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
@@ -376,7 +378,7 @@ image::AddExerciseCommandSequenceDiagram.png[]
 
 `AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of how the new exercise, `toAdd`, is added to the exercise list.
 
-image::AddExerciseCommandSequenceDiagramPart.png[]
+image::AddExerciseCommandSequenceDiagramPart2.png[]
 
 The exercise list, `UniqueExerciseList`, will go through a loop and iterate through the exercises in the list. The date of each exercise will be compared with the date of the `toAdd` exercise. `toAdd` will then be added to the `UniqueExerciseList` at the index to keep the list sorted.
 
