@@ -391,12 +391,12 @@ public class MainWindow extends UiPart<Stage> {
                 // Go to the list tab
                 tabPane.getSelectionModel().select(listTab);
 
-            //@@author Exeexe93
-            if (commandResult.isClearList()) {
-                handleClearWarning(commandResult.getFeedbackToUser());
-                clearWindow.setComponent(resultDisplay);
-            }
-            //@@author
+                //@@author Exeexe93
+                if (commandResult.isClearList()) {
+                    handleClearWarning(commandResult.getFeedbackToUser());
+                    clearWindow.setComponent(resultDisplay);
+                }
+                //@@author
 
                 // Show Command
                 if (commandResult.isDisplayEarnings()) {
