@@ -60,7 +60,8 @@ public class DeleteDiaryCommand extends Command {
         model.commit(MESSAGE_COMMIT);
         logger.info("Deleted an entry");
 
-        return new CommandResult(String.format(MESSAGE_DELETE_DIARY_SUCCESS, diaryDate), CommandResult.DisplayedPage.DIARY, false);
+        return new CommandResult(String.format(MESSAGE_DELETE_DIARY_SUCCESS, diaryDate),
+                CommandResult.DisplayedPage.DIARY, false);
     }
 
     public Diary getDiaryByDate(List<Diary> diaryList, DiaryDate diaryDate) {

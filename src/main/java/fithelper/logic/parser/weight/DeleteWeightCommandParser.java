@@ -7,13 +7,13 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import fithelper.logic.weight.DeleteWeightCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
 import fithelper.logic.parser.Parser;
 import fithelper.logic.parser.ParserUtil;
 import fithelper.logic.parser.Prefix;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.logic.weight.DeleteWeightCommand;
 import fithelper.model.weight.Date;
 
 /**
