@@ -38,7 +38,7 @@ public class InterviewParser {
     private static final Pattern SCORE_COMMAND_FORMAT =
             Pattern.compile(":set (?<attribute>[\\p{Alpha}][\\p{Alpha} ]*?)\\s+(?<score>\\d+(\\.\\d+)?)");
     private static final Pattern START_QUESTION_COMMAND_FORMAT =
-            Pattern.compile(":start q(?<questionNumber>\\d+)");
+            Pattern.compile(":start q(?<questionNumber>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -84,8 +84,8 @@ public class InterviewParser {
         }
         Matcher startQuestionMatcher = START_QUESTION_COMMAND_FORMAT.matcher(userInput.trim());
         if (startQuestionMatcher.matches()) {
-            int questionNumber = Integer.parseInt(startQuestionMatcher.group("questionNumber"));
-            return new StartQuestionCommand(questionNumber);
+            //int index = ParserUtil.checkValidQuestionNumber(startQuestionMatcher.group("questionNumber"));
+            return new StartQuestionCommand(1);
         }
         Matcher scoreMatcher = SCORE_COMMAND_FORMAT.matcher(userInput.trim());
         if (scoreMatcher.matches()) {
