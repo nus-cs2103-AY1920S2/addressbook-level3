@@ -2,28 +2,22 @@ package tatracker.logic.commands.session;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.testutil.Assert.assertThrows;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.commons.core.Messages;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.ModelStub;
-import tatracker.model.ModelStub.ModelStubWithSession;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.testutil.sessions.SessionBuilder;
 
 public class AddSessionCommandTest {
 
-    private static final String DEFAULT_START = LocalDateTime.of(2020,05,20,17, 30).toString();
-    private static final String DEFAULT_END = LocalDateTime.of(2020, 05, 20, 19, 30).toString();
+    private static final String DEFAULT_START = LocalDateTime
+            .of(2020, 05, 20, 17, 30).toString();
+    private static final String DEFAULT_END = LocalDateTime
+            .of(2020, 05, 20, 19, 30).toString();
     private static final String DEFAULT_MODULE = "CS2103T";
     private static final String DEFAULT_TYPE = SessionType.TUTORIAL.toString();
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";

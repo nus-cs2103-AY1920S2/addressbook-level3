@@ -15,8 +15,6 @@ import tatracker.model.session.SessionType;
 
 public class AddSessionCommandParserTest {
 
-    private AddSessionCommandParser parser = new AddSessionCommandParser();
-
     private static final String DEFAULT_START = LocalTime.of(17, 30).toString();
     private static final String DEFAULT_END = LocalTime.of(19, 30).toString();
     private static final String DEFAULT_DATE = LocalDate.of(2020, 05, 20).toString();
@@ -27,6 +25,8 @@ public class AddSessionCommandParserTest {
 
     private static final String validModule = "m/C2103T";
     private static final String invalidModule = "C3243";
+
+    private AddSessionCommandParser parser = new AddSessionCommandParser();
 
     /*@Test
     public void parse_allFieldsPresent_success() {
@@ -41,7 +41,7 @@ public class AddSessionCommandParserTest {
     } */
 
     @Test
-    public void parse_compulsoryFieldMissing_Failure() {
+    public void parse_compulsoryFieldMissing_failure() {
 
         String expectedMessage = Messages.getInvalidCommandMessage(AddSessionCommand.DETAILS.getUsage());
 

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.index.Index;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -34,8 +37,71 @@ public class ParserUtilTest {
     private static final String VALID_MATRIC = "A0123456J";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_DATE = "2020-02-20";
+    private static final String VALID_TIME = "15:33";
+    private static final String VALID_TYPE = "consultation";
 
     private static final String WHITESPACE = " \t\r\n";
+
+    @Test
+    public void parseDate_validInput_success() throws ParseException {
+        LocalDate expectedDate = LocalDate.of(2020, 02, 20);
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+    }
+
+    @Test
+    public void parseDate_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("2020-02-31"));
+    }
+
+    @Test
+    public void parseDate_wrongFormat_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDate("20-03-2020"));
+    }
+
+    @Test
+    public void parseTime_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTime("6:30"));
+    }
+
+    @Test
+    public void parseTime_validInput_success() throws ParseException {
+        LocalTime expectedTime = LocalTime.of(15, 33);
+        assertEquals(expectedTime, ParserUtil.parseTime(VALID_TIME));
+    }
+
+    @Test
+    public void parseSessionType_validInput_success() throws ParseException {
+        SessionType expectedType = SessionType.getSessionType("consultation");
+        assertEquals(expectedType, ParserUtil.parseSessionType(VALID_TYPE));
+    }
+
+    @Test
+    public void parseSessionTypeCaps_validInput_success() throws ParseException {
+        SessionType expectedType = SessionType.getSessionType("CONSULTATION");
+        assertEquals(expectedType, ParserUtil.parseSessionType(VALID_TYPE));
+    }
+
+    @Test
+    public void parseSessionType_invalidInput_throwsParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSessionType("consult"));
+    }
+
+    @Test
+    public void parseNumWeeks_validInput_success() throws ParseException {
+        assertEquals(1, ParserUtil.parseNumWeeks("1"));
+    }
+
+    @Test
+    public void parseNumWeeks_invalidLetters_throwsParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNumWeeks("a"));
+    }
+
+    @Test
+    public void parseNumWeeks_invalidNegativeNum_throwsParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> ParserUtil.parseNumWeeks("-1"));
+    }
+
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
