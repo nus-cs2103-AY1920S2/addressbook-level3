@@ -64,21 +64,16 @@ public interface Model {
     //ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a profile with the same identity as {@code profile} exists in the address book.
-     */
-    boolean hasPerson(Profile profile);
-
-    /**
      * Deletes the given profile.
      * The profile must exist in the address book.
      */
-    void deletePerson(Profile target);
+    void deleteProfile(Profile target);
 
     /**
      * Adds the given profile.
      * {@code profile} must not already exist in the address book.
      */
-    void addPerson(Profile profile);
+    void addProfile(Profile profile);
 
     /**
      * Replaces the given profile {@code target} with {@code editedProfile}.
@@ -86,7 +81,7 @@ public interface Model {
      * The profile identity of {@code editedProfile} must not be the same as another existing profile
      * in the address book.
      */
-    void setPerson(Profile target, Profile editedProfile);
+    void setProfile(Profile target, Profile editedProfile);
 
     /** Returns an unmodifiable view of the filtered profile list */
     ObservableList<Profile> getFilteredPersonList();

@@ -58,7 +58,7 @@ public class NewCommandTest {
         NewCommand newCommandAmy = new NewCommand(amyProfile);
 
         ProfileManagerStub profileManagerStub = new ProfileManagerStub();
-        profileManagerStub.addPerson(amyProfile);
+        profileManagerStub.addProfile(amyProfile);
 
         assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()), () ->
                 newCommandAmy.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));
@@ -82,7 +82,7 @@ public class NewCommandTest {
         NewCommand newCommandBob = new NewCommand(bobProfile);
 
         ProfileManagerStub profileManagerStub = new ProfileManagerStub();
-        profileManagerStub.addPerson(amyProfile);
+        profileManagerStub.addProfile(amyProfile);
 
         assertThrows(CommandException.class, String.format(MESSAGE_DUPLICATE_PROFILE, amyProfile.getName()), () ->
                 newCommandBob.execute(profileManagerStub, new CourseManagerStub(), new ModuleManagerStub()));

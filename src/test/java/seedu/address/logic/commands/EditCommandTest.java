@@ -257,7 +257,7 @@ public class EditCommandTest {
         }
 
         @Override
-        public void setPerson(Profile target, Profile editedProfile) {
+        public void setProfile(Profile target, Profile editedProfile) {
             requireAllNonNull(target, editedProfile);
             int index = this.profileList.indexOf(target);
 

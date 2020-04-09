@@ -248,22 +248,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Profile profile) {
+        public void deleteProfile(Profile target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Profile target) {
+        public void addProfile(Profile profile) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Profile profile) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Profile target, Profile editedProfile) {
+        public void setProfile(Profile target, Profile editedProfile) {
             throw new AssertionError("This method should not be called.");
         }
 

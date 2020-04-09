@@ -53,7 +53,7 @@ public class NewCommand extends Command {
         }
 
         try {
-            profileManager.addPerson(toAdd);
+            profileManager.addProfile(toAdd);
         } catch (DuplicatePersonException e) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PROFILE, toAdd.getName()));
         }
