@@ -14,16 +14,21 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Ease Your Lives At Hall (EYLAH) is a Command Line Interface (CLI) application designed to aid students staying in NUS with commonly faced problems in halls such as,
-tracking their diet and splitting the bill with a large group of friends.
+=== About EYLAH
 
-Shown below is the GUI of EYLAH.
+Ease Your Lives At Hall (EYLAH) is a Command Line Interface (CLI) application designed to aid students staying in
+*Temasek Hall within the National University of Singapore* with commonly faced problems such as,
+*tracking their diet* and *splitting a large bill* with a group of friends.
+
+Shown below is the CLI of EYLAH.
 
 image::Ui.png[]
+
+=== About this guide
 
 This documentation serves as an introduction to the architecture and implementation of EYLAH,
 and is made for developers who wish to maintain,
@@ -183,7 +188,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how the features in EYLAH are implemented.
 
 // tag::undoredo[]
 === DietTracker feature
@@ -468,6 +473,7 @@ Below are some diagrams to explain how our team implemented this portion.
 
 image::ExpenseSplitterActivityDiagram.png[]
 
+[[Add-Item-Command]]
 ==== Add Item Command
 
 *Implementation*
@@ -500,6 +506,7 @@ The following is a sample sequence diagram of the DeleteItemCommand.
 
 image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
 
+[[Delete-Item-Command]]
 ==== Delete Item Command
 
 *Implementation*
@@ -529,6 +536,7 @@ The following is a sample sequence diagram of the DeleteItemCommand.
 
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
+[[List-Receipt-Command]]
 ==== List Receipt Command
 
 *Implementation*
@@ -545,6 +553,7 @@ The following is a sample sequence diagram of the ListReceiptCommand.
 
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
+[[List-Amount-Command]]
 ==== List Amount Command
 
 *Implementation*
@@ -561,7 +570,7 @@ The following is a sample sequence diagram of the ListAmountCommand.
 
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
-
+[[Paid-Command]]
 ==== Paid Command
 
 *Implementation*
@@ -583,6 +592,7 @@ Person(s) with $0 Amount will be deleted from UniquePersonList.
 
 image::ExpenseSplitterPaidCommandSequenceDiagramV2.png[]
 
+[[Back-Command]]
 ==== Back Command
 
 *Implementation*
