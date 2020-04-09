@@ -87,7 +87,8 @@ public class CopyCommand extends IndexedCommand {
             conditionString = PREFIX_CONDITION + condition.value + " ";
         }
 
-        return couponAsAddCommand(totalSavings, conditionString);
+        String copyCommand = couponAsAddCommand(coupon, totalSavings, conditionString);
+        return copyCommand;
     }
 
     /**
@@ -96,7 +97,7 @@ public class CopyCommand extends IndexedCommand {
      * @param conditionString String of the condition with c/ prefix, if any.
      * @return Appended String of user input to add an identical coupon.
      */
-    private String couponAsAddCommand (String totalSavings, String conditionString) {
+    private String couponAsAddCommand (Coupon coupon, String totalSavings, String conditionString) {
         Name name = coupon.getName();
         PromoCode promoCode = coupon.getPromoCode();
         ExpiryDate expiryDate = coupon.getExpiryDate();
