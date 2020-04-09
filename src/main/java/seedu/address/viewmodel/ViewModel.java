@@ -1,4 +1,4 @@
-package seedu.address.manager;
+package seedu.address.viewmodel;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
@@ -16,10 +16,10 @@ import javafx.collections.ObservableMap;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.events.DataStorageChangeEvent;
 import seedu.address.commons.util.Constants;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
@@ -30,8 +30,7 @@ import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 
-// TODO: Think of better name?
-public class DetailManager extends BaseManager {
+public class ViewModel extends BaseManager {
     enum TYPE {
         STUDENT_DETAILS,
         STUDENT_COURSE_DETAILS,
@@ -44,9 +43,9 @@ public class DetailManager extends BaseManager {
 
     public TYPE type;
 
-    private static DetailManager instance;
+    private static ViewModel instance;
 
-    public static DetailManager getInstance() {
+    public static ViewModel getInstance() {
         return instance;
     }
 
@@ -61,7 +60,7 @@ public class DetailManager extends BaseManager {
 
     HashMap<Prefix, ID> IdMapping;
 
-    public DetailManager() {
+    public ViewModel() {
         studentDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
         courseDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
         staffDetailsMap = FXCollections.observableMap(new HashMap<String, Object>());
@@ -192,7 +191,7 @@ public class DetailManager extends BaseManager {
             Course course = (Course)courseDetail.get("info");
             if (course.getId().equals(courseID)) {
                 courseDetail.put("progress_list",
-                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getAllProgressesForOneStudent(courseID, studentID))));
             } else {
                 courseDetail.put("progress_list",
                         FXCollections.observableArrayList(new ArrayList<Progress>()));
@@ -227,7 +226,7 @@ public class DetailManager extends BaseManager {
             Student student = (Student)studentDetail.get("info");
             if (student.getId().equals(studentID)) {
                 studentDetail.put("progress_list",
-                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getProgress(courseID, studentID))));
+                        FXCollections.observableArrayList(new ArrayList<Progress>(ProgressManager.getAllProgressesForOneStudent(courseID, studentID))));
             } else {
                 studentDetail.put("progress_list",
                         FXCollections.observableArrayList(new ArrayList<Progress>()));
