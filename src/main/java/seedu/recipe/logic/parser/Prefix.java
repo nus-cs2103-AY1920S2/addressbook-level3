@@ -2,7 +2,7 @@ package seedu.recipe.logic.parser;
 
 /**
  * A prefix that marks the beginning of an argument in an arguments string.
- * E.g. 'g/' in 'add James g/ friend'.
+ * E.g. 'n/' in 'add n/Scrambled egg'.
  */
 public class Prefix {
     private final String prefix;

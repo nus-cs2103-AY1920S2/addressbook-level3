@@ -118,4 +118,5 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     public int hashCode() {
         return recipes.hashCode();
     }
+
 }

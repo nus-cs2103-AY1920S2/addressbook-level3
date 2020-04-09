@@ -1,7 +1,6 @@
 package seedu.recipe.logic.parser;
 
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
@@ -13,6 +12,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import seedu.recipe.logic.commands.AddCommand;
@@ -43,7 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TIME, PREFIX_INGREDIENT_GRAIN,
                         PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT,
-                        PREFIX_INGREDIENT_OTHER, PREFIX_STEP, PREFIX_GOAL);
+                        PREFIX_INGREDIENT_OTHER, PREFIX_STEP);
 
         boolean isAtLeastOneIngredientPresent = areAnyPrefixesPresent(argMultimap, PREFIX_INGREDIENT_GRAIN,
                 PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT, PREFIX_INGREDIENT_OTHER);
@@ -56,7 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         List<Step> steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP));
-        Set<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOAL));
+        Set<Goal> goalList = new TreeSet<>();
 
         Set<Grain> grainsList = ParserUtil.parseGrains(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN));
         Set<Vegetable> vegetablesList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE));
@@ -64,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Fruit> fruitsList = ParserUtil.parseFruits(argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT));
         Set<Other> othersList = ParserUtil.parseOthers(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER));
 
-        // When recipe is first added, it will not be marked as favourite by default.
+        // When recipe is first added, it will not be marked as favourite by default and with empty set of goals.
         Recipe recipe = new Recipe(name, time,
                 grainsList, vegetablesList, proteinsList, fruitsList, othersList,
                 steps, goalList, false);
