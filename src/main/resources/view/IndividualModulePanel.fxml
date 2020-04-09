@@ -5,11 +5,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" maxWidth="710" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
-    <VBox fx:id="individualModulePanel" styleClass="pane-with-border" VBox.vgrow="ALWAYS" maxWidth="705">
-        <padding>
-            <Insets top="10" bottom="10" left="10" right="10"/>
-        </padding>
+<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" fitToWidth="true">
+    <VBox fx:id="individualModulePanel" styleClass="pane-with-border">
         <Label fx:id="moduleCode" text="\$moduleCode" wrapText="true" styleClass="module_code" ></Label>
         <Label fx:id="moduleTitle" text="\$moduleTitle" wrapText="true" styleClass="module_title"></Label>
         <Label fx:id="preReqs" text="\$prereqs" wrapText="true" styleClass="module_others"></Label>
@@ -18,6 +15,9 @@
         <Label fx:id="description" text="\$description" wrapText="true" styleClass="module_others"></Label>
         <Label fx:id="semData" text="\$semData" wrapText="true" styleClass="module_others"></Label>
 
+        <padding>
+            <Insets top="10" bottom="10" left="10" right="10"/>
+        </padding>
     </VBox>
 
 </ScrollPane>

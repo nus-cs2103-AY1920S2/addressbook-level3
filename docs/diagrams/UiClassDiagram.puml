@@ -26,6 +26,7 @@ Class ModuleListPanel
 Class ModuleCard
 Class OverviewPanel
 Class OverviewModuleCard
+Class WelcomeViewPanel
 
 }
 
@@ -53,6 +54,7 @@ MainWindow *-down-> CoursePanel
 MainWindow *-down-> OverviewPanel
 MainWindow *-down-> ModuleListPanel
 MainWindow *-down-> IndividualModulePanel
+MainWindow *-down-> WelcomeViewPanel
 
 
 
@@ -79,6 +81,7 @@ CoursePanel --|> UiPart
 OverviewPanel --|> UiPart
 ModuleListPanel --|> UiPart
 IndividualModulePanel --|> UiPart
+WelcomeViewPanel --|> UiPart
 
 
 ProfileCard ..> Model
@@ -97,6 +100,7 @@ CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 DeadlineListPanel -[hidden]left- HelpWindow
 IndividualModulePanel -[hidden]left- HelpWindow
+WelcomeViewPanel -[hidden]left- HelpWindow
 
 MainWindow -[hidden]-|> UiPart
 @enduml
