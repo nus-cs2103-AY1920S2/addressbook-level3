@@ -40,7 +40,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -237,8 +236,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ProfileList getProfileList() {
-            throw new AssertionError("This method should not be called.");
+        public Profile getFirstProfile() {
+            return this.profileList.get(0);
         }
 
         @Override
@@ -246,11 +245,9 @@ public class AddCommandTest {
             return filteredProfiles;
         }
 
-        @Override
         public void setPerson(Profile target, Profile editedProfile) {
             requireAllNonNull(target, editedProfile);
             int index = this.profileList.indexOf(target);
-
             this.profileList.set(index, editedProfile);
         }
     }
@@ -269,12 +266,12 @@ public class AddCommandTest {
             this.profileList = profileList;
             filteredProfiles = new FilteredList<>(this.profileList);
         }
-
         @Override
         public boolean hasOneProfile() {
             return true;
         }
     }
+
 
     private class ProfileManagerWithEmptyProfile extends ProfileManagerStub {
         private ProfileManagerWithEmptyProfile() {

@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W13-3/main
 
 By: `AY1920S2-CS2103T-W13-3`      Since: `Jan 2020`      Licence: `MIT`
 
@@ -131,6 +131,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -139,10 +140,19 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
+The Storage component consists of the following three main parts:
+
+. Profiles: `JsonProfileListStorage` handles reading and saving of profiles from json to `Profile` objects and vice versa. The `Profile` objects are stored in a `ProfileList`.
+. Modules: `JsonModuleListStorage` handles only reading of modules from json to `Module` objects, which are stored in a `ModuleList`.
+. Courses: `JsonCourseListStorage` handles only reading of courses from json to `Course` objects, which are stored in a `CourseList`.
+
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Profile List data in json format and read it back as a `ProfileList` object.
+* can read Module List data from json format to a `ModuleList` object.
+* can read Course List data from json format to a `CourseList` object.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -282,6 +292,7 @@ image::EditSequenceDiagram.png[]
 
 - By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
+// tag::delete[]
 === Delete Profile / Module / Deadline Feature
 
 The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`
@@ -296,8 +307,21 @@ Lastly, the delete deadline feature is a complementary feature to the add deadli
 
 The following sequence diagram shows the interactions between `Ui`, `Logic` and `Model` components when a module is deleted.
 
+.Interactions between `Ui`, `Logic` and `Model` components for the `delete m/CS2101 t/work` command.
 image::DeleteDeadlineSequenceDiagram.png[]
 
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Delete only one `Profile`, `Module` or `Deadline` object with one delete command
+** Pros: Easier to implement and consistent across all inputs
+** Cons: More to type if user intends to delete multiple `Module` objects or `Deadline` objects
+
+* *Alternative 2:* Delete multiple `Module` or `Deadline` objects with one delete command
+** Pros: More convenient for the user
+** Cons: Inconsistent with deleting a profile, which can only take in at most one profile
+
+Eventually, we decided on alternative 1 due to the benefits of consistency in the number of items to be deleted, as well as to reduce the number of bugs faced.
+// end::delete[]
 
 === Logging
 
@@ -318,7 +342,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
 
 == Documentation
 
@@ -347,6 +370,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: more convenient to manage degree progression and tasks than a typical mouse/GUI driven app
 
 [appendix]
+// tag::userStories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -374,11 +398,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Student |pool notes for my modules together |organise my notes according to my modules
 |=======================================================================
+// end::userStories[]
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `MODdy` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `MODdy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: UC01 - Add module
@@ -400,10 +425,18 @@ Use case ends.
 +
 Use case ends.
 
-* 3b. The user has not enrolled into NUS
+* 3a. The user has not started his first semester in NUS
 +
 [none]
-** 3b1. MODdy adds the module to that semester, noting that it is under planning
+** 3a1. MODdy adds the module to that semester, noting that it is under planning
++
+Use case ends.
+
+* 3b. The user has not fulfilled the prerequisites of the module before the specified semester
++
+[none]
+** 3b1. MODdy shows a warning that the module prerequisites have not been fulfilled prior to that semester
+** 3b2. MODdy adds the module to that semester
 +
 Use case ends.
 
@@ -416,7 +449,7 @@ Use case ends.
 2.  User provides the module code for that module
 3.  MODdy shows all information related to the module
 +
-Use case ends
+Use case ends.
 
 *Extensions*
 
@@ -425,7 +458,7 @@ Use case ends
 [none]
 ** 2a1. MODdy shows an error message
 +
-Use case ends
+Use case ends.
 
 [discrete]
 === Use case: UC03 - Add grades
@@ -433,14 +466,14 @@ Use case ends
 *MSS*
 
 1.  User requests to update his results at the end of a semester
-2.  User provides the alphabet grade beside each module taken
-3.  MODdy adds the alphabet grade to each module and updates overall CAP
+2.  User provides the alphabet grade for a module that was taken
+3.  MODdy adds the alphabet grade to the module and updates overall CAP
 +
-Use case ends
+Use case ends.
 
 *Extensions*
 
-* 2a. The module code does not exist
+* 2a. The grade entered is invalid
 +
 [none]
 ** 2a1. MODdy shows an error message
@@ -448,76 +481,84 @@ Use case ends
 Use case ends.
 
 [discrete]
-=== Use case: UC04 - View grades
+=== Use case: UC04 - View academic overview
 
 *MSS*
 
-1.  User requests to view his grades
-2.  MODdy shows a list of his grades and his overall CAP
+1.  User requests to view his academic overview
+2.  MODdy shows a list of the modules he has taken, his grades and overall CAP
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. The user has not stored any grades in MODdy
+* 1a. The user has not created a user profile
 +
 [none]
 ** 1a1. MODdy shows an error message
 +
-Use case ends
+Use case ends.
 
 [discrete]
 === Use case: UC05 - Add task
 
 *MSS*
 
-1.  User requests to add a task, with a deadline, to be tracked
+1.  User requests to add a task with a deadline to a particular module
 2.  User provides the task description and deadline
-3.  MODdy displays the tasks in the deadline pane
+3.  MODdy displays the newly added task in the deadline pane
 +
 Use case ends.
 
 *Extensions*
+
+* 1a. The user is not taking the specified module in the current semester
++
+[none]
+** 1a1. MODdy shows an error message
++
+Use case ends.
 
 * 2a. The format of the deadline provided is wrong
 +
 [none]
 ** 2a1. MODdy shows an error message
 +
-Use case ends
+Use case ends.
 
 [discrete]
 === Use case: UC05 - Edit task
 
 *MSS*
 
-1.  User provides the index of the task (shown in deadline pane) to be edited
-2.  User provides the new task description and deadline
+1.  User requests to edit the task description (shown in deadline pane) of a particular module
+2.  User provides the new task description
 3.  MODdy displays the updated task in the deadline pane
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. The index provided does not exist
+* 1a. The user is not taking the specified module
 +
 [none]
 ** 1a1. MODdy shows an error message
 +
-Use case ends
-* 2a. The format of the deadline provided is wrong
+Use case ends.
+* 2a. The task description provided does not exist
 +
 [none]
 ** 2a1. MODdy shows an error message
 +
-Use case ends
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 profiles without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to accommodate any user from the School of Computing in NUS.
+.  Should work with or without Internet connection.
 
 [appendix]
 == Glossary
@@ -546,9 +587,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy into an empty folder with both read and write permissions granted
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a Quick Start page. The window size may not be optimum.
 
 . Saving window preferences
 

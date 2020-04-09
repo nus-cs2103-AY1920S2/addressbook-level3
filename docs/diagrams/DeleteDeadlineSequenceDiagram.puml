@@ -21,16 +21,16 @@ participant ":Module" as Module MODEL_COLOR
 participant ":Deadline" as Deadline MODEL_COLOR
 end box
 
-[-> CommandBox
+[-> CommandBox : "delete\n m/CS2101 t/work"
 activate CommandBox
 
-CommandBox -> MainWindow : executeCommand("delete m/CS2101 t/work")
+CommandBox -> MainWindow : executeCommand("delete\n m/CS2101 t/work")
 activate MainWindow
 
-MainWindow -> LogicManager : execute("delete m/CS2101 t/work")
+MainWindow -> LogicManager : execute("delete\n m/CS2101 t/work")
 activate LogicManager
 
-LogicManager -> ModdyParser : parseCommand("delete m/CS2101 t/work")
+LogicManager -> ModdyParser : parseCommand("delete\n m/CS2101 t/work")
 activate ModdyParser
 
 create DeleteCommandParser
@@ -108,4 +108,6 @@ LogicManager --> MainWindow
 deactivate LogicManager
 
 MainWindow --> CommandBox
+
+[<-- CommandBox
 @enduml

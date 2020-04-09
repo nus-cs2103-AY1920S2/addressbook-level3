@@ -17,7 +17,7 @@
             <Label text=" 1. No profile? Create using " styleClass="quickStart" ></Label>
             <Label text="`new`" styleClass="command"></Label>
         </TextFlow>
-        <Label text="format: new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]" styleClass="command"></Label>
+        <Label text="format: new n/NAME c/COURSE y/CURRENTYEAR_CURRENTSEM [s/SPECIALISATION]" styleClass="command"></Label>
         <Label text="    " styleClass="quickStart"></Label>
 
         <TextFlow>

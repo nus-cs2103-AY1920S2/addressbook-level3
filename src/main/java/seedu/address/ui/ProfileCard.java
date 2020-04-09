@@ -32,6 +32,8 @@ public class ProfileCard extends UiPart<Region> {
     @FXML
     private Label course;
     @FXML
+    private Label curYear;
+    @FXML
     private Label curSem;
     @FXML
     private Label focusArea;
@@ -41,6 +43,7 @@ public class ProfileCard extends UiPart<Region> {
         this.profile = profile;
         name.setText(profile.getName().fullName.toUpperCase());
         course.setText("Course: " + profile.getCourseName().toString());
+        curYear.setText("Current Year: " + profile.getCurrentYear());
         curSem.setText("Current Semester: " + profile.getCurrentSemester());
         if (profile.getFocusArea() != null) {
             focusArea.setText("Focus Area: " + profile.getFocusAreaString());

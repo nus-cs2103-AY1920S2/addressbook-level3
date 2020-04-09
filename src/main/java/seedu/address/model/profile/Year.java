@@ -13,10 +13,11 @@ public class Year {
 
     public final String year;
     public final int semester;
+    public final int intYear;
 
     public Year(String year) {
         this.year = year;
-        int intYear = Integer.parseInt(year.split("\\.")[0]);
+        intYear = Integer.parseInt(year.split("\\.")[0]);
         int intSem = Integer.parseInt(year.split("\\.")[1]);
         semester = 2 * (intYear - 1) + intSem;
     }
@@ -28,6 +29,7 @@ public class Year {
     public int getSemester() {
         return semester;
     }
+
 
     @Override
     public String toString() {

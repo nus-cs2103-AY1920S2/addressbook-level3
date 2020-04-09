@@ -76,7 +76,6 @@ public class DeleteCommandTest {
             return filteredProfiles;
         }
 
-        @Override
         public void setPerson(Profile target, Profile editedProfile) {
             requireAllNonNull(target, editedProfile);
             int index = this.profileList.indexOf(target);
