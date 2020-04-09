@@ -1,10 +1,17 @@
 package seedu.address.logic;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FINANCES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -12,7 +19,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.viewmodel.ViewModel;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
@@ -25,7 +31,7 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.SummaryPanel;
-
+import seedu.address.viewmodel.ViewModel;
 /**
  * The main LogicManager of the app.
  */
@@ -60,12 +66,30 @@ public class LogicManager implements Logic {
     this.undoRedoStack.push(command);
 
     // Updates summary panel
+    Predicate<Student> studentPredicate = (Predicate<Student>) ((FilteredList<Student>) getFilteredStudentList()).getPredicate();
+    ((FilteredList<Student>) getFilteredStudentList()).setPredicate(PREDICATE_SHOW_ALL_STUDENTS);
     summaryPanel.updateTotalStudents(getFilteredStudentList().size());
-    summaryPanel.updateTotalStaffs(getFilteredStaffList().size());
-    summaryPanel.updateTotalCourses(getFilteredCourseList().size());
-    summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
-    summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
+    ((FilteredList<Student>) getFilteredStudentList()).setPredicate(studentPredicate);
 
+    Predicate<Staff> staffPredicate = (Predicate<Staff>) ((FilteredList<Staff>) getFilteredStaffList()).getPredicate();
+    ((FilteredList<Staff>) getFilteredStaffList()).setPredicate(PREDICATE_SHOW_ALL_STAFFS);
+    summaryPanel.updateTotalStaffs(getFilteredStaffList().size());
+    ((FilteredList<Staff>) getFilteredStaffList()).setPredicate(staffPredicate);
+
+    Predicate<Course> coursePredicate = (Predicate<Course>) ((FilteredList<Course>) getFilteredCourseList()).getPredicate();
+    ((FilteredList<Course>) getFilteredCourseList()).setPredicate(PREDICATE_SHOW_ALL_COURSES);
+    summaryPanel.updateTotalCourses(getFilteredCourseList().size());
+    ((FilteredList<Course>) getFilteredCourseList()).setPredicate(coursePredicate);
+
+    Predicate<Finance> financePredicate = (Predicate<Finance>) ((FilteredList<Finance>) getFilteredFinanceList()).getPredicate();
+    ((FilteredList<Finance>) getFilteredFinanceList()).setPredicate(PREDICATE_SHOW_ALL_FINANCES);
+    summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
+    ((FilteredList<Finance>) getFilteredFinanceList()).setPredicate(financePredicate);
+
+    Predicate<Assignment> assignmentPredicate = (Predicate<Assignment>) ((FilteredList<Assignment>) getFilteredAssignmentList()).getPredicate();
+    ((FilteredList<Assignment>) getFilteredAssignmentList()).setPredicate(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+    summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
+    ((FilteredList<Assignment>) getFilteredAssignmentList()).setPredicate(assignmentPredicate);
     return commandResult;
   }
 
