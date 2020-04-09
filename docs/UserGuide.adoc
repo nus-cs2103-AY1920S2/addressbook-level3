@@ -24,19 +24,12 @@ BB Productive is for those who looking for motivation in their work. This app se
 
 BB Productive is for those who looking for motivation in their work. This app serves as a great task manager and includes a Pomodoro feature and a Pet companion. It is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BB Productive can get you to get tasks done faster. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-[#index]
 === Command Format
 * Characters like `this` are all commands that can be used for BBPoroductive
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in add `n/NAME`, `NAME` is a parameter which can be used as add `n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…​` after them can be used multiple times including zero times e.g. `[t/TAG]…`​ can be used as   (i.e. 0 times), `t/friend, t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-=== Indexes
-[IMPORTANT]
-====
-Indexes refer to the current tasklist on display, it does not refer to the indices of the entire task list. Note also that indexes start from 1 and not 0.
-====
 
 == Quick Start
 
@@ -57,6 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+[#index]
 [[Terminology]]
 == Terminology
 _This section provides a quick description for the common terminologies used in this user guide._
@@ -66,6 +60,12 @@ _This section provides a quick description for the common terminologies used in 
 *Pomodoro*: A productivity technique that consists of doing focused work for 25 minutes followed by a 5 minute break. This technique prevents you from tiring out while doing work.
 
 *Pet*: The pet you will interact with to manage your tasks and pomodoros. You can also level up the pet by completing more tasks/pomodoros.
+
+=== Indexes
+[IMPORTANT]
+====
+Indexes refer to the current tasklist on display, it does not refer to the indices of the entire task list. Note also that indexes start from 1 and not 0.
+====
 
 == Graphical User Interface (Permas)
 This section explains the function of the various GUI components present in BB Productive.
