@@ -16,7 +16,8 @@ import com.notably.model.Model;
 public class SearchSuggestionCommandParser implements SuggestionCommandParser<SearchSuggestionCommand> {
     public static final String COMMAND_WORD = "search";
 
-    private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword \"%s\"";
+    private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword";
+    private static final String RESPONSE_MESSAGE_WITH_KEYWORD = "Search through all notes based on keyword \"%s\"";
 
     private Model model;
 
@@ -45,10 +46,10 @@ public class SearchSuggestionCommandParser implements SuggestionCommandParser<Se
 
         if (keyword.isEmpty()) {
             model.setResponseText(RESPONSE_MESSAGE);
+            return Optional.empty();
         } else {
-            model.setResponseText(String.format(RESPONSE_MESSAGE, keyword));
+            model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword));
+            return Optional.of(new SearchSuggestionCommand(keyword));
         }
-
-        return Optional.of(new SearchSuggestionCommand(keyword));
     }
 }
