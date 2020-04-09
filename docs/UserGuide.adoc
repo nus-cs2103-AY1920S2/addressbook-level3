@@ -346,7 +346,11 @@ Use the `settings` command to view the _Settings_ tab. The orange background on 
 image::settings.png[width="790"]
 
 === Storage (Permas)
-Write storage
+All your progress, user preferences and settings are stored in the “data” folder. If you plan to switch devices, you may transfer your progress to another computer by copying the contents of the original device’s “data” folder to the new device’s data folder. This can be done through a thumbdrive.
+
+Please check if the following files are in the “data” folder to ensure that you are transferring the correct files!
+
+image::storage.png[width="400"]
 
 [[CommandTableSummary]]
 == Command Table Summary
