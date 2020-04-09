@@ -93,9 +93,6 @@ public class DeleteCommandTest {
         // different types -> returns false
         assertFalse(deleteFirstFoodCommand.equals(1));
 
-        // null -> returns false
-        assertFalse(deleteFirstFoodCommand.equals(null));
-
         // different Entry -> returns false
         assertFalse(deleteFirstFoodCommand.equals(deleteSecondFoodCommand));
     }

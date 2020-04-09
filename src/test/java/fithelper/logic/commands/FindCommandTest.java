@@ -3,7 +3,6 @@ package fithelper.logic.commands;
 import static fithelper.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static fithelper.model.Model.PREDICATE_SHOW_NO_ENTRIES;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY1;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY2;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY3;
@@ -49,9 +48,6 @@ public class FindCommandTest {
 
         // different types -> returns false
         assertFalse(findFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
 
         // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));

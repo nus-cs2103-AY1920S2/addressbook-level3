@@ -24,9 +24,6 @@ public class EditEntryDescriptorTest {
         // same object -> returns true
         assertTrue(DESC_FOOD.equals(DESC_FOOD));
 
-        // null -> returns false
-        assertFalse(DESC_FOOD.equals(null));
-
         // different types -> returns false
         assertFalse(DESC_FOOD.equals(5));
 

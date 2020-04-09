@@ -172,9 +172,6 @@ public class EditCommandTest {
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
 
-        // null -> returns false
-        assertFalse(standardCommand.equals(null));
-
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
