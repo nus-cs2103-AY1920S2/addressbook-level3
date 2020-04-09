@@ -45,11 +45,14 @@ public class TypicalPersons {
 
     // -------------- Receipt ------------------------------------------------------
 
-    public static final Person ANNA = new PersonBuilder().withName("Anna").build();
+    public static final Person ANNA = new PersonBuilder().withName("anna")
+            .withAmount(new BigDecimal("8.33")).build();
 
-    public static final Person BRANDON = new PersonBuilder().withName("Brandon").build();
+    public static final Person BRANDON = new PersonBuilder().withName("brandon")
+            .withAmount(new BigDecimal("8.33")).build();
 
-    public static final Person CHARLIE = new PersonBuilder().withName("Charlie").build();
+    public static final Person CHARLIE = new PersonBuilder().withName("charlie")
+            .withAmount(new BigDecimal("8.33")).build();
 
     public static final Person DARREN = new PersonBuilder().withName("Darren").withAmount(new BigDecimal("9.95"))
         .build();
@@ -79,5 +82,9 @@ public class TypicalPersons {
 
     public static ArrayList<Person> getTypicalPersonsArrayListV2() {
         return new ArrayList<>(Arrays.asList(DARREN, ELYSHA));
+    }
+
+    public static ArrayList<Person> getAnnaSinglePersonsArrayList() {
+        return new ArrayList<>(Arrays.asList(ANNA));
     }
 }

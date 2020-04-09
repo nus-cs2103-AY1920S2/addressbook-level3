@@ -41,6 +41,7 @@ public class AddItemCommand extends Command {
     private Entry toBeAdded;
     private ArrayList<Person> persons;
     private Amount amount;
+    private Item item;
 
     /**
      * Creates an AddItemCommand to add the specified {@code Item}
@@ -51,6 +52,7 @@ public class AddItemCommand extends Command {
     public AddItemCommand(Item item, ArrayList<Person> persons, Amount amount) {
         requireAllNonNull(item, persons, amount);
         this.persons = persons;
+        this.item = item;
         this.amount = amount;
         this.toBeAdded = new Entry(item, persons);
     }
@@ -80,7 +82,9 @@ public class AddItemCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddItemCommand // instanceof handles nulls
-                && toBeAdded.equals(((AddItemCommand) other).toBeAdded));
+                && item.equals(((AddItemCommand) other).item)
+                && persons.equals(((AddItemCommand) other).persons)
+                && amount.equals(((AddItemCommand) other).amount));
     }
 
 }

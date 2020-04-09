@@ -15,6 +15,10 @@ public class TypicalItem {
             .withPrice(new BigDecimal("39.90")).build();
     public static final Item POPCORN = new ItemBuilder().withName("popcorn")
             .withPrice(new BigDecimal("9.85")).build();
+    public static final Item CHICKENRICE = new ItemBuilder().withName("Chicken Rice")
+            .withPrice(new BigDecimal("3.50")).build();
+    public static final Item PIZZA = new ItemBuilder().withName("pizza")
+            .withPrice(new BigDecimal("25")).build();
 
 
     /**
