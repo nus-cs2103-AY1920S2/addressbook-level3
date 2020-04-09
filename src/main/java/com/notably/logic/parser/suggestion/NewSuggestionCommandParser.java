@@ -31,10 +31,12 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
     public NewSuggestionCommandParser(Model model) {
         this.model = model;
     }
+
     /**
      * Parses input and displays the appropriate response text.
+     *
      * @param userInput .
-     * @return List of command to execute.
+     * @return Optional.empty()
      */
     public Optional<SuggestionCommand> parse(String userInput) {
         ArgumentMultimap argMultimap =
