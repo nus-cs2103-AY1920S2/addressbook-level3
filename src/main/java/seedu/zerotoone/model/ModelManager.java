@@ -247,6 +247,26 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public ReadOnlyLogList getLogList() {
+        return logList;
+    }
+
+    @Override
+    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
+        return new ArrayList<>(this.getLogList().getLogList());
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsStartDateRange() {
+        return statisticsStartRange;
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsEndDateRange() {
+        return statisticsEndStartRange;
+    }
+
     // -----------------------------------------------------------------------------------------
     // Session List
 
@@ -355,7 +375,6 @@ public class ModelManager implements Model {
         this.timer.cancel();
         this.timer.purge();
     }
-
     // -----------------------------------------------------------------------------------------
     // Schedule
     @Override
@@ -366,26 +385,6 @@ public class ModelManager implements Model {
     @Override
     public void populateSortedScheduledWorkoutList() {
         scheduler.populateSortedScheduledWorkoutList();
-    }
-
-    @Override
-    public ReadOnlyLogList getLogList() {
-        return logList;
-    }
-
-    @Override
-    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
-        return new ArrayList<>(this.getLogList().getLogList());
-    }
-
-    @Override
-    public Optional<LocalDateTime> getStatisticsStartDateRange() {
-        return statisticsStartRange;
-    }
-
-    @Override
-    public Optional<LocalDateTime> getStatisticsEndDateRange() {
-        return statisticsEndStartRange;
     }
 
     @Override
