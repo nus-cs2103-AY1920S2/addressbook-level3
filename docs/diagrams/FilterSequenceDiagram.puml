@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
+participant "fc:FilterCommand" as FilterCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("filter " + keyword)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("filter " + keyword)
+activate FoodieBotParser
+
+FoodieBotParser -> FilterCommandParser : parse(INDEX)
+activate FilterCommandParser
+
+create FilterCommand
+FilterCommandParser -> FilterCommand
+activate FilterCommand
+
+FilterCommand --> FilterCommandParser :
+deactivate FilterCommand
+
+FilterCommandParser --> FoodieBotParser : fc
+deactivate FilterCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FilterCommandParser -[hidden]-> FoodieBotParser
+destroy FilterCommandParser
+
+FoodieBotParser --> LogicManager : fc
+deactivate FoodieBotParser
+
+LogicManager -> FilterCommand : execute(model)
+activate FilterCommand
+
+FilterCommand -> Model : updateFilteredFoodList(keyword)
+activate Model
+
+Model --> FilterCommand :
+deactivate Model
+
+
+create CommandResult
+FilterCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FilterCommand
+deactivate CommandResult
+
+FilterCommand --> LogicManager : cr
+deactivate FilterCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

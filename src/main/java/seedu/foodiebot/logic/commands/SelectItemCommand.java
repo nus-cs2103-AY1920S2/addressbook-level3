@@ -14,6 +14,7 @@ import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.commons.util.JsonUtil;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.UserPrefs;
@@ -109,33 +110,44 @@ public class SelectItemCommand extends Command {
             throw new CommandException(INVALID_INDEX_MESSAGE);
         }*/
 
-
-        if (index.isPresent()) {
-            List<Food> foodList = model.getFilteredFoodList();
+        if (ParserContext.getCurrentContext().equals(ParserContext.FAVORITE_CONTEXT)) {
+            List<Food> foodList = model.getFilteredFavoriteFoodList(true);
             try {
                 food = Optional.of(foodList.get(index.get().getZeroBased()));
                 nameOfFood = food.get().getName();
                 priceOfFood = food.get().getPrice();
-                logger.info("Enter " + food.get().getName());
+                logger.info("Select " + food.get().getName());
             } catch (IndexOutOfBoundsException e) {
                 throw new CommandException(INVALID_INDEX_MESSAGE);
             }
-        } else if (foodName.isPresent()) {
-            List<Food> foodList = model.getFilteredFoodList();
-            for (Food f : foodList) {
-                if (f.getName().equalsIgnoreCase(foodName.get())) {
-                    food = Optional.of(f);
-                    nameOfFood = foodName.get();
-                    priceOfFood = f.getPrice();
-                    break;
-                }
-            }
         } else {
-            throw new CommandException(INVALID_INDEX_MESSAGE);
-        }
+            if (index.isPresent()) {
+                List<Food> foodList = model.getFilteredFoodList();
+                try {
+                    food = Optional.of(foodList.get(index.get().getZeroBased()));
+                    nameOfFood = food.get().getName();
+                    priceOfFood = food.get().getPrice();
+                    logger.info("Enter " + food.get().getName());
+                } catch (IndexOutOfBoundsException e) {
+                    throw new CommandException(INVALID_INDEX_MESSAGE);
+                }
+            } else if (foodName.isPresent()) {
+                List<Food> foodList = model.getFilteredFoodList();
+                for (Food f : foodList) {
+                    if (f.getName().equalsIgnoreCase(foodName.get())) {
+                        food = Optional.of(f);
+                        nameOfFood = foodName.get();
+                        priceOfFood = f.getPrice();
+                        break;
+                    }
+                }
+            } else {
+                throw new CommandException(INVALID_INDEX_MESSAGE);
+            }
 
-        if (food.isEmpty()) {
-            throw new CommandException(MESSAGE_FAILURE);
+            if (food.isEmpty()) {
+                throw new CommandException(MESSAGE_FAILURE);
+            }
         }
 
         model.loadFilteredTransactionsList();

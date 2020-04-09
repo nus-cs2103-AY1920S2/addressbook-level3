@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":GotoCanteenCommandParser" as GotoCanteenCommandParser LOGIC_COLOR
+participant "g:GotoCanteenCommand" as GotoCanteenCommand LOGIC_COLOR
+participant "c:Canteen" as Canteen LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("goto " + INDEX + "f/com1") 
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("goto " + INDEX + "f/com1")
+activate FoodieBotParser
+
+FoodieBotParser -> GotoCanteenCommandParser : parse(INDEX)
+activate GotoCanteenCommandParser
+
+create GotoCanteenCommand
+GotoCanteenCommandParser -> GotoCanteenCommand
+activate GotoCanteenCommand
+
+GotoCanteenCommand --> GotoCanteenCommandParser :
+deactivate GotoCanteenCommand
+
+GotoCanteenCommandParser --> FoodieBotParser : g
+deactivate GotoCanteenCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GotoCanteenCommandParser -[hidden]-> FoodieBotParser
+destroy GotoCanteenCommandParser
+
+FoodieBotParser --> LogicManager : g
+deactivate FoodieBotParser
+
+LogicManager -> GotoCanteenCommand : execute(model)
+activate GotoCanteenCommand
+
+GotoCanteenCommand -> Model : getFilteredCanteenList()
+activate Model
+
+Model --> GotoCanteenCommand :
+deactivate Model
+
+create Canteen
+GotoCanteenCommand -> Canteen
+activate Canteen
+
+
+
+Canteen --> GotoCanteenCommand
+deactivate Canteen
+
+
+create CommandResult
+GotoCanteenCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> GotoCanteenCommand
+deactivate CommandResult
+
+GotoCanteenCommand --> LogicManager : cr
+deactivate GotoCanteenCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

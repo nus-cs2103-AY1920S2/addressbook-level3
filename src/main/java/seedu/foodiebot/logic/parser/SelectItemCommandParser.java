@@ -19,7 +19,8 @@ public class SelectItemCommandParser implements Parser<SelectItemCommand> {
         String enteredText = argMultimap.getPreamble();
         Index index = null;
 
-        if (!ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)) {
+        if (!ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)
+            & !ParserContext.getCurrentContext().equals(ParserContext.FAVORITE_CONTEXT)) {
             throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext()
                     + "\n" + ParserContext.SUGGESTED_CONTEXT_MESSAGE
                     + ParserContext.STALL_CONTEXT);

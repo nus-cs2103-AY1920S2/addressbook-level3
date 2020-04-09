@@ -13,6 +13,7 @@ import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.UserPrefs;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.util.SampleDataUtil;
 
 class FavoritesCommandTest {
@@ -31,7 +32,7 @@ class FavoritesCommandTest {
     @Test
     void execute_viewFavorite_success() {
         assertCommandSuccess(new FavoritesCommand("view"), FavoritesCommand.COMMAND_WORD, model,
-            FavoritesCommand.MESSAGE_VIEW_SUCCESS, expectedModel);
+            FavoritesCommand.MESSAGE_VIEW_SUCCESS, model);
 
 
         assertCommandSuccess(new FavoritesCommand("set 1"), FavoritesCommand.COMMAND_WORD, model,
@@ -48,12 +49,19 @@ class FavoritesCommandTest {
     }
 
     @Test
-    void execute_modifyFavorite_success() {
+    void execute_setFavorite_success() {
         expectedModel.setFavorite(SampleDataUtil.getSampleFoods()[0]);
         assertCommandSuccess(new FavoritesCommand(INDEX_FIRST_ITEM, "set"), FavoritesCommand.COMMAND_WORD, model,
             String.format(FavoritesCommand.MESSAGE_SET_SUCCESS,
                 SampleDataUtil.getSampleFoods()[0].getName()), expectedModel);
-        expectedModel.removeFavorite(SampleDataUtil.getSampleFoods()[0]);
+    }
+
+    @Test
+    void execute_removeFavorite_success() {
+        Food f = SampleDataUtil.getSampleFoods()[0];
+        model.setFavorite(f);
+        expectedModel.setFavorite(f);
+        expectedModel.removeFavorite(f);
         assertCommandSuccess(new FavoritesCommand(INDEX_FIRST_ITEM, "remove"), FavoritesCommand.COMMAND_WORD, model,
             FavoritesCommand.MESSAGE_VIEW_SUCCESS, expectedModel);
 
