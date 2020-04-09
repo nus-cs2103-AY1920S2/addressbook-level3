@@ -42,6 +42,14 @@ public class PrefixDetails {
         return constraint;
     }
 
+    public Function<String, Boolean> getValidator() {
+        return validator;
+    }
+
+    public List<String> getExamples() {
+        return examples;
+    }
+
     public boolean isValidValue(String test) {
         return validator.apply(test);
     }
