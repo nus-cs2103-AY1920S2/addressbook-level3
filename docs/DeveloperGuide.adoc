@@ -1809,48 +1809,69 @@ Use case ends.
 
 [appendix]
 == Glossary
-[horizontal]
-[[tat]] TAT::
-Stands for "Teaching Assistant Tracker". It is the application this developer guide is for.
 
-[[ta]] TA::
-Stands for "Teaching Assistant", and in our context limited to undergraduate and graduate teaching assistants in the National University of Singapore. A teaching assistant is an individual who assists a teacher with instructional responsibilities such as holding tutorials, labs, consultations, etc.
+== GLOSSARY
 
-[[nus]] NUS::
-Stands for "National University of Singapore".
+[width="%",cols="<20%,<40,<40,options="header",]
+|=======================================================================
+|Term | Explanation | Examples
 
-[[module]] Module::
-Refers to one of multiple academic courses in NUS.
+| TSS Claims Form | This refers the claims form that Teaching Assistants
+at NUS School of Computing have to fill up at the end of each semester to claim money
+for the tasks they have completed. |
 
-[[tutorial]] Tutorial::
-A tutorial is a regular meeting between a tutor and one or several students, for discussion of a subject that is being studied.
+| TA | This is the short form for `Teaching Assistant. |
 
-[[api]] API::
-Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
+| SOC or SoC | This is the short form for School of Computing. |
 
-[[locale]] Locale::
-Stands for a setting on the user's computer that defines the user's language and region.
+| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
+item in a list.
 
-[[puml]] PlantUML::
-Stands for a software tool that we use to render the diagrams used in this document.
+| Matric Number | This refers to a student's matriculation number. | A0123456X
 
-[[nfr]] NFR::
-Stands for "Non-functional Requirement"
+| Group | The is the general term given to a group of students a TA teaches. |
+lab , tutorial , recitation
 
-[[mainstream-os]] Mainstream OS::
-Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X
+| TAT | This is the short form of TA-Tracker. |
 
-[[regular-english-text]] Regular English Text::
+| NUS | This is the short form of National Univeristy of Singapore. |
+
+| Module | Refers to one of the academic courses in NUS. |
+
+| Tutorial | A tutorial is a regular meeting between a tutor and one or several
+students, for discussion of a subject that is being studied.  |
+
+| API | Stands for "Application Programming Interface" which simplifies programming
+by abstracting the underlying implementation and only exposing objects or actions
+the developer needs. |
+
+| Locale | Stands for a setting on the user's computer that defines the user's
+language and region. |
+
+| PlantUML | Stands for a software tool that we use to render the diagrams used
+in this document. |
+
+| NFR | Stands for "Non-functional Requirement" |
+
+
+
+| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X. |
+
+| Regular English Text |
 Stands for text with ordinary english grammar structures and vocabulary generally used by the public.
 It excludes syntax related to programming and <<system-administration, system administration>>.
+|
 
-[[system-administration]] System Administration::
+| System Administration |
 Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
 with the goal of ensuring the systems are running efficiently and effectively.
+|
 
-[[MSS]] MSS::
-Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
+| MSS |
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong. |
 
+
+|=======================================================================
 
 [appendix]
 == Product Survey
