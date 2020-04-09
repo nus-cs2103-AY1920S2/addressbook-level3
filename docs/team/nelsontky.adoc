@@ -33,7 +33,7 @@ feature that needed frequent updates.
 * *Minor enhancement*: added a history command that allows the user to navigate
 to previous commands using up/down keys.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nelsontky&tabRepo=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D[All contributed code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=nelsontky[All contributed code]]
 
 * *Other contributions*:
 

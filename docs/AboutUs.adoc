@@ -32,7 +32,7 @@ Responsibilities: Usage and archive feature of Coupon Stash. Lead the team in th
 
 === Alden Tan
 image::alcen.png[width="150", align="left"]
-{empty}[http://github.com/alcen[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/alcen[github]] [<<alcen#, portfolio>>]
 
 Role: Developer +
 Responsibilities: "Saved" Feature in Coupon Stash to see how much you have saved
