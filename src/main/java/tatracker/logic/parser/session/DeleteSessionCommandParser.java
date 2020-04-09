@@ -1,5 +1,6 @@
 package tatracker.logic.parser.session;
 
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 
 import tatracker.commons.core.index.Index;
@@ -24,7 +25,8 @@ public class DeleteSessionCommandParser implements Parser<DeleteSessionCommand> 
             Index index = ParserUtil.parseIndex(args);
             return new DeleteSessionCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_SESSION_DISPLAYED_INDEX, pe);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_SESSION_DISPLAYED_INDEX, pe));
         }
     }
 }

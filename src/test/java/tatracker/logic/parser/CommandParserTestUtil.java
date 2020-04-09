@@ -23,6 +23,7 @@ public class CommandParserTestUtil {
         }
     }
 
+
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
      * equals to {@code expectedMessage}.
