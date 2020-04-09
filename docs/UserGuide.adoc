@@ -128,7 +128,7 @@ a|* Optional description that accompanies a task
 
 |Priority
 |`[p/PRIORITY]` +
-`p/1` 
+`p/1`
 a|
 * If not provided, task is created with the low priority.
 * `PRIORITY` can only be one of these numbers `1,2,3` ranging from low to high in that order.
