@@ -109,6 +109,8 @@ public interface Model {
 
     AddressBookGeneric getAddressBook(Constants.ENTITY_TYPE type) throws CommandException;
 
+    Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException;
+
     AddressBookGeneric getAddressBook(ModelObject obj) throws CommandException;
 
     ReadOnlyAddressBookGeneric getReadOnlyAddressBook(Constants.ENTITY_TYPE type) throws CommandException;

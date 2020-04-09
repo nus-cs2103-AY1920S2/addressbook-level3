@@ -63,6 +63,11 @@ public class Student extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  public Student clone() {
+    Student cloned = new Student(name, id, gender, assignedCoursesID, tags);
+    return cloned;
+  }
+
   public Name getName() {
     return name;
   }
