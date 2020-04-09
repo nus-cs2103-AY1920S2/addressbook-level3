@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
 import static seedu.address.testutil.customer.TypicalCustomers.ALICE_ID;
 import static seedu.address.testutil.product.TypicalProducts.ABACUS_ID;
 
@@ -31,9 +32,11 @@ import seedu.address.logic.commands.product.DeleteProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
+import seedu.address.logic.commands.product.LowLimitCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
+import seedu.address.model.util.QuantityThreshold;
 import seedu.address.testutil.customer.CustomerBuilder;
 import seedu.address.testutil.customer.CustomerUtil;
 import seedu.address.testutil.customer.EditCustomerDescriptorBuilder;
@@ -113,8 +116,8 @@ public class InventorySystemParserTest {
         Product product = new ProductBuilder(ABACUS_ID).build();
         EditProductCommand.EditProductDescriptor descriptor = new EditProductDescriptorBuilder(product).build();
         EditProductCommand command = (EditProductCommand) parser.parseCommand(EditProductCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PRODUCT.getOneBased() + " " + ProductUtil.getEditProductDescriptorDetails(descriptor));
-        //        assertEquals(new EditProductCommand(INDEX_FIRST_PRODUCT, descriptor), command);
+                + INDEX_SECOND_PRODUCT.getOneBased() + " " + ProductUtil.getEditProductDescriptorDetails(descriptor));
+        //        assertEquals(new EditProductCommand(INDEX_SECOND_PRODUCT, descriptor), command);
     }
 
     @Test
@@ -129,6 +132,13 @@ public class InventorySystemParserTest {
     public void parseCommand_listProduct() throws Exception {
         assertTrue(parser.parseCommand(ListProductCommand.COMMAND_WORD) instanceof ListProductCommand);
         assertTrue(parser.parseCommand(ListProductCommand.COMMAND_WORD + " 3") instanceof ListProductCommand);
+    }
+
+    @Test
+    public void parseCommand_lowLimit() throws Exception {
+        LowLimitCommand command = (LowLimitCommand) parser.parseCommand(LowLimitCommand.COMMAND_WORD + " p/"
+                + INDEX_SECOND_PRODUCT.getOneBased() + " " + " t/10");
+        assertEquals(new LowLimitCommand(INDEX_SECOND_PRODUCT, new QuantityThreshold(10)), command);
     }
 
     @Test
