@@ -30,10 +30,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -157,19 +157,19 @@ public class AddCommandTest {
 
     //Invalid date time, user inputs "add m/CS1101S y/1.1 t/assignment d/2020-30-30 23:60"
     //Tested in AddCommandParser
-//    @Test
-//    public void execute_invalidDateTime_throwsCommandException() {
-//        ModuleCode moduleCode = new ModuleCode("CS1101S");
-//        int semester = new Year(VALID_SEMESTER_BOB).getSemester();
-//        String task = VALID_TASK_BOB;
-//        LocalDate date = LocalDate.parse("2020-30-30");
-//        LocalTime time = LocalTime.parse("23:60");
-//        AddCommand addCommandDateTime = new AddCommand(
-//                moduleCode, semester, null, task, date, time);
-//        assertThrows(CommandException.class, Deadline.MESSAGE_CONSTRAINTS, () ->
-//                addCommandDateTime.execute(
-//                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-//    }
+    //@Test
+    //public void execute_invalidDateTime_throwsCommandException() {
+    //    ModuleCode moduleCode = new ModuleCode("CS1101S");
+    //    int semester = new Year(VALID_SEMESTER_BOB).getSemester();
+    //    String task = VALID_TASK_BOB;
+    //    LocalDate date = LocalDate.parse("2020-30-30");
+    //    LocalTime time = LocalTime.parse("23:60");
+    //    AddCommand addCommandDateTime = new AddCommand(
+    //            moduleCode, semester, null, task, date, time);
+    //    assertThrows(CommandException.class, Deadline.MESSAGE_CONSTRAINTS, () ->
+    //           addCommandDateTime.execute(
+    //                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+    //}
 
     @Test
     public void execute_addTaskToNonCurrentSemester_throwsCommandException() {
@@ -355,7 +355,7 @@ public class AddCommandTest {
 
     private class ModuleManagerStubCs extends ModuleManagerStub {
         private ModuleManagerStubCs() {
-            Module moduleCs= new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""),
+            Module moduleCs = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""),
                     new Preclusions(""), new ModularCredits("4"), new Description(""),
                     new SemesterData(new ArrayList<>()), null);
             Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),

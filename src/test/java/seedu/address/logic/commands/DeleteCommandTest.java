@@ -1,9 +1,21 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PROFILE_FAILURE;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
@@ -11,20 +23,21 @@ import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.*;
-import seedu.address.model.profile.course.module.*;
+import seedu.address.model.profile.course.AcceptedCourses;
+import seedu.address.model.profile.course.AcceptedFocusArea;
+import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.profile.course.module.Description;
+import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.Preclusions;
+import seedu.address.model.profile.course.module.PrereqTreeNode;
+import seedu.address.model.profile.course.module.Prereqs;
+import seedu.address.model.profile.course.module.SemesterData;
+import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PROFILE_FAILURE;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class DeleteCommandTest {
 
@@ -172,7 +185,7 @@ public class DeleteCommandTest {
 
     private class ModuleManagerStubCs extends ModuleManagerStub {
         private ModuleManagerStubCs() {
-            Module moduleCs= new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""),
+            Module moduleCs = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""),
                     new Preclusions(""), new ModularCredits("4"), new Description(""),
                     new SemesterData(new ArrayList<>()), new PrereqTreeNode());
             Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),
