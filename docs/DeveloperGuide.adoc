@@ -83,7 +83,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component [NEED TO UPDATE]
+=== View/UI component [NEED TO UPDATE]
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -100,7 +100,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component [NEED TO UPDATE]
+=== ViewController/Logic component [NEED TO UPDATE]
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -123,8 +123,8 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-ViewController]]
-=== ViewController component [NEED TO UPDATE]
-* blah blah blah
+=== ViewModel component [NEED TO UPDATE]
+* mainly talk about detail manager
 * blah blah blah
 * blah blah blah
 
@@ -187,7 +187,7 @@ This section describes some noteworthy details on how certain features are imple
 
 Explain rationale behind using IDs
 
-=== EdgeManager
+==== EdgeManager
 Explain flow for assign/unassign
 Explain flow for capturing delete event (and unassign correspondingly)
 
