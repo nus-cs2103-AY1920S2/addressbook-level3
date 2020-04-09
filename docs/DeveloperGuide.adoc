@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `InventoryManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a supplier).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -132,14 +132,10 @@ The `Supplier`,
 
 * stores details of supplier: `Name`, `Phone`, `Address`, `Email` and `Offer`.
 * can have no `Offer` or multiple `Offer`.
+* each offer consists of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
 
 image:SupplierModelClassDiagram.png[]
 
-The `Offer`,
-
-* compose of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
-
-image:OfferModelClassDiagram.png[]
 
 The `Good`,
 
@@ -369,13 +365,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new supplier |
 
-|`* * *` |user |add a new goods |
+|`* * *` |user |add a new goods to supplier|
 
 |`* * *` |user |delete a supplier |remove entries that I no longer need
-
-|`* * *` |user |find a supplier by goods sold |locate the relevant suppliers without having to go through the entire list
-
-|`* * *` |user |find a goods by name |locate the relevant goods without having to go through the entire list
 
 |`* * *` |user |see goods that are low in stock |know what to buy
 
@@ -385,13 +377,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |update prices of goods offered by suppliers |account for changes in supply agreement or prices
 
-|`* * *` |user |create a set purchase order automatically on a regular basis |simulate supply contracts
-
 |`* * *` |clumsy user |undo previous actions |fix mistakes in inputs or spelling
 
 |`* * *` |user |be notified of goods falling below a set quantity threshold |buy expected goods in advance
 
 |`* * *` |user |be notified of goods that are above a set quantity threshold |avoid expiration of large number of goods
+
+|`* *` |user |create a set purchase order automatically on a regular basis |simulate supply contracts
+
+|`* *` |user |find a supplier by goods sold |locate the relevant suppliers without having to go through the entire list
+
+|`* *` |user |find a goods by name |locate the relevant goods without having to go through the entire list
 
 |`* *` |user |hide transaction details by default |minimize chance of someone else seeing them by accident
 
@@ -716,26 +712,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: UC10 - finding goods low in quantity
-
-*MSS*
-
-1.  User requests to display all goods that are below their respective minimum warning quantity.
-2.  InventoryManager lists all the goods that satisfy that condition.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The list is empty.
-+
-[none]
-** 1a1. InventoryManager informs the user that there are no goods that are low in quantity.
-+
-Use case ends.
-
-=== Use case: UC11 - set lower threshold quantity of goods
+=== Use case: UC10 - set lower threshold quantity of goods
 
 *MSS*
 
@@ -767,51 +744,13 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2c. The goods with the given name does not exist.
+* 2c. The given index is out of bounds.
 [none]
-** 2c1. InventoryManager shows an error message to indicate the goods does not exist.
+** 2c1. InventoryManager shows an error message to indicate the index is out of bounds.
 +
 Use case ends.
 
-=== Use case: UC12 - set upper threshold quantity of goods
-
-*MSS*
-
-1.  User [.underline]#lists all goods (UC2).#
-2.  User sets an upper quantity threshold for a particular goods.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The list is empty.
-+
-[none]
-** Use case ends.
-
-[none]
-* 2a. The quantity is invalid.
-[none]
-** 2a1. InventoryManager shows an error message to indicate the quantity is invalid.
-+
-Use case ends.
-
-[none]
-* 2b. The quantity is below the lower threshold, if it exists.
-[none]
-** 2b1. InventoryManager shows an error message to indicate the quantity is below the lower threshold.
-+
-Use case ends.
-
-[none]
-* 2c. The goods with the given name does not exist.
-[none]
-** 2c1. InventoryManager shows an error message to indicate the goods does not exist.
-+
-Use case ends.
-
-=== Use case: UC13 - listing all past transactions
+=== Use case: UC11 - listing all past transactions
 
 *MSS*
 
@@ -830,34 +769,33 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: UC14 - deleting all transaction history
+=== Use case: UC12 - search transactions with specific criteria
 
 *MSS*
 
-1.  User requests to delete transaction history.
-2.  InventoryManager requests for a confirmation to delete the transaction history.
-3.  User confirms the deletion.
-4.  InventoryManager deletes the transaction history.
+1.  User requests to find transactions with the specific criteria.
+2.  InventoryManager lists all transactions fulfill the specific criteria.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. There are no past transactions.
+* 2a. The list is empty.
 +
 [none]
-** 1a1. InventoryManager informs the user that there are no past transactions.
+** 2a1. InventoryManager informs the user that there are no transactions.
 +
 Use case ends.
 
 [none]
-* 3a. The user cancels the deletion.
-+
+* 2b. Any of the criteria is in invalid format
 [none]
-** Use case ends.
+** 2b1. InventoryManager informs the user that the criteria input is invalid.
++
+Use case ends.
 
-=== Use case: UC15 - undoing a command
+=== Use case: UC13 - undoing a command
 
 *MSS*
 
@@ -877,7 +815,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: UC16 - redoing a command
+=== Use case: UC14 - redoing a command
 
 *MSS*
 

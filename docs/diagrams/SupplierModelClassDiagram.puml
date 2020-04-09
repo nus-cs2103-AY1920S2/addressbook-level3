@@ -4,19 +4,18 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-ModelManager -->"1" Supplier : filtered list
+ModelManager *-->"1" AddressBook
 AddressBook *-right-> "1" UniqueSupplierList
-AddressBook *-right-> "1" UniqueTagList
-UniqueOfferList -[hidden]down- UniqueSupplierList
-UniqueOfferList -[hidden]down- UniqueSupplierList
 
-UniqueOfferList *-right-> "*" Offer
-UniqueSupplierList o-right-> Supplier
+UniqueSupplierList o-right-> "*" Supplier
 
-Supplier o-up-> "*" Offer
+Supplier *--> "*" Offer
+Supplier *-->"1" Name
+Supplier *-->"1" Phone
+Supplier *-->"1" Email
+Supplier *-->"1" Address
 
-Supplier *--> Name
-Supplier *--> Phone
-Supplier *--> Email
-Supplier *--> Address
+Offer *--> "1" GoodName
+Offer *--> "1" Price
+
 @enduml
