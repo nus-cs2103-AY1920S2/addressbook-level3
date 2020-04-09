@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -73,8 +74,9 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
      */
     private void graphByCategory(ObservableList<Transaction> transactionList) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        ArrayList <String> categories = new ArrayList<>();
-        ArrayList <Integer> amounts = new ArrayList<>();
+        ArrayList<String> categories = new ArrayList<>();
+        ArrayList<Integer> amounts = new ArrayList<>();
+
         for (Transaction transaction : transactionList) {
             String category = transaction.getCategory().toString();
             if (category.equals("INCOME")) {
@@ -93,9 +95,21 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
                 amounts.add(index, amountInteger);
             }
         }
+
+        int totalAmount = 0;
         for (int i = 0; i < categories.size(); i++) {
             pieChartData.add(new PieChart.Data(categories.get(i), amounts.get(i)));
+            totalAmount += amounts.get(i);
         }
+
+        int finalTotalAmount = totalAmount;
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(data.getName(), ":\n",
+                                String.format("%.1f%%", 100 * data.getPieValue() / finalTotalAmount))
+                )
+        );
+
         pieChart.setData(pieChartData);
         pieChart.setTitle("Expense by Category");
     }
@@ -107,8 +121,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
     private void graphByWeek(ObservableList<Transaction> transactionList) {
         xAxis.setLabel("Day");
         xAxis.getCategories().addAll("Week 1", "Week 2", "Week 3", "Week 4", "Week 5");
-        yAxis.setLabel("Spent");
-        stackedBarChart.setTitle("Expenditure This Month");
+        yAxis.setLabel("Total Expenditure");
+        stackedBarChart.setTitle("Expenditure This Month by Day of the Week");
 
         double[][] spentByWeekAndDay = new double[5][7];
 
@@ -178,8 +192,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
      */
     private void graphByMonth(ObservableList<Transaction> transactionList) {
         xAxis.setLabel("Month");
-        yAxis.setLabel("Spent");
-        barChart.setTitle("Expenditure This Year and Last Year");
+        yAxis.setLabel("Total Expenditure");
+        barChart.setTitle("Expenditure This Year and Last Year By Month");
 
         double[][] spentByYearAndMonth = new double[2][12];
         int currYear = LocalDate.now().getYear();
@@ -208,6 +222,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
             seriesPrevYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[1][i]));
             seriesCurrYear.getData().add(new XYChart.Data(months[i], spentByYearAndMonth[0][i]));
         }
+
         barChart.getData().addAll(seriesPrevYear, seriesCurrYear);
     }
 }
