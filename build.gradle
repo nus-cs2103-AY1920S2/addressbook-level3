@@ -37,8 +37,11 @@ githook {
     failOnMissingHooksDir = false
     createHooksDirIfNotExist = true
     hooks {
+        "pre-commit" {
+            task = "checkstyleMain checkstyleTest"
+        }
         "pre-push" {
-            task = "checkstyleMain checkstyleTest test"
+            task = "clean checkstyleMain checkstyleTest test"
             shell = "bash config/travis/run-checks.sh"
         }
     }
@@ -61,7 +64,7 @@ test {
 }
 
 dependencies {
-    String jUnitVersion = '5.4.0'
+    String jUnitVersion = '5.6.1'
     String javaFxVersion = '11'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
