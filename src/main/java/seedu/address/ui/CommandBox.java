@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Arrays;
 import java.util.Stack;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -62,10 +61,6 @@ public class CommandBox extends UiPart<Region> {
             rightCommandStack.push(commandStr);
           }
         }
-        System.out.println(Arrays.toString(leftCommandStack.toArray()));
-        System.out.println(Arrays.toString(rightCommandStack.toArray()));
-        System.out.println(Arrays.toString(mainCommandStack.toArray()));
-        System.out.println("---");
         if (repeat){
           handle(ke);
         }
