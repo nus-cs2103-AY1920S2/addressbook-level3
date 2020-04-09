@@ -192,7 +192,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the grocery list window // todo or focuses and updates on it if it's already opened.
+     * Opens the grocery list window
      */
     @FXML
     public void handleGroceryList() {
@@ -217,6 +217,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        groceryListWindow.hide();
         primaryStage.hide();
     }
 
@@ -243,7 +244,7 @@ public class MainWindow extends UiPart<Stage> {
             showAchievementsTab();
             break;
         default:
-            break;
+            break; //todo throw exception
         }
     }
 

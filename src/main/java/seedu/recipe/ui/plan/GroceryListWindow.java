@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
@@ -20,9 +21,10 @@ public class GroceryListWindow extends UiPart<Stage> {
     
     @FXML
     private Button copyButton;
-    
     @FXML
     private Label groceryList;
+    @FXML
+    private ScrollPane scrollPane;
     
     /**
      * Creates a new GroceryListWindow.
@@ -31,8 +33,9 @@ public class GroceryListWindow extends UiPart<Stage> {
      */
     public GroceryListWindow(Stage root, String groceries) {
         super(FXML, root);
+        scrollPane.setFitToWidth(true);
         groceryList.setWrapText(true);
-        // todo fix window size and add scroll bar
+        root.setHeight(500);
     }
     
     /**

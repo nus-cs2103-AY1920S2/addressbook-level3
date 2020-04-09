@@ -93,7 +93,7 @@ public class GroceryListCommand extends Command {
     }
 
     private String formatMapsToString() {
-        StringBuilder sb = new StringBuilder(WINDOW_TITLE);
+        StringBuilder sb = new StringBuilder();
         sb.append("\nGrains: \n").append(formatMapToString(grainMap));
         sb.append("\nVegetables: \n").append(formatMapToString(vegetableMap));
         sb.append("\nProteins: \n").append(formatMapToString(proteinMap));
