@@ -8,7 +8,7 @@ import seedu.address.model.day.Day;
  */
 public interface ReadOnlySchedule {
     /**
-     * Returns an unmodifiable view of the calculated schedule.
+     * Returns an unmodifiable view of the generated schedule.
      */
     ObservableList<Day> getScheduleList();
 }

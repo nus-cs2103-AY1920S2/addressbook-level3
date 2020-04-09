@@ -6,6 +6,7 @@ import seedu.address.model.day.ScheduleList;
 
 /**
  * Wraps all data at the schedule level.
+ * Used only when {@code ScheduleCommand} is executed.
  */
 public class Schedule implements ReadOnlySchedule {
     private final ScheduleList scheduleList;

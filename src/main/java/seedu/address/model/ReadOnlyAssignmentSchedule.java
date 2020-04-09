@@ -9,7 +9,7 @@ import seedu.address.model.assignment.Assignment;
 public interface ReadOnlyAssignmentSchedule {
     /**
      * Returns an unmodifiable view of the assignment list.
-     * This list will not contain any duplicate assignments.
+     * The list will not contain any duplicate assignments.
      */
     ObservableList<Assignment> getAssignmentsList();
 }

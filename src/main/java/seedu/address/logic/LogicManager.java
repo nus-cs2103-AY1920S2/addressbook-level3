@@ -22,7 +22,7 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.Storage;
 
 /**
- * The main LogicManager of the app.
+ * The main LogicManager of the application.
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";

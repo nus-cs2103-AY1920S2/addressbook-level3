@@ -3,7 +3,7 @@ package seedu.address.model.day;
 import java.util.ArrayList;
 
 /**
- * Represents a day in the schedule visual.
+ * Represents a {@code Day} in the {@code ScheduleList}.
  */
 public class Day {
     private Hours totalAllocatedHours;

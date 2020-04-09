@@ -15,7 +15,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyAssignmentSchedule;
 
 /**
- * A class to access AssignmentSchedule data stored on a JSON file on the hard disk.
+ * A class to access AssignmentSchedule data stored in a JSON file on the hard disk.
  */
 public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAssignmentScheduleStorage.class);

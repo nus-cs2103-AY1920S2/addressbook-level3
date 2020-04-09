@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * An unmodifiable scheduler that is serializable in JSON format.
+ * An unmodifiable assignment schedule that is serializable in JSON format.
  */
 @JsonRootName(value = "scheduler")
 public class JsonSerializableAssignmentSchedule {

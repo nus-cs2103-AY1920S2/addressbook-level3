@@ -4,7 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of days that corresponds to the user's generated schedule based on uncompeted assignments.
+ * A list of days that corresponds to the user's generated schedule based on uncompeted assignments, their deadlines
+ * and estimated work hours.
  */
 public class ScheduleList {
     private final ObservableList<Day> scheduleList = FXCollections.observableArrayList();

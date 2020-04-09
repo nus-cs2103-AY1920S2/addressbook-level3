@@ -1,7 +1,7 @@
 package seedu.address.model.day;
 
 /**
- * Represents an assignment whose workload is allocated to a Day.
+ * Represents an assignment whose workload is allocated to a {@code Day} object.
  */
 public class AllocatedAssignment extends Assignment {
     public final float allocatedHours;

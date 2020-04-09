@@ -10,7 +10,7 @@ import seedu.address.model.assignment.AssignmentList;
 
 /**
  * Wraps all data at the assignment schedule level.
- * Duplicates are not allowed (by .isSameAssignment comparison)
+ * Duplicates are not allowed (by .isSameAssignment comparison).
  */
 public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
     private final AssignmentList assignments;

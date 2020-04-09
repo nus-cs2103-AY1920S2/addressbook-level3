@@ -1,7 +1,7 @@
 package seedu.address.model.day;
 
 /**
- * Represents an assignment that is associated with a given day.
+ * Represents an assignment that is associated with a given {@code Day} object.
  * Guarantees: Immutable
  */
 public class Assignment {
