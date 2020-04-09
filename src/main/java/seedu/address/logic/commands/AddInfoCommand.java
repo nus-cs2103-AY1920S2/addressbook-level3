@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
+import seedu.address.model.restaurant.Note;
 
 /**
  * Adds a remark to an existing person in the address book.
@@ -62,15 +63,19 @@ public class AddInfoCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        ArrayList<Remark> updatedRemarks = new ArrayList<>();
+        for (Remark i : personToEdit.getRemark()) {
+            updatedRemarks.add(i);
+        }
+
         if (remarks.size() != 0) {
             for (int i = 0; i < remarks.size(); i++) {
-                newRemarks = personToEdit.getRemark();
-                newRemarks.add(remarks.get(i));
+                updatedRemarks.add(remarks.get(i));
             }
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
-                personToEdit.getEmail(), personToEdit.getAddress(), getRemarks().orElse(personToEdit.getRemark()),
+                personToEdit.getEmail(), personToEdit.getAddress(), updatedRemarks,
                 personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
