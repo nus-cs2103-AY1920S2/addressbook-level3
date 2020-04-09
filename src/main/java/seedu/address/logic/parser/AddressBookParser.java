@@ -19,14 +19,14 @@ import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
 import seedu.address.logic.commands.commandAdd.AddCourseCommand;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.commandAdd.AddStudentCommand;
-import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.commandAdd.AddStaffCommand;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandClear.*;
 import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
-import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
+import seedu.address.logic.commands.commandDelete.DeleteStaffCommand;
 import seedu.address.logic.commands.commandDone.DoneCommandBase;
 import seedu.address.logic.commands.commandEdit.*;
 import seedu.address.logic.commands.commandFind.*;
@@ -104,7 +104,7 @@ public class AddressBookParser {
         return new UndoneCommandParser().parse(arguments);
 
       // Add Operations
-      case AddTeacherCommand.COMMAND_WORD:
+      case AddStaffCommand.COMMAND_WORD:
         return new AddTeacherCommandParser().parse(arguments);
 
       case AddStudentCommand.COMMAND_WORD:
@@ -120,7 +120,7 @@ public class AddressBookParser {
         return new AddAssignmentCommandParser().parse(arguments);
 
         // Delete Operations
-      case DeleteTeacherCommand.COMMAND_WORD:
+      case DeleteStaffCommand.COMMAND_WORD:
         return new DeleteTeacherCommandParser().parse(arguments);
 
       case DeleteStudentCommand.COMMAND_WORD:
@@ -180,7 +180,7 @@ public class AddressBookParser {
         return new ClearCommand();
 
         // Edit Operations
-      case EditTeacherCommand.COMMAND_WORD:
+      case EditStaffCommand.COMMAND_WORD:
         return new EditTeacherCommandParser().parse(arguments);
 
       case EditStudentCommand.COMMAND_WORD:

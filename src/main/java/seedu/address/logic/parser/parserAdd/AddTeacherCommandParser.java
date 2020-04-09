@@ -13,7 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 import seedu.address.logic.commands.commandAdd.AddCommand;
-import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.commandAdd.AddStaffCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.ParserUtil;
@@ -57,7 +57,7 @@ public class AddTeacherCommandParser extends AddCommandParser {
     if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_LEVEL)
         || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
-          String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTeacherCommand.MESSAGE_USAGE));
+          String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStaffCommand.MESSAGE_USAGE));
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -83,6 +83,6 @@ public class AddTeacherCommandParser extends AddCommandParser {
 
     Staff teacher = new Staff(name, gender, level, phone, email, salary, address, tagList);
 
-    return new AddTeacherCommand(teacher);
+    return new AddStaffCommand(teacher);
   }
 }
