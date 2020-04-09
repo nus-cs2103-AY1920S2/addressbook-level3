@@ -324,13 +324,8 @@ Format: `delete n/NAME`
 .Entire profile deleted from *MODdy*
 image::DeleteProfile.png[width="790"]
 
-<<<<<<< HEAD
-NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from MODdy
-// end::delete[]
-=======
 NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
-
->>>>>>> 4cc4eaff6dc58584feee930e39b45043aaf268d5
+// end::delete[]
 
 
 
