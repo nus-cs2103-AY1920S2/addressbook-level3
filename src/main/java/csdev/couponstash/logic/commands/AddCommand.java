@@ -4,6 +4,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PROMO_CODE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
@@ -30,6 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_SAVINGS + "SAVINGS "
             + "[" + PREFIX_PROMO_CODE + "PROMO_CODE] "
             + "[" + PREFIX_START_DATE + "START_DATE] "
+            + "[" + PREFIX_REMIND + "REMIND_DATE] "
             + "[" + PREFIX_SAVINGS + "SAVINGS]... "
             + "[" + PREFIX_TAG + "TAG]...\n\n"
             + "Example: " + COMMAND_WORD + " "
@@ -67,6 +69,11 @@ public class AddCommand extends Command {
 
         if (!toAdd.getExpiryDate().isAfterOrEqual(toAdd.getStartDate())) {
             throw new CommandException(DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT);
+        }
+
+        // Conditions for remind date
+        if (toAdd.getRemindDate().getDate().isAfter(toAdd.getExpiryDate().getDate())) {
+            throw new CommandException(DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE);
         }
 
         model.addCoupon(toAdd, commandText);

@@ -11,7 +11,6 @@ import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.ArchiveCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
 import csdev.couponstash.logic.commands.Command;
-import csdev.couponstash.logic.commands.ConditionCommand;
 import csdev.couponstash.logic.commands.CopyCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
@@ -23,7 +22,6 @@ import csdev.couponstash.logic.commands.GoToCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
-import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.commands.SetPrefCommand;
 import csdev.couponstash.logic.commands.ShareCommand;
@@ -79,9 +77,6 @@ public class CouponStashParser {
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
 
-        case ConditionCommand.COMMAND_WORD:
-            return new ConditionCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -117,9 +112,6 @@ public class CouponStashParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-
-        case RemindCommand.COMMAND_WORD:
-            return new RemindCommandParser().parse(arguments);
 
         case SavedCommand.COMMAND_WORD:
             return new SavedCommandParser().parse(arguments);

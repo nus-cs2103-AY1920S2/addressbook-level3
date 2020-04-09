@@ -18,7 +18,6 @@ import csdev.couponstash.logic.commands.GoToCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
-import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.commands.SetPrefCommand;
 import csdev.couponstash.logic.commands.ShareCommand;
@@ -55,7 +54,6 @@ public class HelpPane extends UiPart<Region> {
                     new CommandCard(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE),
                     new CommandCard(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_USAGE),
                     new CommandCard(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_USAGE),
-                    new CommandCard(RemindCommand.COMMAND_WORD, RemindCommand.MESSAGE_USAGE),
                     new CommandCard(SavedCommand.COMMAND_WORD, SavedCommand.MESSAGE_USAGE),
                     new CommandCard(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE),
                     new CommandCard(SetPrefCommand.COMMAND_WORD, SetPrefCommand.MESSAGE_USAGE),

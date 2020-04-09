@@ -192,8 +192,8 @@ public class CouponBuilder {
     /**
      * Sets the {@code RemindDate} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withRemindDate(String remindDate, String expiryDate) {
-        this.remindDate = new RemindDate(remindDate, expiryDate);
+    public CouponBuilder withRemindDate(String remindDate) {
+        this.remindDate = new RemindDate(remindDate);
         return this;
     }
     /**

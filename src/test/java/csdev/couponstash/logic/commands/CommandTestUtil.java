@@ -124,7 +124,7 @@ public class CommandTestUtil {
                 .withUsage(VALID_USAGE_AMY)
                 .withLimit(VALID_LIMIT_AMY)
                 .withTags(VALID_TAG_FRIEND)
-                .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
+                .withRemindDate(VALID_REMIND_DATE_AMY)
                 .withCondition(VALID_CONDITION_AMY)
                 .build();
         DESC_BOB = new EditCouponDescriptorBuilder()
@@ -136,7 +136,7 @@ public class CommandTestUtil {
                 .withUsage(VALID_USAGE_BOB)
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-                .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
+                .withRemindDate(VALID_REMIND_DATE_BOB)
                 .withCondition(VALID_CONDITION_BOB)
                 .build();
     }

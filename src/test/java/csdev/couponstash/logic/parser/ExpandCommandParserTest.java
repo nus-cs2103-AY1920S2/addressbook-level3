@@ -19,11 +19,12 @@ class ExpandCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        String index = "a";
         CommandParserTestUtil.assertParseFailure(
                 parser,
-                "a",
+                index,
                 String.format(
-                        ParserUtil.MESSAGE_INVALID_INDEX + "\n\n"
+                        String.format(ParserUtil.MESSAGE_INVALID_INDEX, index) + "\n\n"
                                 + MESSAGE_INVALID_COMMAND_FORMAT,
                         ExpandCommand.MESSAGE_USAGE
                 )

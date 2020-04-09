@@ -13,8 +13,9 @@ public class UsedCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        String index = "a";
         CommandParserTestUtil.assertParseFailure(parser,
-                "a", ParserUtil.MESSAGE_INVALID_INDEX
+                index, String.format(ParserUtil.MESSAGE_INVALID_INDEX, index)
                         + "\n\n" + String.format(
                                 MESSAGE_INVALID_COMMAND_FORMAT,
                                 String.format(
