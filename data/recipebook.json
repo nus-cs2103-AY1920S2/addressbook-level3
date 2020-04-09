@@ -131,60 +131,6 @@
     "others" : [ ],
     "steps" : [ "step 1", "edited step 2" ],
     "goals" : [ ]
-  }, {
-    "name" : "mememe",
-    "time" : "30",
-    "isFavourite" : false,
-    "grains" : [ "145.0g,  Bread" ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Wholesome Wholemeal" ]
-  }, {
-    "name" : "fruit",
-    "time" : "20",
-    "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ "3.0cup,  Apple" ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Fruity Fiesta" ]
-  }, {
-    "name" : "test",
-    "time" : "20",
-    "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ "3.0cup,  Abanana" ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Fruity Fiesta" ]
-  }, {
-    "name" : "testtt",
-    "time" : "20",
-    "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ "4.0cup,  Blue" ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Fruity Fiesta" ]
-  }, {
-    "name" : "ttttt",
-    "time" : "10",
-    "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ "4.0cup,  Fff" ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Fruity Fiesta" ]
-  } ]
+  }]
 }
+

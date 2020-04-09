@@ -19,9 +19,9 @@ public class Quantity {
 
     /**
      * According to Metric measurements and based on ingredient type (averages denser ingredients).
-     * @see <a href="https://www.thecalculatorsite.com/cooking/cups-grams.php">measurementConverter</a>
      * @param ingredientType from 4 main ingredients.
      * @return new Quantity with unit in gram.
+     * @see <a href="https://www.thecalculatorsite.com/cooking/cups-grams.php">measurementConverter</a>
      */
     public Quantity convertToGram(MainIngredientType ingredientType) {
         double newMagnitude = this.magnitude;

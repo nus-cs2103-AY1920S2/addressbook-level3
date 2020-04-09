@@ -41,8 +41,8 @@ public class MainIngredientTypeMagnitude {
 
     /**
      * Finding main ingredient types that meet nutrition requirement for each type according to NIH.
-     * @see <a href="https://www.nia.nih.gov/health/serving-and-portion-sizes-how-much-should-i-eat">nutritionReq</a>
      * @return set of MainIngredientTypes that meets requirements for each food group.
+     * @see <a href="https://www.nia.nih.gov/health/serving-and-portion-sizes-how-much-should-i-eat">nutritionReq</a>
      */
     private Set<MainIngredientType> getMainIngredientTypes() {
         Set<MainIngredientType> setOfMainTypes = new TreeSet<MainIngredientType>();

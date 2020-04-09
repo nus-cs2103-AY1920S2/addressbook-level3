@@ -151,7 +151,6 @@ public class Recipe {
         for (MainIngredientType main : quantityTally.getMainTypes()) {
             Goal goal = new Goal(main);
             newGoals.add(goal);
-            System.out.println(goal);
         }
         updateGoals(newGoals);
     }
@@ -163,9 +162,9 @@ public class Recipe {
     private double calculateIngredientQuantity(Set<? extends Ingredient> ingredients) {
         double totalMagnitude = 0;
         for (Ingredient ingredient: ingredients) {
-                MainIngredientType mainType = ingredient.getMainIngredientType();
-                Quantity quantity = ingredient.getQuantity().convertToGram(mainType);
-                totalMagnitude += quantity.getMagnitude();
+            MainIngredientType mainType = ingredient.getMainIngredientType();
+            Quantity quantity = ingredient.getQuantity().convertToGram(mainType);
+            totalMagnitude += quantity.getMagnitude();
         }
         return totalMagnitude;
     }
