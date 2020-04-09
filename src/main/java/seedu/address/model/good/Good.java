@@ -28,6 +28,13 @@ public class Good {
     private final GoodQuantity goodQuantity;
     private final GoodQuantity threshold;
 
+    /**
+     * Constructor for creating a complete Good class.
+     *
+     * @param goodName name of good
+     * @param goodQuantity quantity of good
+     * @param threshold threshold quantity before warning
+     */
     public Good(GoodName goodName, GoodQuantity goodQuantity, GoodQuantity threshold) {
         requireAllNonNull(goodName, goodQuantity, threshold);
 
@@ -36,12 +43,27 @@ public class Good {
         this.threshold = threshold;
     }
 
+    /**
+     * Constructor for creating a new good entry. It will have the given goodName and goodQuantity,
+     * but start with the default threshold value of o
+     *
+     * @param goodName name of good
+     * @param goodQuantity quantity of good
+     * @return Good created with the given good name and quantity, but with a threshold of 0
+     */
     public static Good newGoodEntry(GoodName goodName, GoodQuantity goodQuantity) {
         requireAllNonNull(goodName, goodQuantity);
 
         return new Good(goodName, goodQuantity, new GoodQuantity(DEFAULT_QUANTITY));
     }
 
+    /**
+     * Returns a Good that has the given goodName. This is mainly for querying the existence of
+     * a good in the inventory, where only the goodName is checked, and other fields are redundant.
+     *
+     * @param goodName name of good
+     * @return Good created with the given good name, but a default good quantity and threshold value of 0
+     */
     public static Good goodWithName(GoodName goodName) {
         requireNonNull(goodName);
 

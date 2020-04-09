@@ -47,13 +47,9 @@ public class BuyCommandTest {
     private static GoodQuantity WILL_OVERFLOW_QUANTITY = new GoodQuantity(WILL_OVERFLOW_QUANTITY_STRING);
 
     private static Good boughtGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-
     private static Good boughtGoodDiffGoodName = Good.newGoodEntry(VALID_DIFF_GOOD_NAME, VALID_GOOD_QUANTITY);
-
     private static Good boughtGoodDiffGoodQuantity = Good.newGoodEntry(VALID_GOOD_NAME, VALID_DIFF_GOOD_QUANTITY);
-
     private static Good existingGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-
     private static Good buyExistingGoodResultGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_DIFF_GOOD_QUANTITY);
 
     private static Supplier supplierSellingBoughtGood = new SupplierBuilder()
@@ -62,7 +58,7 @@ public class BuyCommandTest {
             .build();
 
     @Test
-    public void constructor_nullSupplier_throwsNullPointerException() {
+    public void constructor_nullParameters_throwsNullPointerException() {
         assertThrows(NullPointerException.class,
                 () -> new BuyCommand(null, VALID_GOOD_QUANTITY, INDEX_FIRST_SUPPLIER));
 
