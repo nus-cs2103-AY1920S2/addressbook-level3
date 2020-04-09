@@ -363,7 +363,7 @@ _The following table summarizes all the commands that you can use. Input contain
 
 |Add
 |add n/<item index> [des/<task description>] [p/<priority value>] [r/<reminder’s date and time>] [t/<tag1> t/<tag2>...]
-|add n/Finish Quiz des/Pages 3-5 p/1 r/20/03/20@19:30 t/cs2100
+|add n/Finish Quiz des/Pages 3-5 p/1 r/20/03/20@19:30 t/cs2100 t/school
 
 |Edit
 |edit INDEX [n/NAME] [des/DESCRIPTION] [p/PRIORITY] [r/REMINDER] [t/TAG]
@@ -371,11 +371,11 @@ _The following table summarizes all the commands that you can use. Input contain
 
 |Done
 |done INDEX
-|done 5
+|done 5 6 7
 
 |Delete
 |delete INDEX
-|delete 7
+|delete 1 2 3 7
 
 |Clear
 |clear
@@ -385,9 +385,13 @@ _The following table summarizes all the commands that you can use. Input contain
 |pom INDEX [tm/TIME IN MINUTES]
 |pom 4 tm/45
 
+|find
+|find PHRASE
+|find mum tells me to
+
 |Sort
 |sort FIELD1 FIELD2 FIELD3 ...
-|sort done, priority
+|sort done priority r-done
 
 |Tasks
 |tasks
