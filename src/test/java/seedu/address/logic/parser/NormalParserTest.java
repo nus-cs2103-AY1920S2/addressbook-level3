@@ -12,12 +12,14 @@ import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_FINA
 import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_GOTO;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_HELP;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_INTERVIEW;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_LIST;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_OPEN;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_RESUME;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANICE;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_NUMBER_1;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_PLURAL_ATTRIBUTE;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_PLURAL_METRIC;
+import static seedu.address.logic.commands.CommandTestUtility.VALID_PLURAL_QUESTION;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_PROPERTY_INTERVIEWEE;
 import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_NUMBER_14;
 import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
@@ -33,7 +35,9 @@ import seedu.address.logic.commands.EditIntervieweeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FinaliseCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListIntervieweeCommand;
+import seedu.address.logic.commands.ListAttributeCommand;
+import seedu.address.logic.commands.ListMetricCommand;
+import seedu.address.logic.commands.ListQuestionCommand;
 import seedu.address.logic.commands.NavigationQuestionCommand;
 import seedu.address.logic.commands.OpenReportCommand;
 import seedu.address.logic.commands.OpenResumeCommand;
@@ -82,10 +86,21 @@ class NormalParserTest {
     }
 
     @Test
-    void parse_validListCommand_success() throws ParseException {
-        Command result = parser.parseCommand(VALID_COMMAND_LIST
-                + WHITESPACE + VALID_PROPERTY_INTERVIEWEE);
-        assertEquals(result, new ListIntervieweeCommand());
+    void parse_validListAttributeCommand_success() throws ParseException {
+        Command result = parser.parseCommand(VALID_PLURAL_ATTRIBUTE);
+        assertEquals(result, new ListAttributeCommand());
+    }
+
+    @Test
+    void parse_validListMetricCommand_success() throws ParseException {
+        Command result = parser.parseCommand(VALID_PLURAL_METRIC);
+        assertEquals(result, new ListMetricCommand());
+    }
+
+    @Test
+    void parse_validListQuestionCommand_success() throws ParseException {
+        Command result = parser.parseCommand(VALID_PLURAL_QUESTION);
+        assertEquals(result, new ListQuestionCommand());
     }
 
     @Test
