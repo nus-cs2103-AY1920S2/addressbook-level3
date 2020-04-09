@@ -430,3 +430,18 @@
   -fx-font-size: 11;
   -fx-font-style: italic;
 }
+
+/* Remind Window */
+#remind-message {
+  -fx-font-family: arial;
+  -fx-font-size: 17px;
+  -fx-text-fill: white;
+  -fx-font-style: italic;
+  -fx-font-weight: bold;
+}
+
+#remind-details {
+  -fx-font-family: arial;
+  -fx-font-size: 13px;
+  -fx-text-fill: white;
+}
