@@ -2,7 +2,9 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.*;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.eylah.expensesplitter.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -40,9 +42,12 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BRANDON = " " + PREFIX_NAME + " " + VALID_NAME_BRANDON;
     public static final String NAME_DESC_CHARLIE = " " + PREFIX_NAME + " " + VALID_NAME_CHARLIE;
 
-    public static final String INVALID_ITEMNAME_DESC = " " + PREFIX_ITEM + " " + "Chicken&Rice"; // '&' not allowed in item names
-    public static final String INVALID_ITEMPRICE_DESC = " " + PREFIX_PRICE + " " + "3.P0"; // only numbers are allowed
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " " + "James&"; // '&' not allowed in names
+    public static final String INVALID_ITEMNAME_DESC = " " + PREFIX_ITEM
+            + " " + "Chicken&Rice"; // '&' not allowed in item names
+    public static final String INVALID_ITEMPRICE_DESC = " " + PREFIX_PRICE
+            + " " + "3.P0"; // only numbers are allowed
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME
+            + " " + "James&"; // '&' not allowed in names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
