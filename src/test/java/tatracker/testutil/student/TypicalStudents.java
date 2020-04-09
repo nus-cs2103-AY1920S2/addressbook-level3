@@ -20,6 +20,7 @@ import java.util.List;
 import tatracker.model.group.Group;
 import tatracker.model.group.GroupType;
 import tatracker.model.module.Module;
+import tatracker.model.student.Matric;
 import tatracker.model.student.Student;
 
 /**
@@ -31,24 +32,30 @@ public class TypicalStudents {
     public static final Module CS2030 = new Module("CS2030", "Programming Methodology II");
     public static final Group G06 = new Group("G06", GroupType.LAB);
     public static final Group T04 = new Group("T04", GroupType.TUTORIAL);
+    public static final Matric MATRIC_ALICE = new Matric("A0193235J");
+    public static final Matric MATRIC_BENSON = new Matric("A0188621K");
+    public static final Matric MATRIC_CARL = new Matric("A0190706L");
 
     public static final Student ALICE = new StudentBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
-            .withMatric("A0193235J")
+            //.withMatric("A0193235J")
+            .withMatric(MATRIC_ALICE.value)
             .withPhone("94351253")
             .withRating(1)
             .withTags("friends")
             .build();
     public static final Student BENSON = new StudentBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withMatric("A0188621K")
+            //.withMatric("A0188621K")
+            .withMatric(MATRIC_BENSON.value)
             .withTags("owesMoney", "friends")
             .withRating(2)
             .build();
     public static final Student CARL = new StudentBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
-            .withMatric("A0190706L")
+            //.withMatric("A0190706L")
+            .withMatric(MATRIC_CARL.value)
             .withRating(3)
             .build();
     public static final Student DANIEL = new StudentBuilder().withName("Daniel Meier")
