@@ -92,7 +92,7 @@ public class DeleteCommand extends Command {
         if (deleteName != null) {
             if (profileManager.hasProfile(deleteName)) {
                 Profile profileToDelete = profileManager.getProfile(deleteName);
-                profileManager.deletePerson(profileToDelete);
+                profileManager.deleteProfile(profileToDelete);
                 profileManager.setProfileList(new ProfileList());
                 profileManager.clearDeadlineList();
                 return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete), false);

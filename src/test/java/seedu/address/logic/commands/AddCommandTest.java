@@ -236,8 +236,23 @@ public class AddCommandTest {
         }
 
         @Override
-        public Profile getFirstProfile() {
-            return this.profileList.get(0);
+        public ProfileList getProfileList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteProfile(Profile target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addProfile(Profile profile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setProfile(Profile target, Profile editedProfile) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

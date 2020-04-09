@@ -93,7 +93,8 @@ This section provides you with the features that you can perform in *MODdy*. It 
 [[Help]]
 === Viewing help : `help`
 
-This command opens up a help window, providing you a link, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
+If you are unsure about the commands and wants to seek help, this command opens up a help window. There are basic command format as well as the respective parameter.
+For more detailed help, you can visit the link provided, as shown in the figure below. The link directs you to this User Guide where you can get more information on how to use each feature in *MODdy*. +
 
 Format: `help`
 
@@ -284,14 +285,16 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 //****
 
 
-
+// tag::delete[]
 [[Delete]]
-=== Deleting: `delete`
-This command deletes the data in *MODdy* according to your parameters.
+=== Deleting a task / module / profile: `delete`
+To remove a task, module or profile from *MODdy*, use the `delete` command.
 
 There are *three* ways you can use the `delete` command:
 
-==== Delete a task +
+==== Deleting a task +
+Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
+
 Format: `delete m/MODULE_CODE t/TASK`
 
 ."Project Submission" for CS2103 deleted from the Deadline Panel
@@ -302,7 +305,9 @@ NOTE: The specified task and its deadline will be deleted from the specified mod
 TIP: `delete m/CS2103 t/Project Submission` +
 Deletes the task "Assignment" from the module CS2103 in your profile
 
-==== Delete a module +
+==== Deleting a module +
+If you have decided not to take a module you were planning to take or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+
 Format: `delete m/MODULE_CODE`
 
 .CS2107 and its tasks deleted from *MODdy*
@@ -311,21 +316,23 @@ image::DeleteModule.png[width="790"]
 NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
 
 
-==== Delete your profile +
+==== Deleting your profile +
+If you wish to remove your profile, you can do so with the command below. The effect of using this command is shown in the figure below.
+
 Format: `delete n/NAME`
 
 .Entire profile deleted from *MODdy*
 image::DeleteProfile.png[width="790"]
 
 NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
-
+// end::delete[]
 
 
 
 [[Home]]
 === Returning to Homepage : `home`
 
-This command returns you to *MODdy*'s Homepage, as shown in the figure below.
+If you want to return to *MODdy*'s Homepage, use this command, as shown in the figure below.
 
 Format: `home`
 
@@ -346,7 +353,7 @@ image::Clear.png[width="790"]
 [[Exit]]
 === Exiting *MODdy*: `exit`
 
-This command closes the GUI and exits *MODdy*.
+If you want to close the GUI and exit *MODdy*, use this command.
 
 Format: `exit`
 

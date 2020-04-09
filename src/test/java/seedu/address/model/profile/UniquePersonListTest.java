@@ -65,7 +65,7 @@ public class UniquePersonListTest {
 //    @Test
 //    public void setProfile_editedPersonIsSamePerson_success() {
 //        uniqueProfileList.add(ALICE);
-//        uniqueProfileList.setPerson(ALICE, ALICE);
+//        uniqueProfileList.setProfile(ALICE, ALICE);
 //        UniquePersonList expectedUniqueProfileList = new UniquePersonList();
 //        expectedUniqueProfileList.add(ALICE);
 //        assertEquals(expectedUniqueProfileList, uniqueProfileList);
