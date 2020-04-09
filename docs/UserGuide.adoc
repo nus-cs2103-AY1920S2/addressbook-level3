@@ -374,6 +374,7 @@ Uses the first coupon in the coupon stash, which also has a percentage savings.
 The total savings of the coupon will be calculated, and can be seen with the
 command `saved`.
 
+// tag::saved[]
 === Viewing savings: `saved`
 
 Shows you how much you have saved by using coupons in Coupon Stash.
@@ -418,7 +419,7 @@ on 1 March 2020.
 A message will be displayed: You have saved $117.15 as well as earned
 5x Brattby Bag, 7x Water Bottle, 12x Free Coffee, 1x Plush Toy
 between 1 May 2019 and 20 March 2020.
-
+// end::saved[]
 
 === Archiving a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your
@@ -702,7 +703,7 @@ Example:
 * `expand 1` +
 Open the coupon at index 1 in a new window.
 
-
+// tag::setpref[]
 === Setting user preferences: `setpref`
 Sets the user preferences in Coupon Stash. Available user
 preferences currently consist of:
@@ -712,6 +713,7 @@ preferences currently consist of:
 * More to be added in v2.0
 
 Format: `setpref [ms/NEW_MONEY_SYMBOL]`
+// end::setpref[]
 
 ****
 * At least one of the optional fields must be provided.
