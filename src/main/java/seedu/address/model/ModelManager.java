@@ -73,7 +73,6 @@ public class ModelManager extends BaseManager implements Model {
   private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Assignment> extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
   private MainWindow mainWindow;
-
   public static Model instance;
 
   public static Model getInstance() {
