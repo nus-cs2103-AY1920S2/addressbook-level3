@@ -16,8 +16,10 @@ import com.notably.view.ViewPart;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
@@ -53,7 +55,6 @@ public class BlockContentEditView extends ViewPart<Stage> {
         this.logic = logic;
         this.model = model;
         this.parentStage = Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
-
         setStageStyle();
         setChangeListeners();
         setInitialData();
@@ -69,8 +70,8 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
-     * Sets listeners that update the content in the Block Edit modal to that of the
-     * currently opened note, and toggle the visibility and controls of the edit modal.
+     * Sets listeners that update the content in the Block Edit modal and toggle the visibility
+     * and controls of the edit modal.
      */
     private void setChangeListeners() {
         setContentChangeListeners();
@@ -95,11 +96,13 @@ public class BlockContentEditView extends ViewPart<Stage> {
      * certain stylings to the main app window.
      */
     private void setModalVisibilityListeners() {
-        model.blockEditableProperty().addListener(observable -> {
-            if (model.isBlockEditable()) {
+        updateMainWindowStyle(true);
+        model.blockEditableProperty().addListener((observable, unused, isBlockEditable) -> {
+            if (isBlockEditable) {
                 handleEdit();
                 model.setBlockEditable(false);
             }
+            updateMainWindowStyle(isBlockEditable);
         });
     }
 
@@ -191,6 +194,33 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
+     * Applies a darkening effect to the main app window, whenever the Block Edit modal
+     * is currently being displayed.
+     *
+     * @param isBlockEditable A boolean that is true if the currently open note is editable,
+     * ie. the Block Edit modal is to be shown, false otherwise.
+     */
+    private void updateMainWindowStyle(Boolean isBlockEditable) {
+        //logger.severe(isBlockEditable.toString());
+        Node mainWindow = parentStage.getScene().lookup("#mainWindow");
+        ChangeListener<Boolean> focusedListener = (observable, unused, isFocused) -> {
+            if (!isFocused && stage.isShowing()) {
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setBrightness(-0.4);
+                mainWindow.setEffect(colorAdjust);
+            } else {
+                mainWindow.setEffect(null);
+            }
+        };
+
+        if (isBlockEditable) {
+            parentStage.focusedProperty().addListener(focusedListener);
+        } else {
+            parentStage.focusedProperty().removeListener(focusedListener);
+        }
+    }
+
+    /**
      * Shows the Block Edit Modal.
      *
      * @throws IllegalStateException <ul>
@@ -241,7 +271,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
      */
     private void saveData() {
         try {
-            this.logic.editCurrentBlockBody(blockContentTextArea.getText());
+            logic.editCurrentBlockBody(blockContentTextArea.getText());
             logger.info("Writing new Note's contents to file...");
         } catch (EditBlockBodyException e) {
             logger.warning("Unable to write new contents to file.");
