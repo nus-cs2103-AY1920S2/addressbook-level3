@@ -215,12 +215,20 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Priority: ")
+                .append(", Priority: ")
                 .append(getPriority())
-                .append(" Description: ")
+                .append(", Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
+                .append(", Tags: ");
         getTags().forEach(builder::append);
+        if (optionalReminder.isPresent()) {
+            String reminderString = optionalReminder.get().displayReminder();
+            builder.append(", Reminder: ").append(reminderString);
+        }
+        if (optionalRecurring.isPresent()) {
+            String recurrString = optionalRecurring.get().displayRecurring();
+            builder.append(", Recurring: ").append(recurrString);
+        }
         return builder.toString();
     }
 }

@@ -64,7 +64,6 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        Index indexOfNewTask = model.getIndexOfNewTask();
         model.addTask(toAdd);
     // toAdd.triggerRecurringIfPresent(model, indexOfNewTask);
         // ^ Sample use of model to adjust objects
