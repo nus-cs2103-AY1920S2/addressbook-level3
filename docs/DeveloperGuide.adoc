@@ -323,50 +323,60 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 === Exercise Feature --- Yong Jie
 
-Recording the clients' exercises is one of the main features of our application. This section provides its key implementation details.
+This feature allows users to record the exercises done by a client. The exercises are displayed in a table form, after the command `view-c INDEX` is called.
 
 ==== Implementation
 
 ===== Exercise class
 
-We implemented the `Exercise` class to contain the details of the exercise.  
+The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrapper class for an `ObservableList` of `Exercise` objects. Each Client contains one `UniqueExerciseList` attribute to keep track of all `Exercises` the client has.
 
 `Exercise` comprises five attributes:
 
-* `ExerciseName`
-* `ExerciseDate`
-* `ExerciseReps`
-* `ExerciseWeight`
-* `ExerciseSets`
+1. `ExerciseName`
+2. `ExerciseDate`
+3. `ExerciseReps`
+4. `ExerciseWeight`
+5. `ExerciseSets`
 
-All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`.
-
-Below shows a UML class diagram which provides further understanding of `Exercise`.
+All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. Below shows a UML class diagram which shows `Exercise` class interactions.
 
 image::ExerciseClassDiagram.png[]
 
-An important point to note about our implementation of `Exercise` is the method `isSameExercise`. This method is used when adding a new `Exercise`. It checks if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. //aout equals. Two `Exercise` are considered to be the same if they have the same: +
+An important point to note about our implementation of `Exercise` is the method `isSameExercise`. This method is executes when adding a new `Exercise`. It checks if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. Two `Exercise` are considered to be the same if they have the same: +
 
-* `ExerciseName`
-* `ExerciseDate`
-* `ExerciseReps`
-* `ExerciseWeight`
+1. `ExerciseName`
+2. `ExerciseDate`
+3. `ExerciseReps`
+4. `ExerciseWeight`
 
-This implementation is chosen as we felt that the user should increment the set value in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises was done on that day.
+Below shows an object diagram of two `Exercises` that will return true for `isSameExercise`.
+
+image::IsSameExerciseObjectDiagram.png[]
+
+This implementation is chosen as we felt that the user should increment the `Set` value in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises were done on that day.
 
 ===== Exercise Commands
 
-Currently, there are only 2 exercise commands. The `add-e` command adds an exercise to the client and the `delete-e` command deletes an exercise from a client. The commands follow a similar execution flow as other commands.
+The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands. 
+
+1. `add-e` : Adds an exercise to a client
+2. `edit-e` : Edits a client's exercise
+3. `delete-e` : Deletes a client's exercise
+
+The commands follow a similar execution flow as other commands.
+
+
 
 For the `add-e` command, we had to pay particular attention to the index where new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This would result in problems when using `delete-e` command as it deletes the exercise at the specified index.
 
-We will use an example of a `add-e` command to illustrate the program execution flow. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The `AddressBookParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
+We will use an example of a `add-e` command to illustrate the program execution flow. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The `FitBizParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
 image::AddExerciseCommandSequenceDiagram.png[]
 
 `AddExerciseCommand` checks if there is an client being viewed. For this instance, we will consider the positive case where indeed there is a client being viewed. `AddExerciseCommand` will retrieve the client being viewed from the `Model` so that details like the existing exercise list of the client can be obtained. The sequence diagram illustrates the execution flow of how the new exercise, `toAdd`, is added to the exercise list.
 
-image::AddExerciseCommandSequenceDiagramPart2.png[]
+image::AddExerciseCommandSequenceDiagramPart.png[]
 
 The exercise list, `UniqueExerciseList`, will go through a loop and iterate through the exercises in the list. The date of each exercise will be compared with the date of the `toAdd` exercise. `toAdd` will then be added to the `UniqueExerciseList` at the index to keep the list sorted.
 
@@ -405,7 +415,7 @@ We decided to use the first approach of storing the exercises with the associate
 
 image::ClientExerciseStorageClassDiagram.png[]
 
-We want to keep the implementation reading and storing of data simple. The first approach is  the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow.
+We want to keep the implementation reading and storing of data simple. The first approach is  the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow and a bad user experience.
 
 Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality/benefits to the user.
 
