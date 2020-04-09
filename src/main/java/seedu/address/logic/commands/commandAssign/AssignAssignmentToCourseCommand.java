@@ -25,6 +25,7 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
     private static final Logger logger = LogsCenter.getLogger(AssignAssignmentToCourseCommand.class);
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such Course that with ID";
+    public static final String MESSAGE_INVALID_COURSE_HAS_ASSIGNMENT = "The course already has this assignment assigned to it!";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ALREADY_ASSIGNED = "The assignment has already been assigned already! Each assignment can only be assigned to one course.";
     public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
@@ -54,6 +55,33 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 
+        Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Assignment assigningAssignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
+
+        // Only called after you undo an unassignAssignmentToCourse
+        // Ensures that previously completed assignments can be retrieved
+        if(this.undoProgresses != null) {
+            ProgressManager.addUndoProgress(this.undoProgresses);
+        }
+
+        EdgeManager.assignAssignmentToCourse(assignmentID, courseID);
+        ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                        assigningAssignment.getName(), assignmentID.value,
+                        assignedCourse.getName(), courseID.value));
+    }
+
+    /**
+     * If require this preprocessing step should override this method.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+
         boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
         boolean assignmentExists = model.has(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
 
@@ -68,20 +96,10 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             boolean assignedCourseContainsAssignment = assignedCourse.containsAssignment(assignmentID);
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
-            if(assigningAssignmentContainsCourse) {
+            if (assigningAssignmentContainsCourse) {
                 throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ALREADY_ASSIGNED);
-            } else {
-                // Only called after you undo an unassignAssignmentToCourse
-                // Ensures that previously completed assignments can be retrieved
-                if(this.undoProgresses != null) {
-                    ProgressManager.addUndoProgress(this.undoProgresses);
-                }
-                EdgeManager.assignAssignmentToCourse(assignmentID, courseID);
-                ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
-
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningAssignment.getName(), assignmentID.value,
-                        assignedCourse.getName(), courseID.value));
+            } if (assignedCourseContainsAssignment) {
+                throw new CommandException(MESSAGE_INVALID_COURSE_HAS_ASSIGNMENT);
             }
         }
     }
