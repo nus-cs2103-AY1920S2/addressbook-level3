@@ -45,7 +45,6 @@ public class CopyCommand extends IndexedCommand {
 
     private Coupon coupon;
 
-
     public CopyCommand(Index targetIndex) {
         super(targetIndex);
     }
@@ -59,22 +58,12 @@ public class CopyCommand extends IndexedCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
         this.coupon = lastShownList.get(targetIndex.getZeroBased());
-        String copyCommand = getCopyCommand(coupon);
+        String copyCommand = getCopiedString(coupon);
         copyToClipboard(copyCommand);
         return new CommandResult(String.format(MESSAGE_COPY_COUPON_SUCCESS, coupon.getName()));
     }
 
-    public String getCopyCommand(Coupon coupon) {
-        Name name = coupon.getName();
-        PromoCode promoCode = coupon.getPromoCode();
-        ExpiryDate expiryDate = coupon.getExpiryDate();
-        Limit limit = coupon.getLimit();
-        Condition condition = coupon.getCondition();
-        String conditionString = "";
-        if (!condition.value.equals(Condition.DEFAULT_NO_CONDITION)) {
-            conditionString = PREFIX_CONDITION + condition.value + " ";
-        }
-
+    public String getCopiedString(Coupon coupon) {
         Savings savings = coupon.getSavingsForEachUse();
         String totalSavings = "";
         if (savings.hasMonetaryAmount()) {
@@ -92,15 +81,36 @@ public class CopyCommand extends IndexedCommand {
             }
         }
 
-        String copyCommand = AddCommand.COMMAND_WORD + " "
+        Condition condition = coupon.getCondition();
+        String conditionString = "";
+        if (!condition.value.equals(Condition.DEFAULT_NO_CONDITION)) {
+            conditionString = PREFIX_CONDITION + condition.value + " ";
+        }
+
+        return couponAsAddCommand(totalSavings, conditionString);
+    }
+
+    /**
+     * Returns an appended String of the specified coupon as an user input add command.
+     * @param totalSavings String of all the savings with s/ prefix before each item.
+     * @param conditionString String of the condition with c/ prefix, if any.
+     * @return Appended String of user input to add an identical coupon.
+     */
+    private String couponAsAddCommand (String totalSavings, String conditionString) {
+        Name name = coupon.getName();
+        PromoCode promoCode = coupon.getPromoCode();
+        ExpiryDate expiryDate = coupon.getExpiryDate();
+        Limit limit = coupon.getLimit();
+
+        return AddCommand.COMMAND_WORD + " "
                 + PREFIX_NAME.getPrefix() + name + " "
                 + PREFIX_PROMO_CODE + promoCode + " "
                 + PREFIX_EXPIRY_DATE + expiryDate + " "
                 + totalSavings
                 + conditionString
                 + PREFIX_LIMIT + limit + " ";
-        return copyCommand;
     }
+
 
     private String addPrefixAndDetails(Prefix prefix, String details) {
         String result = prefix.getPrefix();
