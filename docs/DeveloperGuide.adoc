@@ -1199,93 +1199,49 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |TA |see an overview of events in a week |know what I have that week in a glance
+|`* * *` |new user | be able to use a help command |refer to instructions on what commands are available when
+I forget about them
 
 |`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
-|`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
+|`* * *` |TA |store contact details of my students |I can contact them with ease whenever
+necessary
 
-|`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
+|`* * *` |TA |see all my claimable hours in one place |type my claims easily at the end of the semester
 
 |`* * *` |user |change between the different pages |view the information on the different pages
 
-|`* * *` |TA |add students to a particular module |
+|`* * *` |TA |add students to a group in a particular module | So that I know which group which student belongs to
 
 |`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
 
 |`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
 
-|`* * *` |TA |edit student details |
+|`* * *` |careless TA |edit student details | rectify mistakes I make
 
 |`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
 
-|`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
+|`* * *` |TA |mark a session as done | keep a track of things I have completed in my claims
 
 |`* * *` |TA |schedule consultation sessions with my students |keep track of claimable hours spent in consultations
 
-|`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
-
-|`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
-
-|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
-
-|`* * *` |user |change between the different pages |view the information on the different pages
-
-|`* * *` |TA |add students to a particular module |
-
-|`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
-
-|`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
-
-|`* * *` |TA |edit student details |
-
-|`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
-
-|`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
-
 |`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
 
 |`* *` |TA |give students ratings |keep a track of student participation in class
 
 |`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
 
-|`* *` |TA |be able to get tasks on a particular date |
+|`* *` |TA |be able to get tasks on a particular date | plan events accordingly
 
 |`* *` |TA |filter by a module |see events relating to a particular module clearly
-
-|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
 
 |`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
 
 |`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
 
-|`* *` |TA |give students ratings |keep a track of student participation in class
-
-|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
-
-|`* *` |TA |be able to get tasks on a particular date |
-
-|`* *` |TA |filter by a module |see events relating to a particular module clearly
-
-|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
-
-|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
-
-|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
-
-|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
-
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
+|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
 
 |`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
-
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
-
-|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
-
-|`*` |user |change the default view of the application |
 
 |=======================================================================
 
@@ -1912,7 +1868,80 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Default view
+
+.. Switch to a tab different from the student tab. Close the window.
+.. Relaunch the app +
+Expected: The student view under the student app is shown.
+
+=== Viewing help
+
+. Opens the help window.
+
+.. Test Case: `help` +
+Expected: Opens the help window.
+
+=== Changing Tabs
+
+. Changes the tab.
+
+.. Test Case: `goto session` +
+Expected: Opens the session tab.
+.. Test Case: `goto claims` +
+Expected: Opens the claims tab.
+.. Test Case: `goto student` +
+Expected: Opens the student tab.
+
+=== Adding a module
+
+. Adding a module from any view.
+
+.. Test Case: `module add m/CS1101S n/Programming Methodology I` +
+ Expected: A module with the module code `CS1101S` and name `Programming Methodology I`
+is added to the module list on student view. If you were on a different tab, you are
+automatically switched to *Student View*.
+.. Test Case: `module add m/CS1101S n/PE2` +
+ Expected: You will see an error message that this module already exists.
+
+=== Adding a group to a module
+
+=== Adding students to a group
+
+=== Editing a student
+
+=== Editing a group
+
+=== Editing a module
+
+=== Viewing a specific module
+
+=== Viewing a specific group
+
+=== Sorting a group
+
+=== Sorting a module
+
+=== Sorting all modules
+
+=== Deleting a student
+
+=== Deleting a group
+
+=== Deleting a module
+
+=== Adding a session
+
+=== Marking a session as done
+
+=== Deleting a session
+
+=== Filtering sessions
+
+=== Filtering Claims
+
+=== Viewing Statistics
+
+=== Exiting the program
 
 === Deleting a student
 
@@ -1935,3 +1964,5 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+== Effort
