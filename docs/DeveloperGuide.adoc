@@ -2032,7 +2032,7 @@ tab, you are automatically switched to *Student View*.
 
 . Adding a session to the session list.
 
-Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+.. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
 t/consultation n/with Alice and Bob` +
 Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`
 recurring every two weeks will be added to the sessions list. It will be associated
@@ -2042,7 +2042,7 @@ with the module `CS1101S` and be a `consultation` with Alice and Bob.
 
 . Marking a session as done.
 
-Test Case: `session done 1` +
+.. Test Case: `session done 1` +
 Expected: Marks the session at index `1` of the session list as done. If it is a
 recurring session, a new session will be added in its place, dated after the recurring
 period. The session marked as done will be added to the claims list.
@@ -2051,16 +2051,50 @@ period. The session marked as done will be added to the claims list.
 
 . Deleting a session.
 
-Test Case: `session delete 1` +
+.. Test Case: `session delete 1` +
 Expected: Deletes the session at index `1` of the session list.
 
 === Editing a session
 
+. Editing a session
+
+.. Test Case: `session edit 1 t/lab` +
+Expected: Edits the session at index `1` of the session list to be of type `lab`.
+
 === Filtering sessions
+
+. Filtering sessions based on keywords.
+
+.. Test Case: `session filter m/CS1101S` +
+Expected: Shows all sessions associated with the module `CS1101S`.
+.. Test Case: `session filter t/tutorial` +
+Expected: Shows all sessions that are of type tutorial.
+.. Test Case: `session filter d/2020-03-20` +
+Expected: Shows all sessions on the date `2020-03-20`.
 
 === Filtering Claims
 
+. Filtering claims by module code.
+
+.. Test Case: `claims filter m/CS1101S` +
+Expected: Shows all sessions that have been marked as done
+(aka claims) associated with the module `CS1101S`.
+
+=== Changing rate
+
+. Setting the hourly rate.
+
+.. Test Case: `setrate 25` +
+Expected: Sets the rate of the claims to be 25$ per hour. Money computation is
+changed accordingly.
 === Viewing Statistics
+
+. Displays the statistics window.
+
+.. Test Case: `report` +
+Expected: Displays the statistics report showing statistics of all modules.
+.. Test Case: `report CS1101S` +
+Expected: Displays the statistics report of the module `CS1101S`.
 
 === Deleting a module
 
