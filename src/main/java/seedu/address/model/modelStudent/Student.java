@@ -8,10 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
@@ -29,7 +27,6 @@ public class Student extends ModelObject {
   private final ID id;
   private final Gender gender;
   private Set<ID> assignedCoursesID = new HashSet<>();
-  private String assignedCoursesWithNames;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
@@ -40,7 +37,6 @@ public class Student extends ModelObject {
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
     this.gender = gender;
-    this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 
@@ -49,7 +45,6 @@ public class Student extends ModelObject {
     this.name = name;
     this.id = id;
     this.gender = gender;
-    this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 
@@ -59,7 +54,6 @@ public class Student extends ModelObject {
     this.id = id;
     this.gender = gender;
     this.assignedCoursesID.addAll(assignedCoursesID);
-    this.assignedCoursesWithNames = "None";
     this.tags.addAll(tags);
   }
 
@@ -109,37 +103,6 @@ public class Student extends ModelObject {
       IDList.add(id.toString());
     }
     return IDList;
-  }
-
-  public String getAssignedCoursesWithNames(){
-    return this.assignedCoursesWithNames;
-  }
-
-  /**
-   * Converts internal list of assigned student IDs into the name with the IDs
-   */
-  public void processAssignedCourses(FilteredList<Course> filteredCourses){
-    StringBuilder s = new StringBuilder();
-    int count = 1;
-    for (ID courseid : assignedCoursesID) {
-      for (Course course : filteredCourses) {
-        if (courseid.toString().equals(course.getId().toString())) {
-          String comma = ", ";
-          if (count == assignedCoursesID.size()) {
-            comma = "";
-          }
-          s.append(courseid).append(comma);
-          //s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
-        }
-      }
-      count++;
-    }
-
-    if (s.toString().equals("")) {
-      this.assignedCoursesWithNames = "None";
-    } else {
-      this.assignedCoursesWithNames = "[" + s.toString() + "]";
-    }
   }
 
   /**

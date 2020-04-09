@@ -1,6 +1,7 @@
 package seedu.address.ui.uiStudent;
 
 import java.util.Comparator;
+import java.util.Set;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.ProgressCard;
 import seedu.address.ui.UiPart;
@@ -67,7 +69,14 @@ public class StudentVeryDetailedCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
-    assignedCourses.setText(student.getAssignedCoursesWithNames());
+
+    Set<ID> courseIDS = student.getAssignedCoursesID();
+    String courseStrings = "None";
+    if (courseIDS.size() > 0) {
+      courseStrings = courseIDS.toString();
+    }
+    assignedCourses.setText(courseStrings);
+
     noOfDoneProgress.setText(String.valueOf(progress));
 
     student.getTags().stream()

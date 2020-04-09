@@ -8,13 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -35,8 +31,6 @@ public class Course extends ModelObject {
   private ID assignedStaffID;
   private Set<ID> assignedStudentsID = new HashSet<>();
   private Set<ID> assignedAssignmentsID = new HashSet<>();
-  private String assignedStaffWithName;
-  private String assignedStudentsWithNames;
   /**
    * Every field must be present and not null.
    */
@@ -46,8 +40,6 @@ public class Course extends ModelObject {
     this.id = UuidManager.assignNewUUID(this);
     this.amount = amount;
     this.tags.addAll(tags);
-    this.assignedStaffWithName = "None";
-    this.assignedStudentsWithNames = "None";
   }
 
   /**
@@ -60,8 +52,6 @@ public class Course extends ModelObject {
     this.id = id;
     this.amount = amount;
     this.tags.addAll(tags);
-    this.assignedStaffWithName = "None";
-    this.assignedStudentsWithNames = "None";
   }
 
   public Course(Name name, ID id, Amount amount, ID assignedStaffID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
@@ -73,8 +63,6 @@ public class Course extends ModelObject {
     this.assignedStudentsID.addAll(assignedStudentsID);
     this.assignedAssignmentsID.addAll(assignedAssignmentsID);
     this.tags.addAll(tags);
-    this.assignedStaffWithName = "None";
-    this.assignedStudentsWithNames = "None";
   }
 
   public Course clone() {
@@ -191,51 +179,7 @@ public class Course extends ModelObject {
       return Collections.unmodifiableSet(assignedStudentsID);
     }
 
-    public String getAssignedStudentsWithNames(){
-      return this.assignedStudentsWithNames;
-    }
 
-    public String getAssignedStaffWithName(){
-      return this.assignedStaffWithName;
-    }
-    /**
-     * Converts internal list of assigned staff ID into the name with the ID
-     */
-    public void processAssignedStaff(FilteredList<Staff> filteredStaffs){
-      this.assignedStaffWithName = "None";
-      for (Staff staff : filteredStaffs) {
-        if (staff.getId().toString().equals(this.assignedStaffID.toString())) {
-          this.assignedStaffWithName = staff.getName().toString() + "(" + staff.getId().toString() + ")";
-        }
-      }
-    }
-
-    /**
-     * Converts internal list of assigned student IDs into the name with the IDs
-     */
-    public void processAssignedStudents(FilteredList<Student> filteredStudents){
-      StringBuilder s = new StringBuilder();
-      int count = 1;
-      for (ID studentid : assignedStudentsID) {
-        for (Student student : filteredStudents) {
-          if (studentid.toString().equals(student.getId().toString())) {
-            String comma = ", ";
-            if (count == assignedStudentsID.size()) {
-              comma = "";
-            }
-            s.append(studentid).append(comma);
-            //s.append(student.getName()).append("(").append(studentid).append(")").append(comma);
-          }
-        }
-        count++;
-      }
-
-      if (s.toString().equals("")) {
-        this.assignedStudentsWithNames = "None";
-      } else {
-        this.assignedStudentsWithNames = "[" + s.toString() + "]";
-      }
-    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
      * modification is attempted.

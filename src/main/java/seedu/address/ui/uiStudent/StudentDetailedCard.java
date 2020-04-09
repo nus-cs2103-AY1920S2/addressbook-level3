@@ -1,6 +1,7 @@
 package seedu.address.ui.uiStudent;
 
 import java.util.Comparator;
+import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStudent.Student;
+import seedu.address.model.person.ID;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
@@ -56,7 +58,14 @@ public class StudentDetailedCard extends UiPart<Region> {
     id.setText(displayedIndex + ". ");
     studentID.setText(student.getId().value);
     name.setText(student.getName().fullName);
-    assignedCourses.setText(student.getAssignedCoursesWithNames());
+
+    Set<ID> courseIDS = student.getAssignedCoursesID();
+    String courseStrings = "None";
+    if (courseIDS.size() > 0) {
+      courseStrings = courseIDS.toString();
+    }
+    assignedCourses.setText(courseStrings);
+
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

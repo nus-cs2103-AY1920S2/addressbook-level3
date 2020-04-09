@@ -59,7 +59,7 @@ public class StudentDetailedPanel extends UiPart<Region> {
   }
 
   private void updateDetailView(ObservableMap<String, Object> newStudentMap) {
-    if (newStudentMap.containsKey("details") && newStudentMap.get("detail") != null) {
+    if (newStudentMap.containsKey("details") && newStudentMap.get("details") != null) {
       Student student = (Student) newStudentMap.get("details");
       ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
       filteredStudents.add(student);

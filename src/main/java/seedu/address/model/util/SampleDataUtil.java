@@ -317,6 +317,8 @@ public class SampleDataUtil {
         new Progress(new CompositeID(new ID("902"), new ID("14")), false),
         new Progress(new CompositeID(new ID("907"), new ID("14")), false),
         new Progress(new CompositeID(new ID("908"), new ID("14")), false),
+        new Progress(new CompositeID(new ID("911"), new ID("14")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("14")), false),
 
         new Progress(new CompositeID(new ID("901"), new ID("15")), false),
         new Progress(new CompositeID(new ID("902"), new ID("15")), false),
@@ -331,6 +333,8 @@ public class SampleDataUtil {
         new Progress(new CompositeID(new ID("902"), new ID("16")), false),
         new Progress(new CompositeID(new ID("907"), new ID("16")), false),
         new Progress(new CompositeID(new ID("908"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("911"), new ID("16")), false),
+        new Progress(new CompositeID(new ID("912"), new ID("16")), false),
         new Progress(new CompositeID(new ID("917"), new ID("16")), false),
         new Progress(new CompositeID(new ID("918"), new ID("16")), false),
 
@@ -349,6 +353,8 @@ public class SampleDataUtil {
         new Progress(new CompositeID(new ID("912"), new ID("18")), false),
         new Progress(new CompositeID(new ID("905"), new ID("18")), false),
         new Progress(new CompositeID(new ID("906"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("915"), new ID("18")), false),
+        new Progress(new CompositeID(new ID("916"), new ID("18")), false),
         new Progress(new CompositeID(new ID("917"), new ID("18")), false),
         new Progress(new CompositeID(new ID("918"), new ID("18")), false),
 
