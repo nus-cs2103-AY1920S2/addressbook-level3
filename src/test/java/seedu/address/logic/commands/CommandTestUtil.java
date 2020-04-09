@@ -4,8 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_FILE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -33,6 +38,10 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_PATH = "Desktop";
+    public static final String VALID_FILE_PATH = "abs";
+    public static final String VALID_FILE_TYPE = "file";
+    public static final String VALID_FILE_NAME = "test.doc";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -42,6 +51,10 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String VALID_PATH_WITH_PREFIX = " " + PREFIX_NOTES_PATH + VALID_PATH;
+    public static final String VALID_FILE_PATH_WITH_PREFIX = " " + PREFIX_NOTES_PATH_TYPE + VALID_FILE_PATH;
+    public static final String VALID_FILE_TYPE_WITH_PREFIX = " " + PREFIX_NOTES_TYPE + VALID_FILE_TYPE;
+    public static final String VALID_FILE_NAME_WITH_PREFIX = " " + PREFIX_NOTES_FILE_NAME + VALID_FILE_NAME;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

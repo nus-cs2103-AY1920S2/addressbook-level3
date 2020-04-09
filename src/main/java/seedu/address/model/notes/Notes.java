@@ -1,10 +1,10 @@
 package seedu.address.model.notes;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.regex.Pattern;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -35,13 +35,9 @@ public class Notes {
     private static ObservableValue<String> observableCurrentDirectory =
             new ReadOnlyObjectWrapper<>("Current Directory " + currentDirectory);
 
-    private static final String[] validOperationsDummy = {"open", "create", "delete", "createfolder", "list"};
-
     private static final String[] validType = {"file", "folder"};
 
     private static final String[] validPathType = {"abs", "rel"};
-
-    public static final HashSet<String> VALID_OPERATIONS = new HashSet<>(Arrays.asList(validOperationsDummy));
 
     private static ObservableList<Notes> filesArrayListFiltered;
 
@@ -50,23 +46,21 @@ public class Notes {
     private String pathType;
 
     public Notes(String path, String pathType) {
+        requireNonNull(path);
         this.path = path;
         this.pathType = pathType;
     }
 
     public Notes(String path, String type, String pathType) {
+        requireNonNull(path);
         this.path = path;
         this.type = type;
         this.pathType = pathType;
     }
 
     public Notes(String path) {
+        requireNonNull(path);
         this.path = path;
-    }
-
-
-    public static boolean isValidOperation(String operation) {
-        return VALID_OPERATIONS.contains(operation.toLowerCase());
     }
 
     public static ObservableList<Notes> getAllFilesInFolder() {

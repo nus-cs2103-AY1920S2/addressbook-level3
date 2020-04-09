@@ -47,7 +47,7 @@ public class ModelManager implements Model {
     private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
     private ModuleBook moduleBook;
-    private final FilteredList<Task> deadlineTaskList;
+    private FilteredList<Task> deadlineTaskList;
     private final FilteredList<NusModule> moduleListTaken;
     private Profile studentProfile;
 
@@ -67,6 +67,7 @@ public class ModelManager implements Model {
         diaryEntries = diaryBook.getInternalList();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
+        // deadlineTaskList = new FilteredList<>(this.addressBook.getTaskList());
         moduleBook = new ModuleBook();
         moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
         studentProfile = new Profile();
@@ -75,6 +76,15 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    public void setDeadlineTaskList(ObservableList<Task> taskList) {
+
+        deadlineTaskList = new FilteredList<>(taskList);
+        Task.setDeadlineTaskList(taskList);
+        for (Task tasks : taskList) {
+            Task.addTaskPerDate(tasks.getDate(), tasks);
+        }
     }
 
     //=========== UserPrefs ==================================================================================
@@ -204,7 +214,7 @@ public class ModelManager implements Model {
 
     @Override
     public Path getDiaryBookFilePath() {
-        return userPrefs.getDiaryBookFilePath();
+        return null;
     }
 
     @Override
@@ -351,7 +361,7 @@ public class ModelManager implements Model {
         return false;
     }
 
-    /** Returns an list of String that contains what is currently in the folder */
+    /** Returns a list of task in the deadline task list */
     @Override
     public ObservableList<Task> getDeadlineTaskList() {
         return deadlineTaskList;

@@ -10,9 +10,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+
     public static final Prefix PREFIX_NOTES_PATH_TYPE = new Prefix("pt/");
     public static final Prefix PREFIX_NOTES_PATH = new Prefix("loc/");
-
     public static final Prefix PREFIX_NOTES_TYPE = new Prefix("type/");
     public static final Prefix PREFIX_NOTES_FILE_NAME = new Prefix("name/");
 
