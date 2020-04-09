@@ -158,6 +158,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author Exeexe93
     /**
      * Opens the clear warning window or focuses on it if it's already opened.
      */
@@ -171,6 +172,7 @@ public class MainWindow extends UiPart<Stage> {
             clearWindow.focus();
         }
     }
+    //@@author
 
     /**
      * Opens the show window or focus on it if it the window is already opened.
@@ -221,10 +223,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            //@@author Exeexe93
             if (commandResult.isClearList()) {
                 handleClearWarning(commandResult.getFeedbackToUser());
                 clearWindow.setComponent(resultDisplay);
             }
+            //@@author
 
             if (commandResult.isDisplayEarnings()) {
                 handleShowCommand();

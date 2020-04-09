@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERTYPE;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +14,9 @@ import seedu.address.logic.parser.ReturnCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
+//@@author Exeexe93
 /**
- * Import the csv file in order book.
+ * Import the csv file in the data folder.
  */
 public class ImportCommand extends Command {
 
@@ -74,11 +76,11 @@ public class ImportCommand extends Command {
             try {
                 if (data.startsWith(OT_ORDER)) {
                     logger.fine("Passing data to InsertCommandParser for adding a new order");
-                    new InsertCommandParser().parse(data.substring(5)).execute(model);
+                    addOrder(model, data);
                     processedOrderCounter++;
                 } else if (data.startsWith(OT_RETURN)) {
                     logger.fine("Passing data to ReturnCommandParser for adding a new return order");
-                    new ReturnCommandParser().parse(data.substring(6)).execute(model);
+                    addReturnOrder(model, data);
                     processedReturnOrderCounter++;
                 } else {
                     logger.info(INVALID_MESSAGE + ": " + data);
@@ -87,15 +89,15 @@ public class ImportCommand extends Command {
                 }
             } catch (ParseException pe) {
                 logger.info(PROCESS_FAILED_MESSAGE + rawData);
-                errorMessages.put(orderNumber, PROCESS_FAILED_MESSAGE + rawData);
+                errorMessages.put(orderNumber, PROCESS_FAILED_MESSAGE + PREFIX_ORDERTYPE + rawData);
                 invalidCounter++;
             } catch (CommandException ce) {
                 if (data.startsWith(OT_RETURN)) {
                     logger.info(DUPLICATE_RETURN_MESSAGE + rawData);
-                    errorMessages.put(orderNumber, DUPLICATE_RETURN_MESSAGE + rawData);
+                    errorMessages.put(orderNumber, DUPLICATE_RETURN_MESSAGE + PREFIX_ORDERTYPE + rawData);
                 } else {
                     logger.info(DUPLICATE_ORDER_MESSAGE + rawData);
-                    errorMessages.put(orderNumber, DUPLICATE_ORDER_MESSAGE + rawData);
+                    errorMessages.put(orderNumber, DUPLICATE_ORDER_MESSAGE + PREFIX_ORDERTYPE + rawData);
                 }
                 duplicateCounter++;
             }
@@ -104,7 +106,31 @@ public class ImportCommand extends Command {
     }
 
     /**
-     * Print the result based on the various counters and the error message in the hash map given.
+     * Add return order into return order book
+     * @param model where return order is added in
+     * @param data data of the return order to be added in
+     * @throws CommandException when there are error executing the data.
+     * @throws ParseException when there are error in parsing the data.
+     */
+    private void addReturnOrder(Model model, String data) throws CommandException, ParseException {
+        String extractData = data.substring(OT_RETURN.length());
+        new ReturnCommandParser().parse(extractData).execute(model);
+    }
+
+    /**
+     * Add order into order book
+     * @param model where order is added in
+     * @param data data of the order to be added in
+     * @throws CommandException when there are error executing the data.
+     * @throws ParseException when there are error in parsing the data.
+     */
+    private void addOrder(Model model, String data) throws CommandException, ParseException {
+        String extractData = data.substring(OT_ORDER.length());
+        new InsertCommandParser().parse(extractData).execute(model);
+    }
+
+    /**
+     * Print the result based on the various counters and the error messages in the hash map given.
      * @return message to pass back to user.
      */
     public static String printResult(int processedOrderCounter, int processedReturnOrderCounter, int duplicateCounter,
@@ -118,9 +144,11 @@ public class ImportCommand extends Command {
         if (invalidCounter != 0) {
             message += invalidCounter + " invalid order(s) found!\n";
             message += "Please refer to the user guide for the correct format of the data in csv file.\n";
-            message += "The following are those invalid or duplicate: ";
+        }
+        if (duplicateCounter != 0 || invalidCounter != 0) {
+            message += "The following orders or return orders are invalid or duplicate: \n";
             for (String i : errorMessages.values()) {
-                message += "\n" + i;
+                message += i + "\n";
             }
         }
         logger.fine("Result of importing the file: \n" + message);

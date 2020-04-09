@@ -9,9 +9,10 @@ import seedu.address.MainApp;
  * A container for App specific utility functions
  */
 public class AppUtil {
+    //@@author Exeexe93
     private static int firstErrorEncountered = 1;
     private static int secondErrorEncountered = 2;
-
+    //@@author
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);
         return new Image(MainApp.class.getResourceAsStream(imagePath));
@@ -39,6 +40,7 @@ public class AppUtil {
         }
     }
 
+    //@@author Exeexe93
     /**
      * Checks that {@code condition} is which condition and display the respective message.
      * Used for validating arguments to methods.

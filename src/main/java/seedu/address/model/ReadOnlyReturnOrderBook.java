@@ -3,14 +3,15 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 
+//@@author Exeexe93
 /**
- * Unmodifiable view of an order book
+ * Unmodifiable view of an return order book
  */
 public interface ReadOnlyReturnOrderBook {
 
     /**
-     * Returns an unmodifiable view of the orders list.
-     * This list will not contain any duplicate orders.
+     * Returns an unmodifiable view of the return orders list.
+     * This list will not contain any duplicate return orders.
      */
     ObservableList<ReturnOrder> getReturnOrderList();
 
