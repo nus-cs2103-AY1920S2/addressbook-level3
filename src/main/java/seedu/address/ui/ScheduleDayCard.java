@@ -50,7 +50,7 @@ public class ScheduleDayCard extends UiPart<Region> {
         date.setStyle("-fx-text-fill: #000");
         date.setText(" " + LocalDate.now().plusDays(numDays).format(DateTimeFormatter.ofPattern("dd MMM")) + " ");
         hours.setText("Estimated workload for today: " + day.getTotalAllocatedHours().hours);
-        dueAssignments.setText("Assignments due today:" + convertAssignmentsToString(day.getDueAssignments()));
+        dueAssignments.setText("Assignments due today:" + convertAssignmentsToString(day.getDueAssignments()) + "\n\n");
         allocatedAssignments.setText("To-Do List:" + convertAssignmentsToString(day.getAllocatedAssignments()));
 
         if ((numDays == 0 && day.getDueAssignments().size() != 0) || day.getTotalAllocatedHours().hours > 10) {
