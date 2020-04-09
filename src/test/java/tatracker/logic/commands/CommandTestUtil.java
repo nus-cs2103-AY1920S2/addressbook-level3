@@ -55,8 +55,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + EMAIL + VALID_EMAIL_BOB;
     public static final String MATRIC_DESC_AMY = " " + MATRIC + VALID_MATRIC_AMY;
     public static final String MATRIC_DESC_BOB = " " + MATRIC + VALID_MATRIC_BOB;
-    public static final String RATING_DESC_AMY = " " + RATING + VALID_MATRIC_AMY;
-    public static final String RATING_DESC_BOB = " " + RATING + VALID_MATRIC_BOB;
+    public static final String RATING_DESC_AMY = " " + RATING + VALID_RATING_AMY;
+    public static final String RATING_DESC_BOB = " " + RATING + VALID_RATING_BOB;
     public static final String TAG_DESC_FRIEND = " " + TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + TAG + VALID_TAG_HUSBAND;
 
