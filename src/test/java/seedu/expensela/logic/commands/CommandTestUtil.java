@@ -28,25 +28,37 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_PIZZA = "Pepperoni Pizza";
     public static final String VALID_NAME_AIRPODS = "Apple Airpods";
+    public static final String VALID_NAME_INVESTMENT = "Investment in Stocks";
     public static final String VALID_AMOUNT_PIZZA = "23.00";
     public static final String VALID_AMOUNT_AIRPODS = "188.00";
+    public static final String VALID_AMOUNT_INVESTMENT = "999999.99";
+    public static final String VALID_AMOUNT_INVESTMENT_1 = "0.01";
     public static final String VALID_DATE_PIZZA = "2020-02-03";
     public static final String VALID_DATE_AIRPODS = "2020-02-19";
+    public static final String VALID_DATE_INVESTMENT = "2020-03-10";
     public static final String VALID_REMARK_PIZZA = "Treat myself";
     public static final String VALID_REMARK_AIRPODS = "Bought to replace old earphones";
+    public static final String VALID_REMARK_INVESTMENT = "Bought shares in Singtel";
     public static final String VALID_CATEGORY_FOOD = "FOOD";
     public static final String VALID_CATEGORY_SHOPPING = "SHOPPING";
+    public static final String VALID_CATEGORY_INVESTMENT = "UTILITIES";
 
     public static final String NAME_DESC_PIZZA = " " + PREFIX_NAME + VALID_NAME_PIZZA;
     public static final String NAME_DESC_AIRPODS = " " + PREFIX_NAME + VALID_NAME_AIRPODS;
+    public static final String NAME_DESC_INVESTMENT = " " + PREFIX_NAME + VALID_NAME_INVESTMENT;
     public static final String AMOUNT_DESC_PIZZA = " " + PREFIX_AMOUNT + VALID_AMOUNT_PIZZA;
     public static final String AMOUNT_DESC_AIRPODS = " " + PREFIX_AMOUNT + VALID_AMOUNT_AIRPODS;
+    public static final String AMOUNT_DESC_MAX_INVESTMENT = " " + PREFIX_AMOUNT + VALID_AMOUNT_INVESTMENT;
+    public static final String AMOUNT_DESC_MIN_INVESTMENT = " " + PREFIX_AMOUNT + VALID_AMOUNT_INVESTMENT_1;
     public static final String DATE_DESC_PIZZA = " " + PREFIX_DATE + VALID_DATE_PIZZA;
     public static final String DATE_DESC_AIRPODS = " " + PREFIX_DATE + VALID_DATE_AIRPODS;
+    public static final String DATE_DESC_INVESTMENT = " " + PREFIX_DATE + VALID_DATE_INVESTMENT;
     public static final String REMARK_DESC_PIZZA = " " + PREFIX_REMARK + VALID_REMARK_PIZZA;
     public static final String REMARK_DESC_AIRPODS = " " + PREFIX_REMARK + VALID_REMARK_AIRPODS;
+    public static final String REMARK_DESC_INVESTMENT = " " + PREFIX_REMARK + VALID_REMARK_INVESTMENT;
     public static final String CATEGORY_DESC_SHOPPING = " " + PREFIX_CATEGORY + VALID_CATEGORY_SHOPPING;
     public static final String CATEGORY_DESC_FOOD = " " + PREFIX_CATEGORY + VALID_CATEGORY_FOOD;
+    public static final String CATEGORY_DESC_INVESTMENT = " " + PREFIX_CATEGORY + VALID_CATEGORY_INVESTMENT;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // name cannot start with these
     public static final String INVALID_NAME_DESC_1 = " " + PREFIX_NAME + "#";
@@ -109,6 +121,8 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_DESC_37 = " " + PREFIX_AMOUNT + ",123";
     public static final String INVALID_AMOUNT_DESC_39 = " " + PREFIX_AMOUNT + "?123";
     public static final String INVALID_AMOUNT_DESC_40 = " " + PREFIX_AMOUNT + "/123";
+    public static final String INVALID_AMOUNT_DESC_41 = " " + PREFIX_AMOUNT + "1000000";
+    public static final String INVALID_AMOUNT_DESC_42 = " " + PREFIX_AMOUNT + "0";
 
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2017/02/02"; // testing invalid dates
     public static final String INVALID_DATE_DESC_1 = " " + PREFIX_DATE + "2017-02/02";
@@ -119,10 +133,24 @@ public class CommandTestUtil {
     public static final String INVALID_DATE_DESC_6 = " " + PREFIX_DATE + "2017-02-02000";
     public static final String INVALID_DATE_DESC_7 = " " + PREFIX_DATE + "2017-02-32";
     public static final String INVALID_DATE_DESC_8 = " " + PREFIX_DATE + "2017-13-12";
+    public static final String INVALID_DATE_DESC_9 = " " + PREFIX_DATE + "2021-02-02"; // after today
+    public static final String INVALID_DATE_DESC_10 = " " + PREFIX_DATE + "2022-12-12";
+    public static final String INVALID_DATE_DESC_11 = " " + PREFIX_DATE + "2022-02-12";
+    public static final String INVALID_DATE_DESC_12 = " " + PREFIX_DATE + "9999-02-12";
 
 
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "*"; // '*' is not allowed in remark
+
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "CLOTHES"; // 'CLOTHES' is not a category
+    public static final String INVALID_CATEGORY_DESC_1 = " " + PREFIX_CATEGORY + "clothes";
+    public static final String INVALID_CATEGORY_DESC_2 = " " + PREFIX_CATEGORY + "MUSIC";
+    public static final String INVALID_CATEGORY_DESC_3 = " " + PREFIX_CATEGORY + "FOODS";
+    public static final String INVALID_CATEGORY_DESC_4 = " " + PREFIX_CATEGORY + "Shoppings";
+    public static final String INVALID_CATEGORY_DESC_5 = " " + PREFIX_CATEGORY + "Transports";
+    public static final String INVALID_CATEGORY_DESC_6 = " " + PREFIX_CATEGORY + "grocery";
+    public static final String INVALID_CATEGORY_DESC_7 = " " + PREFIX_CATEGORY + "healthy";
+    public static final String INVALID_CATEGORY_DESC_8 = " " + PREFIX_CATEGORY + "miscellaneous";
+
 
     public static final String INVALID_FILTER_MONTH_PREDICATE_1 = "";
     public static final String INVALID_FILTER_MONTH_PREDICATE_2 = "    ";

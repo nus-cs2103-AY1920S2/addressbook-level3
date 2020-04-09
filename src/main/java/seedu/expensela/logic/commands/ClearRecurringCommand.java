@@ -1,8 +1,12 @@
 package seedu.expensela.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.expensela.model.Model;
 
-import static java.util.Objects.requireNonNull;
+/**
+ * Clears the list of recurring commands
+ */
 
 public class ClearRecurringCommand extends Command {
 
