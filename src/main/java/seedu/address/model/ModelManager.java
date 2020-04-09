@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
@@ -17,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
@@ -189,11 +187,11 @@ public class ModelManager implements Model {
         taskList.removeTask(target);
     }
 
-    @Override
-    public Index getIndexOfNewTask() {
-        List<Task> lastShownTask = getFilteredTaskList();
-        return Index.fromZeroBased(lastShownTask.size());
-    }
+    // @Override
+    // public Index getIndexOfNewTask() {
+    //     List<Task> lastShownTask = getFilteredTaskList();
+    //     return Index.fromZeroBased(lastShownTask.size());
+    // }
 
     @Override
     public void addTask(Task task) {
