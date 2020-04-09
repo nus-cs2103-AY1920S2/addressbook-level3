@@ -106,6 +106,13 @@ public class StorageManager implements Storage {
         moduleBookStorage.saveModuleBook(moduleBook, filePath);
     }
 
+    @Override
+    public Optional<ReadOnlyAddressBook> readCalendarEntries(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return addressBookStorage.readCalendarEntries(filePath);
+    }
+
     // ================ diaryBook methods ==============================
 
     @Override
@@ -113,6 +120,17 @@ public class StorageManager implements Storage {
         return addressBookStorage.getDiaryBookFilePath();
     }
 
+
+    // ================ Calendar methods ==============================
+    @Override
+    public Path getCalendarEntriesFilePath() {
+        return addressBookStorage.getCalendarEntriesFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readCalendarDetails() throws DataConversionException, IOException {
+        return readCalendarEntries(addressBookStorage.getCalendarEntriesFilePath());
+    }
 
 
     @Override

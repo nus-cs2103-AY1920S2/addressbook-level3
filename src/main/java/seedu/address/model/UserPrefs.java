@@ -15,7 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-
+    private Path calendarFilePath = Paths.get("data" , "calendar.json");
     private Path diaryBookFilePath = Paths.get("data", "stub-diaryEntries.json");
 
     private Path moduleBookFilePath = Paths.get("data" , "modulebook.json");
@@ -55,9 +55,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return addressBookFilePath;
     }
 
-    // Diary Book entry at startup
-    public Path getDiaryBookFilePath() {
-        return diaryBookFilePath;
+    // calendar entry at startup
+    public Path getCalendarFilePath() {
+        return calendarFilePath;
     }
 
     public Path getModuleBookFilePath() {

@@ -25,6 +25,8 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedDiary> diary = new ArrayList<>();
 
+    private final List<JsonAdaptedCalendar> calendar = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */

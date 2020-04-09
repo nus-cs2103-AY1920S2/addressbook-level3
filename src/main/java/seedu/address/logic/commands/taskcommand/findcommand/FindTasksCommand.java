@@ -23,15 +23,15 @@ public abstract class FindTasksCommand extends Command {
             + "or\n"
             + COMMAND_WORD + ": find tasks related to given category "
             + "Parameters: "
-            + PREFIX_TASK_CAT + " CATEGORY"
+            + PREFIX_TASK_CAT + "CATEGORY"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_CAT + " School work "
+            + PREFIX_TASK_CAT + "School work "
             + "or\n"
             + COMMAND_WORD + ": find tasks related to given date "
             + "Parameters: "
             + PREFIX_MODULETASK_TIMING + "DATE "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULETASK_TIMING + " 01-01-2020";
+            + PREFIX_MODULETASK_TIMING + "01-01-2020";
 
     public abstract CommandResult execute(Model model) throws CommandException;
 }

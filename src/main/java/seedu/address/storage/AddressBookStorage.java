@@ -22,6 +22,8 @@ public interface AddressBookStorage {
      */
     Path getDiaryBookFilePath();
 
+    Path getCalendarEntriesFilePath();
+
     /**
      * @see #getDiaryBookFilePath()
      */
@@ -51,5 +53,11 @@ public interface AddressBookStorage {
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+
+    /**
+     * @see
+     */
+    Optional<ReadOnlyAddressBook> readCalendarEntries(Path filePath) throws DataConversionException, IOException;
+
 
 }

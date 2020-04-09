@@ -60,7 +60,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(),
-                userPrefs.getDiaryBookFilePath());
+                userPrefs.getCalendarFilePath());
         ModuleBookStorage moduleBookStorage = new JsonModuleBookStorage(userPrefs.getModuleBookFilePath());
 
         storage = new StorageManager(addressBookStorage, userPrefsStorage, moduleBookStorage);
@@ -68,6 +68,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+        model.setDeadlineTaskList(storage.readCalendarDetails().get().getTaskList());
 
         logic = new LogicManager(model, storage);
 

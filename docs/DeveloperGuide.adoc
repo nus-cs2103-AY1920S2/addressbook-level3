@@ -200,43 +200,62 @@ Users can use `grade` command, followed by the module code and the grade in orde
 
 === ToDo List
 
-=== [Proposed] Pathing
+=== Notes Feature
 
-Given below is the consideration and proposed implementation for pathing in the future versions.
+==== Implementation
 
-==== Current Implementation
+The notes feature allow users to access their desktop files and folders with commands.
 
+This feature is implemented using a panel on the main window, listing out a list of documents and folders that are in the specified directory.
+
+Notes features includes `notesOpen`, `notesCreate`, `notesDelete` and `notesList`.
+
+.Notes List Activity Diagram
+image::NotesList.png[]
+
+.Notes Open Activity Diagram
+image::NotesCreation.png[]
+
+notesCreate and notesDelete activity diagram works similar to notesOpen.
+
+
+==== Pathing
 The Path interface in java allows for 2 implementation of pathing namely:
 
    1. AbsolutePath
    2. RelativePath
 
-AbsolutePath will take the path given from `/`.
+.Notes Pathing Diagram
+image::absVSrel.png[]
 
-RelativePath will take reference from the path that the current system has opened.
+AbsolutePath will take the path given from `usr/`.
 
-The current implementation for the notes module allows user to access from `usr/Desktop/{}` to open, create and list the directory.
+RelativePath will take reference from the path that the current system has opened, in this case, `usr/Desktop/NUS Y2S2`.
+The user is given the freedom to provide any of the 2 forms when using the `notesOpen`, `notesCreate`, `notesDelete` and `notesList` commands.
 
-In future implementation we are considering to implement the option to choose from AbsolutePath and RelativePath.
+**AbsolutePath**:
 
-==== AbsolutePath:
-Benefits:
+*Benefits*:
 
 This allows for more flexibility as the user do not need to keep note of its current directory and will be able to access any folder/document that is on their system
 
-cons:
+*cons*:
 
-Will require much more input from the user
+Will require much more input from the user, for example, referring to the above figure,
+Accessing the CS2103T file requires the user to input `loc/Desktop/NUS Y2S2/CS2103T` as opposed to `loc/CS2103T` if the user is using absolute over relative pathing
 
-==== RelativePath:
+**RelativePath**:
 
-Benefits:
+*Benefits*:
 
 Easier for the user to navigate through the current folder and not key in the whole folder path
 
-cons:
+*Cons*:
 
-Not as flexible
+Not as flexible. Referring to the above diagram,
+Accessing the *Documents* folder will require the user to input `loc/../../Documents`, this may not be as intuitive to people with no programming background.
+Using `loc/Documents abs/abs` will allow the user to access any folder from anywhere.
+
 
 
 === Logging

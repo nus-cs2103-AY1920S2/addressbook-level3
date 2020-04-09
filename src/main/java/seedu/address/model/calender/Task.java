@@ -1,10 +1,12 @@
 package seedu.address.model.calender;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ public class Task {
      * @param description describes content of task
      */
     public Task(String description) {
+        requireAllNonNull(description);
         this.description = description;
         this.isDone = false;
     }
@@ -102,6 +105,7 @@ public class Task {
     }
 
     public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
+
         return deadlineTaskHashMap;
     }
 
@@ -126,6 +130,11 @@ public class Task {
         deadlineTaskList = FXCollections.observableArrayList(deadlineTaskListDummy);
         return deadlineTaskList;
     }
+
+    public static void setDeadlineTaskList(ObservableList<Task> initialiedList) {
+        deadlineTaskList = initialiedList;
+    }
+
 
     /**
      * Returns the observable list required for the UI.
@@ -182,6 +191,7 @@ public class Task {
         return description;
     }
 
+
     /**
      * Check whether a date is valid.
      *
@@ -192,8 +202,8 @@ public class Task {
 
         try {
             String[] splittedDate = date.split("-");
-            int month = Integer.parseInt(splittedDate[1]);
             int day = Integer.parseInt(splittedDate[0]);
+            int month = Integer.parseInt(splittedDate[1]);
 
             if (month < 1 || month > 12) {
                 return false;
@@ -208,6 +218,32 @@ public class Task {
             return false;
         }
 
+    }
+
+
+    /**
+     * Returns true if both task have the same date and data fields.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Task)) {
+            return false;
+        }
+
+        Task otherTask = (Task) other;
+        return otherTask.getDescription().equals(this.description)
+                && otherTask.getDate().equals(this.getDate());
+
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(description);
     }
 
 }
