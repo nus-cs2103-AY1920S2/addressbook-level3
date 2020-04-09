@@ -40,6 +40,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -236,8 +237,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public Profile getFirstProfile() {
-            return this.profileList.get(0);
+        public ProfileList getProfileList() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
