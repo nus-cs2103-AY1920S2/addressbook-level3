@@ -37,6 +37,10 @@ public class Person extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  public Person clone() {
+    return new Person(name, phone, email, address, tags);
+  }
+
   public ID getID() {
     return new ID("");
   }

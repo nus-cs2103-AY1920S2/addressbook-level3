@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.Constants;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandUnassign.UnassignTeacherFromCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,7 +29,7 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
     public static final String MESSAGE_INVALID_STAFF_ID = "There is no such staff that with ID";
     public static final String MESSAGE_NOT_TEACHER = "An admin staff can't teach a course, only teachers can!";
 
-    public static final String MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER = "Course already has an assigned teacher!";
+    public static final String MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER = "Course already has an assigned teacher! Each course can only have 1 teacher.";
     public static final String MESSAGE_TEACHER_ALREADY_TEACHES_COURSE = "Teacher is assigned to the course already!";
 
     public static final String MESSAGE_SUCCESS = "Successfully assigned staff %s(%s) to course %s(%s)";
@@ -51,6 +52,26 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID staffID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Staff foundStaff = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
+
+        EdgeManager.assignTeacherToCourse(staffID, courseID);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                foundStaff.getName().toString(), staffID.value,
+                foundCourse.getName().toString(), courseID.value));
+    }
+
+    /**
+     * If require this preprocessing step should override this method.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID staffID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
+
         boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
         boolean staffExists = model.has(staffID, Constants.ENTITY_TYPE.STAFF);
 
@@ -68,14 +89,11 @@ public class AssignTeacherToCourseCommand extends AssignCommandBase {
                 throw new CommandException(MESSAGE_NOT_TEACHER);
             } else {
                 boolean assignedCourseContainsTeacher = foundCourse.hasTeacher();
-
+                boolean assignedTeacherContainsCourse = foundStaff.containsCourse(courseID);
                 if (assignedCourseContainsTeacher) {
                     throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_TEACHER);
-                } else {
-                    EdgeManager.assignTeacherToCourse(staffID, courseID);
-                    return new CommandResult(String.format(MESSAGE_SUCCESS,
-                            foundStaff.getName().toString(), staffID.value,
-                            foundCourse.getName().toString(), courseID.value));
+                } else if(assignedTeacherContainsCourse){
+                    throw new CommandException(MESSAGE_TEACHER_ALREADY_TEACHES_COURSE);
                 }
             }
         }
