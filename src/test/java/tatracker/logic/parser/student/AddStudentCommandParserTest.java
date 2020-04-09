@@ -29,6 +29,7 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tatracker.testutil.student.TypicalStudents.AMY;
@@ -74,7 +75,7 @@ public class AddStudentCommandParserTest {
         assertParseSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
                 GROUP.getIdentifier(), MODULE.getIdentifier()));
 
-        /*
+
         // multiple matric numbers - last matric number accepted
         command = new StringBuilder()
                 .append(MATRIC_DESC_AMY)
@@ -82,14 +83,15 @@ public class AddStudentCommandParserTest {
                 .append(NAME_DESC_BOB)
                 .append(PHONE_DESC_BOB)
                 .append(EMAIL_DESC_BOB)
+                .append(RATING_DESC_BOB)
                 .append(TAG_DESC_FRIEND)
                 .append(MODULE_DESC_CS2030)
                 .append(GROUP_DESC_T04);
 
-        assertParseStudentSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
+        assertParseSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
                 GROUP.getIdentifier(), MODULE.getIdentifier()));
 
-        /*
+
         // multiple names - last name accepted
         command = new StringBuilder()
                 .append(MATRIC_DESC_BOB)
@@ -97,6 +99,7 @@ public class AddStudentCommandParserTest {
                 .append(NAME_DESC_BOB)
                 .append(PHONE_DESC_BOB)
                 .append(EMAIL_DESC_BOB)
+                .append(RATING_DESC_BOB)
                 .append(TAG_DESC_FRIEND)
                 .append(MODULE_DESC_CS2030)
                 .append(GROUP_DESC_T04);
@@ -111,6 +114,7 @@ public class AddStudentCommandParserTest {
                 .append(PHONE_DESC_AMY)
                 .append(PHONE_DESC_BOB)
                 .append(EMAIL_DESC_BOB)
+                .append(RATING_DESC_BOB)
                 .append(TAG_DESC_FRIEND)
                 .append(MODULE_DESC_CS2030)
                 .append(GROUP_DESC_T04);
@@ -125,6 +129,7 @@ public class AddStudentCommandParserTest {
                 .append(PHONE_DESC_BOB)
                 .append(EMAIL_DESC_AMY)
                 .append(EMAIL_DESC_BOB)
+                .append(RATING_DESC_BOB)
                 .append(TAG_DESC_FRIEND)
                 .append(MODULE_DESC_CS2030)
                 .append(GROUP_DESC_T04);
@@ -142,6 +147,7 @@ public class AddStudentCommandParserTest {
                 .append(NAME_DESC_BOB)
                 .append(PHONE_DESC_BOB)
                 .append(EMAIL_DESC_BOB)
+                .append(RATING_DESC_BOB)
                 .append(TAG_DESC_FRIEND)
                 .append(TAG_DESC_HUSBAND)
                 .append(MODULE_DESC_CS2030)
@@ -150,7 +156,6 @@ public class AddStudentCommandParserTest {
         assertParseSuccess(parser, command.toString(),
                 new AddStudentCommand(expectedStudentMultipleTags,
                         GROUP.getIdentifier(), MODULE.getIdentifier()));
-         */
     }
 
     @Test
