@@ -215,7 +215,7 @@ public class EditCommand extends Command {
             if (updatedSemester != 0) {
                 profileToEdit.setCurrentSemester(updatedSemester);
                 updateStatus(profileToEdit);
-                profileManager.deleteDeadlineList();
+                profileManager.clearDeadlineList();
             }
             if (focusAreaString != null) {
                 CourseName courseName = profileToEdit.getCourseName();
