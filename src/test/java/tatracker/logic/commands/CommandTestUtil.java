@@ -12,6 +12,7 @@ import static tatracker.logic.parser.Prefixes.RATING;
 import static tatracker.logic.parser.Prefixes.TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -88,11 +89,13 @@ public class CommandTestUtil {
 
     public static EditSessionCommand.EditSessionDescriptor S1 = new EditSessionDescriptor();
 
+    public static LocalDateTime startTime = LocalDateTime.of(2020, 05, 20, 17, 00);
+    public static LocalDateTime endTime = LocalDateTime.of(2020, 05, 20, 17, 00);
     static {
         try {
             S1 = new EditSessionDescriptorBuilder()
-                                .withStartTime("2020-04-20 15:20")
-                                .withEndTime("2020-04-20 19:00")
+                                .withStartTime(startTime)
+                                .withEndTime(endTime)
                                 .withModule("CS2103T")
                                 .withSessionType("Lab")
                                 .withDescription("prepare notes")

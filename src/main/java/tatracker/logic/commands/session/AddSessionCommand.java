@@ -57,8 +57,6 @@ public class AddSessionCommand extends Command {
         LocalDateTime start = toAdd.getStartDateTime();
         LocalDateTime end = toAdd.getEndDateTime();
 
-
-
         if (start.compareTo(end) > 0) {
             throw new CommandException(MESSAGE_INVALID_SESSION_TIMES);
         }
