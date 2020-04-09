@@ -19,8 +19,6 @@ import fithelper.model.entry.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
-    private Model expectedModel = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
 
     @Test
     public void equals() {
@@ -45,12 +43,6 @@ public class FindCommandTest {
         // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
-
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-    }
+    
 }
 
