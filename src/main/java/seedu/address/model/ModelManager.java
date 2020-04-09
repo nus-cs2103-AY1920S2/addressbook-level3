@@ -382,6 +382,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook) {
     this.staffAddressBook.resetData(staffAddressBook);
+    postDataStorageChangeEvent(staffAddressBook, Constants.ENTITY_TYPE.STAFF);
   }
 
 
