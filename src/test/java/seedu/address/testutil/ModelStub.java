@@ -15,6 +15,9 @@ import seedu.address.model.version.StateNotFoundException;
 
 /**
  * A default model stub that have all of the methods failing.
+ *
+ * Test cases that require a more specialized ModelStub should extend this class
+ * and implement only the methods required.
  */
 public class ModelStub implements Model {
 

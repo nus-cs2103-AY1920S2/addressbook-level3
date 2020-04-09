@@ -28,24 +28,22 @@ import seedu.address.model.transaction.TransactionId;
 public class SellCommand extends Command {
     public static final String COMMAND_WORD = "sell";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sells the stated "
-            + "quantity of the good on the provided transaction date. "
-            + "Users are not allowed to sell more than they have in stock. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sells goods from inventory at the displayed index.\n"
+            + "The sell command keyword is followed by the displayed index of the good to sell.\n"
+            + "The quantity to sell will be given as a parameter.\n"
+            + "The price to sell each unit will be given as a parameter.\n"
+            + "Users are unable to sell a larger quantity than is present in the inventory for "
+            + "the good at the displayed index.\n"
             + "Parameters: "
-            + PREFIX_GOOD_NAME + "GOOD_NAME "
             + PREFIX_QUANTITY + "QUANTITY "
             + PREFIX_PRICE + "PRICE"
-            + PREFIX_TRANSACTION_DATE + "TRANSACTION_DATE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_GOOD_NAME + "Apples "
+            + "\nExample: " + COMMAND_WORD + " 2 "
             + PREFIX_QUANTITY + "50 "
-            + PREFIX_TRANSACTION_DATE + "2020-01-01";
+            + PREFIX_PRICE + "6.90";
 
     public static final String MESSAGE_SUCCESS = "Sold %1$d units of %2$s at %3$s each";
     public static final String MESSAGE_INSUFFICIENT_QUANTITY =
             "Unable to sell a higher quantity than amount in inventory";
-    public static final String MESSAGE_SELLING_NONEXISTENT_GOOD =
-            "Trying to sell non-existent good";
 
     private GoodQuantity sellingQuantity;
     private Price sellingPrice;
