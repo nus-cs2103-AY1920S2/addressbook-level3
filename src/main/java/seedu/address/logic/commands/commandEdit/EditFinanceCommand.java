@@ -2,9 +2,9 @@ package seedu.address.logic.commands.commandEdit;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FINANCES;
 
 import java.util.Collections;
@@ -19,7 +19,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.FinanceType;
@@ -185,7 +184,7 @@ public class EditFinanceCommand extends EditCommand {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, amount, tags);
+      return CollectionUtil.isAnyNonNull(name, amount, date, tags);
     }
 
     public Optional<Name> getName() {

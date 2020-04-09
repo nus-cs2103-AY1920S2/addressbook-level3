@@ -1,7 +1,9 @@
 package seedu.address.ui.uiAssignments;
 
+import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelAssignment.Assignment;
@@ -38,6 +40,8 @@ public class AssignmentDetailedCard extends UiPart<Region> {
   private Label name;
   @FXML
   private Label assignmentDeadline;
+  @FXML
+  private FlowPane tags;
 
   private CommandBox commandBox;
 
@@ -54,6 +58,10 @@ public class AssignmentDetailedCard extends UiPart<Region> {
     }
     name.setText(assignment.getName().fullName);
     assignmentDeadline.setText("Deadline: " + assignment.getDeadline().toString());
+
+    assignment.getTags().stream()
+        .sorted(Comparator.comparing(tag -> tag.tagName))
+        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
   }
 
   @Override

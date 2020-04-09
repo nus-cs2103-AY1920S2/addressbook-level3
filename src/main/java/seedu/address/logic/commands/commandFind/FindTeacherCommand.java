@@ -32,6 +32,7 @@ public class FindTeacherCommand extends Command {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredStaffList(predicate);
+    model.getMainWindow().callSwitchToStaff();
     return new CommandResult(
         String.format(Messages.MESSAGE_TEACHERS_LISTED_OVERVIEW,
             model.getFilteredStaffList().size()));

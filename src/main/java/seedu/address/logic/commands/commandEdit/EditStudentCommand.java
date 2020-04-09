@@ -8,7 +8,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
@@ -17,7 +16,6 @@ import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
@@ -170,7 +168,7 @@ public class EditStudentCommand extends EditCommand {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, studentID, tags);
+      return CollectionUtil.isAnyNonNull(name, gender, tags);
     }
 
     public Optional<Name> getName() {

@@ -9,13 +9,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.commandEdit.EditTeacherCommand;
 import seedu.address.logic.commands.commandEdit.EditTeacherCommand.EditTeacherDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -41,7 +39,7 @@ public class EditTeacherCommandParser implements Parser<EditTeacherCommand> {
     requireNonNull(args);
     ArgumentMultimap argMultimap =
         ArgumentTokenizer
-            .tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_TEACHERID, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SALARY, PREFIX_ADDRESS,
+            .tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SALARY, PREFIX_ADDRESS,
                 PREFIX_TAG);
 
     ID id;
