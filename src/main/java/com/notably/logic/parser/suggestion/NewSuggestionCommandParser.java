@@ -22,7 +22,7 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
     private static final String RESPONSE_MESSAGE = "Create a new note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled \"%s\".";
     private static final String RESPONSE_MESSAGE_WITH_TITLE_AND_OPEN = "Create a new note titled \"%s\" and open it.";
-    private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
+    private static final String ERROR_MESSAGE_INVALID_COMMAND = "\"%s\" is an invalid creation format. "
             + "The correct format is \"new -t TITLE [-o]\"";
     private static final String ERROR_MESSAGE_INVALID_TITLE = "Title \"%s\" is invalid. "
             + "Titles should only contain alphanumeric characters and symbols except - and /";
@@ -49,7 +49,7 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            model.setResponseText(String.format(ERROR_MESSAGE, model.getInput()));
+            model.setResponseText(String.format(ERROR_MESSAGE_INVALID_COMMAND, model.getInput()));
             return Optional.empty();
         }
 
@@ -57,10 +57,7 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
 
         if (!Title.isValidTitle(title) && !title.isBlank()) {
             model.setResponseText(String.format(ERROR_MESSAGE_INVALID_TITLE, title));
-            return Optional.empty();
-        }
-
-        if (title.isBlank()) {
+        } else if (title.isBlank()) {
             model.setResponseText(RESPONSE_MESSAGE);
         } else if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) { // If user does NOT type "-o"
             model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_TITLE, title));
