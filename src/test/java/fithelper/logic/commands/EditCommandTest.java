@@ -8,7 +8,8 @@ import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 import static fithelper.testutil.TypicalIndexesUtil.INDEX_FIRST_ENTRY;
 import static fithelper.testutil.TypicalIndexesUtil.INDEX_SECOND_ENTRY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
