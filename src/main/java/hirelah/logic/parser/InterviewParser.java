@@ -84,8 +84,8 @@ public class InterviewParser {
         }
         Matcher startQuestionMatcher = START_QUESTION_COMMAND_FORMAT.matcher(userInput.trim());
         if (startQuestionMatcher.matches()) {
-            //int index = ParserUtil.checkValidQuestionNumber(startQuestionMatcher.group("questionNumber"));
-            return new StartQuestionCommand(1);
+            int index = ParserUtil.checkValidQuestionNumber(startQuestionMatcher.group("questionNumber"));
+            return new StartQuestionCommand(index);
         }
         Matcher scoreMatcher = SCORE_COMMAND_FORMAT.matcher(userInput.trim());
         if (scoreMatcher.matches()) {
