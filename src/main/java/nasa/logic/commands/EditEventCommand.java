@@ -20,14 +20,9 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Event;
 import nasa.model.activity.Date;
-import nasa.model.activity.Event;
-import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.UniqueEventList;
-import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**

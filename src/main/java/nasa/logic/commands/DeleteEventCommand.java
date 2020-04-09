@@ -52,4 +52,14 @@ public class DeleteEventCommand extends Command {
 
         return new CommandResult(index.toString() + " " + MESSAGE_DELETE_DEADLINE_SUCCESS);
     }
+
+    public boolean equals(Object other) {
+        if (!(other instanceof DeleteEventCommand)) {
+            return false;
+        }
+
+        DeleteEventCommand command = (DeleteEventCommand) other;
+        return moduleCode.equals(((DeleteEventCommand) other).moduleCode)
+            && index.equals(((DeleteEventCommand) other).index);
+    }
 }
