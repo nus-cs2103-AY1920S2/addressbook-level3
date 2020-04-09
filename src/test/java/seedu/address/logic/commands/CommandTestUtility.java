@@ -7,7 +7,9 @@ public class CommandTestUtility {
     public static final String VALID_COMMAND_ADD = "add";
     public static final String VALID_COMMAND_EDIT = "edit";
     public static final String VALID_COMMAND_DELETE = "delete";
-    public static final String VALID_COMMAND_LIST = "list";
+    public static final String VALID_PLURAL_ATTRIBUTE = "attributes";
+    public static final String VALID_PLURAL_METRIC = "metrics";
+    public static final String VALID_PLURAL_QUESTION = "questions";
     public static final String VALID_COMMAND_FINALISE = "finalise";
     public static final String VALID_COMMAND_OPEN = "open";
     public static final String VALID_COMMAND_GOTO = "goto";
