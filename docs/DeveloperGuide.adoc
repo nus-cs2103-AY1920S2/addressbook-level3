@@ -424,7 +424,7 @@ image::ModuleModelClassDiagram.png[]
 
 The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
 of the different *modules* the user is associated with. Each `Module` contains a
-`UniqueGroupList``.
+`UniqueGroupList`.
 
 The `UniqueGroupList` contains a list of all the *groups* of a module that the user
 is affiliated with. Each `Group` contains a `UniqueStudentsList` that contains the
@@ -585,9 +585,9 @@ The `group edit` command has been implemented in a similar manner.
 
 The following sequence diagram shows the sequence of commands that take place
 between the logic and model components of the TA-Tracker when the user enters the
-command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
+command `student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G`.
 
-Note: This diagram assumes that there is no student with the matric number 'A0181234G'
+Note: This diagram assumes that there is no student with the matric number `A0181234G`
 pre-existing in the TA-Tracker.
 
 .Student Add - Sequence Diagram
@@ -599,20 +599,20 @@ image::AddStudentSequenceDiagram.png[]
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 ====
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
+2. The `TaTrackerParser` sees that the command is of type *student* and passes the
+command to the `StudentCommandParse`r.
 
-3. The StudentCommandParser sees that the command is of type add and passes the
-arguments to the AddStudentCommandParser.
+3. The `StudentCommandParser` sees that the command is of type *add* and passes the
+arguments to the `AddStudentCommandParser`.
 
-4. The AddStudentCommandParser creates a Student with the given parameters.
+4. The `AddStudentCommandParser` creates a *Student* with the given parameters.
 
-5. The AddStudentCommandParser then creates an AddStudentCommand object and passes
-it the created module. The parser then returns the AddStudentCommand
+5. The `AddStudentCommandParser` then creates an `AddStudentCommand` object and passes
+it the created module. The parser then returns the `AddStudentCommand`.
 
-6. LogicManager calls AddStudentCommand's execute method. The AddStudentCommand object
+6. `LogicManager` calls `AddStudentCommand` 's execute method. The `AddStudentCommand` object
 checks whether a student with the given matric number already exists in TA-Tracker.
 If it does, a command exception is thrown saying that a student with the matric number
 already exists in the TA-Tracker.
@@ -620,26 +620,26 @@ already exists in the TA-Tracker.
 7. If no such student exists, the student is added to the TA-Tracker.
 
 The command used to delete a student has been implemented in a similar way. The main
-difference is that the DeleteStudentCommand checks whether an object with the given
+difference is that the `DeleteStudentCommand` checks whether an object with the given
 matric number exists in the TA-Tracker. If no such student exists, a command exception
 is thrown saying that a student with the given matric number doesn't exist. If it does
 exist, the student is removed from the TA-Tracker.
 
-Note: This diagram assumes that a student with the matric number 'A0181234G' exists
+Note: This diagram assumes that a student with the matric number `A0181234G` exists
 in the TA-Tracker.
 
 .Student Delete - Sequence Diagram
 image::DeleteStudentSequenceDiagram.png[]
 
-1. `LogicManager` uses the `TATrackerParser` to first parse the user command.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TATrackerParser` sees that the command is of type student and passes the
+2. The `TaTrackerParser` sees that the command is of type *student* and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is of type delete and passes the
+3. The `StudentCommandParser` sees that the command is of type *delete* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
-4. The `DeleteStudentCommandParser` creates a Student with the given matric number
+4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number
 
 5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
 it the created student. The parser then returns the `DeleteStudentCommand`
@@ -654,7 +654,7 @@ model and removes the student.
 
 ==== Implementation of the Sort Command
 
-The sort command allows the user to sort the students in the module view either *alphabetically*,
+The sort command allows the user to sort the students in the student view either *alphabetically*,
 by *rating (in ascending or descending order)* or by *matriculation number*.
 
 The sort command can be used in three ways:
@@ -696,10 +696,6 @@ image::SortParserActivityDiagram.png[]
 
 [NOTE]
 ====
-* Typically, the alternative paths would emerge from a single diamond but due to
-a limitation in PlantUML's beta version of showing activity diagrams, we were
-unable to show it that way.
-
 * The final else clause would throw an error explaining that the command format is
 invalid. But due to a limitation in PlantUML's beta version of showing activity diagrams,
 we were unable to indicate exceptions thrown in the proper way and decided to mention
@@ -724,7 +720,7 @@ destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the
 
 * The `SortCommandParser`, which creates `Sort` commands, is different from the other
 command parsers. While the other commands have another level of parsing (such as the
-`ModuleCommandParser` for `Module` commands), the SortCommandParser
+`ModuleCommandParser` for `Module` commands), the `SortCommandParser`
 creates all the different Sort commands within itself.
 ====
 
@@ -733,8 +729,8 @@ creates all the different Sort commands within itself.
 2. The `TaTrackerParser` sees that the command is of type `sort` and passes the
 command to the `SortCommandParser`.
 
-3. The SortCommandParser performs the steps shown in the previous activity diagram
-and determines that the sort command word is `all` and creates and returns a
+3. The `SortCommandParser` performs the steps shown in the previous activity diagram
+and determines that since the sort command word is `all` , it must create and return a
 `SortCommand`.
 
 4. `LogicManager` calls `SortCommand` 's execute method.
@@ -750,8 +746,8 @@ is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 [[SessionView]]
 === Session View
 
-Session View is the term used to characterise the different functionalities related to
-sessions that the user is affiliated with.
+*Session View* is the term used to call the view that contains a list of all sessions
+that haven't been completed yet.
 
 ==== Model Framework
 
