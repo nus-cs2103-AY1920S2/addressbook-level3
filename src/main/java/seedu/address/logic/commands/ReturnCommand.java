@@ -71,7 +71,7 @@ public class ReturnCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (toBeCreated == null) {
+        if (isReturnOrderNotPresent()) {
             Order orderToBeReturned = getOrderByTransactionId(model);
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
@@ -84,6 +84,14 @@ public class ReturnCommand extends Command {
         }
         model.addReturnOrder(toBeCreated);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeCreated));
+    }
+
+    /**
+     * Checks if the return order is null. Returns true if return order is not present.
+     * @return
+     */
+    private boolean isReturnOrderNotPresent() {
+        return toBeCreated == null;
     }
 
     /**
