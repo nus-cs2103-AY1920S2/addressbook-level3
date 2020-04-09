@@ -37,7 +37,9 @@ import javafx.scene.layout.Region;
  * Panel containing the list of commands.
  */
 public class HelpPane extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(HelpPane.class);
     private static final String FXML = "HelpPane.fxml";
+
     private static final ObservableList<CommandCard> content =
             FXCollections.observableList(Arrays.asList(
                     new CommandCard(AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE),
@@ -55,25 +57,24 @@ public class HelpPane extends UiPart<Region> {
                     new CommandCard(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_USAGE),
                     new CommandCard(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_USAGE),
                     new CommandCard(SavedCommand.COMMAND_WORD, SavedCommand.MESSAGE_USAGE),
-                    new CommandCard(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE),
                     new CommandCard(SetPrefCommand.COMMAND_WORD, SetPrefCommand.MESSAGE_USAGE),
                     new CommandCard(ShareCommand.COMMAND_WORD, ShareCommand.MESSAGE_USAGE),
+                    new CommandCard(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE),
                     new CommandCard(UnarchiveCommand.COMMAND_WORD, UnarchiveCommand.MESSAGE_USAGE),
                     new CommandCard(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_USAGE),
                     new CommandCard(UsedCommand.COMMAND_WORD, UsedCommand.MESSAGE_USAGE)
             ));
 
-    private final Logger logger = LogsCenter.getLogger(HelpPane.class);
-
     @FXML
     private ListView<CommandCard> commandListView;
 
     /**
-     * Constructor for a ComamndListPanel.
+     * Constructor for a HelpPane.
      *
      */
     public HelpPane() {
         super(FXML);
+        logger.info("Loading help pane...");
         commandListView.setItems(content);
         commandListView.setCellFactory(listView -> new CommandListViewCell());
     }

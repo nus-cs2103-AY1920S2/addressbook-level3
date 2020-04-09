@@ -8,7 +8,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 
-import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
@@ -33,24 +32,15 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully sorted by %s";
 
-    public static final Comparator<Coupon> NAME_COMPARATOR = (x, y) -> x
+    public static final Comparator<Coupon> NAME_COMPARATOR = Comparator.comparing(x -> x
             .toString()
-            .toLowerCase()
-            .compareTo(
-                    y.toString().toLowerCase()
-            );
-    public static final Comparator<Coupon> EXPIRY_COMPARATOR = (x, y) -> x
+            .toLowerCase());
+    public static final Comparator<Coupon> EXPIRY_COMPARATOR = Comparator.comparing(x -> x
             .getExpiryDate()
-            .getDate()
-            .compareTo(
-                    y.getExpiryDate().getDate()
-            );
-    public static final Comparator<Coupon> REMINDER_COMPARATOR = (x, y) -> x
+            .getDate());
+    public static final Comparator<Coupon> REMINDER_COMPARATOR = Comparator.comparing(x -> x
             .getRemindDate()
-            .getDate()
-            .compareTo(
-                    y.getRemindDate().getDate()
-            );
+            .getDate());
 
     private Prefix prefixToSortBy;
 
@@ -65,10 +55,9 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, String commandText) throws CommandException {
+    public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
 
-        Comparator<Coupon> cmp = null;
         if (prefixToSortBy.equals(PREFIX_NAME)) {
             model.sortCoupons(NAME_COMPARATOR);
         } else if (prefixToSortBy.equals(PREFIX_EXPIRY_DATE)) {
@@ -98,7 +87,6 @@ public class SortCommand extends Command {
         }
 
         // state check
-        SortCommand e = (SortCommand) other;
         return prefixToSortBy.equals(((SortCommand) other).prefixToSortBy);
     }
 }
