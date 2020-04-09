@@ -49,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private CalenderPanel calenderPanel;
     private CalenderListPanel calenderListPanel;
     private ModulesTakenListPanel modulesTakenListPanel;
+    private ModulesTakenListPanel modulesTakenListPanel2;
     private ProfileMainScreen profileMainScreen;
     private DiaryEntryMainPage diaryEntryMainPage;
     private ModulesYetTaken modulesYetTaken;
@@ -224,15 +225,6 @@ public class MainWindow extends UiPart<Stage> {
         deadlinePanelPlaceholder.getChildren().add(calenderListPanel.getRoot());
         setAnchorPaneSize(deadlinePanelPlaceholder, deadlinePanelPlaceholder.getChildren().get(0));
 
-        modulesTakenListPanel = new ModulesTakenListPanel(logic.getModulesListTaken());
-        modulesTaken.getChildren().add(modulesTakenListPanel.getRoot());
-        setAnchorPaneSize(modulesTaken, modulesTaken.getChildren().get(0));
-
-        modulesTakenBefore.getChildren().add(modulesTakenListPanel.getRoot());
-
-        modulesYetTaken = new ModulesYetTaken("asd");
-
-        modulesYetTakenplaceholder.getChildren().add(modulesYetTaken.getRoot());
 
 
         profileMainScreen = new ProfileMainScreen(new Profile("Zhou Xinwei",
@@ -242,6 +234,20 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+
+        modulesTakenListPanel = new ModulesTakenListPanel(logic.getModulesListTaken());
+        modulesTakenListPanel2 = new ModulesTakenListPanel(logic.getModulesListTaken());
+        modulesTakenBefore.getChildren().add(modulesTakenListPanel.getRoot());
+        modulesTaken.getChildren().add(modulesTakenListPanel2.getRoot());
+        setAnchorPaneSize(modulesTaken, modulesTaken.getChildren().get(0));
+        setAnchorPaneSize(modulesTakenBefore, modulesTakenBefore.getChildren().get(0));
+
+
+
+        modulesYetTaken = new ModulesYetTaken("asd");
+
+        modulesYetTakenplaceholder.getChildren().add(modulesYetTaken.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());

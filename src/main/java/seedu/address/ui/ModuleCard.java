@@ -37,6 +37,7 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         moduleName.setText(module.getModuleCode().toString());
+
         if (!module.getGrade().isEmpty()) {
             grade.setText(module.getGrade().get().getText());
         } else {

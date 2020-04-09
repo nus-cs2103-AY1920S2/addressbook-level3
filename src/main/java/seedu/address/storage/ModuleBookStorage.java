@@ -8,6 +8,9 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
+/**
+ * API for module book storage
+ */
 public interface ModuleBookStorage {
     /**
      * Returns the file path of the data file.

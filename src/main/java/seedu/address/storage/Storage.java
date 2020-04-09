@@ -41,7 +41,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, ModuleBoo
 
     @Override
     void saveModuleBook(ModuleBook moduleBook) throws IOException;
-  
+
     Optional<ReadOnlyAddressBook> readCalendarDetails() throws DataConversionException, IOException;
 
 }
