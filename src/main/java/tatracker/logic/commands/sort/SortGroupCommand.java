@@ -92,4 +92,21 @@ public class SortGroupCommand extends SortCommand {
 
         return new CommandResult(String.format(MESSAGE_SORT_GROUP_SUCCESS, moduleCode, groupCode), Action.GOTO_STUDENT);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true; // short circuit if same object
+        }
+
+        if (!(other instanceof SortGroupCommand)) {
+            return false; // instanceof handles nulls
+        }
+
+        SortGroupCommand otherCommand = (SortGroupCommand) other;
+        return type.equals(otherCommand.type)
+                && groupCode.equals(otherCommand.groupCode)
+                && moduleCode.equals(((SortGroupCommand) other).moduleCode);
+    }
+
 }
