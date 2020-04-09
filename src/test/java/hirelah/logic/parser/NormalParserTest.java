@@ -25,6 +25,9 @@ import static hirelah.logic.parser.CliSyntax.PREFIX_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import hirelah.logic.commands.ListAttributeCommand;
+import hirelah.logic.commands.ListMetricCommand;
+import hirelah.logic.commands.ListQuestionCommand;
 import org.junit.jupiter.api.Test;
 
 import hirelah.logic.commands.AddIntervieweeCommand;
