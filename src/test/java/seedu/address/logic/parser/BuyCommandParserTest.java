@@ -82,7 +82,6 @@ class BuyCommandParserTest {
 
     @Test
     void parse_invalidValue_failure() {
-//        VALID_SUPPLIER_INDEX_PREAMBLE + VALID_GOOD_QUANTITY_DESC + VALID_GOOD_NAME_DESC
 
         // invalid good name
         assertParseFailure(parser, VALID_SUPPLIER_INDEX_PREAMBLE + INVALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC,
