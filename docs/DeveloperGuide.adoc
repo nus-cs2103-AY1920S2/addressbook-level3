@@ -132,7 +132,7 @@ The `Supplier`,
 
 * stores details of supplier: `Name`, `Phone`, `Address`, `Email` and `Offer`.
 * can have no `Offer` or multiple `Offer`.
-* each offer composes of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
+* each offer consists of `GoodName` and `Price`, indicating the supplier offer to sell a specific good with a specific price.
 
 image:SupplierModelClassDiagram.png[]
 
