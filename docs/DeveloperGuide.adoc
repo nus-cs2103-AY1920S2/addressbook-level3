@@ -376,21 +376,29 @@ This section explains the our design considerations and analysis for the storage
 
 [options='header']
 |====================
-| Considerations | Pros and Cons
-| Store exercises with client and all clients in one JSON file |
-*Pros*: Much easier to link the exercises to the client during reading and storing
+| Considerations | Store exercises with client and all clients in one JSON file (chosen) | Store all exercises into a separate JSON file | Store exercises with client but one JSON for each client
 
-*Cons*: Might have one large JSON file and potentially exceed the size limit of a JSON file
-| Store all exercises into a separate JSON file |
-*Pros*: Keep exercise data separate from client data
+| Ease of retrieving / storing
+| Easy to link the exercises to the client
+| Hard to link the exercises to the client
+| Hard to identify which JSON file is for which client
 
-*Cons*: Hard to link the exercises to the client during reading and storing
+| Size limit of JSON files
+| High chances of having one large JSON file and potentially exceed the size limit of a JSON file
+| Low chances of exceeding the size limit of a JSON file
+| Low chances of exceeding the size limit of a JSON file
 
-| Store exercises with client but one JSON for each client |
-*Pros*: Low chances of exceeding the size limit of a JSON file
+| Separation of concerns
+| Separate code for reading/storing exercises and clients data 
+| Separate code for reading/storing exercises and clients data
+| Non-separate ode for reading/storing exercises and clients data
 
-*Cons*: Might have too many JSON files for each client +
-Tough to identify which JSON file is for which client
+| Separation of data
+| Does not keep client and exercise data separate
+| Keep client data separate from exercise data
+| Does not keep client and exercise data separate +
+
+Might have too many JSON files, one for each client
 |====================
 
 We decided to use the first approach of storing the exercises with the associated client and have all the clients data in one JSON file. By code wise, each `JsonAdaptedClient` will have a list of `JsonAdaptedExercise`.
