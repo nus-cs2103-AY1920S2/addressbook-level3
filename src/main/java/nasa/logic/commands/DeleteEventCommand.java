@@ -10,6 +10,9 @@ import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Command to delete event command.
+ */
 public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "del-e";

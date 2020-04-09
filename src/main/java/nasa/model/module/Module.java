@@ -4,14 +4,15 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Name;
 import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.activity.UniqueEventList;
 
@@ -34,7 +35,6 @@ public class Module {
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
-        
         this.eventList = new UniqueEventList();
         this.deadlineList = new UniqueDeadlineList();
         this.filteredEvent = new FilteredList<>(eventList.getActivityList());
@@ -87,16 +87,16 @@ public class Module {
         return eventList;
     }
 
+    public void setDeadlines(List<Deadline> deadlines) {
+        deadlineList.setActivities(deadlines);
+    }
+
     public void setDeadlines(UniqueDeadlineList replacement) {
         deadlineList.setActivities(replacement);
     }
 
     public void setEvents(UniqueEventList replacement) {
         eventList.setActivities(replacement);
-    }
-
-    public void setDeadlines(List<Deadline> deadlines) {
-        deadlineList.setActivities(deadlines);
     }
 
     public void setEvents(List<Event> events) {
@@ -107,7 +107,7 @@ public class Module {
         deadlineList.setSchedule(index, type);
         updateFilteredActivityList(x -> true);
     }
-    
+
     public void setEventSchedule(Index index, Index type) {
         eventList.setSchedule(index, type);
         updateFilteredActivityList(x -> true);
@@ -125,8 +125,16 @@ public class Module {
         return deadlineList.getDeepCopyList();
     }
 
+    public ObservableList<Deadline> getModifiableDeadlineList() {
+        return deadlineList.getActivityList();
+    }
+
     public ObservableList<Activity> getDeepCopyEventList() {
         return eventList.getDeepCopyList();
+    }
+
+    public ObservableList<Event> getModifiableEventList() {
+        return eventList.getActivityList();
     }
 
     public Module getDeepCopyModule() {
@@ -154,6 +162,10 @@ public class Module {
         return eventList.iterator();
     }
 
+    /**
+     * Update filtered activity list.
+     * @param predicate Predicate
+     */
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         filteredDeadline.setPredicate(predicate);
         filteredEvent.setPredicate(predicate);
@@ -183,7 +195,8 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode()) && otherModule.getModuleName().equals(getModuleName());
+        return otherModule.getModuleCode().equals(getModuleCode()) && otherModule.getModuleName()
+                .equals(getModuleName());
     }
 
     @Override
@@ -191,6 +204,11 @@ public class Module {
         return String.format("%s %s", moduleCode, moduleName);
     }
 
+    /**
+     * Check whether module has the deadline.
+     * @param deadline Deadline
+     * @return boolean
+     */
     public boolean hasDeadline(Deadline deadline) {
         for (Deadline currentDeadline : deadlineList.getActivityList()) {
             if (currentDeadline == deadline) {
@@ -200,6 +218,11 @@ public class Module {
         return false;
     }
 
+    /**
+     * Check whether module has the event.
+     * @param event Event
+     * @return boolean
+     */
     public boolean hasEvent(Event event) {
         for (Event currentEvent : eventList.getActivityList()) {
             if (currentEvent == event) {
@@ -209,6 +232,11 @@ public class Module {
         return false;
     }
 
+    /**
+     * Check whether module has activity.
+     * @param activity Activity
+     * @return boolean
+     */
     public boolean hasActivity(Activity activity) {
         if (activity instanceof Deadline) {
             return hasDeadline((Deadline) activity);

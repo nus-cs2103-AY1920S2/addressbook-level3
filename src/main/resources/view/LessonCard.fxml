@@ -2,11 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <GridPane VBox.vgrow="ALWAYS" hgap="5" vgap="5" fx:id="eventPane" xmlns="http://javafx.com/javafx/8.0.171"
           xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>

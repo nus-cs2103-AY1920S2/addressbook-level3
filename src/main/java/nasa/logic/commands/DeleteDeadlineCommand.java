@@ -10,6 +10,9 @@ import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Command to delete a delete activity.
+ */
 public class DeleteDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "del-d";

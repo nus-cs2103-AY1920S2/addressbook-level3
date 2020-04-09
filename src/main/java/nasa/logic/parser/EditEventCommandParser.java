@@ -3,7 +3,6 @@ package nasa.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
@@ -30,7 +29,8 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_NOTE, PREFIX_PRIORITY,
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_NOTE,
+                        PREFIX_PRIORITY,
                         PREFIX_ACTIVITY_NAME);
 
         Index index;

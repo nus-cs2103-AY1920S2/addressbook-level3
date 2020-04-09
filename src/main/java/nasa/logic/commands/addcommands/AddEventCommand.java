@@ -8,12 +8,10 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Event;
-import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -51,11 +49,11 @@ public class AddEventCommand extends AddCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
         }
 
-        model.addEvent(moduleCode,  (Event) toAdd);
+        model.addEvent(moduleCode, (Event) toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

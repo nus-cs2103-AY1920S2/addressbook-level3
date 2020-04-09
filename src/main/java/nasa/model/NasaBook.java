@@ -2,9 +2,12 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
@@ -26,7 +29,6 @@ public class NasaBook implements ReadOnlyNasaBook {
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
      */
@@ -34,10 +36,12 @@ public class NasaBook implements ReadOnlyNasaBook {
         moduleList = new UniqueModuleList();
     }
 
-    public NasaBook() {}
+    public NasaBook() {
+    }
 
     /**
      * Creates a NasaBook using the Modules in the {@code toBeCopied}
+     *
      * @param toBeCopied ReadOnlyNasaBook
      */
     public NasaBook(ReadOnlyNasaBook toBeCopied) {
@@ -47,6 +51,7 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Get the {@code UniqueEventList} of module {@code moduleCode} with
+     *
      * @param moduleCode ModuleCode
      * @return UniqueEventList
      */
@@ -56,6 +61,7 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Get the contents of the activities of module {@code moduleCode} with {@code activities}
+     *
      * @param moduleCode ModuleCode
      * @return UniqueDeadlineList
      */
@@ -65,6 +71,7 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Replaces current module list with another module list.
+     *
      * @param moduleList must not be empty
      */
     public void setModuleList(UniqueModuleList moduleList) {
@@ -83,7 +90,8 @@ public class NasaBook implements ReadOnlyNasaBook {
     /**
      * Add a single event to module {@code moduleCode} with {@code event}
      * {@code event} must not contain duplicate activities.
-     * @param event Event
+     *
+     * @param event      Event
      * @param moduleCode ModuleCode
      */
     public void addEvent(ModuleCode moduleCode, Event event) {
@@ -97,7 +105,8 @@ public class NasaBook implements ReadOnlyNasaBook {
      * Replaces the given event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exit in the NasaBook.
      * The event identity of {@code editedEvent} must not be the same as another existing event in Nasa Book.
-     * @param target Event
+     *
+     * @param target      Event
      * @param editedEvent Event
      */
     public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
@@ -111,7 +120,8 @@ public class NasaBook implements ReadOnlyNasaBook {
     /**
      * Remove a single event from module code with {@code moduleCode} with {@code event}
      * {@code event} must exist in the list.
-     * @param event Event
+     *
+     * @param event      Event
      * @param moduleCode ModuleCode
      */
     public void removeEvent(ModuleCode moduleCode, Event event) {
@@ -124,7 +134,8 @@ public class NasaBook implements ReadOnlyNasaBook {
     /**
      * Add a single deadline to module {@code moduleCode} with {@code deadline}
      * {@code deadline} must not contain duplicate activities.
-     * @param deadline Deadline
+     *
+     * @param deadline   Deadline
      * @param moduleCode ModuleCode
      */
     public void addDeadline(ModuleCode moduleCode, Deadline deadline) {
@@ -138,12 +149,12 @@ public class NasaBook implements ReadOnlyNasaBook {
      * Replaces the given deadline {@code target} in the list with {@code editedDeadline}.
      * {@code target} must exit in the NasaBook.
      * The deadline identity of {@code editedDeadline} must not be the same as another existing deadline in Nasa Book.
-     * @param target Deadline
+     *
+     * @param target         Deadline
      * @param editedDeadline Deadline
      */
     public void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline) {
         requireAllNonNull(moduleCode, target, editedDeadline);
-        
         UniqueDeadlineList deadlineList = getDeadlines(moduleCode);
         assert deadlineList != null;
         deadlineList.setActivity(target, editedDeadline);
@@ -152,7 +163,8 @@ public class NasaBook implements ReadOnlyNasaBook {
     /**
      * Remove a single deadline from module {@code module} with {@code deadline}
      * {@code deadline} must exist in the list.
-     * @param deadline Deadline
+     *
+     * @param deadline   Deadline
      * @param moduleCode ModuleCode
      */
     public void removeDeadline(ModuleCode moduleCode, Deadline deadline) {
@@ -165,6 +177,7 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Resets the existing data of this {@code NasaBook} with {@code newData}
+     *
      * @param newData ReadOnlyNasaBook
      */
     public void resetData(ReadOnlyNasaBook newData) {
@@ -177,6 +190,7 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Returns true if an module has the same identity as {@code module} exits in NasaBook.
+     *
      * @param moduleCode ModuleCode
      * @return boolean
      */
@@ -188,6 +202,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     /**
      * Adds a module to the NasaBook.
      * The module must not already exist in the NasaBook
+     *
      * @param module Module
      */
     public void addModule(Module module) {
@@ -198,7 +213,8 @@ public class NasaBook implements ReadOnlyNasaBook {
      * Replaces the given module {@code target} in the list with {@code editedModule}.
      * {@code target} must exit in the NasaBook.
      * The module identity of {@code editedModule} must not be the same as another existing module in Nasa Book.
-     * @param target Module
+     *
+     * @param target       Module
      * @param editedModule Module
      */
     public void setModule(ModuleCode target, Module editedModule) {
@@ -210,6 +226,7 @@ public class NasaBook implements ReadOnlyNasaBook {
     /**
      * Removes {@code key} from this {@code NasaBook}.
      * {@code key} must exist in the Nasa Book.
+     *
      * @param key ModuleCode
      */
     public void removeModule(ModuleCode key) {
@@ -222,6 +239,7 @@ public class NasaBook implements ReadOnlyNasaBook {
 
     /**
      * Return a new NasaBook, to avoid pointing to the same data when testing.
+     *
      * @return NasaBook
      */
     public NasaBook deepCopyNasaBook() {
@@ -235,8 +253,12 @@ public class NasaBook implements ReadOnlyNasaBook {
      */
     public void scheduleAll() {
         moduleList.asModifiableObservableList()
-                .forEach(x -> x.getDeepCopyDeadlineList()
-                        .forEach(y -> y.regenerate()));
+                .forEach(x -> {
+                    x.getModifiableDeadlineList()
+                            .forEach(Deadline::regenerate);
+                    x.getModifiableEventList()
+                            .forEach(Event::regenerate);
+                });
     }
 
     public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
@@ -301,6 +323,13 @@ public class NasaBook implements ReadOnlyNasaBook {
         return moduleList.getModule(moduleCode);
     }
 
+    /**
+     * Check whether nasa book has the activity.
+     *
+     * @param moduleCode ModuleCode
+     * @param activity   Activity
+     * @return boolean
+     */
     public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
         Module module = getModule(moduleCode);
         return module.hasActivity(activity);

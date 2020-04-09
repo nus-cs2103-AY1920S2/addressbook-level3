@@ -6,9 +6,6 @@ import java.util.stream.Stream;
 
 import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 
 /**
  * Parses input arguments and creates an Statistics object.

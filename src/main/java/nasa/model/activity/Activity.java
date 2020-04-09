@@ -113,5 +113,5 @@ public abstract class Activity {
 
     public abstract Activity deepCopy();
 
-    public abstract Activity regenerate();
+    public abstract void regenerate();
 }

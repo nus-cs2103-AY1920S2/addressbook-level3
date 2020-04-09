@@ -74,7 +74,6 @@ public class CommandResult {
     public void setQuote() {
         this.quote = true;
     }
-    
 
     @Override
     public boolean equals(Object other) {

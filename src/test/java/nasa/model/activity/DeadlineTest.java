@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import jdk.internal.jline.internal.TestAccessible;
-import jdk.jfr.Timestamp;
 import nasa.testutil.Assert;
 
 class DeadlineTest {

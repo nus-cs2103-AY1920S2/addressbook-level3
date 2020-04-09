@@ -17,7 +17,7 @@ import nasa.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates a new EditDeadlineCommand object
- * Format: edit-d INDEX 
+ * Format: edit-d INDEX
  */
 public class EditDeadlineCommandParser implements Parser<EditDeadlineCommand> {
 

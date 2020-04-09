@@ -5,13 +5,23 @@ import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import java.util.NoSuchElementException;
+
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.DeleteEventCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Constructor to delete an event.
+ */
 public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
 
+    /**
+     * Parse argument and return delete event command.
+     * @param args String
+     * @return DeleteEventCommand
+     * @throws ParseException error
+     */
     public DeleteEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =

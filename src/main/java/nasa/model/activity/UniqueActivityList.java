@@ -2,10 +2,13 @@ package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
 import nasa.model.activity.exceptions.DuplicateActivityException;
@@ -40,7 +43,7 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
      * Adds a activity to the list.
      * The activity must not already exist in the list.
      * @param toAdd Activity.
-     */ 
+     */
     public void add(T toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
@@ -65,7 +68,6 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
         requireAllNonNull(targetActivity, editedActivity);
 
         int index = internalList.indexOf(targetActivity);
-        
         if (index == -1) {
             throw new ActivityNotFoundException();
         }
@@ -73,7 +75,6 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
         if (targetActivity.equals(editedActivity) && contains(editedActivity)) {
             throw new DuplicateActivityException();
         }
-        
         internalList.set(index, editedActivity);
     }
 
@@ -112,7 +113,7 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
      */
     public void setActivities(UniqueActivityList replacement) {
         requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+        internalList.setAll(replacement.getDeepCopyList());
     }
 
     /**
@@ -124,11 +125,15 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
         requireAllNonNull(activities);
         internalList.setAll(activities);
     }
-    
+
+    /**
+     * Return a copy of activity list.
+     * @return ObservableList
+     */
     public ObservableList<Activity> getDeepCopyList() {
         ObservableList<Activity> deepCopyList = FXCollections.observableArrayList();
         for (Activity activity : internalUnmodifiableList) {
-           deepCopyList.add(activity.deepCopy());
+            deepCopyList.add(activity.deepCopy());
         }
         return deepCopyList;
     }

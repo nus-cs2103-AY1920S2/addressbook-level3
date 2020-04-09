@@ -3,15 +3,26 @@ package nasa.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+
 import java.util.NoSuchElementException;
+
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.DeleteDeadlineCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parser for delete deadline command.
+ */
 public class DeleteDeadlineCommandParser implements Parser<DeleteDeadlineCommand> {
 
-    public DeleteDeadlineCommand parse(String args) throws ParseException{
+    /**
+     * Parse a deadline command.
+     * @param args String
+     * @return DeleteDeadlineCommand
+     * @throws ParseException
+     */
+    public DeleteDeadlineCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_MODULE);

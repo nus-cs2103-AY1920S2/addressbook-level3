@@ -24,8 +24,8 @@ public class Schedule {
      */
     public Schedule() {
         type = 0;
-        dateToRepeat = null;
-        defaultDate = null;
+        dateToRepeat = Date.now();
+        defaultDate = Date.now();
     }
 
     /**
@@ -96,7 +96,7 @@ public class Schedule {
 
     /**
      * Initialize schedules.
-     * @param type int
+     * @param int
      */
     public void init() {
         switch (type) {

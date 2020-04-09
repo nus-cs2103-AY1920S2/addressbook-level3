@@ -31,9 +31,7 @@ public class Lesson extends Event {
 
     /**
      * Initialise new lesson with the new date.
-     * @return new instance of lesson at the new date
      */
-    public Lesson regenerate() {
-        return this;
+    public void regenerate() {
     }
 }

@@ -1,6 +1,5 @@
 package nasa.model.activity;
 
-import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -25,7 +24,7 @@ public class Deadline extends Activity {
     public Deadline(Name name, Date dueDate) {
         super(name);
         requireAllNonNull(dueDate);
-        checkArgument(isValidDeadline(dueDate), DATE_CONSTRAINTS);
+        //checkArgument(isValidDeadline(dueDate), DATE_CONSTRAINTS);
         this.dueDate = dueDate;
         priority = new Priority();
         isDone = false;
@@ -93,6 +92,9 @@ public class Deadline extends Activity {
         this.isDone = true;
     }
 
+    /**
+     * Set overdue.
+     */
     public void unmarkAsDone() {
         isDone = false;
         if (isOverdue()) {
@@ -121,17 +123,17 @@ public class Deadline extends Activity {
         if (isDone) {
             copy.markAsDone();
         }
+        copy.setSchedule(getSchedule().getDeepCopy());
         return copy;
     }
 
     @Override
-    public Deadline regenerate() {
+    public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(dueDate) && getSchedule().getType() != 0) {
             setDueDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDifferenceInDay()));
             setDateCreated(getSchedule().getRepeatDate());
         }
-        return this;
     }
 
     public boolean isDone() {

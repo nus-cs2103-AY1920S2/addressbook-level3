@@ -18,7 +18,8 @@ class RepeatCommandTest {
 
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new RepeatCommand(null, null, null));
+        assertThrows(NullPointerException.class, () ->
+                new RepeatDeadlineCommand(null, null, null));
     }
 
     @Test
@@ -31,12 +32,15 @@ class RepeatCommandTest {
 
         model.addModule(CS2103T);
 
-        CommandResult expectedResult = new CommandResult(String.format("%s for %s %s %s", RepeatCommand.MESSAGE_SUCCESS,
+        CommandResult expectedResult = new CommandResult(String.format("%s for %s %s %s",
+                RepeatDeadlineCommand.MESSAGE_SUCCESS,
                 CS2103T.getModuleCode(), name, correctIndex.getZeroBased()));
 
-        RepeatCommand repeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, correctIndex);
+        RepeatDeadlineCommand repeatCommand = new RepeatDeadlineCommand(CS2103T.getModuleCode(), Index.fromZeroBased(1)
+                , correctIndex);
 
-        RepeatCommand incorrectRepeatCommand = new RepeatCommand(CS2103T.getModuleCode(), name, wrongIndex);
+        RepeatDeadlineCommand incorrectRepeatCommand = new RepeatDeadlineCommand(CS2103T.getModuleCode(),
+                Index.fromZeroBased(1), wrongIndex);
 
         try {
             assertEquals(expectedResult, repeatCommand.execute(model));

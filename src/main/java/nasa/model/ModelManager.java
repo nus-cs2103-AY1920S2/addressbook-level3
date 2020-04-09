@@ -2,11 +2,14 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.core.index.Index;
@@ -64,7 +67,7 @@ public class ModelManager implements Model {
      */
     public void initialisation() {
         updateSchedule();
-        updateHistory();
+        //updateHistory();
         Quote.readFile();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
@@ -90,7 +93,7 @@ public class ModelManager implements Model {
     public void undoHistory() {
         if (historyManager.undo()) {
             nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
-            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+            updateManager(PREDICATE_SHOW_ALL_MODULES);
         }
     }
 
@@ -99,7 +102,7 @@ public class ModelManager implements Model {
         boolean hasRedo = historyManager.redo();
         if (hasRedo) {
             nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
-            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+            updateManager(PREDICATE_SHOW_ALL_MODULES);
         }
         return hasRedo;
     }
@@ -143,6 +146,7 @@ public class ModelManager implements Model {
     @Override
     public void setNasaBook(ReadOnlyNasaBook nasaBook) {
         this.nasaBook.resetData(nasaBook);
+        updateHistory();
     }
 
     @Override
@@ -176,35 +180,36 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        updateHistory();
-        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
+        //updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.addDeadline(target, deadline);
-        updateHistory();
+        //updateHistory();
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     @Override
     public void addEvent(ModuleCode target, Event event) {
         nasaBook.addEvent(target, event);
-        updateHistory();
+        //updateHistory();
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     @Override
     public void removeDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.removeDeadline(target, deadline);
-        updateHistory();
+        //updateHistory();
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     @Override
     public void removeEvent(ModuleCode target, Event event) {
         nasaBook.removeEvent(target, event);
-        updateHistory();
+        //updateHistory();
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     @Override
@@ -212,7 +217,8 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
-        updateHistory();
+        //updateHistory();
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
@@ -220,21 +226,23 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedDeadline);
 
         nasaBook.setDeadline(moduleCode, target, editedDeadline);
-        updateHistory();
+        //updateHistory();
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
-    
+
     @Override
     public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
 
         nasaBook.setEvent(moduleCode, target, editedEvent);
-        updateHistory();
+        //updateHistory();
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
     public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
         requireAllNonNull(module, index, type);
         boolean hasExecuted = nasaBook.setDeadlineSchedule(module, index, type);
-        updateHistory();
+        //updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         return hasExecuted;
     }
@@ -242,17 +250,23 @@ public class ModelManager implements Model {
     public boolean setEventSchedule(ModuleCode module, Index index, Index type) {
         requireAllNonNull(module, index, type);
         boolean hasExecuted = nasaBook.setEventSchedule(module, index, type);
-        updateHistory();
+        //updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         return hasExecuted;
     }
 
     //=========== Filtered Module List Accessors =============================================================
 
+    @Override
     public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
         return nasaBook.hasActivity(moduleCode, activity);
     }
-    
+
+    private void updateManager(Predicate<Module> predicate) {
+        requireNonNull(predicate);
+        filteredModules.setPredicate(predicate);
+    }
+
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
@@ -262,6 +276,7 @@ public class ModelManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
+        updateHistory();
     }
 
     @Override
@@ -282,6 +297,7 @@ public class ModelManager implements Model {
         for (Module module : filteredModules) {
             module.sortDeadlineList(sortMethod);
         }
+        updateHistory();
     }
 
     @Override
@@ -289,6 +305,7 @@ public class ModelManager implements Model {
         for (Module module : getFilteredModuleList()) {
             module.updateFilteredActivityList(predicate);
         }
+        updateHistory();
     }
 
     @Override

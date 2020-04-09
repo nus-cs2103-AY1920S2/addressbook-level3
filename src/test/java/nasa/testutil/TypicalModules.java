@@ -36,6 +36,18 @@ public class TypicalModules {
             .addEvent(new EventBuilder().build())
             .addEvent(new EventBuilder().withName("Workshop").build())
             .build();
+    public static final Module CS2107 = new ModuleBuilder().withCode("CS2107")
+            .withName("Computer Security")
+            .withRemoveAll()
+            .build();
+    public static final Module CS2102 = new ModuleBuilder().withCode("CS2102")
+            .withName("Database")
+            .withRemoveAll()
+            .build();
+    public static final Module CS2105 = new ModuleBuilder().withCode("CS2105")
+            .withName("Computer Networks")
+            .withRemoveAll()
+            .build();
 
     private TypicalModules() {} // prevents instantiation
 

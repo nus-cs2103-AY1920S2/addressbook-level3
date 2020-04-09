@@ -17,4 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
     public static final Prefix PREFIX_SORT_METHOD = new Prefix("sm/");
     public static final Prefix PREFIX_TIME = new Prefix("at/");
+    public static final Prefix PREFIX_EVENT = new Prefix("-e");
+    public static final Prefix PREFIX_DEADLINE = new Prefix("-d");
+
 }

@@ -19,7 +19,7 @@ public class Event extends Activity {
     private Date endDate;
     private boolean isOver;
 
-    public Event(Name name, Date startDate, Date endDate){
+    public Event(Name name, Date startDate, Date endDate) {
         super(name);
         requireAllNonNull(startDate, endDate);
         checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
@@ -66,11 +66,21 @@ public class Event extends Activity {
         this.endDate = endDate;
     }
 
+    /**
+     * Check correct starting date.
+     * @param startDate Date
+     * @return boolean
+     */
     public boolean isValidStartDate(Date startDate) {
         requireAllNonNull(startDate);
         return startDate.isBefore(endDate);
     }
 
+    /**
+     * Check valid end date.
+     * @param endDate Date
+     * @return boolean
+     */
     public boolean isValidEndDate(Date endDate) {
         requireAllNonNull(endDate);
         return startDate.isBefore(endDate);
@@ -105,14 +115,13 @@ public class Event extends Activity {
     }
 
     @Override
-    public Event regenerate() {
+    public void regenerate() {
         getSchedule().update();
         if (Date.now().isAfter(endDate) && getSchedule().getType() != 0) {
             setEndDate(getSchedule().getRepeatDate().addDaysToCurrDate(getDuration()));
             setStartDate(getSchedule().getRepeatDate());
             setDateCreated(getSchedule().getRepeatDate());
         }
-        return this;
     }
 
     @Override
@@ -120,6 +129,7 @@ public class Event extends Activity {
         Event event = new Event(getName(), getStartDate(), getStartDate());
         event.setNote(getNote());
         event.setDateCreated(getDateCreated());
+        event.setSchedule(getSchedule().getDeepCopy());
         return event;
     }
 

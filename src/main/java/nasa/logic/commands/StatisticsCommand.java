@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import nasa.model.Model;
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 
 /**

@@ -18,16 +18,11 @@ import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Deadline;
 import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
-import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.UniqueDeadlineList;
-import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -81,15 +76,14 @@ public class EditDeadlineCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
+        if (!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
-       List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
+        List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(
-                    Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         Deadline deadlineToEdit = lastShownList.get(index.getZeroBased());
@@ -114,15 +108,15 @@ public class EditDeadlineCommand extends Command {
      * edited with {@code editModuleDescriptor}.
      */
     private static Deadline createEditedDeadline(Deadline deadlineToEdit,
-                                                  EditDeadlineDescriptor editDeadlineDescriptor) {
+                                                 EditDeadlineDescriptor editDeadlineDescriptor) {
         requireNonNull(deadlineToEdit);
 
         Name updatedName = editDeadlineDescriptor.getName().orElse(deadlineToEdit.getName());
-        Date updatedDateCreated = editDeadlineDescriptor.getDateCreated().orElse(deadlineToEdit.getDateCreated()); // by default date created cannot be edited, and will take previous value
+        Date updatedDateCreated = editDeadlineDescriptor.getDateCreated().orElse(deadlineToEdit.getDateCreated());
+        // by default date created cannot be edited, and will take previous value
         Note updatedNote = editDeadlineDescriptor.getNote().orElse(deadlineToEdit.getNote());
         Priority updatedPriority = editDeadlineDescriptor.getPriority().orElse(deadlineToEdit.getPriority());
-        Date updatedDueDate =  editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
-
+        Date updatedDueDate = editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
         return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate);
 
     }
@@ -222,7 +216,8 @@ public class EditDeadlineCommand extends Command {
             // state check
             EditDeadlineCommand.EditDeadlineDescriptor e = (EditDeadlineCommand.EditDeadlineDescriptor) other;
 
-            return getName().equals(e.getName()) && getDateCreated().equals(e.getDateCreated()) && getNote().equals(e.getNote())
+            return getName().equals(e.getName()) && getDateCreated().equals(e.getDateCreated()) && getNote()
+                    .equals(e.getNote())
                     && getPriority().equals(e.getPriority()) && getDueDate().equals(e.getDueDate());
         }
     }

@@ -2,6 +2,7 @@ package nasa.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.activity.Date;
 import nasa.model.activity.Event;
@@ -27,7 +28,7 @@ class JsonAdaptedEvent {
      * Constructs a {@code JsonAdaptedEvent} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedEvent(@JsonProperty("name") String name, @JsonProperty("date") String date, 
+    public JsonAdaptedEvent(@JsonProperty("name") String name, @JsonProperty("date") String date,
                             @JsonProperty("note") String note, @JsonProperty("startDate") String startDate,
                             @JsonProperty("endDate") String endDate,
                             @JsonProperty("schedule") String schedule) {
@@ -100,9 +101,7 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelEndDate = new Date(endDate);
-        
-        Schedule modelSchedule = new Schedule(schedule);
-
+        final Schedule modelSchedule = new Schedule(schedule);
         Event event = new Event(modelName, modelDate, modelNote, eventStartDate, modelEndDate);
         event.setSchedule(modelSchedule);
 

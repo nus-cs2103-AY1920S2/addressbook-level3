@@ -3,8 +3,10 @@ package nasa.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
@@ -55,7 +57,7 @@ class JsonAdaptedModule {
                 .collect(Collectors.toList()));
         eventList.addAll(source.getEventList().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedEvent::new)
-                .collect(Collectors.toList()));        
+                .collect(Collectors.toList()));
     }
 
     /**
