@@ -93,7 +93,6 @@ Our application has two lists: Order list and Return Order list.
 
 ** Project management:
 *** In charge of Documentation. Supporting role in Testing and Code Quality.
-** Enhancements to existing features:
 
 ** Documentation:
 *** Update delete and nearby command DG:
