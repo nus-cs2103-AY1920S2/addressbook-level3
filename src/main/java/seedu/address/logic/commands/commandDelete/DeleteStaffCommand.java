@@ -4,21 +4,18 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.commandAdd.AddStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
-
-import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a teacher identified using it's displayed index from the address book.
  */
-public class DeleteTeacherCommand extends DeleteCommand {
+public class DeleteStaffCommand extends DeleteCommand {
 
   public static final String COMMAND_WORD = "delete-staff";
 
@@ -33,11 +30,11 @@ public class DeleteTeacherCommand extends DeleteCommand {
   private Index targetIndex;
   private Staff toDelete;
 
-  public DeleteTeacherCommand(ID targetID) {
+  public DeleteStaffCommand(ID targetID) {
     this.targetID = targetID;
   }
 
-  public DeleteTeacherCommand(Staff toDelete) {
+  public DeleteStaffCommand(Staff toDelete) {
     this.toDelete = toDelete;
   }
 
@@ -61,7 +58,7 @@ public class DeleteTeacherCommand extends DeleteCommand {
   }
 
   protected void generateOppositeCommand() {
-    oppositeCommand = new AddTeacherCommand(toDelete.clone(), targetIndex.getZeroBased());
+    oppositeCommand = new AddStaffCommand(toDelete.clone(), targetIndex.getZeroBased());
   }
 
   @Override
@@ -74,7 +71,7 @@ public class DeleteTeacherCommand extends DeleteCommand {
   @Override
   public boolean equals(Object other) {
     return other == this // short circuit if same object
-        || (other instanceof DeleteTeacherCommand // instanceof handles nulls
-        && targetIndex.equals(((DeleteTeacherCommand) other).targetIndex)); // state check
+        || (other instanceof DeleteStaffCommand // instanceof handles nulls
+        && targetIndex.equals(((DeleteStaffCommand) other).targetIndex)); // state check
   }
 }

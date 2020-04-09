@@ -35,7 +35,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing teacher in the address book.
  */
-public class EditTeacherCommand extends EditCommand {
+public class EditStaffCommand extends EditCommand {
 
   public static final String COMMAND_WORD = "edit-staff";
 
@@ -72,7 +72,7 @@ public class EditTeacherCommand extends EditCommand {
    * @param targetID                 of the staff in the filtered staff list to edit
    * @param editTeacherDescriptor details to edit the staff with
    */
-  public EditTeacherCommand(ID targetID, EditTeacherDescriptor editTeacherDescriptor) {
+  public EditStaffCommand(ID targetID, EditTeacherDescriptor editTeacherDescriptor) {
     requireNonNull(targetID);
     requireNonNull(editTeacherDescriptor);
 
@@ -106,7 +106,7 @@ public class EditTeacherCommand extends EditCommand {
 
   @Override
   protected void generateOppositeCommand() {
-    oppositeCommand = new EditTeacherCommand(targetID, new EditTeacherCommand.EditTeacherDescriptor(toEdit));
+    oppositeCommand = new EditStaffCommand(targetID, new EditStaffCommand.EditTeacherDescriptor(toEdit));
   }
 
   @Override
@@ -153,12 +153,12 @@ public class EditTeacherCommand extends EditCommand {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof EditTeacherCommand)) {
+    if (!(other instanceof EditStaffCommand)) {
       return false;
     }
 
     // state check
-    EditTeacherCommand e = (EditTeacherCommand) other;
+    EditStaffCommand e = (EditStaffCommand) other;
     return targetID.equals(e.targetID)
         && editTeacherDescriptor.equals(e.editTeacherDescriptor);
   }
