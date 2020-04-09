@@ -168,6 +168,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     void showStatistics(Event ev) {
         if (showTab.isSelected()) {
+            logger.info("Show Tab is selected by the user");
             tabPane.getSelectionModel().select(showTab);
             //Do stuff here
         }
