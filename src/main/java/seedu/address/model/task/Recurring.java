@@ -93,6 +93,15 @@ public class Recurring {
         return hasPassed;
     }
 
+
+    public LocalDateTime getUpdatedReminderTime(Reminder currentReminder) {
+        LocalDateTime currentDateTime = currentReminder.getDateTime();
+        if (shouldUpdateReminder(currentDateTime)) {
+            currentDateTime = currentDateTime.plusDays(type.getDayInterval());
+        }
+        return currentDateTime;
+    }
+
     public Task resetTask(Task taskToReset) {
         assert taskToReset != null;
         Name updatedName = taskToReset.getName();
@@ -162,11 +171,12 @@ public class Recurring {
     }
 
     public long getDelayToFirstTrigger() {
-        long delay = Duration.between(
-                        LocalDateTime.now(),
-                        referenceDateTime.plusDays(type.getDayInterval()))
-                .getSeconds();
-        return delay >= 0 ? delay * 1000 : 0;
+        // long delay = Duration.between(
+        //                 LocalDateTime.now(),
+        //                 referenceDateTime.plusDays(type.getDayInterval()))
+        //         .getSeconds();
+        // return delay >= 0 ? delay * 1000 : 0;
+        return 60000l; //for testing
     }
 
     public long getPeriod() {

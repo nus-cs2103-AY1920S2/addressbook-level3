@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -119,9 +120,16 @@ public class Task {
         return this.optionalRecurring.get().getPeriod();
     }
 
-    public Task undoTask() {
+    public Task getRecurredTask() {
+        Recurring recurring = optionalRecurring.get();
+        if (optionalReminder.isPresent()) {
+            Reminder reminder = optionalReminder.get();
+            LocalDateTime newDateTime = recurring.getUpdatedReminderTime(reminder);
+            return new TaskBuilder(this).withDone(new Done()).withReminder(newDateTime).build();
+        }
         return new TaskBuilder(this).withDone(new Done()).build();
     }
+
 
     public void triggerReminderIfPresent() {
         if (optionalReminder.isPresent()) {

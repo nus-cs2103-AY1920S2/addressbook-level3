@@ -141,13 +141,14 @@ public class ModelManager implements Model {
                 Platform.runLater(
                         () -> {
                             System.out.println("timer up");
-                            setTask(t, t.undoTask());
+                            setTask(t, t.getRecurredTask());
+
                         });
             }
         };
     }
 
-    private void cancelTimer(Task t) {
+    private void cancelTimerTask(Task t) {
         if (this.recurringTimerTasks.containsKey(t)) {
             this.recurringTimerTasks.get(t).cancel();
         }
@@ -180,7 +181,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTask(Task target) {
-        this.cancelTimer(target);
+        this.cancelTimerTask(target);
         taskList.removeTask(target);
     }
 
@@ -202,15 +203,10 @@ public class ModelManager implements Model {
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
         taskList.setTask(target, editedTask);
-        cancelTimer(target);
+        cancelTimerTask(target);
         setTimer(editedTask);
         this.sortList();
         this.taskSaver.saveTask(this.taskList);
-        // try {
-        //     notifyObservers();
-        // } catch (CommandException e) {
-        //     e.printStackTrace();
-        // }
     }
 
     // =========== Subject Methods for Observer
