@@ -2,7 +2,8 @@ package seedu.zerotoone.testutil.schedule;
 
 import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_JULY;
 import static seedu.zerotoone.testutil.schedule.ScheduleCommandTestUtil.VALID_DATETIME_JUNE;
-import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkouts;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.ARMS_WORKOUT;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.LEGS_WORKOUT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,21 +13,18 @@ import seedu.zerotoone.model.schedule.DateTime;
 import seedu.zerotoone.model.schedule.OneTimeSchedule;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.workout.Workout;
 
 /**
  * A utility class containing a list of {@code Schedule} objects to be used in tests.
  */
 public class TypicalSchedules {
 
-    private static final List<Workout> workouts = getTypicalWorkouts();
-
     public static final OneTimeSchedule SCHEDULE_AT_FIRST_JUNE = new OneTimeScheduleBuilder()
-            .withWorkout(workouts.get(0))
+            .withWorkout(ARMS_WORKOUT)
             .withDateTime(new DateTime(VALID_DATETIME_JUNE))
             .build();
     public static final OneTimeSchedule SCHEDULE_AT_FIRST_JULY = new OneTimeScheduleBuilder()
-            .withWorkout(workouts.get(1))
+            .withWorkout(LEGS_WORKOUT)
             .withDateTime(new DateTime(VALID_DATETIME_JULY))
             .build();
 

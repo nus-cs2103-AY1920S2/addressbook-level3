@@ -268,7 +268,12 @@ class EditCommandTest {
         }
 
         public void deleteWorkout(Workout target) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void deleteExerciseFromWorkouts(Exercise exercise) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
