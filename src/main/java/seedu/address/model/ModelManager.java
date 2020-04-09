@@ -26,7 +26,6 @@ import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
-import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
@@ -54,27 +53,29 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ModuleBook moduleBook) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, moduleBook);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
+        + " and module list: " + moduleBook);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.moduleBook = moduleBook;
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         diaryBook = new DiaryBook();
         diaryEntries = diaryBook.getInternalList();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
-        moduleBook = new ModuleBook();
         moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
+        System.out.println(moduleListTaken);
         studentProfile = new Profile();
 
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new ModuleBook());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -253,6 +254,11 @@ public class ModelManager implements Model {
     public void updateModulesListTaken(Predicate<NusModule> predicate) {
         requireNonNull(predicate);
         moduleListTaken.setPredicate(predicate);
+    }
+
+    @Override
+    public Path getModuleBookFilePath() {
+        return userPrefs.getModuleBookFilePath();
     }
 
     @Override

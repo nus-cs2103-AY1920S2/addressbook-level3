@@ -11,11 +11,11 @@ class NusModuleTest {
 
     @Test
     void getGradePoint() {
-        NusModule module1 = new NusModule(new ModuleCode("CS2030"), 4, false,
-                Optional.of(Grade.A), new ArrayList<>(), null);
+        NusModule module1 = new NusModule(new ModuleCode("CS2030"), 4,
+                Optional.of(Grade.A), new ArrayList<>());
         assertEquals(5.0, module1.getGradePoint());
-        NusModule module2 = new NusModule(new ModuleCode("CS2030"), 4, false,
-                Optional.of(Grade.C), new ArrayList<>(), null);
+        NusModule module2 = new NusModule(new ModuleCode("CS2030"), 4,
+                Optional.of(Grade.C), new ArrayList<>());
         assertEquals(2.0, module2.getGradePoint());
     }
 }

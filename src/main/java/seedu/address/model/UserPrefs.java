@@ -18,6 +18,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private Path diaryBookFilePath = Paths.get("data", "stub-diaryEntries.json");
 
+    private Path moduleBookFilePath = Paths.get("data" , "modulebook.json");
+
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -56,6 +58,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     // Diary Book entry at startup
     public Path getDiaryBookFilePath() {
         return diaryBookFilePath;
+    }
+
+    public Path getModuleBookFilePath() {
+        return moduleBookFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {

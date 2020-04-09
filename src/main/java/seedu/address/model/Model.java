@@ -17,7 +17,6 @@ import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
-import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
@@ -185,6 +184,8 @@ public interface Model {
     List<Task> findTasksByCat(String cat);
 
     void updateModulesListTaken(Predicate<NusModule> predicate);
+
+    Path getModuleBookFilePath();
 
     //=========== Deadline ==================================================================================
 
