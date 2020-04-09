@@ -1,8 +1,13 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
+import java.util.Stack;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,6 +23,9 @@ public class CommandBox extends UiPart<Region> {
 
   private final CommandExecutor commandExecutor;
   private final MainWindow mainWindow;
+  private Stack<String> leftCommandStack;
+  private Stack<String> rightCommandStack;
+  private Stack<String> mainCommandStack;
   @FXML
   private TextField commandTextField;
 
@@ -27,6 +35,41 @@ public class CommandBox extends UiPart<Region> {
     this.mainWindow = mainWindow;
     // calls #setStyleToDefault() whenever there is a change to the text of the command box.
     commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+    leftCommandStack = new Stack<>();
+    rightCommandStack = new Stack<>();
+    mainCommandStack = new Stack<>();
+
+    getRoot().setOnKeyPressed(new EventHandler<KeyEvent>() {
+      public void handle(KeyEvent ke) {
+        boolean repeat = false;
+        if (ke.getCode() == KeyCode.F3) {
+          if (!rightCommandStack.isEmpty()){
+            if (rightCommandStack.peek().equals(commandTextField.getText())){
+              repeat = true;
+            }
+            String commandStr = rightCommandStack.pop();
+            commandTextField.setText(commandStr);
+            leftCommandStack.push(commandStr);
+          }
+        } else if (ke.getCode() == KeyCode.F2) {
+          if (!leftCommandStack.isEmpty()){
+            if (leftCommandStack.peek().equals(commandTextField.getText())){
+              repeat = true;
+            }
+            String commandStr = leftCommandStack.pop();
+            commandTextField.setText(commandStr);
+            rightCommandStack.push(commandStr);
+          }
+        }
+        System.out.println(Arrays.toString(leftCommandStack.toArray()));
+        System.out.println(Arrays.toString(rightCommandStack.toArray()));
+        System.out.println(Arrays.toString(mainCommandStack.toArray()));
+        System.out.println("---");
+        if (repeat){
+          handle(ke);
+        }
+      }
+    });
   }
 
   /**
@@ -36,6 +79,20 @@ public class CommandBox extends UiPart<Region> {
   private void handleCommandEntered() {
     try {
       commandExecutor.execute(commandTextField.getText());
+      if (mainCommandStack.isEmpty() || !mainCommandStack.peek()
+          .equals(commandTextField.getText())) {
+        mainCommandStack.push(commandTextField.getText());
+        leftCommandStack.clear();
+        leftCommandStack.addAll(mainCommandStack);
+        rightCommandStack.clear();
+      } else if (!mainCommandStack.isEmpty() && mainCommandStack.peek()
+          .equals(commandTextField.getText())){
+        if (!rightCommandStack.isEmpty()){
+          String commandStr = rightCommandStack.pop();
+          commandTextField.setText(commandStr);
+          leftCommandStack.push(commandStr);
+        }
+      }
       commandTextField.setText("");
     } catch (CommandException | ParseException e) {
       setStyleToIndicateCommandFailure();
