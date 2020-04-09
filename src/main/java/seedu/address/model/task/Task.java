@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.TaskBuilder;
 import seedu.address.ui.MainWindow;
@@ -129,7 +127,6 @@ public class Task {
         }
         return new TaskBuilder(this).withDone(new Done()).build();
     }
-
 
     public void triggerReminderIfPresent() {
         if (optionalReminder.isPresent()) {

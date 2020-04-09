@@ -30,7 +30,6 @@ public enum RecurType {
     public static final long dayIntervalMilliseconds = 1000l * 60 * 60 * 24;
     public static final long dayIntervalDays = 1;
 
-
     public abstract long getDayInterval();
 
     public abstract long getInterval();

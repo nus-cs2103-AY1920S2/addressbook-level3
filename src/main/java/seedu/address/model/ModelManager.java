@@ -12,7 +12,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -134,7 +133,8 @@ public class ModelManager implements Model {
             if (t.getOptionalRecurring().isPresent()) {
                 TimerTask tt = this.generateTimerTask(t);
                 recurringTimerTasks.put(t, tt);
-                this.recurringTimer.scheduleAtFixedRate(tt, t.getDelayToFirstTrigger(), t.getRecurPeriod()); 
+                this.recurringTimer.scheduleAtFixedRate(
+                        tt, t.getDelayToFirstTrigger(), t.getRecurPeriod());
             }
         }
     }
@@ -161,7 +161,8 @@ public class ModelManager implements Model {
         if (t.getOptionalRecurring().isPresent()) {
             TimerTask tt = this.generateTimerTask(t);
             recurringTimerTasks.put(t, tt);
-            this.recurringTimer.scheduleAtFixedRate(tt, t.getDelayToFirstTrigger(), t.getRecurPeriod()); 
+            this.recurringTimer.scheduleAtFixedRate(
+                    tt, t.getDelayToFirstTrigger(), t.getRecurPeriod());
         }
     }
 

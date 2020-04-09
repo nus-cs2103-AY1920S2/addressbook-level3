@@ -1,22 +1,10 @@
 package seedu.address.model.task;
 
-import static java.util.Objects.requireNonNull;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-import javafx.application.Platform;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.exceptions.InvalidReminderException;
 
 public class Recurring {
     private final RecurType type;
@@ -63,7 +51,6 @@ public class Recurring {
         return hasPassed;
     }
 
-
     public LocalDateTime getUpdatedReminderTime(Reminder currentReminder) {
         LocalDateTime currentDateTime = currentReminder.getDateTime();
         if (shouldUpdateReminder(currentDateTime)) {
@@ -88,13 +75,12 @@ public class Recurring {
         //                 referenceDateTime.plusDays(type.getDayInterval()))
         //         .getSeconds();
         // return delay >= 0 ? delay * 1000 : 0;
-        return 60000l; //for testing
+        return 60000l; // for testing
     }
 
     public long getPeriod() {
         return type.getInterval();
     }
-    
 
     @Override
     public String toString() {
