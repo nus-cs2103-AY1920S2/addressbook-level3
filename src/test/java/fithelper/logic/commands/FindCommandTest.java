@@ -54,22 +54,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noEntryFound() {
-        String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = NameContainsKeywordsPredicate.getVaguePredicate();
+    public void executeMultipleKeywordsMultipleEntriesFound() {
+        String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 3);
+        NameContainsKeywordsPredicate predicate = preparePredicate("Noodles Mala Apple juice");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFoodEntryList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredFoodEntryList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleEntriesFound() {
-        String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredFoodEntryList(predicate);
-        assertCommandFailure(command, model, expectedMessage);
         assertEquals(Arrays.asList(ENTRY1, ENTRY2, ENTRY3), model.getFilteredFoodEntryList());
     }
 

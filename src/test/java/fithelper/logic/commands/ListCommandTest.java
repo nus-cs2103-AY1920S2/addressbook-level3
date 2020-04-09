@@ -3,7 +3,7 @@ package fithelper.logic.commands;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
-import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
+import static fithelper.testutil.TypicalIndexesUtil.INDEX_FIRST_ENTRY;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,12 +29,12 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
+    public void executeListIsNotFilteredShowsSameList() {
         assertCommandSuccess(new ListCommand(null), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void executeListIsFilteredShowsEverything() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
         assertCommandSuccess(new ListCommand(null), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }

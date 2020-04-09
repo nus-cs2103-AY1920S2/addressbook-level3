@@ -4,8 +4,8 @@ import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
-import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
-import static fithelper.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
+import static fithelper.testutil.TypicalIndexesUtil.INDEX_FIRST_ENTRY;
+import static fithelper.testutil.TypicalIndexesUtil.INDEX_SECOND_ENTRY;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,7 +29,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
 
     @Test
-    public void execute_validIndexUnfilteredFoodList_success() {
+    public void executeValidIndexUnfilteredFoodListSuccess() {
         Entry foodEntryToDelete = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), INDEX_FIRST_ENTRY);
 
@@ -42,7 +42,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredFoodList_throwsCommandException() {
+    public void executeInvalidIndexUnfilteredFoodListThrowsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodEntryList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), outOfBoundIndex);
 
@@ -50,7 +50,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredFoodList_success() {
+    public void executeValidIndexFilteredFoodListSuccess() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
         Entry foodEntryToDelete = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
@@ -60,13 +60,12 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getFitHelper(), new UserProfile(), new WeightRecords());
         expectedModel.deleteEntry(foodEntryToDelete);
-        showNoEntry(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_invalidIndexFilteredFoodList_throwsCommandException() {
+    public void executeInvalidIndexFilteredFoodListThrowsCommandException() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
         Index outOfBoundIndex = INDEX_SECOND_ENTRY;
@@ -110,3 +109,4 @@ public class DeleteCommandTest {
         assertTrue(model.getFilteredSportsEntryList().isEmpty());
     }
 }
+

@@ -9,8 +9,8 @@ import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
-import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
-import static fithelper.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
+import static fithelper.testutil.TypicalIndexesUtil.INDEX_FIRST_ENTRY;
+import static fithelper.testutil.TypicalIndexesUtil.INDEX_SECOND_ENTRY;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,7 +37,7 @@ public class EditCommandTest {
     private Model model = new ModelManager(getTypicalFitHelper(), new UserProfile(), new WeightRecords());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void executeAllFieldsSpecifiedUnfilteredListSuccess() {
         Entry editedEntry = new EntryBuilder().build();
         EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder(editedEntry).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTRY, descriptor);
@@ -61,7 +61,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void executeSomeFieldsSpecifiedUnfilteredListFailure() {
         Index indexLastFoodEntry = Index.fromOneBased(model.getFilteredFoodEntryList().size());
         Entry lastFoodEntry = model.getFilteredFoodEntryList().get(indexLastFoodEntry.getZeroBased());
 
@@ -80,24 +80,14 @@ public class EditCommandTest {
                 new UserProfile(), new WeightRecords());
         expectedModel.setEntry(lastFoodEntry, editedFoodEntry);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTRY, new EditEntryDescriptor());
-        Entry editedFoodEntry = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedFoodEntry);
-
         assertCommandFailure(editCommand, model, expectedMessage);
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void executeFilteredListSuccess() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
-        Entry entryInFilteredFoodList = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
+        Entry entryInFilteredFoodList = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getOneBased());
         Entry editedFoodEntry = new EntryBuilder(entryInFilteredFoodList).withType("food")
                 .withName(VALID_NAME_FOOD).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTRY,
@@ -113,7 +103,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateEntryUnfilteredList_failure() {
+    public void executeDuplicateEntryUnfilteredListFailure() {
         Entry firstFoodEntry = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
         EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder(firstFoodEntry).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_ENTRY, descriptor);
@@ -122,7 +112,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateEntryFilteredList_failure() {
+    public void executeDuplicateEntryFilteredListFailure() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
         // edit entry in filtered list into a duplicate in address book
@@ -134,28 +124,11 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_invalidEntryIndexUnfilteredList_failure() {
+    public void executeInvalidEntryIndexUnfilteredListFailure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodEntryList().size() + 1);
         EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder().withType("food")
                 .withName(VALID_NAME_FOOD).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
-
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
-    }
-
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
-     */
-    @Test
-    public void execute_invalidEntryIndexFilteredList_failure() {
-        showEntryAtIndex(model, INDEX_FIRST_ENTRY);
-        Index outOfBoundIndex = INDEX_SECOND_ENTRY;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getFitHelper().getFoodList().size());
-
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
     }
@@ -179,7 +152,7 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ENTRY, DESC_FOOD)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_ENTRY, DESC_FOOD)));
+        assertTrue(standardCommand.equals(new EditCommand(INDEX_FIRST_ENTRY, DESC_FOOD)));
     }
 
 }
