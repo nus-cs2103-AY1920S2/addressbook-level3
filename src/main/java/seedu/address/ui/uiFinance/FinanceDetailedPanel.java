@@ -48,7 +48,7 @@ public class FinanceDetailedPanel extends UiPart<Region> {
   }
 
   private void updateDetailView(ObservableMap<String, Object> newFinanceMap) {
-    if (newFinanceMap.containsKey("details")) {
+    if (newFinanceMap.containsKey("details") && newFinanceMap.get("details") != null) {
       Finance finance = (Finance) newFinanceMap.get("details");
       ObservableList<Finance> filteredFinances = FXCollections.observableArrayList();
       filteredFinances.add(finance);
