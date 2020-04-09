@@ -49,7 +49,7 @@ class JsonAdaptedCalendar {
 
         if (task instanceof ModuleTask) {
             category = "School";
-            priority = ((ModuleTask) task).getPriority().toString();
+            priority = Integer.toString(((ModuleTask) task).getPriority().getLevelOfSignificance());
             module = ((ModuleTask) task).getModuleRelated().toString();
         } else {
             category = task.getCategory();
