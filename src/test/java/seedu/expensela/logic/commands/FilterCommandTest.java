@@ -5,6 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.commons.core.Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.expensela.testutil.TypicalTransactions.APPLES;
+import static seedu.expensela.testutil.TypicalTransactions.BONUS;
+import static seedu.expensela.testutil.TypicalTransactions.CAR_GAS;
+import static seedu.expensela.testutil.TypicalTransactions.DOMINOS;
+import static seedu.expensela.testutil.TypicalTransactions.ELECTRICITY;
+import static seedu.expensela.testutil.TypicalTransactions.FLOWERS;
+import static seedu.expensela.testutil.TypicalTransactions.GRAB;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.util.Arrays;
@@ -65,6 +72,85 @@ class FilterCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
     }
+
+    @Test
+    public void execute_invalidCategoryValidMonth_noTransactionFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 0);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("FOODS");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("2020-03");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
+    }
+
+    @Test
+    public void execute_invalidMonthValidCategory_noTransactionFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 0);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("FOOD");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("2020-13");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
+    }
+
+    @Test
+    public void execute_invalidYearValidCategory_noTransactionFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 0);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("FOOD");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("1899-12");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
+    }
+
+    @Test
+    public void execute_validKeywords_transactionFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 1);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("FOOD");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("2020-03");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(DOMINOS), model.getFilteredTransactionList());
+    }
+
+    @Test
+    public void execute_allMonthValidCategory_transactionFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 1);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("FOOD");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("ALL");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(DOMINOS), model.getFilteredTransactionList());
+    }
+
+    @Test
+    public void execute_allCategoriesValidMonth_multipleTransactionsFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 3);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("ALL");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("2020-02");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CAR_GAS, BONUS, APPLES), model.getFilteredTransactionList());
+    }
+
+    @Test
+    public void execute_allCategoriesAllMonths_allTransactionsFound() {
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 7);
+        CategoryEqualsKeywordPredicate categoryPredicate = prepareCategoryPredicate("ALL");
+        DateEqualsKeywordPredicate datePredicate = prepareDatePredicate("ALL");
+        FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
+        expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(GRAB, FLOWERS, ELECTRICITY, DOMINOS, CAR_GAS, BONUS, APPLES),
+                model.getFilteredTransactionList());
+    }
+
 
     private CategoryEqualsKeywordPredicate prepareCategoryPredicate(String userInput) {
         return new CategoryEqualsKeywordPredicate(Arrays.asList(userInput));

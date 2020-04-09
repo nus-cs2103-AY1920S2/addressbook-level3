@@ -74,8 +74,8 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
      */
     private void graphByCategory(ObservableList<Transaction> transactionList) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        ArrayList<String> categories = new ArrayList<>();
-        ArrayList<Integer> amounts = new ArrayList<>();
+        ArrayList<String> categories = new ArrayList<String>();
+        ArrayList<Integer> amounts = new ArrayList<Integer>();
 
         for (Transaction transaction : transactionList) {
             String category = transaction.getCategory().toString();
