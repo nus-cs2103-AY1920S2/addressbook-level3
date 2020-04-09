@@ -36,11 +36,8 @@ public class HelpCommand extends Command {
         if (other instanceof HelpCommand) {
             if (((HelpCommand) other).isValid() && this.isValid()) {
                 return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
+        return false;
     }
 }
