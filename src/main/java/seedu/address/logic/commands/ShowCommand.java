@@ -146,8 +146,9 @@ public class ShowCommand extends Command {
         } else if (isAll(argText)) {
             setSuccessMessage(MESSAGE_ALL);
         } else {
-            String[] arrOfDate = argText.replaceAll("\\s+", " ").split("\\s");
             try {
+                String[] arrOfDate = argText.replaceAll("\\s+", " ").split("\\s");
+
                 checkValidInput(arrOfDate);
                 initStartDate(arrOfDate[0]);
                 initEndDate(arrOfDate);
@@ -282,7 +283,7 @@ public class ShowCommand extends Command {
      */
     public void initEndDate(String[] arrOfDate) {
         // Null value is not allowed for end date
-        assert arrOfDate[1] != null;
+        assert arrOfDate != null;
 
         // Checking the number of dates provided
         endDate = (arrOfDate.length == 1)
