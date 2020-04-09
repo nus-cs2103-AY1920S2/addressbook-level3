@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.FXCollections;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -25,7 +25,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.calender.Task;
@@ -52,9 +51,11 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"),
                         temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonModuleBookStorage jsonModuleBookStorage = new JsonModuleBookStorage(temporaryFolder.resolve("modulebook.json"));
+        JsonModuleBookStorage jsonModuleBookStorage =
+                new JsonModuleBookStorage(temporaryFolder.resolve("modulebook.json"));
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("calendar.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, jsonModuleBookStorage, jsonCalendarStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
+                jsonModuleBookStorage, jsonCalendarStorage);
         logic = new LogicManager(model, storage);
     }
 

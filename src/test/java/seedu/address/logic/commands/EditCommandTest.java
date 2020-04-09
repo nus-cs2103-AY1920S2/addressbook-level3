@@ -16,9 +16,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;

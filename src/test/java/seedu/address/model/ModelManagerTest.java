@@ -13,9 +13,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.collections.FXCollections;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.calender.Task;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
