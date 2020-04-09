@@ -48,7 +48,7 @@ public class SellCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         //user cannot sell goods that do not exist in inventory
-        if (!model.hasGood(soldGood)) {
+        if (!model.hasGood(soldGood.getGoodName())) {
             throw new CommandException(MESSAGE_SELLING_NONEXISTENT_GOOD);
         }
         //user cannot sell more of a good than is present in inventory
