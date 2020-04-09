@@ -49,5 +49,13 @@ public class SampleDataUtil {
         }
         return sampleNb;
     }
+
+    public static ReadOnlyHistory getSampleUiHistoryBook() {
+        HistoryBook sampleNb = new HistoryBook();
+        for (UniqueModuleList sampleModuleList : getSampleModuleList()) {
+            sampleNb.add(sampleModuleList);
+        }
+        return sampleNb;
+    }
 }
 

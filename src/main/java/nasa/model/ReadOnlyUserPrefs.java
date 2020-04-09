@@ -15,4 +15,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getHistoryBookFilePath();
 
+    Path getUiHistoryBookFilePath();
+
 }

@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path nasaBookFilePath = Paths.get("data" , "nasabook.json");
     private Path historyBookFilePath = Paths.get("data" , "history.json");
+    private Path uiHistoryBookFilePath = Paths.get("data", "uiHistory.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -40,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setNasaBookFilePath(newUserPrefs.getNasaBookFilePath());
         setHistoryBookFilePath(newUserPrefs.getHistoryBookFilePath());
+        setUiHistoryBookFilePath(newUserPrefs.getUiHistoryBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -59,6 +61,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return historyBookFilePath;
     }
 
+    public Path getUiHistoryBookFilePath() {
+        return uiHistoryBookFilePath;
+    }
+
     public void setNasaBookFilePath(Path nasaBookFilePath) {
         requireNonNull(nasaBookFilePath);
         this.nasaBookFilePath = nasaBookFilePath;
@@ -67,6 +73,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setHistoryBookFilePath(Path historyBookFilePath) {
         requireNonNull(historyBookFilePath);
         this.historyBookFilePath = historyBookFilePath;
+    }
+
+    public void setUiHistoryBookFilePath(Path uiHistoryBookFilePath) {
+        requireNonNull(uiHistoryBookFilePath);
+        this.uiHistoryBookFilePath = uiHistoryBookFilePath;
     }
 
     @Override
@@ -82,12 +93,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && nasaBookFilePath.equals(o.nasaBookFilePath)
-                && historyBookFilePath.equals(o.historyBookFilePath);
+                && historyBookFilePath.equals(o.historyBookFilePath)
+                && uiHistoryBookFilePath.equals(o.historyBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, nasaBookFilePath, historyBookFilePath);
+        return Objects.hash(guiSettings, nasaBookFilePath, historyBookFilePath, uiHistoryBookFilePath);
     }
 
     @Override
@@ -96,6 +108,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + nasaBookFilePath);
         sb.append("\nLocal history data file location : " + historyBookFilePath);
+        sb.append("\nLocal ui history data file location : " + uiHistoryBookFilePath);
         return sb.toString();
     }
 }

@@ -47,14 +47,16 @@ public class FindCommand extends Command {
         // TODO add the necessary implementation once model is done
         if (predicate instanceof NameContainsKeywordsPredicate) {
             model.updateFilteredModuleList(predicate);
+            model.updateHistory();
             return new CommandResult("Module listed.");
         } else if (predicate instanceof ActivityContainsKeyWordsPredicate) {
             model.updateFilteredActivityList(predicate);
+            model.updateHistory();
             return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
                     getNumberOfFilteredActivities(model.getFilteredModuleList())));
         } else {
-            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
             model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
             return new CommandResult(MESSAGE_REFRESH);
         }
     }
