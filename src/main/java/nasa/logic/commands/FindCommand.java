@@ -29,8 +29,6 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " assignment lab tutorial";
 
-    public static final String MESSAGE_REFRESH = "Screen has been refreshed.";
-
     private final Predicate predicate;
 
     public FindCommand() {
@@ -44,19 +42,9 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
-        if (predicate instanceof NameContainsKeywordsPredicate) {
-            model.updateFilteredModuleList(predicate);
-            return new CommandResult("Module listed.");
-        } else if (predicate instanceof ActivityContainsKeyWordsPredicate) {
-            model.updateFilteredActivityList(predicate);
-            return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
-                    getNumberOfFilteredActivities(model.getFilteredModuleList())));
-        } else {
-            model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-            model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-            return new CommandResult(MESSAGE_REFRESH);
-        }
+        model.updateFilteredActivityList(predicate);
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
+            getNumberOfFilteredActivities(model.getFilteredModuleList())));
     }
 
     private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {
