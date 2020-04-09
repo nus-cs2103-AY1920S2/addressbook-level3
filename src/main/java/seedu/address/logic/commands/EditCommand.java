@@ -229,7 +229,7 @@ public class EditCommand extends Command {
 
             Profile editedPerson = createEditedPerson(profileToEdit);
 
-            profileManager.setPerson(profileToEdit, editedPerson);
+            profileManager.setProfile(profileToEdit, editedPerson);
             profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
             return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, editedPerson.getName()), false);
