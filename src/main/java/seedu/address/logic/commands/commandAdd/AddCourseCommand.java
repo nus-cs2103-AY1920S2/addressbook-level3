@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 
@@ -69,6 +70,7 @@ public class AddCourseCommand extends AddCommand {
     } else {
       model.addAtIndex(toAdd, index);
     }
+    EdgeManager.revokeEdgesFromDeleteEvent(toAdd);
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
