@@ -82,73 +82,64 @@ to infer which User ID Pairs have had too much contact time.
 The return of a successfully executed command is an `AppMessage` class which signals to `AppUiManager`
 how the results should be rendered to the user.
 
-==== How the architecture components interact with each other
+== How the architecture components interact with each other
 
-Use case 1: user issues the command `delete 1`.
+=== User Launches App
 
-.Component interactions for `delete 1` command
-image::???.png[]
+.When user issues an instruction to the application
+image::SequenceDiagram.png[]
 
-[[Design-Ui]]
-=== UI component
+When the user launches the application, his request goes through a series of classes
+as illustrated in the figure above.
 
-.Structure of the UI Component
-image::???.png[]
+=== Retrieving command / storage
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+.Logic for route(request / command)
+image::CommandSequenceDiagram.png[]
 
-[[Design-Logic]]
-=== Logic component
+Figure illustrates how a command is chosen based on a user defined *COMMAND_WORD*.
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::???.png[]
+The exact image can be applied for selecting the data access object we want to use.
+Here, the `DaoRouter` infers the type of data access needed by looking at class `AppCommand`.
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+Routing is done based on whether the `AppCommand` class inherits from `BluetoothPingStorageAccess`
+or `UserStorageAccess`.
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+== Models
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+All our models are stored and loaded at runtime in memory.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+`BluetoothPings` class contains the following fields
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+[width="65%",cols="25%,",options="header",]
+|=======================================================================
+|Field name | Description
+| epochTs   | Recorded timestamp in Unix Timing
+| userIDs   | User pairs [A, B] for each registered device interaction
+|=======================================================================
 
-[[Design-Model]]
-=== Model component
+`BluetoothPingsSummary` class is a summary of all user ids recorded
 
-.Structure of the Model Component
-image::???.png[]
+[width="65%",cols="25%,",options="header",]
+|=======================================================================
+|Field name | Description
+| userIDs   | User pairs [A, B] for each registered device interaction
+| counts    | Total summed instances of all pairs [A, B] in the database
+|=======================================================================
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+`Person` contains personal details of a user
 
-[[Design-Storage]]
-=== Storage component
+[width="65%",cols="25%,",options="header",]
+|=======================================================================
+|Field name | Description
+| userID    | Registered user id of the person
+| name      | Person's name
+| mobile    | Phone number
+| nric      | NRIC identification beginning with S and ending with some alphabet
+| age       | Person's age
+|=======================================================================
 
-No storage here ... we were banned from using storage
-
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-???
-
-==== Design Considerations
+== Design Considerations
 
 ???
 
