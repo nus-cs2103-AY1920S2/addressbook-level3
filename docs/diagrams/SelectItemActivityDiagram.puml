@@ -1,0 +1,23 @@
+@startuml
+start
+:User Executes SelectItem Command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:Load Food from Model;
+:Create a new PurchasedFood Object;
+:Load Budget from Model;
+if () then ([does not exceed budget])
+
+:Save PurchasedFood Object to Model;
+:Update Budget;
+:Save Updated Budget to Model;
+
+
+else ([budget exceeded])
+
+endif;
+stop
+
+@enduml

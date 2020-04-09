@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodieBotParser" as FoodieBotParser LOGIC_COLOR
+participant ":SelectItemCommandParser" as SelectItemCommandParser LOGIC_COLOR
+participant "sic:SelectItemCommand" as SelectItemCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+participant "PurchasedFood" as PurchasedFood LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("select" + index/name)
+activate LogicManager
+
+LogicManager -> FoodieBotParser : parseCommand("select " + index/name)
+activate FoodieBotParser
+
+FoodieBotParser -> SelectItemCommandParser : parse(INDEX)
+activate SelectItemCommandParser
+
+create SelectItemCommand
+
+SelectItemCommandParser -> SelectItemCommand
+activate SelectItemCommand
+
+SelectItemCommand --> SelectItemCommandParser
+deactivate SelectItemCommand
+
+SelectItemCommandParser --> FoodieBotParser: sic
+deactivate SelectItemCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SelectItemCommandParser -[hidden]> FoodieBotParser
+destroy SelectItemCommandParser
+
+FoodieBotParser --> LogicManager: sic
+deactivate FoodieBotParser
+
+LogicManager -> SelectItemCommand: execute(model)
+activate SelectItemCommand
+
+SelectItemCommand -> Model : getFilteredFoodList()
+activate Model
+
+Model --> SelectItemCommand
+deactivate Model
+
+SelectItemCommand -> Model : getBudget()
+activate Model
+
+Model --> SelectItemCommand
+deactivate Model
+
+create PurchasedFood
+SelectItemCommand -> PurchasedFood
+
+opt getRemainingBudget() >= getPrice()
+activate PurchasedFood
+
+PurchasedFood -> Model: saveTransactions()
+activate Model
+
+Model --> PurchasedFood
+deactivate Model
+
+PurchasedFood --> SelectItemCommand
+deactivate PurchasedFood
+
+SelectItemCommand -> Model : setBudget()
+activate Model
+
+Model --> SelectItemCommand
+deactivate Model
+end
+
+create CommandResult
+
+SelectItemCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SelectItemCommand
+deactivate CommandResult
+
+SelectItemCommand --> LogicManager: cr
+deactivate SelectItemCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
