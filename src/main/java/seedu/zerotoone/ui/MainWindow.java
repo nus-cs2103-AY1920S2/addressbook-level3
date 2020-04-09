@@ -150,10 +150,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows a view of all the commands available.
+     * Shows a view of the app information such as a list of all commands.
      */
     @FXML
-    public void handleHelp() {
+    public void handleAbout() {
         tabPanePlaceHolder.getSelectionModel().select(5);
     }
 
@@ -186,8 +186,8 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            if (commandResult.isShowAbout()) {
+                handleAbout();
             }
 
             if (commandResult.isShowReport()) {

@@ -61,7 +61,7 @@
           <Tab text="LOG">
             <StackPane fx:id="logContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="HELP" fx:id="helpTab">
+          <Tab text="ABOUT" fx:id="helpTab">
             <StackPane fx:id="helpDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
         </TabPane>
