@@ -62,6 +62,7 @@ public class CalenderListPanel extends UiPart<Region> {
                 }
             }
             super.updateItem(deadline, empty);
+
             if (empty || deadline == null) {
                 setGraphic(null);
                 setText(null);

@@ -2,45 +2,35 @@ package seedu.address.logic.commands.taskcommand.findcommand;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.model.nusmodule.ModuleTask;
+import seedu.address.model.calender.ModuleCodeContainKeywordsPredicate;
 
 /**
  * Find tasks in calendar by specific module code.
  */
 public class FindTasksByModuleCodeCommand extends FindTasksCommand {
-    public static final String MESSAGE_SUCCESS = "Tasks found: ";
+    public static final String MESSAGE_SUCCESS = " Tasks found";
 
-    private final ModuleCode targetModule;
+    private final ModuleCodeContainKeywordsPredicate predicate;
 
-    public FindTasksByModuleCodeCommand(ModuleCode moduleCode) {
-        requireNonNull(moduleCode);
-        this.targetModule = moduleCode;
+    public FindTasksByModuleCodeCommand(ModuleCodeContainKeywordsPredicate predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasModule(targetModule)) {
-            throw new CommandException("Module specified does not exist!");
-        }
+        model.updateDeadlineTaskList(predicate);
 
-        List<ModuleTask> tasks = model.getModuleTaskList(targetModule);
-        //ui part
-
-        return new CommandResult(MESSAGE_SUCCESS + " " + tasks);
+        return new CommandResult(model.getDeadlineTaskList().size() + MESSAGE_SUCCESS);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindTasksByModuleCodeCommand // instanceof handles nulls
-                && targetModule.equals(((FindTasksByModuleCodeCommand) other).targetModule));
+                || (other instanceof FindTasksByModuleCodeCommand);
     }
 }
