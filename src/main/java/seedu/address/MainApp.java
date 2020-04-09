@@ -2,10 +2,13 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -22,9 +25,12 @@ import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calender.Task;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.CalendarBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
 import seedu.address.storage.JsonModuleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.ModuleBookStorage;
@@ -62,13 +68,13 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath(),
                 userPrefs.getCalendarFilePath());
         ModuleBookStorage moduleBookStorage = new JsonModuleBookStorage(userPrefs.getModuleBookFilePath());
+        CalendarBookStorage calendarBookStorage = new JsonCalendarStorage(userPrefs.getCalendarFilePath());
 
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, moduleBookStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, moduleBookStorage, calendarBookStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-        model.setDeadlineTaskList(storage.readCalendarDetails().get().getTaskList());
 
         logic = new LogicManager(model, storage);
 
@@ -83,11 +89,14 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ModuleBook> moduleBookOptional;
+        Optional<ObservableList<Task>> taskListOptional;
         ReadOnlyAddressBook initialData;
         ModuleBook initialModules;
+        ObservableList<Task> initTask;
         try {
             addressBookOptional = storage.readAddressBook();
             moduleBookOptional = storage.readModuleBook();
+            taskListOptional = storage.readCalendar();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
@@ -96,17 +105,20 @@ public class MainApp extends Application {
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialModules = moduleBookOptional.orElseGet(ModuleBook::new);
+            initTask = taskListOptional.orElse(FXCollections.observableList(new ArrayList<>()));
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
             initialModules = new ModuleBook();
+            initTask = FXCollections.observableList(new ArrayList<>());
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
             initialModules = new ModuleBook();
+            initTask = FXCollections.observableList(new ArrayList<>());
         }
 
-        return new ModelManager(initialData, userPrefs, initialModules);
+        return new ModelManager(initialData, userPrefs, initialModules, initTask);
     }
 
     private void initLogging(Config config) {
@@ -192,6 +204,9 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
+
+            model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
+            storage.saveCalendar(model.getDeadlineTaskList());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

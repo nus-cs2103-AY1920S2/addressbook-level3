@@ -54,7 +54,7 @@ class JsonAdaptedCalendar {
         } else {
             category = task.getCategory();
             priority = "1";
-            module = "None";
+            module = "-1";
         }
     }
 

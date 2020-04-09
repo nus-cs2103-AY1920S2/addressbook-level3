@@ -39,61 +39,6 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Path getDiaryBookFilePath() {
-        return null;
-    }
-
-    public Path getCalendarEntriesFilePath() {
-        return calendarEntriesFilePath;
-    }
-
-    /**
-     * Reads the diary book json file
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyAddressBook> readCalendarEntries(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
-
-        Optional<JsonSerializableCalenderBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableCalenderBook.class);
-        if (!jsonAddressBook.isPresent()) {
-            return Optional.empty();
-        }
-
-        try {
-            return Optional.of(jsonAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
-    }
-
-    /**
-     * Reads the diary book json file
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyAddressBook> readDiaryBook(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
-
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
-            return Optional.empty();
-        }
-
-        try {
-            return Optional.of(jsonAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
-    }
-
-    @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
         return readAddressBook(filePath);
     }

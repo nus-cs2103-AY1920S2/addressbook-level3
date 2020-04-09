@@ -5,12 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calender.Task;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -21,14 +23,16 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private ModuleBookStorage moduleBookStorage;
+    private CalendarBookStorage calendarBookStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          ModuleBookStorage moduleBookStorage) {
+                          ModuleBookStorage moduleBookStorage, CalendarBookStorage calendarBookStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.moduleBookStorage = moduleBookStorage;
+        this.calendarBookStorage = calendarBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -106,37 +110,36 @@ public class StorageManager implements Storage {
         moduleBookStorage.saveModuleBook(moduleBook, filePath);
     }
 
-    @Override
-    public Optional<ReadOnlyAddressBook> readCalendarEntries(Path filePath)
-            throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readCalendarEntries(filePath);
-    }
-
-    // ================ diaryBook methods ==============================
-
-    @Override
-    public Path getDiaryBookFilePath() {
-        return addressBookStorage.getDiaryBookFilePath();
-    }
-
 
     // ================ Calendar methods ==============================
     @Override
     public Path getCalendarEntriesFilePath() {
-        return addressBookStorage.getCalendarEntriesFilePath();
+        return calendarBookStorage.getCalendarEntriesFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readCalendarDetails() throws DataConversionException, IOException {
-        return readCalendarEntries(addressBookStorage.getCalendarEntriesFilePath());
+    public Optional<ObservableList<Task>> readCalendar() throws DataConversionException, IOException {
+        return readCalendar(calendarBookStorage.getCalendarEntriesFilePath());
     }
 
-
     @Override
-    public Optional<ReadOnlyAddressBook> readDiaryBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ObservableList<Task>> readCalendar(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readDiaryBook(filePath);
+        return calendarBookStorage.readCalendar(filePath);
     }
+
+    @Override
+    public void saveCalendar(ObservableList<Task> taskList) throws IOException {
+        saveCalendar(taskList, calendarBookStorage.getCalendarEntriesFilePath());
+
+    }
+
+    @Override
+    public void saveCalendar(ObservableList<Task> taskList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        calendarBookStorage.saveCalendar(taskList, filePath);
+
+    }
+
 
 }
