@@ -16,6 +16,11 @@ import com.notably.model.Model;
  * Represent a Parser for OpenCommand.
  */
 public class OpenCommandParser implements CommandParser<OpenCommand> {
+    private static final String ERROR_PATH = "The Path \"%s\" does not exist in the storage. "
+            + "Please provide a valid Path";
+    private static final String ERROR_EMPTY_PATH = "Empty Path detected. "
+            + "Please provide a valid Path";
+
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
@@ -38,7 +43,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             titles = args.trim();
             if (titles.isEmpty()) {
-                throw new ParseException("Path cannot be empty");
+                throw new ParseException(ERROR_EMPTY_PATH);
             }
         } else {
             titles = argMultimap.getValue(PREFIX_TITLE).get();
@@ -47,7 +52,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(titles, notablyModel.getCurrentlyOpenPath());
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Invalid Path");
+            throw new ParseException(String.format(ERROR_PATH, titles));
         }
 
         return List.of(new OpenCommand(correctionResult.getCorrectedItems().get(0)));

@@ -24,12 +24,12 @@ import com.notably.model.Model;
  * Parse in users input and generate the respective Commands
  */
 public class NotablyParser {
-
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit");
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_PATH_FORWARD_MATCHING = false;
+    private static final String ERROR_MESSAGE = "\"%s\" is an invalid command format. "
+            + "To see the list of available commands, type: help";
 
     private Model notablyModel;
     private final CorrectionEngine<String> commandCorrectionEngine;
@@ -50,14 +50,14 @@ public class NotablyParser {
     public List<? extends Command> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format("Invalid Command"));
+            throw new ParseException(String.format(ERROR_MESSAGE, userInput));
         }
 
         String commandWord = matcher.group("commandWord");
         if (commandWord.length() > 1) {
             CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
             if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-                throw new ParseException("Invalid command");
+                throw new ParseException(String.format(ERROR_MESSAGE, commandWord));
             }
             commandWord = correctionResult.getCorrectedItems().get(0);
         }
@@ -89,7 +89,7 @@ public class NotablyParser {
             return List.of(new ExitCommand());
 
         default:
-            throw new ParseException("Invalid Command Word");
+            throw new ParseException(String.format(ERROR_MESSAGE, commandWord));
         }
     }
 

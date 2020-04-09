@@ -69,7 +69,7 @@ public class LogicManagerTest {
     @Test
     public void editCurrentBlockBody_validCurrentBlock_throwEditBlockBodyException()
             throws CommandException, ParseException, EditBlockBodyException {
-        final String newCommandText = "new -t iLoveTesting -b really? -o";
+        final String newCommandText = "new -t iLoveTesting -o";
         final String editBody = "This does not matter";
         logic.execute(newCommandText);
         logic.editCurrentBlockBody(editBody);

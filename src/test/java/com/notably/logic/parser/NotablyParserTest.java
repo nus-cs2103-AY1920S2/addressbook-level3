@@ -65,7 +65,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInput_newCommand() throws Exception {
-        Command command = parser.parseCommand("new -t 1234 -b i love 2103").get(0);
+        Command command = parser.parseCommand("new -t 1234").get(0);
 
         assertTrue(command instanceof NewCommand);
 
@@ -76,7 +76,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_existingNoteInput_throwsError() throws Exception {
-        Command command = parser.parseCommand("new -t block -b Hi").get(0);
+        Command command = parser.parseCommand("new -t block").get(0);
 
         assertTrue(command instanceof NewCommand);
 
@@ -85,14 +85,14 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInputJump_false() throws Exception {
-        List<? extends Command> commands = parser.parseCommand("new -t CS2103 -b Hi");
+        List<? extends Command> commands = parser.parseCommand("new -t CS2103");
 
         assertTrue(commands.size() == 1);
     }
 
     @Test
     public void parseCommand_newCommandInputJump_true() throws Exception {
-        List<? extends Command> commands = parser.parseCommand("new -t CS2103 -b Hi -o");
+        List<? extends Command> commands = parser.parseCommand("new -t CS2103 -o");
         assertTrue(commands.size() == 2);
     }
 
