@@ -6,17 +6,17 @@ import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
 
 /**
- * Toggle between transaction list and chart analytics in the UI.
+ * Toggle between viewing transaction list and chart analytics in the UI.
  */
-public class ToggleCommand extends Command {
+public class ToggleViewCommand extends Command {
 
-    public static final String COMMAND_WORD = "toggle";
+    public static final String COMMAND_WORD = "toggleview";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles between viewing transaction list"
             + "and chart analytics.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Toggled.";
+    public static final String MESSAGE_SUCCESS = "View Toggled.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

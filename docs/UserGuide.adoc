@@ -142,9 +142,9 @@ Examples:
 * `edit 3 a/ 200.00 n/ pocket money`
 
 
-=== Analysis of transactions : `toggle`
+=== Analysis of transactions : `toggleview`
 
-Toggle between list view of transactions and analytics view with bar graph and pie chart to show expense trend
+Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend
 
 
 === Find transaction by name : `find`
@@ -210,7 +210,7 @@ e.g. `delete 3`
 e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
      `edit 2 a/ 16.00 n/ Pizza c/ FOOD` +
      `edit 3 a/ 200.00 n/ pocket money`
-* *Toggle* : `toggle`
+* *Toggle View* : `toggleview`
 * *Reset Balance*: `resetbalance`
 * *Clear*: `clear`
 * *Exit*: `exit`
