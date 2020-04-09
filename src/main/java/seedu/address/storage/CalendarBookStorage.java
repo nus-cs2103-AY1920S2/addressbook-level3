@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ModuleBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.calender.Task;
 
 /**
@@ -20,10 +18,11 @@ public interface CalendarBookStorage {
     Path getCalendarEntriesFilePath();
 
     /**
-     * Returns Calendar data as a {@link ObservableList<Task>}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns Calendar data as a List of task
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * @throws IOException             if there was any problem when reading from the storage.
      */
     Optional<ObservableList<Task>> readCalendar() throws DataConversionException, IOException;
 
@@ -36,6 +35,7 @@ public interface CalendarBookStorage {
     void saveCalendar(ObservableList<Task> taskList) throws IOException;
 
     /**
+     *
      */
     void saveCalendar(ObservableList<Task> taskList, Path filePath) throws IOException;
 

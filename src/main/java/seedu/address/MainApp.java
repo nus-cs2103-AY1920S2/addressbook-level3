@@ -204,6 +204,9 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
+
+            model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
+            storage.saveCalendar(model.getDeadlineTaskList());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

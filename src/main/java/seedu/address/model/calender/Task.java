@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.nusmodule.ModuleTask;
 
 /**
  * <h1> Task Class </h1>
@@ -166,6 +167,18 @@ public class Task {
 
             FXCollections.sort(deadlineTaskList, comparator);
 
+        } else if (value.equals("priority")) {
+            Comparator<Task> comparator = (Task o1, Task o2) -> {
+                if (o1 instanceof Deadline) {
+                    return 1;
+                } else if (o2 instanceof Deadline) {
+                    return -1;
+                } else {
+                    return ((ModuleTask) o1).getPriority().compareTo(((ModuleTask) o2).getPriority());
+                }
+            };
+
+            FXCollections.sort(deadlineTaskList, comparator);
         }
 
     }
