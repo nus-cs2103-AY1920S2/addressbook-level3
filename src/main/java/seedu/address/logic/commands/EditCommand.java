@@ -20,6 +20,7 @@ import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -81,7 +82,12 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        model.updateFilteredPersonListResult(personExistPredicate);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson),
+                false, false, true, false, false, false, false, false);
     }
 
     @Override
