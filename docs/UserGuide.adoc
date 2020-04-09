@@ -268,7 +268,7 @@ Format: `(rt)add n/NAME l/LOCATION v/VISITED [o/OPERATING_HOURS] [p/PRICE_POINT]
 * VISITED can only be Yes or No
 * OPERATING_HOURS must be written in HHmm:HHmm format
 * PRICE_POINT contains only dollar signs
-** There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is $. The medium price point is $\$. The highest price point is $\$\$.
+** There are 3 price points, each one distinguished according to the number of dollar signs. The lowest price point is `$`. The medium price point is `$\$`. The highest price point is `$\$\$`.
 ****
 
 Examples:
