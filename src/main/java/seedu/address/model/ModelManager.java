@@ -24,10 +24,8 @@ import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.dayData.DayData;
-import seedu.address.model.task.Done;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
-import seedu.address.model.util.TaskBuilder;
 
 /** Represents the in-memory model of the task list data. */
 public class ModelManager implements Model {
@@ -45,7 +43,7 @@ public class ModelManager implements Model {
     private PetManager petManager;
     private ArrayList<Observer> observers;
     private HashMap<Task, TimerTask> recurringTimerTasks = new HashMap<>();
-    private final Timer recurringTimer = new Timer();
+    private Timer recurringTimer = new Timer();
     private TaskSaver taskSaver;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
@@ -125,9 +123,10 @@ public class ModelManager implements Model {
 
     private void setRecurringTimers() {
         this.recurringTimer.cancel();
+        this.recurringTimer = new Timer();
         this.recurringTimerTasks.clear();
         for (Task t : this.taskList.getTaskList()) {
-            if (t.getOptionalReminder().isPresent()) {
+            if (t.getOptionalRecurring().isPresent()) {
                 TimerTask tt = this.generateTimerTask(t);
                 recurringTimerTasks.put(t, tt);
                 this.recurringTimer.scheduleAtFixedRate(tt, t.getDelayToFirstTrigger(), t.getRecurPeriod()); 
@@ -141,6 +140,7 @@ public class ModelManager implements Model {
             public void run() {
                 Platform.runLater(
                         () -> {
+                            System.out.println("timer up");
                             setTask(t, t.undoTask());
                         });
             }
@@ -154,7 +154,7 @@ public class ModelManager implements Model {
     }
 
     private void setTimer(Task t) {
-        if (t.getOptionalReminder().isPresent()) {
+        if (t.getOptionalRecurring().isPresent()) {
             TimerTask tt = this.generateTimerTask(t);
             recurringTimerTasks.put(t, tt);
             this.recurringTimer.scheduleAtFixedRate(tt, t.getDelayToFirstTrigger(), t.getRecurPeriod()); 
