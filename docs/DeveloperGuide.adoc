@@ -141,9 +141,16 @@ All our models are stored and loaded at runtime in memory.
 
 == Design Considerations
 
-???
+=== Consideration: How can we extend our platform for customization of search features
 
-// end::dataencryption[]
+* Alternative 1 (Current choice): Introduces concepts such as `conditions` and `aggregations` that are used by AppLogic
+** Pros: Clean separation of logic
+** Pros: Easily extensible to new conditions
+** Cons: Added complexity may cause confusing to new users
+
+* Alternative 2: Define fixed use cases and build code on those features
+** Pros: Developers done need to be confused with additional concepts
+** Cons: Lack of flexibility and extensibility for new featuress
 
 === Logging
 
@@ -182,11 +189,6 @@ Refer to the guide <<DevOps#, here>>.
 This project is a fork of Address-book lvl 3 [ref](https://github.com/nus-cs2103-AY1920S2/addressbook-level3)
 
 [appendix]
-== Product Scope
-
-??
-
-[appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -202,24 +204,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Contact tracing app` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
-=== Use case: ??
-
-*MSS*
-
-+
-Use case ends.
-
-[appendix]
-== Non Functional Requirements
-
-???
-
-[appendix]
-== Glossary
-
-???
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -230,16 +214,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
+Launching the application is as simple as
+```java
+java -jar <application.jar>
+```
+
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Run the command above
+
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-???
