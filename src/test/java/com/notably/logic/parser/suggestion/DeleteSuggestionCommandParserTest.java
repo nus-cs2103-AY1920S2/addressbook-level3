@@ -326,7 +326,7 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctCmdInvalidPath_returnsOptionalEmpty() {
+    public void parse_invalidPath_returnsOptionalEmpty() {
         String path = "-";
         String userInput = COMMAND_WORD + " " + path;
 
@@ -340,37 +340,9 @@ public class DeleteSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctCmdUncorrectedPath_returnsOptionalEmpty() {
+    public void parse_uncorrectedPath_returnsOptionalEmpty() {
         String path = "random";
         String userInput = COMMAND_WORD + " " + path;
-
-        model.setInput(userInput);
-        Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
-
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
-                model.responseTextProperty().getValue());
-
-        assertFalse(command.isPresent());
-    }
-
-    @Test
-    public void parse_correctedCmdInvalidPath_returnsOptionalEmpty() {
-        String path = "-";
-        String userInput = "dele " + path;
-
-        model.setInput(userInput);
-        Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
-
-        assertEquals(Optional.of(String.format(ERROR_MESSAGE_CANNOT_DELETE_NOTE, path)),
-                model.responseTextProperty().getValue());
-
-        assertFalse(command.isPresent());
-    }
-
-    @Test
-    public void parse_correctedCmdUncorrectedPath_returnsOptionalEmpty() {
-        String path = "random";
-        String userInput = "dele " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
