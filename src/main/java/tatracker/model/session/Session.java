@@ -50,7 +50,7 @@ public class Session implements Comparable<Session> {
                    String description) throws IllegalArgumentException {
 
         if (start.compareTo(end) > 0) {
-            throw new IllegalArgumentException("[Session] Start time is set to after end time!");
+            throw new IllegalArgumentException("The start time of a session cannot be after the end time!");
         }
 
         this.startDateTime = start;
@@ -63,11 +63,14 @@ public class Session implements Comparable<Session> {
     }
 
     /**
-     * Returns true if both sessions of the same name have at least one other identity field that is the same.
+     * Returns true if both sessions have the same date, timing, module, and type.
      * This defines a weaker notion of equality between two sessions.
      */
     public boolean isSameSession(Session s) {
-        return false;
+        return startDateTime.equals(s.startDateTime)
+                && endDateTime.equals(s.endDateTime)
+                && moduleCode.equals(s.moduleCode)
+                && type.equals(s.type);
     }
 
     public LocalDate getDate() {
@@ -226,7 +229,11 @@ public class Session implements Comparable<Session> {
         }
 
         Session otherSession = (Session) other;
-        return isSameSession(otherSession);
+
+        return isSameSession(otherSession)
+                && description.equals(otherSession.description)
+                && recurring == otherSession.recurring
+                && isDone == otherSession.isDone;
     }
 
     /**
