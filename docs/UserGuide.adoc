@@ -717,7 +717,7 @@ Examples:
 
 * `sort module m/CS2103 t/alpha`
 +
-Sorts all groups inside the module `CS2103` `alphabetically`.
+Sorts all students inside all groups inside the module `CS2103` `alphabetically`.
 ====
 
 ==== Sorting Everything : `sort all`
@@ -755,7 +755,7 @@ Examples:
 
 * `sort all t/alpha`
 +
-Sorts all groups inside all modules `alphabetically`.
+Sorts all students in all groups inside all modules `alphabetically`.
 ====
 
 [[FilterStudent]]
