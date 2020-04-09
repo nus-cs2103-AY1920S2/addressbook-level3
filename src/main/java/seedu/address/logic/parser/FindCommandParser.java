@@ -34,6 +34,28 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArrayList<String> wordKeywords = new ArrayList<>();
         ArrayList<String> tagKeywords = new ArrayList<>();
 
+        // run some check to make sure there is no invalid command!
+        boolean hasGroupName = false;
+        boolean hasWord = false;
+        boolean hasTags = false;
+        for (int i = 0; i < nameKeywords.length; i++) {
+            if (nameKeywords[i].contains("-g/")) {
+                hasGroupName = true;
+            }
+            if (nameKeywords[i].contains("-n/")) {
+                hasWord = true;
+            }
+            if (nameKeywords[i].contains("-t/")) {
+                hasTags = true;
+            }
+        }
+        if ((hasGroupName == false) && (hasWord == false) && (hasTags == false)) {
+            // then they did not provide any keywords to search for!
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+
         for (int i = 0; i < nameKeywords.length; i++) {
             if (nameKeywords[i].contains("-g/")) {
                 nameKeywords[i] = nameKeywords[i].substring(3);
