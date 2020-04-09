@@ -84,7 +84,6 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             commandWord = correctionResult.getCorrectedItems().get(0);
         }
 
-
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
