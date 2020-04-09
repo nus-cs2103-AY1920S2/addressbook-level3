@@ -37,7 +37,7 @@ public class WeightCommand extends Command {
         requireNonNull(model);
 
         if (weight.getWeightFloat() <= 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException("Please enter a weight value >0.");
         }
 
         model.setWeight(weight);

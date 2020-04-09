@@ -37,7 +37,7 @@ public class HeightCommand extends Command {
         requireNonNull(model);
 
         if (height.getHeightFloat() <= 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException("Please enter a height value >0.");
         }
 
         model.setHeight(height);
