@@ -469,6 +469,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook) {
     this.studentAddressBook.resetData(studentAddressBook);
+    postDataStorageChangeEvent(studentAddressBook, Constants.ENTITY_TYPE.STUDENT);
   }
 
   ///
@@ -481,6 +482,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook) {
     this.financeAddressBook.resetData(financeAddressBook);
+    postDataStorageChangeEvent(financeAddressBook, Constants.ENTITY_TYPE.FINANCE);
   }
 
   ///
@@ -493,6 +495,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook) {
     this.courseAddressBook.resetData(courseAddressBook);
+    postDataStorageChangeEvent(courseAddressBook, Constants.ENTITY_TYPE.COURSE);
   }
 
   ///
@@ -505,6 +508,7 @@ public class ModelManager extends BaseManager implements Model {
   public void setAssignmentAddressBook(
       ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
     this.assignmentAddressBook.resetData(assignmentAddressBook);
+    postDataStorageChangeEvent(assignmentAddressBook, Constants.ENTITY_TYPE.ASSIGNMENT);
   }
 
   @Override
@@ -515,6 +519,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
     this.progressAddressBook.resetData(progressAddressBook);
+    postDataStorageChangeEvent(progressAddressBook, Constants.ENTITY_TYPE.PROGRESS);
   }
 
   //=========== Filtered List Accessors =============================================================
