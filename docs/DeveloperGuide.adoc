@@ -343,18 +343,18 @@ All instances of `Exercise` of a client will be contained in the client's `Uniqu
 
 image::ExerciseClassDiagram.png[]
 
-An important point to note about our implementation of `Exercise` is the method `isSameExercise`. This method is executes when adding a new `Exercise`. It checks if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. Two `Exercise` are considered to be the same if they have the same: +
+An important point to note about our implementation of `Exercise` is the method `isSameExercise()`. This method executes when adding a new `Exercise`. It is used to check if the new `Exercise` is considered a duplicate with an existing instance of `Exercise` in the client's `UniqueExerciseList`. Below shows an object diagram of two `Exercises` that will return true for `isSameExercise()`.
+
+image::IsSameExerciseObjectDiagram.png[]
+
+The two `Exercise` have different values in `ExerciseSets` but the same values in:
 
 1. `ExerciseName`
 2. `ExerciseDate`
 3. `ExerciseReps`
 4. `ExerciseWeight`
 
-Below shows an object diagram of two `Exercises` that will return true for `isSameExercise`.
-
-image::IsSameExerciseObjectDiagram.png[]
-
-This implementation is chosen as we felt that the user should increment the `Set` value in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises were done on that day.
+This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises were done on that day.
 
 ===== Exercise Commands
 
@@ -366,7 +366,7 @@ The exercise commands edits the client's `UniqueExerciseList`. Currently, there 
 
 The commands follow a similar execution flow as other commands.
 
-
+image::ExerciseCommandActivityDiagram.png[]
 
 For the `add-e` command, we had to pay particular attention to the index where new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This would result in problems when using `delete-e` command as it deletes the exercise at the specified index.
 
@@ -415,7 +415,7 @@ We decided to use the first approach of storing the exercises with the associate
 
 image::ClientExerciseStorageClassDiagram.png[]
 
-We want to keep the implementation reading and storing of data simple. The first approach is  the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow and a bad user experience.
+We want to keep the implementation reading and storing of data simple. The first approach is the most simple. When reading the data, it removes the need to associate the exercises to the client. A client might potentially have a large amount of exercises, resulting in the reading process to be extremely slow. Therefore, a bad user experience.
 
 Moreover, storing the exercise data from client data does not provide any performance benefits. Due to time constraints, we decided that the application should store all the data everytime it closes. This is regardless if the particular exercise or client data has been changed. Having to keep track of which data is edited and only overwrite those data would greatly increase the complexity of the application. Therefore, keeping exercises data separate from client data would be unnecessary and provide little additional functionality/benefits to the user.
 
