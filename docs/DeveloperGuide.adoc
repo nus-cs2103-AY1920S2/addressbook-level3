@@ -1972,7 +1972,19 @@ but the groups and students inside it will remain intact.
 
 === Viewing a specific module
 
+. Allows you to view groups in a particular module.
+
+.. Test Case: `student filter m/CS1101S`
+Expected: You can now view the groups of the module `CS1101S`. You will see the students
+of the group at index 1 of the module's group list.
+
 === Viewing a specific group
+
+. Allows you to view students in a particular group of a particular module.
+
+.. Test Case: `student filter g/G06 m/CS1101S`
+Expected: You can now view the groups of the module `CS1101S`. You will see the students
+of the group `G06`.
 
 === Sorting a group
 
@@ -2018,13 +2030,37 @@ tab, you are automatically switched to *Student View*.
 
 === Adding a session
 
+. Adding a session to the session list.
+
+Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+t/consultation n/with Alice and Bob` +
+Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`
+recurring every two weeks will be added to the sessions list. It will be associated
+with the module `CS1101S` and be a `consultation` with Alice and Bob.
+
 === Marking a session as done
 
+. Marking a session as done.
+
+Test Case: `session done 1` +
+Expected: Marks the session at index `1` of the session list as done. If it is a
+recurring session, a new session will be added in its place, dated after the recurring
+period. The session marked as done will be added to the claims list.
+
 === Deleting a session
+
+. Deleting a session.
+
+Test Case: `session delete 1` +
+Expected: Deletes the session at index `1` of the session list.
+
+=== Editing a session
 
 === Filtering sessions
 
 === Filtering Claims
+
+=== Viewing Statistics
 
 === Deleting a module
 
@@ -2037,8 +2073,6 @@ groups, students and sessions related to this module.
 .. Test case: `module delete m/CS1101S` +
 Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
 this would show you an error message.
-
-=== Viewing Statistics
 
 === Exiting the program
 
