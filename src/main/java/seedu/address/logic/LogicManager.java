@@ -1,11 +1,5 @@
 package seedu.address.logic;
 
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FINANCES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -65,33 +59,6 @@ public class LogicManager implements Logic {
     this.undoRedoStack.push(command);
 
     // Updates summary panel
-    if (model.getMainWindow().getCurrentView().equals("SUMMARY")){
-      Predicate<Student> studentPredicate = getDataStudentPredicate();
-      model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-      summaryPanel.updateTotalStudents(getFilteredStudentList().size());
-      model.updateFilteredStudentList(studentPredicate);
-
-      Predicate<Staff> staffPredicate = getDataStaffPredicate();
-      model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
-      summaryPanel.updateTotalStaffs(getFilteredStaffList().size());
-      model.updateFilteredStaffList(staffPredicate);
-
-      Predicate<Course> coursePredicate = getDataCoursePredicate();
-      model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-      summaryPanel.updateTotalCourses(getFilteredCourseList().size());
-      model.updateFilteredCourseList(coursePredicate);
-
-      Predicate<Finance> financePredicate = getDataFinancePredicate();
-      model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
-      summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
-      summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
-      model.updateFilteredFinanceList(financePredicate);
-
-      Predicate<Assignment> assignmentPredicate = getDataAssignmentPredicate();
-      model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-      summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
-      model.updateFilteredAssignmentList(assignmentPredicate);
-    }
 
     return commandResult;
   }
