@@ -70,4 +70,12 @@ class AbsolutePathTest {
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromRelativePath(inputRelPath, inputCurrPath));
     }
+
+    @Test
+    public void equals_similarPathWithDifferentCasing_pathAreEqual() {
+        final AbsolutePath inputRelativePath1 = AbsolutePath.fromString("/cs2103");
+        final AbsolutePath inputRelativePath2 = AbsolutePath.fromString("/CS2103");
+
+        assertEquals(inputRelativePath2, inputRelativePath1);
+    }
 }

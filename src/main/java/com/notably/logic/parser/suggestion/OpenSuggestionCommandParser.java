@@ -2,6 +2,8 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
+
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.correction.CorrectionEngine;
@@ -17,6 +19,12 @@ import com.notably.model.Model;
  * Represents a Parser for OpenSuggestionCommand.
  */
 public class OpenSuggestionCommandParser implements SuggestionCommandParser<OpenSuggestionCommand> {
+    public static final String COMMAND_WORD = "open";
+
+    private static final String RESPONSE_MESSAGE = "Open a note";
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
+    private static final String RESPONSE_MESSAGE_CANNOT_OPEN_NOTE = "Open delete \"%s\". Invalid path.";
+
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
@@ -27,12 +35,12 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
 
     /**
      * Parses user input in the context of the OpenSuggestionCommand.
+     *
      * @param userInput The user's input.
-     * @return An OpenSuggestionCommand object with a corrected absolute path.
-     * @throws ParseException if the user input is in a wrong format and/ or path cannot be found.
+     * @return An optional OpenSuggestionCommand object with a corrected absolute path.
      */
     @Override
-    public OpenSuggestionCommand parse(String userInput) throws ParseException {
+    public Optional<OpenSuggestionCommand> parse(String userInput) {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE);
 
@@ -44,19 +52,28 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
             title = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
+        if (title.isEmpty()) {
+            model.setResponseText(RESPONSE_MESSAGE);
+            return Optional.empty();
+        }
+
         AbsolutePath uncorrectedPath;
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
-            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+            model.setResponseText(String.format(RESPONSE_MESSAGE_CANNOT_OPEN_NOTE, title));
+            return Optional.empty();
         }
+
+        model.setResponseText(String.format(RESPONSE_MESSAGE_WITH_TITLE, title));
 
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Cannot open \"" + title + "\". Invalid path.");
+            return Optional.empty();
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title);
+        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
+
     }
 }

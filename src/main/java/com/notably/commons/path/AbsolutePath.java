@@ -3,6 +3,7 @@ package com.notably.commons.path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.notably.commons.path.exceptions.InvalidPathException;
 
@@ -111,8 +112,15 @@ public class AbsolutePath implements Path {
         }
 
         AbsolutePath another = (AbsolutePath) object;
-        List<String> temp = another.getComponents();
-        return this.components.equals(temp);
+        List<String> temp = another.getComponents()
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());;
+        return this.components
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList())
+                .equals(temp);
     }
 
     @Override
