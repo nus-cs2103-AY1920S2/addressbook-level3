@@ -14,7 +14,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
-    id "io.github.ddimtirov.codacy" version "0.1.0"
 }
 
 // Specifies the entry point of the application
@@ -57,12 +56,6 @@ pmd {
     ignoreFailures = true
     sourceSets = [sourceSets.main]
     reportsDir = file("$project.buildDir/reports/pmd")
-}
-
-codacy {
-    toolVersion = '1.6' // override the version for com.codacy:codacy-coverage-reporter
-    commitUuid = '2ca92c64bbcb7f97b204d3ee11ebd1e7075ea35f'
-    projectToken = 'fe12d3a13ce28cb7b3c2873b46'
 }
 
 dependencies {
