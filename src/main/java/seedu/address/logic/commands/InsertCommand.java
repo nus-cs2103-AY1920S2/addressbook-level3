@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.parcel.order.Order;
 
+//@author Amoscheong97
 /**
  * Adds a order to the order book.
  */
@@ -64,7 +65,7 @@ public class InsertCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasOrder(toAdd)) {
+        if (model.hasParcel(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 

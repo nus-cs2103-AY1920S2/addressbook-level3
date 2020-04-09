@@ -133,7 +133,7 @@ public class TypicalOrders {
 
     public static final Order ADDITIONAL_NAME_AMY = new OrderBuilder().withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-            .withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTid(VALID_TID_AMY + "1").withAddress(VALID_ADDRESS_AMY)
             .withTimeStamp(VALID_TIMESTAMP_AMY).withCash(VALID_COD_AMY)
             .withComment(VALID_COMMENT_NIL).withWarehouse(VALID_WAREHOUSE_AMY)
             .withName(VALID_NAME_BOB).build();

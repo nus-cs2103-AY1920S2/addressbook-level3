@@ -31,8 +31,10 @@ import seedu.address.model.parcel.parcelattributes.TimeStamp;
 import seedu.address.model.parcel.parcelattributes.TransactionId;
 import seedu.address.model.parcel.parcelattributes.Warehouse;
 
+//@author Amoscheong97
 /**
  * Parses input arguments and creates a new InsertCommand object
+ *
  */
 public class InsertCommandParser implements Parser<InsertCommand> {
 

@@ -79,7 +79,7 @@ public class ReturnCommand extends Command {
             model.deleteOrder(orderToBeReturned);
             toBeCreated = new ReturnOrder(orderToBeReturned);
         }
-        if (model.hasReturnOrder(toBeCreated)) {
+        if (model.hasParcel(toBeCreated)) {
             throw new CommandException(MESSAGE_DUPLICATE_RETURN);
         }
         model.addReturnOrder(toBeCreated);

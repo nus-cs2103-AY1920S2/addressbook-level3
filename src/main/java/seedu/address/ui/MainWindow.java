@@ -1,10 +1,23 @@
 package seedu.address.ui;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -14,8 +27,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.parcel.order.Order;
+import seedu.address.model.parcel.returnorder.ReturnOrder;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,9 +51,23 @@ public class MainWindow extends UiPart<Stage> {
     private OrderListPanel orderListPanel;
     private ReturnOrderListPanel returnOrderListPanel;
     private ResultDisplay resultDisplay;
-    private ShowWindow showWindow;
     private HelpWindow helpWindow;
     private ClearWindow clearWindow;
+
+    private List<Order> orderList;
+    private List<Order> deliveredList;
+
+    private List<ReturnOrder> returnList;
+    private List<ReturnOrder> returnedList;
+
+    @FXML
+    private Tab listTab;
+
+    @FXML
+    private Tab showTab;
+
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -60,6 +90,21 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private Label dateToday;
+
+    @FXML
+    private Label doneOrders;
+
+    @FXML
+    private Label returnedOrders;
+
+    @FXML
+    private Label totalCash;
+
+    @FXML
+    private PieChart deliveryPieChart;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -74,7 +119,6 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         clearWindow = new ClearWindow(logic);
-        showWindow = new ShowWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -115,6 +159,19 @@ public class MainWindow extends UiPart<Stage> {
                 event.consume();
             }
         });
+    }
+
+    /**
+     * A listener that listens on whether the Show Tab is clicked
+     *
+     */
+    @FXML
+    void showStatistics(Event ev) {
+        if (showTab.isSelected()) {
+            logger.info("Show Tab is selected by the user");
+            tabPane.getSelectionModel().select(showTab);
+            //Do stuff here
+        }
     }
 
     /**
@@ -173,16 +230,125 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Calculate the total earnings of the Courier.
+     * The method will use a DecimalFormatter instance to convert a double
+     * into a String with two decimal places and put the value into the Label.
+     *
+     */
+    public void calcEarnings() {
+        DecimalFormat df2 = new DecimalFormat("$0.00");
+        double sum = 0;
+
+        for (Order order: deliveredList) {
+            sum += order.getCash().getCashValue();
+        }
+
+        String earnings = (sum == 0 ? "$0" : df2.format(sum));
+        totalCash.setText(earnings);
+    }
+
+    /**
+     * Populate the PieChart with the data filtered by the
+     * ShowCommand Class
+     *
+     */
+    public void populatePieChart() {
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Orders completed: " + deliveredList.size() , deliveredList.size()),
+                        new PieChart.Data("Orders not completed: "
+                                + (orderList.size() - deliveredList.size()), orderList.size() - deliveredList.size()),
+                        new PieChart.Data("Orders returned: " + returnedList.size(), returnedList.size()),
+                        new PieChart.Data("Orders not returned: "
+                                + (returnList.size() - returnedList.size()), returnList.size() - returnedList.size()));
+
+        deliveryPieChart.setTitle("All Orders");
+        deliveryPieChart.setData(pieChartData);
+    }
+
+    /**
+     * With the LogicManager given, use it to get the lists of delivery orders.
+     * The list will be used to display the statistics of the delivery orders.
+     *
+     */
+    public void getDeliveryData() {
+        orderList = (new FilteredList<>(logic.getOrderBook().getOrderList()))
+                .stream()
+                .filter(ShowCommand::filterListByDates)
+                .collect(Collectors.toList());
+
+        deliveredList = orderList
+                .stream()
+                .filter(Order::isDelivered)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Putting the data values for delivery orders into the Labels.
+     *
+     */
+    public void populateDeliveryStats() {
+        doneOrders.setText(String.valueOf(deliveredList.size()));
+    }
+
+    /**
+     * With the LogicManager given, use it to get the lists of return orders.
+     * The list will be used to display the statistics of the return orders.
+     *
+     */
+    public void getReturnData() {
+        returnList = (new FilteredList<>(logic.getReturnOrderBook().getReturnOrderList()))
+                .stream()
+                .filter(ShowCommand::filterListByDates)
+                .collect(Collectors.toList());
+
+        returnedList = returnList
+                .stream()
+                .filter(ReturnOrder::isDelivered)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Putting the data values for return orders into the Labels.
+     *
+     */
+    public void populateReturnStats() {
+        returnedOrders.setText(String.valueOf(returnedList.size()));
+    }
+
+    /**
      * Opens the show window or focus on it if it the window is already opened.
      */
     @FXML
     public void handleShowCommand() {
-        showWindow = new ShowWindow(logic);
-        if (!showWindow.isShowing()) {
-            showWindow.show();
+        DateTimeFormatter dateFormatter = ShowCommand.getFormatter();
+        LocalDate dateFrom = ShowCommand.getStartDate();
+        LocalDate dateTo = ShowCommand.getEndDate();
+
+        // Go to the Show Tab
+        tabPane.getSelectionModel().select(showTab);
+
+        if (ShowCommand.isAll()) {
+            dateToday.setText((ShowCommand.ALL_DATES));
+        } else if (dateFrom.compareTo(dateTo) == 0) {
+            dateToday.setText(dateFrom.format(dateFormatter));
         } else {
-            showWindow.focus();
+            dateToday.setText(dateFrom.format(dateFormatter) + " to " + dateTo.format(dateFormatter));
         }
+
+        // Delivery orders
+        getDeliveryData();
+        populateDeliveryStats();
+
+        // Return Orders
+        getReturnData();
+        populateReturnStats();
+
+        // Calculate Earnings
+        calcEarnings();
+
+        // Add data to PieChart
+        populatePieChart();
     }
 
     void show() {
@@ -219,17 +385,20 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
+            } else {
+                // Go to the list tab
+                tabPane.getSelectionModel().select(listTab);
 
-            if (commandResult.isClearList()) {
-                handleClearWarning(commandResult.getFeedbackToUser());
-                clearWindow.setComponent(resultDisplay);
-            }
+                if (commandResult.isClearList()) {
+                    handleClearWarning(commandResult.getFeedbackToUser());
+                    clearWindow.setComponent(resultDisplay);
+                }
 
-            if (commandResult.isDisplayEarnings()) {
-                handleShowCommand();
+                // Show Command
+                if (commandResult.isDisplayEarnings()) {
+                    handleShowCommand();
+                }
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }

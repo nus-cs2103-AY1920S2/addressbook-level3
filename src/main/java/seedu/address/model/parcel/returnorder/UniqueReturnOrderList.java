@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.parcel.Parcel;
 import seedu.address.model.parcel.exceptions.DuplicateReturnOrderException;
 import seedu.address.model.parcel.exceptions.OrderNotFoundException;
 
@@ -35,7 +36,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     /**
      * Returns true if the list contains an equivalent order as the given argument.
      */
-    public boolean contains(ReturnOrder toCheck) {
+    public boolean contains(Parcel toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameParcel);
     }
