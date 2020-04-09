@@ -26,8 +26,8 @@ public class ExpiryDate {
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
         checkArgument(DateUtil.isValidDate(expiryDate), MESSAGE_CONSTRAINTS);
-        value = expiryDate;
-        date = DateUtil.parseStringToDate(value);
+        value = DateUtil.parseStringToStandardDateString(expiryDate);
+        date = DateUtil.parseStringToDate(expiryDate);
     }
 
     /**

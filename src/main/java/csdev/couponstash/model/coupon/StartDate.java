@@ -26,8 +26,8 @@ public class StartDate {
     public StartDate(String startDate) {
         requireNonNull(startDate);
         checkArgument(DateUtil.isValidDate(startDate), MESSAGE_CONSTRAINTS);
-        value = startDate;
-        date = DateUtil.parseStringToDate(value);
+        value = DateUtil.parseStringToStandardDateString(startDate);
+        date = DateUtil.parseStringToDate(startDate);
     }
 
     /**
