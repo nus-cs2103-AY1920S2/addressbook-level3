@@ -626,8 +626,8 @@ image::example_shared_coupon.png[]
 
 
 === Undo the previous command: `undo`
-Undo previous operation. Only operations that change the coupons in the coupon
-stash can be undone.
+Undo the most recent operation on the coupon stash. Only operations that change
+the coupons in the coupon stash can be undone.
 
 Format: `undo`
 ====
@@ -656,7 +656,8 @@ Undo the `remind` command. Reminder is removed.
 Revert the edit that was performed.
 
 === Redoing the undone command: `redo`
-Redo the previously undone command.
+Redo the previously undone operation. This is akin to undoing an
+<<Undo the previous command: `undo`, `undo`>>.
 
 Format: `redo`
 
