@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.InventorySystem;
-import seedu.address.testutil.customer.TypicalPersons;
+import seedu.address.testutil.customer.TypicalCustomers;
 
 public class JsonSerializableInventorySystemTest {
 
@@ -26,7 +26,7 @@ public class JsonSerializableInventorySystemTest {
         JsonSerializableInventorySystem dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableInventorySystem.class).get();
         InventorySystem addressBookFromFile = dataFromFile.toModelType();
-        InventorySystem typicalPersonsAddressBook = TypicalPersons.getTypicalInventorySystem();
+        InventorySystem typicalPersonsAddressBook = TypicalCustomers.getTypicalInventorySystem();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

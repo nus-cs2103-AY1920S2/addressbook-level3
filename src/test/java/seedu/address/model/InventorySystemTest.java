@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.getTypicalInventorySystem;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,9 +23,9 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.DuplicatePersonException;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.customer.PersonBuilder;
+import seedu.address.testutil.customer.CustomerBuilder;
 
-public class AddressBookTest {
+public class InventorySystemTest {
 
     private final InventorySystem addressBook = new InventorySystem();
 
@@ -50,7 +50,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two customers with the same identity fields
-        Customer editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newCustomers);
@@ -78,7 +78,7 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Customer editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }

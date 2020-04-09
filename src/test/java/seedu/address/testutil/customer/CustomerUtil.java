@@ -9,14 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.customer.AddCustomerCommand;
-import seedu.address.logic.commands.customer.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customer.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Customer.
  */
-public class PersonUtil {
+public class CustomerUtil {
 
     /**
      * Returns an add command string for adding the {@code customer}.
@@ -41,9 +41,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditCustomerDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditCustomerDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

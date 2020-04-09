@@ -15,7 +15,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.customer.EditCustomerCommand;
-import seedu.address.logic.commands.customer.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customer.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -47,14 +47,14 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
                     MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = getEditPersonDescriptor(argMultimap);
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        EditCustomerDescriptor editCustomerDescriptor = getEditPersonDescriptor(argMultimap);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editCustomerDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editCustomerDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCustomerCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCustomerCommand(index, editPersonDescriptor);
+        return new EditCustomerCommand(index, editCustomerDescriptor);
     }
 
     /**
@@ -63,21 +63,21 @@ public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
      * @return edit person descriptor
      * @throws ParseException
      */
-    private EditPersonDescriptor getEditPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+    private EditCustomerDescriptor getEditPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
+        EditCustomerCommand.EditCustomerDescriptor editCustomerDescriptor = new EditCustomerDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editCustomerDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+            editCustomerDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            editCustomerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editCustomerDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        return editPersonDescriptor;
+        return editCustomerDescriptor;
     }
 
     /**

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
-import static seedu.address.testutil.customer.TypicalPersons.BENSON;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.InventorySystemBuilder;
 
 public class ModelManagerTest {
 
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        InventorySystem addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        InventorySystem addressBook = new InventorySystemBuilder().withPerson(ALICE).withPerson(BENSON).build();
         InventorySystem differentAddressBook = new InventorySystem();
         UserPrefs userPrefs = new UserPrefs();
 

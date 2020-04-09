@@ -1,7 +1,7 @@
 package seedu.address.testutil.transaction;
 
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
-import static seedu.address.testutil.customer.TypicalPersons.BENSON;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.BENSON;
 import static seedu.address.testutil.product.TypicalProducts.ABACUS;
 import static seedu.address.testutil.product.TypicalProducts.BAG;
 import static seedu.address.testutil.product.TypicalProducts.BOOK;
