@@ -59,7 +59,7 @@ public class AddEventCommandParser extends AddCommandParser {
             return new AddEventCommand(event, moduleCode);
         } catch (IllegalArgumentException e) {
             // if the start date is > end date or end date is already in the past
-            throw new ParseException(Event.INVALID_EVENT);
+            throw new ParseException(e.getMessage());
         }
     }
 }
