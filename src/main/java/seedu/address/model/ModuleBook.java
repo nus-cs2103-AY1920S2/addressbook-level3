@@ -27,7 +27,8 @@ public class ModuleBook {
 
     public ModuleBook() {
         this.modules = new ArrayList<>();
-        getModulesTakenList();
+
+        modulesTakenList = FXCollections.observableList(modules);
     }
 
     public ModuleBook(List<NusModule> modules) {
@@ -42,7 +43,7 @@ public class ModuleBook {
     public void addModule(NusModule module) {
 
         this.modules.add(module);
-        this.modulesTakenList.add(module);
+
     }
 
     /**
@@ -141,7 +142,6 @@ public class ModuleBook {
     }
 
     public ObservableList<NusModule> getModulesTakenList() {
-        modulesTakenList = FXCollections.observableArrayList(modules);
         return modulesTakenList;
     }
 

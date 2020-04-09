@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModuleBook;
 import seedu.address.model.nusmodule.NusModule;
@@ -51,7 +52,6 @@ public class JsonSerializableModuleBook {
             if (moduleBook.hasModule(module.getModuleCode())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
-            System.out.println(module);
             moduleBook.addModule(module);
         }
 

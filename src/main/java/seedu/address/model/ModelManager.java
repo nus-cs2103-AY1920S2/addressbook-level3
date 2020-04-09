@@ -58,7 +58,7 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs, moduleBook);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-        + " and module list: " + moduleBook);
+                + " and module list: " + moduleBook);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -228,6 +228,7 @@ public class ModelManager implements Model {
 
     /**
      * Dummy java docs
+     *
      * @param
      * @return
      */
@@ -285,6 +286,7 @@ public class ModelManager implements Model {
     public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {
         return moduleBook.getModuleTaskList(moduleCode);
     }
+
     @Override
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         moduleBook.deleteModuleTask(moduleCode, index);
@@ -318,7 +320,10 @@ public class ModelManager implements Model {
     }
 
     //=========== Notes Module ==================================================================================
-    /** Returns an list of String that contains what is currently in the folder */
+
+    /**
+     * Returns an list of String that contains what is currently in the folder
+     */
     @Override
     public ObservableList<Notes> getFilesInFolderList() {
         return filesInFolder;
@@ -354,6 +359,7 @@ public class ModelManager implements Model {
 
     /**
      * Dummy java docs
+     *
      * @param deadline contains task
      */
 
@@ -367,7 +373,9 @@ public class ModelManager implements Model {
         return false;
     }
 
-    /** Returns a list of task in the deadline task list */
+    /**
+     * Returns a list of task in the deadline task list
+     */
     @Override
     public ObservableList<Task> getDeadlineTaskList() {
         return deadlineTaskList;
@@ -382,7 +390,7 @@ public class ModelManager implements Model {
     @Override
     public List<Task> findTasksByDate(String date) {
         List<Task> targetTasks = new ArrayList<>();
-        for (Task task: deadlineTaskList) {
+        for (Task task : deadlineTaskList) {
             if (task.getDate().equals(date)) {
                 targetTasks.add(task);
             }
@@ -393,7 +401,7 @@ public class ModelManager implements Model {
     @Override
     public List<Task> findTasksByCat(String cat) {
         List<Task> targetTasks = new ArrayList<>();
-        for (Task task: deadlineTaskList) {
+        for (Task task : deadlineTaskList) {
             if (task.getCategory().equals(cat)) {
                 targetTasks.add(task);
             }
@@ -429,8 +437,6 @@ public class ModelManager implements Model {
     public Profile getProfile() {
         return studentProfile;
     }
-
-
 
 
 }
