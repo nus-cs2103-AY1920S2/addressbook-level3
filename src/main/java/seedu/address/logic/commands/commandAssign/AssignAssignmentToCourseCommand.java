@@ -68,12 +68,13 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
         ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningAssignment.getName(), assignmentID.value,
-                        assignedCourse.getName(), courseID.value));
+                assigningAssignment.getName(), assignmentID.value,
+                assignedCourse.getName(), courseID.value));
     }
 
     /**
-     * If require this preprocessing step should override this method.
+     * This step is performed to ensure that all specified ModelObjects exists and that they do not already contain
+     * the modelobjects that we want to assign to it.
      *
      * @param model
      */

@@ -50,8 +50,8 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
         EdgeManager.unassignTeacherFromCourse(staffID, courseID);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        foundStaff.getName(), staffID.value,
-                        foundCourse.getName(), courseID.value));
+                foundStaff.getName(), staffID.value,
+                foundCourse.getName(), courseID.value));
 
     }
 

@@ -57,8 +57,8 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
         ProgressManager.removeAllProgressesFromOneStudent(courseID, studentID);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningStudent.getName(), studentID.value,
-                        assignedCourse.getName(), courseID.value));
+                assigningStudent.getName(), studentID.value,
+                assignedCourse.getName(), courseID.value));
     }
 
     /**
