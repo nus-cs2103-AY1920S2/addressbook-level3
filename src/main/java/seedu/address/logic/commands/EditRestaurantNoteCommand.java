@@ -109,6 +109,8 @@ public class EditRestaurantNoteCommand extends Command {
             }
         }
 
+
+
         if (lineRec != -1) {
             restaurantToEdit.getRecommendedFood().set(lineRec - 1, recommendedFood);
         }
