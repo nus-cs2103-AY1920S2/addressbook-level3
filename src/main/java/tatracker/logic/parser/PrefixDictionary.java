@@ -38,9 +38,6 @@ public class PrefixDictionary {
                     Index.MESSAGE_CONSTRAINTS, StringUtil::isNonZeroUnsignedInteger,
                     "1"
             ),
-            new PrefixDetails(Prefixes.KEYWORD,
-                    "alice"
-            ),
             new PrefixDetails(Prefixes.TAB_NAME,
                     Tab.MESSAGE_CONSTRAINTS, Tab::isValidTab,
                     "student"

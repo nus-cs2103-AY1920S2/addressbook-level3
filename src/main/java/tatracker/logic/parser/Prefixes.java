@@ -9,7 +9,6 @@ public class Prefixes {
 
     /* Placeholders */
     public static final Prefix INDEX = new Prefix("", "INDEX");
-    public static final Prefix KEYWORD = new Prefix("", "KEYWORD");
     public static final Prefix TAB_NAME = new Prefix("", "TAB_NAME");
     public static final Prefix RATE = new Prefix("", "RATE");
 
