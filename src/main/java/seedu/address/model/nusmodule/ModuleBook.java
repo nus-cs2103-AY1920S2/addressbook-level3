@@ -133,7 +133,6 @@ public class ModuleBook {
     }
 
     public ObservableList<NusModule> getModulesTakenList() {
-        modulesTakenList = FXCollections.observableArrayList(modules);
         return modulesTakenList;
     }
 
