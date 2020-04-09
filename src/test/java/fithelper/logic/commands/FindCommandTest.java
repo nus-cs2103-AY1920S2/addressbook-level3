@@ -3,6 +3,7 @@ package fithelper.logic.commands;
 import static fithelper.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static fithelper.model.Model.PREDICATE_SHOW_NO_ENTRIES;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY1;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY2;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY3;
@@ -57,9 +58,9 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noEntryFound() {
         String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        NameContainsKeywordsPredicate predicate = NameContainsKeywordsPredicate.getVaguePredicate();
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFoodEntryList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

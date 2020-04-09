@@ -69,7 +69,7 @@ public class EditCommandTest {
         Entry editedFoodEntry = foodEntryInList.withName(VALID_NAME_FOOD).withTime(VALID_TIME_FOOD)
                 .withLocation(VALID_LOCATION_FOOD).withCalorie(VALID_CALORIE_FOOD).build();
 
-        EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD)
+        EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder().withType("food").withName(VALID_NAME_FOOD)
                 .withTime(VALID_TIME_FOOD).withLocation(VALID_LOCATION_FOOD)
                 .withCalorie(VALID_CALORIE_FOOD).build();
         EditCommand editCommand = new EditCommand(indexLastFoodEntry, descriptor);
@@ -90,10 +90,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedFoodEntry);
 
-        Model expectedModel = new ModelManager(new FitHelper(model.getFitHelper()), new UserProfile(),
-                new WeightRecords());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editCommand, model, expectedMessage);
     }
 
     @Test
@@ -101,7 +98,8 @@ public class EditCommandTest {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
         Entry entryInFilteredFoodList = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
-        Entry editedFoodEntry = new EntryBuilder(entryInFilteredFoodList).withName(VALID_NAME_FOOD).build();
+        Entry editedFoodEntry = new EntryBuilder(entryInFilteredFoodList).withType("food")
+                .withName(VALID_NAME_FOOD).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTRY,
                 new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD).build());
 
@@ -138,7 +136,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidEntryIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodEntryList().size() + 1);
-        EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD).build();
+        EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder().withType("food")
+                .withName(VALID_NAME_FOOD).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);

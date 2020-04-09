@@ -30,8 +30,8 @@ public class EditEntryDescriptorTest {
         // different types -> returns false
         assertFalse(DESC_FOOD.equals(5));
 
-        // different values -> returns false
-        assertFalse(DESC_FOOD.equals(DESC_FOOD));
+        // same values -> returns true
+        assertTrue(DESC_FOOD.equals(DESC_FOOD));
 
         // different name -> returns false
         EditEntryDescriptor editedFood = new EditEntryDescriptorBuilder(DESC_FOOD).withName(VALID_NAME_FOOD).build();

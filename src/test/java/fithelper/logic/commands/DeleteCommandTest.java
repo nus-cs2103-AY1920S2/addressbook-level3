@@ -42,30 +42,9 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredSportsList_success() {
-        Entry sportEntryToDelete = model.getFilteredSportsEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(new Type("sport"), INDEX_FIRST_ENTRY);
-
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, sportEntryToDelete);
-
-        ModelManager expectedModel = new ModelManager(model.getFitHelper(), new UserProfile(), new WeightRecords());
-        expectedModel.deleteEntry(sportEntryToDelete);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidIndexUnfilteredFoodList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodEntryList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), outOfBoundIndex);
-
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_invalidIndexUnfilteredSportList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSportsEntryList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(new Type("sport"), outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
     }
@@ -87,22 +66,6 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredSportList_success() {
-        showEntryAtIndex(model, INDEX_FIRST_ENTRY);
-
-        Entry sportEntryToDelete = model.getFilteredSportsEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(new Type("sport"), INDEX_FIRST_ENTRY);
-
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, sportEntryToDelete);
-
-        Model expectedModel = new ModelManager(model.getFitHelper(), new UserProfile(), new WeightRecords());
-        expectedModel.deleteEntry(sportEntryToDelete);
-        showNoEntry(expectedModel);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidIndexFilteredFoodList_throwsCommandException() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
@@ -111,19 +74,6 @@ public class DeleteCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getFitHelper().getFoodList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), outOfBoundIndex);
-
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredSportList_throwsCommandException() {
-        showEntryAtIndex(model, INDEX_FIRST_ENTRY);
-
-        Index outOfBoundIndex = INDEX_SECOND_ENTRY;
-        // ensures that outOfBoundIndex is still in bounds of fithelper list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getFitHelper().getSportsList().size());
-
-        DeleteCommand deleteCommand = new DeleteCommand(new Type("sport"), outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
     }
