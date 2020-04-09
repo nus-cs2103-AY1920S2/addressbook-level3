@@ -2100,22 +2100,42 @@ Expected: Displays the statistics report of the module `CS1101S`.
 
 . Deleting a module.
 
-.. Test case: `module delete m/CS1101S` +
+.. Test Case: `module delete m/CS1101S` +
 Expected: Assuming you already had a module with module code m/CS1101S in your TA-Tracker,
 this would delete the module with module code m/CS1101S. This would also delete all
 groups, students and sessions related to this module.
-.. Test case: `module delete m/CS1101S` +
+.. Test Case: `module delete m/CS1101S` +
 Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
 this would show you an error message.
 
 === Exiting the program
 
-=== Saving data
+. Exiting the program.
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Test Case: `exit` +
+Expected: Exits the program.
 
 == Effort
+
+Creating this application was fairly difficult and required a lot of effort from us.
+
+While AB3 deals with only one entity, this application deals with multiple entities.
+AB3 contains only `persons`. This application has 3 views to begin with - the *Student View*,
+*Session View* and *Claims View*. This is a big change from AB3's UI.
+
+While we were able to refactor `person` into `student`,
+we had to create `session`, `group` and `module` from scratch. In addition to that,
+we also have a `statistics` window and our `help` window is significantly more appealing
+than the AB3 `help` window.
+
+Due to our inexperience with UI work, we had initially planned *Student View* to look
+very different. Therefore, the way it was implemented was a little different.
+Once we got more familiar with JavaFX, we realised that our initial plan was no longer
+feasible and had to change the way *Student View* was implemented and had to add a lot
+of supporting methods to allow the UI to work the way it does.
+
+Another challenge we faced was that we were unaware of restrictions regarding timing
+in features for the module CS2103 for which this application has been created. Two of
+our features that relied on timing that were almost ready had to be scrapped and we
+had to look for new features to replace them.
+
