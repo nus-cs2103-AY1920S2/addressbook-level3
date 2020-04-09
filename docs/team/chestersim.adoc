@@ -24,9 +24,12 @@ also its generated savings.
 the valid usage of a coupon. From the start date of the coupon, to the type
 of savings generated, this feature is critical to the functioning of Coupon Stash.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a shortcut to close windows opened by Coupon Stash and
+do not have a command line interface. This ensures that the overall application
+can be solely used by a keyboard that can be exploited by a fast typist, bar the
+scrolling of the coupon list.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=chester&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=ChesterSim&zR=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D&zACS=214.68421052631578&zS=2020-02-14&zU=2020-04-08&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false&since=2020-02-14[Functional code]]
 
 * *Other contributions*:
 
