@@ -166,17 +166,13 @@ public class ProgressManager extends BaseManager {
     public static void markDoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
         Progress targetProgress = ProgressManager.get(assignmentID, studentID);
         targetProgress.done();
-
-        ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
-        postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
+        model.set(targetProgress, targetProgress);
     }
 
     public static void markUndoneOneProgressOfOneStudent(ID assignmentID, ID studentID) throws CommandException {
         Progress targetProgress = ProgressManager.get(assignmentID, studentID);
         targetProgress.undone();
-
-        ReadOnlyAddressBookGeneric addressBook = model.getReadOnlyAddressBook(Constants.ENTITY_TYPE.PROGRESS);
-        postDataStorageChangeEvent(addressBook, Constants.ENTITY_TYPE.PROGRESS);
+        model.set(targetProgress, targetProgress);
     }
 
     private static Progress get(ID assignmentID, ID studentID) throws CommandException {
