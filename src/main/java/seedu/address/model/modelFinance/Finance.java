@@ -99,6 +99,10 @@ public class Finance extends ModelObject {
     this.staffid = staffid;
   }
 
+  public Finance clone() {
+    return new Finance(name, id, financeType, date, amount, courseid, studentid, staffid, tags);
+  }
+
   public Name getName() {
     return name;
   }

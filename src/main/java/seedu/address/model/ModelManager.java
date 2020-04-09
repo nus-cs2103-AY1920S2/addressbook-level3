@@ -397,7 +397,8 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException {
     requireAllNonNull(id, type);
-    return getAddressBook(type).get(id);
+    ModelObject obj = getAddressBook(type).get(id);
+    return obj.clone();
   }
 
   public boolean has(ModelObject obj) throws CommandException {

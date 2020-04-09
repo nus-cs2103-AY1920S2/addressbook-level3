@@ -59,7 +59,7 @@ public class StudentDetailedPanel extends UiPart<Region> {
   }
 
   private void updateDetailView(ObservableMap<String, Object> newStudentMap) {
-    if (newStudentMap.containsKey("details")) {
+    if (newStudentMap.containsKey("details") && newStudentMap.get("detail") != null) {
       Student student = (Student) newStudentMap.get("details");
       ObservableList<Student> filteredStudents = FXCollections.observableArrayList();
       filteredStudents.add(student);
@@ -69,7 +69,7 @@ public class StudentDetailedPanel extends UiPart<Region> {
   }
 
   private void updateCoursesView(ObservableMap<String, Object> newStudentMap) {
-    if (newStudentMap.containsKey("courses")) {
+    if (newStudentMap.containsKey("courses") && newStudentMap.get("courses") != null) {
       courseListView.setItems((ObservableList<HashMap>) newStudentMap.get("courses"));
       courseListView.setCellFactory(listView -> new CourseListViewCell());
     }

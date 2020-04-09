@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 
 import java.util.*;
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -167,10 +168,15 @@ public class ViewModel extends BaseManager {
         }
     }
 
+    public void forcePutNotify(ObservableMap viewMap, String key, Object data) {
+        viewMap.put(key, null);
+        viewMap.put(key, data);
+    }
+
     // ################# Update student details map ##################################################3
     public void updateStudentDetailsMap(ID studentID) throws CommandException {
         Student student = (Student)model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
-        studentDetailsMap.put("details", student);
+        forcePutNotify(studentDetailsMap, "details", student);
 
         ObservableList<HashMap> courses = FXCollections.observableArrayList();
         Set<ID> courseIDs = student.getAssignedCoursesID();
@@ -183,7 +189,7 @@ public class ViewModel extends BaseManager {
             courseDetail.put("number_of_done_progress", ProgressManager.getNumberOfProgressesDone(courseID, studentID));
             courses.add(courseDetail);
         }
-        studentDetailsMap.put("courses", courses);
+        forcePutNotify(studentDetailsMap, "courses", courses);
     }
 
     public void updateProgressStudentCourse(ID studentID, ID courseID) throws CommandException {
@@ -197,6 +203,7 @@ public class ViewModel extends BaseManager {
                         FXCollections.observableArrayList(new ArrayList<Progress>()));
             }
         }
+        forcePutNotify(studentDetailsMap, "courses", studentDetailsMap.get("courses"));
     }
     // #######################################################################################################
 
@@ -205,7 +212,7 @@ public class ViewModel extends BaseManager {
     // ###############  Update course details map ###########################################################
     public void updateCourseDetailsMap(ID courseID) throws CommandException {
         Course course = (Course)model.get(courseID, Constants.ENTITY_TYPE.COURSE);
-        courseDetailsMap.put("details", course);
+        forcePutNotify(courseDetailsMap, "details", course);
 
         ObservableList<HashMap> students = FXCollections.observableArrayList();
         Set<ID> studentIDs = course.getAssignedStudentsID();
@@ -218,7 +225,7 @@ public class ViewModel extends BaseManager {
             studentDetail.put("number_of_done_progress", ProgressManager.getNumberOfProgressesDone(courseID, studentID));
             students.add(studentDetail);
         }
-        courseDetailsMap.put("students", students);
+        forcePutNotify(courseDetailsMap, "students", students);
     }
 
     public void updateProgressCourseStudent(ID courseID, ID studentID) throws CommandException {
@@ -232,6 +239,7 @@ public class ViewModel extends BaseManager {
                         FXCollections.observableArrayList(new ArrayList<Progress>()));
             }
         }
+        forcePutNotify(courseDetailsMap, "students", courseDetailsMap.get("students"));
     }
     // #######################################################################################################
 
@@ -239,14 +247,14 @@ public class ViewModel extends BaseManager {
     // ################# Update staff details map ###########################################################
     public void updateStaffDetailsMap(ID staffID) throws CommandException {
         Staff staff = (Staff)model.get(staffID, Constants.ENTITY_TYPE.STAFF);
-        staffDetailsMap.put("details", staff);
+        forcePutNotify(staffDetailsMap, "details", staff);
 
         ObservableList<Course> courses = FXCollections.observableArrayList();
         Set<ID> courseIDs = staff.getAssignedCoursesID();
         for (ID courseID: courseIDs) {
             courses.add((Course)model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(courseID));
         }
-        staffDetailsMap.put("courses", courses);
+        forcePutNotify(staffDetailsMap, "courses", courses);
     }
     // ####################################################################################################
 
@@ -255,7 +263,7 @@ public class ViewModel extends BaseManager {
     // ################### Update Finance Details Map #####################################################
     public void updateFinanceDetailsMap(ID financeID) throws CommandException {
         Finance finance = (Finance)model.get(financeID, Constants.ENTITY_TYPE.FINANCE);
-        financeDetailsMap.put("details", finance);
+        forcePutNotify(financeDetailsMap, "details", finance);
     }
     // ####################################################################################################
 
@@ -263,7 +271,7 @@ public class ViewModel extends BaseManager {
     // ##################### Update Assignment Details Map ################################################
     public void updateAssignmentDetailsMap(ID assignmentID) throws CommandException {
         Assignment assignment = (Assignment)model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
-        assignmentDetailsMap.put("details", assignment);
+        forcePutNotify(assignmentDetailsMap, "details", assignment);
     }
     // ####################################################################################################
 
