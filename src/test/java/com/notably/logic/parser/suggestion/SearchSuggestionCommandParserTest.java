@@ -2,11 +2,13 @@ package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_SEARCH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +21,8 @@ public class SearchSuggestionCommandParserTest {
     private static SearchSuggestionCommandParser searchSuggestionCommandParser;
     private static Model model;
 
-    private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword \"%s\"";
+    private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword";
+    private static final String RESPONSE_MESSAGE_WITH_KEYWORD = "Search through all notes based on keyword \"%s\"";
 
     @BeforeAll
     public static void setUp() {
@@ -27,6 +30,25 @@ public class SearchSuggestionCommandParserTest {
         searchSuggestionCommandParser = new SearchSuggestionCommandParser(model);
     }
 
+    @AfterEach
+    public void clearResponseTextAndSuggestions() {
+        model.clearResponseText();
+        model.clearSuggestions();
+    }
+
+    @Test
+    public void parse_emptyKeyword_returnsEmptySuggestions() {
+        String keyword = "";
+        String userInput = " " + PREFIX_SEARCH + " " + keyword;
+        Optional<? extends SearchSuggestionCommand> command = searchSuggestionCommandParser.parse(userInput);
+
+        // Test response text
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+
+        // Test command
+        assertFalse(command.isPresent());
+    }
+    
     @Test
     public void parse_withPrefixSearch_returnsSearchSuggestionCommand() {
         String keyword = "fAlSe";
@@ -37,7 +59,8 @@ public class SearchSuggestionCommandParserTest {
         command.get().execute(model);
 
         // Test response text
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE, keyword)), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),
+                model.responseTextProperty().getValue());
 
         // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
@@ -59,7 +82,8 @@ public class SearchSuggestionCommandParserTest {
         command.get().execute(model);
 
         // Test response text
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE, keyword)), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),
+                model.responseTextProperty().getValue());
 
         // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
