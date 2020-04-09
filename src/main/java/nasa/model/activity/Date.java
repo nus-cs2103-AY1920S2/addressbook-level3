@@ -51,6 +51,7 @@ public class Date {
      * @return true if the string matches date format.
      */
     public static boolean isValidDate(String test) {
+        requireNonNull(test);
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             formatter.setLenient(false);

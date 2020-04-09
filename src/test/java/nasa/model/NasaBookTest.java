@@ -5,6 +5,7 @@ import static nasa.testutil.Assert.assertThrows;
 import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
 import static nasa.testutil.TypicalModules.CS2103T;
+import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -119,10 +120,11 @@ class NasaBookTest {
 
     @Test
     void removeEvent() {
-        nasaBook.addModule(CS2103T);
-        nasaBook.addEvent(CS2103T.getModuleCode(), (Event) CORRECT_EVENT);
-        nasaBook.removeEvent(CS2103T.getModuleCode(), (Event) CORRECT_EVENT);
-        assertFalse(nasaBook.hasActivity(CS2103T.getModuleCode(), CORRECT_EVENT));
+        NasaBook book = new NasaBook();
+        book.addModule(CS2106);
+        book.addEvent(CS2106.getModuleCode(), (Event) CORRECT_EVENT);
+        book.removeEvent(CS2106.getModuleCode(), (Event) CORRECT_EVENT);
+        assertFalse(book.hasActivity(CS2106.getModuleCode(), CORRECT_EVENT));
     }
 
     /**

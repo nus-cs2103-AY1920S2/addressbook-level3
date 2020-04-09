@@ -26,7 +26,6 @@ import javafx.scene.paint.Color;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.model.module.Module;
 
 /**
@@ -297,10 +296,8 @@ public class CalendarView extends UiPart<Region> {
     private int getDayOfMonth(Activity activity) {
         if (activity instanceof Deadline) {
             return ((Deadline) activity).getDueDate().getDate().getDayOfMonth();
-        } else if (activity instanceof Event) {
-            return ((Event) activity).getStartDate().getDate().getDayOfMonth();
         } else {
-            return ((Lesson) activity).getEndDate().getDate().getDayOfMonth();
+            return ((Event) activity).getStartDate().getDate().getDayOfMonth();
         }
     }
 
