@@ -55,7 +55,7 @@ public class FindGoodCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different supplier -> returns false
+        // different good -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
@@ -72,7 +72,11 @@ public class FindGoodCommandTest {
     @Test
     public void execute_multipleKeywords_multipleSuppliersFound() {
         String expectedMessage = String.format(MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 3);
-        GoodSupplierPairContainsKeywordsPredicate predicate = preparePredicate("hand pear paper");
+        GoodSupplierPairContainsKeywordsPredicate predicate = preparePredicate(
+                ALICE.getOffers().iterator().next().getGoodName().toString() + " "
+                + BENSON.getOffers().iterator().next().getGoodName().toString() + " "
+                + DANIEL.getOffers().iterator().next().getGoodName().toString());
+
         FindGoodCommand command = new FindGoodCommand(predicate);
         expectedModel.updateFilteredSupplierList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

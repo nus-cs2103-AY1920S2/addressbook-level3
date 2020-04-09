@@ -7,12 +7,12 @@ import seedu.address.model.Model;
 import seedu.address.model.good.GoodSupplierPairContainsKeywordsPredicate;
 
 /**
- * Finds and lists all suppliers in address book whose name contains any of the argument keywords.
+ * Finds and lists all suppliers in Inventory Management who sell specific goods identified by keywords
  * Keyword matching is case insensitive.
  */
 public class FindGoodCommand extends Command {
 
-    public static final String COMMAND_WORD = "find-g";
+    public static final String COMMAND_WORD = "source";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all suppliers who sell a specific good "
             + "identified with a good's name as keywords (case-insensitive) and displays them as a list with index "
