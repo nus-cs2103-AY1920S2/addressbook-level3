@@ -598,7 +598,7 @@ method to update the list in the `model`. +
 
 Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
 
-
+//tag::edit[]
 [[edit]]
 === Edit Feature
 
@@ -677,6 +677,8 @@ The `EditCommand` object is then passed back as `e` to the `LogicManager` which 
 The main function of these methods are to help `EditCommand` in updating the `ObservableList` in the `Model` class which is responsible for the updating of list displayed.
 
 The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
+//end::edit[]
+
 
 [[nearby]]
 === Nearby Feature
@@ -971,6 +973,7 @@ The `ImportCommand` will call its own `printResult()` function and return a Stri
 which is then pass back to the `LogicManager`.
 //end::import[]
 
+//tag::search[]
 [[search]]
 === Search Feature
 
@@ -1062,7 +1065,7 @@ If the preamble to any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is not empty
 However, if `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is given and the preamble is empty, the *specific search* will be performed. Only parcel fields that correspond to the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` will be searched and matched with the `KEYWORD`.
 
 The order and return order list updates automatically as the JavaFX class `ObservableList` is used to listen to any changes.
-
+//end::search[]
 
 === Logging
 
@@ -1299,6 +1302,7 @@ Use case ends.
 +
 Use case ends.
 
+//tag::use_case_edit[]
 [discrete]
 === Use case: UC05 - Editing order details
 
@@ -1325,6 +1329,7 @@ Use case ends.
 ** 1b1. Delino shows no order found message.
 +
 Use case ends.
+//end::use_case_edit[]
 
 [discrete]
 === Use case: UC06 - Exit the program
@@ -1339,6 +1344,7 @@ Use case ends.
 +
 Use case ends.
 
+//tag::use_case_search[]
 [discrete]
 === Use case: UC07 - Search an order
 
@@ -1364,6 +1370,7 @@ Use case ends.
 ** 1b1. Delino display order not found message.
 +
 Use case ends.
+//end::use_case_search[]
 
 [discrete]
 === Use case: UC08 - Request for help
