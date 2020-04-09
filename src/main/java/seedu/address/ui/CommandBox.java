@@ -39,10 +39,11 @@ public class CommandBox extends UiPart<Region> {
     rightCommandStack = new Stack<>();
     mainCommandStack = new Stack<>();
 
-    getRoot().setOnKeyPressed(new EventHandler<KeyEvent>() {
+    getRoot().setOnKeyReleased(new EventHandler<KeyEvent>() {
+
       public void handle(KeyEvent ke) {
         boolean repeat = false;
-        if (ke.getCode() == KeyCode.F3) {
+        if (ke.getCode() == KeyCode.DOWN) {
           if (!rightCommandStack.isEmpty()){
             if (rightCommandStack.peek().equals(commandTextField.getText())){
               repeat = true;
@@ -51,7 +52,7 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.setText(commandStr);
             leftCommandStack.push(commandStr);
           }
-        } else if (ke.getCode() == KeyCode.F2) {
+        } else if (ke.getCode() == KeyCode.UP) {
           if (!leftCommandStack.isEmpty()){
             if (leftCommandStack.peek().equals(commandTextField.getText())){
               repeat = true;
