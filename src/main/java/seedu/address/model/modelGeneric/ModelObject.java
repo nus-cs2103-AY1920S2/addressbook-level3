@@ -18,4 +18,6 @@ public abstract class ModelObject {
     public RuntimeException getDuplicateException() {
         return new DuplicateException(ENTITY_NAME);
     };
+
+    public abstract ModelObject clone();
 }
