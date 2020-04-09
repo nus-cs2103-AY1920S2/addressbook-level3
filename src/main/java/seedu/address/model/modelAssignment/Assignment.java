@@ -56,6 +56,11 @@ public class Assignment extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  public Assignment clone() {
+    Assignment cloned = new Assignment(name, id, assignedCourseID, deadline, tags);
+    return cloned;
+  }
+
   public Name getName() {
     return name;
   }

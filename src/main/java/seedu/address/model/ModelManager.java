@@ -266,7 +266,8 @@ public class ModelManager extends BaseManager implements Model {
 
   // ================================== FACTORY HELPERS =================================================
 
-  private Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException {
+  @Override
+  public Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException {
     if (obj instanceof Staff) {
       return Constants.ENTITY_TYPE.STAFF;
     } else if (obj instanceof Student) {

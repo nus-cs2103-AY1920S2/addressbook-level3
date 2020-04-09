@@ -57,7 +57,7 @@ public class DeleteCourseCommand extends DeleteCommand {
 
   @Override
   protected void generateOppositeCommand() throws CommandException {
-    oppositeCommand = new AddCourseCommand(toDelete, targetIndex.getZeroBased());
+    oppositeCommand = new AddCourseCommand(toDelete.clone(), targetIndex.getZeroBased());
   }
 
   // TODO: Find way to abstract this

@@ -5,6 +5,7 @@ import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.util.Constants;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,7 +13,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import java.util.logging.Logger;
@@ -120,24 +123,53 @@ public class EdgeManager extends BaseManager {
 
     // ========================= Handle delete entities ======================================================
     public static void handleDeleteEntityEvent(DeleteEntityEvent event) {
-        if (event.entityType == Constants.ENTITY_TYPE.COURSE) {
-            deleteEdgeFromCourse(event.entityID);
-        } else if (event.entityType == Constants.ENTITY_TYPE.ASSIGNMENT) {
-            deleteEdgeFromAssignment(event.entityID);
-        } else if (event.entityType == Constants.ENTITY_TYPE.STUDENT) {
-            deleteEdgeFromStudent(event.entityID);
+        try {
+            if (event.entityType == Constants.ENTITY_TYPE.COURSE) {
+                Course course = (Course) model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(event.entityID);
+                processEdgeFromCourse(course, true);
+            } else if (event.entityType == Constants.ENTITY_TYPE.ASSIGNMENT) {
+                Assignment assignment = (Assignment) (model.getAddressBook(Constants.ENTITY_TYPE.ASSIGNMENT).get(event.entityID));
+                processEdgeFromAssignment(assignment, true);
+            } else if (event.entityType == Constants.ENTITY_TYPE.STUDENT) {
+                Student student = (Student) model.getAddressBook(Constants.ENTITY_TYPE.STUDENT).get(event.entityID);
+                processEdgeFromStudent(student, true);
+            } else if (event.entityType == Constants.ENTITY_TYPE.STAFF) {
+                Staff staff = (Staff) (model.getAddressBook(Constants.ENTITY_TYPE.STAFF).get(event.entityID));
+                processEdgeFromStaff(staff, true);
+            }
+        } catch (CommandException e) {
+            System.out.println("handle delete entity in edge manager not valid object");
         }
     }
 
-    private static void deleteEdgeFromCourse(ID courseID) {
+    public static void revokeEdgesFromDeleteEvent(ModelObject deletedObject) {
         try {
-            Course course = (Course) model.getAddressBook(Constants.ENTITY_TYPE.COURSE).get(courseID);
+            Constants.ENTITY_TYPE entityType = model.modelObjectToEntityType(deletedObject);
+            if (entityType == Constants.ENTITY_TYPE.COURSE) {
+                processEdgeFromCourse((Course)deletedObject, false);
+            } else if (entityType == Constants.ENTITY_TYPE.ASSIGNMENT) {
+                processEdgeFromAssignment((Assignment)deletedObject, false);
+            } else if (entityType == Constants.ENTITY_TYPE.STUDENT) {
+                processEdgeFromStudent((Student)deletedObject, false);
+            } else if (entityType == Constants.ENTITY_TYPE.STAFF) {
+                processEdgeFromStaff((Staff)deletedObject, false);
+            }
+        } catch (CommandException e) {
+            System.out.println("Revoke edges of not valid object");
+        }
+    }
 
+    private static void processEdgeFromCourse(Course course, Boolean isDelete) {
+        try {
             // Delete edges to assignments
             Set<ID> assignmentIDs = course.getAssignedAssignmentsID();
             for (ID assignmentID : assignmentIDs) {
                 try {
-                    unassignAssignmentFromCourse(assignmentID, courseID);
+                    if (isDelete) {
+                        unassignAssignmentFromCourse(assignmentID, course.getId());
+                    } else {
+                        assignAssignmentToCourse(assignmentID, course.getId());
+                    }
                 } catch (Exception e) {
                 }
             }
@@ -146,40 +178,73 @@ public class EdgeManager extends BaseManager {
             Set<ID> studentIDs = course.getAssignedStudentsID();
             for (ID studentID : studentIDs) {
                 try {
-                    unassignStudentFromCourse(studentID, courseID);
+                    if (isDelete) {
+                        unassignStudentFromCourse(studentID, course.getId());
+                    } else {
+                        assignStudentToCourse(studentID, course.getId());
+                    }
                 } catch (Exception e) {
                 }
+            }
+            ID teacherID = course.getAssignedStaffID();
+            if (isDelete) {
+                unassignTeacherFromCourse(teacherID, course.getId());
+            } else {
+                assignTeacherToCourse(teacherID, course.getId());
             }
         } catch (Exception e) {
         }
     }
 
-    private static void deleteEdgeFromAssignment(ID assignmentID) {
+    private static void processEdgeFromAssignment(Assignment assignment, Boolean isDelete) {
         try {
-            AssignmentAddressBook assignmentAddressBook = (AssignmentAddressBook)model.getAddressBook(Constants.ENTITY_TYPE.ASSIGNMENT);
-            Assignment assignment = (Assignment) (model.getAddressBook(Constants.ENTITY_TYPE.ASSIGNMENT).get(assignmentID));
-
             // Delete edges to course
             ID courseID = assignment.getAssignedCourseID();
-            unassignAssignmentFromCourse(assignmentID, courseID);
+            if (isDelete) {
+                unassignAssignmentFromCourse(assignment.getId(), courseID);
+            } else {
+                assignAssignmentToCourse(assignment.getId(), courseID);
+            }
         } catch (Exception e) {
             String a = "1";
         }
     }
 
-    private static void deleteEdgeFromStudent(ID studentID) {
+    private static void processEdgeFromStudent(Student student, Boolean isDelete) {
         try {
-            Student student = (Student) model.getAddressBook(Constants.ENTITY_TYPE.STUDENT).get(studentID);
 
             // Delete edges to student
             Set<ID> courseIDs = student.getAssignedCoursesID();
             for (ID courseID : courseIDs) {
                 try {
-                    unassignStudentFromCourse(studentID, courseID);
+                    if (isDelete) {
+                        unassignStudentFromCourse(student.getId(), courseID);
+                    } else {
+                        assignStudentToCourse(student.getId(), courseID);
+                    }
                 } catch (Exception e) {
                 }
             }
         } catch (Exception e) {
+        }
+    }
+
+    private static void processEdgeFromStaff(Staff staff, Boolean isDelete) {
+        try {
+            // Delete edges to assignments
+            Set<ID> courseIDs = staff.getAssignedCoursesID();
+            for (ID courseID: courseIDs) {
+                try {
+                    if (isDelete) {
+                        unassignTeacherFromCourse(staff.getId(), courseID);
+                    } else {
+                        assignTeacherToCourse(staff.getId(), courseID);
+                    }
+                } catch (Exception e) {
+                }
+            }
+        } catch (Exception e) {
+            String a = "1";
         }
     }
 
