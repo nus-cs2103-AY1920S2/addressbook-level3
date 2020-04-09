@@ -43,6 +43,8 @@ public class CommandTestUtility {
     public static final String INVALID_QUESTION_NUMBER_2 = "qabc";
     public static final String INVALID_TIME_123 = "123,2";
     public static final String INVALID_TIME_1234 = "1234";
+
+    public static final String VALID_PATH_DOWNLOADS = "/Downloads";
     public static final String INVALID_DUMMY_VALUE = "dummy";
 
     public static final String WHITESPACE = " ";
