@@ -28,8 +28,7 @@ public class ExpandCommandParser implements Parser<ExpandCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
                             ExpandCommand.MESSAGE_USAGE
                     ),
                     pe

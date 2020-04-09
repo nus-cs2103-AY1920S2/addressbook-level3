@@ -3,7 +3,7 @@ package csdev.couponstash.model.coupon;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's remark in the address book.
+ * Represents a Coupons's terms and condition in Coupon Stash.
  * Guarantees: immutable; is always valid
  */
 public class Condition {
@@ -18,17 +18,6 @@ public class Condition {
     public Condition(String condition) {
         requireNonNull(condition);
         value = condition;
-    }
-
-    /**
-     * Returns true if a given string is a valid condition.
-     */
-    public static boolean isValidCondition(String test) {
-        int wordCount = test.trim().split("\\s+").length;
-        if (wordCount > 100) {
-            return false;
-        }
-        return true;
     }
 
     @Override

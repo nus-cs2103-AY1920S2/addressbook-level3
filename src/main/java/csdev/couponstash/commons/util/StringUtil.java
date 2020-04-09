@@ -68,8 +68,7 @@ public class StringUtil {
     }
 
     /**
-     * Checks if an integer is larger than Integer.MAX_INT by using the
-     * Math.addExact method.
+     * Checks if an integer's absolute value is larger than Integer.MAX_INT.
      * @param s Integer to check
      * @return True if |s| is > Integer.MAX_INT, false otherwise
      */

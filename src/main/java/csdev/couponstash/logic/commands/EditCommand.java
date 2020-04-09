@@ -26,6 +26,7 @@ import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -134,20 +135,18 @@ public class EditCommand extends IndexedCommand {
         Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
         RemindDate remindDate = editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
 
-        // Archived state cannot be edited
-        Archived archived = couponToEdit.getArchived();
+        // State that cannot be edited
+        Usage currentUsage = couponToEdit.getUsage();
+        DateSavingsSumMap currentDssm = couponToEdit.getSavingsMap();
+        Archived currentArchived = couponToEdit.getArchived();
 
         return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
-                // avoid changing the usage
-                couponToEdit.getUsage(),
+                currentUsage,
                 updatedLimit, updatedTags,
-                // avoid changing the total savings and dates mappings
-                couponToEdit.getSavingsMap(),
-                // avoid changing the reminder
+                currentDssm,
                 remindDate,
                 updatedCondition,
-                // avoid changing the archival state
-                archived);
+                currentArchived);
     }
 
     @Override
@@ -229,22 +228,10 @@ public class EditCommand extends IndexedCommand {
             return Optional.ofNullable(promoCode);
         }
 
-        /**
-         * Sets the Savings field in this EditCouponDescriptor.
-         * @param sv Savings to be set in EditCouponDescriptor.
-         */
         public void setSavings(Savings sv) {
             this.savings = sv;
         }
 
-        /**
-         * Gets the Savings that have been set in this
-         * EditCouponDescriptor in an Optional (if it
-         * was never set, an Optional.empty() is returned).
-         * @return Optional with Savings representing the
-         *     Savings value stored in this
-         *     EditCouponDescriptor, if any.
-         */
         public Optional<Savings> getSavings() {
             return Optional.ofNullable(this.savings);
         }
@@ -281,14 +268,13 @@ public class EditCommand extends IndexedCommand {
             return Optional.ofNullable(limit);
         }
 
-        public Optional<RemindDate> getRemindDate() {
-            return Optional.ofNullable(this.remindDate);
-        }
-
         public void setRemindDate(RemindDate remindDate) {
             this.remindDate = remindDate;
         }
 
+        public Optional<RemindDate> getRemindDate() {
+            return Optional.ofNullable(this.remindDate);
+        }
 
         public void setCondition(Condition condition) {
             this.condition = condition;
@@ -298,13 +284,15 @@ public class EditCommand extends IndexedCommand {
             return Optional.ofNullable(condition);
         }
 
+        public void setArchived(Archived archived) {
+            this.archived = archived;
+        }
+
+
         public Optional<Archived> getArchived() {
             return Optional.ofNullable(this.archived);
         }
 
-        public void setArchived(Archived archived) {
-            this.archived = archived;
-        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

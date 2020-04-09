@@ -35,17 +35,17 @@ public class AddCommand extends Command {
             + "[" + PREFIX_SAVINGS + "SAVINGS]... "
             + "[" + PREFIX_TAG + "TAG]...\n\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "The Deck Chicken Rice "
-            + PREFIX_PROMO_CODE + "JIFANFTW "
-            + PREFIX_EXPIRY_DATE + "30-08-2020 "
+            + PREFIX_NAME + "McDonald's McGriddles "
+            + PREFIX_PROMO_CODE + "ILOVEMCGRIDDLES "
+            + PREFIX_EXPIRY_DATE + "31-12-2020 "
             + PREFIX_SAVINGS + "50" + PercentageAmount.PERCENT_SUFFIX + " "
-            + PREFIX_START_DATE + "1-8-2020 "
-            + PREFIX_LIMIT + "5 "
+            + PREFIX_START_DATE + "1-4-2020 "
+            + PREFIX_LIMIT + "2 "
             + PREFIX_TAG + "Value "
-            + PREFIX_TAG + "ChickenRice";
+            + PREFIX_TAG + "Savoury";
 
     public static final String MESSAGE_SUCCESS = "New coupon added: %1$s";
-    public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in CouponStash";
+    public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in CouponStash!";
 
     private final Coupon toAdd;
 

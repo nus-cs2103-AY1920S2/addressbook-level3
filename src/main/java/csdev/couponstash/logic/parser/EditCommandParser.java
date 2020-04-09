@@ -62,8 +62,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
                             EditCommand.MESSAGE_USAGE
                     ),
                     pe
