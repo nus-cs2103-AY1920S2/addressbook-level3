@@ -1,20 +1,6 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ListAttributeCommand;
-import seedu.address.logic.commands.ListMetricCommand;
-import seedu.address.logic.commands.ListQuestionCommand;
-import seedu.address.logic.commands.OpenResumeCommand;
-import seedu.address.logic.commands.UploadResumeCommand;
-import seedu.address.logic.commands.interview.EndCommand;
-import seedu.address.logic.commands.interview.ScoreCommand;
-import seedu.address.logic.commands.interview.StartQuestionCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.testutil.Assert;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtility.INVALID_DUMMY_VALUE;
 import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_BLANK;
 import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_1;
@@ -33,9 +19,23 @@ import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_CO
 import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_NUMBER_1;
 import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ListAttributeCommand;
+import seedu.address.logic.commands.ListMetricCommand;
+import seedu.address.logic.commands.ListQuestionCommand;
+import seedu.address.logic.commands.OpenResumeCommand;
+import seedu.address.logic.commands.interview.EndCommand;
+import seedu.address.logic.commands.interview.ScoreCommand;
+import seedu.address.logic.commands.interview.StartQuestionCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.testutil.Assert;
+
 class InterviewParserTest {
 
-    InterviewParser parser = new InterviewParser();
+    private InterviewParser parser = new InterviewParser();
 
     @Test
     void parseCommand_openResume_success() throws ParseException {
@@ -81,15 +81,15 @@ class InterviewParserTest {
 
     @Test
     void parseCommand_startQuestion_failure() throws ParseException {
-        Assert.assertThrows(ParseException.class, Messages.INVALID_QUESTION_NUMBER_MESSAGE,
-                () -> parser.parseCommand(VALID_INTERVIEW_COMMAND_START + WHITESPACE + INVALID_QUESTION_NUMBER_1));
+        Assert.assertThrows(ParseException.class, Messages.INVALID_QUESTION_NUMBER_MESSAGE, () ->
+                parser.parseCommand(VALID_INTERVIEW_COMMAND_START + WHITESPACE + INVALID_QUESTION_NUMBER_1));
 
-        Assert.assertThrows(ParseException.class, Messages.INVALID_QUESTION_NUMBER_MESSAGE,
-                () -> parser.parseCommand(VALID_INTERVIEW_COMMAND_START
+        Assert.assertThrows(ParseException.class, Messages.INVALID_QUESTION_NUMBER_MESSAGE, () ->
+                parser.parseCommand(VALID_INTERVIEW_COMMAND_START
                         + WHITESPACE + INVALID_QUESTION_NUMBER_1 + INVALID_DUMMY_VALUE));
 
-        Assert.assertThrows(ParseException.class, Messages.INVALID_QUESTION_NUMBER_MESSAGE,
-                () -> parser.parseCommand(VALID_INTERVIEW_COMMAND_START
+        Assert.assertThrows(ParseException.class, Messages.INVALID_QUESTION_NUMBER_MESSAGE, () ->
+                parser.parseCommand(VALID_INTERVIEW_COMMAND_START
                         + WHITESPACE + INVALID_QUESTION_BLANK));
     }
 

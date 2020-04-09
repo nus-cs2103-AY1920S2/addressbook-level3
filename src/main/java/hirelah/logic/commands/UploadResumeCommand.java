@@ -9,8 +9,6 @@ import hirelah.model.hirelah.exceptions.IllegalActionException;
 import hirelah.storage.Storage;
 import javafx.stage.FileChooser;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
-
 /**
  * Adds a pdf resume file to the given Interviewee.
  */
