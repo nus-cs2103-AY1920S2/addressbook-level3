@@ -6,11 +6,27 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
+import seedu.address.model.modelCourse.CourseAddressBook;
+import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelStaff.StaffAddressBook;
+import seedu.address.model.modelStudent.StudentAddressBook;
 
 /**
  * Clears the address book.
  */
-public abstract class ClearCommand extends Command {
-    public static final String COMMAND_WORD = "clear";
+public class ClearCommand extends Command {
+    public static final String COMMAND_WORD = "clear-all";
+    public static final String MESSAGE_SUCCESS = "All databases have been removed!";
 
+    @Override
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
+        model.setStaffAddressBook(new StaffAddressBook());
+        model.setStudentAddressBook(new StudentAddressBook());
+        model.setFinanceAddressBook(new FinanceAddressBook());
+        model.setCourseAddressBook(new CourseAddressBook());
+        model.setAssignmentAddressBook(new AssignmentAddressBook());
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
 }
