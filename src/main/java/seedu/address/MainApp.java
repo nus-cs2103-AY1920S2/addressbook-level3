@@ -70,18 +70,19 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * The data from the sample inventory system will be used instead if {@code storage}'s inventory system
+     * is not found, or an empty address book will be used instead if errors occur when
+     * reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyInventorySystem> addressBookOptional;
+        Optional<ReadOnlyInventorySystem> inventorySystemOptional;
         ReadOnlyInventorySystem initialData;
         try {
-            addressBookOptional = storage.readInventorySystem();
-            if (!addressBookOptional.isPresent()) {
+            inventorySystemOptional = storage.readInventorySystem();
+            if (!inventorySystemOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample InventorySystem");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = inventorySystemOptional.orElseGet(SampleDataUtil::getSampleInventorySystem);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty InventorySystem");
             initialData = new InventorySystem();
@@ -177,7 +178,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping InventorySystem ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

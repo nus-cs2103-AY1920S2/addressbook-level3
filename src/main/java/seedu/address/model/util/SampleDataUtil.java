@@ -14,6 +14,7 @@ import seedu.address.model.customer.Phone;
 import seedu.address.model.product.CostPrice;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
+import seedu.address.model.product.ProductQuantity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Transaction;
@@ -56,31 +57,31 @@ public class SampleDataUtil {
             getTagSet("celebrity"));
 
     public static final Product IPAD_PRO = new Product(new Description("iPad Pro"), new CostPrice("599"),
-            new Price("1299"), new Quantity(29), new Money(14289),
+            new Price("1299"), new ProductQuantity(29), new Money(14289),
             new QuantityThreshold("8"), 0.725);
 
     public static final Product AIRPODS_PRO = new Product(new Description("Airpods Pro"), new CostPrice("129"),
-            new Price("379"), new Quantity(96), new Money(1516),
+            new Price("379"), new ProductQuantity(96), new Money(1516),
             new QuantityThreshold("20"), 0.96);
 
     public static final Product IPHONE_X = new Product(new Description("iPhone X"), new CostPrice("349"),
-            new Price("1199"), new Quantity(60), new Money(Money.DEFAULT_VALUE),
+            new Price("1199"), new ProductQuantity(60), new Money(Money.DEFAULT_VALUE),
             new QuantityThreshold("12"), 1);
 
     public static final Product IPHONE_8PLUS = new Product(new Description("iPhone 8 Plus"), new CostPrice("299"),
-            new Price("950"), new Quantity(48), new Money(1900),
+            new Price("950"), new ProductQuantity(48), new Money(1900),
             new QuantityThreshold("10"), 0.96);
 
     public static final Product MACBOOK_AIR = new Product(new Description("Macbook Air"), new CostPrice("680"),
-            new Price("1449"), new Quantity(29), new Money(1499),
+            new Price("1449"), new ProductQuantity(29), new Money(1499),
             new QuantityThreshold("6"), 0.967);
 
     public static final Product APPLE_WATCH = new Product(new Description("Apple Watch"), new CostPrice("109"),
-            new Price("440"), new Quantity(80), new Money(Money.DEFAULT_VALUE),
+            new Price("440"), new ProductQuantity(80), new Money(Money.DEFAULT_VALUE),
             new QuantityThreshold("16"), 1);
 
     public static final Product APPLE_PENCIL = new Product(new Description("Apple Pencil"), new CostPrice("59"),
-            new Price("189"), new Quantity(100), new Money(Money.DEFAULT_VALUE),
+            new Price("189"), new ProductQuantity(100), new Money(Money.DEFAULT_VALUE),
             new QuantityThreshold("20"), 1);
 
     public static Customer[] getSamplePersons() {
@@ -98,27 +99,27 @@ public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
             new Transaction(ALEX_YEOH, IPAD_PRO, ALEX_YEOH.getId(), IPAD_PRO.getId(),
-                new DateTime(DateTime.DEFAULT_VALUE), new Quantity("2"), new Money("2598"),
+                new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("2"), new Money("2598"),
                 new Description("Null")),
             new Transaction(BERNICE_YU, IPHONE_8PLUS, BERNICE_YU.getId(), IPHONE_8PLUS.getId(),
-                new DateTime(DateTime.DEFAULT_VALUE), new Quantity("2"), new Money("1900"),
+                new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("2"), new Money("1900"),
                 new Description("Null")),
             new Transaction(DAVID_LI, IPAD_PRO, DAVID_LI.getId(), IPAD_PRO.getId(),
-                new DateTime(DateTime.DEFAULT_VALUE), new Quantity("4"), new Money("5196"),
+                new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("4"), new Money("5196"),
                 new Description("Null")),
             new Transaction(VIVIAN_TAN, MACBOOK_AIR, VIVIAN_TAN.getId(), MACBOOK_AIR.getId(),
-                new DateTime(DateTime.DEFAULT_VALUE), new Quantity("1"), new Money("1449"),
+                new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("1"), new Money("1449"),
                 new Description("Null")),
             new Transaction(IRFAN, AIRPODS_PRO, IRFAN.getId(), AIRPODS_PRO.getId(),
-                new DateTime(DateTime.DEFAULT_VALUE), new Quantity("4"), new Money("1516"),
+                new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("4"), new Money("1516"),
                 new Description("Null")),
             new Transaction(CHARLOTTE, IPAD_PRO, CHARLOTTE.getId(), IPAD_PRO.getId(),
-                new DateTime(DateTime.DEFAULT_VALUE), new Quantity("5"), new Money("6495"),
+                new DateTime(DateTime.DEFAULT_VALUE), new ProductQuantity("5"), new Money("6495"),
                 new Description("Null"))
         };
     }
 
-    public static ReadOnlyInventorySystem getSampleAddressBook() {
+    public static ReadOnlyInventorySystem getSampleInventorySystem() {
         InventorySystem sampleAb = new InventorySystem();
         for (Customer sampleCustomer : getSamplePersons()) {
             sampleAb.addPerson(sampleCustomer);

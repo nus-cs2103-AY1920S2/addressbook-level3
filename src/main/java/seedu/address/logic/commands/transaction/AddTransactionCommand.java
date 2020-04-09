@@ -26,7 +26,6 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
-import seedu.address.ui.NotificationWindow;
 
 /**
  * Adds a transaction to the system.
@@ -52,10 +51,8 @@ public class AddTransactionCommand extends Command {
             + PREFIX_TRANS_DESCRIPTION + "under discount ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_ZERO_QUANTITY = "A transaction with 0 quantity is not allowed";
 
     private final TransactionFactory transactionFactory;
-    private final EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
 
     public AddTransactionCommand(TransactionFactory transactionFactory) {
         requireNonNull(transactionFactory);
@@ -65,55 +62,59 @@ public class AddTransactionCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Transaction toAdd = transactionFactory.createTransaction(model);
+        List<Product> lastShownList = model.getFilteredProductList();
+        Index productIndex = getProductIndex(lastShownList);
 
-        if (toAdd.getQuantity().value == 0) {
-            throw new CommandException(MESSAGE_ZERO_QUANTITY);
-        }
+        Product productToEdit = lastShownList.get(productIndex.getZeroBased());
+
+        Transaction toAdd = transactionFactory.createTransaction(model);
 
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }
 
-        updateProduct(model, toAdd);
+
+        Product editedProduct = updateProduct(productToEdit, toAdd);
+
+        if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
+        }
 
         model.addTransaction(toAdd);
+
+        model.setProduct(productToEdit, editedProduct);
+        model.updateFilteredProductList();
+
+        if (editedProduct.isBelowThreshold()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
+                    null,
+                    editedProduct,
+                    "",
+                    false,
+                    true,
+                    false,
+                    false);
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     /**
      * Updates product details based on transaction to be added.
-     * @param model
+     * @param productToEdit
      * @param toAdd
      * @throws CommandException
      */
-    private void updateProduct(Model model, Transaction toAdd) throws CommandException {
-        List<Product> lastShownList = model.getFilteredProductList();
+    private Product updateProduct(Product productToEdit, Transaction toAdd) throws CommandException {
+        EditProductDescriptor editProductDescriptor = new EditProductDescriptor();
 
-        Index productIndex = getProductIndex(lastShownList);
-
-        Product productToEdit = lastShownList.get(productIndex.getZeroBased());
-        Quantity newQuantity = getNewQuantity(toAdd, productToEdit);
-        editProductDescriptor.setQuantity(newQuantity);
-
-        Money newSales = getNewSales(toAdd, productToEdit);
-        editProductDescriptor.setSales(newSales);
+        editProductDescriptor.setQuantity(getNewQuantity(toAdd, productToEdit));
+        editProductDescriptor.setSales(getNewSales(toAdd, productToEdit));
         editProductDescriptor.setThreshold(productToEdit.getThreshold());
 
         Product editedProduct = createEditedProduct(productToEdit, editProductDescriptor);
-        if (!productToEdit.isSameProduct(editedProduct) && model.hasProduct(editedProduct)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PRODUCT);
-        }
 
-        model.setProduct(productToEdit, editedProduct);
-        model.updateFilteredProductList();
-
-        int thresholdValue = Integer.parseInt(editedProduct.getThreshold().value);
-
-        if (editedProduct.getQuantity().value <= thresholdValue) {
-            NotificationWindow window = new NotificationWindow();
-            window.show(editedProduct.getDescription(), editedProduct.getQuantity());
-        }
+        return editedProduct;
     }
 
     private Index getProductIndex(List<Product> lastShownList) throws CommandException {
@@ -131,7 +132,7 @@ public class AddTransactionCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ZERO_PRODUCT_QUANTITY);
         } else if (oldQuantity.compareTo(toAdd.getQuantity()) < 0) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_QUANTITY,
-                    oldQuantity.value, productToEdit.getDescription().value));
+                    oldQuantity.getValue(), productToEdit.getDescription().value));
         }
 
         return oldQuantity.minus(toAdd.getQuantity());
@@ -144,5 +145,12 @@ public class AddTransactionCommand extends Command {
         newSales = oldSales.plus(toAdd.getMoney());
 
         return newSales;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTransactionCommand // instanceof handles nulls
+                && transactionFactory.equals(((AddTransactionCommand) other).transactionFactory));
     }
 }

@@ -138,7 +138,7 @@ public class EditTransactionCommand extends Command {
         } else {
             model.setProduct(editedOriginalProduct, originalProductToEdit);
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_QUANTITY,
-                    updatedProductOldQuantity.value, updatedProductToEdit.getDescription().value));
+                    updatedProductOldQuantity.getValue(), updatedProductToEdit.getDescription().value));
         }
 
         Product editedUpdatedProduct = createEditedProduct(updatedProductToEdit, editUpdatedProductDescriptor);
