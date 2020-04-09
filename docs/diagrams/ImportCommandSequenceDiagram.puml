@@ -28,6 +28,11 @@ ImportCommandParser --> OrderBookParser --
 
 OrderBookParser -> ImportCommandParser ++ : parse("orders.csv")
 
+opt input argument do not have .csv file extension
+    ImportCommandParser --> OrderBookParser : ParseException
+    OrderBookParser --> LogicManager : ParseException
+end
+
 ImportCommandParser -> ParseUtil ++ : parseCsvFile("orders.csv")
 
 ParseUtil -> Paths ++ : get("data", "orders.csv")

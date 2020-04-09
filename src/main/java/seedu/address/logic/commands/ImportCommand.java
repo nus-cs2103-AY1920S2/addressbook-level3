@@ -28,9 +28,10 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " orders.csv";
 
     public static final String INVALID_MESSAGE = "Invalid order type encountered";
-    public static final String DUPLICATE_ORDER_MESSAGE = "Duplicate return order encountered: ";
-    public static final String DUPLICATE_RETURN_MESSAGE = "Invalid order type encountered";
+    public static final String DUPLICATE_ORDER_MESSAGE = "Duplicate order encountered: ";
+    public static final String DUPLICATE_RETURN_MESSAGE = "Duplicate return order encountered: ";
     public static final String PROCESS_FAILED_MESSAGE = "Failed to process the data: ";
+    public static final String MESSAGE_INVALID_CSV_FILEPATH = "The csv file is not found in the data folder: ";
 
     private static final Logger logger = LogsCenter.getLogger(ImportCommand.class);
     private static HashMap<Integer, String> errorMessages = new HashMap<>();

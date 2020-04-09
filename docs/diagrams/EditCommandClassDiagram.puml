@@ -6,7 +6,7 @@ hide circle
 "{abstract}\nCommand" <|-- EditCommand
 Index "1" <-down- EditCommand : index
 EditCommand ..> Model
-EditCommand --* "1" EditParcelDescriptor : editParcelDescriptor
+EditCommand *-- "1" EditParcelDescriptor : editParcelDescriptor
 EditCommandParser ..> EditParcelDescriptor : editParcelDescriptor
 EditCommandParser .right.> EditCommand
 EditCommandParser .-down-> Index

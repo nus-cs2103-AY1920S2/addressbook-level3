@@ -2,28 +2,34 @@
 
 start
 :User enter import command;
-if () then ([filePath is invalid])
+if () then ([Input without .csv extension])
     :Display error message to user;
-
 else ([else])
-    if() then ([File is unable to read])
+    if () then ([FilePath is invalid])
         :Display error message to user;
 
     else ([else])
-        :Retrieve data from the CSV file;
-        :Process the data;
-        :Create a new ImportCommand;
-        :Logic Manager executes the command;
-        repeat
-            if () then ([order value found in orderType])
-            :Add order;
-            else ([return value found in orderType])
-            :Add return order;
-            endif
-        repeat while () is ([Still have more data in list?])
-        ->[else];
-        :Display the import result to user;
+        if() then ([File is unable to read])
+            :Display error message to user;
+
+        else ([else])
+            :Retrieve  and process the data from the CSV file;
+            :Create a new ImportCommand;
+            repeat
+                if() then ([Invalid orderType])
+                :Add the invalid data into the result;
+                else
+                    if () then ([Order value found in orderType])
+                    :Add order;
+                    else ([Return value found in orderType])
+                    :Add return order;
+                    endif
+                endif
+            repeat while () is ([Still have more data in list?])
+            ->[else];
+            :Display the import result to user;
         endif
-        endif
+    endif
+endif
 stop
 @enduml
