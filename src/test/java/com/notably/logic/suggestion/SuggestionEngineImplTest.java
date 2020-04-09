@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,12 @@ public class SuggestionEngineImplTest {
     private static Model model;
     private static SuggestionEngine suggestionEngine;
 
+    private static final String EDIT_RESPONSE_TEXT = "Edit this note";
+    private static final String ERROR_RESPONSE_TEXT = "\"%s\" is an invalid command format. "
+            + "To see the list of available commands, type: help";
+    private static final String EXIT_RESPONSE_TEXT = "Exit the application";
+    private static final String HELP_RESPONSE_TEXT = "Display a list of available commands";
+
     @BeforeAll
     public static void setUp() throws InvalidPathException {
         model = SuggestionTestUtil.getModel();
@@ -23,41 +30,51 @@ public class SuggestionEngineImplTest {
         suggestionEngine = new SuggestionEngineImpl(model);
     }
 
+    @AfterEach
+    public void clearResponseText() {
+        model.clearResponseText();
+    }
+
     @Test
     public void suggest_inputLengthTooShort_suggestionsAndResponseTextCleared() {
-        model.setInput("");
+        suggestionEngine.suggest("");
         assertTrue(model.getSuggestions().isEmpty());
         assertTrue(model.responseTextProperty().getValue().isEmpty());
 
-        model.setInput("o");
+        suggestionEngine.suggest("o");
         assertTrue(model.getSuggestions().isEmpty());
         assertTrue(model.responseTextProperty().getValue().isEmpty());
     }
 
+
+
     @Test
     public void suggest_correctedEditCommand() {
-        model.setInput("edt");
+        suggestionEngine.suggest("edt");
 
-        // Expected result
-        String expectedResponseText = "Edit this note";
-        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(EDIT_RESPONSE_TEXT), model.responseTextProperty().getValue());
     }
 
     @Test
     public void suggest_correctedHelpCommand() {
-        model.setInput("hAlp");
+        suggestionEngine.suggest("hAlp");
 
-        // Expected result
-        String expectedResponseText = "Display a list of available commands";
-        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(HELP_RESPONSE_TEXT), model.responseTextProperty().getValue());
     }
 
     @Test
     public void suggest_correctedExitCommand() {
-        model.setInput("ex");
+        suggestionEngine.suggest("ex");
 
-        // Expected result
-        String expectedResponseText = "Exit the application";
-        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(EXIT_RESPONSE_TEXT), model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_invalidCommand_displaysErrorMessage() {
+        String userInput = "randomCmd";
+        suggestionEngine.suggest(userInput);
+
+        assertEquals(Optional.of(String.format(ERROR_RESPONSE_TEXT, userInput)),
+                model.responseTextProperty().getValue());
     }
 }
