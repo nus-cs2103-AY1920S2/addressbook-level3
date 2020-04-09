@@ -27,7 +27,7 @@ Coupon Stash such as the automatic archiving of expired coupons and setting of a
 * *Minor enhancements*: added a goto command that allows the user to navigate the calendar using the Command Line Interface
 & a copy command that allows the user to copy the details of a coupon to the user's clipboard.
 
-* *Code contributed*: Click on this [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=denise&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=Denise-Ng&zR=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D&zACS=356.75&zS=2020-02-14&zU=2020-04-08&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false&since=2020-02-14[RepoSense link]] to view the code that I have contributed to the project!
+* *Code contributed*: Click on this https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=denise&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=Denise-Ng&zR=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D&zACS=356.75&zS=2020-02-14&zU=2020-04-08&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false&since=2020-02-14[RepoSense link] to view the code that I have contributed to the project!
 
 * *Other contributions*:
 
