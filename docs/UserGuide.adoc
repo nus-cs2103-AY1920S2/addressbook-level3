@@ -97,7 +97,7 @@ Your interviewees could come from anywhere after all. But do not give blanks or 
 *Commands*
 
 ....
-add interviewee <interviewee> [-aka <alias>]
+add interviewee <full name> [-aka <alias>]
 edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]
 delete interviewee <interviewee>
 ....
@@ -793,7 +793,7 @@ interview is incomplete!
 
 *Initialization Phase*
 
-* Add an interviewee: `add interviewee <interviewee> [-aka <alias>]` +
+* Add an interviewee: `add interviewee <full name> [-aka <alias>]` +
 e.g. `add interviewee Jane Doe -aka Doe`
 * Edit an interviewee: `edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]` +
 e.g. `edit interviewee Jane Doe -n Janice Doe -aka JDoe`
