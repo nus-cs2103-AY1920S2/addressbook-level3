@@ -91,4 +91,12 @@ public class PaidCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof PaidCommand
+            && indexOfPersonPaid.equals(((PaidCommand) other).indexOfPersonPaid)
+            && amountPaid.equals(((PaidCommand) other).amountPaid));
+    }
+
 }
