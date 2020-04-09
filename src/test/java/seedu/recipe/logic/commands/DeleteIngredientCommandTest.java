@@ -51,9 +51,8 @@ public class DeleteIngredientCommandTest {
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
-                .withGrains("50g, Bread")
-                .withSteps("Spread butter on bread", "Heat pan to medium heat")
-                .withGoals("Wholesome Wholemeal").build();
+                .withGrains("20g, Bread")
+                .withSteps("Spread butter on bread", "Heat pan to medium heat").build();
         expectedModel.setRecipe(recipeToDeleteIngredients, expectedRecipe);
         CommandResult expectedCommandResult =
                 new CommandResult(expectedMessage, false, Tab.RECIPES, false);
@@ -88,7 +87,7 @@ public class DeleteIngredientCommandTest {
                 .withTime("10")
                 .withGrains("50g, Bread")
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
-                .withGoals("Wholesome Wholemeal").build();
+                .build();
         expectedModel.setRecipe(recipeToDeleteIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =

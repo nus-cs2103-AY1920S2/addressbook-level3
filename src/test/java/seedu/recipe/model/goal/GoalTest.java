@@ -8,8 +8,10 @@ public class GoalTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Goal(null));
+        assertThrows(NullPointerException.class, () -> new Goal((String) null));
     }
+
+
 
     @Test
     public void constructor_invalidGoalName_throwsIllegalArgumentException() {

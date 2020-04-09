@@ -28,6 +28,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     private final ObservableList<Recipe> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    //======================================RECIPE======================================
     /**
      * Returns true if the list contains an equivalent recipe as the given argument.
      */
@@ -74,6 +75,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      */
     public void remove(Recipe toRemove) {
         requireNonNull(toRemove);
+        int index = internalList.indexOf(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new RecipeNotFoundException();
         }
@@ -93,7 +95,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!recipesAreUnique(recipes)) {
             throw new DuplicateRecipeException();
         }
-
         internalList.setAll(recipes);
     }
 

@@ -7,7 +7,7 @@
     "vegetables" : [ "30.0g,  Carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  Garlic clove (smashed and chopped)", "20.0g,  Ginger (julienned sliced)", "30.0g,  Scallions" ],
     "proteins" : [ ],
     "fruits" : [ ],
-    "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.25cup,  Water", "0.25tsp,  White pepper" ],
+    "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
     "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
     "goals" : [ "Herbivore" ]
   }, {
@@ -18,7 +18,7 @@
     "vegetables" : [ "15.0g,  Scallion", "550.0g,  Tomatoes" ],
     "proteins" : [ "200.0g,  Eggs" ],
     "fruits" : [ ],
-    "others" : [ "0.75tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tsp,  Shaoxing wine", "2.0tsp,  Sugar", "3.0tbsp,  Vegetable oil", "0.25cup,  Water", "0.25tsp,  White pepper" ],
+    "others" : [ "0.8tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tsp,  Shaoxing wine", "2.0tsp,  Sugar", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
     "steps" : [ "Cut tomatoes into small wedges and finely chop scallion", "Crack eggs into bowl and season with ¼ tsp salt, white pepper", "sesame oil, and shaoxing wine. Beat the eggs.", "Preheat wok over medium heat until it starts to smoke. Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from wok immediately. Set aside.", "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. If water cooks off too quickly, add a little more water. Add the cooked eggs.", "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely softened.", "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!" ],
     "goals" : [ "Herbivore" ]
   }, {
@@ -73,18 +73,18 @@
     "vegetables" : [ "15.0g,  Fresh basil (thai basil, and/or mint)", "10.0g,  Pepitas (with or without sesame seeds)", "20.0g,  Poblano", "30.0g,  Red bell", "10.0g,  Scallions", "200.0g,  Shredded red and/or green cabbage", "0.5cup,  Thai chiles (dice)" ],
     "proteins" : [ "3.0tbsp,  Cashew or peanut butter", "20.0g,  Toasted peanuts" ],
     "fruits" : [ "0.5tbsp,  Lime juice", "50.0g,  Ripe peach (thinly sliced)" ],
-    "others" : [ "15.0g,  Chopped cilantro (including stems)", "1.0tbsp,  Sea salt", "0.25tbsp,  Sesame oil", "1.0tbsp,  Water", "0.5tbsp,  White miso paste" ],
+    "others" : [ "15.0g,  Chopped cilantro (including stems)", "1.0tbsp,  Sea salt", "0.3tbsp,  Sesame oil", "1.0tbsp,  Water", "0.5tbsp,  White miso paste" ],
     "steps" : [ "Make the dressing: In a small bowl, whisk together the cashew butter, miso paste, lime juice, sesame oil, and ginger. Whisk in enough water to create a drizzable consistency. Set aside.", "In a dry cast-iron skillet over medium heat, char the peppers whole, rotating until the edges have a little char, about 2 minutes per side. Remove. When cool to the touch, slice in half lengthwise, remove the stem, ribbing, and seeds and slice horizontally into thin strips.", "In a large bowl, combine the cabbage, peppers, scallions, cilantro, basil, chiles, and ¾ of the dressing. Toss until combined. Add the remaining dressing, if desired, and season to taste with a few pinches of sea salt. Serve topped with the toasted nuts, seeds, and sliced peaches." ],
     "goals" : [ "Herbivore" ]
   }, {
     "name" : "Avocado Couscous Grapefruit salad with honey lime dressing",
     "time" : "35",
     "isFavourite" : false,
-    "grains" : [ "0.75cup,  Uncooked whole wheat couscous", "100.0g,  White beans" ],
+    "grains" : [ "0.8cup,  Uncooked whole wheat couscous", "100.0g,  White beans" ],
     "vegetables" : [ ],
-    "proteins" : [ "0.75cup,  Low sodium chicken stock" ],
+    "proteins" : [ "0.8cup,  Low sodium chicken stock" ],
     "fruits" : [ "3.0tbsp,  Freshly squeezed lime juice (for dressing)", "300.0g,  Large avocado", "200.0g,  Large ruby red grapefruits" ],
-    "others" : [ "3.0tbsp,  Chopped fresh mint", "0.5cup,  Crumbled feta cheese", "2.0tbsp,  Extra virgin olive oil", "3.0tbsp,  Finely chopped fresh cilantro", "2.0tbsp,  Honey", "0.25tbsp,  Kosher salt" ],
+    "others" : [ "3.0tbsp,  Chopped fresh mint", "0.5cup,  Crumbled feta cheese", "2.0tbsp,  Extra virgin olive oil", "3.0tbsp,  Finely chopped fresh cilantro", "2.0tbsp,  Honey", "0.3tbsp,  Kosher salt" ],
     "steps" : [ "In a small saucepan, bring the stock to a boil. Remove from the heat, stir in the couscous, then cover at let sit 5 minutes. Fluff with fork and set aside.", "In a small bowl or large measuring cup, whisk together the dressing ingredients: lime juice, honey, olive oil, and salt, or shake all of the ingredients together in a mason jar with a tight-fitting lid.", "In a large bowl, combine beans and couscous. Pour dressing over top and stir to combine. Add the avocados, grapefruit, feta, mint, and cilantro. Toss gently. Serve chilled or at room temperature." ],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
@@ -92,10 +92,10 @@
     "time" : "35",
     "isFavourite" : false,
     "grains" : [ ],
-    "vegetables" : [ "50.0g,  Cloves garlic(minced)", "0.25tbsp,  Freshly grated ginger", "20.0g,  Green onion (thinly sliced)" ],
+    "vegetables" : [ "50.0g,  Cloves garlic(minced)", "0.3tbsp,  Freshly grated ginger", "20.0g,  Green onion (thinly sliced)" ],
     "proteins" : [ "100.0g,  Boneless and skinless chicken thighs(cut into 1-inch chunks)" ],
     "fruits" : [ ],
-    "others" : [ "3.0tsp,  Brown sugar(packed)", "4.0tbsp,  Cornstarch", "0.5tbsp,  Honey", "0.25tbsp,  Olive oil", "4.0tsp,  Reduced sodium soy sauce", "150.0g,  Refrigerated yaki-soba, seasoning sauce packets discarded", "0.25tbsp,  Sesame seeds" ],
+    "others" : [ "3.0tsp,  Brown sugar(packed)", "4.0tbsp,  Cornstarch", "0.5tbsp,  Honey", "0.3tbsp,  Olive oil", "4.0tsp,  Reduced sodium soy sauce", "150.0g,  Refrigerated yaki-soba, seasoning sauce packets discarded", "0.3tbsp,  Sesame seeds" ],
     "steps" : [ "In a large pot of boiling water, add Yaki-Soba until loosened, about 1-2 minutes; drain well.", "In a small bowl, whisk together cornstarch and 1/4 cup water; set aside.", "In a small saucepan over medium heat, add soy sauce, brown sugar, garlic, ginger, honey and 1 cup water; bring to a simmer. Stir in cornstarch mixture until thickened enough to coat the back of a spoon, about 2 minutes; let cool to room temperature. Reserve 1/4 cup and set aside.", "In a gallon size Ziploc bag or large bowl, combine soy sauce mixture and chicken; marinate for at least 30 minutes to overnight, turning the bag occasionally. Drain the chicken from the marinade.", "Heat olive oil in a large skillet over medium heat. Add chicken and cook until golden brown and cooked through, about 3-4 minutes; set aside.", "Stir in Yaki-Soba and 1/4 cup reserved soy sauce mixture until well combined, about 2 minutes.", "Serve immediately, garnished with sesame seeds and green onion, if desired." ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
@@ -131,5 +131,16 @@
     "others" : [ ],
     "steps" : [ "step 1", "edited step 2" ],
     "goals" : [ ]
+  }, {
+    "name" : "mememe",
+    "time" : "30",
+    "isFavourite" : false,
+    "grains" : [ "145.0g,  Bread" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ "Wholesome Wholemeal" ]
   } ]
 }

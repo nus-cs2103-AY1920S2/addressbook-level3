@@ -28,8 +28,8 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_TIME = "123456";
     private static final String VALID_STEP = "rachel@example.com";
-    private static final String VALID_GOAL_1 = "friend";
-    private static final String VALID_GOAL_2 = "neighbour";
+    private static final String VALID_GOAL_1 = "Bulk like the Hulk";
+    private static final String VALID_GOAL_2 = "Herbivore";
 
     private static final String WHITESPACE = " \t\r\n";
 

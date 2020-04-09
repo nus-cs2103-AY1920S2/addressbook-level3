@@ -197,10 +197,17 @@ image::AddExample.png
 
 [TIP]
 Multiple steps and multiple ingredients for a recipe can be added in this one command. +
-{nbsp} +
+
+[TIP]
 The compulsory fields needed in a recipe are the *name, time and at least one of the ingredient fields.*
 You can add these fields first, then edit the recipe as needed using the various edit commands available
-(Refer to section 6.6 and 7).
+(Refer to section 6.6 and 7). +
+
+[TIP]
+For name and time fields that only require one input, if more than one name or more than one time is given,
+HYBB will take the later input. +
+For example, `add n/Chicken Rice n/Chicken with Rice t/30, ip/300g, Chicken Thigh`
+would create a new recipe with the name Chicken with Rice.
 
 === Edit a recipe : `edit`
 Edits an existing recipe. This is the command used for editing entire fields at a time. +
@@ -215,8 +222,15 @@ Using this command to edit a field that might have multiple entities like ‘veg
 overwrite the entire field.
 For example, if the 4th recipe currently has a list of 5 vegetable ingredients, running `edit 4 iv/50g, Lettuce` will
 replace the *entire* list of vegetable ingredients with only 50g of Lettuce. +
-{nbsp} +
-To make changes to a single entity in a field without having to rewrite everything, please refer to Section 7.
+
+[TIP]
+To make changes to a single entity in a field without having to rewrite everything, please refer to Section 7. +
+
+[TIP]
+For fields that can only contain one entry like name and time, if more than one name or more than one time is given,
+HYBB will take the later input. +
+For example, `edit 4 t/10 t/20`
+would change the time taken to 20 minutes for the recipe at index 4.
 
 === Delete a recipe : `delete`
 Deletes the recipe(s) that you have specified. +

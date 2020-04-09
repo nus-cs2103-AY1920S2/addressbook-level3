@@ -103,7 +103,7 @@ public class MainApp extends Application {
         try {
             plannedBookOptional = storage.readPlannedBook();
             if (!plannedBookOptional.isPresent()) {
-                logger.info("Data file for planned recipes not found. Will be starting with a blank PlannedBook");
+                logger.info("Data file for planned recipes not found. Will be starting with an empty PlannedBook");
             }
             initialPlannedData = plannedBookOptional.orElse(new PlannedBook());
 
@@ -118,7 +118,9 @@ public class MainApp extends Application {
         try {
             recipeBookOptional = storage.readRecipeBook();
             if (!recipeBookOptional.isPresent()) {
-                logger.info("Data file for recipes not found. Will be starting with a sample RecipeBook");
+                logger.info("Data file for recipes not found. Will be starting with a sample RecipeBook"
+                    + " and PlannedBook");
+                initialPlannedData = new PlannedBook();
             }
             initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
 
@@ -127,24 +129,27 @@ public class MainApp extends Application {
                     + " and PlannedBook");
             initialData = new RecipeBook();
             initialPlannedData = new PlannedBook();
+
         } catch (IOException e) {
             logger.warning("Problem while reading from the file for recipes. "
-                    + "Will be starting with an empty RecipeBook");
+                    + "Will be starting with an empty RecipeBook and PlannedBook");
             initialData = new RecipeBook();
+            initialPlannedData = new PlannedBook();
         }
 
         try {
             recordBookOptional = storage.readCookedRecordBook();
             if (!recordBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample Recordbook");
+                logger.info("Data file not found. Will be starting with an empty RecordBook");
+                initialRecords = new CookedRecordBook();
+            } else {
+                initialRecords = recordBookOptional.get();
             }
-            initialRecords = recordBookOptional.orElseGet(SampleDataUtil::getSampleRecordBook);
-
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Recordbook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty RecordBook");
             initialRecords = new CookedRecordBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Recordbook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty RecordBook");
             initialRecords = new CookedRecordBook();
         }
 

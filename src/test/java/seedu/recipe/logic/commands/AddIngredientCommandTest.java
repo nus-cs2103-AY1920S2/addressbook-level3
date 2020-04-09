@@ -62,7 +62,7 @@ public class AddIngredientCommandTest {
                 .withGrains("50g, Bread")
                 .withOthers("50g, Cheese", "100g, Oil")
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
-                .withGoals("Wholesome Wholemeal").build();
+                .build();
         expectedModel.setRecipe(recipeToAddIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
@@ -103,7 +103,7 @@ public class AddIngredientCommandTest {
                 .withGrains("50g, Bread")
                 .withOthers("50g, Cheese", "100g, Oil")
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
-                .withGoals("Wholesome Wholemeal").build();
+                .build();
         expectedModel.setRecipe(recipeToAddIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
