@@ -125,7 +125,7 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         BlockTreeItem current = this;
         while (!current.isRootBlock()) {
             blockPath.add(current.getTitle().getText());
-            current = getBlockParent();
+            current = current.getBlockParent();
         }
         Collections.reverse(blockPath);
         return AbsolutePath.fromComponents(blockPath);
