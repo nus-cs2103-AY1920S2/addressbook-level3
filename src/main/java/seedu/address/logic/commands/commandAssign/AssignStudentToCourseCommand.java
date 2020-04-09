@@ -61,6 +61,33 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 
+        Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+
+        if(this.undoProgresses != null) {
+            ProgressManager.addUndoProgress(this.undoProgresses);
+        }
+
+        EdgeManager.assignStudentToCourse(studentID, courseID);
+        ProgressManager.addAllProgressesToOneStudent(courseID, studentID);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                assigningStudent.getName(), studentID.value,
+                assignedCourse.getName(), courseID.value));
+    }
+
+    /**
+     * This step is performed to ensure that all specified ModelObjects exists and that they do not already contain
+     * the modelobjects that we want to assign to it.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        // Check whether both IDs even exists
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+
         boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
         boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
 
@@ -79,16 +106,6 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 throw new CommandException(MESSAGE_COURSE_ALREADY_CONTAINS_STUDENT);
             } else if (assigningStudentContainsCourse) {
                 throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
-            } else {
-                EdgeManager.assignStudentToCourse(studentID, courseID);
-                if(this.undoProgresses != null) {
-                    ProgressManager.addUndoProgress(this.undoProgresses);
-                }
-                ProgressManager.addAllProgressesToOneStudent(courseID, studentID);
-
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningStudent.getName(), studentID.value,
-                        assignedCourse.getName(), courseID.value));
             }
         }
     }

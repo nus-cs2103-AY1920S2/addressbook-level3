@@ -95,6 +95,11 @@ public class Staff extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  public Staff clone() {
+    Staff cloned = new Staff(name, id, gender, level, phone, email, salary, address, assignedCoursesID, tags);
+    return cloned;
+  }
+
   /**
    * Get Name of a staff.
    */

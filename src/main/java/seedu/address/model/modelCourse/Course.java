@@ -77,6 +77,11 @@ public class Course extends ModelObject {
     this.assignedStudentsWithNames = "None";
   }
 
+  public Course clone() {
+    Course cloned = new Course(this.name, this.id, this.amount, this.assignedStaffID,
+            this.assignedStudentsID, this.assignedAssignmentsID, this.tags);
+    return cloned;
+  }
 
   public Name getName() {
     return name;

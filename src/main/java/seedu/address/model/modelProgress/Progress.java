@@ -34,6 +34,10 @@ public class Progress extends ModelObject {
     this.isDone = isDone;
   }
 
+  public Progress clone() {
+    return new Progress(progressID, isDone);
+  }
+
   public Boolean getIsDone() {
     return this.isDone;
   }

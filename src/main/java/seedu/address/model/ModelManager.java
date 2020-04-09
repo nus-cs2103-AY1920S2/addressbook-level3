@@ -267,7 +267,8 @@ public class ModelManager extends BaseManager implements Model {
 
   // ================================== FACTORY HELPERS =================================================
 
-  private Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException {
+  @Override
+  public Constants.ENTITY_TYPE modelObjectToEntityType(ModelObject obj) throws CommandException {
     if (obj instanceof Staff) {
       return Constants.ENTITY_TYPE.STAFF;
     } else if (obj instanceof Student) {
@@ -382,6 +383,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setStaffAddressBook(ReadOnlyAddressBookGeneric<Staff> staffAddressBook) {
     this.staffAddressBook.resetData(staffAddressBook);
+    postDataStorageChangeEvent(staffAddressBook, Constants.ENTITY_TYPE.STAFF);
   }
 
 
@@ -395,7 +397,8 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public ModelObject get(ID id, Constants.ENTITY_TYPE type) throws CommandException {
     requireAllNonNull(id, type);
-    return getAddressBook(type).get(id);
+    ModelObject obj = getAddressBook(type).get(id);
+    return obj.clone();
   }
 
   public boolean has(ModelObject obj) throws CommandException {
@@ -469,6 +472,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setStudentAddressBook(ReadOnlyAddressBookGeneric<Student> studentAddressBook) {
     this.studentAddressBook.resetData(studentAddressBook);
+    postDataStorageChangeEvent(studentAddressBook, Constants.ENTITY_TYPE.STUDENT);
   }
 
   ///
@@ -481,6 +485,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setFinanceAddressBook(ReadOnlyAddressBookGeneric<Finance> financeAddressBook) {
     this.financeAddressBook.resetData(financeAddressBook);
+    postDataStorageChangeEvent(financeAddressBook, Constants.ENTITY_TYPE.FINANCE);
   }
 
   ///
@@ -493,6 +498,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setCourseAddressBook(ReadOnlyAddressBookGeneric<Course> courseAddressBook) {
     this.courseAddressBook.resetData(courseAddressBook);
+    postDataStorageChangeEvent(courseAddressBook, Constants.ENTITY_TYPE.COURSE);
   }
 
   ///
@@ -505,6 +511,7 @@ public class ModelManager extends BaseManager implements Model {
   public void setAssignmentAddressBook(
       ReadOnlyAddressBookGeneric<Assignment> assignmentAddressBook) {
     this.assignmentAddressBook.resetData(assignmentAddressBook);
+    postDataStorageChangeEvent(assignmentAddressBook, Constants.ENTITY_TYPE.ASSIGNMENT);
   }
 
   @Override
@@ -515,6 +522,7 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public void setProgressAddressBook(ReadOnlyAddressBookGeneric<Progress> progressAddressBook) {
     this.progressAddressBook.resetData(progressAddressBook);
+    postDataStorageChangeEvent(progressAddressBook, Constants.ENTITY_TYPE.PROGRESS);
   }
 
   //=========== Filtered List Accessors =============================================================

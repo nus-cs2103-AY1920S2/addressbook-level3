@@ -23,7 +23,9 @@ import seedu.address.model.person.ID;
 public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
+    public static final String MESSAGE_INVALID_COURSE_NO_SUCH_STUDENT = "This course doesn't contain the specified student! :(";
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
+    public static final String MESSAGE_INVALID_STUDENT_NOT_ASSIGNED_TO_COURSE = "The student isn't even assigned to this course! :(";
     public static final String MESSAGE_SUCCESS = "Successfully unassigned student %s (%s) from course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
@@ -42,42 +44,25 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
 
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
-
-        // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 
-        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
-        boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
+        Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
 
-        if (!courseExists) {
-            throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-        } else if (!studentExists) {
-            throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
-        } else {
-            Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
-            Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+        EdgeManager.unassignStudentFromCourse(studentID, courseID);
+        ProgressManager.removeAllProgressesFromOneStudent(courseID, studentID);
 
-            boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
-            boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
-
-            if(!assignedCourseContainsStudent) {
-                throw new CommandException("This course doesn't contain the specified student! :(");
-            } else if(!assigningStudentContainsCourse) {
-                throw new CommandException("The student isn't even assigned to this course! :(");
-            } else {
-                EdgeManager.unassignStudentFromCourse(studentID, courseID);
-                ProgressManager.removeAllProgressesFromOneStudent(courseID, studentID);
-
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningStudent.getName(), studentID.value,
-                        assignedCourse.getName(), courseID.value));
-            }
-        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                assigningStudent.getName(), studentID.value,
+                assignedCourse.getName(), courseID.value));
     }
 
     /**
-     * If require this preprocessing step should override this method.
+     * This performs all two main action to ensure successful Unassigning of Student from Course and that
+     * the command can undo & redo successfully.
+     * 1. Check to ensure that the targeted Student & Assignment exists and that
+     * 2. Prepare to add the removed 'Progress' objects back into the Progress AddressBook if the user decides to undo
      *
      * @param model
      */
@@ -100,10 +85,10 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
             boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
             boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
 
-            if(!assignedCourseContainsStudent) {
-                throw new CommandException("This course doesn't contain the specified student! :(");
-            } else if(!assigningStudentContainsCourse) {
-                throw new CommandException("The student isn't even assigned to this course! :(");
+            if (!assignedCourseContainsStudent) {
+                throw new CommandException(MESSAGE_INVALID_COURSE_NO_SUCH_STUDENT);
+            } else if (!assigningStudentContainsCourse) {
+                throw new CommandException(MESSAGE_INVALID_STUDENT_NOT_ASSIGNED_TO_COURSE);
             } else {
                 Set<Progress> undoProgress = ProgressManager.getAllProgressesForOneStudent(courseID, studentID);
                 this.undoProgresses = undoProgress;
