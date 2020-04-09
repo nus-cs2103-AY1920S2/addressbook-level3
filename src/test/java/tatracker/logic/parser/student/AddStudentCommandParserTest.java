@@ -49,7 +49,8 @@ public class AddStudentCommandParserTest {
     //     StringBuilder command = new StringBuilder()
     //             .append(PREAMBLE_WHITESPACE)
     //             .append(MATRIC_DESC_BOB)
-    //             .append(NAME_DESC_BOB)
+    //
+    //            .append(NAME_DESC_BOB)
     //             .append(PHONE_DESC_BOB)
     //             .append(EMAIL_DESC_BOB)
     //             .append(RATING_DESC_BOB)
