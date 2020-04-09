@@ -23,6 +23,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.calender.Task;
@@ -32,7 +33,6 @@ import seedu.address.model.diary.weather.Weather;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
-import seedu.address.model.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
@@ -100,11 +100,6 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDeadlineTaskList(ObservableList<Task> taskList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -332,6 +327,11 @@ public class AddCommandTest {
         @Override
         public void updateModulesListTaken(Predicate<NusModule> predicate) {
 
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getModuleBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
