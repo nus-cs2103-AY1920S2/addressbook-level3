@@ -10,6 +10,7 @@ import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.assertComma
 //import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.showFoodAtIndex;
 import static seedu.eylah.diettracker.testutil.TypicalFood.getTypicalFoodBook;
+import static seedu.eylah.diettracker.testutil.TypicalMyself.getTypicalMyself;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -31,7 +32,7 @@ import seedu.eylah.diettracker.testutil.EditFoodDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private DietModel model = new DietModelManager(getTypicalFoodBook(), new UserPrefs());
+    private DietModel model = new DietModelManager(getTypicalFoodBook(), new UserPrefs(), getTypicalMyself());
 
     // @Test
     // public void execute_allFieldsSpecifiedUnfilteredList_success() {

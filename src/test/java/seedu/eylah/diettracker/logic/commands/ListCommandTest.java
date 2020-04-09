@@ -3,6 +3,7 @@ package seedu.eylah.diettracker.logic.commands;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.showFoodAtIndex;
 import static seedu.eylah.diettracker.testutil.TypicalFood.getTypicalFoodBook;
+import static seedu.eylah.diettracker.testutil.TypicalMyself.getTypicalMyself;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +23,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new DietModelManager(getTypicalFoodBook(), new UserPrefs());
-        expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
+        model = new DietModelManager(getTypicalFoodBook(), new UserPrefs(), getTypicalMyself());
+        expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs(), model.getMyself());
     }
 
     @Test

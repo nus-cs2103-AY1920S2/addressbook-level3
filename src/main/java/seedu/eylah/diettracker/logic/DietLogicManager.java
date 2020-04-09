@@ -13,8 +13,9 @@ import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.parser.FoodBookParser;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.ReadOnlyMyself;
 import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.diettracker.storage.FoodBookStorage;
+import seedu.eylah.diettracker.storage.DietStorage;
 
 /**
  * The main LogicManager of the app.
@@ -24,12 +25,13 @@ public class DietLogicManager implements DietLogic {
     private final Logger logger = LogsCenter.getLogger(DietLogicManager.class);
 
     private final DietModel model;
-    private final FoodBookStorage storage;
+    //private final FoodBookStorage storage;
+    private final DietStorage dietStorage;
     private final FoodBookParser foodBookParser;
 
-    public DietLogicManager(DietModel model, FoodBookStorage storage) {
+    public DietLogicManager(DietModel model, DietStorage dietStorage) {
         this.model = model;
-        this.storage = storage;
+        this.dietStorage = dietStorage;
         foodBookParser = new FoodBookParser();
     }
 
@@ -43,7 +45,8 @@ public class DietLogicManager implements DietLogic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveFoodBook(model.getFoodBook());
+            dietStorage.saveFoodBook(model.getFoodBook());
+            dietStorage.saveMyself(model.getMyself());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (Exception e) {
@@ -66,6 +69,16 @@ public class DietLogicManager implements DietLogic {
     @Override
     public Path getFoodBookFilePath() {
         return model.getFoodBookFilePath();
+    }
+
+    @Override
+    public ReadOnlyMyself getMyself() {
+        return model.getMyself();
+    }
+
+    @Override
+    public Path getMyselfFilePath() {
+        return model.getMyselfFilePath();
     }
 
 }

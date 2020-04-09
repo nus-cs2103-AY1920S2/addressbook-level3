@@ -29,12 +29,16 @@ import seedu.eylah.diettracker.logic.DietLogicManager;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.DietModelManager;
 import seedu.eylah.diettracker.model.FoodBook;
+import seedu.eylah.diettracker.model.Myself;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.ReadOnlyMyself;
 import seedu.eylah.diettracker.model.util.SampleDataUtil;
 import seedu.eylah.diettracker.storage.DietStorage;
 import seedu.eylah.diettracker.storage.DietStorageManager;
 import seedu.eylah.diettracker.storage.FoodBookStorage;
 import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
+import seedu.eylah.diettracker.storage.JsonMyselfStorage;
+import seedu.eylah.diettracker.storage.MyselfStorage;
 import seedu.eylah.expensesplitter.logic.SplitterLogicManager;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
@@ -200,7 +204,8 @@ public class Eylah {
         switch(mode) {
         case DIET:
             FoodBookStorage foodBookStorage = new JsonFoodBookStorage(userPrefs.getFoodBookFilePath());
-            return new DietStorageManager(foodBookStorage, userPrefsStorage);
+            MyselfStorage myselfStorage = new JsonMyselfStorage(userPrefs.getMyselfFilePath());
+            return new DietStorageManager(foodBookStorage, userPrefsStorage, myselfStorage);
         case SPLITTER:
             PersonAmountStorage personAmountStorage =
                     new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
@@ -222,6 +227,8 @@ public class Eylah {
             DietStorage dietStorage = (DietStorage) storage;
             Optional<ReadOnlyFoodBook> foodBookOptional;
             ReadOnlyFoodBook initialFoodBookData;
+            Optional<ReadOnlyMyself> myselfOptional;
+            ReadOnlyMyself initialMyselfData;
             try {
                 foodBookOptional = dietStorage.readFoodBook();
                 if (foodBookOptional.isEmpty()) {
@@ -236,7 +243,22 @@ public class Eylah {
                 logger.warning("Problem while reading from the file. Will be starting with an empty FoodBook");
                 initialFoodBookData = new FoodBook();
             }
-            return new DietModelManager(initialFoodBookData, userPrefs);
+
+            try {
+                myselfOptional = dietStorage.readMyself();
+                if (myselfOptional.isEmpty()) {
+                    logger.info("Data file not found. Will be starting with a sample Myself (User health metrics)");
+                }
+                initialMyselfData = myselfOptional.orElseGet(SampleDataUtil::getSampleMyself);
+            } catch (DataConversionException e) {
+                logger.warning("Data file not in the correct format. Will be starting with an empty Myself");
+                initialMyselfData = new Myself();
+            } catch (IOException e) {
+                logger.warning("Problem while reading from the file. Will be starting with an empty Myself");
+                initialMyselfData = new Myself();
+            }
+
+            return new DietModelManager(initialFoodBookData, userPrefs, initialMyselfData);
 
         case SPLITTER:
             SplitterStorage splitterStorage = (SplitterStorage) storage;
@@ -363,6 +385,7 @@ public class Eylah {
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
+            //myselfStorage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
