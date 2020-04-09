@@ -47,8 +47,6 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
 
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
-
-        // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 

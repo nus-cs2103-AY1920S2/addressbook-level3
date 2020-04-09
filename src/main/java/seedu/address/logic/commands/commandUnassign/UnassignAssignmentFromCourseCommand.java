@@ -47,7 +47,6 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
 
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
-
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 

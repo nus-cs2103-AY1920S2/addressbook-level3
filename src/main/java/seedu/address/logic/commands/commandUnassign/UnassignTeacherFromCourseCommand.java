@@ -41,7 +41,29 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
 
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
-        // Check whether both IDs even exists
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID staffID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
+
+        Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Staff foundStaff = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
+
+        EdgeManager.unassignTeacherFromCourse(staffID, courseID);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                        foundStaff.getName(), staffID.value,
+                        foundCourse.getName(), courseID.value));
+
+    }
+
+    /**
+     * This performs all two main action to ensure successful Unassigning of Teacher from Course and that
+     * the command can undo & redo successfully.
+     * 1. Check to ensure that the targeted Teacher & Course exists
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID staffID = this.assignDescriptor.getAssignID(PREFIX_TEACHERID);
 
@@ -59,16 +81,10 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
             boolean assignedCourseContainsStaff = foundCourse.containsStaff(staffID);
             boolean assigningStaffContainsCourse = foundStaff.containsCourse(courseID);
 
-            if(!assignedCourseContainsStaff) {
+            if (!assignedCourseContainsStaff) {
                 throw new CommandException("This course doesn't have the specified teacher! :(");
-            } else if(!assigningStaffContainsCourse) {
+            } else if (!assigningStaffContainsCourse) {
                 throw new CommandException("The teacher isn't even assigned to this course! :(");
-            } else {
-                EdgeManager.unassignTeacherFromCourse(staffID, courseID);
-
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        foundStaff.getName(), staffID.value,
-                        foundCourse.getName(), courseID.value));
             }
         }
     }
