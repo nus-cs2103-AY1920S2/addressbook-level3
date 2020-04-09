@@ -95,7 +95,8 @@ public class AddCommand extends Command {
         Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
         Module moduleToAdd = null;
-            // throws error if module code does not exist! DO NOT REMOVE!
+
+        // throws error if module code does not exist! DO NOT REMOVE!
         if (moduleManager.hasModule(toAdd)) {
             moduleToAdd = moduleManager.getModule(toAdd);
         } else {
