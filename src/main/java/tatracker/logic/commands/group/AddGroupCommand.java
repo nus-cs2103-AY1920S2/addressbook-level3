@@ -1,6 +1,8 @@
 package tatracker.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_GROUP;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.TYPE;
@@ -25,16 +27,13 @@ public class AddGroupCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GROUP,
             CommandWords.ADD_MODEL,
-            "Adds a group into TA-Tracker.",
+            "Adds a group into TA-Tracker",
             List.of(GROUP, MODULE, TYPE),
             List.of(),
             GROUP, MODULE, TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "New Group added: %s";
-    public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
-    private static final String INVALID_GROUP_CODE = "You can't use that as the group code.";
+    public static final String MESSAGE_ADD_GROUP_SUCCESS = "New group added: %s [%s]";
 
     private final Group toAdd;
     private final String targetModule;
@@ -62,7 +61,7 @@ public class AddGroupCommand extends Command {
         Module actualModule = model.getModule(targetModule);
 
         if (toAdd.getIdentifier().isBlank()) {
-            throw new CommandException(INVALID_GROUP_CODE);
+            throw new CommandException(Group.CONSTRAINTS_GROUP_CODE);
         }
         if (actualModule.hasGroup(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_GROUP);
@@ -73,7 +72,8 @@ public class AddGroupCommand extends Command {
         model.updateFilteredGroupList(actualModule.getIdentifier());
         model.updateFilteredStudentList(toAdd.getIdentifier(), actualModule.getIdentifier());
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), Action.GOTO_STUDENT);
+        return new CommandResult(String.format(MESSAGE_ADD_GROUP_SUCCESS, targetModule, toAdd.getIdentifier()),
+                Action.GOTO_STUDENT);
     }
 
     @Override

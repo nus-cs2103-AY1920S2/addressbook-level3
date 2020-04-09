@@ -129,6 +129,7 @@ public class ModelManager implements Model {
     @Override
     public void setCurrClaimFilter(String module) {
         requireAllNonNull(module);
+        logger.info(String.format("Claims are filtered by %s", module));
         taTracker.setCurrClaimFilter(module);
     }
 
@@ -140,18 +141,21 @@ public class ModelManager implements Model {
     @Override
     public void setCurrSessionFilter(String params) {
         requireAllNonNull(params);
+        logger.info(String.format("Claims are filtered by %s", params));
         taTracker.setCurrSessionFilter(params);
     }
 
     @Override
     public void setCurrSessionDateFilter(String params) {
         requireAllNonNull(params);
+        logger.info(String.format("Sessions are filtered by %s", params));
         taTracker.setCurrSessionDateFilter(params);
     }
 
     @Override
     public void setCurrSessionModuleFilter(String params) {
         requireAllNonNull(params);
+        logger.info(String.format("Sessions are filtered by %s", params));
         taTracker.setCurrSessionModuleFilter(params);
     }
 
@@ -203,17 +207,20 @@ public class ModelManager implements Model {
     @Override
     public void addSession(Session session) {
         taTracker.addSession(session);
+        logger.info(String.format("Session added is %s", session));
         updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
     }
 
     @Override
     public void deleteSession(Session target) {
+        logger.info(String.format("Session deleted is %s", target));
         taTracker.removeSession(target);
     }
 
     @Override
     public void setSession(Session target, Session editedSession) {
         requireAllNonNull(target, editedSession);
+        logger.info(String.format("Session %s is changed to %s", target, editedSession));
         taTracker.setSession(target, editedSession);
     }
 
@@ -232,6 +239,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addDoneSession(Session session) {
+        logger.info(String.format("Session marked as done is %s", session));
         taTracker.addDoneSession(session);
         updateFilteredDoneSessionList(PREDICATE_SHOW_ALL_SESSIONS, "");
     }
@@ -249,7 +257,7 @@ public class ModelManager implements Model {
     public void updateFilteredDoneSessionList(Predicate<Session> predicate, String moduleCode) {
         requireNonNull(predicate);
         taTracker.setCurrentlyShownModuleClaim(moduleCode);
-        logger.fine("filtered: " + moduleCode);
+        logger.info("Done sessions are filtered by " + moduleCode);
         filteredDoneSessions.setPredicate(predicate);
     }
 
@@ -274,38 +282,45 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         requireNonNull(module);
+        logger.info(String.format("Module added is %s", module));
         taTracker.addModule(module);
     }
 
     @Override
     public void deleteModule(Module module) {
         requireNonNull(module);
+        logger.info(String.format("Module deleted is %s", module));
         taTracker.deleteModule(module);
     }
 
     @Override
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
+        logger.info(String.format("Module %s is changed to %s", target, editedModule));
         taTracker.setModule(target, editedModule);
     }
 
     @Override
     public void sortModulesAlphabetically() {
+        logger.info(String.format("Modules are sorted alphabetically"));
         taTracker.sortModulesAlphabetically();
     }
 
     @Override
     public void sortModulesByRatingAscending() {
+        logger.info(String.format("Modules are sorted by rating in ascending order"));
         taTracker.sortModulesByRatingAscending();
     }
 
     @Override
     public void sortModulesByRatingDescending() {
+        logger.info(String.format("Modules are sorted by rating in descending order"));
         taTracker.sortModulesByRatingDescending();
     }
 
     @Override
     public void sortModulesByMatricNumber() {
+        logger.info(String.format("Modules are sorted by matric number in ascending order"));
         taTracker.sortModulesByMatricNumber();
     }
 
@@ -323,6 +338,7 @@ public class ModelManager implements Model {
 
     @Override
     public void showAllModules() {
+        logger.info(String.format("All modules are shown"));
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -337,18 +353,22 @@ public class ModelManager implements Model {
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);
+        logger.info(String.format("Group %s is added to module %s", group, targetModule));
         taTracker.addGroup(group, targetModule);
     }
 
     @Override
     public void deleteGroup(String target, String targetModule) {
         requireNonNull(target);
+        logger.info(String.format("Group %s is deleted from %s", target, targetModule));
         taTracker.removeGroup(new Group(target), new Module(targetModule));
     }
 
     @Override
     public void setGroup(Group target, Group editedGroup, Module targetModule) {
         requireAllNonNull(target, editedGroup);
+        logger.info(String.format("Group %s in module %s is changed to %s",
+                target, targetModule, editedGroup));
         taTracker.setGroup(target, editedGroup, targetModule);
     }
 
@@ -359,16 +379,19 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredGroupList(String moduleCode) {
+        logger.info(String.format("Group list being shown is of module %s", moduleCode));
         taTracker.updateCurrentlyShownGroups(moduleCode);
     }
 
     @Override
     public void setFilteredGroupList() {
+        logger.info(String.format("Empty grouplist is shown"));
         taTracker.setCurrentlyShownGroups(new ArrayList<>());
     }
 
     @Override
     public void updateGroupList(int moduleIndex) {
+        logger.info(String.format("Groups from module %d is showns", moduleIndex));
         taTracker.setCurrentlyShownGroups(moduleIndex);
     }
 
@@ -393,12 +416,15 @@ public class ModelManager implements Model {
 
     @Override
     public void addStudent(Student student) {
+        logger.info(String.format("Student added is %s", student));
         taTracker.addStudent(student);
     }
 
     @Override
     public void addStudent(Student student, String targetGroup, String targetModule) {
         requireNonNull(student);
+        logger.info(String.format("Student added is %s into group %s of module %s",
+                student, targetGroup, targetModule));
         taTracker.addStudent(student, targetGroup, targetModule);
     }
 
@@ -410,6 +436,8 @@ public class ModelManager implements Model {
     @Override
     public void deleteStudent(Student target, String targetGroup, String targetModule) {
         requireNonNull(target);
+        logger.info(String.format("Student deleted is %s from group %s of module %s",
+                target, targetGroup, targetModule));
         taTracker.deleteStudent(target, targetGroup, targetModule);
     }
 
@@ -422,11 +450,15 @@ public class ModelManager implements Model {
     @Override
     public void setStudent(Student target, Student editedStudent, String targetGroup, String targetModule) {
         requireAllNonNull(target, editedStudent);
+        logger.info(String.format("Student edited is %s to %s from group %s of module %s",
+                target, editedStudent, targetGroup, targetModule));
         taTracker.setStudent(target, editedStudent, targetGroup, targetModule);
     }
 
     @Override
     public void updateStudentList(int moduleIndex, int groupIndex) {
+        logger.info(String.format("Students are from module of index %d and group index %d",
+                moduleIndex, groupIndex));
         taTracker.setCurrentlyShownStudents(moduleIndex, groupIndex);
     }
 
@@ -437,16 +469,21 @@ public class ModelManager implements Model {
 
     @Override
     public void setFilteredStudentList() {
+        logger.info(String.format("Empty student list is shown."));
         taTracker.setCurrentlyShownStudents(new ArrayList<>());
     }
 
     @Override
     public void setFilteredStudentList(String moduleCode, int groupIndex) {
+        logger.info(String.format("Students of group index %d from module %s are showmn",
+                groupIndex, moduleCode));
         taTracker.setCurrentlyShownStudents(moduleCode, groupIndex);
     }
 
     @Override
     public void updateFilteredStudentList(String groupCode, String moduleCode) {
+        logger.info(String.format("Students are shown of group %s of module %s",
+                groupCode, moduleCode));
         taTracker.updateCurrentlyShownStudents(groupCode, moduleCode);
     }
 

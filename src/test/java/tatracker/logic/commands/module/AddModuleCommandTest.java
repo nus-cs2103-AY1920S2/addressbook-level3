@@ -3,6 +3,7 @@ package tatracker.logic.commands.module;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_MODULE;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.module.TypicalModules.CS2103T;
 import static tatracker.testutil.module.TypicalModules.CS3243;
@@ -31,17 +32,18 @@ public class AddModuleCommandTest {
 
         CommandResult commandResult = new AddModuleCommand(validModule).execute(modelStub);
 
-        assertEquals(String.format(AddModuleCommand.MESSAGE_SUCCESS, validModule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddModuleCommand.MESSAGE_ADD_MODULE_SUCCESS, validModule.getIdentifier()),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
     }
 
     @Test
-    public void execute_duplicateModule_throwsCommandException() throws CommandException {
+    public void execute_duplicateModule_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         AddModuleCommand addModuleCommand = new AddModuleCommand(validModule);
         ModelStub modelStub = new ModelStub.ModelStubWithModule(validModule);
 
-        assertThrows(CommandException.class, AddModuleCommand.MESSAGE_DUPLICATE_MODULE, () ->
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_MODULE, () ->
                 addModuleCommand.execute(modelStub));
     }
 

@@ -406,6 +406,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
                 break;
 
+            case GOTO_CLAIMS:
             case FILTER_CLAIMS:
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 claimsListPanel.updateLabel();
@@ -413,7 +414,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case FILTER_SESSION:
-                sessionListPanel.updateLabel(logic.getCurrSessionDateFilter(), logic.getCurrSessionModuleFilter(),
+                sessionListPanel.updateLabel(
+                        logic.getCurrSessionDateFilter(),
+                        logic.getCurrSessionModuleFilter(),
                         logic.getCurrSessionTypeFilter());
                 handleGoto(sessionListTab);
                 break;
@@ -422,12 +425,6 @@ public class MainWindow extends UiPart<Stage> {
                 moduleListPanel.updateCells(logic.getFilteredModuleList());
                 groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
-                break;
-
-            case GOTO_CLAIMS:
-                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
-                claimsListPanel.updateLabel();
-                handleGoto(claimsListTab);
                 break;
 
             case GOTO_SESSION:
@@ -448,6 +445,10 @@ public class MainWindow extends UiPart<Stage> {
             case LIST:
                 claimsListPanel.updateLabel();
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                sessionListPanel.updateLabel(
+                        logic.getCurrSessionDateFilter(),
+                        logic.getCurrSessionModuleFilter(),
+                        logic.getCurrSessionTypeFilter());
                 break;
 
             default:

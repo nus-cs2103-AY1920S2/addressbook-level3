@@ -3,6 +3,7 @@ package tatracker.logic.commands.module;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.module.TypicalModules.CS2103T;
 import static tatracker.testutil.module.TypicalModules.CS3243;
@@ -26,24 +27,24 @@ public class EditModuleCommandTest {
         modelStub.addModule(validModule);
         EditModuleCommand editModuleCommand = new EditModuleCommand(validModule.getIdentifier(), "New Name");
 
-        assertThrows(CommandException.class, EditModuleCommand.MESSAGE_INVALID_MODULE_CODE, () -> new
+        assertThrows(CommandException.class, MESSAGE_INVALID_MODULE_CODE, () -> new
                 EditModuleCommand("CS2030", "Invalid").execute(modelStub));
 
         CommandResult commandResult = editModuleCommand.execute(modelStub);
 
-        assertEquals(String.format(EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS, validModule),
+        assertEquals(String.format(EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS, validModule.getIdentifier()),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.modulesAdded);
     }
 
     @Test
-    public void execute_emptyModuleName_throwsCommandException() throws CommandException {
+    public void execute_emptyModuleName_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         EditModuleCommand editModuleCommand = new EditModuleCommand(validModule.getIdentifier(), "");
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
 
-        assertThrows(CommandException.class, EditModuleCommand.INVALID_MODULE_NAME, () ->
+        assertThrows(CommandException.class, Module.CONSTRAINTS_MODULE_NAME, () ->
                 editModuleCommand.execute(modelStub));
     }
 

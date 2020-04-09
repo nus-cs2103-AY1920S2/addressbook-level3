@@ -1,12 +1,12 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX;
 import static tatracker.logic.parser.Prefixes.INDEX;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandDetails;
@@ -26,14 +26,14 @@ public class DoneSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.DONE_SESSION,
-            "Marks the session at the shown list index as done.",
+            "Marks the session at the shown list index as done",
             List.of(INDEX),
             List.of(),
             INDEX
     );
 
-    public static final String MESSAGE_SUCCESS = "Session completed: %1$s";
-    public static final String MESSAGE_INVALID_INDEX = "Index does not exists";
+    public static final String MESSAGE_DONE_SESSION_SUCCESS = "Session completed: %s";
+    public static final String MESSAGE_REPEAT_SESSION_SUCCESS = "\nRepeating session: %s - %s";
 
     private final Index index;
 
@@ -52,13 +52,13 @@ public class DoneSessionCommand extends Command {
         List<Session> lastShownList = model.getFilteredSessionList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         }
 
         Session session = lastShownList.get(index.getZeroBased());
         session.done();
 
-        if (session.getRecurring() != 0) {
+        if (session.getRecurring() > 0) {
 
             int recurring = session.getRecurring();
             LocalDateTime startTime = session.getStartDateTime().plusWeeks(recurring);
@@ -75,14 +75,15 @@ public class DoneSessionCommand extends Command {
             model.updateFilteredSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS);
             model.addDoneSession(session);
             model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS, "");
-            return new CommandResult(String.format(AddSessionCommand.MESSAGE_SUCCESS, newSession), Action.DONE);
+            return new CommandResult(getRepeatMessage(newSession), Action.DONE);
         }
 
         model.deleteSession(session);
         model.addDoneSession(session);
         model.updateFilteredDoneSessionList(Model.PREDICATE_SHOW_ALL_SESSIONS, "");
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, session), Action.DONE);
+        return new CommandResult(String.format(MESSAGE_DONE_SESSION_SUCCESS, session.getMinimalDescription()),
+                Action.DONE);
     }
 
     @Override
@@ -100,5 +101,14 @@ public class DoneSessionCommand extends Command {
         // state check
         DoneSessionCommand e = (DoneSessionCommand) other;
         return index.equals(e.index);
+    }
+
+    private String getRepeatMessage(Session session) {
+        String doneMessage = String.format(MESSAGE_DONE_SESSION_SUCCESS, session.getMinimalDescription());
+        String repeatMessage = String.format(MESSAGE_REPEAT_SESSION_SUCCESS,
+                session.getStartDateTimeDescription(),
+                session.getEndDateTimeDescription());
+
+        return doneMessage + repeatMessage;
     }
 }

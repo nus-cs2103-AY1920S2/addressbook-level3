@@ -1,6 +1,5 @@
 package tatracker.logic.parser.sort;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.TYPE;
@@ -8,6 +7,7 @@ import static tatracker.logic.parser.Prefixes.TYPE;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.sort.SortCommand;
@@ -38,7 +38,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(HelpCommand.DETAILS.getUsage()));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -47,9 +47,19 @@ public class SortCommandParser implements Parser<SortCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, TYPE, MODULE, GROUP);
 
         if (!argMultimap.arePrefixesPresent(TYPE) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SortCommand.DETAILS.getUsage()));
+            switch(commandWord) {
+            case CommandWords.SORT_ALL:
+                throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
+            case CommandWords.SORT_GROUP:
+                throw new ParseException(Messages.getInvalidCommandMessage(SortGroupCommand.DETAILS.getUsage()));
+            case CommandWords.SORT_MODULE:
+                throw new ParseException(Messages.getInvalidCommandMessage(SortModuleCommand.DETAILS.getUsage()));
+            default:
+                throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
+            }
         }
+
+        boolean hasType = argMultimap.getValue(TYPE).isPresent();
 
         SortType type = ParserUtil.parseSortType(argMultimap.getValue(TYPE).get());
 
@@ -62,26 +72,25 @@ public class SortCommandParser implements Parser<SortCommand> {
         switch (commandWord) {
 
         case CommandWords.SORT_ALL:
+            if (!hasType) {
+                throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
+            }
             return new SortCommand(type);
 
         case CommandWords.SORT_MODULE:
-            if (hasModule) {
-                return new SortModuleCommand(type, moduleCode);
+            if (!hasModule || !hasType) {
+                throw new ParseException(Messages.getInvalidCommandMessage(SortModuleCommand.DETAILS.getUsage()));
             }
-            break;
+            return new SortModuleCommand(type, moduleCode);
 
         case CommandWords.SORT_GROUP:
-            if (hasModule && hasGroup) {
-                return new SortGroupCommand(type, groupCode, moduleCode);
+            if (!hasModule || !hasGroup || !hasType) {
+                throw new ParseException(Messages.getInvalidCommandMessage(SortGroupCommand.DETAILS.getUsage()));
             }
-            break;
+            return new SortGroupCommand(type, groupCode, moduleCode);
 
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SortCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(SortCommand.DETAILS.getUsage()));
         }
-
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                SortCommand.DETAILS.getUsage()));
     }
 }

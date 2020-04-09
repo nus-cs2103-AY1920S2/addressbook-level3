@@ -65,4 +65,14 @@ public class TypicalTaTracker {
         return new Group("G06", GroupType.LAB);
     }
 
+    /**
+     * Returns an {@code TaTracker}.
+     */
+    public static TaTracker getTypicalTaTracker() {
+
+        TaTracker tat = new TaTracker();
+
+        return tat;
+    }
+
 }

@@ -31,6 +31,8 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class TaTracker implements ReadOnlyTaTracker {
 
+    public static final String CONSTRAINTS_RATE = "Rate must be an integer representing an amount that is more than $0";
+
     private static final long DEFAULT_HOURS = 0;
     private static final int DEFAULT_RATE = 40;
     private static String currClaimFilter;
@@ -66,9 +68,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
         currClaimFilter = "";
         currSessionFilter = "";
-        currSessionDateFilter = "No Filter";
-        currSessionModuleFilter = "No Filter";
-        currSessionTypeFilter = "No Filter";
+        currSessionDateFilter = "";
+        currSessionModuleFilter = "";
+        currSessionTypeFilter = "";
         currStudentFilter = "";
 
         rate = DEFAULT_RATE;

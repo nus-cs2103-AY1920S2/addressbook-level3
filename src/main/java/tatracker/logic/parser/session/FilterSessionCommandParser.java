@@ -1,16 +1,17 @@
 package tatracker.logic.parser.session;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.session.FilterSessionCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.module.Module;
 import tatracker.model.session.SessionPredicate;
 
 
@@ -30,8 +31,7 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
                 MODULE, SESSION_TYPE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            FilterSessionCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(FilterSessionCommand.DETAILS.getUsage()));
         }
 
         SessionPredicate predicate = new SessionPredicate();
@@ -41,7 +41,13 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            predicate.setModuleCode(argMultimap.getValue(MODULE).map(String::trim).get());
+            String moduleCode = argMultimap.getValue(MODULE).map(String::trim).get();
+
+            if (moduleCode.isBlank()) {
+                throw new ParseException(Module.CONSTRAINTS_MODULE_CODE);
+            }
+
+            predicate.setModuleCode(moduleCode);
         }
 
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
@@ -49,8 +55,7 @@ public class FilterSessionCommandParser implements Parser<FilterSessionCommand> 
         }
 
         if (!predicate.isAnyFieldEdited()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                        FilterSessionCommand.DETAILS.getUsage()));
+            throw new ParseException(Messages.getInvalidCommandMessage(FilterSessionCommand.DETAILS.getUsage()));
         }
 
         return new FilterSessionCommand(predicate);

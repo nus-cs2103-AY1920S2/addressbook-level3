@@ -1,6 +1,5 @@
 package tatracker.logic.parser.student;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
@@ -12,6 +11,7 @@ import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.student.DeleteStudentCommand;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -47,7 +47,6 @@ public class DeleteStudentCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteStudentCommand.DETAILS.getUsage()));
+        assertParseFailure(parser, "a", Messages.getInvalidCommandMessage(DeleteStudentCommand.DETAILS.getUsage()));
     }
 }

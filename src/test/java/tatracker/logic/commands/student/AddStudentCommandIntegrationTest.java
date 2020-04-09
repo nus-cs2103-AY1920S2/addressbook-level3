@@ -1,5 +1,6 @@
 package tatracker.logic.commands.student;
 
+import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_STUDENT;
 import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.assertStudentCommandSuccess;
@@ -58,8 +59,12 @@ public class AddStudentCommandIntegrationTest {
         AddStudentCommand command = new AddStudentCommand(
                 validStudent, testGroup.getIdentifier(), testModule.getIdentifier());
 
-        String expectedFeedback = String.format(AddStudentCommand.MESSAGE_ADD_STUDENT_SUCCESS, validStudent,
-                testModule.getIdentifier(), testGroup.getIdentifier());
+        String expectedFeedback = String.format(
+                AddStudentCommand.MESSAGE_ADD_STUDENT_SUCCESS,
+                validStudent.getName(),
+                validStudent.getMatric(),
+                testModule.getIdentifier(),
+                testGroup.getIdentifier());
 
         assertStudentCommandSuccess(command, model, expectedFeedback, expectedModel);
     }
@@ -71,7 +76,7 @@ public class AddStudentCommandIntegrationTest {
 
         assertCommandFailure(new AddStudentCommand(student, testGroup.getIdentifier(),
                         testModule.getIdentifier()),
-                model, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT);
+                model, MESSAGE_DUPLICATE_STUDENT);
     }
 
 }

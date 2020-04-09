@@ -1,6 +1,7 @@
 package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
 import java.util.List;
@@ -23,14 +24,13 @@ public class FilterClaimCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.CLAIM,
             CommandWords.FILTER_MODEL,
-            "Filters a claim of a particular module.",
+            "Filters a claim of a particular module",
             List.of(MODULE),
             List.of(),
             MODULE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered claim List: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "Module Code does not exists.";
+    public static final String MESSAGE_FILTERED_CLAIMS_SUCCESS = "Filtered claims for module: %s";
 
     private final DoneSessionPredicate predicate;
 
@@ -43,14 +43,12 @@ public class FilterClaimCommand extends Command {
         requireNonNull(model);
         String module = predicate.getModuleCode();
         if (!model.hasModule(module)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_MODULE_CODE));
+            throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
         model.setCurrClaimFilter("Module: " + module);
         model.updateFilteredDoneSessionList(predicate, module);
-        return new CommandResult(
-                    String.format(MESSAGE_SUCCESS, module),
+        return new CommandResult(String.format(MESSAGE_FILTERED_CLAIMS_SUCCESS, module),
                     Action.FILTER_CLAIMS);
-
     }
 
     @Override

@@ -1,7 +1,8 @@
 package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENTS;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MODULE;
 
@@ -25,17 +26,19 @@ public class FilterStudentCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.STUDENT,
             CommandWords.FILTER_MODEL,
-            "Filters the students inside TA-Tracker.",
+            "Filters the students inside TA-Tracker",
             List.of(),
             List.of(GROUP, MODULE),
             GROUP, MODULE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered Student List: %1$s ";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "Invalid Module Code. "
-                        + "There are no students in the module code.";
-    public static final String MESSAGE_INVALID_GROUP_CODE = "Invalid Group Code. "
-                        + "There are no students in the group code.";
+    public static final String MESSAGE_FILTERED_MODULES_SUCCESS = "Filtered all students in module: %s";
+    public static final String MESSAGE_FILTERED_GROUPS_SUCCESS = "Filtered all students in module group: %s [%s]";
+
+    public static final String MESSAGE_NO_STUDENTS_IN_MODULE = "There are no students in the module"
+            + " with the given module code";
+    public static final String MESSAGE_NO_STUDENTS_IN_GROUP = "There are no students in the module group"
+            + " with the given group code";
 
     public static final int FIRST_GROUP_INDEX = 0;
 
@@ -48,24 +51,19 @@ public class FilterStudentCommand extends Command {
         this.groupCode = groupCode;
     }
 
-    public boolean contains_module_only() {
-        return !this.moduleCode.equals("") && this.groupCode.equals("");
-    }
-
-    public boolean contains_both() {
-        return !this.moduleCode.equals("") && !this.groupCode.equals("");
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         CommandResult returnMsg = new CommandResult(MESSAGE_INVALID_MODULE_CODE, Action.FILTER_STUDENT);
 
-        if (contains_module_only()) {
-            returnMsg = filterModule(model);
-        } else if (contains_both()) {
+        boolean hasModule = !moduleCode.isBlank();
+        boolean hasGroup = hasModule && !groupCode.isBlank();
+
+        if (hasGroup) {
             returnMsg = filterGroup(model);
+        } else if (hasModule) {
+            returnMsg = filterModule(model);
         }
         return returnMsg;
     }
@@ -91,7 +89,8 @@ public class FilterStudentCommand extends Command {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode + " " + groupCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_GROUPS_SUCCESS, moduleCode, groupCode),
+                Action.FILTER_STUDENT);
     }
 
     /**
@@ -109,13 +108,13 @@ public class FilterStudentCommand extends Command {
             model.updateFilteredGroupList(moduleCode);
             if (model.getFilteredGroupList().isEmpty()) {
                 model.setFilteredStudentList();
-                throw new CommandException(MESSAGE_INVALID_STUDENTS);
+                throw new CommandException(MESSAGE_NO_STUDENTS_IN_MODULE);
             } else {
                 model.setCurrStudentFilter("Module Code: " + moduleCode);
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_MODULES_SUCCESS, moduleCode), Action.FILTER_STUDENT);
     }
 
     /**

@@ -5,7 +5,7 @@ import static tatracker.logic.parser.Prefixes.DATE;
 import static tatracker.logic.parser.Prefixes.MODULE;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import tatracker.logic.commands.Command;
@@ -25,16 +25,20 @@ public class FilterSessionCommand extends Command {
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.SESSION,
             CommandWords.FILTER_MODEL,
-            "Filters all the sessions inside TA-Tracker.",
+            "Filters all the sessions inside TA-Tracker",
             List.of(),
             List.of(MODULE, DATE, SESSION_TYPE),
             MODULE, DATE, SESSION_TYPE
     );
 
-    public static final String MESSAGE_SUCCESS = "Filtered Session List: %1$s";
-    public static final String MESSAGE_INVALID_MODULE_CODE = "There are no sessions with the given module code.";
-    public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date.";
-    public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type.";
+    public static final String MESSAGE_FILTERED_SESSIONS_SUCCESS = "Filtered session list";
+
+    // public static final String MESSAGE_NO_SESSIONS_IN_MODULE = "There are no sessions"
+    //         + " for the module with the given module code.";
+    // public static final String MESSAGE_INVALID_DATE = "There are no sessions with the given date";
+    // public static final String MESSAGE_INVALID_SESSIONTYPE = "There are no sessions with the given session type";
+
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     private final SessionPredicate predicate;
 
@@ -45,41 +49,32 @@ public class FilterSessionCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String returnMsg = "";
+        StringBuilder returnMsg = new StringBuilder(MESSAGE_FILTERED_SESSIONS_SUCCESS);
 
-        String sessionType = predicate.getSessionType().map(SessionType::toString).orElse("No Filters");
-        String date = predicate.getDate().map(LocalDate::toString).orElse("No Filters");
-        String moduleCode = predicate.getModuleCode().orElse("No Filters");
+        String dateFilter = predicate.getDate().map(dateFormat::format).orElse("");
 
-        if (!model.hasModule(moduleCode)) {
-            returnMsg += "\n" + String.format(MESSAGE_INVALID_MODULE_CODE);
-            model.updateFilteredSessionList(predicate);
-            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, sessionType + " " + date);
-        } else {
-
-            model.setCurrSessionDateFilter(date);
-            model.setCurrSessionModuleFilter(moduleCode);
-            model.setCurrSessionTypeFilter(sessionType);
-
-            //String result = buildParams(date, moduleCode, sessionType);
-            //model.setCurrSessionFilter(result);
-            model.updateFilteredSessionList(predicate);
-            returnMsg += "\n" + String.format(MESSAGE_SUCCESS, date + " " + moduleCode + " " + sessionType);
+        if (predicate.getDate().isPresent()) {
+            returnMsg.append("\nDate: ").append(dateFilter);
         }
 
-        return new CommandResult(returnMsg, Action.FILTER_SESSION);
-    }
+        String moduleFilter = predicate.getModuleCode().orElse("");
 
-    /**
-     *Creates a string consisting of all the params inputted by users.
-     */
-    public String buildParams(String date, String module, String sessionType) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Date: ").append(date);
-        builder.append("Module Code: ").append(module);
-        builder.append("Session Type: ").append(sessionType);
-        String result = builder.toString();
-        return result;
+        if (predicate.getModuleCode().isPresent()) {
+            returnMsg.append("\nModule: ").append(moduleFilter);
+        }
+
+        String sessionTypeFilter = predicate.getSessionType().map(SessionType::toString).orElse("");
+
+        if (predicate.getSessionType().isPresent()) {
+            returnMsg.append("\nType: ").append(sessionTypeFilter);
+        }
+
+        model.setCurrSessionDateFilter(dateFilter);
+        model.setCurrSessionModuleFilter(moduleFilter);
+        model.setCurrSessionTypeFilter(sessionTypeFilter);
+        model.updateFilteredSessionList(predicate);
+
+        return new CommandResult(returnMsg.toString(), Action.FILTER_SESSION);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class GotoCommand extends Command {
 
     public static final CommandDetails DETAILS = new CommandDetails(
             CommandWords.GOTO,
-            "Switches to the specified tab.",
+            "Switches to the specified tab",
             List.of(TAB_NAME),
             List.of(),
             TAB_NAME
@@ -57,7 +57,7 @@ public class GotoCommand extends Command {
         }
     }
 
-    public static final String MESSAGE_SWITCHED_TAB = "Switched to %s tab.";
+    public static final String MESSAGE_SWITCHED_TAB = "Switched to the %s tab";
 
     private final Tab tab;
     private final Action tabToSwitchTo;

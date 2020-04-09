@@ -1,6 +1,5 @@
 package tatracker.logic.parser.student;
 
-import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -25,6 +24,7 @@ import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.Messages;
 import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
@@ -150,8 +150,7 @@ public class AddStudentCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddStudentCommand.DETAILS.getUsage());
+        String expectedMessage = Messages.getInvalidCommandMessage(AddStudentCommand.DETAILS.getUsage());
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB
@@ -267,6 +266,6 @@ public class AddStudentCommandParserTest {
 
         assertParseFailure(parser,
                 command.toString(),
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.DETAILS.getUsage()));
+                Messages.getInvalidCommandMessage(AddStudentCommand.DETAILS.getUsage()));
     }
 }

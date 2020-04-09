@@ -14,7 +14,9 @@ import tatracker.commons.util.StringUtil;
 import tatracker.logic.commands.commons.GotoCommand.Tab;
 import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.TaTracker;
 import tatracker.model.group.GroupType;
+import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -28,9 +30,23 @@ import tatracker.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_RATE = "RATE is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_UNSIGNED_INT = "Number is not an unsigned integer.";
+
+    /**
+     * Parses a {@code String integer} into an integer primitive.
+     * This is different from the standard Java version as it does not
+     * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
+     */
+    public static int parseUnsignedInteger(String integer) throws ParseException {
+        requireNonNull(integer);
+        String trimmedInteger = integer.trim();
+
+        if (!StringUtil.isUnsignedInteger(trimmedInteger)) {
+            throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
+        }
+
+        return Integer.parseUnsignedInt(integer);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -41,7 +57,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(Index.MESSAGE_CONSTRAINTS);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -260,29 +276,13 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String integer} into an integer primitive.
-     * This is different from the standard Java version as it does not
-     * allow any signed values (i.e. the following values cannot be parsed: +5, -2).
-     */
-    public static int parseUnsignedInteger(String integer) throws ParseException {
-        requireNonNull(integer);
-        String trimmedInteger = integer.trim();
-
-        if (!StringUtil.isUnsignedInteger(trimmedInteger)) {
-            throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
-        }
-
-        return Integer.parseUnsignedInt(integer);
-    }
-
-    /**
      * Parses a {@code String numWeeks} into a number of weeks.
      */
     public static int parseNumWeeks(String numWeeks) throws ParseException {
         try {
             return parseUnsignedInteger(numWeeks);
         } catch (ParseException pe) {
-            throw new ParseException("Recurring weeks must be an unsigned number");
+            throw new ParseException(Session.CONSTRAINTS_RECURRING_WEEKS);
         }
     }
 
@@ -315,17 +315,17 @@ public class ParserUtil {
         String trimmedRate = rate.trim();
 
         if (!StringUtil.isUnsignedInteger(trimmedRate)) {
-            throw new ParseException(MESSAGE_INVALID_RATE);
+            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
         }
 
         try {
             int parsedRate = Integer.parseUnsignedInt(trimmedRate);
             if (parsedRate == 0) {
-                throw new ParseException(MESSAGE_INVALID_RATE);
+                throw new ParseException(TaTracker.CONSTRAINTS_RATE);
             }
             return parsedRate;
         } catch (NumberFormatException e) {
-            throw new ParseException(MESSAGE_INVALID_RATE);
+            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
         }
     }
 }

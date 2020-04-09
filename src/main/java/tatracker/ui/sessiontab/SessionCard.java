@@ -45,7 +45,7 @@ public class SessionCard extends UiPart<Region> {
     private Label recur;
 
     private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mma");
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d");
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     public SessionCard(Session session, int displayedIndex) {
         super(FXML);
@@ -57,7 +57,7 @@ public class SessionCard extends UiPart<Region> {
                 + session.getEndDateTime().format(timeFormat));
         module.setText(session.getModuleCode().toUpperCase());
         description.setText(session.getDescription());
-        if (session.getRecurring() != 0) {
+        if (session.getRecurring() > 0) {
             recur.setText("Every " + session.getRecurring() + " Week(s)");
         } else {
             recur.setText("Not Recurring");
