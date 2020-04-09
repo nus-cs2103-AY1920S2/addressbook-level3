@@ -1035,21 +1035,30 @@ Sets the current hourly rate to 25$.
 |=======================================================================
 |Term | Explanation | Examples
 
-| `TSS Claims Form` | This refers the claims form that Teaching Assistants
+| TSS Claims Form | This refers the claims form that Teaching Assistants
 at NUS School of Computing have to fill up at the end of each semester to claim money
 for the tasks they have completed. |
 
-| `TA` | This is the short form for `Teaching Assistant` |
+| TA | This is the short form for `Teaching Assistant. |
 
-| `SOC` or `SoC` | This is the short form for `School of Computing` |
+| SOC or SoC | This is the short form for School of Computing. |
 
-| `Index` | This refers to the position of an item on a list | `1` refers to the first
-item on a list
+| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
+item in a list.
 
-| `matric number` | This refers to a student's matriculation number | `A0123456X`
+| Matric Number | This refers to a student's matriculation number. | A0123456X
 
-| `group` | The is the general term given to a group of students a TA teaches |
-`lab` , `tutorial` , `recitation`
+| Group | The is the general term given to a group of students a TA teaches. |
+lab , tutorial , recitation
+
+| TAT | This is the short form of TA-Tracker. |
+
+| NUS | This is the short form of National Univeristy of Singapore. |
+
+| Module | Refers to one of the academic courses in NUS. |
+
+| Tutorial | A tutorial is a regular meeting between a tutor and one or several
+students, for discussion of a subject that is being studied.  |
 
 |=======================================================================
 
