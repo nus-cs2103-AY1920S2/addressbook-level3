@@ -1,24 +1,31 @@
 package fithelper.logic.commands;
 
-import static fithelper.logic.commands.CommandTestUtil.*;
+import static fithelper.logic.commands.CommandTestUtil.DESC_FOOD;
+import static fithelper.logic.commands.CommandTestUtil.VALID_CALORIE_FOOD;
+import static fithelper.logic.commands.CommandTestUtil.VALID_LOCATION_FOOD;
+import static fithelper.logic.commands.CommandTestUtil.VALID_NAME_FOOD;
+import static fithelper.logic.commands.CommandTestUtil.VALID_TIME_FOOD;
+import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
+import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static fithelper.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import fithelper.model.UserProfile;
-import fithelper.model.WeightRecords;
-import fithelper.model.entry.Type;
 import fithelper.commons.core.Messages;
 import fithelper.commons.core.index.Index;
 import fithelper.logic.commands.EditCommand.EditEntryDescriptor;
 import fithelper.model.FitHelper;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
+import fithelper.model.UserProfile;
+import fithelper.model.WeightRecords;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Type;
 import fithelper.testutil.EditEntryDescriptorBuilder;
 import fithelper.testutil.EntryBuilder;
 
@@ -37,7 +44,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry);
 
-        Type entryType= descriptor.getType();
+        Type entryType = descriptor.getType();
         if (entryType.getValue().equalsIgnoreCase("food")) {
             Model expectedModel = new ModelManager(new FitHelper(model.getFitHelper()),
                     new UserProfile(), new WeightRecords());

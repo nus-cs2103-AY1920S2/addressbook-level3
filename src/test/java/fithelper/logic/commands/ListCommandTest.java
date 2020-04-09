@@ -2,17 +2,17 @@ package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
-import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
+import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 
-import fithelper.model.UserProfile;
-import fithelper.model.WeightRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
-import fithelper.model.UserPrefs;
+import fithelper.model.UserProfile;
+import fithelper.model.WeightRecords;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

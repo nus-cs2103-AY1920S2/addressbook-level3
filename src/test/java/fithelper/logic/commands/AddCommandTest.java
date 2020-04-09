@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import fithelper.logic.AddCommand;
-import fithelper.logic.CommandResult;
 import org.junit.jupiter.api.Test;
 
 import fithelper.commons.exceptions.IllegalValueException;

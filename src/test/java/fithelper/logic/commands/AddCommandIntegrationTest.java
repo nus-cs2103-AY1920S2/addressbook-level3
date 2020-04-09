@@ -1,10 +1,8 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
-import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 
-import fithelper.logic.AddCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

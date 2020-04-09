@@ -11,14 +11,14 @@ import static fithelper.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
 
 import org.junit.jupiter.api.Test;
 
-import fithelper.model.UserProfile;
-import fithelper.model.WeightRecords;
-import fithelper.model.entry.Type;
-import fithelper.commons.core.Messages;
 import fithelper.commons.core.index.Index;
+import fithelper.commons.core.Messages;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
+import fithelper.model.UserProfile;
+import fithelper.model.WeightRecords;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Type;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

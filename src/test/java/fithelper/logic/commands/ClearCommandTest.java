@@ -5,11 +5,11 @@ import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 
 import org.junit.jupiter.api.Test;
 
-import fithelper.model.UserProfile;
-import fithelper.model.WeightRecords;
 import fithelper.model.FitHelper;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
+import fithelper.model.UserProfile;
+import fithelper.model.WeightRecords;
 
 public class ClearCommandTest {
 
