@@ -71,7 +71,8 @@ public abstract class History<T> {
     }
 
     public void resetItem() {
-        this.item = null;
+        item = null;
+        stack.clear();
     }
 
     public void setStack(List<T> stack) {
