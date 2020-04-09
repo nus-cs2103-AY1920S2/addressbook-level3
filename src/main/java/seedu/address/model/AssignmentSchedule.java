@@ -7,7 +7,6 @@ import java.util.Comparator;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentList;
-import seedu.address.model.day.Day;
 
 /**
  * Wraps all data at the assignment schedule level.
@@ -104,21 +103,5 @@ public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
     @Override
     public int hashCode() {
         return assignments.hashCode();
-    }
-
-    /**
-     * Returns the user's expected work hours for the next n days (including today) based on stored assignments,
-     * their deadlines and expected work hours per assignment.
-     */
-    public ObservableList<Day> getScheduleVisual() {
-        return assignments.getScheduleVisualList();
-    }
-
-    /**
-     * Calculates the user's expected work hours for the next n days (including today) based on stored assignments,
-     * their deadlines and expected work hours per assignment.
-     */
-    public void calculateScheduleIntensity(int numDays) {
-        assignments.calculateScheduleIntensity(numDays);
     }
 }
