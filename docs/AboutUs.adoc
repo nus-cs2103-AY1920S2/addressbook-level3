@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Nelson Tan
 image::nelsontky.png[width="150", align="left"]
 __If you see me on Tinder, please swipe right!__ +
-{empty}[http://github.com/nelsontky[github]] [<<chestersim#, portfolio>>]
+{empty}[http://github.com/nelsontky[github]] [<<nelsontky#, portfolio>>]
 
 Role: 🎶🎶🎶 Row, row, row your boat... 🎶🎶🎶 +
 Responsibilities: "Undo" Feature in Coupon Stash to revert commands and changes
@@ -23,7 +23,7 @@ Responsibilities: "Undo" Feature in Coupon Stash to revert commands and changes
 
 === Chester Sim
 image::chestersim.png[width="150", align="left"]
-{empty}[http://github.com/chestersim[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/chestersim[github]] [<<chestersim#, portfolio>>]
 
 Role: Developer/UI Lead +
 Responsibilities: Usage and archive feature of Coupon Stash. Lead the team in the UI/UX of the product
