@@ -13,14 +13,18 @@ import static tatracker.logic.parser.Prefixes.TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
+import tatracker.commons.core.LogsCenter;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
+import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
@@ -55,8 +59,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + EMAIL + VALID_EMAIL_BOB;
     public static final String MATRIC_DESC_AMY = " " + MATRIC + VALID_MATRIC_AMY;
     public static final String MATRIC_DESC_BOB = " " + MATRIC + VALID_MATRIC_BOB;
-    public static final String RATING_DESC_AMY = " " + RATING + VALID_MATRIC_AMY;
-    public static final String RATING_DESC_BOB = " " + RATING + VALID_MATRIC_BOB;
+    public static final String RATING_DESC_AMY = " " + RATING + VALID_RATING_AMY;
+    public static final String RATING_DESC_BOB = " " + RATING + VALID_RATING_BOB;
     public static final String TAG_DESC_FRIEND = " " + TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + TAG + VALID_TAG_HUSBAND;
 
@@ -77,6 +81,8 @@ public class CommandTestUtil {
 
     public static final EditStudentCommand.EditStudentDescriptor DESC_AMY;
     public static final EditStudentCommand.EditStudentDescriptor DESC_BOB;
+
+    private static final Logger logger = LogsCenter.getLogger(CommandTestUtil.class);
 
     static {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -101,6 +107,7 @@ public class CommandTestUtil {
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
+            logger.warning(ce.getMessage());
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
@@ -119,9 +126,9 @@ public class CommandTestUtil {
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertListCommandSuccess(Command command, Model actualModel, String expectedMessage,
+    public static void assertStudentCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.LIST);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -129,9 +136,9 @@ public class CommandTestUtil {
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
-    public static void assertAddStudentCommandSuccess(Command command, Model actualModel, String expectedMessage,
+    public static void assertListCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.GOTO_STUDENT);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, Action.LIST);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -160,7 +167,7 @@ public class CommandTestUtil {
 
         Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
         final String[] splitName = student.getName().fullName.split("\\s+");
-        //model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
     }

@@ -50,7 +50,7 @@ public class GroupListPanel extends UiPart<Region> implements Focusable {
      * @param groupList the updated groupList
      */
     public void updateCells(ObservableList<Group> groupList) {
-        System.out.print("reached updateCells");
+        logger.fine("reached updateCells");
         groupListView.setItems(groupList);
         groupListView.setCellFactory(listView -> new GroupListViewCell());
     }
