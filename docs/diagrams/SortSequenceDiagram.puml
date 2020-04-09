@@ -12,7 +12,7 @@ participant ":Model" as Model MODEL_COLOR
 participant "tl:TaskList" as TaskList MODEL_COLOR
 end box
 
-[-> LogicManager : execute("sort priority, name")
+[-> LogicManager : execute("sort priority name")
 activate LogicManager
 
 ref over LogicManager
