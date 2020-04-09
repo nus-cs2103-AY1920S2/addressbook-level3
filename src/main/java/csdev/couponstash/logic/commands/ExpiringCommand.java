@@ -55,7 +55,6 @@ public class ExpiringCommand extends Command {
         // Put non-archived at the top first
         model.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
 
-        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         model.updateFilteredCouponList(predicate);
         int filteredListSize = model.getFilteredCouponList().size();
         if (filteredListSize > 0) {

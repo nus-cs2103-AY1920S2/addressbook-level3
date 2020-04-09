@@ -68,12 +68,12 @@ public class AddCommand extends Command {
         }
 
         if (!toAdd.getExpiryDate().isAfterOrEqual(toAdd.getStartDate())) {
-            throw new CommandException(DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT);
+            throw new CommandException(DateUtil.MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT);
         }
 
         // Conditions for remind date
         if (toAdd.getRemindDate().getDate().isAfter(toAdd.getExpiryDate().getDate())) {
-            throw new CommandException(DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE);
+            throw new CommandException(DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
         }
 
         model.addCoupon(toAdd, commandText);

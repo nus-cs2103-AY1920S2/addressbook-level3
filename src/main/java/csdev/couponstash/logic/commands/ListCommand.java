@@ -72,6 +72,6 @@ public class ListCommand extends Command {
 
         // state check
         ListCommand e = (ListCommand) other;
-        return prefixToList.equals(((ListCommand) other).prefixToList);
+        return prefixToList.equals((e).prefixToList);
     }
 }
