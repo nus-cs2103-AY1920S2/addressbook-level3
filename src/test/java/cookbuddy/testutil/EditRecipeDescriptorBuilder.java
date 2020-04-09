@@ -1,5 +1,6 @@
 package cookbuddy.testutil;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -78,8 +79,14 @@ public class EditRecipeDescriptorBuilder {
     /**
      * Sets the {@code Photograph} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withPhotograph(Photograph photograph) {
-        descriptor.setImageFilePath(photograph);
+    public EditRecipeDescriptorBuilder withPhotograph(String photograph) {
+        Photograph ph;
+        try {
+            ph = new Photograph(photograph);
+        } catch (IOException e) {
+            return this;
+        }
+        descriptor.setImageFilePath(ph);
         return this;
     }
 

@@ -1,9 +1,12 @@
 package cookbuddy.logic.commands;
 
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_IMAGEFILEPATH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_NAME;
+import static cookbuddy.logic.parser.CliSyntax.PREFIX_RATING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_SERVING;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
 import static cookbuddy.testutil.Assert.assertThrows;
@@ -55,6 +58,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_BREAKFAST = "breakfast";
     public static final String VALID_TAG_LUNCH = "lunch";
     public static final String VALID_TAG_DINNER = "dinner";
+    public static final String PLACEHOLDER_IMAGE_PATH_STRING = "/images/recipe_placeholder.jpg";
+    public static final String VALID_PHOTOGRAPH_EGGS_ON_TOAST = PLACEHOLDER_IMAGE_PATH_STRING;
+    public static final String VALID_PHOTOGRAPH_HAM_SANDWICH = PLACEHOLDER_IMAGE_PATH_STRING;
 
     public static final int VALID_HOUR_HAM_SANDWICH = 2;
     public static final int VALID_MIN_HAM_SANDWICH = 0;
@@ -77,8 +83,15 @@ public class CommandTestUtil {
             " " + PREFIX_INSTRUCTIONS + VALID_INSTRUCTIONS_EGGS_ON_TOAST;
     public static final String CALORIE_DESC_HAM_SANDWICH = " " + PREFIX_CALORIE + VALID_CALORIE_HAM_SANDWICH;
     public static final String CALORIE_DESC_EGGS_ON_TOAST = " " + PREFIX_CALORIE + VALID_CALORIE_EGGS_ON_TOAST;
-    public static final String SERVING_DESC_HAM_SANDWICH = " " + PREFIX_SERVING + VALID_CALORIE_HAM_SANDWICH;
-    public static final String SERVING_DESC_EGGS_ON_TOAST = " " + PREFIX_SERVING + VALID_CALORIE_EGGS_ON_TOAST;
+    public static final String SERVING_DESC_HAM_SANDWICH = " " + PREFIX_SERVING + VALID_SERVING_HAM_SANDWICH;
+    public static final String SERVING_DESC_EGGS_ON_TOAST = " " + PREFIX_SERVING + VALID_SERVING_EGGS_ON_TOAST;
+    public static final String RATING_DESC_EGGS_ON_TOAST = " " + PREFIX_RATING + VALID_RATING_EGGS_ON_TOAST;
+    public static final String RATING_DESC_HAM_SANDWICH = " " + PREFIX_RATING + VALID_RATING_EGGS_ON_TOAST;
+    public static final String DIFFICULTY_DESC_EGGS_ON_TOAST = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_EGGS_ON_TOAST;
+    public static final String DIFFICULTY_DESC_HAM_SANDWICH = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_HAM_SANDWICH;
+    public static final String PHOTOGRAPH_DESC_HAM_SANDWICH =
+            " " + PREFIX_IMAGEFILEPATH + VALID_PHOTOGRAPH_HAM_SANDWICH;
+    public static final String PHOTOGRAPH_DESC_EGGS_ON_TOAST = " " + PREFIX_IMAGEFILEPATH + VALID_PHOTOGRAPH_EGGS_ON_TOAST;
 
     // TODO: add RATING_DESC once Rating has been merged
 

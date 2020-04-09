@@ -1,5 +1,6 @@
 package cookbuddy.testutil;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -111,8 +112,14 @@ public class RecipeBuilder {
     /**
      * Sets the {@code Photograph} of the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withPhotograph(Photograph photograph) {
-        this.photograph = photograph;
+    public RecipeBuilder withPhotograph(String photograph) {
+        Photograph ph;
+        try {
+            ph = new Photograph(photograph);
+        } catch (IOException e) {
+            return this;
+        }
+        this.photograph = ph;
         return this;
     }
 

@@ -1,6 +1,8 @@
 package cookbuddy.logic.parser;
 
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cookbuddy.logic.commands.CommandTestUtil.CALORIE_DESC_HAM_SANDWICH;
+import static cookbuddy.logic.commands.CommandTestUtil.DIFFICULTY_DESC_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.INGREDIENTS_DESC_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.INGREDIENTS_DESC_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.INSTRUCTIONS_DESC_EGGS_ON_TOAST;
@@ -11,15 +13,22 @@ import static cookbuddy.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static cookbuddy.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static cookbuddy.logic.commands.CommandTestUtil.NAME_DESC_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.NAME_DESC_HAM_SANDWICH;
+import static cookbuddy.logic.commands.CommandTestUtil.PHOTOGRAPH_DESC_EGGS_ON_TOAST;
+import static cookbuddy.logic.commands.CommandTestUtil.RATING_DESC_HAM_SANDWICH;
+import static cookbuddy.logic.commands.CommandTestUtil.SERVING_DESC_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.TAG_DESC_BREAKFAST;
 import static cookbuddy.logic.commands.CommandTestUtil.TAG_DESC_DINNER;
 import static cookbuddy.logic.commands.CommandTestUtil.TAG_DESC_LUNCH;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_CALORIE_HAM_SANDWICH;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_DIFFICULTY_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INGREDIENTS_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INGREDIENTS_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INSTRUCTIONS_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_INSTRUCTIONS_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_NAME_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_NAME_HAM_SANDWICH;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_PHOTOGRAPH_EGGS_ON_TOAST;
+import static cookbuddy.logic.commands.CommandTestUtil.VALID_RATING_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_BREAKFAST;
 import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static cookbuddy.logic.parser.CliSyntax.PREFIX_TAG;
@@ -106,11 +115,14 @@ public class ModifyCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RECIPE;
         String userInput = targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + TAG_DESC_LUNCH
-                + INSTRUCTIONS_DESC_HAM_SANDWICH + NAME_DESC_HAM_SANDWICH + TAG_DESC_BREAKFAST;
+                + INSTRUCTIONS_DESC_HAM_SANDWICH + NAME_DESC_HAM_SANDWICH + TAG_DESC_BREAKFAST + CALORIE_DESC_HAM_SANDWICH
+                + RATING_DESC_HAM_SANDWICH + DIFFICULTY_DESC_EGGS_ON_TOAST + SERVING_DESC_HAM_SANDWICH + PHOTOGRAPH_DESC_EGGS_ON_TOAST;
 
         ModifyCommand.EditRecipeDescriptor descriptor =
-                new EditRecipeDescriptorBuilder().withName(VALID_NAME_HAM_SANDWICH)
-                .withTags(VALID_TAG_LUNCH, VALID_TAG_BREAKFAST).build();
+                new EditRecipeDescriptorBuilder().withName(VALID_NAME_HAM_SANDWICH).withInstructions(VALID_INSTRUCTIONS_HAM_SANDWICH)
+                        .withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).withDifficulty(VALID_DIFFICULTY_EGGS_ON_TOAST)
+                        .withRating(VALID_RATING_HAM_SANDWICH).withCalorie(VALID_CALORIE_HAM_SANDWICH).withPhotograph(VALID_PHOTOGRAPH_EGGS_ON_TOAST)
+                        .withTags(VALID_TAG_LUNCH, VALID_TAG_BREAKFAST).build();
         ModifyCommand expectedCommand = new ModifyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
