@@ -59,7 +59,7 @@ Model -> Model : updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS)
 Model --> DeliveredCommand
 deactivate Model
 
-DeliveredCommand -> CommandResult ++
+ReturnCommand -> ReturnResult ++
 CommandResult --> DeliveredCommand -- : result
 
 DeliveredCommand --> LogicManager -- : result
@@ -76,8 +76,8 @@ Model -> Model : updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS)
 Model --> DeliveredCommand
 deactivate Model
 
-DeliveredCommand -> CommandResult ++
-CommandResult --> DeliveredCommand -- : result
+ReturnCommand -> CommandResult ++
+CommandResult --> ReturnCommand -- : result
 
 DeliveredCommand --> LogicManager -- : result
 deactivate LogicManager
