@@ -317,6 +317,10 @@ Format: `module add m/MOD_CODE n/NAME`
 to remember. However, for ease of remembrance, we recommend you use the official
 module code and name for it.
 
+* If the module name or module code are very long, you can increase the width of
+the module name list by dragging the edge with your cursor. However, we suggest not
+giving the modules long codes or long names.
+
 ====
 
 [TIP]
