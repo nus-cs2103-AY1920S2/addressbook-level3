@@ -138,13 +138,6 @@ public class Task {
         }
     }
 
-    public void triggerRecurringIfPresent(Model model, Index index) {
-        if (optionalRecurring.isPresent()) {
-            Recurring recurring = optionalRecurring.get();
-            recurring.triggerRecurring(model, index);
-        }
-    }
-
     public Name getName() {
         return name;
     }
