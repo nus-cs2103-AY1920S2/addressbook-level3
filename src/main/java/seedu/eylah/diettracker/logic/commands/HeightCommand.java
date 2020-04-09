@@ -2,7 +2,6 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
