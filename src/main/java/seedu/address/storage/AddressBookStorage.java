@@ -18,18 +18,6 @@ public interface AddressBookStorage {
     Path getAddressBookFilePath();
 
     /**
-     * Returns the file path of the data file for diary book.
-     */
-    Path getDiaryBookFilePath();
-
-    Path getCalendarEntriesFilePath();
-
-    /**
-     * @see #getDiaryBookFilePath()
-     */
-    Optional<ReadOnlyAddressBook> readDiaryBook(Path filePath) throws DataConversionException, IOException;
-
-    /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
@@ -54,10 +42,6 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
-    /**
-     * @see
-     */
-    Optional<ReadOnlyAddressBook> readCalendarEntries(Path filePath) throws DataConversionException, IOException;
 
 
 }

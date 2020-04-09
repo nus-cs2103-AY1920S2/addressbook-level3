@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -53,7 +54,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ModuleBook moduleBook) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
+                        ModuleBook moduleBook, ObservableList<Task> taskList) {
         super();
         requireAllNonNull(addressBook, userPrefs, moduleBook);
 
@@ -67,8 +69,8 @@ public class ModelManager implements Model {
         diaryBook = new DiaryBook();
         diaryEntries = diaryBook.getInternalList();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
-        deadlineTaskList = new FilteredList<>(Task.getNewDeadlineTaskList());
-        // deadlineTaskList = new FilteredList<>(this.addressBook.getTaskList());
+        deadlineTaskList = new FilteredList<>(taskList);
+        Task.setDeadlineTaskList(taskList);
         moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
         System.out.println(moduleListTaken);
         studentProfile = new Profile();
@@ -76,17 +78,10 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new ModuleBook());
+        this(new AddressBook(), new UserPrefs(), new ModuleBook(),
+                FXCollections.observableList(new ArrayList<>()));
     }
 
-    public void setDeadlineTaskList(ObservableList<Task> taskList) {
-
-        deadlineTaskList = new FilteredList<>(taskList);
-        Task.setDeadlineTaskList(taskList);
-        for (Task tasks : taskList) {
-            Task.addTaskPerDate(tasks.getDate(), tasks);
-        }
-    }
 
     //=========== UserPrefs ==================================================================================
 

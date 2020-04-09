@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calender.Task;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage, ModuleBookStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, ModuleBookStorage, CalendarBookStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -23,9 +25,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, ModuleBoo
 
     @Override
     Path getAddressBookFilePath();
-
-    @Override
-    Path getDiaryBookFilePath();
 
     @Override
     Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
@@ -42,6 +41,8 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, ModuleBoo
     @Override
     void saveModuleBook(ModuleBook moduleBook) throws IOException;
 
-    Optional<ReadOnlyAddressBook> readCalendarDetails() throws DataConversionException, IOException;
+
+    @Override
+    Path getCalendarEntriesFilePath();
 
 }

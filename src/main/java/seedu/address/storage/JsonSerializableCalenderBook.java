@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.calender.Task;
 
 /**
@@ -35,8 +35,8 @@ class JsonSerializableCalenderBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableCalenderBook(ReadOnlyAddressBook source) {
-        calendar.addAll(source.getTaskList().stream().map(JsonAdaptedCalendar::new).collect(Collectors.toList()));
+    public JsonSerializableCalenderBook(ObservableList<Task> source) {
+        calendar.addAll(source.stream().map(JsonAdaptedCalendar::new).collect(Collectors.toList()));
     }
 
     /**
@@ -44,14 +44,15 @@ class JsonSerializableCalenderBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ObservableList<Task> toModelType() throws IllegalValueException {
+        ObservableList<Task> taskList = FXCollections.observableList(new ArrayList<>());
         for (JsonAdaptedCalendar jsonAdaptedCalendar : calendar) {
             Task calendarTask = jsonAdaptedCalendar.toModelType();
-            addressBook.addTasks(calendarTask);
+            taskList.add(calendarTask);
+            Task.addTaskPerDate(calendarTask.getDate(), calendarTask);
         }
 
-        return addressBook;
+        return taskList;
     }
 
 }
