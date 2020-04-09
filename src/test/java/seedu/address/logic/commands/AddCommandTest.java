@@ -104,11 +104,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setDeadlineTaskList(ObservableList<Task> taskList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
@@ -332,6 +327,11 @@ public class AddCommandTest {
         @Override
         public void updateModulesListTaken(Predicate<NusModule> predicate) {
 
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getModuleBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 

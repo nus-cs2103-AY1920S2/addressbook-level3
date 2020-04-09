@@ -11,7 +11,9 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -23,8 +25,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModuleBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.calender.Task;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonCalendarStorage;
@@ -79,7 +83,12 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonModuleBookStorage moduleBookStorage =
+                new JsonModuleBookStorage(temporaryFolder.resolve("ioExceptionModuleBook.json"));
+        JsonCalendarStorage calendarStorage =
+                new JsonCalendarStorage(temporaryFolder.resolve("ioExceptionCalendar.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
+                moduleBookStorage, calendarStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -132,7 +141,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(),
+                model.getModuleBook(), FXCollections.observableList(new ArrayList<Task>()));
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
