@@ -21,7 +21,6 @@ ref over LogicManager
 end ref
 
 
-
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
