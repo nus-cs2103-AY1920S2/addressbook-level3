@@ -12,9 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.manager.DetailManager;
-import seedu.address.manager.FinanceManager;
-import seedu.address.manager.ProgressManager;
+import seedu.address.viewmodel.ViewModel;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.modelAssignment.Assignment;
@@ -37,7 +35,7 @@ public class LogicManager implements Logic {
   private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
   private final Model model;
-  private final DetailManager detailManager;
+  private final ViewModel viewModel;
   private final Storage storage;
   private final AddressBookParser addressBookParser;
   private final UndoRedoStack undoRedoStack;
@@ -47,7 +45,7 @@ public class LogicManager implements Logic {
     this.model = model;
     this.storage = storage;
     this.undoRedoStack = new UndoRedoStack();
-    this.detailManager = new DetailManager();
+    this.viewModel = new ViewModel();
     addressBookParser = new AddressBookParser();
   }
 
@@ -188,27 +186,27 @@ public class LogicManager implements Logic {
 
   @Override
   public ObservableMap<String, Object> getFilteredStudentDetailsMap() {
-    return detailManager.getFilteredStudentDetailsMap();
+    return viewModel.getFilteredStudentDetailsMap();
   }
 
   @Override
   public ObservableMap<String, Object> getFilteredCourseDetailsMap() {
-    return detailManager.getFilteredCourseDetailsMap();
+    return viewModel.getFilteredCourseDetailsMap();
   }
 
   @Override
   public ObservableMap<String, Object> getFilteredStaffDetailsMap() {
-    return detailManager.getFilteredStaffDetailsMap();
+    return viewModel.getFilteredStaffDetailsMap();
   }
 
   @Override
   public ObservableMap<String, Object> getFilteredFinanceDetailsMap() {
-    return detailManager.getFilteredFinanceDetailsMap();
+    return viewModel.getFilteredFinanceDetailsMap();
   }
 
   @Override
   public ObservableMap<String, Object> getFilteredAssignmentDetailsMap() {
-    return detailManager.getFilteredAssignmentDetailsMap();
+    return viewModel.getFilteredAssignmentDetailsMap();
   }
 
   // ========================== Getters for Predicates =========================

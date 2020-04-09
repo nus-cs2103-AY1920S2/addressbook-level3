@@ -13,6 +13,7 @@ import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
 
@@ -30,10 +31,10 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
     public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
+    private Set<Progress> undoProgresses;
 
     public UnassignAssignmentFromCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
-
         this.assignDescriptor = assignDescriptor;
     }
 
@@ -69,8 +70,7 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
                 throw new CommandException("The assignment isn't assigned to this course! :(");
             } else {
                 EdgeManager.unassignAssignmentFromCourse(assignmentID, courseID);
-                ProgressManager.removeOneAssignmentsFromAllStudents(courseID, assignmentID);
-
+                ProgressManager.removeOneProgressFromAllStudents(courseID, assignmentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), assignmentID.value,
@@ -79,8 +79,22 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
         }
     }
 
+    /**
+     * If require this preprocessing step should override this method.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+
+        Set<Progress> undoProgress = ProgressManager.getOneProgressFromAllStudents(courseID, assignmentID);
+        this.undoProgresses = undoProgress;
+    }
+
     @Override
     protected void generateOppositeCommand() throws CommandException {
-        oppositeCommand = new AssignAssignmentToCourseCommand(this.assignDescriptor);
+        oppositeCommand = new AssignAssignmentToCourseCommand(this.assignDescriptor, undoProgresses);
     }
 }

@@ -11,6 +11,7 @@ import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
 
 import java.util.Set;
@@ -29,11 +30,17 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
     public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
+    private Set<Progress> undoProgresses;
 
     public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
-
         this.assignDescriptor = assignDescriptor;
+    }
+
+    public AssignAssignmentToCourseCommand(AssignDescriptor assignDescriptor, Set<Progress> undoProgresses) {
+        requireNonNull(assignDescriptor);
+        this.assignDescriptor = assignDescriptor;
+        this.undoProgresses = undoProgresses;
     }
 
     public static boolean isValidDescriptor(AssignDescriptor assignDescriptor) {
@@ -64,8 +71,13 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
             if(assigningAssignmentContainsCourse) {
                 throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_ALREADY_ASSIGNED);
             } else {
+                // Only called after you undo an unassignAssignmentToCourse
+                // Ensures that previously completed assignments can be retrieved
+                if(this.undoProgresses != null) {
+                    ProgressManager.addUndoProgress(this.undoProgresses);
+                }
                 EdgeManager.assignAssignmentToCourse(assignmentID, courseID);
-                ProgressManager.addOneAssignmentToAllStudents(courseID, assignmentID);
+                ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningAssignment.getName(), assignmentID.value,

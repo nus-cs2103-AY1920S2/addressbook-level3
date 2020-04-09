@@ -98,6 +98,7 @@ public interface Model {
     Progress getProgress(ID assignmentID, ID studentID) throws CommandException;
 
     void removeProgress(ID assignmentID, ID studentID) throws CommandException;
+
   /**
      * Returns the AddressBook
      */

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.manager.DetailManager;
+import seedu.address.viewmodel.ViewModel;
 import seedu.address.model.Model;
 import seedu.address.model.person.ID;
 
@@ -22,7 +22,7 @@ public class SelectCommand extends Command {
           + "Parameters: [PREFIX] + \"ID\"\n"
           + "Example: " + COMMAND_WORD + " cid/ 1";
 
-  public DetailManager detailManager = DetailManager.getInstance();
+  public ViewModel viewModel = ViewModel.getInstance();
 
   List<ArgumentTokenizer.PrefixPosition> positions;
 
@@ -31,7 +31,7 @@ public class SelectCommand extends Command {
   public SelectCommand(List<ArgumentTokenizer.PrefixPosition> positions, List<ID> selectMetaDataIDs) {
     this.positions = positions;
     this.selectMetaDataIDs = selectMetaDataIDs;
-    this.detailManager = DetailManager.getInstance();
+    this.viewModel = ViewModel.getInstance();
   }
 
   @Override
@@ -39,7 +39,7 @@ public class SelectCommand extends Command {
     requireNonNull(model);
     int no_of_commands = 2;
     for (int i = 0; i < no_of_commands; i++){
-      detailManager.updateDetails(positions, selectMetaDataIDs);
+      viewModel.updateDetails(positions, selectMetaDataIDs);
     }
     return new CommandResult("Selected item.");
   }

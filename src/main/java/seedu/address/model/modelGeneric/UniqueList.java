@@ -37,7 +37,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
-     * Adds a specific ModelObject to the list. The course must not already exist in the list.
+     * Adds a specific ModelObject to the list. It must not already exist in the list.
      */
     public void add(K toAdd) {
         requireNonNull(toAdd);
@@ -125,7 +125,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     // allow removal by IDs
-    public K remove(ID toRemove) {
+    public void remove(ID toRemove) {
         requireNonNull(toRemove);
         boolean containsID = contains(toRemove);
         if (!containsID) {
@@ -133,7 +133,6 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
         } else {
             K toBeRemoved = get(toRemove);
             remove(toBeRemoved);
-            return toBeRemoved;
         }
     }
 
