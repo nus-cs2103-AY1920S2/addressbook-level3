@@ -1,18 +1,14 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandTestUtil.DESC_FOOD;
-import static fithelper.logic.commands.CommandTestUtil.VALID_CALORIE_FOOD;
-import static fithelper.logic.commands.CommandTestUtil.VALID_LOCATION_FOOD;
 import static fithelper.logic.commands.CommandTestUtil.VALID_NAME_FOOD;
-import static fithelper.logic.commands.CommandTestUtil.VALID_TIME_FOOD;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 import static fithelper.testutil.TypicalIndexesUtil.INDEX_FIRST_ENTRY;
 import static fithelper.testutil.TypicalIndexesUtil.INDEX_SECOND_ENTRY;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -61,37 +57,16 @@ public class EditCommandTest {
     }
 
     @Test
-    public void executeSomeFieldsSpecifiedUnfilteredListFailure() {
-        Index indexLastFoodEntry = Index.fromOneBased(model.getFilteredFoodEntryList().size());
-        Entry lastFoodEntry = model.getFilteredFoodEntryList().get(indexLastFoodEntry.getZeroBased());
-
-        EntryBuilder foodEntryInList = new EntryBuilder(lastFoodEntry);
-        Entry editedFoodEntry = foodEntryInList.withName(VALID_NAME_FOOD).withTime(VALID_TIME_FOOD)
-                .withLocation(VALID_LOCATION_FOOD).withCalorie(VALID_CALORIE_FOOD).build();
-
-        EditEntryDescriptor descriptor = new EditEntryDescriptorBuilder().withType("food").withName(VALID_NAME_FOOD)
-                .withTime(VALID_TIME_FOOD).withLocation(VALID_LOCATION_FOOD)
-                .withCalorie(VALID_CALORIE_FOOD).build();
-        EditCommand editCommand = new EditCommand(indexLastFoodEntry, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedFoodEntry);
-
-        Model expectedModel = new ModelManager(new FitHelper(model.getFitHelper()),
-                new UserProfile(), new WeightRecords());
-        expectedModel.setEntry(lastFoodEntry, editedFoodEntry);
-
-        assertCommandFailure(editCommand, model, expectedMessage);
-    }
-
-    @Test
     public void executeFilteredListSuccess() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
-        Entry entryInFilteredFoodList = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getOneBased());
+        Entry entryInFilteredFoodList = model.getFilteredFoodEntryList().get(0);
+
         Entry editedFoodEntry = new EntryBuilder(entryInFilteredFoodList).withType("food")
                 .withName(VALID_NAME_FOOD).build();
+
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTRY,
-                new EditEntryDescriptorBuilder().withName(VALID_NAME_FOOD).build());
+                new EditEntryDescriptorBuilder().withType("food").withName(VALID_NAME_FOOD).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedFoodEntry);
 
