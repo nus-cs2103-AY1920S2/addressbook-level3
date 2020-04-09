@@ -569,7 +569,7 @@ The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
 `edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
 
 The `edit` feature allows the user to edit any field except delivery status of the order or the return order. However, user must provide a `<<command_flags, FLAG>>` and `INDEX`. +
-`<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>`` to represent Order or Return Order respectively. +
+`<<command_flags, FLAG>>` to indicate which parcel type to edit; `-o` and  `-r` `<<command_flags, FLAG>>` to represent Order or Return Order respectively. +
 `INDEX` to indicate which parcel the user wants to edit. +
 The list of the different parcel fields are listed in Appendix E: <<command_prefix, Glossary>>. +
 
