@@ -1,6 +1,9 @@
 package com.notably.model.viewstate;
 
-import java.util.Objects;
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 
 import javafx.beans.property.BooleanProperty;
@@ -17,17 +20,22 @@ import javafx.beans.property.StringProperty;
 public class ViewStateModelImpl implements ViewStateModel {
 
     private final StringProperty input;
-    private final Property<Optional<String>> responseText;
     private final BooleanProperty helpOpen;
+    private final BooleanProperty blockEditable;
+    private final Property<Optional<String>> responseText;
 
     public ViewStateModelImpl() {
-        this("", Optional.empty(), false);
+        this("", false, false, Optional.empty());
     }
 
-    private ViewStateModelImpl(String initialInput, Optional<String> initialResponseText, boolean initialHelpBool) {
+    private ViewStateModelImpl(String initialInput, boolean initialHelpBool,
+                               boolean initialBlockEditBool, Optional<String> initialResponseText) {
+        requireAllNonNull(initialInput, initialHelpBool, initialBlockEditBool, initialResponseText);
+
         this.input = new SimpleStringProperty(initialInput);
-        responseText = new SimpleObjectProperty<>(initialResponseText);
         this.helpOpen = new SimpleBooleanProperty(initialHelpBool);
+        this.blockEditable = new SimpleBooleanProperty(initialBlockEditBool);
+        this.responseText = new SimpleObjectProperty<>(initialResponseText);
     }
 
     //=========== CommandInputModel ===============================================================
@@ -59,10 +67,28 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     @Override
     public void setHelpOpen(Boolean bool) {
+        requireNonNull(bool);
         this.helpOpen.setValue(bool);
     }
 
-    //============ Response Text ===========================================================
+    //============ BlockEditFlagModel =============================================================
+    @Override
+    public BooleanProperty blockEditableProperty() {
+        return this.blockEditable;
+    }
+
+    @Override
+    public Boolean isBlockEditable() {
+        return this.blockEditable.getValue();
+    }
+
+    @Override
+    public void setBlockEditable(Boolean bool) {
+        requireNonNull(bool);
+        this.blockEditable.setValue(bool);
+    }
+
+    //============ Response Text ==================================================================
     @Override
     public Property<Optional<String>> responseTextProperty() {
         return responseText;
@@ -70,7 +96,7 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     @Override
     public void setResponseText(String responseTextStr) {
-        Objects.requireNonNull(responseTextStr);
+        requireNonNull(responseTextStr);
         responseText.setValue(Optional.of(responseTextStr));
     }
 
@@ -79,4 +105,3 @@ public class ViewStateModelImpl implements ViewStateModel {
         responseText.setValue(Optional.empty());
     }
 }
-

@@ -3,16 +3,17 @@ package com.notably.commons.path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.notably.commons.path.exceptions.InvalidPathException;
+import com.notably.model.block.Title;
 
 /**
  * Represents the Path to a Block, starting from the Root node.
  */
 public class AbsolutePath implements Path {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
-    public static final String VALIDATION_REGEX = "\\/|(\\/([a-zA-Z0-9]+\\s+)*[a-zA-Z0-9]+)+\\/?";
-    public static final AbsolutePath TO_ROOT_PATH = new AbsolutePath("/");
+    public static final String VALIDATION_REGEX = "\\/|(\\/" + Title.VALIDATION_REGEX + ")+\\/?";
 
     private final List<String> components;
 
@@ -111,8 +112,15 @@ public class AbsolutePath implements Path {
         }
 
         AbsolutePath another = (AbsolutePath) object;
-        List<String> temp = another.getComponents();
-        return this.components.equals(temp);
+        List<String> temp = another.getComponents()
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());;
+        return this.components
+                .stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList())
+                .equals(temp);
     }
 
     @Override

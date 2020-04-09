@@ -88,20 +88,12 @@ public class SuggestionEngineImplTest {
     }
 
     @Test
-    public void suggest_uncorrectedCommand_returnsErrorSuggestionCommand() {
-        model.setInput("opensesame -t CS2103");
-
-        // Expected result
-        String expectedResponseText = "Invalid command. To see the list of available commands, type: help";
-        assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
-    }
-
-    @Test
     public void suggest_correctDeleteCommandValidArgs_returnsDeleteSuggestionCommand() {
-        model.setInput("delete -t Lecture");
+        String title = "Lecture";
+        model.setInput("delete -t " + title);
 
         // Test response text
-        String expectedResponseText = "Delete a note";
+        String expectedResponseText = "Delete a note titled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
         // Expected result
@@ -137,16 +129,17 @@ public class SuggestionEngineImplTest {
         model.setInput("delete " + title);
 
         // Expected result
-        String expectedResponseText = "Cannot delete \"" + title + "\". Invalid path.";
+        String expectedResponseText = "Delete a note titled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
     @Test
     public void suggest_correctedDeleteCommandValidArgs_returnsDeleteSuggestionCommand() {
-        model.setInput("dele -t Lecture");
+        String title = "Lecture";
+        model.setInput("dele -t " + title);
 
         // Test response text
-        String expectedResponseText = "Delete a note";
+        String expectedResponseText = "Delete a note titled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
         // Expected result
@@ -182,16 +175,17 @@ public class SuggestionEngineImplTest {
         model.setInput("dele -t " + title);
 
         // Expected result
-        String expectedResponseText = "Cannot delete \"" + title + "\". Invalid path.";
+        String expectedResponseText = "Delete a note titled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
     @Test
     public void suggest_correctedOpenCommandValidArgs_returnsOpenSuggestionCommand() {
-        model.setInput("oen -t Lecture");
+        String title = "Lecture";
+        model.setInput("oen -t " + title);
 
         // Test response text
-        String expectedResponseText = "Open a note";
+        String expectedResponseText = "Open a note titled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
 
         // Expected result
@@ -227,16 +221,18 @@ public class SuggestionEngineImplTest {
         model.setInput("opn -t " + title);
 
         // Expected result
-        String expectedResponseText = "Cannot open \"" + title + "\". Invalid path.";
+        String expectedResponseText = "Open a note titled \"" + title + "\"";
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 
     @Test
     public void suggest_correctedNewCommand_returnsNewSuggestionCommand() {
-        model.setInput("nw -t NewNote");
+        String responseText = "Create a new note titled \"%s\".";
+        String title = "NewNote";
+        model.setInput("nw -t " + title);
 
         // Expected result
-        String expectedResponseText = "Create a new note";
+        String expectedResponseText = String.format(responseText, title);
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
 

@@ -1,4 +1,5 @@
 package com.notably.logic;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -9,11 +10,14 @@ import com.notably.commons.GuiSettings;
 import com.notably.commons.LogsCenter;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.exceptions.EditBlockBodyException;
 import com.notably.logic.parser.NotablyParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.logic.suggestion.SuggestionEngine;
 import com.notably.logic.suggestion.SuggestionEngineImpl;
 import com.notably.model.Model;
+import com.notably.model.block.Body;
+import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.storage.Storage;
 
 
@@ -49,6 +53,19 @@ public class LogicManager implements Logic {
             storage.saveBlockModel(model);
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+    }
+
+    @Override
+    public void editCurrentBlockBody(String bodyContent) throws EditBlockBodyException {
+        requireNonNull(bodyContent);
+        Body body = new Body(bodyContent);
+
+        // Throws exception if current block is a Root.
+        try {
+            model.updateCurrentlyOpenBlockBody(body);
+        } catch (CannotModifyRootException ex) {
+            throw new EditBlockBodyException(ex.getMessage());
         }
     }
 

@@ -18,9 +18,6 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to open a note.
  */
 public class OpenSuggestionCommand implements SuggestionCommand {
-    public static final String COMMAND_WORD = "open";
-    private static final String RESPONSE_MESSAGE = "Open a note";
-
     private AbsolutePath path;
     private String oldTitle;
 
@@ -35,9 +32,6 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     public void execute(Model model) {
         // Nullity check
         Objects.requireNonNull(model);
-
-        // Set response text
-        model.setResponseText(RESPONSE_MESSAGE);
 
         if (!oldTitle.isEmpty()) {
             // Set suggestions

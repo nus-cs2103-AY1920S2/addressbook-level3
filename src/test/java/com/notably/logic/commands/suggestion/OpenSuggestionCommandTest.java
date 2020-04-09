@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -99,8 +98,6 @@ public class OpenSuggestionCommandTest {
                 new OpenSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         openSuggestionCommand.execute(model);
 
-        assertEquals(Optional.of("Open a note"), model.responseTextProperty().getValue());
-
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
         SuggestionItem cs2103Week1 = new SuggestionItemImpl(toCs2103Week1.getStringRepresentation(), null);
@@ -146,8 +143,6 @@ public class OpenSuggestionCommandTest {
         OpenSuggestionCommand openSuggestionCommand =
                 new OpenSuggestionCommand(toCs2103, toCs2103.getStringRepresentation());
         openSuggestionCommand.execute(model);
-
-        assertEquals(Optional.of("Open a note"), model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);

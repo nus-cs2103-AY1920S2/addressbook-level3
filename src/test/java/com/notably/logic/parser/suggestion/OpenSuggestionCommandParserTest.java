@@ -1,7 +1,6 @@
 package com.notably.logic.parser.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
-import static com.notably.logic.parser.suggestion.SuggestionCommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,7 +16,6 @@ import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
-import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
@@ -48,6 +46,8 @@ public class OpenSuggestionCommandParserTest {
 
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
+
+    private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
 
     @BeforeAll
     public static void setUp() {
@@ -91,23 +91,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_uncorrectedPath_throwsParseException() {
-        String title = "randomBlock";
-        assertParseFailure(openSuggestionCommandParser, " -t " + title,
-            "Cannot open \"" + title + "\". Invalid path.");
-    }
-
-    @Test
-    public void parse_correctAbsolutePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+    public void parse_correctAbsolutePathWithPrefix_returnsOpenSuggestionCommand() {
         String arg = " " + PREFIX_TITLE + " " + toCs2103.getStringRepresentation();
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-            openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, toCs2103.getStringRepresentation())),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -115,7 +108,7 @@ public class OpenSuggestionCommandParserTest {
         SuggestionItem cs2103Week2 = new SuggestionItemImpl(toCs2103Week2.getStringRepresentation(), null);
         SuggestionItem cs2103Week3 = new SuggestionItemImpl(toCs2103Week3.getStringRepresentation(), null);
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
-            null);
+                null);
 
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
         expectedSuggestions.add(cs2103);
@@ -150,16 +143,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        String arg = " " + toCs2103.getStringRepresentation();
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-            openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+    public void parse_correctAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() {
+        String arg = toCs2103.getStringRepresentation();
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -202,16 +195,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedAbsolutePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+    public void parse_correctedAbsolutePathWithPrefix_returnsOpenSuggestionCommand() {
         String arg = " " + PREFIX_TITLE + " /CS2104";
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectedPath =
-            openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectedPath instanceof OpenSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectedPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectedPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectedPath.execute(model);
+        commandCorrectedPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"/CS2104\""),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -254,15 +247,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        String arg = " /CS2104";
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+    public void parse_correctedAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() {
+        String arg = "/CS2104";
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         // Expected result
         SuggestionItem cs2103 = new SuggestionItemImpl(toCs2103.getStringRepresentation(), null);
@@ -305,15 +299,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctRelativePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+    public void parse_correctRelativePathWithPrefix_returnsOpenSuggestionCommand() {
         String arg = " -t Lecture";
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"Lecture\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -345,15 +340,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctRelativePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        String arg = " Lecture";
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath = openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+    public void parse_correctRelativePathWithoutPrefix_returnsOpenSuggestionCommand() {
+        String arg = "Lecture";
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -385,16 +381,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedRelativePathWithPrefix_returnsOpenSuggestionCommand() throws ParseException {
+    public void parse_correctedRelativePathWithPrefix_returnsOpenSuggestionCommand() {
         String arg = " " + PREFIX_TITLE + " Lectre";
         model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-                openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"Lectre\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -426,16 +422,16 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedRelativePathWithoutPrefix_returnsOpenSuggestionCommand() throws ParseException {
-        String arg = " Lectre";
-        model.setInput(COMMAND_WORD + arg);
-        SuggestionCommand commandCorrectPath =
-                openSuggestionCommandParser.parse(arg);
-        assertTrue(commandCorrectPath instanceof OpenSuggestionCommand);
+    public void parse_correctedRelativePathWithoutPrefix_returnsOpenSuggestionCommand() {
+        String arg = "Lectre";
+        model.setInput(COMMAND_WORD + " " + arg);
+        Optional<? extends SuggestionCommand> commandCorrectPath = openSuggestionCommandParser.parse(arg);
+        assertTrue(commandCorrectPath.get() instanceof OpenSuggestionCommand);
 
-        commandCorrectPath.execute(model);
+        commandCorrectPath.get().execute(model);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE + " titled \"" + arg + "\""),
+                model.responseTextProperty().getValue());
 
         //Expected result
         SuggestionItem cs2103Week1Lecture = new SuggestionItemImpl(toCs2103Week1Lecture.getStringRepresentation(),
@@ -465,5 +461,4 @@ public class OpenSuggestionCommandParserTest {
             assertEquals(expectedInput, input);
         }
     }
-
 }
