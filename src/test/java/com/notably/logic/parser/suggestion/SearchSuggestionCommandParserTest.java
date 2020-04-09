@@ -48,7 +48,7 @@ public class SearchSuggestionCommandParserTest {
         // Test command
         assertFalse(command.isPresent());
     }
-    
+
     @Test
     public void parse_withPrefixSearch_returnsSearchSuggestionCommand() {
         String keyword = "fAlSe";
