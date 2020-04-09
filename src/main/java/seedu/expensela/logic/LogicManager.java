@@ -39,6 +39,26 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String getCommandFromHistory(int offset) {
+        return model.getCommandFromHistory(offset);
+    }
+
+    @Override
+    public void addToCommandHistory(String command) {
+        model.addToCommandHistory(command);
+    }
+
+    @Override
+    public void deleteFromCommandHistory(String command) {
+        model.deleteFromCommandHistory(command);
+    }
+
+    @Override
+    public int getCommandHistorySize() {
+        return model.getCommandHistorySize();
+    }
+
+    @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 

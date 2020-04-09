@@ -6,6 +6,7 @@ import static seedu.expensela.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -30,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Transaction> unfilteredTransactions;
     private final Filter filter;
     private final GlobalData globalData;
+    private final ArrayList<String> commandHistory = new ArrayList<>();
 
     /**
      * Initializes a ModelManager with the given expenseLa and userPrefs.
@@ -37,7 +39,6 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyExpenseLa expenseLa, ReadOnlyUserPrefs userPrefs, ReadOnlyGlobalData globalData) {
         super();
         requireAllNonNull(expenseLa, userPrefs);
-
         logger.fine("Initializing with expenseLa: " + expenseLa + " and user prefs " + userPrefs);
 
         this.expenseLa = new ExpenseLa(expenseLa);
@@ -50,6 +51,39 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new ExpenseLa(), new UserPrefs(), new GlobalData());
+    }
+
+    //=========== CommandHistory ==================================================================================
+    @Override
+    public String getCommandFromHistory(int offset) {
+        if (offset < 0) {
+            return "";
+        }
+        if (commandHistory.size() - offset - 1 > 0) {
+            return commandHistory.get(commandHistory.size() - 1 - offset);
+        } else if (commandHistory.size() > 0) {
+            return commandHistory.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void addToCommandHistory(String command) {
+        if (commandHistory.size() == 50) {
+            commandHistory.remove(0);
+        }
+        commandHistory.add(command);
+    }
+
+    @Override
+    public void deleteFromCommandHistory(String command) {
+        commandHistory.remove(command);
+    }
+
+    @Override
+    public int getCommandHistorySize() {
+        return commandHistory.size();
     }
 
     //=========== UserPrefs ==================================================================================
@@ -151,11 +185,11 @@ public class ModelManager implements Model {
         }
         if (positive) {
             this.expenseLa.getMonthlyData()
-                    .setIncome(new Income(Double.toString(
-                            this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
+                    .setIncome(new Income(DECIMAL_FORMATTER.format(
+                           this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
         } else {
             this.expenseLa.getMonthlyData()
-                    .setExpense(new Expense(Double.toString(
+                    .setExpense(new Expense(DECIMAL_FORMATTER.format(
                             this.expenseLa.getMonthlyData().getExpense().expenseAmount + amount)));
         }
     }
@@ -227,7 +261,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && unfilteredTransactions.equals(other.unfilteredTransactions)
                 && filter.equals(other.filter)
-                && globalData.equals(other.globalData);
+                && globalData.equals(other.globalData)
+                && commandHistory.equals(other.commandHistory);
     }
 
     //=========== Monthly Data Accessors =============================================================
