@@ -58,6 +58,7 @@ public class CourseDetailedCard extends UiPart<Region> {
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
+    amount.setText(course.getAmount().value);
 
     Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
     String assignmentsStrings = "None";
