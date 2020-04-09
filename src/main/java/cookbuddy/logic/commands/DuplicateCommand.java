@@ -9,6 +9,7 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.attribute.Name;
 
 /**
  * Adds a duplicate of the recipe identified using it's displayed index from the recipe book.
@@ -39,7 +40,13 @@ public class DuplicateCommand extends Command {
         }
 
         Recipe recipeToDuplicate = lastShownList.get(targetIndex.getZeroBased());
-        model.duplicateRecipe(recipeToDuplicate);
+        String name = recipeToDuplicate.getName().getName();
+        String newName = "Duplicate of " + name;
+        Name nameOfDuplicate = new Name(newName);
+        ModifyCommand.EditRecipeDescriptor editRecipeDescriptor = new ModifyCommand.EditRecipeDescriptor();
+        editRecipeDescriptor.setName(nameOfDuplicate);
+        Recipe duplicatedRecipe = ModifyCommand.createEditedRecipe(recipeToDuplicate, editRecipeDescriptor);
+        model.addRecipe(duplicatedRecipe);
         return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDuplicate));
     }
 
