@@ -61,11 +61,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyTaskList getSampleTaskList() {
-        TaskList sampleAb = new TaskList();
+        TaskList sampleTaskList = new TaskList();
         for (Task sampleTask : getSampleTasks()) {
-            sampleAb.addTask(sampleTask);
+            sampleTaskList.addTask(sampleTask);
         }
-        return sampleAb;
+        return sampleTaskList;
     }
 
     /** Returns a tag set containing the list of strings given. */
