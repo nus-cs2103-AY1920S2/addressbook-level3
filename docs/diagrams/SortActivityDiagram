@@ -5,12 +5,16 @@ start
 
 partition CommandDetection {
     if (Command word) then 
-        : Add/Edit/Pom;
-    else
-        : Delete/Done;
-    else if
-        : Sort;
-    else if
+        if (add/edit/pom) then
+            :Check for missing prefixes;
+        else 
+            if(delete/done) then
+                :check for invalid indexes;
+            else
+                :nothing;
+            endif
+        endif
+    else 
         : Unknown;
     endif
 }
