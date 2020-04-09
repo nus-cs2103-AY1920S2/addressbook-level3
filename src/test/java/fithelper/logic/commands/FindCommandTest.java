@@ -1,6 +1,7 @@
 package fithelper.logic.commands;
 
 import static fithelper.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
+import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY1;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY2;
@@ -66,12 +67,12 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleEntriesFound() {
         String expectedMessage = String.format(MESSAGE_FOOD_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredFoodEntryList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandFailure(command, model, expectedMessage);
         assertEquals(Arrays.asList(ENTRY1, ENTRY2, ENTRY3), model.getFilteredFoodEntryList());
     }
 
