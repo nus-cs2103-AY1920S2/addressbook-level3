@@ -23,6 +23,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.product.Product;
 import seedu.address.ui.customer.CustomerListPanel;
 import seedu.address.ui.product.ProductListPanel;
 import seedu.address.ui.statistics.StatisticsListPanel;
@@ -49,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private NotificationWindow notificationWindow;
     private PlotWindow plotWindow;
 
     @FXML
@@ -84,6 +86,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        notificationWindow = new NotificationWindow();
         plotWindow = new PlotWindow();
     }
 
@@ -198,6 +201,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     *
+     */
+    @FXML
+    public void handleNotification(Product editedProduct) {
+        if (!notificationWindow.isShowing()) {
+            notificationWindow.show(editedProduct.getDescription(), editedProduct.getQuantity());
+        } else {
+            notificationWindow.focus();
+        }
+    }
+
+
     void show() {
         primaryStage.show();
     }
@@ -227,6 +243,10 @@ public class MainWindow extends UiPart<Stage> {
 
             statisticsPanelPlaceholder.getChildren().removeAll();
             statisticsPanelPlaceholder.getChildren().add(new StatisticsListPanel(logic).getRoot());
+
+            if (commandResult.isShowNotification()) {
+                handleNotification(commandResult.getNotificationData());
+            }
 
             if (commandResult.isShowPlot()) {
                 handlePlot(commandResult.getDataSeries(), commandResult.getTitle());

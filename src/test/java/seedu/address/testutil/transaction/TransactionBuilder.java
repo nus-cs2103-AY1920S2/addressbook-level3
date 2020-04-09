@@ -9,6 +9,7 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.TransactionQuantity;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
@@ -45,7 +46,7 @@ public class TransactionBuilder {
         productId = DEFAULT_PRODUCT.getId();
         dateTime = new DateTime(DEFAULT_DATETIME);
         money = new Money(DEFAULT_MONEY);
-        quantity = new Quantity(DEFAULT_QUANTITY);
+        quantity = new TransactionQuantity(DEFAULT_QUANTITY);
         description = new Description(DEFAULT_DESCRIPTION);
     }
 
@@ -102,7 +103,7 @@ public class TransactionBuilder {
      * Sets the {@code Quantity} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withQuantity(int quantity) {
-        this.quantity = new Quantity(quantity);
+        this.quantity = new TransactionQuantity(quantity);
         return this;
     }
 

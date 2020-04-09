@@ -17,6 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
+import seedu.address.model.product.ProductQuantity;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.DateTimeInRangePredicate;
 import seedu.address.model.transaction.JointTransactionPredicate;
@@ -27,7 +28,7 @@ import seedu.address.model.util.Quantity;
 /**
  * Plot sales of a product in a given period.
  */
-public class PlotProductSalesCommand extends Command {
+public class PlotSalesCommand extends Command {
 
     public static final String COMMAND_WORD = "plotsales";
 
@@ -49,7 +50,7 @@ public class PlotProductSalesCommand extends Command {
     private final DateTime startDateTime;
     private final DateTime endDateTime;
 
-    public PlotProductSalesCommand(Index targetIndex, DateTime startDateTime, DateTime endDateTime) {
+    public PlotSalesCommand(Index targetIndex, DateTime startDateTime, DateTime endDateTime) {
         this.targetIndex = targetIndex;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -86,10 +87,12 @@ public class PlotProductSalesCommand extends Command {
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, productToPlot.getDescription()),
                 dataSeries,
+                null,
                 String.format(TITLE,
                         productToPlot.getDescription(),
                         startDateTime.toDateString(),
                         endDateTime.toDateString()),
+                false,
                 false,
                 true,
                 false);
@@ -104,14 +107,14 @@ public class PlotProductSalesCommand extends Command {
 
         List<DateTime> dateTimes = populateDates(startDateTime, endDateTime);
         dateTimes.forEach(date -> {
-            Quantity sales = new Quantity(0);
+            Quantity quantity = new ProductQuantity(0);
             for (Transaction t: transactions) {
                 if (t.getDateTime().isOnSameDay(date)) {
-                    sales = sales.plus(t.getQuantity());
+                    quantity = quantity.plus(t.getQuantity());
                 }
             }
 
-            dataSeries.getData().add(new XYChart.Data(date.toDateString(), sales.value));
+            dataSeries.getData().add(new XYChart.Data(date.toDateString(), quantity.getValue()));
         });
 
         return dataSeries;

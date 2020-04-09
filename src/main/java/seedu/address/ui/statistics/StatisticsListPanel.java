@@ -46,10 +46,12 @@ public class StatisticsListPanel extends UiPart<Region> {
         transactions = logic.getInventorySystem().getTransactionList();
         products = logic.getInventorySystem().getProductList();
         statisticsListView.setItems(getSortedProductList(logic));
+        logger.fine("Linked top selling product list to panel.");
         statisticsListView.setCellFactory(listView -> new StatisticsListViewCell());
 
         quantityLineChart.getData().setAll(fetchProductQuantity());
         salesLineChart.getData().setAll(fetchProductSales());
+        logger.fine("Fetched product quantity and sales.");
     }
 
     /**
@@ -81,11 +83,11 @@ public class StatisticsListPanel extends UiPart<Region> {
         HashMap<Integer, Integer> allProductQuantities = new HashMap<>();
 
         products.forEach(p -> {
-            if (allProductQuantities.containsKey(p.getQuantity().value)) {
-                int oldValue = allProductQuantities.get(p.getQuantity().value);
-                allProductQuantities.put(p.getQuantity().value, oldValue + 1);
+            if (allProductQuantities.containsKey(p.getQuantity().getValue())) {
+                int oldValue = allProductQuantities.get(p.getQuantity().getValue());
+                allProductQuantities.put(p.getQuantity().getValue(), oldValue + 1);
             } else {
-                allProductQuantities.put(p.getQuantity().value, 1);
+                allProductQuantities.put(p.getQuantity().getValue(), 1);
             }
         });
 

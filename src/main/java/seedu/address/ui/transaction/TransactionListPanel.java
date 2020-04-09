@@ -84,6 +84,7 @@ public class TransactionListPanel extends UiPart<Region> {
             return property;
         });
         descriptionCol.setSortable(false);
+        logger.fine("Linked transaction list to panel.");
     }
 }
 

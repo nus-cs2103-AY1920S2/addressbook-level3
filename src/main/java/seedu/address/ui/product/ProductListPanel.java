@@ -24,6 +24,7 @@ public class ProductListPanel extends UiPart<Region> {
     public ProductListPanel(ObservableList<Product> productList) {
         super(FXML);
         productListView.setItems(productList);
+        logger.fine("Linked product list to panel.");
         productListView.setCellFactory(listView -> new ProductListViewCell());
     }
 

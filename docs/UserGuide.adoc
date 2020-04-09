@@ -194,7 +194,7 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 // end::editc[]
 
 // tag::findc[]
-==== Locating customers by name: `findc`
+==== Finding customers: `findc`
 
 Finds customers whose attributes match the given attributes. +
 Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
@@ -365,7 +365,7 @@ Deletes the 1st product in the results of the find command.
 // end::deletep[]
 
 // tag::clearp[]
-==== Clearing all entries : `clearp`
+==== Clearing all products : `clearp`
 
 Clears all entries from the product list. +
 Format: `clearp`
@@ -414,7 +414,7 @@ Adds a transaction, where the 2nd customer bought 10 of the 20th product for $30
 // end::addt[]
 
 // tag::listt[]
-==== Listing all transaction : `listt`
+==== Listing all transactions : `listt`
 
 Lists all the transactions. +
 Format: `listt`
@@ -440,7 +440,7 @@ Edits the product id and customer id of the 1st transaction to be 101 and 123 re
 // end::editt[]
 
 // tag::findt[]
-==== Locating transaction : `findt`
+==== Finding transactions : `findt`
 
 Finds transactions whose attributes match the given attributes. +
 Format: `findt [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]`
@@ -648,7 +648,7 @@ e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #
 * *Listing all customers* : `listc`
 * *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
 e.g. `editc 1 p/91234567 e/johndoe@example.com`
-* *Locating customers* : `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]` +
+* *Finding customers* : `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]` +
 e.g. `findc n/John`
 * *Deleting a customer* : `deletec INDEX` +
 e.g. `findc n/Betsy` +
@@ -665,14 +665,14 @@ e.g. `findp black`
 * *Deleting a product* : `deletep INDEX` +
 e.g. `listp` +
 `deletep 2`
-* *Clearing all entries* : `clearp`
+* *Clearing all products* : `clearp`
 * *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]` +
 e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
-* *Listing all transaction* : `listt` +
+* *Listing all transactions* : `listt` +
 e.g. `listt`
 * *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
 e.g. `editt 1 p/101 c/123`
-* *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
+* *Finding transactions* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
 e.g. `findt c/bob dt/2020-02-07`
 * *Undo a transaction* : `undot INDEX` +
 e.g. `findt 2020-01-03` +
@@ -685,4 +685,4 @@ e.g. `lowlimit p/1 t/20`
 * *Predicting the sales for the next month* : `predict`
 * *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
 * *Exiting from the program* : `exit`
-* *help* : `help`
+* *Get help* : `help`

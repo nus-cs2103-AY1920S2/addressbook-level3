@@ -18,8 +18,17 @@ endif::[]
 * This is a desktop Java Application. It has a GUI (Graphic User interface).
 
 == Target Users
-* Grocery shop owners
-* Family shop owners
+Shop owners who
+
+* Are selling products
+** Cannot afford expensive management systems
+** Are relying on manual work to record products
+** Want to optimise sales based analysis of previous sales
+** Have many products and a large inventory
+* Prefer desktop apps over other types
+* Can type fast
+* Prefer typing over mouse input
+* Are reasonably comfortable using CLI apps
 
 == Site Map
 

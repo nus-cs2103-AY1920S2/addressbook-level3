@@ -122,6 +122,6 @@ public class Transaction {
     }
 
     public XYChart.Data<String, Integer> toData() {
-        return new XYChart.Data<>(dateTime.value.toLocalDate().toString(), quantity.value);
+        return new XYChart.Data<>(dateTime.value.toLocalDate().toString(), quantity.getValue());
     }
 }

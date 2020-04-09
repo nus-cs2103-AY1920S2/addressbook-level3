@@ -32,8 +32,8 @@ public class JsonAdaptedProductTest {
 
     @Test
     public void toModelType_validProductDetails_returnsProduct() throws Exception {
-        JsonAdaptedProduct person = new JsonAdaptedProduct(BAG);
-        assertEquals(BAG, person.toModelType());
+        JsonAdaptedProduct bag = new JsonAdaptedProduct(BAG);
+        assertEquals(BAG, bag.toModelType());
     }
 
     @Test

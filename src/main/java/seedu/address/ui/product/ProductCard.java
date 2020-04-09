@@ -59,9 +59,9 @@ public class ProductCard extends UiPart<Region> {
         description.setText(product.getDescription().value);
         costPrice.setText(DISPLAY_CURRENCY + product.getCostPrice().value);
         price.setText(DISPLAY_CURRENCY + product.getPrice().value);
-        quantity.setText(String.valueOf(product.getQuantity().value));
+        quantity.setText(String.valueOf(product.getQuantity().getValue()));
         sales.setText(DISPLAY_CURRENCY + product.getMoney().value);
-        threshold.setText(product.getThreshold().value);
+        threshold.setText(product.getThreshold().toString());
         updateProgressBar();
     }
 
@@ -69,7 +69,7 @@ public class ProductCard extends UiPart<Region> {
      * Updates the progress bar to visualise remaining stock quantity.
      */
     private void updateProgressBar() {
-        progress = product.getQuantity().value / (product.getThreshold().getDouble() * 5);
+        progress = product.getQuantity().getValue() / (product.getThreshold().getDouble() * 5);
         product.setProgress(progress);
         progressBar.setProgress(progress);
         if (progress <= 0.2) {
@@ -96,12 +96,12 @@ public class ProductCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.ui.product.ProductCard)) {
+        if (!(other instanceof ProductCard)) {
             return false;
         }
 
         // state check
-        seedu.address.ui.product.ProductCard card = (seedu.address.ui.product.ProductCard) other;
+        ProductCard card = (ProductCard) other;
         return id.getText().equals(card.id.getText())
                 && product.equals(card.product);
     }

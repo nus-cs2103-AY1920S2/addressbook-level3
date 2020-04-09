@@ -88,7 +88,7 @@ public class ProfitCommand extends Command {
                     && transactionDateTime.compareTo(endDateTime.value) <= 0) {
                 try {
                     int price = transaction.getMoney().value;
-                    int quantity = transaction.getQuantity().value;
+                    int quantity = transaction.getQuantity().getValue();
                     int costPrice = Integer.parseInt(transaction.getProduct().getCostPrice().value);
                     profit += (price - costPrice * quantity);
                 } catch (Exception e) {
