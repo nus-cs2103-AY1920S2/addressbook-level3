@@ -139,7 +139,7 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     // allow removal by IDs
-    public K remove(ID toRemove) {
+    public void remove(ID toRemove) {
         requireNonNull(toRemove);
         boolean containsID = contains(toRemove);
         if (!containsID) {
@@ -147,7 +147,6 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
         } else {
             K toBeRemoved = get(toRemove);
             remove(toBeRemoved);
-            return toBeRemoved;
         }
     }
 

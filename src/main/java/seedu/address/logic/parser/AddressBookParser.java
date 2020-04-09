@@ -21,11 +21,7 @@ import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.commandAdd.AddStudentCommand;
 import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.commands.commandClear.ClearAssignmentCommand;
-import seedu.address.logic.commands.commandClear.ClearCourseCommand;
-import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
-import seedu.address.logic.commands.commandClear.ClearStudentCommand;
-import seedu.address.logic.commands.commandClear.ClearTeacherCommand;
+import seedu.address.logic.commands.commandClear.*;
 import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
@@ -180,20 +176,8 @@ public class AddressBookParser {
         return new ListAssignmentCommand();
 
       // Clear Operations
-      case ClearTeacherCommand.COMMAND_WORD:
-        return new ClearTeacherCommand();
-
-      case ClearStudentCommand.COMMAND_WORD:
-        return new ClearStudentCommand();
-
-      case ClearFinanceCommand.COMMAND_WORD:
-        return new ClearFinanceCommand();
-
-      case ClearCourseCommand.COMMAND_WORD:
-        return new ClearCourseCommand();
-
-      case ClearAssignmentCommand.COMMAND_WORD:
-        return new ClearAssignmentCommand();
+      case ClearCommand.COMMAND_WORD:
+        return new ClearCommand();
 
         // Edit Operations
       case EditTeacherCommand.COMMAND_WORD:

@@ -20,6 +20,7 @@ import seedu.address.manager.ProgressManager;
 import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.tag.Tag;
@@ -35,12 +36,18 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
     public static final String MESSAGE_SUCCESS = "Successfully assigned student %s (%s) to course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
-    private Set<Tag> ArrayList;
+    private Set<Progress> undoProgresses;
 
     public AssignStudentToCourseCommand(AssignDescriptor assignDescriptor) {
         requireNonNull(assignDescriptor);
 
         this.assignDescriptor = assignDescriptor;
+    }
+
+    public AssignStudentToCourseCommand(AssignDescriptor assignDescriptor, Set<Progress> undoProgresses) {
+        requireNonNull(assignDescriptor);
+        this.assignDescriptor = assignDescriptor;
+        this.undoProgresses = undoProgresses;
     }
 
     public static boolean isValidDescriptor(AssignDescriptor assignDescriptor) {
@@ -74,7 +81,10 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
                 throw new CommandException(MESSAGE_STUDENT_ALREADY_COURSE);
             } else {
                 EdgeManager.assignStudentToCourse(studentID, courseID);
-                ProgressManager.addAllAssignmentsToOneStudent(courseID, studentID);
+                if(this.undoProgresses != null) {
+                    ProgressManager.addUndoProgress(this.undoProgresses);
+                }
+                ProgressManager.addAllProgressesToOneStudent(courseID, studentID);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS,
                         assigningStudent.getName(), studentID.value,
