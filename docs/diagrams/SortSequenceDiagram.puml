@@ -25,7 +25,13 @@ end ref
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
-SortCommand -> Model : setComparator(Comparator[])
+SortCommand -> SortCommand: get{Field}Comparator()
+activate SortCommand
+
+SortCommand -> SortCommand: Comparator<Task>
+deactivate SortCommand
+
+SortCommand -> Model : setComparators(Comparator\n <Task>[])
 activate Model
 
 Model -> Model: sortTaskList()
