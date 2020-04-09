@@ -39,7 +39,8 @@ class BuyCommandParserTest {
             " " + PREFIX_QUANTITY + INVALID_GOOD_QUANTITY_OVERFLOW_STRING;
 
     private BuyCommandParser parser = new BuyCommandParser();
-    private Good validGood = new Good(new GoodName(VALID_GOOD_NAME_STRING), new GoodQuantity(VALID_GOOD_QUANTITY_STRING));
+    private Good validGood = Good.newGoodEntry(new GoodName(VALID_GOOD_NAME_STRING),
+            new GoodQuantity(VALID_GOOD_QUANTITY_STRING));
 
     @Test
     void parse_allFieldsPresent_success() {
