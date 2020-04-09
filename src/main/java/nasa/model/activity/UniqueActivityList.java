@@ -70,7 +70,8 @@ public abstract class UniqueActivityList<T extends Activity> implements Iterable
             throw new ActivityNotFoundException();
         }
 
-        if (targetActivity.equals(editedActivity) && contains(editedActivity)) {
+        // case when editedActivity is a non-target activity that already exists in { @code UniqueActivityList }
+        if (!targetActivity.equals(editedActivity) && contains(editedActivity)) {
             throw new DuplicateActivityException();
         }
         
