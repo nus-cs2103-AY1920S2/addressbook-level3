@@ -62,7 +62,7 @@ The following class plays an important role at the architecture level:
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 
-Each of the four components
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
