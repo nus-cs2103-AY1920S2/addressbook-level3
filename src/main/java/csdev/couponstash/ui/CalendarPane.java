@@ -199,11 +199,7 @@ public class CalendarPane extends UiPart<Region> {
     private boolean isVisible(LocalDate date) {
         int numDaysToOverflow = getNumberOfDaysToOverflow();
         int dateOfMonth = date.getDayOfMonth();
-        if (dateIsInNextMonth(date) && dateOfMonth > numDaysToOverflow) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(dateIsInNextMonth(date) && dateOfMonth > numDaysToOverflow);
     }
 
     /**
@@ -276,14 +272,13 @@ public class CalendarPane extends UiPart<Region> {
      * @throws IllegalValueException If the next month is after the maximum year.
      */
     public void updateCalendarWithNextMonth() throws IllegalValueException {
-        if (DateUtil.isValidYear(currentYearMonth.plusMonths(1).getYear())) {
-            closeAllDisplayedCouponWindows();
-            currentYearMonth = currentYearMonth.plusMonths(1);
-            monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
-            logger.info("Calendar showing next month.");
-        } else {
+        if (!DateUtil.isValidYear(currentYearMonth.plusMonths(1).getYear())) {
             throw new IllegalValueException(MAX_YEAR_MESSAGE);
         }
+        closeAllDisplayedCouponWindows();
+        currentYearMonth = currentYearMonth.plusMonths(1);
+        monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
+        logger.info("Calendar showing next month.");
     }
 
 
@@ -293,14 +288,13 @@ public class CalendarPane extends UiPart<Region> {
      * @throws IllegalValueException If the previous month is before the minimum year.
      */
     public void updateCalendarWithPreviousMonth() throws IllegalValueException {
-        if (DateUtil.isValidYear(currentYearMonth.minusMonths(1).getYear())) {
-            closeAllDisplayedCouponWindows();
-            currentYearMonth = currentYearMonth.minusMonths(1);
-            monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
-            logger.info("Calender showing previous month.");
-        } else {
+        if (!DateUtil.isValidYear(currentYearMonth.minusMonths(1).getYear())) {
             throw new IllegalValueException(MIN_YEAR_MESSAGE);
         }
+        closeAllDisplayedCouponWindows();
+        currentYearMonth = currentYearMonth.minusMonths(1);
+        monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
+        logger.info("Calender showing previous month.");
     }
 
     /**

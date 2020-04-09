@@ -2,7 +2,6 @@ package csdev.couponstash.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.YearMonth;
 import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.Messages;
@@ -61,8 +60,9 @@ public class ExpiringCommand extends Command {
         int filteredListSize = model.getFilteredCouponList().size();
         if (DateUtil.isValidDate(date)) {
             model.updateMonthView(DateUtil.formatDateStringToYearMonthString(date));
-            return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE,filteredListSize, date));
+            return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE, filteredListSize, date));
         } else {
+            assert DateUtil.isValidYearMonth(date) : "Should be a valid month year!";
             model.updateMonthView(date);
             return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH,
                     filteredListSize, date));

@@ -77,11 +77,13 @@ public class ListCommand extends Command {
         return prefixToList.equals((e).prefixToList);
     }
 
-
+    /**
+     * Views available in list command.
+     */
     private enum Views {
-        ACTIVE  ("active"),
+        ACTIVE ("active"),
         ARCHIVED ("archived"),
-        USED   ("used");
+        USED ("used");
 
         private final String view;
 
@@ -89,7 +91,7 @@ public class ListCommand extends Command {
             this.view = view;
         }
 
-        String getView() {
+        private String getView() {
             return this.view;
         }
     }

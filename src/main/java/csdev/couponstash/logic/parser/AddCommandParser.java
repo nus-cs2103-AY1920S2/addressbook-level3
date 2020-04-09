@@ -14,7 +14,6 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.AddCommand;
@@ -61,7 +60,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROMO_CODE, PREFIX_SAVINGS, PREFIX_EXPIRY_DATE,
                         PREFIX_START_DATE, PREFIX_USAGE, PREFIX_LIMIT, PREFIX_TAG, PREFIX_REMIND, PREFIX_CONDITION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EXPIRY_DATE, PREFIX_SAVINGS)
+        if (!argMultimap.arePrefixesPresent(PREFIX_NAME, PREFIX_EXPIRY_DATE, PREFIX_SAVINGS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -98,13 +97,4 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return new AddCommand(coupon);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }
