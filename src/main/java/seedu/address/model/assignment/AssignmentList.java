@@ -182,7 +182,7 @@ public class AssignmentList {
 
         // Set hours per day in result list
         for (int k = 0; k < Math.min(numDays, hoursPerDayList.size()); k++) {
-            scheduleVisual.get(k).setHours((float) (Math.round(hoursPerDayList.get(k) * 2) / 2.0));
+            scheduleVisual.get(k).setTotalAllocatedHours((float) (Math.round(hoursPerDayList.get(k) * 2) / 2.0));
         }
     }
 
