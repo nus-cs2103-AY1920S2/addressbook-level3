@@ -1,5 +1,6 @@
 package com.notably.logic.suggestion;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -22,6 +23,7 @@ public class SuggestionEngineImplTest {
 
     private static final String DELETE_RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String OPEN_RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
+    private static final String NEW_RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled \"%s\".";
     private static final String EDIT_RESPONSE_MESSAGE = "Edit this note";
     private static final String ERROR_RESPONSE_MESSAGE = "\"%s\" is an invalid command format. "
             + "To see the list of available commands, type: help";
@@ -93,6 +95,19 @@ public class SuggestionEngineImplTest {
 
         // Test response text
         assertEquals(Optional.of(String.format(OPEN_RESPONSE_MESSAGE_WITH_TITLE, path)),
+                model.responseTextProperty().getValue());
+    }
+
+    @Test
+    public void suggest_correctedNewCommand() {
+        String userInputWithoutPath = "nw ";
+        String path = "Aa123!@#$%^&*()";
+        String arg = " " + PREFIX_TITLE + " " + path;
+        String userInput = userInputWithoutPath + arg;
+        suggestionEngine.suggest(userInput);
+
+        // Test response text
+        assertEquals(Optional.of(String.format(NEW_RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
     }
 
