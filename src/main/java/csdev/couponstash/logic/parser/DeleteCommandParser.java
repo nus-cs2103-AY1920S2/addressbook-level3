@@ -23,8 +23,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
                             DeleteCommand.MESSAGE_USAGE
                     ),
                     pe

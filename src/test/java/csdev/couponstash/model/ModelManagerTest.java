@@ -41,14 +41,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setCouponStashFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setCouponStashFilePath(Paths.get("coupon/stash/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setCouponStashFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setCouponStashFilePath(Paths.get("new/coupon/stash/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -71,7 +71,7 @@ public class ModelManagerTest {
 
     @Test
     public void setCouponStashFilePath_validPath_setsCouponStashFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("coupon/stash/file/path");
         modelManager.setCouponStashFilePath(path);
         assertEquals(path, modelManager.getCouponStashFilePath());
     }

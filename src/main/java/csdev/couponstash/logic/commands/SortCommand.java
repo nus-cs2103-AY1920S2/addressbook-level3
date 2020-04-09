@@ -24,10 +24,11 @@ public class SortCommand extends Command {
             + "will sort all the found coupons, including archived ones if the are present on screen. "
             + "The order will persist throughout the runtime of the program.\n\n"
             + "Parameters: "
-            + PREFIX_NAME + " or " + PREFIX_EXPIRY_DATE + "\n\n"
+            + PREFIX_NAME + ", " + PREFIX_EXPIRY_DATE + " or " + PREFIX_REMIND + "\n\n"
             + "Examples:\n"
-            + COMMAND_WORD + " " + PREFIX_NAME + " (sort by name)"
-            + COMMAND_WORD + " " + PREFIX_EXPIRY_DATE + " (sort by expiry date)";
+            + COMMAND_WORD + " " + PREFIX_NAME + " (sort by name)\n"
+            + COMMAND_WORD + " " + PREFIX_EXPIRY_DATE + " (sort by expiry date)\n"
+            + COMMAND_WORD + " " + PREFIX_REMIND + " (sort by reminder date)";
 
     public static final String MESSAGE_SUCCESS = "Successfully sorted by %s";
 

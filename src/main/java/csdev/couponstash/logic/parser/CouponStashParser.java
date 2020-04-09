@@ -80,14 +80,14 @@ public class CouponStashParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        case CopyCommand.COMMAND_WORD:
+            return new CopyCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser(this.moneySymbol.getString()).parse(arguments);
-
-        case GoToCommand.COMMAND_WORD:
-            return new GoToCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -98,11 +98,11 @@ public class CouponStashParser {
         case ExpiringCommand.COMMAND_WORD:
             return new ExpiringCommandParser().parse(arguments);
 
-        case CopyCommand.COMMAND_WORD:
-            return new CopyCommandParser().parse(arguments);
-
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case GoToCommand.COMMAND_WORD:
+            return new GoToCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
@@ -119,14 +119,15 @@ public class CouponStashParser {
         case SetPrefCommand.COMMAND_WORD:
             return new SetPrefCommandParser().parse(arguments);
 
-        case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
-
         case ShareCommand.COMMAND_WORD:
             return new ShareCommandParser().parse(arguments);
 
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 

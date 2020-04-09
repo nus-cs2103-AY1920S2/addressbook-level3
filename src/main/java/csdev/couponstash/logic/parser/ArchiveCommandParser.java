@@ -24,8 +24,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
                             ArchiveCommand.MESSAGE_USAGE
                     ),
                     pe

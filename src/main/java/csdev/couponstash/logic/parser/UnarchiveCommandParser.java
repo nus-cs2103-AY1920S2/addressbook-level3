@@ -23,8 +23,7 @@ public class UnarchiveCommandParser implements Parser<UnarchiveCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                                    + MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
                             UnarchiveCommand.MESSAGE_USAGE
                     ),
                     pe

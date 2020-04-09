@@ -31,12 +31,12 @@ public class Coupon {
     private final Set<Tag> tags = new HashSet<>();
     private final Limit limit;
     private final Condition condition;
+    private final RemindDate remind;
 
     // Data fields
     // ("mutable" properties of Coupon that will change,
     // for implementation of certain commands)
     private final Usage usage;
-    private final RemindDate remind;
     private final DateSavingsSumMap totalSavings;
     private final Archived archived;
 
@@ -48,8 +48,7 @@ public class Coupon {
      * Every field must be present and not null.
      * @param name The Name of this Coupon.
      * @param promoCode Promo code for this Coupon.
-     * @param savingsForEachUse How much Savings saved
-     *                          when this Coupon is used.
+     * @param savingsForEachUse How much Savings saved when this Coupon is used.
      * @param expiryDate The ExpiryDate for this Coupon.
      * @param startDate The StartDate for this Coupon.
      * @param usage The Usage for this Coupon.

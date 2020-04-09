@@ -32,7 +32,7 @@ public class SavedCommand extends Command {
             + "on a particular date in D-M-YYYY format, or savings "
             + "earned between two specified dates (inclusive).\n\n"
             + "Parameters: "
-            + "[" + CliSyntax.PREFIX_DATE + "DATE] "
+            + "[" + CliSyntax.PREFIX_DATE + "DATE] or "
             + "[" + CliSyntax.PREFIX_START_DATE + "START_DATE "
             + CliSyntax.PREFIX_EXPIRY_DATE + "END_DATE]\n\n"
             + "Example: " + COMMAND_WORD + " 17-6-2020 ";
@@ -147,11 +147,9 @@ public class SavedCommand extends Command {
                 moneySaved.append(sv.toString()).append(", ");
             }
             return new CommandResult(
-                    moneySaved.substring(0, moneySaved.length() - 2) + durationString + ".",
-                    false, false);
+                    moneySaved.substring(0, moneySaved.length() - 2) + durationString + ".");
         } else {
-            return new CommandResult(moneySaved.append(durationString).append(".").toString(),
-                    false, false);
+            return new CommandResult(moneySaved.append(durationString).append(".").toString());
         }
     }
 

@@ -8,7 +8,6 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 
 /**
@@ -22,7 +21,6 @@ public class UnarchiveCommand extends IndexedCommand {
             + "This removes the coupon from the archives, and place it back into the active coupon list.\n\n"
             + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_WORD + "1";
-
     public static final String MESSAGE_UNARCHIVE_COUPON_SUCCESS = "Unarchived Coupon: %1s";
     public static final String MESSAGE_COUPON_ALREADY_ACTIVE = "Coupon: %1s is already active!";
     public static final String MESSAGE_COUPON_ALREADY_EXIST = "Coupon: %1s cannot be duplicated in the active list!";
@@ -45,9 +43,8 @@ public class UnarchiveCommand extends IndexedCommand {
         }
 
         Coupon couponToBeUnarchived = lastShownList.get(targetIndex.getZeroBased());
-        Archived currentStateOfArchival = couponToBeUnarchived.getArchived();
 
-        if (!currentStateOfArchival.state) {
+        if (!couponToBeUnarchived.getArchived().state) {
             throw new CommandException(String.format(MESSAGE_COUPON_ALREADY_ACTIVE, couponToBeUnarchived.getName()));
         }
 
