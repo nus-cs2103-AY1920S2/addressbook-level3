@@ -77,12 +77,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteFromCommandHistory(int offset) {
-        if (commandHistory.size() - offset - 1 > 0) {
-            commandHistory.remove(commandHistory.size() - 1 - offset);
-        } else if (commandHistory.size() > 0) {
-            commandHistory.remove(0);
-        }
+    public void deleteFromCommandHistory(String command) {
+        commandHistory.remove(command);
     }
 
     @Override
@@ -189,11 +185,11 @@ public class ModelManager implements Model {
         }
         if (positive) {
             this.expenseLa.getMonthlyData()
-                    .setIncome(new Income(Double.toString(
-                            this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
+                    .setIncome(new Income(DECIMAL_FORMATTER.format(
+                           this.expenseLa.getMonthlyData().getIncome().incomeAmount + amount)));
         } else {
             this.expenseLa.getMonthlyData()
-                    .setExpense(new Expense(Double.toString(
+                    .setExpense(new Expense(DECIMAL_FORMATTER.format(
                             this.expenseLa.getMonthlyData().getExpense().expenseAmount + amount)));
         }
     }

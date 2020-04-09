@@ -31,9 +31,9 @@ public interface Model {
 
     /**
      * Delete command from history
-     * @param offset
+     * @param command
      */
-    void deleteFromCommandHistory(int offset);
+    void deleteFromCommandHistory(String command);
 
     int getCommandHistorySize();
 

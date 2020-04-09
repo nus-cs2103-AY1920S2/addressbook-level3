@@ -49,8 +49,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void deleteFromCommandHistory(int offset) {
-        model.deleteFromCommandHistory(offset);
+    public void deleteFromCommandHistory(String command) {
+        model.deleteFromCommandHistory(command);
     }
 
     @Override

@@ -41,8 +41,6 @@ public class CommandBox extends UiPart<Region> {
                     }
                 }
                 String command = logic.getCommandFromHistory(offset);
-                System.out.println(offset + " " + logic.getCommandHistorySize());
-                System.out.println(command);
                 if (command != null) {
                     commandTextField.setText(command);
                     commandTextField.end();
@@ -69,9 +67,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             String command = commandTextField.getText();
             commandExecutor.execute(command);
-            if (offset > -1) {
-                logic.deleteFromCommandHistory(offset);
-            }
+            logic.deleteFromCommandHistory(command);
             logic.addToCommandHistory(command);
             offset = -1;
             commandTextField.setText("");

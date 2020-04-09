@@ -95,7 +95,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteFromCommandHistory(int offset) {
+        public void deleteFromCommandHistory(String command) {
 
         }
 

@@ -34,9 +34,9 @@ public interface Logic {
 
     /**
      * Delete command from history
-     * @param offset
+     * @param command
      */
-    void deleteFromCommandHistory(int offset);
+    void deleteFromCommandHistory(String command);
 
     int getCommandHistorySize();
 
