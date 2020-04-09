@@ -14,10 +14,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
+//@author Amoscheong97
 /**
  * Contains integration tests (interaction with the Model) for {@code InsertCommand}.
  *
- * @author Amoscheong97
  */
 public class InsertCommandIntegrationTest {
 

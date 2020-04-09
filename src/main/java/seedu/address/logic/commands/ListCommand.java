@@ -10,9 +10,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_UNDONE_RETURNS;
 
 import seedu.address.model.Model;
 
+//@author Amoscheong97
 /**
  * Lists all orders in the order book to the user.
- * @author Amoscheong97
  *
  */
 public class ListCommand extends Command {

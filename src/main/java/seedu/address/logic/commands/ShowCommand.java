@@ -12,11 +12,11 @@ import seedu.address.model.Model;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
 
+//@author Amoscheong97
 /**
  * Show the courier his/her delivery statistics
  * with the given date provided in the command
  *
- * @author Amoscheong97
  */
 public class ShowCommand extends Command {
 
@@ -140,71 +140,35 @@ public class ShowCommand extends Command {
      */
     public void parseData(String argText) {
         if (isToday(argText)) {
-            intendedMessage = SHOW_MESSAGE + MESSAGE_TODAY;
-            isCommandSuccessful = true;
+            setSuccessMessage(MESSAGE_TODAY);
             startDate = dateNow;
             endDate = dateNow;
         } else if (isAll(argText)) {
-            intendedMessage = SHOW_MESSAGE + MESSAGE_ALL;
-            isCommandSuccessful = true;
+            setSuccessMessage(MESSAGE_ALL);
         } else {
             String[] arrOfDate = argText.replaceAll("\\s+", " ").split("\\s");
             try {
-                // Only accept one or two arguments
-                if (arrOfDate[0].equals("") || arrOfDate.length > 2) {
-                    throw new ParseException(ILLEGAL_ARGUMENT);
-                }
-
-                if (arrOfDate.length == 2) {
-                    // `show today today` command is not allowed
-                    if (arrOfDate[0].equals(arrOfDate[1]) && arrOfDate[0].equals(TODAY)) {
-                        throw new ParseException(ONE_TODAY_IS_ENOUGH);
-                    }
-                }
-
-                // check if it is today's date
-                startDate = isToday(arrOfDate[0]) ? dateNow
-                        : LocalDate.parse(arrOfDate[0], FORMAT_CHECKER);
-
-                // Check the number of arguments provided
-                // If only one date is provided, assign that particular
-                // date to both startDate and endDate
-                // Otherwise, assign the dates respectively when there
-                // are two arguments
-                endDate = (arrOfDate.length == 1)
-                        ? startDate
-                        : (isToday(arrOfDate[1])
-                        ? dateNow
-                        : LocalDate.parse(arrOfDate[1], FORMAT_CHECKER));
-
-                // Check if the startDate is after the endDate
-                if (startDate.compareTo(endDate) > 0) {
-                    throw new ParseException(WRONG_DATE_ORDER);
-                }
-
-                // Check if the start date is equals to the end date
-                // Specifically check if the dates provided are equal
-                // and also check if the arguments or dates provided
-                // is today.
-                intendedMessage = startDate.compareTo(endDate) == 0
-                        ? (startDate.compareTo(dateNow) == 0
-                        ? SHOW_MESSAGE + MESSAGE_TODAY
-                        : SHOW_MESSAGE
-                        + MESSAGE_ONE_DATE
-                        + startDate.format(DATE_FORMATTER))
-                        : SHOW_MESSAGE + MESSAGE_INCLUSIVE
-                        + startDate.format(DATE_FORMATTER)
-                        + TO + endDate.format(DATE_FORMATTER);
-
-                isCommandSuccessful = true;
+                checkValidInput(arrOfDate);
+                initStartDate(arrOfDate[0]);
+                initEndDate(arrOfDate);
+                validateDates();
+                initializeMessage();
             } catch (DateTimeParseException ex) {
-                intendedMessage = PARSE_DATE_ERROR_MESSAGE + MESSAGE_USAGE;
-                isCommandSuccessful = false;
+                setFailureMessage(PARSE_DATE_ERROR_MESSAGE);
             } catch (ParseException pex) {
-                intendedMessage = pex.getMessage() + MESSAGE_USAGE;
-                isCommandSuccessful = false;
+                setFailureMessage(pex.getMessage());
             }
         }
+    }
+
+    /**
+     * Validate the input given
+     * @param arrOfDate
+     * @throws ParseException
+     */
+    public void checkValidInput(String[] arrOfDate) throws ParseException {
+        illegalArguments(arrOfDate);
+        checkNumberOfToday(arrOfDate);
     }
 
     /**
@@ -265,6 +229,121 @@ public class ShowCommand extends Command {
         return true;
     }
 
+    /**
+     * Check for the number of arguments parsed in
+     * @param dates Arr of dates
+     * @throws ParseException
+     *
+     */
+    public static void illegalArguments(String[] dates) throws ParseException {
+        // Only accept one or two arguments
+        if (dates[0].equals("") || dates.length > 2) {
+            throw new ParseException(ILLEGAL_ARGUMENT);
+        }
+    }
+
+    /**
+     * If the user types in 'today'. Check that he or she only writes one today
+     * @param dates
+     * @throws ParseException
+     *
+     */
+    public static void checkNumberOfToday(String[] dates) throws ParseException {
+        if (dates.length == 2) {
+            // `show today today` command is not allowed
+            if (dates[0].equals(dates[1]) && dates[0].equals(TODAY)) {
+                throw new ParseException(ONE_TODAY_IS_ENOUGH);
+            }
+        }
+    }
+
+    /**
+     * Initialize the startDate.
+     * Also check if the date provided is today
+     *
+     * @param start
+     */
+    public void initStartDate(String start) {
+        // Null value is not allowed for start date
+        assert start != null;
+
+        // check if it is today's date
+        startDate = isToday(start) ? dateNow
+                : LocalDate.parse(start, FORMAT_CHECKER);
+    }
+
+    /** Check the number of arguments provided
+     * If only one date is provided, assign that particular
+     * date to both startDate and endDate
+     * Otherwise, assign the dates respectively when there
+     * are two arguments
+     *
+     * @param arrOfDate
+     */
+    public void initEndDate(String[] arrOfDate) {
+        // Null value is not allowed for end date
+        assert arrOfDate[1] != null;
+
+        // Checking the number of dates provided
+        endDate = (arrOfDate.length == 1)
+                ? startDate
+                : (isToday(arrOfDate[1])
+                ? dateNow
+                : LocalDate.parse(arrOfDate[1], FORMAT_CHECKER));
+    }
+
+    /**
+     * Compare startDate and endDate.
+     * @throws ParseException startDate is after endDate
+     */
+    public static void validateDates() throws ParseException {
+        // Check if the startDate is after the endDate
+        if (startDate.compareTo(endDate) > 0) {
+            throw new ParseException(WRONG_DATE_ORDER);
+        }
+    }
+
+    /**
+     * Set the message to indicate a success
+     * @param successMessage
+     */
+    public void setSuccessMessage(String successMessage) {
+        intendedMessage = SHOW_MESSAGE + successMessage;
+        isCommandSuccessful = true;
+    }
+
+    /**
+     * Set the message to indicate a failure
+     * @param failureMessage
+     */
+    public void setFailureMessage(String failureMessage) {
+        intendedMessage = failureMessage + MESSAGE_USAGE;
+        isCommandSuccessful = false;
+    }
+    /**
+     * Initializes the correct message
+     *
+     * Check if the start date is equals to the end date
+     * Specifically check if the dates provided are equal
+     * and also check if the arguments or dates provided
+     * is today.
+     *
+     */
+    public void initializeMessage() {
+        if (startDate.compareTo(endDate) == 0) {
+            if (startDate.compareTo(dateNow) == 0) {
+                setSuccessMessage(MESSAGE_TODAY);
+            } else {
+                setSuccessMessage(MESSAGE_ONE_DATE
+                        + startDate.format(DATE_FORMATTER));
+            }
+
+        } else {
+            setSuccessMessage(MESSAGE_INCLUSIVE
+                    + startDate.format(DATE_FORMATTER)
+                    + TO + endDate.format(DATE_FORMATTER));
+        }
+    }
 
     @Override
     public CommandResult execute(Model model) {
