@@ -12,6 +12,9 @@ import nasa.MainApp;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.util.StringUtil;
 import nasa.logic.Logic;
+import nasa.logic.commands.Command;
+import nasa.logic.commands.QuoteCommand;
+import nasa.logic.parser.NasaBookParser;
 
 /**
  * The manager of the UI component.
@@ -42,6 +45,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            mainWindow.getQuote(logic.execute("quote").getFeedbackToUser());
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

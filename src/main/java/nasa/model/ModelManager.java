@@ -67,7 +67,7 @@ public class ModelManager implements Model {
      */
     public void initialisation() {
         updateSchedule();
-        //updateHistory();
+        updateHistory();
         Quote.readFile();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
