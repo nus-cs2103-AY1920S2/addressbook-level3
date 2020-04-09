@@ -51,6 +51,9 @@ public class UndoCommand extends Command {
         } else if (commandType.equals("USERPREF")) {
             return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, false,
                     false, false, false, false, false);
+        } else if (commandType.equals("GETDETAIL")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, true,
+                    false, false, false, false, false);
         } else {
             throw new CommandException("BUG ENCOUNTERED, NOT SUPPOSED TO REACH HERE");
         }
