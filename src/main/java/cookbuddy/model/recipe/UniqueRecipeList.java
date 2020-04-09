@@ -55,7 +55,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.add(toAdd);
     }
 
-
     /**
      * Replaces the recipe {@code target} in the list with {@code editedRecipe}.
      * {@code target} must exist in the list.
