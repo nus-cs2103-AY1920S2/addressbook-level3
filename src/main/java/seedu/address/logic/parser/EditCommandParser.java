@@ -22,18 +22,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditParcelDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author khsc96
+
 /**
  * Parses input arguments and creates a new EditCommand Object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+
+    private static final Logger LOGGER = LogsCenter.getLogger(EditCommandParser.class.getName());
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -52,10 +59,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             flag = extractFlag(args);
             args = removeFlags(args);
         } else {
+            LOGGER.info("Invalid user input, parse failure: Missing flags.");
             throw new ParseException(MESSAGE_MISSING_FLAG + NEWLINE + EditCommand.MESSAGE_USAGE);
         }
 
-        assert(flag != null);
+        assert (flag != null);
 
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
@@ -92,9 +100,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (!editParcelDescriptor.isAnyFieldEdited()) {
+            LOGGER.info("Invalid user input, parse failure: No field edited.");
             throw new ParseException(String.format(EditCommand.MESSAGE_NOT_EDITED, EditCommand.MESSAGE_USAGE));
         }
 
+        LOGGER.fine(
+            String.format("Parse success: EditCommand class returned with %d index and %s flag.",
+                index.getOneBased(), flag.getFlag()));
         return new EditCommand(index, editParcelDescriptor, flag);
     }
 
@@ -122,12 +134,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         List<String> argArr = Arrays.asList(args.trim().split("\\s"));
         if (argArr.contains(CliSyntax.FLAG_ORDER_BOOK.getFlag())
             && argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
+            LOGGER.info("Invalid user input, parse failure: Multiple flag provided");
             throw new ParseException(EditCommand.MULTIPLE_FLAGS_DETECTED);
         }
 
         if (argArr.contains(CliSyntax.FLAG_RETURN_BOOK.getFlag())) {
+            LOGGER.finest("Return flag found");
             return CliSyntax.FLAG_RETURN_BOOK;
         } else {
+            LOGGER.finest("Order flag found");
             return CliSyntax.FLAG_ORDER_BOOK;
         }
     }
@@ -147,6 +162,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .noneMatch(flag -> each.equals(flag.getFlag())))
             .map(each -> each + " ")
             .collect(Collectors.joining());
+        LOGGER.finest(String.format("User input without flags: %s", returnString));
         return returnString;
     }
 
@@ -158,11 +174,12 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(MESSAGE_NO_COD_FIELD_IN_RETURN_ORDER);
         }
         if ((argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent()
-                && flag.equals(CliSyntax.FLAG_RETURN_BOOK))
+            && flag.equals(CliSyntax.FLAG_RETURN_BOOK))
             || (argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()
-                && flag.equals(CliSyntax.FLAG_ORDER_BOOK))
+            && flag.equals(CliSyntax.FLAG_ORDER_BOOK))
             || (argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()
-                && argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent())) {
+            && argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent())) {
+            LOGGER.info("Invalid user input, parse failure: Mismatch flag with timestamp");
             throw new ParseException(MESSAGE_MISMATCH_FLAG_WITH_TIMESTAMP);
         }
     }
@@ -174,6 +191,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         throws ParseException {
         if (argumentMultimap.getValue(PREFIX_TID).isPresent()) {
             editParcelDescriptor.setTid(ParserUtil.parseTid(argumentMultimap.getValue(PREFIX_TID).get()));
+            LOGGER.finest(String.format("Edited Tid: %s", argumentMultimap.getValue(PREFIX_TID).get()));
         }
         return editParcelDescriptor;
     }
@@ -185,6 +203,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         throws ParseException {
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
             editParcelDescriptor.setName(ParserUtil.parseName(argumentMultimap.getValue(PREFIX_NAME).get()));
+            LOGGER.finest(String.format("Edited Name: %s", argumentMultimap.getValue(PREFIX_NAME).get()));
         }
         return editParcelDescriptor;
     }
@@ -196,6 +215,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         throws ParseException {
         if (argumentMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editParcelDescriptor.setPhone(ParserUtil.parsePhone(argumentMultimap.getValue(PREFIX_PHONE).get()));
+            LOGGER.finest(String.format("Edited Phone: %s", argumentMultimap.getValue(PREFIX_PHONE).get()));
         }
         return editParcelDescriptor;
     }
@@ -207,6 +227,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         throws ParseException {
         if (argumentMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editParcelDescriptor.setEmail(ParserUtil.parseEmail(argumentMultimap.getValue(PREFIX_EMAIL).get()));
+            LOGGER.finest(String.format("Edited Email: %s", argumentMultimap.getValue(PREFIX_EMAIL).get()));
         }
         return editParcelDescriptor;
     }
@@ -218,9 +239,11 @@ public class EditCommandParser implements Parser<EditCommand> {
                                              ArgumentMultimap argumentMultimap) throws ParseException {
         if (argumentMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editParcelDescriptor.setAddress(ParserUtil.parseAddress(argumentMultimap.getValue(PREFIX_ADDRESS).get()));
+            LOGGER.finest(String.format("Edited Address: %s", argumentMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         return editParcelDescriptor;
     }
+
     /**
      * Edits the {@code EditParcelDescriptor} if {@code Timestamp} prefix is present.
      */
@@ -230,10 +253,15 @@ public class EditCommandParser implements Parser<EditCommand> {
             editParcelDescriptor
                 .setTimeStamp(
                     ParserUtil.parseTimeStamp(argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get()));
-
+            LOGGER.finest(
+                String.format(
+                    "Edited Delivery TimeStamp: %s", argumentMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get()));
         } else if (argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).isPresent()) {
             editParcelDescriptor
                 .setTimeStamp(ParserUtil.parseTimeStamp(argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).get()));
+            LOGGER.finest(
+                String.format(
+                    "Edited Return TimeStamp: %s", argumentMultimap.getValue(PREFIX_RETURN_TIMESTAMP).get()));
         }
 
         return editParcelDescriptor;
@@ -247,6 +275,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argumentMultimap.getValue(PREFIX_WAREHOUSE).isPresent()) {
             editParcelDescriptor.setWarehouse(
                 ParserUtil.parseWarehouse(argumentMultimap.getValue(PREFIX_WAREHOUSE).get()));
+            LOGGER.finest(
+                String.format("Edited Warehouse Address: %s", argumentMultimap.getValue(PREFIX_WAREHOUSE).get()));
         }
 
         return editParcelDescriptor;
@@ -259,6 +289,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         throws ParseException {
         if (argumentMultimap.getValue(PREFIX_COD).isPresent()) {
             editParcelDescriptor.setCash(ParserUtil.parseCash(argumentMultimap.getValue(PREFIX_COD).get()));
+            LOGGER.finest(String.format("Edited Cash: %s", argumentMultimap.getValue(PREFIX_COD).get()));
         }
         return editParcelDescriptor;
     }
@@ -267,9 +298,10 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Edits the {@code EditParcelDescriptor} if {@code Comment} prefix is present.
      */
     private EditParcelDescriptor editComment(EditParcelDescriptor editParcelDescriptor,
-                                         ArgumentMultimap argumentMultimap) throws ParseException {
+                                             ArgumentMultimap argumentMultimap) throws ParseException {
         if (argumentMultimap.getValue(PREFIX_COMMENT).isPresent()) {
             editParcelDescriptor.setComment(ParserUtil.parseComment(argumentMultimap.getValue(PREFIX_COMMENT).get()));
+            LOGGER.finest(String.format("Edited Comment: %s", argumentMultimap.getValue(PREFIX_COMMENT).get()));
         }
         return editParcelDescriptor;
     }
@@ -281,40 +313,47 @@ public class EditCommandParser implements Parser<EditCommand> {
                                           ArgumentMultimap argumentMultimap) throws ParseException {
         if (argumentMultimap.getValue(PREFIX_TYPE).isPresent()) {
             editParcelDescriptor.setItemType(ParserUtil.parseItemType(argumentMultimap.getValue(PREFIX_TYPE).get()));
+            LOGGER.finest(String.format("Edited Type: %s", argumentMultimap.getValue(PREFIX_TYPE).get()));
         }
         return editParcelDescriptor;
     }
 
     /**
      * A checker method to see if user type only command word.
+     *
      * @param args user input
      * @throws ParseException throws exception of message usage to user if only command word is provided.
      */
     private void checkForEmptyArgsAfterEditCommand(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (args.split("\\s+").length == 1) {
+            LOGGER.info("Invalid user input, parse failure: No user input provided after Edit keyword");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
     }
 
     /**
      * A checker method to see if user did not give any index
+     *
      * @param string preamble of argmultimap
      * @throws ParseException throws exception when index is empty.
      */
     private void checkForEmptyIndex(String string) throws ParseException {
         if (string.isEmpty()) {
+            LOGGER.info("Invalid user input, parse failure: Missing index.");
             throw new ParseException(MESSAGE_MISSING_INDEX);
         }
     }
 
     /**
      * checks for valid index given.
+     *
      * @param string preamble.
      * @throws ParseException throws exception whenever user give more than just index in between the index and prefix
      */
     private void checkForValidPreamble(String string) throws ParseException {
         if (string.split("\\s+").length > 1) {
+            LOGGER.info("Invalid user input, parse failure: Invalid index format.");
             throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
     }

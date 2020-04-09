@@ -8,6 +8,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.NearbyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author JeremyLoh
 /**
  * Parses input arguments and creates a new NearbyCommand object.
  */

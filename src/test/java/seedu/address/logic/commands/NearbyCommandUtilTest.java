@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import seedu.address.commons.core.index.Index;
 
+//@@author JeremyLoh
 class NearbyCommandUtilTest {
     private static final Index INVALID_POSTAL_SECTOR = Index.fromOneBased(4000);
     private static final Index VALID_POSTAL_SECTOR = Index.fromOneBased(14);
