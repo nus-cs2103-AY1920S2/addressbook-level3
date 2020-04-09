@@ -327,7 +327,7 @@ public class DeleteSuggestionCommandParserTest {
 
     @Test
     public void parse_correctedCmdInvalidPath_returnsOptionalEmpty() {
-        String path = "!!!";
+        String path = "-";
         String userInput = "dele " + path;
 
         model.setInput(userInput);

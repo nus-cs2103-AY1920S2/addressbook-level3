@@ -327,7 +327,7 @@ public class OpenSuggestionCommandParserTest {
 
     @Test
     public void parse_correctedCmdInvalidPath_returnsOptionalEmpty() {
-        String path = "!!!";
+        String path = "-";
         String userInput = "op " + path;
 
         model.setInput(userInput);
