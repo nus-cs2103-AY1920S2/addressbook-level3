@@ -11,6 +11,7 @@ import hirelah.logic.commands.Command;
 import hirelah.logic.commands.ExitCommand;
 import hirelah.logic.commands.HelpCommand;
 import hirelah.logic.commands.ListAttributeCommand;
+import hirelah.logic.commands.ListIntervieweeCommand;
 import hirelah.logic.commands.ListMetricCommand;
 import hirelah.logic.commands.ListQuestionCommand;
 import hirelah.logic.commands.OpenResumeCommand;
@@ -43,6 +44,7 @@ public class NormalParser {
             put("edit", args -> new EditCommandParser().parse(args));
             put("delete", args -> new DeleteCommandParser().parse(args));
             put("attributes", args -> new ListAttributeCommand());
+            put("interviewees", args -> new ListIntervieweeCommand());
             put("metrics", args -> new ListMetricCommand());
             put("questions", args -> new ListQuestionCommand());
             put("finalise", args -> new FinaliseCommandParser().parse(args));
