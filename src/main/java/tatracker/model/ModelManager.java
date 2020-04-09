@@ -34,8 +34,6 @@ public class ModelManager implements Model {
     private final FilteredList<Session> filteredDoneSessions;
     private final FilteredList<Module> filteredModules;
 
-    private final FilteredList<Student> filteredStudents;
-
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
      */
@@ -50,7 +48,6 @@ public class ModelManager implements Model {
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
         filteredDoneSessions = new FilteredList<>(this.taTracker.getDoneSessionList());
         filteredModules = new FilteredList<>(this.taTracker.getModuleList());
-        filteredStudents = new FilteredList<>(this.taTracker.getCompleteStudentList());
         this.setDefaultStudentViewList();
     }
 
@@ -490,7 +487,6 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
-        filteredStudents.setPredicate(predicate);
     }
 
     // ======== Others Methods =================================================

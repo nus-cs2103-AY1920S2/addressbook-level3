@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static tatracker.logic.commands.CommandTestUtil.DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_BOB;
