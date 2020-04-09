@@ -25,7 +25,7 @@ ReturnCommand --> ReturnCommand : false
 deactivate ReturnCommand
 
 alt return order already exists in model
-ReturnCommand -> Model : hasReturnOrder(toBeCreated)
+ReturnCommand -> Model : hasParcel(toBeCreated)
 activate Model
 Model --> ReturnCommand : true
 deactivate Model
@@ -40,7 +40,7 @@ ReturnCommand --> LogicManager  : exception
 
 
 else return order does not exist in model
-ReturnCommand -> Model : hasReturnOrder(toBeCreated)
+ReturnCommand -> Model : hasParcel(toBeCreated)
 activate Model
 Model --> ReturnCommand : false
 deactivate Model

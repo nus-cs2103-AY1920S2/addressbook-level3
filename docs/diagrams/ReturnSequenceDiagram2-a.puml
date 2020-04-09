@@ -55,7 +55,7 @@ activate ReturnOrder
 ReturnOrder --> ReturnCommand : toBeCreated
 deactivate ReturnOrder
 
-ReturnCommand -> Model : hasReturnOrder(toBeCreated)
+ReturnCommand -> Model : hasParcel(toBeCreated)
 activate Model
 Model --> ReturnCommand : false
 deactivate Model
