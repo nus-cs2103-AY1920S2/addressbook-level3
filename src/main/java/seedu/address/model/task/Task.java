@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.TaskBuilder;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -108,6 +109,18 @@ public class Task {
         this.optionalReminder = Optional.empty();
         this.optionalRecurring = Optional.empty();
         this.tags.addAll(tags);
+    }
+
+    public long getDelayToFirstTrigger() {
+        return this.optionalRecurring.get().getDelayToFirstTrigger();
+    }
+
+    public long getRecurPeriod() {
+        return this.optionalRecurring.get().getPeriod();
+    }
+
+    public Task undoTask() {
+        return new TaskBuilder(this).withDone(new Done()).build();
     }
 
     public void triggerReminderIfPresent() {

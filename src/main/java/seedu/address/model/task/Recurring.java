@@ -161,6 +161,18 @@ public class Recurring {
                 repeatedTask, delayToFirstTrigger, period); // might run twice in the first time
     }
 
+    public long getDelayToFirstTrigger() {
+        return Duration.between(
+                        LocalDateTime.now(),
+                        referenceDateTime.plusDays(type.getDayInterval()))
+                .getSeconds();
+    }
+
+    public long getPeriod() {
+        return type.getInterval();
+    }
+    
+
     @Override
     public String toString() {
         String typeString = type.name().substring(0, 1).toLowerCase();
