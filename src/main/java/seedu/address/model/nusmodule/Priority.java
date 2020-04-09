@@ -42,6 +42,10 @@ public enum Priority {
         return priority;
     }
 
+    public int getLevelOfSignificance() {
+        return this.levelOfSignificance;
+    }
+
     @Override
     public String toString() {
         return this.text;
