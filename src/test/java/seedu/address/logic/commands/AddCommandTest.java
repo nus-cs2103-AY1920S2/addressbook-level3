@@ -1,13 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_ADD_SUCCESS;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DEADLINE_INVALID_SEMESTER;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODCODE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
@@ -24,10 +27,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -61,6 +62,16 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 
 public class AddCommandTest {
 
+    // No profile exists, hence modules cannot be added
+    @Test
+    public void execute_noExistingProfile_throwsCommandException() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
+        AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null, null);
+        assertThrows(CommandException.class, MESSAGE_EMPTY_PROFILE_LIST, () ->
+                addCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()));
+    }
+
     // No module code added, user inputs "add m/"
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
@@ -88,19 +99,8 @@ public class AddCommandTest {
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
     }
 
-    //Valid module, invalid semester, user inputs "add m/CS1231 y/10.3"
-    @Test
-    public void execute_invalidSemester_throwsNullPointerException() {
-        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
-        int semester = new Year("10.3").getSemester();
-        AddCommand addCommandSemester = new AddCommand(
-                moduleCode, semester, null, null, null, null);
-        assertThrows(NullPointerException.class, () ->
-                addCommandSemester.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-    }
 
-    //Module has been added before in a future semester
+    //Module has been added before (to a future semester)
     @Test
     public void execute_duplicateModule_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode("CS1101S");
@@ -115,54 +115,73 @@ public class AddCommandTest {
     //Valid module code, different capitalizations
     @Test
     public void execute_validModuleCode_success() {
+        ModuleCode moduleCode = new ModuleCode("CS1231");
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         AddCommand addCommandAllCap = new AddCommand(
-                new ModuleCode("CS1231"), semester, null, null, null, null);
+                moduleCode, semester, null, null, null, null);
         AddCommand addCommandVariety = new AddCommand(
                 new ModuleCode("Cs1231"), semester, null, null, null, null);
         AddCommand addCommandNoCap = new AddCommand(
                 new ModuleCode("cs1231"), semester, null, null, null, null);
 
         try {
-            assertTrue(addCommandAllCap.execute(
+            assertEquals(addCommandAllCap.execute(
                     new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser().equals("New Module added: CS1231"));
-            assertTrue(addCommandVariety.execute(
+                    new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
+            assertEquals(addCommandVariety.execute(
                     new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser().equals("New Module added: CS1231"));
-            assertTrue(addCommandNoCap.execute(
+                    new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
+            assertEquals(addCommandNoCap.execute(
                     new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser().equals("New Module added: CS1231"));
+                    new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
         } catch (CommandException e) {
             fail();
         }
     }
 
-    //Invalid grade, user inputs "add m/MA1521, y/1.1, g/1"
+    //Valid grade, user inputs "add m/MA1521, y/1.1, g/C+"
     @Test
-    public void execute_invalidGrade_throwsNoSuchElementException() {
+    public void execute_validGrade_success() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
-        String grade = INVALID_GRADE_DESC;
+        String grade = VALID_GRADE_BOB;
         AddCommand addCommandGrade = new AddCommand(
                 moduleCode, semester, grade, null, null, null);
-        assertThrows(NoSuchElementException.class, () ->
-                addCommandGrade.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+        try {
+            assertEquals(addCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+                    new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
+        } catch (CommandException e) {
+            fail();
+        }
     }
 
-    //Invalid date, user inputs "add m/CS1101S y/1.1 t/assignment d/2020-30-30 23:60"
+    //Invalid date time, user inputs "add m/CS1101S y/1.1 t/assignment d/2020-30-30 23:60"
+    //Tested in AddCommandParser
+//    @Test
+//    public void execute_invalidDateTime_throwsCommandException() {
+//        ModuleCode moduleCode = new ModuleCode("CS1101S");
+//        int semester = new Year(VALID_SEMESTER_BOB).getSemester();
+//        String task = VALID_TASK_BOB;
+//        LocalDate date = LocalDate.parse("2020-30-30");
+//        LocalTime time = LocalTime.parse("23:60");
+//        AddCommand addCommandDateTime = new AddCommand(
+//                moduleCode, semester, null, task, date, time);
+//        assertThrows(CommandException.class, Deadline.MESSAGE_CONSTRAINTS, () ->
+//                addCommandDateTime.execute(
+//                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+//    }
+
     @Test
-    public void execute_invalidDate_throwsCommandException() {
-        ModuleCode moduleCode = new ModuleCode("CS1101S");
-        int semester = new Year(VALID_SEMESTER_BOB).getSemester();
-        String task = VALID_TASK_BOB;
-        LocalDate date = LocalDate.parse("2020-30-30");
-        LocalTime time = LocalTime.parse("23:60");
-        AddCommand addCommandDateTime = new AddCommand(
+    public void execute_addTaskToNonCurrentSemester_throwsCommandException() {
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        int semester = new Year(VALID_SEMESTER_AMY).getSemester();
+        String task = VALID_TASK_AMY;
+        LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
+        LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
+        AddCommand addCommandTask = new AddCommand(
                 moduleCode, semester, null, task, date, time);
-        assertThrows(CommandException.class, Deadline.MESSAGE_CONSTRAINTS, () ->
-                addCommandDateTime.execute(
+        assertThrows(CommandException.class, MESSAGE_DEADLINE_INVALID_SEMESTER, () ->
+                addCommandTask.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
     }
 
@@ -333,14 +352,15 @@ public class AddCommandTest {
         }
     }
 
+
     private class ModuleManagerStubCs extends ModuleManagerStub {
         private ModuleManagerStubCs() {
             Module moduleCs= new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""),
                     new Preclusions(""), new ModularCredits("4"), new Description(""),
-                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
+                    new SemesterData(new ArrayList<>()), null);
             Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),
                     new Preclusions(""), new ModularCredits("4"), new Description(""),
-                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
+                    new SemesterData(new ArrayList<>()), null);
             Module module = new Module(new ModuleCode("CS1101S"), new Title(""), new Prereqs(""), new Preclusions(""),
                     new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
                     new PrereqTreeNode());
