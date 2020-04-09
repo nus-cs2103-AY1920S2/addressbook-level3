@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 import seedu.address.testutil.ProfileListBuilder;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
 //import seedu.address.testutil.AddressBookBuilder;
@@ -74,45 +76,105 @@ public class ProfileManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> profileManager.hasPerson(null));
+    public void hasProfile_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> profileManager.hasProfile(null));
     }
 
     @Test
-    public void hasPerson_personNotInProfileList_returnsFalse() {
-        assertFalse(profileManager.hasPerson(ALICE));
+    public void hasProfile_profileNotInProfileList_returnsFalse() {
+        assertFalse(profileManager.hasProfile(ALICE.getName()));
     }
 
     @Test
-    public void hasPerson_personInProfileList_returnsTrue() {
-        profileManager.addPerson(ALICE);
-        assertTrue(profileManager.hasPerson(ALICE));
+    public void hasProfile_profileInProfileList_returnsTrue() {
+        profileManager.addProfile(ALICE);
+        assertTrue(profileManager.hasProfile(ALICE.getName()));
+        profileManager.deleteProfile(ALICE);
     }
 
     @Test
-    public void hasPerson_personDeletedFromProfileList_returnsFalse() {
-        profileManager.addPerson(ALICE);
-        profileManager.deletePerson(ALICE);
-        assertFalse(profileManager.hasPerson(ALICE));
+    public void hasProfile_profileDeletedFromProfileList_returnsFalse() {
+        profileManager.addProfile(ALICE);
+        profileManager.deleteProfile(ALICE);
+        assertFalse(profileManager.hasProfile((ALICE.getName())));
     }
 
     @Test
-    public void hasPerson_personReplacedInProfileList_returnsTrue() {
-        profileManager.addPerson(ALICE);
-        profileManager.setPerson(ALICE, BENSON);
-        assertTrue(profileManager.hasPerson(BENSON));
+    public void hasProfile_profileReplacedInProfileList_returnsTrue() {
+        profileManager.addProfile(ALICE);
+        profileManager.setProfile(ALICE, BENSON);
+        assertTrue(profileManager.hasProfile(BENSON.getName()));
+        profileManager.deleteProfile(BENSON);
     }
 
+
     @Test
-    public void hasPerson_personReplacedInProfileList_returnFalse() {
-        profileManager.addPerson(ALICE);
-        profileManager.setPerson(ALICE, BENSON);
-        assertFalse(profileManager.hasPerson(ALICE));
+    public void hasProfile_profileReplacedInProfileList_returnFalse() {
+        profileManager.addProfile(ALICE);
+        profileManager.setProfile(ALICE, BENSON);
+        assertFalse(profileManager.hasProfile((ALICE.getName())));
+        profileManager.deleteProfile(BENSON);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> profileManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void hasOneProfile_profileInProfileList_returnsTrue() {
+        profileManager.addProfile(ALICE);
+        assertTrue(profileManager.hasOneProfile());
+        profileManager.deleteProfile(ALICE);
+    }
+
+    @Test
+    public void hasOneProfile_profileNotInProfileList_returnsFalse() {
+        assertFalse(profileManager.hasOneProfile());
+    }
+
+    @Test
+    public void getFirstProfile_profileInProfileList_returnsTrue() {
+        profileManager.addProfile(BENSON);
+        assertTrue(profileManager.getFirstProfile().equals(BENSON));
+        profileManager.deleteProfile(BENSON);
+    }
+
+    @Test
+    public void getFirstProfile_profileNotInProfileList_returnsFalse() {
+        profileManager.addProfile(BENSON);
+        assertFalse(profileManager.getFirstProfile().equals(ALICE));
+        profileManager.deleteProfile(BENSON);
+    }
+
+    @Test
+    public void addDeadline_nullDeadline_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> profileManager.addDeadline(null));
+    }
+
+    @Test
+    public void deleteDeadline_nullDeadline_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> profileManager.deleteDeadline(null));
+    }
+
+    @Test
+    public void deleteDeadline_deadlineNotInList_throwsDeadlineNotFoundException() {
+        Deadline deadline = new Deadline("CS1101S", "Dummy description");
+        assertThrows(DeadlineNotFoundException.class, () -> profileManager.deleteDeadline(deadline));
+    }
+
+    @Test
+    public void replaceDeadline_nullDeadline_throwsNullPointerException() {
+        Deadline deadline = new Deadline("CS1101S", "Dummy description");
+        assertThrows(NullPointerException.class, () -> profileManager.replaceDeadline(deadline, null));
+        assertThrows(NullPointerException.class, () -> profileManager.replaceDeadline(null, deadline));
+        assertThrows(NullPointerException.class, () -> profileManager.replaceDeadline(null, null));
+    }
+
+    @Test
+    public void clearDeadlineList_listSizeZero_returnsTrue() {
+        profileManager.clearDeadlineList();
+        assertTrue(profileManager.getSortedDeadlineList().size() == 0);
     }
 
     @Test
