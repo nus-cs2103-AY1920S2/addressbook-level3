@@ -6,6 +6,7 @@ import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.assertComma
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.eylah.diettracker.logic.commands.CommandTestUtil.showFoodAtIndex;
 import static seedu.eylah.diettracker.testutil.TypicalFood.getTypicalFoodBook;
+import static seedu.eylah.diettracker.testutil.TypicalMyself.getTypicalMyself;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.eylah.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 
@@ -25,7 +26,7 @@ import seedu.eylah.diettracker.model.food.Food;
  */
 public class DeleteCommandTest {
 
-    private DietModel model = new DietModelManager(getTypicalFoodBook(), new UserPrefs());
+    private DietModel model = new DietModelManager(getTypicalFoodBook(), new UserPrefs(), getTypicalMyself());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +35,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
-        DietModelManager expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
+        DietModelManager expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs(), model.getMyself());
         expectedModel.deleteFood(foodToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -57,7 +58,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_FOOD_SUCCESS, foodToDelete);
 
-        DietModel expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
+        DietModel expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs(), model.getMyself());
         expectedModel.deleteFood(foodToDelete);
         showNoFood(expectedModel);
 

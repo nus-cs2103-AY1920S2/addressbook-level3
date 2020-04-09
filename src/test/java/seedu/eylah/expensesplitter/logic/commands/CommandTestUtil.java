@@ -2,7 +2,9 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
 import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.eylah.expensesplitter.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -24,8 +26,28 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_ANNA = "anna";
+    public static final String VALID_NAME_BRANDON = "brandon";
+    public static final String VALID_NAME_CHARLIE = "charlie";
+    public static final String VALID_ITEMNAME_CHICKENRICE = "Chicken Rice";
+    public static final String VALID_ITEMNAME_PIZZA = "pizza";
+    public static final String VALID_ITEMPRICE_CHICKENRICE = "3.50";
+    public static final String VALID_ITEMPRICE_PIZZA = "25";
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String ITEMNAME_DESC_CHICKENRICE = " " + PREFIX_ITEM + " " + VALID_ITEMNAME_CHICKENRICE;
+    public static final String ITEMNAME_DESC_PIZZA = " " + PREFIX_ITEM + " " + VALID_ITEMNAME_PIZZA;
+    public static final String ITEMPRICE_DESC_CHICKENRICE = " " + PREFIX_PRICE + " " + VALID_ITEMPRICE_CHICKENRICE;
+    public static final String ITEMPRICE_DESC_PIZZA = " " + PREFIX_PRICE + " " + VALID_ITEMPRICE_PIZZA;
+    public static final String NAME_DESC_ANNA = " " + PREFIX_NAME + " " + VALID_NAME_ANNA;
+    public static final String NAME_DESC_BRANDON = " " + PREFIX_NAME + " " + VALID_NAME_BRANDON;
+    public static final String NAME_DESC_CHARLIE = " " + PREFIX_NAME + " " + VALID_NAME_CHARLIE;
+
+    public static final String INVALID_ITEMNAME_DESC = " " + PREFIX_ITEM
+            + " " + "Chicken&Rice"; // '&' not allowed in item names
+    public static final String INVALID_ITEMPRICE_DESC = " " + PREFIX_PRICE
+            + " " + "3.P0"; // only numbers are allowed
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME
+            + " " + "James&"; // '&' not allowed in names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

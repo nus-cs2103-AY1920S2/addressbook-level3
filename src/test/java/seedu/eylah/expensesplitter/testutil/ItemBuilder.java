@@ -13,8 +13,8 @@ import seedu.eylah.expensesplitter.model.person.Amount;
 public class ItemBuilder {
 
     public static final String DEFAULT_NAME = "Chicken Rice";
-    public static final BigDecimal DEFAULT_PRICE = new BigDecimal(3.50);
-    public static final BigDecimal DEFAULT_AMOUNT_PER_PERSON = new BigDecimal(3.50);
+    public static final BigDecimal DEFAULT_PRICE = new BigDecimal("3.50");
+    public static final BigDecimal DEFAULT_AMOUNT_PER_PERSON = new BigDecimal("3.50");
 
     private ItemName name;
     private ItemPrice price;
