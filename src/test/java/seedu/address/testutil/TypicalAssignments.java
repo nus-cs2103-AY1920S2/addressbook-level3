@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AssignmentSchedule;
+import seedu.address.model.Scheduler;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -35,12 +35,12 @@ public class TypicalAssignments {
     /**
      * Returns a scheduler with all the typical assignments in loaded.
      */
-    public static AssignmentSchedule getTypicalScheduler() {
-        AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
+    public static Scheduler getTypicalScheduler() {
+        Scheduler scheduler = new Scheduler();
         for (Assignment assignment : getTypicalAssignments()) {
-            assignmentSchedule.addAssignment(assignment);
+            scheduler.addAssignment(assignment);
         }
-        return assignmentSchedule;
+        return scheduler;
     }
 
     public static List<Assignment> getTypicalAssignments() {

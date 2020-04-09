@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -14,7 +13,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import seedu.address.model.day.Assignment;
 import seedu.address.model.day.Day;
 
 /**
@@ -40,41 +38,26 @@ public class ScheduleDayCard extends UiPart<Region> {
     @FXML
     private Label hours;
     @FXML
-    private Label dueAssignments;
-    @FXML
-    private Label allocatedAssignments;
+    private Label assignments;
 
     public ScheduleDayCard(Day day, int numDays) {
         super(FXML);
         this.day = day;
         date.setStyle("-fx-text-fill: #000");
         date.setText(" " + LocalDate.now().plusDays(numDays).format(DateTimeFormatter.ofPattern("dd MMM")) + " ");
-        hours.setText("Estimated workload for today: " + day.getTotalAllocatedHours().hours);
-        dueAssignments.setText("Assignments due today:" + convertAssignmentsToString(day.getDueAssignments()));
-        allocatedAssignments.setText("To-Do List:" + convertAssignmentsToString(day.getAllocatedAssignments()));
+        hours.setText("Estimated workload for today: " + day.getHours().hours);
+        assignments.setText("Assignments due today:\n" + day.getDueAssignmentsToString());
 
-        if ((numDays == 0 && day.getDueAssignments().size() != 0) || day.getTotalAllocatedHours().hours > 10) {
+        if ((numDays == 0 && day.getDueAssignments().size() != 0) || day.getHours().hours > 10) {
             date.setBackground(new Background(new BackgroundFill(Color.rgb(255, 87, 51),
                 CornerRadii.EMPTY, Insets.EMPTY)));
-        } else if (day.getTotalAllocatedHours().hours > 5 && day.getTotalAllocatedHours().hours <= 10) {
+        } else if (day.getHours().hours > 5 && day.getHours().hours <= 10) {
             date.setBackground(new Background(new BackgroundFill(Color.rgb(255, 195, 0),
                 CornerRadii.EMPTY, Insets.EMPTY)));
         } else {
             date.setBackground(new Background(new BackgroundFill(Color.rgb(218, 247, 166),
                 CornerRadii.EMPTY, Insets.EMPTY)));
         }
-    }
-
-    /**
-     * Converts the assignments allocated to a particular day into a string for display on GUI.
-     */
-    private String convertAssignmentsToString(ArrayList<Assignment> assignments) {
-        String result = "";
-
-        for (int i = 0; i < assignments.size(); i++) {
-            result = result + "\n" + (i + 1) + ". " + assignments.get(i).toString();
-        }
-        return result;
     }
 
     @Override

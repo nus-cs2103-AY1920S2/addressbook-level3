@@ -23,21 +23,19 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonAssignmentScheduleStorage;
 import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
+import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -57,8 +55,7 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonRestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(temporaryFolder.resolve("restaurantBook.json"));
-        JsonAssignmentScheduleStorage schedulerStorage =
-                new JsonAssignmentScheduleStorage(temporaryFolder.resolve("assignments.json"));
+        JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(temporaryFolder.resolve("assignments.json"));
         JsonEventScheduleStorage eventScheduleStorage =
                 new JsonEventScheduleStorage(temporaryFolder.resolve("events.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -96,8 +93,8 @@ public class LogicManagerTest {
         JsonRestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder
                         .resolve("ioExceptionRestaurantBook.json"));
-        JsonAssignmentScheduleStorage schedulerStorage =
-                new JsonAssignmentScheduleStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
+        JsonSchedulerStorage schedulerStorage =
+                new JsonSchedulerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
         JsonEventScheduleStorage eventScheduleStorage =
                 new JsonEventScheduleStorage(temporaryFolder.resolve("ioExceptionEvents.json"));
         JsonUserPrefsStorage userPrefsStorage =
@@ -163,7 +160,7 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
-                new AssignmentSchedule(),
+                new Scheduler(),
                 new EventSchedule(),
                 new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);

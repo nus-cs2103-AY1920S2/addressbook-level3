@@ -166,12 +166,12 @@ public interface Model {
     //=================  Schoolwork Tracker ==========================================================
 
     /**
-     * Replaces assignmentSchedule data with the data in {@code assignmentSchedule}.
+     * Replaces scheduler data with the data in {@code scheduler}.
      */
-    void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule);
+    void setScheduler(ReadOnlyScheduler scheduler);
 
-    /** Returns the AssignmentSchedule */
-    ReadOnlyAssignmentSchedule getAssignmentSchedule();
+    /** Returns the Scheduler */
+    ReadOnlyScheduler getScheduler();
 
     /**
      * Adds the given assignment.
@@ -275,22 +275,17 @@ public interface Model {
      */
     ObservableList<Person> getBdayListResult();
 
-    //=========== ScheduleList Visual Accessors =======================================================================
+    //=========== Schedule Visual Accessors =======================================================================
 
     /**
-     * Creates the schedule for the upcoming numDays (today inclusive).
+     * Calculates the schedule for the upcoming numDays (today inclusive).
      */
-    void createSchedule(int numDays);
-
-    /**
-     * Sets a day in the scheduleList.
-     */
-    void setDay(int index, Day toSet);
+    void calculateScheduleIntensity(int numDays);
 
     /**
      * Returns an unmodifiable view of the user's upcoming schedule for the next n days (today inclusive).
      */
-    ObservableList<Day> getSchedule();
+    ObservableList<Day> getScheduleVisualResult();
 
     //=========== Undo and Redo =======================================================================
 

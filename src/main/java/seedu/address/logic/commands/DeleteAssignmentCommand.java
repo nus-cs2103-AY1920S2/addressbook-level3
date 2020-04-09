@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Deletes an assignment using it's displayed index from the AssignmentSchedule.
+ * Deletes an assignment using it's displayed index from the Scheduler.
  */
 public class DeleteAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "(st)delete";

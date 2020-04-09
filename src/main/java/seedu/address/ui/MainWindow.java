@@ -245,7 +245,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleShowSchedule() {
-        schedulePanel = new ScheduleVisualPanel(logic.getSchedule());
+        schedulePanel = new ScheduleVisualPanel(logic.getScheduleVisual());
         personListPanelPlaceholder2.getChildren().clear();
         personListPanelPlaceholder2.getChildren().add(schedulePanel.getRoot());
     }

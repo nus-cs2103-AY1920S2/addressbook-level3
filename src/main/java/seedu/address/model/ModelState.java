@@ -14,7 +14,7 @@ import seedu.address.model.restaurant.Restaurant;
 public class ModelState {
     private final AddressBook addressBook;
     private final RestaurantBook restaurantBook;
-    private final AssignmentSchedule assignmentSchedule;
+    private final Scheduler scheduler;
     private final EventSchedule eventSchedule;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -30,8 +30,7 @@ public class ModelState {
      * Initializes a ModelState with the given addressBook and userPrefs at the start.
      */
     public ModelState(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                      ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
-                      ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyScheduler scheduler, ReadOnlyEventSchedule eventSchedule, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
 
@@ -40,10 +39,10 @@ public class ModelState {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.assignmentSchedule = new AssignmentSchedule(scheduler);
+        this.scheduler = new Scheduler(scheduler);
         this.eventSchedule = new EventSchedule(eventSchedule);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
+        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
         bdayList = new FilteredList<>(this.addressBook.getBdayList());
         this.commandType = "ADDRESS";
@@ -53,8 +52,8 @@ public class ModelState {
      * Initializes a ModelState with the given addressBook and userPrefs.
      */
     public ModelState(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                      ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
-                      ReadOnlyUserPrefs userPrefs, String commandType) {
+                      ReadOnlyScheduler scheduler, ReadOnlyEventSchedule eventSchedule, ReadOnlyUserPrefs userPrefs,
+                      String commandType) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
 
@@ -63,10 +62,10 @@ public class ModelState {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.assignmentSchedule = new AssignmentSchedule(scheduler);
+        this.scheduler = new Scheduler(scheduler);
         this.eventSchedule = new EventSchedule(eventSchedule);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
+        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
         bdayList = new FilteredList<>(this.addressBook.getBdayList());
         this.commandType = commandType;
@@ -83,10 +82,10 @@ public class ModelState {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook();
-        this.assignmentSchedule = new AssignmentSchedule();
+        this.scheduler = new Scheduler();
         this.eventSchedule = new EventSchedule();
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
+        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
         filteredEvents = new FilteredList<>(this.eventSchedule.getEventsList());
         bdayList = new FilteredList<>(this.addressBook.getBdayList());
         this.commandType = commandType;
@@ -98,8 +97,8 @@ public class ModelState {
      * @return a new copy of the state m
      */
     public static ModelState copy(ModelState m) {
-        return new ModelState(m.getAddressBook(), m.getRestaurantBook(), m.getAssignmentSchedule(),
-            m.getEventSchedule(), m.getUserPrefs(), m.getCommandType());
+        return new ModelState(m.getAddressBook(), m.getRestaurantBook(), m.getScheduler(), m.getEventSchedule(),
+                m.getUserPrefs(), m.getCommandType());
     }
 
     public AddressBook getAddressBook() {
@@ -110,8 +109,8 @@ public class ModelState {
         return this.restaurantBook;
     }
 
-    public AssignmentSchedule getAssignmentSchedule() {
-        return this.assignmentSchedule;
+    public Scheduler getScheduler() {
+        return this.scheduler;
     }
 
     public EventSchedule getEventSchedule() {
