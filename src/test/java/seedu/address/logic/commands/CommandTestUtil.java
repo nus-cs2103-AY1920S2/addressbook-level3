@@ -36,7 +36,9 @@ import seedu.address.testutil.EditParcelDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_TID_AMY = "A123456789";
-    public static final String VALID_TID_BOB = "B12345678";
+    public static final String VALID_RETURN_TID_AMY = "A323456789";
+    public static final String VALID_TID_BOB = "B123456789";
+    public static final String VALID_RETURN_TID_BOB = "B323456789";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "91111111";
@@ -57,7 +59,9 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_PLASTIC = "plastic";
 
     public static final String TID_DESC_AMY = " " + PREFIX_TID + VALID_TID_AMY;
+    public static final String RETURN_TID_DESC_AMY = " " + PREFIX_TID + VALID_RETURN_TID_AMY;
     public static final String TID_DESC_BOB = " " + PREFIX_TID + VALID_TID_BOB;
+    public static final String RETURN_TID_DESC_BOB = " " + PREFIX_TID + VALID_RETURN_TID_BOB;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;

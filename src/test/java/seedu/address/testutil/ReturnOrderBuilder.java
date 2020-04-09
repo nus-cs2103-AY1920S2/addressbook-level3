@@ -17,7 +17,7 @@ import seedu.address.model.parcel.returnorder.ReturnOrder;
  */
 public class ReturnOrderBuilder {
 
-    public static final String DEFAULT_TID = "A98765431";
+    public static final String DEFAULT_TID = "A18765431";
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@example.com";
