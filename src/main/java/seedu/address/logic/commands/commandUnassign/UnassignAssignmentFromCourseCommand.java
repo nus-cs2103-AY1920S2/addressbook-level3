@@ -1,13 +1,16 @@
 package seedu.address.logic.commands.commandUnassign;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+
+import java.util.Set;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
-import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
@@ -15,13 +18,6 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.person.ID;
-import seedu.address.model.tag.Tag;
-
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 
 /** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
 public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {

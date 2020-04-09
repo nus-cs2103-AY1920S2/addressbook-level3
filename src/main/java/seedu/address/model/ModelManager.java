@@ -73,7 +73,6 @@ public class ModelManager extends BaseManager implements Model {
   private Predicate<Course> extraStaffCoursePredicate = PREDICATE_HIDE_ALL_COURSES;
   private Predicate<Assignment> extraAssignmentPredicate = PREDICATE_HIDE_ALL_ASSIGNMENTS;
   private MainWindow mainWindow;
-
   public static Model instance;
 
   public static Model getInstance() {
@@ -117,19 +116,6 @@ public class ModelManager extends BaseManager implements Model {
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getList());
     filteredProgresses = new FilteredList<>(this.progressAddressBook.getList());
-
-    for (Course course : filteredCourses) {
-      course.processAssignedStudents(filteredStudents);
-      course.processAssignedStaff(filteredStaffs);
-    }
-
-    for (Student student : filteredStudents) {
-      student.processAssignedCourses(filteredCourses);
-    }
-
-    for (Staff staff : filteredStaffs) {
-      staff.processAssignedCourses(filteredCourses);
-    }
     instance = this;
   }
 

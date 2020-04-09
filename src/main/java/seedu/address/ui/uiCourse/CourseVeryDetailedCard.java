@@ -80,8 +80,14 @@ public class CourseVeryDetailedCard extends UiPart<Region> {
 
     course.getAssignedAssignmentsID();
     amount.setText(course.getAmount().value);
-    assignedStaff.setText(course.getAssignedStaffWithName());
-    assignedStudents.setText(course.getAssignedStudentsWithNames());
+
+    Set<ID> studentIDS = course.getAssignedStudentsID();
+    String studentStrings = "None";
+    if (studentIDS.size() > 0) {
+      studentStrings = studentIDS.toString();
+    }
+    assignedStudents.setText(studentStrings);
+    assignedStaff.setText(course.getAssignedStaffID().toString());
 
     course.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))

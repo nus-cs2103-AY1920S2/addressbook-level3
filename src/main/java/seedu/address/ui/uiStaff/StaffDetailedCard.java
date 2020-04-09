@@ -1,12 +1,14 @@
 package seedu.address.ui.uiStaff;
 
 import java.util.Comparator;
+import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.person.ID;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.UiPart;
 
@@ -35,6 +37,8 @@ public class StaffDetailedCard extends UiPart<Region> {
   @FXML
   private Label id;
   @FXML
+  private Label level;
+  @FXML
   private Label staffID;
   @FXML
   private Label phone;
@@ -61,11 +65,22 @@ public class StaffDetailedCard extends UiPart<Region> {
     phone.setText(staff.getPhone().value);
     address.setText(staff.getAddress().value);
     email.setText(staff.getEmail().value);
-    assignedCourses.setText(staff.getAssignedCourses().toString());
+
+    Set<ID> courseIDS = staff.getAssignedCoursesID();
+    String coursesStrings = "None";
+    if (courseIDS.size() > 0) {
+      coursesStrings = courseIDS.toString();
+    }
+    assignedCourses.setText(coursesStrings);
+
     salary.setText(staff.getSalary().value);
     staff.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+    String staffLevel = staff.getLevel().toString();
+    staffLevel = staffLevel.substring(0, 1).toUpperCase() + staffLevel.substring(1).toLowerCase();
+    level.setText(staffLevel);
   }
 
   @Override
