@@ -33,6 +33,11 @@ a more efficient manner.
 Ability to find orders based on all postal codes in Singapore. +
 A helpful message regarding the specified postal code is also shown. +
 Parsing has been done to user input of a valid postal sector (the first two digits of a six digit Singapore postal code)
+Figuring out an effective way of testing and implementing all possible postal sectors
+was time consuming as there are 28 postal sectors in Singapore. +
+Thankfully, JUnit 5 has https://www.baeldung.com/parameterized-tests-junit-5[parameterized tests]
+that allowed me to test more effectively. +
+The mapping of postal sectors was done using a *HashMap*.
 
 ** Credits: Information about the various postal sectors was obtained from https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here]
 ====
@@ -61,6 +66,8 @@ This makes it easy for couriers in a certain area to select orders to be done in
 ** *Highlights*: +
 Ability to find orders based on the 5 regions in Singapore. +
 A helpful message regarding the specified area is also shown. +
+The 5 regions were mapped using a separate helper class as these regions were
+grouped using their postal sectors.
 
 ** Credits: Information about the various areas was obtained from https://keylocation.sg/singapore/districts-map
 ====
@@ -86,6 +93,7 @@ original UI of AddressBook Level 3.
 *** What it does: Allows for deletion of orders or return orders.
 *** Justification: It is a must have. Couriers need to be able to delete from a specific list.
 Our application has two lists: Order list and Return Order list.
+Deletion is done by providing an appropriate flag.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jeremyloh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
