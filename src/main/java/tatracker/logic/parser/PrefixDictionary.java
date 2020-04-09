@@ -194,6 +194,11 @@ public class PrefixDictionary {
         List<Prefix> arguments = new ArrayList<>(parameters);
         arguments.addAll(optionals);
 
+        if (!arguments.stream().allMatch(PREFIXES::containsKey)) {
+            throw new IllegalArgumentException(
+                    "PrefixDictionary Instance: prefix is not recognized");
+        }
+
         return arguments.stream()
                 .collect(Collectors.toUnmodifiableMap(Prefix::getPrefix,
                     PREFIXES::get, (key1, key2) -> {
