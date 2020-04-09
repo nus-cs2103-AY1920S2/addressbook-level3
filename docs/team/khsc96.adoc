@@ -15,15 +15,21 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 == Summary of contributions
 
 * *Major enhancement*:
-** *Added `search` command* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187[#187]) +
-Functionality of command can be found <<../UserGuide.adoc#search, here>> and implementation of it can be found <<../DeveloperGuide.adoc#search, here>>.
+
+** *Added `search` feature* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187[#187]) +
+Functionality of feature can be found <<../UserGuide.adoc#search, here>> and implementation of it can be found <<../DeveloperGuide.adoc#search, here>>.
+
 *** *What it does*: +
 Allows the user to specifically search for keywords that matches any fields of the parcel. The user are also able to narrow down their search range by providing different flags and prefixes.
+
 *** *Justification*: +
 This is one of the key feature of Delino as it allows the user to sieve out parcels of their interest from the large parcels list.
+
 *** *Highlights*: +
-This command provide various options for the user
-*** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This enhancement is affected by the existing `insert` and `return` command as it depends heavily on the fields added in parcel.
+It also affects the future command to be added in if the future command requires to change the properties of a parcel. Implementing this feature requires
+the thorough understanding of the existing class in AB3 such as the `ArgumentMultimap` and the `NameContainsKeywordsPredicate`. Furthermore, JavaFX class `Predicate` was used to achieve functionality of this feature.
+
 
 * *Minor enhancement*: [Coming soon]
 
