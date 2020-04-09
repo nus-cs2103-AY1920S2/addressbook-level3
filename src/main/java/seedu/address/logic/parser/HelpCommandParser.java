@@ -15,14 +15,13 @@ public class HelpCommandParser implements Parser<HelpCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public HelpCommand parse(String args) throws ParseException {
-        if (!doesInputHaveExtraParameters(args)) {
-            HelpCommand helpCommand = new HelpCommand();
-            helpCommand.setValidity(true);
-            return helpCommand;
-        } else {
+        if (doesInputHaveExtraParameters(args)) {
             throw new ParseException(String.format(HelpCommand.SHOW_ADDITIONAL_PARAMETERS_MESSAGE + Messages.NEWLINE
                     + HelpCommand.MESSAGE_USAGE));
         }
+        HelpCommand helpCommand = new HelpCommand();
+        helpCommand.setValidity(true);
+        return helpCommand;
     }
 
     /**
