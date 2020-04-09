@@ -87,7 +87,7 @@ public class BuyCommand extends Command {
         List<Supplier> lastShownList = model.getFilteredSupplierList();
 
         if (supplierIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_GOOD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
         }
 
         // verify that seller has good on offer
@@ -102,17 +102,18 @@ public class BuyCommand extends Command {
         }
 
         // updated inventory to reflect purchase
-        Good queryGood = new Good(boughtGoodName, boughGoodQuantity);
+        Good queryGood = Good.goodWithName(boughtGoodName);
+
         if (model.hasGood(queryGood)) {
             increaseQuantity(model, boughtGoodName, boughGoodQuantity);
         } else {
-            Good boughtGood = new Good(boughtGoodName, boughGoodQuantity);
+            Good boughtGood = Good.newGoodEntry(boughtGoodName, boughGoodQuantity);
             model.addGood(boughtGood);
         }
 
         // get fields to create new transaction history record
         TransactionId transactionId = new TransactionId(UUID.randomUUID().toString());
-        Good boughtGood = new Good(boughtGoodName, boughGoodQuantity);
+        Good boughtGood = Good.newGoodEntry(boughtGoodName, boughGoodQuantity);
 
         // we have checked that seller has good on offer
         // offer is unique is the GoodName because a Set is used, so we take the first and only item
@@ -145,12 +146,12 @@ public class BuyCommand extends Command {
     private void increaseQuantity(Model model,
             GoodName boughtGoodName, GoodQuantity boughGoodQuantity) throws CommandException {
 
-        Good queryGood = new Good(boughtGoodName, boughGoodQuantity);
+        Good queryGood = Good.goodWithName(boughtGoodName);
         int oldGoodIndex = model.indexOfGood(queryGood);
 
-        Good oldGood = model.getFilteredGoodList().get(oldGoodIndex);
+        Good oldGoodEntry = model.getFilteredGoodList().get(oldGoodIndex);
 
-        int updatedQuantity = oldGood.getGoodQuantity().goodQuantity + boughGoodQuantity.goodQuantity;
+        int updatedQuantity = oldGoodEntry.getGoodQuantity().goodQuantity + boughGoodQuantity.goodQuantity;
 
         // this try catch prevents inventory quantity overflows
         GoodQuantity updatedGoodQuantity;
@@ -160,9 +161,9 @@ public class BuyCommand extends Command {
             throw new CommandException(MESSAGE_GOODQUANTITY_OVERFLOW);
         }
 
-        Good updatedGood = new Good(boughtGoodName, updatedGoodQuantity);
+        Good updatedGood = new Good(boughtGoodName, updatedGoodQuantity, oldGoodEntry.getThreshold());
 
-        model.setGood(oldGood, updatedGood);
+        model.setGood(oldGoodEntry, updatedGood);
     }
 
     @Override
