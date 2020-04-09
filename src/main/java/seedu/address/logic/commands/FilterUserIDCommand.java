@@ -37,6 +37,7 @@ public class FilterUserIDCommand implements AppCommand, BluetoothPingStorageAcce
     public BluetoothPingsMessage execute(AppStorage dao) {
         Conditions cond = new UserIDConditions(USER_ID);
         ArrayList resp  = dao.search(cond);
+        System.out.println("Search id");
         BluetoothPingsMessage result = new BluetoothPingsMessage("Identifying recods with User ID.", false);
         result.setToDisplayList(resp);
         return result;
