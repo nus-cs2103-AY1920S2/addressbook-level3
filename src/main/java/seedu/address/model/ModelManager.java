@@ -140,9 +140,7 @@ public class ModelManager implements Model {
             public void run() {
                 Platform.runLater(
                         () -> {
-                            System.out.println("timer up");
                             setTask(t, t.getRecurredTask());
-
                         });
             }
         };
