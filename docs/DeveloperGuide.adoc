@@ -409,9 +409,6 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-.Model Components - Class Diagram
-image::ModelComponentsClassDiagram.png[]
-
 [[StudentView]]
 === Student View
 *Student View* is used to display all modules, groups and students in the TA-Tracker.
@@ -761,8 +758,8 @@ sessions that the user is affiliated with.
 The following class diagrams hows how different classes are related in the functioning
 of the Session View.
 
-.Class Diagram of Session View
-image::SessionModelClassDiagram.png[]
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[]
 
 The TaTracker model class contains a `UniqueSessionList` which helps keep track of
 all the *upcoming sessions* of the user.
@@ -1761,7 +1758,6 @@ Use case ends.
 . `**TAT**` should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
 . `**TAT**` should support screen resolution of 1920 x 1080 or higher.
-. `**TAT**` should support the English <<locale, locale>> only. Any locale from this link:https://docs.microsoft.com/en-us/cpp/c-runtime-library/language-strings?view=vs-2019[link] that starts with "en" will be supported.
 
 [appendix]
 == Glossary
@@ -1808,8 +1804,6 @@ language and region. |
 in this document. |
 
 | NFR | Stands for "Non-functional Requirement" |
-
-
 
 | Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X. |
 
