@@ -102,6 +102,8 @@ Format: `find-c NAME`
 |====================
 | Parameters | Important points to note
 | NAME |
+* Substitute `NAME` with keywords you want to search with +
+
 * You can use multiple keywords for `NAME`. +
 e.g. You can enter `find-c bryan low`.
 
@@ -242,7 +244,7 @@ Examples:
 `add-e` allows you to record an exercise done by the client that you are currently viewing. You will be able to see the exercises recorded and their information in a table.
 
 ==== Parameters
-This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional. Your command will still execute even if you do not type them.
+This section acts as a summary of the important things to note when using `add-e` including their parameters. The square bracket shows that it is optional. Your command will still execute even if you do not enter them.
 
 Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SETS]`
 
@@ -251,27 +253,37 @@ Format: `add-e n/EXERCISE_NAME d/DATE [ew/EXERCISE_WEIGHT] [reps/REPS] [sets/SET
 |====================
 | Parameters | Important points to note
 | n/NAME |
+* Substitute `NAME` with the name of the exercise. +
+
 * `n/NAME` is compulsory and you have to specify it. +
 
 * `n/NAME` is case sensitive. +
-e.g `squats` will not match `Squats`
+e.g. An exercise named `pushup` will be considered to have a different name as an exercise named `Pushup`.
 
 | d/DATE |
+* Substitute `DATE` with the date of the exercise. +
+
 * `d/DATE` is compulsory and you have to specify it. +
 
 * `DATE` must be of the form `DD-MM-YYYY` (ie. 02-07-2020 for 2nd July 2020)
 
 | [reps/REPS] |
+* Substitute `REPS` with the reps of the exercise. +
+
 * `reps/REPS` is optional..
 
 * Range for `REPS` is 1-9999. +
 
 | [sets/SETS] |
+* Substitute `SETS` with the sets of the exercise. +
+
 * `sets/SETS` is optional.
 
 * Range for `SETS` is 1-9999. +
 
 | [ew/WEIGHT] |
+* Substitute `Weight` with the weight of the exercise. +
+
 * `ew/WEIGHT` is optional.
 
 * Range for `WEIGHT` is 1-9999. +
@@ -290,7 +302,18 @@ You can use the `add-e` command to add the exercise by following the steps below
 
 /photo
 
-2.Now enter the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. Press enter to execute it. You can verify that the information entered matches the one shown above.
+2.Now enter the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. To recap,
+
+[width="50%"]
+|============
+The name of the exercise after `n/` +
+The date of the exercise after `d/` +
+The reps of the exercise after `reps/` +
+The weight of the exercise after `ew/` +
+The sets of the exercise after `sets/` +
+|============
+
+Press enter to execute it.
 
 /photo
 
@@ -312,7 +335,7 @@ You might have the following exercise in your table.
 
 /photo
 
-If you were to enter `....` into the command box. The only information that is different is the number of sets. The result box will show that you have a duplicate exercise.
+If you were to enter `....` into the command box, the only information that is different is the number of sets. The result box will show that you have a duplicate exercise.
 
 /photo type
 
