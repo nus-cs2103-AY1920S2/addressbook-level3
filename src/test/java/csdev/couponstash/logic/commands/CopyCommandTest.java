@@ -90,7 +90,7 @@ public class CopyCommandTest {
     public void execute_messageCopiedToClipboard_equalsToActualMessage() {
         Coupon couponToCopy = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
         CopyCommand copyCommand = new CopyCommand(TypicalIndexes.INDEX_FIRST_COUPON);
-        String actualMessage = copyCommand.getCopyCommand(couponToCopy);
+        String actualMessage = copyCommand.getCopiedString(couponToCopy);
         try {
             copyCommand.execute(model);
             assertEquals(getClipboardContent(), actualMessage);
@@ -110,7 +110,7 @@ public class CopyCommandTest {
         Index lastIndex = Index.fromZeroBased(model.getFilteredCouponList().size() - 1);
         CopyCommand copyCommand = new CopyCommand(lastIndex);
         Coupon couponToCopy = model.getFilteredCouponList().get(lastIndex.getZeroBased());
-        String exportString = copyCommand.getCopyCommand(couponToCopy);
+        String exportString = copyCommand.getCopiedString(couponToCopy);
         CouponStashParser command = new CouponStashParser(
                 new MoneySymbolStub("$"));
         try {
