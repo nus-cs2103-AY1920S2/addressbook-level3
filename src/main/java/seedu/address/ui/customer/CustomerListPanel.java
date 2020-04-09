@@ -24,6 +24,7 @@ public class CustomerListPanel extends UiPart<Region> {
     public CustomerListPanel(ObservableList<Customer> customerList) {
         super(FXML);
         customerListView.setItems(customerList);
+        logger.fine("Linked customer list to panel.");
         customerListView.setCellFactory(listView -> new CustomerListViewCell());
     }
 
