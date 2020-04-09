@@ -25,6 +25,8 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.RETURN_TID_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.RETURN_TID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.RETURN_TIMESTAMP_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.RETURN_TIMESTAMP_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TID_DESC_AMY;
@@ -36,7 +38,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_INSTRUC
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RETURN_TID_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RETURN_TID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_GLASS;
@@ -69,87 +72,87 @@ public class ReturnCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         ReturnOrder expectedReturnOrder = new ReturnOrderBuilder(BOB_RETURN).withItemType(VALID_TYPE_GLASS).build();
-        TransactionId expectedTid = new TransactionId(VALID_TID_BOB);
+        TransactionId expectedTid = new TransactionId(VALID_RETURN_TID_BOB);
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                 + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple TIDs - last TID accepted
-        assertParseSuccess(parser, TID_DESC_AMY + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, TID_DESC_AMY + RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                 + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                 + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
                         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                         + COMMENT_DESC_NIL + TYPE_DESC_GLASS,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple emails - last email accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                         + COMMENT_DESC_NIL + TYPE_DESC_GLASS,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple addresses - last address accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                         + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB
                         + WAREHOUSE_DESC_BOB + COMMENT_DESC_NIL + TYPE_DESC_GLASS,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple timeStamps - last timeStamp accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                         + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_AMY + RETURN_TIMESTAMP_DESC_BOB
                         + WAREHOUSE_DESC_BOB + COMMENT_DESC_NIL + TYPE_DESC_GLASS,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple warehouses - last warehouse accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + COMMENT_DESC_NIL
                 + WAREHOUSE_DESC_AMY + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                 + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple comment - last comment accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
                 + COMMENT_DESC_INSTRUCTION
                 + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // multiple item types - all accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + RETURN_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COMMENT_DESC_NIL
                 + TYPE_DESC_PLASTIC + TYPE_DESC_GLASS, new ReturnCommand(expectedReturnOrder, expectedTid));
 
         // only TID present
-        assertParseSuccess(parser, TID_DESC_BOB, new ReturnCommand(null, expectedTid));
+        assertParseSuccess(parser, RETURN_TID_DESC_BOB, new ReturnCommand(null, expectedTid));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero item types and comment
         ReturnOrder expectedReturnOrder = new ReturnOrderBuilder(AMY_RETURN).build();
-        TransactionId expectedTid = new TransactionId(VALID_TID_AMY);
-        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        TransactionId expectedTid = new TransactionId(VALID_RETURN_TID_AMY);
+        assertParseSuccess(parser, RETURN_TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                         + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COMMENT_DESC_NIL
                         + TYPE_DESC_PLASTIC,
                 new ReturnCommand(expectedReturnOrder, expectedTid));
 
         ReturnOrder expectedReturnOrderWithType = new ReturnOrderBuilder(AMY_RETURN)
                 .withItemType(VALID_TYPE_GLASS).build();
-        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        assertParseSuccess(parser, RETURN_TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                         + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + TYPE_DESC_GLASS,
                 new ReturnCommand(expectedReturnOrderWithType, expectedTid));
 
         ReturnOrder expectedReturnOrderWithComment = new ReturnOrderBuilder(AMY_RETURN).withItemType("NIL")
                 .withComment(VALID_COMMENT_INSTRUCTION).build();
-        assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        assertParseSuccess(parser, RETURN_TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                         + ADDRESS_DESC_AMY + RETURN_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COMMENT_DESC_INSTRUCTION,
                 new ReturnCommand(expectedReturnOrderWithComment, expectedTid));
     }

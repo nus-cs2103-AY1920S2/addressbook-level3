@@ -81,10 +81,10 @@ public class OrderBookParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommandParser().parse(arguments);
 
         case ShowCommand.COMMAND_WORD:
-            return new ShowCommand();
+            return new ShowCommand(arguments);
 
         case ReturnCommand.COMMAND_WORD:
             return new ReturnCommandParser().parse(arguments);

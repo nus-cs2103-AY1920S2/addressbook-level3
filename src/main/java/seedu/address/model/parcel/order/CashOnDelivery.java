@@ -9,12 +9,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class CashOnDelivery {
     public static final String MESSAGE_CONSTRAINTS =
-            "Please put a dollar sign before the money value ";
+            "Please put a dollar sign before the money value and make sure that \n"
+                    + "the value must be below the amount $10,000,000,000,000\n"
+                    + "(If there is a need to add decimal values, the amount can only accept"
+                    + "exactly two decimal places)";
 
     /*
      * Must have a $ sign followed by the value
      */
-    public static final String VALIDATION_REGEX = "\\$\\d+(?:.(\\d+))?";
+    public static final String VALIDATION_REGEX = "^\\$\\d{1,13}(?:[.]\\d{2})?$";
 
     public final String cashOnDelivery;
 
