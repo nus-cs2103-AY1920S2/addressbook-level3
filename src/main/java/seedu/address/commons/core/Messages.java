@@ -11,10 +11,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_COURSE_FOCUS_AREA = "Error: This focus area is not available";
     public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
     public static final String MESSAGE_INVALID_SEMESTER = "Error: No modules have been added to this semester";
-    public static final String MESSAGE_INVALID_SEMESTER_FORMAT = "Please enter the year in the form Y.S, where " +
-            "Y is the year (positive integer less than 10) and S is the semester (1 or 2).";
-    public static final String MESSAGE_INVALID_GRADE = "Module's grade field should contain only " +
-            "one of these values: [A+, A, A-, B+, B, B-, C+, C, D+, D, F, S, U, CS, CU]";
+    public static final String MESSAGE_INVALID_SEMESTER_FORMAT = "Please enter the year in the form Y.S, where "
+            + "Y is the year (positive integer less than 10) and S is the semester (1 or 2).";
+    public static final String MESSAGE_INVALID_GRADE = "Module's grade field should contain only "
+            + "one of these values: [A+, A, A-, B+, B, B-, C+, C, D+, D, F, S, U, CS, CU]";
     public static final String MESSAGE_INVALID_DATETIME = "Error: Invalid date or time!";
 
     public static final String MESSAGE_EMPTY_PROFILE_LIST = "Error: No profile has been created.";

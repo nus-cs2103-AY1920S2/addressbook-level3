@@ -96,11 +96,11 @@ public class AddCommand extends Command {
         boolean hasModule = false;
         Module moduleToAdd = null;
             // throws error if module code does not exist! DO NOT REMOVE!
-            if (moduleManager.hasModule(toAdd)) {
-                moduleToAdd = moduleManager.getModule(toAdd);
-            } else {
+        if (moduleManager.hasModule(toAdd)) {
+            moduleToAdd = moduleManager.getModule(toAdd);
+        } else {
             throw new CommandException(MESSAGE_INVALID_MODULE);
-            }
+        }
         int semesterOfModule = 0;
 
         // Check whether this module has been added to Profile semester HashMap

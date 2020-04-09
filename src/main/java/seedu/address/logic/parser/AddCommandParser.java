@@ -16,7 +16,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
-import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * Parses input arguments and creates a new AddCommand object
