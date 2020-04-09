@@ -322,6 +322,6 @@ Examples:
 |Command | Summary
 |`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to the client being viewed.
 |`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
-|`delete-e INDEX`| Deletes an exercise in the exercise list of the client.
+|`delete-e INDEX`| Deletes an exercise in the exercise list of the client being viewed.
 |`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
 |=======================================================================
