@@ -1,17 +1,21 @@
 package seedu.expensela.logic.commands;
 
-import seedu.expensela.commons.core.Messages;
-import seedu.expensela.logic.commands.exceptions.CommandException;
-import seedu.expensela.model.Model;
-import seedu.expensela.model.transaction.Transaction;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import static java.util.Objects.requireNonNull;
 
+import seedu.expensela.commons.core.Messages;
+import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.Model;
+import seedu.expensela.model.transaction.Transaction;
+
+/**
+ * Exports currently filtered transactions to csv file, in the current directory.
+ */
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
