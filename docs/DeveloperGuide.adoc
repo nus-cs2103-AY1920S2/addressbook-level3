@@ -806,6 +806,9 @@ toBeCreated, will be added to the model's return order list using the addReturnO
 Finally, a new CommandResult will be created to display the success message to the user for converting
 a delivered order to a return order.
 
+[[search-interactions]]
+==== Interactions between objects when Return Command is executed
+
 ==== Sequence Diagram for creating a new return order
 The sequence diagrams for the *Return Command* are shown below.
 
