@@ -1017,6 +1017,7 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
+* If you don't specify a rate, it is set at 40$ by default.
 * AMOUNT is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * To specify in exact dollars, you can write it as just the number (example: 20).
@@ -1030,10 +1031,30 @@ Sets the current hourly rate to 25$.
 
 == GLOSSARY
 
+[width="%",cols="<20%,<40,<40,options="header",]
+|=======================================================================
+|Term | Explanation | Examples
+
+| `TSS Claims Form` | This refers the claims form that Teaching Assistants
+at NUS School of Computing have to fill up at the end of each semester to claim money
+for the tasks they have completed. |
+
+| `TA` | This is the short form for `Teaching Assistant` |
+
+| `SOC` or `SoC` | This is the short form for `School of Computing` |
+
+| `Index` | This refers to the position of an item on a list | `1` refers to the first
+item on a list
+
+| `matric number` | This refers to a student's matriculation number | `A0123456X`
+
+| `group` | The is the general term given to a group of students a TA teaches |
+`lab` , `tutorial` , `recitation`
+
+|=======================================================================
+
 
 == FAQ
-
-TODO: COME UP WITH MORE QUESTIONS
 
 *Q*: How can I transfer my data to another Computer? +
 *A*: You can do so by first installing the app in another computer. You can then replace
