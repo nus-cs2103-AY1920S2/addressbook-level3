@@ -63,7 +63,7 @@ public class DeleteAssignmentCommand extends DeleteCommand {
 
   @Override
   protected void generateOppositeCommand() throws CommandException {
-    oppositeCommand = new AddAssignmentCommand(toDelete, targetIndex.getZeroBased());
+    oppositeCommand = new AddAssignmentCommand(toDelete.clone(), targetIndex.getZeroBased());
   }
 
   @Override

@@ -61,7 +61,7 @@ public class DeleteTeacherCommand extends DeleteCommand {
   }
 
   protected void generateOppositeCommand() {
-    oppositeCommand = new AddTeacherCommand(toDelete, targetIndex.getZeroBased());
+    oppositeCommand = new AddTeacherCommand(toDelete.clone(), targetIndex.getZeroBased());
   }
 
   @Override
