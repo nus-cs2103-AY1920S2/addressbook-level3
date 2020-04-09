@@ -573,6 +573,35 @@ image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 [[Paid-Command]]
 ==== Paid Command
 
+In this section, we will learn more about how the `paid` command is implemented.
+
+*What is the Paid Command* +
+
+The `paid` command allows user to reduce the amount of money owed by a Person after they
+have paid.
+
+The `paid` command was implemented as a `PaidCommand` in the `expenseSplitterLogic` package.
+
+The `paid` command has the following input format:
+
+`paid` `INDEX` `[AMOUNT]`
+
+[NOTE]
+====
+* `INDEX` is a *compulsory* field. Instead of typing a Person's name, the user
+can type their index. To find out his/her index, use the command
+ `listamount`.
+
+* `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
+empty is equivalent to the Person paying you the full amount he/she owes the user.
+
+* `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+====
+
+
+
+
+
 *Implementation*
 
 The following is a detailed explanation of the operations `PaidCommand` performs. +
