@@ -87,7 +87,7 @@ original UI of AddressBook Level 3.
 *** Justification: It is a must have. Couriers need to be able to delete from a specific list.
 Our application has two lists: Order list and Return Order list.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jeremyloh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
@@ -96,11 +96,18 @@ Our application has two lists: Order list and Return Order list.
 ** Enhancements to existing features:
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Update delete and nearby command DG:
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/251[#251]
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/71[#71]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171[#171]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187[#187]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226[#226]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310[#310]
+
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1920S2/forum/issues/88[88])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/JeremyLoh/ped/issues[PE dry run issues])
 ** Tools:
 *** Integrated a third party library (Coveralls) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/248bb4db86666270ee5025f1d4f9276ef1d530ec[248bb4d])
 *** Configure Repo to Provide Additional Data to RepoSense (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/220[#220])
