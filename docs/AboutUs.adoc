@@ -53,6 +53,6 @@ image::denise-ng.png[width="150", align="left"]
 {empty}[http://github.com/denise-ng[github]] [<<Denise#, portfolio>>]
 
 Role: Junior Developer +
-Responsibilities: Try my best
+Responsibilities: Expiring and goto feature in Coupon Stash.
 
 '''
