@@ -779,6 +779,8 @@ Efficient.
 
 ** Cons: Harder to maintain two data files.
 Very prone to error.
+
+// tag::savings[]
 === Savings per use and total amount saved
 
 To allow users to keep track of how much they have saved
@@ -992,6 +994,8 @@ values and combinations of these values. This allows
 the Coupon to think in terms of an entire Savings
 object, rather than handle multiple different scenarios
 depending on which fields it has.
+
+// end::savings[]
 
 == Documentation
 

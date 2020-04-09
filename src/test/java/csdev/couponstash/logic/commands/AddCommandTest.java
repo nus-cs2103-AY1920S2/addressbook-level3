@@ -1,7 +1,7 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.util.DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE;
-import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
+import static csdev.couponstash.commons.util.DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE;
+import static csdev.couponstash.commons.util.DateUtil.MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,7 +55,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(invalidCoupon);
         ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
 
-        assertThrows(CommandException.class, START_DATE_EXPIRY_DATE_CONSTRAINT, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT, () ->
+                addCommand.execute(modelStub));
     }
 
     @Test
@@ -65,7 +66,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(invalidCoupon);
         ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
 
-        assertThrows(CommandException.class, REMIND_DATE_EXCEED_EXPIRY_DATE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE, () ->
+                addCommand.execute(modelStub));
     }
 
     @Test

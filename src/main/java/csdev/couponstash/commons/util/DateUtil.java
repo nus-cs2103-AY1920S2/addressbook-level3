@@ -41,16 +41,14 @@ public class DateUtil {
     public static final DateTimeFormatter DAY_SHORT_MONTH_YEAR_FORMATTER = DateTimeFormatter
             .ofPattern("d LLL yyyy");
 
-
-    public static final String START_DATE_EXPIRY_DATE_CONSTRAINT = "Start Date must be before Expiry Date!";
-    public static final String REMIND_DATE_EXCEED_EXPIRY_DATE = "Reminder date cannot be after Expiry Date!";
-
-
     public static final int MINIMUM_YEAR = 2000;
     public static final int MAXIMUM_YEAR = 2200;
 
-
+    // for expiry & start date
     public static final DateTimeFormatter DATE_FORMATTER_STANDARD = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+
+    public static final String MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT = "Start Date must be before Expiry Date!";
+    public static final String MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE = "Reminder date cannot be after Expiry Date!";
 
     /**
      * Returns true if a given string is a valid Date.
