@@ -97,6 +97,7 @@ public class DeleteIngredientCommand extends Command {
         updateOthersList(recipeToEdit, editRecipeDescriptor);
 
         Recipe editedRecipe = createEditedRecipe(recipeToEdit, editRecipeDescriptor);
+        editedRecipe.calculateGoals();
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);

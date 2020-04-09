@@ -64,11 +64,11 @@ public class EditIngredientCommandTest {
                 .withGrains("50g, Bread")
                 .withOthers("100g, Cheese")
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
-                .withGoals("Wholesome Wholemeal").build();
+                .build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editIngredientCommand, model, expectedCommandResult, expectedModel);
     }
@@ -123,12 +123,11 @@ public class EditIngredientCommandTest {
                 .withTime("10")
                 .withGrains("50g, Bread")
                 .withOthers("100g, Cheese")
-                .withSteps("Spread butter on bread", "Heat pan to medium heat")
-                .withGoals("Wholesome Wholemeal").build();
+                .withSteps("Spread butter on bread", "Heat pan to medium heat").build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editIngredientCommand, model, expectedCommandResult, expectedModel);
     }

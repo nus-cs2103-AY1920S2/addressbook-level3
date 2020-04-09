@@ -2,7 +2,7 @@
   "recipes" : [ {
     "name" : "Quick Carrot Daikon Stir-fry",
     "time" : "25",
-    "isFavourite" : true,
+    "isFavourite" : false,
     "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
     "vegetables" : [ "30.0g,  Carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  Garlic clove (smashed and chopped)", "20.0g,  Ginger (julienned sliced)", "30.0g,  Scallions" ],
     "proteins" : [ ],
@@ -131,5 +131,16 @@
     "others" : [ ],
     "steps" : [ "step 1", "edited step 2" ],
     "goals" : [ ]
+  }, {
+    "name" : "mememe",
+    "time" : "30",
+    "isFavourite" : false,
+    "grains" : [ "145.0g,  Bread" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ "Wholesome Wholemeal" ]
   } ]
 }
