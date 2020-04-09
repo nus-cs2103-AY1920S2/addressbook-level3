@@ -28,6 +28,7 @@ import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.storage.DietStorageManager;
 import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
+import seedu.eylah.diettracker.storage.JsonMyselfStorage;
 import seedu.eylah.diettracker.testutil.FoodBuilder;
 
 public class LogicManagerTest {
@@ -44,7 +45,8 @@ public class LogicManagerTest {
         JsonFoodBookStorage foodBookStorage =
                 new JsonFoodBookStorage(temporaryFolder.resolve("foodBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        DietStorageManager storage = new DietStorageManager(foodBookStorage, userPrefsStorage);
+        JsonMyselfStorage myselfStorage = new JsonMyselfStorage(temporaryFolder.resolve("myself.json"));
+        DietStorageManager storage = new DietStorageManager(foodBookStorage, userPrefsStorage, myselfStorage);
         logic = new DietLogicManager(model, storage);
     }
 
@@ -73,7 +75,8 @@ public class LogicManagerTest {
                 new JsonFoodBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionFoodBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        DietStorageManager storage = new DietStorageManager(foodBookStorage, userPrefsStorage);
+        JsonMyselfStorage myselfStorage = new JsonMyselfStorage(temporaryFolder.resolve("ioExceptionMyself.json"));
+        DietStorageManager storage = new DietStorageManager(foodBookStorage, userPrefsStorage, myselfStorage);
         logic = new DietLogicManager(model, storage);
 
         // Execute add command
@@ -126,7 +129,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        DietModel expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs());
+        DietModel expectedModel = new DietModelManager(model.getFoodBook(), new UserPrefs(), model.getMyself());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

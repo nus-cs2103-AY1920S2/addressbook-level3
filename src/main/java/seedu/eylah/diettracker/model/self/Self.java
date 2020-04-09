@@ -23,8 +23,8 @@ public class Self {
      */
     public Self(Height height, Weight weight) {
         requireAllNonNull(height, weight);
-        this.height = height;
-        this.weight = weight;
+        Self.height = height;
+        Self.weight = weight;
     }
 
     public Self(){}
@@ -34,7 +34,6 @@ public class Self {
     }
 
     public static Weight getWeight() {
-
         return weight;
     }
 

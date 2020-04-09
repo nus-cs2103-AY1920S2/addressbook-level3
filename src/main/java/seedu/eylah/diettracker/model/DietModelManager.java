@@ -16,7 +16,6 @@ import seedu.eylah.commons.model.UserPrefs;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
-import seedu.eylah.diettracker.model.self.Self;
 import seedu.eylah.diettracker.model.self.Weight;
 
 /**
@@ -26,24 +25,65 @@ public class DietModelManager extends ModelManager implements DietModel {
     private static final Logger logger = LogsCenter.getLogger(DietModelManager.class);
 
     private final FoodBook foodBook;
+    private final Myself myself;
     private final FilteredList<Food> filteredFoods;
     private Mode mode = Mode.MAINTAIN;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, userPrefs and myself (user metrics).
      */
-    public DietModelManager(ReadOnlyFoodBook foodBook, ReadOnlyUserPrefs userPrefs) {
+    public DietModelManager(ReadOnlyFoodBook foodBook, ReadOnlyUserPrefs userPrefs, ReadOnlyMyself myself) {
         super(userPrefs);
-        requireAllNonNull(foodBook, userPrefs);
+        requireAllNonNull(foodBook, userPrefs, myself);
 
-        logger.fine("Initializing with address book: " + foodBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with food book: " + foodBook + " and user prefs " + userPrefs
+                + "and Myself (user) " + myself);
 
         this.foodBook = new FoodBook(foodBook);
         filteredFoods = new FilteredList<>(this.foodBook.getFoodList());
+        this.myself = new Myself(myself);
     }
 
     public DietModelManager() {
-        this(new FoodBook(), new UserPrefs());
+        this(new FoodBook(), new UserPrefs(), new Myself());
+    }
+
+    //=========== Myself ==================================================================================
+
+    @Override
+    public Path getMyselfFilePath() {
+        return super.getUserPrefs().getMyselfFilePath();
+    }
+
+    @Override
+    public void setMyselfFilePath(Path myselfFilePath) {
+        requireNonNull(myselfFilePath);
+        super.getUserPrefs().setMyselfFilePath(myselfFilePath);
+    }
+
+    @Override
+    public void setMyself(ReadOnlyMyself myself) {
+        this.myself.resetData(myself);
+    }
+
+    @Override
+    public ReadOnlyMyself getMyself() {
+        return myself;
+    }
+
+    @Override
+    public void setHeight(Height height) {
+        myself.setHeight(height);
+    }
+
+    @Override
+    public void setWeight(Weight weight) {
+        myself.setWeight(weight);
+    }
+
+    @Override
+    public void setMode(Mode mode) {
+        myself.setMode(mode);
     }
 
     //=========== FoodBook ================================================================================
@@ -165,22 +205,4 @@ public class DietModelManager extends ModelManager implements DietModel {
         return foodBook.equals(other.foodBook)
                 && filteredFoods.equals(other.filteredFoods);
     }
-
-    //=========== Self ================================================================================
-
-    @Override
-    public void setHeight(Height height) {
-        Self.setHeight(height);
-    }
-
-    @Override
-    public void setWeight(Weight weight) {
-        Self.setWeight(weight);
-    }
-
-    @Override
-    public void setMode(Mode mode) {
-        Self.setMode(mode);
-    }
-
 }

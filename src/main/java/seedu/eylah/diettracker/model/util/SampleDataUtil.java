@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.eylah.diettracker.model.FoodBook;
+import seedu.eylah.diettracker.model.Myself;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.ReadOnlyMyself;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Date;
 import seedu.eylah.diettracker.model.food.Food;
@@ -32,6 +34,11 @@ public class SampleDataUtil {
             new Food(new Name("Sandwich"), new Calories(300), new Date("2020-04-02T02:50:22.279828"),
                     getTagSet("healthy"))
         };
+    }
+
+    public static ReadOnlyMyself getSampleMyself() {
+        Myself sampleMs = new Myself();
+        return sampleMs;
     }
 
     public static ReadOnlyFoodBook getSampleFoodBook() {

@@ -9,6 +9,7 @@ import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.ReadOnlyMyself;
 import seedu.eylah.diettracker.model.food.Food;
 
 /**
@@ -33,5 +34,17 @@ public interface DietLogic extends Logic {
      * Returns the user prefs' food book file path.
      */
     Path getFoodBookFilePath();
+
+    /**
+     * Returns the Myself.
+     *
+     * @see DietModel#getMyself()
+     */
+    ReadOnlyMyself getMyself();
+
+    /**
+     * Returns the user prefs' myself file path.
+     */
+    Path getMyselfFilePath();
 
 }

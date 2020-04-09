@@ -10,18 +10,50 @@ import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.commons.storage.StorageManager;
 import seedu.eylah.commons.storage.UserPrefsStorage;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.ReadOnlyMyself;
 
 /**
- * Manages storage of FoodBook data in local storage.
+ * Manages storage of FoodBook data  and User metrics data in local storage.
  */
 public class DietStorageManager extends StorageManager implements DietStorage {
 
     private static final Logger logger = LogsCenter.getLogger(DietStorageManager.class);
     private FoodBookStorage foodBookStorage;
+    private MyselfStorage myselfStorage;
 
-    public DietStorageManager(FoodBookStorage foodBookStorage, UserPrefsStorage userPrefsStorage) {
+    public DietStorageManager(FoodBookStorage foodBookStorage, UserPrefsStorage userPrefsStorage,
+                              MyselfStorage myselfStorage) {
         super(userPrefsStorage);
         this.foodBookStorage = foodBookStorage;
+        this.myselfStorage = myselfStorage;
+    }
+
+    // ================ Myself methods ================================
+    @Override
+    public Path getMyselfFilePath() {
+        return myselfStorage.getMyselfFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyMyself> readMyself() throws DataConversionException, IOException {
+        return readMyself(myselfStorage.getMyselfFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyMyself> readMyself(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return myselfStorage.readMyself(filePath);
+    }
+
+    @Override
+    public void saveMyself(ReadOnlyMyself myself) throws IOException {
+        saveMyself(myself, myselfStorage.getMyselfFilePath());
+    }
+
+    @Override
+    public void saveMyself(ReadOnlyMyself myself, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        myselfStorage.saveMyself(myself, filePath);
     }
 
     // ================ FoodBook methods ==============================
