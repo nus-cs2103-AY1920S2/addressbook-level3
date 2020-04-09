@@ -2,11 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DATE;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,22 +29,17 @@ import seedu.address.model.transaction.TransactionId;
 public class BuyCommand extends Command {
     public static final String COMMAND_WORD = "buy";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Buys the stated "
-            + "quantity of the good stated from the given supplier on the provided transaction date. "
-            + "This batch of goods will be set to expire on the given expiry date, after which "
-            + "they will expire and be removed from inventory. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Buys goods from the supplier at the displayed index.\n"
+            + "The buy command keyword is followed by the displayed index of the supplier to buy from.\n"
+            + "The name of good to buy will be given as a parameter.\n"
+            + "The supplier must have the good on offer, else purchase will be rejected.\n"
+            + "The quantity to buy will be given as a parameter.\n"
             + "Parameters: "
-            + PREFIX_NAME + "SUPPLIER_NAME "
             + PREFIX_GOOD_NAME + "GOOD_NAME "
             + PREFIX_QUANTITY + "QUANTITY "
-            + PREFIX_EXPIRY_DATE + "EXPIRY_DATE "
-            + PREFIX_TRANSACTION_DATE + "TRANSACTION_DATE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Leong Fai Produce Co. "
+            + "\nExample: " + COMMAND_WORD + " 2 "
             + PREFIX_GOOD_NAME + "Apples "
-            + PREFIX_QUANTITY + "50 "
-            + PREFIX_EXPIRY_DATE + "2020-02-02 "
-            + PREFIX_TRANSACTION_DATE + "2020-01-01";
+            + PREFIX_QUANTITY + "50 ";
 
     public static final String MESSAGE_SUCCESS = "Bought %1$d units of %2$s at $%3$s each.";
 
@@ -186,9 +178,9 @@ public class BuyCommand extends Command {
 
         // state check
         BuyCommand e = (BuyCommand) other;
-        return boughtGoodName.equals(e.boughtGoodName) &&
-                boughGoodQuantity.equals(e.boughGoodQuantity) &&
-                supplierIndex.equals(e.supplierIndex);
+        return boughtGoodName.equals(e.boughtGoodName)
+                && boughGoodQuantity.equals(e.boughGoodQuantity)
+                && supplierIndex.equals(e.supplierIndex);
     }
 }
 
