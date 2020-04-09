@@ -1,5 +1,6 @@
 package tatracker.logic.parser.student;
 
+import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -12,17 +13,20 @@ import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static tatracker.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static tatracker.logic.commands.CommandTestUtil.RATING_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static tatracker.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
 import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -82,9 +86,10 @@ public class AddStudentCommandParserTest {
                 .append(MODULE_DESC_CS2030)
                 .append(GROUP_DESC_T04);
 
-        assertParseSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
+        assertParseStudentSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
                 GROUP.getIdentifier(), MODULE.getIdentifier()));
 
+        /*
         // multiple names - last name accepted
         command = new StringBuilder()
                 .append(MATRIC_DESC_BOB)
@@ -150,7 +155,7 @@ public class AddStudentCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // no optional fields
         Student expectedStudent = new StudentBuilder(AMY)
                 .withPhone("")
                 .withEmail("")
@@ -160,6 +165,60 @@ public class AddStudentCommandParserTest {
         StringBuilder command = new StringBuilder()
                 .append(MATRIC_DESC_AMY)
                 .append(MODULE_DESC_CS2030)
+                .append(GROUP_DESC_T04)
+                .append(NAME_DESC_AMY);
+
+        assertParseSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
+                GROUP.getIdentifier(), MODULE.getIdentifier()));
+
+        // no tags
+        expectedStudent = new StudentBuilder(AMY)
+                .withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .withRating(3)
+                .withTags().build();
+
+        command = new StringBuilder()
+                .append(MATRIC_DESC_AMY)
+                .append(PHONE_DESC_AMY)
+                .append(EMAIL_DESC_AMY)
+                .append(MODULE_DESC_CS2030)
+                .append(GROUP_DESC_T04)
+                .append(NAME_DESC_AMY);
+
+        assertParseSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
+                GROUP.getIdentifier(), MODULE.getIdentifier()));
+
+        // no email
+        expectedStudent = new StudentBuilder(AMY)
+                .withPhone(VALID_PHONE_AMY)
+                .withEmail("")
+                .withRating(3)
+                .withTags(VALID_TAG_FRIEND).build();
+
+        command = new StringBuilder()
+                .append(MATRIC_DESC_AMY)
+                .append(MODULE_DESC_CS2030)
+                .append(PHONE_DESC_AMY)
+                .append(TAG_DESC_FRIEND)
+                .append(GROUP_DESC_T04)
+                .append(NAME_DESC_AMY);
+
+        assertParseSuccess(parser, command.toString(), new AddStudentCommand(expectedStudent,
+                GROUP.getIdentifier(), MODULE.getIdentifier()));
+
+        // no phone
+        expectedStudent = new StudentBuilder(AMY)
+                .withPhone("")
+                .withEmail(VALID_EMAIL_AMY)
+                .withRating(3)
+                .withTags(VALID_TAG_FRIEND).build();
+
+        command = new StringBuilder()
+                .append(MATRIC_DESC_AMY)
+                .append(MODULE_DESC_CS2030)
+                .append(EMAIL_DESC_AMY)
+                .append(TAG_DESC_FRIEND)
                 .append(GROUP_DESC_T04)
                 .append(NAME_DESC_AMY);
 
