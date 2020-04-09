@@ -33,7 +33,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class InterviewParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern SCORE_COMMAND_FORMAT =
-            Pattern.compile(":(?<attribute>[\\p{Alpha}][\\p{Alpha} ]*?)\\s+(?<score>\\d+(\\.\\d+)?)");
+            Pattern.compile(":set (?<attribute>[\\p{Alpha}][\\p{Alpha} ]*?)\\s+(?<score>\\d+(\\.\\d+)?)");
     private static final Pattern START_QUESTION_COMMAND_FORMAT =
             Pattern.compile(":start q(?<questionNumber>\\d+)");
 
