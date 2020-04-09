@@ -1,0 +1,62 @@
+= Samantha Seah - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FoodieBot
+
+---
+
+== Overview
+
+Our team was tasked to create a new application by morphing the existing AddressBook Level 3 application and building on from it.
+We decided to create FoodieBot, a one-stop application to solve all the dining issue on campus.
+FoodieBot still uses the CLI from the AddressBook Level 3, however, we have changed the GUI to suit FoodieBot and also implemented new functionality for FoodieBot.
+
+FoodieBot was created with NUS students and staffs as well as visitors of NUS in mind.
+FoodieBot provides a simple to use _navigation system_ to help direct users to the canteen which they want to go to.
+The application has a _randomize_ function to help the users select a stall to dine at when they cannot decide.
+FoodieBot comes with a _budget_ function as well to help the users track their meal spending on campus.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contribution to the team project.
+
+*Enhancement added*: I added the ability to randomize the stalls to get an option.
+
+* What it does: The `randomize` command gives the user a random stall option for them to dine at.
+
+* Justification: This `randomize` command aids in the decision making for the user when they do not know what to eat.
+
+* Hightlight: `randomize` command provides an option without any restriction. However, the random option provided can be filter down to a specific canteen or a type of food like (eg, spicy, halal, etc.).
+
+* Credits: -
+
+*Code contributed*: [https://github.com/AY1920S2-CS2103T-F11-3/main/commits?author=samanthaseahpl[Functional code]
+
+*Other contributions*:
+
+* Enhancements to existing features:
+** Implemented the randomize function (Pull requests https://github.com/AY1920S2-CS2103T-F11-3/main/pull/93[#93], https://github.com/AY1920S2-CS2103T-F11-3/main/pull/108[#108],
+https://github.com/AY1920S2-CS2103T-F11-3/main/pull/145[#145], https://github.com/AY1920S2-CS2103T-F11-3/main/pull/148[#148])
+** Created a new UI for the randomize option, such that user will be redirected to a new screen after entering randomize command. (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/121[#121])
+
+* Documentation:
+** Made it more user centric (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/204[#204])
+** Provided a skeleton to follow (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/90[#90])
+** Included images of FoodieBot and the steps (Pull request https://github.com/AY1920S2-CS2103T-F11-3/main/pull/204[#204])
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+* Overall skeleton for the User Guide
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#randomize-food-selection-randomize[Randomize Food Selection]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#command-summary[Command Summary]
+
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+* Overall skeleton for the Developer Guide
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#randomize-command[Randomize Command]

@@ -565,11 +565,19 @@ You can `filter 4` on the menu page. This will display all the options available
 |=======================================================================
 |Command |Function |Example
 
+|back |Return to the screen before | back
+
 |budget set PERIOD AMOUNT |Set a budget for the allocated period |budget set w/ 9.50
 
-|budget view |Views the current budget|
+|budget view |Views the current budget|budget view
 
-|enter CANTEEN_NAME |Displays the menu for the selected canteen |enter The Deck
+|delete INDEX |Removes a transaction| delete 1
+
+|enter CANTEEN_NAME/ STALL_NAME |Displays the stalls for the selected canteen or the menu of the selected stall |enter The Deck/ enter Japanese
+
+|exit |Close the application| exit
+
+|favorites remove | Remove the food item from favorites | favorites remove 1
 
 |favorites set |Set the food item in the stall as a favorite |favorites set 1
 
@@ -579,17 +587,17 @@ You can `filter 4` on the menu page. This will display all the options available
 
 |goto CANTEEN_NAME f/ CURRENT_LOCATION |Gets direction to canteen from the current location |goto The Deck f/ COM1
 
-|list |Displays the list of canteen |
+|list |Displays the list of canteen |list
 
-|rate INDEX | Gives a rating to the stall |
+|rate INDEX | Gives a rating to the stall | rate 2
 
 |randomize |Displays a list of randomize options | randomize c/ The Deck
 
 |report |Generates a report of the food consumed |report f/ 12-02-2020 t/ 30-04-2020
 
-|review INDEX | Creates a review for the stall|
+|review INDEX | Creates a review for the stall| review 3
 
-|select INDEX| Saves the food in transactions |
+|select INDEX| Saves the food in transactions | select 2
 
 |transactions |Generates the transaction breakdown |transaction w/ 12-02-2020
 
