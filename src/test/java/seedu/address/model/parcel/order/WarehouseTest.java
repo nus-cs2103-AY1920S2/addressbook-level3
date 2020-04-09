@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.parcel.parcelattributes.Warehouse;
 
+//@@author JeremyLoh
 class WarehouseTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

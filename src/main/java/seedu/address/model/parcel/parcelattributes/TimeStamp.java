@@ -13,12 +13,16 @@ import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents a Order's timeStamp in the order book.
- * Guarantees: immutable; is valid as declared in {@link #isValidTimeStamp(String)}
+ * Guarantees: immutable; is valid as declared in {@link #checkTimestamp(String)}
  */
 public class TimeStamp {
     public static final String MESSAGE_CONSTRAINTS =
             "Timestamp should have a valid date and time and it should have space in between date and time\n"
-            + "Note: Time should be in 24hour format and the input date and time cannot before current timestamp";
+            + "Note: Time should be in 24hour format";
+    public static final String ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW = "Date and time cannot before current timestamp";
+    public static final int VALID_TIMESTAMP = 0;
+    public static final int PARSE_ERROR = 1;
+    public static final int TIMESTAMP_BEFORE_NOW_ERROR = 2;
     public static final DateTimeFormatter FORMAT_CHECKER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
     private static final Logger logger = LogsCenter.getLogger(TimeStamp.class);
     public final LocalDateTime timeStamp;
@@ -31,27 +35,27 @@ public class TimeStamp {
      */
     public TimeStamp(String timeStamp) {
         requireNonNull(timeStamp);
-        checkArgument(isValidTimeStamp(timeStamp), MESSAGE_CONSTRAINTS);
-        this.timeStamp = LocalDateTime.parse(timeStamp, FORMAT_CHECKER);
+        checkArgument(checkTimestamp(timeStamp), MESSAGE_CONSTRAINTS, ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
+        this.timeStamp = LocalDateTime.parse(timeStamp, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
         this.value = this.timeStamp.format(FORMAT_CHECKER);
     }
 
     /**
      * Returns true if a given string is a valid date and time.
      */
-    public static boolean isValidTimeStamp(String test) {
+    public static int checkTimestamp(String test) {
         logger.fine("Check whether it is a valid timestamp");
         try {
             LocalDateTime userInput = LocalDateTime.parse(test, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
             if (userInput.compareTo(LocalDateTime.now()) < 0) {
                 logger.info("Input timestamp cannot before current date and time: " + test);
-                return false;
+                return TIMESTAMP_BEFORE_NOW_ERROR;
             }
         } catch (DateTimeParseException e) {
             logger.info("Invalid timestamp format encountered: " + test);
-            return false;
+            return PARSE_ERROR;
         }
-        return true;
+        return VALID_TIMESTAMP;
     }
 
     public LocalDateTime getOrderTimeStamp() {

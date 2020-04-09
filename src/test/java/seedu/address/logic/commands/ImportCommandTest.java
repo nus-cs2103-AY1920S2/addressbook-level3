@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.ImportCommand.PROCESS_FAILED_MESSAGE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CsvUtil.ADDTIONAL_NAME_CSV_ORDER_AMY;
 import static seedu.address.testutil.CsvUtil.ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY;
@@ -25,6 +26,7 @@ import static seedu.address.testutil.TypicalReturnOrders.BOB_RETURN;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -76,8 +78,9 @@ class ImportCommandTest {
         dataRetrieved.add(ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY);
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
+        HashMap<Integer, String> errorMessages = new HashMap<>();
 
-        String expectedMessage = ImportCommand.printResult(0, dataRetrieved.size(), 0, 0);
+        String expectedMessage = ImportCommand.printResult(0, dataRetrieved.size(), 0, 0, errorMessages);
 
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -98,8 +101,9 @@ class ImportCommandTest {
         dataRetrieved.add(ADDTIONAL_NAME_CSV_ORDER_AMY);
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
+        HashMap<Integer, String> errorMessages = new HashMap<>();
 
-        String expectedMessage = ImportCommand.printResult(dataRetrieved.size(), 0, 0, 0);
+        String expectedMessage = ImportCommand.printResult(dataRetrieved.size(), 0, 0, 0, errorMessages);
 
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -135,8 +139,11 @@ class ImportCommandTest {
         dataRetrieved.add(INVALID_CSV_ORDER_AMY);
         dataRetrieved.add(INVALID_CSV_ORDER_BOB);
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
+        HashMap<Integer, String> errorMessages = new HashMap<>();
+        errorMessages.put(1, PROCESS_FAILED_MESSAGE + INVALID_CSV_ORDER_AMY);
+        errorMessages.put(2, PROCESS_FAILED_MESSAGE + INVALID_CSV_ORDER_BOB);
 
-        String expectedMessage = ImportCommand.printResult(0, 0, 0, dataRetrieved.size());
+        String expectedMessage = ImportCommand.printResult(0, 0, 0, dataRetrieved.size(), errorMessages);
 
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -151,8 +158,11 @@ class ImportCommandTest {
         dataRetrieved.add(INVALID_CSV_RETURN_ORDER_BOB);
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
+        HashMap<Integer, String> errorMessages = new HashMap<>();
+        errorMessages.put(1, PROCESS_FAILED_MESSAGE + INVALID_CSV_RETURN_ORDER_AMY);
+        errorMessages.put(2, PROCESS_FAILED_MESSAGE + INVALID_CSV_RETURN_ORDER_BOB);
 
-        String expectedMessage = ImportCommand.printResult(0, 0, 0, dataRetrieved.size());
+        String expectedMessage = ImportCommand.printResult(0, 0, 0, dataRetrieved.size(), errorMessages);
 
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -168,8 +178,9 @@ class ImportCommandTest {
         dataRetrieved.add(VALID_CSV_ORDER_AMY);
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
+        HashMap<Integer, String> errorMessages = new HashMap<>();
 
-        String expectedMessage = ImportCommand.printResult(1, 0, 1, 0);
+        String expectedMessage = ImportCommand.printResult(1, 0, 1, 0, errorMessages);
 
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }
@@ -185,8 +196,9 @@ class ImportCommandTest {
         dataRetrieved.add(VALID_CSV_RETURN_ORDER_AMY);
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
+        HashMap<Integer, String> errorMessages = new HashMap<>();
 
-        String expectedMessage = ImportCommand.printResult(0, 1, 1, 0);
+        String expectedMessage = ImportCommand.printResult(0, 1, 1, 0, errorMessages);
 
         assertCommandSuccess(importCommand, model, expectedMessage, expectedModel);
     }

@@ -25,6 +25,7 @@ public class JsonAdaptedReturnOrderTest {
     private static final String INVALID_EMAIL = "1234gg.com";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_TIMESTAMP = "2019-02-32 1500";
+    private static final String INVALID_TIMESTAMP_BEFORE_NOW = "2019-02-02 1500";
     private static final String INVALID_WAREHOUSE = "";
     private static final String INVALID_COMMENT = " ";
     private static final String INVALID_TYPE = "#bottle";
@@ -142,6 +143,15 @@ public class JsonAdaptedReturnOrderTest {
                 VALID_ADDRESS, INVALID_TIMESTAMP, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
                 VALID_DELIVERY_STATUS);
         String expectedMessage = TimeStamp.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidTimeStampBeforeNow_throwsIllegalValueException() {
+        JsonAdaptedReturnOrder returnOrder = new JsonAdaptedReturnOrder(VALID_TID, VALID_NAME, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, INVALID_TIMESTAMP_BEFORE_NOW, VALID_WAREHOUSE, VALID_COMMENT, VALID_TYPE,
+                VALID_DELIVERY_STATUS);
+        String expectedMessage = TimeStamp.ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW;
         assertThrows(IllegalValueException.class, expectedMessage, returnOrder::toModelType);
     }
 

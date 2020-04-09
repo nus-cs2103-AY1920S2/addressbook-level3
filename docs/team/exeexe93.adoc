@@ -76,11 +76,16 @@ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/139[#139], https://github.co
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+== Features
 include::../UserGuide.adoc[tag=clear]
-
 include::../UserGuide.adoc[tag=import]
 
-include::../UserGuide.adoc[tag=saving]
+== Command Summary
+include::../UserGuide.adoc[tag=command_summary]
+
+== Glossary
+include::../UserGuide.adoc[tag=command_prefix]
+include::../UserGuide.adoc[tag=command_flags]
 
 == Contributions to the Developer Guide
 
@@ -88,16 +93,23 @@ include::../UserGuide.adoc[tag=saving]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=import]
-
+== Design
 include::../DeveloperGuide.adoc[tag=Design-Storage]
 
+== Features
+include::../DeveloperGuide.adoc[tag=clear]
+include::../DeveloperGuide.adoc[tag=import]
+
+== Use Cases
+include::../DeveloperGuide.adoc[tag=use_case_clear]
+include::../DeveloperGuide.adoc[tag=use_case_import]
+
+== Glossary
+include::../DeveloperGuide.adoc[tag=command_prefix]
 include::../DeveloperGuide.adoc[tag=command_flags]
 
-include::../DeveloperGuide.adoc[tag=appendix]
+== Appendix G: Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=appendix-clear]
+include::../DeveloperGuide.adoc[tag=appendix-import]
 
-
-== PROJECT: PowerPointLabs
-
----
 

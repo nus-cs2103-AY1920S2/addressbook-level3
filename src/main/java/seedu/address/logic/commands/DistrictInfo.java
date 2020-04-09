@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+//@@author JeremyLoh
 /**
  * Contains district and area information of Singapore.
  */

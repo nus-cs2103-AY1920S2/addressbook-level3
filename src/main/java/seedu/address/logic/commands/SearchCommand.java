@@ -2,12 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.parcel.OrderContainsKeywordsPredicate;
 import seedu.address.model.parcel.ReturnOrderContainsKeywordsPredicate;
 
+//@@author khsc96
 /**
+ *
  * Finds and lists all orders in order book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
@@ -16,6 +21,7 @@ public class SearchCommand extends Command {
     public static final String COMMAND_WORD = "search";
 
     private static final String NEWLINE = System.lineSeparator();
+    private static final Logger LOGGER = LogsCenter.getLogger(SearchCommand.class.getName());
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Default, search command searches for all parcels "
         + "(orders/returns) that contain any of the specified keywords in any of it's field (case-insensitive) "
@@ -63,6 +69,7 @@ public class SearchCommand extends Command {
         }
 
         if (returnPredicate != null && orderPredicate != null) {
+            LOGGER.fine("Search perform on both order list and return list");
             return new CommandResult(
                 String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW
                         + System.lineSeparator()
@@ -70,7 +77,7 @@ public class SearchCommand extends Command {
                     model.getFilteredOrderList().size(),
                     model.getFilteredReturnOrderList().size()));
         }
-
+        LOGGER.fine("Specific search is performed.");
         return orderPredicate == null
             ? new CommandResult(
             String.format(Messages.MESSAGE_RETURN_ORDERS_LISTED_OVERVIEW, model.getFilteredReturnOrderList().size()))

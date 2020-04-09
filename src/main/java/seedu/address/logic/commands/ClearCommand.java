@@ -19,7 +19,7 @@ import seedu.address.model.ReturnOrderBook;
 public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Clear the order book list.\n"
+            + ": Clear either both order list and return order list or one of them.\n"
             + "Parameters: -o/-r/-f\n"
             + "Example: " + COMMAND_WORD + " -o -f";
     public static final String MESSAGE_SUCCESS_ORDER_BOOK = "Order book has been cleared!";

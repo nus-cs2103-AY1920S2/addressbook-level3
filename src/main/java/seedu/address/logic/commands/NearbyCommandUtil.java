@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 
+//@@author JeremyLoh
 /**
  * Contains utility methods used for Nearby Command.
  */
