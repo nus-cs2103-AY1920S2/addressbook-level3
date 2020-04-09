@@ -842,6 +842,13 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 `s/START`, `e/END` and `d/DATE`.
 
 . You can edit the end time `e/END` and other details later.
+
+. If the session has a recurring period `[w/WEEKS]`, a new session with the updated date
+and timing will be added to Session View when it is marked as done.
+
+. You will find the recurring period `[w/WEEKS]` field handy for tasks that will happen every week
+such as your weekly lab sessions or fortnightly assignment grading.
+
 ====
 
 ====
@@ -854,7 +861,8 @@ Adds a new session with:
 ** `START_TIME` at 14:00 in `24hr` format
 ** `END_TIME` at 16:00 in `24hr` format
 ** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
-** `WEEK` recurring period of 2 weeks
+** `WEEK` recurring period of 2 weeks: Once this session has been marked as done, a new session will
+be created with `DATE d/2020-20-20` (2 weeks later from the date of the original session)
 ** `MOD_CODE` of CS2103T
 ** `TYPE` consultation
 ** `NOTE` "with Alice and Bob"
