@@ -1,18 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditSupplierCommand;
 import seedu.address.logic.commands.SellCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.good.Good;
-import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.offer.Price;
 

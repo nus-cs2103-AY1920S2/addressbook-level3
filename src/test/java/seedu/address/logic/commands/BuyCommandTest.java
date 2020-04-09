@@ -8,50 +8,41 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyList;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.model.version.StateNotFoundException;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.SupplierBuilder;
 
 public class BuyCommandTest {
-    private static String VALID_GOOD_NAME_STRING = "Test good name";
-    private static String VALID_DIFF_GOOD_NAME_STRING = "Different Test good name";
-    private static String VALID_GOOD_QUANTITY_STRING = "10";
-    private static String VALID_DIFF_GOOD_QUANTITY_STRING = "20";
-    private static String VALID_SUPPLIER_NAME_STRING = "Test supplier";
-    private static String VALID_GOOD_PRICE_STRING = "6.90";
-    private static String WILL_OVERFLOW_QUANTITY_STRING = "999999";
+    private static final String VALID_GOOD_NAME_STRING = "Test good name";
+    private static final String VALID_DIFF_GOOD_NAME_STRING = "Different Test good name";
+    private static final String VALID_GOOD_QUANTITY_STRING = "10";
+    private static final String VALID_DIFF_GOOD_QUANTITY_STRING = "20";
+    private static final String VALID_SUPPLIER_NAME_STRING = "Test supplier";
+    private static final String VALID_GOOD_PRICE_STRING = "6.90";
+    private static final String WILL_OVERFLOW_QUANTITY_STRING = "999999";
 
-    private static GoodName VALID_GOOD_NAME = new GoodName(VALID_GOOD_NAME_STRING);
-    private static GoodName VALID_DIFF_GOOD_NAME = new GoodName(VALID_DIFF_GOOD_NAME_STRING);
+    private static final GoodName VALID_GOOD_NAME = new GoodName(VALID_GOOD_NAME_STRING);
+    private static final GoodName VALID_DIFF_GOOD_NAME = new GoodName(VALID_DIFF_GOOD_NAME_STRING);
 
-    private static GoodQuantity VALID_GOOD_QUANTITY = new GoodQuantity(VALID_GOOD_QUANTITY_STRING);
-    private static GoodQuantity VALID_DIFF_GOOD_QUANTITY = new GoodQuantity(VALID_DIFF_GOOD_QUANTITY_STRING);
-    private static GoodQuantity WILL_OVERFLOW_QUANTITY = new GoodQuantity(WILL_OVERFLOW_QUANTITY_STRING);
+    private static final GoodQuantity VALID_GOOD_QUANTITY = new GoodQuantity(VALID_GOOD_QUANTITY_STRING);
+    private static final GoodQuantity VALID_DIFF_GOOD_QUANTITY = new GoodQuantity(VALID_DIFF_GOOD_QUANTITY_STRING);
+    private static final GoodQuantity WILL_OVERFLOW_QUANTITY = new GoodQuantity(WILL_OVERFLOW_QUANTITY_STRING);
 
-    private static Good boughtGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good boughtGoodDiffGoodName = Good.newGoodEntry(VALID_DIFF_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good boughtGoodDiffGoodQuantity = Good.newGoodEntry(VALID_GOOD_NAME, VALID_DIFF_GOOD_QUANTITY);
-    private static Good existingGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good buyExistingGoodResultGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_DIFF_GOOD_QUANTITY);
+    private static final Good boughtGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
+    private static final Good existingGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
+    private static final Good buyExistingGoodResultGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_DIFF_GOOD_QUANTITY);
 
     private static Supplier supplierSellingBoughtGood = new SupplierBuilder()
             .withName(VALID_SUPPLIER_NAME_STRING)
@@ -60,14 +51,14 @@ public class BuyCommandTest {
 
     @Test
     public void constructor_nullParameters_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> new BuyCommand(null, VALID_GOOD_QUANTITY, INDEX_FIRST_SUPPLIER));
+        assertThrows(NullPointerException.class, () ->
+                new BuyCommand(null, VALID_GOOD_QUANTITY, INDEX_FIRST_SUPPLIER));
 
-        assertThrows(NullPointerException.class,
-                () -> new BuyCommand(VALID_GOOD_NAME, null, INDEX_FIRST_SUPPLIER));
+        assertThrows(NullPointerException.class, () ->
+                new BuyCommand(VALID_GOOD_NAME, null, INDEX_FIRST_SUPPLIER));
 
-        assertThrows(NullPointerException.class,
-                () -> new BuyCommand(VALID_GOOD_NAME, VALID_GOOD_QUANTITY, null));
+        assertThrows(NullPointerException.class, () ->
+                new BuyCommand(VALID_GOOD_NAME, VALID_GOOD_QUANTITY, null));
     }
 
     @Test

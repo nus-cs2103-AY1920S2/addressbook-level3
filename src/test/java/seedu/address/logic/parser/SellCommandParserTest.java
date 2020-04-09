@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GOOD;
 
 import org.junit.jupiter.api.Test;
 
-
 import seedu.address.logic.commands.SellCommand;
 import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.offer.Price;
@@ -30,7 +29,8 @@ class SellCommandParserTest {
     private static final Price VALID_SELLING_PRICE = new Price(VALID_SELLING_PRICE_STRING);
 
     private static final String VALID_GOOD_QUANTITY_DESC = " " + PREFIX_QUANTITY + VALID_GOOD_QUANTITY_STRING;
-    private static final String VALID_GOOD_QUANTITY_EXTRA_DESC = " " + PREFIX_QUANTITY + VALID_GOOD_QUANTITY_EXTRA_STRING;
+    private static final String VALID_GOOD_QUANTITY_EXTRA_DESC =
+            " " + PREFIX_QUANTITY + VALID_GOOD_QUANTITY_EXTRA_STRING;
 
     private static final String VALID_SELLING_PRICE_DESC = " " + PREFIX_PRICE + VALID_SELLING_PRICE_STRING;
     private static final String INVALID_SELLING_PRICE_DESC = " " + PREFIX_PRICE + INVALID_SELLING_PRICE_STRING;

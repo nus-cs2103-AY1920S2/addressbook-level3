@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import seedu.address.model.good.Good;
-import seedu.address.model.good.GoodName;
 import seedu.address.model.version.LinearHistory;
 import seedu.address.model.version.StateNotFoundException;
 import seedu.address.model.version.Version;

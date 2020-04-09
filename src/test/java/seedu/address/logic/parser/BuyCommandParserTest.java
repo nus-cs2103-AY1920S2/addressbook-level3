@@ -32,7 +32,8 @@ class BuyCommandParserTest {
     private static final String VALID_GOOD_NAME_EXTRA_DESC = " " + PREFIX_GOOD_NAME + VALID_GOOD_NAME_EXTRA_STRING;
     private static final String INVALID_GOOD_NAME_DESC = " " + PREFIX_GOOD_NAME + INVALID_GOOD_NAME_STRING;
     private static final String VALID_GOOD_QUANTITY_DESC = " " + PREFIX_QUANTITY + VALID_GOOD_QUANTITY_STRING;
-    private static final String VALID_GOOD_QUANTITY_EXTRA_DESC = " " + PREFIX_QUANTITY + VALID_GOOD_QUANTITY_EXTRA_STRING;
+    private static final String VALID_GOOD_QUANTITY_EXTRA_DESC =
+            " " + PREFIX_QUANTITY + VALID_GOOD_QUANTITY_EXTRA_STRING;
     private static final String INVALID_GOOD_QUANTITY_NEGATIVE_DESC =
             " " + PREFIX_QUANTITY + INVALID_GOOD_QUANTITY_NEGATIVE_STRING;
     private static final String INVALID_GOOD_QUANTITY_OVERFLOW_DESC =
@@ -84,8 +85,8 @@ class BuyCommandParserTest {
     void parse_invalidValue_failure() {
 
         // invalid good name
-        assertParseFailure(parser, VALID_SUPPLIER_INDEX_PREAMBLE + INVALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC,
-                GoodName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, VALID_SUPPLIER_INDEX_PREAMBLE
+                + INVALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC, GoodName.MESSAGE_CONSTRAINTS);
 
         // invalid good quantities
         assertParseFailure(parser, VALID_SUPPLIER_INDEX_PREAMBLE + VALID_GOOD_NAME_DESC

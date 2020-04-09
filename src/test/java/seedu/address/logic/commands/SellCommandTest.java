@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
@@ -28,45 +25,46 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.ModelStub;
 
 public class SellCommandTest {
-    private static String VALID_GOOD_NAME_STRING = "Test good name";
-    private static String VALID_DIFF_GOOD_NAME_STRING = "Different Test good name";
-    private static String VALID_GOOD_QUANTITY_STRING = "10";
-    private static String VALID_DIFF_GOOD_QUANTITY_STRING = "20";
-    private static String VALID_INSUFFICIENT_QUANTITY_STRING = "5";
-    private static String VALID_ZERO_QUANTITY_STRING = "0";
+    private static final String VALID_GOOD_NAME_STRING = "Test good name";
+    private static final String VALID_DIFF_GOOD_NAME_STRING = "Different Test good name";
+    private static final String VALID_GOOD_QUANTITY_STRING = "10";
+    private static final String VALID_DIFF_GOOD_QUANTITY_STRING = "20";
+    private static final String VALID_INSUFFICIENT_QUANTITY_STRING = "5";
+    private static final String VALID_ZERO_QUANTITY_STRING = "0";
 
-    private static String VALID_PRICE_STRING = "5.00";
-    private static String VALID_DIFF_PRICE_STRING = "6.69";
+    private static final String VALID_PRICE_STRING = "5.00";
+    private static final String VALID_DIFF_PRICE_STRING = "6.69";
 
-    private static GoodName VALID_GOOD_NAME = new GoodName(VALID_GOOD_NAME_STRING);
-    private static GoodName VALID_DIFF_GOOD_NAME = new GoodName(VALID_DIFF_GOOD_NAME_STRING);
+    private static final GoodName VALID_GOOD_NAME = new GoodName(VALID_GOOD_NAME_STRING);
 
-    private static GoodQuantity VALID_GOOD_QUANTITY = new GoodQuantity(VALID_GOOD_QUANTITY_STRING);
-    private static GoodQuantity VALID_DIFF_GOOD_QUANTITY = new GoodQuantity(VALID_DIFF_GOOD_QUANTITY_STRING);
-    private static GoodQuantity VALID_INSUFFICIENT_QUANTITY = new GoodQuantity(VALID_INSUFFICIENT_QUANTITY_STRING);
-    private static GoodQuantity VALID_ZERO_QUANTITY = new GoodQuantity(VALID_ZERO_QUANTITY_STRING);
+    private static final GoodQuantity VALID_GOOD_QUANTITY = new GoodQuantity(VALID_GOOD_QUANTITY_STRING);
+    private static final GoodQuantity VALID_DIFF_GOOD_QUANTITY = new GoodQuantity(VALID_DIFF_GOOD_QUANTITY_STRING);
+    private static final GoodQuantity VALID_INSUFFICIENT_QUANTITY =
+            new GoodQuantity(VALID_INSUFFICIENT_QUANTITY_STRING);
+    private static final GoodQuantity VALID_ZERO_QUANTITY = new GoodQuantity(VALID_ZERO_QUANTITY_STRING);
 
-    private static Good soldGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good existingGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
-    private static Good sellExistingGoodResultGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_ZERO_QUANTITY);
-    private static Good insufficientQuantityGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_INSUFFICIENT_QUANTITY);
+    private static final Good soldGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
+    private static final Good existingGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_GOOD_QUANTITY);
+    private static final Good sellExistingGoodResultGood = Good.newGoodEntry(VALID_GOOD_NAME, VALID_ZERO_QUANTITY);
+    private static final Good insufficientQuantityGood =
+            Good.newGoodEntry(VALID_GOOD_NAME, VALID_INSUFFICIENT_QUANTITY);
 
-    private static Price VALID_PRICE = new Price(VALID_PRICE_STRING);
-    private static Price VALID_DIFF_PRICE = new Price(VALID_DIFF_PRICE_STRING);
+    private static final Price VALID_PRICE = new Price(VALID_PRICE_STRING);
+    private static final Price VALID_DIFF_PRICE = new Price(VALID_DIFF_PRICE_STRING);
 
     @Test
     public void constructor_nullSupplier_throwsNullPointerException() {
         // missing quantity
-        assertThrows(NullPointerException.class,
-                () -> new SellCommand(null, VALID_PRICE, INDEX_FIRST_GOOD));
+        assertThrows(NullPointerException.class, () ->
+                new SellCommand(null, VALID_PRICE, INDEX_FIRST_GOOD));
 
-        // midding price
-        assertThrows(NullPointerException.class,
-                () -> new SellCommand(VALID_GOOD_QUANTITY, null, INDEX_FIRST_GOOD));
+        // missing price
+        assertThrows(NullPointerException.class, () ->
+                new SellCommand(VALID_GOOD_QUANTITY, null, INDEX_FIRST_GOOD));
 
-        // midding index
-        assertThrows(NullPointerException.class,
-                () -> new SellCommand(VALID_GOOD_QUANTITY, VALID_PRICE, null));
+        // missing index
+        assertThrows(NullPointerException.class, () ->
+                new SellCommand(VALID_GOOD_QUANTITY, VALID_PRICE, null));
     }
 
     @Test

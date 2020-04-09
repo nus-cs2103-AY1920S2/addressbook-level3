@@ -3,13 +3,8 @@ package seedu.address.model.good;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.good.GoodQuantity.DEFAULT_QUANTITY;
-import static seedu.address.model.offer.Price.DEFAULT_PRICE;
-import static seedu.address.model.supplier.Name.DEFAULT_NAME;
 
 import java.util.Objects;
-
-import seedu.address.model.offer.Price;
-import seedu.address.model.supplier.Name;
 
 /**
  * Represents a Good in the inventory.

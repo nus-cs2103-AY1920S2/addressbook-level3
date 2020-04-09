@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.good.Good;
-import seedu.address.model.good.GoodName;
 import seedu.address.model.good.UniqueGoodList;
 import seedu.address.model.util.Copyable;
 

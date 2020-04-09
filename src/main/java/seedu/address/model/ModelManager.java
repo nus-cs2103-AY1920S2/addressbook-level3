@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.good.Good;
-import seedu.address.model.good.GoodName;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.version.StateNotFoundException;
