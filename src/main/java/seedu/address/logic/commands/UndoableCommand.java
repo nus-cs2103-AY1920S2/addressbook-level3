@@ -1,10 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 
 public abstract class UndoableCommand extends Command {
     protected Command oppositeCommand;
@@ -16,10 +15,11 @@ public abstract class UndoableCommand extends Command {
      */
     protected void preprocessUndoableCommand(Model model) throws CommandException {}
 
-    protected final void undo(Model model) {
+    protected final CommandResult undo(Model model) {
         requireNonNull(model);
         try {
-            oppositeCommand.execute(model);
+            CommandResult commandResult = oppositeCommand.execute(model);
+            return commandResult;
         } catch (Exception ce) {
             throw new AssertionError("This command should not fail.");
         }
@@ -27,10 +27,11 @@ public abstract class UndoableCommand extends Command {
 
     protected abstract void generateOppositeCommand() throws CommandException;
 
-    protected final void redo(Model model) {
+    protected final CommandResult redo(Model model) {
         requireNonNull(model);
         try {
-            executeUndoableCommand(model);
+            CommandResult commandResult = executeUndoableCommand(model);
+            return commandResult;
         } catch (Exception ce) {
             throw new AssertionError("The command has been successfully executed previously");
         }

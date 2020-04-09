@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "undo success";
+    public static final String MESSAGE_SUCCESS = "Undo success: [%s]";
     public static final String MESSAGE_FAILURE = "Sorry! There's no Undoable Command!";
 
     @Override
@@ -18,8 +18,8 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        undoRedoStack.popUndo().undo(model);
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = undoRedoStack.popUndo().undo(model);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, commandResult.getFeedbackToUser()));
     }
 
 }
