@@ -2,10 +2,14 @@ package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_MAX_INVESTMENT;
+import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_MIN_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.AMOUNT_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_FOOD;
+import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.CATEGORY_DESC_SHOPPING;
 import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.DATE_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_1;
@@ -41,21 +45,33 @@ import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_39;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_4;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_40;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_41;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_42;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_5;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_6;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_7;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_8;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC_9;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_1;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_2;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_3;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_4;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_5;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_6;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_7;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC_8;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_1;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_10;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_11;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_12;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_2;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_3;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_4;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_5;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_6;
-import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_7;
-import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_8;
+import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_DATE_DESC_9;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC_1;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC_10;
@@ -79,10 +95,12 @@ import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC_8
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_NAME_DESC_9;
 import static seedu.expensela.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.expensela.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.REMARK_DESC_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
@@ -90,6 +108,8 @@ import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPOD
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
+import static seedu.expensela.testutil.TypicalTransactions.MAX_INVESTMENT;
+import static seedu.expensela.testutil.TypicalTransactions.MIN_INVESTMENT;
 
 import org.junit.jupiter.api.Test;
 
@@ -133,16 +153,10 @@ public class AddCommandParserTest {
                 .build();
         assertParseSuccess(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS + REMARK_DESC_AIRPODS
                 + CATEGORY_DESC_FOOD + CATEGORY_DESC_SHOPPING, new AddCommand(expectedTransactionMultipleTags));
+
     }
 
-    /*
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Transaction expectedTransaction = new TransactionBuilder(PIZZA).build();
-        assertParseSuccess(parser, NAME_DESC_PIZZA + AMOUNT_DESC_PIZZA + DATE_DESC_PIZZA + CATEGORY_DESC_FOOD,
-                new AddCommand(expectedTransaction));
-    } */
+
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -379,6 +393,12 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_AIRPODS + INVALID_AMOUNT_DESC_40 + DATE_DESC_AIRPODS
                 + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Amount.MESSAGE_CONSTRAINTS);
 
+        assertParseFailure(parser, NAME_DESC_AIRPODS + INVALID_AMOUNT_DESC_41 + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Amount.MESSAGE_CONSTRAINTS_TOOLARGE);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + INVALID_AMOUNT_DESC_42 + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Amount.MESSAGE_CONSTRAINTS_TOOSMALL);
+
         // invalid date
         assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC
                 + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
@@ -401,17 +421,47 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_6
                 + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
 
-//        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_7
-//                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_9
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS_1);
 
-//        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_8
-//                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_10
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS_1);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_11
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS_1);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + INVALID_DATE_DESC_12
+                + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING, Date.MESSAGE_CONSTRAINTS_1);
 
 
 
         //invalid category
         assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
                 + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_1, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_2, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_3, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_4, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_5, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_6, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_7, Category.MESSAGE_CONSTRAINTS);
+
+        assertParseFailure(parser, NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
+                + REMARK_DESC_AIRPODS + INVALID_CATEGORY_DESC_8, Category.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, NAME_DESC_AIRPODS + INVALID_AMOUNT_DESC + DATE_DESC_AIRPODS
@@ -421,5 +471,20 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_AIRPODS + AMOUNT_DESC_AIRPODS + DATE_DESC_AIRPODS
                 + REMARK_DESC_AIRPODS + CATEGORY_DESC_SHOPPING,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+
+
+    @Test
+    public void parse_edgeCases_success() {
+        Transaction expectedTransaction = new TransactionBuilder(MAX_INVESTMENT).build();
+        Transaction expectedTransaction1 = new TransactionBuilder(MIN_INVESTMENT).build();
+
+        // Max amount
+        assertParseSuccess(parser, NAME_DESC_INVESTMENT + AMOUNT_DESC_MAX_INVESTMENT + DATE_DESC_INVESTMENT
+                + REMARK_DESC_INVESTMENT + CATEGORY_DESC_INVESTMENT, new AddCommand(expectedTransaction));
+
+        // Min Amount
+        assertParseSuccess(parser, NAME_DESC_INVESTMENT + AMOUNT_DESC_MIN_INVESTMENT + DATE_DESC_INVESTMENT
+                + REMARK_DESC_INVESTMENT + CATEGORY_DESC_INVESTMENT, new AddCommand(expectedTransaction1));
     }
 }

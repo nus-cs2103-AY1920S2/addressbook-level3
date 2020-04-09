@@ -49,9 +49,13 @@ public class Transaction implements Comparable<Transaction> {
         return category;
     }
 
-    public void setIsRecurring() {isRecurringTransaction = true;}
+    public void setIsRecurring() {
+        isRecurringTransaction = true;
+    }
 
-    public boolean getRecurringBoolean() {return isRecurringTransaction;}
+    public boolean getRecurringBoolean() {
+        return isRecurringTransaction;
+    }
 
     /**
      * Returns true if both transactions of the same name have at least one other identity field that is the same.

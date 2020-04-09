@@ -9,13 +9,12 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.time.LocalDate;
+
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.transaction.Date;
-
-import java.time.LocalDate;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -59,7 +58,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(),
                         isIncome));
 
-                if(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) > 999999) {
+                if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) > 999999) {
                     throw new ParseException("Income cannot be 1 million dollars or more!");
                 }
             }
