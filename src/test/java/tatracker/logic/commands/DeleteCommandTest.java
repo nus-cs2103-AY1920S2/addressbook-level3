@@ -93,7 +93,7 @@ public class DeleteCommandTest {
     //     assertFalse(deleteFirstCommand.equals(1));
     //
     //     // null -> returns false
-    //     assertFalse(deleteFirstCommand.equals(null));
+    //     assertFalse(deleteFirstCommand == null);
     //
     //     // different student -> returns false
     //     assertFalse(deleteFirstCommand.equals(deleteSecondCommand));

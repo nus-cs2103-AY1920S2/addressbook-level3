@@ -329,6 +329,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
         switch (event.getCode()) {
+
         case LEFT:
             handleLeftKeyReleased();
             break;
@@ -337,6 +338,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
             logger.fine("Not switching lists");
+            break;
         }
     }
 
@@ -345,16 +347,16 @@ public class MainWindow extends UiPart<Stage> {
      * This can only be used in the Student View since it has multiple lists.
      */
     private void handleLeftKeyReleased() {
-        if (currentStudentViewList == studentListPanel) {
+        if (currentStudentViewList.equals(studentListPanel)) {
             logger.info("LEFT: Showing groups");
             currentStudentViewList = groupListPanel;
 
-        } else if (currentStudentViewList == groupListPanel) {
+        } else if (currentStudentViewList.equals(groupListPanel)) {
             logger.info("LEFT: Showing modules");
             currentStudentViewList = moduleListPanel;
 
         } else {
-            assert currentStudentViewList == moduleListPanel;
+            assert currentStudentViewList.equals(moduleListPanel);
             logger.fine("Nothing to the left of module list panel");
         }
         currentStudentViewList.requestFocus();
@@ -365,16 +367,16 @@ public class MainWindow extends UiPart<Stage> {
      * This can only be used in the Student View since it has multiple lists.
      */
     private void handleRightKeyReleased() {
-        if (currentStudentViewList == moduleListPanel) {
+        if (currentStudentViewList.equals(moduleListPanel)) {
             logger.info("RIGHT: Showing groups");
             currentStudentViewList = groupListPanel;
 
-        } else if (currentStudentViewList == groupListPanel) {
+        } else if (currentStudentViewList.equals(groupListPanel)) {
             logger.info("RIGHT: Showing students");
             currentStudentViewList = studentListPanel;
 
         } else {
-            assert currentStudentViewList == studentListPanel;
+            assert currentStudentViewList.equals(studentListPanel);
             logger.fine("Nothing to the right of student list panel");
         }
         currentStudentViewList.requestFocus();

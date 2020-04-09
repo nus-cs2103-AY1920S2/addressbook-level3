@@ -92,7 +92,7 @@ public class EditGroupCommandTest {
         assertFalse(editGroupCommand.equals(1));
 
         // null -> returns false
-        assertFalse(editGroupCommand.equals(null));
+        assertFalse(editGroupCommand == null);
 
         // different modules -> returns false
         assertFalse(editGroupCommand.equals(editGroupCommandTwo));

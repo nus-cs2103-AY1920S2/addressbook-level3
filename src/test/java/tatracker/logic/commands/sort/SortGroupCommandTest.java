@@ -73,7 +73,7 @@ public class SortGroupCommandTest {
         assertFalse(sortGroupCommand.equals(1));
 
         // null -> returns false
-        assertFalse(sortGroupCommand.equals(null));
+        assertFalse(sortGroupCommand == null);
 
         // different modules -> returns false
         assertFalse(sortGroupCommand.equals(sortGroupCommandTwo));

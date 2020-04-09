@@ -49,7 +49,7 @@ public class IndexTest {
         assertTrue(fifthStudentIndex.equals(fifthStudentIndex));
 
         // null -> returns false
-        assertFalse(fifthStudentIndex.equals(null));
+        assertFalse(fifthStudentIndex == null);
 
         // different types -> returns false
         assertFalse(fifthStudentIndex.equals(5.0f));

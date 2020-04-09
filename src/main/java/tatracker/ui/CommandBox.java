@@ -276,7 +276,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         commandEntry = CommandDictionary.getEntryWithFullCommandWord(fullCommandWord);
         dictionary = commandEntry.getDictionary();
 
-        if (oldEntry != commandEntry) {
+        if (oldEntry.equals(commandEntry)) {
             logger.info(String.format("======== [ %s ]", commandEntry.toString()));
         }
     }
