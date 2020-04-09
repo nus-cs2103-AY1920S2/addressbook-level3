@@ -32,14 +32,19 @@ public class NumRepsTest {
         // starts with zero
         exceptionThrown = assertThrows(IllegalArgumentException.class, () -> new NumReps("01"));
         assertEquals(expectedMessage, exceptionThrown.getMessage());
+
+        // negative number
+        exceptionThrown = assertThrows(IllegalArgumentException.class, () -> new NumReps("-1"));
+        assertEquals(expectedMessage, exceptionThrown.getMessage());
+
+        // has spaces
+        exceptionThrown = assertThrows(IllegalArgumentException.class, () -> new NumReps(" 1 "));
+        assertEquals(expectedMessage, exceptionThrown.getMessage());
     }
 
     @Test
     public void constructor_validNumReps_createsNumReps() {
         assertEquals("100", new NumReps("100").value);
-
-        // has spaces
-        assertEquals("100", new NumReps("  100  ").value);
 
         // large numbers
         assertEquals("124293842033123", new NumReps("124293842033123").value);
