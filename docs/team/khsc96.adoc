@@ -31,7 +31,7 @@ It also affects the future command to be added in if the future command requires
 the thorough understanding of the existing class in AB3 such as the `ArgumentMultimap` and the `NameContainsKeywordsPredicate`. Furthermore, JavaFX class `Predicate` was used to achieve functionality of this feature. +
 Moreover, as this features allows user to search in many different possible way, testing the different scenarios are hard. ParametizedTest of JUnit testing was used to make my test code much cleaner.
 
-. *Updated `edit` feature* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pulls?page=1&q=is%3Apr+is%3Aclosed+author%3Akhsc96[#234]) +
+. *Updated `edit` feature* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/234[#234]) +
 Functionality of feature can be found <<../UserGuide.adoc#edit, here>> and implementation of it can be found <<../DeveloperGuide.adoc#edit,here>>.
 
 *** *What it does*: +
