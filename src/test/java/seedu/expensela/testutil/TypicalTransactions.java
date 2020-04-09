@@ -1,14 +1,20 @@
 package seedu.expensela.testutil;
 
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_INVESTMENT;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_INVESTMENT_1;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_SHOPPING;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_INVESTMENT;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
 
 import java.util.ArrayList;
@@ -99,6 +105,18 @@ public class TypicalTransactions {
             .withDate(VALID_DATE_AIRPODS)
             .withRemark(VALID_REMARK_AIRPODS)
             .withCategory(VALID_CATEGORY_SHOPPING)
+            .build();
+    public static final Transaction MAX_INVESTMENT = new TransactionBuilder().withName(VALID_NAME_INVESTMENT)
+            .withAmount(VALID_AMOUNT_INVESTMENT, false)
+            .withDate(VALID_DATE_INVESTMENT)
+            .withRemark(VALID_REMARK_INVESTMENT)
+            .withCategory(VALID_CATEGORY_INVESTMENT)
+            .build();
+    public static final Transaction MIN_INVESTMENT = new TransactionBuilder().withName(VALID_NAME_INVESTMENT)
+            .withAmount(VALID_AMOUNT_INVESTMENT_1, false)
+            .withDate(VALID_DATE_INVESTMENT)
+            .withRemark(VALID_REMARK_INVESTMENT)
+            .withCategory(VALID_CATEGORY_INVESTMENT)
             .build();
 
     public static final String KEYWORD_MATCHING_TREAT = "Treat"; // A keyword that matches TREAT

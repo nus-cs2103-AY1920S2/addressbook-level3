@@ -283,8 +283,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateTotalBalance(Balance balance) {
-        globalData.setTotalBalance(balance);
+    public void addTransactionToGlobalData(Transaction transaction) {
+        globalData.addTransaction(transaction);
+    }
+
+    @Override
+    public void clearRecurringTransactions() {
+        globalData.clearRecurringTransactionsList();
     }
 
     /**
@@ -304,16 +309,13 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
-    public void addTransactionToGlobalData(Transaction transaction) {
-        globalData.addTransaction(transaction);
+    /**
+     * Set balance to a specified amount
+     * @param balance
+     */
+    public void updateTotalBalance(Balance balance) {
+        globalData.setTotalBalance(balance);
     }
-
-    @Override
-    public void clearRecurringTransactions() {
-        globalData.clearRecurringTransactionsList();
-    }
-
 
     //=========== Monthly Data Accessors =============================================================
     /**

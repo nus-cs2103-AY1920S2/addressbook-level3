@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.ReadOnlyGlobalData;
 import seedu.expensela.model.UserPrefs;
+
 
 public class StorageManagerTest {
 
@@ -21,17 +25,26 @@ public class StorageManagerTest {
     public Path testFolder;
 
     private StorageManager storageManager;
+    private JsonExpenseLaStorage expenseLaStorage;
+    private JsonUserPrefsStorage userPrefsStorage;
+    private JsonGlobalDataStorage globalDataStorage;
 
     @BeforeEach
     public void setUp() {
-        JsonExpenseLaStorage expenseLaStorage = new JsonExpenseLaStorage(getTempFilePath("el"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonGlobalDataStorage globalDataStorage = new JsonGlobalDataStorage(getTempFilePath("gd"));
+        expenseLaStorage = new JsonExpenseLaStorage(getTempFilePath("el"));
+        userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        globalDataStorage = new JsonGlobalDataStorage(getTempFilePath("gd"));
         storageManager = new StorageManager(expenseLaStorage, userPrefsStorage, globalDataStorage);
     }
 
     private Path getTempFilePath(String fileName) {
         return testFolder.resolve(fileName);
+    }
+
+    @Test
+    public void getUserPrefsFilePath_correctResult() {
+        Path expectedPath = Paths.get(getTempFilePath("prefs").toString());
+        assertEquals(userPrefsStorage.getUserPrefsFilePath(), expectedPath);
     }
 
     @Test
@@ -64,6 +77,24 @@ public class StorageManagerTest {
     @Test
     public void getExpenseLaFilePath() {
         assertNotNull(storageManager.getExpenseLaFilePath());
+    }
+
+    @Test
+    public void getGlobalDataFilePath_correctResult() {
+        Path expectedPath = Paths.get(getTempFilePath("gd").toString());
+        assertEquals(globalDataStorage.getGlobalDataFilePath(), expectedPath);
+    }
+
+    @Test
+    public void globalDataReadWrite_sameObject() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonCurrencyMappingsStorage} class.
+         */
+        GlobalData original = new GlobalData();
+        storageManager.saveGlobalData(original);
+        ReadOnlyGlobalData retrieved = storageManager.readGlobalData().get();
+        assertEquals(original, retrieved);
     }
 
 }
