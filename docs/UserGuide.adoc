@@ -285,14 +285,16 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 //****
 
 
-
+// tag::delete[]
 [[Delete]]
-=== Deleting: `delete`
-This command deletes the data in *MODdy* according to your parameters.
+=== Deleting a task / module / profile: `delete`
+To remove a task, module or profile from *MODdy*, use the `delete` command.
 
 There are *three* ways you can use the `delete` command:
 
-==== Delete a task +
+==== Deleting a task +
+Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
+
 Format: `delete m/MODULE_CODE t/TASK`
 
 ."Project Submission" for CS2103 deleted from the Deadline Panel
@@ -303,7 +305,9 @@ NOTE: The specified task and its deadline will be deleted from the specified mod
 TIP: `delete m/CS2103 t/Project Submission` +
 Deletes the task "Assignment" from the module CS2103 in your profile
 
-==== Delete a module +
+==== Deleting a module +
+If you have decided not to take a module you were planning to take or to drop a module which you are currently taking, you can delete it with the command below. The effect of using this command is shown in the figure below.
+
 Format: `delete m/MODULE_CODE`
 
 .CS2107 and its tasks deleted from *MODdy*
@@ -312,14 +316,21 @@ image::DeleteModule.png[width="790"]
 NOTE: The specified module, including all tasks and deadlines of that module, will be deleted from *MODdy*
 
 
-==== Delete your profile +
+==== Deleting your profile +
+If you wish to remove your profile, you can do so with the command below. The effect of using this command is shown in the figure below.
+
 Format: `delete n/NAME`
 
 .Entire profile deleted from *MODdy*
 image::DeleteProfile.png[width="790"]
 
+<<<<<<< HEAD
+NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from MODdy
+// end::delete[]
+=======
 NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from *MODdy*
 
+>>>>>>> 4cc4eaff6dc58584feee930e39b45043aaf268d5
 
 
 
