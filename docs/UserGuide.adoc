@@ -909,13 +909,13 @@ Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 ====
 Examples:
 
-* `edit 1 s/14:00 e/16:00 d/19-02-2020 m/CS3243 t/grading n/Location: PLAB 04`
+* `edit 1 s/14:00 e/16:00 d/2020-02-19 m/CS3243 t/grading n/Location: PLAB 04`
 +
 Edits the session at index 1 to have:
 
 ** The new `START_TIME` at 14:00
 ** The new `END_TIME` at 16:00
-** The new `DATE` on 19-02-2020
+** The new `DATE` on 2020-02-19 in `yyyy-MM-dd` format
 ** The new `MOD_CODE` CS3243
 ** The new `TYPE` grading
 ** The new `NOTE` "Location: PLAB04"
