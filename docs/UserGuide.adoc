@@ -846,7 +846,7 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 . If the session has a recurring period `[w/WEEKS]`, a new session with the updated date
 and timing will be added to Session View when it is marked as done.
 
-. You will find the recurring period `[w/WEEKS]` field handy for tasks that will happen every week
+. You will find the recurring period `[w/WEEKS]` field handy for tasks that happen once every few weeks
 such as your weekly lab sessions or fortnightly assignment grading.
 
 ====
