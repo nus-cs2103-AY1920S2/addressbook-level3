@@ -162,10 +162,11 @@ public class Recurring {
     }
 
     public long getDelayToFirstTrigger() {
-        return Duration.between(
+        long delay = Duration.between(
                         LocalDateTime.now(),
                         referenceDateTime.plusDays(type.getDayInterval()))
                 .getSeconds();
+        return delay >= 0 ? delay * 1000 : 0;
     }
 
     public long getPeriod() {
