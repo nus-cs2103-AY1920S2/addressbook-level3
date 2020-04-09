@@ -1,0 +1,89 @@
+= Nelson Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Coupon Stash
+
+---
+
+== Overview
+
+Coupon Stash is a desktop coupons manager that allows users to keep track of
+their coupons. The user interacts with it using a CLI, and it has a beautiful
+GUI created with JavaFX. It is written in Java, and has about 25kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo and redo operations*
+** What it does: allows the user to undo the most recent operation on the
+coupon stash. Undoing can itself be undone via the redo operation.
+** Justification: This feature is essential in allowing users who've made
+mistakes in their operations on the coupon stash to revert their changes.
+Addtionally, users will also want to be able to revert to their reverted
+changes, and this led to the creation of the undo and redo commands.
+** Highlights: This enhancement required the deep copy of all a coupon's
+fields so as to prevent unpredictable side effects down the line. Thus,
+there was constant collaboration and communication with the group members
+regarding how to best tie in this feature with the rest of the features.
+Some new commands added by other group members also require updates to
+be pushed to the undo and redo feature, thus this was a very dynamic
+feature that needed frequent updates.
+
+* *Minor enhancement*: added a history command that allows the user to navigate 
+to previous commands using up/down keys.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nelsontky&tabRepo=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D[All contributed code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the help menu https://github.com/AY1920S2-CS2103T-F09-1/main/pull/215[#215]
+*** Updated the help command to open an offline copy of the user guide
+https://github.com/AY1920S2-CS2103T-F09-1/main/pull/284[#284]
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: 
+https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], 
+https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], 
+https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  
+https://github.com[1], https://github.com[2], https://github.com[3])
+** Tools:
+*** Integrated a third party library (Natty) to the project 
+(https://github.com[#42])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my 
+ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase 
+my ability to write technical documentation and the technical depth of my 
+contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
