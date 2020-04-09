@@ -36,14 +36,13 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_INVALID_CSV_FILEPATH = "The csv file is not found in the data folder: ";
 
     private static final Logger logger = LogsCenter.getLogger(ImportCommand.class);
-    private static HashMap<Integer, String> errorMessages = new HashMap<>();
 
     private final List<String> ordersData;
     private int invalidCounter;
     private int processedOrderCounter;
     private int processedReturnOrderCounter;
     private int duplicateCounter;
-
+    private HashMap<Integer, String> errorMessages;
 
     public ImportCommand(List<String> orderData) {
         requireNonNull(orderData);
@@ -52,6 +51,7 @@ public class ImportCommand extends Command {
         this.processedOrderCounter = 0;
         this.processedReturnOrderCounter = 0;
         this.duplicateCounter = 0;
+        this.errorMessages = new HashMap<>();
     }
 
     @Override
