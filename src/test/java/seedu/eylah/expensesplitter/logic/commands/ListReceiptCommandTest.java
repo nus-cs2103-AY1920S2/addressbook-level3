@@ -14,9 +14,9 @@ import seedu.eylah.expensesplitter.model.SplitterModel;
 import seedu.eylah.expensesplitter.model.SplitterModelManager;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListAmountCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListReceiptCommand.
  */
-public class ListAmountCommandTest {
+public class ListReceiptCommandTest {
 
     private SplitterModel splitterModel;
     private SplitterModel expectedSplitterModel;
@@ -29,20 +29,16 @@ public class ListAmountCommandTest {
             splitterModel.getPersonAmountBook(), new UserPrefs());
     }
 
-
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
-                expectedSplitterModel);
+        assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
+            expectedSplitterModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(splitterModel, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListAmountCommand(), splitterModel, ListAmountCommand.MESSAGE_SUCCESS,
-                expectedSplitterModel);
+        assertCommandSuccess(new ListReceiptCommand(), splitterModel, ListReceiptCommand.MESSAGE_SUCCESS,
+            expectedSplitterModel);
     }
-
-
-
 }

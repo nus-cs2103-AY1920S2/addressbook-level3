@@ -51,6 +51,12 @@ public class TypicalPersons {
 
     public static final Person CHARLIE = new PersonBuilder().withName("Charlie").build();
 
+    public static final Person DARREN = new PersonBuilder().withName("Darren").withAmount(new BigDecimal("9.95"))
+        .build();
+
+    public static final Person ELYSHA = new PersonBuilder().withName("Elysha").withAmount(new BigDecimal("9.95"))
+        .build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -69,5 +75,9 @@ public class TypicalPersons {
 
     public static ArrayList<Person> getTypicalPersonsArrayList() {
         return new ArrayList<>(Arrays.asList(ANNA, BRANDON, CHARLIE));
+    }
+
+    public static ArrayList<Person> getTypicalPersonsArrayListV2() {
+        return new ArrayList<>(Arrays.asList(DARREN, ELYSHA));
     }
 }

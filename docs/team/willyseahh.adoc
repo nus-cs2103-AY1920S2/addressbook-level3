@@ -10,39 +10,69 @@
 
 == Overview
 
-EYELAH is a desktop application specifically programmed for Freshmen staying on NUS Campus. It aims to ease their lives
-at halls/residential colleges by providing them with an application to split bills easily and help
+EYLAH is a desktop application specifically programmed for students staying in National University
+of Singapore. It aims to ease their lives
+at halls by providing them with an application that split bills easily and help
 them track their diet. The user interacts with it using a CLI and it is programmed using JAVA 11.
 
 == Summary of contributions
 
-* *Major enhancement*: [In Process]
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*:
 
-** *Adding of ItemClass, ItemPrice, ItemName for the Expense Splitter portion of EYLAH*
-*** What it does: Item is used when User wants to calculate how much each Person(s) must pay for that Item.
-*** Justifcation:
-*** Highlights: Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency as it will lead to rounding errors. Upon further research on Stack Overflow, I decided that BigDecimal will be a better type to hold currency
-*** Credits: Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
+. Adding of *Item, ItemPrice, ItemName for the Expense Splitter* portion of EYLAH
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/121[#121])
 
-** *Adding of PaidCommand, ListReceipt Command and BackCommand for the Expense Splitter portion of EYLAH*
-*** What it does: These commands are essential for Expense Splitter of EYLAH
-*** Justifcation:
-*** Highlights:
-*** Credits:
+*** *What it does:* +
+Allows the user to perform the `additem` command successfully hence adding an Entry which consists
+of an Item into the current Receipt.
 
-** *Integrating Storage into Expense Splitter portion of EYLAH*
-*** What it does: Storage component is essential for Expense Splitter of EYLAH as it needs to save PersonName and Amount
-*** Justifcation:
-*** Highlights:
-*** Credits:
+*** *Justification:* +
+These classes are crucial for Expense Splitter to work because this the User
+has to input an Item to split among his friends.
+
+*** *Highlights:* +
+Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency
+as it will lead to rounding errors.
+Upon further research on Stack Overflow, I have decided that BigDecimal will be a better type to hold currency.
 
 
+*** *Credits:* +
+Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
 
-* *Minor enhancement*: [In Process]
+. Added *the ability to deduct Amount owed by a Person when they have paid*
+
+*** *What it does:* +
+Allows the user to reduce the amount owed by a Person.
+(Pull request https://github.com/AY1920S2-CS2103T-W13-1/main/issues/195[#195])
+
+*** *Justification:* +
+This feature allows a Person to clear his/her debt. In EYLAH after a Person has cleared his/her debt, their
+name will be deleted to prevent cluttering of names which may confuse the user. Thus it is important to have a feature which reduces the
+amount of money owed by a Person.
+
+
+*** *Highlights:* +
+This enhancement helped our team discover a rather major bug with Expense Splitter workflow. Fortunately, we
+resolved it by not allowing users to use the `paid` command until after a receipt has been finalised.
+*** *Credits:* +
+N.A
+
+. Added *the storage component that allowed the user to automatically save a Person and their amount owed after
+each command*
+
+*** *Justification:* +
+This feature allows the user to automatically save the amount of money each person owes him after every command.
+This is important so the user do not have to manually input every entry again in the unlikely event where EYLAH crash.
+
+*** *Highlights:* +
+Ability to save a Person name and their amount owed automatically.
+
+*** *Credits:* +
+N.A
+
+
+
+* *Minor enhancement*:
 ** *Drew Expense Spliter portion of UML Class diagram*
 +
 image::expense_splitter_uml_class_diagram.png[]
@@ -113,8 +143,3 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 
 _{Optionally, you may include other projects in your portfolio.}_
 
-Questions to ask: +
-1. is BigDecimal the best way to represent currency? +
-2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
-will throw an exception? Because in AB3 everything there is assertFalse +
-3.
