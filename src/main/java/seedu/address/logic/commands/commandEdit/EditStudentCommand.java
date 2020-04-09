@@ -13,9 +13,11 @@ import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
@@ -87,17 +89,18 @@ public class EditStudentCommand extends EditCommand {
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-    List<Student> lastShownList = model.getFilteredStudentList();
-
-    if (!ID.isValidId(targetID.toString())) {
-      throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_ID);
+    if (toEdit == null) {
+      if (!ID.isValidId(targetID.toString())) {
+        throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_ID);
+      }
+      if (!model.has(targetID, Constants.ENTITY_TYPE.STUDENT)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_STUDENT_DISPLAYED_ID);
+      }
+      this.toEdit = (Student) model.get(targetID, Constants.ENTITY_TYPE.STUDENT);
+      this.editedStudent = createEditedStudent(this.toEdit, editStudentDescriptor);
     }
 
-    Student studentToEdit = getStudent(lastShownList);
-    this.toEdit = studentToEdit;
-    Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
-    this.editedStudent = editedStudent;
-    if (!studentToEdit.weakEquals(editedStudent) && model.has(editedStudent)) {
+    if (!this.toEdit.weakEquals(this.editedStudent) && model.has(this.editedStudent)) {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
 
@@ -109,16 +112,6 @@ public class EditStudentCommand extends EditCommand {
     model.set(toEdit, editedStudent);
     model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
-  }
-
-  // Find way to abstract this
-  public Student getStudent(List<Student> lastShownList) throws CommandException {
-    for (Student student : lastShownList) {
-      if (student.getId().equals(this.targetID)) {
-        return student;
-      }
-    }
-    throw new CommandException("This student ID does not exist");
   }
 
   @Override

@@ -2,12 +2,14 @@ package seedu.address.logic.commands.commandDelete;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 
 import java.util.List;
@@ -42,54 +44,26 @@ public class DeleteAssignmentCommand extends DeleteCommand {
 
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
-    List<Assignment> lastShownList = model.getFilteredAssignmentList();
     if (this.toDelete == null) {
       if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
       }
-      this.toDelete = getAssignment(lastShownList);
+      if (!model.has(targetID, Constants.ENTITY_TYPE.ASSIGNMENT)) {
+        throw new CommandException(Messages.MESSAGE_NOTFOUND_ASSIGNMENT_DISPLAYED_ID);
+      }
+      this.toDelete = (Assignment) model.get(targetID, Constants.ENTITY_TYPE.ASSIGNMENT);
     }
     if (this.targetID == null) {
-      this.targetID = getID(lastShownList);
+      this.targetID = this.toDelete.getId();
     }
     if (this.targetIndex == null) {
-      this.targetIndex = getIndex(lastShownList);
+      this.targetIndex = model.getIndex(this.toDelete);
     }
   }
 
   @Override
   protected void generateOppositeCommand() throws CommandException {
     oppositeCommand = new AddAssignmentCommand(toDelete, targetIndex.getZeroBased());
-  }
-
-  // TODO: Find way to abstract this
-  public Index getIndex(List<Assignment> lastShownList) throws CommandException {
-    for (int i = 0; i < lastShownList.size(); i++) {
-      if (lastShownList.get(i).equals(this.toDelete)) {
-        return Index.fromZeroBased(i);
-      }
-    }
-    throw new CommandException("This id not in list");
-  }
-
-  // Find way to abstract this
-  public ID getID(List<Assignment> lastShownList) throws CommandException {
-    for (Assignment assignment : lastShownList) {
-      if (assignment.getId().equals(this.toDelete.getId())) {
-        return assignment.getId();
-      }
-    }
-    throw new CommandException("Cannot find this course in the list");
-  }
-
-  // Find way to abstract this
-  public Assignment getAssignment(List<Assignment> lastShownList) throws CommandException {
-    for (Assignment assignment : lastShownList) {
-      if (assignment.getId().equals(this.targetID)) {
-        return assignment;
-      }
-    }
-    throw new CommandException("This course ID does not exist");
   }
 
   @Override

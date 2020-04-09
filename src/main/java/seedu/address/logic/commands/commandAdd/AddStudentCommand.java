@@ -34,7 +34,6 @@ public class AddStudentCommand extends AddCommand {
   public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book";
 
   private final Student toAdd;
-
   private Integer index;
 
   /**
@@ -51,18 +50,16 @@ public class AddStudentCommand extends AddCommand {
     this.index = index;
   }
 
-  protected void generateOppositeCommand() throws CommandException {
+  protected void generateOppositeCommand() {
     oppositeCommand = new DeleteStudentCommand(this.toAdd);
   }
 
   @Override
   public CommandResult executeUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
-
     if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
     }
-
     if (index == null) {
       model.add(toAdd);
     } else {
@@ -77,6 +74,4 @@ public class AddStudentCommand extends AddCommand {
         || (other instanceof AddStudentCommand // instanceof handles nulls
         && toAdd.equals(((AddStudentCommand) other).toAdd));
   }
-
-
 }

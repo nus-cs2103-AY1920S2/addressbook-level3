@@ -41,19 +41,8 @@ public class DeleteFinanceCommand extends DeleteCommand {
     this.toDelete = toDelete;
   }
 
-  // TODO: Find way to abstract this
-  public Index getIndex(List<Finance> lastShownList) throws CommandException {
-    for (int i = 0; i < lastShownList.size(); i++) {
-      if (lastShownList.get(i).equals(this.toDelete)) {
-        return Index.fromZeroBased(i);
-      }
-    }
-    throw new CommandException("This id not in list");
-  }
-
   @Override
   protected void preprocessUndoableCommand(Model model) throws CommandException {
-    List<Finance> lastShownList = model.getFilteredFinanceList();
     if (this.toDelete == null) {
       if (!ID.isValidId(targetID.toString())) {
         throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_ID);
@@ -67,7 +56,7 @@ public class DeleteFinanceCommand extends DeleteCommand {
       this.targetID = toDelete.getId();
     }
     if (this.targetIndex == null) {
-      this.targetIndex = getIndex(lastShownList);
+      this.targetIndex = model.getIndex(toDelete);
     }
   }
 

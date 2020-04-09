@@ -37,7 +37,17 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
-     * Adds a specific ModelObject to the list. It must not already exist in the list.
+     * Returns the index of the first occurrence of the specified element in this list.
+     * The element should already be unique in unique list.
+     */
+    public Index getIndex(K obj) {
+        requireAllNonNull(obj);
+        return Index.fromZeroBased(internalList.indexOf(obj));
+    }
+
+    /**
+     * Adds an object to the list.
+     * The object must not already exist in the list.
      */
     public void add(K toAdd) {
         requireNonNull(toAdd);
@@ -47,6 +57,10 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Adds an object to the list at the exact index.
+     * The Object must not already exist in the list.
+     */
     public void addAtIndex(K toAdd, Integer idx) {
         requireAllNonNull(toAdd, idx);
         if (contains(toAdd)) {
@@ -56,9 +70,9 @@ public class UniqueList<K extends ModelObject> implements Iterable<K> {
     }
 
     /**
-     * Replaces the course {@code target} in the list with {@code editedCourse}. {@code target} must
-     * exist in the list. The Assignment identity of {@code editedCourse} must not be the same as another
-     * existing course in the list.
+     * Replaces the object {@code target} in the list with {@code editedObject}. {@code target} must
+     * exist in the list. The Assignment identity of {@code editedObject} must not be the same as another
+     * existing object in the list.
      */
     public void set(K target, K edited) {
         requireAllNonNull(target, edited);

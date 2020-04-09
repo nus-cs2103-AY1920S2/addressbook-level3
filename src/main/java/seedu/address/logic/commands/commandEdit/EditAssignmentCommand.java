@@ -13,11 +13,13 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -88,17 +90,17 @@ public class EditAssignmentCommand extends EditCommand {
     @Override
     protected void preprocessUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
-        List<Assignment> lastShownList = model.getFilteredAssignmentList();
-
-        if (!ID.isValidId(targetID.toString())) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
+        if (toEdit == null) {
+            if (!ID.isValidId(targetID.toString())) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ASSIGNMENT_DISPLAYED_ID);
+            }
+            if (!model.has(targetID, Constants.ENTITY_TYPE.ASSIGNMENT)) {
+                throw new CommandException(Messages.MESSAGE_NOTFOUND_ASSIGNMENT_DISPLAYED_ID);
+            }
+            this.toEdit = (Assignment) model.get(targetID, Constants.ENTITY_TYPE.ASSIGNMENT);
+            this.editedAssignment = createEditedAssignment(toEdit, editAssignmentDescriptor);
         }
-
-        Assignment assignmentToEdit = getAssignment(lastShownList);
-        this.toEdit = assignmentToEdit;
-        Assignment editedAssignment = createEditedAssignment(assignmentToEdit, editAssignmentDescriptor);
-        this.editedAssignment = editedAssignment;
-        if (!assignmentToEdit.weakEquals(editedAssignment) && model.has(editedAssignment)) {
+        if (!this.toEdit.weakEquals(editedAssignment) && model.has(editedAssignment)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
         }
     }
@@ -109,16 +111,6 @@ public class EditAssignmentCommand extends EditCommand {
         model.set(toEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment));
-    }
-
-    // Find way to abstract this
-    public Assignment getAssignment(List<Assignment> lastShownList) throws CommandException {
-        for (Assignment assignment : lastShownList) {
-            if (assignment.getId().equals(this.targetID)) {
-                return assignment;
-            }
-        }
-        throw new CommandException("This staff ID does not exist");
     }
 
     @Override

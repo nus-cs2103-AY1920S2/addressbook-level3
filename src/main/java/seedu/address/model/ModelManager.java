@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelAssignment.Assignment;
@@ -416,6 +417,11 @@ public class ModelManager extends BaseManager implements Model {
     getAddressBook(obj).add(obj);
     getFilterList(obj).setPredicate(getPredicateAll(obj));
     postDataStorageChangeEvent(getReadOnlyAddressBook(obj), getEntityType(obj));
+  }
+
+  @Override
+  public Index getIndex(ModelObject obj) throws CommandException {
+    return getAddressBook(obj).getIndex(obj);
   }
 
   @Override
