@@ -1,26 +1,23 @@
 package seedu.address.logic.commands.commandUnassign;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+
+import java.util.Set;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.manager.EdgeManager;
 import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
-import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
-import seedu.address.model.tag.Tag;
-
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /** This class will be in charge of assigning stuff (e.g Assignments, teacher, etc) to a course. */
 public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
@@ -89,8 +86,29 @@ public class UnassignStudentFromCourseCommand extends UnassignCommandBase {
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
 
-        Set<Progress> undoProgress = ProgressManager.getAllProgressesForOneStudent(courseID, studentID);
-        this.undoProgresses = undoProgress;
+        boolean courseExists = model.has(courseID, Constants.ENTITY_TYPE.COURSE);
+        boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
+
+        if (!courseExists) {
+            throw new CommandException(MESSAGE_INVALID_COURSE_ID);
+        } else if (!studentExists) {
+            throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+        } else {
+            Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+            Student assigningStudent = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+
+            boolean assignedCourseContainsStudent = assignedCourse.containsStudent(studentID);
+            boolean assigningStudentContainsCourse = assigningStudent.containsCourse(courseID);
+
+            if(!assignedCourseContainsStudent) {
+                throw new CommandException("This course doesn't contain the specified student! :(");
+            } else if(!assigningStudentContainsCourse) {
+                throw new CommandException("The student isn't even assigned to this course! :(");
+            } else {
+                Set<Progress> undoProgress = ProgressManager.getAllProgressesForOneStudent(courseID, studentID);
+                this.undoProgresses = undoProgress;
+            }
+        }
     }
 
 

@@ -35,6 +35,8 @@ public class StaffDetailedCard extends UiPart<Region> {
   @FXML
   private Label id;
   @FXML
+  private Label level;
+  @FXML
   private Label staffID;
   @FXML
   private Label phone;
@@ -66,6 +68,10 @@ public class StaffDetailedCard extends UiPart<Region> {
     staff.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+    String staffLevel = staff.getLevel().toString();
+    staffLevel = staffLevel.substring(0, 1).toUpperCase() + staffLevel.substring(1).toLowerCase();
+    level.setText(staffLevel);
   }
 
   @Override

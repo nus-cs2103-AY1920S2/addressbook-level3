@@ -37,6 +37,8 @@ public class StaffCard extends UiPart<Region> {
   @FXML
   private Label staffID;
   @FXML
+  private Label level;
+  @FXML
   private ImageView staffImage;
 
   private CommandBox commandBox;
@@ -51,6 +53,10 @@ public class StaffCard extends UiPart<Region> {
     staffID.setText(staff.getId().value);
     name.setText(staff.getName().fullName);
     String gender = staff.getGender().value;
+
+    String staffLevel = staff.getLevel().toString();
+    staffLevel = staffLevel.substring(0, 1).toUpperCase() + staffLevel.substring(1).toLowerCase();
+    level.setText(staffLevel);
 
     if (gender.equals("m")) {
       staffImage.setImage(staffGuy);
