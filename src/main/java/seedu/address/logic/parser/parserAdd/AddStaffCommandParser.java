@@ -1,17 +1,5 @@
 package seedu.address.logic.parser.parserAdd;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Set;
-import java.util.stream.Stream;
 import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.commands.commandAdd.AddStaffCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -20,18 +8,19 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
+
+import java.util.Set;
+import java.util.stream.Stream;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddTeacherCommandParser extends AddCommandParser {
+public class AddStaffCommandParser extends AddCommandParser {
 
   /**
    * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code

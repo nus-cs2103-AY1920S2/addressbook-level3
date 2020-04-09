@@ -1,16 +1,16 @@
 package seedu.address.logic.parser.parserDelete;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.logic.commands.commandDelete.DeleteStaffCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ID;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteTeacherCommandParser extends DeleteCommandParser {
+public class DeleteStaffCommandParser extends DeleteCommandParser {
 
   /**
    * Parses the given {@code String} of arguments in the context of the DeleteCommand and returns a
