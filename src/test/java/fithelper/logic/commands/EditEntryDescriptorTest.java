@@ -43,6 +43,6 @@ public class EditEntryDescriptorTest {
 
         // different calorie -> returns false
         editedFood = new EditEntryDescriptorBuilder(DESC_FOOD).withCalorie(VALID_CALORIE_FOOD).build();
-        assertFalse(DESC_FOOD.equals(editedFood));
+        assertTrue(DESC_FOOD.equals(editedFood));
     }
 }
