@@ -8,10 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -46,7 +44,6 @@ public class Staff extends ModelObject {
 
   // Data fields
   private Set<ID> assignedCoursesID = new HashSet<>();
-  private String assignedCourses = "";
   private final Salary salary;
   private final Set<Tag> tags = new HashSet<>();
 
@@ -178,33 +175,6 @@ public class Staff extends ModelObject {
   }
 
   /**
-   * Converts internal list of assigned student IDs into the name with the IDs
-   */
-  public void processAssignedCourses(FilteredList<Course> filteredCourses){
-    StringBuilder s = new StringBuilder();
-    int count = 1;
-    for (ID courseid : assignedCoursesID) {
-      for (Course course : filteredCourses) {
-        if (courseid.toString().equals(course.getId().toString())) {
-          String comma = ", ";
-          if (count == assignedCoursesID.size()) {
-            comma = "";
-          }
-          s.append(courseid).append(comma);
-          //s.append(course.getName().toString()).append("(").append(courseid).append(")").append(comma);
-        }
-      }
-      count++;
-    }
-
-    if (s.toString().equals("")) {
-      this.assignedCourses = "None";
-    } else {
-      this.assignedCourses = "[" + s.toString() + "]";
-    }
-  }
-
-  /**
    * Check if this staff is a teacher.
    * @return true if this is a teacher, false if this is an admin.
    */
@@ -272,16 +242,6 @@ public class Staff extends ModelObject {
       return !tags.isEmpty();
   }
 
-  /**
-   * Get set an assigned course to a staff. The staff need to be a teacher to be assigned a course.
-   */
-  public void setAssignedCourses(String assignedCourses) {
-      this.assignedCourses = assignedCourses;
-  }
-
-  public String getAssignedCourses() {
-      return this.assignedCourses;
-  }
 
   /**
    * Returns true if both staffs of the same name have at least one other identity field that is

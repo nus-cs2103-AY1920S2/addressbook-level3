@@ -1,29 +1,20 @@
 package seedu.address.manager;
 
-import javafx.collections.transformation.FilteredList;
+import java.util.Set;
+import java.util.logging.Logger;
 import seedu.address.commons.core.BaseManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.DeleteEntityEvent;
 import seedu.address.commons.util.Constants;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.commandAssign.AssignAssignmentToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
-import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStaff.StaffAddressBook;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
-import java.util.logging.Logger;
-
-
-import java.util.Set;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class EdgeManager extends BaseManager {
     private static Model model = ModelManager.getInstance();
@@ -38,10 +29,6 @@ public class EdgeManager extends BaseManager {
 
         foundCourse.addStudent(studentID);
         foundStudent.addCourse(courseID);
-        foundCourse.processAssignedStudents(
-                (FilteredList<Student>) model.getFilteredStudentList());
-        foundStudent.processAssignedCourses(
-                (FilteredList<Course>) model.getFilteredCourseList());
         model.updateFilteredCourseList(model.PREDICATE_SHOW_ALL_COURSES);
         model.updateFilteredStudentList(model.PREDICATE_SHOW_ALL_STUDENTS);
 
@@ -67,11 +54,6 @@ public class EdgeManager extends BaseManager {
 
         foundCourse.assignStaff(staffID);
         foundTeacher.addCourse(courseID);
-
-        foundCourse.processAssignedStaff(
-                (FilteredList<Staff>) model.getFilteredStaffList());
-        foundTeacher.processAssignedCourses(
-                (FilteredList<Course>) model.getFilteredCourseList());
         model.set(foundCourse, foundCourse);
         model.set(foundTeacher, foundTeacher);
     }
@@ -97,10 +79,6 @@ public class EdgeManager extends BaseManager {
 
         foundCourse.removeStudent(studentID);
         foundStudent.removeCourse(courseID);
-        foundCourse.processAssignedStudents(
-                (FilteredList<Student>) model.getFilteredStudentList());
-        foundStudent.processAssignedCourses(
-                (FilteredList<Course>) model.getFilteredCourseList());
         model.updateFilteredCourseList(model.PREDICATE_SHOW_ALL_COURSES);
         model.updateFilteredStudentList(model.PREDICATE_SHOW_ALL_STUDENTS);
 

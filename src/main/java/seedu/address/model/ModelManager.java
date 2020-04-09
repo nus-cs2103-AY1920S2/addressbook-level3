@@ -116,19 +116,6 @@ public class ModelManager extends BaseManager implements Model {
     filteredCourses = new FilteredList<>(this.courseAddressBook.getList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getList());
     filteredProgresses = new FilteredList<>(this.progressAddressBook.getList());
-
-    for (Course course : filteredCourses) {
-      course.processAssignedStudents(filteredStudents);
-      course.processAssignedStaff(filteredStaffs);
-    }
-
-    for (Student student : filteredStudents) {
-      student.processAssignedCourses(filteredCourses);
-    }
-
-    for (Staff staff : filteredStaffs) {
-      staff.processAssignedCourses(filteredCourses);
-    }
     instance = this;
   }
 
