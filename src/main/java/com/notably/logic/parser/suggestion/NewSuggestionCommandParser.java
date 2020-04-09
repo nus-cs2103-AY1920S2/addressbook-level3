@@ -1,6 +1,5 @@
 package com.notably.logic.parser.suggestion;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_BODY;
 import static com.notably.logic.parser.CliSyntax.PREFIX_JUMP;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -41,7 +40,7 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
      */
     public Optional<SuggestionCommand> parse(String userInput) {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
+                ArgumentTokenizer.tokenize(userInput, PREFIX_TITLE, PREFIX_JUMP);
 
         if (userInput.isBlank()) {
             model.setResponseText(RESPONSE_MESSAGE);
