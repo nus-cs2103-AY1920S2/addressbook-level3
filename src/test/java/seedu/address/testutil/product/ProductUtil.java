@@ -30,7 +30,7 @@ public class ProductUtil {
         sb.append(PREFIX_DESCRIPTION + product.getDescription().value + " ");
         sb.append(PREFIX_COSTPRICE + product.getCostPrice().value + " ");
         sb.append(PREFIX_PRICE + product.getPrice().value + " ");
-        sb.append(PREFIX_QUANTITY + String.valueOf(product.getQuantity().value) + " ");
+        sb.append(PREFIX_QUANTITY + String.valueOf(product.getQuantity().getValue()) + " ");
         sb.append(PREFIX_SALES + String.valueOf(product.getMoney().value) + " ");
         return sb.toString();
     }
@@ -45,7 +45,8 @@ public class ProductUtil {
         descriptor.getCostPrice().ifPresent(costPrice
             -> sb.append(PREFIX_COSTPRICE).append(costPrice.value).append(" "));
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
-        descriptor.getQuantity().ifPresent(quantity -> sb.append(PREFIX_QUANTITY).append(quantity.value).append(" "));
+        descriptor.getQuantity().ifPresent(quantity
+            -> sb.append(PREFIX_QUANTITY).append(quantity.getValue()).append(" "));
         descriptor.getMoney().ifPresent(sales -> sb.append(PREFIX_SALES).append(sales.value).append(" "));
         return sb.toString();
     }
