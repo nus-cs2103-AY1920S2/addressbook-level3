@@ -1,7 +1,6 @@
 package fithelper.logic.commands;
 
 import static fithelper.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
-import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY1;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY2;

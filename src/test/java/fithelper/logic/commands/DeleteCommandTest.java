@@ -99,7 +99,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoEntry(Model model) {
+    public void showNoEntry(Model model) {
         model.updateFilteredFoodEntryList(p -> false);
 
         assertTrue(model.getFilteredFoodEntryList().isEmpty());
