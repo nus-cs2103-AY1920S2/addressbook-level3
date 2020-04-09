@@ -35,9 +35,9 @@ public class FindGoodCommandTest {
     @Test
     public void equals() {
         GoodSupplierPairContainsKeywordsPredicate firstPredicate =
-                new GoodSupplierPairContainsKeywordsPredicate(Collections.singletonList("apple"));
+                new GoodSupplierPairContainsKeywordsPredicate(Collections.singletonList("first"));
         GoodSupplierPairContainsKeywordsPredicate secondPredicate =
-                new GoodSupplierPairContainsKeywordsPredicate(Collections.singletonList("banana"));
+                new GoodSupplierPairContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindGoodCommand findFirstCommand = new FindGoodCommand(firstPredicate);
         FindGoodCommand findSecondCommand = new FindGoodCommand(secondPredicate);
