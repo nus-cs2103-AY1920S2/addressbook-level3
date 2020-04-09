@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListAttributeCommand;
+import seedu.address.logic.commands.ListMetricCommand;
+import seedu.address.logic.commands.ListQuestionCommand;
 import seedu.address.logic.commands.OpenResumeCommand;
 import seedu.address.logic.commands.interview.EndCommand;
 import seedu.address.logic.commands.interview.RemarkCommand;
@@ -69,6 +72,15 @@ public class InterviewParser {
     private Command parseSpecialCommand(String userInput) throws ParseException {
         if (userInput.equals(":end")) {
             return new EndCommand();
+        }
+        if (userInput.equals(":attributes")) {
+            return new ListAttributeCommand();
+        }
+        if (userInput.equals(":questions")) {
+            return new ListQuestionCommand();
+        }
+        if (userInput.equals(":metrics")) {
+            return new ListMetricCommand();
         }
         Matcher startQuestionMatcher = START_QUESTION_COMMAND_FORMAT.matcher(userInput.trim());
         if (startQuestionMatcher.matches()) {

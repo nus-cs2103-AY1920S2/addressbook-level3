@@ -11,7 +11,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAttributeCommand;
-import seedu.address.logic.commands.ListIntervieweeCommand;
 import seedu.address.logic.commands.ListMetricCommand;
 import seedu.address.logic.commands.ListQuestionCommand;
 import seedu.address.logic.commands.OpenResumeCommand;
@@ -46,7 +45,6 @@ public class NormalParser {
             put("edit", args -> new EditCommandParser().parse(args));
             put("delete", args -> new DeleteCommandParser().parse(args));
             put("attributes", args -> new ListAttributeCommand());
-            put("interviewees", args -> new ListIntervieweeCommand());
             put("metrics", args -> new ListMetricCommand());
             put("questions", args -> new ListQuestionCommand());
             put("finalise", args -> new FinaliseCommandParser().parse(args));
