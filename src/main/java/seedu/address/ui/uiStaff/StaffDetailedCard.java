@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.Set;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -52,8 +54,12 @@ public class StaffDetailedCard extends UiPart<Region> {
   private Label assignedCourses;
   @FXML
   private FlowPane tags;
+  @FXML
+  private ImageView staffImage;
 
   private CommandBox commandBox;
+  Image staffGuy = new Image(getClass().getResourceAsStream("/view/ourImages/staff.png"));
+  Image staffGirl = new Image(getClass().getResourceAsStream("/view/ourImages/staffGirl.png"));
 
   public StaffDetailedCard(Staff staff, CommandBox commandBox, int displayedIndex) {
     super(FXML);
@@ -65,6 +71,7 @@ public class StaffDetailedCard extends UiPart<Region> {
     phone.setText(staff.getPhone().value);
     address.setText(staff.getAddress().value);
     email.setText(staff.getEmail().value);
+    String gender = staff.getGender().value;
 
     Set<ID> courseIDS = staff.getAssignedCoursesID();
     String coursesStrings = "None";
@@ -81,6 +88,12 @@ public class StaffDetailedCard extends UiPart<Region> {
     String staffLevel = staff.getLevel().toString();
     staffLevel = staffLevel.substring(0, 1).toUpperCase() + staffLevel.substring(1).toLowerCase();
     level.setText(staffLevel);
+
+    if (gender.equals("m")) {
+      staffImage.setImage(staffGuy);
+    } else if (gender.equals("f")) {
+      staffImage.setImage(staffGirl);
+    }
   }
 
   @Override

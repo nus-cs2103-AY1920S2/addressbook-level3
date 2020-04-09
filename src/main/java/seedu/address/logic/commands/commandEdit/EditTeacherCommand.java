@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
@@ -17,14 +16,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.Constants;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
@@ -217,7 +213,7 @@ public class EditTeacherCommand extends EditCommand {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, phone, email, salary, address, tags);
+      return CollectionUtil.isAnyNonNull(name, gender, phone, email, salary, address, tags);
     }
 
     public Optional<Name> getName() {
