@@ -161,7 +161,7 @@ a|
 
 ==== Add Command
 `add n/This is a new task p/3 des/We have alot of work to do today! t/This t/Is t/Fun` +
-You only need the `n/` prefix when adding a new task as name fields are compulsory. +
+You only need the `n/` prefix when adding a new task as name fields are compulsory.
 
 .Add success
 image::add_success.png[width=790]
@@ -175,14 +175,14 @@ image::add_success.png[width=790]
 image::edit_success.png[width=790]
 
 ==== Done Command
-`done <<index, INDEX>> INDEX...`
-You can also mark multiple tasks as done by using comma separated indexes.
+`done <<index, INDEX>> INDEX...` +
+You can also mark multiple tasks as done by using space separated indexes.
 
 .Done success
 image::done_success.png[width=790]
 
 ==== Sort Command
-`sort FIELD FIELD...`
+`sort FIELD FIELD...` +
 You can choose to change the current ordering of your task list to something more suitable by sorting it one or more of these task fields:
 
 _All fields with r- prepended refers to a reverse of the original._
@@ -200,21 +200,21 @@ _All fields with r- prepended refers to a reverse of the original._
 image::sort_success.png[width=790]
 
 ==== Find Command
-`find PHRASE`
+`find PHRASE` +
 You can perform a search for tasks by name that are important. BB Productive will then search through the names of the tasks and bring tasks that match the `PHRASE`. It is also typo tolerant and will show tasks that differ from the `PHRASE` by a little.
 
 .Find success
 image::find_success.png[width=790]
 
 ==== Delete Command
-`delete <<index, INDEX>> INDEX...`
+`delete <<index, INDEX>> INDEX...` +
 You can delete multiple tasks.
 
 .Delete success
 image::delete_success.png[width=790]
 
 ==== Clear Command
-`clear`
+`clear` +
 You may delete all tasks from your list by issuing a clear command.
 
 .Clear success
