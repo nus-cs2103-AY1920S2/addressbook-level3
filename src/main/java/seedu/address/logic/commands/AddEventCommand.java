@@ -56,6 +56,17 @@ public class AddEventCommand extends Command {
         }
 
         model.addEvent(toAdd);
+
+        // if there is an assignment due on the same date as the event,
+        // we throw some warnings here but we still allow them to add the event.
+        if (model.hasAssignmentDueOnSameDate(toAdd)) {
+            String warning = "NAG NAG NAG! You have assignment(s) due on the same day as this event. "
+                    + "Please manage your time properly and don't attend this event if you haven't "
+                    + "finished your homework.";
+            return new CommandResult(String.format(warning, toAdd), false, false,
+                    false, false, true, false, false, false);
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false,
                 false, false, true, false, false, false);
     }
