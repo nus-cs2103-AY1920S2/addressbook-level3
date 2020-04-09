@@ -183,7 +183,7 @@ Allows user to input their height.
 Format: `height HEIGHT` +
 Example: `height 172`
 
-NOTE: Height in centimetres (cm)
+NOTE: Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
 
 '''
 [[storeweight]]
@@ -193,7 +193,7 @@ Allows user to input their weight.
 Format: `weight WEIGHT` +
 Example: `weight 65.7`
 
-NOTE: Weight in kilograms (kg)
+NOTE: Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
 
 '''
 
@@ -226,6 +226,8 @@ Displays different data based on the below flags:
 ****
 
 NOTE: Default value of list is food consumed for the day.
+
+NOTE: For the `-d` tag, the amount of days specified must be a positive Integer value.
 
 Format: `list [-a] [-d NUMDAYS] [-t TAGNAME]` +
 Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
