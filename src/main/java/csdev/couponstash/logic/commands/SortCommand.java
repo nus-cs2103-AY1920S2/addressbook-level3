@@ -8,7 +8,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 
-import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
