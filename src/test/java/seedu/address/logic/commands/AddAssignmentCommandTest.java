@@ -12,8 +12,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AssignmentSchedule;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
+import seedu.address.model.ReadOnlyScheduler;
+import seedu.address.model.Scheduler;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.testutil.AssignmentBuilder;
 
@@ -107,8 +107,8 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
-        public ReadOnlyAssignmentSchedule getAssignmentSchedule() {
-            return new AssignmentSchedule();
+        public ReadOnlyScheduler getScheduler() {
+            return new Scheduler();
         }
     }
 }

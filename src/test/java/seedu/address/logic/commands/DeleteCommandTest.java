@@ -19,11 +19,11 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -37,7 +37,7 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
-            new AssignmentSchedule(),
+            new Scheduler(),
             new EventSchedule(),
             new UserPrefs());
 
@@ -51,7 +51,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
-                new AssignmentSchedule(),
+                new Scheduler(),
                 new EventSchedule(),
                 new UserPrefs());
         expectedModel.deletePerson(personToDelete);
@@ -80,7 +80,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
-                new AssignmentSchedule(),
+                new Scheduler(),
                 new EventSchedule(),
                 new UserPrefs());
         expectedModel.deletePerson(personToDelete);
@@ -121,7 +121,7 @@ public class DeleteCommandTest {
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new Scheduler(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);

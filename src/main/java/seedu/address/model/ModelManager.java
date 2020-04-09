@@ -32,8 +32,7 @@ public class ModelManager implements Model {
 
     private AddressBook addressBook;
     private RestaurantBook restaurantBook;
-    private AssignmentSchedule assignmentSchedule;
-    private Schedule schedule;
+    private Scheduler scheduler;
     private EventSchedule eventSchedule;
     private UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
@@ -46,8 +45,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                        ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
-                        ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyScheduler scheduler, ReadOnlyEventSchedule eventSchedule, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
 
@@ -56,7 +54,6 @@ public class ModelManager implements Model {
         this.currentModel = new ModelState(addressBook, restaurantBook, scheduler, eventSchedule, userPrefs);
         this.undoStates = new Stack<>();
         this.redoStates = new Stack<>();
-        this.schedule = new Schedule();
         undoStates.push(currentModel);
         update();
     }
@@ -74,7 +71,7 @@ public class ModelManager implements Model {
         createNewState("BIRTHDAY");
         setAddressBook(new AddressBook());
         setRestaurantBook(new RestaurantBook());
-        setAssignmentSchedule(new AssignmentSchedule());
+        setScheduler(new Scheduler());
         setEventSchedule(new EventSchedule());
     }
 
@@ -154,20 +151,20 @@ public class ModelManager implements Model {
     //========== Schoolwork Tracker ==========================================================================
 
     @Override
-    public void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule) {
-        this.assignmentSchedule.resetData(assignmentSchedule);
+    public void setScheduler(ReadOnlyScheduler scheduler) {
+        this.scheduler.resetData(scheduler);
     }
 
     @Override
     public void addAssignment(Assignment assignment) {
         createNewState("ASSIGNMENTS");
-        assignmentSchedule.addAssignment(assignment);
+        scheduler.addAssignment(assignment);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
     public void sortAssignment(Comparator<Assignment> comparator) {
-        assignmentSchedule.sortAssignment(comparator);
+        scheduler.sortAssignment(comparator);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
@@ -175,18 +172,18 @@ public class ModelManager implements Model {
     public void setAssignment(Assignment target, Assignment markedAssignment) {
         requireAllNonNull(target, markedAssignment);
         createNewState("ASSIGNMENTS");
-        assignmentSchedule.setAssignment(target, markedAssignment);
+        scheduler.setAssignment(target, markedAssignment);
     }
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
-        return assignmentSchedule.hasAssignment(assignment);
+        return scheduler.hasAssignment(assignment);
     }
 
     @Override
-    public ReadOnlyAssignmentSchedule getAssignmentSchedule() {
-        return assignmentSchedule;
+    public ReadOnlyScheduler getScheduler() {
+        return scheduler;
     }
 
     @Override
@@ -196,7 +193,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteAssignment(Assignment target) {
-        assignmentSchedule.removeAssignment(target);
+        scheduler.removeAssignment(target);
     }
 
     //=========== Event Schedule ================================================================================
@@ -351,7 +348,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && restaurantBook.equals(other.restaurantBook)
-                && assignmentSchedule.equals(other.assignmentSchedule)
+                && scheduler.equals(other.scheduler)
                 && eventSchedule.equals(other.eventSchedule)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
@@ -418,20 +415,15 @@ public class ModelManager implements Model {
         return this.addressBook.getBdayList();
     }
 
-    //=========== ScheduleList Visual Accessor ========================================================================
+    //=========== Schedule Visual Accessor ========================================================================
     @Override
-    public void createSchedule(int numDays) {
-        this.schedule.createSchedule(numDays);
+    public void calculateScheduleIntensity(int numDays) {
+        this.scheduler.calculateScheduleIntensity(numDays);
     }
 
     @Override
-    public void setDay(int index, Day toSet) {
-        this.schedule.setDay(index, toSet);
-    }
-
-    @Override
-    public ObservableList<Day> getSchedule() {
-        return this.schedule.getScheduleList();
+    public ObservableList<Day> getScheduleVisualResult() {
+        return this.scheduler.getScheduleVisual();
     }
 
     //=========== Undo and Redo ========================================================================
@@ -464,7 +456,7 @@ public class ModelManager implements Model {
         filteredPersons = this.currentModel.getFilteredPersons();
         filteredPersonsResult = this.currentModel.getFilteredPersonsResult();
         this.restaurantBook = this.currentModel.getRestaurantBook();
-        this.assignmentSchedule = this.currentModel.getAssignmentSchedule();
+        this.scheduler = this.currentModel.getScheduler();
         this.eventSchedule = this.currentModel.getEventSchedule();
         filteredRestaurants = this.currentModel.getFilteredRestaurants();
         filteredAssignments = this.currentModel.getFilteredAssignments();

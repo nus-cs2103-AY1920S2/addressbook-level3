@@ -87,8 +87,8 @@ public class EventList {
     }
 
     /**
-     * Removes the equivalent event from the Events Schedule.
-     * The Event must exist in the Events Schedule.
+     * Removes the equivalent event from the Schedule.
+     * The Event must exist in the Schedule.
      * @param toRemove
      */
     public void remove(Event toRemove) {

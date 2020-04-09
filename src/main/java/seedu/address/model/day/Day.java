@@ -6,45 +6,45 @@ import java.util.ArrayList;
  * Represents a day in the schedule visual.
  */
 public class Day {
-    private Hours totalAllocatedHours;
-    private ArrayList<Assignment> dueAssignments;
-    private ArrayList<Assignment> allocatedAssignments;
+    private Hours hours;
+    private ArrayList<DueAssignment> dueAssignments;
 
     public Day() {
-        this.totalAllocatedHours = new Hours(0);
-        this.dueAssignments = new ArrayList<Assignment>();
-        this.allocatedAssignments = new ArrayList<Assignment>();
+        this.hours = new Hours(0);
+        this.dueAssignments = new ArrayList<DueAssignment>();
     }
 
-    public Hours getTotalAllocatedHours() {
-        return totalAllocatedHours;
+    public Hours getHours() {
+        return hours;
     }
 
-    public void setTotalAllocatedHours(float toAdd) {
-        totalAllocatedHours = new Hours(toAdd);
+    public void setHours(float toAdd) {
+        hours = new Hours(toAdd);
     }
 
     public void resetDueAssignments() {
         dueAssignments.clear();
     }
 
-    public ArrayList<Assignment> getDueAssignments() {
+    public ArrayList<DueAssignment> getDueAssignments() {
         return dueAssignments;
     }
 
     public void addDueAssignment(String assignment) {
-        dueAssignments.add(new Assignment(assignment));
+        dueAssignments.add(new DueAssignment(assignment));
     }
 
-    public void resetAllocatedAssignments() {
-        allocatedAssignments.clear();
+    public String getDueAssignmentsToString() {
+        String result = "";
+
+        if (dueAssignments.size() != 0) {
+            result = result + "1. " + dueAssignments.get(0).assignment;
+        }
+
+        for (int i = 1; i < dueAssignments.size(); i++) {
+            result = result + "\n" + (i + 1) + ". " + dueAssignments.get(i).assignment;
+        }
+        return result;
     }
 
-    public ArrayList<Assignment> getAllocatedAssignments() {
-        return allocatedAssignments;
-    }
-
-    public void addAllocatedAssignment(float hours, String assignment) {
-        allocatedAssignments.add(new AllocatedAssignment(hours, assignment));
-    }
 }

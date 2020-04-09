@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.day.Day;
 
 /**
- * Panel containing the list of days.
+ * Panel containing the list od days.
  */
 public class ScheduleVisualPanel extends UiPart<Region> {
     private static final String FXML = "ScheduleVisualPanel.fxml";
