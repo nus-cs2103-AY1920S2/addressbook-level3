@@ -5,8 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.commons.core.Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.testutil.TypicalTransactions.*;
+import static seedu.expensela.testutil.TypicalTransactions.APPLES;
+import static seedu.expensela.testutil.TypicalTransactions.BONUS;
 import static seedu.expensela.testutil.TypicalTransactions.CAR_GAS;
+import static seedu.expensela.testutil.TypicalTransactions.DOMINOS;
+import static seedu.expensela.testutil.TypicalTransactions.ELECTRICITY;
+import static seedu.expensela.testutil.TypicalTransactions.FLOWERS;
+import static seedu.expensela.testutil.TypicalTransactions.GRAB;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,9 +25,6 @@ import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.CategoryEqualsKeywordPredicate;
 import seedu.expensela.model.transaction.DateEqualsKeywordPredicate;
-import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
-
-import javax.crypto.BadPaddingException;
 
 class FilterCommandTest {
 
@@ -144,7 +147,8 @@ class FilterCommandTest {
         FilterCommand command = new FilterCommand(categoryPredicate, datePredicate);
         expectedModel.updateFilteredTransactionList(categoryPredicate, datePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(GRAB, FLOWERS, ELECTRICITY, DOMINOS, CAR_GAS, BONUS, APPLES), model.getFilteredTransactionList());
+        assertEquals(Arrays.asList(GRAB, FLOWERS, ELECTRICITY, DOMINOS, CAR_GAS, BONUS, APPLES),
+                model.getFilteredTransactionList());
     }
 
 
