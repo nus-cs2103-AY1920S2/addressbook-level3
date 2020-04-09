@@ -110,10 +110,10 @@ public interface Model {
     /** Returns a boolean value of whether filter is filtered my month */
     boolean getIsFilterMonth();
 
-    /** Returns a view of toggle list or chart object */
+    /** Returns a view of toggleView object */
     ToggleView getToggleView();
 
-    /** Flips the switch of toggle list or chart object */
+    /** Switches the toggle in toggleView object */
     void switchToggleView();
 
     /**

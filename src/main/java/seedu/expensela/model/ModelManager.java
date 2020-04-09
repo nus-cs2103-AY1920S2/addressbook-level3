@@ -319,7 +319,7 @@ public class ModelManager implements Model {
 
     //=========== Monthly Data Accessors =============================================================
     /**
-     * Returns toggle list or chart object
+     * Returns toggleView object
      */
     @Override
     public ToggleView getToggleView() {

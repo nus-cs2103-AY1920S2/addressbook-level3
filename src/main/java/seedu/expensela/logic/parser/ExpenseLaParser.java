@@ -14,12 +14,13 @@ import seedu.expensela.logic.commands.Command;
 import seedu.expensela.logic.commands.DeleteCommand;
 import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.logic.commands.ExitCommand;
+import seedu.expensela.logic.commands.ExportCommand;
 import seedu.expensela.logic.commands.FilterCommand;
 import seedu.expensela.logic.commands.FindCommand;
 import seedu.expensela.logic.commands.HelpCommand;
 import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.commands.ResetBalanceCommand;
-import seedu.expensela.logic.commands.ToggleCommand;
+import seedu.expensela.logic.commands.ToggleViewCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**
@@ -82,11 +83,14 @@ public class ExpenseLaParser {
         case BudgetCommand.COMMAND_WORD:
             return new BudgetCommandParser().parse(arguments);
 
-        case ToggleCommand.COMMAND_WORD:
-            return new ToggleCommand();
+        case ToggleViewCommand.COMMAND_WORD:
+            return new ToggleViewCommand();
 
         case ClearRecurringCommand.COMMAND_WORD:
             return new ClearRecurringCommand();
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
