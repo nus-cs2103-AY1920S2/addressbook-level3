@@ -17,28 +17,28 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
-import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestaurantBook;
-import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.AssignmentScheduleStorage;
 import seedu.address.storage.EventScheduleStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonAssignmentScheduleStorage;
 import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
-import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.RestaurantBookStorage;
-import seedu.address.storage.SchedulerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -73,9 +73,10 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         RestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
-        SchedulerStorage schedulerStorage = new JsonSchedulerStorage(userPrefs.getSchedulerFilePath());
+        AssignmentScheduleStorage assignmentScheduleStorage =
+            new JsonAssignmentScheduleStorage(userPrefs.getSchedulerFilePath());
         EventScheduleStorage eventScheduleStorage = new JsonEventScheduleStorage(userPrefs.getEventScheduleFilePath());
-        storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage,
+        storage = new StorageManager(addressBookStorage, restaurantBookStorage, assignmentScheduleStorage,
                 eventScheduleStorage, userPrefsStorage);
 
         initLogging(config);
@@ -98,9 +99,9 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialPersonsData;
         ReadOnlyRestaurantBook initialRestaurantsData;
 
-        Optional<ReadOnlyScheduler> schedulerOptional;
+        Optional<ReadOnlyAssignmentSchedule> schedulerOptional;
         Optional<ReadOnlyEventSchedule> eventScheduleOptional;
-        ReadOnlyScheduler initialAssignmentsData;
+        ReadOnlyAssignmentSchedule initialAssignmentsData;
         ReadOnlyEventSchedule initialEventsData;
         try {
             addressBookOptional = storage.readAddressBook();
@@ -133,15 +134,15 @@ public class MainApp extends Application {
         try {
             schedulerOptional = storage.readScheduler();
             if (!schedulerOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty Scheduler.");
+                logger.info("Data file not found. Will be starting with an empty AssignmentSchedule.");
             }
-            initialAssignmentsData = schedulerOptional.orElse(new Scheduler());
+            initialAssignmentsData = schedulerOptional.orElse(new AssignmentSchedule());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Scheduler");
-            initialAssignmentsData = new Scheduler();
+            logger.warning("Data file not in the correct format. Will be starting with an empty AssignmentSchedule");
+            initialAssignmentsData = new AssignmentSchedule();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Scheduler");
-            initialAssignmentsData = new Scheduler();
+            logger.warning("Problem while reading from the file. Will be starting with an empty AssignmentSchedule");
+            initialAssignmentsData = new AssignmentSchedule();
         }
 
         try {
@@ -151,10 +152,10 @@ public class MainApp extends Application {
             }
             initialEventsData = eventScheduleOptional.orElse(new EventSchedule());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Events Schedule");
+            logger.warning("Data file not in the correct format. Will be starting with an empty EventsSchedule");
             initialEventsData = new EventSchedule();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Events Schedule");
+            logger.warning("Problem while reading from the file. Will be starting with an empty EventsSchedule");
             initialEventsData = new EventSchedule();
         }
 

@@ -13,11 +13,10 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyScheduler;
-import seedu.address.model.Scheduler;
+import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.UserPrefs;
-
 
 public class StorageManagerTest {
 
@@ -32,7 +31,7 @@ public class StorageManagerTest {
         JsonRestaurantBookStorage restaurantBookStorage = new JsonRestaurantBookStorage(getTempFilePath("rb"));
         JsonEventScheduleStorage eventScheduleStorage =
                 new JsonEventScheduleStorage(getTempFilePath("eventSchedule"));
-        JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(getTempFilePath("schedule"));
+        JsonAssignmentScheduleStorage schedulerStorage = new JsonAssignmentScheduleStorage(getTempFilePath("schedule"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
@@ -79,16 +78,16 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void schedulerReadSave() throws Exception {
+    public void assignmentScheduleReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonSchedulerStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonSchedulerStorageTest} class.
+         * {@link JsonAssignmentScheduleStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonAssignmentScheduleStorageTest} class.
          */
-        Scheduler original = getTypicalScheduler();
+        AssignmentSchedule original = getTypicalScheduler();
         storageManager.saveScheduler(original);
-        ReadOnlyScheduler retrieved = storageManager.readScheduler().get();
+        ReadOnlyAssignmentSchedule retrieved = storageManager.readScheduler().get();
 
-        assertEquals(original, new Scheduler(retrieved));
+        assertEquals(original, new AssignmentSchedule(retrieved));
     }
 }

@@ -29,7 +29,8 @@
         </padding>
       </HBox>
       <Label fx:id="hours" text="\$hours" styleClass="cell_small_label" />
-      <Label fx:id="assignments" styleClass="cell_small_label" text="\$assignments" />
+      <Label fx:id="allocatedAssignments" text="\$allocatedAssignments" styleClass="cell_small_label" />
+      <Label fx:id="dueAssignments" styleClass="cell_small_label" text="\$assignments" />
     </VBox>
   </GridPane>
 </HBox>
