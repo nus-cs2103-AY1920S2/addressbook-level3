@@ -850,8 +850,8 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 
 [TIP]
 ====
-. If you want to create a session with the current date, and start time but aren't
-sure when the session will end, you can omit `e/END` and `d/DATE`.
+. If you want to create a session with the current date, start time and end time,
+you can omit `s/START` , `e/END` and `d/DATE`.
 
 . You can edit the end time `e/END` and other details later.
 
@@ -884,8 +884,7 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 
 You can use this command to delete a session at a specific index.
 
-You will automatically be switched to the session
-tab as well, if you were currently on a different tab.
+If you were on a different tab, you will automatically be switched to the session tab.
 
 Format: `session delete INDEX`
 
@@ -906,8 +905,7 @@ This command deletes the third session in the *Session View*.
 ==== Editing a Session : `session edit`
 You can use this command to edit a session in the TA-Tracker.
 
-You will automatically be switched to the session
-tab as well, if you were currently on a different tab.
+If you were on a different tab, you will automatically be switched to the session tab.
 
 Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 [m/MODULE] [t/SESSION_TYPE] [n/NOTES]​`
@@ -942,8 +940,7 @@ will automatically appear as a new claim in the *Claims View*.
 If the session marked done has a recurring period, a new session with the updated date
 and timing will be added to Session View.
 
-You will automatically be switched to the claims
-tab as well, if you were currently on a different tab.
+If you were on a different tab, you will automatically be switched to the claims tab.
 
 Format: `session done INDEX`
 
@@ -975,8 +972,7 @@ When you execute a new filter command, any previous filters applied on the sessi
 be removed and only the filters from the latest command will be applied on the sessions
 list.
 
-You will automatically be switched to the session
-tab as well, if you were currently on a different tab.
+If you were on a different tab, you will automatically be switched to the session tab.
 
 Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 
@@ -1029,7 +1025,7 @@ Format: `setrate RATE`
 
 Examples:
 
-* `set rate 25` +
+* `setrate 25` +
 Sets the current hourly rate to 25$.
 
 == GLOSSARY
@@ -1045,16 +1041,14 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 == Command Summary
 
-TODO: UPDATE ONCE ALL COMMANDS HAVE BEEN WRITTEN ABOUT
-
 === Student View
 
 ==== Module commands
-* *Add Module:* `module add m/MOD_CODE`
+* *Add Module:* `module add m/MOD_CODE n/NAME`
 * *Delete Module:* `module delete m/MOD_CODE`
 
 ==== Group commands
-* *Add Group:* `group add g/GROUP_CODE m/MOD_CODE`
+* *Add Group:* `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 * *Edit Group:* `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]
 * *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
 
