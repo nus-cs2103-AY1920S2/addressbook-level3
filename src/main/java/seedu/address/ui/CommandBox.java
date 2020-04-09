@@ -25,6 +25,10 @@ public class CommandBox extends UiPart<Region> {
   private Stack<String> leftCommandStack;
   private Stack<String> rightCommandStack;
   private Stack<String> mainCommandStack;
+  private String prevKey;
+  private boolean ctrlIsDown;
+  private boolean shiftIsDown;
+
   @FXML
   private TextField commandTextField;
 
@@ -37,12 +41,37 @@ public class CommandBox extends UiPart<Region> {
     leftCommandStack = new Stack<>();
     rightCommandStack = new Stack<>();
     mainCommandStack = new Stack<>();
+    prevKey = "NONE";
+    ctrlIsDown = false;
+    shiftIsDown = false;
+
+    getRoot().setOnKeyPressed(new EventHandler<KeyEvent>() {
+      public void handle(KeyEvent ke) {
+        if (ke.getCode() == KeyCode.CONTROL){
+          ctrlIsDown = true;
+        } else if (ke.getCode() == KeyCode.SHIFT){
+          shiftIsDown = true;
+        }
+      }
+    });
 
     getRoot().setOnKeyReleased(new EventHandler<KeyEvent>() {
 
       public void handle(KeyEvent ke) {
         boolean repeat = false;
-        if (ke.getCode() == KeyCode.DOWN) {
+        if (ke.getCode() == KeyCode.UP && ctrlIsDown){
+          String prevView = getPreviousView(mainWindow.getCurrentView());
+          System.out.println(prevView);
+          mainWindow.switchToView(prevView);
+        } else  if (ke.getCode() == KeyCode.DOWN && ctrlIsDown){
+          String nextView = getNextView(mainWindow.getCurrentView());
+          System.out.println(nextView);
+          mainWindow.switchToView(nextView);
+        } else if (ke.getCode() == KeyCode.CONTROL) {
+          ctrlIsDown = false;
+        } else if (ke.getCode() == KeyCode.SHIFT) {
+          shiftIsDown = false;
+        } else if (ke.getCode() == KeyCode.DOWN) {
           if (!rightCommandStack.isEmpty()){
             if (rightCommandStack.peek().equals(commandTextField.getText())){
               repeat = true;
@@ -64,6 +93,7 @@ public class CommandBox extends UiPart<Region> {
         if (repeat){
           handle(ke);
         }
+        prevKey = ke.getCode().toString();
       }
     });
   }
@@ -105,6 +135,46 @@ public class CommandBox extends UiPart<Region> {
       } catch (CommandException | ParseException e) {
         setStyleToIndicateCommandFailure();
       }
+    }
+  }
+
+  /**
+   * Get the previous view when CTRL+ UP is pressed
+   */
+  private String getPreviousView(String view){
+    switch (view) {
+      case "STUDENT":
+        return "SUMMARY";
+      case "STAFF":
+        return "STUDENT";
+      case "COURSE":
+        return "STAFF";
+      case "FINANCE":
+        return "COURSE";
+      case "ASSIGNMENT":
+        return "FINANCE";
+      default:
+        return "NONE";
+    }
+  }
+
+  /**
+   * Get the next view when CTRL+ DOWN is pressed
+   */
+  private String getNextView(String view){
+    switch (view) {
+      case "SUMMARY":
+        return "STUDENT";
+      case "STUDENT":
+        return "STAFF";
+      case "STAFF":
+        return "COURSE";
+      case "COURSE":
+        return "FINANCE";
+      case "FINANCE":
+        return "ASSIGNMENT";
+      default:
+        return "NONE";
     }
   }
 
