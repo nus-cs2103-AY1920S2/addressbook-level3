@@ -95,6 +95,10 @@ For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/Fast learner` or as `
 * Items with `…`​ after them can be used multiple times including zero times.
 For example, `[t/TAG]...` can be left empty (i.e. 0 times), `t/friend` (i.e. once) or
 `t/friend t/family` (i.e. multiple times).
+* If you separate the the prefix letter and `/` while writing a command, the TA-Tracker
+will not recognise the prefix. For example, in the command `module add m/CS2103T
+n /Software Engineering` , the TA-Tracker doesn't recognise `n /` to be the same
+as `n/` and you'll get an error message saying that the command format used it wrong.
 * Parameters can be in any order.
 For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
