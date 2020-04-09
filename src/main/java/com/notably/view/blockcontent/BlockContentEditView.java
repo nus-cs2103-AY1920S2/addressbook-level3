@@ -70,27 +70,43 @@ public class BlockContentEditView extends ViewPart<Stage> {
 
     /**
      * Sets listeners that update the content in the Block Edit modal to that of the
-     * currently opened note, and toggle the visibility of the edit modal.
+     * currently opened note, and toggle the visibility and controls of the edit modal.
      */
     private void setChangeListeners() {
+        setContentChangeListeners();
+        setModalVisibilityListeners();
+        setKeyboardListeners();
+        setInitialDimensionListeners();
+        setStageDimensionListeners();
+    }
+
+    /**
+     * Sets listeners that update the text content in the Block Edit modal to that of the currently
+     * opened note, and whenever there are changes to the {@link com.notably.model.block.BlockTree};
+     */
+    private void setContentChangeListeners() {
         model.currentlyOpenPathProperty().addListener(observable -> setText(model));
         model.getBlockTree().getRootBlock().getTreeItem()
                 .addEventHandler(TreeItem.treeNotificationEvent(), event -> setText(model));
+    }
+
+    /**
+     * Sets listeners that bring the Block Edit modal into view when required, and in doing so apply
+     * certain stylings to the main app window.
+     */
+    private void setModalVisibilityListeners() {
         model.blockEditableProperty().addListener(observable -> {
             if (model.isBlockEditable()) {
                 handleEdit();
                 model.setBlockEditable(false);
             }
         });
-
-        setKeyboardListeners();
-        setInitialDimensions();
-        setStageDimensionListeners();
     }
 
     /**
-     * Triggers changes in the visibility of the Edit modal when certain Keystrokes are registered.
-     * Primarily, allows for the user to exit the Block Edit modal using the "ESC" keyboard shortcut.
+     * Sets listeners to trigger changes in the visibility of the Edit modal when certain Keystrokes
+     * are registered. Primarily, allows for the user to exit the Block Edit modal using the "ESC"
+     * and "CTRL/CMD + S" keyboard shortcuts.
      */
     private void setKeyboardListeners() {
         stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
@@ -101,10 +117,10 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
-     * Sets the initial X and Y coordinates of the Block Edit modal such that it is centered
-     * to the main app window.
+     * Sets listeners that correctly initialise the X and Y coordinates of the Block Edit modal such
+     * that it is centered to the main app window.
      */
-    private void setInitialDimensions() {
+    private void setInitialDimensionListeners() {
         ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
             setXDisplacement();
         };

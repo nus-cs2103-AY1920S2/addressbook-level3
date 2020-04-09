@@ -71,7 +71,7 @@ public class MainWindow extends ViewPart<Stage> {
         this.model = model;
 
         setWindowDefaultSize(logic.getGuiSettings());
-        setWindowSettings(primaryStage);
+        //setWindowSettings(primaryStage);
         setAccelerators();
 
         initializeHelpWindow(model);
