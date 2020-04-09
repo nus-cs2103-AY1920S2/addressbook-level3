@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
+import seedu.address.model.transaction.BuyTransaction;
 
 /**
  * Parses input arguments and creates a new BuyCommand object
@@ -40,9 +41,7 @@ public class BuyCommandParser implements Parser<BuyCommand> {
         GoodName goodName = ParserUtil.parseGoodName(argMultimap.getValue(PREFIX_GOOD_NAME).get());
         GoodQuantity goodQuantity = ParserUtil.parseGoodQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
 
-        Good good = new Good(goodName, goodQuantity);
-
-        return new BuyCommand(good, index);
+        return new BuyCommand(goodName, goodQuantity, index);
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.version.LinearHistory;
 import seedu.address.model.version.StateNotFoundException;
 import seedu.address.model.version.Version;
@@ -38,8 +39,8 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
     /**
      * Returns true if a good with the same identity as {@code good} exists in the address book.
      */
-    public boolean hasGood(Good good) {
-        return getCurrentState().hasGood(good);
+    public boolean hasGood(GoodName goodName) {
+        return getCurrentState().hasGood(goodName);
     }
 
     public int index(Good toFind) {

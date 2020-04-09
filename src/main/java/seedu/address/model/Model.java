@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.version.Versionable;
@@ -122,7 +123,7 @@ public interface Model extends Versionable {
     /**
      * Returns true if a good with the same identity as {@code good} exists in the inventory.
      */
-    boolean hasGood(Good good);
+    boolean hasGood(GoodName goodName);
 
     /**
      * Deletes the given good.

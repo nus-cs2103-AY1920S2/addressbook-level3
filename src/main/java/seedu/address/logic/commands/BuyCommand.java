@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -16,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
-import seedu.address.model.supplier.Name;
 import seedu.address.model.supplier.Supplier;
 
 /**
@@ -46,24 +46,22 @@ public class BuyCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Bought %1$d units of %2$s.";
 
-    public static final String MESSAGE_BUYING_FROM_NONEXISTENT_SUPPLIER = "No supplier exists with that name.";
-
     public static final String MESSAGE_SUPPLIER_DOES_NOT_SELL_GOOD = "Supplier does not sell that good.";
 
     public static final String MESSAGE_GOODQUANTITY_OVERFLOW = "Buying this batch of goods exceeds maximum allowed "
             + "inventory quantity.\n"
             + GoodQuantity.MESSAGE_CONSTRAINTS;
 
+    private final GoodName goodName;
+    private final GoodQuantity goodQuantity;
+    private final Index index;
 
-    private Good boughtGood;
-    private Index index;
-
-    public BuyCommand(Good boughtGood, Index index) {
-        requireNonNull(boughtGood);
-        this.boughtGood = boughtGood;
+    public BuyCommand(GoodName goodName, GoodQuantity goodQuantity, Index index) {
+        requireAllNonNull(goodName, goodQuantity, index);
+        this.goodName = goodName;
+        this.goodQuantity = goodQuantity;
         this.index = index;
     }
-
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -79,19 +77,23 @@ public class BuyCommand extends Command {
         Supplier seller = lastShownList.get(index.getZeroBased());
 
         int numMatchingGoods = (int) seller.getOffers().stream()
-                .filter(offer -> offer.getGoodName()
-                .equals(boughtGood.getGoodName()))
+                .filter(offer -> offer.getGoodName().equals(goodName))
                 .count();
 
         if (numMatchingGoods <= 0) {
             throw new CommandException(MESSAGE_SUPPLIER_DOES_NOT_SELL_GOOD);
         }
 
-        if (model.hasGood(boughtGood)) {
+        //temporary workaround
+        // TODO: Just did before sleep: refactored inventory good tests which check by name to be explict
+        if (model.hasGood(goodName)) {
+            // TODO: change increase quantity so that quantity change is explicit, not within the boughtGood
             increaseQuantity(model, boughtGood);
         } else {
             model.addGood(boughtGood);
         }
+
+
         model.commit();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -110,6 +112,7 @@ public class BuyCommand extends Command {
         Good oldGood = model.getFilteredGoodList().get(oldGoodIndex);
 
         int updatedQuantity = oldGood.getGoodQuantity().goodQuantity + newGood.getGoodQuantity().goodQuantity;
+
         try {
             GoodQuantity newGoodQuantity = new GoodQuantity(updatedQuantity);
         } catch (IllegalArgumentException e) {
@@ -136,11 +139,9 @@ public class BuyCommand extends Command {
 
         // state check
         BuyCommand e = (BuyCommand) other;
-        return boughtGood.equals(e.getGood());
-    }
-
-    private Good getGood() {
-        return boughtGood;
+        return goodName.equals(e.goodName) &&
+                goodQuantity.equals(e.goodQuantity) &&
+                index.equals(e.index);
     }
 }
 

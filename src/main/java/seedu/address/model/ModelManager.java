@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.version.StateNotFoundException;
@@ -162,9 +163,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasGood(Good good) {
-        requireNonNull(good);
-        return inventory.hasGood(good);
+    public boolean hasGood(GoodName goodName) {
+        requireNonNull(goodName);
+        return inventory.hasGood(goodName);
     }
 
     @Override

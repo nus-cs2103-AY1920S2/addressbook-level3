@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.good.UniqueGoodList;
 import seedu.address.model.util.Copyable;
 
@@ -67,9 +68,9 @@ public class Inventory implements ReadOnlyList<Good>, Copyable<Inventory> {
     /**
      * Returns true if a good with the same identity as {@code good} exists in the address book.
      */
-    public boolean hasGood(Good good) {
-        requireNonNull(good);
-        return goods.contains(good);
+    public boolean hasGood(GoodName goodName) {
+        requireNonNull(goodName);
+        return goods.contains(goodName);
     }
 
     /**
