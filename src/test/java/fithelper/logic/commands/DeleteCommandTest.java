@@ -50,21 +50,6 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void executeValidIndexFilteredFoodListSuccess() {
-        showEntryAtIndex(model, INDEX_FIRST_ENTRY);
-
-        Entry foodEntryToDelete = model.getFilteredFoodEntryList().get(INDEX_FIRST_ENTRY.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(new Type("food"), INDEX_FIRST_ENTRY);
-
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTRY_SUCCESS, foodEntryToDelete);
-
-        Model expectedModel = new ModelManager(model.getFitHelper(), new UserProfile(), new WeightRecords());
-        expectedModel.deleteEntry(foodEntryToDelete);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void executeInvalidIndexFilteredFoodListThrowsCommandException() {
         showEntryAtIndex(model, INDEX_FIRST_ENTRY);
 
