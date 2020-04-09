@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.TaskBuilder;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -110,17 +112,29 @@ public class Task {
         this.tags.addAll(tags);
     }
 
+    public long getDelayToFirstTrigger() {
+        return this.optionalRecurring.get().getDelayToFirstTrigger();
+    }
+
+    public long getRecurPeriod() {
+        return this.optionalRecurring.get().getPeriod();
+    }
+
+    public Task getRecurredTask() {
+        Recurring recurring = optionalRecurring.get();
+        if (optionalReminder.isPresent()) {
+            Reminder reminder = optionalReminder.get();
+            LocalDateTime newDateTime = recurring.getUpdatedReminderTime(reminder);
+            return new TaskBuilder(this).withDone(new Done()).withReminder(newDateTime).build();
+        }
+        return new TaskBuilder(this).withDone(new Done()).build();
+    }
+
+
     public void triggerReminderIfPresent() {
         if (optionalReminder.isPresent()) {
             Reminder reminder = optionalReminder.get();
             MainWindow.triggerReminder(reminder, name.toString(), description.toString());
-        }
-    }
-
-    public void triggerRecurringIfPresent(Model model, Index index) {
-        if (optionalRecurring.isPresent()) {
-            Recurring recurring = optionalRecurring.get();
-            recurring.triggerRecurring(model, index);
         }
     }
 
@@ -201,12 +215,20 @@ public class Task {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Priority: ")
+                .append(", Priority: ")
                 .append(getPriority())
-                .append(" Description: ")
+                .append(", Description: ")
                 .append(getDescription())
-                .append(" Tags: ");
+                .append(", Tags: ");
         getTags().forEach(builder::append);
+        if (optionalReminder.isPresent()) {
+            String reminderString = optionalReminder.get().displayReminder();
+            builder.append(", Reminder: ").append(reminderString);
+        }
+        if (optionalRecurring.isPresent()) {
+            String recurrString = optionalRecurring.get().displayRecurring();
+            builder.append(", Recurring: ").append(recurrString);
+        }
         return builder.toString();
     }
 }
