@@ -27,6 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -79,6 +80,9 @@ public class EditCommandTest {
                         new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -95,6 +99,9 @@ public class EditCommandTest {
                         new AssignmentSchedule(),
                         new EventSchedule(),
                         new UserPrefs());
+
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -117,6 +124,8 @@ public class EditCommandTest {
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
