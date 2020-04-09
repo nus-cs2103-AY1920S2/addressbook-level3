@@ -84,7 +84,7 @@ These links will link:[look like this].
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* <<list, `list`>> ` done` : lists all delivered orders and return orders.
+* <<list, `list`>> `done` : lists all delivered orders and return orders.
 * <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
 * <<delete, `delete`>> `-o` `3` : deletes the 3rd delivery order shown in the current order list
 * <<exit, `exit`>> : exits the app
@@ -374,7 +374,7 @@ Here is how you can edit the details of any parcel by following the steps below:
 [NOTE]
 ====
 * In between each step please put a whitespace!
-* If you can't see any orders or returns use the <<list, `list`>> command to view existing parcel! If nothing is showing up means you got to add some <<insert, order>> or <<return, return>> parcel and start doing work!
+* If you can't see any orders or returns use the `<<list, list>>` command to view existing parcel! If nothing is showing up means you got to add some `<<insert, order>>` or `<<return, return>>` parcel and start doing work!
 ====
 
 [[edit-examples]]
@@ -390,7 +390,7 @@ The syntax for a valid `Edit` command can be seen below:
 * `FLAG` is to differentiate the different kind of parcel (orders or returns).
 * The `INDEX` given is the parcel you will be editing on.
 * `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to change
-* `NEW_VALUE` is the value you want to replace with.
+* `NEW_VALUE` is the new value you want to replace the old value with.
 ====
 
 .Possible Combinations of Edit command
@@ -1005,6 +1005,7 @@ If no flag is given in this step, `search` command will be performed on both the
 ====
 * In between each step please put a whitespace!
 * If nothing is displaying means you have no parcel containing the keyword you have given!
+* Keyword searches are case-insensitive, e.g: `Jeremy` matches `jErEmY` or `jeremy` or any alphabet casing permutations.
 ====
 
 [[search-examples]]
@@ -1019,7 +1020,7 @@ The syntax for a valid `Search` command can be seen below:
 ====
 * `search` is the command word for this feature.
 * `FLAG` is to differentiate the different kind of parcel (orders or returns).
-* The `KEYWORD` is the word you want to search for in any of the parcel.
+* The `KEYWORD` is the word you want to search for in any of the parcel and it is case-insensitive.
 * `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to search for
 ====
 
@@ -1032,7 +1033,7 @@ The syntax for a valid `Search` command can be seen below:
 | Return all return order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the parcel field.
 
 | If you want to search for any order parcel that contain the transaction id of `asj2od3943`.
-| `search` `-o` `tid/asj2od3943
+| `search` `-o` `tid/asj2od3943`
 | Return all order(s) with transaction ID of `asj2od3943`.
 
 | If you want to search for any return parcel that contain the phone number of `92039999`.
@@ -1118,7 +1119,7 @@ the provided link in the table below.
 |<<delivered, *Delivered*>>
 |`delivered` `FLAG` `INDEX`
 |`delivered` `-r` `2` +
-delivered` `-o` `1`
+`delivered` `-o` `1`
 
 |<<edit, *Edit*>>
 |`edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE`
