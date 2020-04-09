@@ -35,7 +35,7 @@ public class OpenSessionCommand extends Command {
         Path session = sessionDir.toPath();
         try {
             storage.loadSession(model, session);
-            model.setSessionsDirectory(session);
+            model.setCurrentSession(session);
             model.setAppPhase(AppPhase.NORMAL);
         } catch (DataConversionException e) {
             throw new CommandException(MESSAGE_FAILED);

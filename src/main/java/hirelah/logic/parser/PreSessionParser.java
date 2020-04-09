@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import hirelah.logic.commands.Command;
 import hirelah.logic.commands.HelpCommand;
+import hirelah.logic.commands.presession.DeleteSessionCommand;
 import hirelah.logic.commands.presession.NewSessionCommand;
 import hirelah.logic.commands.presession.OpenSessionCommand;
 import hirelah.logic.parser.exceptions.ParseException;
@@ -22,6 +23,7 @@ public class PreSessionParser {
         {
             put("open", args -> new OpenSessionCommand(args.trim()));
             put("new", args -> new NewSessionCommand(args.trim()));
+            put("delete", args -> new DeleteSessionCommand(args.trim()));
             put("help", args -> new HelpCommand());
         }
     };

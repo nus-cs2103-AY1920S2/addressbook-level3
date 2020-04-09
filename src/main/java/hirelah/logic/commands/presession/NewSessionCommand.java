@@ -34,7 +34,7 @@ public class NewSessionCommand extends Command {
                 throw new CommandException(MESSAGE_DUPLICATE);
             }
             storage.loadSession(model, session);
-            model.setSessionsDirectory(session);
+            model.setCurrentSession(session);
             model.setAppPhase(AppPhase.NORMAL);
         } catch (InvalidPathException e) {
             throw new CommandException(MESSAGE_ILLEGAL_PATH);

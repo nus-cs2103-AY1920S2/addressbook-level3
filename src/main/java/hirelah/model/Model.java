@@ -44,12 +44,12 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' sessions directory.
      */
     Path getSessionsDirectory();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' sessions directory.
      */
     void setSessionsDirectory(Path sessionsDirectory);
 
