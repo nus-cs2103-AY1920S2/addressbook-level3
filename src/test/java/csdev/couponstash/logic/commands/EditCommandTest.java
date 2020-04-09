@@ -1,7 +1,7 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.util.DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE;
-import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
+import static csdev.couponstash.commons.util.DateUtil.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE;
+import static csdev.couponstash.commons.util.DateUtil.MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandFailure;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -199,7 +199,7 @@ public class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
-        assertCommandFailure(editCommand, model, START_DATE_EXPIRY_DATE_CONSTRAINT);
+        assertCommandFailure(editCommand, model, MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT);
     }
 
     //Editing Remind Date
@@ -215,7 +215,7 @@ public class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
-        assertCommandFailure(editCommand, model, REMIND_DATE_EXCEED_EXPIRY_DATE);
+        assertCommandFailure(editCommand, model, MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
     }
 
     @Test
@@ -325,7 +325,7 @@ public class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
-        assertCommandFailure(editCommand, model, START_DATE_EXPIRY_DATE_CONSTRAINT);
+        assertCommandFailure(editCommand, model, MESSAGE_START_DATE_EXPIRY_DATE_CONSTRAINT);
     }
 
     @Test
