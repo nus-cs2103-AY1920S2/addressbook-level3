@@ -30,4 +30,8 @@ public class ModuleManager {
     public Module getModule(ModuleCode moduleCode) {
         return moduleList.getModuleWithModuleCode(moduleCode);
     }
+
+    public ModuleList getModuleList() {
+        return moduleList;
+    }
 }
