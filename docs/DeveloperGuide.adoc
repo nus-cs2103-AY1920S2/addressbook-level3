@@ -585,9 +585,10 @@ image::SelectItemActivityDiagram.png[width="400", align="left"]
 This process also checks if the user input is the food index or the food name that is available in that stall.
 Returning a `SelectItemCommand` object to the `LogicManager`.
 . The `LogicManager` then access `SelectItemCommand#execute()`.
+. The `SelectItemCommand#execute()` retrieves the `Budget` from `ModelManager`.
 . The `SelectItemCommand#execute()` retrieves the selected `Food` and creates a `PurchasedFood` object with additional variables.
 . The `SelectItemCommand#execute()` adds the `PurchasedFood` to the existing transactions list for storage.
-. The `SelectItemCommand#execute()` loads and updates the `Budget` from the `ModelManager`.
+. The `SelectItemCommand#execute()` updates the `Budget` and saves to the `ModelManager`.
 . The `SelectItemCommand#execute()` returns a  `CommandResult` object to the `LogicManger`.
 
 Below is the _sequence diagram_ that summarizes what happens during the execution of the `select` command:
