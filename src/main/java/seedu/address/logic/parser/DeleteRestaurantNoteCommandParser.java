@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_INTEGER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER_BAD;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER_GOOD;
@@ -55,7 +56,12 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
                 throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER_REC,
                         DeleteRestaurantNoteCommand.MESSAGE_USAGE));
             } else {
-                lineRec = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED));
+                try {
+                    lineRec = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED));
+                } catch (NumberFormatException e){
+                    throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                            DeleteRestaurantNoteCommand.MESSAGE_USAGE), e);
+                }
             }
         }
 
@@ -67,7 +73,12 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
                 throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER_GOOD,
                         DeleteRestaurantNoteCommand.MESSAGE_USAGE));
             } else {
-                lineGood = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD));
+                try {
+                    lineGood = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD));
+                } catch (NumberFormatException e){
+                    throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                            DeleteRestaurantNoteCommand.MESSAGE_USAGE), e);
+                }
             }
         }
 
@@ -79,7 +90,12 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
                 throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER_BAD,
                         DeleteRestaurantNoteCommand.MESSAGE_USAGE));
             } else {
-                lineBad = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD));
+                try {
+                    lineBad = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD));
+                } catch (NumberFormatException e){
+                    throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                            DeleteRestaurantNoteCommand.MESSAGE_USAGE), e);
+                }
             }
         }
 
