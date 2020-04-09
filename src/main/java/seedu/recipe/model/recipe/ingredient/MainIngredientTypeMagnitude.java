@@ -61,7 +61,6 @@ public class MainIngredientTypeMagnitude {
         if (this.grainCount >= 145) {
             setOfMainTypes.add(MainIngredientType.GRAIN);
         }
-
         return setOfMainTypes;
     }
 
