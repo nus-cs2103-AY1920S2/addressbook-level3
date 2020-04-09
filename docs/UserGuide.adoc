@@ -559,31 +559,34 @@ If you would like to know more about a specific command, you can view more infor
 
 === For Diet Tracker
 
-* *Add Food* `add` +
+* *Adding Food* `add` +
 e.g `add -n salad -c 235 -t healthy`
 
-* *Delete Food* `delete` +
+* *Deleting Food* `delete` +
 e.g `delete 3`
 
-* *Edit Food* `edit` +
-e.g `edit 2 -n chips -c 230`
+* *Editing Food* `edit` +
+e.g `edit -i 2 -n chips -c 230`
 
-* *List Food* `list [-a] [-d numDays] [-t tagName]` +
+* *Listing Food* `list [-a] [-d numDays] [-t tagName]` +
 e.g `list`
 
-* *Set Mode* `mode MODE` +
-e.g. `back`
+* *Setting Mode* `mode MODE` +
+e.g. `mode -m`
 
-* *Set Height* : `height HEIGHT` +
+* *Setting Height* : `height HEIGHT` +
 e.g. `height 169`
 
-* *Set Weight* `weight WEIGHT` +
+* *Setting Weight* `weight WEIGHT` +
 e.g. `weight 56`
 
-* *Calculate BMI* `bmi` +
+* *Calculating BMI* `bmi` +
 e.g. `bmi -h 172 -w 65.5`
 
-* *Back* `back` +
+* *Getting Help* `help` +
+e.g. `help`
+
+* *Going Back* `back` +
 e.g. `back`
 
 |===
