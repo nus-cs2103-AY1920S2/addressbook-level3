@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import fithelper.logic.commands.weight.EditWeightCommand;
+import fithelper.logic.weight.EditWeightCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
 import fithelper.logic.parser.Parser;

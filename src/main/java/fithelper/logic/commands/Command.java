@@ -1,7 +1,7 @@
 package fithelper.logic.commands;
 
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 
 /**

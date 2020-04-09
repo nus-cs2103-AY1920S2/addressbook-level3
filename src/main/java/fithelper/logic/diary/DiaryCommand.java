@@ -1,4 +1,4 @@
-package fithelper.logic.commands.diary;
+package fithelper.logic.diary;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.DIARY;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;

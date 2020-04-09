@@ -1,6 +1,5 @@
-package fithelper.logic.commands.diary;
+package fithelper.logic.diary;
 
-import static fithelper.logic.commands.CommandResult.DisplayedPage.DIARY;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
 
@@ -11,7 +10,7 @@ import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.diary.Content;
 import fithelper.model.diary.Diary;
@@ -61,7 +60,7 @@ public class DeleteDiaryCommand extends Command {
         model.commit(MESSAGE_COMMIT);
         logger.info("Deleted an entry");
 
-        return new CommandResult(String.format(MESSAGE_DELETE_DIARY_SUCCESS, diaryDate), DIARY, false);
+        return new CommandResult(String.format(MESSAGE_DELETE_DIARY_SUCCESS, diaryDate), CommandResult.DisplayedPage.DIARY, false);
     }
 
     public Diary getDiaryByDate(List<Diary> diaryList, DiaryDate diaryDate) {

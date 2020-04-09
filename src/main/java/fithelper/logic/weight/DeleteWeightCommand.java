@@ -1,4 +1,4 @@
-package fithelper.logic.commands.weight;
+package fithelper.logic.weight;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
@@ -9,7 +9,7 @@ import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.profile.Profile;
 import fithelper.model.weight.Date;

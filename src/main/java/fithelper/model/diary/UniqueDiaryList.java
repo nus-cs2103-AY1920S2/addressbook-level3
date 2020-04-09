@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import fithelper.commons.core.LogsCenter;
-import fithelper.logic.commands.diary.DeleteDiaryCommand;
+import fithelper.logic.diary.DeleteDiaryCommand;
 import fithelper.model.diary.exceptions.DiaryNotFoundException;
 import fithelper.model.diary.exceptions.DuplicateDiaryException;
 import javafx.collections.FXCollections;

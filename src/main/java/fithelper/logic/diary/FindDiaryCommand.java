@@ -1,4 +1,4 @@
-package fithelper.logic.commands.diary;
+package fithelper.logic.diary;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.DIARY;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
