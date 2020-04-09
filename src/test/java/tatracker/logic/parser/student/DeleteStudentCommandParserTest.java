@@ -1,6 +1,5 @@
 package tatracker.logic.parser.student;
 
-import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_BOB;
