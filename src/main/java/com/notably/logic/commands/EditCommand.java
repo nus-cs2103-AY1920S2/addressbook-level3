@@ -2,10 +2,8 @@ package com.notably.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.block.Body;
-import com.notably.model.block.exceptions.CannotModifyRootException;
 
 /**
  * Represent a command that edits the block's body.
@@ -23,16 +21,9 @@ public class EditCommand extends Command {
     /**
      * Edit the Block body of the current directory.
      * @param notablyModel used to access the tree structure.
-     * @throws CommandException
      */
-    public void execute(Model notablyModel) throws CommandException {
+    public void execute(Model notablyModel) {
         requireNonNull(notablyModel);
-        try {
-            //notablyModel.updateCurrentlyOpenBlockBody(body);
-            notablyModel.setBlockEditable(true);
-        } catch (CannotModifyRootException ex) {
-            throw new CommandException(ex.getMessage());
-        }
+        notablyModel.setBlockEditable(true);
     }
 }
-
