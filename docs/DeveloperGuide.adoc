@@ -186,8 +186,12 @@ counterparts. These classes also implement the `Versionable` interface, which ha
 * `Versionable#undo()` -- Restores the previous database state.
 * `Versionable#redo()` -- Restores the most recently undone database state.
 
-These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo` respectively.
+These operations are exposed in the `Model` interface, which extends `Versionable` as well.
 Each call of these methods will call the respective methods of each of the versioned classes.
+
+The class diagram below shows how the classes are related to each other.
+
+image::VersionClassDiagram.png[]
 
 The sequence diagram below illustrates the events that occur when a user calls the undo command assuming it is possible
 to do so, for clarity:
