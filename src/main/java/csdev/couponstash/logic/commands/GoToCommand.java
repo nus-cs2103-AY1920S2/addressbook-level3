@@ -23,6 +23,7 @@ public class GoToCommand extends Command {
     private String value;
 
     public GoToCommand(String yearMonth) {
+        requireNonNull(yearMonth);
         this.value = yearMonth;
     }
 

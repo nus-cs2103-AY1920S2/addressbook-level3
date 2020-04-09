@@ -30,6 +30,8 @@ public class ListCommand extends Command {
                     + COMMAND_WORD + " " + PREFIX_USAGE + " (used coupons list)\n";
 
     private Prefix prefixToList;
+    private Views view;
+
 
     public ListCommand() {
         this.prefixToList = new Prefix("");
@@ -44,18 +46,18 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
         model.updateMonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
-        String view = "";
+
         if (prefixToList.toString().isEmpty()) {
             model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
-            view = "active";
+            view = Views.ACTIVE;
         } else if (prefixToList.equals(PREFIX_ARCHIVE)) {
             model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ARCHIVED_COUPONS);
-            view = "archived";
+            view = Views.ARCHIVED;
         } else if (prefixToList.equals(PREFIX_USAGE)) {
             model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_USED_COUPONS);
-            view = "used";
+            view = Views.USED;
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, view));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, view.getView()));
     }
 
     @Override
@@ -73,5 +75,22 @@ public class ListCommand extends Command {
         // state check
         ListCommand e = (ListCommand) other;
         return prefixToList.equals((e).prefixToList);
+    }
+
+
+    private enum Views {
+        ACTIVE  ("active"),
+        ARCHIVED ("archived"),
+        USED   ("used");
+
+        private final String view;
+
+        Views(String view) {
+            this.view = view;
+        }
+
+        String getView() {
+            return this.view;
+        }
     }
 }

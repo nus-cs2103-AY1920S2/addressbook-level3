@@ -50,7 +50,7 @@ Responsibilities: Remind Feature of Coupon Stash
 
 === Denise Ng
 image::denise-ng.png[width="150", align="left"]
-{empty}[http://github.com/denise-ng[github]] [<<deniseng#, portfolio>>]
+{empty}[http://github.com/denise-ng[github]] [<<denise-ng#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Expiring, copy and goto features & calendar in Coupon Stash.
