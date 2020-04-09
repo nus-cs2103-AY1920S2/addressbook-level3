@@ -1,6 +1,6 @@
 package fithelper.storage;
 
-import static fithelper.logic.commands.diary.AddDiaryCommand.MESSAGE_DUPLICATE_DIARY;
+import static fithelper.logic.diary.AddDiaryCommand.MESSAGE_DUPLICATE_DIARY;
 
 import java.util.ArrayList;
 import java.util.List;

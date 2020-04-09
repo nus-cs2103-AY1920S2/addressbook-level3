@@ -1,4 +1,4 @@
-package fithelper.logic.commands.weight;
+package fithelper.logic.weight;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
@@ -10,7 +10,7 @@ import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.profile.Height;
 import fithelper.model.profile.Profile;

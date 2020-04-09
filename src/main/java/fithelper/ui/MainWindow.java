@@ -9,7 +9,7 @@ import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.EntriesUtil;
 import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.entry.Entry;
 import fithelper.model.today.Today;

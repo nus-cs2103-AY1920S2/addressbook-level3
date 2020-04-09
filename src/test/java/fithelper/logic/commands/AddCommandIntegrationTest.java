@@ -1,7 +1,6 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
-import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +32,7 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getFitHelper(), model.getUserProfile(), model.getWeightRecords());
         expectedModel.addEntry(validEntry);
 
-        assertCommandSuccess(new AddCommand(validEntry), model,
+        CommandTestUtil.assertCommandSuccess(new AddCommand(validEntry), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validEntry), expectedModel);
     }
 

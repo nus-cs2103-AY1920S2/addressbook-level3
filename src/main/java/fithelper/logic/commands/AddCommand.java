@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.entry.Entry;
 

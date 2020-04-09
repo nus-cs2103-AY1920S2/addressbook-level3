@@ -1,4 +1,4 @@
-package fithelper.logic.commands.diary;
+package fithelper.logic.diary;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARY_CONTENT;
@@ -13,7 +13,7 @@ import fithelper.commons.core.Messages;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.diary.Content;
 import fithelper.model.diary.Diary;

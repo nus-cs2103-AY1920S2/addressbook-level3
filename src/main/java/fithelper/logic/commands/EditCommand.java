@@ -20,7 +20,7 @@ import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Messages;
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.CollectionUtil;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Duration;
@@ -100,7 +100,7 @@ public class EditCommand extends Command {
         Entry entryToEdit = lastShownList.get(index.getZeroBased());
         Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 

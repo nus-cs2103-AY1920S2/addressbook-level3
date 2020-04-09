@@ -1,6 +1,5 @@
 package fithelper.logic.commands;
 
-import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static fithelper.model.Model.PREDICATE_SHOW_NO_ENTRIES;
@@ -64,7 +63,7 @@ public class FindCommand extends Command {
                         model.getFilteredSportsEntryList().size());
             }
         }
-        return new CommandResult(feedback, HOME, false);
+        return new CommandResult(feedback, CommandResult.DisplayedPage.HOME, false);
     }
 
     @Override

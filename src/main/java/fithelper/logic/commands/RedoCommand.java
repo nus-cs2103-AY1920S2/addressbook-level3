@@ -1,6 +1,6 @@
 package fithelper.logic.commands;
 
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.Model;
 
 /**

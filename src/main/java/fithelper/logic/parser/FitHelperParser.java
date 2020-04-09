@@ -27,19 +27,13 @@ import fithelper.logic.commands.TodayCommand;
 import fithelper.logic.commands.UndoCommand;
 import fithelper.logic.commands.UpdateCommand;
 
-import fithelper.logic.commands.diary.AddDiaryCommand;
-import fithelper.logic.commands.diary.AppendDiaryCommand;
-import fithelper.logic.commands.diary.ClearDiaryCommand;
-import fithelper.logic.commands.diary.DeleteDiaryCommand;
-import fithelper.logic.commands.diary.DiaryCommand;
-import fithelper.logic.commands.diary.EditDiaryCommand;
-import fithelper.logic.commands.diary.FindDiaryCommand;
-
-import fithelper.logic.commands.weight.AddWeightCommand;
-import fithelper.logic.commands.weight.ClearWeightCommand;
-import fithelper.logic.commands.weight.DeleteWeightCommand;
-import fithelper.logic.commands.weight.EditWeightCommand;
-import fithelper.logic.commands.weight.WeightCommand;
+import fithelper.logic.diary.AddDiaryCommand;
+import fithelper.logic.diary.AppendDiaryCommand;
+import fithelper.logic.diary.ClearDiaryCommand;
+import fithelper.logic.diary.DeleteDiaryCommand;
+import fithelper.logic.diary.DiaryCommand;
+import fithelper.logic.diary.EditDiaryCommand;
+import fithelper.logic.diary.FindDiaryCommand;
 
 import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.diary.AppendDiaryCommandParser;
@@ -56,6 +50,12 @@ import fithelper.logic.parser.revoke.UndoCommandParser;
 import fithelper.logic.parser.weight.AddWeightCommandParser;
 import fithelper.logic.parser.weight.DeleteWeightCommandParser;
 import fithelper.logic.parser.weight.EditWeightCommandParser;
+
+import fithelper.logic.weight.AddWeightCommand;
+import fithelper.logic.weight.ClearWeightCommand;
+import fithelper.logic.weight.DeleteWeightCommand;
+import fithelper.logic.weight.EditWeightCommand;
+import fithelper.logic.weight.WeightCommand;
 
 /**
  * Parses user input.

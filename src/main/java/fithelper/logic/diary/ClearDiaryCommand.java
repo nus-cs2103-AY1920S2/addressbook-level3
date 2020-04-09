@@ -1,4 +1,4 @@
-package fithelper.logic.commands.diary;
+package fithelper.logic.diary;
 
 import static java.util.Objects.requireNonNull;
 

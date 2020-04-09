@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.FitHelper;
 import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;

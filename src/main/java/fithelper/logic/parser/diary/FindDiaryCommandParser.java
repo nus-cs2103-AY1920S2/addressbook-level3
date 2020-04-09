@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 
-import fithelper.logic.commands.diary.FindDiaryCommand;
+import fithelper.logic.diary.FindDiaryCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
 import fithelper.logic.parser.Parser;

@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
-import fithelper.logic.commands.diary.DeleteDiaryCommand;
+import fithelper.logic.diary.DeleteDiaryCommand;
 
 /**
  * Represents a diary in diary list.

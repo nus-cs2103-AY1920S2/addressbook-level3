@@ -15,7 +15,7 @@ import java.util.List;
 
 import fithelper.commons.core.index.Index;
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.model.FitHelper;
 import fithelper.model.Model;
 import fithelper.model.entry.Entry;
