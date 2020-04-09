@@ -113,9 +113,16 @@ Our application has two lists: Order list and Return Order list.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=how_to_navigate_user_guide]
 
-include::../UserGuide.adoc[tag=dataencryption]
+== Features
+include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=nearby]
+
+== Glossary
+include::../UserGuide.adoc[tag=command_prefix]
+include::../UserGuide.adoc[tag=command_flags]
+include::../UserGuide.adoc[tag=area_table]
 
 == Contributions to the Developer Guide
 
@@ -123,7 +130,18 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+== Features
+include::../DeveloperGuide.adoc[tag=delete]
+include::../DeveloperGuide.adoc[tag=nearby]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+== Glossary
+include::../DeveloperGuide.adoc[tag=command_prefix]
+include::../DeveloperGuide.adoc[tag=command_flags]
+
+// Appendix F: Product Survey
+include::../DeveloperGuide.adoc[tag=appendix-product-survey]
+
+== Appendix G: Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=appendix-delete]
+include::../DeveloperGuide.adoc[tag=appendix-nearby]
 
