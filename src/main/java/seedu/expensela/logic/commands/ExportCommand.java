@@ -43,22 +43,7 @@ public class ExportCommand extends Command {
         sb.append("CATEGORY\n");
 
         for (Transaction transaction : transactionList) {
-            String name = transaction.getName().toString();
-            String amount = transaction.getAmount().toString();
-            String date = transaction.getDate().toString();
-            String remark = transaction.getRemark().toString();
-            String category = transaction.getCategory().toString();
-
-            sb.append(name);
-            sb.append(",");
-            sb.append(amount);
-            sb.append(",");
-            sb.append(date);
-            sb.append(",");
-            sb.append(remark);
-            sb.append(",");
-            sb.append(category);
-            sb.append("\n");
+            buildStringFromTransaction(transaction, sb);
         }
 
         File file = new File("transactions.csv");
@@ -71,5 +56,32 @@ public class ExportCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()));
+    }
+
+    /**
+     * Inputs details of transaction into String Builder in required format for csv.
+     * @param transaction
+     * @param sb The String Builder object used to convert to csv file.
+     * @return The String Builder object after transaction details added.
+     */
+    private StringBuilder buildStringFromTransaction(Transaction transaction, StringBuilder sb) {
+        String name = transaction.getName().toString();
+        String amount = transaction.getAmount().toString();
+        String date = transaction.getDate().toString();
+        String remark = transaction.getRemark().toString();
+        String category = transaction.getCategory().toString();
+
+        sb.append(name);
+        sb.append(",");
+        sb.append(amount);
+        sb.append(",");
+        sb.append(date);
+        sb.append(",");
+        sb.append(remark);
+        sb.append(",");
+        sb.append(category);
+        sb.append("\n");
+
+        return sb;
     }
 }
