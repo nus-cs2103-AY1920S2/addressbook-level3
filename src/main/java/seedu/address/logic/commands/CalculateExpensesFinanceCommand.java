@@ -1,14 +1,10 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.modelFinance.FinanceNameContainsKeywordsPredicate;
-import seedu.address.model.person.Amount;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all finances in address book whose name contains any of the argument keywords.
@@ -36,7 +32,7 @@ public class CalculateExpensesFinanceCommand extends Command {
       //Ignore earnings
     }
 
-    return new CommandResult("Total expenses: " + totalAmount);
+    return new CommandResult("Total expenses: $ " + String.format("%.02f", totalAmount));
   }
 
   @Override

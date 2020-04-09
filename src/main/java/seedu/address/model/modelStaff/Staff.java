@@ -1,26 +1,16 @@
 package seedu.address.model.modelStaff;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelGeneric.ModelObject;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
+
+import java.util.*;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Staff in the address book. Guarantees: details are present and not null, field
