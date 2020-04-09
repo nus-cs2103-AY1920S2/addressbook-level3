@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER_RECOMMENDE
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -109,22 +110,35 @@ public class EditRestaurantNoteCommand extends Command {
             }
         }
 
+        ArrayList<Note> updatedRecFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getRecommendedFood()) {
+            updatedRecFood.add(i);
+        }
 
+        ArrayList<Note> updatedGoodFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getGoodFood()) {
+            updatedGoodFood.add(i);
+        }
+
+        ArrayList<Note> updatedBadFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getBadFood()) {
+            updatedBadFood.add(i);
+        }
 
         if (lineRec != -1) {
-            restaurantToEdit.getRecommendedFood().set(lineRec - 1, recommendedFood);
+            updatedRecFood.set(lineRec - 1, recommendedFood);
         }
         if (lineGood != -1) {
-            restaurantToEdit.getGoodFood().set(lineGood - 1, goodFood);
+            updatedGoodFood.set(lineGood - 1, goodFood);
         }
         if (lineBad != -1) {
-            restaurantToEdit.getBadFood().set(lineBad - 1, badFood);
+            updatedBadFood.set(lineBad - 1, badFood);
         }
 
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
-                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), restaurantToEdit.getRecommendedFood(),
-                restaurantToEdit.getGoodFood(), restaurantToEdit.getBadFood());
+                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), updatedRecFood,
+                updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
