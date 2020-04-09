@@ -210,8 +210,8 @@ Adds food to the list.
 * Tags are optional.
 ****
 
-Format: `add food CALORIES` +
-Example: `add Fishball Noodles 383`
+Format: `add -n NAME -c CALORIES` +
+Example: `add -n Fishball Noodles -c 383`
 
 '''
 [[listfooditem]]
@@ -264,7 +264,7 @@ Deletes the 2nd row of food data from the past 7 days of food.
 ==== Editing a Food Item `edit`
 
 Allows you to edit either the Food name, or the calories.  +
-Format: `edit INDEX [-n NAME] [-c CALORIES]`
+Format: `edit -i INDEX [-n NAME] [-c CALORIES]`
 
 ****
 * Edits the Food Item at the specified `INDEX`.
@@ -276,7 +276,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 
 Example:
 
-* `edit 2 -n Chicken Rice -c 585` +
+* `edit -i 2 -n Chicken Rice -c 585` +
 Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
 
 '''
