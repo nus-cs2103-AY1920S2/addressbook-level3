@@ -17,6 +17,7 @@ import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
+import seedu.recipe.model.recipe.ingredient.Quantity;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
@@ -161,7 +162,8 @@ public class Recipe {
     private double calculateFruitsQuantity(Set<Fruit> fruits) {
         double totalMagnitude = 0;
         for (Fruit fruit: fruits) {
-            totalMagnitude += fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
+             Quantity quantity = fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
+             totalMagnitude += quantity.getMagnitude();
         }
         return totalMagnitude;
     }
@@ -173,7 +175,8 @@ public class Recipe {
     private double calculateVegQuantity(Set<Vegetable> vegetables) {
         double totalMagnitude = 0;
         for (Vegetable veg: vegetables) {
-            totalMagnitude += veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
+            Quantity quantity = veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
+            totalMagnitude += quantity.getMagnitude();
         }
         return totalMagnitude;
     }
@@ -185,7 +188,8 @@ public class Recipe {
     private double calculateProteinQuantity(Set<Protein> proteins) {
         double totalMagnitude = 0;
         for (Protein protein: proteins) {
-            totalMagnitude += protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
+            Quantity quantity = protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
+            totalMagnitude += quantity.getMagnitude();
         }
         return totalMagnitude;
     }
@@ -197,7 +201,8 @@ public class Recipe {
     private double calculateGrainsQuantity(Set<Grain> grains) {
         double totalMagnitude = 0;
         for (Grain grain: grains) {
-            totalMagnitude += grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
+            Quantity quantity = grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
+            totalMagnitude += quantity.getMagnitude();
         }
         return totalMagnitude;
     }
