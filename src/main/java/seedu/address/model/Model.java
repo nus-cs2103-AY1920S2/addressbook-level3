@@ -238,6 +238,11 @@ public interface Model {
     boolean hasEvent(Event toAdd);
 
     /**
+     * Returns true if there is an Assignment due on the same date as the event which we want to add.
+     */
+    boolean hasAssignmentDueOnSameDate(Event toAdd);
+
+    /**
      * Sets an event
      * @param eventToUpdate event to be replaced
      * @param updatedEvent event to replace the replaced event

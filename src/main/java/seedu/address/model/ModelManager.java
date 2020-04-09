@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -213,6 +214,20 @@ public class ModelManager implements Model {
         requireAllNonNull(target, markedEvent);
         createNewState("EVENTS");
         eventSchedule.setEvent(target, markedEvent);
+    }
+
+    // using Elysia's method
+    @Override
+    public boolean hasAssignmentDueOnSameDate(Event toAdd) {
+        LocalDate eventDate = toAdd.getEventDate().getDateTime().toLocalDate();
+        ObservableList<Assignment> assignments = getAssignmentList();
+        for (int i = 0; i < assignments.size(); i++) {
+            LocalDate assignmentDate = assignments.get(i).getDeadline().getDateTime().toLocalDate();
+            if (eventDate.isEqual(assignmentDate)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
