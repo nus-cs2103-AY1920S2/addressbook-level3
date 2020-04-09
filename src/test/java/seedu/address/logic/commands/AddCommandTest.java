@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
@@ -17,6 +19,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -69,7 +74,9 @@ public class AddCommandTest {
     private final int semester;
     private final String grade;
     private final String task;
-    private final String deadline;
+    private final LocalDate date;
+    private final LocalTime time;
+
     private ProfileManager profileManager;
     private CourseManager courseManager;
     private ModuleManager moduleManager;
@@ -95,14 +102,15 @@ public class AddCommandTest {
         semester = new Year(VALID_SEMESTER_BOB).getSemester();
         grade = VALID_GRADE_BOB;
         task = VALID_TASK_BOB;
-        deadline = VALID_DEADLINE_BOB;
+        date = LocalDate.parse(VALID_DEADLINE_DATE_BOB);
+        time = LocalTime.parse(VALID_DEADLINE_TIME_BOB, DateTimeFormatter.ofPattern("HH:mm"));
     }
 
     // No module code added, user inputs "add m/"
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                new AddCommand(null, semester, grade, task, deadline));
+                new AddCommand(null, semester, grade, task, date, time));
     }
 
     @Test
@@ -116,7 +124,7 @@ public class AddCommandTest {
                 new SemesterData(Arrays.asList("1", "2")), new PrereqTreeNode(moduleCode));
         String initialStatus = module.getPersonal().getStatus();
         // Create an AddCommand which attempts to add a module with the same module code
-        AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null);
+        AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null, null);
         // Create a "ProfileManager" which contains validProfile, which contains module
         ModelStub modelStub = new ModelStubWithProfile(validProfile, module);
 
@@ -144,7 +152,7 @@ public class AddCommandTest {
         String initialGrade = module.getPersonal().getGrade();
         DeadlineList initialDeadlines = module.getPersonal().getDeadlineList();
         // Create an AddCommand which attempts to add a module with the same module code
-        AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null);
+        AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null, null);
 
         // Create a "ProfileManager" which contains validProfile, which contains module
         //ProfileManager profileManager = new ProfileManager(profileList, userPref);
@@ -164,21 +172,24 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
+        LocalDate modelDate = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
+        LocalTime modelTime = LocalTime.parse(VALID_DEADLINE_TIME_AMY, DateTimeFormatter.ofPattern("HH:mm"));
+
         AddCommand addAmyCommand = new AddCommand(new ModuleCode(VALID_MODCODE_AMY),
-                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
-        AddCommand addBobCommand = new AddCommand(moduleCode, semester, grade, task, deadline);
+                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, modelDate, modelTime);
+        AddCommand addBobCommand = new AddCommand(moduleCode, semester, grade, task, date, time);
 
         // same object -> returns true
         assertTrue(addAmyCommand.equals(addAmyCommand));
 
         // same values -> returns true
         AddCommand addAmyCommandCopy = new AddCommand(new ModuleCode(VALID_MODCODE_AMY),
-                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
+                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, modelDate, modelTime);
         assertTrue(addAmyCommand.equals(addAmyCommandCopy));
 
         // same module code but remainder fields differ -> returns true
         AddCommand addBobCommandDiff = new AddCommand(new ModuleCode(VALID_MODCODE_BOB),
-                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, VALID_DEADLINE_AMY);
+                new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, modelDate, modelTime);
         assertTrue(addBobCommand.equals(addBobCommandDiff));
 
         // different types -> returns false

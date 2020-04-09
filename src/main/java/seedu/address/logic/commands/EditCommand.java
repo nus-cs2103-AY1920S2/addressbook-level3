@@ -1,7 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ADD_FUTURE_GRADE_ERROR;
+import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIST;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_MODULE_NOT_ADDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOCUS_AREA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
@@ -28,9 +33,7 @@ import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.course.module.personal.Grade;
 
 /**
  * Edits Profile or Module specified by user.
@@ -110,7 +113,7 @@ public class EditCommand extends Command {
         try {
             profileToEdit = lastShownList.get(0); //accessing only first profile in list
         } catch (Exception e) {
-            throw new CommandException("Error: There is no existing profile.");
+            throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
 
 
@@ -118,7 +121,7 @@ public class EditCommand extends Command {
 
             HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
             if (hashMap.isEmpty()) { // No modules have been added to any semester at all
-                throw new CommandException("No module data has been added to any semesters.");
+                throw new CommandException(MESSAGE_EMPTY_MODULE_DATA);
             }
 
             // Checks if module has been added to any semesters before
@@ -136,16 +139,13 @@ public class EditCommand extends Command {
             }
 
             if (existingModule == null) {
-                throw new CommandException("This module has not been added before.");
+                throw new CommandException(MESSAGE_MODULE_NOT_ADDED);
             }
 
             if (grade != null) {
                 int currentUserSemester = profileToEdit.getCurrentSemester();
                 if (oldSemester > currentUserSemester) {
-                    throw new CommandException("You cannot add a grade to future semesters!");
-                }
-                if (!Grade.isValidGrade(grade)) {
-                    throw new CommandException("Error: Invalid Grade.");
+                    throw new CommandException(MESSAGE_ADD_FUTURE_GRADE_ERROR);
                 }
                 existingModule.getPersonal().setGrade(grade);
                 profileManager.setDisplayedView(profileToEdit);
@@ -157,12 +157,14 @@ public class EditCommand extends Command {
             if (oldSemester != 0 && editSemester != 0) {
                 try {
                     hashMap.get(oldSemester).removeModuleWithModuleCode(moduleCode);
-                } catch (ParseException e) {
+                } catch (ParseException e) { // Will not happen
                     throw new CommandException("Error deleting existing module.");
                 }
 
                 profileToEdit.addModule(editSemester, existingModule);
                 updateStatus(profileToEdit);
+                profileManager.setDisplayedView(profileToEdit);
+                return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, moduleCode), true);
             }
 
             Deadline oldDeadline = null;
@@ -174,20 +176,20 @@ public class EditCommand extends Command {
                     newDeadline.setDescription(newTask);
                     profileManager.replaceDeadline(oldDeadline, newDeadline);
                 } catch (Exception e) {
-                    throw new CommandException("Error: Deadline does not exist");
+                    throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
                 }
             }
             if (newDeadlineString != null) {
-                newDeadline = existingModule.getDeadlineList().getTask(oldTask);
-                oldDeadline = newDeadline;
-                String date = newDeadlineString.split(" ")[0];
-                String time = newDeadlineString.split(" ")[1];
                 try {
+                    newDeadline = existingModule.getDeadlineList().getTask(oldTask);
+                    oldDeadline = newDeadline;
+                    String date = newDeadlineString.split(" ")[0];
+                    String time = newDeadlineString.split(" ")[1];
                     newDeadline.setDateTime(date, time);
                     newDeadline.addTag();
                     profileManager.replaceDeadline(oldDeadline, newDeadline);
-                } catch (DateTimeException e) {
-                    throw new CommandException("Invalid date or time!");
+                } catch (Exception e) {
+                    throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
                 }
             }
 
@@ -275,5 +277,122 @@ public class EditCommand extends Command {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        boolean isSameProfile = false;
+        boolean isSameModule = false;
+        if (toEditProfile == true) {
+            if (isProfileNameEqual(other)
+                    && isCourseNameEqual(other)
+                    && (updatedSemester == ((EditCommand) other).updatedSemester)
+                    && isFocusAreaEqual(other)) {
+                isSameProfile = true;
+            }
+        } else if (editModule == true) {
+            if (moduleCode.equals(((EditCommand) other).moduleCode)
+                    && (editSemester == ((EditCommand) other).editSemester)
+                    && isGradeEqual(other)
+                    && isOldTaskEqual(other)
+                    && isNewTaskEqual(other)
+                    && isNewDeadLineEqual(other)) {
+                isSameModule = true;
+            }
+        }
+        return other == this // short circuit if same object
+                || (other instanceof EditCommand // instanceof handles nulls
+                && (isSameProfile || isSameModule));
+    }
+
+    /**
+     * Returns true if profileName is the same, including null cases
+     */
+    public boolean isProfileNameEqual(Object other) {
+        boolean isEqual = false;
+        if ((profileName == null) && (((EditCommand) other).profileName == null)) {
+            isEqual = true;
+        } else if (profileName.equals(((EditCommand) other).profileName)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    /**
+     * Returns true if courseName is the same, including null cases
+     */
+    public boolean isCourseNameEqual(Object other) {
+        boolean isEqual = false;
+        if ((courseName == null) && (((EditCommand) other).courseName == null)) {
+            isEqual = true;
+        } else if (courseName.equals(((EditCommand) other).courseName)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    /**
+     * Returns true if focus area is the same, including null cases
+     */
+    public boolean isFocusAreaEqual(Object other) {
+        boolean isEqual = false;
+        if ((focusAreaString == null) && (((EditCommand) other).focusAreaString == null)) {
+            isEqual = true;
+        } else if (focusAreaString.equals(((EditCommand) other).focusAreaString)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    /**
+     * Returns true if grade is the same, including null cases
+     */
+    public boolean isGradeEqual(Object other) {
+        boolean isEqual = false;
+        if ((grade == null) && (((EditCommand) other).grade == null)) {
+            isEqual = true;
+        } else if (grade.equals(((EditCommand) other).grade)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    /**
+     * Returns true if old task is the same, including null cases
+     */
+    public boolean isOldTaskEqual(Object other) {
+        boolean isEqual = false;
+        if ((oldTask == null) && (((EditCommand) other).oldTask == null)) {
+            isEqual = true;
+        } else if (oldTask.equals(((EditCommand) other).oldTask)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    /**
+     * Returns true if new task is the same, including null cases
+     */
+    public boolean isNewTaskEqual(Object other) {
+        boolean isEqual = false;
+        if ((newTask == null) && (((EditCommand) other).newTask == null)) {
+            isEqual = true;
+        } else if (newTask.equals(((EditCommand) other).newTask)) {
+            isEqual = true;
+        }
+        return isEqual;
+    }
+
+    /**
+     * Returns true if new deadline is the same, including null cases
+     */
+    public boolean isNewDeadLineEqual(Object other) {
+        boolean isEqual = false;
+        if ((newDeadlineString == null) && (((EditCommand) other).newDeadlineString == null)) {
+            isEqual = true;
+        } else if (newDeadlineString.equals(((EditCommand) other).newDeadlineString)) {
+            isEqual = true;
+        }
+        return isEqual;
     }
 }

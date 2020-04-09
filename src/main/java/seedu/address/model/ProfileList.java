@@ -24,6 +24,13 @@ public class ProfileList {
     public ProfileList() {};
 
     /**
+     * Returns true if profileList is empty.
+     */
+    public boolean isEmpty() {
+        return profileList.isEmpty();
+    }
+
+    /**
      * Returns true if the list contains an equivalent profile as the given argument.
      */
     public boolean contains(Profile toCheck) {
@@ -119,6 +126,31 @@ public class ProfileList {
                 }
             }
         }
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ProfileList)) { //this handles null as well.
+            return false;
+        }
+
+        ProfileList otherList = (ProfileList) other;
+
+        if (profileList.size() == 0 && otherList.getProfileList().size() == 0) {
+            return true; // both lists are empty and hence are equal
+        }
+
+        for (Profile profile : profileList) {
+            if (!otherList.contains(profile)) {
+                // the other list does not have this profile, immediately not equal
+                return false;
+            }
+        }
+
         return true;
     }
 }

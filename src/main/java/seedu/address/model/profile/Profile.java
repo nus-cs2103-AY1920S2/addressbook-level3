@@ -78,7 +78,33 @@ public class Profile {
     }
 
     public int getCurrentSemester() {
-        return currentSemester;
+        if (currentSemester % 2 == 0) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    public int getCurrentYear() {
+        if (currentSemester == 1 || currentSemester == 2) {
+            return 1;
+        } else if (currentSemester == 3 || currentSemester == 4) {
+            return 2;
+        } else if (currentSemester == 5 || currentSemester == 6) {
+            return 3;
+        } else if (currentSemester == 7 || currentSemester == 8) {
+            return 4;
+        } else if (currentSemester == 9 || currentSemester == 10) {
+            return 5;
+        } else if (currentSemester == 11 || currentSemester == 12) {
+            return 6;
+        } else if (currentSemester == 13 || currentSemester == 14) {
+            return 7;
+        } else if (currentSemester == 15 || currentSemester == 16) {
+            return 8;
+        } else {
+            return 9;
+        }
     }
 
     public FocusArea getFocusArea() {
@@ -241,7 +267,8 @@ public class Profile {
         }
 
         Profile otherProfile = (Profile) other;
-        return otherProfile.getName().equals(getName());
+        return otherProfile.getName().equals(getName())
+                && otherProfile.getCourseName().equals(getCourseName());
     }
 
     @Override
@@ -256,5 +283,4 @@ public class Profile {
         builder.append(getName());
         return builder.toString();
     }
-
 }
