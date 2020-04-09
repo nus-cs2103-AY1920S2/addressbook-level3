@@ -959,6 +959,10 @@ with that module.
 
 The keyword is case-insensitive.
 
+When you execute a new filter command, any previous filters applied on the sessions will
+be removed and only the filters from the latest command will be applied on the sessions
+list.
+
 You will automatically be switched to the session
 tab as well, if you were currently on a different tab.
 
