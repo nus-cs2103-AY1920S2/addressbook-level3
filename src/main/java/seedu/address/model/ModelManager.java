@@ -216,7 +216,6 @@ public class ModelManager implements Model {
         eventSchedule.setEvent(target, markedEvent);
     }
 
-    // using Elysia's method
     @Override
     public boolean hasAssignmentDueOnSameDate(Event toAdd) {
         LocalDate eventDate = toAdd.getEventDate().getDateTime().toLocalDate();
