@@ -112,7 +112,7 @@ public class NasaBookParser {
             return new HelpCommand();
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();

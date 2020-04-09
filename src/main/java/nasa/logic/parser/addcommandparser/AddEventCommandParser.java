@@ -5,7 +5,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import nasa.logic.commands.addcommands.AddEventCommand;
@@ -17,7 +16,6 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
-import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
 
 /**
