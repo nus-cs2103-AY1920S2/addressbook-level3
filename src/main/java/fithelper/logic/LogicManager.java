@@ -8,7 +8,7 @@ import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.logic.parser.FitHelperParser;
 import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;

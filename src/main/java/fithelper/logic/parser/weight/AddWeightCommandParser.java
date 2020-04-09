@@ -7,7 +7,7 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import fithelper.logic.commands.weight.AddWeightCommand;
+import fithelper.logic.weight.AddWeightCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
 import fithelper.logic.parser.Parser;

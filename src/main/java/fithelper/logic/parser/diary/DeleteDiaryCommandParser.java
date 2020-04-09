@@ -4,7 +4,7 @@ import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
 
-import fithelper.logic.commands.diary.DeleteDiaryCommand;
+import fithelper.logic.diary.DeleteDiaryCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
 import fithelper.logic.parser.Parser;

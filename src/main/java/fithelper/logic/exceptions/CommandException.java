@@ -1,4 +1,4 @@
-package fithelper.logic.commands.exceptions;
+package fithelper.logic.exceptions;
 
 /**
  * Represents an error which occurs during execution of a {@link Command}.

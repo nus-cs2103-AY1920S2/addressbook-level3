@@ -1,4 +1,4 @@
-package fithelper.logic.commands.weight;
+package fithelper.logic.weight;
 
 import static java.util.Objects.requireNonNull;
 

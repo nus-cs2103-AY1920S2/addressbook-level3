@@ -1,6 +1,6 @@
 package fithelper.logic.parser;
 
-import fithelper.logic.commands.diary.DiaryCommand;
+import fithelper.logic.diary.DiaryCommand;
 
 /**
  * Parses input arguments and creates a new TpdayCommand object

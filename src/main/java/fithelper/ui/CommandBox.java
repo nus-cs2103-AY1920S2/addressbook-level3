@@ -1,7 +1,7 @@
 package fithelper.ui;
 
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.exceptions.CommandException;
+import fithelper.logic.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 
 import javafx.collections.ObservableList;

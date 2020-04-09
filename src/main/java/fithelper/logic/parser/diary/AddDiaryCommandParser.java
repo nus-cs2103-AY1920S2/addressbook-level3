@@ -6,7 +6,7 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARY_CONTENT;
 
 import java.util.stream.Stream;
 
-import fithelper.logic.commands.diary.AddDiaryCommand;
+import fithelper.logic.diary.AddDiaryCommand;
 import fithelper.logic.parser.ArgumentMultimap;
 import fithelper.logic.parser.ArgumentTokenizer;
 import fithelper.logic.parser.Parser;

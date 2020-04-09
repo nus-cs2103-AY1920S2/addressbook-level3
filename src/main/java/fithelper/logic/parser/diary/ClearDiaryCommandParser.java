@@ -1,6 +1,6 @@
 package fithelper.logic.parser.diary;
 
-import fithelper.logic.commands.diary.ClearDiaryCommand;
+import fithelper.logic.diary.ClearDiaryCommand;
 import fithelper.logic.parser.Parser;
 
 /**
