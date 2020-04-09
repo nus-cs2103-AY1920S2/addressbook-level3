@@ -17,6 +17,7 @@ import com.notably.model.block.Title;
  */
 public class NewSuggestionCommandParser implements SuggestionCommandParser<SuggestionCommand> {
     public static final String COMMAND_WORD = "new";
+    public static final String COMMAND_SHORTHAND = "n";
 
     private static final String RESPONSE_MESSAGE = "Create a new note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Create a new note titled \"%s\".";
