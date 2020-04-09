@@ -80,6 +80,7 @@ DeliveredCommand -> CommandResult ++
 CommandResult --> DeliveredCommand -- : result
 
 DeliveredCommand --> LogicManager -- : result
+[<--LogicManager : result
 deactivate LogicManager
 end
 

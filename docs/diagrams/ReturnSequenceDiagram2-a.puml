@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+mainframe sd conversion of a delivered order to return order
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "d:ReturnCommand" as ReturnCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+participant "exception:CommandException" as CommandException LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ReturnOrder" as ReturnOrder MODEL_COLOR
+end box
+activate LogicManager
+
+alt convert existing order to return order
+LogicManager -> ReturnCommand : execute(model)
+activate ReturnCommand
+
+ReturnCommand -> ReturnCommand : isReturnOrderNotPresent()
+activate ReturnCommand
+ReturnCommand --> ReturnCommand : true
+deactivate ReturnCommand
+
+ReturnCommand -> ReturnCommand : getOrderByTransactionId(model)
+activate ReturnCommand
+ReturnCommand --> ReturnCommand : orderToBeReturned
+deactivate ReturnCommand
+
+else order not delivered, throws exception
+ReturnCommand -> ReturnCommand : isDelivered()
+activate ReturnCommand
+ReturnCommand --> ReturnCommand : false
+deactivate ReturnCommand
+ReturnCommand -> CommandException ++ : CommandException(MESSAGE_ORDER_NOT_DELIVERED)
+CommandException --> ReturnCommand -- : exception
+ReturnCommand --> LogicManager : exception
+[<--LogicManager : exception
+
+else order delivered, can be converted to a return order
+ReturnCommand -> ReturnCommand : isDelivered()
+activate ReturnCommand
+ReturnCommand --> ReturnCommand : true
+deactivate ReturnCommand
+ReturnCommand -> Model : deleteOrder(orderToBeReturned)
+activate Model
+Model --> ReturnCommand
+deactivate Model
+
+ReturnCommand -> ReturnOrder : ReturnOrder(orderToBeReturned)
+activate ReturnOrder
+ReturnOrder --> ReturnCommand : toBeCreated
+deactivate ReturnOrder
+
+ReturnCommand -> Model : hasReturnOrder(toBeCreated)
+activate Model
+Model --> ReturnCommand : false
+deactivate Model
+
+ReturnCommand -> Model : addReturnOrder(toBeCreated)
+activate Model
+Model --> ReturnCommand
+deactivate Model
+
+ReturnCommand -> CommandResult ++
+CommandResult --> ReturnCommand -- : result
+
+ReturnCommand --> LogicManager -- : result
+[<--LogicManager : result
+deactivate LogicManager
+end
+
+
+@enduml

@@ -1,7 +1,7 @@
 @startuml
 /' Sequence Diagram for insert '/
 !include style.puml
-mainframe sd execution of return feature for converting an order to a return order
+mainframe sd execution of return feature for creation of a new return order
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -15,10 +15,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("return tid/AC31255")
+[-> LogicManager : execute("return tid/AC31255 n/Amos a/Blk 3...")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("return tid/AC31255")
+LogicManager -> OrderBookParser : parseCommand("return tid/AC31255 n/Amos a/Blk 3...")
 activate OrderBookParser
 
 create ReturnCommandParser
@@ -27,7 +27,7 @@ activate ReturnCommandParser
 ReturnCommandParser --> OrderBookParser
 deactivate ReturnCommandParser
 
-OrderBookParser -> ReturnCommandParser : parse("tid/AC31255")
+OrderBookParser -> ReturnCommandParser : parse("tid/AC31255 n/Amos a/Blk 3...")
 activate ReturnCommandParser
 
 create ReturnCommand
@@ -46,7 +46,7 @@ destroy ReturnCommandParser
 OrderBookParser --> LogicManager : d
 deactivate OrderBookParser
 
-ref over LogicManager, Model : Conversion of an order into a return order
+ref over LogicManager, Model : Creation of a new return order
 
 [<--LogicManager : result
 deactivate LogicManager
