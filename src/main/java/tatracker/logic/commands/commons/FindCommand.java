@@ -2,7 +2,6 @@ package tatracker.logic.commands.commons;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.Prefixes.KEYWORD;
-import static tatracker.logic.parser.Prefixes.MORE_KEYWORDS;
 
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class FindCommand extends Command {
             "Finds all students whose names contain any of the specified keywords (case-insensitive)"
                     + " and displays them as a list with index numbers.",
             List.of(KEYWORD),
-            List.of(MORE_KEYWORDS),
-            KEYWORD, MORE_KEYWORDS
+            List.of(),
+            KEYWORD
     );
 
     private final NameContainsKeywordsPredicate predicate;

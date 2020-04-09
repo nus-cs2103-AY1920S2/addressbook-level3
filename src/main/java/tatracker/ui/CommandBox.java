@@ -15,8 +15,8 @@ import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandDictionary;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.PrefixDetails;
 import tatracker.logic.parser.PrefixDictionary;
-import tatracker.logic.parser.PrefixEntry;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.ui.CommandBoxParser.ArgumentMatch;
 import tatracker.ui.CommandBoxParser.CommandMatch;
@@ -166,13 +166,13 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         }
 
         for (ArgumentMatch match : matches) {
-            if (!dictionary.hasPrefix(match.prefix)) {
+            if (!dictionary.hasPrefixDetails(match.prefix)) {
                 logger.info("======== [ No prefix ] ");
                 handleNoPrefix();
                 return;
             }
 
-            PrefixEntry prefixEntry = dictionary.getPrefixEntry(match.prefix);
+            PrefixDetails prefixEntry = dictionary.getPrefixDetails(match.prefix);
             logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), match.value));
 
             if (!prefixEntry.isValidValue(match.value.trim())) {
@@ -192,7 +192,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
                 commandDetails.getExample());
     }
 
-    private String getPrefixFeedback(PrefixEntry prefixEntry) {
+    private String getPrefixFeedback(PrefixDetails prefixEntry) {
         return String.format("%s\n%s\nExample: %s",
                 prefixEntry.getPrefixWithInfo(),
                 prefixEntry.getConstraint(),
@@ -245,12 +245,12 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         resultDisplay.setFeedbackToUser(getCommandFeedback());
     }
 
-    private void handleRequiredPrefix(PrefixEntry prefixEntry) {
+    private void handleRequiredPrefix(PrefixDetails prefixEntry) {
         setStyleToIndicateValidCommand();
         resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
     }
 
-    private void handleInvalidPrefix(PrefixEntry prefixEntry) {
+    private void handleInvalidPrefix(PrefixDetails prefixEntry) {
         setStyleToIndicateCommandFailure();
         resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
     }
