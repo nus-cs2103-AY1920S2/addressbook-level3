@@ -184,12 +184,8 @@ public class ScheduleCommand extends Command {
             }
 
             // Allocate remaining hours equally across the days up to deadline of assignment (if any)
-            BigDecimal hoursAdded = hoursToBeAllocated.divide(BigDecimal.valueOf(noOfDaysBetween + 1))
-                .setScale(4, RoundingMode.HALF_UP);
-
-            for (int k = 0; k < Math.min(distributedHoursAllAssignments.size(), noOfDaysBetween + 1); k++) {
-                setResult(distributedHoursAllAssignments, allocationResultThisAssignment, hoursAdded, k);
-            }
+            allocateHoursEvenly(distributedHoursAllAssignments, allocationResultThisAssignment, hoursToBeAllocated,
+                noOfDaysBetween);
 
             LocalDateTime midnightToday = LocalDateTime.of(currDateTime.toLocalDate().plusDays(1), LocalTime.MIDNIGHT);
 
@@ -226,8 +222,9 @@ public class ScheduleCommand extends Command {
                 setResult(distributedHoursAllAssignments, allocationResultThisAssignment, excessDeadline.negate(),
                     noOfDaysBetween);
 
-                hoursAdded = (excessToday.add(excessDeadline)).divide(BigDecimal.valueOf(noOfDaysBetween - 1), 4,
-                    RoundingMode.HALF_UP);
+                BigDecimal hoursAdded = (excessToday.add(excessDeadline))
+                    .divide(BigDecimal.valueOf(noOfDaysBetween - 1), 4, RoundingMode.HALF_UP);
+
                 redistributeHours(1, noOfDaysBetween, hoursAdded, distributedHoursAllAssignments,
                     allocationResultThisAssignment);
 
@@ -236,7 +233,9 @@ public class ScheduleCommand extends Command {
 
                 setResult(distributedHoursAllAssignments, allocationResultThisAssignment, excessToday.negate(), 0);
 
-                hoursAdded = excessToday.divide(BigDecimal.valueOf(noOfDaysBetween), 4, RoundingMode.HALF_UP);
+                BigDecimal hoursAdded =
+                    excessToday.divide(BigDecimal.valueOf(noOfDaysBetween), 4, RoundingMode.HALF_UP);
+
                 redistributeHours(1, noOfDaysBetween + 1, hoursAdded, distributedHoursAllAssignments,
                     allocationResultThisAssignment);
 
@@ -247,13 +246,29 @@ public class ScheduleCommand extends Command {
                 setResult(distributedHoursAllAssignments, allocationResultThisAssignment, excessDeadline.negate(),
                     noOfDaysBetween);
 
-                hoursAdded = excessDeadline.divide(BigDecimal.valueOf(noOfDaysBetween), 4, RoundingMode.HALF_UP);
+                BigDecimal hoursAdded =
+                    excessDeadline.divide(BigDecimal.valueOf(noOfDaysBetween), 4, RoundingMode.HALF_UP);
+
                 redistributeHours(0, noOfDaysBetween, hoursAdded, distributedHoursAllAssignments,
                     allocationResultThisAssignment);
             }
         }
 
         return allocationResultThisAssignment;
+    }
+
+    /**
+     * Allocate hours evenly across all days from query date to deadline.
+     */
+    private void allocateHoursEvenly(ArrayList<BigDecimal> distributedHoursAllAssignments, ArrayList<BigDecimal>
+        allocationResultThisAssignment, BigDecimal hoursToBeAllocated, int noOfDaysBetween) {
+
+        BigDecimal hoursAdded = hoursToBeAllocated.divide(BigDecimal.valueOf(noOfDaysBetween + 1))
+            .setScale(4, RoundingMode.HALF_UP);
+
+        for (int k = 0; k < Math.min(distributedHoursAllAssignments.size(), noOfDaysBetween + 1); k++) {
+            setResult(distributedHoursAllAssignments, allocationResultThisAssignment, hoursAdded, k);
+        }
     }
 
     /**
