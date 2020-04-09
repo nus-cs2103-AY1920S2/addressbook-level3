@@ -1849,7 +1849,9 @@ Cons:
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the app manually. These instructions will help you
+navigate through the app and get an idea of what to test. We suggest you use this in
+conjunction with our User Guide to test the product thoroughly.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1901,17 +1903,72 @@ Expected: Opens the student tab.
 is added to the module list on student view. If you were on a different tab, you are
 automatically switched to *Student View*.
 .. Test Case: `module add m/CS1101S n/PE2` +
- Expected: You will see an error message that this module already exists.
+ Expected: You will see an error message that this module already exists. (Assuming you
+ added a module with module code CS1101S)
+
+[NOTE]
+====
+The test cases after this assume that your TA-Tracker has a module with module code
+CS1101S.
+====
 
 === Adding a group to a module
 
+. Adding a group to a module.
+
+.. Test Case: `group add g/G06 m/CS1101S t/lab` +
+Expected: A group with group code `G06` of type `lab` will be added to the module
+`CS1101S`. If you were on a different tab, you are
+automatically switched to *Student View*.
+.. Test Case: `group add g/G06 m/CS1101S t/lab`` +
+Expected: You will see an error message that this group already exists in the module. (Assuming you
+added a group with group code G06 to the module CS1101S)
+.. Test Case: `group add g/G06 m/CS3243 t/lab` +
+Expected: Assuming a module with module code `CS3243` exists in the TA-Tracker and
+doesn't contain a group with group code `G06` ,
+A group with group code `G06` of type `lab` will be added to the module
+`CS3243`.
+
+[NOTE]
+====
+The test cases after this assume that your TA-Tracker has a group with group code
+`G06` in the module CS1101S.
+====
+
 === Adding students to a group
+
+. Adding a student to a group
+
+.. Test Case: `student add id/A0123456X g/G06 m/CS1101S n/Jane Doe` +
+Expected: A student named `Jane Doe` with matriculation number `A0123456X` is added
+to the group `G06` of the module `CS1101S` with a default rating of 3.
+.. Test Case: `student add id/A0123457X g/G06 m/CS1101S n/John Doe r/5` +
+Expected: A student named `John Doe` with matriculation number `A0123457X` is added
+to the group `G06` of the module `CS1101S` with a rating of 5.
 
 === Editing a student
 
+. Editing a student in a group
+
+.. Test Case: `student edit id/A0123456X r/4` +
+Expected: Changes the rating of the student with matric number `A123456X` to 4.
+
 === Editing a group
 
-=== Editing a module
+. Editing a group in a module.
+
+.. Test Case: `group edit g/G06 m/CS1101S nt/tutorial` +
+Expected: The group with group code `G06` will be changed to type `tutorial` from the module
+`CS1101S`. The students inside the group will be unchanged. If you were on a different
+tab, you are automatically switched to *Student View*.
+
+=== Editing a module's name
+
+. Edits the name of a module
+
+.. Test Case: `module edit m/CS1101S n/New Name`
+ Expected: The name of the module with module code `CS1101S` will change to `New Name`
+but the groups and students inside it will remain intact.
 
 === Viewing a specific module
 
@@ -1927,7 +1984,12 @@ automatically switched to *Student View*.
 
 === Deleting a group
 
-=== Deleting a module
+. Deleting a group from a module.
+
+.. Test Case: `group delete g/G06 m/CS1101S` +
+Expected: The group with group code `G06`` will be deleted from the module
+`CS1101S`. The students inside the group will be deleted. If you were on a different
+tab, you are automatically switched to *Student View*.
 
 === Adding a session
 
@@ -1938,6 +2000,18 @@ automatically switched to *Student View*.
 === Filtering sessions
 
 === Filtering Claims
+
+=== Deleting a module
+
+. Deleting a module.
+
+.. Test case: `module delete m/CS1101S` +
+Expected: Assuming you already had a module with module code m/CS1101S in your TA-Tracker,
+this would delete the module with module code m/CS1101S. This would also delete all
+groups, students and sessions related to this module.
+.. Test case: `module delete m/CS1101S` +
+Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
+this would show you an error message.
 
 === Viewing Statistics
 
