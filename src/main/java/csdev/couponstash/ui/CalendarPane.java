@@ -262,7 +262,7 @@ public class CalendarPane extends UiPart<Region> {
     public void updateCalendarWithYearMonth(YearMonth yearMonth) {
         currentYearMonth = yearMonth;
         fillUpCalendar();
-        logger.info("Calender showing specified Year Month.");
+        logger.info(String.format("Calender showing %s.", DateUtil.formatYearMonthToString(yearMonth)));
     }
 
 
@@ -278,7 +278,6 @@ public class CalendarPane extends UiPart<Region> {
         closeAllDisplayedCouponWindows();
         currentYearMonth = currentYearMonth.plusMonths(1);
         monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
-        logger.info("Calendar showing next month.");
     }
 
 
@@ -294,7 +293,6 @@ public class CalendarPane extends UiPart<Region> {
         closeAllDisplayedCouponWindows();
         currentYearMonth = currentYearMonth.minusMonths(1);
         monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
-        logger.info("Calender showing previous month.");
     }
 
     /**
