@@ -279,7 +279,7 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 //****
 
 
-
+// tag::delete[]
 [[Delete]]
 === Deleting a task / module / profile: `delete`
 If you want to remove a task, module or profile from MODdy, you can use the `delete` command.
@@ -319,7 +319,7 @@ Format: `delete n/NAME`
 image::DeleteProfile.png[width="790"]
 
 NOTE: Your profile, including all modules, grades and deadlines under your name, will be deleted from MODdy
-
+// end::delete[]
 
 
 

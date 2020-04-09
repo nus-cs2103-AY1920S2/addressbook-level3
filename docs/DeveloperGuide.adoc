@@ -131,6 +131,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -151,6 +152,7 @@ The `Storage` component,
 * can save the Profile List data in json format and read it back as a `ProfileList` object.
 * can read Module List data from json format to a `ModuleList` object.
 * can read Course List data from json format to a `CourseList` object.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -310,6 +312,7 @@ image::EditSequenceDiagram.png[]
 
 - By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
+// tag::delete[]
 === Delete Profile / Module / Deadline Feature
 
 The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`
@@ -338,6 +341,7 @@ image::DeleteDeadlineSequenceDiagram.png[]
 ** Cons: Inconsistent with deleting a profile, which can only take in at most one profile
 
 Eventually, we decided on alternative 1 due to the benefits of consistency in the number of items to be deleted, as well as to reduce the number of bugs faced.
+// end::delete[]
 
 == Documentation
 
@@ -366,6 +370,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: more convenient to manage degree progression and tasks than a typical mouse/GUI driven app
 
 [appendix]
+// tag::userStories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -393,6 +398,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Student |pool notes for my modules together |organise my notes according to my modules
 |=======================================================================
+// end::userStories[]
 
 [appendix]
 == Use Cases
