@@ -74,12 +74,6 @@ public interface Model {
     boolean hasParcel(Parcel parcel);
 
     /**
-     * Returns true if a Order with the same identity as {@code order} exists in the order book.
-     * @param order
-     */
-    boolean hasOrder(Order order);
-
-    /**
      * Deletes the given order.
      * The order must exist in the order book.
      */
@@ -121,11 +115,6 @@ public interface Model {
 
     /** Returns the ReturnOrderBook */
     ReadOnlyReturnOrderBook getReturnOrderBook();
-
-    /**
-     * Returns true if a return order with the same identity as {@code returnOrder} exists in the return order book.
-     */
-    boolean hasReturnOrder(ReturnOrder returnOrder);
 
     /**
      * Deletes the given return order.
