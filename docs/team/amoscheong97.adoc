@@ -14,30 +14,59 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 
 == Summary of contributions
 
-* *Major enhancement*: *
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*:
+** Added `insert` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/189[#189])
+*** What it does: Allows the user to insert new delivery order into the Order List.
+*** Justification: This is an important feature and it is a must-have. It allows user to insert multiple orders into
+the list.
+
+
+** Refactor the `list` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/239[#239])
+*** What it does: Instead of simply displaying all the orders, the user can choose to list : +
+**** Delivered orders
+**** Undelivered orders
+*** Justification: The feature helps the user, as a courier, to know how many orders have to be completed and how many orders
+are already completed.
+
+** Added the `show` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/199[#199])
+*** What it does: It gives a more detailed information about the orders and return orders in their lists, in the form
+of numbers and PieChart. The information shown is : +
+**** Total Earnings
+**** Orders Completed
+**** Orders Returned
+**** A PieChart to show to the user on how many orders are completed and not completed, returned and not returned.
+** *Highlights*: +
+Ability to let user to see information based on the date(s) provided. For example, the user can enter :
+`show` `2020-02-02` `2020-09-01` to see all the information about the orders that are from the date `2020-02-02`
+up to the date `2020-09-01`. In addition, user can show statistics about everything in all the lists or just
+simply showing the statistics for today.
+
+** Credits: UI Design ideas for `show` Command from https://www.youtube.com/watch?v=UDi051XyQ-U&t=339s
 
 * *Minor enhancement*:
+** Fix bugs for the Application (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/309[#309], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/233[#233])
+*** What it does: Restricts user from entering any invalid values
+*** Justification: This is an essential update, as the invalid values will affect the rest of the features.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=Amoscheong97&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Amoscheong97&tabRepo=AY1920S2-CS2103T-W12-1%2Fmain%5Bmaster%5D[Functional code and Test code]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Responsible for ensuring that the team's code is compliant with the coding standards and in charge of defining, assigning and tracking all project tasks.
-** Enhancements to existing features:
-***
-***
+
+** Enhancements to existing GUI:
+*** Make major changes to the UI to change from Window to TabView (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/318[#318])
+
 ** Documentation:
-***
+*** Add Manual Testing Instructions for Developer Guide. (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/81[#81])
+*** Update Developer Developer Guide. (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171[#171], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/252[#252])
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/299[#299],
+ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/227[#227], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218[#218],
+ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/193[#193], ...)
+
 ** Tools:
 *** Integrated a third party library (Netlify) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/1708e0b7f72eb3eb5edaa471eda37c836fcfdbc9[#1708e0b])
 
@@ -49,9 +78,10 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+== Features
+include::../UserGuide.adoc[tag=insert]
+include::../UserGuide.adoc[tag=list]
+include::../UserGuide.adoc[tag=show]
 
 == Contributions to the Developer Guide
 
@@ -59,12 +89,21 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+== Features
+include::../DeveloperGuide.adoc[tag=insert]
+include::../DeveloperGuide.adoc[tag=list]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+== Use Cases
+include::../DeveloperGuide.adoc[tag=use_case_insert]
+include::../DeveloperGuide.adoc[tag=use_case_show]
+include::../DeveloperGuide.adoc[tag=use_case_list]
 
+== Glossary
+include::../UserGuide.adoc[tag=command_prefix]
 
-== PROJECT: PowerPointLabs
+== Appendix G: Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=appendix-insert]
+include::../DeveloperGuide.adoc[tag=appendix-show]
+include::../DeveloperGuide.adoc[tag=appendix-list]
 
----
 
