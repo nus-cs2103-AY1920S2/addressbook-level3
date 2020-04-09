@@ -97,7 +97,7 @@ public class CalendarPane extends UiPart<Region> {
 
         LocalDate date = getDateOfFirstMonday();
         for (DateCell dateCell : dateCells) {
-            setDateCell(dateCell, date); //sets DateCell's date, text, coupons and circle
+            setDateCell(dateCell, date); // sets DateCell's date, text, coupons and circle
             dateCell.addChildren();
             date = date.plusDays(1);
         }

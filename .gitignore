@@ -21,3 +21,5 @@ src/test/data/sandbox/
 .DS_Store
 
 src/main/resources/help
+
+docs/team/.idea/

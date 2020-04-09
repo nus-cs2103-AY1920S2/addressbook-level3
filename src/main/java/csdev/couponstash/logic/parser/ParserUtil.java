@@ -286,9 +286,6 @@ public class ParserUtil {
         requireNonNull(condition);
         String trimmedCondition = checkStringLength(condition.trim(), Condition.STRING_LENGTH_LIMIT);
 
-        if (!Condition.isValidCondition(trimmedCondition)) {
-            throw new ParseException(Condition.MESSAGE_CONSTRAINTS);
-        }
         return new Condition(trimmedCondition);
     }
 

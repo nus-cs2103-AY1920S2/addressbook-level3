@@ -21,16 +21,13 @@ public class ShareCommandParser implements Parser<ShareCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-
-
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             return new ShareCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(
-                            pe.getMessage() + "\n\n"
-                            + MESSAGE_INVALID_COMMAND_FORMAT,
+                            pe.getMessage() + "\n\n" + MESSAGE_INVALID_COMMAND_FORMAT,
                             ShareCommand.MESSAGE_USAGE
                     ),
                     pe

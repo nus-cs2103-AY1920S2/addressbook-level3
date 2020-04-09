@@ -25,7 +25,7 @@ public class ExpandCommand extends IndexedCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_EXPAND_COUPON_SUCCESS = "Coupon opened in new window: %s\n\n"
-            + "To exit, press Ctrl + Q (for both Windows and Mac)";
+            + "To exit, press Ctrl + Q (for all OS)";
 
     /**
      * @param index of the coupon in the filtered coupon list to expand

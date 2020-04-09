@@ -2,13 +2,11 @@ package csdev.couponstash.ui;
 
 import static csdev.couponstash.commons.util.DateUtil.DAY_SHORT_MONTH_YEAR_FORMATTER;
 
-import java.util.Set;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.savings.Savings;
-import csdev.couponstash.model.tag.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -59,8 +57,6 @@ public class CouponWindow extends UiPart<Stage> {
     @FXML
     private FlowPane tags;
     @FXML
-    private FlowPane tagsDup;
-    @FXML
     private Label numericalAmount;
     @FXML
     private Label saveables;
@@ -77,15 +73,16 @@ public class CouponWindow extends UiPart<Stage> {
 
         name.setText(coupon.getName().fullName);
         promoCode.setText(coupon.getPromoCode().toString());
-        duration.setText(String.format("%s to %s",
-                coupon.getStartDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER),
-                coupon.getExpiryDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER)));
+        duration.setText(
+                String.format("%s to %s",
+                        coupon.getStartDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER),
+                        coupon.getExpiryDate().date.format(DAY_SHORT_MONTH_YEAR_FORMATTER)
+                )
+        );
         usage.setText(String.format("%s/%s", coupon.getUsage().value, coupon.getLimit().toUiText()));
         remindDate.setText(coupon.getRemindDate().toString());
         condition.setText(coupon.getCondition().value);
-
-        setTags(coupon, tags);
-        //setTags(coupon, tagsDup); // duplicate is needed for UI purposes
+        coupon.getTags().stream().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         // set savings pane
         //SavingsBox savingsBox = new SavingsBox();
@@ -100,12 +97,6 @@ public class CouponWindow extends UiPart<Stage> {
 
     public CouponWindow(Coupon coupon, String moneySymbol) {
         this(new Stage(), coupon, moneySymbol);
-    }
-
-    public void setTags(Coupon coupon, FlowPane tagFlowPane) {
-        Set<Tag> couponTags = coupon.getTags();
-        couponTags.stream()
-                .forEach(tag -> tagFlowPane.getChildren().add(new Label(tag.tagName)));
     }
 
     /**
@@ -134,8 +125,7 @@ public class CouponWindow extends UiPart<Stage> {
      * @return Nicely formatted String of the numerical savings.
      */
     private static String getSavingsString(Savings s, String moneySymbol) {
-        // assumes that Savings only has either PercentageAmount
-        // or MonetaryAmount, but never both
+        // assumes that Savings only has either PercentageAmount or MonetaryAmount, but never both
         StringBuilder sb = new StringBuilder();
         s.getPercentageAmount().ifPresent(pc ->
                 sb.append(pc.toString()));

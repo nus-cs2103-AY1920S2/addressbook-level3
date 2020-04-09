@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  */
 public class RemindWindow extends UiPart<Stage> {
 
-    public static final String REMIND_MESSAGE = "Remember to use these coupon(s) before it expires!\n";
+    public static final String REMIND_MESSAGE = "Remember to use these coupon(s) before they expire!\n";
     public static final String EXIT_MESSAGE = "[Press Ctrl + Q to exit]";
     public static final int MAX_DISPLAY_REMIND_COUPONS = 6;
 
@@ -65,8 +65,8 @@ public class RemindWindow extends UiPart<Stage> {
      * @param coupons - the current coupon's list
      */
     public static void showRemind(List<Coupon> coupons) {
-        String remindMessage = "";
         int index = 1;
+        String remindMessage = "";
         LocalDate today = LocalDate.now();
 
         List<Coupon> remindCoupons = coupons.stream()
@@ -77,8 +77,9 @@ public class RemindWindow extends UiPart<Stage> {
         for (Coupon coupon : remindCoupons) {
             remindMessage += index + ". "
                     + coupon.getName().toString()
-                    + " (Expires on " + coupon.getExpiryDate().toString()
-                    + ")\n";
+                    + " (Starts on " + coupon.getStartDate().toString() + ")"
+                    + " (Expires on " + coupon.getExpiryDate().toString() + ")"
+                    + "\n";
             index++;
 
             if (index > MAX_DISPLAY_REMIND_COUPONS) {

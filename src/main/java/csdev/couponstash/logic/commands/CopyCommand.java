@@ -41,7 +41,7 @@ public class CopyCommand extends IndexedCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COPY_COUPON_SUCCESS = "Copied coupon: %1$s\n\n"
-            + "Copied to your clipboard! Ctrl + v to paste this coupon!";
+            + "Copied to your clipboard! Ctrl + V to paste this coupon! (Cmd + V for macOS)";
 
     private Coupon coupon;
 
