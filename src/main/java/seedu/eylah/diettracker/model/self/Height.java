@@ -18,8 +18,8 @@ public class Height {
      */
     public static final String VALIDATION_REGEX = "^[-+]?\\d*\\.?\\d*$*";
 
-    private final String heightString;
-    private final Float heightFloat;
+    private String heightString;
+    private Float heightFloat;
 
     /**
      * Constructs a {@code Height}.
@@ -31,6 +31,14 @@ public class Height {
         checkArgument(isValidHeight(heightString), MESSAGE_CONSTRAINTS);
         this.heightString = heightString;
         this.heightFloat = Float.parseFloat(this.heightString);
+    }
+
+    public Height(String heightString, Float heightFloat) {
+        this.heightString = heightString;
+        this.heightFloat = heightFloat;
+    }
+
+    public Height() {
     }
 
     /**

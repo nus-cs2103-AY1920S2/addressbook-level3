@@ -7,6 +7,10 @@ import java.nio.file.Path;
  */
 public interface ReadOnlyUserPrefs {
 
+    Path getMyselfFilePath();
+
+    void setMyselfFilePath(Path myselfFilePath);
+
     Path getFoodBookFilePath();
 
     void setFoodBookFilePath(Path foodBookFilePath);

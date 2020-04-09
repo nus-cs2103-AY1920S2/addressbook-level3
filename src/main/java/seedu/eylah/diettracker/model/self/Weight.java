@@ -19,8 +19,8 @@ public class Weight {
      */
     public static final String VALIDATION_REGEX = "^[-+]?\\d*\\.?\\d*$*";
 
-    private final String weightString;
-    private final Float weightFloat;
+    private String weightString;
+    private Float weightFloat;
 
     /**
      * Constructs a {@code Weight}.
@@ -32,6 +32,14 @@ public class Weight {
         checkArgument(isValidWeight(weightString), MESSAGE_CONSTRAINTS);
         this.weightString = weightString;
         this.weightFloat = Float.parseFloat(this.weightString);
+    }
+
+    public Weight() {
+    }
+
+    public Weight(String weightString, float weightFloat) {
+        this.weightString = weightString;
+        this.weightFloat = weightFloat;
     }
 
     /**

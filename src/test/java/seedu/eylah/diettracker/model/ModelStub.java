@@ -24,6 +24,26 @@ public class ModelStub implements DietModel {
     }
 
     @Override
+    public Path getMyselfFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMyselfFilePath(Path myselfFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMyself(ReadOnlyMyself myself) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyMyself getMyself() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Path getFoodBookFilePath() {
         throw new AssertionError("This method should not be called.");
     }

@@ -84,10 +84,11 @@ public class ModelManagerTest {
         FoodBook foodBook = new FoodBookBuilder().withFood(PASTA).withFood(PIZZA).build();
         FoodBook differentFoodBook = new FoodBook();
         UserPrefs userPrefs = new UserPrefs();
+        Myself myself = new Myself();
 
         // same values -> returns true
-        modelManager = new DietModelManager(foodBook, userPrefs);
-        DietModelManager modelManagerCopy = new DietModelManager(foodBook, userPrefs);
+        modelManager = new DietModelManager(foodBook, userPrefs, myself);
+        DietModelManager modelManagerCopy = new DietModelManager(foodBook, userPrefs, myself);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -100,12 +101,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different foodBook -> returns false
-        assertFalse(modelManager.equals(new DietModelManager(differentFoodBook, userPrefs)));
+        assertFalse(modelManager.equals(new DietModelManager(differentFoodBook, userPrefs, myself)));
 
         // different filteredList -> returns false
         String[] keywords = PASTA.getName().name.split("\\s+");
         modelManager.updateFilteredFoodList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new DietModelManager(foodBook, userPrefs)));
+        assertFalse(modelManager.equals(new DietModelManager(foodBook, userPrefs, myself)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredFoodList(PREDICATE_SHOW_ALL_FOODS);

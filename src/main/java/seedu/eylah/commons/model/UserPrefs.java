@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
 
+    private Path myselfFilePath = Paths.get("data" , "myself.json");
     private Path foodBookFilePath = Paths.get("data" , "foodbook.json");
     private Path personAmountBookFilePath = Paths.get("data", "personamount.json");
     private Path receiptBookFilePath = Paths.get("data", "receiptbook.json");
@@ -33,9 +34,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
+        setMyselfFilePath(newUserPrefs.getMyselfFilePath());
         setFoodBookFilePath(newUserPrefs.getFoodBookFilePath());
         setPersonAmountBookFilePath(newUserPrefs.getPersonAmountBookFilePath());
         setReceiptBookFilePath(newUserPrefs.getReceiptBookFilePath());
+    }
+
+    @Override
+    public Path getMyselfFilePath() {
+        return myselfFilePath;
+    }
+
+    @Override
+    public void setMyselfFilePath(Path myselfFilePath) {
+        requireNonNull(myselfFilePath);
+        this.myselfFilePath = myselfFilePath;
     }
 
     /**
@@ -106,19 +119,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return foodBookFilePath.equals(o.foodBookFilePath)
+        return myselfFilePath.equals(o.myselfFilePath) && foodBookFilePath.equals(o.foodBookFilePath)
                 && personAmountBookFilePath.equals(o.personAmountBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(foodBookFilePath, personAmountBookFilePath);
+        return Objects.hash(myselfFilePath, foodBookFilePath, personAmountBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Local data file location : %s %s", foodBookFilePath, personAmountBookFilePath));
+        sb.append(String.format("Local data file location : %s %s %s", myselfFilePath, foodBookFilePath,
+                personAmountBookFilePath));
         return sb.toString();
     }
 }

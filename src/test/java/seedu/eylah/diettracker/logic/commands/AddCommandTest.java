@@ -22,6 +22,7 @@ import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.FoodBook;
 import seedu.eylah.diettracker.model.Mode;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
+import seedu.eylah.diettracker.model.ReadOnlyMyself;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.self.Height;
 import seedu.eylah.diettracker.model.self.Weight;
@@ -89,6 +90,26 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getMyselfFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMyselfFilePath(Path myselfFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMyself(ReadOnlyMyself myself) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyMyself getMyself() {
             throw new AssertionError("This method should not be called.");
         }
 

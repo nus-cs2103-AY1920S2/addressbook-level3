@@ -31,6 +31,42 @@ public interface DietModel extends Model {
     ReadOnlyUserPrefs getUserPrefs();
 
     /**
+     * Returns the user prefs' myself (user info) file path.
+     */
+    Path getMyselfFilePath();
+
+    /**
+     * Sets the user prefs' myself (user info) file path.
+     */
+    void setMyselfFilePath(Path myselfFilePath);
+
+    /**
+     * Replaces myself (the user) data with the data in {@code myself}.
+     */
+    void setMyself(ReadOnlyMyself myself);
+
+    /** Returns the Myself */
+    ReadOnlyMyself getMyself();
+
+    /**
+     * Replaces the user's height in Myself with {@code height}.
+     * {@code height} must be a valid height.
+     */
+    void setHeight(Height height);
+
+    /**
+     * Replaces the user's weight in Myself with {@code weight}.
+     * {@code weight} must be a valid weight.
+     */
+    void setWeight(Weight weight);
+
+    /**
+     * Replaces the user's mode in Myself with {@code mode}.
+     * {@code mode} must be a valid mode.
+     */
+    void setMode(Mode mode);
+
+    /**
      * Returns the user prefs' food book file path.
      */
     Path getFoodBookFilePath();
@@ -92,9 +128,4 @@ public interface DietModel extends Model {
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
 
-    void setHeight(Height height);
-
-    void setWeight(Weight weight);
-
-    void setMode(Mode mode);
 }
