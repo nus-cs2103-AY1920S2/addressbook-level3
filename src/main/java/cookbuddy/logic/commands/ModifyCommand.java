@@ -294,8 +294,8 @@ public class ModifyCommand extends Command {
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
 
             return getName().equals(e.getName())
-                && getIngredients().equals(e.getIngredients())
-               // && getInstructions().equals(e.getInstructions());
+               // && getIngredients().equals(e.getIngredients())
+               // && getInstructions().equals(e.getInstructions())
                // && getImageFilePath().equals(e.getImageFilePath())
                 && getCalorie().equals(e.getCalorie())
                 && getServing().equals(e.getServing())
