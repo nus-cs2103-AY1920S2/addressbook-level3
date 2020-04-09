@@ -719,8 +719,28 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 reported|fix is as soon as possible to reduce the disruptions to my fellow hall mates
 
 |`*` |international student who is new to Singapore's culture |keep track of upcoming
-hall events|join al the fun activities in hall.
+hall events|join all the fun activities in hall
 
+|`*` |hardworking Temasek Hall resident who wants to manage his schedule|to check
+module prerequisites|plan my modules
+
+|`*` |attentive resident who notices that the gym has many users|log the entry of users
+|track the entry and exit timings of all gym users
+
+|`*` |food-loving Temasek Hall resident who frequently uses Grab Food|
+keep track of my expenses|calculate my savings every month
+
+|`*` |Temasek Hall resident who has many hall friends|
+keep track of my friends's particulars, especially their room number |find them easily in case I need help
+
+|`*` |Temasek Hall resident who has to pay hall fees|
+record down my school payments |inform my parents about the necessary expenditures in school
+
+|`*` |swimming captain of Temasek Hall|
+plan my training sets |better prepare my team for the upcoming competition
+
+|`*` |Temasek hall exchange student
+have a translation for Singaporean lingo |better understand the language my friends speak in hall
 
 |=======================================================================
 
