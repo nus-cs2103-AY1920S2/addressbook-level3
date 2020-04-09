@@ -37,23 +37,12 @@ public class AddEventCommandTest {
         Event event = new EventBuilder().build();
 
         Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
-        expectedModel.addModule(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
-        expectedModel.addActivity(module, event);
+        expectedModel.addModule(new Module(new ModuleCode(VALID_MODULE_CODE_CS1231),
+            new ModuleName(VALID_MODULE_NAME_CS1231)));
+        expectedModel.addEvent(module.getModuleCode(), event);
 
         AddEventCommand command = new AddEventCommand(event, new ModuleCode(VALID_MODULE_CODE_CS1231));
         assertCommandSuccess(command, model, String.format(AddEventCommand.MESSAGE_SUCCESS, event), expectedModel);
-    }
-
-    @Test
-    public void execute_duplicateEvent_failure() {
-        Event event = new EventBuilder().build();
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
-        AddEventCommand command = new AddEventCommand(event,
-            new ModuleCode(VALID_MODULE_CODE_CS1231));
-
-        expectedModel.addActivity(module, event);
-        assertThrows(CommandException.class, AddEventCommand.MESSAGE_DUPLICATED_ACTIVITY, () ->
-            command.execute(expectedModel));
     }
 
     @Test

@@ -146,18 +146,4 @@ public class Deadline extends Activity {
         return !(dueDate.isBefore(Date.now()));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof Deadline)) {
-            return false;
-        }
-
-        Deadline deadline = (Deadline) other;
-        return deadline.dueDate.equals(((Deadline) other).dueDate)
-            && deadline.priority.equals(((Deadline) other).priority)
-            && deadline.isDone == ((Deadline) other).isDone
-            && deadline.isOverdue == ((Deadline) other).isOverdue
-            && deadline.getName().equals(((Deadline) other).getName());
-    }
-
 }

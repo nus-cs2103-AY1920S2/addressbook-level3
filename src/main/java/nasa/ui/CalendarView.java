@@ -9,11 +9,9 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -25,11 +23,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.model.module.Module;
 
 /**
@@ -156,12 +152,12 @@ public class CalendarView extends UiPart<Region> {
         for (int i = 0; i < 7; i++) {
             VBox dateContent = new VBox();
             GridPane.setVgrow(dateContent, Priority.ALWAYS);
-            dateContent.setId(Integer.toString(currentDate));
             if (i < nullDays) {
                 // not in current month, set to white color
                 dateContent.getStyleClass().add("date-pane");
             } else {
                 // set to purple color plus add date number
+                dateContent.setId(Integer.toString(currentDate));
                 dateContent.getStyleClass().add("date-pane");
                 Label dateLabel = new Label();
                 dateLabel.setText(Integer.toString(currentDate));
@@ -222,21 +218,9 @@ public class CalendarView extends UiPart<Region> {
                     }
                 }
             }
-
             ObservableList<Event> eventObservableList =
                 module.getFilteredEventList();
-            for (Event event : eventObservableList) {
-                if (event.occurInMonth(currentMonth)) {
-                    int activityDate = getDayOfMonth(event);
-                    if (activityHashMap.containsKey(activityDate)) {
-                        activityHashMap.get(activityDate).add(event);
-                    } else {
-                        ArrayList<Activity> activities = new ArrayList<>();
-                        activities.add(event);
-                        activityHashMap.put(activityDate, activities);
-                    }
-                }
-            }
+            addEvents(eventObservableList, activityHashMap);
         }
 
         // now we populate those grids that has activities
@@ -251,8 +235,7 @@ public class CalendarView extends UiPart<Region> {
                 for (Activity activity : dateActivities) {
                     if (counter <= 3) {
                         Label activityLabel = getActivityLabel(activity);
-                        Bounds bounds = calendarGrid.getCellBounds(2, 2);
-                        activityLabel.setMinWidth(bounds.getWidth() - 5);
+                        activityLabel.setMaxWidth(Double.MAX_VALUE);
                         dateContent.getChildren().add(activityLabel);
                         counter++;
                     } else {
@@ -313,10 +296,8 @@ public class CalendarView extends UiPart<Region> {
     private int getDayOfMonth(Activity activity) {
         if (activity instanceof Deadline) {
             return ((Deadline) activity).getDueDate().getDate().getDayOfMonth();
-        } else if (activity instanceof Event) {
-            return ((Event) activity).getStartDate().getDate().getDayOfMonth();
         } else {
-            return ((Lesson) activity).getEndDate().getDate().getDayOfMonth();
+            return ((Event) activity).getStartDate().getDate().getDayOfMonth();
         }
     }
 
@@ -382,5 +363,112 @@ public class CalendarView extends UiPart<Region> {
         monthAndYear.setText(String.format("%s %s", Month.of(currentMonth), Year.of(currentYear)));
         monthAndYear.setTextFill(Color.WHITE);
         monthAndYear.setAlignment(Pos.CENTER);
+    }
+
+    public void addEvents(ObservableList<Event> events, HashMap<Integer, ArrayList<Activity>> activityHashMap) {
+        for (Event event : events) {
+            int startYear = event.getStartDate().getDate().getYear();
+            int endYear = event.getEndDate().getDate().getYear();
+            if (startYear > currentYear
+                || endYear < currentYear) {
+                continue; // event not happening this year at all
+            } else {
+                // now check for month
+                int startMonth = event.getStartDate().getDate().getMonthValue();
+                int endMonth = event.getEndDate().getDate().getMonthValue();
+                if (startYear == currentYear && endYear == currentYear) {
+                    addEventHelper(startMonth, endMonth, event, activityHashMap);
+                } else if (startYear < currentYear && currentYear < endYear) {
+                    // any month will be filled with events
+                    populateMonthWithEvents(event, activityHashMap);
+                } else {
+                    if (startYear == currentYear) {
+                        endMonth = 12;
+                    } else {
+                        startMonth = 1;
+                    }
+                    if (startMonth > currentMonth || endMonth < currentMonth) {
+                        continue;
+                    } else if (startMonth < currentMonth && currentMonth < endMonth) {
+                        populateMonthWithEvents(event, activityHashMap);
+                    } else if (startYear == currentYear && startMonth == currentMonth){
+                        populateMonthFromStartToEnd(event, activityHashMap,
+                            event.getStartDate().getDate().getDayOfMonth(), getMaxDaysInMonth());
+                    } else if (endYear == currentYear && endMonth == currentMonth) {
+                        populateMonthFromStartToEnd(event, activityHashMap,
+                            1, event.getEndDate().getDate().getDayOfMonth());
+                    } else {
+                        populateMonthWithEvents(event, activityHashMap);
+                    }
+                }
+            }
+        }
+    }
+
+    public void addEventHelper(int startMonth, int endMonth, Event event,
+                               HashMap<Integer, ArrayList<Activity>> activityHashMap) {
+        if (startMonth > currentMonth || endMonth < currentMonth) {
+            return;
+        } else {
+            // check if month in-between
+            if (startMonth < currentMonth && currentMonth < endMonth) {
+                // means the whole month has the event
+                populateMonthWithEvents(event, activityHashMap);
+            } else if (startMonth == currentMonth && endMonth == currentMonth) {
+                // populate from start date to end-date
+                populateMonthFromStartToEnd(event, activityHashMap,
+                    event.getStartDate().getDate().getDayOfMonth(),
+                    event.getEndDate().getDate().getDayOfMonth());
+            } else if (startMonth == currentMonth) {
+                // populate from start to last day of month
+                populateMonthFromStartToEnd(event, activityHashMap,
+                    event.getStartDate().getDate().getDayOfMonth(),
+                    getMaxDaysInMonth());
+
+            } else {
+                // populate from first day of month to end
+                populateMonthFromStartToEnd(event, activityHashMap, 1,
+                    event.getEndDate().getDate().getDayOfMonth());
+            }
+        }
+    }
+
+    public void populateMonthFromStartToEnd(Event event, HashMap<Integer, ArrayList<Activity>> activityHashMap,
+                                            int startDate, int endDate) {
+        for (int i = startDate; i <= endDate; i++) {
+            if (activityHashMap.containsKey(i)) {
+                activityHashMap.get(i).add(event);
+            } else {
+                ArrayList<Activity> activities = new ArrayList<>();
+                activities.add(event);
+                activityHashMap.put(i, activities);
+            }
+        }
+    }
+
+    public void populateMonthWithEvents(Event event, HashMap<Integer, ArrayList<Activity>> activityHashMap) {
+        int totalDaysInMonth = getMaxDaysInMonth();
+
+        for (int i = 1; i <= totalDaysInMonth; i++) {
+            if (activityHashMap.containsKey(i)) {
+                activityHashMap.get(i).add(event);
+            } else {
+                ArrayList<Activity> activities = new ArrayList<>();
+                activities.add(event);
+                activityHashMap.put(i, activities);
+            }
+        }
+    }
+
+    public int getMaxDaysInMonth() {
+        LocalDateTime monthDetails = LocalDateTime.of(currentYear, currentMonth, 1, 0, 0);
+        int totalDaysInMonth = monthDetails.getMonth().maxLength(); // get total days in current month
+
+        // need to adjust totalDaysInMonth for Feb (leap year)
+        LocalDate date = LocalDate.of(currentYear, currentMonth, 1);
+        if (!date.isLeapYear() && date.getMonth() == Month.FEBRUARY) {
+            totalDaysInMonth--; // need to minus 1 as not leap year
+        }
+        return totalDaysInMonth;
     }
 }

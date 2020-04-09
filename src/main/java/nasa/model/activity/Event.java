@@ -126,17 +126,4 @@ public class Event extends Activity {
     public boolean isOver() {
         return isOver;
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof Event)) {
-            return false;
-        }
-
-        Event event = (Event) other;
-        return event.startDate.equals(((Event) other).startDate)
-            && event.endDate.equals(((Event) other).endDate)
-            && event.getNote().equals(((Event) other).getNote())
-            && event.getName().equals(((Event) other).getName());
-    }
 }

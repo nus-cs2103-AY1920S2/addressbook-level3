@@ -17,7 +17,7 @@ public class DeleteModuleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module specified by the code in NASA.\n"
             + "Parameters: " + PREFIX_MODULE + ".....\n"
-            + "Example: " + COMMAND_WORD + " CS2030";
+            + "Example: " + COMMAND_WORD + " " +PREFIX_MODULE +"CS2030";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "%1$s is deleted successfully!";
 
