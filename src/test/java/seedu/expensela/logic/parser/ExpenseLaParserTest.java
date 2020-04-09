@@ -56,8 +56,8 @@ public class ExpenseLaParserTest {
     @Test
     public void parseCommand_budget() throws Exception {
         BudgetCommand command = (BudgetCommand) parser.parseCommand(
-                BudgetCommand.COMMAND_WORD + " b/1000 rc/no");
-        assertEquals(new BudgetCommand(1000.0), command);
+                BudgetCommand.COMMAND_WORD + " b/1000");
+        assertEquals(new BudgetCommand(1000.0, false), command);
     }
 
     @Test

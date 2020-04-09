@@ -39,6 +39,8 @@ public interface Logic {
 
     MonthlyData getMonthlyData();
 
+    void setMonthlyData(MonthlyData monthlyData);
+
     Filter getFilter();
 
     void setFilter(Filter filter);

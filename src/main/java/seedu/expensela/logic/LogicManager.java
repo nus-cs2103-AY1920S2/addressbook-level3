@@ -48,6 +48,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveExpenseLa(model.getExpenseLa());
+            storage.saveGlobalData(model.getGlobalData());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -68,6 +69,11 @@ public class LogicManager implements Logic {
     @Override
     public MonthlyData getMonthlyData() {
         return model.getMonthlyData();
+    }
+
+    @Override
+    public void setMonthlyData(MonthlyData monthlyData) {
+        model.setMonthlyData(monthlyData);
     }
 
     @Override

@@ -2,6 +2,7 @@ package seedu.expensela;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyGlobalData;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.UserPrefs;
+import seedu.expensela.model.monthlydata.MonthlyData;
+import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.util.SampleDataUtil;
 import seedu.expensela.storage.ExpenseLaStorage;
 import seedu.expensela.storage.GlobalDataStorage;
@@ -69,6 +72,8 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs, globalData);
 
+        dateCheck(model);
+
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
@@ -101,6 +106,36 @@ public class MainApp extends Application {
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
+    }
+
+    /**
+     * Perform a check on when was the last time user updates the app and updates
+     * budget and transaction accordingly from recurring budget variable and recurring transactions
+     * list
+     * @param model
+     */
+    private void dateCheck(Model model) {
+        LocalDate today = LocalDate.now();
+        GlobalData globalData = model.getGlobalData();
+        if (globalData.getLastUpdatedDate().isBefore(today)) {
+            int from = 0;
+            if (today.getMonthValue() > globalData.getLastUpdatedDate().getMonthValue()) {
+                model.setMonthlyData(new MonthlyData("1", globalData.getRecurringBudget()));
+                from = 1;
+            } else {
+                from = globalData.getLastUpdatedDate().getDayOfMonth();
+            }
+            int to = today.getDayOfMonth();
+            for (Transaction t : globalData.getRecurringTransactionList()) {
+                if (t.getDate().transactionDate.getDayOfMonth() > from
+                        && t.getDate().transactionDate.getDayOfMonth() <= to) {
+                    model.addTransaction(new Transaction(
+                            t.getName(), t.getAmount(), t.getDate(), t.getRemark(), t.getCategory()
+                    ));
+                }
+            }
+        }
+        globalData.setLastUpdatedDate(LocalDate.now());
     }
 
     /**
@@ -213,8 +248,12 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping ExpenseLa ] =============================");
         try {
-            storage.saveUserPrefs(model.getUserPrefs());
+            GlobalData globalData = new GlobalData(model.getGlobalData());
+            globalData.setLastUpdatedDate(LocalDate.now());
+            model.setGlobalData(globalData);
             storage.saveGlobalData(model.getGlobalData());
+            storage.saveExpenseLa(model.getExpenseLa());
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

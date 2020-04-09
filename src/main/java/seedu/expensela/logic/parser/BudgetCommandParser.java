@@ -29,10 +29,11 @@ public class BudgetCommandParser implements Parser<BudgetCommand> {
         }
         try {
             Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get());
+            boolean recurring = false;
             if (arePrefixesPresent(argMultimap, PREFIX_RECURRING)) {
-                // Create recurring budget
+                recurring = true;
             }
-            return new BudgetCommand(budget.budgetAmount);
+            return new BudgetCommand(budget.budgetAmount, recurring);
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }
