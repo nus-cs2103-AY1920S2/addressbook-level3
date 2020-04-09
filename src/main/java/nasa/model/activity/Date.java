@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 /**
@@ -54,8 +55,12 @@ public class Date {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             formatter.setLenient(false);
             formatter.parse(test);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            dateTimeFormatter.parse(test);
             return true;
         } catch (ParseException e) {
+            return false;
+        } catch (Exception e) {
             return false;
         }
     }
