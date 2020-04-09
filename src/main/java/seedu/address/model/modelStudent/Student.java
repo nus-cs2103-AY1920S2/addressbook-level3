@@ -142,7 +142,8 @@ public class Student extends ModelObject {
     Student otherStudentCast = (Student)otherStudent;
     return otherStudentCast != null
         && otherStudentCast.getName().equals(getName())
-        && otherStudentCast.getId().equals(getId());
+        && otherStudentCast.getId().equals(getId())
+        && otherStudentCast.getTags().equals(getTags());
   }
 
   /**
@@ -160,9 +161,7 @@ public class Student extends ModelObject {
     }
 
     Student otherStudent = (Student) other;
-    return otherStudent.getName().equals(getName())
-        && otherStudent.getId().equals(getId())
-        && otherStudent.getTags().equals(getTags());
+    return otherStudent.getId().equals(getId());
   }
 
   @Override

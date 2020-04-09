@@ -12,6 +12,7 @@ import seedu.address.manager.ProgressManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelProgress.Progress;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -25,7 +26,8 @@ import static seedu.address.logic.parser.CliSyntax.*;
 public class DoneOneAssignmentOneStudent extends DoneCommandBase {
     private static final Logger logger = LogsCenter.getLogger(DoneOneAssignmentOneStudent.class);
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks an assignment as done for a student. "
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Marks an assignment as done for a student. "
             + "Parameters: "
             + PREFIX_ASSIGNMENTID + "ASSIGNMENTID "
             + PREFIX_STUDENTID + "STUDENTID"
@@ -35,6 +37,7 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
 
     public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such Student that with ID";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
+    public static final String MESSAGE_INVALID_ASSIGNMENT_DONE = "Assignment has been marked as done already!";
     public static final String MESSAGE_INVALID_STUDENT_ASSIGNMENT = "Student has not been assigned this assignment currently!";
     public static final String MESSAGE_SUCCESS = "Successfully marked Assignment %s (%s) as done by Student %s (%s)";
 
@@ -61,6 +64,26 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
         ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
         ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
 
+        Assignment assignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
+        Student student = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+
+        ProgressManager.markDoneOneProgressOfOneStudent(assignmentID, studentID);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                assignment.getName(), assignmentID.value,
+                student.getName(), studentID.value));
+    }
+
+    /**
+     * If require this preprocessing step should override this method.
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
+        ID studentID = this.assignDescriptor.getAssignID(PREFIX_STUDENTID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+
         boolean studentExists = model.has(studentID, Constants.ENTITY_TYPE.STUDENT);
         boolean assignmentExists = model.has(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
         boolean progressExists = model.hasProgress(assignmentID, studentID);
@@ -72,14 +95,12 @@ public class DoneOneAssignmentOneStudent extends DoneCommandBase {
         } else if (!progressExists) {
             throw new CommandException(MESSAGE_INVALID_STUDENT_ASSIGNMENT);
         } else {
-            Assignment assignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
-            Student student = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+            Progress progress = model.getProgress(assignmentID, studentID);
 
-            ProgressManager.markDoneOneProgressOfOneStudent(assignmentID, studentID);
+            if(progress.getIsDone()) {
+                throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_DONE);
+            }
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    assignment.getName(), assignmentID.value,
-                    student.getName(), studentID.value));
         }
     }
 

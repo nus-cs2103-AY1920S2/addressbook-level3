@@ -62,10 +62,11 @@ public class AssignAssignmentToCourseCommand extends AssignCommandBase {
         // Ensures that previously completed assignments can be retrieved
         if(this.undoProgresses != null) {
             ProgressManager.addUndoProgress(this.undoProgresses);
+        } else {
+            ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
         }
 
         EdgeManager.assignAssignmentToCourse(assignmentID, courseID);
-        ProgressManager.addOneProgressToAllStudents(courseID, assignmentID);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 assigningAssignment.getName(), assignmentID.value,
