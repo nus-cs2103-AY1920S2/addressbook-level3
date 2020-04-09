@@ -12,6 +12,6 @@ public class BudgetCommandParserTest {
 
     @Test
     public void parse_allFieldsPresentNonRecurring_success() {
-        assertParseSuccess(parser, " b/1500 rc/no", new BudgetCommand(1500.0));
+        assertParseSuccess(parser, " b/1500", new BudgetCommand(1500.0, false));
     }
 }

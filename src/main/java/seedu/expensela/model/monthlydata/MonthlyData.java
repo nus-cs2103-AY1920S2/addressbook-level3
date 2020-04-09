@@ -9,8 +9,13 @@ public class MonthlyData {
 
     private final String id;
     private Budget budget;
-    private Expense expense;
-    private Income income;
+    private Expense expense = new Expense("0.0");
+    private Income income = new Income("0.0");
+
+    public MonthlyData(String id, Budget budget) {
+        this.id = id;
+        this.budget = budget;
+    }
 
     public MonthlyData(String id, Budget budget, Expense expense, Income income) {
         this.id = id;

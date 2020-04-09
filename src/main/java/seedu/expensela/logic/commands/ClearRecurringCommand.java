@@ -5,9 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.expensela.model.Model;
 
 /**
- * Clears the list of recurring commands
+ * Clear all recurring transactions
  */
-
 public class ClearRecurringCommand extends Command {
 
     public static final String COMMAND_WORD = "clearrecurring";

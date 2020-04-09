@@ -29,11 +29,10 @@ public class BudgetCommandTest {
     }
 
     @Test
-    public void execute_budgetChanged() throws Exception {
-        CommandResult result = new BudgetCommand(1500.0).execute(model);
+    public void execute_budgetChanged_nonRecurring() throws Exception {
+        CommandResult result = new BudgetCommand(1500.0, false).execute(model);
 
         assertEquals(String.format(BudgetCommand.MESSAGE_SUCCESS, 1500.00), result.getFeedbackToUser());
-        System.out.println(model.equals(expectedModel));
         assertEquals(model, expectedModel);
     }
 }

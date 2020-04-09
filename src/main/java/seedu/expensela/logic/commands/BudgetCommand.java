@@ -3,6 +3,7 @@ package seedu.expensela.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.GlobalData;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.monthlydata.Budget;
 import seedu.expensela.model.monthlydata.MonthlyData;
@@ -21,10 +22,14 @@ public class BudgetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Budget is now set to %.2f";
 
-    private final Double budgetValue;
+    public static final String MESSAGE_SUCCESS_RECURRING = "Budget is now set to %.2f and it is a recurring budget";
 
-    public BudgetCommand(Double budgetValue) {
+    private final Double budgetValue;
+    private final boolean recurring;
+
+    public BudgetCommand(Double budgetValue, boolean recurring) {
         this.budgetValue = budgetValue;
+        this.recurring = recurring;
     }
 
     @Override
@@ -33,7 +38,14 @@ public class BudgetCommand extends Command {
         MonthlyData currentData = model.getMonthlyData();
         model.setMonthlyData(new MonthlyData("1", new Budget(budgetValue.toString()), currentData.getExpense(),
                 currentData.getIncome()));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, budgetValue));
+        if (recurring) {
+            GlobalData globalData = model.getGlobalData();
+            globalData.setRecurringBudget(new Budget(budgetValue.toString()));
+            model.setGlobalData(globalData);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_RECURRING, budgetValue));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, budgetValue));
+        }
     }
 
     @Override
