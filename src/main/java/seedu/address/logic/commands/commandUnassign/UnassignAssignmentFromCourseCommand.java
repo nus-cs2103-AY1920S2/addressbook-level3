@@ -27,8 +27,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
 
     public static final String MESSAGE_INVALID_COURSE_ID = "There is no such Course that with ID";
+    public static final String MESSAGE_INVALID_COURSE_NO_SUCH_ASSIGNMENT = "This course doesn't have the assignment assigned to it! :(";
     public static final String MESSAGE_INVALID_ASSIGNMENT_ID = "There is no such Assignment that with ID";
-    public static final String MESSAGE_SUCCESS = "Successfully assigned Assignment %s (%s) to Course %s (%s)";
+    public static final String MESSAGE_INVALID_ASSIGNMENT_TO_COURSE = "The assignment isn't assigned to this course! :(";
+    public static final String MESSAGE_SUCCESS = "Successfully unassigned Assignment %s (%s) FROM Course %s (%s)";
 
     private final AssignDescriptor assignDescriptor;
     private Set<Progress> undoProgresses;
@@ -46,6 +48,30 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
     @Override
     protected CommandResult executeUndoableCommand(Model model) throws CommandException {
 
+        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
+        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
+
+        Course assignedCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+        Assignment assigningAssignment = (Assignment) model.get(assignmentID, Constants.ENTITY_TYPE.ASSIGNMENT);
+
+        EdgeManager.unassignAssignmentFromCourse(assignmentID, courseID);
+        ProgressManager.removeOneProgressFromAllStudents(courseID, assignmentID);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    assigningAssignment.getName(), assignmentID.value,
+                    assignedCourse.getName(), courseID.value));
+    }
+
+    /**
+     * This performs all two main action to ensure successful Unassigning of Assignment from Course and that
+     * the command can undo & redo successfully.
+     * 1. Check to ensure that the targeted Course & Assignment exists and that
+     * 2. Prepare to add the removed 'Progress' objects back into the Progress AddressBook if the user decides to undo
+     *
+     * @param model
+     */
+    @Override
+    protected void preprocessUndoableCommand(Model model) throws CommandException {
         // Check whether both IDs even exists
         ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
         ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
@@ -65,32 +91,14 @@ public class UnassignAssignmentFromCourseCommand extends UnassignCommandBase {
             boolean assigningAssignmentContainsCourse = assigningAssignment.isAssignedToCourse();
 
             if(!assignedCourseContainsAssignment) {
-                throw new CommandException("This course doesn't have the assignment assigned to it! :(");
+                throw new CommandException(MESSAGE_INVALID_COURSE_NO_SUCH_ASSIGNMENT);
             } else if(!assigningAssignmentContainsCourse) {
-                throw new CommandException("The assignment isn't assigned to this course! :(");
+                throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_TO_COURSE);
             } else {
-                EdgeManager.unassignAssignmentFromCourse(assignmentID, courseID);
-                ProgressManager.removeOneProgressFromAllStudents(courseID, assignmentID);
-
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        assigningAssignment.getName(), assignmentID.value,
-                        assignedCourse.getName(), courseID.value));
+                Set<Progress> undoProgress = ProgressManager.getOneProgressFromAllStudents(courseID, assignmentID);
+                this.undoProgresses = undoProgress;
             }
         }
-    }
-
-    /**
-     * If require this preprocessing step should override this method.
-     *
-     * @param model
-     */
-    @Override
-    protected void preprocessUndoableCommand(Model model) throws CommandException {
-        ID courseID = this.assignDescriptor.getAssignID(PREFIX_COURSEID);
-        ID assignmentID = this.assignDescriptor.getAssignID(PREFIX_ASSIGNMENTID);
-
-        Set<Progress> undoProgress = ProgressManager.getOneProgressFromAllStudents(courseID, assignmentID);
-        this.undoProgresses = undoProgress;
     }
 
     @Override
