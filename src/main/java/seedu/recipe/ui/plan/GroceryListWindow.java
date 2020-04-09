@@ -16,7 +16,7 @@ public class GroceryListWindow extends UiPart<Stage> {
     public static String groceryListMessage = "";
     
     private static final Logger logger = LogsCenter.getLogger(GroceryListWindow.class);
-    private static final String FXML = "GroceryListWindow.fxml"; //todo
+    private static final String FXML = "GroceryListWindow.fxml";
     
     @FXML
     private Button copyButton;
@@ -31,9 +31,8 @@ public class GroceryListWindow extends UiPart<Stage> {
      */
     public GroceryListWindow(Stage root, String groceries) {
         super(FXML, root);
-        // todo make getter method in list X
-        // analyse how command result is being displayed, how to pass a message from logic to  model to UI
         groceryList.setWrapText(true);
+        // todo fix window size and add scroll bar
     }
     
     /**
