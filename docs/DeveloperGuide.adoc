@@ -599,10 +599,7 @@ empty is equivalent to the Person paying you the full amount he/she owes the use
 ====
 
 
-
-
-
-*Implementation*
+*Implementation of Paid Command*
 
 The following is a detailed explanation of the operations `PaidCommand` performs. +
 
@@ -704,13 +701,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
 
-|`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
+|`*` |Temasek Hall exchange student |have a translation for Singaporean lingo |better understand the language my friends speak in hall
 
-|`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
+|`*` |Temasek Hall sports captain |keep track of the various attendances for my training |know who usually attends training and who does not
 
-|`*` |Temasek Hall leader |to keep track of my committee events |ensure things run smoothly
+|`*` |Temasek Hall leader |keep track of my committee events |ensure things run smoothly
 
-|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
+|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date
+
+|`*` |Temasek Hall leader |keep track of when my meetings are |ensure I do not keep my teammates or committee member waiting
+
+|`*` |forgetful Temasek Hall resident|keep track of the myriad of hall activities |attend all the fun and exciting events at hall
+
+|`*` |organised resident of Teamsek Hall|remind myself for the tasks i have |meet all deadlines
+
+|`*` |main person in-charge of fixing faults in Temasek Hall|keep track of all different faults that have been
+reported|fix is as soon as possible to reduce the disruptions to my fellow hall mates
+
+|`*` |international student who is new to Singapore's culture |keep track of upcoming
+hall events|join al the fun activities in hall.
+
+
 |=======================================================================
 
 
