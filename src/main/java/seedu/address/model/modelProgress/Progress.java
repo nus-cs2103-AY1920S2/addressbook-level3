@@ -75,7 +75,9 @@ public class Progress extends ModelObject {
     }
     Progress otherProgressCast = (Progress)otherProgress;
     return otherProgressCast != null
-        && otherProgressCast.getId().equals(getId());
+        && otherProgressCast.getId().equals(getId())
+        && otherProgressCast.getIsDone().equals(getIsDone());
+
   }
 
   /**
@@ -94,8 +96,7 @@ public class Progress extends ModelObject {
 
     Progress otherProgress = (Progress) other;
     return otherProgress != null
-            && otherProgress.getId().equals(getId())
-            && otherProgress.getIsDone().equals(isDone);
+            && otherProgress.getId().equals(getId());
   }
 
   @Override

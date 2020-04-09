@@ -445,13 +445,13 @@ public class ModelManager extends BaseManager implements Model {
   @Override
   public boolean hasProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    return progressAddressBook.has(target);
+    return has(target, Constants.ENTITY_TYPE.PROGRESS);
   }
 
   @Override
   public Progress getProgress(ID assignmentID, ID studentID) throws CommandException {
     CompositeID target = new CompositeID(assignmentID, studentID);
-    return progressAddressBook.get(target);
+    return (Progress) get(target, Constants.ENTITY_TYPE.PROGRESS);
   }
 
   @Override
