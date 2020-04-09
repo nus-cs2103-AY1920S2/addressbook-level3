@@ -146,19 +146,19 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
+                .append("\nPhone: ")
                 .append(getPhone())
-                .append(" Email: ")
+                .append("\nEmail: ")
                 .append(getEmail())
-                .append(" Address: ")
+                .append("\nAddress: ")
                 .append(getAddress())
-                .append(" Remarks: ");
+                .append("\nRemarks: ");
         getRemark().forEach(builder::append);
-        builder.append(" Birthday: ")
+        builder.append("\nBirthday: ")
                 .append(getBirthday())
-                .append(" Organization: ")
+                .append("\nOrganization: ")
                 .append(getOrganization())
-                .append(" Tags: ");
+                .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
