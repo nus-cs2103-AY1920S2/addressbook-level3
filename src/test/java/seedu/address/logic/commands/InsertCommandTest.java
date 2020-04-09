@@ -128,11 +128,6 @@ public class InsertCommandTest {
         }
 
         @Override
-        public boolean hasOrder(Order order) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteOrder(Order target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -173,11 +168,6 @@ public class InsertCommandTest {
 
         @Override
         public ReadOnlyReturnOrderBook getReturnOrderBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasReturnOrder(ReturnOrder returnOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -230,8 +220,8 @@ public class InsertCommandTest {
         }
 
         @Override
-        public boolean hasOrder(Order order) {
-            requireNonNull(order);
+        public boolean hasParcel(Parcel parcel) {
+            requireNonNull(parcel);
             return this.order.isSameParcel(order);
         }
     }
@@ -243,9 +233,9 @@ public class InsertCommandTest {
         final ArrayList<Order> ordersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasOrder(Order order) {
-            requireNonNull(order);
-            return ordersAdded.stream().anyMatch(order::isSameParcel);
+        public boolean hasParcel(Parcel parcel) {
+            requireNonNull(parcel);
+            return ordersAdded.stream().anyMatch(parcel::isSameParcel);
         }
 
         @Override

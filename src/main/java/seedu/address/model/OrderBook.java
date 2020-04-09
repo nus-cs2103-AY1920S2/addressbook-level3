@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.parcel.Parcel;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.order.UniqueOrderList;
 import seedu.address.model.parcel.parcelattributes.TransactionId;
@@ -53,7 +54,7 @@ public class OrderBook implements ReadOnlyOrderBook {
     /**
      * Returns true if an order with the same identity as {@code order} exists in the order book.
      */
-    public boolean hasOrder(Order order) {
+    public boolean hasOrder(Parcel order) {
         requireNonNull(order);
         return orders.contains(order);
     }

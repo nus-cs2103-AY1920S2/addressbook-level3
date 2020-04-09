@@ -107,12 +107,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasOrder(Order order) {
-        requireNonNull(order);
-        return orderBook.hasOrder(order);
-    }
-
-    @Override
     public void deleteOrder(Order target) {
         orderBook.removeOrder(target);
     }
@@ -142,12 +136,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasReturnOrder(ReturnOrder returnOrder) {
-        requireNonNull(returnOrder);
-        return returnOrderBook.hasReturnOrder(returnOrder);
-    }
-
-    @Override
     public void deleteReturnOrder(ReturnOrder target) {
         returnOrderBook.removeReturnOrder(target);
     }
@@ -169,13 +157,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasParcel(Parcel parcel) {
         requireNonNull(parcel);
-        if (parcel instanceof Order) {
-            return hasOrder((Order) parcel);
-        } else if (parcel instanceof ReturnOrder) {
-            return hasReturnOrder((ReturnOrder) parcel);
-        } else {
-            return false;
-        }
+        return orderBook.hasOrder(parcel) || returnOrderBook.hasReturnOrder(parcel);
     }
 
     //=========== Filtered Order List Accessors =============================================================
