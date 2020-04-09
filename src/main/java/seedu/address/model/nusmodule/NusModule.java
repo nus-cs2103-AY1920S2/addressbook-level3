@@ -12,19 +12,15 @@ import seedu.address.searcher.Module;
 public class NusModule {
     public final ModuleCode moduleCode;
     public final int modularCredit;
-    private boolean isTaking;
     private Optional<Grade> grade;
     private List<ModuleTask> tasks;
-    private final Module moduleInfo;
 
-    public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking,
-                     Optional<Grade> grade, List<ModuleTask> tasks, Module moduleInfo) {
+    public NusModule(ModuleCode moduleCode, int modularCredit,
+                     Optional<Grade> grade, List<ModuleTask> tasks) {
         this.moduleCode = moduleCode;
         this.modularCredit = modularCredit;
-        this.isTaking = isTaking;
         this.grade = grade;
         this.tasks = tasks;
-        this.moduleInfo = moduleInfo;
     }
 
     public void addTask(ModuleTask task) {
@@ -51,8 +47,8 @@ public class NusModule {
         return this.moduleCode;
     }
 
-    public Module getModuleInfo() {
-        return this.moduleInfo;
+    public int getModularCredit() {
+        return this.modularCredit;
     }
 
     @Override

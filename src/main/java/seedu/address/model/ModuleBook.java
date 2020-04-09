@@ -1,4 +1,4 @@
-package seedu.address.model.nusmodule;
+package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,6 +8,12 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.nusmodule.Capulator;
+import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.Major;
+import seedu.address.model.nusmodule.ModuleCode;
+import seedu.address.model.nusmodule.ModuleTask;
+import seedu.address.model.nusmodule.NusModule;
 
 /**
  * Wraps all module-related data at the module-book level
@@ -21,10 +27,12 @@ public class ModuleBook {
 
     public ModuleBook() {
         this.modules = new ArrayList<>();
+        getModulesTakenList();
     }
 
     public ModuleBook(List<NusModule> modules) {
         this.modules = modules;
+        getModulesTakenList();
     }
 
     /**

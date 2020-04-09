@@ -44,7 +44,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
             Grade grade = ParserUtil.parseGrade(argMultimap1.getValue(PREFIX_GRADE).get());
 
             NusModule module = new NusModule(moduleCode, moduleCredit,
-                    false, Optional.of(grade), new ArrayList<>(), moduleInfo);
+                    Optional.of(grade), new ArrayList<>());
 
             return new AddModuleCommand(module);
 
@@ -57,7 +57,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
             int moduleCredit = moduleInfo.getCredits();
 
             NusModule module = new NusModule(moduleCode, moduleCredit,
-                    true, Optional.empty(), new ArrayList<>(), moduleInfo);
+                    Optional.empty(), new ArrayList<>());
 
             return new AddModuleCommand(module);
 
