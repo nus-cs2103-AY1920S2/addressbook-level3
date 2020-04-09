@@ -96,23 +96,4 @@ public class SuggestionTestUtil {
             assertEquals(expectedInput, input);
         }
     }
-<<<<<<< HEAD
-
-    /**
-     * Checks the correctness of the display text of a suggestion.
-     *
-     * @param expectedSuggestions The expected list of suggestions.
-     * @param suggestions The actual list of suggestions.
-     * @param model The app's model.
-     */
-    public static void testDisplayTexts(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions,
-            Model model) {
-        for (int i = 0; i < expectedSuggestions.size(); i++) {
-            SuggestionItem suggestion = suggestions.get(i);
-            SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
-            assertEquals(expectedSuggestion.getProperty("displayText"), suggestion.getProperty("displayText"));
-        }
-    }
-=======
->>>>>>> 098b188c... Update DeleteSugCmdParserTest
 }

@@ -29,7 +29,7 @@ public class OpenSuggestionCommandParserTest {
     private static final String COMMAND_WORD = "open";
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
-    private static final String RESPONSE_MESSAGE_CANNOT_DELETE_NOTE = "\"%s\" is an invalid path";
+    private static final String RESPONSE_MESSAGE_CANNOT_DELETE_NOTE = "Cannot open \"%s\" as it is an invalid path";
 
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
