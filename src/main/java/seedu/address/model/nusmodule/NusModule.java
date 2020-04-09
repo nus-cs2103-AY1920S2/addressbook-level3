@@ -3,9 +3,6 @@ package seedu.address.model.nusmodule;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.searcher.Module;
-
-
 /**
  * Represents a module in NUS.
  */

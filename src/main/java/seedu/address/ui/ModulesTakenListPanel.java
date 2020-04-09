@@ -40,7 +40,7 @@ public class ModulesTakenListPanel extends UiPart<Region> {
                 setText(null);
 
             } else {
-                setGraphic(new ModuleCard(module).getRoot());
+                setGraphic((new ModuleCard(module)).getRoot());
             }
 
         }
