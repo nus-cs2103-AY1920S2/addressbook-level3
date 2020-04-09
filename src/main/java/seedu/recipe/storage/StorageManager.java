@@ -9,9 +9,11 @@ import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.exceptions.DataConversionException;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyPlannedBook;
+import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.storage.achievement.QuoteBookStorage;
 import seedu.recipe.storage.cooked.CookedRecordBookStorage;
 import seedu.recipe.storage.plan.PlannedBookStorage;
 
@@ -25,14 +27,17 @@ public class StorageManager implements Storage {
     private CookedRecordBookStorage cookedRecordStorage;
     private UserPrefsStorage userPrefsStorage;
     private PlannedBookStorage plannedBookStorage;
+    private QuoteBookStorage quoteBookStorage;
 
     public StorageManager(RecipeBookStorage recipeBookStorage, CookedRecordBookStorage cookedRecordStorage,
-                          PlannedBookStorage plannedBookStorage, UserPrefsStorage userPrefsStorage) {
+                          PlannedBookStorage plannedBookStorage, QuoteBookStorage quoteBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.recipeBookStorage = recipeBookStorage;
         this.cookedRecordStorage = cookedRecordStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.plannedBookStorage = plannedBookStorage;
+        this.quoteBookStorage = quoteBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -142,4 +147,31 @@ public class StorageManager implements Storage {
         plannedBookStorage.savePlannedBook(plannedBook, filePath);
     }
 
+    // ================ QuoteBook methods ==============================
+    @Override
+    public Path getQuoteBookFilePath() {
+        return quoteBookStorage.getQuoteBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyQuoteBook> readQuoteBook() throws DataConversionException, IOException {
+        return readQuoteBook(quoteBookStorage.getQuoteBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyQuoteBook> readQuoteBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read quote book data from file: " + filePath);
+        return quoteBookStorage.readQuoteBook(filePath);
+    }
+
+    @Override
+    public void saveQuoteBook(ReadOnlyQuoteBook quoteBook) throws IOException {
+        saveQuoteBook(quoteBook, quoteBookStorage.getQuoteBookFilePath());
+    }
+
+    @Override
+    public void saveQuoteBook(ReadOnlyQuoteBook quoteBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to quote book data file: " + filePath);
+        quoteBookStorage.saveQuoteBook(quoteBook, filePath);
+    }
 }

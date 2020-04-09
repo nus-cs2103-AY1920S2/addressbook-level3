@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
@@ -25,7 +26,8 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook(),
+                new QuoteBook());
     }
 
     @Test
@@ -33,7 +35,7 @@ public class AddCommandIntegrationTest {
         Recipe validRecipe = new RecipeBuilder().build();
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         // System.out.println(validRecipe); // todo remove later
 
         expectedModel.addRecipe(validRecipe);

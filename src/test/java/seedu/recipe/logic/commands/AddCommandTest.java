@@ -20,9 +20,11 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyPlannedBook;
+import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
@@ -252,6 +254,20 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean hasQuote(Quote quote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public ObservableList<Quote> getFilteredQuoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyQuoteBook getQuoteBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
@@ -295,5 +311,4 @@ public class AddCommandTest {
             return new RecipeBook();
         }
     }
-
 }

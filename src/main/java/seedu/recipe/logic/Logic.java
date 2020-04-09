@@ -8,6 +8,7 @@ import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
+import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
@@ -67,4 +68,8 @@ public interface Logic {
      */
     ObservableList<PlannedDate> getFilteredPlannedList();
 
+    /**
+     * Returns an unmodifiable view of the scheduled recipes.
+     */
+    ObservableList<Quote> getFilteredQuoteList();
 }

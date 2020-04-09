@@ -8,8 +8,12 @@ import java.util.stream.Collectors;
 
 import seedu.recipe.model.Date;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
+import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.achievement.Content;
+import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.Goal;
@@ -458,6 +462,25 @@ public class SampleDataUtil {
         CookedRecordBook sampleAb = new CookedRecordBook();
         for (Record sampleRecord : getSampleRecords()) {
             sampleAb.addRecord(sampleRecord);
+        }
+        return sampleAb;
+    }
+
+    public static Quote[] getSampleQuotes() {
+        return new Quote[] {
+            new Quote(new Content("Skip the diet, just eat healthy!")),
+            new Quote(new Content("I don't eat junk food because I love my body!")),
+            new Quote(new Content("Nothing tastes as good as healthy")),
+            new Quote(new Content("I'm doing this for me")),
+            new Quote(new Content("Work for it!")),
+            new Quote(new Content("Mindset is what separates the best from the rest"))
+        };
+    }
+
+    public static ReadOnlyQuoteBook getSampleQuoteBook() {
+        QuoteBook sampleAb = new QuoteBook();
+        for (Quote sampleQuote : getSampleQuotes()) {
+            sampleAb.addQuote(sampleQuote);
         }
         return sampleAb;
     }

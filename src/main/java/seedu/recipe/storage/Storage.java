@@ -7,9 +7,11 @@ import java.util.Optional;
 import seedu.recipe.commons.exceptions.DataConversionException;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyPlannedBook;
+import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.storage.achievement.QuoteBookStorage;
 import seedu.recipe.storage.cooked.CookedRecordBookStorage;
 import seedu.recipe.storage.plan.PlannedBookStorage;
 
@@ -17,7 +19,8 @@ import seedu.recipe.storage.plan.PlannedBookStorage;
  * API of the Storage component
  */
 
-public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, PlannedBookStorage, UserPrefsStorage {
+public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, PlannedBookStorage,
+        QuoteBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -52,5 +55,15 @@ public interface Storage extends RecipeBookStorage, CookedRecordBookStorage, Pla
     Optional<ReadOnlyPlannedBook> readPlannedBook() throws DataConversionException, IOException;
 
     void savePlannedBook(ReadOnlyPlannedBook plannedBook) throws IOException;
+
+    // ====== Achievement feature ======
+    @Override
+    Path getQuoteBookFilePath();
+
+    @Override
+    Optional<ReadOnlyQuoteBook> readQuoteBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveQuoteBook(ReadOnlyQuoteBook quoteBook) throws IOException;
 
 }

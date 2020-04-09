@@ -146,7 +146,8 @@ public class MainWindow extends UiPart<Stage> {
 
         //using recipe list as stub for achievements, to be edited later todo
         //TODO set storage parameter instead of hardcode
-        achievementsListPanel = new AchievementCard(new Quote("A long life begins with a clean palate"), new Streak(6));
+        ObservableList<Quote> quoteList = logic.getFilteredQuoteList();
+        achievementsListPanel = new AchievementCard(quoteList, new Streak(6));
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, cookedListPanel, achievementsListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
