@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents an Assignment's Workload in the Schoolwork Tracker.
- * Guarantees: immutable; is valid as declared in {@link #isValidWorkload(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDuration(String)}
  */
 public class Workload {
     public static final String MESSAGE_CONSTRAINTS = "Estimated workload cannot be left empty, "

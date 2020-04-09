@@ -25,23 +25,23 @@ import seedu.address.testutil.AssignmentBuilder;
 
 public class SchedulerTest {
 
-    private final AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
+    private final Scheduler scheduler = new Scheduler();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), assignmentSchedule.getAssignmentsList());
+        assertEquals(Collections.emptyList(), scheduler.getAssignmentsList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> assignmentSchedule.resetData(null));
+        assertThrows(NullPointerException.class, () -> scheduler.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyScheduler_replacesData() {
-        AssignmentSchedule newData = getTypicalScheduler();
-        assignmentSchedule.resetData(newData);
-        assertEquals(newData, assignmentSchedule);
+        Scheduler newData = getTypicalScheduler();
+        scheduler.resetData(newData);
+        assertEquals(newData, scheduler);
     }
 
     @Test
@@ -50,47 +50,47 @@ public class SchedulerTest {
         Assignment editedCs2103Tp = new AssignmentBuilder(CS2103_TP).withHours(VALID_ESTHOURS_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         List<Assignment> newAssignments = Arrays.asList(CS2103_TP, editedCs2103Tp);
-        AssignmentScheduleStub newData = new AssignmentScheduleStub(newAssignments);
+        SchedulerTest.SchedulerStub newData = new SchedulerTest.SchedulerStub(newAssignments);
 
-        assertThrows(DuplicateAssignmentException.class, () -> assignmentSchedule.resetData(newData));
+        assertThrows(DuplicateAssignmentException.class, () -> scheduler.resetData(newData));
     }
 
     @Test
     public void hasAssignment_nullAssignment_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> assignmentSchedule.hasAssignment(null));
+        assertThrows(NullPointerException.class, () -> scheduler.hasAssignment(null));
     }
 
     @Test
     public void hasAssignment_assignmentNotInScheduler_returnsFalse() {
-        assertFalse(assignmentSchedule.hasAssignment(CS2103_TP));
+        assertFalse(scheduler.hasAssignment(CS2103_TP));
     }
 
     @Test
     public void hasAssignment_assignmentInScheduler_returnsTrue() {
-        assignmentSchedule.addAssignment(CS2103_TP);
-        assertTrue(assignmentSchedule.hasAssignment(CS2103_TP));
+        scheduler.addAssignment(CS2103_TP);
+        assertTrue(scheduler.hasAssignment(CS2103_TP));
     }
 
     @Test
     public void hasAssignment_assignmentWithSameTitleAndDeadlineInScheduler_returnsTrue() {
-        assignmentSchedule.addAssignment(CS2106_ASSIGNMENT);
+        scheduler.addAssignment(CS2106_ASSIGNMENT);
         Assignment editedCs2106Assignment = new AssignmentBuilder(CS2106_ASSIGNMENT).withHours(VALID_ESTHOURS_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
-        assertTrue(assignmentSchedule.hasAssignment(editedCs2106Assignment));
+        assertTrue(scheduler.hasAssignment(editedCs2106Assignment));
     }
 
     @Test
     public void getAssignmentsList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> assignmentSchedule.getAssignmentsList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> scheduler.getAssignmentsList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAssignmentSchedule whose assignment list can violate interface constraints.
+     * A stub ReadOnlyScheduler whose assignment list can violate interface constraints.
      */
-    private static class AssignmentScheduleStub implements ReadOnlyAssignmentSchedule {
+    private static class SchedulerStub implements ReadOnlyScheduler {
         private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
 
-        AssignmentScheduleStub(Collection<Assignment> assignments) {
+        SchedulerStub(Collection<Assignment> assignments) {
             this.assignments.setAll(assignments);
         }
 

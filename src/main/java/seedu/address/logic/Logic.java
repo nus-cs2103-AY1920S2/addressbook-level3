@@ -53,7 +53,7 @@ public interface Logic {
     ObservableList<Person> getBdayList();
 
     /** Returns an unmodifiable view of the user's upcoming schedule for the next n days */
-    ObservableList<Day> getSchedule();
+    ObservableList<Day> getScheduleVisual();
 
     /**
      * Returns the user prefs' address book file path.
