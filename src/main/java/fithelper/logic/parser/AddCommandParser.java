@@ -9,8 +9,10 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_REMARK;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.AddCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
@@ -28,18 +30,21 @@ import fithelper.model.entry.Type;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
+        logger.info(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
                         PREFIX_CALORIE, PREFIX_REMARK, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE)) {
+            logger.info("throwing the format exception");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -59,6 +64,13 @@ public class AddCommandParser implements Parser<AddCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        for (Prefix prefix : prefixes) {
+            if (!argumentMultimap.getValue(prefix).isPresent()) {
+                logger.info(prefix.toString());
+            } else {
+                logger.info("exist: " + prefix.toString());
+            }
+        }
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 

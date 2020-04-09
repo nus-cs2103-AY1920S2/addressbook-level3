@@ -23,6 +23,12 @@ import fithelper.model.entry.Entry;
  * A utility class containing a list of {@code Entry} objects to be used in tests.
  */
 public class TypicalEntriesUtil {
+    public static final Entry CAKE = new EntryBuilder().withType("food")
+            .withName("Cake").withTime("2020-03-31-06:15").withLocation("home")
+            .withCalorie("500").build();
+    public static final Entry BURGER = new EntryBuilder().withType("food")
+            .withName("Burger").withTime("2019-04-05-06:50").withLocation("super snack")
+            .withCalorie("550").build();
     public static final Entry ENTRY1 = new EntryBuilder().withType("food")
             .withName("Noodles").withTime(new DiaryDate().toString() + "-15:30")
             .withLocation("Utown canteen").withCalorie("300").build();
