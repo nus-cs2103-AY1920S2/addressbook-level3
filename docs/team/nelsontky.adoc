@@ -30,7 +30,7 @@ Some new commands added by other group members also require updates to
 be pushed to the undo and redo feature, thus this was a very dynamic
 feature that needed frequent updates.
 
-* *Minor enhancement*: added a history command that allows the user to navigate 
+* *Minor enhancement*: added a history command that allows the user to navigate
 to previous commands using up/down keys.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nelsontky&tabRepo=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D[All contributed code]]
@@ -44,24 +44,24 @@ to previous commands using up/down keys.
 *** Updated the help command to open an offline copy of the user guide
 https://github.com/AY1920S2-CS2103T-F09-1/main/pull/284[#284]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: 
+*** Did cosmetic tweaks to existing contents of the User Guide:
 https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], 
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12],
 https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], 
+*** Contributed to forum discussions (examples:  https://github.com[1],
 https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  
+*** Reported bugs and suggestions for other teams in the class (examples:
 https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
-*** Integrated a third party library (Natty) to the project 
+*** Integrated a third party library (Natty) to the project
 (https://github.com[#42])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my 
+|_Given below are sections I contributed to the User Guide. They showcase my
 ability to write documentation targeting end-users._
 |===
 
@@ -72,8 +72,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase 
-my ability to write technical documentation and the technical depth of my 
+|_Given below are sections I contributed to the Developer Guide. They showcase
+my ability to write technical documentation and the technical depth of my
 contributions to the project._
 |===
 
