@@ -12,8 +12,30 @@ import seedu.expensela.model.transaction.Transaction;
  * The API of the Model component.
  */
 public interface Model {
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
+
+    /**
+     * Get Command from command history
+     * @param offset
+     * @return Command String
+     */
+    String getCommandFromHistory(int offset);
+
+    /**
+     * Add Command to history
+     * @param command
+     */
+    void addToCommandHistory(String command);
+
+    /**
+     * Delete command from history
+     * @param offset
+     */
+    void deleteFromCommandHistory(int offset);
+
+    int getCommandHistorySize();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

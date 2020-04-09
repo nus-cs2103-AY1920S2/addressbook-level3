@@ -97,6 +97,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addCommandToHistory_addMoreThanLimit_returnsTrue() {
+        for (int i = 0; i < 51; i++) {
+            modelManager.addToCommandHistory("command " + i);
+        }
+        assertTrue(modelManager.getCommandHistorySize() == 50);
+        assertTrue(modelManager.getCommandFromHistory(49).equals("command 1"));
+    }
+
+    @Test
+    public void addCommandToHistory_addLessThanLimit_returnsTrue() {
+        for (int i = 0; i < 20; i++) {
+            modelManager.addToCommandHistory("command " + i);
+        }
+        assertTrue(modelManager.getCommandHistorySize() == 20);
+        assertTrue(modelManager.getCommandFromHistory(modelManager.getCommandHistorySize() - 1)
+                .equals("command 0"));
+    }
+
+    @Test
     public void equals() {
         ExpenseLa expenseLa = new ExpenseLaBuilder().withTransaction(PIZZA).withTransaction(GRAB).build();
         ExpenseLa differentExpenseLa = new ExpenseLa();
