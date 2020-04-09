@@ -58,7 +58,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
             } else {
                 try {
                     lineRec = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED));
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
                             DeleteRestaurantNoteCommand.MESSAGE_USAGE), e);
                 }
@@ -75,7 +75,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
             } else {
                 try {
                     lineGood = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD));
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
                             DeleteRestaurantNoteCommand.MESSAGE_USAGE), e);
                 }
@@ -92,7 +92,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
             } else {
                 try {
                     lineBad = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD));
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
                             DeleteRestaurantNoteCommand.MESSAGE_USAGE), e);
                 }

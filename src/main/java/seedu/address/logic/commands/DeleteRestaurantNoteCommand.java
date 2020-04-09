@@ -105,20 +105,35 @@ public class DeleteRestaurantNoteCommand extends Command {
             }
         }
 
+        ArrayList<Note> updatedRecFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getRecommendedFood()) {
+            updatedRecFood.add(i);
+        }
+
+        ArrayList<Note> updatedGoodFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getGoodFood()) {
+            updatedGoodFood.add(i);
+        }
+
+        ArrayList<Note> updatedBadFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getBadFood()) {
+            updatedBadFood.add(i);
+        }
+
         for (Note n : recNotes) {
-            restaurantToEdit.getRecommendedFood().remove(n);
+            updatedRecFood.remove(n);
         }
         for (Note n : goodNotes) {
-            restaurantToEdit.getGoodFood().remove(n);
+            updatedGoodFood.remove(n);
         }
         for (Note n : badNotes) {
-            restaurantToEdit.getBadFood().remove(n);
+            updatedBadFood.remove(n);
         }
 
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
-                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), restaurantToEdit.getRecommendedFood(),
-                restaurantToEdit.getGoodFood(), restaurantToEdit.getBadFood());
+                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), updatedRecFood,
+                updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
