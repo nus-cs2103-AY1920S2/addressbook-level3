@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.SwitchTabCommand.SETTINGS_TAB_INDEX;
 import static seedu.address.logic.commands.SwitchTabCommand.STATS_TAB_INDEX;
 import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 
@@ -30,6 +31,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CompletorResult;
@@ -65,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandCompletor commandCompletor;
     private PomodoroManager pomodoro;
     private PetManager petManager;
+    private StatisticsManager statisticsManager;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
@@ -102,7 +105,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML private TabPane tabPanePlaceholder;
 
     public MainWindow(
-            Stage primaryStage, Logic logic, PomodoroManager pomodoro, PetManager petManager) {
+            Stage primaryStage,
+            Logic logic,
+            PomodoroManager pomodoro,
+            PetManager petManager,
+            StatisticsManager statisticsManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -110,6 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.pomodoro = pomodoro;
         this.petManager = petManager;
+        this.statisticsManager = statisticsManager;
         this.commandCompletor = new CommandCompletor();
 
         // Configure the UI
@@ -209,11 +217,12 @@ public class MainWindow extends UiPart<Stage> {
         pomodoro.setPomodoroDisplay(pomodoroDisplay);
         pomodoro.setResultDisplay(resultDisplay);
         pomodoro.setMainWindow(this);
+        pomodoro.handleResumeLastSession();
 
         statisticsDisplay = new StatisticsDisplay();
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
 
-        settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro(), statisticsDisplay);
+        settingsDisplay = new SettingsDisplay(petManager, logic.getPomodoro(), statisticsManager);
         settingsPlaceholder.getChildren().add(settingsDisplay.getRoot());
     }
 
@@ -245,6 +254,7 @@ public class MainWindow extends UiPart<Stage> {
     /** Closes the application. */
     @FXML
     private void handleExit() {
+        pomodoro.handleExit();
         GuiSettings guiSettings =
                 new GuiSettings(
                         primaryStage.getWidth(),
@@ -318,10 +328,11 @@ public class MainWindow extends UiPart<Stage> {
                 }
 
                 if (!dailyTarget.isEmpty()) {
-                    statisticsDisplay.setDailyTarget(dailyTarget.toString());
+                    statisticsManager.setDailyTargetText(dailyTarget.toString());
                 }
 
                 settingsDisplay.update();
+                tabPanePlaceholder.getSelectionModel().select(SETTINGS_TAB_INDEX);
 
             } catch (ClassCastException ce) {
 
@@ -336,7 +347,8 @@ public class MainWindow extends UiPart<Stage> {
                         .select(switchTabCommandResult.getTabToSwitchIndex());
                 if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
                     ObservableList<DayData> customQueue = logic.getCustomQueue();
-                    statisticsDisplay.updateGraphs(customQueue);
+                    statisticsManager.updateStatistics(customQueue);
+                    this.updateStatisticsDisplay();
                 }
             } catch (ClassCastException ce) {
             }
@@ -345,7 +357,7 @@ public class MainWindow extends UiPart<Stage> {
             try {
                 PomCommandResult pomCommandResult = (PomCommandResult) commandResult;
 
-                if (!pomCommandResult.getIsPause() && !pomCommandResult.getIsContinue()) {
+                if (pomCommandResult.getIsNormal()) {
                     pomodoroDisplay.setTaskInProgressText(pomCommandResult.getPommedTask());
                     pomodoro.start(pomCommandResult.getTimerAmountInMin());
                     pomodoro.setDoneParams(
@@ -414,6 +426,19 @@ public class MainWindow extends UiPart<Stage> {
         petDisplay.setExpBarText(expBarInt);
         petDisplay.setExpBarImage(expBarImage);
         petDisplay.setPetImage(petImage);
+    }
+
+    public void updateStatisticsDisplay() {
+        String dailyTargetText = statisticsManager.getDailyTargetText();
+        String progressDailyText = statisticsManager.getProgressDailyText();
+        String progressBarDailyFilepathString =
+                statisticsManager.getProgressBarDailyFilepathString();
+        ObservableList<DayData> customQueue = statisticsManager.getCustomQueue();
+
+        statisticsDisplay.setProgressTargetText(dailyTargetText);
+        statisticsDisplay.setProgressDailyText(progressDailyText);
+        statisticsDisplay.setProgressBarDailyFilepathString(progressBarDailyFilepathString);
+        statisticsDisplay.updateGraphs(customQueue);
     }
 
     public void updateMoodWhenLogIn() {

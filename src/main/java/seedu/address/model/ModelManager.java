@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
+import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
 
     private PomodoroManager pomodoroManager;
     private PetManager petManager;
+    private StatisticsManager statisticsManager;
     private ArrayList<Observer> observers;
     private HashMap<Task, TimerTask> recurringTimerTasks = new HashMap<>();
     private Timer recurringTimer = new Timer();
@@ -67,6 +69,9 @@ public class ModelManager implements Model {
 
         this.petManager = new PetManager();
         this.petManager.setPet(this.pet);
+
+        this.statisticsManager = new StatisticsManager();
+        this.statisticsManager.setStatistics(this.statistics);
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
@@ -333,6 +338,10 @@ public class ModelManager implements Model {
         this.pomodoro.setDefaultTime(Float.toString(defaultTimeInMin));
     }
 
+    public void setPomodoroTimeLeft(float timeLeft) {
+        this.pomodoro.setTimeLeft(Float.toString(timeLeft));
+    }
+
     public void setPomodoroManager(PomodoroManager pomodoroManager) {
         this.pomodoroManager = pomodoroManager;
     }
@@ -342,6 +351,12 @@ public class ModelManager implements Model {
     }
 
     // ============================ Statistics Manager
+
+    @Override
+    public void setStatisticsManager(StatisticsManager statisticsManager) {
+        this.statisticsManager = statisticsManager;
+        this.statisticsManager.setStatistics(this.statistics);
+    }
 
     public Statistics getStatistics() {
         return statistics;
