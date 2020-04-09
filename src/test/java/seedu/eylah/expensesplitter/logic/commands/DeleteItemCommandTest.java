@@ -18,6 +18,7 @@ import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.commons.util.CalculateUtil;
+import seedu.eylah.expensesplitter.logic.parser.ParserUtil;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyReceiptBook;
@@ -49,7 +50,7 @@ public class DeleteItemCommandTest {
     public void execute_receiptIsDone_deleteUnsuccessful() throws Exception {
         ModelStubReceiptDone modelStub = new ModelStubReceiptDone();
         modelStub.getReceipt().makeDone();
-        Index index = new Index(0);
+        Index index = ParserUtil.parseIndex("1");
 
         CommandResult commandResult = new DeleteItemCommand(index).execute(modelStub);
 
@@ -63,7 +64,7 @@ public class DeleteItemCommandTest {
         for (Person person : persons) {
             modelStub.addPerson(person);
         }
-        Index index = new Index(0);
+        Index index = ParserUtil.parseIndex("1");
 
         CommandResult commandResult = new DeleteItemCommand(index).execute(modelStub);
 
@@ -81,7 +82,7 @@ public class DeleteItemCommandTest {
         for (Person person : persons) {
             modelStub.addAmount(person, amount);
         }
-        Index index = new Index(0);
+        Index index = ParserUtil.parseIndex("1");
 
         CommandResult commandResult = new DeleteItemCommand(index).execute(modelStub);
 
@@ -91,8 +92,8 @@ public class DeleteItemCommandTest {
     }
 
     @Test
-    public void equals() {
-        Index index = new Index(0);
+    public void equals() throws Exception {
+        Index index = ParserUtil.parseIndex("1");
         DeleteItemCommand deleteItemCommand = new DeleteItemCommand(index);
 
         //same object -> returns true
