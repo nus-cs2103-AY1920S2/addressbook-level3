@@ -12,18 +12,18 @@ class CapulatorTest {
 
     @Test
     void calculateCap() {
-        NusModule module1 = new NusModule(new ModuleCode("CS2030"), 4, false,
-                Optional.of(Grade.BPLUS), new ArrayList<>(), null);
-        NusModule module2 = new NusModule(new ModuleCode("CS2040"), 4, false,
-                Optional.of(Grade.A), new ArrayList<>(), null);
-        NusModule module3 = new NusModule(new ModuleCode("CS2100"), 4, false,
-                Optional.of(Grade.AMINUS), new ArrayList<>(), null);
-        NusModule module4 = new NusModule(new ModuleCode("GES1012"), 4, false,
-                Optional.of(Grade.CPLUS), new ArrayList<>(), null);
-        NusModule module5 = new NusModule(new ModuleCode("GEQ1000"), 4, false,
-                Optional.of(Grade.S), new ArrayList<>(), null);
-        NusModule module6 = new NusModule(new ModuleCode("CS2103T"), 4, true,
-                Optional.empty(), new ArrayList<>(), null);
+        NusModule module1 = new NusModule(new ModuleCode("CS2030"), 4,
+                Optional.of(Grade.BPLUS), new ArrayList<>());
+        NusModule module2 = new NusModule(new ModuleCode("CS2040"), 4,
+                Optional.of(Grade.A), new ArrayList<>());
+        NusModule module3 = new NusModule(new ModuleCode("CS2100"), 4,
+                Optional.of(Grade.AMINUS), new ArrayList<>());
+        NusModule module4 = new NusModule(new ModuleCode("GES1012"), 4,
+                Optional.of(Grade.CPLUS), new ArrayList<>());
+        NusModule module5 = new NusModule(new ModuleCode("GEQ1000"), 4,
+                Optional.of(Grade.S), new ArrayList<>());
+        NusModule module6 = new NusModule(new ModuleCode("CS2103T"), 4,
+                Optional.empty(), new ArrayList<>());
         List<NusModule> modules = new ArrayList<>() {
             {
                 add(module1);

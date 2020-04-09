@@ -86,4 +86,6 @@ public interface Logic {
 
     Profile getProfile();
 
+    Path getModuleBookFilePath();
+
 }

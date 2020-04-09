@@ -52,6 +52,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveModuleBook(model.getModuleBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -119,4 +120,8 @@ public class LogicManager implements Logic {
         return model.getProfile();
     }
 
+    @Override
+    public Path getModuleBookFilePath() {
+        return model.getModuleBookFilePath();
+    }
 }
