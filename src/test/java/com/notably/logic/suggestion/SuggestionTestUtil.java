@@ -69,6 +69,23 @@ public class SuggestionTestUtil {
         return expectedInputs;
     }
 
+    public static List<SuggestionItem> getExpectedSearchSugForKeywordFalse() {
+        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
+
+        SuggestionItem cs2103tTut1 = new SuggestionItemImpl(
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
+        SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
+        SuggestionItem cs2106Tut1 = new SuggestionItemImpl(
+                TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
+
+        expectedSuggestions.add(cs2103tTut1);
+        expectedSuggestions.add(cs2103tTut2);
+        expectedSuggestions.add(cs2106Tut1);
+
+        return expectedSuggestions;
+    }
+
     /**
      * Checks the correctness of the suggestions.
      *
@@ -78,6 +95,21 @@ public class SuggestionTestUtil {
     public static void testSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
         assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
                 suggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()));
+    }
+
+    /**
+     * Checks the correctness of the search suggestions.
+     *
+     * @param expectedSuggestions The expected suggestions list.
+     * @param suggestions The actual list of suggestions.
+     */
+    public static void testSearchSuggestions(List<SuggestionItem> expectedSuggestions,
+                                             List<SuggestionItem> suggestions) {
+        assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
+                suggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()));
+
+        assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("frequency")).collect(Collectors.toList()),
+                suggestions.stream().map(s -> s.getProperty("frequency")).collect(Collectors.toList()));
     }
 
     /**
