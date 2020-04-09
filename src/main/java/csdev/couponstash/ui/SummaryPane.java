@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Coupon;
@@ -32,6 +34,8 @@ import javafx.scene.text.Text;
  * Savings summary of CouponStash.
  */
 public class SummaryPane extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(SummaryPane.class);
+
     private static final String FXML = "SummaryPane.fxml";
     // message to be shown before the numerical amount saved
     private static final String SAVED_TOTAL_PRE_MESSAGE = "You saved a total of ";
@@ -83,6 +87,7 @@ public class SummaryPane extends UiPart<Region> {
      */
     public SummaryPane(ObservableList<Coupon> allCoupons, MoneySymbol moneySymbol) {
         super(FXML);
+        logger.info("Loading summary pane...");
         this.allCoupons = allCoupons;
         this.moneySymbol = moneySymbol;
         savedText.setText(SummaryPane.SAVED_TOTAL_PRE_MESSAGE);

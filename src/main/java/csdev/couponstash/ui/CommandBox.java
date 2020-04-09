@@ -1,5 +1,8 @@
 package csdev.couponstash.ui;
 
+import java.util.logging.Logger;
+
+import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
@@ -15,6 +18,8 @@ import javafx.scene.layout.Region;
  * The UI component that is responsible for receiving user command inputs.
  */
 public class CommandBox extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
+
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
@@ -36,9 +41,23 @@ public class CommandBox extends UiPart<Region> {
         // commandText
         commandTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP) {
-                commandTextField.setText(commandTextHistory.getUp());
+                String retrivedCommand = commandTextHistory.getUp();
+                commandTextField.setText(retrivedCommand);
+                logger.info(
+                        String.format(
+                                "UP arrow key pressed. Previous command text \"%s\" retrived.",
+                                retrivedCommand
+                        )
+                );
             } else if (event.getCode() == KeyCode.DOWN) {
-                commandTextField.setText(commandTextHistory.getDown());
+                String retrivedCommand = commandTextHistory.getDown();
+                commandTextField.setText(retrivedCommand);
+                logger.info(
+                        String.format(
+                                "DOWN arrow key pressed. Next command text \"%s\" retrived.",
+                                retrivedCommand
+                        )
+                );
             }
         });
     }
@@ -50,6 +69,14 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandTextHistory.add(commandTextField.getText()); // Add commandText to history
+
+            logger.info(
+                    String.format(
+                            "Command text \"%s\" added to command text history!",
+                            commandTextField.getText()
+                    )
+            );
+
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
