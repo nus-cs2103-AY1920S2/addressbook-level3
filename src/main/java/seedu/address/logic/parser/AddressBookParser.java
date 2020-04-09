@@ -34,7 +34,7 @@ import seedu.address.logic.commands.commandList.ListAssignmentCommand;
 import seedu.address.logic.commands.commandList.ListCourseCommand;
 import seedu.address.logic.commands.commandList.ListFinanceCommand;
 import seedu.address.logic.commands.commandList.ListStudentCommand;
-import seedu.address.logic.commands.commandList.ListTeacherCommand;
+import seedu.address.logic.commands.commandList.ListStaffCommand;
 import seedu.address.logic.commands.commandSwitch.SwitchAssignmentCommand;
 import seedu.address.logic.commands.commandSwitch.SwitchCourseCommand;
 import seedu.address.logic.commands.commandSwitch.SwitchFinanceCommand;
@@ -136,7 +136,7 @@ public class AddressBookParser {
         return new DeleteAssignmentCommandParser().parse(arguments);
 
       // Find Operations
-      case FindTeacherCommand.COMMAND_WORD:
+      case FindStaffCommand.COMMAND_WORD:
         return new FindTeacherCommandParser().parse(arguments);
 
       case FindStudentCommand.COMMAND_WORD:
@@ -160,8 +160,8 @@ public class AddressBookParser {
         return new CalculateEarningsFinanceCommand();
 
         // List Operations
-      case ListTeacherCommand.COMMAND_WORD:
-        return new ListTeacherCommand();
+      case ListStaffCommand.COMMAND_WORD:
+        return new ListStaffCommand();
 
       case ListStudentCommand.COMMAND_WORD:
         return new ListStudentCommand();
