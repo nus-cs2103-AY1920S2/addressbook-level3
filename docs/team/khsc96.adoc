@@ -14,15 +14,20 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 
 == Summary of contributions
 
-* *Major enhancement*: [Coming soon]
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*:
+** *Added `search` command* (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187[#187]) +
+Functionality of command can be found <<../UserGuide.adoc#search, here>> and implementation of it can be found <<../DeveloperGuide.adoc#search, here>>.
+*** *What it does*: +
+Allows the user to specifically search for keywords that matches any fields of the parcel. The user are also able to narrow down their search range by providing different flags and prefixes.
+*** *Justification*: +
+This is one of the key feature of Delino as it allows the user to sieve out parcels of their interest from the large parcels list.
+*** *Highlights*: +
+This command provide various options for the user
+*** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: [Coming soon]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=khsc96&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code & Test code]]
 
 * *Other contributions*:
 
