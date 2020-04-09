@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Nelson Tan
 image::nelsontky.png[width="150", align="left"]
 __If you see me on Tinder, please swipe right!__ +
-{empty}[http://github.com/nelsontky[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/nelsontky[github]] [<<nelsontky#, portfolio>>]
 
 Role: 🎶🎶🎶 Row, row, row your boat... 🎶🎶🎶 +
 Responsibilities: "Undo" Feature in Coupon Stash to revert commands and changes
@@ -23,16 +23,16 @@ Responsibilities: "Undo" Feature in Coupon Stash to revert commands and changes
 
 === Chester Sim
 image::chestersim.png[width="150", align="left"]
-{empty}[http://github.com/chestersim[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/chestersim[github]] [<<chestersim#, portfolio>>]
 
 Role: Developer/UI Lead +
-Responsibilities: Implement "used" feature and lead the team in the UI/UX of the product
+Responsibilities: Usage and archive feature of Coupon Stash. Lead the team in the UI/UX of the product
 
 '''
 
 === Alden Tan
 image::alcen.png[width="150", align="left"]
-{empty}[http://github.com/alcen[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/alcen[github]] [<<alcen#, portfolio>>]
 
 Role: Developer +
 Responsibilities: "Saved" Feature in Coupon Stash to see how much you have saved
@@ -44,15 +44,15 @@ image::kevvvinn.png[width="150", align="left"]
 {empty}[http://github.com/kevvvinn[github]] [<<johndoe#, portfolio>>]
 
 Role: Junior Developer +
-Responsibilities: Useless
+Responsibilities: Remind Feature of Coupon Stash
 
 '''
 
 === Denise Ng
 image::denise-ng.png[width="150", align="left"]
-{empty}[http://github.com/denise-ng[github]] [<<Denise#, portfolio>>]
+{empty}[http://github.com/denise-ng[github]] [<<deniseng#, portfolio>>]
 
-Role: Junior Developer +
-Responsibilities: Try my best
+Role: Developer +
+Responsibilities: Expiring, copy and goto features & calendar in Coupon Stash.
 
 '''

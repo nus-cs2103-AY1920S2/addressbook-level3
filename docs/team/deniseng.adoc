@@ -1,4 +1,4 @@
-= Chester Sim - Project Portfolio
+= Denise Ng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -15,21 +15,19 @@ GUI created with JavaFX. It is written in Java, and has about 25kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to use a coupon*
-** What it does: allows the user to keep track of his usage for each and every
-coupon.
-** Justification: This feature is essential in keeping track of coupons and
-also its generated savings.
-** Highlights: This enhancement ties in with other coupon fields to ensure
-the valid usage of a coupon. From the start date of the coupon, to the type
-of savings generated, this feature is critical to the functioning of Coupon Stash.
+* *Major enhancement*: added *the ability to search for coupons by its expiry date/ month year*
+** What it does: allows the user to view all his/ her coupons by the expiry date or the month.
+** Justification: This feature is essential for users to keep track of the expiry dates of coupons. The enhancement,
+with the calendar, will ensure that users know exactly when their coupons expire and will never forget to use them.
+** Highlights: This enhancement ties in closely with the calendar, which indicates if there is any coupon expiring on each date.
+It also ties in with other coupon fields to ensure the validity of a coupon (i.e. not expired), such as savings from
+the coupon. This feature is critical to the functioning of Coupon Stash as it directly affects the primary functions of
+Coupon Stash such as the automatic archiving of expired coupons and setting of a reminder 3 days before the expiry date.
 
-* *Minor enhancement*: added a shortcut to close windows opened by Coupon Stash and
-do not have a command line interface. This ensures that the overall application
-can be solely used by a keyboard that can be exploited by a fast typist, bar the
-scrolling of the coupon list.
+* *Minor enhancements*: added a goto command that allows the user to navigate the calendar using the Command Line Interface
+& a copy command that allows the user to copy the details of a coupon to the user's clipboard.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=chester&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=ChesterSim&zR=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D&zACS=214.68421052631578&zS=2020-02-14&zU=2020-04-08&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false&since=2020-02-14[Functional code]]
+* *Code contributed*: Click on this https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=denise&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&zA=Denise-Ng&zR=AY1920S2-CS2103T-F09-1%2Fmain%5Bmaster%5D&zACS=356.75&zS=2020-02-14&zU=2020-04-08&zMG=false&zFTF=commit&zFGS=groupByRepos&zSO=undefined&zSWO=undefined&zSD=false&zSWD=false&since=2020-02-14[RepoSense link] to view the code that I have contributed to the project!
 
 * *Other contributions*:
 
