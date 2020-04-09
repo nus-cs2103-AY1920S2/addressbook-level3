@@ -46,92 +46,15 @@ commands which forms a very important part of our entire application allowing us
 == Contributions to the User Guide
 
 
-|===
-|_As you can see below, I have contributed in writing user-friendly directions which aids the user
-in using the app_
-|===
-
-=== View Stalls or Menu: `*enter*`
-
-Curious about the details of a particular canteen or stall? The `enter` command allows you to find out
-all the information you want about the canteen or stall you are interested in.
-
-Format: `enter STALL_NAME/ CANTEEN_NAME/ INDEX`
-
-Parameters:
-
-* `INDEX`: An index that corresponds to a particular canteen. This index is located beside the canteen name.
-* `CANTEEN_NAME`: The canteen name has to be from one of the canteens displayed. Partial names are not allowed.
-* `STALL_NAME`:  The stall name has to be from one of the stalls displayed. Partial names are not allowed.
-
-NOTE: Information about the types of food sold at the stall, the rating of the stall and various other things will be implemented in v2.0. +
-The stall's rating is determined from the user's past experiences of the food items which were selected (find out
-more in Section 4.13: Rate Food Items).
-
-====
-Example:: You wish to see the stalls available in Nus Flavors.
-====
-. On the main screen, type `enter Nus Flavors` or `enter 1` into the command box.
-+
-image::wireframe/enterStep1.PNG[width="700", align="left"]
-
-. This will display the list of stalls that Nus Flavors has.
-At the bottom of the screen, there will be a display box which displays the current canteen which you
-have entered.
-+
-image::wireframe/enterStep2.PNG[width="700", align="left"]
-
-* If you wish to view stalls in another canteen you can enter `back` into the command box. This will bring you back to the main page.
-
-. If you wish to see the menu of a stall, you can key in `enter` again.
-Let us see what the Western stall has on their menu. You can key in `enter Western` or `enter 9`.
-Don't forget to hit the kbd:[enter] after you are done typing.
-
-. This will show you the menu of the Western stall.
-For each food item, the name, the cost and the description of the food item will be given.
-At the bottom of the screen, there will also be a display box showing the current stall which you have entered.
-+
-image::wireframe/enterStall.PNG[width="700", align="left"]
-
-* Similarly, you can also enter `back` to return to the Nus Flavor canteen screen or enter `list` if you wish to return to the main screen.
-
-
-=== Filter Canteens, Stalls or Food: `*filter*`
-
-If you only want a canteen, stall or food with a particular tag, filter allows you to as its name suggests
-filter to show only the things you want. Filter also enables you to filter based on the maximum price you
-are willing to pay
-
-Format: `filter TAG/ PRICE`
-
-Parameters:
-
-* `TAG` - Label tag associated with the canteen or stall depending on which context you are in.
-* `PRICE` - a number which indicates the maximum price of food you are willing to pay for.
-
-
-NOTE: You can only filter by _price_ from the *menu page* of a stall. +
-When filtering by _tag_, tags vary based on the *current context*.
-
-****
-Examples:
-****
-* If you wish to filter tags based on what the canteen has, you can enter
-`*filter asian*` on the main screen. This will display canteens with the asian tag.
-
-* After entering a canteen, you can also filter the stalls based on tags as well.
-
-* If you have decided on the stall you wish to eat from, but then have a limit on how much you can spend ($4).
-You can `filter 4` on the menu page. This will display all the options available that are within your budget.
-
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#view-stalls-or-menu-enter[Enter Canteen Command]
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/UserGuide.adoc#back-command-back[Back Command]
 
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Please find below the parts which I have contributed to the Developer Guide. They showcase my
+knowledge of the inner workings of the project and the overall project structure._
 |===
-
-Appendixes
-
+* https://github.com/AY1920S2-CS2103T-F11-3/main/blob/master/docs/DeveloperGuide.adoc#enter-command[Enter Command]
 
