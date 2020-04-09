@@ -7,6 +7,7 @@ import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static tatracker.logic.commands.CommandTestUtil.VALID_RATING_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,10 @@ public class EditStudentDescriptorTest {
 
         // different tags -> returns false
         editedAmy = new EditStudentDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        assertNotEquals(DESC_AMY, editedAmy);
+
+        // different rating -> returns false
+        editedAmy = new EditStudentDescriptorBuilder(DESC_AMY).withRating(VALID_RATING_BOB).build();
         assertNotEquals(DESC_AMY, editedAmy);
     }
 }
