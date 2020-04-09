@@ -105,6 +105,7 @@ public class Task {
     }
 
     public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
+
         return deadlineTaskHashMap;
     }
 
@@ -133,6 +134,7 @@ public class Task {
     public static void setDeadlineTaskList(ObservableList<Task> initialiedList) {
         deadlineTaskList = initialiedList;
     }
+
 
     /**
      * Returns the observable list required for the UI.

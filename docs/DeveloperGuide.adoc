@@ -211,7 +211,7 @@ This feature is implemented using a panel on the main window, listing out a list
 Notes features includes `notesOpen`, `notesCreate`, `notesDelete` and `notesList`.
 
 .Notes List Activity Diagram
-image::NotesListCommand.png[]
+image::NotesList.png[]
 
 .Notes Open Activity Diagram
 image::NotesCreation.png[]
