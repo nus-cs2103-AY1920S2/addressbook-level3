@@ -2,6 +2,7 @@ package tatracker.logic.commands.student;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.commands.CommandTestUtil.DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -57,8 +58,8 @@ public class EditStudentCommandTest {
                 typicalGroupCode);
 
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
-        expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent,
-                typicalGroupCode, typicalModuleCode);
+        expectedModel.setStudent(model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased()),
+                editedStudent, typicalGroupCode, typicalModuleCode);
 
         assertStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
@@ -90,21 +91,17 @@ public class EditStudentCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_failure() {
         EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
                 typicalModuleCode, typicalGroupCode, new EditStudentDescriptor());
 
         Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS,
-                editedStudent.getName().fullName,
-                editedStudent.getMatric().value,
-                typicalModuleCode,
-                typicalGroupCode);
+        String expectedMessage = String.format(MESSAGE_NOT_EDITED);
 
         ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
 
-        assertStudentCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editStudentCommand, model, expectedMessage);
     }
 
     @Test
