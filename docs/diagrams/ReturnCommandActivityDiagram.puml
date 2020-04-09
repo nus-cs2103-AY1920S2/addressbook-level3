@@ -1,0 +1,55 @@
+@startuml
+start
+:User enters the return command and keywords;
+If () then ([only transaction ID is provided])
+            :Create a new ReturnCommand
+             based on user input,
+             and transaction ID;
+        If () then ([there are no orders with
+        the given transaction ID])
+            :Throw an exception
+            and display error message
+            to the user;
+
+        else ([there is an order with the given transaction ID])
+        :Convert the order with
+        the given transaction ID
+        into a return order;
+
+        :Delete the order from
+        the order list;
+
+        :Add the return order
+        into the return order list;
+
+        :Display success message
+        to the user;
+        endif
+
+else ([parcel attributes other than transaction ID are provided])
+    If () then ([any compulsory parcel attributes are missing])
+        :Throw an exception and
+        display error message to
+        the user;
+    else (all compulsory parcel attributes are present])
+
+        :Create a new return order
+        based on the given
+        parcel attributes;
+
+        :Create a new ReturnCommand
+        based on the newly created
+        return order;
+
+        :Add the newly created
+        return order into the
+        return order list;
+
+        :Display success message
+        to the user;
+    endif
+endif
+
+stop
+
+@enduml

@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-
+mainframe sd Execution of DeliveredCommand
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "d:DeliveredCommand" as DeliveredCommand LOGIC_COLOR
@@ -12,9 +12,6 @@ participant ":Model" as Model MODEL_COLOR
 participant ":Order" as Order LOGIC_COLOR
 end box
 activate LogicManager
-
-group sd Execution of DeliveredCommand
-
 LogicManager -> DeliveredCommand : execute(model)
 activate DeliveredCommand
 
@@ -63,8 +60,8 @@ DeliveredCommand -> CommandResult ++
 CommandResult --> DeliveredCommand -- : result
 
 DeliveredCommand --> LogicManager -- : result
-deactivate LogicManager
-end
+[<--LogicManager : result
+
 else order was delivered
 Model -> Model : isDelivered()
 activate Model
