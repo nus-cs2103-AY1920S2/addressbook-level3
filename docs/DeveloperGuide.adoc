@@ -1937,7 +1937,7 @@ The test cases after this assume that your TA-Tracker has a group with group cod
 
 === Adding students to a group
 
-. Adding a student to a group
+. Adding a student to a group.
 
 .. Test Case: `student add id/A0123456X g/G06 m/CS1101S n/Jane Doe` +
 Expected: A student named `Jane Doe` with matriculation number `A0123456X` is added
@@ -1948,9 +1948,9 @@ to the group `G06` of the module `CS1101S` with a rating of 5.
 
 === Editing a student
 
-. Editing a student in a group
+. Editing a student in a group.
 
-.. Test Case: `student edit id/A0123456X r/4` +
+.. Test Case: `student edit g/G06 m/CS1101S id/A0123456X r/4` +
 Expected: Changes the rating of the student with matric number `A123456X` to 4.
 
 === Editing a group
@@ -1964,7 +1964,7 @@ tab, you are automatically switched to *Student View*.
 
 === Editing a module's name
 
-. Edits the name of a module
+. Edits the name of a module.
 
 .. Test Case: `module edit m/CS1101S n/New Name`
  Expected: The name of the module with module code `CS1101S` will change to `New Name`
@@ -1976,11 +1976,36 @@ but the groups and students inside it will remain intact.
 
 === Sorting a group
 
+. Sorting students in a group.
+
+.. Test Case: `sort group g/G06 m/CS1101S t/alpha` +
+Expected: Sorts all the students in the group `G06` of module `CS1101S` alphabetically.
+
 === Sorting a module
+
+. Sorting students in a module.
+
+.. Test Case: `sort module g/G06 m/CS1101S t/alpha` +
+Expected: Sorts all the students in all the groups of module `CS1101S` alphabetically.
+You will see the students in the group at index 1 of the group list of module `CS1101S`.
 
 === Sorting all modules
 
+. Sorting students in all modules.
+
+.. Test Case: `sort all t/alpha` +
+Expected: Sorts all the students in all the groups of all modules alphabetically.
+You will see the students in the group at index 1 of the group list of the module
+at index 1 of the module list.
+
+
 === Deleting a student
+
+. Deleting a student from a group
+
+.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
+Expected: Deletes the student with matric number `A123456X` from the group `G06`
+of the module `m/CS1101S`.
 
 === Deleting a group
 
@@ -2016,20 +2041,6 @@ this would show you an error message.
 === Viewing Statistics
 
 === Exiting the program
-
-=== Deleting a student
-
-. Deleting a student while all students are listed
-
-.. Prerequisites: List all students using the `list` command. Multiple students in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
