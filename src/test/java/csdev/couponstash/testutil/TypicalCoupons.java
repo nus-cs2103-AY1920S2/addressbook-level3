@@ -203,7 +203,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(1)
-            .withRemindDate("29-11-2020", "02-12-2020")
+            .withRemindDate("29-11-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .withTags("friends").build();
@@ -215,7 +215,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(2)
             .withLimit(5)
-            .withRemindDate("28-11-2020", "31-12-2020")
+            .withRemindDate("28-11-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .withTags("owesMoney", "friends").build();
@@ -227,7 +227,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(2)
-            .withRemindDate("27-8-2020", "30-8-2020")
+            .withRemindDate("27-8-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .build();
@@ -242,7 +242,7 @@ public class TypicalCoupons {
             .withUsage(0)
             .withLimit(1)
             .withTags("friends")
-            .withRemindDate("28-12-2019", "31-12-2019")
+            .withRemindDate("28-12-2019")
             .withCondition("While Stock Last")
             .withArchived(false)
             .build();
@@ -256,7 +256,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(1)
-            .withRemindDate("27-8-2020", "30-8-2020")
+            .withRemindDate("27-8-2020")
             .withCondition("While Stock Last")
             .withArchived(true)
             .build();
@@ -269,7 +269,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(1)
-            .withRemindDate("27-8-2020", "30-8-2020")
+            .withRemindDate("27-8-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .build();
@@ -283,7 +283,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(2)
-            .withRemindDate("28-12-2020", "31-12-2020")
+            .withRemindDate("28-12-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .build();
@@ -297,7 +297,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(1)
-            .withRemindDate("28-12-2020", "31-12-2020")
+            .withRemindDate("28-12-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .build();
@@ -309,7 +309,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2019")
             .withUsage(0)
             .withLimit(1)
-            .withRemindDate("28-12-2020", "31-12-2020")
+            .withRemindDate("28-12-2020")
             .withCondition("While Stock Last")
             .withArchived(false)
             .build();
@@ -324,7 +324,7 @@ public class TypicalCoupons {
             .withStartDate(VALID_START_DATE_AMY)
             .withUsage(VALID_USAGE_AMY)
             .withLimit(VALID_LIMIT_AMY)
-            .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
+            .withRemindDate(VALID_REMIND_DATE_AMY)
             .withCondition(VALID_CONDITION_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Coupon BOB = new CouponBuilder()
@@ -337,7 +337,7 @@ public class TypicalCoupons {
             .withUsage(VALID_USAGE_BOB)
             .withLimit(VALID_LIMIT_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
+            .withRemindDate(VALID_REMIND_DATE_BOB)
             .withCondition(VALID_CONDITION_BOB)
             .build();
 

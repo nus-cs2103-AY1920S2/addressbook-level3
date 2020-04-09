@@ -14,7 +14,7 @@ import csdev.couponstash.commons.util.DateUtil;
 public class StartDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Start Dates should be before the Expiry Date (in the D-M-YYYY format).";
+            "Start Dates should not be after the Expiry Date (in the D-M-YYYY format).";
     public final LocalDate date;
     public final String value;
 

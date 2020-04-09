@@ -43,6 +43,8 @@ public class DateUtil {
 
 
     public static final String START_DATE_EXPIRY_DATE_CONSTRAINT = "Start Date must be before Expiry Date!";
+    public static final String REMIND_DATE_EXCEED_EXPIRY_DATE = "Reminder date cannot be after Expiry Date!";
+
 
     public static final int MINIMUM_YEAR = 2000;
     public static final int MAXIMUM_YEAR = 2200;

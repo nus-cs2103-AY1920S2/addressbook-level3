@@ -36,7 +36,8 @@ import csdev.couponstash.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Your input index of \"%s\" is not "
+            + "a non-zero unsigned integer.";
     public static final String MESSAGE_INDEX_OVERFLOW =
             String.format("Index is too large. Why do you need so many coupons? "
             + "Try something less than or equals to %d.", Integer.MAX_VALUE);
@@ -61,7 +62,7 @@ public class ParserUtil {
         }
 
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(String.format(MESSAGE_INVALID_INDEX, trimmedIndex));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -353,11 +354,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code remindDate} is invalid.
      */
-    public static RemindDate parserRemindDate(String remindDate) throws ParseException {
-
+    public static RemindDate parseRemindDate(String remindDate) throws ParseException {
         requireNonNull(remindDate);
         String trimmedDate = remindDate.trim();
-        if (!RemindDate.isValidRemindDate(trimmedDate)) {
+        if (!DateUtil.isValidDate(trimmedDate)) {
             throw new ParseException(RemindDate.MESSAGE_CONSTRAINTS);
         }
         RemindDate remind = new RemindDate();

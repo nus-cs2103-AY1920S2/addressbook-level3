@@ -55,12 +55,14 @@ public class Coupon {
      * @param usage The Usage for this Coupon.
      * @param limit The usage Limit for this Coupon.
      * @param tags The List of tags for this Coupon.
+     * @param remindDate The RemindDate for this Coupon.
+     * @param condition The Condition for this Coupon.
      */
     public Coupon(Name name, PromoCode promoCode, Savings savingsForEachUse, ExpiryDate expiryDate, StartDate startDate,
-                  Usage usage, Limit limit, Set<Tag> tags, Condition condition) {
+                  Usage usage, Limit limit, Set<Tag> tags, RemindDate remindDate, Condition condition) {
 
         this(name, promoCode, savingsForEachUse, expiryDate, startDate, usage,
-                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate), condition, new Archived());
+                limit, tags, new DateSavingsSumMap(), remindDate, condition, new Archived());
     }
 
     /**

@@ -6,6 +6,8 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import csdev.couponstash.commons.util.DateUtil;
+
 /**
  * Represents a Coupon's remind date in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidRemindDate(String, String)}
@@ -13,9 +15,11 @@ import java.time.format.DateTimeFormatter;
 public class RemindDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Remind Dates should be a date in the D-M-YYYY format and not after the expiry date";
+            "Remind Dates should not be a date after the Expiry date "
+                    + "(in the D-M-YYYY format).";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
+
     private LocalDate date;
     private boolean remindFlag;
     private String value;
@@ -25,14 +29,12 @@ public class RemindDate {
      *
      * @param remindDate A valid remind date.
      */
-    public RemindDate(String remindDate, String expiryDate) {
-        if (remindDate.equals("")) {
-            date = null;
-            remindFlag = false;
-            value = "";
-        }
-        requireNonNull(remindDate, expiryDate);
-        checkArgument(isValidRemindDate(remindDate, expiryDate), MESSAGE_CONSTRAINTS);
+    public RemindDate(String remindDate) {
+        requireNonNull(remindDate);
+
+        // Check if date is valid
+        checkArgument(DateUtil.isValidDate(remindDate), MESSAGE_CONSTRAINTS);
+
         value = remindDate;
         this.date = getDate();
         remindFlag = true;
@@ -68,22 +70,6 @@ public class RemindDate {
 
         return remindTest.matches(VALIDATION_REGEX)
                 && !(remindDate.isAfter(expiryDate));
-    }
-
-    /**
-     * Returns true if a given string reminddate are a valid remind date.
-     */
-    public static boolean isValidRemindDate(String remindTest) {
-        LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
-
-        return remindTest.matches(VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns remindFlag if coupon has reminder set.
-     */
-    public boolean hasReminder() {
-        return this.remindFlag;
     }
 
     /**

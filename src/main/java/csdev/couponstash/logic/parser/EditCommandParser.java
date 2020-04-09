@@ -88,7 +88,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_REMIND).isPresent()) {
-            editCouponDescriptor.setRemindDate(ParserUtil.parserRemindDate(argMultimap
+            editCouponDescriptor.setRemindDate(ParserUtil.parseRemindDate(argMultimap
                     .getValue(CliSyntax.PREFIX_REMIND).get()));
         }
 

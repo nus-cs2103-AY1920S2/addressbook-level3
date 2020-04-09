@@ -18,8 +18,9 @@ public class UnarchiveCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        String index = "a";
         CommandParserTestUtil.assertParseFailure(parser,
-                "a", ParserUtil.MESSAGE_INVALID_INDEX + "\n\n"
+                index, String.format(ParserUtil.MESSAGE_INVALID_INDEX, index) + "\n\n"
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnarchiveCommand.MESSAGE_USAGE));
     }
 

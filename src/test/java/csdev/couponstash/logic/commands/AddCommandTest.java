@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.commons.util.DateUtil.REMIND_DATE_EXCEED_EXPIRY_DATE;
 import static csdev.couponstash.commons.util.DateUtil.START_DATE_EXPIRY_DATE_CONSTRAINT;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
@@ -55,6 +56,16 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
 
         assertThrows(CommandException.class, START_DATE_EXPIRY_DATE_CONSTRAINT, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_remindDateIsAfterExpiryDate_throwsCommandException() {
+        Coupon validCoupon = new CouponBuilder().build();
+        Coupon invalidCoupon = new CouponBuilder().withExpiryDate("1-8-2020").withRemindDate("31-12-2020").build();
+        AddCommand addCommand = new AddCommand(invalidCoupon);
+        ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
+
+        assertThrows(CommandException.class, REMIND_DATE_EXCEED_EXPIRY_DATE, () -> addCommand.execute(modelStub));
     }
 
     @Test
