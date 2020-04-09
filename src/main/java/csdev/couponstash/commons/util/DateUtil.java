@@ -50,6 +50,8 @@ public class DateUtil {
     public static final int MAXIMUM_YEAR = 2200;
 
 
+    public static final DateTimeFormatter DATE_FORMATTER_STANDARD = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+
     /**
      * Returns true if a given string is a valid Date.
      */
@@ -153,5 +155,14 @@ public class DateUtil {
      */
     public static YearMonth parseStringToYearMonth(String str) throws DateTimeParseException {
         return YearMonth.parse(str, YEAR_MONTH_FORMATTER);
+    }
+
+    /**
+     * Parses a String into a Date String with Standard Format of DD-MM-YYYY.
+     * @param str The string to be parsed.
+     * @return String of LocalDate in DD-MM-YYYY format.
+     */
+    public static String parseStringToStandardDateString(String str) {
+        return parseStringToDate(str).format(DATE_FORMATTER_STANDARD);
     }
 }

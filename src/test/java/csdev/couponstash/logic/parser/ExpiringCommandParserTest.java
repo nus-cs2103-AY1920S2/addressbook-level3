@@ -58,7 +58,7 @@ public class ExpiringCommandParserTest {
 
         // no leading and trailing whitespaces (Date)
         expectedExpiringCommand =
-                new ExpiringCommand(new DateIsEqualsPredicate("30-8-2020"));
+                new ExpiringCommand(new DateIsEqualsPredicate("30-08-2020"));
         CommandParserTestUtil.assertParseSuccess(parser, "\n " + PREFIX_EXPIRY_DATE + "30-8-2020",
                 expectedExpiringCommand);
 
