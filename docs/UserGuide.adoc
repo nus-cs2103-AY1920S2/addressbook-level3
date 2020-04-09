@@ -371,7 +371,7 @@ Format: `(rt)find [n/RESTAURANT_NAME] [l/LOCATION]`
 * If more than 1 optional parameters are filled, they are viewed as a conjunction of filters
 ****
 
-Examples: 
+Examples:
 * `(rt)find n/no signboard` +
 Searches for restaurants with the keyword `no signboard`.
 * `(rt)find l/bedok` +

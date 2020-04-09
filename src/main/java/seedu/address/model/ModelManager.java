@@ -215,7 +215,7 @@ public class ModelManager implements Model {
         createNewState("EVENTS");
         eventSchedule.setEvent(target, markedEvent);
     }
-    
+
     @Override
     public boolean hasAssignmentDueOnSameDate(Event toAdd) {
         LocalDate eventDate = toAdd.getEventDate().getDateTime().toLocalDate();
