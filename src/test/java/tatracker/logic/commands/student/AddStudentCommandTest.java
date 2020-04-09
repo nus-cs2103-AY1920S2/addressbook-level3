@@ -1,14 +1,19 @@
 package tatracker.logic.commands.student;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.commons.core.Messages.MESSAGE_DUPLICATE_STUDENT;
 import static tatracker.testutil.Assert.assertThrows;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
+import tatracker.model.ModelStub.ModelStubAcceptingStudentAdded;
 import tatracker.model.ModelStub.ModelStubWithStudent;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.StudentBuilder;
@@ -34,18 +39,21 @@ public class AddStudentCommandTest {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(testStudent, testGroup, null));
     }
 
-
-    /*@Test
+    @Test
     public void execute_studentAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
         Student validStudent = new StudentBuilder().build();
 
         CommandResult commandResult = new AddStudentCommand(validStudent, testGroup, testModule).execute(modelStub);
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent, testModule, testGroup),
+        assertEquals(String.format(AddStudentCommand.MESSAGE_ADD_STUDENT_SUCCESS,
+                validStudent.getName().fullName,
+                validStudent.getMatric().value,
+                testModule,
+                testGroup),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
-    } */
+    }
 
     @Test
     public void execute_duplicateStudent_throwsCommandException() {

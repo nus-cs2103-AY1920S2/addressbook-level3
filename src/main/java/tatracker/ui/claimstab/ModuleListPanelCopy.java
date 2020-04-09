@@ -51,7 +51,7 @@ public class ModuleListPanelCopy extends UiPart<Region> implements Focusable {
      * @param moduleList the updated moduleList
      */
     public void updateCells(ObservableList<Module> moduleList) {
-        System.out.print("reached updateCells");
+        logger.fine("reached updateCells");
         moduleListViewCopy.setItems(moduleList);
         moduleListViewCopy.setCellFactory(listView -> new ModuleListViewCellCopy());
     }

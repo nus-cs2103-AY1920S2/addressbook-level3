@@ -1,23 +1,27 @@
 package tatracker.logic.commands.student;
 
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
-// import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
-// import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
-// import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
-// import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
-// import org.junit.jupiter.api.Test;
-// import tatracker.commons.core.Messages;
-// import tatracker.commons.core.index.Index;
-// import tatracker.model.student.Student;
-
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
+import static tatracker.logic.commands.CommandTestUtil.assertStudentCommandSuccess;
+import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_FIRST_STUDENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_NONEXISTENT;
+import static tatracker.testutil.TypicalIndexes.MATRIC_SECOND_STUDENT;
+import static tatracker.testutil.TypicalTaTracker.getTypicalGroup;
+import static tatracker.testutil.TypicalTaTracker.getTypicalModule;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
+import org.junit.jupiter.api.Test;
+
+import tatracker.commons.core.Messages;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
-
+import tatracker.model.group.Group;
+import tatracker.model.module.Module;
+import tatracker.model.student.Matric;
+import tatracker.model.student.Student;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -26,87 +30,72 @@ import tatracker.model.UserPrefs;
 public class DeleteStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
+    private String typicalGroupCode = getTypicalGroup().getIdentifier();
+    private String typicalModuleCode = getTypicalModule().getIdentifier();
 
-    //@Test
-    //public void execute_validIndexUnfilteredList_success() {
-    //Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-    //DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
-    //
-    //String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
-    //
-    //ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
-    //expectedModel.deleteStudent(studentToDelete);
-    //
-    //assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
-    //}
-    //
-    // @Test
-    // public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-    //     Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
-    //     DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
-    //
-    //     assertCommandFailure(deleteStudentCommand,
-    //             model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-    // }
-    //
-    // @Test
-    // public void execute_validIndexFilteredList_success() {
-    //     showStudentAtIndex(model, INDEX_FIRST_STUDENT);
-    //
-    //     Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-    //     DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
-    //
-    //     String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
-    //
-    //     Model expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
-    //     expectedModel.deleteStudent(studentToDelete);
-    //     showNoStudent(expectedModel);
-    //
-    //     assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
-    // }
-    //
-    // @Test
-    // public void execute_invalidIndexFilteredList_throwsCommandException() {
-    //     showStudentAtIndex(model, INDEX_FIRST_STUDENT);
-    //
-    //     Index outOfBoundIndex = INDEX_SECOND_STUDENT;
-    //     // ensures that outOfBoundIndex is still in bounds of ta-tracker list
-    //     assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getStudentList().size());
-    //
-    //     DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
-    //
-    //     assertCommandFailure(deleteStudentCommand, model,
-    //             Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-    // }
-    //
-    // @Test
-    // public void equals() {
-    //     DeleteStudentCommand deleteFirstCommand = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
-    //     DeleteStudentCommand deleteSecondCommand = new DeleteStudentCommand(INDEX_SECOND_STUDENT);
-    //
-    //     // same object -> returns true
-    //     assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
-    //
-    //     // same values -> returns true
-    //     DeleteStudentCommand deleteFirstCommandCopy = new DeleteStudentCommand(INDEX_FIRST_STUDENT);
-    //     assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
-    //
-    //     // different types -> returns false
-    //     assertFalse(deleteFirstCommand.equals(1));
-    //
-    //     // null -> returns false
-    //     assertFalse(deleteFirstCommand.equals(null));
-    //
-    //     // different student -> returns false
-    //     assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-    // }
-    //
-    // /**
-    //  * Updates {@code model}'s filtered list to show no one.
-    //  */
-    // private void showNoStudent(Model model) {
-    //     model.updateFilteredStudentList(p -> false);
-    //
-    //     assertTrue(model.getFilteredStudentList().isEmpty());
-    // }
+    @Test
+    public void execute_validMatricUnfilteredList_success() {
+        Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
+                typicalGroupCode, typicalModuleCode);
+
+        String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS,
+                studentToDelete.getName().fullName,
+                studentToDelete.getMatric().value,
+                typicalModuleCode,
+                typicalGroupCode);
+
+        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
+        expectedModel.deleteStudent(studentToDelete);
+
+        assertStudentCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidMatricUnfilteredList_throwsCommandException() {
+        Matric nonexistentMatric = MATRIC_NONEXISTENT;
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(nonexistentMatric,
+                typicalGroupCode, typicalModuleCode);
+
+        assertCommandFailure(deleteStudentCommand, model, String.format(
+                Messages.MESSAGE_INVALID_STUDENT,
+                nonexistentMatric,
+                typicalGroupCode,
+                typicalModuleCode));
+    }
+
+    @Test
+    public void equals() {
+        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
+                typicalGroupCode, typicalModuleCode);
+        DeleteStudentCommand deleteCommandDifferentMatric = new DeleteStudentCommand(MATRIC_SECOND_STUDENT,
+                typicalGroupCode, typicalModuleCode);
+        DeleteStudentCommand deleteCommandDifferentGroup = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
+               new Group("G05").getIdentifier(), typicalModuleCode);
+        DeleteStudentCommand deleteCommandDifferentModule = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
+                typicalGroupCode, new Module("CS3242").getIdentifier());
+
+        // same object -> returns true
+        assertTrue(deleteCommand.equals(deleteCommand));
+
+        // same values -> returns true
+        DeleteStudentCommand deleteFirstCommandCopy = new DeleteStudentCommand(MATRIC_FIRST_STUDENT,
+                typicalGroupCode, typicalModuleCode);
+        assertTrue(deleteCommand.equals(deleteFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deleteCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deleteCommand.equals(null));
+
+        // different matric -> returns false
+        assertFalse(deleteCommand.equals(deleteCommandDifferentMatric));
+
+        // different group -> returns false
+        assertFalse(deleteCommand.equals(deleteCommandDifferentGroup));
+
+        // different module -> returns false
+        assertFalse(deleteCommand.equals(deleteCommandDifferentModule));
+    }
 }
