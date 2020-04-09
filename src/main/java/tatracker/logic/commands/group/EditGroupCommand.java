@@ -75,7 +75,7 @@ public class EditGroupCommand extends Command {
         }
 
         if (!newGroupCode.equals(group.getIdentifier()) && actualModule.hasGroup(new Group(newGroupCode))) {
-                throw new CommandException(MESSAGE_EDIT_GROUP_FAILURE);
+            throw new CommandException(MESSAGE_EDIT_GROUP_FAILURE);
         }
         Group editedGroup = actualModule.getGroup(group.getIdentifier());
         editedGroup.setIdentifier(newGroupCode);
