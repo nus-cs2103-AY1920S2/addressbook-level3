@@ -213,7 +213,7 @@ public class EditStaffCommand extends EditCommand {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, phone, email, salary, address, tags);
+      return CollectionUtil.isAnyNonNull(name, gender, phone, email, salary, address, tags);
     }
 
     public Optional<Name> getName() {

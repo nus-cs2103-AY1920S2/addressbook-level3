@@ -8,8 +8,8 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "redo success";
-    public static final String MESSAGE_FAILURE = "redo failure, no more commands";
+    public static final String MESSAGE_SUCCESS = "Redo success: [%s]";
+    public static final String MESSAGE_FAILURE = "Sorry! There's no Redoable Command!";
 
     @Override
     public final CommandResult execute(Model model) throws CommandException {
@@ -19,7 +19,7 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        undoRedoStack.popRedo().redo(model);
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult commandResult = undoRedoStack.popRedo().redo(model);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, commandResult.getFeedbackToUser()));
     }
 }

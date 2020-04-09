@@ -20,6 +20,7 @@ public class ListStaffCommand extends ListCommand {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
+    model.getMainWindow().callSwitchToStaff();
     return new CommandResult(MESSAGE_SUCCESS);
   }
 }

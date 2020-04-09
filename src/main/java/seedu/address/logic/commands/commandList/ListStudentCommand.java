@@ -20,6 +20,7 @@ public class ListStudentCommand extends ListCommand {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+    model.getMainWindow().callSwitchToStudent();
     return new CommandResult(MESSAGE_SUCCESS);
   }
 }

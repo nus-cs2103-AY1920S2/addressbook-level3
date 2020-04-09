@@ -58,6 +58,7 @@ public class CourseDetailedCard extends UiPart<Region> {
     name.setText(course.getName().fullName);
     id.setText(displayedIndex + ". ");
     courseID.setText(course.getId().value);
+    amount.setText(course.getAmount().value);
 
     Set<ID> assignmentIDS = course.getAssignedAssignmentsID();
     String assignmentsStrings = "None";
@@ -72,7 +73,13 @@ public class CourseDetailedCard extends UiPart<Region> {
       studentStrings = studentIDS.toString();
     }
     assignedStudents.setText(studentStrings);
-    assignedStaff.setText(course.getAssignedStaffID().toString());
+
+    ID assignedStaffID = course.getAssignedStaffID();
+    if (assignedStaffID == null || assignedStaffID.toString().equals("")){
+      assignedStaff.setText("None");
+    } else {
+      assignedStaff.setText(assignedStaffID.toString());
+    }
 
     course.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -32,6 +32,7 @@ public class FindStaffCommand extends Command {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredStaffList(predicate);
+    model.getMainWindow().callSwitchToStaff();
     return new CommandResult(
         String.format(Messages.MESSAGE_STAFFS_LISTED_OVERVIEW,
             model.getFilteredStaffList().size()));

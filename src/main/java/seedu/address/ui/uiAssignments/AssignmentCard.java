@@ -35,6 +35,7 @@ public class AssignmentCard extends UiPart<Region> {
   @FXML
   private Label name;
 
+
   private CommandBox commandBox;
 
   public AssignmentCard(Assignment assignment, CommandBox commandBox, int displayedIndex) {

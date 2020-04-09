@@ -20,6 +20,7 @@ public class ListCourseCommand extends ListCommand {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    model.getMainWindow().callSwitchToCourse();
     return new CommandResult(MESSAGE_SUCCESS);
   }
 }

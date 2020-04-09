@@ -265,6 +265,30 @@ public class MainWindow extends UiPart<Stage> {
     }
   }
 
+
+  public void switchToView(String view){
+    switch (view) {
+      case "SUMMARY":
+        callSwitchToSummary();
+        break;
+      case "STUDENT":
+        callSwitchToStudent();
+        break;
+      case "STAFF":
+        callSwitchToStaff();
+        break;
+      case "COURSE":
+        callSwitchToCourse();
+        break;
+      case "FINANCE":
+        callSwitchToFinance();
+        break;
+      case "ASSIGNMENT":
+        callSwitchToAssignment();
+        break;
+    }
+  }
+
   /**
    * Called from switch student command
    */

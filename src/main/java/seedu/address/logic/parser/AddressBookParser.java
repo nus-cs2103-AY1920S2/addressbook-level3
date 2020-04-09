@@ -181,7 +181,7 @@ public class AddressBookParser {
 
         // Edit Operations
       case EditStaffCommand.COMMAND_WORD:
-        return new EditTeacherCommandParser().parse(arguments);
+        return new EditStaffCommandParser().parse(arguments);
 
       case EditStudentCommand.COMMAND_WORD:
         return new EditStudentCommandParser().parse(arguments);

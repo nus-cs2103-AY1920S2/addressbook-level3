@@ -20,6 +20,7 @@ public class ListFinanceCommand extends ListCommand {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
+    model.getMainWindow().callSwitchToFinance();
     return new CommandResult(MESSAGE_SUCCESS);
   }
 }
