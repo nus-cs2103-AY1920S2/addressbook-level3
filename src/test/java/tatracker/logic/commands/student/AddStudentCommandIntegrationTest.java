@@ -2,7 +2,7 @@ package tatracker.logic.commands.student;
 
 import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
-import static tatracker.logic.commands.CommandTestUtil.assertAddStudentCommandSuccess;
+import static tatracker.logic.commands.CommandTestUtil.assertStudentCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
@@ -61,7 +61,7 @@ public class AddStudentCommandIntegrationTest {
         String expectedFeedback = String.format(AddStudentCommand.MESSAGE_ADD_STUDENT_SUCCESS, validStudent,
                 testModule.getIdentifier(), testGroup.getIdentifier());
 
-        assertAddStudentCommandSuccess(command, model, expectedFeedback, expectedModel);
+        assertStudentCommandSuccess(command, model, expectedFeedback, expectedModel);
     }
 
     @Test

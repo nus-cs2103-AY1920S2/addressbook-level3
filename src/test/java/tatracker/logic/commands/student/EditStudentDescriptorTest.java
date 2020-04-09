@@ -56,9 +56,5 @@ public class EditStudentDescriptorTest {
         // different rating -> returns false
         editedAmy = new EditStudentDescriptorBuilder(DESC_AMY).withRating(VALID_RATING_BOB).build();
         assertNotEquals(DESC_AMY, editedAmy);
-
-        // different matric -> returns false
-        editedAmy = new EditStudentDescriptorBuilder(DESC_AMY).withTags(VALID_MATRIC_BOB).build();
-        assertNotEquals(DESC_AMY, editedAmy);
     }
 }
