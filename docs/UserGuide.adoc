@@ -179,6 +179,8 @@ Examples:
 +
 ** Adds an exercise called "Bench Press" of weight 120kg with "10 reps" on 26th February 2020 to the 3rd client
 
+=== Edit a client's exercise: `edit-e`
+
 === Delete a client's exercise: `delete-e`
 
 Deletes an existing exercise at the specified index from the exercise list of the client currently being viewed.
@@ -318,7 +320,8 @@ Examples:
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to a client.
+|`add-e n/EXERCISE_NAME d/DATE ew/WEIGHT reps/REPS sets/SETS`| Adds a new exercise to the client being viewed.
+|`edit-e INDEX [n/EXERCISE_NAME] [d/DATE] [ew/WEIGHT] [reps/REPS] [sets/SETS]`| Edits the exercise details of the client being viewed.
 |`delete-e INDEX`| Deletes an exercise in the exercise list of the client.
-|`graph e/Push Ups`| Shows a graph of the exercise progress done by a client.
+|`graph n/NAME a/AXIS sd/STARTDATE ed/ENDDATE`| Shows a graph of the exercise progress done by a client between the indicated dates.
 |=======================================================================
