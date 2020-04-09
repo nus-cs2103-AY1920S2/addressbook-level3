@@ -120,13 +120,6 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     }
 
     /**
-     * Adds a duplicate of a recipe to the list.
-     */
-    public void duplicateRecipe(Recipe recipe) {
-        recipes.duplicate(recipe);
-    }
-
-    /**
      * Replaces the given recipe {@code target} in the list with {@code editedRecipe}.
      * {@code target} must exist in the recipe book.
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the recipe book.

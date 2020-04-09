@@ -147,12 +147,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void duplicateRecipe(Recipe recipe) {
-        recipeBook.duplicateRecipe(recipe);
-        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-    }
-
-    @Override
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
         recipeBook.setRecipe(target, editedRecipe);

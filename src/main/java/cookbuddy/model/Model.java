@@ -110,11 +110,6 @@ public interface Model {
     void addRecipe(Recipe recipe);
 
     /**
-     * Adds a duplicate of a recipe to the list.
-     */
-    void duplicateRecipe(Recipe recipe);
-
-    /**
      * Replaces the given recipe {@code target} with {@code editedRecipe}.
      * {@code target} must exist in the recipe book.
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the recipe book.

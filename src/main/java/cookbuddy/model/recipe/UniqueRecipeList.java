@@ -56,14 +56,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     }
 
     /**
-     * Adds a duplicate of a recipe to the list.
-     */
-    public void duplicate(Recipe toDuplicate) {
-        requireNonNull(toDuplicate);
-        internalList.add(toDuplicate);
-    }
-
-    /**
      * Replaces the recipe {@code target} in the list with {@code editedRecipe}.
      * {@code target} must exist in the list.
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the list.
