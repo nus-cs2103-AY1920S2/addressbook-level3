@@ -18,22 +18,14 @@ import static seedu.address.logic.parser.CliSyntax.*;
  * Parses input arguments and creates a new AssignCommand object
  */
 public class UndoneCommandParser implements Parser<UndoneCommandBase> {
-
     public static final String MESSAGE_USAGE =
-        "undone command must at least have an AssignmentID"
-        + "\nto be able to mark all students who are taking a particular assignment in a course as done."
-        + "\nNote that all assignments can only assigned to 1 course!"
-        + "\nA studentID can be o"
-        + "\n3. Assigning an assignment to a course"
-        + "\nParameters: "
-        + "\n" + PREFIX_COURSEID + "COURSEID"
-        + "\n AND"
-        + "\n" + PREFIX_STUDENTID + "STUDENTID"
-        + " OR " + PREFIX_TEACHERID + "TEACHERID"
-        + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
-        + "\n" + "Example: "  + "assign "
-        + PREFIX_COURSEID + "829 "
-        + PREFIX_STUDENTID + "33 ";
+            "undone command must have an assignmentID and a studentID"
+                    + "\nParameters: "
+                    + "\n" + PREFIX_STUDENTID + "STUDENTID"
+                    + " " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
+                    + "\n" + "Example: "  + "undone "
+                    + PREFIX_STUDENTID + "101 "
+                    + PREFIX_ASSIGNMENTID + "359 ";
 
     /**
      * Parses the given arguments into context of AssignCommand (actually a class that inherits
@@ -54,6 +46,13 @@ public class UndoneCommandParser implements Parser<UndoneCommandBase> {
 
         if (argMultimap.getValue(PREFIX_ASSIGNMENTID).isPresent()) {
             assignDescriptor.setAssignEntity(PREFIX_ASSIGNMENTID, ParserUtil.parseID(argMultimap.getValue(PREFIX_ASSIGNMENTID).get()));
+        }
+
+
+        if(assignDescriptor.getAllAssignKeys().size() != 2) {
+            throw new ParseException(
+                    String.format(MESSAGE_USAGE, "")
+            );
         }
 
         return UndoneCommandFactory.getCommand(assignDescriptor);

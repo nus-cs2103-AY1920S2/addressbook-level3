@@ -23,20 +23,13 @@ import static seedu.address.logic.parser.CliSyntax.*;
 public class DoneCommandParser implements Parser<DoneCommandBase> {
 
     public static final String MESSAGE_USAGE =
-        "done command must at least have an AssignmentID"
-        + "\nto be able to mark all students who are taking a particular assignment in a course as done."
-        + "\nNote that all assignments can only assigned to 1 course!"
-        + "\nA studentID can be o"
-        + "\n3. Assigning an assignment to a course"
+        "done command must have an AssignmentID and a studentID"
         + "\nParameters: "
-        + "\n" + PREFIX_COURSEID + "COURSEID"
-        + "\n AND"
         + "\n" + PREFIX_STUDENTID + "STUDENTID"
-        + " OR " + PREFIX_TEACHERID + "TEACHERID"
-        + " OR " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
-        + "\n" + "Example: "  + "assign "
-        + PREFIX_COURSEID + "829 "
-        + PREFIX_STUDENTID + "33 ";
+        + " " + PREFIX_ASSIGNMENTID + "ASSIGNMENTID"
+        + "\n" + "Example: "  + "done "
+        + PREFIX_STUDENTID + "101 "
+        + PREFIX_ASSIGNMENTID + "359 ";
 
     /**
      * Parses the given arguments into context of AssignCommand (actually a class that inherits
@@ -57,6 +50,12 @@ public class DoneCommandParser implements Parser<DoneCommandBase> {
 
         if (argMultimap.getValue(PREFIX_ASSIGNMENTID).isPresent()) {
             assignDescriptor.setAssignEntity(PREFIX_ASSIGNMENTID, ParserUtil.parseID(argMultimap.getValue(PREFIX_ASSIGNMENTID).get()));
+        }
+
+        if(assignDescriptor.getAllAssignKeys().size() != 2) {
+            throw new ParseException(
+                    String.format(MESSAGE_USAGE, "")
+            );
         }
 
         return DoneCommandFactory.getCommand(assignDescriptor);

@@ -66,10 +66,11 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
         if(this.undoProgresses != null) {
             ProgressManager.addUndoProgress(this.undoProgresses);
+        } else {
+            ProgressManager.addAllProgressesToOneStudent(courseID, studentID);
         }
 
         EdgeManager.assignStudentToCourse(studentID, courseID);
-        ProgressManager.addAllProgressesToOneStudent(courseID, studentID);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 assigningStudent.getName(), studentID.value,
