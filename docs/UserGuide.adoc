@@ -39,15 +39,19 @@ We target mostly the analytics teams within government agencies.
 Our product is designed for the following personas:
 
 * Tech savvy:
+
 We assume that these users are familiar with technology and mediocre level of programming. They should be comfortable interacting with dashboards and would prefer more control over the software, as compared to the average user.
 
 * Pressed for timing:
+
 These users have to manage multiple projects in their day to day task. As such, speed of information retrieval and display is important to the functionality of the product, especially since we are dealing with a situation where a second delay may cause the infection to spread further.
 
-* Rich
+* Rich:
+
 The govt has too much money to throw around. We need not emphasise on cost cutting measures that reduces cost at the expense of system efficiency. We are not dealing with a start up here that lacks the funds needed to pay for our solution.
 
 * Believes that security is paramount:
+
 Not saying that security is not important for an application, just that we are dealing with government agencies and personal user data here.
 
 == Quick Start
