@@ -31,9 +31,9 @@ public class UniqueGoodList implements Iterable<Good> {
     /**
      * Returns true if the list contains an equivalent good as the given argument.
      */
-    public boolean contains(GoodName nameToCheck) {
-        requireNonNull(nameToCheck);
-        return internalList.stream().anyMatch(record -> record.getGoodName().equals(nameToCheck));
+    public boolean contains(Good toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(good -> good.isSameGood(toCheck));
     }
 
     /**
@@ -42,7 +42,7 @@ public class UniqueGoodList implements Iterable<Good> {
      */
     public void add(Good toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd.getGoodName())) {
+        if (contains(toAdd)) {
             throw new DuplicateGoodException();
         }
         internalList.add(toAdd);
@@ -62,7 +62,7 @@ public class UniqueGoodList implements Iterable<Good> {
             throw new GoodNotFoundException();
         }
 
-        if (!target.isSameGood(editedGood) && contains(editedGood.getGoodName())) {
+        if (!target.isSameGood(editedGood) && contains(editedGood)) {
             throw new DuplicateGoodException();
         }
 

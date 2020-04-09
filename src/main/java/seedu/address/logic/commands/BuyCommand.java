@@ -102,7 +102,8 @@ public class BuyCommand extends Command {
         }
 
         // updated inventory to reflect purchase
-        if (model.hasGood(boughtGoodName)) {
+        Good queryGood = new Good(boughtGoodName, boughGoodQuantity);
+        if (model.hasGood(queryGood)) {
             increaseQuantity(model, boughtGoodName, boughGoodQuantity);
         } else {
             Good boughtGood = new Good(boughtGoodName, boughGoodQuantity);

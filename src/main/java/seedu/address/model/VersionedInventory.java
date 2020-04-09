@@ -39,8 +39,8 @@ public class VersionedInventory extends Inventory implements Version<Inventory> 
     /**
      * Returns true if a good with the same identity as {@code good} exists in the address book.
      */
-    public boolean hasGood(GoodName goodName) {
-        return getCurrentState().hasGood(goodName);
+    public boolean hasGood(Good good) {
+        return getCurrentState().hasGood(good);
     }
 
     public int index(Good toFind) {

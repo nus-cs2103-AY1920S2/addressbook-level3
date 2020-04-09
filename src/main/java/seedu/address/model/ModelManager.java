@@ -163,9 +163,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasGood(GoodName goodName) {
-        requireNonNull(goodName);
-        return inventory.hasGood(goodName);
+    public boolean hasGood(Good good) {
+        requireNonNull(good);
+        return inventory.hasGood(good);
     }
 
     @Override

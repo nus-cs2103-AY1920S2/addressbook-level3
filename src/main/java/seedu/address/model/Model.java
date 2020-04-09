@@ -123,7 +123,7 @@ public interface Model extends Versionable {
     /**
      * Returns true if a good with the same identity as {@code good} exists in the inventory.
      */
-    boolean hasGood(GoodName goodName);
+    boolean hasGood(Good good);
 
     /**
      * Deletes the given good.

@@ -49,7 +49,7 @@ class JsonSerializableInventory {
         Inventory inventory = new Inventory();
         for (JsonAdaptedGood jsonAdaptedGood : goods) {
             Good good = jsonAdaptedGood.toModelType();
-            if (inventory.hasGood(good.getGoodName())) {
+            if (inventory.hasGood(good)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_GOOD);
             }
             inventory.addGood(good);
