@@ -85,9 +85,6 @@ public class ScheduleCommand extends Command {
                 BigDecimal hoursToBeAllocated = new BigDecimal(sortedAssignmentList.get(i).getWorkload().estHours);
                 int noOfDaysBetween = (int) ChronoUnit.DAYS.between(currDateTime.toLocalDate(), deadline.toLocalDate());
 
-                //TODO: Delete
-                System.out.println(sortedAssignmentList.get(i).getTitle().title);
-
                 ArrayList<BigDecimal> allocationResult = allocateHours(distributedHoursAllAssignments, deadline,
                     hoursToBeAllocated, noOfDaysBetween, currDateTime);
 
@@ -258,20 +255,6 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     * Allocate hours evenly across all days from query date to deadline.
-     */
-    private void allocateHoursEvenly(ArrayList<BigDecimal> distributedHoursAllAssignments, ArrayList<BigDecimal>
-        allocationResultThisAssignment, BigDecimal hoursToBeAllocated, int noOfDaysBetween) {
-
-        BigDecimal hoursAdded = hoursToBeAllocated.divide(BigDecimal.valueOf(noOfDaysBetween + 1))
-            .setScale(4, RoundingMode.HALF_UP);
-
-        for (int k = 0; k < Math.min(distributedHoursAllAssignments.size(), noOfDaysBetween + 1); k++) {
-            setResult(distributedHoursAllAssignments, allocationResultThisAssignment, hoursAdded, k);
-        }
-    }
-
-    /**
      * Updates the result arraylists by adding or subtracting hours from a particular day.
      *
      * @param index Index of the day to be updated.
@@ -314,18 +297,6 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     * Redistributes any excess hours to days between start (including) and end (excluding).
-     */
-    private void redistributeHours(int start, int end, BigDecimal hoursAdded,
-                                   ArrayList<BigDecimal> distributedHoursAllAssignments,
-                                   ArrayList<BigDecimal> allocationResultThisAssignment) {
-
-        for (int i = start; i < end; i++) {
-            setResult(distributedHoursAllAssignments, allocationResultThisAssignment, hoursAdded, i);
-        }
-    }
-
-    /**
      * Allocates hours to days which currently have the least amount of hours allocated.
      */
     private BigDecimal allocateHoursToMinDays(ArrayList<BigDecimal> distributedHoursAllAssignments, int daysInBetween,
@@ -341,6 +312,32 @@ public class ScheduleCommand extends Command {
             }
         }
         return allocatedHours;
+    }
+
+    /**
+     * Allocate hours evenly across all days from query date to deadline.
+     */
+    private void allocateHoursEvenly(ArrayList<BigDecimal> distributedHoursAllAssignments, ArrayList<BigDecimal>
+        allocationResultThisAssignment, BigDecimal hoursToBeAllocated, int noOfDaysBetween) {
+
+        BigDecimal hoursAdded = hoursToBeAllocated.divide(BigDecimal.valueOf(noOfDaysBetween + 1))
+            .setScale(4, RoundingMode.HALF_UP);
+
+        for (int k = 0; k < Math.min(distributedHoursAllAssignments.size(), noOfDaysBetween + 1); k++) {
+            setResult(distributedHoursAllAssignments, allocationResultThisAssignment, hoursAdded, k);
+        }
+    }
+
+    /**
+     * Redistributes any excess hours to days between start (including) and end (excluding).
+     */
+    private void redistributeHours(int start, int end, BigDecimal hoursAdded,
+                                   ArrayList<BigDecimal> distributedHoursAllAssignments,
+                                   ArrayList<BigDecimal> allocationResultThisAssignment) {
+
+        for (int i = start; i < end; i++) {
+            setResult(distributedHoursAllAssignments, allocationResultThisAssignment, hoursAdded, i);
+        }
     }
 
     /**
