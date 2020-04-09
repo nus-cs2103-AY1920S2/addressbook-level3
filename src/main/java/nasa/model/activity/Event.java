@@ -126,4 +126,27 @@ public class Event extends Activity {
     public boolean isOver() {
         return isOver;
     }
+
+    /**
+     * Returns true if both are the same event with same event attributes.
+     * This defines a stronger notion of equality between two events.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return otherEvent.getName().equals(getName())
+                && otherEvent.getStartDate().equals(getEndDate())
+                && otherEvent.getEndDate().equals(getEndDate())
+                && otherEvent.getDateCreated().equals(getDateCreated())
+                && otherEvent.getNote().equals(getNote());
+    }
+
 }
