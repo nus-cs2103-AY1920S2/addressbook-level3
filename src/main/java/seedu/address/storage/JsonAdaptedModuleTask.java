@@ -37,7 +37,7 @@ public class JsonAdaptedModuleTask {
     public JsonAdaptedModuleTask(ModuleTask source) {
         moduleRelated = source.getModuleRelated().toString();
         timing = source.getDate();
-        priority = source.getPriority().toString();
+        priority = Integer.toString(source.getPriority().getLevelOfSignificance());
         description = source.getDescription();
     }
 
