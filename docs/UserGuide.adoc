@@ -180,7 +180,7 @@ Example: `mode -m`
 '''
 
 [[height]]
-==== Store Height `height`
+==== Storing Height `height`
 Allows user to input their height.
 
 Format: `height HEIGHT` +
@@ -190,7 +190,7 @@ NOTE: Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.
 
 '''
 [[weight]]
-==== Store Weight `weight`
+==== Storing Weight `weight`
 Allows user to input their weight.
 
 Format: `weight WEIGHT` +
@@ -201,7 +201,7 @@ NOTE: Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77`
 '''
 
 [[addfood]]
-==== Add food `add`
+==== Adding food `add`
 Adds food to the list.
 
 ****
@@ -215,7 +215,7 @@ Example: `add Fishball Noodles 383`
 
 '''
 [[listfooditem]]
-==== List items `list`
+==== Listing items `list`
 List food in your current diet tracker along with the total calorie count.
 Watch your diet intake for different time frames and food of different categories.
 
@@ -238,7 +238,7 @@ Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
 '''
 
 [[deletefooditem]]
-==== Delete Food Item `delete`
+==== Deleting a Food Item `delete`
 
 Deletes a Food item from the list of foods stored. +
 Format: `delete INDEX`
@@ -282,7 +282,7 @@ Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories
 '''
 
 [[calculatebmi]]
-==== Calculate Body Mass Index (BMI) `bmi`
+==== Calculating Body Mass Index (BMI) `bmi`
 
 Allows the user to calculate their BMI based on the height and weight stored in the program. +
 It will display the following data: +
@@ -311,7 +311,14 @@ Calculate BMI based on the input height and weight values.
 '''
 
 [[diettrackerhelp]]
-==== Diet Tracker `help`
+==== Displaying available commands for Diet Tracker `help`
+If uncertain, you may use the `help` command to see the list of available commands for Diet Tracker.
+
+Format: `help`
+
+Examples:
+
+* `help`
 
 
 
