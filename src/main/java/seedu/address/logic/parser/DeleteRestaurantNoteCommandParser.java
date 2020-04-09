@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteRestaurantNoteCommand;
-import seedu.address.logic.commands.EditRestaurantNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -37,7 +36,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditRestaurantNoteCommand.MESSAGE_USAGE), ive);
+                    DeleteRestaurantNoteCommand.MESSAGE_USAGE), ive);
         }
 
         //There should be at least one line number indicated for the relevant food notes.
@@ -49,7 +48,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
         }
 
         ArrayList<Integer> lineRec = new ArrayList<>();
-        //Checks if user wants to edit recommended food
+        //Checks if user wants to delete recommended food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).isPresent()) {
             //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_RECOMMENDED).get(0).isEmpty()) {
@@ -61,7 +60,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
         }
 
         ArrayList<Integer> lineGood = new ArrayList<>();
-        //Checks if user wants to edit good food
+        //Checks if user wants to delete good food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).isPresent()) {
             //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_GOOD).get(0).isEmpty()) {
@@ -73,7 +72,7 @@ public class DeleteRestaurantNoteCommandParser implements Parser<DeleteRestauran
         }
 
         ArrayList<Integer> lineBad = new ArrayList<>();
-        //Checks if user wants to edit bad food
+        //Checks if user wants to delete bad food
         if (argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).isPresent()) {
             //Checks if line number is provided
             if (argMultimap.getAllValues(PREFIX_LINE_NUMBER_BAD).get(0).isEmpty()) {
