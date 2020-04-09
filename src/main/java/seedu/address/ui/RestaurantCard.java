@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -31,7 +35,7 @@ public class RestaurantCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private FlowPane visit;
+    private Label visit;
     @FXML
     private Label locationR;
     @FXML
@@ -40,8 +44,6 @@ public class RestaurantCard extends UiPart<Region> {
     private Label price;
     @FXML
     private Label cuisine;
-    @FXML
-    private Label remarks;
     @FXML
     private Label recommendedFood;
     @FXML
@@ -60,21 +62,18 @@ public class RestaurantCard extends UiPart<Region> {
         cuisine.setText(restaurant.getCuisine().cuisine);
         String visited;
         if (restaurant.getVisit().visit.equals("Yes")) {
-            visited = "Visited";
+            visit.setText("Visited");
+            visit.setBackground(new Background(new BackgroundFill(Color.rgb(30, 170, 50),
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+
         } else {
-            visited = "Not visited";
+            visit.setText("Not Visited");
+            visit.setBackground(new Background(new BackgroundFill(Color.rgb(114, 13, 40),
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+
         }
-        visit.getChildren().add(new Label(visited));
-        String remarkValue = "";
-        int i = 0;
-        while (i < restaurant.getRemark().size()) {
-            remarkValue += restaurant.getRemark().get(i).value;
-            if (i != restaurant.getRemark().size() - 1) {
-                remarkValue += ", ";
-            }
-            i++;
-        }
-        remarks.setText(remarkValue);
+
+        int i;
         String recommended = "Recommended food: ";
         i = 0;
         while (i < restaurant.getRecommendedFood().size()) {

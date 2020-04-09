@@ -22,7 +22,7 @@ import seedu.address.model.person.Remark;
 public class AddInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "(ab)addnote";
-    public static final String COMMAND_FUNCTION = "Store the additional information of the person identified"
+    public static final String COMMAND_FUNCTION = "Stores the additional information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information, input will be added as new information "
             + "on new line.";
@@ -61,18 +61,21 @@ public class AddInfoCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+
         if (remarks.size() != 0) {
             for (int i = 0; i < remarks.size(); i++) {
                 newRemarks = personToEdit.getRemark();
                 newRemarks.add(remarks.get(i));
             }
         }
+
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
                 personToEdit.getEmail(), personToEdit.getAddress(), getRemarks().orElse(personToEdit.getRemark()),
                 personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         return new CommandResult(generateSuccessMessage(editedPerson));
     }
 
