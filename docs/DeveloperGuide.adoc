@@ -175,20 +175,22 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedInventory`, `VersionedSupplierList` and `VersionedTransactionHistory` for `Good`, `Supplier` and `Transaction` data respectively. Due to the almost identical implementation of these three classes for database management, these classes will henceforth be generalised as `VersionedDatabaseManager`.
+The undo/redo mechanism is facilitated by `VersionedInventory`, `VersionedAddressBook` and `VersionedTransactionHistory`
+for `Good`, `Supplier` and `Transaction` data respectively. These versioned classes extend their non-versioned
+counterparts. These classes also implement the `Versionable` interface, which has these methods:
 
-`VersionedDatabaseManager` extends its non-versioned counterpart `DatabaseManager` with a history of states as a `databaseStateList` and a `currentStatePointer`. Additionally, it implements the following operations:
+* `Versionable#commit()` -- Adds the current state to the tracked states.
+* `Versionable#undo()` -- Restores the previous database state.
+* `Versionable#redo()` -- Restores the most recently undone database state.
 
-* `VersionedDatabaseManager#commit()` -- Adds the current database state to the tracked states.
-* `VersionedDatabaseManager#undo()` -- Restores the previous database state.
-* `VersionedDatabaseManager#redo()` -- Restores the most recently undone database state.
+These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo` respectively.
+Each call of these methods will call the respective methods of each of the versioned classes.
 
-These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()` and `Model#redo` respectively. Each call of these methods will call the respective methods of each of the `VersionedDatabaseManager` of `Good`, `Supplier` and `Transaction`.
-
-The sequence diagram below illustrates the events that occur when a user calls the undo command assuming it is possible to do so, for clarity:
+The sequence diagram below illustrates the events that occur when a user calls the undo command assuming it is possible
+to do so, for clarity:
 
 image::UndoSequenceDiagram.png[]
 
