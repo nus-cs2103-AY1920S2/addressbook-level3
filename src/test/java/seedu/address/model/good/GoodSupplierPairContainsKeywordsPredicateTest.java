@@ -59,7 +59,7 @@ public class GoodSupplierPairContainsKeywordsPredicateTest {
         assertTrue(predicate.test(new SupplierBuilder().withOffers(VALID_OFFER_APPLE).build()));
 
         // Mixed-case keywords
-        predicate = new GoodSupplierPairContainsKeywordsPredicate(Arrays.asList("FuJi", "aPPle"));
+        predicate = new GoodSupplierPairContainsKeywordsPredicate(Arrays.asList("FuGi", "aPPle"));
         assertTrue(predicate.test(new SupplierBuilder().withOffers(VALID_OFFER_APPLE).build()));
     }
 
