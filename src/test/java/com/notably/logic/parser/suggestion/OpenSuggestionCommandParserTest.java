@@ -29,7 +29,7 @@ public class OpenSuggestionCommandParserTest {
     private static final String COMMAND_WORD = "open";
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
-    private static final String RESPONSE_MESSAGE_CANNOT_DELETE_NOTE = "Cannot open \"%s\" as it is an invalid path";
+    private static final String ERROR_MESSAGE_CANNOT_OPEN_NOTE = "Cannot open \"%s\" as it is an invalid path";
 
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
@@ -43,6 +43,34 @@ public class OpenSuggestionCommandParserTest {
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
         openSuggestionCommandParser = new OpenSuggestionCommandParser(model, pathCorrectionEngine);
+    }
+
+    @Test
+    public void parse_correctedCmdWithoutPath_returnsOptionalEmpty() {
+        String userInput = "op";
+        String path = "";
+
+        model.setInput(userInput);
+        Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(path);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE),
+                model.responseTextProperty().getValue());
+
+        assertFalse(command.isPresent());
+    }
+
+    @Test
+    public void parse_correctCmdWithoutPath_returnsOptionalEmpty() {
+        String userInput = "open";
+        String path = "";
+
+        model.setInput(userInput);
+        Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(path);
+
+        assertEquals(Optional.of(RESPONSE_MESSAGE),
+                model.responseTextProperty().getValue());
+
+        assertFalse(command.isPresent());
     }
 
     @Test
@@ -298,14 +326,14 @@ public class OpenSuggestionCommandParserTest {
     }
 
     @Test
-    public void parse_correctedCmdWithoutPath_returnsOptionalEmpty() {
-        String userInput = "op";
-        String path = "";
+    public void parse_correctCmdInvalidPath_returnsOptionalEmpty() {
+        String path = "-";
+        String userInput = COMMAND_WORD + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE),
+        assertEquals(Optional.of(String.format(ERROR_MESSAGE_CANNOT_OPEN_NOTE, path)),
                 model.responseTextProperty().getValue());
 
         assertFalse(command.isPresent());
@@ -333,7 +361,21 @@ public class OpenSuggestionCommandParserTest {
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_CANNOT_DELETE_NOTE, path)),
+        assertEquals(Optional.of(String.format(ERROR_MESSAGE_CANNOT_OPEN_NOTE, path)),
+                model.responseTextProperty().getValue());
+
+        assertFalse(command.isPresent());
+    }
+
+    @Test
+    public void parse_correctedCmdUncorrectedPath_returnsOptionalEmpty() {
+        String path = "random";
+        String userInput = "op " + path;
+
+        model.setInput(userInput);
+        Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(path);
+
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
         assertFalse(command.isPresent());
