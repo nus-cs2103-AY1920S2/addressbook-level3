@@ -62,6 +62,10 @@ public class AddCommand extends Command {
         }
 
         model.addTransaction(toAdd);
+
+        if (toAdd.getRecurringBoolean() == true) {
+            model.addTransactionToGlobalData(toAdd);
+        }
         model.setFilter(
                 new Filter(
                         new CategoryEqualsKeywordPredicate(Arrays.asList(model.getFilter().getFilterCategoryName())),

@@ -9,6 +9,8 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
+import java.time.LocalDate;
+
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
@@ -47,14 +49,28 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
             if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
                 editTransactionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+
+                if (argMultimap.getValue(PREFIX_NAME).get().length() > 44) {
+                    throw new ParseException("Name is too long!");
+                }
             }
             if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
                 editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(),
                         isIncome));
+
+                if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) > 999999) {
+                    throw new ParseException("Income cannot be 1 million dollars or more!");
+                }
             }
             if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+
                 editTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+
+                if (LocalDate.parse(argMultimap.getValue(PREFIX_DATE).get()).isAfter(LocalDate.now())) {
+                    throw new ParseException("Date input cannot be a date in the future (after today)");
+                }
             }
+
             if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
                 editTransactionDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
             }

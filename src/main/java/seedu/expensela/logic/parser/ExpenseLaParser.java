@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.commands.BudgetCommand;
 import seedu.expensela.logic.commands.ClearCommand;
+import seedu.expensela.logic.commands.ClearRecurringCommand;
 import seedu.expensela.logic.commands.Command;
 import seedu.expensela.logic.commands.DeleteCommand;
 import seedu.expensela.logic.commands.EditCommand;
@@ -83,6 +84,9 @@ public class ExpenseLaParser {
 
         case ToggleCommand.COMMAND_WORD:
             return new ToggleCommand();
+
+        case ClearRecurringCommand.COMMAND_WORD:
+            return new ClearRecurringCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

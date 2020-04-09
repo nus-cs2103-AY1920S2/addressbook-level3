@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS = "Dates must be in yyyy-MM-dd format";
+    public static final String MESSAGE_CONSTRAINTS_1 = "Date input cannot be a date in the future (after today)";
 
     /*
      * The first character of the date must not be a whitespace,

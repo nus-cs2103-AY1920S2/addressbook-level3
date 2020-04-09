@@ -15,6 +15,7 @@ public class Transaction implements Comparable<Transaction> {
     private final Date date;
     private final Remark remark;
     private final Category category;
+    private boolean isRecurringTransaction = false;
 
     /**
      * Every field must be present and not null.
@@ -46,6 +47,14 @@ public class Transaction implements Comparable<Transaction> {
 
     public Category getCategory() {
         return category;
+    }
+
+    public void setIsRecurring() {
+        isRecurringTransaction = true;
+    }
+
+    public boolean getRecurringBoolean() {
+        return isRecurringTransaction;
     }
 
     /**

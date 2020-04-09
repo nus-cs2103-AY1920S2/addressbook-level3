@@ -6,6 +6,7 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_INCOME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_RECURRING;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.time.LocalDate;
@@ -36,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK,
-                        PREFIX_CATEGORY, PREFIX_INCOME);
+                        PREFIX_CATEGORY, PREFIX_INCOME, PREFIX_RECURRING);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INCOME)) {
             isNotIncome = false;
@@ -48,15 +49,38 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         try {
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Name name;
+
+            if (argMultimap.getValue(PREFIX_NAME).get().length() <= 44) {
+                name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            } else {
+                throw new ParseException("Name is too long!");
+            }
+
             Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome);
 
-            Date date;
-            if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-                //Set date to today's date
-                date = ParserUtil.parseDate(LocalDate.now().toString());
-            } else {
+            if (!(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) < 1000000)) {
+                throw new ParseException("Transaction amount cannot be 1 million dollars or more!");
+            }
+
+            if (Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()) <= 0) {
+                throw new ParseException("Transaction amount cannot be less than 0!");
+            }
+
+            //Set date to today's date first
+            Date date = ParserUtil.parseDate(LocalDate.now().toString());
+            if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+                //If date is present, set it to today's date
                 date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+                //Checks if date exceeds today's date
+                if (LocalDate.parse(argMultimap.getValue(PREFIX_DATE).get()).isAfter(LocalDate.now())) {
+                    throw new ParseException("Date input cannot be a date in the future (after today)");
+                }
+
+                if (LocalDate.parse(argMultimap.getValue(PREFIX_DATE).get()).getYear() < 1900) {
+                    throw new ParseException("Date is too far in the past!");
+                }
             }
 
             Remark remark;
@@ -74,7 +98,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
 
             Transaction transaction = new Transaction(name, amount, date, remark, category);
-
+            if (arePrefixesPresent(argMultimap, PREFIX_RECURRING)) {
+                transaction.setIsRecurring();
+            }
             return new AddCommand(transaction);
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
