@@ -1,7 +1,7 @@
 package seedu.expensela.model;
 
 /**
- * ToggleListOrChart class to toggle between viewing transaction list or chart analytics
+ * ToggleView class to toggle between viewing transaction list or chart analytics
  */
 public class ToggleView {
 

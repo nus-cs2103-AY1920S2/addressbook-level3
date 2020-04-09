@@ -16,6 +16,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX = "The transaction index "
             + "provided is invalid";
     public static final String MESSAGE_TRANSACTION_LISTED_OVERVIEW = "%1$d transactions listed!";
-
-
+    public static final String MESSAGE_EMPTY_TRANSACTION_LIST = "The transaction list is empty."
+            + " There is no transactions to export!";
+    public static final String MESSAGE_FAILED_EXPORT = "Problem encountered while exporting transactions."
+            + " Please try exporting again later.";
 }

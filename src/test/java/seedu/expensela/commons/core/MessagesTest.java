@@ -18,5 +18,9 @@ public class MessagesTest {
         assertEquals(Messages.MESSAGE_WORD_NOT_FOUND, "Unable to find any matches! Enter 'list' to go back");
         assertEquals(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX, "The transaction index provided is invalid");
         assertEquals(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, "%1$d transactions listed!");
+        assertEquals(Messages.MESSAGE_EMPTY_TRANSACTION_LIST, "The transaction list is empty."
+                + " There is no transactions to export!");
+        assertEquals(Messages.MESSAGE_FAILED_EXPORT, "Problem encountered while exporting transactions."
+                + " Please try exporting again later.");
     }
 }
