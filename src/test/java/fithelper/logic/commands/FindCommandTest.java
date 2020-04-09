@@ -2,10 +2,10 @@ package fithelper.logic.commands;
 
 import static fithelper.commons.core.Messages.MESSAGE_FOOD_LISTED_OVERVIEW;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY1;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY2;
 import static fithelper.testutil.TypicalEntriesUtil.ENTRY3;
+import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

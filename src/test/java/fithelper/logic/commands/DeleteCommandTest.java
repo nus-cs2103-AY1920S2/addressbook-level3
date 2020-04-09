@@ -4,15 +4,15 @@ import static fithelper.logic.commands.CommandTestUtil.assertCommandFailure;
 import static fithelper.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static fithelper.logic.commands.CommandTestUtil.showEntryAtIndex;
 import static fithelper.testutil.TypicalEntriesUtil.getTypicalFitHelper;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static fithelper.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static fithelper.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import fithelper.commons.core.index.Index;
 import fithelper.commons.core.Messages;
+import fithelper.commons.core.index.Index;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
 import fithelper.model.UserProfile;
