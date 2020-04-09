@@ -33,9 +33,9 @@ public class EditEventCommand extends Command {
             + "[" + PREFIX_DURATION + "DURATION] "
             + "[" + PREFIX_PLACE + "PLACE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENTTITLE + "Class outing"
-            + PREFIX_EVENTDATE + "2020-11-12 23:59"
-            + PREFIX_DURATION + "5"
+            + PREFIX_EVENTTITLE + "Class outing "
+            + PREFIX_EVENTDATE + "2020-11-12 23:59 "
+            + PREFIX_DURATION + "5 "
             + PREFIX_PLACE + "Gardens by the Bay";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited event: %1$s";
