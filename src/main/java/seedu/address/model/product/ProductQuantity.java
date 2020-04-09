@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import seedu.address.model.util.Quantity;
 
 /**
- * Represents a Product's quantity in the product list
+ * Represents a Product's quantity in the prodct list
  * Guarantees: immutable;
  */
 public class ProductQuantity implements Quantity {
@@ -15,7 +15,7 @@ public class ProductQuantity implements Quantity {
 
     public static final String MESSAGE_CONSTRAINTS_VALUE = "The numeric value of Product Quantity must be "
             + "larger than or equal to " + MIN_VALUE
-            + "and smaller than " + MAX_VALUE;
+            + " and smaller than or equal to " + MAX_VALUE;
 
     public final int value;
 

@@ -15,7 +15,7 @@ public class TransactionQuantity implements Quantity {
 
     public static final String MESSAGE_CONSTRAINTS_VALUE = "The numeric value of Transaction Quantity must be "
             + "larger than or equal to " + MIN_VALUE
-            + "and smaller than " + MAX_VALUE;
+            + " and smaller than or equal to " + MAX_VALUE;
 
     public final int value;
 
