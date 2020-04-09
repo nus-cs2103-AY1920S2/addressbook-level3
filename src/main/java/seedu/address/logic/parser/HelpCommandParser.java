@@ -31,11 +31,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
      * @return true if user input includes extra parameters and false otherwise
      */
     private boolean doesInputHaveExtraParameters(String argument) {
-        if (argument.equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+        return !argument.equals("");
     }
 
 }
