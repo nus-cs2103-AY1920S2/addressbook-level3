@@ -356,7 +356,7 @@ future implementation.
 === Chart Analytics
 
 The *toggle* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
-his expenditure. 
+his expenditure.
 
 In the expenditure analysis view we have a bar chart to show expenditure breakdown by date as well as a pie chart to
 show expenditure breakdown by category.
