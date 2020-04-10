@@ -80,8 +80,8 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
         Objects.requireNonNull(model);
 
         return possiblePaths.stream()
-                .map(paths -> {
-                    String displayText = paths.getStringRepresentation();
+                .map(path -> {
+                    String displayText = path.getStringRepresentation();
                     String updatedInput = model.getInput().replace(oldTitle, displayText);
                     Runnable action = () -> {
                         model.setInput(updatedInput);
