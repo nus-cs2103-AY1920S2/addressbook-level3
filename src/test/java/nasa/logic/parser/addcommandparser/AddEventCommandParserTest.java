@@ -11,15 +11,12 @@ import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
 import static nasa.logic.commands.CommandTestUtil.INVALID_NOTES_DESC;
 import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS1231;
 import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST;
-import static nasa.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
 import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
 
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,9 +25,7 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
-import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
-import nasa.testutil.EventBuilder;
 
 public class AddEventCommandParserTest {
     private AddEventCommandParser parser = new AddEventCommandParser();

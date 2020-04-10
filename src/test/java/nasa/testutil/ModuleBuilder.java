@@ -1,9 +1,7 @@
 package nasa.testutil;
 
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.UniqueActivityList;
 import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
@@ -105,11 +103,21 @@ public class ModuleBuilder {
         return this;
     }
 
+    /**
+     * Adds deadline to the module.
+     * @param deadline Deadline to be added
+     * @return module update with this deadline in it
+     */
     public ModuleBuilder addDeadline(Deadline deadline) {
         this.uniqueDeadlineList.add(deadline);
         return this;
     }
 
+    /**
+     * Adds event to the module.
+     * @param event Event to be added
+     * @return module updated with this event in it
+     */
     public ModuleBuilder addEvent(Event event) {
         this.uniqueEventList.add(event);
         return this;
@@ -130,9 +138,9 @@ public class ModuleBuilder {
      * @return Module
      */
     public Module build() {
-       Module module = new Module(code, name);
-       module.setDeadlines(uniqueDeadlineList);
-       module.setEvents(uniqueEventList);
-       return module;
+        Module module = new Module(code, name);
+        module.setDeadlines(uniqueDeadlineList);
+        module.setEvents(uniqueEventList);
+        return module;
     }
 }

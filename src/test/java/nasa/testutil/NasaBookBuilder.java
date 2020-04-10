@@ -3,7 +3,6 @@ package nasa.testutil;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
 
-import nasa.commons.core.index.Index;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
@@ -16,7 +15,7 @@ public class NasaBookBuilder {
 
     public static final Module DEFAULT_MODULE_1 = CS2106;
     public static final Module DEFAULT_MODULE_2 = GEH1001;
-    public static final Module DEFAULT_MODULE_3 = new ModuleBuilder().build(); 
+    public static final Module DEFAULT_MODULE_3 = new ModuleBuilder().build();
 
     private UniqueModuleList moduleList;
 

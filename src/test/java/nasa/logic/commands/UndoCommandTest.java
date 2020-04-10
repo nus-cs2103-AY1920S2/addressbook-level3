@@ -1,15 +1,9 @@
 package nasa.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.junit.jupiter.api.Test;
-
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
-import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
 import nasa.testutil.NasaBookBuilder;
 
 public class UndoCommandTest {

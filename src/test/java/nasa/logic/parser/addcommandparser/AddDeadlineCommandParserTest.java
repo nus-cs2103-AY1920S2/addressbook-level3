@@ -10,16 +10,13 @@ import static nasa.logic.commands.CommandTestUtil.INVALID_NOTES_DESC;
 import static nasa.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
 import static nasa.logic.commands.CommandTestUtil.MODULE_CODE_DESC_CS1231;
 import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST;
-import static nasa.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
-import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
 import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_HWK;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_PRIORITY_HIGH;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 

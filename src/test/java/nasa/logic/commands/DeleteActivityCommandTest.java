@@ -1,20 +1,11 @@
 package nasa.logic.commands;
 
-import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
-import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
-import static nasa.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
-import org.junit.jupiter.api.Test;
-
-import nasa.commons.core.index.Index;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
-import nasa.model.module.Module;
-import nasa.model.module.ModuleCode;
 
 public class DeleteActivityCommandTest {
 
