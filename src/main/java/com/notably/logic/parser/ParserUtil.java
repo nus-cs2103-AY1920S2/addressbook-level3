@@ -10,7 +10,8 @@ import com.notably.logic.parser.exceptions.ParseException;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
+    private static final String ERROR_PATH = "The input \"%s\" is not valid Path. "
+            + "Please provide a valid Path";
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
@@ -29,6 +30,6 @@ public class ParserUtil {
         if (RelativePath.isValidRelativePath(text)) {
             return RelativePath.fromString(text).toAbsolutePath(currentDirectory);
         }
-        throw new ParseException("Invalid Path");
+        throw new ParseException(String.format(ERROR_PATH, text));
     }
 }
