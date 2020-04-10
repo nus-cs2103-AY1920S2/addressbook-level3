@@ -375,6 +375,16 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         // -----------------------------------------------------------------------------------------
         // Log
         @Override
