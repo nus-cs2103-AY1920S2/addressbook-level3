@@ -34,6 +34,7 @@ Are you still using pen and papers or Excel to keep track of all your orders? +
 
 With Delino, you can be rest assured that it will help you to keep track of a large number of orders in the most efficient way possible. Are you interested in improving your parcel delivery management? Read further to discover the features of Delino!
 
+//tag::how_to_navigate_user_guide[]
 
 === How to navigate this user guide
 Throughout this user guide, you might encounter additional symbols. These symbols are used to
@@ -73,6 +74,7 @@ For the list of all possible combinations of an argument, you can refer to the <
 
 Finally, you will encounter links to external web pages for additional information.
 These links will link:[look like this].
+//end::how_to_navigate_user_guide[]
 
 == Quick Start
 
