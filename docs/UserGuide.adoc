@@ -58,8 +58,8 @@ the symbols and their meaning.
 
 
 [NOTE]
-This block of text with a blue exclamation mark indicates *additional notes* that you should consider to prevent
-unexpected behaviour.
+This block of text with a blue exclamation mark indicates *additional notes* and *information* that you should
+consider to prevent unexpected behaviour you are using EYLAH.
 
 [TIP]
 This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
@@ -377,7 +377,7 @@ In this section, you will learn more about the `listreceipt` command, <<howtouse
 and the <<listreceiptexpectedoutcome,expected outcome>> after using the
 `listreceipt` command.
 
-Summary of List Receipt Command: `listreceipt` *shows you all the entries in your current receipt*.
+*Summary of List Receipt Command:* `listreceipt` *shows you all the entries in your current receipt*.
 
 [[howtouselistreceiptcommand]]
 *How to use the List Receipt Command:*
@@ -398,13 +398,14 @@ image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200
 [NOTE]
 ====
 * Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
-not have to remember who did you split this item with!
+not have to remember who you split this item with!
+* When you enter `clearrreceipt` it deletes the old receipt's data. Use it with caution!
 ====
 
 [TIP]
 ====
 * Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
-such as `deleteitem` where you have to pass in the index of item.
+such as `deleteitem` where you have to pass in the index of item to be deleted.
 ====
 
 
