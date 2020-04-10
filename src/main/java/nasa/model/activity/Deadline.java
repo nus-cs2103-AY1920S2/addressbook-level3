@@ -105,7 +105,7 @@ public class Deadline extends Activity {
         }
     }
 
-    private boolean isOverdue() {
+    public boolean isOverdue() {
         return !isDone && Date.now().isAfter(dueDate);
     }
 

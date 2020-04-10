@@ -2,6 +2,8 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import nasa.commons.core.index.Index;
 import nasa.commons.util.StringUtil;
 import nasa.logic.parser.exceptions.ParseException;
@@ -167,5 +169,11 @@ public class ParserUtil {
             throw new ParseException(SortMethod.MESSAGE_CONSTRAINTS);
         }
         return new SortMethod(sortMethodTrimmed);
+    }
+
+    public static Path parseFilePath(String filepath) throws ParseException {
+        requireNonNull(filepath);
+        String filepathTrimmed = filepath.trim();
+        return Paths.get(filepathTrimmed);
     }
 }
