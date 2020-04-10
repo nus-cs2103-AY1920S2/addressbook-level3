@@ -42,12 +42,7 @@ public class NewCommandParser implements CommandParser<Command> {
             throw new ParseException("Invalid Command");
         }
 
-<<<<<<< HEAD
-
         String title = argMultimap.getValue(PREFIX_TITLE).get().trim();
-=======
-        String title = argMultimap.getValue(PREFIX_TITLE).get();
->>>>>>> master
         String body;
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_BODY)) {
             body = "";
