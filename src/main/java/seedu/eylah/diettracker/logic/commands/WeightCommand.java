@@ -17,7 +17,7 @@ public class WeightCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": \n"
             + "Parameters: WEIGHT (must be in kilograms)\n"
-            + "Example: " + COMMAND_WORD + "65.3";
+            + "Example: " + COMMAND_WORD + " 65.3";
 
     public static final String MESSAGE_ADD_WEIGHT_SUCCESS = "Added Weight: %1$s";
 

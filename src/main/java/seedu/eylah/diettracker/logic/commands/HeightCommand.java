@@ -17,7 +17,7 @@ public class HeightCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": \n"
             + "Parameters: HEIGHT (must be in centimeters)\n"
-            + "Example: " + COMMAND_WORD + "170";
+            + "Example: " + COMMAND_WORD + " 170";
 
     public static final String MESSAGE_ADD_HEIGHT_SUCCESS = "Added Height: %1$s";
 
