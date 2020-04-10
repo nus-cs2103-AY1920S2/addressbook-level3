@@ -858,8 +858,12 @@ record down my school payments |inform my parents about the necessary expenditur
 |`*` |swimming captain of Temasek Hall|
 plan my training sets |better prepare my team for the upcoming competition
 
-|`*` |Temasek hall exchange student
+|`*` |Temasek hall exchange student|
 have a translation for Singaporean lingo |better understand the language my friends speak in hall
+
+|`*`| Temasek Hall Block Head who wants to remember all my block residents|
+keep a list of all residents and their particulars |contact their next of kin in the case of an
+emergency
 
 |=======================================================================
 
