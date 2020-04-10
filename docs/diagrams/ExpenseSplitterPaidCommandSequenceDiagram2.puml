@@ -31,13 +31,13 @@ activate Amount
 Amount --> SplitterModelManager
 deactivate Amount
 
-SplitterModelManager -> PersonAmountBook : remove Amount(Person person, Amount amount)
+SplitterModelManager -> PersonAmountBook : removeAmount(Person person, Amount amount)
 activate PersonAmountBook
 
-PersonAmountBook -> UniquePersonList : remove Amount(Person person, Amount amount)
+PersonAmountBook -> UniquePersonList : removeAmount(Person person, Amount amount)
 activate UniquePersonList
 
-UniquePersonList -> Person : removeAmount :removeAmount(Amount amount)
+UniquePersonList -> Person : removeAmount(Amount amount)
 activate Person
 
 Person --> UniquePersonList
