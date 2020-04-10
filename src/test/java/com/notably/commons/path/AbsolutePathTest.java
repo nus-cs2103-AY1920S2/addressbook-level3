@@ -93,6 +93,14 @@ class AbsolutePathTest {
     }
 
     @Test
+    public void compareTo_differentSizePathsWithDifferentPrefix() {
+        final AbsolutePath absolutePath1 = AbsolutePath.fromString("/Hello/zz/again!");
+        final AbsolutePath absolutePath2 = AbsolutePath.fromString("/hello/notes");
+
+        assertTrue(absolutePath1.compareTo(absolutePath2) > 0);
+    }
+
+    @Test
     public void equals_similarPathWithDifferentCasing_pathAreEqual() {
         final AbsolutePath absolutePath1 = AbsolutePath.fromString("/cs2103");
         final AbsolutePath absolutePath2 = AbsolutePath.fromString("/CS2103");
