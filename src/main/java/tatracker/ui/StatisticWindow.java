@@ -79,7 +79,7 @@ public class StatisticWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticWindow(Stage root, Statistic stats, GuiSettings guiSettings) {
+    public StatisticWindow(Stage root, Statistic stats) {
         super(FXML, root);
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -133,8 +133,8 @@ public class StatisticWindow extends UiPart<Stage> {
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticWindow(Statistic stats, GuiSettings guiSettings) {
-        this(new Stage(), stats, guiSettings);
+    public StatisticWindow(Statistic stats) {
+        this(new Stage(), stats);
     }
 
     /**

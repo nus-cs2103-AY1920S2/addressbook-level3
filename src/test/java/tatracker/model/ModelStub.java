@@ -564,10 +564,6 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public void showAllModules() {
-        }
-
-        @Override
         public ObservableList<Group> getFilteredGroupList() {
             return null;
         }

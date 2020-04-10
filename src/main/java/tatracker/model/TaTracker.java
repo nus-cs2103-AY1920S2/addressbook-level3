@@ -307,7 +307,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     public void setCurrentlyShownModuleClaim(String moduleCode) {
-        if (moduleCode.equals("")) {
+        if ("".equals(moduleCode)) {
             currentlyShownModuleClaim = null;
         } else {
             currentlyShownModuleClaim = modules.getModule(moduleCode);
