@@ -33,8 +33,6 @@ public class HelpWindow extends UiPart<Stage> {
     private static final ObservableList<CommandDetails> COMMAND_DETAILS = FXCollections
             .observableArrayList(CommandDictionary.getCommandDetails());
 
-    private HelpListPanel helpListPanel;
-
     @FXML
     private StackPane helpListPanelPlaceholder;
 
@@ -58,7 +56,7 @@ public class HelpWindow extends UiPart<Stage> {
         }
         website.setText(USERGUIDE_URL);
 
-        helpListPanel = new HelpListPanel(COMMAND_DETAILS);
+        HelpListPanel helpListPanel = new HelpListPanel(COMMAND_DETAILS);
         helpListPanelPlaceholder.getChildren().add(helpListPanel.getRoot());
 
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
