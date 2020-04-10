@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a session in TAT.
@@ -234,6 +235,11 @@ public class Session implements Comparable<Session> {
                 && description.equals(otherSession.description)
                 && recurring == otherSession.recurring
                 && isDone == otherSession.isDone;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startDateTime, endDateTime, moduleCode, type);
     }
 
     /**

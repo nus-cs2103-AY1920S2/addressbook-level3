@@ -735,8 +735,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaTracker // instanceof handles nulls
-                && modules.equals(((TaTracker) other).modules));
+                || (other instanceof TaTracker); // instanceof handles nulls
+                // && modules.equals(((TaTracker) other).modules));
     }
 
     @Override
