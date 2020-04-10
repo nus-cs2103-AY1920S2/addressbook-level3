@@ -426,25 +426,38 @@ For example, if a command needs an `INDEX`, it must be the *first parameter*:
 
 [[Layout]]
 == Layout
-This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
-into three different views - the *Student View*, the *Session View* and the *Claims View*.
-Each of the views correspond to their following `tab` header.
+This section gives you a brief overview of the layout of the *TA-Tracker*.
 
-When you enter a new command, you will be automatically switched to the relevant `tab`
-so that you can instantly see the command results. The `tab` will also be highlighted in
-orange.
+*TA-Tracker* is divided into three `tabs` representing the different *Views*:
+
+* The *Student View* under the `student tab`,
+* The *Session View* under the `session tab`, and
+* The *Claims View* under the `claims tab`
+
+When you switch to a `tab`, that `tab` will be highlighted in orange.
+
+Also, when you enter a new command, you will be automatically switched to the relevant `tab`
+so that you can instantly see the result of the command.
 
 [NOTE]
 ====
-* You can click on a `tab` header to change the currently shown *View*. The new `tab`
-will be highlighted in blue.
+* You can *select* a `tab` to show a different *View*.
+This `tab` will be highlighted in *blue*.
 
-* The `tab` that you were switched to when you enter commands will remain highlighted
-in orange even if you click on other `tabs`. That way, it is easier for you to remember
-where you last made changes to TA-Tracker.
+* If you are *switched* to a `tab` when you *enter a command*,
+that `tab` will be highlighted in *orange*. +
++
+This should help you easily remember
+where you last made a change in *TA-Tracker*.
 
-* You may notice that the orange and blue highlights for the `tab` headers are not
-horizontally aligned.This is to prevent the highlights from overlapping each other,
+* You will sometimes see the `tabs` highlighted in both *orange* and *blue*. +
++
+The *orange* `tab` will remain highlighted even if you select another `tab`.
+
+* You may notice that the *orange* and *blue* highlights for the `tabs` are *not
+the same size*. +
++
+This is to *prevent* the highlights from *overlapping* each other,
 allowing you to see them better.
 ====
 
