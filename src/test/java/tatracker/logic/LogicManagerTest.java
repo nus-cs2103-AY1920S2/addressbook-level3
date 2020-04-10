@@ -47,9 +47,6 @@ public class LogicManagerTest {
     private Model model;
     private Logic logic;
 
-    private Module module;
-    private Group group;
-
     @BeforeEach
     public void setUp() {
         JsonTaTrackerStorage taTrackerStorage =
@@ -59,8 +56,8 @@ public class LogicManagerTest {
 
         model = new ModelManager();
 
-        module = new Module(VALID_MODULE_CS2030);
-        group = new Group(VALID_GROUP_T04);
+        Module module = new Module(VALID_MODULE_CS2030);
+        Group group = new Group(VALID_GROUP_T04);
 
         module.addGroup(group);
         model.addModule(module);

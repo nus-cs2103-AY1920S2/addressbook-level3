@@ -23,7 +23,8 @@ public class JsonAdaptedStudentTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_MATRIC = "@0187945J";
-    private static final int INVALID_RATING = 6;
+    private static final int INVALID_RATING_LOWER = 0;
+    private static final int INVALID_RATING_UPPER = 6;
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -111,9 +112,14 @@ public class JsonAdaptedStudentTest {
 
     @Test
     public void toModelType_invalidRating_throwsIllegalValueException() {
-        JsonAdaptedStudent student = new JsonAdaptedStudent(VALID_MATRIC, VALID_NAME,
-                VALID_PHONE, VALID_EMAIL, INVALID_RATING, VALID_TAGS);
         String expectedMessage = Rating.MESSAGE_CONSTRAINTS;
+
+        JsonAdaptedStudent student = new JsonAdaptedStudent(VALID_MATRIC, VALID_NAME,
+                VALID_PHONE, VALID_EMAIL, INVALID_RATING_LOWER, VALID_TAGS);
+        assertThrows(IllegalValueException.class, expectedMessage, student::toModelType);
+
+        student = new JsonAdaptedStudent(VALID_MATRIC, VALID_NAME,
+                VALID_PHONE, VALID_EMAIL, INVALID_RATING_UPPER, VALID_TAGS);
         assertThrows(IllegalValueException.class, expectedMessage, student::toModelType);
     }
 

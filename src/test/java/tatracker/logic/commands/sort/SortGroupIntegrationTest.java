@@ -157,7 +157,6 @@ public class SortGroupIntegrationTest {
     @Test
     public void execute_invalidGroup_throwsCommandException() throws CommandException {
         Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         model.addModule(validModule);
         SortGroupCommand sortGroupCommand =
                 new SortGroupCommand(SortType.ALPHABETIC, "G03",
@@ -169,8 +168,6 @@ public class SortGroupIntegrationTest {
 
     @Test
     public void execute_invalidModule_throwsCommandException() throws CommandException {
-        Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         SortGroupCommand sortGroupCommand =
                 new SortGroupCommand(SortType.ALPHABETIC, "G03",
                         "CS2030");

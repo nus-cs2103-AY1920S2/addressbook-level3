@@ -88,7 +88,7 @@ public class AddGroupCommandTest {
         assertFalse(addSoftwareEngineeringCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addSoftwareEngineeringCommand.equals(null));
+        assertFalse(addSoftwareEngineeringCommand == null);
 
         // different person -> returns false
         assertFalse(addSoftwareEngineeringCommand.equals(addArtificialIntelligenceCommand));

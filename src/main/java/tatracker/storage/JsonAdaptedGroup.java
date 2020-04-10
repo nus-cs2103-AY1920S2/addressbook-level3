@@ -19,9 +19,12 @@ import tatracker.model.student.Student;
  * Jackson-friendly version of {@link Group}.
  */
 class JsonAdaptedGroup {
+    public static final String MESSAGE_DUPLICATE_STUDENTS = "Group's list of students contains duplicate student(s).";
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Group's %s field is missing!";
-    public static final String MESSAGE_DUPLICATE_STUDENTS = "Student list contains duplicate student(s).";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Group's %s field is missing!";
+
+    public static final String MISSING_GROUP_ID = String.format(MISSING_FIELD_MESSAGE_FORMAT, "id");
+    public static final String MISSING_GROUP_TYPE = String.format(MISSING_FIELD_MESSAGE_FORMAT, "type");
 
     private final String id;
     private final String type;
@@ -61,15 +64,20 @@ class JsonAdaptedGroup {
     public Group toModelType() throws IllegalValueException {
         // ==== ID ====
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Group id"));
+            throw new IllegalValueException(MISSING_GROUP_ID);
+        }
+        if (id.isBlank()) {
+            throw new IllegalValueException(Group.CONSTRAINTS_GROUP_CODE);
         }
 
         // ==== Type ====
         if (type == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Group type"));
+            throw new IllegalValueException(MISSING_GROUP_TYPE);
         }
-        // TODO: is valid group type
-        final GroupType modelGroupType = GroupType.valueOf(type);
+        if (!GroupType.isValidGroupType(type)) {
+            throw new IllegalValueException(GroupType.MESSAGE_CONSTRAINTS);
+        }
+        final GroupType modelGroupType = GroupType.getGroupType(type);
 
         // ==== Students ====
         final Map<Matric, Student> modelStudents = new HashMap<>();
@@ -83,7 +91,7 @@ class JsonAdaptedGroup {
 
         // ==== Build ====
         Group group = new Group(id, modelGroupType);
-        modelStudents.forEach((matric, student) -> group.addStudent(student));
+        modelStudents.values().forEach(group::addStudent);
 
         return group;
     }

@@ -30,7 +30,7 @@ public class SortCommandTest {
         assertFalse(sortCommand.equals(1));
 
         // null -> returns false
-        assertFalse(sortCommand.equals(null));
+        assertFalse(sortCommand == null);
 
         // different types -> returns false
         assertFalse(sortCommand.equals(sortNewTypeCommand));

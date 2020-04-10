@@ -25,15 +25,13 @@ import tatracker.logic.commands.CommandDictionary;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/main/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-4.github.io/TA-Tracker/UserGuide.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     private static final ObservableList<CommandDetails> COMMAND_DETAILS = FXCollections
             .observableArrayList(CommandDictionary.getDetails());
-
-    private HelpListPanel helpListPanel;
 
     @FXML
     private StackPane helpListPanelPlaceholder;
@@ -58,7 +56,7 @@ public class HelpWindow extends UiPart<Stage> {
         }
         website.setText(USERGUIDE_URL);
 
-        helpListPanel = new HelpListPanel(COMMAND_DETAILS);
+        HelpListPanel helpListPanel = new HelpListPanel(COMMAND_DETAILS);
         helpListPanelPlaceholder.getChildren().add(helpListPanel.getRoot());
 
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
