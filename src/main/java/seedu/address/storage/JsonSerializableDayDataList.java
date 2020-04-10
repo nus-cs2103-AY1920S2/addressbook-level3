@@ -20,6 +20,13 @@ import seedu.address.model.dayData.exceptions.InvalidTableException;
 class JsonSerializableDayDataList {
     private final List<JsonAdaptedDayData> dayDatas = new ArrayList<>();
 
+    /** Constructs a {@code JsonSerializableTaskList} with the given tasks. */
+    @JsonCreator
+    public JsonSerializableDayDataList(
+            @JsonProperty("dayDatas") List<JsonAdaptedDayData> dayDatas) {
+        this.dayDatas.addAll(dayDatas);
+    }
+
     /**
      * Converts a given {@code ReadOnlyStatistics} into this class for Jackson use.
      *
