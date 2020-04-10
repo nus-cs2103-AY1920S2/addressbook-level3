@@ -3,6 +3,7 @@ package csdev.couponstash.model.coupon.savings;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -62,5 +63,19 @@ public class SavingsTest {
                 Arrays.asList(new Saveable("Saturn", 5), new Saveable("Uranus", 7), new Saveable("Neptune"))
         );
         assertEquals(savings.copy(), savings);
+    }
+
+    @Test
+    public void equals_identicalApartFromSaveablesList_areNotEqual() {
+        Savings savings1 = new Savings(
+                Arrays.asList(new Saveable("Ceres", 12), new Saveable("Pluto", 3), new Saveable("Eris"),
+                        new Saveable("Makemake", 2), new Saveable("Haumea", 10))
+        );
+        // savings2 is a subset of savings1
+        Savings savings2 = new Savings(
+                Arrays.asList(new Saveable("Ceres", 12), new Saveable("Pluto", 3), new Saveable("Eris"))
+        );
+        assertNotEquals(savings1, savings2);
+        assertNotEquals(savings2, savings1);
     }
 }
