@@ -18,13 +18,13 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to open a note.
  */
 public class OpenSuggestionCommand implements SuggestionCommand {
-    private AbsolutePath path;
+    private List<AbsolutePath> paths;
     private String oldTitle;
 
-    public OpenSuggestionCommand(AbsolutePath path, String oldTitle) {
-        Objects.requireNonNull(path);
+    public OpenSuggestionCommand(List<AbsolutePath> paths, String oldTitle) {
+        Objects.requireNonNull(paths);
         Objects.requireNonNull(oldTitle);
-        this.path = path;
+        this.paths = paths;
         this.oldTitle = oldTitle;
     }
 
@@ -35,7 +35,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
 
         if (!oldTitle.isBlank()) {
             // Set suggestions
-            List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
+            List<AbsolutePath> possiblePaths = getPossiblePaths(paths, model);
             List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
             model.setSuggestions(suggestions);
@@ -47,29 +47,31 @@ public class OpenSuggestionCommand implements SuggestionCommand {
      *
      * @return List of all possible paths
      */
-    private List<AbsolutePath> getPossiblePaths(AbsolutePath path, Model model) {
+    private List<AbsolutePath> getPossiblePaths(List<AbsolutePath> paths, Model model) {
         List<AbsolutePath> possiblePaths = new ArrayList<>();
 
         Queue<AbsolutePath> pathQueue = new LinkedList<>();
-        pathQueue.offer(path);
 
-        while (!pathQueue.isEmpty()) {
-            AbsolutePath currentPath = pathQueue.poll();
+        for (AbsolutePath path : paths) {
+            pathQueue.offer(path);
 
-            List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
-            List<AbsolutePath> childrenPaths = childrenBlocks
-                    .stream()
-                    .map(item -> {
-                        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
-                        combinedComponents.add(item.getTitle().getText());
-                        return AbsolutePath.fromComponents(combinedComponents);
-                    })
-                    .collect(Collectors.toList());
-            pathQueue.addAll(childrenPaths);
+            while (!pathQueue.isEmpty()) {
+                AbsolutePath currentPath = pathQueue.poll();
 
-            possiblePaths.add(currentPath);
+                List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
+                List<AbsolutePath> childrenPaths = childrenBlocks
+                        .stream()
+                        .map(item -> {
+                            List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
+                            combinedComponents.add(item.getTitle().getText());
+                            return AbsolutePath.fromComponents(combinedComponents);
+                        })
+                        .collect(Collectors.toList());
+                pathQueue.addAll(childrenPaths);
+
+                possiblePaths.add(currentPath);
+            }
         }
-
         return possiblePaths;
     }
 
@@ -78,8 +80,8 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         Objects.requireNonNull(model);
 
         return possiblePaths.stream()
-                .map(path -> {
-                    String displayText = path.getStringRepresentation();
+                .map(paths -> {
+                    String displayText = paths.getStringRepresentation();
                     String updatedInput = model.getInput().replace(oldTitle, displayText);
                     Runnable action = () -> {
                         model.setInput(updatedInput);

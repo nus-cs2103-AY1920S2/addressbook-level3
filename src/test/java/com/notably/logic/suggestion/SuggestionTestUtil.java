@@ -31,8 +31,10 @@ public class SuggestionTestUtil {
         return model;
     }
 
-    public static AbsolutePath getToCs2103t() {
-        return TypicalBlockModel.PATH_TO_CS2103T;
+    public static List<AbsolutePath> getToCs2103t() {
+        List<AbsolutePath> pathsToCs2103t = new ArrayList<>();
+        pathsToCs2103t.add(TypicalBlockModel.PATH_TO_CS2103T);
+        return pathsToCs2103t;
     }
 
     public static List<SuggestionItem> getExpectedSugForCs2103tPathInput() {
