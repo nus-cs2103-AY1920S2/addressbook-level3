@@ -3,7 +3,6 @@ package com.notably.commons.path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.notably.commons.path.exceptions.InvalidPathException;
 import com.notably.model.block.Title;
@@ -11,7 +10,7 @@ import com.notably.model.block.Title;
 /**
  * Represents the Path to a Block, starting from the Root node.
  */
-public class AbsolutePath implements Path {
+public class AbsolutePath implements Path, Comparable<AbsolutePath> {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
     public static final String VALIDATION_REGEX = "\\/|(\\/" + Title.VALIDATION_REGEX + ")+\\/?";
 
@@ -106,21 +105,25 @@ public class AbsolutePath implements Path {
     }
 
     @Override
+    public int compareTo(AbsolutePath path) {
+        int i = 0;
+        while (i < components.size() && i < path.components.size()) {
+            if (!components.get(i).equalsIgnoreCase(path.components.get(i))) {
+                return components.get(i).compareToIgnoreCase(path.components.get(i));
+            }
+            i++;
+        }
+        return components.size() - path.components.size();
+    }
+
+    @Override
     public boolean equals(Object object) {
         if (!(object instanceof AbsolutePath)) {
             return false;
         }
 
         AbsolutePath another = (AbsolutePath) object;
-        List<String> temp = another.getComponents()
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());;
-        return this.components
-                .stream()
-                .map(String::toLowerCase)
-                .collect(Collectors.toList())
-                .equals(temp);
+        return compareTo(another) == 0;
     }
 
     @Override
