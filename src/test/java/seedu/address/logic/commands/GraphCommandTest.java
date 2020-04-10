@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_AXIS_REPS;
+import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_AXIS_WEIGHT;
+import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_ENDDATE;
+import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_EXERCISE_NAME;
+import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_STARTDATE;
 import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,9 +33,11 @@ public class GraphCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
         validGraphFirst = new Graph(
-            new ExerciseName("push up"), new Axis("reps"), new StartDate("11-01-2020"), new EndDate("11-02-2020"));
+            new ExerciseName(VALID_EXERCISE_NAME), new Axis(VALID_AXIS_REPS),
+            new StartDate(VALID_STARTDATE), new EndDate(VALID_ENDDATE));
         validGraphSecond = new Graph(
-            new ExerciseName("push up"), new Axis("weight"), new StartDate("11-01-2020"), new EndDate("11-02-2020"));
+            new ExerciseName(VALID_EXERCISE_NAME), new Axis(VALID_AXIS_WEIGHT),
+            new StartDate(VALID_STARTDATE), new EndDate(VALID_ENDDATE));
     }
 
     @Test

@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Axis {
     public static final String MESSAGE_CONSTRAINTS =
-        "The y-axis can only be exactly \"reps\" or \"weight\" and it should not be blank. ";
+        "The y-axis can only be \"reps\" or \"weight\" and it should not be blank. ";
 
     public final AxisType value;
 
@@ -24,5 +24,12 @@ public class Axis {
 
     public static boolean isValidAxis(String test) {
         return test.equalsIgnoreCase("reps") || test.equalsIgnoreCase("weight");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Axis // instanceof handles nulls
+                        && value.equals(((Axis) other).value)); // state check
     }
 }

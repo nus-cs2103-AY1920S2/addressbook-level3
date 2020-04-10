@@ -77,12 +77,18 @@ public class Graph {
 
     /**
      * Returns true if both graph of the same name, axis, startDate and endDate.
-     * This defines a weaker notion of equality between two graphs.
      */
-    public boolean isSameGraph(Graph otherGraph) {
-        if (otherGraph == this) {
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
             return true;
         }
+
+        if (!(other instanceof Graph)) {
+            return false;
+        }
+
+        Graph otherGraph = (Graph) other;
 
         return otherGraph != null
                 && otherGraph.getExerciseName().equals(getExerciseName())

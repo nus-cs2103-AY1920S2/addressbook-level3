@@ -110,4 +110,12 @@ public class GraphCommand extends Command {
         GraphCommand e = (GraphCommand) other;
         return graph.equals(e.graph);
     }
+
+    @Override
+    public String toString() {
+        return graph.getExerciseName().value
+            + " " + graph.getAxis().value
+            + " " + graph.getStartDate().toString()
+            + " " + graph.getEndDate().toString();
+    }
 }
