@@ -1,8 +1,10 @@
 package tatracker.logic.parser.student;
 
 import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
+import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
+import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
 import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
@@ -47,6 +49,19 @@ public class DeleteStudentCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", Messages.getInvalidCommandMessage(DeleteStudentCommand.DETAILS.getUsage()));
+        assertParseFailure(parser, "a",
+                Messages.getInvalidCommandMessage(DeleteStudentCommand.DETAILS.getUsage()));
+
+        // no module specified
+        assertParseFailure(parser, GROUP_DESC_T04 + MATRIC_DESC_AMY
+                + NAME_DESC_AMY, Messages.getInvalidCommandMessage(DeleteStudentCommand.DETAILS.getUsage()));
+
+        // no group specified
+        assertParseFailure(parser, MODULE_DESC_CS2030 + MATRIC_DESC_AMY
+                + NAME_DESC_AMY, Messages.getInvalidCommandMessage(DeleteStudentCommand.DETAILS.getUsage()));
+
+        // no matric specified
+        assertParseFailure(parser, GROUP_DESC_T04 + MODULE_DESC_CS2030
+                + NAME_DESC_AMY, Messages.getInvalidCommandMessage(DeleteStudentCommand.DETAILS.getUsage()));
     }
 }

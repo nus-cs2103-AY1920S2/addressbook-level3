@@ -31,7 +31,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final String FXML = "HelpWindow.fxml";
 
     private static final ObservableList<CommandDetails> COMMAND_DETAILS = FXCollections
-            .observableArrayList(CommandDictionary.getCommandDetails());
+            .observableArrayList(CommandDictionary.getDetails());
 
     private HelpListPanel helpListPanel;
 
