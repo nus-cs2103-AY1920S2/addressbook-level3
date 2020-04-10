@@ -188,4 +188,17 @@ public class CustomQueueTest {
                 UnsupportedOperationException.class,
                 () -> customQueue.asUnmodifiableObservableList().remove(0));
     }
+
+    @Test
+    public void tableConstraintsAreEnforced_validTable_returnsTrue() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        assertTrue(customQueue.tableConstraintsAreEnforced(customQueue.asUnmodifiableObservableList()));
+    }
+
+    @Test
+    public void tableConstraintsAreEnforced_invalidTable_returnsFalse() throws InvalidTableException {
+        customQueue.init(TYPICAL_STATISTICS_LATEST_LOCAL_DATE);
+        customQueue.add(DAY0);
+        assertFalse(customQueue.tableConstraintsAreEnforced(customQueue.asUnmodifiableObservableList()));
+    }
 }
