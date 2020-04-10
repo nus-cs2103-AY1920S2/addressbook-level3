@@ -618,6 +618,8 @@ Person(s) with $0 Amount will be deleted from UniquePersonList.
 
 image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
 
+image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+
 [[Back-Command]]
 ==== Back Command
 

@@ -1,0 +1,65 @@
+@startuml
+/' @author @WillySeahh'/
+!include style.puml
+
+mainframe sd Execution of PaidCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":PaidCommand" as PaidCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
+end box
+
+activate SplitterLogicManager
+SplitterLogicManager -> PaidCommand :execute(model)
+activate PaidCommand
+
+PaidCommand -> SplitterModelManager : paidPerson(Person person, String amountPaid)
+activate SplitterModelManager
+
+SplitterModelManager -> PersonAmountBook : remove Amount(Person person, Amount amount)
+activate PersonAmountBook
+
+PersonAmountBook -> UniquePersonList : remove Amount(Person person, Amount amount)
+activate UniquePersonList
+
+UniquePersonList -> Person : removeAmount :removeAmount(Amount amount)
+activate Person
+
+Person --> UniquePersonList
+deactivate Person
+
+UniquePersonList --> PersonAmountBook
+deactivate UniquePersonList
+
+PersonAmountBook --> SplitterModelManager
+deactivate PersonAmountBook
+
+SplitterModelManager --> PaidCommand
+deactivate SplitterModelManager
+
+PaidCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> PaidCommand :result()
+deactivate CommandResult
+
+PaidCommand --> SplitterLogicManager: result()
+
+
+
+
+
+
+
+
+
+
+@enduml
