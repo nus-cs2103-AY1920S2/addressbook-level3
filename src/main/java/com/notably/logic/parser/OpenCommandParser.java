@@ -41,7 +41,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
                 throw new ParseException("Path cannot be empty");
             }
         } else {
-            titles = argMultimap.getValue(PREFIX_TITLE).get().trim();
+            titles = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(titles, notablyModel.getCurrentlyOpenPath());
