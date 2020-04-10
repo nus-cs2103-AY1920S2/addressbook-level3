@@ -64,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-            task = argMultimap.getValue(PREFIX_TASK).get();
+            task = argMultimap.getValue(PREFIX_TASK).get().toLowerCase();
         }
 
         return new AddCommand(moduleCode, intSemester, grade, task, date, time);
