@@ -11,12 +11,12 @@ import javafx.scene.layout.Region;
 
 import tatracker.commons.core.LogsCenter;
 import tatracker.commons.core.Messages;
+import tatracker.logic.commands.CommandDetails;
 import tatracker.logic.commands.CommandDictionary;
-import tatracker.logic.commands.CommandEntry;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.PrefixDetails;
 import tatracker.logic.parser.PrefixDictionary;
-import tatracker.logic.parser.PrefixEntry;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.ui.CommandBoxParser.ArgumentMatch;
 import tatracker.ui.CommandBoxParser.CommandMatch;
@@ -36,7 +36,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         logger.setLevel(Level.WARNING);
     }
 
-    private CommandEntry commandEntry = null;
+    private CommandDetails commandDetails = null;
     private PrefixDictionary dictionary = PrefixDictionary.getEmptyDictionary();
 
     private final CommandExecutor commandExecutor;
@@ -51,7 +51,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         this.resultDisplay = resultDisplay;
         this.resultDisplay.setFeedbackToUser(Messages.MESSAGE_WELCOME + Messages.MESSAGE_HELP);
 
-        resetCommandEntry();
+        resetCommandDetails();
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((property, oldInput, newInput) -> highlightInput(newInput));
@@ -125,7 +125,7 @@ public class CommandBox extends UiPart<Region> implements Focusable {
             return;
         }
 
-        changeCommandEntry(match.fullCommandWord);
+        changeCommandDetails(match.fullCommandWord);
 
         if (!match.hasArguments()) {
             handleNoArguments();
@@ -166,13 +166,13 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         }
 
         for (ArgumentMatch match : matches) {
-            if (!dictionary.hasPrefix(match.prefix)) {
+            if (!dictionary.hasPrefixDetails(match.prefix)) {
                 logger.info("======== [ No prefix ] ");
                 handleNoPrefix();
                 return;
             }
 
-            PrefixEntry prefixEntry = dictionary.getPrefixEntry(match.prefix);
+            PrefixDetails prefixEntry = dictionary.getPrefixDetails(match.prefix);
             logger.info(String.format("======== [ %s = %s ]", prefixEntry.getPrefixWithInfo(), match.value));
 
             if (!prefixEntry.isValidValue(match.value.trim())) {
@@ -187,12 +187,12 @@ public class CommandBox extends UiPart<Region> implements Focusable {
 
     private String getCommandFeedback() {
         return String.format("%s\nParameters: %s\nExample: %s",
-                commandEntry.getInfo(),
-                commandEntry.getUsage(),
-                commandEntry.getExample());
+                commandDetails.getInfo(),
+                commandDetails.getUsage(),
+                commandDetails.getExample());
     }
 
-    private String getPrefixFeedback(PrefixEntry prefixEntry) {
+    private String getPrefixFeedback(PrefixDetails prefixEntry) {
         return String.format("%s\n%s\nExample: %s",
                 prefixEntry.getPrefixWithInfo(),
                 prefixEntry.getConstraint(),
@@ -213,12 +213,12 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     }
 
     private void handleNoInput() {
-        resetCommandEntry();
+        resetCommandDetails();
         setStyleToDefault();
     }
 
     private void handleInvalidInput() {
-        resetCommandEntry();
+        resetCommandDetails();
         setStyleToIndicateCommandFailure();
         resultDisplay.setFeedbackToUser("");
     }
@@ -245,12 +245,12 @@ public class CommandBox extends UiPart<Region> implements Focusable {
         resultDisplay.setFeedbackToUser(getCommandFeedback());
     }
 
-    private void handleRequiredPrefix(PrefixEntry prefixEntry) {
+    private void handleRequiredPrefix(PrefixDetails prefixEntry) {
         setStyleToIndicateValidCommand();
         resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
     }
 
-    private void handleInvalidPrefix(PrefixEntry prefixEntry) {
+    private void handleInvalidPrefix(PrefixDetails prefixEntry) {
         setStyleToIndicateCommandFailure();
         resultDisplay.setFeedbackToUser(getPrefixFeedback(prefixEntry));
     }
@@ -258,26 +258,28 @@ public class CommandBox extends UiPart<Region> implements Focusable {
     /**
      * Changes the reference to one of the commands, which is specified by {@code commandWord}.
      */
-    private void resetCommandEntry() {
-        commandEntry = null;
+    private void resetCommandDetails() {
+        commandDetails = null;
         dictionary = PrefixDictionary.getEmptyDictionary();
-        logger.fine("Clear command entry");
+        logger.fine("Clear command details");
     }
 
     /**
      * Changes the reference to one of the commands, which is specified by {@code commandWord}.
      */
-    private void changeCommandEntry(String fullCommandWord) {
+    private void changeCommandDetails(String fullCommandWord) {
         // Call this only if full command word is valid
         assert CommandDictionary.hasFullCommandWord(fullCommandWord);
 
-        CommandEntry oldEntry = commandEntry;
+        CommandDetails oldDetails = commandDetails;
 
-        commandEntry = CommandDictionary.getEntryWithFullCommandWord(fullCommandWord);
-        dictionary = commandEntry.getDictionary();
+        commandDetails = CommandDictionary.getDetailsWithFullCommandWord(fullCommandWord);
+        dictionary = commandDetails.getPrefixDictionary();
 
-        if (oldEntry.equals(commandEntry)) {
-            logger.info(String.format("======== [ %s ]", commandEntry.toString()));
+        // Compare with reference. If the same command word is logged, it means that
+        //  a new CommandDetail with same internal fields was created.
+        if (oldDetails.equals(commandDetails)) {
+            logger.info(String.format("======== [ %s ]", commandDetails.getFullCommandWord()));
         }
     }
 

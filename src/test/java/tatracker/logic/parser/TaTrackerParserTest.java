@@ -1,24 +1,17 @@
 package tatracker.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.commons.core.Messages.MESSAGE_HELP;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tatracker.testutil.Assert.assertThrows;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.commons.ExitCommand;
-import tatracker.logic.commands.commons.FindCommand;
 import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.commons.ListCommand;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.student.NameContainsKeywordsPredicate;
 
 public class TaTrackerParserTest {
 
@@ -59,14 +52,6 @@ public class TaTrackerParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.DETAILS.getFullCommandWord()) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.DETAILS.getFullCommandWord() + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.DETAILS.getFullCommandWord() + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
