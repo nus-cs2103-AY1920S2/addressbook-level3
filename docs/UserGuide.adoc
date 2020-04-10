@@ -126,7 +126,7 @@ This section lists and explains what the parameters commonly used in the command
 |=======================================================================
 |Parameter | Explanation | Examples
 
-| `TAB_NAME` | This refers to the different tab names. |
+| `TAB_NAME` | This refers to the different `tab` names. |
 
 *student* - to indicate the *Student View*
 
@@ -213,7 +213,7 @@ into three different views - the *Student View*, the *Session View* and the *Cla
 Each of the views correspond to their following `tab` header.
 
 When you enter a new command, you will be automatically switched to the relevant `tab`
-so that you can instantly see the command results. The tab will also be highlighted in
+so that you can instantly see the command results. The `tab` will also be highlighted in
 orange.
 
 [NOTE]
@@ -222,7 +222,7 @@ orange.
 will be highlighted in blue.
 
 * The `tab` that you were switched to when you enter commands will remain highlighted
-in orange even if you click on other tabs. That way, it is easier for you to remember
+in orange even if you click on other `tabs`. That way, it is easier for you to remember
 where you last made changes to TA-Tracker.
 
 * You may notice that the orange and blue highlights for the `tab` headers are not
@@ -279,8 +279,7 @@ duties you have completed so far.
 The purpose of this view is to allow a you to keep track of all your claims so
 you can easily enter it into the TSS claims form at the end of the semester.
 
-The claims under this tab can be filtered by module code to enable you to easily see
-what claims to submit for each of the modules you teach. The *Claims View* has been
+The *Claims View* has been
 divided into two columns.
 
 . The first column shows you a list of all the modules that you are a teaching
@@ -320,13 +319,13 @@ Format: `help`
 
 ==== Changing tabs : `goto`
 
-You can switch to different tabs with this command.
+You can switch to different `tabs` with this command to show their associated *view*.
 
 Format: `goto TAB_NAME`
 
 [NOTE]
 ====
-* You cannot switch to a tab that does not exist in TA-Tracker
+* You cannot switch to a `tab` that does not exist in TA-Tracker
 ====
 
 ====
@@ -334,7 +333,7 @@ Example:
 
 `goto student`
 
-This command will take you to the student tab.
+This command will take you to the `student tab`.
 
 ====
 
@@ -357,7 +356,7 @@ You can use this command to add a new module to the TA-Tracker.
 When a new module is created, the *Student View* will show the groups
 and students of the new module. (Initially, a new module doesn't have any students or
 groups till you add some).
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module add m/MOD_CODE n/NAME`
 
@@ -404,7 +403,7 @@ the module will also be deleted.
 When a module is deleted, the *Student View* will go back to its default
 setting. That is, you will see the details of the first group in the first module of
 the TA-Tracker.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module delete m/MOD_CODE`
 
@@ -427,8 +426,8 @@ This will delete the module with the module code `CS2103` from the TA-Tracker.
 You can use this command to edit a module's name in the TA-Tracker.
 
 When a module is edited, the *Student View* will show the groups of the edited module and
-the students of the first group of the edited module. If you were on a different tab,
-you will automatically be switched to the student tab.
+the students of the first group of the edited module. If you were on a different `tab`,
+you will automatically be switched to the `student tab`.
 
 Format: `module edit m/MOD_CODE n/NEW NAME`
 
@@ -460,7 +459,7 @@ You can use this command to add a group to the TA-Tracker.
 
 When a new group is created, the *Student View* will show the groups of the module
 this new group belongs to and students of the new group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
@@ -499,7 +498,7 @@ When a group is deleted from the TA-Tracker, all students in the group are also 
 
 When a group is deleted, the *Student View* will show the details of the first group
 of the module the group was deleted from.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
@@ -534,7 +533,7 @@ The students inside the group will remain intact.
 
 When a group is edited, the *Student View* will show the groups in the module that
 the edited group belongs to, as well as the students that belong to the edited group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
 
@@ -570,7 +569,7 @@ You can use this command to add a new student to the TA-Tracker.
 
 When a new student is added, the *Student View* will show that the new student
 is added into the student list of the provided module group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 [e/EMAIL] [r/RATING] [t/TAG]…​`
@@ -619,7 +618,7 @@ You can use this command to delete a student from the TA-Tracker.
 When a student is removed, the *Student View* will show that the student
 is removed from the student list of the provided module group.
 You will see an empty list if there are no more students inside the module group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
@@ -648,7 +647,7 @@ You can use this command to edit a student in the TA-Tracker.
 
 When a student is edited, the *Student View* will show that the student has been
 edited in the student list of the provided module group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
@@ -699,7 +698,7 @@ You can use this command to chose how you want to sort your students in a specif
 The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the group that you have sorted.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 
@@ -739,7 +738,7 @@ The students will be sorted according to your specified `SORT_TYPE`.
 The *Student View* will show you the students inside the first group of the module
 that you have sorted. If you want to see the other groups, you can use the `student filter`
 command as explained later in this guide.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
 
@@ -776,7 +775,7 @@ The students will be sorted according to your specified `SORT_TYPE`.
 The *Student View* will show you the students inside the first group of the  first module
 in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
 command as explained later in this guide.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort all t/SORT_TYPE`
 
@@ -819,8 +818,7 @@ You can filter the students in *Student View* in the following ways:
 You will see the group with the specified `GROUP_CODE` and the module with the specified
 `MOD_CODE` highlighted in orange in the list.
 
-You will automatically be switched to the student
-tab as well, if you were currently on a different tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student filter [m/MOD_CODE] g/GROUP_CODE`
 [NOTE]
@@ -878,7 +876,7 @@ You can use this command to add a new session.
 The new session will be shown in the *Session View*, and will automatically
 be marked as `not done`.
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
 
@@ -920,7 +918,7 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 
 You can use this command to delete a session at a specific `index`.
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session delete INDEX`
 
@@ -941,7 +939,7 @@ This command deletes the third session in the *Session View*.
 ==== Editing a Session : `session edit`
 You can use this command to edit a session in the TA-Tracker.
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 [m/MODULE] [t/SESSION_TYPE] [n/NOTES]​`
@@ -976,7 +974,7 @@ will automatically appear as a new claim in the *Claims View*.
 If the session marked done has a recurring period, a new session with the updated date
 and timing will be added to *Session View*.
 
-If you were on a different tab, you will automatically be switched to the claims tab.
+If you were on a different `tab`, you will automatically be switched to the `claims tab`.
 
 Format: `session done INDEX`
 
@@ -1008,7 +1006,7 @@ When you execute a new filter command, any previous filters applied on the sessi
 be removed and only the filters from the latest command will be applied on the sessions
 list. The filters that are currently being applied are shown at the top of the *Session View*
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 
