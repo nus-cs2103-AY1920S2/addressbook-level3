@@ -20,10 +20,11 @@ import com.notably.model.Model;
  */
 public class OpenSuggestionCommandParser implements SuggestionCommandParser<OpenSuggestionCommand> {
     public static final String COMMAND_WORD = "open";
+    public static final String COMMAND_SHORTHAND = "o";
 
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
-    private static final String RESPONSE_MESSAGE_CANNOT_OPEN_NOTE = "Open delete \"%s\". Invalid path.";
+    private static final String ERROR_MESSAGE_CANNOT_OPEN_NOTE = "Cannot open \"%s\" as it is an invalid path";
 
     private Model model;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
@@ -61,7 +62,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         try {
             uncorrectedPath = ParserUtil.createAbsolutePath(title, model.getCurrentlyOpenPath());
         } catch (ParseException pe) {
-            model.setResponseText(String.format(RESPONSE_MESSAGE_CANNOT_OPEN_NOTE, title));
+            model.setResponseText(String.format(ERROR_MESSAGE_CANNOT_OPEN_NOTE, title));
             return Optional.empty();
         }
 
