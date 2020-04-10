@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.profile.Name;
+import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 //@@author wanxuanong
 /**
@@ -31,17 +33,13 @@ public class DeleteCommandParserTest {
         assertParseSuccess(parser, " " + PREFIX_NAME + VALID_NAME_BOB, new DeleteCommand(name));
 
         // Module field present
-        //ModuleCode moduleCode = new ModuleCode("CS1101S");
-        //assertParseSuccess(parser, " " + PREFIX_MODULE + moduleCode, new ShowCommand(moduleCode));
+        ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
+        assertParseSuccess(parser, " " + PREFIX_MODULE + moduleCode, new DeleteCommand(moduleCode));
 
-        //Focus area field present
-        //String focusArea = "Computer Security";
-        //assertParseSuccess(parser, " " + PREFIX_FOCUS_AREA + focusArea,
-        //        new ShowCommand(focusArea.toUpperCase()));
+        // Task field present
+        Deadline deadline = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
+        assertParseSuccess(parser, " "+ PREFIX_TASK, new DeleteCommand(moduleCode, deadline));
 
-        // Name field present
-        //String name = "john";
-        //assertParseSuccess(parser, " " + PREFIX_NAME + name, new ShowCommand(new Name(name)));
     }
 
     @Test
