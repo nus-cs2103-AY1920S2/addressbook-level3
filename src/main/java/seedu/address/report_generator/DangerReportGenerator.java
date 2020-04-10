@@ -24,7 +24,7 @@ public class DangerReportGenerator {
     {
         File file = new File(DEST);
         file.getParentFile().mkdirs();
-        new danger_report_generator().createPdf(DEST, resp);
+        new DangerReportGenerator().createPdf(DEST, resp);
     }
 
     public void createPdf(String dest, ArrayList<BluetoothPingsSummary> resp) throws IOException

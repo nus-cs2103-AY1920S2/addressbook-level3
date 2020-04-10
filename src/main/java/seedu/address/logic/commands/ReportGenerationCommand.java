@@ -11,8 +11,6 @@ import seedu.address.model.bluetooth.BluetoothPings;
 import seedu.address.model.bluetooth.BluetoothPingsSummary;
 import seedu.address.report_generator.DangerReportGenerator;
 import seedu.address.report_generator.ReportGenerator;
-import seedu.address.report_generator.danger_report_generator;
-import seedu.address.report_generator.report_generator;
 import seedu.address.storage.AppStorage;
 import seedu.address.storage.BluetoothPingStorageAccess;
 
