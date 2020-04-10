@@ -29,12 +29,9 @@ public class SearchSuggestionCommand implements SuggestionCommand {
 
     @Override
     public void execute(Model model) {
-        // Nullity check
         Objects.requireNonNull(model);
 
-        // Set suggestions
         List<SuggestionItem> suggestions = traverseTree(model);
-
         model.setSuggestions(suggestions);
     }
 

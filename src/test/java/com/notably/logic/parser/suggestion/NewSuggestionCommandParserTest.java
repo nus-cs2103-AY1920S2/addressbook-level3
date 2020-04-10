@@ -29,7 +29,6 @@ public class NewSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
 
-        // initialize parser
         newSuggestionCommandParser = new NewSuggestionCommandParser(model);
     }
 

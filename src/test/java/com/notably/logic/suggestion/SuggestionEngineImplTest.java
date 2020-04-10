@@ -37,7 +37,6 @@ public class SuggestionEngineImplTest {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
 
-        // Set up SuggestionEngine
         suggestionEngine = new SuggestionEngineImpl(model);
     }
 
@@ -68,13 +67,9 @@ public class SuggestionEngineImplTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Test response text
         assertEquals(Optional.of(String.format(DELETE_RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
     }
@@ -89,13 +84,9 @@ public class SuggestionEngineImplTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Test response text
         assertEquals(Optional.of(String.format(OPEN_RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
     }
@@ -108,7 +99,6 @@ public class SuggestionEngineImplTest {
         String userInput = userInputWithoutPath + arg;
         suggestionEngine.suggest(userInput);
 
-        // Test response text
         assertEquals(Optional.of(String.format(NEW_RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
     }

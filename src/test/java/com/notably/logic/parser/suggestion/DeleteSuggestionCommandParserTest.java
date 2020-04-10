@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
@@ -22,15 +21,14 @@ import com.notably.model.suggestion.SuggestionItem;
 
 public class DeleteSuggestionCommandParserTest {
     private static AbsolutePath toCs2103t;
+    private static String stringRelativePathToCs2103t;
     private static DeleteSuggestionCommandParser deleteSuggestionCommandParser;
     private static Model model;
 
-    private static final String RELATIVE_PATH_TO_CS2103T = "CS2103T";
     private static final String COMMAND_WORD = "delete";
     private static final String RESPONSE_MESSAGE = "Delete a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
-
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
 
@@ -38,8 +36,8 @@ public class DeleteSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        stringRelativePathToCs2103t = SuggestionTestUtil.getStringRelativePathToCs2103t();
 
-        // initialize parser
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
         deleteSuggestionCommandParser = new DeleteSuggestionCommandParser(model, pathCorrectionEngine);
@@ -53,8 +51,7 @@ public class DeleteSuggestionCommandParserTest {
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE),
-                model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
 
         assertFalse(command.isPresent());
     }
@@ -67,8 +64,7 @@ public class DeleteSuggestionCommandParserTest {
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE),
-                model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
 
         assertFalse(command.isPresent());
     }
@@ -77,124 +73,92 @@ public class DeleteSuggestionCommandParserTest {
     public void parse_correctCmdcorrectAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
         String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + PREFIX_TITLE + " " + toCs2103t.getStringRepresentation();
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, toCs2103t.getStringRepresentation())),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
     public void parse_correctedCmdcorrectAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() {
-        String userInputWithoutPath = "dele ";
+        String userInputWithoutPath = "dele";
         String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
-        String arg = userInput.replace("dele", "");
+        String arg = " " + toCs2103t.getStringRepresentation();
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, toCs2103t.getStringRepresentation())),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
     public void parse_correctCmdcorrectRelativePathWithPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
-        String userInput = userInputWithoutPath + RELATIVE_PATH_TO_CS2103T;
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
+        String arg = " " + PREFIX_TITLE + " " + stringRelativePathToCs2103t;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, stringRelativePathToCs2103t)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
     public void parse_correctedCmdcorrectRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() {
-        String userInputWithoutPath = "dele ";
-        String userInput = userInputWithoutPath + RELATIVE_PATH_TO_CS2103T;
-        String arg = userInput.replace("dele", "");
+        String userInputWithoutPath = "dele";
+        String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
+        String arg = " " + stringRelativePathToCs2103t;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, stringRelativePathToCs2103t)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -202,31 +166,23 @@ public class DeleteSuggestionCommandParserTest {
         String userInputWithoutPath = "dele " + PREFIX_TITLE + " ";
         String path = "/Y2S2/CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace("dele", "");
+        String arg = " " + PREFIX_TITLE + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -234,31 +190,23 @@ public class DeleteSuggestionCommandParserTest {
         String userInputWithoutPath = COMMAND_WORD + " ";
         String path = "/Y2S2/CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -266,31 +214,23 @@ public class DeleteSuggestionCommandParserTest {
         String userInputWithoutPath = "dele " + PREFIX_TITLE + " ";
         String path = "CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace("dele", "");
+        String arg = " " + PREFIX_TITLE + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -298,31 +238,23 @@ public class DeleteSuggestionCommandParserTest {
         String userInputWithoutPath = COMMAND_WORD + " ";
         String path = "CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
-
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test

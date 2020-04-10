@@ -3,7 +3,6 @@ package com.notably.logic.commands.suggestion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -42,19 +41,14 @@ public class SearchSuggestionCommandTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
-        List<SuggestionItem> expectedSuggestions = new ArrayList<>();
         SuggestionItem cs2103tTut1 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
         SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
         SuggestionItem cs2106Tut1 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, null);
-        expectedSuggestions.add(cs2103tTut1);
-        expectedSuggestions.add(cs2103tTut2);
-        expectedSuggestions.add(cs2106Tut1);
+                TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
+        List<SuggestionItem> expectedSuggestions = List.of(cs2103tTut1, cs2103tTut2, cs2106Tut1);
 
-        // Test displayText and frequency
         for (int i = 0; i < expectedSuggestions.size(); i++) {
             SuggestionItem suggestion = suggestions.get(i);
             SuggestionItem expectedSuggestion = expectedSuggestions.get(i);
@@ -62,13 +56,9 @@ public class SearchSuggestionCommandTest {
             assertEquals(expectedSuggestion.getProperty("frequency"), suggestion.getProperty("frequency"));
         }
 
-        // Expected currently open paths
-        List<AbsolutePath> expectedCurrentlyOpenPaths = new ArrayList<>();
-        expectedCurrentlyOpenPaths.add(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1);
-        expectedCurrentlyOpenPaths.add(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2);
-        expectedCurrentlyOpenPaths.add(TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1);
+        List<AbsolutePath> expectedCurrentlyOpenPaths = List.of(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1,
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2, TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1);
 
-        // Test Runnable action and check currentlyOpenPath
         for (int i = 0; i < expectedCurrentlyOpenPaths.size(); i++) {
             SuggestionItem suggestion = suggestions.get(i);
             suggestion.getAction().run();

@@ -21,7 +21,6 @@ public class ExitSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
 
-        // initialize parser
         exitSuggestionCommandParser = new ExitSuggestionCommandParser(model);
     }
 
