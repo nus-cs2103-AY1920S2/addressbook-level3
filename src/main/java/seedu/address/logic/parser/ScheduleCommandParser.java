@@ -30,7 +30,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
     }
 
     /**
-     * @author Dban1
+     * @author @Dban1
      * Checks for any overlaps in given schedule with all existing schedules in input set.
      */
     private static boolean checkIfOverlaps(Schedule schedule, TreeSet<Schedule> set) {
@@ -42,6 +42,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
     }
 
     /**
+     * @author @Dban1
      * Parses the given {@code String} of arguments in the context of the ScheduleCommand
      * and returns a ScheduleCommand object for execution.
      *

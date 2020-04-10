@@ -273,34 +273,65 @@ Also, since we have implemented our own Trie data structure, it would also allow
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
 
 ==== Implementation
-This scheduling mechanism is facilitated by `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` contains an empty `ArrayList` of `Schedule`.
+This scheduling mechanism is facilitated by `ScheduleCommand` which extends `Command`. The format of the command is given by:
+
+`schedule INDEX sch/DAY-STARTTIME-ENDTIME [sch/DAY-STARTTIME-ENDTIME] ...`
+
+When using this command, at least one valid complete schedule parameter must be specified. The user can follow up with additional optional valid schedule parameters in order to assign more schedules to the same client. The following 3 examples are all valid usages of the `schedule` command:
+
+*Example Commands*
+
+1. `schedule 1 sch/MON-1100-1300`
+2. `schedule 2 sch/MON-1100-1300 sch/TUE-1100-1300 sch/SAT-1800-2000`
+3. `schedule 3 sch/`
+
+*Elaboration on Example Commands*
+
+1. This command instance schedules `Client` with index 1 to have a schedule slot on every Monday, 11:00am to 1:00pm.
+
+2. This command instance schedules `Client` with index 2 to have schedule slots on every Monday 11:00am to 1:00pm, Tuesday 11:00am to 1:00pm, and Saturday 6:00pm to 8:00pm.
+
+3. This command instance schedules `Client` with index 3 to have no schedule slots, that is essentially clearing the schedule of `Client` with index 3. The `sch/` parameter is required when clearing the schedule.
+
+
+Do note that the schedule parameters given in the `schedule` command will entirely overwrite the client's current list of schedules.
+
+
+The list of schedules of each client are structured as a `ScheduleList`, which is a wrapper class for an `ArrayList` of `Schedule` objects. Each `Client` contains one `ScheduleList` attribute to keep track of all `Schedule` assigned to it. If there are no assigned `Schedule` for the `Client`, then the `ScheduleList` simply contains an empty `ArrayList` of `Schedule`.
 
 `Schedule` comprises three attributes:
 
-* `Day`
+1. `Day`
 
-* `StartTime`
+2. `StartTime`
 
-* `EndTime`
+3. `EndTime`
 
 `Day` wraps the enum `DayEnum.Weekday` and represents the day of the week the schedule takes place on.
-`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. The relations between these classes are shown in the class diagram below.
+
+`StartTime` and `EndTime` represent the start time and end time of the schedule in the "HHmm" format respectively. 
+
+The relations between these classes are shown in the class diagram below.
 
 image::ScheduleClassDiagram.png[]
 
 These attributes are bounded by these characteristics:
 
-* Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
+1. Each `Client` can only contain unique `Schedule`, that is, there are no overlaps in timings between any two `Schedule` in the `ScheduleList`. This is ensured by `ScheduleCommandParser#checkIfOverlaps()`
 
-* Overlapping timings between the `Schedule` of different `Client` is allowed
+2. Overlapping timings between the `Schedule` of different `Client` is allowed
 
-* The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
+3. The maximum timeframe between `StartTime` and `EndTime` is from `0000` to `2359`
 
-* `StartTime` cannot be later than `EndTime`
+4. `StartTime` cannot be later than `EndTime`
 
-* `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
+5. `Day` can only take up the 7 values of the week (MON/TUE/WED/THU/FRI/SAT/SUN)
 
-In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz:
+Here is an activity diagram displaying the steps taken when FitBiz receives a user input for the `schedule` command:
+
+image::ScheduleActivityDiagram.png[]
+
+In the following sequence diagram, we trace the execution for when the user decides to enter the command `schedule 1 day/mon st/1100 et/1200` into FitBiz. For simplicity, we will refer to this command input as `commandText`:
 
 image::ScheduleSequenceDiagram.png[]
 

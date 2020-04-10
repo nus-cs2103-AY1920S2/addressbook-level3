@@ -27,7 +27,7 @@ public class Day {
     }
 
     /**
-     * @author Dban1
+     * @author @Dban1
      * Private constructor for cloning Day using the Weekday enum.
      * @param day
      */
