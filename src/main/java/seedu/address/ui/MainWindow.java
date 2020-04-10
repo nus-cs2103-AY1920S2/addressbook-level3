@@ -347,7 +347,7 @@ public class MainWindow extends UiPart<Stage> {
                         .select(switchTabCommandResult.getTabToSwitchIndex());
                 if (switchTabCommandResult.getTabToSwitchIndex() == STATS_TAB_INDEX) {
                     ObservableList<DayData> customQueue = logic.getCustomQueue();
-                    statisticsManager.updateStatistics(customQueue);
+                    statisticsManager.updateStatisticsDisplayValues(customQueue);
                     this.updateStatisticsDisplay();
                 }
             } catch (ClassCastException ce) {
@@ -367,8 +367,6 @@ public class MainWindow extends UiPart<Stage> {
                 }
             } catch (ClassCastException ce) {
 
-            } catch (NullPointerException ne) {
-                resultDisplay.setFeedbackToUser("Sorry, you've got no tasks being POMmed.");
             }
 
             if (commandResult.isShowHelp()) {
