@@ -66,15 +66,32 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInputJump_false() throws Exception {
-        List<? extends Command> commands = parser.parseCommand("new -t CS2103");
+        List<? extends Command> commands = parser.parseCommand("new -t CS2101");
+
+        AbsolutePath expectedCurrentPath = AbsolutePath.fromString("/Y2S2");
+        AbsolutePath expectedCreatedPath = AbsolutePath.fromString("/Y2S2/CS2101");
 
         assertTrue(commands.size() == 1);
+
+        for (Command command : commands) {
+            command.execute(model);
+        }
+
+        assertEquals(expectedCurrentPath, model.currentlyOpenPathProperty().getValue());
+        assertTrue(model.hasPath(expectedCreatedPath));
     }
 
     @Test
     public void parseCommand_newCommandInputJump_true() throws Exception {
-        List<? extends Command> commands = parser.parseCommand("new -t CS2103 -o");
+        AbsolutePath expectedPath = AbsolutePath.fromString("/Y2S2/CS2101");
+        List<? extends Command> commands = parser.parseCommand("new -t CS2101 -o");
         assertTrue(commands.size() == 2);
+
+        for (Command command : commands) {
+            command.execute(model);
+        }
+
+        assertEquals(expectedPath , model.currentlyOpenPathProperty().getValue());
     }
 
     @Test
