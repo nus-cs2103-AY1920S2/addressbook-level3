@@ -9,7 +9,6 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.ArrayList;
