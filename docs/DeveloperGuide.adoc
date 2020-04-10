@@ -376,20 +376,35 @@ The commands follow a similar execution flow as other commands.
 
 image::ExerciseCommandActivityDiagram.png[]
 
-For the `add-e` command, we had to pay particular attention to the index where new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This would result in problems when using `delete-e` command as it deletes the exercise at the specified index.
+The `FitBizParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`.
 
-To solve this problem, we implemented our 
+For the `add-e` command, it is important which index the new Exercise is added. This is such that the exercises for the client will be displayed in descending chronological order in the table after a `view-c` command. `TableView` provides sorting for dates. However, having `TableView` to do the sorting would result in mismatch of indexes of the exercises in the `UniqueExerciseList` and in the `TableView`. This will result in problems when using `delete-e` command as it deletes the exercise at the specified index.
+
+To address this problem, we implemented our add function, `addToSorted()`. Rather than calling the predefined `add()` from the `List` class, we will call `addToSorted()` to add our new instance of `Exercise`. Below shows a code snippet of `addToSorted()`.
+
 ....
 public void addToSorted(Exercise toAdd) {
         requireNonNull(toAdd);
+
         if (contains(toAdd)) {
             throw new DuplicateExerciseException();
         }
+
         int idx = 0;
         LocalDate toAddDate = toAdd.getExerciseDate().value;
+        String toAddName = toAdd.getExerciseName().value.toLowerCase();
         for (Exercise curr : internalList) {
             LocalDate currDate = curr.getExerciseDate().value;
-            if (toAddDate.compareTo(currDate) < 0) {
+            String currName = curr.getExerciseName().value.toLowerCase();
+            if (toAddDate.compareTo(currDate) > 0) {
+                break;
+            } else if (toAddDate.compareTo(currDate) == 0) {
+                if (toAddName.compareTo(currName) <= 0) {
+                    break;
+                } else {
+                    idx++;
+                }
+            } else {
                 idx++;
             }
         }
@@ -397,7 +412,7 @@ public void addToSorted(Exercise toAdd) {
     }
 ....
 
-We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The `FitBizParser` will create a `AddExerciseCommandParser`. By using `ParserUtil`, `AddExerciseCommandParser` will extract details like the reps of the exercise and pass the arguments to `AddExerciseCommand`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
+We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
 image::AddExerciseCommandSequenceDiagram.png[]
 
