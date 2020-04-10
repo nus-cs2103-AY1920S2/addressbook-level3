@@ -2,6 +2,7 @@ package seedu.recipe.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,7 +12,6 @@ import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.Plan;
-import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -131,17 +131,17 @@ public interface Model {
     void setPlannedBook(ReadOnlyPlannedBook plannedBook);
 
     /**
-     * Adds the {@code newPlan} that plans for {@code recipe}. todo
+     * Adds {@code plan} for {@code recipe}.
      */
     void addPlan(Recipe recipe, Plan plan);
 
     /**
-     * Deletes the {@code recipe} plan from the {@code plannedDate}.
+     * Deletes {@code plan} for {@code recipe}.
      */
     void deletePlan(Recipe recipe, Plan plan);
 
     /**
-     * Returns an unmodifiable view of the planned recipes.
+     * Returns an unmodifiable view of the plans.
      */
     ObservableList<Plan> getFilteredPlannedList();
 
@@ -151,14 +151,10 @@ public interface Model {
     void updateFilteredPlannedList(Predicate<Plan> predicate) throws NullPointerException;
 
     /**
-     * Returns the mapping of recipes to planned dates.
+     * Returns the Optional of list of plans that uses {@code recipe}.
+     * Returns Optional empty if no plans use {@code recipe}.
      */
-    PlannedRecipeMap getPlannedMap();
-
-    /**
-     * Returns the list of plans that uses {@code recipe}.
-     */
-    List<Plan> getPlans(Recipe recipe);
+    Optional<List<Plan>> getPlans(Recipe recipe);
 
     /**
      * Returns the grocery list containing all the ingredients in the planned recipes.

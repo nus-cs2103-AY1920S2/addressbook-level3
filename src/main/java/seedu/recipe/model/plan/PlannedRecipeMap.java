@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import seedu.recipe.model.recipe.Recipe;
 
 /**
- * A map of recipe to list-of-planned-recipes that contains mappings to ease the updating of planned recipes when
- * the original recipes are changed.
+ * A map of recipe to list-of-plans that contains mappings to ease the updating of plans when
+ * original recipes are changed.
  */
 public class PlannedRecipeMap {
 
-    private Map<Recipe, List<Plan>> internalMap;
+    private final Map<Recipe, List<Plan>> internalMap;
 
     public PlannedRecipeMap() {
         internalMap = new HashMap<>();
@@ -27,6 +28,9 @@ public class PlannedRecipeMap {
         internalMap.putAll(plannedRecipeMap.getInternalMap());
     }
 
+    /**
+     * Adds {@code plan} to the {@code recipe} key.
+     */
     public void addPlan(Recipe recipe, Plan plan) {
         if (internalMap.containsKey(recipe)) {
             internalMap.get(recipe).add(plan);
@@ -37,6 +41,9 @@ public class PlannedRecipeMap {
         }
     }
 
+    /**
+     * Deletes {@code plan} from the {@code recipe} key if it exists.
+     */
     public void deletePlan(Recipe recipe, Plan plan) {
         if (internalMap.containsKey(recipe)) {
             List<Plan> plans = internalMap.get(recipe);
@@ -49,7 +56,7 @@ public class PlannedRecipeMap {
     }
 
     /**
-     * Deletes the list of plans at {@code recipe} key.
+     * Deletes all plans at {@code recipe} key if it exists.
      */
     public void deleteRecipe(Recipe recipe) {
         if (internalMap.containsKey(recipe)) { // todo check first?
@@ -58,7 +65,7 @@ public class PlannedRecipeMap {
     }
 
     /**
-     * Removes the values at {@code target} key and places the updated values at the {@code editedRecipe} key.
+     * Shifts the values from {@code target} key to {@code editedRecipe} key.
      */
     public void setRecipe(Recipe target, Recipe editedRecipe, List<Plan> newPlans) {
         if (internalMap.containsKey(target)) {
@@ -68,14 +75,14 @@ public class PlannedRecipeMap {
     }
 
     /**
-     * Returns a new list of plans at the {@code recipe} key.
-     * If {@code recipe} does not exist, return a new list.
+     * Returns an optional new list of plans at the {@code recipe} key.
+     * Returns optional empty if {@code recipe} does not exist.
      */
-    public List<Plan> getPlans(Recipe recipe) {
+    public Optional<List<Plan>> getPlans(Recipe recipe) {
         if (contains(recipe)) {
-            return new ArrayList<>(internalMap.get(recipe));
+            return Optional.of(new ArrayList<>(internalMap.get(recipe)));
         } else {
-            return new ArrayList<>(); // or check before calling this? todo
+            return Optional.empty();
         }
     }
 

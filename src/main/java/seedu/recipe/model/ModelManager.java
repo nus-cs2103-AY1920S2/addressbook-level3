@@ -5,6 +5,7 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -20,8 +21,6 @@ import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.PlannedDate;
-import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.RecipeBook;
 
@@ -228,7 +227,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Plan> getPlans(Recipe recipe) {
+    public Optional<List<Plan>> getPlans(Recipe recipe) {
         requireNonNull(recipe);
         return plannedBook.getPlans(recipe);
     }
@@ -253,34 +252,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPlannedDates.setPredicate(predicate);
     }
-
-    @Override
-    public PlannedRecipeMap getPlannedMap() {
-        return plannedBook.getPlannedMap();
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return recipeBook.equals(other.recipeBook)
-                && plannedBook.equals(other.plannedBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredRecipes.equals(other.filteredRecipes);
-    }
-
-
 
     //=========== Cooked Recipe List Accessors =============================================================
 
@@ -333,4 +304,23 @@ public class ModelManager implements Model {
         return quoteBook.hasQuote(quote);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return recipeBook.equals(other.recipeBook)
+                && plannedBook.equals(other.plannedBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredRecipes.equals(other.filteredRecipes);
+    }
 }

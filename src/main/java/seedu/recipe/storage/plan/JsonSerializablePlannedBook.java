@@ -12,7 +12,6 @@ import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**

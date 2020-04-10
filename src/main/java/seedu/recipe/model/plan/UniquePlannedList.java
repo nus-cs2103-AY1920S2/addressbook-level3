@@ -9,11 +9,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of planned dates that enforces uniqueness between its elements and does not allow nulls.
- * Ensures that at any point in time, the items in the list of planned dates each has a unique Date.
- * This means that PlannedDate items with the same Date must not exist in the list.
+ * A list of plans that enforces uniqueness between its elements and does not allow nulls.
+ * Ensures that at any point in time, the items in the list of plans each has a unique date and recipe.
+ * This means that Plan items with the same Date and Recipe must not exist in the list.
  *
- * A planned date is considered unique by comparing using {@code PlannedDate#equals(object)}.
+ * A plan is considered unique by comparing using {@code Plan#equals(object)}.
  *
  *  Supports a minimal set of list operations.
  */
@@ -42,14 +42,12 @@ public class UniquePlannedList {
      */
     public void setPlan(Plan target, Plan newPlan) {
         int index = internalList.indexOf(target);
-        System.out.println("planneddate index is: " + index); //todo deletePlan after cooked command debugged
         internalList.set(index, newPlan);
-        System.out.println("============Recipes in internalList =============\n" + internalList);
     }
 
     /**
      * Adds {@code plan} to the list.
-     * todo throws
+     * Throws {@code DuplicatePlannedRecipeException} if a similar plan is already present.
      */
     public void addPlan(Plan plan) {
         requireNonNull(plan);
@@ -61,6 +59,7 @@ public class UniquePlannedList {
 
     /**
      * Removes {@code plan} from the list.
+     * Throws {@code PlannedRecipeNotFoundException} if the plan is not present.
      */
     public void deletePlan(Plan plan) {
         requireNonNull(plan);
@@ -70,12 +69,12 @@ public class UniquePlannedList {
     }
 
     /**
-     * Returns true if {@code plan} contains only unique plans.
+     * Returns true if {@code plans} contains only unique plans.
      */
-    private boolean plansAreUnique(List<Plan> plan) {
-        for (int i = 0; i < plan.size() - 1; i++) {
-            for (int j = i + 1; j < plan.size(); j++) {
-                if (plan.get(i).equals(plan.get(j))) {
+    private boolean plansAreUnique(List<Plan> plans) {
+        for (int i = 0; i < plans.size() - 1; i++) {
+            for (int j = i + 1; j < plans.size(); j++) {
+                if (plans.get(i).equals(plans.get(j))) {
                     return false;
                 }
             }
@@ -83,6 +82,9 @@ public class UniquePlannedList {
         return true;
     }
 
+    /**
+     * Returns true if list contains {@code plan}.
+     */
     public boolean containsPlan(Plan plan) {
         return internalList.contains(plan);
     }

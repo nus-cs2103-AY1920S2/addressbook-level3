@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 import seedu.recipe.model.Date;
 
 /**
- * Tests that a PlannedDate PlannedDate is on the specified Date.
+ * Tests that a PlannedDate PlannedDate is on the specified Date. todo
  */
-public class PlannedRecipeOnDatePredicate implements Predicate<PlannedDate> {
+public class PlannedRecipeOnDatePredicate implements Predicate<Plan> {
 
     private Date onDate;
 
@@ -16,7 +16,7 @@ public class PlannedRecipeOnDatePredicate implements Predicate<PlannedDate> {
     }
 
     @Override
-    public boolean test(PlannedDate recipe) {
+    public boolean test(Plan recipe) {
         return recipe.isOnDate(onDate);
     }
 

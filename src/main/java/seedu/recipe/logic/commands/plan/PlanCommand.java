@@ -23,7 +23,7 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
 /**
- * Plans recipe(s) on a date.
+ * Plans a recipe on a date.
  */
 public class PlanCommand extends Command {
 
@@ -49,7 +49,7 @@ public class PlanCommand extends Command {
     private final CommandType commandType;
 
     /**
-     * Creates an PlanCommand to set the specified {@code Recipe} on a certain date
+     * Creates a PlanCommand to set the specified {@code Recipe} on {@code date}.
      */
     public PlanCommand(Index[] indexes, Date date) {
         requireNonNull(indexes);
@@ -63,7 +63,7 @@ public class PlanCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        List<String> newPlansMessage = new ArrayList<>();
+        List<String> newPlansMessage = new ArrayList<>(); // lists to hold messages to user
         List<String> duplicatePlansMessage = new ArrayList<>();
 
         if (!allIndexesAreValid(indexes, lastShownList)) {
@@ -90,17 +90,17 @@ public class PlanCommand extends Command {
     }
 
     /**
-     * Returns true if all {@code indexes} are within the size of the planned {@code recipes} list.
+     * Returns true if all {@code indexes} are within the size of {@code list}.
      */
-    private static boolean allIndexesAreValid(Index[] indexes, List<?> recipes) {
+    private static boolean allIndexesAreValid(Index[] indexes, List<?> list) {
         List<Index> invalidIndexes = Arrays.stream(indexes)
-                .filter(index -> index.getOneBased() > recipes.size())
+                .filter(index -> index.getOneBased() > list.size())
                 .collect(Collectors.toList());
         return invalidIndexes.isEmpty();
     }
 
     /**
-     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)].
+     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
      */
     private static String formatIndexToString(Index index, Recipe recipe) {
         return index.getOneBased() + " (" + recipe.getName() +")";

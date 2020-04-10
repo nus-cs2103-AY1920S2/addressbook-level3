@@ -10,7 +10,6 @@ import seedu.recipe.model.Date;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.achievement.Content;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.achievement.QuoteBook;
@@ -19,9 +18,9 @@ import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
-
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Other;

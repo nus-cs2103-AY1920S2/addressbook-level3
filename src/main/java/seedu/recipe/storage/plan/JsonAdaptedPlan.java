@@ -20,7 +20,7 @@ public class JsonAdaptedPlan {
     private final JsonAdaptedDate date;
 
     /**
-     * Constructs a {@code JsonAdaptedPlan} with the given {@code PlannedDate}.
+     * Constructs a {@code JsonAdaptedPlan} with the given {@code Plan}.
      */
     @JsonCreator
     public JsonAdaptedPlan(@JsonProperty("recipe") JsonAdaptedRecipe recipe,

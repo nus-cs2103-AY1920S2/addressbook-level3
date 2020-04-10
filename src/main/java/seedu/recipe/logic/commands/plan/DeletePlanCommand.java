@@ -20,7 +20,7 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
 /**
- * Deletes plans.
+ * Deletes plans from the planned list.
  */
 public class DeletePlanCommand extends Command {
 
@@ -73,24 +73,26 @@ public class DeletePlanCommand extends Command {
 
 
     /**
-     * Returns true if all {@code indexes} are within the size of the planned {@code recipes} list. todo change to planned?
+     * Returns true if all {@code indexes} are within the size of the {@code list}.
      */
-    private static boolean allIndexesAreValid(Index[] indexes, List<?> recipes) {
+    private static boolean allIndexesAreValid(Index[] indexes, List<?> list) {
         List<Index> invalidIndexes = Arrays.stream(indexes)
-                .filter(index -> index.getOneBased() > recipes.size())
+                .filter(index -> index.getOneBased() > list.size())
                 .collect(Collectors.toList());
         return invalidIndexes.isEmpty();
     }
 
+    /**
+     * Converts {@code indexes} to their respective Plan in the {@code plans} list.
+     */
     private static List<Plan> convertIndexesToRecipes(Index[] indexes, List<Plan> plans) {
         return Arrays.stream(indexes)
                 .map(index -> plans.get(index.getZeroBased()))
                 .collect(Collectors.toList());
     }
 
-
     /**
-     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)].
+     * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
      */
     private static String formatIndexToString(Index index, Recipe recipe) {
         return index.getOneBased() + " (" + recipe.getName() +")";
