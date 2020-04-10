@@ -30,8 +30,11 @@ public class TitleTest {
         assertFalse(Title.isValidTitle(" ")); // Spaces only
         assertFalse(Title.isValidTitle(" Week 2 Lecture")); // Leading whitespace
         assertFalse(Title.isValidTitle("Week 2 Lecture ")); // Trailing whitespace
-        assertFalse(Title.isValidTitle("-t Title")); // Contains '-' character
+        assertFalse(Title.isValidTitle("-t Title-1")); // Contains '-' character
         assertFalse(Title.isValidTitle("Weird/Title")); // Contains '/' character
+        assertFalse(Title.isValidTitle(".")); // Single period character = RelativePath to here
+        assertFalse(Title.isValidTitle("..")); // Double period character = RelativePath to parent
+        assertFalse(Title.isValidTitle("..1")); // Title starts wih period character
 
         // Valid title
         assertTrue(Title.isValidTitle("A")); // Single character title
@@ -41,6 +44,7 @@ public class TitleTest {
         assertTrue(Title.isValidTitle("Lecture Week 2")); // With uppercase characters
         assertTrue(Title.isValidTitle("2018 Year 1 Semester 1 CS2103 Week 2 Lecture Notes")); // Long title
         assertTrue(Title.isValidTitle("!\"#$%&'()*+,.:;<=>?@[\\]^_`{|}~")); // Accepted symbols
+        assertTrue(Title.isValidTitle("1.2..3...4 1.2 .1")); // Use of period characters as long as not start of string
     }
 
     @Test
