@@ -9,10 +9,7 @@ public class CommandTestUtility {
     public static final String VALID_COMMAND_DELETE = "delete";
     public static final String VALID_PLURAL_ATTRIBUTE = "attributes";
     public static final String VALID_PLURAL_INTERVIEWEE = "interviewees";
-<<<<<<< HEAD:src/test/java/hirelah/logic/commands/CommandTestUtility.java
     public static final String VALID_PLURAL_METRIC = "metrics";
-=======
->>>>>>> Adds functionality to toggle between best interviewees and interviewees command:src/test/java/seedu/address/logic/commands/CommandTestUtility.java
     public static final String VALID_PLURAL_QUESTION = "questions";
     public static final String VALID_COMMAND_FINALISE = "finalise";
     public static final String VALID_COMMAND_OPEN = "open";

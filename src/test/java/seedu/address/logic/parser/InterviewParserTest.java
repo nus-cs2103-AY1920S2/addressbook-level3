@@ -1,37 +1,37 @@
-package seedu.address.logic.parser;
+package hirelah.logic.parser;
 
+import static hirelah.logic.commands.CommandTestUtility.INVALID_DUMMY_VALUE;
+import static hirelah.logic.commands.CommandTestUtility.INVALID_QUESTION_BLANK;
+import static hirelah.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_1;
+import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_INTEGRITY;
+import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_PERSISTENCE;
+import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_SCORE_1;
+import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_SCORE_2;
+import static hirelah.logic.commands.CommandTestUtility.VALID_COMMAND_RESUME;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_ATTRIBUTES;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_END;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_METRICS;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_QUESTIONS;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_SET;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_START;
+import static hirelah.logic.commands.CommandTestUtility.VALID_QUESTION_NUMBER_1;
+import static hirelah.logic.commands.CommandTestUtility.WHITESPACE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtility.INVALID_DUMMY_VALUE;
-import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_BLANK;
-import static seedu.address.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_1;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_INTEGRITY;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_PERSISTENCE;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_SCORE_1;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_SCORE_2;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_COMMAND_RESUME;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_ATTRIBUTES;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_END;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_METRICS;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_QUESTIONS;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_SET;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEW_COMMAND_START;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_QUESTION_NUMBER_1;
-import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ListAttributeCommand;
-import seedu.address.logic.commands.ListMetricCommand;
-import seedu.address.logic.commands.ListQuestionCommand;
-import seedu.address.logic.commands.OpenResumeCommand;
-import seedu.address.logic.commands.interview.EndCommand;
-import seedu.address.logic.commands.interview.ScoreCommand;
-import seedu.address.logic.commands.interview.StartQuestionCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.testutil.Assert;
+import hirelah.commons.core.Messages;
+import hirelah.logic.commands.Command;
+import hirelah.logic.commands.ListAttributeCommand;
+import hirelah.logic.commands.ListMetricCommand;
+import hirelah.logic.commands.ListQuestionCommand;
+import hirelah.logic.commands.OpenResumeCommand;
+import hirelah.logic.commands.interview.EndCommand;
+import hirelah.logic.commands.interview.ScoreCommand;
+import hirelah.logic.commands.interview.StartQuestionCommand;
+import hirelah.logic.parser.exceptions.ParseException;
+import hirelah.testutil.Assert;
 
 class InterviewParserTest {
 

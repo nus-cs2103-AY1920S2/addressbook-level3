@@ -1,16 +1,17 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
-import static seedu.address.logic.commands.CommandTestUtility.VALID_PATH_DOWNLOADS;
-import static seedu.address.logic.commands.CommandTestUtility.WHITESPACE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static hirelah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
+import static hirelah.logic.commands.CommandTestUtility.VALID_PATH_DOWNLOADS;
+import static hirelah.logic.commands.CommandTestUtility.WHITESPACE;
+import static hirelah.logic.parser.CliSyntax.PREFIX_PATH;
+import static hirelah.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static hirelah.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.UploadResumeCommand;
+import hirelah.logic.commands.UploadResumeCommand;
+import hirelah.logic.parser.UploadResumeCommandParser;
 
 class UploadResumeCommandParserTest {
 
