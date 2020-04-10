@@ -278,6 +278,8 @@
 .expanded-coupon-details-title {
   -fx-font-size: 10px;
   -fx-underline: true;
+  -fx-text-fill: white;
+  -fx-font-family: arial;
 }
 
 .expanded-coupon-details-info {
@@ -285,6 +287,8 @@
   -fx-font-weight: bold;
   -fx-font-size: 16px;
   -fx-font-style: italic;
+  -fx-text-fill: white;
+  -fx-font-family: arial;
 }
 
 #expanded-coupon-details-condition {

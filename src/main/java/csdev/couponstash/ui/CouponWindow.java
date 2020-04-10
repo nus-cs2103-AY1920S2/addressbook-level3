@@ -5,7 +5,9 @@ import static csdev.couponstash.commons.util.DateUtil.DAY_SHORT_MONTH_YEAR_FORMA
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 
@@ -15,6 +17,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +41,8 @@ public class CouponWindow extends UiPart<Stage> {
     // CSS styles for Saveables in CouponWindow
     private static final String SAVEABLE_LABEL_STYLE = "-fx-font: 12px Arial;"
             + "-fx-font-weight: bold; -fx-text-fill: white;";
+    // style class for history date
+    private static final String EXPANDED_COUPON_DETAILS_TITLE = "expanded-coupon-details-title";
 
     public final Coupon coupon;
     private final Stage root;
@@ -87,9 +96,9 @@ public class CouponWindow extends UiPart<Stage> {
         coupon.getTags().stream().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         // set savings pane
-        //SavingsBox savingsBox = new SavingsBox();
         setSavings(coupon.getSavingsForEachUse(), moneySymbol);
-        //savings.getChildren().add(savingsBox.getRoot());
+        // set history
+        setHistory(coupon.getSavingsMap(), moneySymbol);
 
         root.setTitle("Coupon Details of : " + name.getText());
         logger.info("CouponWindow created for " + name.getText() + ".");
@@ -146,6 +155,30 @@ public class CouponWindow extends UiPart<Stage> {
                     this.saveables.setStyle(CouponWindow.HIDDEN);
                     this.numericalAmount.setTranslateX(20);
                 });
+    }
+
+    /**
+     * Sets the usage history in the CouponWindow.
+     *
+     * @param dssm The DateSavingsSumMap representing
+     *             associations of date to savings
+     *             earned on that date.
+     * @param moneySymbol Money symbol for the display.
+     */
+    public void setHistory(DateSavingsSumMap dssm, String moneySymbol) {
+        dssm.forEach((ld, pms) -> {
+            Label dateLabel = new Label(ld.format(DateUtil.DATE_FORMATTER));
+            dateLabel.getStyleClass().add(CouponWindow.EXPANDED_COUPON_DETAILS_TITLE);
+
+            Text savingsLabel = new Text();
+            savingsLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 16));
+            savingsLabel.setText(pms.getStringWithMoneySymbol(moneySymbol) + "\n");
+            savingsLabel.setWrappingWidth(190);
+            savingsLabel.setFill(Color.WHITE);
+
+            this.historyPane.getChildren().add(dateLabel);
+            this.historyPane.getChildren().add(savingsLabel);
+        });
     }
 
     @Override
