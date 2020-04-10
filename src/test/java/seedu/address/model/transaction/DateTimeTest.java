@@ -7,11 +7,11 @@ import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_FIRST_20
 import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_FIRST_2020_5PM;
 import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_SECOND_2020_5PM;
 
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
 
 public class DateTimeTest {
 
@@ -48,7 +48,7 @@ public class DateTimeTest {
     public void isValidDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
         LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Singapore"));
-        LocalDateTime currentPlusOneHour =  currentDateTime.plusHours(1);
+        LocalDateTime currentPlusOneHour = currentDateTime.plusHours(1);
         LocalDateTime currentPlusOneDay = currentDateTime.plusDays(1);
 
 

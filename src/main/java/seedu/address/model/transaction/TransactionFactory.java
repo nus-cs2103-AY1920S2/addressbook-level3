@@ -1,5 +1,7 @@
 package seedu.address.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -12,8 +14,6 @@ import seedu.address.model.product.Product;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Creates a transaction with the customer and product index.
