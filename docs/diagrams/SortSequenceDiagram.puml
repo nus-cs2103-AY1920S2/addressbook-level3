@@ -3,6 +3,7 @@
 
 box Sort LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaskListParser" as TaskListParser LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -15,12 +16,18 @@ end box
 [-> LogicManager : execute("sort priority name")
 activate LogicManager
 
-ref over LogicManager
-    Similar to DeleteCommand's way
-    of generating {action}Command
+ref over LogicManager, TaskListParser
+Parse input to keep unique keywords 
 end ref
 
+create SortCommand
+LogicManager -> SortCommand: SortCommand({"priority", "name"})
+activate SortCommand
 
+SortCommand -> LogicManager
+deactivate SortCommand
+
+LogicManager -[hidden]-> SortCommand : 
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
@@ -61,3 +68,98 @@ deactivate SortCommand
 [<--LogicManager
 deactivate LogicManager
 @enduml
+
+
+' @startuml
+' !include style.puml
+
+' box Sort LOGIC_COLOR_T1
+' participant ":LogicManager" as LogicManager LOGIC_COLOR
+' participant ":TaskListParser" as TaskListParser LOGIC_COLOR
+' participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+' participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+' participant "s:SortCommand" as SortCommand LOGIC_COLOR
+' participant "r:CommandResult" as CommandResult LOGIC_COLOR
+' end box
+
+' box Model MODEL_COLOR_T1
+' participant ":Model" as Model MODEL_COLOR
+' participant "tl:TaskList" as TaskList MODEL_COLOR
+' end box
+
+' [-> LogicManager : execute("sort priority name")
+' activate LogicManager
+
+' LogicManager -> TaskListParser : parseCommand(\n"sort priority name")
+' activate TaskListParser
+
+' create SortCommandParser
+' TaskListParser -> SortCommandParser
+' activate SortCommandParser
+
+' SortCommandParser --> TaskListParser
+' deactivate SortCommandParser
+
+' TaskListParser -> SortCommandParser : parse(\n"sort priority name")
+' activate SortCommandParser
+
+' SortCommandParser -> ParserUtil :parseUniqueKeyWords(\n"priority name")
+' activate ParserUtil
+
+' ParserUtil -> SortCommandParser :String[] words
+' deactivate ParserUtil
+
+' create SortCommand
+' SortCommandParser -> SortCommand: String[] uniqueWords
+' activate SortCommand
+
+' SortCommand --> SortCommandParser : s
+' deactivate SortCommand
+
+' SortCommandParser --> TaskListParser : s
+' deactivate SortCommandParser
+' 'Hidden arrow to position the destroy marker below the end of the activation bar.
+' SortCommandParser -[hidden]-> TaskListParser
+' destroy SortCommandParser
+
+' LogicManager -[hidden]-> SortCommand : 
+' LogicManager -> SortCommand : execute()
+' activate SortCommand
+
+' SortCommand -> SortCommand: get{Field}Comparator()
+' activate SortCommand
+
+' SortCommand -> SortCommand: Comparator<Task>
+' deactivate SortCommand
+
+' SortCommand -> Model : setComparators(\nComparator<Task>[])
+' activate Model
+
+' Model -> Model: sortList()
+' activate Model
+' loop [int n..1]
+'     Model -> TaskList: sort(Comparator)
+'     activate TaskList
+'     TaskList -> Model
+'     deactivate TaskList
+' end
+' Model <- Model
+' deactivate Model
+
+' Model -> SortCommand
+' deactivate Model
+
+
+' create CommandResult
+' SortCommand -> CommandResult
+' activate CommandResult
+
+' CommandResult --> SortCommand
+' deactivate CommandResult
+
+' SortCommand --> LogicManager : r
+' deactivate SortCommand
+
+' [<--LogicManager
+' deactivate LogicManager
+' @enduml
