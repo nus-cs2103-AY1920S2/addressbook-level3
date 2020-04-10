@@ -42,8 +42,6 @@ public class Event extends Activity {
         super(name, date, note);
         this.startDate = startDate;
         this.endDate = endDate;
-        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
-        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
     }
 
     public Date getStartDate() {
@@ -117,7 +115,7 @@ public class Event extends Activity {
 
     @Override
     public Activity deepCopy() {
-        Event event = new Event(getName(), getStartDate(), getStartDate());
+        Event event = new Event(getName(), getStartDate(), getEndDate());
         event.setNote(getNote());
         event.setDateCreated(getDateCreated());
         return event;
