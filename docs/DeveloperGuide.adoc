@@ -20,6 +20,7 @@ By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 Refer to the guide <<SettingUp#, here>>.
 
+//@@author
 == Design
 
 [[Design-Architecture]]
@@ -1428,6 +1429,8 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: manage their deliveries faster than a typical mouse/GUI driven app
 
 [appendix]
+
+//@@author cherweijie
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1461,6 +1464,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |know whether customer will pay cash on delivery |be prepared to collect any payment upon delivery
 
+//@@author JeremyLoh
 |`* *` |courier |know the nearest popstation/pick-up location for returned parcels |plan my route to pick up parcels to be returned
 
 |`* *` |advanced courier |use shorter versions of a command |type a command faster
@@ -2075,6 +2079,7 @@ Cons:
 
 Given below are instructions to test the app manually.
 
+//@@author khsc96
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
@@ -2087,6 +2092,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Copy the jar file to the folder you would like to use as a home address for Delino application
    Expected: Shows the GUI of the Delino App. The window size may not be optimum
 
+//@@author Amoscheong97
 //tag::appendix-insert[]
 === Inserting an order
 
@@ -2105,6 +2111,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::appendix-insert[]
 
+//@@author cherweijie
 //tag::appendix-return[]
 === Returning an order
 
@@ -2130,6 +2137,7 @@ cannot be found in the order list.
    Expected: An error will occur and a message will be displayed, indicating that the order was not delivered and cannot be returned.
 //end::appendix-return[]
 
+//@@author JeremyLoh
 //tag::appendix-delete[]
 === Deleting an order
 
@@ -2150,6 +2158,8 @@ cannot be found in the order list.
 
 //end::appendix-delete[]
 
+//@@author khsc96
+//tag::appendix-edit[]
 === Edit orders
 
 . Edit the details of the delivery order by specifying the `<<command_flag, FLAG>>` (order type), `INDEX` (parcel number displayed), `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` (the field user want to change) and `NEW_VALUE` (the new value that user want to replace the old ones with). For detailed implementation explanation click <<edit,here>>.
@@ -2171,6 +2181,9 @@ cannot be found in the order list.
 .. Test case: `edit` `-r` `1` `rts/02/02/1900` +
    Expected: The response box will display an error message as it is impossible to put a date that is already passed.
 
+//end::appendix-edit[]
+
+//@@author Exeexe93
 //tag::appendix-import[]
 === Import orders
 
@@ -2185,7 +2198,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 //end::appendix-import[]
 
-
+//@@author Amoscheong97
 //tag::appendix-list[]
 === List orders
 
@@ -2202,6 +2215,8 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 //end::appendix-list[]
 
+//@@author khsc96
+//tag::appendix-search[]
 === Search an order
 
 . Search an order based on the `KEYWORD` and `FLAG`(if any) given. For a more detailed explanation of the implementation click <<search, here>>.
@@ -2221,6 +2236,9 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    `search` +
    Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
 
+//end::appendix-search[]
+
+//@@author cherweijie
 //tag::appendix-delivered[]
 === Mark parcel as delivered
 
@@ -2238,6 +2256,7 @@ whenever the parcel has been delivered.
    Expected: No parcel is marked as delivered. The error message will be displayed on the error response box describing the error
 //end::appendix-delivered[]
 
+//@@author Exeexe93
 //tag::appendix-clear[]
 === Clear orders
 
@@ -2263,6 +2282,7 @@ Expected: Invalid command input, as space is required in between flags. +
    Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 //end::appendix-clear[]
 
+//@@author cherweijie
 //tag::appendix-help[]
 === Help
 
@@ -2274,6 +2294,7 @@ Expected: Invalid command input, as space is required in between flags. +
    Expected: An error will occur and the response box will show an error message
 //end::appendix-help[]
 
+//@@author Amoscheong97
 //tag::appendix-show[]
 === Show
 
@@ -2295,6 +2316,7 @@ as earnings made, orders delivered and orders returned (Including a PieChart).
 
 //end::appendix-show[]
 
+//@@author JeremyLoh
 //tag::appendix-nearby[]
 === Obtain all nearby orders based on area or postal sector
 
@@ -2341,9 +2363,13 @@ https://keylocation.sg/singapore/districts-map[this website] +
 
 //end::appendix-nearby[]
 
+//@@author
+//tag::appendix-saving[]
 === Saving data
 
 . Manual Saving is not required as data is already saved in the hard disk after any commands that change the data
+
+//end::appendix-saving[]
 
 === Exit
 
