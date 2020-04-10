@@ -95,8 +95,8 @@ public class MainApp extends Application {
         List<String> startUpMessages = new ArrayList<>();
         String order = "order";
         String returnOrder = "return order";
-        String json_Order_Book = "OrderBook.json";
-        String json_Return_Book = "ReturnBook.json";
+        String jsonOrderBook = "OrderBook.json";
+        String jsonReturnBook = "ReturnBook.json";
 
         try {
             orderBookOptional = storage.readOrderBook();
@@ -108,11 +108,11 @@ public class MainApp extends Application {
             initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
-            startUpMessages.add(String.format(MESSAGE_ORDER_DATA_CHECK, json_Order_Book, order, json_Order_Book));
+            startUpMessages.add(String.format(MESSAGE_ORDER_DATA_CHECK, jsonOrderBook, order, jsonOrderBook));
             initialData = new OrderBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook ");
-            startUpMessages.add(String.format(MESSAGE_JSON_UNABLE_TO_READ, json_Order_Book));
+            startUpMessages.add(String.format(MESSAGE_JSON_UNABLE_TO_READ, jsonOrderBook));
             initialData = new OrderBook();
         }
 
@@ -124,12 +124,12 @@ public class MainApp extends Application {
             initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ReturnBook");
-            startUpMessages.add(String.format(MESSAGE_ORDER_DATA_CHECK, json_Return_Book, returnOrder,
-                    json_Return_Book));
+            startUpMessages.add(String.format(MESSAGE_ORDER_DATA_CHECK, jsonReturnBook, returnOrder,
+                    jsonReturnBook));
             initialReturnData = new ReturnOrderBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ReturnBook");
-            startUpMessages.add(String.format(MESSAGE_JSON_UNABLE_TO_READ, json_Return_Book));
+            startUpMessages.add(String.format(MESSAGE_JSON_UNABLE_TO_READ, jsonReturnBook));
             initialReturnData = new ReturnOrderBook();
         }
 

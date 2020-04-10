@@ -25,7 +25,6 @@ import seedu.delino.model.ReadOnlyUserPrefs;
 import seedu.delino.model.parcel.Parcel;
 import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.returnorder.ReturnOrder;
-import seedu.delino.testutil.Assert;
 import seedu.delino.testutil.OrderBuilder;
 
 //@author Amoscheong97

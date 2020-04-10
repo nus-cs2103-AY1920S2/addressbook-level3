@@ -193,6 +193,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Print out start up message to user.
+     */
     private void printStartUpMessage() {
         List<String> startUpMessages = logic.getStartUpMessages();
         String printMessage = WELCOME_MESSAGE;
