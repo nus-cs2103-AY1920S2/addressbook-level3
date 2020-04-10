@@ -318,14 +318,18 @@ each other's ID from the respective objects.
 ====== +++<u>Design Considerations</u>+++
 . Manipulating the `actual` modelObjects by having modelManager#get() return referenced variable of the actual `modelObject`.
 Pros::
-.. asdasd
+.. Simpler implementation since any changes to the model will change the actual object directly
+.. Faster execution since any changes is done to the actual modelObject
 Cons::
-- asd
+.. Might allow for unintentional changes to the actual modelObject
 . (Current Implementation) Manipulate a `copy` modelObjects by having modelManager#get() return a copy of actual modelObject.
 Pros::
-.. asdasd
+.. Prevents unintentional modifications of the shared object
 Cons::
-- asd
+..  Extra processing required. For example, a method is required to replace the old modelObject with the
+new model object
+.. More memory intensive and can hurt overall program performance.
+
 
 ===== Step 3: Add Progress objects via ProgressManager
 
