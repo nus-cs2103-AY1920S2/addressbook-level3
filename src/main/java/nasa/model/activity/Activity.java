@@ -7,6 +7,8 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
  */
 public abstract class Activity {
 
+    public static final String EMPTY_NOTE_STRING = "-";
+
     private Name name;
     private Note note;
     private Date dateCreated;
@@ -20,7 +22,7 @@ public abstract class Activity {
         requireAllNonNull(name);
         this.name = name;
         dateCreated = Date.now();
-        note = new Note("-");
+        note = new Note(EMPTY_NOTE_STRING);
         schedule = new Schedule(dateCreated);
     }
 

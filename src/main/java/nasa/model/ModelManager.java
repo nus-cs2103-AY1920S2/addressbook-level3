@@ -209,6 +209,7 @@ public class ModelManager implements Model {
         updateHistory();
     }
 
+    /* @@author don-tay */
     @Override
     public void setModule(ModuleCode target, Module editedModule) {
         requireAllNonNull(target, editedModule);
@@ -232,6 +233,7 @@ public class ModelManager implements Model {
         nasaBook.setEvent(moduleCode, target, editedEvent);
         updateHistory();
     }
+    /* @@author */
 
     public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
         requireAllNonNull(module, index, type);
@@ -266,6 +268,7 @@ public class ModelManager implements Model {
         filteredModules.setPredicate(predicate);
     }
 
+    /* @@author don-tay */
     @Override
     public ObservableList<Event> getFilteredEventList(ModuleCode moduleCode) {
         Module module = nasaBook.getModule(moduleCode);
@@ -285,6 +288,7 @@ public class ModelManager implements Model {
             module.sortDeadlineList(sortMethod);
         }
     }
+    /* @@author */
 
     @Override
     public void updateFilteredActivityList(Predicate<Activity> predicate) {

@@ -161,6 +161,7 @@ public class Module {
         filteredEvent.setPredicate(predicate);
     }
 
+    /* @@author don-tay */
     /**
      * Sorts module's deadline list by the specified {@code sortMethod}.
      * @param sortMethod Method of sorting the activities in the module deadline list.
@@ -169,6 +170,7 @@ public class Module {
         Comparator<Deadline> comparator = sortMethod.getComparator();
         this.deadlineList.getActivityList().sort(comparator);
     }
+    /* @@author */
 
     /**
      * Returns true if both are the same module with same module name and module code.
