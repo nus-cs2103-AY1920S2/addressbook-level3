@@ -39,6 +39,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpMessage.setText(HELP_MESSAGE);
     }
 
+
     /**
      * Creates a new HelpWindow.
      */
@@ -72,6 +73,19 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays the help window
+     * @param toBeShown the message to be displayed in the help window.
+     */
+    public void show(String toBeShown) {
+        if (toBeShown.equals("")) {
+            helpMessage.setText(HELP_MESSAGE);
+        } else {
+            helpMessage.setText(toBeShown);
+        }
+        show();
+    }
+
+    /**
      * Returns true if the help window is currently being shown.
      */
     public boolean isShowing() {
@@ -90,6 +104,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public void setCommandDescription(String commandDescription) {
+        helpMessage.setText(commandDescription);
     }
 
     /**

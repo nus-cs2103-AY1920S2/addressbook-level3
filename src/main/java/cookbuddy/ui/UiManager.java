@@ -23,6 +23,7 @@ public class UiManager implements Ui {
     private static Recipe viewedRecipe = null;
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/recipe_book_32.png";
+    private static String commandDescription = "";
 
 
     private static Logic logic;
@@ -53,6 +54,14 @@ public class UiManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    public static void setCommandDescription (String commandDesc) {
+        commandDescription = commandDesc;
+    }
+
+    public static String getCommandDescription() {
+        return commandDescription;
     }
 
     /**

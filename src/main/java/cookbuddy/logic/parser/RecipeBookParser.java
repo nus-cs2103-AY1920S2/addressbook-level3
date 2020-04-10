@@ -10,6 +10,7 @@ import cookbuddy.logic.commands.Command;
 import cookbuddy.logic.commands.CountCommand;
 import cookbuddy.logic.commands.DeleteCommand;
 import cookbuddy.logic.commands.DoneCommand;
+import cookbuddy.logic.commands.DuplicateCommand;
 import cookbuddy.logic.commands.ExitCommand;
 import cookbuddy.logic.commands.FavCommand;
 import cookbuddy.logic.commands.FindCommand;
@@ -64,6 +65,9 @@ public class RecipeBookParser {
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments);
 
+        case DuplicateCommand.COMMAND_WORD:
+            return new DuplicateCommandParser().parse(arguments);
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
 
@@ -107,7 +111,11 @@ public class RecipeBookParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            if (arguments.equals("")) {
+                return new HelpCommand("");
+            } else {
+                return new HelpCommandParser().parse(arguments);
+            }
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

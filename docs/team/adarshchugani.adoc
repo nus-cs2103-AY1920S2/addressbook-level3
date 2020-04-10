@@ -9,20 +9,24 @@
 
 == Overview
 
-CookBuddy - This is a desktop recipe managing application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+*CookBuddy* is a desktop recipe manager for students staying in university accommodation who enjoy cooking.
+They can interact with it through a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
+It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement*: added *the ability to favourite/un-favourite recipes*
+** What it does: allows the user to favourite or un-favourite a recipe. A recipe is marked as not favourited by
+default, but the user can change this using the `fav` command. If a user wants to un-favourite a recipe, they may do
+so using the `unfav` command.
+** Justification: This feature improves the product significantly because it provides the user with an easy way to
+identify the recipes they like.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AdarshChugani&tabRepo=AY1920S2-CS2103T-W12-4%2Fmain%5Bmaster%5D[Summary of code contributed]]
 * *Other contributions*:
 
 ** Project management:

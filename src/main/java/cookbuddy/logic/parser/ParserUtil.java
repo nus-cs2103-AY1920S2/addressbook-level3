@@ -260,6 +260,17 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String command} into a {@Code string}
+     * @param command the command to be parsed.
+     * @return a trimmed string of the command word.
+     */
+    public static String parseHelp (String command) {
+        requireNonNull(command);
+        String trimmedCommand = command.trim();
+        return trimmedCommand;
+    }
+
+    /**
      * Parses {@code Optional<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Optional<String> tags) throws ParseException {

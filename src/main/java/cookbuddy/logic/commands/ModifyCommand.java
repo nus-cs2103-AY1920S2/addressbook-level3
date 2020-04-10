@@ -107,7 +107,7 @@ public class ModifyCommand extends Command {
      * Creates and returns a {@code Recipe} with the details of {@code recipeToEdit}
      * edited with {@code editRecipeDescriptor}.
      */
-    private static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
+    public static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
 
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());

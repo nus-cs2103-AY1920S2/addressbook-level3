@@ -30,6 +30,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
     private static final String FXML = "MainWindow.fxml";
+    private static String commandDescription = "";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -41,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private RecipeView recipeView;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -174,10 +176,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the command description of the help window
+     * @param commandDescription the new command description.
+     */
+    public static void setCommandDescription(String commandDescription) {
+        MainWindow.commandDescription = commandDescription;
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
     public void handleHelp() {
+        String toDisplay = UiManager.getCommandDescription();
+        helpWindow = new HelpWindow();
+        if (!toDisplay.equals("")) {
+            helpWindow.show(toDisplay);
+        } else {
+            helpWindow.show(HelpWindow.HELP_MESSAGE);
+        }
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {

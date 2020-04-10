@@ -11,6 +11,9 @@ public class CountCommand extends Command {
 
     public static final String COMMAND_WORD = "count";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the total number of recipes in CookBuddy.\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Total available recipes are: ";
 
     private static long total;
