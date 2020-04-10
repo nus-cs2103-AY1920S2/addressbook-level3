@@ -224,6 +224,7 @@ image::AddSequenceDiagram.png[]
 
 Eventually, we decided on alternative 1 due to the benefits of consistency in types of tasks allowed in MODdy as well as to reduce the bugs faced.
 
+// tag::show[]
 === Show Feature
 
 The `show` feature allows the user to display information about a `Module`, `Course`, `Focus Area` or `Semester` with the command `show`, appended with the tags. These information cannot be seen from the main UI and have to be displayed through the `show` command.
@@ -239,9 +240,15 @@ The tags are:
 
 `ShowCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ShowCommand` is parsed using `ShowCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science`
+The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science m/CS1101S`
 
-image::ShowCommandSequenceDiagram.png[]
+.Activity Diagram for a Show Command input
+image::ShowCommandActivityDiagram.png[]
+
+NOTE: The example input requested two different information to be displayed (Course information and Module information). However, only one object can be displayed. +
+The priority of an object displayed is in this order, beginning with the highest priority: Profile, Semester information, Module information, Focus area information, Course information. +
+This only occurs when more than 1 parameter is provided.
+
 
 ==== Design Considerations
 
@@ -254,6 +261,8 @@ image::ShowCommandSequenceDiagram.png[]
 ** Cons: Too many classes having repeated code
 
 Eventually, we decided on alternative 1 due to the benefits of avoiding repeated code. To tackle the cons from this, we implemented methods to gracefully reject other Objects that unintendedly called this method.
+
+// end::show[]
 
 === Edit Profile / Module Feature
 
