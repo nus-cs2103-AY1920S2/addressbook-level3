@@ -1,7 +1,6 @@
 package seedu.eylah.diettracker.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
 
 import java.util.Collection;
 import java.util.HashSet;
