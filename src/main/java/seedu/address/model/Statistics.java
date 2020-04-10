@@ -59,6 +59,7 @@ public class Statistics implements ReadOnlyStatistics {
      * @param dailyTarget dailyTarget to be set.
      */
     public void setDailyTarget(String dailyTarget) {
+        requireNonNull(dailyTarget);
         this.dailyTarget = dailyTarget;
     }
 

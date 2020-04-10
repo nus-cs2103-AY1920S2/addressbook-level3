@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_POM_DURATION_DATA;
 import static seedu.address.storage.JsonAdaptedDayDataTest.VALID_TASKS_DONE_DATA;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -16,16 +17,29 @@ import seedu.address.testutil.DayDataBuilder;
 
 public class StatisticsTest {
     private final Statistics statistics = new Statistics();
+    private final String VALID_DAILY_TARGET = "50";
 
     @Test
-    public void setDatas_success() {
+    public void setDailyTarget_success() {
+        Statistics expectedStatistics = getTypicalStatistics();
+        expectedStatistics.setDailyTarget(VALID_DAILY_TARGET);
+        assertTrue(expectedStatistics.getDailyTarget().equals(VALID_DAILY_TARGET));
+    }
+
+    @Test
+    public void setDailyTarget_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> statistics.setDailyTarget(null));
+    }
+
+    @Test
+    public void setDayDatas_success() {
         Statistics expectedStatistics = getTypicalStatistics();
         statistics.setDayDatas(getTypicalDayDatas());
         assertEquals(expectedStatistics, statistics);
     }
 
     @Test
-    public void setDatas_null_throwsNullPointerException() {
+    public void setDayDatas_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> statistics.setDayDatas(null));
     }
 
