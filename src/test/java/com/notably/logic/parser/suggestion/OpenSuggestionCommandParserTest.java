@@ -87,7 +87,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -110,7 +110,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -133,7 +133,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -156,7 +156,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -180,7 +180,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -204,7 +204,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -228,7 +228,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
@@ -252,7 +252,7 @@ public class OpenSuggestionCommandParserTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
         List<SuggestionItem> suggestions = model.getSuggestions();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);

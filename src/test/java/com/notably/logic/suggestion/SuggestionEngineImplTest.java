@@ -66,7 +66,7 @@ public class SuggestionEngineImplTest {
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         assertEquals(Optional.of(String.format(DELETE_RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
@@ -83,7 +83,7 @@ public class SuggestionEngineImplTest {
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         assertEquals(Optional.of(String.format(OPEN_RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());

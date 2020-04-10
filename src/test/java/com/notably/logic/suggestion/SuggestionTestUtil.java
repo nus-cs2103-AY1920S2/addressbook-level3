@@ -47,11 +47,7 @@ public class SuggestionTestUtil {
         SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), () -> {});
 
-        List<SuggestionItem> expectedSuggestions;
-        SuggestionItem[] items = new SuggestionItem[]{cs2103t, cs2103tLect, cs2103tTut, cs2103tTut1, cs2103tTut2};
-        expectedSuggestions = List.of(items);
-
-        return expectedSuggestions;
+        return List.of(cs2103t, cs2103tLect, cs2103tTut, cs2103tTut1, cs2103tTut2);
     }
 
     public static List<String> getExpectedInputsForCs2103tPathInput(String userInputWithoutPath) {
@@ -75,7 +71,7 @@ public class SuggestionTestUtil {
      * @param expectedSuggestions The expected suggestions list.
      * @param suggestions The actual list of suggestions.
      */
-    public static void testSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
+    public static void assertSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
         assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
                 suggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()));
     }

@@ -66,7 +66,7 @@ public class DeleteSuggestionCommandTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
@@ -85,7 +85,7 @@ public class DeleteSuggestionCommandTest {
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
