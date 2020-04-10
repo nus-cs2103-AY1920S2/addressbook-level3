@@ -36,6 +36,10 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false,
                 false, null, true)));
+
+        // different showGroceryList value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", true,
+                false, null, false)));
     }
 
     @Test
@@ -56,6 +60,8 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
                 false, null, true).hashCode());
 
-        // todo grocery list window tests
+        // different showGroceryList value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true,
+                false, null, false).hashCode());
     }
 }
