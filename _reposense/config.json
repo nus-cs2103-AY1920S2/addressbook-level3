@@ -10,6 +10,27 @@
       "displayName": "CS2103-T09-3 CHOI.. SUK",
       "authorNames": ["chlalstjr", "Min Suk Choi"],
       "ignoreGlobList": ["**.css"]
+    },
+    {
+      "githubId": "HubertHalim",
+      "emails": ["huberthalim7@gmail.com"],
+      "displayName": "CS2103-T09-3 HUB.. LIM",
+      "authorNames": ["HubertHalim", "Hubert Halim"],
+      "ignoreGlobList": ["**.css"]
+    },
+    {
+      "githubId": "PangKimJin",
+      "emails": ["pangkimjin@u.nus.edu"],
+      "displayName": "CS2103-T09-3 PAN. . .JIN",
+      "authorNames": ["Pang Kim Jin", "PangKimJin"],
+      "ignoreGlobList": ["**.css"]
+    },
+    {
+      "githubId": "BenFheng",
+      "emails": ["benfheng@gmail.com"],
+      "displayName": "CS2103-T09-3 FHE. . .MIN",
+      "authorNames": ["BenFheng", "Ben Fheng"],
+      "ignoreGlobList": ["**.css"]
     }
   ]
 }
