@@ -97,7 +97,7 @@ public class FitBizParser {
         case GraphCommand.COMMAND_WORD:
             return new GraphCommandParser().parse(arguments);
 
-            case FilterCommand.COMMAND_WORD:
+        case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
 
         default:
