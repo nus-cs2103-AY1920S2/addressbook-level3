@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents the task's recurring attribute and functionality.
- * 
+ *
  * @author Arthur Lee
  * @version 1.4
  */
@@ -24,9 +24,7 @@ public class Recurring {
     public static final DateTimeFormatter stringFormatter =
             DateTimeFormatter.ofPattern("dd/MM/yy@HH:mm");
 
-    /**
-     * Constructor for recurring instance using String only read from JsonStorage.
-     */
+    /** Constructor for recurring instance using String only read from JsonStorage. */
     public Recurring(String recurringStringStorage) throws ParseException {
         String recurTypeString = recurringStringStorage.substring(0, 1);
         String dateTimeString = recurringStringStorage.substring(1);
@@ -35,7 +33,8 @@ public class Recurring {
     }
 
     /**
-     * Constructor for recurring instance using user input for recurring type as well as reference LocalDateTime for when recurring is added.
+     * Constructor for recurring instance using user input for recurring type as well as reference
+     * LocalDateTime for when recurring is added.
      */
     public Recurring(String recurringString, LocalDateTime referenceDateTime)
             throws ParseException {
@@ -43,16 +42,12 @@ public class Recurring {
         this.referenceDateTime = referenceDateTime;
     }
 
-    /**
-     * Parses dateTimeString to get LocalDateTime.
-     */
+    /** Parses dateTimeString to get LocalDateTime. */
     public LocalDateTime parseDateTime(String dateTimeString) {
         return stringFormatter.parse(dateTimeString, LocalDateTime::from);
     }
 
-    /**
-     * Parses recurring type string to return RecurType enum.
-     */
+    /** Parses recurring type string to return RecurType enum. */
     public RecurType parseRecurType(String recurringString) throws ParseException {
         if (recurringString.equals("d")) {
             return RecurType.DAILY;
@@ -64,7 +59,8 @@ public class Recurring {
     }
 
     /**
-     * Determines whether reminder should be updated during recurring behaviour based on whether the reminder has been triggered yet.
+     * Determines whether reminder should be updated during recurring behaviour based on whether the
+     * reminder has been triggered yet.
      */
     public boolean shouldUpdateReminder(LocalDateTime reminderDateTime) {
         Duration duration = Duration.between(LocalDateTime.now(), reminderDateTime);
@@ -72,9 +68,7 @@ public class Recurring {
         return hasPassed;
     }
 
-    /**
-     * Updates reminder time based on the time interval indicated by the user. 
-     */
+    /** Updates reminder time based on the time interval indicated by the user. */
     public LocalDateTime getUpdatedReminderTime(Reminder currentReminder) {
         LocalDateTime currentDateTime = currentReminder.getDateTime();
         if (shouldUpdateReminder(currentDateTime)) {
@@ -94,7 +88,8 @@ public class Recurring {
     }
 
     /**
-     * Gets delay for the first trigger of the recurring based on the reference date time. For testing the delay is set as 60 seconds.
+     * Gets delay for the first trigger of the recurring based on the reference date time. For
+     * testing the delay is set as 60 seconds.
      */
     public long getDelayToFirstTrigger() {
         // long delay = Duration.between(
@@ -105,9 +100,7 @@ public class Recurring {
         return 60000l; // for testing
     }
 
-    /**
-     * Gets the time interval in milliseconds based on the recurring type.
-     */
+    /** Gets the time interval in milliseconds based on the recurring type. */
     public long getPeriod() {
         return type.getInterval();
     }

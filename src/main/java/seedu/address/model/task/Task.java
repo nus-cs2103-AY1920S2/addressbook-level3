@@ -112,6 +112,7 @@ public class Task {
 
     /**
      * Gets time delay for first trigger of recurring behaviour.
+     *
      * @return time delay in long.
      */
     public long getDelayToFirstTrigger() {
@@ -120,6 +121,7 @@ public class Task {
 
     /**
      * Gets time delay for recurring based on the type in milliseconds.
+     *
      * @return time delay in long.
      */
     public long getRecurPeriod() {
@@ -127,7 +129,9 @@ public class Task {
     }
 
     /**
-     * Gets the new version of the task after recurring behaviour, namely with done set to unfinished and reminder updated based on time interval.
+     * Gets the new version of the task after recurring behaviour, namely with done set to
+     * unfinished and reminder updated based on time interval.
+     *
      * @return updated version of task.
      */
     public Task getRecurredTask() {
@@ -140,9 +144,7 @@ public class Task {
         return new TaskBuilder(this).withDone(new Done()).build();
     }
 
-    /**
-     * Triggers reminder behaviour if there is a reminder present in the task.
-     */
+    /** Triggers reminder behaviour if there is a reminder present in the task. */
     public void triggerReminderIfPresent() {
         if (optionalReminder.isPresent()) {
             Reminder reminder = optionalReminder.get();
@@ -166,16 +168,12 @@ public class Task {
         return done;
     }
 
-    /**
-     * Getter for the optional reminder.
-     */
+    /** Getter for the optional reminder. */
     public Optional<Reminder> getOptionalReminder() {
         return optionalReminder;
     }
 
-    /**
-     * Getter for the optional recurring.
-     */
+    /** Getter for the optional recurring. */
     public Optional<Recurring> getOptionalRecurring() {
         return optionalRecurring;
     }

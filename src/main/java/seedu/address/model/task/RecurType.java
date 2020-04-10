@@ -1,8 +1,6 @@
 package seedu.address.model.task;
 
-/**
- * Enum for Recurring type, either daily or weekly.
- */
+/** Enum for Recurring type, either daily or weekly. */
 public enum RecurType {
     DAILY {
         @Override
@@ -35,12 +33,14 @@ public enum RecurType {
 
     /**
      * Gets time interval in days based on recurring type.
+     *
      * @return long
      */
     public abstract long getDayInterval();
 
     /**
      * Gets time interval in milliseconds based on recurring type.
+     *
      * @return long
      */
     public abstract long getInterval();

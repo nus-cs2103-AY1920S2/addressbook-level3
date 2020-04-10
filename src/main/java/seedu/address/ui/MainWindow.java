@@ -482,7 +482,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Triggers reminder to display as a pop up after time delay based on the reminder given in argument.
+     * Triggers reminder to display as a pop up after time delay based on the reminder given in
+     * argument.
+     *
      * @param reminder
      * @param name
      * @param description
@@ -502,9 +504,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    /**
-     * Displays the reminder's name and description as a javaFX alert.
-     */
+    /** Displays the reminder's name and description as a javaFX alert. */
     public static void showReminder(String name, String description) {
         var alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Reminder");
