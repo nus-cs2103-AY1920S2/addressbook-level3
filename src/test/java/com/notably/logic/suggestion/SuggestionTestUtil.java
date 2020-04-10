@@ -83,7 +83,7 @@ public class SuggestionTestUtil {
      * @param suggestions The actual list of suggestions.
      * @param model The app's model.
      */
-    public static void testInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
+    public static void assertInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
         for (int i = 0; i < expectedInputs.size(); i++) {
             SuggestionItem suggestionItem = suggestions.get(i);
             String expectedInput = expectedInputs.get(i);

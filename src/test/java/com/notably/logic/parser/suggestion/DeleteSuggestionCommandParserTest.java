@@ -90,7 +90,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -136,7 +136,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -159,7 +159,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -183,7 +183,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -207,7 +207,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -231,7 +231,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -255,7 +255,7 @@ public class DeleteSuggestionCommandParserTest {
         SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
