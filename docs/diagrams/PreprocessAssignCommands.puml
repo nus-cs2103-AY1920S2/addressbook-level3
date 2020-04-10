@@ -1,11 +1,8 @@
 @startuml
 
-@startuml
-
 title Activity Diagram for PreprocessAssignCommand \n
 
-(*) --> "Obtain AssignDescriptor"
-=====B1=====
+(*) --> =====B1=====
 --> "Obtain Course ID"
 --> if "course exists" then
 -->[true]=====B2=====
@@ -24,8 +21,5 @@ end if
 --> =====B3=====
 
 =====B3===== --> (*)
-
-
-@enduml
 
 @enduml
