@@ -80,7 +80,7 @@ public class EditCommandTest {
                         new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
 
-        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
         expectedModel.updateFilteredPersonListResult(personExistPredicate);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -100,7 +100,7 @@ public class EditCommandTest {
                         new EventSchedule(),
                         new UserPrefs());
 
-        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
         expectedModel.updateFilteredPersonListResult(personExistPredicate);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -124,7 +124,8 @@ public class EditCommandTest {
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
         expectedModel.updateFilteredPersonListResult(personExistPredicate);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
