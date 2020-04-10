@@ -16,7 +16,7 @@ import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class DeleteSuggestionCommandTest {
-    private static AbsolutePath toCs2103t;
+    private static List<AbsolutePath> toCs2103t;
     private static Model model;
 
     private static final String COMMAND_WORD = "delete";
@@ -46,7 +46,7 @@ public class DeleteSuggestionCommandTest {
     @Test
     public void execute_nullModel_throwsNullPointerException() {
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
-            toCs2103t.getStringRepresentation());
+            toCs2103t.get(0).getStringRepresentation());
         assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 
@@ -61,9 +61,9 @@ public class DeleteSuggestionCommandTest {
     @Test
     public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
-        model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
+        model.setInput(userInputWithoutPath + toCs2103t.get(0).getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
-            toCs2103t.getStringRepresentation());
+            toCs2103t.get(0).getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
@@ -84,9 +84,9 @@ public class DeleteSuggestionCommandTest {
     @Test
     public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
         String userInputWithoutPath = COMMAND_WORD + " ";
-        model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
+        model.setInput(userInputWithoutPath + toCs2103t.get(0).getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
-                toCs2103t.getStringRepresentation());
+                toCs2103t.get(0).getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         List<SuggestionItem> suggestions = model.getSuggestions();

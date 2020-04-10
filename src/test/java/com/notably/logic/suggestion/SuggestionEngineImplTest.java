@@ -17,7 +17,7 @@ import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class SuggestionEngineImplTest {
-    private static AbsolutePath toCs2103t;
+    private static List<AbsolutePath> toCs2103t;
     private static Model model;
     private static SuggestionEngine suggestionEngine;
 
@@ -61,7 +61,7 @@ public class SuggestionEngineImplTest {
     @Test
     public void suggest_correctedDeleteCommand_generatesSuggestions() {
         String userInputWithoutPath = "dele ";
-        String path = toCs2103t.getStringRepresentation();
+        String path = toCs2103t.get(0).getStringRepresentation();
         String userInput = userInputWithoutPath + path;
         suggestionEngine.suggest(userInput);
         model.setInput(userInput);
@@ -82,7 +82,7 @@ public class SuggestionEngineImplTest {
     @Test
     public void suggest_correctedOpenCommand_generatesSuggestions() {
         String userInputWithoutPath = "op ";
-        String path = toCs2103t.getStringRepresentation();
+        String path = toCs2103t.get(0).getStringRepresentation();
         String userInput = userInputWithoutPath + path;
         suggestionEngine.suggest(userInput);
         model.setInput(userInput);
