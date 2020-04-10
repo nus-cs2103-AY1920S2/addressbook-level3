@@ -813,18 +813,54 @@ Expected: A task card appears in the tasklist with the name test2.
 
 . Editing a task's name
 .. Run the command `edit 1 n/editedTest`. +
-Expected: 
+Expected: The command will result in the first task card's name to change from editTest to editedTest.
 
 . Editing a task's description
+.. Run the command `edit 1 des/testDescription`. +
+Expected: The command will result in the testDescription being the description of the task card.
 
 . Editing a task's priority
+.. Run the command `edit 1 p/2`. +
+Expected: The command will result in the priority to change from low to medium on the task card.
 
 . Editing a task's tags 
+.. Run the command `edit 1 t/test`. +
+Expected: The command will result in the test tag to appear below the task name on the task card.
 
 === Adding and triggering a reminder for the task
+. Adding a task with a reminder. + 
+Prerequisite: Take note of the current time plus 1 minute and date in the format `DD/MM/YY@HH:mm`, for example if the current time is `15/03/20@15:47` then you should get the command ready `15/03/20@15:48` (but use the current date and time instead)
+.. Run the command `add n/reminderTest des/test r/DD/MM/YY@HH:mm` +
+Expected: When the time has arrived a a pop up with a title `reminderTest` and description `test` appears.
+
+. Editing a task to have a reminder. +
+Prerequisite: Take note of the current time plus 1 minute and date in the format `DD/MM/YY@HH:mm`, for example if the current time is `15/03/20@15:47` then you should get the command ready `15/03/20@15:48` (but use the current date and time instead)
+.. Add a task `add n/editReminderTest des/test` first and see it added on the tasklist panel
+.. Take note of the index of that task
+.. Edit the task with `edit <index> r/DD/MM/YY@HH:mm` +
+Expected: The task displays the reminder date in the task card. When the time comes, a pop up with a title `editReminderTest` and description `test` appears.
 
 
 === Adding a recurring attribute to a task
+. Adding a task with a recurring attribute. + 
+.. Run the command `add n/recurTest rec/d` 
+.. Take note of the index of that task. 
+.. Run the done command `done <index>` +
+Expected: Although it is meant to be a daily recurring task and thus the time delay should be 24 hours, for testing purposes the time delay is set to 60 seconds. After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card.
+
+. Editing a task to have a recurring attribute. +
+.. Add a task `add n/editRecurringTest` firs and see it added on the tasklist panel
+.. Take note of the index of that task
+.. Edit the task with `edit <index> rec/d`
+.. Run the done command `done <index>` +
+Expected: The task is marked as done at first. After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card.
+
+. Adding a task with a reminder and recurring attribute. + 
+Prerequisite: Take note of the current time plus 1 minute and date in the format `DD/MM/YY@HH:mm`, for example if the current time is `15/03/20@15:47` then you should get the command ready `15/03/20@15:48` (but use the current date and time instead)
+.. Run the command `add n/recurReminderTest r/DD/MM/YY@HH:mm rec/d` 
+.. Take note of the index of that task. 
+.. Run the done command `done <index>` +
+Expected: After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card. After the reminder appears, the date displayed changes to the next day, for example `15 March at 15:48` changes to `16 March at 15:48`.
 
 
 _{ more test cases ... }_
