@@ -25,6 +25,7 @@ public class NewSuggestionCommandParser implements SuggestionCommandParser<Sugge
     private static final String ERROR_MESSAGE_INVALID_COMMAND = "\"%s\" is an invalid creation format. "
             + "The correct format is \"new -t TITLE [-o]\"";
     private static final String ERROR_MESSAGE_INVALID_TITLE = "Title \"%s\" is invalid. "
+            + "Titles cannot start with the period character. "
             + "Titles should only contain alphanumeric characters and symbols except - and /";
 
     private Model model;
