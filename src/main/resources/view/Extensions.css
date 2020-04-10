@@ -9,7 +9,7 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background: #1e2533;
 }
 
 .tag-selector {
