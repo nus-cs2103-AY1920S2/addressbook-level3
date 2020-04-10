@@ -121,11 +121,6 @@ public class Student extends ModelObject {
     this.assignedCoursesID.remove(courseid);
   }
 
-
-  public void addCourses(Set<ID> courseid) {
-    this.assignedCoursesID.addAll(courseid);
-  }
-
   /**
    * Returns true if both students of the same name have at least one other identity field that is
    * the same. This defines a weaker notion of equality between two students.

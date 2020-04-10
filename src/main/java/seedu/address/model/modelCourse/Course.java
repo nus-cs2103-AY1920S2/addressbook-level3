@@ -111,6 +111,10 @@ public class Course extends ModelObject {
     }
   }
 
+  public void addStaff(ID staffid) {
+    this.assignedStaffID = staffid;
+  }
+
   // ================================== FOR ASSIGN COMMANDS =================================
   public boolean containsStudent(ID studentID) {
     if(assignedStudentsID.contains(studentID)) {
@@ -127,11 +131,6 @@ public class Course extends ModelObject {
       return false;
     }
   }
-
-  public void assignStaff(ID staffid) {
-    this.assignedStaffID = staffid;
-  }
-
     public boolean containsStaff(ID staffID) {
       if(assignedStaffID != null || assignedStaffID.equals(new ID(""))) {
         return true;

@@ -53,7 +53,7 @@ public class EdgeManager extends BaseManager {
         Course foundCourse = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
         Staff foundTeacher = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
 
-        foundCourse.assignStaff(staffID);
+        foundCourse.addStaff(staffID);
         foundTeacher.addCourse(courseID);
         model.set(foundCourse, foundCourse);
         model.set(foundTeacher, foundTeacher);
