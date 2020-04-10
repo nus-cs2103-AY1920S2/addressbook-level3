@@ -178,7 +178,10 @@ You can use this command to switch the dieting mode, based on the following mode
 * Gain Weight (-g)
 * Maintain (-m)
 
-Format: `mode [-m] [-l] [-g]` +
+[NOTE]
+You may only input one mode per mode command.
+
+Format: `mode [-m, -l, -g]` +
 Example: `mode -m`
 
 '''
@@ -617,6 +620,9 @@ In this section, you can find out more about the commands supported by EYLAH (th
 If you would like to know more about a specific command, you can view more information by clicking the provided link in the table below.
 
 === For Diet Tracker
+
+* *Changing Mode* `mode` +
+e.g `mode -l`
 
 * *Adding Food* `add` +
 e.g `add -n salad -c 235 -t healthy`
