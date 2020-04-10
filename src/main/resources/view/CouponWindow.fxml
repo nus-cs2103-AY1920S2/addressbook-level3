@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -26,14 +27,15 @@
       <VBox prefHeight="560.0" prefWidth="500.0" style="-fx-background-color: #46998F;"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-          <Label fx:id="numericalAmount" id="expanded-coupon-savings" alignment="BOTTOM_CENTER" maxWidth="500.0" prefHeight="80.0" text="Savings"
-                 textAlignment="CENTER" wrapText="true" VBox.vgrow="NEVER" style="-fx-font-size: 50px;">
-            <padding>
-              <Insets bottom="5.0"/>
-            </padding>
-          </Label>
-          <Label fx:id="saveables" alignment="TOP_CENTER" maxWidth="500.0" prefHeight="40.0" id="expanded-coupon-saveables"
-                 textAlignment="CENTER" wrapText="true"/>
+          <HBox alignment="CENTER">
+            <Label fx:id="numericalAmount" id="expanded-coupon-savings" alignment="BOTTOM_CENTER" maxWidth="500.0" prefHeight="80.0" text="Savings"
+                   textAlignment="CENTER" wrapText="true" VBox.vgrow="NEVER" style="-fx-font-size: 50px;">
+              <padding>
+                <Insets bottom="5.0"/>
+              </padding>
+            </Label>
+            <ScrollPane fx:id="saveables" maxWidth="500.0" prefHeight="40.0" id="expanded-coupon-saveables" />
+          </HBox>
           <HBox prefHeight="380.0" prefWidth="500.0">
             <children>
               <VBox id="expanded-coupon-details" prefHeight="380.0" prefWidth="250.0">

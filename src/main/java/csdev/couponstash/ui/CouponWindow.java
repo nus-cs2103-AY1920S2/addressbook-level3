@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.savings.Savings;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -20,20 +22,9 @@ import javafx.stage.Stage;
 public class CouponWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(CouponWindow.class);
     private static final String FXML = "CouponWindow.fxml";
-
-    //For savings
-    // to set certain elements to be invisible
-    private static final String HIDDEN = "visibility: hidden;";
-    // allow CSS styles for each label in the FlowPane
-    private static final String SAVEABLE_CLASS = "sv-label";
-    // make it more obvious that savings can exist without
-    // numerical but with saveable free items
+    // style for message displayed if no numerical savings for coupon
     private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 30px;"
             + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: white;";
-    // controls font size of number amount
-    private static final int BASE_FONT_SIZE = 125;
-    // if no saveables, translate numerical amount
-    private static final int NUMERICAL_AMOUNT_TRANSLATE_AMOUNT = 12;
 
     public final Coupon coupon;
     private final Stage root;
@@ -59,7 +50,7 @@ public class CouponWindow extends UiPart<Stage> {
     @FXML
     private Label numericalAmount;
     @FXML
-    private Label saveables;
+    private ScrollPane saveables;
     @FXML
     private Scene scene;
 
