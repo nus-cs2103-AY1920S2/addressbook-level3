@@ -23,20 +23,23 @@ class JsonAdaptedCalendar {
     private final String category;
     private final String module;
     private final String priority;
+    private final boolean status;
 
     /**
      * Constructs a {@code JsonAdaptedCalendar} with the given date details.
      */
     @JsonCreator
     public JsonAdaptedCalendar(@JsonProperty("description") String description, @JsonProperty("date") String date,
-                           @JsonProperty("category") String category,
-                           @JsonProperty("module") String module,
-                           @JsonProperty("priority") String priority) {
+                               @JsonProperty("category") String category,
+                               @JsonProperty("module") String module,
+                               @JsonProperty("priority") String priority,
+                               @JsonProperty("status") boolean status) {
         this.description = description;
         this.date = date;
         this.category = category;
         this.module = module;
         this.priority = priority;
+        this.status = status;
     }
 
 
@@ -46,6 +49,7 @@ class JsonAdaptedCalendar {
     public JsonAdaptedCalendar(Task task) {
         description = task.getDescription();
         date = task.getDate();
+        status = task.getStatus();
 
         if (task instanceof ModuleTask) {
             category = "School";
@@ -66,10 +70,18 @@ class JsonAdaptedCalendar {
     public Task toModelType() throws IllegalValueException {
 
         if (this.module.equals("-1")) {
-            return new Deadline(description, date, category, "add");
+            Deadline deadline = new Deadline(description, date, category, "add");
+            if (status) {
+                deadline.markAsDone();
+            }
+            return deadline;
         } else {
-            return new ModuleTask(description, new ModuleCode(module), date, Priority.getPriority(priority));
-
+            ModuleTask moduleTask = new ModuleTask(
+                    description, new ModuleCode(module), date, Priority.getPriority(priority));
+            if (status) {
+                moduleTask.markAsDone();
+            }
+            return moduleTask;
         }
     }
 

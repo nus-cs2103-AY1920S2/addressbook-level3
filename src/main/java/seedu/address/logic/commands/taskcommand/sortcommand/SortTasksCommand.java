@@ -14,7 +14,7 @@ import seedu.address.model.calender.Task;
  * Sort tasks in calendar by date or priority.
  */
 public class SortTasksCommand extends Command {
-    public static final String COMMAND_WORD = "taskSort";
+    public static final String COMMAND_WORD = "sortTask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort the tasks as required "
             + "Parameters: "

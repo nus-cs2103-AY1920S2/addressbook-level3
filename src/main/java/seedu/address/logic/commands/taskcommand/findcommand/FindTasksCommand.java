@@ -13,7 +13,7 @@ import seedu.address.model.Model;
  * Find tasks in calendar by specific key word (category/date/module code).
  */
 public abstract class FindTasksCommand extends Command {
-    public static final String COMMAND_WORD = "taskFind";
+    public static final String COMMAND_WORD = "findTask";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Find tasks as required\n"
             + COMMAND_WORD + ": find tasks related to given module code "
             + "Parameters: "

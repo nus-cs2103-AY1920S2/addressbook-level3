@@ -179,6 +179,12 @@ public class Task {
             };
 
             FXCollections.sort(deadlineTaskList, comparator);
+        } else if (value.equals("done")) {
+            Comparator<Task> comparator = (Task o1, Task o2) -> {
+                return Boolean.compare(o1.isDone, o2.isDone);
+            };
+
+            FXCollections.sort(deadlineTaskList, comparator);
         }
 
     }

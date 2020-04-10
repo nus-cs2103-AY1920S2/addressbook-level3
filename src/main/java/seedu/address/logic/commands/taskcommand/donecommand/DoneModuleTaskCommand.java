@@ -45,6 +45,8 @@ public class DoneModuleTaskCommand extends DoneCommand {
         Task done = Task.getDeadlineTaskList().get(targetIndex.getZeroBased() - 1);
         Task.getDeadlineTaskList().remove(targetIndex.getZeroBased() - 1);
         Task.getDeadlineTaskList().add(done);
+        Task.sortDeadlineTaskList("date");
+        Task.sortDeadlineTaskList("done");
         model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
                 + targetIndex.getOneBased());
