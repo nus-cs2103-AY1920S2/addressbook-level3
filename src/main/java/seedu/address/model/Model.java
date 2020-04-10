@@ -111,5 +111,5 @@ public interface Model {
 
     void addObserver(Observer observer);
 
-    public void updateDataDatesStatistics();
+    void updateDataDatesStatistics();
 }
