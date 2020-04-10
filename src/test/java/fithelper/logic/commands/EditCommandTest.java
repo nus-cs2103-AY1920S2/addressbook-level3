@@ -21,8 +21,6 @@ import fithelper.model.entry.Type;
 import fithelper.testutil.EditEntryDescriptorBuilder;
 import fithelper.testutil.EntryBuilder;
 
-import java.util.Optional;
-
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */

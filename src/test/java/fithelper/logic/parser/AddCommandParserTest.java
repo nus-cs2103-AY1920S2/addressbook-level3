@@ -24,7 +24,6 @@ import static fithelper.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static fithelper.testutil.TypicalEntriesUtil.CAKE;
 import static fithelper.testutil.TypicalEntriesUtil.BURGER;
 
-import fithelper.model.entry.Entry;
 import org.junit.jupiter.api.Test;
 
 import fithelper.logic.commands.AddCommand;
@@ -32,6 +31,7 @@ import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Time;
+import fithelper.model.entry.Entry;
 import fithelper.testutil.EntryBuilder;
 
 public class AddCommandParserTest {
