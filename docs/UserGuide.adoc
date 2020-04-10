@@ -366,6 +366,64 @@ The domain name must also:
 
 |=======================================================================
 
+==== Duplicate Parameters
+
+You can specify the same parameter *more than once* in a command.
+Depending on the command, you will see *different outcomes*.
+
+Here is a table explaining the different outcomes:
+
+[width="%",cols="<20%a,<30%a,<50a",options="header"]
+|=======================================================================
+|
+Parameter
+|
+Explanation
+|
+Example
+
+|
+Can be used multiple times
+|
+*All occurrences* will be used when executing the command
+|
+In the `student add` command, you can create a *student* with *multiple tags*.
+
+Therefore, you can input multiple tags by chaining them: +
+`t/needs help t/aka henry`
+
+This will give a student the tags `needs help` and `aka henry`.
+
+|
+Can only be used once
+|
+The very *last occurrence* will be used when executing the command
+|
+`module add m/CS2103T n/SE n/Software Engineering`
+
+If you execute this command, you will create a *module* with the name `Software Engineering`.
+
+The name `SE` will be ignored.
+
+|=======================================================================
+
+==== Rearranging Parameters
+
+Parameters can be in *any order* if they have *prefixes*.
+
+For example, if a command needs a `n/NAME` and `p/PHONE_NUMBER`, you can specify them in any order:
+
+* `n/NAME p/PHONE_NUMBER`, or
+* `p/PHONE_NUMBER n/NAME`
+
+However, if the command has a parameter *without a prefix*, that parameter *must* be
+the very *first parameter*.
+
+For example, if a command needs an `INDEX`, it must be the *first parameter*:
+
+* `INDEX n/NAME` is valid, but
+* `n/NAME INDEX` is invalid
+
 [[Layout]]
 == Layout
 This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
