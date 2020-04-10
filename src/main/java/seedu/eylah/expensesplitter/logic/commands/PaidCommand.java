@@ -42,11 +42,8 @@ public class PaidCommand extends Command {
         requireNonNull(indexOfPersonPaid);
         requireNonNull(amountPaid);
         this.indexOfPersonPaid = indexOfPersonPaid;
-        if (amountPaid.equals("all")) {
-            this.amountPaid = "all";
-        } else {
-            this.amountPaid = amountPaid;
-        }
+        this.amountPaid = amountPaid;
+
     }
 
     @Override
