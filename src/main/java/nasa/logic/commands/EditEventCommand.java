@@ -25,6 +25,7 @@ import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
 
+/* @@author don-tay */
 /**
  * Edits a specific event in the moduleCode's list.
  */

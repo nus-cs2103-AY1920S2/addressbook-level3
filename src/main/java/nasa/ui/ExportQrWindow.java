@@ -17,6 +17,7 @@ public class ExportQrWindow extends UiPart<Stage> {
 
     public static final String FXML = "ExportQrWindow.fxml";
 
+    /* Logger to track if qr code displayed to user. */
     private final Logger logger = LogsCenter.getLogger(ExportQrWindow.class);
 
     @FXML
@@ -24,9 +25,7 @@ public class ExportQrWindow extends UiPart<Stage> {
 
     /**
      * Creates a new ExportWindow.
-     *
      * @param root Stage to use as the root of the ExportWindow.
-     *
      */
     public ExportQrWindow(Stage root) {
         super(FXML, root);
