@@ -1,56 +1,82 @@
 @startuml
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":StorageManager" as splitterStorage STORAGE_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
-Participant ":PersonAmountBook" as personamountbook MODEL_COLOR
-Participant ":UniquePersonList" as uniquepersonlist MODEL_COLOR
-Participant ":Person" as person MODEL_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":PaidCommandParser" as PaidCommandParser LOGIC_COLOR
+participant ":PaidCommand" as PaidCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":Person" as Person MODEL_COLOR
+end box
 
-user -[USER_COLOR]> ui : "paid 1 3.30"
-activate ui UI_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("paid 1 3.30")
-activate logic LOGIC_COLOR
+[-> SplitterLogicManager : execute("paid 1 3.90")
+activate SplitterLogicManager
 
-logic -[LOGIC_COLOR]> splitterModel : paidPerson(Person person, String amountPaid)
-activate splitterModel MODEL_COLOR
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("paid 1 3.90")
+activate ExpenseSplitterParser
 
-splitterModel -[MODEL_COLOR]> personamountbook : removeAmount(Person person, Amount amount)
-activate personamountbook MODEL_COLOR
+create PaidCommandParser
+ExpenseSplitterParser -> PaidCommandParser
+activate PaidCommandParser
 
-personamountbook -[MODEL_COLOR]> uniquepersonlist : removeAmount(Person person, Amount amount)
-activate uniquepersonlist MODEL_COLOR
+PaidCommandParser --> ExpenseSplitterParser
+deactivate PaidCommandParser
 
-uniquepersonlist --[MODEL_COLOR]> person : removeAmount(Amount amount)
-activate person MODEL_COLOR
+ExpenseSplitterParser -> PaidCommandParser : parse("paid 1 3.90")
+activate PaidCommandParser
 
-deactivate person
+create PaidCommand
+PaidCommandParser -> PaidCommand
+activate PaidCommand
 
-deactivate uniquepersonlist
+PaidCommand --> PaidCommandParser
+deactivate PaidCommand
 
-deactivate personamountbook
+PaidCommandParser --> ExpenseSplitterParser
+deactivate PaidCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+PaidCommandParser -[hidden]-> ExpenseSplitterParser
+destroy PaidCommandParser
 
-deactivate splitterModel
+ExpenseSplitterParser --> SplitterLogicManager
+deactivate ExpenseSplitterParser
 
-logic -[LOGIC_COLOR]> splitterStorage : savePersonAmountBook(personAmount)
-activate splitterStorage STORAGE_COLOR
+SplitterLogicManager -> PaidCommand : execute()
+activate PaidCommand
 
-splitterStorage -[STORAGE_COLOR]> splitterStorage : Save to file
-activate splitterStorage STORAGE_COLOR_T1
-deactivate splitterStorage
+PaidCommand -> ModelManager : paidPerson(Person person, String amountPaid)
+activate ModelManager
 
-splitterStorage --[STORAGE_COLOR]> logic
-deactivate splitterStorage
+ModelManager --> PaidCommand
+deactivate ModelManager
 
-logic --[UI_COLOR]> ui : CommandResult
-deactivate logic
+create CommandResult
+PaidCommand -> CommandResult
+activate CommandResult
 
-ui --[UI_COLOR]> user : CommandResult.
-deactivate ui
+CommandResult --> PaidCommand
+deactivate CommandResult
 
+PaidCommand --> SplitterLogicManager : result
+deactivate PaidCommand
+
+SplitterLogicManager -> SplitterStorageManager : saveFoodBook(foodBook)
+activate SplitterStorageManager
+
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
+[<--SplitterLogicManager
+deactivate SplitterStorageManager
 @enduml
