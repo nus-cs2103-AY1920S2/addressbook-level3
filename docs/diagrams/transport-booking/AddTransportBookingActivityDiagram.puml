@@ -1,0 +1,42 @@
+@startuml
+!include ../style.puml
+title Add Transport Booking
+
+start
+
+:User wants to add a ""TransportBooking""
+into the ""TransportBookingManager"";
+
+if () then ([is a valid transport booking])
+
+    :Creates a corresponding
+    ""DayScheduleEntry"";
+
+    :Calculates the day to
+    schedule the transport
+    booking;
+
+    if () then ([is a valid day])
+
+        :Adds ""DayScheduleEntry""
+        into the schedule;
+
+        :Adds ""TransportBooking"" into
+        the ""TransportBookingManager"";
+
+    else ([else])
+        :User receives invalid
+        date and time error
+        message;
+
+    endif
+
+else ([else])
+    :User receives relevant
+    error message;
+
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+!include ../style.puml
+
+skinparam Class {
+    BorderColor BACKGROUND_COLOR
+    FontColor BACKGROUND_COLOR
+    BackgroundColor STORAGE_COLOR_T3
+    StereotypeFontColor BACKGROUND_COLOR
+}
+skinparam arrowColor STORAGE_COLOR_T3
+hide member
+
+Class HiddenOutside BACKGROUND_COLOR
+
+Class FixedExpenseStorage <<Interface>>
+Class JsonFixedExpenseStorage
+Class JsonSerializableFixedExpenseManager
+Class JsonAdaptedFixedExpense
+
+JsonFixedExpenseStorage .up.|> FixedExpenseStorage
+JsonFixedExpenseStorage ..> JsonSerializableFixedExpenseManager
+JsonSerializableFixedExpenseManager --> " * " JsonAdaptedFixedExpense
+@enduml

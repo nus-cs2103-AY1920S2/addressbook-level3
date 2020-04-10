@@ -1,0 +1,11 @@
+{
+  "transportBookings": [
+    {
+      "mode": "plane",
+      "startLocation": "Sing@apore",
+      "endLocation": "KL",
+      "startDateTime": "28-09-2020 00:00",
+      "endDateTime": "28-09-2020 01:30"
+    } ]
+}
+

@@ -1,0 +1,7 @@
+{
+  "packingList" : [ {
+    "name" : "Invalid Packing List Item: T@shirts",
+    "quantity" : -10,
+    "category" : "testing",
+    "isCheck" : false
+  }]}

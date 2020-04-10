@@ -1,0 +1,69 @@
+@startuml
+!include ../style.puml
+
+Class Logic <<Interface>> {
++ execute() : CommandResult
+}
+
+Class LogicManager {
++ execute() : CommandResult
+}
+
+Class TransportBooking {
+- mode : Mode
+- startLocation : Location
+- endLocation : Location
+- startDateTime DateTime
+- endDateTime DateTime
++ areLocationsValid(Location, Location) : boolean
++ isTimeValid(DateTime) : boolean
+}
+
+Class Model <<Interface>> {
++ addTransportBooking()
++ scheduleTransport(TransportBooking)
++ unscheduleTransport(DayScheduleEntry)
+}
+
+Class ModelManager {
++ addTransportBooking()
++ scheduleTransport(TransportBooking)
++ unscheduleTransport(DayScheduleEntry)
+}
+
+Class TransportBookingManager {
++ addTransportBooking()
+}
+
+Class TripManager {
++ scheduleTransport(TransportBooking)
++ unscheduleTransport(DayScheduleEntry)
+}
+
+Class DaySchedule {
++ addSchedule(DayScheduleEntry)
++ removeScheduleEntry(DayScheduleEntry)
+}
+
+Class DayScheduleEntry {
+- type : Type
+- title : Title
+- startDateTime : DateTime
+- endDateTime : DateTime
+- durationInHours : long
+- location : Location
+}
+
+LogicManager .up-|> Logic
+LogicManager -left-> Model
+
+ModelManager .up-|> Model
+
+ModelManager -right-> TripManager
+TripManager -right-> " * " DaySchedule
+DaySchedule -down-> " * " DayScheduleEntry
+
+ModelManager -down-> TransportBookingManager
+TransportBookingManager -right-> " * " TransportBooking
+
+@enduml

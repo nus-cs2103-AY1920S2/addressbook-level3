@@ -1,0 +1,56 @@
+= Catherine Loy - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EasyTravel
+My team of 4 software engineering students and I were tasked with enhancing a basic command-line interface desktop address book application for our Software Engineering project. We chose to morph it into a travel planning application, called E.T, short for Easy Travel. E.T. will help reduce the amount of stress and anxiety when planning for a trip. E.T. is a desktop application that helps travellers manage and plan for their trips.
+
+== Overview
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+* *Major enhancement*:
+I added the packing list feature of Easy Travel.
+** What it does:
+The packing list feature allows the user to keep track of their packing list, to see which items they have and haven't packed for their trip.
+
+** Justification:
+When planning for a trip, it is important to have a packing list to keep track of what is packed and what needs to be packed, so that the traveller will not forget to bring anything they wanted to bring. This gives the traveller a peace of mind, convenience and preventing disasters, such as forgetting to bring one's passport or wallet.
+
+** Highlights:
+One highlight of the packing list is that you are able to mark multiple items as packed or unpacked in one command. This brings much convenience to the user. Another highlight is the addpreset command. This command allows the user to add a list of items under a certain category. This also brings much convenience to the user, as the user is able to add a whole list of items in one command. The user can then use the additem and the edititem commands to customise their packing list to suit their needs.
+
+** Credits:
+Credits to the app called Packr for the packing list preset idea.
+
+* *Minor enhancement*:
+I contributed to the most important feature of our product, the status feature.
+** What it does:
+It checks the progress of planning that the user has done. It checks if firstly, there are no overlapping activities in the schedule, then it checks the number of packed items, then it checks if the total amount of the fixed expenses is under the budget, and lastly, it checks if there is an accommodation booking for every night of the trip.
+
+** Justification:
+The status feature ensures the user has planned for their trip fully before they embark on their trip. It prevents any slip-ups from the lack of planning, such as forgetting to pack something, to ensuring that they have a place to stay every night of their trip. This ensures that the trip is a smooth sailing one, with little slip-ups.
+
+** Highlights:
+The highlight of my part is the progress checker of the packing list in the status feature. It checks the number of packed items against the total number of items in the packing list. In addition, there is a progress bar for the packing list, where it will show the progress of the number of items packed in the packing list.
+
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-W17-3/main/commits?author=loycatherine[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=loycatherine[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** There were a total of 4 releases, from version 1.1 to 1.4. I contributed to all the versions on GitHub.
+
+** Enhancements to existing features:
+*** Made the UI nicer by adding icons for all the features.  (Pull requests #33, #34)
+*** Wrote additional tests for existing features to increase the coverage from **% to 92%
+
+** Documentation:
+*** Used more 'you' language in the UserGuide so that it will be more reader-friendly. In addition, I added in pictures so that the reader can have visual cues on how the output should look like for each command.
+
+** Community:
+*** Reviewed Pull Requests
+*** Reported bugs and offered suggestions for other teams in the class (examples: 1, 2, 3)

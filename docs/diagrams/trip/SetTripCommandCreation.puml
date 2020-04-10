@@ -1,0 +1,59 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "**:LogicManager**" as LogicManager LOGIC_COLOR
+participant "**:EasyTravelParser**" as EtParser LOGIC_COLOR
+participant "**:SetTripCommandParser**" as SetTripCommandParser LOGIC_COLOR
+participant "**:SetTripCommand**" as SetTripCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute(userInput)
+activate LogicManager
+
+LogicManager-> EtParser : execute(userInput)
+activate EtParser
+
+create SetTripCommandParser
+
+EtParser -> SetTripCommandParser
+activate SetTripCommandParser
+SetTripCommandParser --> EtParser
+deactivate SetTripCommandParser
+
+deactivate SetTripCommand
+
+EtParser -> SetTripCommandParser : parse(argument)
+activate SetTripCommandParser
+
+create SetTripCommand
+SetTripCommandParser -> SetTripCommand
+activate SetTripCommand
+
+SetTripCommand --> SetTripCommandParser
+deactivate SetTripCommand
+
+SetTripCommandParser --> EtParser
+deactivate SetTripCommandParser
+
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SetTripCommandParser -[hidden]-> EtParser
+destroy SetTripCommandParser
+
+EtParser --> LogicManager
+deactivate EtParser
+
+LogicManager -> SetTripCommand : execute()
+activate SetTripCommand
+
+SetTripCommand --> LogicManager : result
+deactivate SetTripCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SetTripCommand -[hidden]-> EtParser
+destroy SetTripCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

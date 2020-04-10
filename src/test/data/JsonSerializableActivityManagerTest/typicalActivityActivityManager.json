@@ -1,0 +1,22 @@
+{
+  "_comment": "ActivityManager save file which contains the same Activity values as in TypicalActivity#getTypicalActivityManager()",
+  "activities" : [ {
+    "title" : "Hot Spring",
+    "duration" : 3,
+    "location" : "Hokkaido",
+    "scheduleDateTime" : "",
+    "tagged" : ["relaxation"]
+  },{
+    "title" : "Peak",
+    "duration" : 1,
+    "location" : "Hong Kong",
+    "scheduleDateTime" : "",
+    "tagged" : []
+  }, {
+    "title" : "Universal Studios",
+    "duration" : 10,
+    "location" : "Florida",
+    "scheduleDateTime" : 4,
+    "tagged" : []
+  } ]
+}

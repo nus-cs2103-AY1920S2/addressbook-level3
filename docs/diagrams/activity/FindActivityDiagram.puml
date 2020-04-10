@@ -1,0 +1,38 @@
+@startuml
+
+!include ../style.puml
+title Find Activity Command
+
+start
+
+:User executes ""findactivity"" command;
+
+if () then ([is a valid command])
+
+    if () then ([is Trip Set])
+
+            :Execute ""model""
+            updateFilteredActivityList using
+            given predicate;
+
+            :Return a
+            ""FindActivityCommand"" object;
+
+            :Execute ""FindActivityCommand"";
+
+            :Show success message to the user;
+
+    else ([else])
+            : User receive message that
+            trip has not been set yet;
+    endif
+
+else ([else])
+
+    :User receive message that
+     command is invalid;
+endif
+
+stop
+
+@enduml

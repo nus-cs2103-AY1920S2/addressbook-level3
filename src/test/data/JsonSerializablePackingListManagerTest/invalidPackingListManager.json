@@ -1,0 +1,8 @@
+{
+  "packingList" : [ {
+    "name" : "Tshirts",
+    "quantity" : -100,
+    "category" : "basics",
+    "isCheck" : false
+    }]
+  }

@@ -1,0 +1,75 @@
+@startuml
+!include ../style.puml
+
+hide member
+skinparam Class {
+    BorderColor BACKGROUND_COLOR
+    FontColor BACKGROUND_COLOR
+    BackgroundColor LOGIC_COLOR_T2
+    StereotypeFontColor BACKGROUND_COLOR
+}
+skinparam ArrowColor LOGIC_COLOR_T2
+
+package Logic {
+
+package Parser {
+    Class Parser <<Interface>>
+    Class EasyTravelParser
+    Class XYZCommandParser
+    Class CliSyntax
+    Class ParserUtil
+    Class ArgumentMultimap
+    Class ArgumentTokenizer
+    Class Prefix
+}
+
+
+package Command {
+Class XYZCommand
+
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+}
+
+Class Logic <<Interface>>
+Class LogicManager
+}
+
+package Model{
+Class HiddenModel BACKGROUND_COLOR
+}
+
+Class HiddenOutside BACKGROUND_COLOR
+HiddenOutside ..> Logic
+
+LogicManager .up.|> Logic
+LogicManager -->"1" EasyTravelParser
+EasyTravelParser .left.> XYZCommandParser: creates >
+
+XYZCommandParser ..> XYZCommand : creates >
+XYZCommandParser ..|> Parser
+XYZCommandParser ..> ArgumentMultimap
+XYZCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
+XYZCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
+XYZCommandParser ..> ParserUtil
+ParserUtil .down.> Prefix
+ArgumentTokenizer .down.> Prefix
+XYZCommand -up-|> Command
+LogicManager .left.> Command : executes >
+
+LogicManager --> Model
+Command .right.> Model
+
+Logic ..> CommandResult
+LogicManager .down.> CommandResult
+Command .up.> CommandResult
+CommandResult -[hidden]-> Parser
+
+note right of XYZCommand
+""XYZCommand"" = ""AddItemCommand"",
+""DeleteActivityCommand"", etc
+end note
+
+@enduml

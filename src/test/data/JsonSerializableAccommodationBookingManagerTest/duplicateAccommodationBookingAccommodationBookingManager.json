@@ -1,0 +1,15 @@
+{
+  "accommodationBookings" : [ {
+    "name" : "Ritz Carlton",
+    "location" : "KL",
+    "startDay" : 1,
+    "endDay" : 2,
+    "remark" : "Check-in at 3pm."
+  }, {
+    "name" : "Ritz Carlton",
+    "location" : "KL",
+    "startDay" : 1,
+    "endDay" : 2,
+    "remark" : "Check-in at 3pm."
+  } ]
+}

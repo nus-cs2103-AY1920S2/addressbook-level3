@@ -1,0 +1,70 @@
+@startuml
+!include ../style.puml
+
+note left of N
+The attributes of trip and
+""DayScheduleEntry"" objects
+are simplified into primitive
+types and ""String""s for
+simplicity.
+end note
+
+Object "__trip:Trip__" as Trip #E2BC0F {
+    -  title = "Short Trip"
+    - startDate = "5 May 2020"
+    - endDate = "6 May 2020"
+    - numDays = 2
+    - budget = 500
+    - exchangeRate = 2.9
+}
+
+Object "__:TripManager__" as TripManager #E16171 {
+    -  hasTrip = true
+}
+
+Object "__: DaySchedule__" as DaySchedule1 #C589E8
+Object "__: DaySchedule__" as DaySchedule2 #C589E8
+
+Object "__: DayScheduleEntry__" as DayScheduleEntry1 #3BB3CC {
+- type = TRANSPORT
+- title = "plane"
+- startDateTime = "5 May 2020 10: 00"
+- endDateTime = "5 May 2020 11: 00"
+- durationInHours = 1
+- location = "KL"
+}
+
+Object "__: DayScheduleEntry__" as DayScheduleEntry2 #3BB3CC {
+- type = ACTIVITY
+- title = "Shopping"
+- startDateTime = "5 May 2020 16: 00"
+- endDateTime = "5 May 2020 18: 00"
+- durationInHours = 2
+- location = "Times Square"
+}
+
+Object "__: DayScheduleEntry__" as DayScheduleEntry3 #3BB3CC {
+- type = TRANSPORT
+- title = "plane"
+- startDateTime = "6 May 2020 13: 00"
+- endDateTime = "6 May 2020 14: 00"
+- durationInHours = 1
+- location = "Singapore"
+}
+
+Trip - TripManager
+
+TripManager -- DaySchedule1
+TripManager -- DaySchedule2
+
+DaySchedule1 -- DayScheduleEntry1
+DaySchedule1 -- DayScheduleEntry2
+DaySchedule2 -- DayScheduleEntry3
+
+Trip -down[hidden]- DaySchedule1
+Trip -down[hidden]- DaySchedule2
+
+N - Trip
+hide N
+
+@enduml

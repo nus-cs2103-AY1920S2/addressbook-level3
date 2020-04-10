@@ -1,0 +1,41 @@
+@startuml
+!include ../style.puml
+
+skinparam ParticipantFontColor BACKGROUND_COLOR
+!define LOGIC_COLOR LOGIC_COLOR_T2
+!define MODEL_COLOR MODEL_COLOR_T2
+
+Actor User as user USER_COLOR
+Participant "**:Ui**" as ui UI_COLOR
+Participant "**:Logic**" as logic LOGIC_COLOR
+Participant "**:Model**" as model MODEL_COLOR
+Participant "**:Storage**" as storage STORAGE_COLOR
+
+user -[USER_COLOR]> ui : "deleteitem 1"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("deleteitem 1")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : deletePackingListItem(i)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> storage : savePackingList(packingListManager)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T2
+return
+storage --[STORAGE_COLOR]> logic
+deactivate storage
+deactivate storage
+
+logic --[LOGIC_COLOR]> ui
+deactivate logic
+
+ui--[UI_COLOR]> user
+deactivate ui
+@enduml

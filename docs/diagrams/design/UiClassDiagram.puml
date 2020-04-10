@@ -1,0 +1,87 @@
+@startuml
+!include ../style.puml
+
+skinparam Class {
+    BorderColor BACKGROUND_COLOR
+    FontColor BACKGROUND_COLOR
+    BackgroundColor UI_COLOR_T3
+    StereotypeFontColor BACKGROUND_COLOR
+}
+skinparam ArrowColor UI_COLOR_T3
+Class HiddenOutside BACKGROUND_COLOR
+
+hide member
+
+package Ui <<Rectangle>>{
+note top of Hidden
+""XYZWindow"" = ""StatusWindow"",
+""ListPresetWindow""
+
+""XYZTabPanel"" = ""HelpTabPanel"",
+""ActivityTabPanel"", etc
+
+""XYZCard"" = ""HelpCard"",
+""ActivityCard""
+end note
+Class Ui <<Interface>>
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+Class XYZWindow
+Class ResultDisplay
+Class SideTabsBar
+Class "{abstract}\nTabPanel" as TabPanel
+Class XYZCard
+Class DashboardPanel
+Class CommandBox
+Class XYZTabPanel
+Class Hidden
+}
+Hidden -down- TabPanel
+hide Hidden
+
+package Model <<Rectangle>> {
+Class HiddenModel BACKGROUND_COLOR
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic BACKGROUND_COLOR
+}
+
+Class HiddenOutside BACKGROUND_COLOR
+HiddenOutside ..> Ui
+
+UiManager .left.|> Ui
+UiManager -down-> MainWindow
+MainWindow -down-> XYZWindow
+MainWindow *-down-> CommandBox
+MainWindow *-down-> ResultDisplay
+MainWindow *-down-> SideTabsBar
+MainWindow *-down-> TabPanel
+MainWindow *-down-> DashboardPanel
+
+XYZTabPanel -up-|> TabPanel
+XYZTabPanel --> " *" XYZCard
+
+MainWindow -|> UiPart
+ResultDisplay --|> UiPart
+SideTabsBar -right-|> UiPart
+CommandBox --|> UiPart
+TabPanel --|> UiPart
+XYZCard --|> UiPart
+DashboardPanel --|> UiPart
+XYZWindow -down-|> UiPart
+
+XYZCard .up> Model
+Model <.. XYZWindow
+
+UiManager -right-> Logic
+MainWindow -left-> Logic
+
+TabPanel -[hidden]left- XYZWindow
+CommandBox -[hidden]left- ResultDisplay
+ResultDisplay -[hidden]left- DashboardPanel
+DashboardPanel -[hidden]left- SideTabsBar
+
+
+@enduml

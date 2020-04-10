@@ -1,0 +1,78 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "**:LogicManager**" as LogicManager LOGIC_COLOR
+participant "**:EasyTravelParser**" as EasyTravelParser LOGIC_COLOR
+participant "**:DeleteItemCommandParser**" as DeleteItemCommandParser LOGIC_COLOR
+participant "**d:DeleteItemCommand**" as DeleteItemCommand LOGIC_COLOR
+participant "**r:CommandResult**" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "**m:Model**" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : ""execute("deleteitem 1")""
+activate LogicManager
+
+LogicManager -> EasyTravelParser : ""parseCommand("deleteitem 1")""
+activate EasyTravelParser
+
+create DeleteItemCommandParser
+EasyTravelParser -> DeleteItemCommandParser
+activate DeleteItemCommandParser
+
+DeleteItemCommandParser --> EasyTravelParser
+deactivate DeleteItemCommandParser
+
+EasyTravelParser -> DeleteItemCommandParser : ""parse("1")""
+activate DeleteItemCommandParser
+
+create DeleteItemCommand
+DeleteItemCommandParser -> DeleteItemCommand
+activate DeleteItemCommand
+
+DeleteItemCommand --> DeleteItemCommandParser : ""d""
+deactivate DeleteItemCommand
+
+DeleteItemCommandParser --> EasyTravelParser : ""d""
+deactivate DeleteItemCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteItemCommandParser -[hidden]-> EasyTravelParser
+destroy DeleteItemCommandParser
+
+EasyTravelParser --> LogicManager : ""d""
+deactivate EasyTravelParser
+
+LogicManager -> DeleteItemCommand : ""execute(m)""
+activate DeleteItemCommand
+
+note left of Model
+""i"" = index of the first item in the displayed list
+end note
+
+DeleteItemCommand -> Model : ""deletePackingListItem(i)""
+activate Model
+
+Model --> DeleteItemCommand
+deactivate Model
+
+create CommandResult
+DeleteItemCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteItemCommand : ""r""
+deactivate CommandResult
+
+DeleteItemCommand --> LogicManager : ""r""
+deactivate DeleteItemCommand
+
+LogicManager -[hidden]-> DeleteItemCommand
+destroy DeleteItemCommand
+
+[<--LogicManager : ""r""
+deactivate LogicManager
+
+@enduml

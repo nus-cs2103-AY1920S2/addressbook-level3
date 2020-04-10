@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<ScrollPane fx:id="scrollPane" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <HBox fx:id="scheduleView" styleClass="pane-with-border"/>
+</ScrollPane>

@@ -1,0 +1,24 @@
+{
+  "activities": [
+    {
+      "title": "Petronas Towers",
+      "duration": 1,
+      "location": "KL",
+      "scheduledDateTime": "28-09-2020 10:00",
+      "tagged": [
+        "sightseeing",
+        "expensive"
+      ]
+    },
+    {
+      "title": "Petronas Towers",
+      "duration": 1,
+      "location": "KL",
+      "scheduledDateTime": "28-09-2020 10:00",
+      "tagged": [
+        "sightseeing",
+        "expensive"
+      ]
+    }
+  ]
+}

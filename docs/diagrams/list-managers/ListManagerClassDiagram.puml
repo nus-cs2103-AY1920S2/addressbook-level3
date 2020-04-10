@@ -1,0 +1,51 @@
+@startuml
+!include ../style.puml
+
+class ReadOnlyActivityManger <<interface>>
+
+class UniqueListElement <<interface>>
+
+class ReadOnlyActivityManger {
++ getActivityList() : ObservableList
+}
+
+class ActivityManager {
+    + addActivity(activity : Activity)
+    + hasActivity(activity: Activity) : boolean
+    + setActivity(target : Activity, editedActivity : Activity)
+    + sortActivityList(cmp : Comparator)
+    + removeActivity(key : Activity)
+}
+
+class UniqueList {
+    - internalList : ObservableList
+    - internalUnmodifiableList : ObservableList
+    + contains(toCheck : UniqueListElement) : boolean
+    + add(toAdd : UniqueListElement)
+    + sort(cmp : Comparator)
+    + setElement(target : UniqueListElement, edited : UniqueListElement)
+    + remove(toRemove : UniqueListElement)
+}
+
+class UniqueListElement {
++ isSame(UniqueListElement) : boolean
+}
+
+class Activity {
+    - title : Title
+    - duration : Duration
+    - location : Location
+    + getTitle() : Title
+    + getDuration() : Duration
+    + getLocation() : Location
+    + isSame(UniqueListElement) : boolean
+}
+
+ReadOnlyActivityManger <|.. ActivityManager
+ActivityManager "1 " --> UniqueList
+UniqueList --> " * " UniqueListElement
+UniqueListElement <|.. Activity
+
+
+@enduml
+

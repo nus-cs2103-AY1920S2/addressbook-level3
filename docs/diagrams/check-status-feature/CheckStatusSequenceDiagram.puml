@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":**CheckStatusCommand**" as CheckStatusCommand LOGIC_COLOR
+participant "**:CommandResult**" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "**:ModelManager**" as ModelManager MODEL_COLOR
+participant "**:FixedExpenseManager**" as ExpenseManager MODEL_COLOR
+participant "**:AccommodationBookingManager**" as AccManager MODEL_COLOR
+participant "**:TransportBookingManager**" as TransportManager MODEL_COLOR
+participant "**:PackingListManager**" as PackingListManager MODEL_COLOR
+end box
+
+[-> CheckStatusCommand : execute()
+activate CheckStatusCommand
+
+CheckStatusCommand -> ModelManager : getStatus()
+activate ModelManager
+
+ModelManager -> ExpenseManager : getStatus()
+activate ExpenseManager
+
+ExpenseManager --> ModelManager
+deactivate ExpenseManager
+
+ModelManager -> AccManager : getStatus()
+activate AccManager
+
+AccManager --> ModelManager
+deactivate AccManager
+
+ModelManager -> TransportManager : getStatus()
+activate TransportManager
+
+TransportManager --> ModelManager
+deactivate TransportManager
+
+ModelManager -> PackingListManager : getStatus()
+activate PackingListManager
+
+PackingListManager --> ModelManager
+deactivate PackingListManager
+
+ModelManager --> CheckStatusCommand
+deactivate ModelManager
+
+create CommandResult
+CheckStatusCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CheckStatusCommand
+deactivate CommandResult
+
+[<-- CheckStatusCommand : result
+deactivate CheckStatusCommand
+
+@enduml

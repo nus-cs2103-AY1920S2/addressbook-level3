@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= E.T. - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Team`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/team/easytravel/Main.java[`Main`] and link:{repoURL}/src/main/java/team/easytravel/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteitem 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteitem 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -77,11 +77,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/team/easytravel/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SideTabsBar`, `XYZTabPanel`, `DashboardPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/team/easytravel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,20 +96,20 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/team/easytravel/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `EasyTravelParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteitem 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deleteitem 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -117,19 +117,28 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/team/easytravel/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
+* stores a `UserPref` object that represents the user’s preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* exposes an unmodifiable `ObservableList<XYZ>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+====
+XYZManager refers to:
+
+* `TripManager`
+* `ActivityManager`
+* `TransportationBookingManager`
+* `AccommodationBookingManager`
+* `PackingListManager`
+* `FixedExpenseManager`
+
+The ObservableList<XYZ> includes all managers except for the Trip Manager
+====
 
 [[Design-Storage]]
 === Storage component
@@ -137,110 +146,469 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/team/easytravel/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the XYZManager data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `team.easytravel.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+// tag::TripManagement[]
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Trip Management
+*_E.T._* only allow the user to manage one trip at a time and is necessary to be used first before other commands are available. This is done using the `settrip` command which requires the user to specify the `title` of the trip, the `budget` of the trip and the `start date` and `end date` of the entire trip.
+For example, `settrip title/cheese land budget/2000 startdate/20-09-20 enddate/28-09-20` means that the trip with the title `cheese land` will be set with a budget of `2000` dollars and a duration of 8 days between `20-09-20` to `28-09-20`.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+** title = cheese land
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+** budget = 2000
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+** start date = 20-09-20
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+** end date = 28-09-20
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+==== Rationale
+The Trip Manager feature is the main driving feature that allows the users to set their trip schedule, budget as well
+as the duration of the trip.
+The Trip manager oversees the feature schedule and is essential to be set first before the user is allow to access any other features within the application. This is for the application to ensure that user must have a trip in mind before being allowed to plan for the trip.
 
-image::UndoRedoState0.png[]
+==== Current Implementation
+The keywords from the command given by user is parsed using `SetTripCommandParser` which converts the string
+variable of the `startDate` and `endDate` into a java `Date` object, the `title` into a `Title` object while the `budget` is converted into `Budget` objects.
+These objects are used to create the `SetTripCommand` object that can be execution to create the trip. Execution of this object would hence enable other features within the application.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+The sequence diagram below shows the creation of the `SetTripCommand` object:
 
-image::UndoRedoState1.png[]
+.Sequence diagram that describes the creation of the `SetTripCommand` from the input user command `settrip title/cheese budget/2000 startdate/20-09-20 enddate/28-09-20`.
+image::developer-guide/trip/SetTripCommandCreation.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+After the creation of the `SetTripCommand` object, the `LogicManager` will proceed to call the `execute()` method of `SetTripCommand`.
 
-image::UndoRedoState2.png[]
+The following steps describes the execution of the `SetTripCommand`:
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+1. The `Schedule` object, `Budget` object, `startDate` and `endDate` is passed into the `createTrip()` method of `Model` and parse into a `Trip` object.
+2. A new `Scheduler` will be created while `Budget` object, `startDate` and `endDate` object given by the `Trip object`  .
+3. The `trip` object will calculate and initialise the `duration` of the trip using the given `startDate` and `endDate`.
+4. `Trip` would enable access to other commands within application.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The sequence diagram below shows the the execution of `SetTripCommand`:
 
-image::UndoRedoState3.png[]
+.Sequence diagram that describes the execution of ScheduleActivityCommand.
+image::developer-guide/trip/f.png[SetTrip Command Execution PlaceHolder]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+==== Design Consideration
 
-The following sequence diagram shows how the undo operation works:
+===== Aspect: Trip is isolated from any list manager
 
-image::UndoSequenceDiagram.png[]
+* **Current Choice:** Trip is isolated from all list managing
+** Pros: Better user experience. Single Responsibility: only handles objects necessary for a `trip` to exist
+and be added into the schedule.
+** Cons: Complicated to implement and more likely to result in bugs.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+===== Aspect: Creation of trip is required before use of any other commands
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+* **Current Choice:** A trip must be created before use of any other commands
+** Pros: Ensures that users cannot implement any activity or schedule without creation of an activity.
+** Cons: Complicate to implement and likely result in dependency issues
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+* **Alternative:** A trip can be created after the use of any other commands
+** Pros: Gives the user the freedom to use commands before the trip is set, such as the budgeting and packing list.
+** Cons: Defeats the purpose of planning the trip from top down, starting from the trip being set first.
+// end::Trip Management[]
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-image::UndoRedoState4.png[]
+// end::Check Status[]
+=== Check Status
+==== Rationale
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Currently, E.T allows a user to keep track of multiple aspects of a trip.
+However, they exist as separate lists and there is little to no integration between them.
 
-image::UndoRedoState5.png[]
+For example, the fixed expense list has little to no correlation with the packing list, but they are both
+important aspects of a trip. As such, the motivation behind creating a “check status” is to create that missing link between the different lists and make E.T more integrated and easier to use for the user.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+This feature allows the user to compress all the information from the lists into a single pane and
+alerts the user if they have forgotten to plan for a certain aspect of a trip.
+Before this, the user would have to scroll through each list, look at what they might have forgotten to plan or do.
 
-image::CommitActivityDiagram.png[]
+Therefore, this would help reduce the amount of information the user would need to process, and indirectly the stresses which accompany the planning for a trip.
+
+==== Overview
+E.T’s database stores a hard-coded checklist. For example, it would check if the user has planned for an
+accommodation booking for every single day of the trip and would be informed through the
+`checkstatus` command if they have forgotten to plan for it.
+
+*TIP*
+However, users can also include their own preset `checkstatus` to suit their needs {v2.0}
+
+==== Current Implementation
+The `checkstatus` command checks what the user have planned against the checklist from our database.
+The `checkstatus` command is created by parsing the user’s inputs to form a `checkStatusCommand` where E.T’s
+database is filtered to return the user with the checklist.
+
+The following activity diagram shown in <<Figure x.x>> below, summarizes what happens when a user enters a `checkstatus`
+command:
+
+
+.Sequence diagram showing the workflow of a `checkstatus` command.
+image::developer-guide/check-status-feature/CheckStatusCommandExecution.png[]
+
+In detail, whenever a “checkstatus” command is entered,
+the command will be identified by E.T by parsing it through the `EasyTravelParser` through the `Logic` component.
+A `CheckStatusCommand` will be created.
+E.T will then check against the hard-coded database and generate a checklist of what the
+user might have forgotten to prepare for their upcoming trip.
+The following sequence diagram shown in <<Figure x.x>> below,
+summarizes the sequence flow when a user enters a valid `checkstatus` command:
+
+From the sequence diagram:
+
+****
+1.	When the `LogicManager` receives the “execute” command from `MainApp`, it will call the `parseCommand` method of
+`EasyTravelParser`.
+2.	`EasyTravelParser` will receive `checkstatus` as the command type and instantiate `CheckStatusCommand`
+3.	Through `Model”, the `CheckStatusCommand` will check the individual lists
+against the hard-coded database in `Storage` to ensure that the user had made sufficient planning for the trip.
+4. A `CommandResult` object which consists of a `MESSAGE_SUCCESS` back to `LogicManager` if the user had made
+sufficient planning for the upcoming trip.
+5.	After receiving the `CommandResult` from `CheckStatusCommand`, `LogicManager` will then proceed to
+return the `CommandResult` back to “MainApp” where the checklist will be shown to the user.
+****
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: Access to all list
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Current Choice:** Check status has access to all lists
 
-===== Aspect: Data structure to support the undo/redo commands
+** **Pros:** Easy to implement and understand. Check status can call and access all variables from the lists.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+** **Cons:** There might be dependency issues.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+* **Alternative:** User will have to check each list one by one
 
-_{Explain here how the data encryption feature will be implemented}_
+** **Pros:** No dependency issues, as all lists are kept separated.
 
-// end::dataencryption[]
+** **Cons:** Troublesome for the user to check each list one by one.
+
+// tag::scheduleactivity[]
+=== Schedule feature
+*_E.T._* allows the user to schedule an activity from the activity list to a specified time of a day.
+This is done using the `schedule` command which requires the user to specify the `activity index` of an activity from
+the displayed activity list, the `day number` of the trip and the `start time` of the activity to be scheduled. For
+example, `schedule 1 day/2 starttime/13:00` means that the activity with the index of `1` will be schedule on the second
+day of the trip at 1pm. Before using the `schedule` command, the user should have filled up the activity list with
+activities.
+
+==== Rationale
+The schedule feature is an important feature that allows the users to manage and plan for their trip schedule or itinerary.
+This feature is separated from the activity management feature to increase the ease of planning because users can just focus
+on the time management aspect when scheduling proposed activities from the activity list.
+
+==== Current Implementation
+The keywords from the command given by user is parsed using `ScheduleActivityCommandParser` which converts the string
+variable of the `start time` into a java `Time` object, while `activity index` and `day number` are converted into `Index` objects.
+These objects are used to create the `ScheduleActivityCommand` object that can be execution to schedule the activity.
+
+The sequence diagram below shows the creation of the `ScheduleActivityCommand` object:
+
+.Sequence diagram that describes the creation of the `ScheduleActivityCommand` from the input user command `schedule 1 day/2 starttime/13:00`.
+image::developer-guide/schedule-feature/ScheduleActivityCommandCreation.png[]
+
+After the creation of the `ScheduleActivityCommand` object, the `LogicManager` will proceed to call the `execute()` method of `ScheduleActivityCommand`.
+
+The following steps describes the execution of the `ScheduleActivityCommand`:
+
+1. `Model` retrieves the list of activities from the `UniqueList` that stores `Activity` objects.
+2. The `activityIndex` is used to obtain the target `Activity` from the activity list.
+3. The `Activity` object, `dayIndex` and `startTime` is passed into the `scheduleActivity()` method of `Model`.
+4. `Activity` is converted to a `Schedulee` object using the `startTime` from the `ScheduleActivityCommand`, the `title` and `duration` from the target `Activity`.
+5. The `Schedulee` object is added to the target day's `DaySchedule`.
+6. The list of `Schedulee` is sorted according to the `startTime`.
+
+The sequence diagram below shows the the execution of `ScheduleActivityCommand`:
+
+.Sequence diagram that describes the execution of ScheduleActivityCommand.
+image::developer-guide/schedule-feature/ScheduleActivityCommandExecution.png[Schedule Activity Command Execution]
+
+==== Design Consideration
+
+===== Aspect: Separation between scheduling and activity management
+
+* **Current Choice:** Scheduling is separated from activity management.
+** Pros: Better user experience. Allows for extension: other type of objects could easily be converted into a `Schedulee` object
+and be added into the schedule.
+** Cons: Complicated to implement and more likely to result in bugs.
+* **Alternative:** Activity must be scheduled directly into a day.
+** Pros: Simple to implement.
+** Cons: Increase difficulty planning for users and limit the schedule to `Activity` objects only.
+
+
+// tag::transportbooking[]
+=== Transport Booking feature
+
+E.T. allows the user to add a transport booking. This is done using the schedule command which requires the user to specify the mode, start location, end location, start time and end time.
+
+==== Rationale
+
+The transport booking feature is an important feature that allows the user to track the list of transport bookings that they have made before leaving.
+This feature also allows the user to schedule their activities while taking the scheduled transport bookings into consideration.
+
+==== Current Implementation
+
+The keywords from the command given by the user is parsed using `AddTransportBookingCommandParser` which converts the string variable `mode` into a `Mode` object, `start location` and `end location` into a `Location` objects, as well as `start time` and `end time` into `Time` objects.
+These objects are used to create the `AddTransportBookingCommand` object that will execute to create a transport booking.
+
+The activity diagram below shows the creation of the `AddTransportBookingCommand` object:
+
+.Activity diagram showing the workflow of a `AddTransportBooking` command.
+image::developer-guide/transport-booking/AddTransportBookingActivityDiagram.png[]
+
+After the creation of the `AddTransportBookingCommand` object, the `LogicManager` will proceed to call the `execute()` method of `AddTransportBookingCommand`.
+
+The following steps describes the execution of the `AddTransportBookingCommand`:
+
+1.	In `Model`, the `AddTransportBookingCommand` checks the current transport booking list for duplicates before adding the new object into the transport booking list
+2. A `CommandResult` object which consists of a `MESSAGE_SUCCESS` is sent back to `LogicManager` if there is a successful addition of the transport booking into the transport booking list
+3.	After receiving the `CommandResult` from `AddTransportBookingCommand`, `LogicManager` will return the `CommandResult` back to “MainApp” where the updated transport booking list is shown.
+
+==== Design Consideration
+
+===== Aspect:
+
+* **Current Choice:**
+** **Pros:**
+** **Cons:**
+
+* **Alternative:**
+** **Pros:**
+** **Cons:**
+// end::transportbooking[]
+
+// tag::accommodationbooking[]
+=== Accommodation Booking feature
+
+E.T. allows the user to add an accommodation booking. This is done using the schedule command which requires the user to specify the accommodation name, location, start day, end day and a remark. This feature also prevents the user from having an overlap of accommodation.
+
+The activity contains the following fields:
+
+* `accommodation name`
+* `location`
+* `start day`
+* `end day`
+* `remarks`
+
+==== Rationale
+
+The accommodation booking feature is an important feature that allows the user to track the list of accommodation bookings that they have made before leaving.
+
+==== Current Implementation
+
+When a user adds an accommodation booking using the `AddAccommodationBookingCommandParser`, an `AddAccommodationBookingCommand` object is created that will execute to create an accommodation booking. When the `execute()` method is called, a method `isOverlappingWithOthers()` will check if there is an overlap of the new accommodation booking with the other bookings.
+
+Using a stream, the new accommodation booking will be against all other bookings in the list to find look for any overlaps. The activity diagram shows how 2 bookings are checked if there is an overlap:
+
+.Activity diagram of check overlap for 2 accommodation bookings
+image::developer-guide/accommodation-booking/FindOverlapActivityDiagram.png[]
+
+The following steps describes the process of the check overlap method:
+
+. The start day and end day of both bookings are retrieved using `getStartDay()` and `getEndDay()`
+. The largest end day and smallest start day is calculated and the difference of the largest and smallest is calculated
+. The duration of both bookings is calculated by adding the difference of the end day and start day of both bookings
+. If the difference of the largest end day and smallest start day is greater than the duration of both bookings, there is no overlap. The accommodation booking will then be added into the list.
+. If there is an overlap, user will receive a message that informs that there is the new accommodation booking has an overlap with another booking.
+
+==== Design Consideration
+
+===== Aspect: Calculating overlap of the new accommodation booking with the other accommodation bookings in the list
+
+|===
+| |Pros |Cons
+|Current Choice : Using stream to compare the accommodation bookings
+|Few lines of codes needed to compare the bookings, follows the KISS principle
+|Difficult for beginner users to understand our code
+
+|Alternative Choice: Using an arraylist of days to track accommodations
+|Easy to use and understand
+|Requires many lines of code, may become difficult to read
+|===
+// end::accommodationbooking[]
+
+// tag::activity[]
+=== Activity Manager
+*_E.T._* allows the user to plan for their `activity` for a trip. The activity manager handles everything to do with manipulating of activities.
+
+This `addactivity` command requires the user to include the `title` of an activity, the `priority` of the activity , the `duration` of the activity in terms of hours, `Location` of the activity and optional `tags`.
+
+List of commands that helps with activity management:
+
+* `addactivity title/TITLE priority/PRIORITY duration/DURATION location/LOCATION t/TAG` --  create an activity with the given title, priority, duration, location and tags. There can be more than one tags included
+* `clearactivity`  -- Clears the entire activity list
+* `deleteactivity index`  -- Deletes the activity based on index
+* `editactivity index [title/TITLE] [priority/PRIORITY] [duration/DURATION] [location/LOCATION] [t/TAG]` -- Edits the activity based on index
+
+Example:
+
+`addactivity title/Big Cheese Land priority/1 duration/2 location/The moon t/nice` will create an activity named `Big Cheese` with a priority of `1` , duration of `2` and is happening at a location `The moon`. The activity would also have the tag `nice`
+
+
+The user can use any other activity command if there exist at least one activity in the list.
+
+==== Rationale
+The activity manager allows user to plan and manage their activities for the trip.
+The activity manager only handles activities and the manipulation of activities.
+
+==== Current Implementation
+The keywords from the command given by user is parsed using a parser for the respective command
+
+e.g `DeleteActivityCommandParser`
+
+These objects are used to create the command object for their respective command that can be execution to schedule the activity.
+
+e.g `DeleteActivity`
+
+.Activity diagram showing the workflow of a `deleteactivity` command.
+image::developer-guide/activity/DeleteActivityActivityDiagram.png[]
+
+The sequence diagram below shows the creation of the an ActivityCommand object:
+
+.Sequence diagram that describes the creation of the `deleteactivity` from the input user command `deleteactivity 1`.
+
+image::developer-guide/activity/DeleteActivityCommandCreation.png[]
+
+After the creation of the `DeleteActivityCommand` object, the `LogicManager` will proceed to call the `execute()` method of `DeleteActivityCommand`.
+
+The following steps describes the execution of the `ScheduleActivityCommand`:
+
+1. `Model` retrieves the list of activities from the `UniqueList` that stores `Activity` objects.
+2. The `activityIndex` is used to find the target `Activity` from the activity list.
+3. The `Activity` object that corresponds to the index is removed from the list
+
+
+The sequence diagram below shows the the execution of `DeleteActivityCommand`:
+
+.Sequence diagram that describes the execution of ScheduleActivityCommand.
+image::developer-guide/activity/DeleteActivityCommandExecution.png[Delete Activity Command Execution placeholder]
+
+==== Design Consideration
+
+===== Aspect: Activity does not keep track of the day
+
+* **Current Choice:** Days is being tracked by scheduler
+** **Pros:** Separation of concerns: Only the scheduler should know which day the activity is held on.
+** **Cons:** {kiv}
+// end::activity[]
+
+// tag::packinglist[]
+=== Packing List feature
+
+*_E.T._* allows the user to create a packing list. The packing list manager handles everything to do with manipulating of packing list items.
+
+The packing list item contains the following fields:
+
+* `itemName`
+* `quantity`
+* `itemCategory`
+
+`PackingListManager` has commands other than the basic CRUD commands, such as:
+
+* `finditem`
+** Finds packing list items based on the keywords given by the user
+* `finditemcategory`
+** Finds packing list items in the categories given by the user
+* `addpreset`
+** Adds a pre-existing list of items in a category into the current packing list
+* `listpreset`
+** Shows the available presets that the user can add into the packing list
+
+I will be focusing on the `addpreset` command here. The `addpreset` command requires the user to include the `category` of the preset they want to add into the packing list.
+For example, `addpreset swimming` means that the preset called `swimming` will be added into the user's packing list.
+Only pre-existing presets can be added into the user's packing list.
+
+==== Rationale
+The packing list feature is an important feature that allows the users to plan and pack for their trip. It ensures that the user did not forget to pack anything for their trip, providing convenience.
+
+==== Current Implementation
+
+The keywords from the command given by the user is parsed using `AddPresetCommandParser` which converts the string variable `category` into a `ItemCategory` object.
+These objects are used to create the `AddPresetCommand` object that will execute to create a list of packing list items.
+
+The sequence diagram below shows the creation of the `AddPresetCommand` object:
+
+.Activity diagram showing the workflow of an `addpreset` command.
+image::developer-guide/packing-list/AddPackingListActivityDiagram.png[]
+
+After the creation of the `AddPresetCommand` object, the `LogicManager` will proceed to call the `execute()` method of `AddPresetCommand`.
+
+The following steps describes the execution of the `AddPresetCommand`:
+
+1.	In `Model`, the `AddPresetCommand` adds a list of pre-existing list of items under a category into the packing list. If it encounters duplicates, it will skip the duplicate, and continue adding the rest of the items in the preset into the packing list.
+2. A `CommandResult` object which consists of a `MESSAGE_SUCCESS` is sent back to `LogicManager` if there is a successful addition of the preset items into the packing list.
+3.	After receiving the `CommandResult` from `AddPresetCommand`, `LogicManager` will return the `CommandResult` back to “MainApp” where the updated packing list is shown.
+
+==== Design Consideration
+
+===== Aspect:
+
+* **Current Choice:** Users choose a preset list of items under a category
+** **Pros:** Gives the user more convenience; allows them to add a list of items at one go, instead of adding an item each time.
+** **Cons:** Users are only able to choose from the pre-existing list of presets, hence not a lot of freedom to create their own preset.
+
+* **Alternative:** Users create their own presets
+** **Pros:** Gives the user a lot of freedom to customise their presets and packing list, making it user focused.
+** **Cons:** Difficult to implement
+// end::packinglist[]
+
+// tag::fixedexpense[]
+=== Fixed expense feature
+
+*_E.T._* allows the user to create a fixed expense. The fixed expense manager handles everything to do with manipulating of fixed expenses.
+
+This `sortexpense` command requires the user to include the `order` of the sorting, which is either ascending or descending, and the `criteria` of the sorting, which is either amount, blah or category.
+For example, `sortexpense asc amount` sorts the fixed expense list in ascending order, according to the amount of the fixed expenses.
+
+==== Rationale
+The fixed expense feature is an important feature that allows the users to plan financially for their trip. It allows the user keeps track of the amount spent on the big ticket items, such as plane tickets and accommodation bookings.
+
+==== Current Implementation
+
+The keywords from the command given by the user is parsed using `SortFixedExpenseCommandParser` which converts the retrieves the order of the sort, and the sorting criteria.
+These objects are used to create the `SortFixedExpenseCommand` object that will execute the sorting of the fixed expense list according to the given order and criteria.
+
+The sequence diagram below shows the creation of the `SortFixedExpenseCommand` object:
+
+[KIV]
+Figure x.x: Sequence diagram of a Sort Fixed Expense command.
+
+After the creation of the `SortFixedExpenseCommand` object, the `LogicManager` will proceed to call the `execute()` method of `SortFixedExpenseCommand`.
+
+The following steps describes the execution of the `SortFixedExpenseCommand`:
+
+1.	In `Model`, the `SortFixedExpenseCommand` sorts the current fixed expense list according to an order and criteria.
+2. A `CommandResult` object which consists of a `MESSAGE_SUCCESS` is sent back to `LogicManager` if there is a successful sorting of the fixed expense list.
+3.	After receiving the `CommandResult` from `SortFixedExpenseCommand`, `LogicManager` will return the `CommandResult` back to “MainApp” where the sorted fixed expense list is shown.
+
+==== Design Consideration
+
+===== Aspect:
+
+* **Current Choice:** Sorting criteria can only be `amount`, `description` or `category`
+** **Pros:** Keeps the implementation simple, as well as the fields of fixed expense only contain the above criteria
+** **Cons:** Restricts the user on the criteria they can use, prevents them from customising the sorting of their fixed expense list.
+
+* **Alternative:** Sorting criteria can be anything the user inputs
+** **Pros:** Not restricted to a fixed criteria, gives the user freedom to choose and customise their sorting criteria.
+** **Cons:** Difficult to implement, too many criteria to consider.
+// end::fixedexpense[]
 
 === Logging
 
@@ -279,33 +647,89 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+
+* want to micromanage all parts of their trips
+* meticulously plan all details of the trip before leaving
+* are inexperienced in planning for overseas trips
+* plan and stick to a preset budget set for their trips
+* want to record down experiences during their trips
+* prefer to have everything in one app
+* want to manage their trip without an internet connection
+* keen on privacy while writing down intimate details
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*:
+
+* An all in one travel planner and manager, that guides the user from head to tail in planning for an overseas trip. Even those who have never planned for a trip before will be able to focus on enjoying their trip while the app guides them in planning and managing the perfect overseas trip.
+* E.T. can manage trips faster than a typical mouse/GUI driven app.
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="20%,<20%,<25%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Forgetful user |Write down the day's events | Remember what happened in that day
 
-|`* * *` |user |add a new person |
+|`* * *` |User |Have a diary  |Write my thoughts and feelings for that day
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Un-thrifty traveller |Notified if my spending goes beyond my planned levels |Adjust my budget
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Traveller |Get my expenses to automatically converted to SGD |Avoid manual currency conversion
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Budget traveller |Set an individual budget for each day |Minimise my spending
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Traveller |See amount spent each day/trip and balance left for each day/trip |Record my spending
+
+|`* * *` |Forgetful user |Make a checklist for items to bring |Pack without forgetting anything
+
+|`* * *` |Careless traveller |Set the quantity of items I need to pack |Pack without missing out anything
+
+|`* * *` |Lazy traveller |Add pre-set packing list |Avoid manual addition of many common items
+
+|`* * *` |Traveller |Maintain a list of accommodations |Better plan my accommodations during the trips
+
+|`* * *` |Forgetful traveller |Keep track of my transportation booking information |Avoid being late
+
+|`* * *` |Organised traveller |Plan my trip in terms of days |Split my plan into suitable chunks
+
+|`* * *` |Inexperienced planner |Know what did I miss out from my travel plan |Be reminded and plan for it
+
+|`* * *` |Undisciplined individual |Keep track of my expenses |Avoid spending over my budget
+
+|`* * *` |Organised traveller |Add activities to my daily itinerary |Plan for my trip
+
+|`* *` |User concerned with privacy |Private my diary entry|Minimize chance of someone else seeing them by accident
+
+|`* *` |User who likes pictures |Have a photo diary |Capture memories through pictures in a organised manner
+
+|`* *` |Careless Traveller |Be notified if I have forgotten certain aspects of my trip |Avoid being under prepared for my trip
+
+|`* *` |Cautious Traveller |Be notified if I miss out any dates i did not plan on accommodation |Have a place to sleep every night
+
+|`* *` |Traveller |Be able to print itinerary |Bring it around in my travels if my battery dies
+
+|`* *` |Traveller |Be able to undo my actions |Undo my mistakes
+
+|`* *` |Traveller |View all the information easily|
+
+|`* *` |New User |Have a quick built-in help guide|Get started on using the application quickly
+
+|`*` |Non Math inclined traveller |Get constant recommendations to my budget plan |Avoid having to do any difficult calculations
+
+|`*` |Command Line enthusiast |Tab autocomplete my commands |Be more efficient
+
+|`*` |User who likes customization|Change my application into different colour themes |Make my application's GUI looks better
+
+|`*` |User|Have a calendar planner |Have reference to the dates of the year
+
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,53 +737,218 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `E.T.` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Trip Planner
+----------------------------------------------------------------------------------------------------------------
+UC01: Add trip - Add a trip to the main list
 
-*MSS*
+System: E.T.
+Actor: User
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
+Preconditions: User must be on the home page.
+Guarantees:
+    - A new trip will be added to the trip list upon successful command.
+
+MSS:
+    1. User adds a new trip to the list.
+    2. System adds trip to the list of trips.
+    3. System shows the updated list of trips.
 Use case ends.
 
-*Extensions*
+Extensions:
+    2a. The trip list is empty.
+        2a1. System shows an empty page.
+        Use case resumes at step 3.
 
-[none]
-* 2a. The list is empty.
-+
+    3a. Incomplete details are given.
+        3a1. System shows an error message.
+        Use case resumes at step 3.
+
+UC02: Check trip readiness
+
+System: E.T.
+Actor: User
+
+Preconditions: A trip must be opened.
+Guarantees:
+    - System informs the user of incomplete preparations.
+
+MSS:
+    1. User request for a preparation check
+    2. System shows the list of things that needs to be completed
+Use case ends.
+----------------------------------------------------------------------------------------------------------------
+[discrete]
+=== Packing List
+----------------------------------------------------------------------------------------------------------------
+UC03: Add item to Packing list
+
+System: E.T.
+Actor: User
+
+Preconditions: A trip must be opened.
+Guarantees:
+    - A new packing list would be created upon successful command.
+
+MSS:
+    1. User requests to create a new trip.
+    2. User navigates to the packing list tab.
+    3. System shows the packing list.
+    4. User adds an item to the packing list.
+    5. System shows the updated packing list.
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+
+Extensions:
+    3a. The packing list is empty.
+        3a1. System shows an empty list.
+        Use case resumes at step 4.
+
+    4a. Incomplete details are given.
+        4a1. System shows an error message.
+        Use case resumes at step 4.
+----------------------------------------------------------------------------------------------------------------
+[discrete]
+=== Memory
+----------------------------------------------------------------------------------------------------------------
+UC04: Write entry into diary
+
+System: E.T.
+Actor: User
+
+Preconditions: A trip must be opened.
+Guarantees:
+    - A new diary entry would be created upon successful command.
+
+MSS:
+    1. User requests to create a new diary entry.
+    2. User navigates to the diary tab.
+    3. E.T. shows the existing diary entries.
+    4. User adds a diary entry to the diary.
+    5. E.T. shows the updated diary entries.
+Use case ends.
+
+Extensions:
+    3a. The diary is empty.
+        3a1. E.T. shows an empty page.
+        Use case resumes at step 4.
+
+    4a. Incomplete details are given.
+        4a1. E.T. shows an error message.
+        Use case resumes at step 4.
+----------------------------------------------------------------------------------------------------------------
+[discrete]
+=== Expenditure Manager
+----------------------------------------------------------------------------------------------------------------
+UC05: Add expenses
+
+System: E.T.
+Actor: User
+
+Preconditions: A trip must be opened.
+Guarantees:
+    - Any expense will be added to the trip upon successful command.
+    - Current and future expenses will be flagged if it exceeds the budget set for the trip.
+
+MSS:
+    1. User requests to create a new expense entry.
+    2. User navigates to the expense manager tab.
+    3. System shows existing expenses for the current trip.
+    4. User adds a new expense for the current trip.
+    5. System shows the updated expenses for the trip.
+Use case ends.
+
+Extensions:
+    3a. The expense is empty
+        3a1. System shows an empty page.
+        Use case resumes at step 4.
+
+    4a. Incomplete details are given.
+        4a1. System shows an error message.
+        Use case resumes at step 4.
+    4b. Expenses are entered by the user in the foreign country’s currency when the conversion rate is not set.
+        4b1. System shows an error message.
+        Use Case resumes at step 4.
+----------------------------------------------------------------------------------------------------------------
+[discrete]
+=== Pre Trip
+----------------------------------------------------------------------------------------------------------------
+UC06: Add accommodation into a trip
+
+System: E.T.
+Actor: User
+
+Preconditions: A trip must be opened
+Guarantees:
+    - Accommodation will be added into a list upon successful command.
+
+MSS:
+    1. User requests to create a new accommodation booking.
+    2. User navigates to the pre-trip tab.
+    3. System shows the existing list of accommodations for the current trip.
+    4. User adds a new accommodation booking for the current trip.
+    5. System shows an updated list of accommodations.
+Use case ends
+
+Extensions:
+    3a. The is no accommodation booking
+	    3a1. System show an empty list
+	    Use case resumes at step 4
+    4a. Incomplete details are given.
+        4a1. System shows an error message.
+        Use case resumes at step 4.
+----------------------------------------------------------------------------------------------------------------
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* Application should work on any <<mainstream-os,mainstream OS>> as long as it has Java 11 or above installed.
+
+* Application should be able to hold up to 20 trips no longer than 1 month each without a noticeable sluggishness in performance for typical usage.
+
+* Application should respond within 2 seconds of the client's query.
+
+* A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+* Application should be easy to use for a new user when following the User Guide.
+
+* Application should work without requiring an installer.
+
+* Application should not depend on a remote server.
+
+* Application should be for a single user i.e. (not a multi-user product).
+
+* Application should not require an online connection.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+[[e-t]] E.T.::
+An abbreviation for Easy Travel, the name of the application.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, macOS.
+
+[[prefix]] Prefix::
+The term that comes before each parameter in the command. For example, the prefix in country/COUNTRY is country/.
+
+[[prefix-name]] Prefix Name::
+The word that comes before ‘/’ in the prefix. For example, the prefix name in country/COUNTRY is country/.
+
+[[cli]] Command Line Interface::
+An interface where the user interacts with the application through the command box.
+
+[[gui]] Graphical User Interface::
+A visual display shown on the screen.
+
+[[json]] JavaScript Object Notation::
+A lightweight data-interchange format which is easily readable and writable.
 
 [appendix]
 == Product Survey

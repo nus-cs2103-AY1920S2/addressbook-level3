@@ -1,0 +1,21 @@
+{
+  "transportBookings" : [ {
+    "mode" : "train",
+    "startLocation" : "Singapore",
+    "endLocation" : "Malaysia",
+    "startDateTime" : "20-01-2020 22:00",
+    "endDateTime" : "20-01-2020 23:00"
+  }, {
+    "mode" : "plane",
+    "startLocation" : "Singapore",
+    "endLocation" : "Hong Kong",
+    "startDateTime" : "23-03-2020 00:15",
+    "endDateTime" : "23-03-2020 05:15"
+  },{
+    "mode" : "bus",
+    "startLocation" : "Hong Kong",
+    "endLocation" : "Macau",
+    "startDateTime" : "24-03-2020 19:00",
+    "endDateTime" : "24-03-2020 20:50"
+  }
+   ] }

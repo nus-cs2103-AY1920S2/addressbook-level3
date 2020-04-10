@@ -1,0 +1,15 @@
+{
+  "accommodationBookings" : [ {
+    "name" : "Accommodation with invalid name field: Rit!@#z Carlton",
+    "location" : "KL",
+    "startDay" : 1,
+    "endDay" : 2,
+    "remark" : "Check-in at 3pm."
+  }, {
+    "name" : "Accommodation with invalid name field: JW M!@@#arriott Hotel",
+    "location" : "KL",
+    "startDay" : 2,
+    "endDay" : 4,
+    "remark" : "Check-in at 3pm."
+  } ]
+}

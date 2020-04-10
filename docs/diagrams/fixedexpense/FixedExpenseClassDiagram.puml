@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+
+
+Class Logic <<Interface>> {
++ execute() : CommandResult
+}
+
+Class LogicManager {
++ execute() : CommandResult
+}
+
+Class FixedExpense {
+ - amount : Amount
+ - description : Description
+ - fixedExpenseCategory : FixedExpenseCategory
+ + getAmount() : Amount
+ + getDescription() : Description
+ + getFixedExpenseCategory() : FixedExpenseCategory
+}
+
+
+
+Class Model <<Interface>> {
++ getBudget() : Budget
++ setBudget(Budget)
+}
+
+Class ModelManager{
++ setBudget(Budget)
++ getBudget() : Budget
+}
+
+Class FixedExpenseManager{
++ addFixedExpense(FixedExpense)
++ getFixedExpenseList() : ObservableList<FixedExpense>
+}
+
+Class TripManager{
++ getBudget() : Budget
++ setBudget(Budget)
+}
+
+Class Trip{
+- budget: Budget
+- exchangeRate: ExchangeRate
++ getBudget() : Budget
++ setBudget(Budget)
++ getExchangeRate() :ExchangeRate
+}
+LogicManager .up-|> Logic
+ModelManager .up-|> Model
+ModelManager -down-> FixedExpenseManager
+FixedExpenseManager -right-> FixedExpense
+LogicManager -down-> Model
+ModelManager -right-> TripManager
+TripManager -right-> Trip
+
+show members
+@enduml

@@ -1,0 +1,46 @@
+= Chau Teng Le - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EasyTravel
+
+== Overview
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+* *Minor enhancement*:
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-W17-3/main/commits?author=zenatrick[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=zenatrick[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+
+** Enhancements to existing features:
+
+** Documentation:
+
+** Community:
+
+** Tools:
+_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===

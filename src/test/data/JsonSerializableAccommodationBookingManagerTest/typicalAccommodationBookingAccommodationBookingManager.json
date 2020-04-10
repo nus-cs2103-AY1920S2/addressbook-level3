@@ -1,0 +1,22 @@
+{
+  "_comment": "AccommodationBookingManager save file which contains the same Accommodation Booking values as in TypicalAccommodation#getTypicalAccommodationBookingManager()",
+  "accommodationBookings" : [ {
+    "name" : "Hotel",
+    "location" : "Singapore",
+    "startDay" : 1,
+    "endDay" : 3,
+    "remark" : "2 nights stay"
+  },{
+    "name" : "Backpacker",
+    "location" : "Singapore",
+    "startDay" : 5,
+    "endDay" : 7,
+    "remark" : "2 nights stay"
+  }, {
+    "name" : "Hostel",
+    "location" : "Singapore",
+    "startDay" : 3,
+    "endDay" : 4,
+    "remark" : "1 night stay"
+} ]
+}

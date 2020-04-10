@@ -1,0 +1,8 @@
+{
+  "transportBookings" : [ {
+    "mode" : "testing",
+    "startLocation" : "Singap@@#ore",
+    "endLocation" : "KL@123",
+    "startDateTime" : "28-09-2020 00:00",
+    "endDateTime" : "28-09-2020 01:30"
+  }]}

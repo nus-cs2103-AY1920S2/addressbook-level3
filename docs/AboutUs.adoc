@@ -4,53 +4,63 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+E.T. was developed by the https://github.com/AY1920S2-CS2103T-W17-3/main[Team] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Chau Teng Le
+image::team-profile/zenatrick.png[width="150", align="left"]
+{empty}[https://github.com/zenatrick[github]] [<<zenatrick#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Feature: Diary +
+Responsibilities: Integration, Git Expert +
+Components: Model, UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Joshua Lay
+image::team-profile/joshlay96.png[width="150", align="left"]
+{empty}[http://github.com/joshlay96[github]] [<<joshlay96#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Feature: Expense Manager +
+Responsibilities: Testing, Intellij Expert +
+Components: Common, Storage
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Charlotte Lim
+image::./team-profile/deunitato.png[width="150", align="left"]
+{empty}[http://github.com/deunitato[github]] [<<deunitato#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Feature: Trip Planner +
+Responsibilities: Delieverables and Deadlines, Scheduling and Tracking +
+Components: Logic, Model
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Joshua Wee
+image::team-profile/jwee97.png[width="150", align="left"]
+{empty}[http://github.com/jwee97[github]] [<<jwee97#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Feature: Pre-Trip Manager +
+Responsibilities: Code Quality, UML Expert +
+Components: Logic, Storage
+
+'''
+
+=== Catherine Loy
+image::team-profile/loycatherine.png[width="150", align="left"]
+{empty}[http://github.com/loycatherine[github]] [<<loycatherine#, portfolio>>]
+
+Role: Developer +
+Feature: Packing List +
+Responsibilities: Documentation +
+Components: Common, UI
 
 '''

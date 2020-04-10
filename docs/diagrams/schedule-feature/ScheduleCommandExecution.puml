@@ -1,0 +1,65 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":**ScheduleCommand**" as ScheduleCommand LOGIC_COLOR
+participant "**r:CommandResult**" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+skinparam BoxWidth 5000
+participant "**m:ModelManager**" as ModelManager MODEL_COLOR
+participant "**:TripManager**" as TripManager MODEL_COLOR
+participant "**e:DayScheduleEntry**" as DayScheduleEntry MODEL_COLOR
+participant "**:DaySchedule**" as DaySchedule MODEL_COLOR
+
+end box
+
+[-> ScheduleCommand : execute(m)
+activate ScheduleCommand
+
+ScheduleCommand -> ModelManager : getFilteredActivityList()
+activate ModelManager
+
+ModelManager --> ScheduleCommand
+deactivate ModelManager
+
+ScheduleCommand -> ModelManager : scheduleActivity(activity)
+activate ModelManager
+
+ModelManager -> TripManager : scheduleActivity(activity)
+activate TripManager
+
+create DayScheduleEntry
+TripManager -> DayScheduleEntry : new DayScheduleEntry(\nactivity)
+activate DayScheduleEntry
+
+DayScheduleEntry --> TripManager : e
+deactivate DayScheduleEntry
+
+TripManager -> DaySchedule : addScheduleEntry(e)
+activate DaySchedule
+
+DaySchedule --> TripManager
+deactivate
+
+TripManager --> ModelManager
+deactivate TripManager
+
+ModelManager --> ScheduleCommand
+deactivate ModelManager
+
+create CommandResult
+ScheduleCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ScheduleCommand : r
+deactivate CommandResult
+
+[<-- ScheduleCommand : r
+deactivate ScheduleCommand
+
+ScheduleCommand -[hidden]> CommandResult
+destroy ScheduleCommand
+
+@enduml

@@ -1,0 +1,41 @@
+{
+  "_comment": "PackingListManager save file which contains the same PackingList values as in TypicalPackingList#getTypicalPackingListManager()",
+  "packingList": [
+    {
+      "name": "Underwear",
+      "quantity": 7,
+      "category": "clothes",
+      "isCheck": false
+    },
+    {
+      "name": "Tshirt",
+      "quantity": 7,
+      "category": "clothes",
+      "isCheck": false
+    },
+    {
+      "name": "Jeans",
+      "quantity": 5,
+      "category": "clothes",
+      "isCheck": false
+    },
+    {
+      "name": "Conditioner",
+      "quantity": 1,
+      "category": "toiletries",
+      "isCheck": false
+    },
+    {
+      "name": "Passport",
+      "quantity": 1,
+      "category": "international",
+      "isCheck": false
+    },
+    {
+      "name": "Shampoo",
+      "quantity": 1,
+      "category": "toiletries",
+      "isCheck": false
+    }
+  ]
+}

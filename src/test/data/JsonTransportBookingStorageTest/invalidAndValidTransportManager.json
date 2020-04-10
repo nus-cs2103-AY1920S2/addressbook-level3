@@ -1,0 +1,18 @@
+{
+  "transportBookings": [
+    {
+      "mode": "plane",
+      "startLocation": "Singapore",
+      "endLocation": "KL",
+      "startDateTime": "28-09-2020 00:00",
+      "endDateTime": "28-09-2020 01:30"
+    },
+    {
+      "mode": "test",
+      "startLocation": "Singapo@#!re",
+      "endLocation": "KL",
+      "startDateTime": "28-09-2020 00:00",
+      "endDateTime": "28-09-2020 01:30"
+    }
+  ]
+}

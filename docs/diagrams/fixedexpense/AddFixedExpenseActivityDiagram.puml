@@ -1,0 +1,68 @@
+@startuml
+!include ../style.puml
+title Add Fixed Expense to Fixed Expense Manager
+
+start
+
+:User executes ""addexpense"" command;
+note left
+  Arguments should contain
+  an amount, currency, description,
+  category
+end note
+
+if () then ([trip is set])
+
+if () then ([is a valid command])
+
+    if () then ([no missing field])
+
+            :Return a
+            ""AddFixedExpenseCommand"" object;
+
+            :Execute ""AddFixedExpenseCommand"";
+
+    if() then ([Fixed Expense
+    in other
+    currency]
+    )
+
+            :Convert FixedExpense to
+            Singapore Dollars using
+            preset exchange rate;
+
+
+    else ([else])
+
+    endif
+
+
+            :Add a Fixed Expense to
+            ""FixedExpenseManager"";
+
+            :Update Budget;
+
+            :Show success message along with
+            updated budget to the user;
+
+    else ([else])
+
+         :User receives invalid
+         command format message;
+    endif
+
+else ([else])
+    :User Receives unknown
+    command message;
+
+endif
+
+else ([else])
+    :User Receives No Trip Set Message;
+
+endif
+
+
+stop
+
+@enduml

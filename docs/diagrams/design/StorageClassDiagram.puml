@@ -1,0 +1,40 @@
+@startuml
+!include ../style.puml
+
+skinparam Class {
+    BorderColor BACKGROUND_COLOR
+    FontColor BACKGROUND_COLOR
+    BackgroundColor STORAGE_COLOR_T3
+    StereotypeFontColor BACKGROUND_COLOR
+}
+skinparam arrowColor STORAGE_COLOR_T3
+hide member
+
+Class HiddenOutside BACKGROUND_COLOR
+
+Package Model <<Rectangle>> {
+note right of XYZStorage
+""XYZStorage"" = ""ActivityStorage"",
+""TransportBookingStorage"", etc
+end note
+note right of JsonXYZStorage
+""JsonXYZStorage"" = ""JsonActivityStorage"",
+""JsonTransportBookingStorage"", etc
+end note
+Class Storage <<Interface>>
+Class UserPrefsStorage <<Interface>>
+Class XYZStorage <<Interface>>
+Class StorageManager
+Class JsonUserPrefsStorage
+Class JsonXYZStorage
+Class Hidden
+}
+
+StorageManager .up.|> Storage
+StorageManager o-left> UserPrefsStorage
+StorageManager o-right> XYZStorage
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonXYZStorage .up.|> XYZStorage
+JsonUserPrefsStorage - Hidden
+hide Hidden
+@enduml

@@ -1,0 +1,54 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "**:LogicManager**" as LogicManager LOGIC_COLOR
+participant "**:EasyTravelParser**" as EtParser LOGIC_COLOR
+participant "**:DeleteActivityCommandParser**" as DeleteActivityCommandParser LOGIC_COLOR
+participant "**:DeleteActivityCommand**" as DeleteActivityCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("deleteactivity 1")
+activate LogicManager
+
+LogicManager -> EtParser : parseCommand("deleteactivity 1")
+activate EtParser
+
+create DeleteActivityCommandParser
+EtParser -> DeleteActivityCommandParser
+activate DeleteActivityCommandParser
+
+DeleteActivityCommandParser --> EtParser
+deactivate DeleteActivityCommandParser
+
+EtParser -> DeleteActivityCommandParser : parse("deleteactivity 1")
+activate DeleteActivityCommandParser
+
+create DeleteActivityCommand
+DeleteActivityCommandParser -> DeleteActivityCommand
+activate DeleteActivityCommand
+
+DeleteActivityCommand --> DeleteActivityCommandParser
+deactivate DeleteActivityCommand
+
+DeleteActivityCommandParser --> EtParser
+deactivate DeleteActivityCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteActivityCommandParser -[hidden]-> EtParser
+destroy DeleteActivityCommandParser
+
+EtParser --> LogicManager
+deactivate EtParser
+
+LogicManager -> DeleteActivityCommand : execute()
+activate DeleteActivityCommand
+
+ref over DeleteActivityCommand : delete activity
+
+DeleteActivityCommand --> LogicManager : result
+deactivate DeleteActivityCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

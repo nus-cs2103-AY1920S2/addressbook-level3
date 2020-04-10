@@ -1,0 +1,36 @@
+@startuml
+title Find Overlap in Accommodation Booking Command
+
+start
+
+:System starts the
+checking for overlap;
+
+:System gets booking 1
+start day and end day;
+
+:System gets booking 2
+start day and end day;
+
+:Calculate duration
+of both booking;
+
+:Get largest end day
+of both booking;
+
+:Get smallest start day
+of both booking;
+
+if () then ([largest end day - smallest start day
+< duration of both bookings])
+
+    :User receive overlap message;
+
+else ([else])
+
+    :User receive ok message;
+
+endif
+
+stop
+@enduml

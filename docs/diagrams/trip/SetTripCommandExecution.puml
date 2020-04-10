@@ -1,0 +1,66 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":**SetTripCommand**" as SetTripCommand LOGIC_COLOR
+participant "**:CommandResult**" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "**:ModelManager**" as ModelManager MODEL_COLOR
+participant "**trip:Trip**" as Trip MODEL_COLOR
+participant "**:Trip**" as Trip MODEL_COLOR
+end box
+
+
+[-> SetTripCommand : execute()
+activate SetTripCommand
+
+SetTripCommand -> ModelManager : getFilteredActivityList()
+activate ModelManager
+
+ModelManager --> ScheduleActivityCommand
+deactivate ModelManager
+
+ScheduleActivityCommand -> ModelManager : scheduleActivity(dayIndex, startTime, activityToSchedule)
+activate ModelManager
+
+ModelManager -> Schedule : getDaySchedule(dayIndex)
+activate Schedule
+
+Schedule --> ModelManager
+deactivate Schedule
+
+ModelManager -> Scheduler : scheduleActivity(daySchedule, startTime, activityToSchedule)
+activate Scheduler
+
+Scheduler -> Scheduler : createSchedulee(activityToSchedule)
+activate Scheduler
+
+Scheduler --> Scheduler
+deactivate Scheduler
+
+Scheduler --> ModelManager
+deactivate Scheduler
+
+ModelManager -> Schedule : updateFilteredSchedule(PREDICATE_SHOW_FULL_SCHEDULE)
+activate Schedule
+
+Schedule --> ModelManager
+deactivate Schedule
+
+ModelManager --> ScheduleActivityCommand
+deactivate ModelManager
+
+create CommandResult
+ScheduleActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ScheduleActivityCommand
+deactivate CommandResult
+
+[<-- ScheduleActivityCommand : result
+deactivate ScheduleActivityCommand
+
+
+@enduml

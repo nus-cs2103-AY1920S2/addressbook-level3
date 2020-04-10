@@ -1,0 +1,52 @@
+@startuml
+!include <office/Concepts/globe_internet>
+!include <office/Concepts/documents>
+!include <office/Users/user>
+!include ../style.puml
+
+hide member
+skinparam Class {
+    BorderColor BACKGROUND_COLOR
+    FontColor BACKGROUND_COLOR
+    StereotypeFontColor BACKGROUND_COLOR
+}
+skinparam ArrowColor black
+
+!define LOGIC_COLOR LOGIC_COLOR_T2
+!define MODEL_COLOR MODEL_COLOR_T2
+
+Package "" {
+    Class Ui UI_COLOR
+    Class Logic LOGIC_COLOR
+    Class Storage STORAGE_COLOR
+    Class Model MODEL_COLOR
+    Class Main #AB0058
+    Class Commons COMMONS_COLOR
+    Class "Log Center" as Logs #D13400
+    Class Hidden BACKGROUND_COLOR
+    Class HiddenUI BACKGROUND_COLOR
+    Class HiddenModel BACKGROUND_COLOR
+}
+
+Class "<$user>" as User #092491
+Class "<$documents>" as File #00827E
+
+
+HiddenUI -up[hidden]-> Ui
+HiddenModel -left[hidden]-> Model
+Main -up-> HiddenUI
+Main -left-> HiddenModel
+Ui -> Logic
+Ui -right-> Model
+Logic -> Storage
+Logic -down-> Model
+
+Logs -right- Commons
+Hidden .down.> Commons
+Hidden .down.> Commons
+Hidden .down.> Commons
+
+Storage .right.>File
+User --> Ui
+Main --> Hidden
+@enduml

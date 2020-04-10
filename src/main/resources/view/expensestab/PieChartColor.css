@@ -1,0 +1,15 @@
+.chart-title {
+    -fx-text-fill: #FAFAFA;
+    -fx-font-size: 1.6em;
+}
+
+
+.data0.chart-pie { -fx-pie-color: #FFD700; }
+.data1.chart-pie { -fx-pie-color: #FFA500; }
+.data2.chart-pie { -fx-pie-color: #860061; }
+.data3.chart-pie { -fx-pie-color: #adff2f; }
+
+.chart-pie-label { /*this is what you need for labels*/
+    -fx-fill: #00FFFF;
+    -fx-font-size: 1em;
+}

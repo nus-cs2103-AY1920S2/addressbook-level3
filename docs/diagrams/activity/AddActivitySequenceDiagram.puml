@@ -1,0 +1,54 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":**AddActivityCommand**" as AddActivityCommand LOGIC_COLOR
+participant "**r:CommandResult**" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "**toAdd:Activity**" as Activity MODEL_COLOR
+participant "**m:ModelManager**" as ModelManager MODEL_COLOR
+participant "**:ActivityManager**" as ActivityManager MODEL_COLOR
+
+end box
+
+[-> AddActivityCommand : execute(m)
+
+create Activity
+activate AddActivityCommand
+AddActivityCommand -> Activity : new Activity(title, duration, \n location, tags)
+
+activate Activity
+note left: Parameters: Title, \n Duration,\n Location, \n Tags (optional)
+
+Activity --> AddActivityCommand
+deactivate Activity
+
+AddActivityCommand -> ModelManager : addActivity(toAdd)
+activate ModelManager
+
+ModelManager -> ActivityManager : addActivity(toAdd)
+activate ActivityManager
+
+ActivityManager --> ModelManager
+deactivate ActivityManager
+
+ModelManager --> AddActivityCommand
+deactivate ModelManager
+
+
+create CommandResult
+AddActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddActivityCommand : r
+deactivate CommandResult
+
+[<-- AddActivityCommand : r
+deactivate AddActivityCommand
+
+AddActivityCommand -[hidden]> CommandResult
+destroy AddActivityCommand
+@enduml
+

@@ -1,0 +1,20 @@
+{
+  "activities": [
+    {
+      "title": "Valid activity: Petronas Towers",
+      "duration": 1,
+      "location": "KL",
+      "scheduledDateTime": "28-09-2020 10:00",
+      "tagged": [
+        "sightseeing",
+        "expensive"
+      ]
+    },  {
+      "title" : "Accommodation with invalid Duration Field",
+      "duration" : -100,
+      "location" : "Singapore",
+      "scheduledDateTime" : "28-09-2020 10:00",
+      "tagged" : ["sightseeing", "expensive"]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Documentation
+= Easy Travel - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-3/main/tree/master
 
 == Introduction
 
@@ -71,9 +71,9 @@ If set, the name will be displayed near the top of the page.
 Setting this will add a "View on GitHub" link in the navigation bar.
 |_not set_
 
-|`site-seedu`
-|Define this attribute if the project is an official SE-EDU project.
-This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|`site-E.T.`
+|Define this attribute if the project is an official E.T. project.
+This will render the E.T. navigation bar at the top of the page, and add some E.T.-specific navigation items.
 |_not set_
 
 |===
@@ -98,7 +98,6 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 This will cause the associated item in the navigation bar to be highlighted.
 One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
 
-_{asterisk} Official SE-EDU projects only_
 |_not set_
 
 |`no-site-header`
@@ -119,5 +118,5 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 ====
 Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
-The SE-EDU team does not provide support for modified template files.
+The E.T. team does not provide support for modified template files.
 ====

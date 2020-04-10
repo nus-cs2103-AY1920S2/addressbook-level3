@@ -1,0 +1,69 @@
+@startuml
+!include ../style.puml
+start
+
+:User enters ""status"" command;
+
+if () then ([trip is set])
+  :""ModelManager"" executes
+  get status method;
+
+  :System gets
+  schedule status;
+
+  if() then ([overlap in schedule])
+    :User receives message
+    that there are overlaps
+    in the schedule;
+  else ([else])
+  	:User receives message
+  	that there are no
+  	overlaps in the schedule;
+  endif
+
+  :System gets packing
+  list status;
+
+  if() then ([item(s) still unchecked])
+    :User receives message
+    that there are items
+    not checked;
+  else ([else])
+    :User receives message
+    that no more items
+    to pack;
+  endif
+
+  :System gets fixed
+  expense status;
+
+  if() then ([expense > budget])
+    :User receives message
+    that there budget has
+    exceeded;
+  else ([else])
+    :User receives message
+    of remaining budget;
+  endif
+
+  :System gets accommodation
+  booking status;
+
+  if() then ([accommodation does not
+  covers all days])
+    :User receives message
+    that there are missing
+    accommodation days;
+  else ([else])
+    :User receives message
+    that there accommodation
+    has been settled;
+  endif
+
+else ([else])
+  :User receives no
+  trip set message;
+endif
+
+stop
+@enduml

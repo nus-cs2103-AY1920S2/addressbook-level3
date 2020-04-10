@@ -1,9 +1,11 @@
-= AddressBook Level 3 - User Guide
+= E.T. - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -12,166 +14,1433 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team ET`      Since: `Jun 2016`      Licence: `MIT`
 
-== Introduction
+== *Introduction*
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the User Guide of *Easy Travel (E.T.)*!
 
-== Quick Start
+Do you enjoy going on overseas trips, but dislike or have trouble planning for it? Fret not, our application, **E.T.**, will help reduce the amount of stress and anxiety when planning for a trip. **E.T.** is a desktop application that helps travellers **manage and plan for their trips**. This application uses a Command Line Interface (CLI); this means that you operate the application by typing commands into a Command Box. If you are fast at typing, you can manage your trips faster than other Graphical User Interface (GUI) applications; GUI applications allow users to interact with the application through graphical icons such as buttons.
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+The purpose of this user guide is to provide you with in-depth documentation on how to install and use our application. What are you waiting for? Head on to +++<u>Section 2 - Quick Start to get started</u>+++.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+== *Quick Start*
 
-.  Refer to <<Features>> for details of each command.
+To get started with using **E.T.**, you can follow these steps:
 
+. Ensure that you have _Java 11_ or above installed in your Computer. If you don’t you can install it using the link to _Oracle_ https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[here]
+. Download the latest version of **E.T.** found https://github.com/AY1920S2-CS2103T-W17-3/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for **E.T.**.
+. Double-click the file to start the app. The GUI shown in +++<u>Figure 1</u>+++ should appear in a few seconds.
+. You are now on the main page of **E.T.**.
+. At the bottom of the screen, type your command in the Command Box (label in +++<u>Figure 1</u>+++) and press <Enter> on your keyboard to execute it. E.g. typing `help` and pressing <Enter> will open the help window.
+
+Refer to +++<u>Section 3.2.3 - Command Syntaxes and Usages</u>+++ on how to use commands and +++<u>Section 4 - Features</u>+++ on the commands you can use for each feature.
+
+.Main UI
+image::user-guide/MainUI.png[]
+
+== *About*
+=== Structure of this document
+There are many things you can do with **E.T.**. Thus, we have structured this User Guide in such a way that you can easily find what you need. In the next subsection, +++<u>Section 3.2 Reading this Document</u>+++, you will find useful tips on reading this document. It is then followed by +++<u>Section 4 - Features</u>+++ where the seven main features of E.T. and their commands are documented:
+
+- Trip Planner
+- Scheduler
+- Activity manager
+- Transportation Booking Manager
+- Accommodation Booking Manager
+- Packing list Manager
+- Fixed Expense Manager
+
+=== Reading this Document
+However, before moving on to the next section, you may want to familiarise yourself with some technical terms, symbols and syntax that are used throughout the document. In this subsection, you can find all the information you need to know when reading this document.
+
+==== Terminology related to the GUI.
+The following figure shows how E.T. looks like.
+
+.Main page of E.T
+image::user-guide/MainPage.png[]
+
+==== General Symbols and Syntax
+Table 1 below explains the general symbols and syntax used throughout the document.
+
+|===
+|Symbol/syntax |What does it mean?
+
+|_italics_,
+|Italicised text indicates that the text has a definition that is specific to the application. Look out for the definitions of these words in the same paragraph or in the glossary.
+
+|`command`
+|A grey highlight (called a code-block markup) indicates that this is a command that can be typed into the command box and executed by the application.
+
+|💡
+|A light bulb indicates that the enclosed text is a tip.
+
+|⚠
+|A warning sign indicates that the enclosed text is important.
+|===
+
+Table 1. General symbols and syntax
+
+==== Command Syntaxes and Usages
+
+Since *E.T.* is a CLI application, knowing how to use commands is very important. The following subsection will teach you how to read and use commands in *E.T.*. All commands in *E.T.* follow similar formats as described below and examples will be provided to help you understand their usage. Examples of commands and their formats will be written in `code-blocks`.
+
+Table 2 below explains some important technical terms. An example will be provided to help you visualize these terms.
+
+
+|===
+|Technical Term |What does it mean?
+
+|Command word
+|The first word of a command. It determines the action that E.T. should perform.
+
+|Parameter
+|The word or group of words following the command word. They are values given to a command to perform the specified action.
+
+|Prefix
+|The word that at the start of a parameter. It distinguishes one parameter from another.
+|===
+
+Table 2. Commands technical terms
+
+Example:
+
+
+    additem name/NAME quantity/QUANTITY category/CATEGORY
+
+
+Breakdown:
+
+*Command Word* - `additem`
+
+*Parameters* - `NAME`, `QUANTITY`, `CATEGORY`
+
+*Prefix* -  `name/`, `quantity/`, `category/`
+
+The following points explain how you can use a command with the provided format. More examples will be provided for each command in +++<u>Section 4 - Features</u>+++.
+Words in the upper case are the parameters to be supplied by you.
+
+- Words in the *upper case* are the parameters to be supplied by you.
+
+Example:
+|===
+|Format given |Example of user input
+
+|`deletetransport INDEX`
+|`deletetransport 1`
+|===
+
+`INDEX` is a parameter that you supply.
+
+In this example, the user supplied `1` as the `INDEX`.
+
+- Items in *square brackets* are optional.
+
+Example:
+|===
+|Format given |Example of user input
+
+|`edititem INDEX [name/NAME] [quantity/QUANTITY] [category/CATEGORY]`
+|`edititem 1 quantity/5`
+|===
+`INDEX` is compulsory as it is not in a pair of *square brackets*.
+
+`[name/NAME]` on the other hand is optional as it is in a pair of *square brackets*.
+
+The same rule applies to the rest of the parameters.
+
+In the example above, the user supplied the compulsory parameter `INDEX` and only one optional parameter `[quantity/QUANTITY]`.
+
+- Items with `...` after them can be used zero or multiple times.
+
+Example:
+|===
+|Format given |Example of user input
+
+|`addactivity title/TITLE location/LOCATION duration/DURATION tag/TAG...`
+|`addactivity title/Shopping location/Treasure Factory duration/2 tag/shopping tag/tokyo`
+
+| _Same as above_
+|`addactivity title/Osaka Castle View location/Treasure Factory duration/2 duration/1`
+|===
+In the first example above, the user supplied 2 `tag/TAG` parameters.
+
+In the second example above, the user did not supply any `tag/TAG` parameters.
+
+- Parameters can be supplied in any order
+
+Example:
+|===
+|Format given |Example of user input
+
+|`addactivity title/TITLE location/LOCATION duration/DURATION tag/TAG... `
+|`addactivity title/Shopping location/Treasure Factory duration/2 tag/shopping tag/tokyo`
+
+| _Same as above_
+|`addactivity duration/2 tag/shopping location/Treasure Factory tag/tokyo title/Shopping`
+|===
+
+The above user input command examples are equivalent even though the order of the parameters supplied are different.
+
+With the above information, you can now move on to Section 5 - Feature to learn all the features of the application and start using the commands.
 [[Features]]
-== Features
+== *Features*
+This section contains all the information you need to know about the features of E.T.. To use each feature or sub-feature, you will need to enter a command into the Command Box.
 
+
+=== Trip Planner
+
+The main feature of the app. Handles all trip and activity management.
+
+==== Trip Management
+This section contains the commands for the Trip Planner.
+
+WARNING: A trip is required to be set before other features are unlocked
+
+===== Create your brand new trip: `settrip`
+
+Format: `settrip title/TITLE start/START_DATE end/END_DATE budget/BUDGET exchangerate/EXCHANGERATE`
+
+[IMPORTANT]
 ====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+- There must not be a pre-existing trip set.
+- Start and end dates must be a valid date.
+- Title cannot exceed 50 characters.
+- Trip must be within 30 days
+- Budget must be a valid positive Integer from 0 to 1,000,000
+- Exchange Rate must be a valid positive double from 0 to 100.
+- Date must include the departure and arrival date.
 ====
 
-=== Viewing help : `help`
+Let’s say you have an upcoming Graduation Trip and you are planning for it. You can execute a command as shown in the example below:
 
-Format: `help`
+`settrip title/Graduation Trip start/28-09-2020 end/28-10-2020 budget/5000 exchangerate/1.03`
 
-=== Adding a person: `add`
+This would create a trip titled “Graduation trip” with a start day of 28 September 2020 to 28 October 2020. The budget set is $5000 with the exchangerate of 1.03
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+After successfully setting a trip, you would see as shown in figure X below.
 
-[TIP]
-A person can have any number of tags (including 0)
+.Message after successfully setting a trip
+image::user-guide/SetTrip.png[]
+
+WARNING: Ensure that your date is correct as E.T. does not allow editing of dates once set.
+
+===== Rename your trip: `rename`
+
+Assume that you have accidentally titled the trip wrongly, you can execute the rename command to reverse any damages done as shown below
+
+
+Format: `rename TITLE`
+
+Example:
+
+`rename Not a graduation trip.`
+
+This changes the name of the trip to “Not a graduation trip” as shown in the figure below.
+
+Expected output:
+`Trip has been named: Not a graduation trip`
+
+.After renaming the trip
+image::user-guide/RenameTrip.png[]
+
+===== Editing your  trip’s budget: `editbudget`
+
+Let’s say after planning your expenses, you realised that you would want to change the amount of money used for the trip. Using the editbudget command, you can edit the overall budget for your trip
+
+Format: `editbudget AMOUNT`
+
+[IMPORTANT]
+====
+- There must be a pre-existing trip set.
+- The budget set must not be lesser than your total expenses.
+====
+
+For example, we want to decrease the budget for this trip from $5000 to $3000.
+
+Example:
+
+`editbudget 3000`
+
+E.T. will reflect the new budget in the trip info as shown in the figure below.
+
+.After editing budget to 3000
+image::user-guide/EditBudget.png[]
+
+===== Delete your trip: `deletetrip`
+
+Assuming that you have finished with your trip and would like to start planning for a new one, executing the deletetrip command would remove all traces of your previous trip and set a new clean space for you to start planning for the next one.
+
+Format: `deletetrip`
+
+Example:
+`deletetrip`
+
+Expected output:
+`Trip has been deleted. All lists have been cleared!`
+
+Deleting the trip would result in E.T. showing an empty screen as shown in figure 3. Execute the settrip to start another trip.
+
+
+==== Scheduler (after opening a trip)
+
+Allow users to manage the activities in the trip
+
+===== Check how prepared you are: `status`
+
+Assume you are not sure if you have already fully prepared for the trip, using the status command would confirm any fears and doubts about your preparation as well as warn you if you have any forgotten item that is not taken care of.
+
+Using the status command would create a pop-up window as shown in figure 4.
+
+.The pop-up after using status command
+image::user-guide/Status.png[]
+
+[NOTE]
+====
+The pop-up would show you major warnings such as
+
+- No expense/packing list item set
+- Collisions in activities
+- Over expenditure on budget
+- Unchecked items in packing list
+====
+
+=== Activity Management
+This section allows users to manage the activities in the trip.
+
+==== Add your activity: `addactivity`
+Lets say you wish to add in a new activity that you decided to do on the trip. Using the `addactivitiy` command would create and add your activity into the list.
+
+Format: `addactivity title/TITLE duration/DURATION location/LOCATION [tag/tag]...`
+
+Example:
+`addactivity title/Going to the beach duration/4 location/Hakone tag/sea tag/ocean`
+
+.After add activity command
+image::user-guide/AddActivity.png[]
+
+This would create and add an activity titled “Going to the beach" with a duration of 4 hours. The location of this activity is set to  “Hakone”, and has the tags “sea” and “ocean”.
+
+==== Editing your activity: `editactivity`
+
+Assume you have accidentally made a mistake in the spelling or the location of the activity and wish to change it. Running the `editactivity` command will allow you to make any changes to previously set activities.
+
+Format: `editactivity INDEX [title/NAME][duration/DURATION][location/LOCATION][tag/tag]...`
+
+Example:
+`editactivity 1 title/Go to an aquarium`
+
+.After edit activity command
+image::user-guide/EditActivity.png[]
+
+In this example, this command will edit an existing activity at the index 1 ‘s title to “Go to an aquarium”. The other fields will stay the same.
+
+IMPORTANT: The activity must exist to be edited
+
+==== Deleting your activity: `deleteactivity`
+
+Perhaps you decided that previously set activities are unviable and wish to remove it. Using the `deleteactivity` command would remove any activities that you do not want.
+
+Format: `deleteactivity index`
+Example:
+`deleteactivity 1`
+
+.After delete activity command
+image::user-guide/DeleteActivity.png[]
+
+In this example, you would delete an activity at the index 1
+
+[IMPORTANT]
+=====
+The activity at that index must exist before deleting is allowed
+=====
+
+==== Clearing your planned activities: `clearactivity`
+
+Perhaps you decided that all the activities you had planned before are not needed and want to start the activity list on a clean slate. Using the `clearactivity` command would clear any existing activities and replace your list with a brand new empty list.
+
+Format: `clearactivity`
+
+Example:
+`clearactivity`
+
+.After clear activity command
+image::user-guide/ClearActivity.png[]
+
+[NOTE]
+====
+You can use this to delete all your activities at once
+====
+
+====  Find your activities
+Let say you had added a bunch of activities and wished to search for a specific one. You can do it by using the find command to search through based on tags or by keyword.
+
+`Findactivitytag` allows you to search by tags while `findactivity` command allows you to search by keyword.
+
+Format: `findactivitytag tag`
+
+
+
+Example:
+`findactivitytag expensive`
+
+This would show you the activities that have the tag expensive as shown in the figure 11.
+
+.After find activity category command
+image::user-guide/FindActivityCategory.png[]
+
+Let's say rather than finding by tags, you decided to search by keywords. You can use the `findactivity` to find base on the keywords you provided.
+
+Format: `findactivity keyword`
+
+Example:
+`findactivity Osaka`
+
+This would search for all activities with “Osaka” in it as shown in the figure 12
+
+.After find activity command
+image::user-guide/FindActivity.png[]
+
+[NOTE]
+`FindActivity` only searches location and activity titles
+
+
+=== Transportation Booking Management
+
+The following sections [4.3.1 to 4.3.3] allows the user to manage transportation bookings for the trip.
+
+==== Create new transportation booking: `addtransport`
+
+If you have a new transportation booking, you can use this command to store the information and it will store the booking into a list.
+
+Format: `addtransport mode/MODE startloc/START_LOCATION endloc/END_LOCATION starttime/DATE_TIME_OF_DEPARTURE endtime/DATE_TIME_OF_ARRIVAL`
+
+[NOTE]
+====
+- `MODE` can be one of the following: `plane`, `bus`, `car`, `train`, `others`.
+- `DATE_TIME_OF_DEPARTURE` and `DATE_TIME_OF_ARRIVAL` needs to be in the format `dd-MM-yyyy HH:mm`. `HH:mm` is the 24hr format time.
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+`addtransport mode/plane startloc/Singapore endloc/Japan starttime/22-04-2021 09:00 endtime/22-04-2021 16:00`
 
-=== Listing all persons : `list`
+If you have a plane booking, you can use `addtransport` to add the booking with the start location, end location, start time and end time.
 
-Shows a list of all persons in the address book. +
+.After add transport booking command
+image::user-guide/AddTransportBooking.png[]
+
+==== Edit transportation booking: `edittransport`
+
+If you have details for a given transport booking, you can use this command to edit certain details of the booking.
+
+Format: `edittransport INDEX [mode/MODE] [startloc/START_LOCATION] [endloc/END_LOCATION] [starttime/DATE_TIME_OF_DEPARTURE] [endtime/DATE_TIME_OF_ARRIVAL]`
+
+[NOTE]
+====
+- `INDEX` refers to the index number shown in the displayed transport booking list. `INDEX` *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- `MODE` can take one of the following values: `plane`, `bus`, `car`, `train`, `others`.
+- `DATE_TIME_OF_DEPARTURE` and `DATE_TIME_OF_ARRIVAL` needs to be in the format `dd-MM-yyyy HH:mm`. `HH:mm` is the 24hr format time.
+====
+
+Examples:
+
+`edittransport 2 starttime/22-04-2021 10:00`
+
+In the case that the start time has changed to 22 April 2021 1000hr, you can use `edittransport` to change it.
+
+.After edit transport booking command
+image::user-guide/EditTransportBooking.png[]
+
+`edittransport 4 mode/plane endloc/Italy`
+
+In the case that you want to change the end location and mode of transport, you can use `edittransport` to change it.
+
+.After edit transport booking command
+image::user-guide/EditTransportBooking2.png[]
+
+==== Delete transportation booking: `deletetransport`
+
+In the case that you want to remove the transport booking, you can use this command to remove it from the list.
+
+Format: `deletetransport INDEX`
+
+[NOTE]
+`INDEX` refers to the index number shown in the displayed transport booking list. `INDEX` *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+`deletetransport 1`
+
+You can delete a transport booking by using the `deletetransport` command
+
+.After delete transport booking command
+image::user-guide/DeleteTransportBooking.png[]
+
+==== Clear transportation booking: `cleartransport`
+
+If you want to remove all the transportation bookings that you have made, this command will return an empty list for you to start working with again.
+
+Format: `cleartransport`
+
+[IMPORTANT]
+This command will remove all the transportation booking that is in your current list
+
+Example:
+
+ cleartransport
+
+You can use `cleartransport` to clear all transportation bookings in the list
+
+.After edit transport booking command
+image::user-guide/ClearTransportBooking.png[]
+
+=== Accommodation Booking
+
+The following sections [4.4.1 to 4.4.3] allows the user to set and modify accommodation bookings in the trip.
+
+===== Create a new accommodation booking: `addacc`
+
+If you have made an accommodation booking, you can use this command to store it into a list and be able to keep track of it.
+
+Format: `addacc name/NAME loc/LOCATION startday/START_DAY endday/END_DAY [remark/REMARK]`
+
+[NOTE]
+====
+- `NAME` and `LOCATION` must be made of alphanumeric characters, and it must be less than 50 characters long
+- `START_DAY` and `END_DAY` needs to be positive integers
+- `START_DAY` refers to the day that you check in
+- `END_DAY` refers to the day that you check out
+- `REMARK` must be less than 150 characters long
+====
+
+Examples:
+
+`addacc name/JW Marriott Hotel loc/KL startday/2 endday/4`
+
+If you have a new accommodation booking for JW Marriott Hotel at KL on the 2nd day to the 4th day, you can create it using the `addacc` command
+
+.After add accommodation booking command
+image::user-guide/AddAccommodationBooking.png[]
+
+==== Edit accommodation booking: `editacc`
+
+If you have to adjust the details of the accommodation booking and you wish to make changes, you can use this command to edit the necessary information.
+
+Format: `editacc INDEX [name/NAME] [loc/LOCATION] [startday/START_DAY] [endday/END_DAY] [remark/REMARK]`
+
+[NOTE]
+====
+- `INDEX` refers to the index number shown in the displayed transport booking list. `INDEX` *must be a positive integer* 1, 2, 3, ...
+- `NAME` and `LOCATION` must be made of alphanumeric characters, and it must be less than 50 characters long
+- `START_DAY` and `END_DAY` needs to be positive integers
+- `START_DAY` refers to the day that you check in
+- `END_DAY` refers to the day that you check out
+- `REMARK` must be less than 150 characters long
+====
+
+Examples:
+
+`editacc 2 startday/4 endday/6`
+
+In the case that you want to change the start day and end day of the 2nd accommodation, you can use `editacc` command.
+
+.After edit accommodation booking command
+image::user-guide/EditAccommodationBooking.png[]
+
+`editacc 3 address/Hilton KL remark/Check-in at 2pm`
+
+You can also use this command to change the third accommodation booking in the list to Hilton, set the location to KL and change the remark to check in at 2pm.
+
+.After edit accommodation booking command
+image::user-guide/EditAccommodationBooking2.png[]
+
+
+==== Delete accommodation booking: `deleteacc`
+
+Assuming you have another accommodation booking and plan to delete the previous one that you set on the same days, you can use this command to remove it.
+
+Format: `deleteacc INDEX`
+
+[NOTE]
+`INDEX` refers to the index number shown in the displayed transport booking list. `INDEX` *must be a positive integer* 1, 2, 3, ...
+
+Examples:
+
+`deleteacc 2`
+
+You can use `deleteacc` to delete the second accommodation booking.
+
+.After delete accommodation booking command
+image::user-guide/DeleteAccommodationBooking.png[]
+
+==== Clear accommodation booking: `clearacc`
+
+If you want to remove all the accommodation bookings that you have made, this command will return an empty list for you to start working with again.
+
+Format: `clearacc`
+
+[IMPORTANT]
+This command will remove all the accommodation bookings that is in your current list
+
+Example:
+
+ clearacc
+
+You can use `clearacc` to clear all accommodation bookings in the list
+
+.After clear accommodation booking command
+image::user-guide/ClearAccommodationBooking.png[]
+
+
+=== Packing List
+
+Allow the user to have a packing list for the trip +
 Format: `list`
 
-=== Editing a person : `edit`
+The following sections [4.5.1. - 4.5.12] allows the user to set and modify the packing list for their trip.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+===== Adding an item in the packing list: `additem`
+
+This command adds a new item into the packing list.
+
+Format: `additem name/NAME quantity/QUANTITY category/CATEGORY`
+
+[NOTE]
+=====
+- `NAME` must be made of alphanumeric characters, and it must be less than 30 characters long
+- `NAME` can be made up of multiple words
+- `QUANTITY` must be a positive integer 1,2,3… and must be less than 100000
+- `CATEGORY` must be made of alphanumeric characters, and it must be less than 30 characters long
+- `CATEGORY` can be made up of multiple words
+- If a duplicated item is added, it will let the user know that the item is already in the list.
+- If CATEGORY is not in the available presets (see section 4.5.11), then the default icon  will be placed next to the packing list item’s name. Else, the default icon will be placed next to the packing list item’s name instead.
+- E.T. will automatically capitalise the first letter of the NAME. For example, if the user types in name/high heels, it will display “High Heels” in the packing list.
+=====
+
+Example:
+
+`additem name/underwear quantity/5 category/clothes` +
+
+Let’s say you want to add a new item named underwear into the packing list.
+You can do so by `additem` - ing the underwear item, alongside with the quantity of 5 underwear
+you want to bring for your trip, as well as the category that underwear is located in, which is clothes.
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+To add a new item:
+
+1. Type `additem name/underwear quantity/5 category/clothes` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message  `New item added: Packing list item - Item Name: Underwear Quantity: 5 Category: clothes Is Checked: false.`
+
+3. You can check that the new packing list item is visible in the list.
 ****
+
+.After add item command
+image::user-guide/AddItem.png[]
+
+===== Editing an item in the packing list: `edititem`
+
+This command edits an existing item in the packing list
+
+Format: `edititem INDEX [name/NAME] [quantity/QUANTITY] [category/CATEGORY]`
+
+[NOTE]
+=====
+- Existing values will be updated to the input values.
+- Command can only be used if an item has been added.
+- `NAME` must be made of alphanumeric characters, and it must be less than 30 characters long
+- `NAME` can be made up of multiple words
+- `QUANTITY` must be a positive integer 1,2,3… and must be less than 100000
+- `CATEGORY` must be made of alphanumeric characters, and it must be less than 30 characters long
+- `CATEGORY` can be made up of multiple words
+- If the item is marked as packed initially, it will not change after you edit the item. Likewise the same for an item that is marked as unpacked.
+=====
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+`edititem 5 item/boxer` +
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Let’s say initially, the item at index 5 is underwear. Let’s say you want to change it to boxer. You may edit the item by executing the `edititem` command.
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+To edit an item:
+
+1. Type `edititem 5 name/boxer` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `Edited Item: Packing list item - Item Name: Boxer Quantity: 5 Category: clothes Is Checked: false`
+
+3. And you can see that the item will change from `Underwear` to `Boxer`.
 ****
+
+.After edit item command
+image::user-guide/EditItem 1.png[]
+
+
+`edititem 5 item/boxer quantity/3 category/essentials` +
+
+Let’s say initially, the item at index 5 is underwear, the quantity is 5 and the category is clothes. Let’s say you want to change it to boxer, change the quantity to 3 and change the category to essentials. You may edit the item by executing the `edititem` command.
+
+****
+To edit an item:
+
+1. Type `edititem 5 name/boxer quantity/3 category/essentials` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `The result box will display the message “Edited Item: Packing list item - Item Name: Boxer Quantity: 3 Category: essentials Is Checked: false”`
+
+3. You can see that the item will change from `Underwear` to `Boxer`, quantity will change from `5` to `3`, and the category will change from `clothes` to `essentials`
+****
+
+.After edit item command
+image::user-guide/EditItem 2.png[]
+
+===== Deleting an item in the packing list: `deleteitem`
+
+This commands deletes an item in the packing list
+
+Format: `deleteitem INDEX`
+
+[NOTE]
+=====
+- Command can only be used if there is at least 1 item in the packing list
+=====
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+`deleteitem 1` +
 
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Let’s say you want to delete the first item in the packing list. You may delete the item by executing the `deleteitem` command.
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+To delete an item:
+
+1. Type `deleteitem 1` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `Deleted Item: Packing list item - Item Name: Swimsuit Quantity: 1 Category: swimming Is Checked: true`
+
+3. You can see that the item at index 1 is deleted.
 ****
+
+.Before delete item command
+image::user-guide/DeleteItem 1.png[]
+
+.After delete item command
+image::user-guide/DeleteItem 2.png[]
+
+===== Marking an item as packed in the packing list: `checkitem`
+
+This command marks an item as packed in the packing list.
+
+Format: `checkitem INDEX [MORE_INDEXES]...`
+
+[NOTE]
+=====
+- Command can only be used if there is at least 1 item in the packing list
+- If item is already packed, then it will just remain packed
+- The result box will display the checked item(s)
+- You are able to mark multiple items as packed in one command
+- If there is one invalid index given in the command, for example `checkitem 1 3 1000 5`, and 1000 is the invalid index, then the items at index 1, 3 and 5 will be marked as packed, but not 1000.
+- However, if a negative index is given, such as `checkitem 1 3 -2 5`, no matter the position of the negative index, the whole command will be deemed as invalid, and every item at the indicated indexes will remain as unchecked.
+=====
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`checkitem 1` +
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Let’s say you want to mark the first item in the packing list as packed. You may do so by executing the `checkitem` command.
 
-Clears all entries from the address book. +
-Format: `clear`
+****
+To mark an item as packed:
 
-=== Exiting the program : `exit`
+1. Type `checkitem 1` into the command box, and press `Enter` to execute it.
 
-Exits the program. +
-Format: `exit`
+2. The result box will display the message `Packed Item: Packing list item - Item Name: Cruise tickets Quantity: 1 Category: cruise Is Checked: true`
 
-=== Saving the data
+3. You can see that the item is marked as packed.
+****
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+.After check item command
+image::user-guide/CheckItem 1.png[]
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+`checkitem 1 3 5 6` +
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Let’s say you want to mark the first, third, fifth and sixth items in the packing list as packed. You may do so by executing the checkitem command.
 
-== FAQ
+****
+To mark an item as packed:
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+1. Type `checkitem 1 3 5 6` into the command box, and press `Enter` to execute it.
 
-== Command Summary
+2. The result box will display the message
+“Packed Item: Checked items
+- Packing list item - Item Name: Cruise Tickets Quantity: 1 Category: cruise Is Checked: true
+- Packing list item - Item Name: Belt Quantity: 1 Category: clothes Is Checked: true
+- Packing list item - Item Name: Jacket Quantity: 2 Category: clothes Is Checked: true
+- Packing list item - Item Name: Jeans Quantity: 3 Category: clothes Is Checked: true”
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+3. You can see that now the items indicated by the user are marked as packed, from a cross, to a tick next to the item.
+****
+
+.After check item command part 1
+image::user-guide/CheckItem 2.png[]
+
+.After check item command part 2
+image::user-guide/CheckItem 3.png[]
+
+===== Marking an item as unpacked in the packing list: `uncheckitem`
+
+This command marks an item as packed in the packing list
+
+Format: `uncheckitem INDEX [MORE_INDEXES]...`
+
+[NOTE]
+=====
+- Command can only be used if there is at least 1 item in the packing list
+- If item is already unpacked, then it will just remain unpacked
+- The result box will display the unchecked item(s)
+- You are able to mark multiple items as unpacked in one command
+- If there is one invalid index given in the command, for example `uncheckitem 1 3 1000 5`, and 1000 is the invalid index, then the items at index 1, 3 and 5 will be marked as unpacked, but not 1000.
+- However, if a negative index is given, such as   `uncheckitem 1 3 -2 5`, no matter the position of the negative index, the whole command will be deemed as invalid, and every item at the indicated indexes will remain as checked.
+=====
+
+Examples:
+
+`uncheckitem 2` +
+
+Let’s say you want to mark the second item in the packing list as unpacked. You may do so by executing the `uncheckitem` command.
+
+****
+To mark an item as unpacked:
+
+1. Type `uncheckitem 2` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message
+`Unpacked Item(s): Unchecked items`
+- `Packing list item - Item Name: Sandals Quantity: 1 Category: swimming Is Checked: false`
+
+3. You can see the item at index 2 is marked as unpacked
+****
+
+.After uncheck item command
+image::user-guide/UncheckItem 1.png[]
+
+`uncheckitem 1 4 7 13 16` +
+
+Let’s say you want to mark the first, fourth, seventh, thirteenth and sixteenth items in the packing list as unpacked. You may do so by executing the uncheckitem command.
+
+****
+To mark an item as unpacked:
+
+1. Type `uncheckitem 1 4 7 13 16` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message
+`Unpacked Item(s): Unchecked items`
+
+- `Packing list item - Item Name: Cruise Tickets Quantity: 1 Category: cruise Is Checked: false`
+
+- `Packing list item - Item Name: Dress Quantity: 3 Category: clothes Is Checked: false`
+
+- `Packing list item - Item Name: Pyjamas Quantity: 5 Category: clothes Is Checked: false`
+
+- `Packing list item - Item Name: Underwear Quantity: 7 Category: clothes Is Checked: false`
+
+- `Packing list item - Item Name: Fanny Pack Quantity: 1 Category: music festival Is Checked: false`
+
+3. You can see that now the items indicated by the user are marked as unpacked, from a tick, to a cross next to the item.
+****
+
+.After uncheck item command part 1
+image::user-guide/UncheckItem 2.png[]
+
+.After uncheck item command part 2
+image::user-guide/UncheckItem 3.png[]
+
+.After uncheck item command part 3
+image::user-guide/UncheckItem 4.png[]
+
+===== Sorting items in the packing list: `sortitem`
+
+This command sorts items in the packing list
+
+Format: `sortitem order criteria/CRITERIA`
+
+[NOTE]
+=====
+- Criteria can be only alphabet `alphabet` , quantity `quantity` or category `category`
+- Order can only be ascending `asc` or descending `des`
+- Command can only be used if at least 1 item has been added.
+=====
+
+Examples:
+
+`sortitem asc criteria/alphabet` +
+
+Let’s say you want to sort the packing list alphabetically. You may do so by executing the `sortitem` command.
+
+****
+To sort the packing list:
+
+1. Type `sortitem asc criteria/alphabet` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `Sorting of Item successful :)`
+
+3. You can see that the packing list items are sorted in ascending order, according to their category.
+****
+
+.After sort item command part 1
+image::user-guide/SortItem 1.png[]
+
+.After sort item command part 2
+image::user-guide/SortItem 2.png[]
+
+===== Finding items in the packing list: `finditem`
+
+This command finds items in the packing list according to keywords in the items’ names.
+
+Format: `finditem KEYWORD [MORE_KEYWORDS]...`
+
+[NOTE]
+=====
+- Command can only be used if there is at least 1 item in the packing list.
+- If packing list does not contain any of the keywords, then it will display an empty list.
+- If you want to return to the packing list after using the `finditem` command, use the `listitem` command. (see Section 4.5.9)
+- The result box will display the number of items that contains the keyword(s).
+=====
+
+Examples:
+
+`finditem shampoo hairbrush` +
+
+Let’s say you want to find items that contain either shampoo or hairbrush in its name in the packing list. You may do so by executing the `finditem` command.
+
+****
+To find items in the packing list:
+
+1. Type `finditem shampoo dress` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `2 items listed!`
+
+3. You can see all the packing list items that contain either shampoo or dress will be listed in the packing list.
+****
+
+.After find item command
+image::user-guide/FindItem.png[]
+
+===== Finding item categories in the packing list: `finditemcategory`
+
+This command find items in the packing list according to keywords that are categories.
+
+Format: `finditemcategory KEYWORD [MORE_KEYWORDS]...`
+
+[NOTE]
+=====
+- Command can only be used if there is at least 1 item in the packing list.
+- If packing list does not contain any of the keywords, then it will display an empty list
+- If you want to return to the packing list after using the `finditemcategory` command, use the `listitem` command. (see Section 4.5.9)
+- The result box will display the number of items that is in the categories of the given keyword(s).
+=====
+
+Examples:
+
+`finditemcategory international clothes` +
+
+Let’s say you want to find items that are either in the swimming or clothes category. You may do so by executing the `finditemcategory` command.
+
+****
+To find items in the packing list under categories:
+
+1. Type `finditemcategory international clothes` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `20 item(s) listed!`
+
+3. You can now see the displayed packing list items that are either in the international category or in the clothes category
+****
+
+.After find item category command
+image::user-guide/FindItemCategory.png[]
+
+===== Listing items in the packing list: `listitem`
+
+This command lists items in the packing list.
+
+Format: `listitem`
+
+Examples:
+
+`listitem` +
+
+Let's say you want to display the original packing list, after executing the `finditem` or `finditemcategory`.
+
+****
+To show the original packing list:
+
+1. Type `listitem` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `Listed all packing list items.`
+
+3. You can now see the original packing list.
+****
+
+.After the list item command
+image::user-guide/ListItem.png[]
+
+===== Clearing items in the packing list: `clearitem`
+
+This command lists items in the packing list.
+
+Format: `clearitem`
+
+Examples:
+
+`clearitem` +
+
+Let's say you want to delete all the items in your packing list, to start from an empty packing list. You may do so by executing the clearitem command
+
+****
+To clear all items:
+
+1. Type `clearitem` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `Packing List has been cleared!`
+
+3.You can now see an empty packing list.
+****
+
+.After the clear item command
+image::user-guide/ClearItem.png[]
+
+===== Adding a preset category: `addpreset`
+
+This command adds a pre-existing list of items under a category into the packing list.
+
+Format: `addpreset PRESET_NAME`
+
+[NOTE]
+=====
+- If the preset contains an item that is already in the packing list, it will not add that item in. It will add the rest of the items in the preset into the packing list.
+- You can only add in pre-existing presets. If you add in other presets, then you will receive the message, "Sorry! This preset does not exist."
+- To see all the available presets, use the `listpreset` command. (see Section 4.5.11)
+=====
+
+Examples:
+
+* `addpreset beach` +
+
+Let’s say you will be going to the beach during your trip, but you are too lazy to add a packing list item one-by-one. You want to add all the items in the beach category into your packing list. You may do so by executing the `addpreset` command.
+
+****
+To add a pre-existing preset:
+
+1. Type `addpreset beach` into the command box, and press `Enter` to execute it.
+
+2. The result box will display the message `New preset added: beach`
+
+3. You can see that the list of items under the category beach is added into the packing list.
+
+4. As you can see, it is just a preset. Feel free to customize your packing list by adding in other items in the packing list through the `additem` command (see Section 4.5.1) and editing the sample list of items provided through the `edititem` command (see Section 4.5.2)
+****
+
+.After add preset command
+image::user-guide/AddPreset.png[]
+
+===== Listing all the presets in the packing list: `listpreset`
+
+This command lists all the presets available for use.
+
+Format: `listpreset`
+
+[NOTE]
+=====
+- The list will be shown in a pop up window.
+- The pop up window will only contain the icons and names of the presets, not the items inside the preset.
+=====
+
+Examples:
+
+* `listpreset` +
+Let’s say you want to add a list of items under a pre-existing category, but you are not sure of the available presets you can use. You may find the pre-existing categories by executing the `listpreset` command.
+
+****
+To show all the available presets:
+
+1. Type `listpreset` into the command box, and press `Enter` to execute it.
+
+2. This will open the pop up window called `List Preset`.
+
+3. You can see icons and names of all the available pre-existing presets in the pop up window
+****
+
+.After list preset command
+image::user-guide/ListPreset.png[]
+
+
+=== Fixed Expense Manager
+
+Allow the user to set fixed expenses prior to the trip to allow users to plan a suitable budget for their upcoming trip.
+
+Examples of Fixed Expenses include,
+****
+* Flight Tickets
+* Hotel Accommodation Bookings
+* Transportation Tickets
+* Cost of admission tickets
+* Or any other fixed miscellaneous costs
+****
+
+==== Modifying expenses
+
+The following sections [4.6.1.1 - 4.6.1.5] allows a user to set and modify fixed expenses before the trip.
+
+===== Adding a new fixed expense: `addexpense`
+
+Given that you want to add a new fixed expense for your trip, you could use the `addexpense` command to add your fixed expense into the list.
+
+Format: `addexpense amount/AMOUNT currency/CURRENCY description/DESCRIPTION category/CATEGORY `
+[NOTE]
+====
+- Adds a new fixed expense for the upcoming trip.
+
+- Only one amount must be provided and *must be a positive integer*
+
+- Both the `Description` and `Category` fields *must be alphanumeric word* and contains 50 and 30 characters respectively.
+
+- At least one of the optional fields must be provided.
+
+- If the user enters the expense in other currency, which is identified through typing `OTHER` in the `CURRENCY`
+field, the amount will be automatically converted to SGD using the exchange rate provided.
+
+- `Category` s is should only be  `accommodation`, `transport`, `activities` and `others`
+====
+
+Examples:
+
+* `addexpense amount/1100 currency/SGD description/SQ Tickets category/transport` +
+Adds a fixed expense of $1100SGD, for `SQ Tickets` of category `transport`.
+
+* `addexpense amount/300 currency/other description/Bullet Train category/transport` +
+Adds a fixed expense of $300SGD for `Bullet Train` of category `transport`.
+
+After successfully adding the fixed expense, you would be able to see the expected output below along with the details of the fixed expense you have just added and your remaining budget for the trip.
+
+Expected output:
+
+`New Fixed Expense added: Fixed Expense Entry - Description: Plane Tickets Amount: 1500.00 Category: transport
+Your budget left is now 3500`
+
+.After successfully adding a fixed expense
+image::user-guide/AddFixedExpense.png[]
+
+===== Editing a fixed expense: `editexpense`
+
+Given that you wish to edit your fixed expense as there are some changes to your fixed expenses, you could do so with ease through the `editexpense` command.
+
+Format: `editexpense INDEX [amount/AMOUNT] [currency/CURRENCY]  [description/DESCRIPTION] [category/CATEGORY]`
+
+[NOTE]
+====
+- Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed fixed expense
+list. The index *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- If the user wishes to change the amount, they must indicate what currency the edited amount is in.
+- Both currency and amount fields must exist for a successful edit.
+- If the user enters the expense in other currency, the amount will be automatically converted to SGD using the exchange rate provided.
+- A *warning* will be shown to you if you have edited an expense such that you have overshot your budget.
+====
+
+Examples:
+
+* `editexpense 1 amount/3000 currency/SGD description/Cathay Pacific Flight` +
+Edit the description and amount of the 1st fixed expense to be `Cathay Pacific Flight` and `$3000 SGD` respectively.
+
+* `editexpense 1 amount/3000 currency/other description/Business Class Flight category/Transport` +
+Edit the description, currency, amount, category  of the 1st fixed expense to be
+`Business Class Flight` , `other`, `$3000`, `Transport` respectively.
+The amount will be automatically converted to SGD using *exchange rate* provided.
+
+
+You can see your edited fixed expense in the list after successfully editing the fixed expense. You will also receive the expected output message shown below.
+
+Expected output: +
+`Edited Fixed Expense: Fixed Expense Entry - Description: Edited Amount: 1236.00 Category: others
+Your current budget left is 5000`
+
+.After successfully editing a fixed expense
+image::user-guide/EditFixedExpense.png[]
+
+
+===== Deleting a fixed expense: `deleteexpense`
+
+Given that you wish to delete your fixed expense as it might not be relevant to your trip anymore,
+you could do so with ease through the `deleteexpense` command.
+
+Format: `deleteexpense INDEX`
+
+[NOTE]
+====
+- You must include an index equivalent to the number of fixed expenses in the list.
+====
+
+Examples:
+`deleteexpense 1` +
+Delete the 1st item in the fixed expense list.
+
+You can see that the fixed expense you have deleted is not in the list after successfully deleting the fixed expense. You will also receive the expected output message shown below.
+
+Expected output: +
+`Deleted Fixed Expense: Fixed Expense Entry - Description: haha Amount: 1500.00 Category: transport
+Your remaining budget is 3500`
+
+.After successfully deleting a fixed expense
+image::user-guide/DeleteFixedExpense.png[]
+
+===== Clearing a fixed expense: `clearexpense`
+
+Given that you have reached an irrevocable amount of editing with your fixed expense list and would like to start
+afresh, you could do so with ease through the `clearexpense` command.
+
+Format: `clearexpense`
+
+Example:
+`clearexpense` +
+Clears the fixed expense in the list
+
+You can see that the fixed expenses you currently have in the list will be cleared after successfully executing the command. You will also receive the expected output message shown below.
+
+Expected output: +
+`Fixed Expenses has been cleared!`
+
+.After successfully clearing all fixed expense
+image::user-guide/ClearFixedExpense.png[]
+
+===== Sort fixed expenses according to amount spent: `sortexpense`
+
+Given that you have too many fixed expenses and wish to know the smallest or largest expense, you could simply do so
+through the `sortexpense` command.
+
+Format: `sortexpense SORTIDENTIFIER [AMOUNT] [DESCRIPTION] [CATEGORY]`
+
+[NOTE]
+====
+* Sorts all fixed expense in ascending or descending order dependent on `SORTIDENTIFIER`.
+* The list will be sorted in ascending order if `SORTIDENTIFIER` is `ASC` and descending order if `SORTIDENTIFIER` is `DES`.
+* Only one of the optional fields `[AMOUNT]` `[DESCRIPTION]` `[CATEGORY]` must be provided and will sort the
+list in ascending or descending order dependent on what needs to be sorted.
+* The list must not be empty.
+====
+
+Examples:
+
+* `sortexpense des amount` +
+Sorts all fixed expense in descending order of amount.
+
+* `sortexpense asc description` +
+Sorts all fixed expense in lexicographical order.
+
+You can see that the fixed expense will be sorted according to what you have chosen. You will also receive the expected output message shown below.
+
+Expected output: +
+`Sorting of FixedExpense successful :)`
+
+.After successful sorting of fixed expense
+image::user-guide/SortFixedExpense.png[]
+
+=== Features coming in Version 2.0
+
+The following sections [4.7.1 - 4.7.3] describes the various features that will be implemented in Version 2.0 of E.T.
+
+==== Packing List Manager
+The following sections [4.7.1.1 - 4.7.1.2] describes the additional features which would be added to the *Packing List Manager* in version 2.0 of E.T.
+
+===== Create a smart packing list: `createlist`
+This feature allows users to create a smart packing list. The motivation behind it is to help inexperienced users with their packing list.
+
+[NOTE]
+====
+- Creates a list based on the information given by the user.
+- Useful for inexperienced users, as they do not know what to pack or the quantity to pack.
+- `DAYS`, `ADULT`, `CHILDREN` must be a positive integer *1,2,3....*.
+- `SEASON` must be in `Spring`, `Summer`, `Autumn`, `Winter`.
+====
+
+Examples: +
+`createlist d/7, m/1, f/1, c/2, s/Summer`
+
+If you are planning a trip is 7 days, with 1 male and 1 female,
+this command will create a packing list based on the information provided.
+7 sets of adult and child summer clothing will be added into the packing list, along with toys for the children.
+
+==== Export the packing list as a text file: `export`
+This feature would allow users to export their existing packing list into a formatted text file.
+The motivation behind it is to enable users to share their packing lists among each other freely.
+This will give inexperienced users a template to refer to while planning for their upcoming trips.
+
+=== Fixed Expense Manager
+The following sections [4.7.2.1-4.7.2.2] describes the additional features which would be added to the packing list manager
+in Version 2.0 of E.T.
+
+==== Recommend ways to save money based on prevailing usage
+Use complex algorithms to monitor and track the user's spending habits.
+Recommend ways to save money on certain items.
+
+==== Automatically keep track of expenses
+Avoid requiring the user to enter their expenses on the application. Instead, all their expenses will be automatically entered into E.T.
+
+=== Improvements to E.T. Interface
+The following sections [4.7.3.1 - 4.7.3.2] describes the additional features which would be added to the general E.T. interface to make E.T. more user friendly.
+
+==== Auto-Complete
+This feature would allow users who are unfamiliar with E.T to type part of a command instead of the whole command.
+
+==== Undo/Redo
+This feature would allow users to undo or redo certain commands which are accidentally done.
+
+=== Import and export of data [Coming in V2.0]
+
+== *FAQ*
+*pass:[<u>TO BE EDITED</u>]*
+
+*Q*: How many trips am I able to set in E.T.?
+
+*A*: Users are only able to set 1 trip in E.T.
+
+*Q*: Why aren't I allowed to edit my date for the trip?
+
+*A*: Editing the date would cause conflicts if there were any plans before hand
+
+*Q*: What do I do if I want to change my date?
+
+*A*: Unfortunately, you would have to delete the trip and restart planning.
+
+*Q*: What happens if 2 of my activities clash? Will E.T detect it?
+
+*A*: E.T. will allow the scheduling of overlapping activities. However, when you check the status of your plan using the status command, E.T. will notify you the days of the trip with clashes in timings.
+
+*Q*: How do I transfer my data to another Computer?
+
+*A*: By default, E.T. save all your data in a folder named data in the same directory as the application. You can copy and transfer the data folder into the same directory as E.T. on your other computer and E.T. will automatically load your data when you open the application.
+
+
+== *Command Summary*
+
+=== Trip Commands
+
+|===
+|Command |Example
+
+|*Set Trip* : `settrip title/TITLE startdate/START_DATE enddate/END_DATE budget/BUDGET exchangerate/EXCHANGERATE`
+|`settrip title/Graduation Trip start/28-09-2020 end/28-10-2020 budget/1000 exchangerate/1.40`
+
+|*Delete Trip* : `deletetrip`
+|`deletetrip`
+
+|*Rename a Trip* : `rename`
+|`rename Not a graduation Trip`
+
+|`*Edit Budget for Trip* : editbudget BUDGET`
+|`editbudget 1000`
+
+|*View Itinerary* : `view`
+|`view`
+
+|*Check Preparation* : `status`
+|`status`
+
+|===
+
+=== Activity Command
+|===
+|Command |Example
+
+|*Add Activity* : `addactivity title/TITLE duration/DURATION location/LOCATION [tag/TAG]...`
+|`addactivity title/Going to the beach duration/4 location/Hakone tag/sea tag/ocean`
+
+|*Edit Activity* : `editactivity index [title/NAME] [duration/DURATION] [location/LOCATION] [t/tag]`
+|`editactivity 1 name/Go to an aquarium`
+
+|*Delete Activity* : `deleteactivity index`
+|`deleteactivity 1`
+
+|*Clear Activity* : `clearactivity`
+|`clearactivity`
+|===
+
+
+=== Transportation Booking Command
+|===
+|Command |Example
+
+|*Add Transport Booking* : `=addtransport mode/MODE startloc/START_LOCATION endloc/END_LOCATION starttime/DATE_TIME_OF_DEPARTURE endtime/DATE_TIME_OF_ARRIVAL`
+|`addtransport mode/plane startloc/Singapore endloc/Japan starttime/22-04-2021 09:00 endtime/22-04-2021 16:00`
+
+|*Edit Transportation Booking* : `edittransport INDEX [mode/MODE] [startloc/START_LOCATION] [endloc/END_LOCATION] [starttime/DATE_TIME_OF_DEPARTURE] [endtime/DATE_TIME_OF_ARRIVAL]`
+|`edittransport 2 starttime/22-04-2021 10:00`
+
+|*Delete transportation Booking* : `deletetransport INDEX`
+|`deletetransport 1`
+
+|*Clear Transportation Bookings* : `cleartransport`
+|`cleartransport`
+|===
+
+=== Packing List Commands
+|===
+|Command |Example
+
+|*Add Preset Category* : `addpreset preset/PRESET_NAME`
+|`addpreset beach`
+
+|*List all Presets in Packing List*: `listpresets`
+|`listpresets`
+
+|*Add Item in Packing List* : `additem item/ITEM quantity/QUANTITY`
+|`additem item/underwear quantity/5`
+
+|*Edit Item in Packing List* : `edititem INDEX [i/item] [q/quantity]`
+|`edititem 1 item/shirt quantity/5`
+
+|*Delete item in Packing List* : `deleteitem INDEX`
+|`deleteitem 1`
+
+|*Mark Item as packed in Packing List* :  `checkitem INDEX`
+|`checkitem 1`
+
+|*Mark Item as unpacked in Packing List* : `uncheckitem INDEX`
+|`uncheckitem 1`
+
+|*Sort Items in Packing List* : `sortitem order criteria`
+|`sortitem asc alphabet`
+
+|*Find items in Packing List*: `finditem`
+|`finditem car shampoo`
+
+|*Find items in Packing List under category*: `finditemcategory`
+|`finditemcategory swimming clothes`
+|===
+
+=== Fixed Expense Commands
+|===
+|Command |Example
+
+|*Add Fixed Expense* :  `addexpense amount/AMOUNT currency/CURRENCY
+description/DESCRIPTION category/CATEGORY`
+|`addexpense amount/1500 currency/sgd description/Plane Tickets category/transport`
+
+|*Edit Fixed Expense* : `editexpense INDEX amount/AMOUNT currency/CURRENCY [description/DESCRIPTION] [category/CATEGORY]`
+|`editexpense 1 amount/3000 currency/sgd description/SQ Flight category/transport`
+
+|*Delete Fixed Expense* : `deleteexpense INDEX`
+|`deleteexpense 1`
+
+|*Clear Fixed Expenses* : `clearexpense`
+|`clearexpense`
+
+|*Sort Fixed Expenses* : `sortexpense SORTIDENTIFIER [AMOUNT] [DESCRIPTION] [CATEGORY]`
+|`sortexpense asc amount`
+|===
+

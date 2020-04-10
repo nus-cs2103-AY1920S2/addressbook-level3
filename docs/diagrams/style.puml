@@ -1,47 +1,95 @@
-/'
- 'Commonly used styles and colors across diagrams.
- 'Refer to https://plantuml-documentation.readthedocs.io/en/latest for a more
- 'comprehensive list of skinparams.
- '/
-
+!define BACKGROUND_COLOR #EEEBDC
+!define MAIN_DARK_COLOR #171D40
+!define MAIN_MEDIUM_DARK_COLOR MidNightBlue
+!define MAIN_MEDIUM_COLOR #A2E5F9
+!define MAIN_LIGHT_COLOR #C6EAE3
 
 'T1 through T4 are shades of the original color from lightest to darkest
-
 !define UI_COLOR #1D8900
 !define UI_COLOR_T1 #83E769
 !define UI_COLOR_T2 #3FC71B
 !define UI_COLOR_T3 #166800
 !define UI_COLOR_T4 #0E4100
 
-!define LOGIC_COLOR #3333C4
-!define LOGIC_COLOR_T1 #C8C8FA
-!define LOGIC_COLOR_T2 #6A6ADC
-!define LOGIC_COLOR_T3 #1616B0
-!define LOGIC_COLOR_T4 #101086
+!define LOGIC_COLOR #A2E5F9
+!define LOGIC_COLOR_T1 #71AFEC
+!define LOGIC_COLOR_T2 #31466F
+!define LOGIC_COLOR_T3 #192F5F
+!define LOGIC_COLOR_T4 #01152B
 
-!define MODEL_COLOR #9D0012
-!define MODEL_COLOR_T1 #F97181
-!define MODEL_COLOR_T2 #E41F36
-!define MODEL_COLOR_T3 #7B000E
+!define MODEL_COLOR #FCCFCF
+!define MODEL_COLOR_T1 #D66D91
+!define MODEL_COLOR_T2 #932E39
+!define MODEL_COLOR_T3 #720A16
 !define MODEL_COLOR_T4 #51000A
 
 !define STORAGE_COLOR #A38300
 !define STORAGE_COLOR_T1 #FFE374
 !define STORAGE_COLOR_T2 #EDC520
 !define STORAGE_COLOR_T3 #806600
-!define STORAGE_COLOR_T2 #544400
+!define STORAGE_COLOR_T4 #544400
+
+!define COMMONS_COLOR #7E00A3
+!define COMMONS_COLOR_T1 #E17DFF
+!define COMMONS_COLOR_T2 #740096
+!define COMMONS_COLOR_T3 #5C0078
+!define COMMONS_COLOR_T4 #48005E
 
 !define USER_COLOR #000000
 
-skinparam BackgroundColor #FFFFFFF
-
+skinparam BackgroundColor BACKGROUND_COLOR
 skinparam Shadowing false
+skinparam MinClassWidth 50
+skinparam PackageStyle Rectangle
+
+skinparam Default {
+    FontColor MAIN_DARK_COLOR
+    FontName Arial
+    TextAlignment center
+}
+
+skinparam Participant {
+    Padding 10
+    BorderColor MAIN_DARK_COLOR
+}
+
+skinparam Title {
+    FontColor MAIN_DARK_COLOR
+    FontName Arial
+    FontSize 22
+}
+
+skinparam Arrow {
+    Thickness 1.5
+    Color MAIN_MEDIUM_DARK_COLOR
+}
+
+skinparam Note {
+    BackgroundColor MAIN_LIGHT_COLOR
+    FontColor MAIN_MEDIUM_DARK_COLOR
+    BorderColor MAIN_MEDIUM_DARK_COLOR
+    BorderThickness 2
+}
 
 skinparam Class {
-    FontColor #FFFFFF
     BorderThickness 1
-    BorderColor #FFFFFF
-    StereotypeFontColor #FFFFFF
+    BorderColor MAIN_DARK_COLOR
+    BackgroundColor MAIN_MEDIUM_COLOR
+    AttributeFontColor MAIN_MEDIUM_DARK_COLOR
+    AttributeIconSize 0
+    StereotypeFontColor MAIN_DARK_COLOR
+    StereotypeFontStyle normal
+    FontName Arial
+}
+
+skinparam Object {
+    BorderThickness 2
+    BorderColor MAIN_DARK_COLOR
+    BackgroundColor MAIN_LIGHT_COLOR
+    AttributeFontColor MAIN_MEDIUM_DARK_COLOR
+    AttributeIconSize 0
+    StereotypeFontColor MAIN_DARK_COLOR
+    StereotypeFontStyle normal
     FontName Arial
 }
 
@@ -52,24 +100,35 @@ skinparam Actor {
 }
 
 skinparam Sequence {
-    MessageAlign center
-    BoxFontSize 15
+    LifeLineBackgroundColor MAIN_LIGHT_COLOR
+    LifeLineBorderColor MAIN_DARK_COLOR
+    LifeLineBorderThickness 1.5
+    MessageAlignment center
+    SequenceParticipantBorderThickness 10
+    ReferenceBackgroundColor MAIN_LIGHT_COLOR
+    ReferenceBorderColor MAIN_DARK_COLOR
+    TitleFontColor MAIN_DARK_COLOR
+    StereotypeFontStyle normal
+    BoxFontSize 22
+    BoxFontName Arial
+    BoxFontStyle normal
     BoxPadding 0
-    BoxFontColor #FFFFFF
-    FontName Arial
+    BoxBorderColor BACKGROUND_COLOR
 }
 
 skinparam Participant {
-    FontColor #FFFFFFF
     Padding 20
 }
 
-skinparam MinClassWidth 50
-skinparam ParticipantPadding 10
-skinparam Shadowing false
-skinparam DefaultTextAlignment center
-skinparam packageStyle Rectangle
+skinparam Activity {
+    StartColor MAIN_DARK_COLOR
+    EndColor MAIN_DARK_COLOR
+    BorderThickness 1.5
+    BorderColor MAIN_DARK_COLOR
+    BackgroundColor MAIN_MEDIUM_COLOR
+    DiamondBackgroundColor MAIN_MEDIUM_COLOR
+    DiamondBorderColor MAIN_DARK_COLOR
+}
 
 hide footbox
-hide members
 hide circle

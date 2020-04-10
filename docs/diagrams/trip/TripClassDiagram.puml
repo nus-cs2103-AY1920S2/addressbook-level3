@@ -1,0 +1,22 @@
+@startuml
+!include ../style.puml
+
+Class ReadOnlyDaySchedule <<interface>>
+Class TripManager {
+    - hasTrip:boolean
+    + hasTrip(): boolean
+}
+Class Trip {
+    - title : Title
+    - startDate : Date
+    - endDate : Date
+    - numDays : int
+    - budget : Budget
+    - exchangeRate : ExchangeRate
+}
+
+Trip "0..1  "<-- TripManager
+DaySchedule " * " <-left TripManager : "                "
+ReadOnlyDaySchedule <|.. DaySchedule
+
+@enduml
