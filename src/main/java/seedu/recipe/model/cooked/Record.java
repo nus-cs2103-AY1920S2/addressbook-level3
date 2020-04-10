@@ -41,14 +41,11 @@ public class Record {
     }
 
     /**
-     * Returns an immutable goal set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable goal set, which throws {@code UnsupportedOperationException} if modification is attempted.
      */
     public Set<Goal> getGoals() {
         return Collections.unmodifiableSet(goals);
     }
-
-
 
     /**
      * Returns true if both recipes of the same name and same date.

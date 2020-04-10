@@ -241,6 +241,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasRecord(Record record) {
             throw new AssertionError("This method should not be called.");
         }

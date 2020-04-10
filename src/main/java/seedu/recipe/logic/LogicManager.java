@@ -91,7 +91,7 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<GoalCount> getFilteredGoalsTally() {
         return model.getFilteredGoalsTally();
-    };
+    }
 
     @Override
     public ObservableList<PlannedDate> getFilteredPlannedList() {

@@ -52,7 +52,6 @@ public class UniqueRecordList implements Iterable<Record> {
         if (!recordsAreUnique(records)) {
             throw new DuplicateRecipeException();
         }
-
         internalList.setAll(records);
         setGoalsTally();
     }
@@ -135,17 +134,15 @@ public class UniqueRecordList implements Iterable<Record> {
     /**
      * Sets goal tally when records are set initially.
      */
-    private void setGoalsTally() {
-        HashMap<String, Integer> goalMap = new HashMap<String, Integer>();
+    public void setGoalsTally() {
+        HashMap<String, Integer> goalMap = new HashMap<>();
         goalMap.put("Herbivore", 0);
         goalMap.put("Fruity Fiesta", 0);
         goalMap.put("Bulk like the Hulk", 0);
         goalMap.put("Wholesome Wholemeal", 0);
 
-        for (int i = 0; i < internalList.size(); i++) {
-
-            List<Goal> currGoals = new ArrayList<Goal>();
-            currGoals.addAll(internalList.get(i).getGoals());
+        for (Record record : internalList) {
+            List<Goal> currGoals = new ArrayList<>(record.getGoals());
             for (Goal currGoal : currGoals) {
                 String goalName = currGoal.goalName;
                 if (goalMap.containsKey(goalName)) {
@@ -154,7 +151,8 @@ public class UniqueRecordList implements Iterable<Record> {
                 }
             }
         }
-        internalGoalsList.addAll(new GoalCount(new Goal("Herbivore"), goalMap.get("Herbivore")),
+
+        internalGoalsList.setAll(new GoalCount(new Goal("Herbivore"), goalMap.get("Herbivore")),
                 new GoalCount(new Goal("Fruity Fiesta"), goalMap.get("Fruity Fiesta")),
                 new GoalCount(new Goal("Bulk like the Hulk"), goalMap.get("Bulk like the Hulk")),
                 new GoalCount(new Goal("Wholesome Wholemeal"), goalMap.get("Wholesome Wholemeal")));
@@ -164,11 +162,9 @@ public class UniqueRecordList implements Iterable<Record> {
      * Updates goals for a record where index.
      * 0: Herbivores 1: Fruity Fiesta.
      * 2: Bulk Like the Hulk. 3:Wholesome Wholemeal.
-     * @param record
      */
     public void updateGoalsTally(Record record) {
-        List<Goal> currGoals = new ArrayList<Goal>();
-        currGoals.addAll(record.getGoals());
+        List<Goal> currGoals = new ArrayList<>(record.getGoals());
         for (Goal currGoal: currGoals) {
             String goalName = currGoal.goalName;
             switch(goalName) {
