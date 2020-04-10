@@ -14,6 +14,7 @@ import seedu.recipe.logic.parser.RecipeBookParser;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyRecipeBook;
+import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
@@ -47,6 +48,7 @@ public class LogicManager implements Logic {
             storage.saveRecipeBook(model.getRecipeBook());
             storage.saveCookedRecordBook(model.getRecordBook());
             storage.savePlannedBook(model.getPlannedBook());
+            storage.saveQuoteBook(model.getQuoteBook());
 
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -95,5 +97,8 @@ public class LogicManager implements Logic {
         return model.getFilteredPlannedList();
     }
 
-
+    @Override
+    public ObservableList<Quote> getFilteredQuoteList() {
+        return model.getFilteredQuoteList();
+    }
 }

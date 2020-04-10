@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.CommandType;
+import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
@@ -191,5 +192,18 @@ public interface Model {
      */
     boolean hasRecord(Record record);
 
+    /**
+     * Replaces quotelist data with the data in {@code quotes}.
+     */
+    ObservableList<Quote> getFilteredQuoteList();
 
+    /**
+     * Replaces quote book data with the data in {@code CQuoteBook}.
+     */
+    ReadOnlyQuoteBook getQuoteBook();
+
+    /**
+     * Returns true if a quote with the same identity as {@code quote} exists in the quote book.
+     */
+    boolean hasQuote(Quote quote);
 }

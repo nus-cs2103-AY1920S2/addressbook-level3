@@ -10,6 +10,7 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.ui.tab.Tab;
 
@@ -28,9 +29,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyRecipeBook_success() {
         Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-                getTypicalRecordBook(), new PlannedBook());
+                getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
         Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-                getTypicalRecordBook(), new PlannedBook());
+                getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
 
         expectedModel.setRecipeBook(new RecipeBook());
 

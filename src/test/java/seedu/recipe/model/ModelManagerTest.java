@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.GuiSettings;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
@@ -106,10 +107,11 @@ public class ModelManagerTest {
         CookedRecordBook differentRecordBook = new CookedRecordBook();
         UserPrefs userPrefs = new UserPrefs();
         PlannedBook plannedBook = new PlannedBook();
+        QuoteBook quoteBook = new QuoteBook();
 
         // same values -> returns true
-        modelManager = new ModelManager(recipeBook, userPrefs, recordBook, plannedBook);
-        ModelManager modelManagerCopy = new ModelManager(recipeBook, userPrefs, recordBook, plannedBook);
+        modelManager = new ModelManager(recipeBook, userPrefs, recordBook, plannedBook, quoteBook);
+        ModelManager modelManagerCopy = new ModelManager(recipeBook, userPrefs, recordBook, plannedBook, quoteBook);
 
         assertTrue(modelManager.equals(modelManagerCopy));
 
@@ -125,13 +127,13 @@ public class ModelManagerTest {
         // different recipeBook -> returns false
 
         assertFalse(modelManager.equals(new ModelManager(differentRecipeBook, userPrefs,
-                differentRecordBook, plannedBook)));
+                differentRecordBook, plannedBook, quoteBook)));
 
         // different filteredList -> returns false
         String keywords = CAESAR_SALAD.getName().fullName;
         modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(true, keywords));
 
-        assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs, recordBook, plannedBook)));
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs, recordBook, plannedBook, quoteBook)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
@@ -140,7 +142,8 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setRecipeBookFilePath(Paths.get("differentFilePath"));
 
-        assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs, recordBook, plannedBook)));
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs, recordBook, plannedBook,
+                quoteBook)));
 
     }
 }

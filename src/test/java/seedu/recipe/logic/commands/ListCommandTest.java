@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.ui.tab.Tab;
 
@@ -26,9 +27,10 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
 
-        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(), new PlannedBook());
+        model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(), getTypicalRecordBook(),
+                new PlannedBook(), new QuoteBook());
         expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
 
     }
 

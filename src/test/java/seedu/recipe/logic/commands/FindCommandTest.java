@@ -22,6 +22,7 @@ import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
 import seedu.recipe.ui.tab.Tab;
@@ -31,9 +32,9 @@ import seedu.recipe.ui.tab.Tab;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-            getTypicalRecordBook(), new PlannedBook());
+            getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
     private Model expectedModel = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-            getTypicalRecordBook(), new PlannedBook());
+            getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
 
     @Test
     public void equals() {

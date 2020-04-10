@@ -30,11 +30,13 @@ import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.storage.JsonRecipeBookStorage;
 import seedu.recipe.storage.JsonUserPrefsStorage;
 import seedu.recipe.storage.StorageManager;
+import seedu.recipe.storage.achievement.JsonQuoteBookStorage;
 import seedu.recipe.storage.cooked.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.plan.JsonPlannedBookStorage;
 import seedu.recipe.testutil.RecipeBuilder;
@@ -57,8 +59,10 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonCookedRecordBookStorage recordBookStorage =
                 new JsonCookedRecordBookStorage(temporaryFolder.resolve("cookedRecordBook.json"));
+        JsonQuoteBookStorage quoteBookStorage =
+                new JsonQuoteBookStorage(temporaryFolder.resolve("quoteBook.json"));
         StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage,
-                plannedBookStorage, userPrefsStorage);
+                plannedBookStorage, quoteBookStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
     }
@@ -93,8 +97,10 @@ public class LogicManagerTest {
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonCookedRecordBookStorage recordBookStorage =
                 new JsonCookedRecordBookStorage(temporaryFolder.resolve("ioExceptionRecordBook.json"));
+        JsonQuoteBookStorage quoteBookStorage =
+                new JsonQuoteBookStorage(temporaryFolder.resolve("ioExceptionQuoteBook.json"));
         StorageManager storage = new StorageManager(recipeBookStorage, recordBookStorage,
-                plannedBookStorage, userPrefsStorage);
+                plannedBookStorage, quoteBookStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -153,7 +159,7 @@ public class LogicManagerTest {
             String expectedMessage) {
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

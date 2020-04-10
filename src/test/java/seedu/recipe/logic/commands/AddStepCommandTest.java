@@ -20,6 +20,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.Step;
@@ -33,7 +34,7 @@ import seedu.recipe.ui.tab.Tab;
 public class AddStepCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-            getTypicalRecordBook(), new PlannedBook());
+            getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
     private final Step firstNewStep = new Step("New step 1");
     private final Step secondNewStep = new Step("New step 2");
 
@@ -50,7 +51,7 @@ public class AddStepCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToAddSteps.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -89,7 +90,7 @@ public class AddStepCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToAddSteps.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")

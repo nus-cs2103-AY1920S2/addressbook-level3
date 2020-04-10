@@ -17,6 +17,7 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
@@ -29,7 +30,7 @@ import seedu.recipe.ui.tab.Tab;
 public class DeleteStepCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-            getTypicalRecordBook(), new PlannedBook());
+            getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
     private final Integer[] indexSecondStep = new Integer[] {1}; // Steps are zero-indexed by design
     private final Integer[] indexFirstStep = new Integer[] {0};
     private final Integer[] indexOutOfBoundsStep = new Integer[] {Integer.MAX_VALUE};
@@ -43,7 +44,7 @@ public class DeleteStepCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
@@ -93,7 +94,7 @@ public class DeleteStepCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteSteps.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")
