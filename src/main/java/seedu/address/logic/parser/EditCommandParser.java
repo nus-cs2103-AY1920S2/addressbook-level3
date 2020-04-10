@@ -42,6 +42,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
             if (!arePrefixesPresent(argMultimap, PREFIX_YEAR) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
                     && !arePrefixesPresent(argMultimap, PREFIX_TASK)
+                    && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)
                     && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
@@ -67,6 +68,12 @@ public class EditCommandParser implements Parser<EditCommand> {
 
             // Reject when deadline is given but task name not given
             if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                throw new ParseException(MESSAGE_MISSING_OLD_TASK);
+            }
+
+            // Reject when new task is given but task name not given
+            if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)
                     && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
                 throw new ParseException(MESSAGE_MISSING_OLD_TASK);
             }
