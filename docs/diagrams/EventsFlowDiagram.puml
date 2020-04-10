@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":ViewController" as ViewController LOGIC_COLOR
+participant ":BaseManager(publish)" as BaseManagerPublish LOGIC_COLOR
+participant ":BaseManager(subscribe)" as BaseManagerSubscribe LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":EventsCenterSingleton" as EventsCenterSingleton MODEL_COLOR
+participant ":EventBus" as EventBus MODEL_COLOR
+end box
+
+[-> ViewController : execute("delete-student 1")
+activate ViewController
+
+ViewController -> BaseManagerPublish : delete(ID 1)
+activate BaseManagerPublish
+
+BaseManagerPublish -> EventsCenterSingleton : post DataStorageChangeEvent and DeleteEntitySyncEvent
+activate EventsCenterSingleton
+
+EventsCenterSingleton -> EventBus : push to event bus
+activate EventBus
+
+EventsBus -> EventsCenterSingleton : notify EventsCenter
+deactivate EventBus
+
+EventsCenterSingleton -> BaseManagerSubscribe : handleDataStorageChangeEvent and handleDeleteEntitySyncEvent
+deactivate EventsCenterSingleton
+
+@enduml
