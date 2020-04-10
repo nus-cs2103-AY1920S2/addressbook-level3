@@ -26,18 +26,14 @@ import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
 class NewCommandParserTest {
-    private static AbsolutePath toBlock;
     private static AbsolutePath toAnother;
-    private static AbsolutePath toAnotherBlock;
     private static Model model;
     private static NewCommandParser newCommandParser;
 
     @BeforeEach
     public void setUp() {
         // Set up paths
-        toBlock = AbsolutePath.fromString("/block");
         toAnother = AbsolutePath.fromString("/another");
-        toAnotherBlock = AbsolutePath.fromString("/another/block");
 
         // Set up model
         BlockModel blockModel = new BlockModelImpl();
@@ -91,7 +87,7 @@ class NewCommandParserTest {
 
     @Test
     void parse_duplicateTitleArgument_throwsCommandException() throws ParseException, CommandException {
-        final NewCommand newCommand = (NewCommand) newCommandParser.parse(" -t block -b lorem").get(0);
+        final NewCommand newCommand = (NewCommand) newCommandParser.parse(" -t block").get(0);
 
         assertThrows(CommandException.class, () -> newCommand.execute(model));
     }

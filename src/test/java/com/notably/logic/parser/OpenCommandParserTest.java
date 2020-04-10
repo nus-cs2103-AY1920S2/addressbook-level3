@@ -14,14 +14,12 @@ import com.notably.logic.correction.CorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
-import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
-import com.notably.model.block.BlockModelImpl;
-import com.notably.model.block.Title;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
+import com.notably.testutil.TypicalBlockModel;
 
 class OpenCommandParserTest {
     private static final int CORRECTION_THRESHOLD = 2;
@@ -35,28 +33,14 @@ class OpenCommandParserTest {
 
     @BeforeEach
     public void setUp() {
-        // Set up paths
-        toBlock = AbsolutePath.fromString("/block");
-        toAnother = AbsolutePath.fromString("/another");
-        toAnotherBlock = AbsolutePath.fromString("/another/block");
-
         // Set up model
-        BlockModel blockModel = new BlockModelImpl();
+        BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
         openCommandParser = new OpenCommandParser(model, pathCorrectionEngine);
-
-        // Populate model with test data
-        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("another")));
-
-        model.setCurrentlyOpenBlock(toAnother);
-        model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("toAnother")));
 
         parser = new NotablyParser(model);
     }
@@ -78,21 +62,23 @@ class OpenCommandParserTest {
 
     @Test
     void parse_absolutePathArgument_openCommand() throws ParseException, CommandException {
-        final OpenCommand openCommand = openCommandParser.parse(" -t /another/block").get(0);
+        final AbsolutePath toOpenPath = TypicalBlockModel.PATH_TO_CS2106;
+        final OpenCommand openCommand = openCommandParser.parse(" -t /Y2S2/CS2106").get(0);
 
         openCommand.execute(model);
 
-        assertEquals(toAnotherBlock, model.currentlyOpenPathProperty().getValue());
+        assertEquals(toOpenPath, model.currentlyOpenPathProperty().getValue());
     }
 
     @Test
     void parse_relativePathArgument_openCommand() throws ParseException, CommandException {
-        final OpenCommand openCommand = openCommandParser.parse(" -t block").get(0);
+        final AbsolutePath toOpenPath = TypicalBlockModel.PATH_TO_CS2106;
+        final OpenCommand openCommand = openCommandParser.parse(" -t CS2106").get(0);
 
-        // Current directory /another
+        // Current directory `/Y2S2`
         openCommand.execute(model);
 
         //Expected directory after executing Command /another/block
-        assertEquals(toAnotherBlock, model.currentlyOpenPathProperty().getValue());
+        assertEquals(toOpenPath, model.currentlyOpenPathProperty().getValue());
     }
 }

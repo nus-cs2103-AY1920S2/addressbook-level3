@@ -47,11 +47,11 @@
 //    }
 //
 //    @Test
-//    void execute_editCommandInRoot_throwsCannotModifyRootException() throws CommandException {
-//        final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
-//
-//        model.setCurrentlyOpenBlock(AbsolutePath.fromString("/"));
-//
-//        assertThrows(CommandException.class, () -> editCommand.execute(model));
-//    }
+////    void execute_editCommandInRoot_throwsCannotModifyRootException() throws CommandException {
+////        final EditCommand editCommand = new EditCommand(new Body("Expected Body"));
+////
+////        model.setCurrentlyOpenBlock(AbsolutePath.fromString("/"));
+////
+////        assertThrows(CommandException.class, () -> editCommand.execute(model));
+////    }
 //}
