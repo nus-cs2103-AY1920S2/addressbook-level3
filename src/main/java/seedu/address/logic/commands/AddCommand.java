@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicateDeadlineException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -144,9 +145,6 @@ public class AddCommand extends Command {
 
         if (addTask != null) {
             // Check if the deadline is added to a module in the current semester
-            if (semesterOfModule != currentSemester && addSemester != currentSemester) {
-                //throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
-            }
             if (hasModule && semesterOfModule != currentSemester) {
                 // This module has been added but it is not in current semester
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
@@ -170,6 +168,10 @@ public class AddCommand extends Command {
                 deadline = new Deadline(moduleCode, addTask, addDate, addTime);
             } else {
                 deadline = new Deadline(moduleCode, addTask);
+            }
+
+            if (personal.hasDeadline(deadline)) {
+                throw new DuplicateDeadlineException();
             }
 
             personal.addDeadline(deadline);
@@ -204,8 +206,6 @@ public class AddCommand extends Command {
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;
         }
-
-
 
         profile.updateCap();
         return new CommandResult(String.format(messageShown, toAdd), false);
