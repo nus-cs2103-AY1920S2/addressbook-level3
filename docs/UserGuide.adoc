@@ -183,61 +183,106 @@ This means that it can be:
 
 This section lists and explains what the parameters commonly used in the commands mean.
 
-[width="%",cols="<20%,<40,<40,options="header",]
+[width="%",cols="<20%a,<40%a,<40%a,options="header",]
 |=======================================================================
 |Parameter | Explanation | Examples
 
-| `TAB_NAME` | This refers to the different `tab` names. |
-
+|
+`TAB_NAME`
+|
+This refers to the different `tab` names.
+|
 *student* - to indicate the *Student View*
 
 *session* - to indicate the *Session View*
 
 *claims* - to indicate the *Claims View*
 
-|`INDEX` | Indicates the position of an item in a list | *1* - refers to the
+|
+`INDEX`
+|
+Indicates the position of an item in a list
+|
+*1* - refers to the
 first item in a list
 
-| `MATRIC_NUMBER` | Refers to the matriculation number of a student.
-
-It must start with an A, have 7 numbers in between and end with an alphabet.
-
-| *A0123456X*
-
-|`MOD_CODE` | Refers to the unique code given to the module.
+|
+`MOD_CODE`
+|
+Refers to the unique code given to the module.
 
 You can personalise this and give it your own code. However, we recommend you
 use the module's official code.
+|
+*CS2103T*
 
-| *CS2103T*
-
-| `NAME` | Depending on the command, this could either refer to the student's name
-or the module's name. | *John Doe* or *Software Engineering*
-
-| `GROUP_CODE` | Refers to the unique code given to the group.
+|
+`GROUP_CODE`
+|
+Refers to the unique code given to the group.
 
 You can personalise this and create your own code. However, we recommend that you use
-the group's official code assigned by SoC | *G06*
+the group's official code assigned by SoC
+|
+*G06*
 
-| `NEW_GROUP_CODE` | Refers to the new group code of a group when you edit a group.
-| *G05*
+|
+`NEW_GROUP_CODE`
+|
+Refers to the new group code of a group when you edit a group.
+|
+*G05*
 
-| `GROUP_TYPE` | Refers to the group type. | *lab*, *tutorial*, *recitation* or *other*
+|
+`GROUP_TYPE`
+|
+Refers to the group type.
+|
+*lab*, *tutorial*, *recitation* or *other*
 
-| `NEW_GROUP_TYPE` | Refers to the new group type you want a group to be. | *lab*, *tutorial*,
+|
+`NEW_GROUP_TYPE`
+|
+Refers to the new group type you want a group to be.
+|
+*lab*, *tutorial*,
 *recitation* or *other*
 
-| `SORT_TYPE` | Refers to how you want to sort the *Student View*. |
+|
+`MATRIC_NUMBER`
+|
+Refers to the matriculation number of a student.
 
-*alpha*, *alphabetical* or *alphabetically* to sort alphabetically.
+It must start with an A, have 7 numbers in between and end with an alphabet.
+|
+*A0123456X*
 
-*rating asc* to sort by rating in ascending order.
+|
+`NAME`
+|
+Depending on the command, this could either refer to the student's name
+or the module's name.
+|
+*John Doe* or *Software Engineering*
 
-*rating desc* to sort by rating in descending order.
+|
+`SORT_TYPE`
+|
+Refers to how you want to sort the *Student View*.
+|
+*alpha*, *alphabetical* or *alphabetically* - to sort alphabetically.
 
-*matric* to sort by matriculation number.
+*rating asc* - to sort by rating in ascending order.
 
-| `SESSION_TYPE` | Refers to the type of session. |
+*rating desc* - to sort by rating in descending order.
+
+*matric* - to sort by matriculation number.
+
+|
+`SESSION_TYPE`
+|
+Refers to the type of session.
+|
 *consult* - consultation
 
 *tutorial* - tutorial
@@ -250,21 +295,75 @@ the group's official code assigned by SoC | *G06*
 
 *todo* - other tasks and notes
 
-|`NOTES` | Refers to any extra description | *This time was spent correcting 40 assignments...*
+|
+`NOTES`
+|
+Refers to any extra description
+|
+*This time was spent correcting 40 assignments*
 
-| `START` | Indicates the starting time. Must be in the `HH:mm` format. | *10:42*
+|
+`START`
+|
+Indicates the starting time. Must be in the `HH:mm` format.
+|
+*10:42*
 
-| `END` | Indicates the ending time. Must be in the `HH:mm` format. | *11:42*
+|
+`END`
+|
+Indicates the ending time. Must be in the `HH:mm` format.
+|
+*16:42*
 
-| `DATE` | Indicates the date of a session. Must be in the `yyyy-MM-dd` format. | *2020-06-20*
+|
+`DATE`
+|
+Indicates the date of a session. Must be in the `yyyy-MM-dd` format.
+|
+*2020-06-20*
 
-| `WEEK`| Indicates the recurring period of sessions. | *1*
+|
+`WEEK`
+|
+Indicates the recurring period of a session.
+|
+*1* - represents a session that repeats every week.
 
-| `->` | Indicates that the command has more parameters than specified.
+|
+`RATING`
+|
+Indicates the rating of a student.
 
-These missing parameters will be stated in a later section of the guide. |
+A rating is as a number between 1 (Poor) to 5 (Excellent).
+|
+*3* - represents an average student rating.
 
-| `./` | Indicates the presence of a tag that will be specified in a late section of the guide. |
+|
+`EMAIL`
+|
+Indicates the email of a student.
+
+Emails should be in `local-part@domain format`.
+
+The `local-part` can only contain:
+
+* Alphanumeric characters, and
+* The following special characters: +
+!#$%&'*+/=?`{\|}~^.-
+
+The `domain` can only contain:
+* Alphanumeric characters
+* * The following special characters in between: +
+.-
+
+The domain name must also:
+
+* Have at least 2 characters
+* Start and end with alphanumeric characters
+|
+*johnDoe97@example123.com*
+
 |=======================================================================
 
 [[Layout]]
