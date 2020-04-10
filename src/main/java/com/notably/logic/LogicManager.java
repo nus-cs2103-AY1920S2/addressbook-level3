@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         try {
             List<? extends Command> commands = notablyParser.parseCommand(commandText);
             for (Command command : commands) {
-                    command.execute(model);
+                command.execute(model);
             }
             storage.saveBlockModel(model);
 
