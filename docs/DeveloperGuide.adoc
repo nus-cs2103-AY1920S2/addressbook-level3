@@ -261,7 +261,7 @@ For the actual execution of an assign/unassign command, 3 main steps are perform
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
 
-===== Preprocess Entities
+===== Step 1: Preprocess Entities
 
 ====== Rationale
 Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
@@ -287,7 +287,7 @@ the program continuing to execute the actual assign/un-assign command.
 * most importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
 
 
-===== EdgeManager
+===== Step 2: Assign IDs via EdgeManager
 ====== +++<u>Rationale</u>+++
 After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order
 to ensure correct and consistent assigning of objects.
@@ -324,10 +324,7 @@ each other's ID from the respective objects.
 
 Option B (Current choice): Each (undoable) command will know how to generateOpposite command itself. Pros: Reduce a lot of memory issue.
 
-
-
-
-===== ProgressManager
+===== Step 3: Add Progress objects via ProgressManager
 
 === Undo/Redo
 
