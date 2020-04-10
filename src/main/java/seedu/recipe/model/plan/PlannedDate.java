@@ -56,6 +56,18 @@ public class PlannedDate implements Comparable<PlannedDate> {
     }
 
     /**
+     * Adds {@code recipe} to the recipes currently planned and returns a new PlannedDate.
+     */
+    public PlannedDate addRecipe(Recipe recipe) {
+        if (hasRecipe(recipe)) {
+            throw new DuplicateRecipeException();
+        }
+        List<Recipe> newRecipes = new ArrayList<>(recipes);
+        newRecipes.add(recipe);
+        return new PlannedDate(newRecipes, date);
+    }
+
+    /**
      * Deletes {@code recipe} from the list and returns a new PlannedDate.
      */
     public PlannedDate deleteRecipe(Recipe recipe) {
@@ -89,6 +101,13 @@ public class PlannedDate implements Comparable<PlannedDate> {
      */
     public boolean isOnDate(Date onDate) {
         return date.isOnDate(onDate);
+    }
+
+    /**
+     * Returns true if {@code recipe} is present in plans.
+     */
+    public boolean hasRecipe(Recipe recipe) {
+        return recipes.contains(recipe);
     }
 
     /**

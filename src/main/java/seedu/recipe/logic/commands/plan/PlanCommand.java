@@ -17,8 +17,8 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
-import seedu.recipe.model.plan.DuplicatePlannedRecipeException;
 import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipeOnDatePredicate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -74,17 +74,23 @@ public class PlanCommand extends Command {
             Index currentIndex = indexes[i];
             Recipe recipeToPlan = lastShownList.get(currentIndex.getZeroBased());
 
-            List<Recipe> recipesToPlan = new ArrayList<>();
-            recipesToPlan.add(recipeToPlan);
-            PlannedDate plannedDate = new PlannedDate(recipesToPlan, atDate);
-
-            try {
-                model.addOnePlan(recipeToPlan, plannedDate);
-            } catch (DuplicatePlannedRecipeException dp) {
-                duplicatePlansMessage.add(formatIndexToString(currentIndex, recipeToPlan));
-                continue;
+            model.updateFilteredPlannedList(new PlannedRecipeOnDatePredicate(atDate));
+            List<PlannedDate> potentialPlans = model.getFilteredPlannedList();
+            PlannedDate newPlans;
+            if (!potentialPlans.isEmpty()) {
+                PlannedDate currentPlans = potentialPlans.get(0);
+                if (currentPlans.hasRecipe(recipeToPlan)) {
+                    duplicatePlansMessage.add(formatIndexToString(currentIndex, recipeToPlan));
+                    continue;
+                }
+                newPlans = currentPlans.addRecipe(recipeToPlan);
+                model.addToExistingPlan(recipeToPlan, currentPlans, newPlans);
+            } else {
+                List<Recipe> recipes = new ArrayList<>();
+                recipes.add(recipeToPlan);
+                newPlans = new PlannedDate(recipes, atDate);
+                model.addNewPlan(recipeToPlan, newPlans);
             }
-            newPlansMessage.add(formatIndexToString(currentIndex, recipeToPlan));
         }
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
@@ -132,4 +138,5 @@ public class PlanCommand extends Command {
         }
         return sb.toString();
     }
+
 }

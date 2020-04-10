@@ -1,14 +1,12 @@
 package seedu.recipe.logic.commands.plan;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
@@ -16,14 +14,8 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.ingredient.SortByIngredientName;
-import seedu.recipe.model.recipe.ingredient.Fruit;
-import seedu.recipe.model.recipe.ingredient.Grain;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
-import seedu.recipe.model.recipe.ingredient.Other;
-import seedu.recipe.model.recipe.ingredient.Protein;
 import seedu.recipe.model.recipe.ingredient.Quantity;
-import seedu.recipe.model.recipe.ingredient.Vegetable;
 import seedu.recipe.model.util.QuantityUtil;
 import seedu.recipe.ui.tab.Tab;
 
@@ -39,14 +31,11 @@ public class GroceryListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "All ingredients required have been listed down.";
 
     private final Tab planTab = Tab.PLANNING;
-    private SortByIngredientName sortByIngredientName = new SortByIngredientName();
-    // is it auto sorted by alphabetical order? todo
     private Map<String, Quantity> grainMap = new TreeMap<>();
     private Map<String, Quantity> vegetableMap = new TreeMap<>();
     private Map<String, Quantity> proteinMap = new TreeMap<>();
     private Map<String, Quantity> fruitMap = new TreeMap<>();
     private Map<String, Quantity> otherMap = new TreeMap<>();
-    private static final String WINDOW_TITLE = "Grocery list:";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -77,10 +66,14 @@ public class GroceryListCommand extends Command {
         while (ingredientsIterator.hasNext()) {
             Ingredient ingredient = ingredientsIterator.next();
             Quantity scaledQuantity = QuantityUtil.scaleQuantity(ingredient.getQuantity(), multiplier);
+            String ingredientKey = ingredient.getIngredientName();
+            if (map.containsKey(ingredientKey)) { // adds the quantity of similar ingredient
+                // Quantity currentQuantity = map.get(ingredientKey).convertToGram() TODO
+                // create add method in quantity util
+                //
+            }
             map.put(ingredient.getIngredientName(), scaledQuantity);
-            // todo check for duplicate and add them up
         }
-        System.out.println("MAP: " + map); //todo remove ltr
         return map;
     }
 

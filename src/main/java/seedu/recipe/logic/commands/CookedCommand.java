@@ -64,8 +64,10 @@ public class CookedCommand extends Command {
                     .findFirst();
             if (planToday.isPresent()) {
                 PlannedDate plan = planToday.get();
-                System.out.println("deleting plan for " + recipeCooked + "with plan" + plan);
-                model.deleteOnePlan(recipeCooked, plan); //Today.get());
+                System.out.println("PLAN FOUND =============== \n" + plan);
+
+
+                model.deleteOnePlan(recipeCooked, plan);
                 sb.append("and removed the plans for ");
             }
 

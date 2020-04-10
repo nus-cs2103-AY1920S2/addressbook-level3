@@ -130,9 +130,14 @@ public interface Model {
     void setPlannedBook(ReadOnlyPlannedBook plannedBook);
 
     /**
-     * Adds the {@code plannedDate} that plans for {@code recipe}.
+     *  todo change
      */
-    void addOnePlan(Recipe recipe, PlannedDate plannedDate);
+    void addToExistingPlan(Recipe recipe, PlannedDate oldPlans, PlannedDate newPlans);
+
+    /**
+     * Adds the {@code newPlan} that plans for {@code recipe}.
+     */
+    void addNewPlan(Recipe recipe, PlannedDate newPlan);
 
     /**
      * Deletes the {@code recipe} plan from the {@code plannedDate}.

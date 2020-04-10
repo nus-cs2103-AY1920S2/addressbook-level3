@@ -41,7 +41,7 @@ public class PlannedRecipeMap {
     }
 
     /**
-     * Adds all {@code plannedDates} to the {@code recipe} key.
+     * Adds all {@code plannedDates} to the {@code recipe} key. todo remove
      */
     public void addAllPlannedRecipes(Recipe recipe, List<PlannedDate> plannedDates) {
         if (internalMap.containsKey(recipe)) {
@@ -69,6 +69,7 @@ public class PlannedRecipeMap {
         } else {
             allPlans.remove(plannedDate);
         }
+        System.out.println("Removed from mapping============================\n" + internalMap);
     }
 
     /**

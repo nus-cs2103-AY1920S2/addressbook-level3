@@ -69,12 +69,22 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     }
 
     /**
-     * Adds {@code plannedDate} into the planned recipes and recipe map.
+     * todo
+     */
+    public void addToExistingPlan(Recipe recipe, PlannedDate oldPlans, PlannedDate newPlans) {
+        //plannedDates.add(plannedDate); // change to Set
+        plannedDates.setPlannedDate(oldPlans, newPlans);
+        recipeMap.addOnePlannedRecipe(recipe, newPlans);
+        System.out.println("ALL MAPPINGS AFTER ADDING ===============\n" + recipeMap.getInternalMap());
+    }
+
+    /**
+     * Adds {@code newPlan} into the planned recipes and recipe map.
      * The planned recipe must not exist in the planned book.
      */
-    public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
-        plannedDates.add(plannedDate);
-        recipeMap.addOnePlannedRecipe(recipe, plannedDate);
+    public void addNewPlan(Recipe recipe, PlannedDate newPlan) {
+        plannedDates.add(newPlan);
+        recipeMap.addOnePlannedRecipe(recipe, newPlan);
     }
 
     /**

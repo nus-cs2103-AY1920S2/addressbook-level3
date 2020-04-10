@@ -5,7 +5,6 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -208,10 +207,17 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
-        requireAllNonNull(recipe, plannedDate);
-        plannedBook.addOnePlan(recipe, plannedDate);
+    public void addToExistingPlan(Recipe recipe, PlannedDate oldPlans, PlannedDate newPlans) {
+        requireAllNonNull(recipe, oldPlans, newPlans);
+        plannedBook.addToExistingPlan(recipe, oldPlans, newPlans);
     }
+
+    @Override
+    public void addNewPlan(Recipe recipe, PlannedDate newPlan) {
+        requireAllNonNull(recipe, newPlan);
+        plannedBook.addNewPlan(recipe, newPlan);
+    }
+
 
     @Override
     public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
@@ -251,11 +257,6 @@ public class ModelManager implements Model {
         return plannedBook.getPlannedMap();
     }
 
-/*    @Override
-    public void completePlan(Recipe recipeCooked, PlannedDate plannedDate) {
-        requireAllNonNull(recipeCooked, plannedDate);
-        plannedBook.completePlan(recipeCooked, plannedDate);
-    }*/
 
     @Override
     public boolean equals(Object obj) {
