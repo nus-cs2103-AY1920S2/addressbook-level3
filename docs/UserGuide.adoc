@@ -22,7 +22,7 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-Are you a *Teaching Assistant at NUS School of Computing(SOC)* who is tired of having to *keep
+Are you a *Teaching Assistant at NUS School of Computing (SOC)* who is tired of having to *keep
 track of all your claimable hours* in some unappealing excel spreadsheet just so you
 can fill up the Teaching Support Student (TSS) Claims form accurately at the end of the semester?
 Do you want a desktop application where you can *keep track of things related to your teaching duties,
@@ -86,29 +86,36 @@ This symbol indicates that there is something you should be careful to avoid.
 All the commands written in the user guide follow some rules that have been mentioned
 below. This will help you better understand how to use the commands.
 
-====
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
-For example, in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
+[width="%",cols="<20%,<40,options="header",]
+|=======================================================================
+| Rule | Examples
 
-* Items in square brackets are optional.
-For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/Fast learner` or as `n/John Doe`.
+| Words in `UPPER_CASE` are the parameters to be supplied by the user. | In
+`student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.
-For example, `[t/TAG]...` can be left empty (i.e. 0 times), `t/friend` (i.e. once) or
-`t/friend t/family` (i.e. multiple times).
+| Items in square brackets are optional. | `n/NAME [t/TAG]` can be used as
+`n/John Doe t/Fast learner` or as `n/John Doe`.
 
-* If you use a prefix without `...` mentioned multiple times, TA-Tracker will accept
-the last instance of the prefix.
-For example, in the command `module add m/CS2103T n/SE n/Software Engineering` ,
+| Items with `…`​ after them can be used multiple times or none at all. |
+
+- Left Empty: `t/` (i.e. 0 times)
+
+- Used one time: `t/friend` (i.e. once)
+
+- Used multiple times: `t/friend t/family` (i.e. 2 times).
+
+| If you use a prefix without `...` mentioned multiple times, TA-Tracker only will accept
+the last instance of the prefix. | In the command `module add m/CS2103T n/SE n/Software Engineering` ,
 a module with the module code `CS2013T` and name `Software Engineering` will be created.
 
-* If you separate the the prefix letter and `/` while writing a command, the TA-Tracker
-will not recognise the prefix. For example, in the command `module add m/CS2103T
-n /Software Engineering` , the TA-Tracker doesn't recognise `n /` to be the same
-as `n/` and you'll get an error message saying that the command format used it wrong.
+| If you separate the the prefix letter and `/` while writing a command, TA-Tracker
+will not recognise the prefix. | In the command `module add m/CS2103T
+n /Software Engineering` , TA-Tracker doesn't recognise `n /` to be the same
+as `n/` and you'll get an error message saying that the command format used is wrong.
 
-* Parameters can be in any order.
-For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+| Parameters can be in any order. | If the command specifies `n/NAME p/PHONE_NUMBER`,
+`p/PHONE_NUMBER n/NAME` is also acceptable. |
+
 ====
 
 === Common Parameters
@@ -1041,6 +1048,12 @@ for the tasks they have completed. |
 | TA | This is the short form for `Teaching Assistant. |
 
 | SOC or SoC | This is the short form for School of Computing. |
+
+| CLI | This is the short form for Command Line Interface. It processes commands to
+TA-Tracker in the form of lines of text |
+
+| GUI | This is the short form for Graphical User Interface. It is a form of user interface
+that allows users to interact with electronic devices through graphical icons |
 
 | Index | This refers to the position of an item on a list. | Index of 1 refers to the first
 item in a list.
