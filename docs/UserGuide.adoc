@@ -402,6 +402,7 @@ Format: +
 Valid example: +
 `listamount`
 
+[[listamountexpectedoutcome]]
 *Expected outcome:*
 
 image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
