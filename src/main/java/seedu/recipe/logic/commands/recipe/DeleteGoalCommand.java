@@ -1,7 +1,7 @@
-package seedu.recipe.logic.commands;
+package seedu.recipe.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.recipe.logic.commands.EditCommand.createEditedRecipe;
+import static seedu.recipe.logic.commands.recipe.EditCommand.createEditedRecipe;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_PLANNED_RECIPES;
 import static seedu.recipe.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
@@ -11,6 +11,9 @@ import java.util.Set;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.Command;
+import seedu.recipe.logic.commands.CommandResult;
+import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.goal.Goal;
@@ -31,7 +34,7 @@ public class DeleteGoalCommand extends Command {
     public static final String MESSAGE_DELETE_GOAL_SUCCESS = "Successfully deleted goal from %1$s!";
     public static final String MESSAGE_INVALID_GOAL_NAME = "Invalid goal name! "
             + "Ensure that the capitalization of goals are the same.";
-    public static final String MESSAGE_INVALID_GOAL = "Attempting to delete a non-existent goal.";
+    public static final String MESSAGE_INVALID_GOAL = "Attempting to deletePlan a non-existent goal.";
 
     private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
@@ -40,7 +43,7 @@ public class DeleteGoalCommand extends Command {
 
     /**
      * @param index of the recipe in the filtered recipe list to edit.
-     * @param goal is the name of goal user wishes to delete from recipe.
+     * @param goal is the name of goal user wishes to deletePlan from recipe.
      */
     public DeleteGoalCommand(Index index, String goal) {
         this.index = index;
@@ -81,7 +84,7 @@ public class DeleteGoalCommand extends Command {
         model.commitBook(commandType);
 
         String finalMessage = String.format(MESSAGE_DELETE_GOAL_SUCCESS, recipeToEdit.getName().toString());
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     @Override

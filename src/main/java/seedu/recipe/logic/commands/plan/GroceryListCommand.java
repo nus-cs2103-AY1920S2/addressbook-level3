@@ -39,21 +39,22 @@ public class GroceryListCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        Map<Recipe, List<PlannedDate>> allPlans = model.getPlannedMap().getInternalMap();
+/*    requireNonNull(model);
+    Map<Recipe, List<PlannedDate>> allPlans = model.getPlannedMap().getInternalMap();
 
-        if (allPlans.isEmpty()) {
-            throw new CommandException(MESSAGE_EMPTY_LIST);
-        }
+    if (allPlans.isEmpty()) {
+        throw new CommandException(MESSAGE_EMPTY_LIST);
+    }
 
-        for (Map.Entry<Recipe, List<PlannedDate>> entry : allPlans.entrySet()) {
-            Recipe recipe = entry.getKey();
-            int numberOfTimes = entry.getValue().size();
-            addAllIngredients(recipe, numberOfTimes);
-        }
-        model.setGroceryList(formatMapsToString());
+    for (Map.Entry<Recipe, List<PlannedDate>> entry : allPlans.entrySet()) {
+        Recipe recipe = entry.getKey();
+        int numberOfTimes = entry.getValue().size();
+        addAllIngredients(recipe, numberOfTimes);
+    }
+    model.setGroceryList(formatMapsToString());
 
-        return new CommandResult(MESSAGE_SUCCESS, true, false, planTab, false);
+    return new CommandResult(MESSAGE_SUCCESS, true, false, planTab, false);*/
+return null;
     }
 
     /**
@@ -69,7 +70,7 @@ public class GroceryListCommand extends Command {
             String ingredientKey = ingredient.getIngredientName();
             if (map.containsKey(ingredientKey)) { // adds the quantity of similar ingredient
                 // Quantity currentQuantity = map.get(ingredientKey).convertToGram() TODO
-                // create add method in quantity util
+                // create addPlan method in quantity util
                 //
             }
             map.put(ingredient.getIngredientName(), scaledQuantity);

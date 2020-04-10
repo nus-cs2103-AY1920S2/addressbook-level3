@@ -21,7 +21,7 @@ import seedu.recipe.ui.tab.Tab;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deletePlan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the recipe identified by the index number(s) used in the displayed recipe list.\n"
@@ -79,7 +79,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Checks if the recipe that the user wishes to delete exists within the recipe list.
+     * Checks if the recipe that the user wishes to deletePlan exists within the recipe list.
      */
     private boolean canDeleteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
         for (int i = targetIndex.length - 1; i >= 0; i--) {

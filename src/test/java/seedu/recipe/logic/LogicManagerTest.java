@@ -75,7 +75,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "deletePlan 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
@@ -92,7 +92,7 @@ public class LogicManagerTest {
                 new JsonRecipeBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRecipeBook.json"));
         JsonPlannedBookStorage plannedBookStorage =
                 new JsonPlannedBookStorage(temporaryFolder.resolve("ioExceptionPlannedBook.json"));
-        // todo add tests for plannedbook
+        // todo addPlan tests for plannedbook
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonCookedRecordBookStorage recordBookStorage =
@@ -104,7 +104,7 @@ public class LogicManagerTest {
 
         logic = new LogicManager(model, storage);
 
-        // Execute add command
+        // Execute addPlan command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH
                 + STEP_DESC_TURKEY_SANDWICH + GRAIN_DESC_TURKEY_SANDWICH + VEGETABLE_DESC_TURKEY_SANDWICH
                 + PROTEIN_DESC_TURKEY_SANDWICH + FRUIT_DESC_TURKEY_SANDWICH + OTHER_DESC_TURKEY_SANDWICH;

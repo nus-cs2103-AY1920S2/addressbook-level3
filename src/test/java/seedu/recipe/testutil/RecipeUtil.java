@@ -30,7 +30,7 @@ import seedu.recipe.model.recipe.ingredient.Vegetable;
 public class RecipeUtil {
 
     /**
-     * Returns an add command string for adding the {@code recipe}.
+     * Returns an addPlan command string for adding the {@code recipe}.
      */
     public static String getAddCommand(Recipe recipe) {
         return AddCommand.COMMAND_WORD + " " + getRecipeDetails(recipe);

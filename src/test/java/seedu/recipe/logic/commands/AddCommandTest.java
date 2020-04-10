@@ -24,6 +24,8 @@ import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
+import seedu.recipe.model.plan.Plan;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
@@ -192,12 +194,20 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
-        public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        public void addPlan(Recipe recipe, Plan plan) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void deletePlan(Recipe recipe, Plan plan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Plan> getFilteredPlannedList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void addRecord(Record record) {
@@ -219,10 +229,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public ObservableList<PlannedDate> getFilteredPlannedList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public ReadOnlyCookedRecordBook getRecordBook() {
             throw new AssertionError("This method should not be called.");
@@ -235,6 +241,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public PlannedRecipeMap getPlannedMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Plan> getPlans(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroceryList(String groceryList) {
             throw new AssertionError("This method should not be called.");
         }
 

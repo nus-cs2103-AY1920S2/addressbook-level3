@@ -17,11 +17,11 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-t10-1.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: "
-            + "\n add     - add a new recipe"
-            + "\n addStep - add steps to selected recipe"
+            + "\n addPlan     - addPlan a new recipe"
+            + "\n addStep - addPlan steps to selected recipe"
             + "\n edit    - edit selected recipe"
             + "\n find    - find a specific recipe"
-            + "\n delete  - delete selected recipe"
+            + "\n deletePlan  - deletePlan selected recipe"
             + "\n list    - list all recipes"
             + "\n switch  - switch tabs"
             + "\n exit    - to leave HYBB"

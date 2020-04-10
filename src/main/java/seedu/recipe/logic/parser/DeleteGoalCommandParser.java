@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.DeleteGoalCommand;
+import seedu.recipe.logic.commands.recipe.DeleteGoalCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 
 /**

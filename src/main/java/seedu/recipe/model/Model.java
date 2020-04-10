@@ -2,7 +2,6 @@ package seedu.recipe.model;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,7 +10,7 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -23,7 +22,7 @@ public interface Model {
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<PlannedDate> PREDICATE_SHOW_ALL_PLANNED_RECIPES = unused -> true;
+    Predicate<Plan> PREDICATE_SHOW_ALL_PLANNED_RECIPES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -132,29 +131,24 @@ public interface Model {
     void setPlannedBook(ReadOnlyPlannedBook plannedBook);
 
     /**
-     *  todo change
+     * Adds the {@code newPlan} that plans for {@code recipe}. todo
      */
-    void addToExistingPlan(Recipe recipe, PlannedDate oldPlans, PlannedDate newPlans);
-
-    /**
-     * Adds the {@code newPlan} that plans for {@code recipe}.
-     */
-    void addNewPlan(Recipe recipe, PlannedDate newPlan);
+    void addPlan(Recipe recipe, Plan plan);
 
     /**
      * Deletes the {@code recipe} plan from the {@code plannedDate}.
      */
-    void deleteOnePlan(Recipe recipe, PlannedDate plannedDate);
+    void deletePlan(Recipe recipe, Plan plan);
 
     /**
      * Returns an unmodifiable view of the planned recipes.
      */
-    ObservableList<PlannedDate> getFilteredPlannedList();
+    ObservableList<Plan> getFilteredPlannedList();
 
     /**
      * Updates the filtered planned list to be filtered using the {@code predicate}.
      */
-    void updateFilteredPlannedList(Predicate<PlannedDate> predicate) throws NullPointerException;
+    void updateFilteredPlannedList(Predicate<Plan> predicate) throws NullPointerException;
 
     /**
      * Returns the mapping of recipes to planned dates.
@@ -164,7 +158,7 @@ public interface Model {
     /**
      * Returns the list of plans that uses {@code recipe}.
      */
-    List<PlannedDate> getPlans(Recipe recipe);
+    List<Plan> getPlans(Recipe recipe);
 
     /**
      * Returns the grocery list containing all the ingredients in the planned recipes.
@@ -203,8 +197,6 @@ public interface Model {
      */
     boolean hasRecord(Record record);
 
-<<<<<<< HEAD
-=======
     /**
      * Replaces quotelist data with the data in {@code quotes}.
      */
@@ -219,5 +211,4 @@ public interface Model {
      * Returns true if a quote with the same identity as {@code quote} exists in the quote book.
      */
     boolean hasQuote(Quote quote);
->>>>>>> master
 }

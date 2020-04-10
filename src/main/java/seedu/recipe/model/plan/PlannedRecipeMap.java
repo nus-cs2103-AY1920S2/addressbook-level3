@@ -13,7 +13,7 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class PlannedRecipeMap {
 
-    private Map<Recipe, List<PlannedDate>> internalMap;
+    private Map<Recipe, List<Plan>> internalMap;
 
     public PlannedRecipeMap() {
         internalMap = new HashMap<>();
@@ -27,77 +27,55 @@ public class PlannedRecipeMap {
         internalMap.putAll(plannedRecipeMap.getInternalMap());
     }
 
-    /**
-     * Adds the {@code plannedDate} to the list of planned recipes at {@code recipe}.
-     */
-    public void addOnePlannedRecipe(Recipe recipe, PlannedDate plannedDate) {
+    public void addPlan(Recipe recipe, Plan plan) {
         if (internalMap.containsKey(recipe)) {
-            internalMap.get(recipe).add(plannedDate);
+            internalMap.get(recipe).add(plan);
         } else {
-            List<PlannedDate> allPlans = new ArrayList<>();
-            allPlans.add(plannedDate);
-            internalMap.put(recipe, allPlans);
+            List<Plan> plans = new ArrayList<>();
+            plans.add(plan);
+            internalMap.put(recipe, plans);
+        }
+    }
+
+    public void deletePlan(Recipe recipe, Plan plan) {
+        if (internalMap.containsKey(recipe)) {
+            List<Plan> plans = internalMap.get(recipe);
+            if (plans.size() == 1) {
+                internalMap.remove(recipe);
+            } else {
+                plans.remove(plan);
+            }
         }
     }
 
     /**
-     * Adds all {@code plannedDates} to the {@code recipe} key. todo remove
+     * Deletes the list of plans at {@code recipe} key.
      */
-    public void addAllPlannedRecipes(Recipe recipe, List<PlannedDate> plannedDates) {
-        if (internalMap.containsKey(recipe)) {
-            internalMap.get(recipe).addAll(plannedDates);
-        } else {
-            internalMap.put(recipe, plannedDates);
-        }
-    }
-
-    /**
-     * Adds the {@code plannedDate} to all {@code recipes} keys
-     */
-    public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
-        recipes.stream().forEach(recipe -> addOnePlannedRecipe(recipe, plannedDate));
-    }
-
-
-    /**
-     * Deletes the {@code plannedDate} from the list at the {@code recipe} key.
-     */
-    public void deleteOnePlannedRecipe(Recipe recipe, PlannedDate plannedDate) {
-        List<PlannedDate> allPlans = internalMap.get(recipe);
-        if (allPlans.size() == 1) { // only one plan in this list
+    public void deleteRecipe(Recipe recipe) {
+        if (internalMap.containsKey(recipe)) { // todo check first?
             internalMap.remove(recipe);
-        } else {
-            allPlans.remove(plannedDate);
-        }
-        System.out.println("Removed from mapping============================\n" + internalMap);
-    }
-
-    /**
-     * Deletes the list of planned recipes at {@code recipe} key.
-     */
-    public void deleteAllPlannedRecipes(Recipe recipe) {
-        internalMap.remove(recipe);
-    }
-
-    /**
-     * Returns a new list of planned dates at the {@code recipe} key.
-     * If {@code recipe} does not exist, return a new list.
-     */
-    public List<PlannedDate> getPlans(Recipe recipe) {
-        if (contains(recipe)) {
-            return new ArrayList<>(internalMap.get(recipe));
-        } else {
-            return new ArrayList<>();
         }
     }
 
     /**
      * Removes the values at {@code target} key and places the updated values at the {@code editedRecipe} key.
      */
-    public void setRecipe(Recipe target, Recipe editedRecipe, List<PlannedDate> newPlans) {
+    public void setRecipe(Recipe target, Recipe editedRecipe, List<Plan> newPlans) {
         if (internalMap.containsKey(target)) {
             internalMap.remove(target);
             internalMap.put(editedRecipe, newPlans);
+        }
+    }
+
+    /**
+     * Returns a new list of plans at the {@code recipe} key.
+     * If {@code recipe} does not exist, return a new list.
+     */
+    public List<Plan> getPlans(Recipe recipe) {
+        if (contains(recipe)) {
+            return new ArrayList<>(internalMap.get(recipe));
+        } else {
+            return new ArrayList<>(); // or check before calling this? todo
         }
     }
 
@@ -111,7 +89,7 @@ public class PlannedRecipeMap {
     /**
      * Returns a new copy of the recipe to list-of-planned-recipes mapping.
      */
-    public Map<Recipe, List<PlannedDate>> getInternalMap() {
+    public Map<Recipe, List<Plan>> getInternalMap() {
         return new HashMap<>(internalMap);
     }
 

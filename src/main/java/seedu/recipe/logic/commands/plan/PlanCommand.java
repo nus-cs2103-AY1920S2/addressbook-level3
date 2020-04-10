@@ -17,8 +17,8 @@ import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
-import seedu.recipe.model.plan.PlannedDate;
-import seedu.recipe.model.plan.PlannedRecipeOnDatePredicate;
+import seedu.recipe.model.plan.DuplicatePlannedRecipeException;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
@@ -44,8 +44,8 @@ public class PlanCommand extends Command {
             "already been planned on this date:\n%1$s";
 
     private final Index[] indexes;
+    private final Date date;
     private final Tab planTab = Tab.PLANNING;
-    private final Date atDate;
     private final CommandType commandType;
 
     /**
@@ -56,7 +56,7 @@ public class PlanCommand extends Command {
         requireNonNull(date);
         this.indexes = indexes;
         this.commandType = CommandType.PLAN;
-        this.atDate = date;
+        this.date = date;
     }
 
     @Override
@@ -72,37 +72,27 @@ public class PlanCommand extends Command {
 
         for (int i = 0; i < indexes.length; i++) {
             Index currentIndex = indexes[i];
-            Recipe recipeToPlan = lastShownList.get(currentIndex.getZeroBased());
+            Recipe recipe = lastShownList.get(currentIndex.getZeroBased());
 
-            model.updateFilteredPlannedList(new PlannedRecipeOnDatePredicate(atDate));
-            List<PlannedDate> potentialPlans = model.getFilteredPlannedList();
-            PlannedDate newPlans;
-            if (!potentialPlans.isEmpty()) {
-                PlannedDate currentPlans = potentialPlans.get(0);
-                if (currentPlans.hasRecipe(recipeToPlan)) {
-                    duplicatePlansMessage.add(formatIndexToString(currentIndex, recipeToPlan));
-                    continue;
-                }
-                newPlans = currentPlans.addRecipe(recipeToPlan);
-                model.addToExistingPlan(recipeToPlan, currentPlans, newPlans);
-            } else {
-                List<Recipe> recipes = new ArrayList<>();
-                recipes.add(recipeToPlan);
-                newPlans = new PlannedDate(recipes, atDate);
-                model.addNewPlan(recipeToPlan, newPlans);
+            Plan plan = new Plan(recipe, date);
+            try {
+                model.addPlan(recipe, plan);
+                newPlansMessage.add(formatIndexToString(currentIndex, recipe));
+            } catch (DuplicatePlannedRecipeException duplicate) {
+                duplicatePlansMessage.add(formatIndexToString(currentIndex, recipe));
             }
         }
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(formatSuccessMessage(newPlansMessage, duplicatePlansMessage, atDate),
+        return new CommandResult(formatSuccessMessage(newPlansMessage, duplicatePlansMessage, date),
                 false, false, planTab, false);
     }
 
     /**
      * Returns true if all {@code indexes} are within the size of the planned {@code recipes} list.
      */
-    private static boolean allIndexesAreValid(Index[] indexes, List<Recipe> recipes) {
+    private static boolean allIndexesAreValid(Index[] indexes, List<?> recipes) {
         List<Index> invalidIndexes = Arrays.stream(indexes)
                 .filter(index -> index.getOneBased() > recipes.size())
                 .collect(Collectors.toList());

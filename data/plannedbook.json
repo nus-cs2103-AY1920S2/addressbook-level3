@@ -1,31 +1,6 @@
 {
   "plannedRecipes" : [ {
-    "recipes" : [ {
-      "name" : "Quick Carrot Daikon Stir-fry",
-      "time" : "25",
-      "isFavourite" : false,
-      "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
-      "vegetables" : [ "30.0g,  Same vege" ],
-      "proteins" : [ ],
-      "fruits" : [ ],
-      "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
-      "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
-      "goals" : [ ]
-    } ],
-    "date" : "2020-04-03"
-  }, {
-    "recipes" : [ {
-      "name" : "testest",
-      "time" : "15",
-      "isFavourite" : true,
-      "grains" : [ "50.0g,  Grain", "30.0g,  Rice" ],
-      "vegetables" : [ ],
-      "proteins" : [ ],
-      "fruits" : [ "50.0g,  Fruit" ],
-      "others" : [ ],
-      "steps" : [ "step 1", "edited step 2" ],
-      "goals" : [ ]
-    }, {
+    "recipe" : {
       "name" : "edit name test",
       "time" : "100",
       "isFavourite" : false,
@@ -36,7 +11,21 @@
       "others" : [ "0.8tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tsp,  Shaoxing wine", "2.0tsp,  Sugar", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
       "steps" : [ "Cut tomatoes into small wedges and finely chop scallion", "Crack eggs into bowl and season with ¼ tsp salt, white pepper", "sesame oil, and shaoxing wine. Beat the eggs.", "Preheat wok over medium heat until it starts to smoke. Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from wok immediately. Set aside.", "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. If water cooks off too quickly, add a little more water. Add the cooked eggs.", "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely softened.", "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!" ],
       "goals" : [ "Herbivore" ]
-    } ],
-    "date" : "2020-04-10"
+    },
+    "date" : "2020-04-11"
+  }, {
+    "recipe" : {
+      "name" : "5 Ingredient Spelt Spaghetti",
+      "time" : "25",
+      "isFavourite" : false,
+      "grains" : [ "80.0g,  Spelt spaghetti" ],
+      "vegetables" : [ "2.0cup,  Arugula (salad rockets)", "50.0g,  Leek", "300.0g,  Tomatoes", "300.0g,  Zucchini" ],
+      "proteins" : [ "50.0g,  Egg" ],
+      "fruits" : [ ],
+      "others" : [ "1.0tbsp,  Fresh basil", "2.0tbsp,  Italian herbs", "0.5tbsp,  Olive oil", "1.0tbsp,  Pepper", "2.0tbsp,  Salt", "2.0tbsp,  Xucker ketchup" ],
+      "steps" : [ "Thinly slice Tomatoes and Leek and shred your Zucchini.", "Heat up Oil in a large Pan on a medium-high Level and roast Leek until golden.", "Now add Zucchini.", "When the Zucchini´s roasted, stir in Tomatoes and turn down Heat to a lower Level.", "Let cook for 5-7 Minutes until it turn into a Sauce.", "Meanwhile, prepare Spaghetti according to the Directions stated on the Package.", "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.", "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg, Parmesan and more fresh Basil." ],
+      "goals" : [ "Wholesome Wholemeal" ]
+    },
+    "date" : "2020-04-11"
   } ]
 }

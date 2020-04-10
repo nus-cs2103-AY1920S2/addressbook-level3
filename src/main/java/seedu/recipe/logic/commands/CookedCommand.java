@@ -54,11 +54,11 @@ public class CookedCommand extends Command {
             if (model.hasRecord(record)) {
                 throw new CommandException(MESSAGE_DUPLICATE_RECORD);
             }
-            //add record to internal list and update goals tally for each record added
+            //addPlan record to internal list and update goals tally for each record added
             model.addRecord(record);
             model.updateGoalsTally(record);
-            //TODO: remove recipe from planned list if exists once done
-            List<PlannedDate> plans = model.getPlans(recipeCooked);
+            //TODO: deletePlan recipe from planned list if exists once done
+ /*           List<PlannedDate> plans = model.getPlans(recipeCooked);
             Optional<PlannedDate> planToday = plans.stream()
                     .filter(plan -> plan.isOnDate(Date.today()))
                     .findFirst();
@@ -69,7 +69,7 @@ public class CookedCommand extends Command {
 
                 model.deleteOnePlan(recipeCooked, plan);
                 sb.append("and removed the plans for ");
-            }
+            }*/
 
 
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {

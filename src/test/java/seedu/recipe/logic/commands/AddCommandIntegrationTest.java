@@ -37,7 +37,7 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
-        // System.out.println(validRecipe); // todo remove later
+        // System.out.println(validRecipe); // todo deletePlan later
 
         expectedModel.addRecipe(validRecipe);
 

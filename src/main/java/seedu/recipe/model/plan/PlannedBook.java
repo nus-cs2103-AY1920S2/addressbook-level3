@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.model.ReadOnlyPlannedBook;
@@ -16,12 +15,12 @@ import seedu.recipe.model.recipe.Recipe;
  */
 public class PlannedBook implements ReadOnlyPlannedBook {
 
-    private final UniquePlannedList plannedDates;
+    private final UniquePlannedList uniquePlans;
     private final PlannedRecipeMap recipeMap;
     private String groceryList = "";
 
     public PlannedBook() {
-        plannedDates = new UniquePlannedList();
+        uniquePlans = new UniquePlannedList();
         recipeMap = new PlannedRecipeMap();
     }
 
@@ -35,11 +34,11 @@ public class PlannedBook implements ReadOnlyPlannedBook {
 
 
     /**
-     * Replaces the contents of the planned recipe list with {@code plannedDates}.
-     * {@code plannedDates} must not contain duplicate recipes on the same day.
+     * Replaces the contents of the planned recipe list with {@code plans}.
+     * {@code plans} must not contain duplicate recipes on the same day.
      */
-    public void setPlannedDates(ObservableList<PlannedDate> plannedDates) {
-        this.plannedDates.setPlannedDates(plannedDates);
+    public void setUniquePlans(ObservableList<Plan> uniquePlans) {
+        this.uniquePlans.setPlannedDates(uniquePlans);
     }
 
     /**
@@ -55,78 +54,46 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     public void resetData(ReadOnlyPlannedBook newData) {
         requireNonNull(newData);
 
-        setPlannedDates(newData.getPlannedList());
+        setUniquePlans(newData.getPlannedList());
         setRecipeMap(newData.getPlannedMap());
     }
 
     // ===== PlannedDate and Recipe level methods =====
 
-    /**
+/*    *//**
      * Checks whether the planned book contains {@code plannedDate}.
-     */
+     *//*
     public boolean containsPlan(PlannedDate plannedDate) {
-        return plannedDates.hasPlannedDate(plannedDate);
-    }
+        return plannedDates.(plannedDate);
+    }*/
 
-    /**
-     * todo
-     */
-    public void addToExistingPlan(Recipe recipe, PlannedDate oldPlans, PlannedDate newPlans) {
-        //plannedDates.add(plannedDate); // change to Set
-        plannedDates.setPlannedDate(oldPlans, newPlans);
-        recipeMap.addOnePlannedRecipe(recipe, newPlans);
-        System.out.println("ALL MAPPINGS AFTER ADDING ===============\n" + recipeMap.getInternalMap());
-    }
 
     /**
      * Adds {@code newPlan} into the planned recipes and recipe map.
      * The planned recipe must not exist in the planned book.
      */
-    public void addNewPlan(Recipe recipe, PlannedDate newPlan) {
-        plannedDates.add(newPlan);
-        recipeMap.addOnePlannedRecipe(recipe, newPlan);
-    }
-
-    /**
-     * Updates the recipe map for all {@code recipes}.
-     * Adds {@code plannedDate} into the planned recipes list.
-     * The planned recipe must not exist in the planned book.
-     */
-    public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
-        plannedDates.add(plannedDate);
-        recipeMap.addAllRecipesToPlan(recipes, plannedDate);
-    }
-
-    /**
-     * Deletes {@code recipe} from all planned dates in the planned recipes list and map.
-     */
-    public void deleteAllRecipePlans(Recipe recipe) {
-        List<PlannedDate> plans = new ArrayList<>(recipeMap.getPlans(recipe));
-        recipeMap.deleteAllPlannedRecipes(recipe);
-        for (PlannedDate plan: plans) {
-            if (plan.isOneRecipe()) {
-                plannedDates.remove(plan); // delete planned date if it consisted of that one recipe only
-            } else {
-                plannedDates.remove(plan);
-                PlannedDate newPlannedDate = plan.deleteRecipe(recipe);
-                plannedDates.add(newPlannedDate);
-            }
-        }
+    public void addPlan(Recipe recipe, Plan plan) {
+        uniquePlans.addPlan(plan);
+        recipeMap.addPlan(recipe, plan);
     }
 
     /**
      * Deletes {@code recipe} in the mapping.
-     * And deletes the entire {@code plannedDate} if the {@code recipe} is the last plan on that day.
-     * Otherwise, deletes {@code recipe} from the planned recipes in {@code plannedDate}.
+     * And deletes the entire {@code plan} if the {@code recipe} is the last plan on that day.
+     * Otherwise, deletes {@code recipe} from the planned recipes in {@code plan}.
      */
-    public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
-        if (plannedDate.isOneRecipe()) { // if one recipe is left, remove plannedDate
-            plannedDates.remove(plannedDate);
-        } else {
-            PlannedDate updatedPlan = plannedDate.deleteRecipe(recipe);
-            plannedDates.setPlannedDate(plannedDate, updatedPlan); //todo for others
-        }
-        recipeMap.deleteOnePlannedRecipe(recipe, plannedDate);
+    public void deletePlan(Recipe recipe, Plan plan) {
+        uniquePlans.deletePlan(plan);
+        recipeMap.deletePlan(recipe, plan);
+    }
+
+    /**
+     * Deletes {@code recipe} from all planned dates in the plan list and map.
+     */
+    public void deleteRecipe(Recipe recipe) {
+        List<Plan> plans = new ArrayList<>(recipeMap.getPlans(recipe));
+        plans.stream().forEach(plan -> uniquePlans.deletePlan(plan));
+        recipeMap.deleteRecipe(recipe);
     }
 
     /**
@@ -134,13 +101,13 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         if (recipeMap.contains(target)) {
-            List<PlannedDate> oldPlans = new ArrayList<>(recipeMap.getPlans(target));
-            List<PlannedDate> newPlans = new ArrayList<>();
-            for (PlannedDate plan : oldPlans) {
-                plannedDates.remove(plan);
-                PlannedDate newPlan = plan.setRecipe(target, editedRecipe);
+            List<Plan> oldPlans = recipeMap.getPlans(target);
+            List<Plan> newPlans = new ArrayList<>();
+            for (Plan plan : oldPlans) {
+                Plan newPlan = plan.setRecipe(editedRecipe);
                 newPlans.add(newPlan);
-                plannedDates.add(newPlan);
+                uniquePlans.deletePlan(plan);
+                uniquePlans.addPlan(newPlan);
             }
             recipeMap.setRecipe(target, editedRecipe, newPlans);
         }
@@ -150,7 +117,7 @@ public class PlannedBook implements ReadOnlyPlannedBook {
      * Returns the list of plans that uses {@code recipe}.
      * Returns an empty list of there are no recipes.
      */
-    public List<PlannedDate> getPlans(Recipe recipe) {
+    public List<Plan> getPlans(Recipe recipe) {
         return recipeMap.getPlans(recipe);
     }
 
@@ -161,7 +128,11 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     public void completePlan(Recipe recipeCooked, PlannedDate plannedDate) {
         plannedDates.complete(recipeCooked, plannedDate);
         recipeMap.deleteOnePlannedRecipe(recipeCooked, plannedDate);
-    }*/ // todo remove once cooked command is complete
+    }*/ // todo deletePlan once cooked command is complete
+
+    public boolean containsPlan(Plan plan) {
+        return uniquePlans.containsPlan(plan);
+    }
 
     // ===== Grocery list methods =====
 
@@ -183,8 +154,8 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     // ===== Util methods =====
 
     @Override
-    public ObservableList<PlannedDate> getPlannedList() {
-        return plannedDates.asUnmodifiableObservableList();
+    public ObservableList<Plan> getPlannedList() {
+        return uniquePlans.asUnmodifiableObservableList();
     }
 
     @Override
@@ -196,12 +167,12 @@ public class PlannedBook implements ReadOnlyPlannedBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PlannedBook // instanceof handles nulls
-                && plannedDates.equals(((PlannedBook) other).plannedDates));
+                && uniquePlans.equals(((PlannedBook) other).uniquePlans));
     }
 
     @Override
     public int hashCode() {
-        return plannedDates.hashCode();
+        return uniquePlans.hashCode();
     }
 
 }

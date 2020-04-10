@@ -23,27 +23,12 @@ public class DeletePlanCommandParser implements Parser<DeletePlanCommand> {
     /**
      * Parses the given {@code args} of arguments in the context of the DeletePlanCommand
      * and returns an PlanCommand object for execution.
-     * @throws ParseException if the user input does not conform to the expected format.
+     * @throws ParseException if the user input does not conform to the expected format. todo
      */
     public DeletePlanCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
+        Index[] indexes = ParserUtil.parseMultipleIndex(args);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePlanCommand.MESSAGE_USAGE));
-        }
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-
-        String allIndexes = argMultimap.getPreamble();
-        Index[] indexes = ParserUtil.parseMultipleIndex(allIndexes);
-
-        return new DeletePlanCommand(indexes, date);
+        return new DeletePlanCommand(indexes);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }

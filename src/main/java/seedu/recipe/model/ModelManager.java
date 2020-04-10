@@ -18,6 +18,7 @@ import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipeMap;
@@ -37,7 +38,7 @@ public class ModelManager implements Model {
     private final MultipleBookStateManager states;
     private final CookedRecordBook cookedRecordBook;
     private final FilteredList<Record> filteredRecords;
-    private final FilteredList<PlannedDate> filteredPlannedDates;
+    private final FilteredList<Plan> filteredPlannedDates;
     private final QuoteBook quoteBook;
     private final FilteredList<Quote> filteredQuotes;
 
@@ -126,7 +127,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteRecipe(Recipe target) {
         recipeBook.removeRecipe(target);
-        plannedBook.deleteAllRecipePlans(target);
+        plannedBook.deleteRecipe(target);
     }
 
     @Override
@@ -215,26 +216,19 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addToExistingPlan(Recipe recipe, PlannedDate oldPlans, PlannedDate newPlans) {
-        requireAllNonNull(recipe, oldPlans, newPlans);
-        plannedBook.addToExistingPlan(recipe, oldPlans, newPlans);
+    public void addPlan(Recipe recipe, Plan plan) {
+        requireAllNonNull(recipe, plan);
+        plannedBook.addPlan(recipe, plan);
     }
 
     @Override
-    public void addNewPlan(Recipe recipe, PlannedDate newPlan) {
-        requireAllNonNull(recipe, newPlan);
-        plannedBook.addNewPlan(recipe, newPlan);
-    }
-
-
-    @Override
-    public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
-        requireAllNonNull(recipe, plannedDate);
-        plannedBook.deleteOnePlan(recipe, plannedDate);
+    public void deletePlan(Recipe recipe, Plan plan) {
+        requireAllNonNull(recipe, plan);
+        plannedBook.deletePlan(recipe, plan);
     }
 
     @Override
-    public List<PlannedDate> getPlans(Recipe recipe) {
+    public List<Plan> getPlans(Recipe recipe) {
         requireNonNull(recipe);
         return plannedBook.getPlans(recipe);
     }
@@ -250,12 +244,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<PlannedDate> getFilteredPlannedList() {
+    public ObservableList<Plan> getFilteredPlannedList() {
         return filteredPlannedDates;
     }
 
     @Override
-    public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
+    public void updateFilteredPlannedList(Predicate<Plan> predicate) {
         requireNonNull(predicate);
         filteredPlannedDates.setPredicate(predicate);
     }
