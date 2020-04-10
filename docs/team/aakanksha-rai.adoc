@@ -30,7 +30,8 @@ that were used in *Student View* from scratch.
 This was one of my main features.
 
 ** What it does: Allows the user to sort the students by rating (in ascending or
-descending order), by matriculation number or alphabetically.
+descending order), by matriculation number or alphabetically. There are three variations
+of the sort
 
 * *Major enhancement*: in charge of *Student View* and did most of the commands
 used in the *Student View*
