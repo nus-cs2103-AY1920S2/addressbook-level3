@@ -30,7 +30,10 @@ import javafx.beans.property.StringProperty;
 public class SuggestionEngineImpl implements SuggestionEngine {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit", "search");
+    private static final List<String> COMMAND_LIST = List.of(NewSuggestionCommandParser.COMMAND_WORD,
+            EditSuggestionCommandParser.COMMAND_WORD, DeleteSuggestionCommandParser.COMMAND_WORD,
+            OpenSuggestionCommandParser.COMMAND_WORD, HelpSuggestionCommandParser.COMMAND_WORD,
+            ExitSuggestionCommandParser.COMMAND_WORD, SearchSuggestionCommandParser.COMMAND_WORD);
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_PATH_FORWARD_MATCHING = true;
 
