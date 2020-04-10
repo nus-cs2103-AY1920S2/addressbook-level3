@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -20,7 +23,8 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + COMMAND_WORD + " [o/ORGANIZATION] [n/WORD] [t/TAG]\n"
-            + "Example: " + COMMAND_WORD + " o/NUS n/Lim";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_ORGANIZATION + "NUS "
+            + PREFIX_NAME + " Lim";
 
     private final OrganizationContainsKeywordsPredicate organizationPredicate;
     private final NameContainsKeywordsPredicate wordPredicate;
