@@ -8,7 +8,6 @@ import static seedu.delino.logic.commands.ImportCommand.PROCESS_FAILED_MESSAGE;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_ORDERTYPE;
 import static seedu.delino.testutil.Assert.assertThrows;
 import static seedu.delino.testutil.CsvUtil.ADDTIONAL_NAME_CSV_ORDER_AMY;
-import static seedu.delino.testutil.CsvUtil.ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY;
 import static seedu.delino.testutil.CsvUtil.INVALID_CSV_ORDER_AMY;
 import static seedu.delino.testutil.CsvUtil.INVALID_CSV_ORDER_BOB;
 import static seedu.delino.testutil.CsvUtil.INVALID_CSV_RETURN_ORDER_AMY;
@@ -22,7 +21,6 @@ import static seedu.delino.testutil.CsvUtil.VALID_WHITESPACE_IN_BETWEEN_RETURN_O
 import static seedu.delino.testutil.TypicalOrders.ADDITIONAL_NAME_AMY;
 import static seedu.delino.testutil.TypicalOrders.AMY;
 import static seedu.delino.testutil.TypicalOrders.BOB;
-import static seedu.delino.testutil.TypicalReturnOrders.ADDITIONAL_NAME_AMY_RETURN;
 import static seedu.delino.testutil.TypicalReturnOrders.AMY_RETURN;
 import static seedu.delino.testutil.TypicalReturnOrders.BOB_RETURN;
 
@@ -42,6 +40,7 @@ import seedu.delino.model.ReturnOrderBook;
 import seedu.delino.model.UserPrefs;
 import seedu.delino.storage.CsvProcessor;
 
+//@@author Exeexe93
 class ImportCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvFileTest");
     private static final Path VALID_CSV_FILE = TEST_DATA_FOLDER.resolve("validCsvFile.csv");
@@ -72,13 +71,11 @@ class ImportCommandTest {
 
         expectedModel.addReturnOrder(AMY_RETURN);
         expectedModel.addReturnOrder(BOB_RETURN);
-        expectedModel.addReturnOrder(ADDITIONAL_NAME_AMY_RETURN);
 
         List<String> dataRetrieved = new ArrayList<>();
         dataRetrieved.add(VALID_CSV_RETURN_ORDER_AMY);
         dataRetrieved.add(VALID_WHITESPACE_IN_BETWEEN_RETURN_ORDER_BOB);
         // Extra Bob name after Amy name
-        dataRetrieved.add(ADDTIONAL_NAME_CSV_RETURN_ORDER_AMY);
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
         HashMap<Integer, String> errorMessages = new HashMap<>();
