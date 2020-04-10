@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.modulecommand;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalNusModules.getTypicalModuleBook;
 
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModuleBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.Grade;
@@ -25,14 +25,18 @@ class GradeCommandTest {
             getTypicalModuleBook(), FXCollections.observableList(new ArrayList<Task>()));
 
     @Test
-    public void execute_updateGradeForModuleWithoutGrade_successful() throws Exception {
-        ModuleCode validModuleCode = TypicalNusModules.CS2030.getModuleCode();
-        GradeCommand gradeCommand = new GradeCommand(validModuleCode, Grade.A);
-        CommandResult commandResult = gradeCommand.execute(model);
-        assertEquals(GradeCommand.MESSAGE_SUCCESS + " "
+    public void execute_updateGradeForModuleWithGrade_successful() throws Exception {
+        ModuleCode validModuleCode = TypicalNusModules.ST3131.getModuleCode();
+        GradeCommand gradeCommand = new GradeCommand(validModuleCode, Grade.S);
+        String expectedMessage = GradeCommand.MESSAGE_SUCCESS + " "
                 + validModuleCode + " "
-                + Grade.A.getText(),
-                commandResult.getFeedbackToUser());
+                + Grade.S.getText();
+
+        Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs(),
+                new ModuleBook(model.getModuleBook()), FXCollections.observableList(new ArrayList<Task>()));
+        expectedModel.gradeModule(validModuleCode, Grade.S);
+
+        assertCommandSuccess(gradeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

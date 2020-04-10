@@ -21,8 +21,8 @@ class CapCommandTest {
             getTypicalModuleBook(), FXCollections.observableList(new ArrayList<Task>()));
 
     @Test
-    public void execute_noGradeStated_successful() {
-        CommandResult commandResult = (new CapCommand()).execute(model);
+    public void execute_noGradeStatedForSomeModule_successful() {
+        CommandResult commandResult = new CapCommand().execute(model);
 
         assertEquals(CapCommand.MESSAGE_SUCCESS + "\nCurrent CAP: " + "0.0",
                 commandResult.getFeedbackToUser());
