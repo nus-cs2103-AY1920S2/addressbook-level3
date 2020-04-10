@@ -36,6 +36,4 @@ public final class CommandWords {
     /* Others */
     public static final String LIST = "list";
     public static final String DONE_SESSION = "done";
-
-    public static final String FIND = "find";
 }

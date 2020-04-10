@@ -1,7 +1,6 @@
 package tatracker.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -13,18 +12,15 @@ import static tatracker.logic.parser.Prefixes.TAG;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
 import tatracker.commons.core.LogsCenter;
-import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.CommandResult.Action;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.commands.student.EditStudentCommand;
 import tatracker.model.Model;
 import tatracker.model.TaTracker;
-import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
 import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
@@ -59,8 +55,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + EMAIL + VALID_EMAIL_BOB;
     public static final String MATRIC_DESC_AMY = " " + MATRIC + VALID_MATRIC_AMY;
     public static final String MATRIC_DESC_BOB = " " + MATRIC + VALID_MATRIC_BOB;
-    public static final String RATING_DESC_AMY = " " + RATING + VALID_MATRIC_AMY;
-    public static final String RATING_DESC_BOB = " " + RATING + VALID_MATRIC_BOB;
+    public static final String RATING_DESC_AMY = " " + RATING + VALID_RATING_AMY;
+    public static final String RATING_DESC_BOB = " " + RATING + VALID_RATING_BOB;
     public static final String TAG_DESC_FRIEND = " " + TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + TAG + VALID_TAG_HUSBAND;
 
@@ -158,18 +154,4 @@ public class CommandTestUtil {
         assertEquals(expectedTaTracker, actualModel.getTaTracker());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
-    /**
-     * Updates {@code model}'s filtered list to show only the student at the given {@code targetIndex} in the
-     * {@code model}'s ta-tracker.
-     */
-    public static void showStudentAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredStudentList().size());
-
-        Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
-        final String[] splitName = student.getName().fullName.split("\\s+");
-        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredStudentList().size());
-    }
-
 }
