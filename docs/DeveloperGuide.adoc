@@ -157,23 +157,47 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 === Sorting
+==== Implementation
+*API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/SortCommand.java[`SortCommand.java`]
 
 .Sequence of executing a sort command
 image::SortSequenceDiagram.png[]
+The sort command takes in a list of fields and creates an aggregate comparator. The Model will then set the same `Comparator` on the `TaskList` which internally sets it on a `SortedList` form the javaFx library. This SortedList will then help us maintain a sorted order with new or edited tasks.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/SortCommand.java[`SortCommand.java`]
+// TODO add diagram of how TaskListPanel is referencing FilteredList and FilteredList references TaskList which contains SortedList that is aware of the UniqueTaskList
+Given that the FilteredList cannot perform sorting, we could:
 
-==== Implementation
-In order for the UI to remain updated, we've decided to use the same FilteredList in the Model. The sorting is thus performed not on the FilteredList but on the TaskList which the FilteredList references. +
-// TODO add diagram for FilteredList and taskList interaction.
-We decided to keep the list of Comparators in the Model so that we may maintain the sorted order even with edited or added tasks. We set the comparator as seen in the diagram via the setComparators call to Model. The Model will thus now keep a list of comparators parsed by the SortCommand when setComparators is called on the Model. Everytime the sort command is called, the ModelManager sorts the taskList of the model that the filteredList is still referencing. This allows the UI to use the same filteredList and predicates the filteredList has applied and be sorted as well. 
+. Create a SortedList from the FilteredList and set the comparator and then create a new FilteredList from the SortedList. But this means we need to reassign the new FilteredList to the UI to reflect the change.
+. (chosen implementation) A better method of sorting the list that FilteredList has as a reference. 
 
-To implement this, we've augmented the UniqueTaskList and TaskList with a function setComparator. This allows us to set several comparators on the taskList to perform multi level sorting.
+To do this, our TaskList is sorted internally. We chose to do this by having the TaskList maintain  a SortedList form JavaFx which references the UniqueTaskList in TaskList as seen in the diagram. This allows us to maintain a unique list of Tasks while having new tasks added remain in the defined sort order. The FilteredList thus uses the refernce from the SortedList. 
+
+==== Updating UI
+image::SortUpdateUi.png[] // TODO add in
+
+Meanwhile to update the UI on the newest sorting order, the SortCommand will return a SortCommandResult. This SortCommandResult contains an additional field which would be the final sorting order of the TaskList. The SortCommandResult is then passed to the MainWindow and provides the payload for updating the sort order UI.
+
+SortCommandResult extends CommandResult and an additional field `sortOrder`.
 
 === AutoComplete
-
+==== Implementation
 .Activity diagram of auto complete
-image::AutoCompleteActivityDiagram.png[]
+image::AutoCompleteActivityDiagram.png[width=790]
+
+Auto complete is triggered when users press tab while on the command line. `CommandCompletor` first attempts to complete the command word, if it is unrecognized it throws a `CompletorException`. Otherwise it will perform specific checks on the input based on the command word. Here are the different checks:
+
+. If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes
+.. add/edit command -> add priority and reminder prefixes
+.. a pom command -> add timer prefix
+. If input is a delete/done command then CommandCompletor will attempt to remove any invalid indices by checking against the length of the displayed task list and checking if the index is a positive integer with `StringUtil`
+. If input is a sort command then CommandCompletor will try to complete fields by calculating the edit distance between the input and accepted sort fields. It will only correct fields with an edit distance <= 1
+
+Auto Complete output:
+
+. If words are completed, prefixes are added or nothing has changed, auto complete is labelled as successful and the UI updates to show the user a green textfield.
+. As long as any input is deleted (invalid index/sort field), auto complete will raise a warning via feedback to user by turning the feedback to orange.
+. Auto complete is labelled as an error -> no recognizable command word found.
+. Auto complete is labelled as both successful and warning.
 
 [[Pomodoro]]
 === Pomodoro
