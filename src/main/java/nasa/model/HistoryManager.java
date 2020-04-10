@@ -2,6 +2,8 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 
 /**
@@ -11,9 +13,9 @@ import javafx.collections.ObservableList;
 public class HistoryManager<T> implements HistoryModel<T> {
 
     private final HistoryBook<T> historyBook;
-    private final HistoryBook<T> uiHistoryBook;
+    private final HistoryBook<String> uiHistoryBook;
 
-    public HistoryManager(ReadOnlyHistory<T> historyBook, ReadOnlyHistory<T> uiHistoryBook) {
+    public HistoryManager(ReadOnlyHistory<T> historyBook, ReadOnlyHistory<String> uiHistoryBook) {
         requireNonNull(historyBook);
         requireNonNull(uiHistoryBook);
 
@@ -29,7 +31,7 @@ public class HistoryManager<T> implements HistoryModel<T> {
         return historyBook;
     }
 
-    public HistoryBook<T> getUiHistoryBook() {
+    public HistoryBook<String> getUiHistoryBook() {
         return uiHistoryBook;
     }
 
@@ -37,16 +39,16 @@ public class HistoryManager<T> implements HistoryModel<T> {
         return historyBook.getItem();
     }
 
-    public T getUiItem() {
+    public String getUiItem() {
         return uiHistoryBook.getItem();
     }
 
-    public void addUiHistory(T uiList) {
+    public void addUiHistory(String uiList) {
         uiHistoryBook.add(uiList);
     }
 
     @Override
-    public void add(T moduleList, T uiList) {
+    public void add(T moduleList, String uiList) {
         historyBook.add(moduleList);
         uiHistoryBook.add(uiList);
     }

@@ -15,6 +15,10 @@ public class ActivityContainsKeyWordsPredicate implements Predicate<Activity> {
         this.keywords = keywords;
     }
 
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
     @Override
     public boolean test(Activity activity) {
         return keywords.stream()

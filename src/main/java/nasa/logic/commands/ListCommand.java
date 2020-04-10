@@ -20,6 +20,7 @@ public class ListCommand extends Command {
         requireNonNull(model);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        model.updateHistory("list" + model.currentUiLocation());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

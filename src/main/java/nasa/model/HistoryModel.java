@@ -1,5 +1,7 @@
 package nasa.model;
 
+import java.util.function.Predicate;
+
 /**
  * API of History interface.
  * @param <T> Type
@@ -10,5 +12,5 @@ public interface HistoryModel<T> {
 
     boolean redo();
 
-    void add(T list, T uiList);
+    void add(T list, String uiList);
 }

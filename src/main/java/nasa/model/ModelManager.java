@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class ModelManager implements Model {
      * @param userPrefs   ReadOnlyUserPrefs
      */
     public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
-                        ReadOnlyHistory<UniqueModuleList> uiHistoryBook,
+                        ReadOnlyHistory<String> uiHistoryBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(nasaBook, userPrefs);
@@ -74,7 +75,7 @@ public class ModelManager implements Model {
      */
     public void initialisation() {
         updateSchedule();
-        updateHistory();
+        updateHistory("null");
         Quote.readFile();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
@@ -90,66 +91,76 @@ public class ModelManager implements Model {
     /**
      * Update the history manager list every time there is a change.
      */
-    public void updateHistory() {
+    public void updateHistory(String type) {
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+        historyManager.add(temp, type);
+    }
+
+
+    /**
+     * Update the history manager list every time there is a change.
+     */
+    public void updateHistory(List<String> input, String type) {
         final UniqueModuleList temp = new UniqueModuleList();
         temp.setModules(nasaBook.getDeepCopyList());
 
-        final UniqueModuleList uiTemp = new UniqueModuleList();
-        uiTemp.setModules(getFilteredModuleList());
-
-        historyManager.add(temp, uiTemp);
+        StringBuilder output = new StringBuilder();
+        output.append(type);
+        input.forEach(x -> {
+                    output.append(",");
+                    output.append(x);
+                });
+        System.out.println(output.toString());
+        historyManager.add(temp, output.toString());
     }
 
-    public void updateUiHistory(ObservableList<Module> list) {
-        final UniqueModuleList uiTemp = new UniqueModuleList();
-        uiTemp.setModules(list);
-        historyManager.addUiHistory(uiTemp);
+    public void refreshUi() {
+        String temp = historyManager.getUiItem();
+        List<String> test = Arrays.asList(temp.split(","));
+        String type = test.get(0);
+
+
+        if (type.equals("find")) {
+            if (test.get(1).equals("activity")) {
+                test.subList(2, test.size());
+                updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
+            } else if (test.get(1).equals("module")) {
+                test.subList(2, test.size());
+                updateFilteredModuleList(new NameContainsKeywordsPredicate(test));
+            }
+        }
+
+        if (!type.equals("null")) {
+            if (test.get(1).equals("activity")) {
+                test.subList(2, test.size());
+                updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
+            } else if (test.get(1).equals("module")) {
+                test.subList(2, test.size());
+                updateFilteredModuleList(new NameContainsKeywordsPredicate(test));
+            }
+        }
+
+        if (type.equals("null")) {
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+            updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        }
     }
 
     @Override
     public void undoHistory() {
         if (historyManager.undo()) {
-            updateUiHistory(getFilteredModuleList());
-
-            ObservableList<Module> listTemp = historyManager.getUiItem().getDeepCopyList();
-            List<String> moduleCode = new ArrayList<>();
-            List<String> activityName = new ArrayList<>();
-
-            listTemp.forEach(x -> moduleCode.add(x.getModuleCode().toString()));
-            listTemp.forEach(x -> {
-                x.getDeepCopyDeadlineList().forEach(y->activityName.add(y.getName().toString()));
-                x.getDeepCopyEventList().forEach(y->activityName.add(y.getName().toString()));
-            });
-
-            updateFilteredModuleList(new NameContainsKeywordsPredicate(moduleCode));
-            updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(activityName));
-
             nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
+            refreshUi();
         }
     }
 
     @Override
     public boolean redoHistory() {
         boolean hasRedo = historyManager.redo();
-        System.out.println(hasRedo);
         if (hasRedo) {
-            ObservableList<Module> listTemp = historyManager.getUiItem().getDeepCopyList();
-
-            List<String> moduleCode = new ArrayList<>();
-            List<String> activityName = new ArrayList<>();
-
-            listTemp.forEach(x -> moduleCode.add(x.getModuleCode().toString()));
-            listTemp.forEach(x -> {
-                x.getDeepCopyDeadlineList().forEach(y->activityName.add(y.getName().toString()));
-                x.getDeepCopyEventList().forEach(y->activityName.add(y.getName().toString()));
-            });
-
-            System.out.println(activityName);
-
-            updateFilteredModuleList(new NameContainsKeywordsPredicate(moduleCode));
-            updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(activityName));
-
             nasaBook.setModuleList(historyManager.getItem().getDeepCopyList());
+            refreshUi();
         }
         return hasRedo;
     }
@@ -193,7 +204,7 @@ public class ModelManager implements Model {
     @Override
     public void setNasaBook(ReadOnlyNasaBook nasaBook) {
         this.nasaBook.resetData(nasaBook);
-        updateHistory();
+        updateHistory("null");
     }
 
     @Override
@@ -221,39 +232,39 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(ModuleCode target) {
         nasaBook.removeModule(target);
-        updateHistory();
+        updateHistory("delete");
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        updateHistory();
+        updateHistory("add");
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.addDeadline(target, deadline);
-        updateHistory();
+        updateHistory("deadline");
     }
 
     @Override
     public void addEvent(ModuleCode target, Event event) {
         nasaBook.addEvent(target, event);
-        updateHistory();
+        updateHistory("event");
     }
 
     @Override
     public void removeDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.removeDeadline(target, deadline);
-        updateHistory();
+        updateHistory("deadline");
     }
 
     @Override
     public void removeEvent(ModuleCode target, Event event) {
         nasaBook.removeEvent(target, event);
-        updateHistory();
+        updateHistory("event");
     }
 
     @Override
@@ -261,7 +272,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
-        updateHistory();
+        updateHistory("module");
     }
 
     @Override
@@ -269,7 +280,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedDeadline);
 
         nasaBook.setDeadline(moduleCode, target, editedDeadline);
-        updateHistory();
+        updateHistory("deadline");
     }
 
     @Override
@@ -277,20 +288,37 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEvent);
 
         nasaBook.setEvent(moduleCode, target, editedEvent);
-        updateHistory();
+        updateHistory("event");
+    }
+
+    public String currentUiLocation() {
+        StringBuilder location = new StringBuilder();
+        if (getFilteredModuleList().size() > 1) {
+            //not in Find
+            location.append(",activity,");
+            if (getFilteredModuleList().get(0).getDeepCopyDeadlineList().size() > 1) {
+                location.append("null");
+            } else if (getFilteredModuleList().get(0).getDeepCopyDeadlineList().size() == 1) {
+                location.append(getFilteredModuleList().get(0).getDeepCopyDeadlineList().get(0).getName().name);
+            }
+        } else {
+            location.append(",module,");
+            location.append(getFilteredModuleList().get(0).getModuleCode().moduleCode);
+        }
+        return location.toString();
     }
 
     public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
         requireAllNonNull(module, index, type);
         boolean hasExecuted = nasaBook.setDeadlineSchedule(module, index, type);
-        updateHistory();
+        updateHistory("schedule" + currentUiLocation());
         return hasExecuted;
     }
 
     public boolean setEventSchedule(ModuleCode module, Index index, Index type) {
         requireAllNonNull(module, index, type);
         boolean hasExecuted = nasaBook.setEventSchedule(module, index, type);
-        updateHistory();
+        updateHistory("schedule" + currentUiLocation());
         return hasExecuted;
     }
 

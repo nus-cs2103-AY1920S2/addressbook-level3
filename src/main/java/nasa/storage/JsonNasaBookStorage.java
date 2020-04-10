@@ -103,7 +103,7 @@ public class JsonNasaBookStorage implements NasaBookStorage {
 
     @Override
     public Optional<ReadOnlyHistory> readUiHistoryBook() throws DataConversionException {
-        return readHistoryBook(filePathThree);
+        return readUiHistoryBook(filePathThree);
     }
 
     /**
@@ -115,8 +115,8 @@ public class JsonNasaBookStorage implements NasaBookStorage {
     public Optional<ReadOnlyHistory> readUiHistoryBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonAdaptedHistory> jsonHistoryBook = JsonUtil.readJsonFile(
-                filePath, JsonAdaptedHistory.class);
+        Optional<JsonAdaptedUiHistory> jsonHistoryBook = JsonUtil.readJsonFile(
+                filePath, JsonAdaptedUiHistory.class);
         if (!jsonHistoryBook.isPresent()) {
             return Optional.empty();
         }
@@ -149,7 +149,7 @@ public class JsonNasaBookStorage implements NasaBookStorage {
 
     @Override
     public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
-                             ReadOnlyHistory<UniqueModuleList> uiHistoryBook)
+                             ReadOnlyHistory<String> uiHistoryBook)
             throws IOException {
         saveUltimate(nasaBook, historyBook, uiHistoryBook, filePathOne, filePathTwo, filePathThree);
     }
@@ -165,7 +165,7 @@ public class JsonNasaBookStorage implements NasaBookStorage {
      * @throws IOException
      */
     public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
-                             ReadOnlyHistory<UniqueModuleList> uiHistoryBook, Path filePathOne,
+                             ReadOnlyHistory<String> uiHistoryBook, Path filePathOne,
                              Path filePathTwo, Path filePathThree) throws IOException {
         requireNonNull(nasaBook);
         requireNonNull(filePathOne);
@@ -177,7 +177,7 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         FileUtil.createIfMissing(filePathThree);
         JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePathOne);
         JsonUtil.saveJsonFile(new JsonAdaptedHistory(historyBook), filePathTwo);
-        JsonUtil.saveJsonFile(new JsonAdaptedHistory(uiHistoryBook), filePathThree);
+        JsonUtil.saveJsonFile(new JsonAdaptedUiHistory(uiHistoryBook), filePathThree);
     }
 }
 

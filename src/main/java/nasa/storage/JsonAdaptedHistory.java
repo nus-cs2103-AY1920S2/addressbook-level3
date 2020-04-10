@@ -50,13 +50,13 @@ public class JsonAdaptedHistory {
      */
     public HistoryBook<UniqueModuleList> toModelType() throws IllegalValueException {
         final List<UniqueModuleList> historyList = new ArrayList<>();
-        for (List<JsonAdaptedModule> list : moduleList) {
-            final UniqueModuleList uniqueList = new UniqueModuleList();
-            for (JsonAdaptedModule module : list) {
-                uniqueList.add(module.toModelType());
-            }
-            historyList.add(uniqueList);
-        }
+//        for (List<JsonAdaptedModule> list : moduleList) {
+//            final UniqueModuleList uniqueList = new UniqueModuleList();
+//            for (JsonAdaptedModule module : list) {
+//                uniqueList.add(module.toModelType());
+//            }
+//            historyList.add(uniqueList);
+//        }
 
         final ModuleListHistory<UniqueModuleList> temp = new ModuleListHistory<>();
         temp.setStack(historyList);

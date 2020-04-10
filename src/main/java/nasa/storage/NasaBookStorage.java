@@ -56,9 +56,9 @@ public interface NasaBookStorage {
     void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException;
 
     void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
-                      ReadOnlyHistory<UniqueModuleList> uiHistoryBook) throws IOException;
+                      ReadOnlyHistory<String> uiHistoryBook) throws IOException;
 
     void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
-                      ReadOnlyHistory<UniqueModuleList> uiHistoryBook, Path filePathOne,
+                      ReadOnlyHistory<String> uiHistoryBook, Path filePathOne,
                       Path filePathTwo, Path filePathThree) throws IOException;
 }

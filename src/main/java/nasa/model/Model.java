@@ -1,6 +1,7 @@
 package nasa.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -140,7 +141,11 @@ public interface Model {
 
     String quote();
 
-    void updateHistory();
+    String currentUiLocation();
+
+    void updateHistory(String type);
+
+    void updateHistory(List<String> input, String type);
 
     void undoHistory();
 
