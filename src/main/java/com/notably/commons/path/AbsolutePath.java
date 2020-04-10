@@ -68,21 +68,9 @@ public class AbsolutePath implements Path, Comparable<AbsolutePath> {
      */
     public static AbsolutePath fromRelativePath(RelativePath relativePath,
             AbsolutePath currentWorkingPath) {
-        List<String> temp = new ArrayList<>(relativePath.getComponents());
-        List<String> temp2 = new ArrayList<>(currentWorkingPath.getComponents());
-        for (String obj : temp) {
-            if (obj.equals("..")) {
-                if (temp2.size() == 0) {
-                    throw new InvalidPathException("Empty directory");
-                }
-                temp2.remove(temp2.size() - 1);
-            } else if (obj.equals(".")) {
-                //Do nothing
-            } else {
-                temp2.add(obj);
-            }
-        }
-        return new AbsolutePath(temp2);
+        List<String> relativeComponents = relativePath.getComponents();
+        List<String> base = currentWorkingPath.getComponents();
+        return new AbsolutePath(PathUtil.normaliseRelativeComponents(base, relativeComponents));
     }
 
     /**
@@ -106,6 +94,8 @@ public class AbsolutePath implements Path, Comparable<AbsolutePath> {
 
     @Override
     public int compareTo(AbsolutePath path) {
+        Objects.requireNonNull(path);
+
         int i = 0;
         while (i < components.size() && i < path.components.size()) {
             if (!components.get(i).equalsIgnoreCase(path.components.get(i))) {
@@ -113,6 +103,7 @@ public class AbsolutePath implements Path, Comparable<AbsolutePath> {
             }
             i++;
         }
+
         return components.size() - path.components.size();
     }
 
