@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import hirelah.logic.commands.Command;
 import hirelah.logic.commands.ExitCommand;
+import hirelah.logic.commands.GenerateReportCommand;
 import hirelah.logic.commands.HelpCommand;
 import hirelah.logic.commands.ListAttributeCommand;
 import hirelah.logic.commands.ListIntervieweeCommand;
@@ -55,6 +56,7 @@ public class NormalParser {
             put("exit", args -> new ExitCommand());
             put("help", args -> new HelpCommand());
             put("upload", args -> new UploadResumeCommandParser().parse(args.trim()));
+            put("report", args -> new GenerateReportCommandParser().parse(args));
             put("resume", args -> new OpenResumeCommand(args.trim()));
             put("close", args -> new CloseSessionCommandParser().parse(args.trim()));
         }
