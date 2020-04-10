@@ -89,7 +89,7 @@ Navigate around NASA using the following keyboard shortcuts.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MODULE_CODE]...` means m/CS2103T CS2101 .....
 * Parameters can be in any order.
 * Commands are **non case-sensitive**, unless stated otherwise.
-
+====
 
 === Viewing help : `help`
 
@@ -135,7 +135,7 @@ Format: `list [m/MODULE_CODE....]`
 === Editing a module: `edit`
 
 Edits an existing module in the NASA application. +
-= Format: `edit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
+Format: `edit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
 
 ****
 * Edits an existing module in the application.
@@ -181,9 +181,9 @@ Format: `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DA
 Examples:
 
 * `edit-e 2 m/CS2103T ed/12-12-2020 23:59` +
-Edits the 2nd event in CS2013T event-list end date to be `12-12-2020 23:59`.
-* `edit-e 3 m/CS2030 n/Finish LAB level 3 with Generics sd/20-05-2020` +
-Edits the notes and start date of the 3rd event in CS2030 event-list to `Finish LAB level 3 with Generics` and `20-05-2020 23:59` respectively.
+Edits the 2nd event in CS2103T event-list end date to be `12-12-2020 23:59`.
+* `edit-e 3 m/CS2030 n/Practical exam sd/20-05-2020` +
+Edits the notes and start date of the 3rd event in CS2030 event-list to `Practical exam` and `20-05-2020 23:59` respectively.
 
 === Locating modules by name: `find`
 
@@ -323,22 +323,13 @@ image::calendar.png[width="300", align="middle"]
 Sorts all deadlines in their respective modules by a specified criteria. +
 Format: `sort SORT METHOD`
 
-The list of sort criteria is given below: +
-
-** Lexicographical order (case-insensitive): `name` +
-** Date added: `date` +
-** Priority: `priority`
-
-The sort order is fixed from top to bottom, as follows:
-
-** Lexicographical order (case-insensitive): A to Z +
-** Due date: Earliest to latest +
-** Priority: Highest to lowest
-
-Example:
-
-** `sort name` +
-Sorts by case-insensitive, lexicographical order of the activity's name.
+The list of sort methods is given below: +
+|===
+|*Sort Method* |*Format* |*Sort order (top to bottom)*
+|Lexicographical order (case-insensitive) |`sort name` | A to Z
+|Due date |`sort date` | Earliest to latest
+|Priority |`sort priority`| Highest (5) to lowest (1)
+|===
 
 === Clearing all entries : `clear`
 
