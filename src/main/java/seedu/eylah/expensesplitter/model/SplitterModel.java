@@ -51,12 +51,6 @@ public interface SplitterModel extends Model {
      */
     void listReceipt();
 
-
-    /**
-     * Going back to EYLAH Main Menu.
-     */
-    void backToMainMenu();
-
     boolean isReceiptDone();
 
     Receipt getReceipt();

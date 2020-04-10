@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+import seedu.eylah.commons.core.FilteredList;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.model.ModelManager;
 import seedu.eylah.commons.model.ReadOnlyUserPrefs;
@@ -171,7 +171,7 @@ public class DietModelManager extends ModelManager implements DietModel {
         }
 
         int count = 1;
-        for (Food food: filteredFoods) {
+        for (Food food: filteredFoods.getFilteredList()) {
             calorieCount = calorieCount.add(food.getCalories());
             result.append(count + ". " + food.toString() + "\n");
             count++;
@@ -189,7 +189,7 @@ public class DietModelManager extends ModelManager implements DietModel {
      */
     @Override
     public ObservableList<Food> getFilteredFoodList() {
-        return filteredFoods;
+        return filteredFoods.getFilteredList();
     }
 
     @Override
