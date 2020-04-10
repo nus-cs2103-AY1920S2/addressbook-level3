@@ -1,6 +1,7 @@
 package com.notably.logic.parser;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public List<DeleteCommand> parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
 

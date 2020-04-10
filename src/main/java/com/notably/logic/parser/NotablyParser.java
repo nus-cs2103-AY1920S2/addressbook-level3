@@ -1,5 +1,7 @@
 package com.notably.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,6 +50,7 @@ public class NotablyParser {
      * @throws ParseException when there is a invalid input string.
      */
     public List<? extends Command> parseCommand(String userInput) throws ParseException {
+        requireNonNull(userInput);
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));

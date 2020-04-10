@@ -3,6 +3,7 @@ package com.notably.logic.parser;
 import static com.notably.logic.parser.CliSyntax.PREFIX_BODY;
 import static com.notably.logic.parser.CliSyntax.PREFIX_JUMP;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class NewCommandParser implements CommandParser<Command> {
      * @throws ParseException when input is invalid.
      */
     public List<Command> parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
 

@@ -1,5 +1,7 @@
 package com.notably.commons.path;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +21,7 @@ public class RelativePath implements Path, Comparable<RelativePath> {
     private final List<String> components;
 
     private RelativePath(String relativePathString) {
+        requireNonNull(relativePathString);
         this.components = new ArrayList<>();
         for (String obj : relativePathString.split("/")) {
             if (!obj.trim().equals("")) {
