@@ -20,7 +20,7 @@ public class FindCommand extends LogCommand {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE =
         "Usage: log find [st/start_time] [et/end_time] [w/workout_name]";
-    public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "%1$d logs found!";
+    public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "Listed %1$d logged workout session(s) found!";
 
     private final Optional<LocalDateTime> startRange;
     private final Optional<LocalDateTime> endRange;

@@ -20,7 +20,6 @@ import seedu.zerotoone.model.workout.WorkoutName;
  */
 public class SampleLogDataUtil {
 
-
     public static List<CompletedWorkout> getCompletedWorkouts() {
         List<CompletedWorkout> completedWorkouts = new ArrayList<>();
 
