@@ -1,18 +1,24 @@
 {
   "quotes" : [ {
-    "content": "Skip the diet, just eat healthy!"
+    "content" : "Skip the diet, just eat healthy!",
+    "quotes" : [ ]
   }, {
-    "content": "I don't eat junk food because I love my body!"
+    "content" : "I don't eat junk food because I love my body!",
+    "quotes" : [ ]
   }, {
-    "content": "Nothing tastes as good as healthy"
+    "content" : "Nothing tastes as good as healthy",
+    "quotes" : [ ]
   }, {
-    "content": "I'm doing this for me"
+    "content" : "I'm doing this for me",
+    "quotes" : [ ]
   }, {
-    "content": "Work for it!"
+    "content" : "Work for it!",
+    "quotes" : [ ]
   }, {
-    "content": "Mindset is what separates the best from the rest"
+    "content" : "Mindset is what separates the best from the rest",
+    "quotes" : [ ]
   }, {
-    "content": "Fall in love with taking care of your body"
+    "content" : "Fall in love with taking care of your body",
+    "quotes" : [ ]
   } ]
 }
-

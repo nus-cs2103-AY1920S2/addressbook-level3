@@ -25,6 +25,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
@@ -60,26 +61,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Recipe alice = new RecipeBuilder().withName("Alice").build();
-        Recipe bob = new RecipeBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Recipe salad = new RecipeBuilder().withName("Salad").build();
+        Recipe bread = new RecipeBuilder().withName("Bread").build();
+        AddCommand addSaladCommand = new AddCommand(salad);
+        AddCommand addBreadCommand = new AddCommand(bread);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addSaladCommand.equals(addSaladCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(salad);
+        assertTrue(addSaladCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addSaladCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addSaladCommand.equals(null));
 
         // different recipe -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addSaladCommand.equals(addBreadCommand));
     }
 
     /**
@@ -312,4 +313,48 @@ public class AddCommandTest {
             return new RecipeBook();
         }
     }
+
+    /**
+     * A Model stub that contains a single record.
+     */
+    private class ModelStubWithRecord extends ModelStub {
+        private final Record record;
+
+        ModelStubWithRecord(Record record) {
+            requireNonNull(record);
+            this.record = record;
+        }
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return this.record.isSameRecord(record);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the record being added.
+     */
+    private class ModelStubAcceptingRecordAdded extends ModelStub {
+        final ArrayList<Record> recordsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return recordsAdded.stream().anyMatch(record::isSameRecord);
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            requireNonNull(record);
+            recordsAdded.add(record);
+        }
+
+        @Override
+        public ReadOnlyCookedRecordBook getRecordBook() {
+            return new CookedRecordBook();
+        }
+    }
+
+
 }
