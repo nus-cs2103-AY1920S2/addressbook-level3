@@ -3,10 +3,12 @@ package seedu.zerotoone.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
@@ -89,6 +91,15 @@ public class MainWindow extends UiPart<Stage> {
      * Initialises the MainWindow
      */
     void start() {
+        // Scale Width and Height based on Screen Resolution
+        Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
+        primaryStage.setWidth(screenBoundary.getWidth() / 1.5);
+        primaryStage.setHeight(screenBoundary.getWidth() / 2);
+
+        // Center Window
+        primaryStage.setX((screenBoundary.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((screenBoundary.getHeight() - primaryStage.getHeight()) / 2);
+
         primaryStage.show();
 
         // Fills up all the placeholders of this window.
