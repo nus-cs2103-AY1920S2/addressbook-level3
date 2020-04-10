@@ -525,25 +525,104 @@ assistant for.
 
 [[Usage]]
 == Usage
-You can interact with TA-Tracker using `CLI` commands!
+This section describes how you can interact with *TA-Tracker*.
 
-[NOTE]
-====
-As you type a command:
+=== Keyboard Shortcuts
+You can navigate everything in *TA-Tracker* with just a *keyboard*!
 
-* *valid inputs* will be highlighted in `green`
-* *invalid inputs* will be highlighted in `red`
+Here are some keyboard shortcuts that you can use:
 
-By *default* the font colour is `white`. You will see this colour when you use whitespaces between words in your input.
-====
+[width="%",cols="<20%a,<80a",options="header"]
+|=======================================================================
+|
+Shortcut Key
+|
+Usages
 
-[NOTE]
-====
-You will also see some helpful information when you are typing out a command:
+|
+kbd:[Esc]
+|
+* *Toggle* between the `command box` and the *Views*.
 
-* *The command usage* will be appear when you `_first type the command word_`, and after `_every two whitespaces_`.
-* *The first invalid prefix* of your commands will be indicated.
-====
+* *Close* a popup window.
+
+|
+kbd:[↑] `up` +
+kbd:[↓] `down` +
+arrow keys
+|
+* *Scroll* through a list +
+(you must toggle out of the `command box` in order to use this shortcut)
+
+|
+kbd:[←] `left` +
+kbd:[→] `right` +
+arrow keys
+|
+* *Navigate* between *different lists* in the same *View*. +
+(you must toggle out of the `command box` in order to use this shortcut)
+
+|=======================================================================
+
+=== Syntax Highlighting
+When you type a command into the `command box`, your input will be *highlighted*.
+
+Here is a table explaining the meaning of each colour:
+
+[width="%",cols="<10%a,<90a",options="header"]
+|=======================================================================
+|
+Colour
+|
+Meaning
+
+|
+*green*
+|
+*Valid* input.
+
+|
+*red*
+|
+*Invalid* input.
+|
+*white*
+|
+The *default* font colour.
+
+|=======================================================================
+
+=== Hints
+When you type out a command, you will also see `hints` about how to use the command.
+
+Here is a table describing the different types of hints that you will encounter:
+
+[width="%",cols="<10%a,<90a",options="header"]
+|=======================================================================
+|
+Hint
+|
+Trigger
+
+|
+Showing the *command usage*
+|
+* When you *first type out* the `command word`.
+
+* After typing *two whitespaces* in a row.
+
+|
+Showing the *parameter usage*
+|
+* When you *first type out* a *valid prefix*.
+
+* When there is an *invalid prefix* in your command.
+
+|=======================================================================
+
+[[Commands]]
+== Commands
+This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 === Navigation
 
