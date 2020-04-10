@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.TaskList;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
@@ -30,7 +31,15 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        this.model.setTaskSaver(this::taskSaver);
         taskListParser = new TaskListParser();
+    }
+
+    private void taskSaver(TaskList tasklist) {
+        try {
+            storage.saveTaskList(model.getTaskList());
+        } catch (IOException ioe) {
+        }
     }
 
     @Override
@@ -76,7 +85,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         ObservableList<Task> tasklist = model.getFilteredTaskList();
-        tasklist.forEach((task) -> task.triggerRecurringIfPresent(model));
+        // for (int i = 0; i < tasklist.size(); i++) {
+        //     Task currentTask = tasklist.get(i);
+        //     currentTask.triggerRecurringIfPresent(model, Index.fromZeroBased(i));
+        // }
         return tasklist;
     }
 

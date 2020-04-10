@@ -12,9 +12,9 @@ import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
 
 /**
- * Stores information with respect to StatisticsDisplay.
- * Wraps all DayData objects through CustomQueue and stores daily target.
- * */
+ * Stores information with respect to StatisticsDisplay. Wraps all DayData objects through
+ * CustomQueue and stores daily target.
+ */
 public class Statistics implements ReadOnlyStatistics {
 
     public static final String DEFAULT_DAILY_TARGET = "100";
@@ -79,7 +79,8 @@ public class Statistics implements ReadOnlyStatistics {
     public void setDayDatas(List<DayData> dayDatas) {
         try {
             customQueue.setDayDatas(dayDatas);
-        } catch (InvalidTableException e) { }
+        } catch (InvalidTableException e) {
+        }
     }
 
     /** Resets the existing data of this {@code Statistics} with {@code newData}. */
@@ -94,7 +95,8 @@ public class Statistics implements ReadOnlyStatistics {
     public void updateDataDates() {
         try {
             customQueue.updateDataDatesCustom();
-        } catch (InvalidTableException e) { }
+        } catch (InvalidTableException e) {
+        }
     }
 
     /**
@@ -105,12 +107,13 @@ public class Statistics implements ReadOnlyStatistics {
     public void updateDataDates(LocalDate localDate) {
         try {
             customQueue.updateDataDatesCustom(localDate);
-        } catch (InvalidTableException e) { }
+        } catch (InvalidTableException e) {
+        }
     }
 
     /**
-     * Replaces the current DayData object from CustomQueue of
-     * the same date with a new DayData object at the same Date.
+     * Replaces the current DayData object from CustomQueue of the same date with a new DayData
+     * object at the same Date.
      *
      * @param dayData new DayData object to replace.
      */
@@ -137,7 +140,8 @@ public class Statistics implements ReadOnlyStatistics {
     // util methods
 
     /**
-     * Pops oldest dayData at head of the customQueue and adds a dayData to the end of the customQueue.
+     * Pops oldest dayData at head of the customQueue and adds a dayData to the end of the
+     * customQueue.
      *
      * @param dayData dayData to be added.
      */

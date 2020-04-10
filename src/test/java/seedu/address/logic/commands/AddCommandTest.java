@@ -44,7 +44,9 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validTask).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validTask), commandResult.getFeedbackToUser());
+        assertEquals(
+                String.format(AddCommand.MESSAGE_SUCCESS, validTask),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
     }
 
@@ -54,7 +56,10 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validTask);
         ModelStub modelStub = new ModelStubWithTask(validTask);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_TASK, () -> addCommand.execute(modelStub));
+        assertThrows(
+                CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -110,6 +115,11 @@ public class AddCommandTest {
 
         @Override
         public void setTaskListFilePath(Path taskListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTaskSaver(TaskSaver taskSaver) {
             throw new AssertionError("This method should not be called.");
         }
 
