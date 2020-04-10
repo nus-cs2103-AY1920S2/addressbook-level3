@@ -451,7 +451,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    //@@author khsc96
+    //@@author khsc96-reused
+    //Reused from https://stackoverflow.com/a/52785067 with minor modifications, added specific day and change
+    //formatting
     /**
      * Method handler to display clock on the menu bar.
      */
