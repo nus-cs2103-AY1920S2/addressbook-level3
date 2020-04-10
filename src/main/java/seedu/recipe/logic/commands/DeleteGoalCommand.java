@@ -17,6 +17,9 @@ import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
 
+/**
+ * Deletes an exists goal from a recipe.
+ */
 public class DeleteGoalCommand extends Command {
     public static final String COMMAND_WORD = "deletegoal";
 
@@ -62,7 +65,7 @@ public class DeleteGoalCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_GOAL_NAME);
         }
         Goal currGoal = new Goal(this.goal);
-        if(updatedGoalsList.contains(currGoal)) {
+        if (updatedGoalsList.contains(currGoal)) {
             updatedGoalsList.remove(currGoal);
         } else {
             throw new CommandException(MESSAGE_INVALID_GOAL);

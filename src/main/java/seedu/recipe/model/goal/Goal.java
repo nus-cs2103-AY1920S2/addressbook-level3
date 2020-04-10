@@ -16,7 +16,7 @@ import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 public class Goal {
 
     public static final String MESSAGE_CONSTRAINTS = "Goals names should contain only alphabetical letters or spaces";
-    public static final List<String> validGoals = new ArrayList<>(Arrays.asList("Herbivore", "Bulk like the Hulk",
+    public static final List<String> VALIDGOALS = new ArrayList<>(Arrays.asList("Herbivore", "Bulk like the Hulk",
             "Wholesome Wholemeal", "Fruity Fiesta"));
 
     public final String goalName;
@@ -43,8 +43,8 @@ public class Goal {
      * Returns true if a given string is a valid goal name with the same capitalisation.
      */
     public static boolean isValidGoalName(String test) {
-        for (String name : validGoals) {
-            if(name.equals(test)) {
+        for (String name : VALIDGOALS) {
+            if (name.equals(test)) {
                 return true;
             }
         }
