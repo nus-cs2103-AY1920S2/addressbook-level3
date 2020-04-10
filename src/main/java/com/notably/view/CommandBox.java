@@ -7,8 +7,13 @@ import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * The VIEW component that is responsible for receiving user command inputs.
@@ -42,6 +47,23 @@ public class CommandBox extends ViewPart<Region> {
         commandTextField.focusedProperty().addListener((observable, unused, isNowFocused) -> {
             if (isNowFocused) {
                 Platform.runLater(() -> commandTextField.selectEnd());
+            }
+        });
+        setNavigationHandler();
+    }
+
+    /**
+     * Listens for keystrokes that signify the event where the user navigates out of the Suggestions List.
+     * Gives control to the {@link SuggestionsWindowView}.
+     */
+    private void setNavigationHandler() {
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (KeyCode.DOWN == event.getCode()) {
+                Window mainStage = Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
+                Node suggestionsList = mainStage.getScene().lookup("#suggestionsListPanel");
+                if (suggestionsList.isVisible()) {
+                    suggestionsList.requestFocus();
+                }
             }
         });
     }
