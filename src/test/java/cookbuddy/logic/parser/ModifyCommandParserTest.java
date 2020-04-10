@@ -98,12 +98,12 @@ public class ModifyCommandParserTest {
         assertParseFailure(parser, "1" + BLANK_INSTRUCTIONS_DESC, noInstructions); // invalid instr
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // invalid phone followed by valid email
+        // invalid ingredient followed by valid instruction
         assertParseFailure(parser, "1" + INVALID_INGREDIENTS_DESC + INSTRUCTIONS_DESC_EGGS_ON_TOAST,
                 Ingredient.MESSAGE_CONSTRAINTS);
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
+        // valid ingredient followed by invalid instruction. The test case for invalid instruction followed by valid
+        // ingredient is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + INGREDIENTS_DESC_HAM_SANDWICH + INVALID_INGREDIENTS_DESC,
                 Ingredient.MESSAGE_CONSTRAINTS);
 
