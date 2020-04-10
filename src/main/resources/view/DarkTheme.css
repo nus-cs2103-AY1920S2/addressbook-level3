@@ -480,3 +480,7 @@
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }
+
+#timeHolder:hover {
+    -fx-background-color: -fx-primary;
+}

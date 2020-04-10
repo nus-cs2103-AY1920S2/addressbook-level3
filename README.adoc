@@ -35,5 +35,6 @@ while still enjoying the benefits of a Graphical User Interface (GUI)
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
+* Clock in Delino is adapted from https://stackoverflow.com/questions/42383857/javafx-live-time-and-date/42384436[here].
 
 == Licence : link:LICENSE[MIT]

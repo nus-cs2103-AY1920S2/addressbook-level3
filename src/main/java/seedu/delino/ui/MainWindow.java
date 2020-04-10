@@ -464,8 +464,6 @@ public class MainWindow extends UiPart<Stage> {
                     DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("E, dd-MM-uuuu HH:mm:ss");
                     String timeNow = LocalDateTime.now().format(timeFormat);
                     timeHolder.setText(timeNow);
-                    Logger logger = LogsCenter.getLogger(MainWindow.class.getName());
-                    logger.info(timeFormat.format(LocalDateTime.now()) + "Abc");
                 }
             ), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
