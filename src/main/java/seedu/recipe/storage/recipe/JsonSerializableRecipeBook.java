@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
-import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
  * An Immutable RecipeBook that is serializable to JSON format.

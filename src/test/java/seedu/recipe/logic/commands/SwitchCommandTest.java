@@ -19,14 +19,14 @@ class SwitchCommandTest {
     @Test
     public void execute_viewPlanning_success() {
         CommandResult expectedCommandResult =
-                new CommandResult(MESSAGE_SUCCESS, false, Tab.PLANNING, false);
+                new CommandResult(MESSAGE_SUCCESS, false, false, Tab.PLANNING, false);
         assertCommandSuccess(new SwitchCommand(Tab.PLANNING), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_viewRecipes_success() {
         CommandResult expectedCommandResult =
-                new CommandResult(MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(MESSAGE_SUCCESS, false, false, Tab.RECIPES, false);
         assertCommandSuccess(new SwitchCommand(Tab.RECIPES), model, expectedCommandResult, expectedModel);
     }
 }

@@ -23,7 +23,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
 
         CommandResult expectedCommandResult =
-                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false,
+                        false, Tab.RECIPES, false);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -37,7 +38,8 @@ public class ClearCommandTest {
         expectedModel.setRecipeBook(new RecipeBook());
 
         CommandResult expectedCommandResult =
-                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(ClearCommand.MESSAGE_SUCCESS, false,
+                        false, Tab.RECIPES, false);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 

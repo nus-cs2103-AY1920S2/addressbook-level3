@@ -1,7 +1,6 @@
 package seedu.recipe.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.recipe.logic.commands.recipe.EditCommand.createEditedRecipe;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
@@ -20,8 +19,8 @@ import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.CommandType;
-import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.ingredient.Fruit;

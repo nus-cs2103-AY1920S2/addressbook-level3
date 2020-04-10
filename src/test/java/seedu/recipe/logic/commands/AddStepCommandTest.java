@@ -61,7 +61,7 @@ public class AddStepCommandTest {
                 .withGoals("Wholesome Wholemeal").build();
         expectedModel.setRecipe(recipeToAddSteps, expectedRecipe);
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
         assertCommandSuccess(addStepCommand, model, expectedCommandResult, expectedModel);
     }
 
@@ -101,7 +101,7 @@ public class AddStepCommandTest {
         expectedModel.setRecipe(recipeToAddSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(addStepCommand, model, expectedCommandResult, expectedModel);
     }

@@ -17,7 +17,7 @@ import seedu.recipe.ui.UiPart;
  */
 public class GroceryListWindow extends UiPart<Stage> {
 
-    public static String groceryListMessage = "";
+    private static String groceryListMessage = "";
 
     private static final Logger logger = LogsCenter.getLogger(GroceryListWindow.class);
     private static final String FXML = "GroceryListWindow.fxml";
@@ -28,10 +28,9 @@ public class GroceryListWindow extends UiPart<Stage> {
     private Label groceryList;
     @FXML
     private ScrollPane scrollPane;
-    
+
     /**
      * Creates a new GroceryListWindow.
-     *
      * @param root Stage to use as the root of the GroceryListWindow.
      */
     public GroceryListWindow(Stage root, String groceries) {
@@ -41,7 +40,7 @@ public class GroceryListWindow extends UiPart<Stage> {
         root.setHeight(500);
         root.setWidth(300);
     }
-    
+
     /**
      * Creates a new GroceryListWindow.
      */
@@ -77,28 +76,28 @@ public class GroceryListWindow extends UiPart<Stage> {
         getRoot().show();
         getRoot().centerOnScreen();
     }
-    
+
     /**
      * Returns true if the grocery list window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
-    
+
     /**
      * Hides the grocery list window.
      */
     public void hide() {
         getRoot().hide();
     }
-    
+
     /**
      * Focuses on the grocery list window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
-    
+
     /**
      * Copies the grocery list to the clipboard.
      */
@@ -106,7 +105,7 @@ public class GroceryListWindow extends UiPart<Stage> {
     private void copyGroceryList() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent groceryList = new ClipboardContent();
-            groceryList.putString(groceryListMessage);
-            clipboard.setContent(groceryList);
+        groceryList.putString(groceryListMessage);
+        clipboard.setContent(groceryList);
     }
 }

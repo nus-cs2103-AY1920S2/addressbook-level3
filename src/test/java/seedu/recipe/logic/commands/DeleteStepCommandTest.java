@@ -55,7 +55,7 @@ public class DeleteStepCommandTest {
         expectedModel.setRecipe(recipeToDeleteSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(deleteStepCommand, model, expectedCommandResult, expectedModel);
     }
@@ -105,7 +105,7 @@ public class DeleteStepCommandTest {
         expectedModel.setRecipe(recipeToDeleteSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(deleteStepCommand, model, expectedCommandResult, expectedModel);
     }

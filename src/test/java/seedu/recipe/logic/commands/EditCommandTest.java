@@ -57,7 +57,7 @@ public class EditCommandTest {
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }

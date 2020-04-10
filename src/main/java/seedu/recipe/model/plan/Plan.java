@@ -1,15 +1,22 @@
 package seedu.recipe.model.plan;
 
+import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 
 import seedu.recipe.model.Date;
 import seedu.recipe.model.recipe.Recipe;
 
+/**
+ * Represents a Plan in the planned recipe book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Plan implements Comparable<Plan> {
-    private Recipe recipe;
-    private Date date;
+    private final Recipe recipe;
+    private final Date date;
 
     public Plan(Recipe recipe, Date date) {
+        requireAllNonNull(recipe, date);
         this.recipe = recipe;
         this.date = date;
     }

@@ -388,31 +388,39 @@ Format: `plan [recipe index] [d/yyyy-mm-dd]`
 Example: `plan 1 d/2020-03-27` +
 Plans the recipe at index 1 in the recipe book to 27 March 2020.
 
+[TIP]
+Multiple indexes can be given in one go. `plan 1 2 3 d/2020-03-27` will plan all three recipes at indexes 1 2 and 3
+on 27 March 2020.
+
 === Delete a planned recipe: `deletePlan`
 Deletes a planned recipe at a certain day. +
-Format: `deletePlan [planned recipe index] [d/yyyy-mm-dd]`
+Format: `deletePlan [planned recipe index]`
 
-Format: `deletePlan 3 d/2020-03-27` +
-Deletes the 3rd recipe planned on 27 March 2020.
+Format: `deletePlan 3` +
+Deletes the 3rd recipe planned.
+
+[TIP]
+Multiple indexes can be given in one go. `deletePlan 1 2 3` will delete all three plans at indexes 1 2 and 3.
+
+[TIP]
+Using the `cooked` command in Section 10.4 will automatically delete today's plan for that recipe.
 
 === Clear all planned recipes: `clearPlan`
 Clears all the recipes you have planned. +
 Format: `clearPlan`
 
-=== Mark a planned recipe as done: `done` [Coming in v1.4]
-Marks the planned recipes at the specified date as cooked. +
-Format: `done d/YYYY-MM-DD INDEX`
 
-=== Obtain ingredients for planned recipes: `getIngredients` [Coming in v1.4]
-Lists the ingredients needed for the recipes scheduled in the specified period of time. +
-Format: `getIngredients [d/yyyy-mm-dd] [d/yyyy-mm-dd]`
+=== Obtain ingredients for planned recipes: `groceryList`
+Lists all ingredients needed for the recipes that have been planned. +
+Format: `groceryList`
 
-Example: `getIngredients d/2020-03-27 d/2020-04-01` +
-Lists all ingredients needed for the recipes scheduled between 27 March and 4 April 2020.
-
-=== View this week's planned recipes: `viewWeek` [Coming in v1.4]
+=== View this week's planned recipes: `viewWeek` [Coming in v2.0]
 View all the plans for the week. +
 Format: `viewWeek`
+
+=== View this month's planned recipes: `viewMonth` [Coming in v2.0]
+View all the plans for the month. +
+Format: `viewMonth`
 
 == Goal Feature
 === Add a custom goal to track: `addGoal` [Coming in v1.4]

@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
         expectedModel.addRecipe(validRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validRecipe),
+                new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validRecipe), false,
                         false, Tab.RECIPES, false);
 
         assertCommandSuccess(new AddCommand(validRecipe), model, expectedCommandResult, expectedModel);

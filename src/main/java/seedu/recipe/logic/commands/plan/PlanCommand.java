@@ -38,10 +38,10 @@ public class PlanCommand extends Command {
 
     public static final String MESSAGE_INVALID_DATE = "The latest date you can input is today's date.";
     public static final String MESSAGE_DATE = "Date: %1$s\n";
-    public static final String MESSAGE_SUCCESS = "The recipe(s) at the following index(es) have been successfully " +
-            "planned:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "The recipe(s) at the following index(es) have " +
-            "already been planned on this date:\n%1$s";
+    public static final String MESSAGE_SUCCESS = "The recipe(s) at the following index(es) have been successfully "
+            + "planned:\n%1$s";
+    public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "The recipe(s) at the following index(es) have "
+            + "already been planned on this date:\n%1$s";
 
     private final Index[] indexes;
     private final Date date;
@@ -103,7 +103,7 @@ public class PlanCommand extends Command {
      * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
      */
     private static String formatIndexToString(Index index, Recipe recipe) {
-        return index.getOneBased() + " (" + recipe.getName() +")";
+        return index.getOneBased() + " (" + recipe.getName() + ")";
     }
 
     /**

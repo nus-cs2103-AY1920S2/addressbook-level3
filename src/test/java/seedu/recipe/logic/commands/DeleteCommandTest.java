@@ -46,7 +46,7 @@ public class DeleteCommandTest {
         expectedModel.deleteRecipe(recipeToDelete);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }
@@ -76,7 +76,7 @@ public class DeleteCommandTest {
         showNoRecipe(expectedModel);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }

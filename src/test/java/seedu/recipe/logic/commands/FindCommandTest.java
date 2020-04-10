@@ -85,7 +85,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Arrays.asList(BOILED_CHICKEN, OMELET, STEAMED_EGG), model.getFilteredRecipeList());
     }
@@ -97,7 +97,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRecipeList(predicate);
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
         assertEquals(Arrays.asList(STEAMED_EGG, TUNA_BREAD), model.getFilteredRecipeList());
     }

@@ -59,7 +59,7 @@ public class EditStepCommandTest {
         expectedModel.setRecipe(recipeToEditSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editStepCommand, model, expectedCommandResult, expectedModel);
     }
@@ -110,7 +110,7 @@ public class EditStepCommandTest {
         expectedModel.setRecipe(recipeToEditSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editStepCommand, model, expectedCommandResult, expectedModel);
     }

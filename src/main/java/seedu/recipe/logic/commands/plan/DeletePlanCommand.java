@@ -95,7 +95,7 @@ public class DeletePlanCommand extends Command {
      * Formats the {@code index} and {@code recipe} into the format [Index (Recipe Name)] for printing.
      */
     private static String formatIndexToString(Index index, Recipe recipe) {
-        return index.getOneBased() + " (" + recipe.getName() +")";
+        return index.getOneBased() + " (" + recipe.getName() + ")";
     }
 
     /**
