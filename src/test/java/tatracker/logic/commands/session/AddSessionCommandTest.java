@@ -1,22 +1,23 @@
 package tatracker.logic.commands.session;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.commons.core.Messages;
-import tatracker.logic.commands.CommandResult;
-import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.ModelStub;
-import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
-import tatracker.model.ModelStub.ModelStubWithSession;
+//import tatracker.commons.core.Messages;
+//import tatracker.logic.commands.CommandResult;
+//import tatracker.logic.commands.exceptions.CommandException;
+//import tatracker.logic.parser.exceptions.ParseException;
+//import tatracker.model.ModelStub;
+//import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
+//import tatracker.model.ModelStub.ModelStubWithSession;
+
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.testutil.sessions.SessionBuilder;
@@ -28,8 +29,7 @@ public class AddSessionCommandTest {
     private static final LocalDateTime DEFAULT_END = LocalDateTime
             .of(2020, 05, 20, 19, 30);
     private static final String DEFAULT_MODULE = "CS2103T";
-    private static final String DEFAULT_TYPE = "tutorial";
-            //SessionType.TUTORIAL.toString();
+    private static final String DEFAULT_TYPE = SessionType.TUTORIAL.toString();
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
     private static final int DEFAULT_RECURRING = 2;
 
