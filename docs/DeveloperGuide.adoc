@@ -382,7 +382,8 @@ For the `add-e` command, it is important which index the new Exercise is added. 
 
 To address this problem, we implemented our add function, `addToSorted()`. Rather than calling the predefined `add()` from the `List` class, we will call `addToSorted()` to add our new instance of `Exercise`. Below shows a code snippet of `addToSorted()`.
 
-....
+[.small]
+----
 public void addToSorted(Exercise toAdd) {
         requireNonNull(toAdd);
 
@@ -410,7 +411,7 @@ public void addToSorted(Exercise toAdd) {
         }
         internalList.add(idx, toAdd);
     }
-....
+----
 
 We will use an example of a `add-e` command to illustrate the execution of `addToSorted()`. Consider an instance where user inputs `add-e n/pushup d/12-12-2011 reps/20`. The sequence diagram below shows the execution flow when the AddExerciseCommand is executed. Details of exception thrown are omitted as this is a postive instance and for simplicity.
 
