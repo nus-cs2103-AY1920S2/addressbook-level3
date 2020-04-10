@@ -45,11 +45,11 @@ public class SearchSuggestionCommandTest {
         // Expected suggestions
         List<SuggestionItem> expectedSuggestions = new ArrayList<>();
         SuggestionItem cs2103tTut1 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
         SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, null);
+                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), 2, () -> {});
         SuggestionItem cs2106Tut1 = new SuggestionItemImpl(
-                TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, null);
+                TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1.getStringRepresentation(), 1, () -> {});
         expectedSuggestions.add(cs2103tTut1);
         expectedSuggestions.add(cs2103tTut2);
         expectedSuggestions.add(cs2106Tut1);
