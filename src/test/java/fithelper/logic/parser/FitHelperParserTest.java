@@ -8,11 +8,11 @@ import static fithelper.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.junit.jupiter.api.Test;
 
 import fithelper.commons.core.index.Index;
 import fithelper.logic.commands.AddCommand;
@@ -91,7 +91,7 @@ public class FitHelperParserTest {
     @Test
     public void parseCommandUnrecognisedInputThrowsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-                -> parser.parseCommand(""));
+            -> parser.parseCommand(""));
     }
 
 }
