@@ -32,7 +32,7 @@
 
     </SplitPane>
 
-    <ScrollPane fx:id="modulesPanel" VBox.vgrow="ALWAYS" maxHeight="420"
+    <ScrollPane fx:id="modulesPanel" VBox.vgrow="ALWAYS" prefHeight="600"
                 vmax="0" vbarPolicy="NEVER" styleClass="pane-with-border">
 
     </ScrollPane>
