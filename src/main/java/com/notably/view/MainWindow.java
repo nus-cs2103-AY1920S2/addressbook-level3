@@ -58,7 +58,7 @@ public class MainWindow extends ViewPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane blockContentPlaceholder;
+    private VBox blockContentPlaceholder;
 
     @FXML
     private VBox suggestionsWindow;
@@ -71,6 +71,7 @@ public class MainWindow extends ViewPart<Stage> {
         this.model = model;
 
         setWindowDefaultSize(logic.getGuiSettings());
+        // todo: Remove
         //setWindowSettings(primaryStage);
         setAccelerators();
 
@@ -147,7 +148,8 @@ public class MainWindow extends ViewPart<Stage> {
 
         blockContent = new BlockContent(blockContentPlaceholder, logic, model);
 
-        suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(), model.responseTextProperty());
+        suggestionsWindowView = new SuggestionsWindowView(model.getSuggestions(),
+                model.responseTextProperty());
         suggestionsWindow.getChildren().add(suggestionsWindowView.getRoot());
     }
 
