@@ -5,6 +5,7 @@ import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
 import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -39,6 +40,7 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
 
         ItemPrice price;
 
+        /*
         if (argMultimap.getValue(PREFIX_PRICE).get().length() >= 5) {
             throw new ParseException(String.format("Amount field"
             + " cannot be more than 5 digits long. "
@@ -46,8 +48,18 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
                 AddItemCommand.MESSAGE_USAGE));
         }
 
+         */
+
         try {
             price = ParserUtil.parseItemPrice(argMultimap.getValue(PREFIX_PRICE).get());
+
+            if (price.getItemPrice().compareTo(new BigDecimal("10000")) == 1) {
+                throw new ParseException(String.format("Amount field"
+                        + " cannot be more than 10000. "
+                        + " The maximum price of an item is 10000",
+                    AddItemCommand.MESSAGE_USAGE));
+            }
+
         } catch (NumberFormatException ex) {
             throw new ParseException(String.format("Amount field"
                     + " does not require the '$' sign and can only contain numerical digits. "

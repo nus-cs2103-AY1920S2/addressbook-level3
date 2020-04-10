@@ -94,6 +94,7 @@ public class ExpenseSplitterLogicManagerTest {
             + " -p " + DEFAULT_ITEM.getItemPrice().toString().substring(1) + " -n "
             + TypicalPersons.DARREN.getName().toString()
             + " -n " + TypicalPersons.ELYSHA.getName().toString();
+
         Entry expectedEntry = new EntryBuilder().entryBuilderVersionTwo().build();
 
         SplitterModelManager expectedModel = new SplitterModelManager();
@@ -134,8 +135,6 @@ public class ExpenseSplitterLogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, SplitterModel expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
-        //System.out.println(model.getReceipt());
-        //System.out.println(expectedModel.getReceipt());
         assertEquals(expectedModel, model);
     }
 
