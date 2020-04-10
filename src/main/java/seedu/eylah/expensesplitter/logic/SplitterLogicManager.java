@@ -45,7 +45,6 @@ public class SplitterLogicManager implements SplitterLogic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-
         return commandResult;
     }
 }
