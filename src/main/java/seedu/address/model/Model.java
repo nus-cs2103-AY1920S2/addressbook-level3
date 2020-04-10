@@ -122,4 +122,6 @@ public interface Model {
 
     void setDisplayedView(CourseFocusArea toDisplay);
 
+    void setNewDeadlineList(Profile editedProfile);
+
 }

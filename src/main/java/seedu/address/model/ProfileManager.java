@@ -37,6 +37,7 @@ public class ProfileManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
     private SortedList<Deadline> sortedDeadlines;
+    private ObservableList<Deadline> newSortedDeadlines;
 
     private Optional<Object> displayedView = Optional.empty();
 
@@ -272,6 +273,14 @@ public class ProfileManager implements Model {
     @Override
     public void setDisplayedView(CourseFocusArea toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
+    }
+
+    @Override
+    public void setNewDeadlineList(Profile editedProfile) {
+
+        if (editedProfile.getDeadlines() != null) {
+            this.deadlineList.addAll(editedProfile.getDeadlines());
+        }
     }
 
 }

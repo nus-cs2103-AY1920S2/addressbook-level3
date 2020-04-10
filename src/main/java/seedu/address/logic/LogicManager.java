@@ -121,4 +121,5 @@ public class LogicManager implements Logic {
     public ProfileManager getProfileManager() {
         return profileManager;
     }
+
 }

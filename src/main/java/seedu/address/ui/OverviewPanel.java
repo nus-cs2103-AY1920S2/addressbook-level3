@@ -103,6 +103,8 @@ public class OverviewPanel extends UiPart<Region> {
 
         }
 
+        modulesPanel.setFitToHeight(true);
+        modulesPanel.setFitToWidth(true);
         modulesPanel.setContent(modPane);
 
     }
