@@ -42,12 +42,12 @@ GroupListPanel --> GroupCard
 
 MainWindow -down-|> UiPart
 
-StudentListPanel -down-|> UiPart
-StudentCard -down-|> UiPart
-ModuleListPanel -down-|> UiPart
-ModuleCard -down-|> UiPart
-GroupListPanel -down-|> UiPart
-GroupCard -down-|> UiPart
+StudentListPanel -left--|> UiPart
+StudentCard -up--|> UiPart
+ModuleListPanel -up--|> UiPart
+ModuleCard -up--|> UiPart
+GroupListPanel -left--|> UiPart
+GroupCard -up--|> UiPart
 
 StudentCard .down.> Model
 ModuleCard .down.> Model
