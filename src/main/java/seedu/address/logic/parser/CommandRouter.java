@@ -25,6 +25,10 @@ public class CommandRouter {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case ReportGenerationCommand.COMMAND_WORD:
+            return new ReportGenerationCommand().validate((arguments));
+
         case FilterTimestampCommand.COMMAND_WORD:
             return new FilterTimestampCommand().validate(arguments);
 
