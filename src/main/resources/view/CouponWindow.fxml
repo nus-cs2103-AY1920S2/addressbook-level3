@@ -27,14 +27,20 @@
       <VBox prefHeight="560.0" prefWidth="500.0" style="-fx-background-color: #46998F;"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-          <HBox alignment="CENTER">
-            <Label fx:id="numericalAmount" id="expanded-coupon-savings" alignment="BOTTOM_CENTER" maxWidth="500.0" prefHeight="80.0" text="Savings"
-                   textAlignment="CENTER" wrapText="true" VBox.vgrow="NEVER" style="-fx-font-size: 50px;">
-              <padding>
-                <Insets bottom="5.0"/>
-              </padding>
-            </Label>
-            <ScrollPane fx:id="saveables" maxWidth="500.0" prefHeight="40.0" id="expanded-coupon-saveables" />
+          <HBox alignment="CENTER" id="savings-header">
+            <Label fx:id="numericalAmount" id="expanded-coupon-savings" alignment="CENTER" maxWidth="500.0" prefHeight="80.0" text="Savings"
+                   textAlignment="CENTER" wrapText="true" VBox.vgrow="NEVER" style="-fx-font-size: 50px;" />
+            <ScrollPane prefHeight="40.0" id="expanded-coupon-saveables"
+                        fitToWidth="true" fitToHeight="true">
+              <VBox fx:id="saveables" alignment="CENTER">
+                <padding>
+                  <Insets left="30.0" />
+                </padding>
+              </VBox>
+            </ScrollPane>
+            <padding>
+              <Insets top="10.0" bottom="5.0"/>
+            </padding>
           </HBox>
           <HBox prefHeight="380.0" prefWidth="500.0">
             <children>
@@ -63,15 +69,13 @@
               <VBox prefHeight="380.0" prefWidth="250.0">
                 <children>
                   <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="History" textAlignment="CENTER" id="history-label"/>
-                  <StackPane maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="200.0"
-                             style="-fx-background-color: #75BE85; " id="history-pane">
-                    <children>
-                      <TextArea editable="false" wrapText="true" id="history-text-area"/>
-                    </children>
+                  <ScrollPane maxWidth="1.7976931348623157E308" prefHeight="300.0" prefWidth="200.0"
+                             style="-fx-background-color: #75BE85; " id="history-pane" >
+                    <VBox fx:id="historyPane" />
                     <padding>
                       <Insets bottom="10.0" left="10.0" right="20.0" top="10.0"/>
                     </padding>
-                  </StackPane>
+                  </ScrollPane>
                 </children>
                 <padding>
                   <Insets left="10.0" right="20.0" top="10.0"/>

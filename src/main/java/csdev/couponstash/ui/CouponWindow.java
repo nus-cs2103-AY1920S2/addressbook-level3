@@ -6,25 +6,34 @@ import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  * Coupon Window display panel.
  */
 public class CouponWindow extends UiPart<Stage> {
+    // to set certain elements to be invisible
+    private static final String HIDDEN = "visibility: hidden;";
     private static final Logger logger = LogsCenter.getLogger(CouponWindow.class);
     private static final String FXML = "CouponWindow.fxml";
     // style for message displayed if no numerical savings for coupon
     private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 30px;"
             + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: white;";
+    // style for message displayed before all the saveables
+    private static final String SAVEABLES_PRELUDE_STYLE = "-fx-font: 25px Arial;"
+            + "-fx-font-weight: bold; -fx-font-style: italic; -fx-text-fill: white;";
+    // CSS styles for Saveables in CouponWindow
+    private static final String SAVEABLE_LABEL_STYLE = "-fx-font: 12px Arial;"
+            + "-fx-font-weight: bold; -fx-text-fill: white;";
 
     public final Coupon coupon;
     private final Stage root;
@@ -50,7 +59,9 @@ public class CouponWindow extends UiPart<Stage> {
     @FXML
     private Label numericalAmount;
     @FXML
-    private ScrollPane saveables;
+    private VBox saveables;
+    @FXML
+    private VBox historyPane;
     @FXML
     private Scene scene;
 
@@ -98,31 +109,43 @@ public class CouponWindow extends UiPart<Stage> {
      */
     public void setSavings(Savings s, String moneySymbol) {
         // handle numerical value
-        String savingsNumber = getSavingsString(s, moneySymbol);
+        String savingsNumber = SavingsBox.getSavingsString(s, moneySymbol);
         if (savingsNumber.isBlank()) {
             this.numericalAmount.setText("(no amount)");
             this.numericalAmount.setStyle(NO_NUMERICAL_AMOUNT_STYLE);
         } else {
             this.numericalAmount.setText(savingsNumber);
         }
-    }
-
-    /**
-     * Given a Savings object and the money symbol, return a String containing a formatted numerical value for use in
-     * SavingsBox, or an empty String if Savings does not have any MonetaryAmount or PercentageAmount(only Saveable).
-     *
-     * @param s           The Savings object to access.
-     * @param moneySymbol The money symbol set in UserPrefs.
-     * @return Nicely formatted String of the numerical savings.
-     */
-    private static String getSavingsString(Savings s, String moneySymbol) {
-        // assumes that Savings only has either PercentageAmount or MonetaryAmount, but never both
-        StringBuilder sb = new StringBuilder();
-        s.getPercentageAmount().ifPresent(pc ->
-                sb.append(pc.toString()));
-        s.getMonetaryAmount().ifPresent(ma ->
-                sb.append(ma.getStringWithMoneySymbol(moneySymbol)));
-        return sb.toString();
+        // handle saveables
+        s.getSaveables().ifPresentOrElse(
+                saveablesList -> {
+                    String saveablesPrelude = "Saveables:";
+                    Label preludeLabel = new Label(saveablesPrelude);
+                    preludeLabel.setStyle(CouponWindow.SAVEABLES_PRELUDE_STYLE);
+                    this.saveables.getChildren().add(preludeLabel);
+                    for (Saveable sva: saveablesList) {
+                        Label saveableLabel = new Label();
+                        if (sva.getCount() == 1) {
+                            saveableLabel.setText(sva.getValue());
+                        } else {
+                            saveableLabel.setText(sva.toString());
+                        }
+                        saveableLabel.setStyle(CouponWindow.SAVEABLE_LABEL_STYLE);
+                        this.saveables.getChildren().add(saveableLabel);
+                    }
+                    // put an invisible ending label to ensure that width of
+                    // ScrollPane with scroll bar does not truncate the
+                    // prelude text, which happens quite often
+                    Label invisibleEndingLabel = new Label(saveablesPrelude + "----");
+                    invisibleEndingLabel.setStyle(CouponWindow.SAVEABLES_PRELUDE_STYLE);
+                    invisibleEndingLabel.setMinHeight(0.0);
+                    invisibleEndingLabel.setMaxHeight(0.0);
+                    this.saveables.getChildren().add(invisibleEndingLabel);
+                },
+                () -> {
+                    this.saveables.setStyle(CouponWindow.HIDDEN);
+                    this.numericalAmount.setTranslateX(20);
+                });
     }
 
     @Override

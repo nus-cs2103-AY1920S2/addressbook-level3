@@ -115,26 +115,26 @@
   -fx-background-color: derive(#1d1d1d, 30%);
 }
 
-.scroll-bar {
+#coupon-list .scroll-bar {
   -fx-background-color: -fx-primary-blue;
   visibility: hidden;
 }
 
-.scroll-bar .thumb {
+#coupon-list .scroll-bar .thumb {
   -fx-background-color: -fx-primary-blue;
   visibility: hidden;
 }
 
-.scroll-bar .increment-button, .scroll-bar .decrement-button {
+#coupon-list .scroll-bar .increment-button, .scroll-bar .decrement-button {
   -fx-background-color: -fx-primary-blue;
   -fx-padding: 0;
 }
 
-.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+#coupon-list .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
   -fx-shape: " ";
 }
 
-.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+#coupon-list .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
   -fx-padding: 0;
   -fx-background-color: -fx-primary-blue;
 }
@@ -300,10 +300,28 @@
   -fx-font-style: italic;
 }
 
-#expanded-coupon-saveables {
-  -fx-font-family: arial;
-  -fx-font-size: 40px;
-  -fx-text-fill: white;
+#savings-header .scroll-bar {
+  -fx-background-color: transparent;
+}
+
+#savings-header .scroll-bar .increment-button, .scroll-bar .decrement-button {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+}
+
+#savings-header .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+  -fx-shape: " ";
+}
+
+#savings-header .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+  -fx-padding: 0;
+  -fx-background-color: transparent;
+}
+
+#savings-header .scroll-bar:vertical .thumb {
+  -fx-background-color: rgba(28, 133, 133, 0.5);
+  -fx-border-color :transparent;
+  -fx-background-radius : 7px;
 }
 
 #history-pane {
@@ -355,25 +373,42 @@
   -fx-background-color: transparent;
 }
 
-#summary-tab #all-saveables .scroll-bar .track{
+#summary-tab #all-saveables {
   -fx-background-color: -fx-tertiary-green;
+  -fx-background-radius: 10px;
+  -fx-padding: 10px;
+  -fx-effect: -fx-paneShadow;
 }
 
-#summary-tab #all-saveables .scroll-bar .thumb{
-  -fx-background-color: white;
+#summary-tab #all-saveables .scroll-bar {
+  -fx-background-color: transparent;
+  visibility: hidden;
+}
+
+#summary-tab #all-saveables .scroll-bar .increment-button, .scroll-bar .decrement-button {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+}
+
+#summary-tab #all-saveables .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+  -fx-shape: " ";
+}
+
+#summary-tab #all-saveables .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+  -fx-padding: 0;
+  -fx-background-color: transparent;
+}
+
+#summary-tab #all-saveables .scroll-bar:vertical .thumb {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
+  -fx-border-color :transparent;
+  -fx-background-radius : 7px;
 }
 
 #summary-tab #saveables {
   -fx-background-color: transparent;
   -fx-border-radius: 10px;
   -fx-padding: 10px;
-}
-
-#summary-tab #all-saveables {
-  -fx-background-color: -fx-tertiary-green;
-  -fx-background-radius: 10px;
-  -fx-padding: 10px;
-  -fx-effect: -fx-paneShadow;
 }
 
 #summary-tab .saveable-label {

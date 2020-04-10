@@ -81,7 +81,7 @@ public class SavingsBox extends UiPart<Region> {
      * @param moneySymbol The money symbol set in UserPrefs.
      * @return Nicely formatted String of the numerical savings.
      */
-    private static String getSavingsString(Savings s, String moneySymbol) {
+    protected static String getSavingsString(Savings s, String moneySymbol) {
         // assumes that Savings only has either PercentageAmount
         // or MonetaryAmount, but never both
         StringBuilder sb = new StringBuilder();
