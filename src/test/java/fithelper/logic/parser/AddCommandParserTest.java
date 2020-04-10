@@ -11,7 +11,6 @@ import static fithelper.logic.commands.CommandTestUtil.LOCATION_DESC_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.LOCATION_DESC_CAKE;
 import static fithelper.logic.commands.CommandTestUtil.NAME_DESC_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.NAME_DESC_CAKE;
-import static fithelper.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static fithelper.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static fithelper.logic.commands.CommandTestUtil.TIME_DESC_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.TIME_DESC_CAKE;
@@ -22,14 +21,14 @@ import static fithelper.logic.commands.CommandTestUtil.VALID_NAME_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.VALID_TIME_BURGER;
 import static fithelper.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static fithelper.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static fithelper.testutil.TypicalEntriesUtil.CAKE;
 import static fithelper.testutil.TypicalEntriesUtil.BURGER;
+import static fithelper.testutil.TypicalEntriesUtil.CAKE;
 
-import fithelper.model.entry.Entry;
 import org.junit.jupiter.api.Test;
 
 import fithelper.logic.commands.AddCommand;
 import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Entry;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Time;
@@ -60,9 +59,8 @@ public class AddCommandParserTest {
                 + LOCATION_DESC_BURGER + CALORIE_DESC_BURGER, new AddCommand(expectedEntry));
 
         // multiple calories - last calories accepted
-        assertParseSuccess(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + TIME_DESC_BURGER 
-                + LOCATION_DESC_BURGER
-                + CALORIE_DESC_CAKE + CALORIE_DESC_BURGER, new AddCommand(expectedEntry));
+        assertParseSuccess(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + TIME_DESC_BURGER
+                + LOCATION_DESC_BURGER + CALORIE_DESC_CAKE + CALORIE_DESC_BURGER, new AddCommand(expectedEntry));
 
     }
 
@@ -81,28 +79,23 @@ public class AddCommandParserTest {
 
         // missing name prefix
         assertParseFailure(parser, TYPE_DESC_FOOD + VALID_NAME_BURGER + TIME_DESC_BURGER
-                + LOCATION_DESC_BURGER
-                + CALORIE_DESC_BURGER, expectedMessage);
+                + LOCATION_DESC_BURGER + CALORIE_DESC_BURGER, expectedMessage);
 
         // missing time prefix
         assertParseFailure(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + VALID_TIME_BURGER
-                + LOCATION_DESC_BURGER
-                + CALORIE_DESC_BURGER, expectedMessage);
+                + LOCATION_DESC_BURGER + CALORIE_DESC_BURGER, expectedMessage);
 
         // missing location prefix
         assertParseFailure(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + TIME_DESC_BURGER
-                + VALID_LOCATION_BURGER
-                + CALORIE_DESC_BURGER, expectedMessage);
+                + VALID_LOCATION_BURGER + CALORIE_DESC_BURGER, expectedMessage);
 
         // missing calorie prefix
         assertParseFailure(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + TIME_DESC_BURGER
-                + LOCATION_DESC_BURGER
-                + VALID_CALORIE_BURGER, expectedMessage);
+                + LOCATION_DESC_BURGER + VALID_CALORIE_BURGER, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, TYPE_DESC_FOOD + VALID_NAME_BURGER + VALID_TIME_BURGER
-                + VALID_LOCATION_BURGER
-                + VALID_CALORIE_BURGER, expectedMessage);
+                + VALID_LOCATION_BURGER + VALID_CALORIE_BURGER, expectedMessage);
     }
 
     @Test
@@ -126,10 +119,8 @@ public class AddCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, TYPE_DESC_FOOD + INVALID_NAME_DESC + TIME_DESC_BURGER
-                        + LOCATION_DESC_BURGER + INVALID_CALORIE_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                        + LOCATION_DESC_BURGER + INVALID_CALORIE_DESC, Name.MESSAGE_CONSTRAINTS);
 
     }
-    
 }
 

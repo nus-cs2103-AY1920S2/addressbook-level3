@@ -12,6 +12,7 @@ public class ExitCommand extends Command {
     public static final String COMMAND_WORD_3 = "bye";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+    public static final String COMMAND_WORD = "exit";
 
     @Override
     public CommandResult execute(Model model) {

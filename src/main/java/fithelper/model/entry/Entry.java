@@ -303,7 +303,10 @@ public class Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName() + "\n")
+        builder.append("Name: ")
+                .append(getName() + "\n")
+                .append("Type: ")
+                .append(getType() + "\n")
                 .append("Time: ")
                 .append(getTime() + "\n")
                 .append("Location: ")

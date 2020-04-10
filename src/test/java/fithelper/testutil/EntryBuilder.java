@@ -28,11 +28,11 @@ public class EntryBuilder {
     private Duration duration;
 
     public EntryBuilder() {
+        type = new Type(DEFAULT_TYPE);
         name = new Name(DEFAULT_NAME);
         location = new Location(DEFAULT_LOCATION);
         calorie = new Calorie(DEFAULT_CALORIE);
         time = new Time(DEFAULT_TIME);
-        type = new Type(DEFAULT_TYPE);
         duration = new Duration(DEFAULT_DURATION);
     }
 
