@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import nasa.model.NasaBook;
-import nasa.model.activity.Event;
 import nasa.model.module.Module;
 
 /**

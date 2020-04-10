@@ -18,8 +18,8 @@ import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Event;
 import nasa.model.activity.Date;
+import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
@@ -36,23 +36,22 @@ public class EditEventCommand extends Command {
             + "by the index number used in the displayed moduleCode's event list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE "
             + "INDEX (must be a positive integer) "
+            + PREFIX_MODULE + "MODULE CODE "
             + "[" + PREFIX_DATE + "DUE DATE] "
             + "[" + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "
             + "[" + PREFIX_NOTE + "NOTE]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS2030 "
             + "1 "
+            + PREFIX_MODULE + "CS2030 "
             + PREFIX_DATE + "2020-03-20 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event successfully.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the "
-            + "module's event list.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
+    public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited.";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -76,11 +75,11 @@ public class EditEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
+        if (!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
-       List<Event> lastShownList = model.getFilteredEventList(moduleCode);
+        List<Event> lastShownList = model.getFilteredEventList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
@@ -88,12 +87,13 @@ public class EditEventCommand extends Command {
         }
 
         Event eventToEdit = lastShownList.get(index.getZeroBased());
+
+        requireNonNull(eventToEdit);
+
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
 
-        requireNonNull(editedEvent);
-
-        if (eventToEdit.equals(editedEvent)) { // if edit is exactly the same as the original
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        if (eventToEdit.isSameEvent(editedEvent)) { // if edit is exactly the same as the original
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
         }
 
         model.setEvent(moduleCode, eventToEdit, editedEvent);
@@ -113,10 +113,11 @@ public class EditEventCommand extends Command {
         requireNonNull(eventToEdit);
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
-        Date updatedDateCreated = editEventDescriptor.getDateCreated().orElse(eventToEdit.getDateCreated()); // by default date created cannot be edited, and will take previous value
+        // by default date created cannot be edited, and will take previous value
+        Date updatedDateCreated = editEventDescriptor.getDateCreated().orElse(eventToEdit.getDateCreated());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
-        Date updatedStartDate =  editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
-        Date updatedEndDate =  editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
+        Date updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
+        Date updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
 
         return new Event(updatedName, updatedDateCreated, updatedNote, updatedStartDate, updatedEndDate);
 
@@ -227,8 +228,12 @@ public class EditEventCommand extends Command {
             // state check
             EditEventCommand.EditEventDescriptor e = (EditEventCommand.EditEventDescriptor) other;
 
-            return getName().equals(e.getName()) && getDateCreated().equals(e.getDateCreated()) && getNote().equals(e.getNote())
-                    && getPriority().equals(e.getPriority()) && getStartDate().equals(e.getStartDate()) && getEndDate().equals(e.getEndDate());
+            return getName().equals(e.getName())
+                    && getDateCreated().equals(e.getDateCreated())
+                    && getNote().equals(e.getNote())
+                    && getPriority().equals(e.getPriority())
+                    && getStartDate().equals(e.getStartDate())
+                    && getEndDate().equals(e.getEndDate());
         }
     }
 }

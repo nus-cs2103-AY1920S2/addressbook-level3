@@ -46,11 +46,11 @@ public class AddEventCommand extends AddCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
         }
 
-        model.addEvent(moduleCode,  (Event) toAdd);
+        model.addEvent(moduleCode, (Event) toAdd);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

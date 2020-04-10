@@ -1,33 +1,12 @@
 package nasa.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static nasa.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-
-import nasa.commons.core.GuiSettings;
-import nasa.commons.core.index.Index;
-import nasa.model.HistoryManager;
-import nasa.model.Model;
-import nasa.model.NasaBook;
-import nasa.model.ReadOnlyHistory;
-import nasa.model.ReadOnlyNasaBook;
-import nasa.model.ReadOnlyUserPrefs;
-import nasa.model.activity.Activity;
-import nasa.model.activity.Name;
 import nasa.model.module.Module;
-import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
-import nasa.model.module.SortMethod;
-import nasa.model.module.UniqueModuleList;
 import nasa.testutil.ModuleBuilder;
 
 public class AddCommandTest {

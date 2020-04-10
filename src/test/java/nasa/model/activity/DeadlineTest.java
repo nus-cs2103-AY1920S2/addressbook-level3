@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class DeadlineTest {
 
     @Test
-    void create_deadline() throws IllegalArgumentException{
+    void create_deadline() throws IllegalArgumentException {
         Deadline deadline = new Deadline(new Name("Hello"), new Date("12-12-2020 23:59"));
         assertTrue(deadline.isValidDeadline(deadline.getDueDate()));
     }

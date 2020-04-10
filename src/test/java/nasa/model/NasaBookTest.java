@@ -2,8 +2,8 @@ package nasa.model;
 
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS2030;
 import static nasa.testutil.Assert.assertThrows;
-import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
+import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import nasa.commons.core.index.Index;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.module.Module;

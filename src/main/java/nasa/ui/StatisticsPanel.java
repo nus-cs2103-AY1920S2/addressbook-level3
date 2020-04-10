@@ -17,7 +17,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 
 import nasa.commons.core.LogsCenter;
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 

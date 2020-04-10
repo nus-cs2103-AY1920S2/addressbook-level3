@@ -7,7 +7,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.ui.UiPart;
 

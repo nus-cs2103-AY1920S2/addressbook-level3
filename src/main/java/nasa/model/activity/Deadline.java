@@ -93,6 +93,9 @@ public class Deadline extends Activity {
         this.isDone = true;
     }
 
+    /**
+     * Unmark deadline as done, and set {@code isOverdue} if overdue.
+     */
     public void unmarkAsDone() {
         isDone = false;
         if (isOverdue()) {
@@ -144,6 +147,27 @@ public class Deadline extends Activity {
 
     public boolean isValidDeadline(Date dueDate) {
         return !(dueDate.isBefore(Date.now()));
+    }
+
+    /**
+     * Returns true if both are the same deadline with same deadline attributes.
+     * This defines a stronger notion of equality between two deadlines.
+     */
+    public boolean isSameDeadline(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherDeadline = (Deadline) other;
+        return otherDeadline.getName().equals(getName())
+                && otherDeadline.getDueDate().equals(getDueDate())
+                && otherDeadline.getPriority().equals(getPriority())
+                && otherDeadline.getDateCreated().equals(getDateCreated())
+                && otherDeadline.getNote().equals(getNote());
     }
 
 }

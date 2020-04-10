@@ -2,9 +2,11 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import nasa.commons.core.GuiSettings;
@@ -222,7 +224,7 @@ public class ModelManager implements Model {
         nasaBook.setDeadline(moduleCode, target, editedDeadline);
         updateHistory();
     }
-    
+
     @Override
     public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
@@ -252,7 +254,7 @@ public class ModelManager implements Model {
     public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
         return nasaBook.hasActivity(moduleCode, activity);
     }
-    
+
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
