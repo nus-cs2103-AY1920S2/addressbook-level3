@@ -74,7 +74,11 @@ public class BlockModelImpl implements BlockModel {
     public void removeBlock(AbsolutePath p) {
         BlockTreeItem parent = blockTree.get(p).getBlockParent();
         blockTree.remove(p);
-        setCurrentlyOpenBlock(parent.getAbsolutePath());
+
+        // If the path no longer exists, find the nearest predecessor i.e case of deleting some unrelated block
+        if (!hasPath(getCurrentlyOpenPath())) {
+            setCurrentlyOpenBlock(parent.getAbsolutePath());
+        }
     }
 
     @Override
