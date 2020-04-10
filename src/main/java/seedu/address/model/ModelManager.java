@@ -197,6 +197,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteAssignment(Assignment target) {
+        createNewState("ASSIGNMENTS");
         assignmentSchedule.removeAssignment(target);
     }
 
