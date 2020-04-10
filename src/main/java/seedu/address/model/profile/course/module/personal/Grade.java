@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+//@@author chanckben
 /**
  * Stores the grade of a profile's Module object.
  */
@@ -29,6 +30,16 @@ public class Grade {
             }
         }
         throw new NoSuchElementException("Grade " + grade + " does not exist");
+    }
+
+    /**
+     * Sets the grade to null, effectively deleting it.
+     */
+    public void deleteGrade() {
+        if (myGrade == null) {
+            throw new NoSuchElementException();
+        }
+        myGrade = null;
     }
 
     public static boolean isValidGrade(String grade) {

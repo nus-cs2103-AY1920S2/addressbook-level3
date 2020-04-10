@@ -18,6 +18,7 @@ import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.AcceptedCourses;
 import seedu.address.model.profile.course.CourseName;
 
+//@@author chanckben
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String VALID_NAME = "rachel walker";

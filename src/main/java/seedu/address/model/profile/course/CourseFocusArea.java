@@ -7,6 +7,7 @@ import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
+//@@author wanxuanong
 /**
  * Represents a Course's focus area.
  * Guarantees: details are present and not null, field values are validated, immutable.

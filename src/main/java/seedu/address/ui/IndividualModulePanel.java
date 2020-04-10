@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.course.module.Module;
 
+//@@author jadetayy
 /**
  * Panel containing information related to specific Module.
  */

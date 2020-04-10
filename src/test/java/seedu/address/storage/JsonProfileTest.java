@@ -34,6 +34,7 @@ import seedu.address.model.profile.course.module.personal.ModuleStatus;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.course.module.personal.Status;
 
+//@@author chanckben
 public class JsonProfileTest {
 
     // JsonProfile variable declarations

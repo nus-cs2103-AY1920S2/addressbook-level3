@@ -7,6 +7,7 @@ import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
 
+//@@author gyant6
 /**
  * Represents the in-memory model of the course list data.
  */

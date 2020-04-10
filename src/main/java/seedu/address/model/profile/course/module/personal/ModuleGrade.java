@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course.module.personal;
 
+//@@author chanckben
 /**
  * Typical grades in NUS stored as enumerations.
  */

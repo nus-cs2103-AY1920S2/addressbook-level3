@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@@author gyant6
 /**
  * Represents a Module's semester data in the address book.
  * Guarantees:

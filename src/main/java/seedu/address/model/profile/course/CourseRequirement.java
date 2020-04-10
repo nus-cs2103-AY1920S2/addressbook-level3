@@ -6,7 +6,7 @@ import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.ModuleCode;
 
 
-
+//@@author wanxuanong
 /**
  * Represents a Course's requirement.
  * Guarantees: details are present and not null, field values are validated, immutable.

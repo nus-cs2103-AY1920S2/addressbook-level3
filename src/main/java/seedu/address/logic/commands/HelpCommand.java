@@ -6,6 +6,8 @@ import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 
+//@@author jadetayy
+
 /**
  * Format full help instructions for every command for display.
  */

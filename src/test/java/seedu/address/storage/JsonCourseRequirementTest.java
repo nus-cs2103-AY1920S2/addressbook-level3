@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author chanckben
 public class JsonCourseRequirementTest {
     private static final String VALID_REQUIREMENT_NAME = "requirement";
     private static final List<String> VALID_MODULES = new ArrayList<>();

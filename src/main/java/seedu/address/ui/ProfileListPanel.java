@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Profile;
 
+//@@author jadetayy
 /**
  * Panel containing the list of persons.
  */

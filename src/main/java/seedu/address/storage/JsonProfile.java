@@ -25,6 +25,7 @@ import seedu.address.model.profile.course.module.personal.Grade;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.course.module.personal.Status;
 
+//@@author chanckben
 /**
  * Jackson-friendly version of {@link Profile}.
  */

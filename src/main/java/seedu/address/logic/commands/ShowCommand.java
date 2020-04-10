@@ -25,7 +25,7 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
 
-
+//@@author wanxuanong
 /**
  * Displays details requested by user.
  */
