@@ -111,10 +111,14 @@ public class ModelManager implements Model {
         Predicate<? super Coupon> pred = this.filteredCoupons.getPredicate();
         updateFilteredCouponList(coupon -> false);
         // restore the old list after a short moment
-        Platform.runLater(() -> {
-            updateFilteredCouponList(pred);
-            logger.info("Coupon list refreshed to show new symbol " + moneySymbol);
-        });
+        try {
+            Platform.runLater(() -> {
+                updateFilteredCouponList(pred);
+                logger.info("Coupon list refreshed to show new symbol " + moneySymbol);
+            });
+        } catch (IllegalStateException e) {
+            logger.warning(e.getMessage());
+        }
         return oldSymbol;
     }
 

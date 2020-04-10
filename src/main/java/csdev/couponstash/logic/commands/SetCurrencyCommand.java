@@ -21,7 +21,7 @@ public class SetCurrencyCommand extends Command {
     public static final String MESSAGE_CONSTRAINTS = "Numbers are not allowed"
             + " within currency symbols!";
 
-    private static final String MESSAGE_SUCCESS = "Money symbol changed from %s to ";
+    protected static final String MESSAGE_SUCCESS = "Money symbol changed from %s to ";
 
     private final String moneySymbol;
 

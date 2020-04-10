@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import csdev.couponstash.commons.MoneySymbolStub;
+import csdev.couponstash.testutil.MoneySymbolStub;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.commands.exceptions.CommandException;

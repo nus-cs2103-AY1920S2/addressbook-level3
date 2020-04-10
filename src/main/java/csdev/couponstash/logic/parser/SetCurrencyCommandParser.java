@@ -1,7 +1,6 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.logic.commands.SetCurrencyCommand.MESSAGE_MISSING_VALUES;
-import static csdev.couponstash.logic.commands.SetCurrencyCommand.MESSAGE_USAGE;
 import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.logic.commands.SetCurrencyCommand;
