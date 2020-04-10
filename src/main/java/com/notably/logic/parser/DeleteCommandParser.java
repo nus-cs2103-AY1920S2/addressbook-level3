@@ -40,11 +40,12 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             title = args.trim();
-            if (title.isEmpty()) {
-                throw new ParseException(ERROR_EMPTY_PATH);
-            }
         } else {
             title = argMultimap.getValue(PREFIX_TITLE).get();
+        }
+
+        if (title.isEmpty()) {
+            throw new ParseException(ERROR_EMPTY_PATH);
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
