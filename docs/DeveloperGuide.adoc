@@ -599,26 +599,165 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a profile
+
+. Adding a new profile while at Quick Start page
+
+.. Prerequisites: Currently at the Quick Start page. No profiles added.
+.. Test case: `new n/john y/2.2 c/computer science f/computer security` +
+   Expected: Details of the new profile are shown in the profile panel. Name of the new profile shown in the status message.
+.. Test case: `new n/john y/2.2 c/computer science` +
+   Expected: Details of the new profile are shown in the profile panel. Focus area is shown as `UNDECIDED`. Name of the new profile shown in the status message.
+.. Test case: `new n/john y/2.2` +
+   Expected: No profile is added. Error details shown in the status message. All panels remain the same.
+.. Other incorrect new commands to try: `new n/john y/2.2 c/abc`, `new n/john y/2.x c/computer science` (where x is larger than 2), `new n/john& y/2.1 c/computer science` +
+   Expected: Similar to previous.
 
 === Deleting a profile
 
-. Deleting a profile while all profiles are listed
+. Deleting a profile while all modules are listed
 
-.. Prerequisites: List all profiles using the `list` command. Multiple profiles in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No profile is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: Profile with name `john` has been created. Multiple modules in multiple semesters shown in the overview. View all modules using the `show n/john` command.
+.. Test case: `delete n/john` +
+   Expected: Main window changes from the overview panel to the Quick Start page shown at start up. Profile panel becomes empty. Status message mentions that the profile list has been cleared.
+.. Test case: `delete n/tom` +
+   Expected: No profile is deleted. Error details shown in the status message. All panels remain the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is a number), `delete n/john y/1.1`, `delete n/john c/computer science` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a module
+
+. Adding a module while all modules are listed
+
+.. Prerequisites: Profile with name `john` has been created. View all modules using the `show n/john` command.
+.. Test case: `add m/CS1010 y/1.1` +
+   Expected: Module `CS1010` appears in overview panel under `YEAR 1 SEMESTER 1`. Grade of module is shown as `-`. Module code of added module shown in status message. Profile panel remains the same.
+.. Test case: `add m/CS1010 y/1.1 g/A` +
+   Expected: Similar to previous, except that grade of `CS1010` is shown as `A`.
+.. Test case: `add m/CS1010` +
+   Expected: No module is added. Error details shown in the status message. All panels remain the same.
+.. Other incorrect add commands to try: `add`, `add y/1.1`, `add m/CS1010 y/` +
+   Expected: Similar to previous.
+
+=== Deleting a module
+
+. Deleting a module while all modules are listed
+
+.. Prerequisites: Profile with name `john` has been created. The module `CS1010` has been added and the module `CS1231` has NOT been added. View all modules using the `show n/john` command.
+.. Test case: `delete m/CS1010` +
+   Expected: Module `CS1010` is deleted from the overview panel. Module code of deleted module shown in status message. Profile panel remains the same.
+.. Test case: `delete m/CS1231` +
+   Expected: No module is deleted. Error details shown in the status message. All panels remain the same.
+.. Other incorrect delete commands to try: `delete m/CS1111`, `delete m/CS101`, `delete m/` +
+   Expected: Similar to previous
+
+=== Adding a deadline
+
+. Adding a deadline
+
+.. Prerequisites: Profile has been created. For the current semester, the module `CS1010` has been added and the module `CS1231` has NOT been added.
+.. Test case: `add m/CS1010 t/work d/2020-10-10 22:00` +
+   Expected: Deadline with module code `CS1010`, task `work`, date `10 October 2020` and time `22:00` is added to the deadline panel. Module code `CS1010` appears in status message. Profile panel and overview panel remains the same.
+.. Test case: `add m/CS1010 t/work` +
+   Expected: Similar to previous, except that date and time fields of the deadline are shown as `-`.
+.. Test case: `add m/CS1010 t/work d/2020-10-40 22:00` +
+   Expected: No deadline is added. Error details shown in the status message. All panels remain the same.
+.. Other incorrect add commands to try: `add m/CS1010 d/2020-10-10 22:00`, `add m/CS1231 t/work d/2020-10-10 22:00` +
+   Expected: Similar to previous.
+
+=== Deleting a deadline
+
+. Deleting a deadline
+
+.. Prerequisites: Profile has been created. The module `CS1010` has been added to the current semester. For this module, a deadline with task `work` has been added and a deadline with task `test` has NOT been added.
+.. Test case: `delete m/CS1010 t/work` +
+   Expected: Deadline `work` is deleted from the deadline panel. Module code `CS1010` and task `work` appears in status message. Profile panel and overview panel remains the same.
+.. Test case: `delete m/CS1010 t/test` +
+   Expected: No deadline is deleted. Error details shown in the status message. All panels remain the same.
+.. Other incorrect delete commands to try: `delete m/CS1010 t/work d/2020-10-10 22:00`, `delete m/CS1010 t/test` +
+   Expected: Similar to previous.
+
+=== Setting the grade of a module
+
+. Setting the grade of an existing module while all modules are listed
+
+.. Prerequisites: Profile with name `john` has been created. The module `CS1010` has been added and the module `CS1231` has NOT been added. View all modules using the `show n/john` command.
+.. Test case: `edit m/CS1010 g/A` +
+   Expected: In the overview panel, the grade field of `CS1010` is shown as `A`. The current CAP is updated to reflect the latest CAP. Module code `CS1010` appears in the status message. The other panels remain the same.
+.. Test case: `edit m/CS1010 g/X` +
+   Expected: No grade is edited. Error details shown in the status message. All panels remain the same.
+.. Other incorrect edit commands to try: `edit m/CS1010 g/1`, `edit m/CS1231 g/A` +
+   Expected: Similar to previous.
+
+=== Deleting the grade of a module
+
+. Deleting the grade of an existing module while all modules are listed
+
+.. Prerequisites: Profile with name `john` has been created. The module `CS1010` has been added with grade `A` and the module `CS1231` has NOT been added. View all modules using the `show n/john` command.
+.. Test case: `delete m/CS1010 g/` +
+   Expected: In the overview panel, the grade field of `CS1010` is shown as `-`. The current CAP is updated to reflect the latest CAP. Module code `CS1010` appears in the status message. The other panels remain the same.
+.. Test case: `delete m/CS1231 g/` +
+   Expected: No grade is deleted. Error details shown in the status message. All panels remain the same.
+
+=== Viewing module overview
+
+. Viewing the module overview throughout all semesters.
+
+.. Prerequisites: Profile with name `john` has been created.
+.. Test case: `view n/john` +
+   Expected: The overview panel is shown with all the added modules.
+.. Test case: `view n/tom` +
+   Expected: User interface does not change. Error details shown in the status message. All panels remain the same.
+
+=== Viewing semester overview
+
+. Viewing the module overview for a particular semester.
+
+.. Prerequisites: Profile has been created. The module `CS1010` has been added to year 1 semester 1. No modules have been added to year 1 semester 2.
+.. Test case: `view y/1.1` +
+   Expected: Module `CS1010` and its title appears in the overview panel.
+.. Test case: `view y/1.2` +
+   Expected: User interface does not change. Error details shown in the status message.
+
+=== Viewing module information
+
+. Viewing the information (description, prerequisites, preclusions, etc) of a module
+
+.. Test case: `show m/CS1010` +
+   Expected: The module information is shown in the overview panel.
+.. Test case: `show m/CS1111` +
+   Expected: User interface does not change. Error details shown in the status message.
+
+=== Viewing course information
+
+. Viewing the information (course requirements, focus areas) of a course
+
+.. Test case: `show c/computer science` +
+   Expected: The course requirements and focus areas of Computer Science are shown in the overview panel.
+.. Test case: `show c/course` +
+   Expected: User interface does not change. Error details shown in the status message.
+
+=== Viewing focus area information
+
+. Viewing the information (modules in primaries and electives) of a focus area
+
+.. Test case: `show f/computer security` +
+   Expected: The modules in Area Primaries and Electives of Computer Security are shown in the overview panel.
+.. Test case: `show f/focus area` +
+   Expected: User interface does not change. Error details shown in the status message.
+
+=== Returning to home screen
+
+. Returning to the home screen
+
+.. Test case: `home` +
+   Expected: The Quick Start page is shown in the overview panel.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Test case: Delete the file named `userProfiles.json` in the `data` folder, relative to the path of the jar file. Launch the app by double-clicking the jar file.
+   Expected: Shows the GUI with a Quick Start page.
+.. Test case: Edit the file named `userProfiles.json` in the `data` folder such that it does not contain valid JSON. This can be done by removing the curly bracket on the first line of the file. Launch the app by double-clicking the jar file.
+   Expected: Shows the GUI with a Quick Start page.
