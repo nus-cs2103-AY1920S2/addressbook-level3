@@ -90,18 +90,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialises the MainWindow
      */
-    void start() {
-        // Scale Width and Height based on Screen Resolution
-        Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
-        primaryStage.setWidth(screenBoundary.getWidth() / 1.5);
-        primaryStage.setHeight(screenBoundary.getWidth() / 2);
-
-        // Center Window
-        primaryStage.setX((screenBoundary.getWidth() - primaryStage.getWidth()) / 2);
-        primaryStage.setY((screenBoundary.getHeight() - primaryStage.getHeight()) / 2);
-
-        primaryStage.show();
-
+    void init() {
         // Fills up all the placeholders of this window.
         homePanel = new HomePanel(logic.getOngoingSetList(), logic.getLastSet(), logic.getTimerList());
         homeContentPlaceholder.getChildren().add(homePanel.getRoot());
@@ -134,6 +123,22 @@ public class MainWindow extends UiPart<Stage> {
 
         // Focus on command box
         commandBox.requestFocus();
+    }
+
+    /**
+     * Starts the MainWindow
+     */
+    void start() {
+        // Scale Width and Height based on Screen Resolution
+        Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
+        primaryStage.setWidth(screenBoundary.getWidth() / 1.5);
+        primaryStage.setHeight(screenBoundary.getWidth() / 2);
+
+        // Center Window
+        primaryStage.setX((screenBoundary.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((screenBoundary.getHeight() - primaryStage.getHeight()) / 2);
+
+        primaryStage.show();
     }
 
     /**
