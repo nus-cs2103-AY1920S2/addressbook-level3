@@ -1,17 +1,23 @@
 == Cher Wei Jie UML Diagrams
 
-* *Edit Features UML Diagrams*
+* *Return Features UML Diagrams*
 
-image::../../images/EditCommandActivityDiagram.svg[]
-This Activity Diagram purpose is to describe the general work flow of the Edit feature.
+image::../../images/ReturnCommandActivityDiagram.png[]
+This Activity Diagram purpose is to describe the general work flow of the Return feature.
 
-image::../../images/EditCommandClassDiagram.png[]
-This Class Diagram purpose is to describe the dependencies of EditCommand class when implementing this feature.
+image::../../images/ReturnClassDiagram.png[]
+This Class Diagram purpose is to describe the dependencies of `ReturnCommand`
+class when implementing this feature. It allows a developer to easily see the
+classes and interfaces associated with the `ReturnCommand`.
 
-image::../../images/EditCommandSequenceDiagram.svg[]
-This Sequence Diagram is to show a more detailed explanation of the communication between the Logic and Model class of Delino once an execution of edit command is performed. +
-This diagram allows developers or users who are interested to further understand the implementation of Edit command and allow them to use it as a reference to further develop this feature in the future.
-Edit command is an essential feature in Delino as a busy courier might have some hiccups when typing their orders. This feature allows them not only to do the minute changes to their orders but also reschedule their delivery to some other day upon customers' request.
+image::../../images/ReturnSequenceDiagram1_a.png[]
+This Sequence Diagram is used to show a more detailed explanation of the interaction between the
+Logic and Model classes of Delino when the `return` command is executed. +
+
+This Sequence Diagram describes the execution flow of a valid
+`return` command for converting a delivered order into a return order. i.e. `return` `tid/AC31255`.
+It provides a simple overview for developers to maintain the `return`
+command and extend it easily if needed.
 
 * *Search Features UML Diagram*
 
