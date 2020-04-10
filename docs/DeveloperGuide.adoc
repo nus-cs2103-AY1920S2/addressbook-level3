@@ -1505,6 +1505,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `Delino` and the *Actor* is the `user`, unless specified otherwise)
 
+//@@author Amoscheong97
 //tag::use_case_insert[]
 [discrete]
 === Use case: UC01 - Insert an order
@@ -1527,7 +1528,9 @@ Use case ends.
 Use case ends.
 //end::use_case_insert[]
 
+//@@author Exeexe93
 //tag::use_case_clear[]
+
 [discrete]
 === Use case: UC02 - Clear all orders
 
@@ -1568,6 +1571,9 @@ Use case ends.
 Use case ends.
 //end::use_case_clear[]
 
+//@@author JeremyLoh
+//tag::use_case_delete[]
+
 [discrete]
 === Use case: UC03 - Delete an order
 
@@ -1595,8 +1601,11 @@ Use case ends.
 ** 3b1. Delino shows no order found message.
 +
 Use case ends.
+//end::use_case_delete[]
 
+//@@author cherweijie
 //tag::use_case_delivered[]
+
 [discrete]
 === Use case: UC04 - Mark order or return order as delivered
 
@@ -1640,7 +1649,9 @@ Use case ends.
 Use case ends.
 //end::use_case_delivered[]
 
+//@@author khsc96
 //tag::use_case_edit[]
+
 [discrete]
 === Use case: UC05 - Editing order details
 
@@ -1669,6 +1680,8 @@ Use case ends.
 Use case ends.
 //end::use_case_edit[]
 
+//@@author
+
 [discrete]
 === Use case: UC06 - Exit the program
 
@@ -1682,6 +1695,7 @@ Use case ends.
 +
 Use case ends.
 
+//@@author khsc96
 //tag::use_case_search[]
 [discrete]
 === Use case: UC07 - Search an order
@@ -1710,6 +1724,8 @@ Use case ends.
 Use case ends.
 //end::use_case_search[]
 
+//@@author
+
 [discrete]
 === Use case: UC08 - Request for help
 
@@ -1720,6 +1736,7 @@ Use case ends.
 +
 Use case ends.
 
+//@@author Exeexe93
 //tag::use_case_import[]
 [discrete]
 
@@ -1761,7 +1778,9 @@ Use case ends.
 Use case ends.
 //end::use_case_import[]
 
+//@@author Amoscheong97
 //tag::use_case_list[]
+
 [discrete]
 === Use case: UC10 - Listing all orders
 
@@ -1791,7 +1810,9 @@ Use case ends.
 Use case ends.
 //end::use_case_list[]
 
+//@@author cherweijie
 //tag::use_case_return[]
+
 [discrete]
 === Use case: UC11 - Returning an order
 
@@ -1838,6 +1859,9 @@ Use case ends.
 +
 Use case ends.
 //end::use_case_return[]
+
+//@@author JeremyLoh
+//tag::use_case_nearby[]
 
 [discrete]
 === Use case: UC12 - Obtain orders in a postal sector
@@ -1896,6 +1920,7 @@ Use case ends.
 ** 2a1. Delino shows nothing to be undone message.
 +
 Use case ends.
+//end::use_case_nearby[]
 
 //tag::use_case_show[]
 [discrete]
@@ -1909,7 +1934,9 @@ Use case ends.
 Use case ends.
 //end::use_case_show[]
 
+//@@author cherweijie
 //tag::use_case_help[]
+
 [discrete]
 === Use case: UC12 - Display list of commands in Delino using help
 
@@ -1940,7 +1967,9 @@ Use case ends.
 Use case ends.
 //end:use_case_help[]
 
+//@@author cherweijie
 //tag::non_functional_requirements[]
+
 [appendix]
 == Non Functional Requirements
 
@@ -1948,9 +1977,14 @@ Use case ends.
 .  Should be able to hold up to 350 orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The system should be able to respond within three seconds.
-.  The system should be able to work without internet access.
+.  The system should work without internet access.
 .  A user should be able to get all the information he/she needs within four commands.
 .  A user should be able to familiarise himself/herself within an hour of usage.
+.  The data cannot be stored in a Database Management System (DBMS).
+.  The system should work once downloaded and should not depend on a remote server.
+.  The application should not be larger than 50Mb.
+.  The application should be crash during its execution. It should show warning messages instead of
+crashing.
 //end::non_functional_requirements[]
 
 [appendix]
