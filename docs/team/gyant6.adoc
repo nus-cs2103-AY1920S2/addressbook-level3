@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: MODdy
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+MODdy is a desktop application used by NUS Computing students to track their course progression, manage modules and manage deadlines. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -23,7 +23,7 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 ** Added the ability to store course information in JSON format that can be used by all users of MODdy
 *** Credits: With reference to https://github.com/chanckben[@chanckben]'s https://github.com/AY1920S2-CS2103T-W13-3/main/blob/master/src/main/java/seedu/address/storage/JsonModule.java[JsonModule] class
 ** Added Cumulative Average Point (CAP) calculator for users to keep track of their grades
-
+** Ensured features were working as intended for each commit and version release. Raised and also solved multiple issues (https://github.com/AY1920S2-CS2103T-W13-3/main/issues?q=is%3Aissue+author%3Agyant6[Issues raised])
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=gyant6[RepoSense report]]
 
 * *Other contributions*:
@@ -39,9 +39,8 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 *** Refactored commands to non-static access of Manager objects (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/151[#151])
 *** Addressed and closed numerous issues raised by other users in dry Practical Exam (Pull request https://github.com/AY1920S2-CS2103T-W13-3/main/pull/259[#259])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-W13-3/main/pull/280[#280]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/gyant6/ped/issues[1])
 
 == Contributions to the User Guide
@@ -51,9 +50,10 @@ AddressBook - Level 3 is a desktop address book application used for teaching So
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=show]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=appendix]
+
 
 == Contributions to the Developer Guide
 
@@ -61,7 +61,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=show]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 

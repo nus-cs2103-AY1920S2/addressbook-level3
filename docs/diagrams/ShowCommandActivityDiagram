@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes show command;
+:MODdy parses commands and checks arguments for parameters;
+->Argument contains;
+if (n/) then ([yes])
+  :Display overall view;
+elseif (y/) then ([yes])
+  :Display semester modules;
+elseif (m/) then ([yes])
+  :Display module information;
+elseif (f/) then ([yes])
+  :Display focus area information;
+elseif (c/) then ([yes])
+  :Display course information;
+else ()
+  :Display usage error message;
+endif
+stop
+@enduml
