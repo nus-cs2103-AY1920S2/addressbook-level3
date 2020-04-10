@@ -46,7 +46,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInput_newCommand() throws Exception {
-        Command command = parser.parseCommand("new -t 1234 -b i love 2103").get(0);
+        Command command = parser.parseCommand("new -t 1234").get(0);
 
         assertTrue(command instanceof NewCommand);
 
@@ -85,6 +85,7 @@ public class NotablyParserTest {
     public void parseCommand_newCommandInputJump_true() throws Exception {
         AbsolutePath expectedPath = AbsolutePath.fromString("/Y2S2/CS2101");
         List<? extends Command> commands = parser.parseCommand("new -t CS2101 -o");
+
         assertTrue(commands.size() == 2);
 
         for (Command command : commands) {
