@@ -2,6 +2,7 @@ package seedu.recipe.model;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 
 /**
  * Unmodifiable view of a cooked Records
@@ -14,5 +15,5 @@ public interface ReadOnlyCookedRecordBook {
      */
     ObservableList<Record> getRecordsList();
 
-    ObservableList<Integer> getFilteredGoalsTally();
+    ObservableList<GoalCount> getFilteredGoalsTally();
 }

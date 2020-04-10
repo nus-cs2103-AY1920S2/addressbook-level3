@@ -24,6 +24,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
@@ -224,7 +225,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Integer> getFilteredGoalsTally() {
+        public ObservableList<GoalCount> getFilteredGoalsTally() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -179,7 +180,7 @@ public interface Model {
     void updateGoalsTally(Record record);
 
     /** Returns an unmodifiable view of the filtered goals list */
-    ObservableList<Integer> getFilteredGoalsTally();
+    ObservableList<GoalCount> getFilteredGoalsTally();
 
     /**
      * Replaces record book data with the data in {@code CookedRecordBook}.

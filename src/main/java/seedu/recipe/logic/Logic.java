@@ -9,6 +9,7 @@ import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
@@ -60,7 +61,7 @@ public interface Logic {
      * Returns an unmodifiable view of goals tally
      * @return list
      */
-    ObservableList<Integer> getFilteredGoalsTally();
+    ObservableList<GoalCount> getFilteredGoalsTally();
 
     /**
      * Returns an unmodifiable view of the scheduled recipes.
