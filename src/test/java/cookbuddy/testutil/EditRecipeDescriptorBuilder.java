@@ -63,16 +63,20 @@ public class EditRecipeDescriptorBuilder {
     /**
      * Sets the {@code IngredientList} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withIngredients(List<Ingredient> ingredients) {
-        descriptor.setIngredients(new IngredientList(ingredients));
+    public EditRecipeDescriptorBuilder withIngredients(String ingredients) {
+        List<Ingredient> ingredientList =
+                Stream.of(ingredients.trim().split(";")).map(String::trim).map(Ingredient::new).collect(Collectors.toList());
+        descriptor.setIngredients(new IngredientList(ingredientList));
         return this;
     }
 
     /**
      * Sets the {@code InstructionList} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withInstructions(List<Instruction> instructions) {
-        descriptor.setInstructions(new InstructionList(instructions));
+    public EditRecipeDescriptorBuilder withInstructions(String instructions) {
+        List<Instruction> instructionList = (Stream.of(instructions.trim().split(";")).map(String::trim)
+                .map(Instruction::new).collect(Collectors.toList()));
+        descriptor.setInstructions(new InstructionList(instructionList));
         return this;
     }
 

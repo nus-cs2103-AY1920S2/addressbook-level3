@@ -132,7 +132,8 @@ public class ModifyCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_RECIPE;
-        String userInput = targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + INSTRUCTIONS_DESC_HAM_SANDWICH;
+        String userInput =
+                targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + INSTRUCTIONS_DESC_HAM_SANDWICH + TAG_DESC_LUNCH;
 
         ModifyCommand.EditRecipeDescriptor descriptor =
                 new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST)
@@ -175,12 +176,12 @@ public class ModifyCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_RECIPE;
         String userInput = targetIndex.getOneBased() + INGREDIENTS_DESC_HAM_SANDWICH + INSTRUCTIONS_DESC_HAM_SANDWICH
-                + TAG_DESC_BREAKFAST + INGREDIENTS_DESC_HAM_SANDWICH + INSTRUCTIONS_DESC_HAM_SANDWICH + TAG_DESC_BREAKFAST
+                + TAG_DESC_BREAKFAST + INGREDIENTS_DESC_HAM_SANDWICH + INSTRUCTIONS_DESC_HAM_SANDWICH
                 + INGREDIENTS_DESC_EGGS_ON_TOAST + INSTRUCTIONS_DESC_EGGS_ON_TOAST + TAG_DESC_LUNCH;
 
         ModifyCommand.EditRecipeDescriptor descriptor =
                 new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST)
-                .withInstructions(VALID_INSTRUCTIONS_EGGS_ON_TOAST).withTags(VALID_TAG_LUNCH, VALID_TAG_BREAKFAST)
+                .withInstructions(VALID_INSTRUCTIONS_EGGS_ON_TOAST).withTags(VALID_TAG_LUNCH)
                 .build();
         ModifyCommand expectedCommand = new ModifyCommand(targetIndex, descriptor);
 
