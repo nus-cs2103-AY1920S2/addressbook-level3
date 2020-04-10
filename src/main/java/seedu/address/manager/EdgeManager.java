@@ -181,7 +181,6 @@ public class EdgeManager extends BaseManager {
             ID courseID = assignment.getAssignedCourseID();
             if (isDelete) {
                 unassignAssignmentFromCourse(assignment.getId(), courseID);
-                //ProgressManager.removeOneProgressFromAllStudents(courseID, assignment.getId());
             } else {
                 assignAssignmentToCourse(assignment.getId(), courseID);
             }
@@ -192,7 +191,6 @@ public class EdgeManager extends BaseManager {
 
     private static void processEdgeFromStudent(Student student, Boolean isDelete) {
         try {
-
             // Delete edges to student
             Set<ID> courseIDs = student.getAssignedCoursesID();
             for (ID courseID : courseIDs) {

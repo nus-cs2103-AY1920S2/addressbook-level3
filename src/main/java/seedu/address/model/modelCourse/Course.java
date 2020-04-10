@@ -154,7 +154,6 @@ public class Course extends ModelObject {
       this.assignedStaffID = null;
     }
 
-
     public Set<ID> getAssignedAssignmentsID() {
       return Collections.unmodifiableSet(assignedAssignmentsID);
     }

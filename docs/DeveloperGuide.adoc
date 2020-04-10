@@ -193,7 +193,7 @@ for easier management of entity links. Every non-directed association between 2 
 The only exception is `Progress` objects which are created via
 a composite ID of `studentID` and `assignmentID`.
 
-The group then uses 3 different managers in order to ensure that the links are successfully maintained during each
+There are 3 crucial managers involved in order to ensure that the links are successfully maintained during each
 any command which involves manipulation of entity links. The three managers are:
 
 .  `UUID Manager` - Ensures ID of all entities are unique, allowing each object to be uniquely identifiable
@@ -219,8 +219,12 @@ For the actual execution of an assign/unassign command, 3 main steps are perform
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
 ==== Preprocess Entities
-Firstly, a `pre-processing step` must be performed before executing an undo-able assign/unassign command
+Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
 to ensure that all entity links are in correct state before command execution.
+
+Below is an activity diagram showing the pre-processing
+performed for assign commands. The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the
+second stage instead.
 
 .Activity Diagram of Pre-processing for
 image::Ivan-PreprocessAssignActivityDiagram.png[]
@@ -228,8 +232,12 @@ image::Ivan-PreprocessAssignActivityDiagram.png[]
 Notice that there are 2 main exit points in the activity diagram. The success case is straightforward and will lead to a
 the program continuing to execute the actual assign/un-assign command.
 
-However, for the failure case, should any of the conditions fail, this means that either the specified objects does `not exist`, or
-both entities are `already assigned` to each other or more importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
+However, for the failure case, should any of the conditions fail, this means that either that the
+
+* specified objects does `not exist`,
+* both entities are `already assigned` to each other or,
+* most importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
+
 
 ===== EdgeManager
 Explain flow for assign/unassign
