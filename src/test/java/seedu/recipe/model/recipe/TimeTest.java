@@ -30,7 +30,7 @@ public class TimeTest {
         assertFalse(Time.isValidTime("time")); // non-numeric
         assertFalse(Time.isValidTime("9011p041")); // alphabets within digits
         assertFalse(Time.isValidTime("9312 1534")); // spaces within digits
-        assertFalse(Time.isValidTime("956954069")); //long numbers
+        assertFalse(Time.isValidTime("95699999954069")); //long numbers
         assertFalse(Time.isValidTime("-20")); //negative numbers
         assertFalse(Time.isValidTime("0")); //zero value
 

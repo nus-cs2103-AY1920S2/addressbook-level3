@@ -17,7 +17,7 @@ public class Time {
             + "of minutes, be more than 0 and less than 3000, and be separated by a single dash "
             + "where first number is smaller than the second (for range).\n"
             + "Example: filter t/10 or filter t/10-20";
-    public static final String VALIDATION_REGEX = "\\d{1,}";
+    public static final String VALIDATION_REGEX = "\\d{1,9}";
     public final String value;
 
     /**
