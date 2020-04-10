@@ -4,14 +4,14 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S2-CS2103T-W17-4/main[image:https://travis-ci.org/AY1920S2-CS2103T-W17-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/PotatoCombat/main[image:https://ci.appveyor.com/api/projects/status/hj9hoqnof01ge3pp/branch/master?svg=true[Build status]]
 https://coveralls.io/github/AY1920S2-CS2103T-W17-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-W17-4/main/badge.svg?branch=master[Coverage Status]]
-image:https://api.codacy.com/project/badge/Grade/a87445f769c04ad3863dad750abbb321["Codacy code quality", link="https://www.codacy.com/gh/AY1920S2-CS2103T-W17-4/TA-Tracker?utm_source=github.com&utm_medium=referral&utm_content=AY1920S2-CS2103T-W17-4/TA-Tracker&utm_campaign=Badge_Grade"]
+https://www.codacy.com/gh/AY1920S2-CS2103T-W17-4/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S2-CS2103T-W17-4/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/a87445f769c04ad3863dad750abbb321[Codacy code quality]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop personal income and task management application for NUS Computing Teaching Assistants (TAs).
