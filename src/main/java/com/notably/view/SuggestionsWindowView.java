@@ -11,8 +11,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 
 /**
@@ -67,9 +71,42 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         });
     }
 
+    /**
+     * Calls helper functions that set the List settings and populate the SideBarTreeView with data.
+     */
     private void initializeSuggestionsList(ObservableList<SuggestionItem> suggestionsList) {
         suggestionsListPanel.setItems(suggestionsList);
         suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
+        initializeSelectionHandler();
+    }
+
+    /**
+     * Sets up an {@code EventHandler} that track whether the user has selected a {@link SuggestionItem}, and
+     * whether the user is navigating out of the Suggestions List.
+     */
+    private void initializeSelectionHandler() {
+        suggestionsListPanel.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (KeyCode.ENTER == event.getCode()) {
+                suggestionsListPanel.getSelectionModel().getSelectedItem().getAction().run();
+                navigateOutOfList();
+            }
+            if (KeyCode.UP == event.getCode()) {
+                int selectedIndex = suggestionsListPanel.getSelectionModel().getSelectedIndex();
+                if (selectedIndex == 0) {
+                    suggestionsListPanel.getSelectionModel().clearSelection();
+                    navigateOutOfList();
+                }
+            }
+        });
+    }
+
+    /**
+     * Helper function that handles the event where the user navigates out of the Suggestions List.
+     * Gives back control to the {@link CommandBox}.
+     */
+    private void navigateOutOfList() {
+        Window mainStage = Stage.getWindows().stream().filter(Window::isShowing).findFirst().get();
+        mainStage.getScene().lookup("#commandTextField").requestFocus();
     }
 
     private void setSuggestionsListRenderingStatus(boolean bool) {

@@ -39,6 +39,11 @@ public class CommandBox extends ViewPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandTextField.textProperty().bindBidirectional(stringProperty);
+        commandTextField.focusedProperty().addListener((observable, unused, isNowFocused) -> {
+            if (isNowFocused) {
+                Platform.runLater(() -> commandTextField.selectEnd());
+            }
+        });
     }
 
     /**
