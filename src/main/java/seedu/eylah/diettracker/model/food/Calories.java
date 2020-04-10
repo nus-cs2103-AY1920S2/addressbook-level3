@@ -12,6 +12,7 @@ public class Calories {
     public static final long LONG_ZERO = 0;
     public static final String MESSAGE_CONSTRAINTS =
             "Calories count should be zero or a positive whole number";
+    public static final String VALIDATION_REGEX = "^[/]?\\d+$";
     public final long value;
 
     /**
@@ -34,6 +35,13 @@ public class Calories {
      */
     public static boolean isValidCalories(long test) {
         return test >= LONG_ZERO;
+    }
+
+    /**
+     * Returns true if a given string is a valid calories.
+     */
+    public static boolean isValidCaloriesString(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public Calories add(Calories other) {
