@@ -15,7 +15,23 @@ public class ViewStateModelTest {
         viewStateModel = new ViewStateModelImpl();
     }
 
-    //============ HelpFlagModelModel =============================================================
+    //============ CommandInputModel ==============================================================
+    @Test
+    public void inputProperty_void_returnsValidProperty() {
+        assertNotNull(viewStateModel.inputProperty());
+    }
+
+    @Test
+    public void getInput_void_returnsValidString() {
+        assertNotNull(viewStateModel.getInput());
+    }
+
+    @Test
+    public void setInput_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> viewStateModel.setInput(null));
+    }
+
+    //============ HelpFlagModel ==================================================================
     @Test
     public void helpOpenProperty_void_returnsValidProperty() {
         assertNotNull(viewStateModel.helpOpenProperty());
