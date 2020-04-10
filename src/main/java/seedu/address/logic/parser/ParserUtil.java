@@ -28,6 +28,9 @@ import seedu.address.model.exercise.ExerciseName;
 import seedu.address.model.exercise.ExerciseReps;
 import seedu.address.model.exercise.ExerciseSets;
 import seedu.address.model.exercise.ExerciseWeight;
+import seedu.address.model.graph.Axis;
+import seedu.address.model.graph.EndDate;
+import seedu.address.model.graph.StartDate;
 import seedu.address.model.schedule.Day;
 import seedu.address.model.schedule.EndTime;
 import seedu.address.model.schedule.Schedule;
@@ -437,6 +440,51 @@ public class ParserUtil {
         } catch (Exception e) {
             throw new ParseException(Schedule.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses a {@code String axis} into an {@code Axis}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code axis} is invalid.
+     */
+    public static Axis parseAxis(String axis) throws ParseException {
+        requireNonNull(axis);
+        String trimmedAxis = axis.trim();
+        if (!Axis.isValidAxis(trimmedAxis)) {
+            throw new ParseException(Axis.MESSAGE_CONSTRAINTS);
+        }
+        return new Axis(trimmedAxis);
+    }
+
+    /**
+     * Parses a {@code String startDate} into an {@code StartDate}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startDate} is invalid.
+     */
+    public static StartDate parseStartDate(String startDate) throws ParseException {
+        requireNonNull(startDate);
+        String trimmedStartDate = startDate.trim();
+        if (!StartDate.isValidStartDate(trimmedStartDate)) {
+            throw new ParseException(StartDate.MESSAGE_CONSTRAINTS);
+        }
+        return new StartDate(trimmedStartDate);
+    }
+
+    /**
+     * Parses a {@code String endDate} into an {@code EndDate}. Leading and
+     * trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDate} is invalid.
+     */
+    public static EndDate parseEndDate(String endDate) throws ParseException {
+        requireNonNull(endDate);
+        String trimmedEndDate = endDate.trim();
+        if (!EndDate.isValidEndDate(trimmedEndDate)) {
+            throw new ParseException(EndDate.MESSAGE_CONSTRAINTS);
+        }
+        return new EndDate(trimmedEndDate);
     }
 
 }

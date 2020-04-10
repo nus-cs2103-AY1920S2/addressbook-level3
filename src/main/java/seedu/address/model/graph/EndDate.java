@@ -1,4 +1,4 @@
-package seedu.address.model.exercise;
+package seedu.address.model.graph;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -8,36 +8,32 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents the date of an exercise done by client. Guarantees: immutable; is
- * valid as declared in {@link #isValidExerciseDate(String)}
+ * Represents the end date of the graph of exercises. Guarantees: immutable; is
+ * valid as declared in {@link #isValidEndDate(String)}
  */
-public class ExerciseDate {
-
-    public static final String EARLIEST_DATE = LocalDate.now().minusYears(1)
-            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+public class EndDate {
     public static final String MESSAGE_CONSTRAINTS =
-            "Exercise date should be in the format DD-MM-YYYY (eg. 02-03-1999), and cannot exceed the current date."
-                    + " Exercise date should also not be earlier than " + EARLIEST_DATE + ".";
+            "End date input should be in the form DD-MM-YYYY and should not be before start date or blank. \n"
+            + "It should only be from within one year before to the current date. eg. 18-12-2019. ";
+
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
     public final String displayValue;
 
-    /**
-     * Constructs a {@code Date}.
-     *
-     * @param date A valid date in the form DD-MM-YYYY.
-     */
-    public ExerciseDate(String date) {
+    public EndDate(String date) {
         requireNonNull(date);
-        checkArgument(isValidExerciseDate(date), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEndDate(date), MESSAGE_CONSTRAINTS);
         this.value = LocalDate.parse(date, DATE_TIME_FORMATTER);
-        this.displayValue = date; // assuming birthday string is valid
+        this.displayValue = date; // assuming date string is valid
     }
 
     /**
-     * Returns true if a given string is a valid date.
+     * Tests if endDate is a valid date, within a year prior to current date.
+     *
+     * @param test String to be tested.
+     * @return Returns true if a given string is a valid date.
      */
-    public static boolean isValidExerciseDate(String test) {
+    public static Boolean isValidEndDate(String test) {
         try {
             LocalDate testDate = LocalDate.parse(test, DATE_TIME_FORMATTER);
             LocalDate dateNow = LocalDate.now();
@@ -55,10 +51,6 @@ public class ExerciseDate {
         }
     }
 
-    public long forPlot() {
-        return value.toEpochDay();
-    }
-
     @Override
     public String toString() {
         return this.value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -67,13 +59,12 @@ public class ExerciseDate {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExerciseDate // instanceof handles nulls
-                        && value.equals(((ExerciseDate) other).value)); // state check
+                || (other instanceof EndDate // instanceof handles nulls
+                        && value.equals(((EndDate) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
     }
-
 }

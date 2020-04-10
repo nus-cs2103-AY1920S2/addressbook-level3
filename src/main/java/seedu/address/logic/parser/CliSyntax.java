@@ -34,4 +34,10 @@ public class CliSyntax {
 
     //======================= schedule =====================================
     public static final Prefix PREFIX_SCHEDULE = new Prefix("sch/");
+
+    //======================= graph ========================================
+    public static final Prefix PREFIX_EXERCISE_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_AXIS = new Prefix("a/");
+    public static final Prefix PREFIX_STARTDATE = new Prefix("sd/");
+    public static final Prefix PREFIX_ENDDATE = new Prefix("ed/");
 }
