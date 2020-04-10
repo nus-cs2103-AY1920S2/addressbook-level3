@@ -104,7 +104,18 @@ public class UniqueReceiptList implements Iterable<Receipt> {
      * @return true if contain at least a receipt, otherwise false.
      */
     public boolean isContainSingleReceipt() {
-        return internalList.size() != 0;
+        return internalList.size() == 1;
+    }
+
+    /**
+     * Get the receipt in the internal list based on the given receipt.
+     *
+     * @param receipt the given receipt.
+     * @return the receipt in the internal list.
+     */
+    public Receipt getReceipt(Receipt receipt) {
+        int index = internalList.indexOf(receipt);
+        return internalList.get(index);
     }
 
     @Override
