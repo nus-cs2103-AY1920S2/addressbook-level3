@@ -2,22 +2,20 @@
 
 start
 :User enter clear command;
-if () then ([Arguments are empty])
-    :Create a new Clear Command with no flags;
+if () then ([invalid flag or both `-r` and `-o` flags found in arguments])
+:Display error message to user;
 else ([else])
-    :Create a new Clear Command with flags;
-endif
 :Executes the command;
 
 if () then (([flags contains '-f' flag])
     if () then ([flags also contains '-o' flag])
-    :Clear the order book list;
+    :Clear the order book;
     else ([else])
         if() then ([flags also contain '-r' flag])
-        :Clear the return order book list;
+        :Clear the return order book ;
         else ([flags only contains 'f' flag])
-        :Clear both order book list and
-         return order book list;
+        :Clear both order book  and
+         return order book;
         endif
     endif
     :Display success message to the User;
@@ -26,21 +24,22 @@ else ([else])
     if() then([flags do not contains 'f' flag])
         if () then ([flags contains '-o' flag])
             :Display the confirmation message
-             to clear order book list to user;
+             to clear order book to user;
         else ([flags contains 'r' flag])
             :Display the confirmation message
-             to clear return order book list to user;
+             to clear return order book to user;
         endif
     else ([flags equal to null])
     :Display the confirmation message
-     to clear both order book list
-     and return order book list to user;
+     to clear both order book
+     and return order book to user;
     endif
     if () then ([User press yes button])
-        :Clear the respective order book list based on the command;
+        :Clear the respective order book based on the command;
         :Display clear success message to user;
     else ([User press no button])
     endif
+endif
 endif
 stop
 @enduml

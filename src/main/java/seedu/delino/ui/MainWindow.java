@@ -1,5 +1,7 @@
 package seedu.delino.ui;
 
+import static seedu.delino.commons.core.Messages.WELCOME_MESSAGE;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -170,7 +172,6 @@ public class MainWindow extends UiPart<Stage> {
         if (showTab.isSelected()) {
             logger.info("Show Tab is selected by the user");
             tabPane.getSelectionModel().select(showTab);
-            //Do stuff here
         }
     }
 
@@ -186,9 +187,22 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        printStartUpMessage();
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Print out start up message to user.
+     */
+    private void printStartUpMessage() {
+        List<String> startUpMessages = logic.getStartUpMessages();
+        String printMessage = WELCOME_MESSAGE;
+        for (String message : startUpMessages) {
+            printMessage += message;
+        }
+        resultDisplay.setFeedbackToUser(printMessage);
     }
 
     /**
@@ -215,6 +229,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author Exeexe93
     /**
      * Opens the clear warning window or focuses on it if it's already opened.
      */
@@ -228,6 +243,7 @@ public class MainWindow extends UiPart<Stage> {
             clearWindow.focus();
         }
     }
+    //@@author
 
     /**
      * Calculate the total earnings of the Courier.
@@ -389,10 +405,12 @@ public class MainWindow extends UiPart<Stage> {
                 // Go to the list tab
                 tabPane.getSelectionModel().select(listTab);
 
+                //@@author Exeexe93
                 if (commandResult.isClearList()) {
                     handleClearWarning(commandResult.getFeedbackToUser());
                     clearWindow.setComponent(resultDisplay);
                 }
+                //@@author
 
                 // Show Command
                 if (commandResult.isDisplayEarnings()) {

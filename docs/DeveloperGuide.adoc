@@ -264,7 +264,7 @@ The second argument of the `list` command can be `done` or `undone` or an empty 
 ====
 
 The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
-the second argument into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
+into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
 Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
 the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
 argument is empty, the predicate that is parsed to the two methods will always result to true, which means to list
@@ -290,20 +290,21 @@ The execution path of the `ClearCommand` is shown below: +
 .Clear Class Activity Diagram
 image::ClearActivityDiagram.svg[]
 
-After user enter the `clear` command, the `ClearCommandParser` will check if the arguments are empty: +
+After user enter the `clear` command, the `ClearCommandParser` will run the following two checks: +
 
-** if `Yes`, a new `ClearCommand` object will be created with no flag
-** If `No`, a new `ClearCommand` object will be created with the flags. +
+** Check if flag in the arguments do not belong to one of the three valid flags: `-f`, `-r` and `-o`
+** Check if both `-r` and `-o` flags found in the arguments +
 
+If either one of the conditions occurs, exception will be thrown and the error message will be display to the user.
 Afterward,  the new `ClearCommand` object will be executed.
 
 During the execution of the `ClearCommand`:
 
-** If `-f` flag is found in flags, the respective order book list will be cleared and
+** If `-f` flag is found in flags, the respective order book will be cleared and
 display a success message to the user.
 ** If there are no `-f` flag found in flags, a pop up will appeared with the confirmation message.
    User would be required to press either one of the following two buttons:
-*** `Yes` button - The respective order book list will be cleared and display successful clear message to the user.
+*** `Yes` button - The respective order book will be cleared and display successful clear message to the user.
 *** `No` button - Pop up closed and end of activity.
 
 [[clear-structure]]
@@ -350,12 +351,15 @@ Sequence Diagram below: +
 .Clear Command Sequence Diagram
 image::ClearCommandSequenceDiagram.svg[]
 
-The arguments passed to the Clear Command will be parsed by the `ClearCommandParser` class +
+The above sequence diagram illustrate how `Clear` Command being processed when the user input `clear -f` to force clear
+both order book and return order book.
+
+After the user input. the arguments passed to the `Clear` Command will be parsed by the `ClearCommandParser` class +
 If the given arguments are valid, a new `Clear` Command object will be returned.
 
 In the `ClearCommandParser`, there will be two validation checks: +
-1. `isValidFlag(flag)`: Check whether the flag is one of the three flags: `-f`, `-o` and `-r` +
-2. `isInvalidFlagFormat(flag, flags)`: Ensure the arguments do not have both `-o` and `-r` flags.
+1. Ensure the flag is one of the three flags: `-f`, `-o` and `-r` +
+2. Ensure the arguments do not have both `-o` and `-r` flags.
 
 After the two validation checks, the flag will be added into HashSet, *flags* which will then passed to
 the new `ClearCommand` object created by `ClearCommandParser` and it is being returned to the `LogicManager`.
@@ -363,14 +367,12 @@ The `LogicManager` will start to run the execute the `clear` Command, which will
 shown in details in below diagram:
 
 .Execution of Clear Command Sequence Diagram
-image::ClearCommandSequenceDiagram2.svg[]
+image::ExecuteClearCommand.svg[]
 
-After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by creating a
-new `OrderBook` object and pass it to `Model#setOrerBook(orderBook)`, whereby the `Model` will then update its own
-orderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
-in it back to the `LogicManager`.
-
-After executing any of the sequences above, a new `CommandResult` object will be return back to `LogicManager`.
+After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by pass a new
+`OrderBook` object and a new `ReturnOrderBook` object to `Model`.  The `Model` will then update its own orderBook and
+returnOrderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
+in it to the `LogicManager` at the end of the execution.
 
 //end::clear[]
 
@@ -1153,7 +1155,7 @@ After the user enter the `import` command, there are three validation check for 
 ** If `No`, display the error message to the user.
 
 Afterward, a new `ImportCommand` will be created and executed. For every data inside the list, either order or return order
-will be added into the order book list and return order book list respectively based on the `orderType` value.
+will be added into the order book and return order book respectively based on the `orderType` value.
 If the `orderType` is invalid, add the data into the result, which will be displayed to the user after processing.
 
 [[import-structure]]
@@ -1216,12 +1218,12 @@ After the `ImportCommand` object is being returned to the `LogicManager`, the `L
 to run the execute the `ImportCommand`, this will be shown at the diagram below.
 
 .Execution of Import Command Sequence Diagram
-image::ImportCommandSequenceDiagram2.svg[]
+image::ExecuteImportCommand.svg[]
 
 The `ImportCommand#execute(model)` will first check if the data given starts with
 *order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
 
-Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return the `InsertCommand` or `ReturnCommand` respectively
+Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return a new `InsertCommand` or `ReturnCommand` respectively
 if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute(Model)`
 or `ReturnCommand#execute(Model)` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
 
@@ -1322,6 +1324,63 @@ However, if `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is given and the preamb
 
 The order and return order list updates automatically as the JavaFX class `ObservableList` is used to listen to any changes.
 //end::search[]
+
+//tag::show[]
+[[show]]
+=== Show feature
+This section describes the <<show-functionality, functionality>> , the <<show-structure, structure>>,
+<<show-interactions, interactions>> between objects and <<show-path, path>> the path execution of the *Show Command*.
+
+[[show-functionality]]
+==== What is the Show feature
+Show feature allows the user to see the statistical information of all the orders for both Delivery Orders
+and Return Orders.
+
+There are a few ways in which the user can input to the command box to execute the *Show Command* :
+
+* `show` `START_DATE` `[END_DATE]`
+
+* `show` `all`
+
+* `show` `today`
+
+* `show` `DATE`
+
+[[show-structure]]
+==== Structure Show feature
+The structure of the List Feature is as shown below:
+
+.Show Command Class Diagram
+image:ShowCommandClassDiagram.svg[]
+
+[[show-path]]
+==== Path execution of the Show Command
+.Show Command Activity Diagram
+image::ShowCommandActivityDiagram.svg[]
+
+The above activity diagram shows the logic and the path execution when the *Show Command* is executed.
+
+[[show-interactions]]
+==== Interaction between objects during execution of Show Command
+The sequence diagram for the *Show Command* is shown below: +
+
+.Show Command Sequence Diagram
+image::ShowCommandSequenceDiagram.svg[]
+
+The user first calls the command "show all".
+[NOTE]
+====
+It can accept either one or two arguments.
+====
+
+The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
+into the `ShowCommand` object. Within the object, it will call the parseData method to make sense of the dates given.
+After that, it returns the object to the `LogicManager`.
+Next, the `LogicManager` will call the execute(model) method using the `ShowCommand` object.
+When completed, the execute(model) will return a `CommandResult` object to the `LogicManager`, indicating that the command execution is a success.
+In this case where the input is "show all", it will have a message that indicates that the command is showing all information.
+//end::show[]
+
 
 === Logging
 

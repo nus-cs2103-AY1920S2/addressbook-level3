@@ -3,9 +3,9 @@ package seedu.delino.model.parcel.comment;
 import static java.util.Objects.requireNonNull;
 import static seedu.delino.commons.util.AppUtil.checkArgument;
 
-
+//@@author Exeexe93
 /**
- * Represents a comment in the order book.
+ * Represents a comment for the order or return order in order book or return order book respectively.
  * Guarantees: immutable; name is valid as declared in {@link #isValidComment(String)}
  */
 
