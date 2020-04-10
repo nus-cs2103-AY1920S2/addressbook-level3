@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
-import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -18,22 +17,27 @@ import csdev.couponstash.model.coupon.savings.Savings;
  * Jackson-friendly version of {@link Savings}.
  */
 public class JsonAdaptedSavings {
-    private final Double monetaryAmount;
+    private final JsonAdaptedMonetaryAmount monetaryAmount;
     private final Double percentageAmount;
     private final List<JsonAdaptedSaveable> saveables;
 
     /**
      * Constructs a {@code JsonAdaptedSavings} with the given savings details.
-     * @param ma Double representing monetary amount (could be null).
+     * Monetary amount integer and monetary amount decimal should both be
+     * present or both be null. If either one is present but the other is
+     * not, the Savings will not be loaded properly.
+     *
+     * @param jsma JsonAdaptedMonetaryAmount representing
+     *             MonetaryAmount (could be null).
      * @param pc Double representing percentage amount (could be null).
      * @param sva List of JsonAdaptedSaveables (could be null).
      */
     @JsonCreator
-    public JsonAdaptedSavings(@JsonProperty("monetaryAmount") Double ma,
+    public JsonAdaptedSavings(@JsonProperty("monetaryAmount") JsonAdaptedMonetaryAmount jsma,
                               @JsonProperty("percentageAmount") Double pc,
                               @JsonProperty("saveables") List<JsonAdaptedSaveable> sva) {
 
-        this.monetaryAmount = ma;
+        this.monetaryAmount = jsma;
         this.percentageAmount = pc;
         this.saveables = sva;
     }
@@ -48,7 +52,7 @@ public class JsonAdaptedSavings {
      * @param sv The Savings to be used.
      */
     public JsonAdaptedSavings(Savings sv) {
-        this.monetaryAmount = sv.getMonetaryAmount().map(MonetaryAmount::getValue).orElse(null);
+        this.monetaryAmount = sv.getMonetaryAmount().map(JsonAdaptedMonetaryAmount::new).orElse(null);
         this.percentageAmount = sv.getPercentageAmount().map(PercentageAmount::getValue).orElse(null);
         Function<List<Saveable>, List<JsonAdaptedSaveable>> mapToJson =
             svaList -> svaList.stream()
@@ -68,9 +72,7 @@ public class JsonAdaptedSavings {
      *     contain any fields at all).
      */
     public Savings toModelType() throws IllegalValueException {
-        if ((monetaryAmount == null && percentageAmount == null && saveables == null)
-                || (monetaryAmount != null && percentageAmount != null)) {
-
+        if (this.checkIfValuesInvalid()) {
             throw new IllegalValueException(Savings.MESSAGE_CONSTRAINTS);
 
         } else if (saveables != null) {
@@ -80,7 +82,7 @@ public class JsonAdaptedSavings {
                 modelSaveables.add(jsv.toModelType());
             }
             if (monetaryAmount != null) {
-                return new Savings(new MonetaryAmount(monetaryAmount), modelSaveables);
+                return new Savings(monetaryAmount.toModelType(), modelSaveables);
             } else if (percentageAmount != null) {
                 return new Savings(new PercentageAmount(percentageAmount), modelSaveables);
             } else {
@@ -88,9 +90,24 @@ public class JsonAdaptedSavings {
             }
 
         } else if (monetaryAmount != null) {
-            return new Savings(new MonetaryAmount(monetaryAmount));
+            return new Savings(monetaryAmount.toModelType());
         } else {
             return new Savings(new PercentageAmount(percentageAmount));
         }
+    }
+
+    /**
+     * Checks if this JsonAdaptedSavings violates the
+     * assumptions of a model Savings object.
+     *
+     * @return Returns true, if the values in this
+     *         JsonAdaptedSavings would result in
+     *         an invalid Savings object.
+     */
+    private boolean checkIfValuesInvalid() {
+        // check if no values present at all in this Savings
+        return (monetaryAmount == null && percentageAmount == null && saveables == null)
+                // check if both monetaryAmount and percentageAmount present
+                || (monetaryAmount != null && percentageAmount != null);
     }
 }

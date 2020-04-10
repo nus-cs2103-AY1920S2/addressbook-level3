@@ -27,8 +27,9 @@
       <VBox id="saveables-box" alignment="CENTER" prefHeight="338.0" prefWidth="301.0">
         <Label id="saveables-text" styleClass="saveable-label" fx:id="saveablesText"
                contentDisplay="CENTER" prefHeight="17.0" />
-        <ScrollPane id="all-saveables" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefHeight="303.0" prefWidth="277.0">
-          <VBox id="saveables" fx:id="allSaveables" alignment="CENTER" prefHeight="303.0" prefWidth="277.0"/>
+        <ScrollPane id="all-saveables" hbarPolicy="NEVER" prefHeight="303.0"
+                    prefWidth="277.0" fitToHeight="true">
+          <VBox id="saveables" fx:id="allSaveables" alignment="CENTER" prefWidth="277.0"/>
         </ScrollPane>
       </VBox>
     </HBox>
