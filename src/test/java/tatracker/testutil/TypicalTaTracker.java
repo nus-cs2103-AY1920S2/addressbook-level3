@@ -14,6 +14,8 @@ import tatracker.model.student.Student;
  * Creates typical TA-Trackers.
  */
 public class TypicalTaTracker {
+
+    //@@author aakanksha-rai
     public static TaTracker getTypicalTaTrackerWithStudents() {
         Module typicalCS3243 = new Module("CS3243", "Introduction to AI");
         Group typicalG06 = new Group("G06", GroupType.LAB);
@@ -29,6 +31,7 @@ public class TypicalTaTracker {
         return tat;
     }
 
+    //@@author aakanksha-rai
     /**
      * Returns an {@code TaTracker} with all the typical modules.
      */
@@ -43,6 +46,7 @@ public class TypicalTaTracker {
         return tat;
     }
 
+    //@@author aakanksha-rai
     /**
      * Returns an {@code TaTracker} with all the typical groups.
      */
@@ -57,14 +61,17 @@ public class TypicalTaTracker {
         return tat;
     }
 
+    //@@author aakanksha-rai
     public static Module getTypicalModule() {
         return new Module("CS3243", "Introduction to AI");
     }
 
+    //@@author aakanksha-rai
     public static Group getTypicalGroup() {
         return new Group("G06", GroupType.LAB);
     }
 
+    //@@author aakanksha-rai
     /**
      * Returns an {@code TaTracker}.
      */

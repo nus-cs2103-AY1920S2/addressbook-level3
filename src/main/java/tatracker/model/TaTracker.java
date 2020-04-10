@@ -330,6 +330,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Module Methods =================================================
 
+    //@@author aakanksha-rai
     /**
      * Returns module from TATracker.
      */
@@ -337,6 +338,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.getModule(moduleId);
     }
 
+    //@@author aakanksha-rai
     /**
      * Returns module from TATracker.
      */
@@ -344,6 +346,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.get(index);
     }
 
+    //@@author aakanksha-rai
     /**
      * Returns true if a module with the same module code exists in the TATracker.
      */
@@ -352,6 +355,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return modules.contains(new Module(moduleCode));
     }
 
+    //@@author aakanksha-rai
     /**
      * Adds a module to the TATracker.
      */
@@ -359,6 +363,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules.add(module);
     }
 
+    //@@author aakanksha-rai
     /**
      * Removes module with same module code from TA-Tracker.
      */
@@ -374,6 +379,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules.remove(module);
     }
 
+    //@@author aakanksha-rai
     /**
      * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the ta-tracker.
@@ -382,6 +388,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules.remove(key);
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the ta-tracker.
@@ -393,6 +400,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules.setModule(target, editedModule);
     }
 
+    //@@author aakanksha-rai
     /**
      * Sorts modules alphabetically.
      */
@@ -402,6 +410,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         }
     }
 
+    //@@author aakanksha-rai
     /**
      * Sorts modules by rating in ascending order.
      */
@@ -411,6 +420,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         }
     }
 
+    //@@author aakanksha-rai
     /**
      * Sorts modules alphabetically.
      */
@@ -420,6 +430,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         }
     }
 
+    //@@author aakanksha-rai
     /**
      * Sorts modules by matric number.
      */
@@ -429,6 +440,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         }
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the contents of the modules list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
@@ -437,21 +449,25 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.modules.setModules(modules);
     }
 
+    //@@author aakanksha-rai
     @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
     }
 
+    //@@author aakanksha-rai
     public static Module getCurrentlyShownModule() {
         return currentlyShownModule;
     }
 
+    //@@author aakanksha-rai
     public void setCurrentlyShownModule(Module module) {
         currentlyShownModule = module;
     }
 
     // ======== Group Methods ==================================================
 
+    //@@author aakanksha-rai
     /**
      * Returns true if a group with the same group code exists in the TATracker.
      */
@@ -466,6 +482,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         return module.hasGroup(new Group(groupCode));
     }
 
+    //@@author aakanksha-rai
     /**
      * Adds a group to the TATracker.
      */
@@ -477,6 +494,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         module.addGroup(group);
     }
 
+    //@@author aakanksha-rai
     /**
      * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the ta-tracker.
@@ -489,6 +507,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         module.deleteGroup(group);
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the given group {@code target} in the list with {@code editedGroup}.
      * {@code target} must exist in the ta-tracker.
@@ -505,6 +524,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         module.setGroup(target, editedGroup);
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the contents of the group list with {@code groups}.
      * {@code groups} must not contain duplicate groups.
@@ -516,6 +536,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.currentlyShownGroups.setGroups(groups);
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the contents of the group list with the groups at the given
      * module index.
@@ -525,6 +546,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         setCurrentlyShownGroups(((modules.get(n)).getGroupList()));
     }
 
+    //@@author aakanksha-rai
     /**
      * Updates the currently shown groups to be that of the currently shown module
      * code.
@@ -534,21 +556,25 @@ public class TaTracker implements ReadOnlyTaTracker {
         setCurrentlyShownGroups((modules.getModule(moduleCode)).getGroupList());
     }
 
+    //@@author aakanksha-rai
     @Override
     public ObservableList<Group> getCurrentlyShownGroupList() {
         return currentlyShownGroups.asUnmodifiableObservableList();
     }
 
+    //@@author aakanksha-rai
     public static Group getCurrentlyShownGroup() {
         return currentlyShownGroup;
     }
 
+    //@@author aakanksha-rai
     public void setCurrentlyShownGroup(Group group) {
         currentlyShownGroup = group;
     }
 
     // ======== Student Methods ================================================
 
+    //@@author
     /**
      * Returns true if a given student with the same identity as {@code student}
      * exists in a module group that is in TaTracker.
@@ -682,6 +708,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownStudents.setStudent(target, editedStudent);
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the contents of the student list with {@code students}.
      * {@code students} must not contain duplicate students.
@@ -690,6 +717,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         this.currentlyShownStudents.setStudents(students);
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the contents of the student list with the students at the given
      * group index of the given module.
@@ -700,6 +728,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         setCurrentlyShownStudents(currentlyShownGroup.getStudentList());
     }
 
+    //@@author aakanksha-rai
     /**
      * Replaces the contents of the student list with the students at the given
      * group index of the given module.
@@ -710,6 +739,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         setCurrentlyShownStudents(((modules.get(moduleIndex).get(groupIndex)).getStudentList()));
     }
 
+    //@@author aakanksha-rai
     /**
      * Updates the currently shown groups to be that of the currently shown module
      * code.
@@ -720,6 +750,7 @@ public class TaTracker implements ReadOnlyTaTracker {
         setCurrentlyShownStudents(((modules.getModule(moduleCode)).getGroup(groupCode)).getStudentList());
     }
 
+    //@@author aakanksha-rai
     @Override
     public ObservableList<Student> getCurrentlyShownStudentList() {
         return currentlyShownStudents.asUnmodifiableObservableList();
@@ -727,6 +758,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     // ======== Utility Methods ================================================
 
+    //@@author
     @Override
     public int hashCode() {
         return modules.hashCode();
