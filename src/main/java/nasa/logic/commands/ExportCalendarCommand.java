@@ -59,4 +59,19 @@ public class ExportCalendarCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof  ExportCalendarCommand)) {
+            return false;
+        }
+
+        ExportCalendarCommand command = (ExportCalendarCommand) other;
+
+        if (filepath == null) {
+            return ((ExportCalendarCommand) other).filepath == null;
+        }
+
+        return filepath.equals(((ExportCalendarCommand) other).filepath);
+    }
 }
