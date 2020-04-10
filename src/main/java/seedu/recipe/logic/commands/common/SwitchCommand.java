@@ -27,5 +27,12 @@ public class SwitchCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_SUCCESS, false, false, tab, false);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SwitchCommand // instanceof handles nulls
+                && tab.equals(((SwitchCommand) other).tab)); // state check
+    }
 }
 

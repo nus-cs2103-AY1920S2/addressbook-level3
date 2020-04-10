@@ -29,4 +29,18 @@ class SwitchCommandTest {
                 new CommandResult(MESSAGE_SUCCESS, false, false, Tab.RECIPES, false);
         assertCommandSuccess(new SwitchCommand(Tab.RECIPES), model, expectedCommandResult, expectedModel);
     }
+
+    @Test
+    public void execute_viewGoals_success() {
+        CommandResult expectedCommandResult =
+                new CommandResult(MESSAGE_SUCCESS, false, Tab.GOALS, false);
+        assertCommandSuccess(new SwitchCommand(Tab.GOALS), model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_viewAchievements_success() {
+        CommandResult expectedCommandResult =
+                new CommandResult(MESSAGE_SUCCESS, false, Tab.ACHIEVEMENTS, false);
+        assertCommandSuccess(new SwitchCommand(Tab.ACHIEVEMENTS), model, expectedCommandResult, expectedModel);
+    }
 }

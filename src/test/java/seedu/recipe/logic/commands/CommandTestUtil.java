@@ -31,13 +31,13 @@ import seedu.recipe.testutil.EditRecipeDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_FRUIT_TURKEY_SANDWICH = "300g, Tomato";
-    public static final String VALID_FRUIT_FISH = "200g, Peach";
+    public static final String VALID_FRUIT_FISH = "50g, Peach";
     public static final String VALID_GRAIN_TURKEY_SANDWICH = "300g, Wholemeal bread";
-    public static final String VALID_GRAIN_FISH = "200g, Rice";
-    public static final String VALID_PROTEIN_TURKEY_SANDWICH = "150g, Shredded Turkey";
-    public static final String VALID_PROTEIN_FISH = "300g, Cod fish";
+    public static final String VALID_GRAIN_FISH = "100g, Rice";
+    public static final String VALID_PROTEIN_TURKEY_SANDWICH = "50g, Shredded Turkey";
+    public static final String VALID_PROTEIN_FISH = "100g, Cod fish";
     public static final String VALID_VEGE_TURKEY_SANDWICH = "150g, Lettuce";
-    public static final String VALID_VEGE_FISH = "300g, Tomato";
+    public static final String VALID_VEGE_FISH = "100g, Tomato";
     public static final String VALID_OTHER_TURKEY_SANDWICH = "150g, Mayonnaise";
     public static final String VALID_OTHER_FISH = "300g, Sesame oil";
     public static final String VALID_NAME_TURKEY_SANDWICH = "Turkey Sandwich";
@@ -48,6 +48,8 @@ public class CommandTestUtil {
     public static final String VALID_STEP_FISH = "Remove fish stomach";
     public static final String VALID_GOAL_PROTEIN = "Bulk like the Hulk";
     public static final String VALID_GOAL_GRAIN = "Wholesome Wholemeal";
+    public static final String VALID_GOAL_VEGE = "Herbivore";
+    public static final String VALID_GOAL_FRUIT = "Fruity Fiesta";
 
     public static final String FRUIT_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_FRUIT + VALID_FRUIT_TURKEY_SANDWICH;
     public static final String FRUIT_DESC_FISH = " " + PREFIX_INGREDIENT_FRUIT + VALID_FRUIT_FISH;
@@ -67,8 +69,6 @@ public class CommandTestUtil {
     public static final String VEGETABLE_DESC_FISH = " " + PREFIX_INGREDIENT_VEGE + VALID_VEGE_FISH;
     public static final String STEP_DESC_TURKEY_SANDWICH = " " + PREFIX_STEP + VALID_STEP_TURKEY_SANDWICH;
     public static final String STEP_DESC_FISH = " " + PREFIX_STEP + VALID_STEP_FISH;
-    public static final String GOAL_DESC_GRAIN = " " + PREFIX_GOAL + VALID_GOAL_GRAIN;
-    public static final String GOAL_DESC_PROTEIN = " " + PREFIX_GOAL + VALID_GOAL_PROTEIN;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James!"; // '!' not allowed in names
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "911a"; // 'a' not allowed in times
@@ -94,7 +94,7 @@ public class CommandTestUtil {
                 .withVegetables(VALID_VEGE_FISH).withProteins(VALID_PROTEIN_FISH)
                 .withFruits(VALID_FRUIT_FISH).withOthers(VALID_OTHER_FISH)
                 .withSteps(VALID_STEP_FISH)
-                .withGoals(VALID_GOAL_PROTEIN).build();
+                .withGoals(VALID_GOAL_PROTEIN, VALID_GOAL_GRAIN).build();
     }
 
     /**
