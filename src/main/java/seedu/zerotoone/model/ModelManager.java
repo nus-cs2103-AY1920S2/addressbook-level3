@@ -5,6 +5,7 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -75,6 +76,8 @@ public class ModelManager implements Model {
     // Log
     private final LogList logList;
     private final FilteredList<CompletedWorkout> filteredLogList;
+    private Optional<LocalDateTime> statisticsStartRange;
+    private Optional<LocalDateTime> statisticsEndStartRange;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -115,6 +118,9 @@ public class ModelManager implements Model {
 
         this.logList = new LogList(logList);
         filteredLogList = new FilteredList<>(this.logList.getLogList());
+
+        statisticsStartRange = Optional.empty();
+        statisticsEndStartRange = Optional.empty();
     }
 
     public ModelManager() {
@@ -233,6 +239,34 @@ public class ModelManager implements Model {
         filteredLogList.setPredicate(predicate);
     }
 
+    @Override
+    public void setStatisticsDateRange(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
+
+        this.statisticsStartRange = startRange;
+        this.statisticsEndStartRange = endRange;
+
+    }
+
+    @Override
+    public ReadOnlyLogList getLogList() {
+        return logList;
+    }
+
+    @Override
+    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
+        return new ArrayList<>(this.getLogList().getLogList());
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsStartDateRange() {
+        return statisticsStartRange;
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsEndDateRange() {
+        return statisticsEndStartRange;
+    }
+
     // -----------------------------------------------------------------------------------------
     // Session List
 
@@ -341,7 +375,6 @@ public class ModelManager implements Model {
         this.timer.cancel();
         this.timer.purge();
     }
-
     // -----------------------------------------------------------------------------------------
     // Schedule
     @Override
@@ -352,11 +385,6 @@ public class ModelManager implements Model {
     @Override
     public void populateSortedScheduledWorkoutList() {
         scheduler.populateSortedScheduledWorkoutList();
-    }
-
-    @Override
-    public ReadOnlyLogList getLogList() {
-        return logList;
     }
 
     @Override
@@ -419,6 +447,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteExerciseFromWorkouts(Exercise exercise) {
+        workoutList.removeExerciseFromWorkouts(exercise);
+    }
+
+    @Override
     public void addWorkout(Workout workout) {
         workoutList.addWorkout(workout);
         updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
@@ -459,7 +492,7 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
-                && logList.equals(other.logList);
-        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
+                && logList.equals(other.logList)
+                && scheduler.equals(other.scheduler);
     }
 }
