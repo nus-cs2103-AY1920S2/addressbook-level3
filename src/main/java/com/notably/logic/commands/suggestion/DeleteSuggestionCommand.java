@@ -24,6 +24,11 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
     public DeleteSuggestionCommand(AbsolutePath path, String oldTitle) {
         Objects.requireNonNull(path);
         Objects.requireNonNull(oldTitle);
+
+        if (oldTitle.isBlank()) {
+            throw new IllegalArgumentException("The old title must contain at least one element");
+        }
+
         this.path = path;
         this.oldTitle = oldTitle;
     }
@@ -33,13 +38,12 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
         // Nullity check
         Objects.requireNonNull(model);
 
-        if (!oldTitle.isBlank()) {
-            // Set suggestions
-            List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
-            List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
+        // Set suggestions
+        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
+        List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
-            model.setSuggestions(suggestions);
-        }
+        model.setSuggestions(suggestions);
+
     }
 
     /**

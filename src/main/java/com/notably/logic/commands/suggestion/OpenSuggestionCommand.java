@@ -24,6 +24,11 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     public OpenSuggestionCommand(AbsolutePath path, String oldTitle) {
         Objects.requireNonNull(path);
         Objects.requireNonNull(oldTitle);
+
+        if (oldTitle.isBlank()) {
+            throw new IllegalArgumentException("The old title must contain at least one element");
+        }
+
         this.path = path;
         this.oldTitle = oldTitle;
     }

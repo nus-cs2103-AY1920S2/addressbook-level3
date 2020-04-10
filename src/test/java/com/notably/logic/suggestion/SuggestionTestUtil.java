@@ -89,19 +89,10 @@ public class SuggestionTestUtil {
      */
     public static void testInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
         for (int i = 0; i < expectedInputs.size(); i++) {
-            System.out.println("length expectedInputs: " + expectedInputs.size());
-            System.out.println("length suggestions: " + suggestions.size());
-
-            System.out.println("i: " + i);
-            SuggestionItem thirdSuggestionItem = suggestions.get(2);
-            System.out.println("3rd sug item: " + thirdSuggestionItem.getProperty("displayText"));
-
             SuggestionItem suggestionItem = suggestions.get(i);
-            System.out.println(suggestionItem.getProperty("displayText"));
             String expectedInput = expectedInputs.get(i);
             suggestionItem.getAction().run();
             String input = model.getInput();
-            System.out.println("input: " + input);
             assertEquals(expectedInput, input);
         }
     }

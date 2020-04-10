@@ -2,7 +2,6 @@ package com.notably.logic.commands.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -51,11 +50,8 @@ public class DeleteSuggestionCommandTest {
     }
 
     @Test
-    public void execute_blankOldTitle_generatesEmptySuggestion() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t, "    ");
-        deleteSuggestionCommand.execute(model);
-
-        assertTrue(model.getSuggestions().size() == 0);
+    public void execute_blankOldTitle_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new DeleteSuggestionCommand(toCs2103t, "   "));
     }
 
     @Test
