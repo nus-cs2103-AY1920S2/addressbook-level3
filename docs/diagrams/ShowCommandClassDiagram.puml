@@ -1,0 +1,36 @@
+@startuml
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+interface Model <<interface>> {
+}
+interface Predicate <<interface>> {
+}
+
+class ShowCommand implements Model{
+    /' Fields '/
+    - argument : String
+    - intendedMessage : String
+    - isCommandSuccessful : boolean
+
+    /' Methods '/
+    + parseData(argText : String) : void
+    + checkValidInput(arrOfDate : String[]) : void
+    + checkNumberOfToday(dates: String[]) : void
+    + initEndDate(arrOfDate : String[]) : void
+    + initStartDate(start : String) : void
+    + validateDates() : void
+    + setSuccessMessage(successMessage : String) : void
+    + setFailureMessage(failureMessage : String) : void
+    + initializeMessage() : void
+    + execute(model : Model) : CommandResult
+}
+ShowCommand --up|> "{abstract}\nCommand"
+Model ..> Predicate
+@enduml

@@ -1,0 +1,63 @@
+@startuml
+/' @author @cherweijie'/
+
+!include style.puml
+mainframe sd creation of new return order based on user input
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "d:ReturnCommand" as ReturnCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "exception:CommandException" as CommandException LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+activate LogicManager
+alt creation of a new return order
+LogicManager -> ReturnCommand : execute(model)
+activate ReturnCommand
+
+ReturnCommand -> ReturnCommand : isReturnOrderNotPresent()
+activate ReturnCommand
+ReturnCommand --> ReturnCommand : false
+deactivate ReturnCommand
+
+alt return order already exists in model
+ReturnCommand -> Model : hasParcel(toBeCreated)
+activate Model
+Model --> ReturnCommand : true
+deactivate Model
+
+ReturnCommand -> CommandException : CommandException(MESSAGE_DUPLICATE_RETURN)
+activate CommandException
+CommandException --> ReturnCommand : exception
+deactivate CommandException
+
+ReturnCommand --> LogicManager  : exception
+[<--LogicManager : exception
+
+
+else return order does not exist in model
+ReturnCommand -> Model : hasParcel(toBeCreated)
+activate Model
+Model --> ReturnCommand : false
+deactivate Model
+
+ReturnCommand -> Model : addReturnOrder(orderToBeCreated)
+activate Model
+Model --> ReturnCommand
+deactivate Model
+
+ReturnCommand -> CommandResult ++ : CommandResult()
+CommandResult --> ReturnCommand -- : result
+
+ReturnCommand --> LogicManager -- : result
+[<--LogicManager : result
+deactivate LogicManager
+
+end
+
+
+@enduml

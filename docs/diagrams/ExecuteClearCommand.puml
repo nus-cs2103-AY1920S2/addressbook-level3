@@ -1,5 +1,7 @@
+
 @startuml
 /' Sequence Diagram for import feature'/
+mainframe sd execute clear command
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -14,8 +16,6 @@ participant ":Model" as Model MODEL_COLOR
 end box
 activate LogicManager
 
-group sd Execution of the Clear Command Sequence Diagram
-
 LogicManager -> ClearCommand ++ : execute(model)
 
 ClearCommand -> ClearCommand ++ : updateModel(model)
@@ -25,7 +25,14 @@ ClearCommand -> OrderBook ++
 
 OrderBook --> ClearCommand -- : orderBook
 
+create ReturnOrderBook
+ClearCommand -> ReturnOrderBook ++
+ReturnOrderBook -> ClearCommand -- : returnOrderBook
+
 ClearCommand -> Model ++ : setOrderBook(orderBook)
+Model --> ClearCommand --
+
+ClearCommand -> Model ++ : setReturnOrderBook(returnOrderBook)
 Model --> ClearCommand --
 
 create CommandResult
@@ -37,5 +44,4 @@ ClearCommand --> ClearCommand -- : result
 
 ClearCommand --> LogicManager -- : result
 
-end
 @enduml

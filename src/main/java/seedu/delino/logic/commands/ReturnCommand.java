@@ -71,7 +71,7 @@ public class ReturnCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (toBeCreated == null) {
+        if (isReturnOrderNotPresent()) {
             Order orderToBeReturned = getOrderByTransactionId(model);
             if (!orderToBeReturned.isDelivered()) {
                 throw new CommandException(MESSAGE_ORDER_NOT_DELIVERED);
@@ -87,14 +87,25 @@ public class ReturnCommand extends Command {
     }
 
     /**
+     * Checks if the return order is null. Returns true if return order is not present.
+     * @return
+     */
+    private boolean isReturnOrderNotPresent() {
+        return toBeCreated == null;
+    }
+
+    /**
      * Gets the order from the model based on its Transaction ID.
      * @param model The current Model.
      * @return The order taken from the order book based on the transaction id input by user.
      * @throws CommandException
      */
     private Order getOrderByTransactionId(Model model) throws CommandException {
-        List<Order> ordersToBeReturned = model.getOrderBook().getOrderList()
-                .stream().filter(order -> order.getTid().equals(tid)).collect(Collectors.toList());
+        List<Order> ordersToBeReturned = model.getOrderBook()
+                .getOrderList()
+                .stream()
+                .filter(order -> order.getTid().equals(tid))
+                .collect(Collectors.toList());
         if (ordersToBeReturned.isEmpty()) {
             throw new CommandException(MESSAGE_ORDER_TRANSACTION_ID_NOT_VALID);
         }

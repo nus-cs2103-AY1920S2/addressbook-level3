@@ -36,10 +36,10 @@ import seedu.delino.model.ReturnOrderBook;
 import seedu.delino.model.UserPrefs;
 import seedu.delino.model.parcel.order.Order;
 
-import seedu.delino.storage.JsonOrderBookStorage;
-import seedu.delino.storage.JsonReturnOrderBookStorage;
 import seedu.delino.storage.JsonUserPrefsStorage;
 import seedu.delino.storage.StorageManager;
+import seedu.delino.storage.order.JsonOrderBookStorage;
+import seedu.delino.storage.returnorder.JsonReturnOrderBookStorage;
 import seedu.delino.testutil.OrderBuilder;
 
 public class LogicManagerTest {

@@ -1,6 +1,8 @@
 @startuml
 /' Sequence Diagram for import feature'/
 !include style.puml
+mainframe sd execute import command
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "importCommand:ImportCommand" as ImportCommand LOGIC_COLOR
@@ -15,8 +17,6 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 activate LogicManager
-
-group sd Execution of the Import Command Sequence Diagram
 
 LogicManager -> ImportCommand : execute(model)
 activate ImportCommand
@@ -100,5 +100,4 @@ destroy ImportCommand
 [<--LogicManager : result
 deactivate LogicManager
 
-end
 @enduml
