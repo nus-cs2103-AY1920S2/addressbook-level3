@@ -239,6 +239,9 @@ but `tid/TRANSACTION_IDn/CUSTOMER_NAME` will be an invalid command input.
 * `ADDRESS` must have a postal code.
 * `EMAIL` should be a valid email address.
 * `CASH_ON_DELIVERY` must start with a dollar sign followed by the value.
+* `CASH_ON_DELIVERY` value must be strictly less than $10,000,000,000,000.If there is a need
+to add decimal places, you can only add two.
+* *Do Not add any commas in the value of `CASH_ON_DELIVERY`*
 * To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
 in 24 hour format.
 * The value for `DELIVERY_DATE_&_TIME` must be a time in the future. For example, if the date and time now is 2020-04-03 1200,
@@ -248,8 +251,6 @@ you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_&_TIME`.
 * `PHONE_NUMBER` should not have a spacing in between. `n/90011009` is allowed, +
 but `n/9001 1009` is not allowed.
 * Only numbers are allowed in `PHONE_NUMBER`.
-* `CASH_ON_DELIVERY` value must be strictly less than $10,000,000,000,000.If there is a need
-to add decimal places, you can only add two.
 ====
 
 There are two different scenarios on how to insert the orders :
@@ -651,6 +652,7 @@ image::ReturnCSVFormat.png[]
 * `ORDER_TYPE` can only be either `order` or `return`.
 * Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
 * `ORDER_TYPE` denote the start of an delivery order or return order.
+* If there are 2 or more `ORDER_TYPE` within a single order sentence it will be treated as 2 or more orders.
 * The last value of the same type will be stored if duplicate prefix type is found in a single order sentence.
 * Duplicate and invalid order or return order will not be imported into Delino.
 * You could download a link:https://github.com/AY1920S2-CS2103T-W12-1/main/releases[sample CSV file] in our release under assets to start with.
@@ -1068,6 +1070,8 @@ All the syntax for a valid `show` command is shown below:
 
 * `show` `START_DATE` `[END_DATE]`
 * `show` `all`
+* `show` `today`
+* `show` `DATE`
 
 [NOTE]
 ====

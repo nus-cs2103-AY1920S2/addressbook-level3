@@ -1,7 +1,12 @@
 package seedu.delino;
 
+import static seedu.delino.commons.core.Messages.MESSAGE_JSON_UNABLE_TO_READ;
+import static seedu.delino.commons.core.Messages.MESSAGE_ORDER_DATA_CHECK;
+
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -88,6 +93,12 @@ public class MainApp extends Application {
         Optional<ReadOnlyReturnOrderBook> returnOrderBookOptional;
         ReadOnlyOrderBook initialData;
         ReadOnlyReturnOrderBook initialReturnData;
+        List<String> startUpMessages = new ArrayList<>();
+        String order = "order";
+        String returnOrder = "return order";
+        String jsonOrderBook = "OrderBook.json";
+        String jsonReturnBook = "ReturnBook.json";
+
         try {
             orderBookOptional = storage.readOrderBook();
             returnOrderBookOptional = storage.readReturnOrderBook();
@@ -98,9 +109,11 @@ public class MainApp extends Application {
             initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
+            startUpMessages.add(String.format(MESSAGE_ORDER_DATA_CHECK, jsonOrderBook, order, jsonOrderBook));
             initialData = new OrderBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook ");
+            startUpMessages.add(String.format(MESSAGE_JSON_UNABLE_TO_READ, jsonOrderBook));
             initialData = new OrderBook();
         }
 
@@ -112,13 +125,16 @@ public class MainApp extends Application {
             initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ReturnBook");
+            startUpMessages.add(String.format(MESSAGE_ORDER_DATA_CHECK, jsonReturnBook, returnOrder,
+                    jsonReturnBook));
             initialReturnData = new ReturnOrderBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ReturnBook");
+            startUpMessages.add(String.format(MESSAGE_JSON_UNABLE_TO_READ, jsonReturnBook));
             initialReturnData = new ReturnOrderBook();
         }
 
-        return new ModelManager(initialData, initialReturnData, userPrefs);
+        return new ModelManager(initialData, initialReturnData, userPrefs, startUpMessages);
     }
 
     private void initLogging(Config config) {
