@@ -19,8 +19,8 @@ import seedu.zerotoone.logic.commands.util.AllCommands;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.ui.util.UiPart;
 import seedu.zerotoone.ui.util.ViewType;
+import seedu.zerotoone.ui.views.about.AboutDisplay;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
-import seedu.zerotoone.ui.views.help.HelpDisplay;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
 import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
@@ -45,14 +45,14 @@ public class MainWindow extends UiPart<Stage> {
     private LogListPanel logListPanel;
     private ResultDisplay resultDisplay;
     private StatisticsWindow statisticsWindow;
-    private HelpDisplay helpDisplay;
+    private AboutDisplay aboutDisplay;
 
     @FXML
     private VBox tabsVBox;
     @FXML
     private StackPane commandBoxPlaceholder;
     @FXML
-    private StackPane helpDisplayPlaceholder;
+    private StackPane aboutDisplayPlaceholder;
     @FXML
     private StackPane resultDisplayPlaceholder;
     @FXML
@@ -118,8 +118,8 @@ public class MainWindow extends UiPart<Stage> {
         logListPanel = new LogListPanel(logic.getFilteredLogList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
-        helpDisplay = new HelpDisplay(new AllCommands().getCommandList());
-        helpDisplayPlaceholder.getChildren().add(helpDisplay.getRoot());
+        aboutDisplay = new AboutDisplay(new AllCommands().getCommandList());
+        aboutDisplayPlaceholder.getChildren().add(aboutDisplay.getRoot());
 
         tabPanePlaceHolder.setMinWidth(530);
         tabPanePlaceHolder.setMinHeight(200);

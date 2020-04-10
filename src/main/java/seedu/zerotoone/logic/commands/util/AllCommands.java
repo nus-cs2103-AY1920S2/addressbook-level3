@@ -20,7 +20,7 @@ public class AllCommands {
             Commands.STOP,
             Commands.DONE,
             Commands.SKIP,
-            Commands.HELP,
+            Commands.ABOUT,
             Commands.EXIT
         ));
         commands.add(new CommandSection(

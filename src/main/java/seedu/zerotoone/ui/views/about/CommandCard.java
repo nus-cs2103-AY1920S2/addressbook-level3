@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui.views.help;
+package seedu.zerotoone.ui.views.about;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,7 +10,7 @@ import seedu.zerotoone.ui.util.UiPart;
  * Card that displays each command.
  */
 public class CommandCard extends UiPart<Region> {
-    private static final String FXML = "help/CommandCard.fxml";
+    private static final String FXML = "about/CommandCard.fxml";
 
     @FXML
     private HBox commandCard;
