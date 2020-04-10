@@ -237,9 +237,9 @@ The use of indices are enough to support the retrieval operations needed by this
 A custom linked list (as opposed to just using the native Java `LinkedList`) may have to be developed in order to support the retrieval operations that this feature requires while still keeping the retrieval time complexity to O(1).
 |====================
 
-In the interest of saving developement time and better code readability, we decided to use an array list to store the commands. Since we have decided to cap the maximum size of the list, should this limit be exceeded, we would then need to remove the first item (or the zeroth index) from the list to free up space. Of course, doing a `remove(0)` on a n-item array list will require that all remaining items in the list be reassigned to new indices, and thus incur an O(n) time operation. However, we found out through extensive testing that this causes no observable nor significant lag when the maximum capacity is reached.
+In the interest of saving developement time and better code readability, we decided to use an `ArrayList` to store the commands. Since we have decided to cap the maximum size of the list, should this limit be exceeded, we would then need to remove the first item (or the zeroth index) from the list to free up space. Of course, doing a `remove(0)` on a n-item `ArrayList` will require that all remaining items in the list be reassigned to new indices, and thus incur an O(n) time operation. However, we found out through extensive testing that this causes no observable nor significant lag when the maximum capacity is reached.
 
-Moreover, there is also a need to overwrite the whole storage file `command.txt` whenever this maximum size is reached. Before this maximum size is reached, we can easily append to the existing file the new command that the user has just entered. However, after this limit is exceeded, we must remove the first line stored in `command.txt`, shift all remaining lines up, and then append that new line. Hard disk operations like writing to storage is many order of magnitudes slower than memory operations like the reassignment of indices as discussed above. Since the much larger bottleneck is in the storage, this effectively nullifies the time complexity comparison that a linked list is faster than an array list in removing the first item.
+Moreover, there is also a need to overwrite the whole storage file `command.txt` whenever this maximum size is reached. Before this maximum size is reached, we can easily append to the existing file the new command that the user has just entered. However, after this limit is exceeded, we must remove the first line stored in `command.txt`, shift all remaining lines up, and then append that new line. Hard disk operations like writing to storage is many order of magnitudes slower than memory operations like the reassignment of indices as discussed above. Since the much larger bottleneck is in the storage, this effectively nullifies the time complexity comparison that a `LinkedList` is faster than an `ArrayList` in removing the first item.
 
 In choosing the maximum size of the command history, we have to take note of some important caveats:
 
@@ -299,20 +299,13 @@ public String constructWord() {
 }
 ```
 
-Now, let us discuss about how we implemented `Trie` to support the <<command-history-behaviour, behaviours discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns the `Node` whose constructed word (when constructed using `Node#constructWord`) is:
+Now, let us discuss about how we implemented `Trie` to support the <<command-history-behaviour, behaviours discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns in 3 distinct cases:
 
-* If the argument `word` is unambiguous: the longest word contained in `Trie` that can be formed from `word`
-* If the argument `word` is ambiguous: the longest common prefix of all words similar to `word` contained in `Trie`
+. If the argument `word` matches no words currently in the `Trie`: `null`
+. If the argument `word` is unambiguous: the `Node` whose constructed word (using `Node#constructWord`) is the longest word contained in `Trie` that can be formed from `word`
+. If the argument `word` is ambiguous: the `Node` whose constructed word is the longest common prefix of all words similar to `word` contained in `Trie`
 
-If no such `Node` can be found, in the case where the argument `word` matches no words currently in the `Trie`, `null` will be returned.
-
-Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of `Trie#getLongestPrefixNode`. Three distinct cases exists for the `Node` returned by `Trie#getLongestPrefixNode`:
-
-. The returned `Node` is `null`, which means that the user command cannot be found in the `Trie` at all
-. The returned `Node` is a completed, valid word, which means that the user command is unambiguous
-. The returned `Node` is not a completed word, which means that the user command is ambiguous
-
-Cases 1 and 2 are relatively trivial and we shall not discuss about their implementations here. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
+Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of the `Node` found by `Trie#getLongestPrefixNode`. Cases 1 and 2 discussed above are relatively trivial and we shall not discuss about how they are handled in `Trie#listAllSimilarWords`. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
 
 ```java
 Node subtrie = getLongestPrefixNode(word);
@@ -337,11 +330,11 @@ The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach
 
 ===== How this feature works
 
-This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input.
-
-Similarly, since this feature relies heavily on the UI class `CommandBox`, we have decided to let `CommandBox` interact with `AutoComplete` directly. In the following sequence diagram, we follow the execution for when the user presses the kbd:[Tab] key, given that the command entered is an unambiguous command:
+Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `AutoComplete` directly. In the following sequence diagram, we follow the execution for when the user presses the kbd:[Tab] key, given that the command entered is an unambiguous command:
 
 // TODO: do sequence diagram for auto complete
+
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions made at each step of the execution:
 
 // TOOD: activity diagram for AutoComplete#execute
 
