@@ -20,6 +20,7 @@ import seedu.recipe.logic.commands.recipe.EditIngredientCommand;
 import seedu.recipe.logic.commands.recipe.EditStepCommand;
 import seedu.recipe.logic.commands.common.ExitCommand;
 import seedu.recipe.logic.commands.recipe.FavouriteCommand;
+import seedu.recipe.logic.commands.DeleteGoalCommand;
 import seedu.recipe.logic.commands.FilterCommand;
 import seedu.recipe.logic.commands.recipe.FindCommand;
 import seedu.recipe.logic.commands.common.HelpCommand;
@@ -125,6 +126,9 @@ public class RecipeBookParser {
 
         case DeleteIngredientCommand.COMMAND_WORD:
             return new DeleteIngredientCommandParser().parse(arguments);
+
+        case DeleteGoalCommand.COMMAND_WORD:
+            return new DeleteGoalCommandParser().parse(arguments);
 
         case EditIngredientCommand.COMMAND_WORD:
             return new EditIngredientCommandParser().parse(arguments);

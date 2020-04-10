@@ -16,4 +16,14 @@ public class Other extends Ingredient {
         super(name);
     }
 
+    /**
+     * This method should not be called as others is not part of main ingredient types.
+     * @return error.
+     */
+    @Override
+    public MainIngredientType getMainIngredientType() {
+        throw new IllegalStateException();
+    }
+
+
 }

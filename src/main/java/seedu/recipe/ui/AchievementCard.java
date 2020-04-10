@@ -1,7 +1,9 @@
 package seedu.recipe.ui;
 
 import java.io.IOException;
+import java.util.Random;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -40,10 +42,13 @@ public class AchievementCard extends UiPart<Region> {
     @FXML
     private Label content;
 
-    public AchievementCard(Quote quote, Streak streak) throws IOException {
+    public AchievementCard(ObservableList<Quote> quotes, Streak streak) throws IOException {
         super(FXML);
-        System.out.println(quote.getContent());
-        this.quote = quote;
+        //System.out.println(quote.getContent());
+        Random rand = new Random();
+        System.out.print(quotes.size());
+        int randomInt = rand.nextInt(quotes.size());
+        this.quote = quotes.get(randomInt);
         this.streak = streak;
         Date today = Date.today();
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());

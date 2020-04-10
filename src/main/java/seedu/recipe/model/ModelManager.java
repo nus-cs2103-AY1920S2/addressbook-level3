@@ -13,8 +13,11 @@ import javafx.collections.transformation.FilteredList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.logic.commands.CommandType;
+import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipeMap;
@@ -35,13 +38,16 @@ public class ModelManager implements Model {
     private final CookedRecordBook cookedRecordBook;
     private final FilteredList<Record> filteredRecords;
     private final FilteredList<PlannedDate> filteredPlannedDates;
+    private final QuoteBook quoteBook;
+    private final FilteredList<Quote> filteredQuotes;
 
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
      */
     public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs,
-                        ReadOnlyCookedRecordBook cookedRecordBook, ReadOnlyPlannedBook plannedBook) {
+                        ReadOnlyCookedRecordBook cookedRecordBook,
+                        ReadOnlyPlannedBook plannedBook, ReadOnlyQuoteBook quoteBook) {
         super();
         requireAllNonNull(recipeBook, userPrefs);
 
@@ -52,13 +58,15 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.cookedRecordBook = new CookedRecordBook(cookedRecordBook);
+        this.quoteBook = new QuoteBook(quoteBook);
         this.filteredRecords = new FilteredList<>(this.cookedRecordBook.getRecordsList());
         this.states = new MultipleBookStateManager(recipeBook, plannedBook, cookedRecordBook);
         filteredPlannedDates = new FilteredList<>(this.plannedBook.getPlannedList());
+        filteredQuotes = new FilteredList<>(this.quoteBook.getQuoteList());
     }
 
     public ModelManager() {
-        this(new RecipeBook(), new UserPrefs(), new CookedRecordBook(), new PlannedBook());
+        this(new RecipeBook(), new UserPrefs(), new CookedRecordBook(), new PlannedBook(), new QuoteBook());
 
     }
 
@@ -298,7 +306,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Integer> getFilteredGoalsTally() {
+    public ObservableList<GoalCount> getFilteredGoalsTally() {
         return cookedRecordBook.getFilteredGoalsTally();
     }
 
@@ -311,6 +319,24 @@ public class ModelManager implements Model {
     public boolean hasRecord(Record record) {
         requireNonNull(record);
         return cookedRecordBook.hasRecord(record);
+    }
+
+    //=========== Quote List Accessors =============================================================
+
+    @Override
+    public ObservableList<Quote> getFilteredQuoteList() {
+        return filteredQuotes;
+    }
+
+    @Override
+    public ReadOnlyQuoteBook getQuoteBook() {
+        return quoteBook;
+    }
+
+    @Override
+    public boolean hasQuote (Quote quote) {
+        requireNonNull(quote);
+        return quoteBook.hasQuote(quote);
     }
 
 }

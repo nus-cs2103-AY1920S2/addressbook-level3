@@ -8,7 +8,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.CommandType;
+import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
@@ -189,7 +191,7 @@ public interface Model {
     void updateGoalsTally(Record record);
 
     /** Returns an unmodifiable view of the filtered goals list */
-    ObservableList<Integer> getFilteredGoalsTally();
+    ObservableList<GoalCount> getFilteredGoalsTally();
 
     /**
      * Replaces record book data with the data in {@code CookedRecordBook}.
@@ -201,4 +203,21 @@ public interface Model {
      */
     boolean hasRecord(Record record);
 
+<<<<<<< HEAD
+=======
+    /**
+     * Replaces quotelist data with the data in {@code quotes}.
+     */
+    ObservableList<Quote> getFilteredQuoteList();
+
+    /**
+     * Replaces quote book data with the data in {@code CQuoteBook}.
+     */
+    ReadOnlyQuoteBook getQuoteBook();
+
+    /**
+     * Returns true if a quote with the same identity as {@code quote} exists in the quote book.
+     */
+    boolean hasQuote(Quote quote);
+>>>>>>> master
 }

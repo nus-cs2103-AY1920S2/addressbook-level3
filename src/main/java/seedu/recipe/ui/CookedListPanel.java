@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 
 /**
  * Panel containing the list of recipes.
@@ -25,7 +26,7 @@ public class CookedListPanel extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
 
-    public CookedListPanel(ObservableList<Record> recordList, ObservableList<Integer> goalCountList) {
+    public CookedListPanel(ObservableList<Record> recordList, ObservableList<GoalCount> goalCountList) {
         super(FXML);
         cookedListView.setItems(recordList);
         cookedListView.setCellFactory(listView -> new RecordListViewCell());
@@ -33,17 +34,16 @@ public class CookedListPanel extends UiPart<Region> {
         setChart(goalCountList);
     }
 
-    public void setChart(ObservableList<Integer> goalCountList) {
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Herbivores", goalCountList.get(0)),
-                        new PieChart.Data("Fruity Fiesta", goalCountList.get(1)),
-                        new PieChart.Data("Bulk like the Hulk", goalCountList.get(2)),
-                        new PieChart.Data("Wholesome Wholemeal", goalCountList.get(3)));
+    public void setChart(ObservableList<GoalCount> goalCountList) {
 
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (GoalCount goalCount : goalCountList) {
+            String goalName = goalCount.getGoal().goalName;
+            Integer count = goalCount.getCount();
+            pieChartData.add(new PieChart.Data(goalName, count));
+        }
         pieChart.setTitle("My Healthy Plate");
         pieChart.setData(pieChartData);
-
     }
 
     /**

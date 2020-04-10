@@ -11,6 +11,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.recipe.model.goal.Goal;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.recipe.model.recipe.exceptions.RecipeNotFoundException;
@@ -32,8 +33,8 @@ public class UniqueRecordList implements Iterable<Record> {
     private final ObservableList<Record> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    private final ObservableList<Integer> internalGoalsList = FXCollections.observableArrayList();
-    private final ObservableList<Integer> internalUnmodifiableGoalsList =
+    private final ObservableList<GoalCount> internalGoalsList = FXCollections.observableArrayList();
+    private final ObservableList<GoalCount> internalUnmodifiableGoalsList =
             FXCollections.unmodifiableObservableList(internalGoalsList);
 
 
@@ -153,11 +154,10 @@ public class UniqueRecordList implements Iterable<Record> {
                 }
             }
         }
-        internalGoalsList.addAll(
-                goalMap.get("Herbivore"),
-                goalMap.get("Fruity Fiesta"),
-                goalMap.get("Bulk like the Hulk"),
-                goalMap.get("Wholesome Wholemeal"));
+        internalGoalsList.addAll(new GoalCount(new Goal("Herbivore"), goalMap.get("Herbivore")),
+                new GoalCount(new Goal("Fruity Fiesta"), goalMap.get("Fruity Fiesta")),
+                new GoalCount(new Goal("Bulk like the Hulk"), goalMap.get("Bulk like the Hulk")),
+                new GoalCount(new Goal("Wholesome Wholemeal"), goalMap.get("Wholesome Wholemeal")));
     }
 
     /**
@@ -171,24 +171,27 @@ public class UniqueRecordList implements Iterable<Record> {
         currGoals.addAll(record.getGoals());
         for (Goal currGoal: currGoals) {
             String goalName = currGoal.goalName;
-            int currCount = 0;
             switch(goalName) {
 
             case "Herbivore":
-                currCount = internalGoalsList.get(0);
-                internalGoalsList.set(0, currCount + 1);
+                GoalCount herbivoresTally = internalGoalsList.get(0);
+                herbivoresTally.incrementCount();
+                internalGoalsList.set(0, herbivoresTally);
                 break;
             case "Fruity Fiesta":
-                currCount = internalGoalsList.get(1);
-                internalGoalsList.set(1, currCount + 1);
+                GoalCount fruitTally = internalGoalsList.get(1);
+                fruitTally.incrementCount();
+                internalGoalsList.set(1, fruitTally);
                 break;
             case "Bulk like the Hulk":
-                currCount = internalGoalsList.get(2);
-                internalGoalsList.set(2, currCount + 1);
+                GoalCount proteinTally = internalGoalsList.get(2);
+                proteinTally.incrementCount();
+                internalGoalsList.set(2, proteinTally);
                 break;
             case "Wholesome Wholemeal":
-                currCount = internalGoalsList.get(3);
-                internalGoalsList.set(3, currCount + 1);
+                GoalCount grainTally = internalGoalsList.get(3);
+                grainTally.incrementCount();
+                internalGoalsList.set(3, grainTally);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + goalName);
@@ -199,7 +202,7 @@ public class UniqueRecordList implements Iterable<Record> {
     /**
      * Returns goalTally for all main {@code goal} in cookedRecordBook.
      */
-    public ObservableList<Integer> getGoalsTally() {
+    public ObservableList<GoalCount> getGoalsTally() {
         return internalUnmodifiableGoalsList;
     }
 }

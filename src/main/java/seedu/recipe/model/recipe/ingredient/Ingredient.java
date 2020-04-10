@@ -101,4 +101,6 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         // ingredients are sorted alphabetically
         return ingredientName.toLowerCase().compareTo(other.ingredientName.toLowerCase());
     }
+
+    public abstract MainIngredientType getMainIngredientType();
 }

@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path recipeBookFilePath = Paths.get("data" , "recipebook.json");
     private Path cookedRecordFilePath = Paths.get("data" , "cookedrecords.json");
     private Path plannedBookFilePath = Paths.get("data", "plannedbook.json");
+    private Path quoteBookFilePath = Paths.get("data", "quotebook.json");
 
 
     /**
@@ -101,5 +102,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getCookedRecordFilePath() {
         return cookedRecordFilePath;
+    }
+
+    public Path getQuoteBookFilePath() {
+        return quoteBookFilePath;
     }
 }

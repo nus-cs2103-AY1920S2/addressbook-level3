@@ -7,9 +7,9 @@ import static java.util.Objects.requireNonNull;
  */
 public class Quote {
 
-    private final String content;
+    private final Content content;
 
-    public Quote(String quote) {
+    public Quote(Content quote) {
         requireNonNull(quote);
         //checkArgument(isValidGoalName(quote), MESSAGE_CONSTRAINTS);
         this.content = quote;
@@ -17,7 +17,7 @@ public class Quote {
 
     @Override
     public String toString() {
-        return content;
+        return content.toString();
     }
 
     @Override
@@ -33,6 +33,21 @@ public class Quote {
     }
 
     public String getContent() {
-        return content;
+        return content.toString();
     }
+
+    /**
+     * Check if quote is the same as the other quote
+     * @param otherQuote
+     * @return
+     */
+    public boolean isSameQuote(Quote otherQuote) {
+        if (otherQuote == this) {
+            return true;
+        }
+
+        return otherQuote != null
+                && otherQuote.getContent().equals(getContent());
+    }
+
 }

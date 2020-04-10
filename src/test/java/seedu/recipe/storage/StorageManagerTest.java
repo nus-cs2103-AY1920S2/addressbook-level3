@@ -14,6 +14,7 @@ import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.storage.achievement.JsonQuoteBookStorage;
 import seedu.recipe.storage.cooked.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.plan.JsonPlannedBookStorage;
 import seedu.recipe.storage.recipe.JsonRecipeBookStorage;
@@ -32,8 +33,10 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonCookedRecordBookStorage recordBookStorage = new JsonCookedRecordBookStorage(getTempFilePath("rb"));
         JsonPlannedBookStorage plannedBookStorage = new JsonPlannedBookStorage(getTempFilePath("pb"));
+        JsonQuoteBookStorage quoteBookStorage = new JsonQuoteBookStorage(getTempFilePath("qb"));
 
-        storageManager = new StorageManager(recipeBookStorage, recordBookStorage, plannedBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(recipeBookStorage, recordBookStorage, plannedBookStorage, quoteBookStorage,
+                userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

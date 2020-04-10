@@ -18,6 +18,7 @@ import seedu.recipe.logic.commands.recipe.DeleteCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -29,7 +30,7 @@ import seedu.recipe.ui.tab.Tab;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-            getTypicalRecordBook(), new PlannedBook());
+            getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -40,7 +41,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
 
         expectedModel.deleteRecipe(recipeToDelete);
 
@@ -69,7 +70,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
 
         expectedModel.deleteRecipe(recipeToDelete);
         showNoRecipe(expectedModel);

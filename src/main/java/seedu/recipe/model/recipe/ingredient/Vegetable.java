@@ -15,4 +15,14 @@ public class Vegetable extends Ingredient {
     public Vegetable(String name) {
         super(name);
     }
+
+    /**
+     * Method to indicate type of ingredient.
+     * Only exists for ingredients included in calculation for goals.
+     * @return Main Ingredient type of vegetable
+     */
+    @Override
+    public MainIngredientType getMainIngredientType() {
+        return MainIngredientType.VEGETABLE;
+    }
 }

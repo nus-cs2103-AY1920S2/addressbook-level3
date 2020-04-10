@@ -22,6 +22,7 @@ import seedu.recipe.logic.commands.recipe.DeleteIngredientCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
+import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
@@ -34,7 +35,7 @@ import seedu.recipe.ui.tab.Tab;
 public class DeleteIngredientCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs(),
-            getTypicalRecordBook(), new PlannedBook());
+            getTypicalRecordBook(), new PlannedBook(), new QuoteBook());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -48,7 +49,7 @@ public class DeleteIngredientCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteIngredients.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("20g, Bread")
@@ -82,7 +83,7 @@ public class DeleteIngredientCommandTest {
         String expectedMessage = String.format(expectedMessageTemplate, recipeToDeleteIngredients.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
-                model.getRecordBook(), new PlannedBook());
+                model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
                 .withGrains("50g, Bread")

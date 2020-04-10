@@ -13,10 +13,12 @@ import java.util.TreeSet;
 import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.ingredient.Fruit;
 import seedu.recipe.model.recipe.ingredient.Grain;
+import seedu.recipe.model.recipe.ingredient.Ingredient;
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.model.recipe.ingredient.Protein;
+import seedu.recipe.model.recipe.ingredient.Quantity;
 import seedu.recipe.model.recipe.ingredient.Vegetable;
 
 /**
@@ -139,65 +141,30 @@ public class Recipe {
      * Calculates goals according to ingredients of recipe.
      */
     public void calculateGoals() {
-        double fruitCount = calculateFruitsQuantity(getFruits());
-        double grainCount = calculateGrainsQuantity(getGrains());
-        double proteinCount = calculateProteinQuantity(getProteins());
-        double vegCount = calculateVegQuantity(getVegetables());
-        MainIngredientTypeMagnitude tally = new MainIngredientTypeMagnitude(
+        double fruitCount = calculateIngredientQuantity(getFruits());
+        double grainCount = calculateIngredientQuantity(getGrains());
+        double proteinCount = calculateIngredientQuantity(getProteins());
+        double vegCount = calculateIngredientQuantity(getVegetables());
+        MainIngredientTypeMagnitude quantityTally = new MainIngredientTypeMagnitude(
                 vegCount, fruitCount, proteinCount, grainCount);
         Set<Goal> newGoals = new HashSet<Goal>();
-        for (MainIngredientType main : tally.getMainTypes()) {
+        for (MainIngredientType main : quantityTally.getMainTypes()) {
             Goal goal = new Goal(main);
             newGoals.add(goal);
-            System.out.println(goal);
         }
         updateGoals(newGoals);
     }
 
     /**
-     * Calculates weight of fruits in grams.
-     * @param fruits
+     * Calculates weight of ingredient in grams according to type of ingredient.
+     * @param ingredients from fruit, protein, vegetable or grain.
      */
-    private double calculateFruitsQuantity(Set<Fruit> fruits) {
+    private double calculateIngredientQuantity(Set<? extends Ingredient> ingredients) {
         double totalMagnitude = 0;
-        for (Fruit fruit: fruits) {
-            totalMagnitude += fruit.getQuantity().convertToGram(MainIngredientType.FRUIT);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Calculates weight of vegetables in grams.
-     * @param vegetables
-     */
-    private double calculateVegQuantity(Set<Vegetable> vegetables) {
-        double totalMagnitude = 0;
-        for (Vegetable veg: vegetables) {
-            totalMagnitude += veg.getQuantity().convertToGram(MainIngredientType.VEGETABLE);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Calculates weight of proteins in grams.
-     * @param proteins
-     */
-    private double calculateProteinQuantity(Set<Protein> proteins) {
-        double totalMagnitude = 0;
-        for (Protein protein: proteins) {
-            totalMagnitude += protein.getQuantity().convertToGram(MainIngredientType.PROTEIN);
-        }
-        return totalMagnitude;
-    }
-
-    /**
-     * Calculates weight of grains in grams.
-     * @param grains
-     */
-    private double calculateGrainsQuantity(Set<Grain> grains) {
-        double totalMagnitude = 0;
-        for (Grain grain: grains) {
-            totalMagnitude += grain.getQuantity().convertToGram(MainIngredientType.GRAIN);
+        for (Ingredient ingredient: ingredients) {
+            MainIngredientType mainType = ingredient.getMainIngredientType();
+            Quantity quantity = ingredient.getQuantity().convertToGram(mainType);
+            totalMagnitude += quantity.getMagnitude();
         }
         return totalMagnitude;
     }
