@@ -18,6 +18,8 @@ public class SetCurrencyCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_MONEY_SYMBOL + "RM";
     public static final String MESSAGE_MISSING_VALUES = COMMAND_WORD
             + " requires at least one value to be set!\n\n";
+    public static final String MESSAGE_CONSTRAINTS = "Numbers are not allowed"
+            + " within currency symbols!";
 
     private static final String MESSAGE_SUCCESS = "Money symbol changed from %s to ";
 
