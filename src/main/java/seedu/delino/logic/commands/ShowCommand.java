@@ -17,6 +17,7 @@ import seedu.delino.model.parcel.returnorder.ReturnOrder;
  * Show the courier his/her delivery statistics
  * with the given date provided in the command
  *
+ * UI Design ideas from https://www.youtube.com/watch?v=UDi051XyQ-U&t=339s
  */
 public class ShowCommand extends Command {
 
