@@ -1,0 +1,59 @@
+:imagesDir: ../../images
+:stylesDir: ../../stylesheets
+
+== Loh Jeremy Wen Jun - UML Diagrams
+image::DeleteActivityDiagram.svg[width=40%]
+This Activity Diagram describes the workflow of the `delete` command.
+It allows developers to quickly understand the potential execution paths of the
+`delete` command.
+
+image::DeleteClassDiagram.svg[width=70%]
+This Class Diagram shows the interactions that happens for the `delete` command.
+It allows developers to understand how to modify/maintain the `delete` command.
+
+image::DeleteSequenceDiagram.svg[width=55%]
+This Sequence Diagram describes the execution flow of a valid
+`delete` command for the Order list (`delete` `-o` `1`).
+It provides a simple overview for developers to maintain the `delete`
+command or extend it if needed.
+
+image::DeleteSequenceDiagram2.svg[width=55%]
+This Sequence Diagram describes the execution flow for a valid
+`delete` command for the Return Order list. (`delete` `-r` `2`).
+It provides a simple overview of the deletion process for the
+Return Order list: This allows developers to maintain and extend the
+functionality of the `delete` command.
+
+image::NearbyActivityDiagram.svg[width=40%]
+This Activity Diagram describes the workflow of the `nearby` command.
+It allows developers to understand how to modify/maintain the `nearby`
+command.
+
+image::NearbyClassDiagram.svg[width=70%]
+This Class Diagram shows the interactions that happens for the `nearby`
+command.
+It allows developers to understand how to modify/maintain the `nearby`
+command.
+
+image::NearbyCommandSequenceDiagram1.svg[width=55%]
+This Sequence Diagram describes the execution flow for a valid
+`nearby` command for the Order list (`nearby` `-o` `14`) (when searching for
+a postal sector).
+It provides a simple overview of the nearby process for the
+Order list: This allows developers to maintain and extend the functionality
+of the `nearby` command.
+
+image::NearbyCommandSequenceDiagram2.svg[width=55%]
+This Sequence Diagram describes the execution flow for a valid
+`nearby` command for the Order list (`nearby` `-o` `central`) (when searching
+for a region in Singapore).
+It provides a simple overview of the nearby process for the
+Order list: This allows developers to maintain and extend the functionality
+of the `nearby` command.
+
+image::NearbySequenceDiagramParseException.svg[width=55%]
+This Sequence Diagram describes the execution flow for a invalid
+`nearby` command (`nearby`).
+It provides a sample execution path that would result in a parse exception.
+This allows developers to understand where an exception is thrown for
+an invalid `nearby` command.
