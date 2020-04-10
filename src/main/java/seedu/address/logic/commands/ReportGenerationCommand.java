@@ -113,9 +113,10 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
                 break;
 
             case "pairs":
-                System.out.println(("Search by pair"));
+
                 cond = new UserPairsConditions(this.ID1, this.ID2);
                 resp  = dao.search(cond);
+                System.out.println(("Search by pair"));
                 break;
 
             case "danger":
@@ -134,36 +135,54 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
         }
 
 
+
         if (DangerFlag == 0)
         {
-            ReportGenerator generator = new ReportGenerator();
-            try {
-                generator.GenerateReport(resp);
-            }catch (Exception e)
+            if (resp.size() > 0)
             {
-                BluetoothPingsMessage result = new BluetoothPingsMessage("Write failed.", false);
+                ReportGenerator generator = new ReportGenerator();
+                try {
+                    generator.GenerateReport(resp);
+                }catch (Exception e)
+                {
+                    BluetoothPingsMessage result = new BluetoothPingsMessage("Write failed.", false);
+                    result.setToDisplayList(resp);
+                    return result;
+                }
+                BluetoothPingsMessage result = new BluetoothPingsMessage("Saved report file to result folder.", false);
                 result.setToDisplayList(resp);
                 return result;
             }
-            BluetoothPingsMessage result = new BluetoothPingsMessage("Saved report file to result folder.", false);
-            result.setToDisplayList(resp);
-            return result;
+            else
+            {
+                BluetoothPingsMessage result = new BluetoothPingsMessage("No instance in database.", false);
+                result.setToDisplayList(resp);
+                return result;
+            }
+
         }
         else
         {
-            DangerReportGenerator generator = new DangerReportGenerator();
-            try {
-                generator.GenerateReport(resp);
-            }catch (Exception e)
-            {
-                System.out.println("Write failed");
-                BluetoothPingsMessage result = new BluetoothPingsMessage("Write failed.", false);
+            if (resp.size() > 0) {
+                DangerReportGenerator generator = new DangerReportGenerator();
+                try {
+                    generator.GenerateReport(resp);
+                } catch (Exception e) {
+                    System.out.println("Write failed");
+                    BluetoothPingsMessage result = new BluetoothPingsMessage("Write failed.", false);
+                    result.setToDisplayList(resp);
+                    return result;
+                }
+                BluetoothSummaryMessage result = new BluetoothSummaryMessage("Saved report file to result folder.", false);
                 result.setToDisplayList(resp);
                 return result;
             }
-            BluetoothSummaryMessage result = new BluetoothSummaryMessage("Saved report file to result folder.", false);
-            result.setToDisplayList(resp);
-            return result;
+            else
+            {
+                BluetoothSummaryMessage result = new BluetoothSummaryMessage("No instance in database.", false);
+                result.setToDisplayList(resp);
+                return result;
+            }
         }
     }
 }
