@@ -108,6 +108,10 @@ public class RelativePath implements Path, Comparable<RelativePath> {
         List<String> components = PathUtil.normaliseRelativeComponents(this.components);
         List<String> pathComponents = PathUtil.normaliseRelativeComponents(path.components);
 
+        if (components.size() != pathComponents.size()) {
+            return components.size() - pathComponents.size();
+        }
+
         int i = 0;
         while (i < components.size() && i < pathComponents.size()) {
             if (!components.get(i).equalsIgnoreCase(pathComponents.get(i))) {
@@ -116,7 +120,7 @@ public class RelativePath implements Path, Comparable<RelativePath> {
             i++;
         }
 
-        return components.size() - pathComponents.size();
+        return 0;
     }
 
     @Override
