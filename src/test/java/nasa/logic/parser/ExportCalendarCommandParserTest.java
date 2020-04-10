@@ -1,9 +1,9 @@
 package nasa.logic.parser;
 
-import static nasa.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.nio.file.Path;
+
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.commands.ExportCalendarCommand;

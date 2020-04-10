@@ -1,11 +1,14 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javafx.collections.ObservableList;
+
 import nasa.logic.calendar.IcsCalendar;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
@@ -14,6 +17,10 @@ import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Exports current calendar to ics format.
+ * Represents the command for exporting of calendar.
+ */
 public class ExportCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";
@@ -28,6 +35,10 @@ public class ExportCalendarCommand extends Command {
 
     private Path filepath;
 
+    /**
+     * Constructor.
+     * @param filepath filepath to write the ics file to
+     */
     public ExportCalendarCommand(Path filepath) {
         this.filepath = filepath;
     }
@@ -62,11 +73,9 @@ public class ExportCalendarCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof  ExportCalendarCommand)) {
+        if (!(other instanceof ExportCalendarCommand)) {
             return false;
         }
-
-        ExportCalendarCommand command = (ExportCalendarCommand) other;
 
         if (filepath == null) {
             return ((ExportCalendarCommand) other).filepath == null;

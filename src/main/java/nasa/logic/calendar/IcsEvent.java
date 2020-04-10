@@ -5,9 +5,13 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+
 import nasa.model.activity.Event;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Class to convert event to ics event.
+ */
 public class IcsEvent {
 
     private static final String ICS_TYPE = "VEVENT";
@@ -16,6 +20,11 @@ public class IcsEvent {
     private ModuleCode moduleCode;
     private IcsSchedule icsSchedule;
 
+    /**
+     * Constructor.
+     * @param event event to be formatted
+     * @param moduleCode moduleCode the event belongs to
+     */
     public IcsEvent(Event event, ModuleCode moduleCode) {
         requireAllNonNull(event, moduleCode);
         this.event = event;
@@ -23,8 +32,12 @@ public class IcsEvent {
         this.icsSchedule = new IcsSchedule(event.getSchedule());
     }
 
+    /**
+     * Get the ics format for event.
+     * @return String format for event for ics
+     */
     public String getIcsFormat() {
-        String icsFormat =  "BEGIN:" + ICS_TYPE + System.lineSeparator()
+        String icsFormat = "BEGIN:" + ICS_TYPE + System.lineSeparator()
             + "UID:" + uuid.toString() + System.lineSeparator()
             + "DTSTAMP:" + (LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss")))
             + System.lineSeparator()

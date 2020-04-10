@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.module.ModuleCode;
@@ -16,6 +17,13 @@ import nasa.model.module.ModuleCode;
  */
 public class IcsCalendar {
 
+    /**
+     * Method to write all events and deadlines to ics file.
+     * @param filepath path for ics file to be written to
+     * @param deadlines all the deadline in the nasabook
+     * @param events all the event in the nasabook
+     * @throws IOException
+     */
     public static void writeToIcsFile(Path filepath, HashMap<ModuleCode, ArrayList<Deadline>> deadlines,
                                       HashMap<ModuleCode, ArrayList<Event>> events) throws IOException {
         File file = new File(String.valueOf(filepath));
@@ -32,7 +40,7 @@ public class IcsCalendar {
         for (ModuleCode moduleCode : deadlines.keySet()) {
             ArrayList<Deadline> moduleDeadlines = deadlines.get(moduleCode);
             for (Deadline deadline : moduleDeadlines) {
-                fileWriter.write(new IcsDeadline(deadline, moduleCode).getICSFormat());
+                fileWriter.write(new IcsDeadline(deadline, moduleCode).getIcsFormat());
             }
         }
 

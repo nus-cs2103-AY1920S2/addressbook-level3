@@ -28,7 +28,6 @@ import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.activity.Name;
-import nasa.model.activity.Note;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
