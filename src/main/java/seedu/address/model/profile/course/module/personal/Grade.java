@@ -31,6 +31,9 @@ public class Grade {
         throw new NoSuchElementException("Grade " + grade + " does not exist");
     }
 
+    /**
+     * Sets the grade to null, effectively deleting it.
+     */
     public void deleteGrade() {
         if (myGrade == null) {
             throw new NoSuchElementException();
