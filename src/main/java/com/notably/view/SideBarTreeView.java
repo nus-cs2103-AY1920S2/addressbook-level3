@@ -152,12 +152,7 @@ public class SideBarTreeView extends ViewPart<Region> {
         public Event dispatchEvent(Event event, EventDispatchChain tail) {
 
             if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
-                String elementPressed = event.getTarget().getClass().getSimpleName();
-                Boolean isArrow = elementPressed.equals("Group") || elementPressed.equals("StackPane");
-
-                if (!isArrow) {
-                    event.consume();
-                }
+                event.consume();
             }
             return original.dispatchEvent(event, tail);
         }
