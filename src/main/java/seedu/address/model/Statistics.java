@@ -12,7 +12,8 @@ import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
 import seedu.address.model.dayData.exceptions.InvalidTableException;
 
 /**
- * Wraps all DayData objects through CustomQueue. Stores daily target.
+ * Stores information with respect to StatisticsDisplay.
+ * Wraps all DayData objects through CustomQueue and stores daily target.
  * */
 public class Statistics implements ReadOnlyStatistics {
 
