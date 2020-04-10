@@ -6,6 +6,7 @@
 <?import javafx.stage.Stage?>
 
 <fx:root resizable="false" title="QR code" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+
     <scene>
         <Scene>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0">
@@ -15,4 +16,5 @@
             </AnchorPane>
         </Scene>
     </scene>
+
 </fx:root>

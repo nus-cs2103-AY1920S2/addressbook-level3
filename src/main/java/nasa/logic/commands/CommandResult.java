@@ -9,6 +9,12 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    public static final byte[] EMPTY_BYTE_ARRAY_DATA;
+
+    static {
+        EMPTY_BYTE_ARRAY_DATA = new byte[0];
+    }
+
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
@@ -37,8 +43,8 @@ public class CommandResult {
      * @param showHelp boolean
      * @param exit boolean
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistics, boolean showQr
-    ,byte[] qrData) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistics, boolean showQr,
+                         byte[] qrData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -54,7 +60,7 @@ public class CommandResult {
      * @param feedbackToUser String
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, new byte[0]);
+        this(feedbackToUser, false, false, false, false, EMPTY_BYTE_ARRAY_DATA);
     }
 
     public String getFeedbackToUser() {
@@ -105,9 +111,9 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit
-                && showQr == otherCommandResult.showQr;
+            && showHelp == otherCommandResult.showHelp
+            && exit == otherCommandResult.exit
+            && showQr == otherCommandResult.showQr;
     }
 
     @Override

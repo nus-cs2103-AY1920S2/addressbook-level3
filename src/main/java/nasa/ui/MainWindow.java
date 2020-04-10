@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
-import nasa.commons.util.StringUtil;
 import nasa.logic.Logic;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;

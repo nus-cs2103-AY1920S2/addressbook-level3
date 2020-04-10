@@ -3,17 +3,21 @@ package nasa.ui;
 import java.io.ByteArrayInputStream;
 import java.util.logging.Logger;
 
-import nasa.commons.core.LogsCenter;
-import nasa.commons.util.StringUtil;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import nasa.commons.core.LogsCenter;
+
+/**
+ * Window showing the qr code to export NasaBook.
+ */
 public class ExportQrWindow extends UiPart<Stage> {
 
-    public static final Logger logger = LogsCenter.getLogger(ExportQrWindow.class);
     public static final String FXML = "ExportQrWindow.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(ExportQrWindow.class);
 
     @FXML
     private ImageView qrCode;
@@ -35,11 +39,18 @@ public class ExportQrWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
+    /**
+     * Updates the content of the window, with the qr code given by (@code pngData).
+     * @param pngData new qr code
+     */
     public void update(byte[] pngData) {
         Image qrCode = new Image(new ByteArrayInputStream(pngData));
         this.qrCode.setImage(qrCode);
     }
 
+    /**
+     * Shows window to user.
+     */
     public void show() {
         this.logger.fine("Showing QR Code to user");
         this.getRoot().show();
