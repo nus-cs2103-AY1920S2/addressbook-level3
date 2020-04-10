@@ -173,31 +173,76 @@ Given that the FilteredList cannot perform sorting, we could:
 To do this, our TaskList is sorted internally. We chose to do this by having the TaskList maintain  a SortedList form JavaFx which references the UniqueTaskList in TaskList as seen in the diagram. This allows us to maintain a unique list of Tasks while having new tasks added remain in the defined sort order. The FilteredList thus uses the refernce from the SortedList. 
 
 ==== Updating UI
-image::SortUpdateUi.png[] // TODO add in
+image::SortUpdateUi.png[] // TODO add in sequence diagram
 
 Meanwhile to update the UI on the newest sorting order, the SortCommand will return a SortCommandResult. This SortCommandResult contains an additional field which would be the final sorting order of the TaskList. The SortCommandResult is then passed to the MainWindow and provides the payload for updating the sort order UI.
 
 SortCommandResult extends CommandResult and an additional field `sortOrder`.
 
 === AutoComplete
+Auto complete is triggered when users press tab while on the command line and serves to speed up the users usage of BB Productive.
+
 ==== Implementation
+
 .Activity diagram of auto complete
 image::AutoCompleteActivityDiagram.png[width=790]
 
-Auto complete is triggered when users press tab while on the command line. `CommandCompletor` first attempts to complete the command word, if it is unrecognized it throws a `CompletorException`. Otherwise it will perform specific checks on the input based on the command word. Here are the different checks:
+[IMPORTANT]
+=====
+Completing a word happens when the input matches the start of a target or the edit distance between the input and the target < 2.
+=====
 
-. If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes
-.. add/edit command -> add priority and reminder prefixes
-.. a pom command -> add timer prefix
-. If input is a delete/done command then CommandCompletor will attempt to remove any invalid indices by checking against the length of the displayed task list and checking if the index is a positive integer with `StringUtil`
-. If input is a sort command then CommandCompletor will try to complete fields by calculating the edit distance between the input and accepted sort fields. It will only correct fields with an edit distance <= 1
+Above diagram shows the decisions `CommandCompletor` goes through when deciding how to edit users input. It first attempts to complete the command word. If the command word is unrecognized, it throws a `CompletorException`, else it will perform specific checks on the input based on the command word.
 
-Auto Complete output:
+==== Check overview
 
-. If words are completed, prefixes are added or nothing has changed, auto complete is labelled as successful and the UI updates to show the user a green textfield.
-. As long as any input is deleted (invalid index/sort field), auto complete will raise a warning via feedback to user by turning the feedback to orange.
-. Auto complete is labelled as an error -> no recognizable command word found.
-. Auto complete is labelled as both successful and warning.
+. If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes.
+.. add/edit command -> add priority and reminder prefixes.
+.. a pom command -> add timer prefix.
+. If input is a delete/done command then CommandCompletor will remove any invalid indices by checking against the length of the displayed task list and if the index is a positive integer.
+. If input is a sort command then CommandCompletor will
+.. Complete fields:
+... if edit distance between the input and accepted sort fields < 2
+... if input matches the start of any field
+.. Remove all other fields
+
+==== Field Completion
+// TODO sequence diagram for this
+
+==== Prefix Completion
+// TODO Add/edit activity diagram
+// TODO explain why those 2 prefixes 
+
+// TODO Pom just sets prefix on second number
+
+==== Index Completion
+// TODO sequence diagram for this
+
+
+==== Auto Complete output:
+. If words are completed or prefixes are added or nothing has changed for the input, auto complete is labelled as successful
+. If any input is deleted (invalid index/sort field), auto complete will raise a warning by throwing CompletorDeletionException
+. If no command word is found, auto complete is labelled as an error and will throw a CompletorException
+
+[NOTE]
+=====
+An auto complete can be labelled as both a success and a warning if some fields and words are auto completed but some part of the input is removed.
+=====
+
+==== Auto Complete UI
+// TODO add sequence diagram of how it is updated
+To handle the above case where an auto complete can be both a warning and a success, we update the command line text color to reflect success and warning while only updating the user feedback for warnings. This allows us to inform users when input has been removed so that they are aware.
+
+
+==== Auto Complete Success UI
+// TODO sequence diagram for completion
+// TODO sequence diagram for warning
+
+==== Auto Complete Failure UI
+// TODO sequence diagram for failure
+
+=== Enhanced Find
+We've built upon the existing find function in AB-3 by using the levenshtein distance to calculate the edit distance between the phrase being searched and the names of our task. 
 
 [[Pomodoro]]
 === Pomodoro
