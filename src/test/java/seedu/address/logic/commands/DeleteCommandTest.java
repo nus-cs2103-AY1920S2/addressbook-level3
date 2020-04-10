@@ -39,6 +39,8 @@ import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
+//@@author wanxuanong
+
 public class DeleteCommandTest {
 
     // No profile exists, hence profile cannot deleted

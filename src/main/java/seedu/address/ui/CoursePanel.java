@@ -14,6 +14,7 @@ import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseRequirement;
 
+//@@author jadetayy
 /**
  * Panel containing information related to Course.
  */

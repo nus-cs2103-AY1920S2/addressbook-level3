@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.PrereqTreeNode;
 
+//@@author chanckben
 /**
  * Jackson-friendly version of {@link PrereqTreeNode}.
  */

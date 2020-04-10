@@ -12,6 +12,7 @@ import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 
+//@@author joycelynteo
 /**
  * Creates a new profile.
  */

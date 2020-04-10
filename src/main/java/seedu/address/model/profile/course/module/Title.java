@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course.module;
 
+//@@author gyant6
 /**
  * Represents a Module's title in the address book.
  * Guarantees:

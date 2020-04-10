@@ -15,6 +15,7 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 
+//@@author chanckben
 public class JsonModuleTest {
     private static final String INVALID_MODULE_CODE = "CS111";
     private static final String INVALID_MODULAR_CREDITS = "A";

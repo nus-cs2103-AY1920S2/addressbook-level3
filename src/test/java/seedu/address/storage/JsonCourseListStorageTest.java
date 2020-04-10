@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.CourseList;
 
+//@@author chanckben
 public class JsonCourseListStorageTest {
     private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "JsonCourseListStorageTest");

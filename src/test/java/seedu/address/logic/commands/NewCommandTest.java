@@ -38,6 +38,7 @@ import seedu.address.model.profile.course.FocusArea;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
+//@@author joycelynteo
 public class NewCommandTest {
 
     // Constructor is null.

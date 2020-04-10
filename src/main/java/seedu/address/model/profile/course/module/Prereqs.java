@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course.module;
 
+//@@author gyant6
 /**
  * Represents a Module's list of prerequisites in the module list.
  */

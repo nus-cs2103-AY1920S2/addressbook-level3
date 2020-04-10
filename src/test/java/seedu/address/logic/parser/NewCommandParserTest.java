@@ -31,6 +31,7 @@ import seedu.address.model.profile.Year;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 
+//@@author joycelynteo
 public class NewCommandParserTest {
 
     private NewCommandParser parser = new NewCommandParser();

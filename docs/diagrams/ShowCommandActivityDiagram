@@ -1,0 +1,16 @@
+@startuml
+start
+:User executes show command;
+:MODdy parses command for tags;
+if (User input command) then ([contains valid tag])
+  :Check object name given as parameter;
+  if (Object to be shown) then ([valid object])
+  :Display object on UI;
+  else ([else])
+  :Display invalid object message;
+  endif
+else ([else])
+  :Display usage error message;
+endif
+stop
+@enduml

@@ -47,6 +47,7 @@ import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 
+//@@author chanckben
 public class ShowCommandTest {
 
     // No profile has been added, user inputs "show n/John" and "show n/123"

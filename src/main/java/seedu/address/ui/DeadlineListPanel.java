@@ -11,6 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
+//@@author jadetayy
 /**
  * Panel containing the list of deadlines.
  */

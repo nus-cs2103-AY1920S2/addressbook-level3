@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course;
 
+//@@author joycelynteo
 /**
  * Accepted courses stored as enumerations.
  */

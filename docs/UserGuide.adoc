@@ -112,10 +112,10 @@ Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [f/FOCUS_AREA]`
 
 ****
 * `c/COURSE` must be a SoC course, e.g. Computer Science, Business Analytics, Information Systems, Information Security, Computer Engineering. It is *case-insensitive*.
-* Fields in brackets [] are optional.
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6>>
-* The course name entered has to be its full name. Please refer to the <<Appendix, Appendix>> for the list of courses supported
-* `cs/CURRENT_SEMESTER` must be entered as an integer, e.g. if you are currently in Year 2 Semester 1, you will enter `cs/3`
+* If you have yet to decided on a focus area, you can choose to add it to your profile using the <<Edit, edit>> command. Other profile fields can be changed similarly.
+* Only one profile is allowed. If you wish to create a new profile, please remove it with the <<Delete,`delete`>> feature mentioned in <<Delete, Section 4.6>>
+* The course / focus name entered has to be its full name. Please refer to the <<Appendix, Appendix>> for the list of courses and focus areas supported
+* `cs/CURRENT_SEMESTER` must be entered as an integer, e.g. if you are currently in Year 2 Semester 1, you should enter `cs/3`
 
 ****
 
@@ -226,6 +226,8 @@ image::EditDeadline.png[width="790"]
 TIP: `edit m/CS2105 t/Assignment nt/Project` +
 Edits "Assignment" under CS2105 to "Project"
 
+// tag::show[]
+
 [[Show]]
 === Showing: `show`
 
@@ -239,42 +241,54 @@ Format: `show n/NAME`
 .Entire profile is shown in the Main Panel
 image::ShowProfile.png[width="790"]
 
-NOTE: All the modules under every semester, grades of completed modules, as well as your current Cumulative Average Point (CAP) will be displayed
+NOTE: All the modules under every semester, grades of completed modules, as well as your current Cumulative Average Point (CAP) will be displayed.
 
 
 ==== Show modules in the specified semester +
-Format: `show y/SEMESTER_INDEX`
+Format: `show y/YEAR_SEMESTER`
 
-.Modules added to 4th semester shown in Main Panel
+Example: `show y/2.2`
+
+.Modules added to Year 2 Semester 2 shown in Main Panel
 image::ShowSemester.png[width="790"]
 
-TIP: `show y/4` +
-Shows all the modules added to the 4th semester (Year 2 Semester 2)
+TIP: `show y/2.2` +
+Use this function to quickly display the modules in a particular semester without scrolling for it.
 
 [[showCourse]]
 ==== Show the course's requirements +
 Format: `show c/COURSE_NAME`
 
+Example: `show c/Information Systems`
+
 .Course requirement and focus areas of Information Systems shown in the Main Panel
 image::ShowCourse.png[width="790"]
 
-NOTE: All required modules as well as modules under focus areas of the course will be displayed
+NOTE: All required modules as well as modules under focus areas of the course will be displayed.
 
 ==== Show modules under the specified focus area +
 Format: `show f/FOCUS_AREA`
 
+Example: `show f/Electronic Commerce`
+
 .Modules under Electronic Commerce, which is a focus area of Information Systems, shown in the Main Panel
 image::ShowFocusArea.png[width="790"]
 
-TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/COURSE`>> command
+TIP: You can retrieve the list of focus areas under a course using the <<showCourse, `show c/COURSE`>> command. This list can also be found in the <<Appendix, Appendix>>
 
 ==== Show details of a module +
 Format: `show m/MODULE_CODE`
 
-.Details of CS3230 shown in the Main Panel
+Example: `show CS3230`
+
+.Details of the module CS3230 shown in the Main Panel
 image::ShowModule.png[width="790"]
 
-NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed
+NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed.
+
+NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/1101s`, no objects will be displayed. +
+MODdy will remind you that you can only display one object at a time.
+// end::show[]
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`
@@ -287,10 +301,17 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 
 // tag::delete[]
 [[Delete]]
-=== Deleting a task / module / profile: `delete`
-To remove a task, module or profile from *MODdy*, use the `delete` command.
+=== Deleting a grade / task / module / profile: `delete`
+To remove a grade, task, module or profile from *MODdy*, use the `delete` command.
 
-There are *three* ways you can use the `delete` command:
+There are *four* ways you can use the `delete` command:
+
+==== Deleting a grade +
+If you have been using MODdy to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/MODULE_CODE g/`
+
+(to include screenshot of MODdy on Mac and the caption)
 
 ==== Deleting a task +
 Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
@@ -393,8 +414,8 @@ e.g. `show y/4`, `show c/information systems`, `show f/electronic commerce`, `sh
 
 * <<Delete, *Delete*>> : `delete n/NAME` +
 e.g. `delete n/Brad` +
-or `delete m/MODULE_CODE [t/TASK]` +
-e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
+or `delete m/MODULE_CODE [t/TASK] [g/]` +
+e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105 g/` +
 
 * <<Home, *Home*>> : `home`
 
@@ -402,12 +423,15 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
 
 * <<Exit, *Exit*>> : `exit`
 
+// tag::appendix[]
 == Appendix
 
-. List of courses and focus areas currently supported by *MODdy*
+. List of courses and focus areas (if applicable) currently supported by *MODdy*
+
 .. Business Analytics
 ... Financial Analytics
 ... Marketing Analytics
+
 .. Computer Engineering
 ... Communications and Networking
 ... Embedded Computing
@@ -415,6 +439,7 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
 ... Interactive Digital Media
 ... Large-Scale Computing
 ... System-On-A-Chip Design
+
 .. Computer Science
 ... Algorithms and Theory
 ... Artificial Intelligence
@@ -426,12 +451,12 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
 ... Parallel Computing
 ... Programming Languages
 ... Software Engineering
+
 .. Information Security
+
 .. Information Systems
-... Financial Technology
 ... Digital Innovation
 ... Electronic Commerce
+... Financial Technology
 
-
-
-
+// end::appendix[]

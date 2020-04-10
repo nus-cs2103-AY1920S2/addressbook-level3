@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course;
 
+//@@author joycelynteo
 /**
  * Accepted specialisations stored as enumerations.
  */
@@ -9,7 +10,7 @@ public enum AcceptedFocusArea {
     COMPUTER_SCIENCE_UNDECIDED(new CourseName("COMPUTER SCIENCE"), "UNDECIDED"),
     BUSINESS_ANALYTICS_UNDECIDED(new CourseName("BUSINESS ANALYTICS"), "UNDECIDED"),
     INFORMATION_SYSTEMS_UNDECIDED(new CourseName("INFORMATION SYSTEMS"), "UNDECIDED"),
-    INFORMATION_SECURITY_UNDECIDED(new CourseName("INFORMATION SYSTEMS"), "UNDECIDED"),
+    INFORMATION_SECURITY_UNDECIDED(new CourseName("INFORMATION SECURITY"), "UNDECIDED"),
     COMPUTER_ENGINEERING_UNDECIDED(new CourseName("COMPUTER ENGINEERING"), "UNDECIDED"),
 
     // COMPUTER SCIENCE

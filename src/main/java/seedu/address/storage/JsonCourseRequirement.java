@@ -11,6 +11,7 @@ import seedu.address.model.profile.course.CourseRequirement;
 import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.ModuleCode;
 
+//@@author wanxuanong
 /**
  * Jackson-friendly version of {@link CourseRequirement}.
  */

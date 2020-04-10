@@ -22,6 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 
+//@@author jadetayy
 /**
  * Panel containing the overview of a Profile.
  */

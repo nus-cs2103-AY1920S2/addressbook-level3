@@ -52,6 +52,7 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 
+//@@author joycelynteo
 public class EditCommandParserTest {
 
     private EditCommandParser parser = new EditCommandParser();

@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.ModuleCode;
 
+//@@author wanxuanong
 /**
  * Jackson-friendly version of {@link CourseFocusArea}.
  */

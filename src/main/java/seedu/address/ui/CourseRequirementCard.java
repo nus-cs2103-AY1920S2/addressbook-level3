@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.profile.course.CourseRequirement;
 
+//@@author jadetayy
 /**
  * An UI component that displays information of a {@code CourseRequirement}.
  */
