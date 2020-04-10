@@ -1512,20 +1512,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User key in the order details.
-2.  Delino inserts the order details.
-3.  Delino displays order added.
+1.  User wants to add an order.
+2.  User key in the order details.
+3.  Delino inserts the order details.
+4.  Delino displays order added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
+* 2b. Delino detects the insertion of a duplicate order.
+[none]
+** 2b1. Delino shows duplicate order message.
 //end::use_case_insert[]
 
 //@@author Exeexe93
@@ -1536,37 +1540,38 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to clear all orders.
-2.  Delino clear all existing orders.
-3.  Delino displays order cleared message.
+1.  User wants to clear all orders.
+2.  User requests to clear all orders.
+3.  Delino clear all existing orders.
+4.  Delino displays order cleared message.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino detects no flag `-f`.
+* 2b. Delino detects no flag `-f`.
 [none]
-** 1b1. Delino trigger pop-up message.
+** 2b1. Delino trigger pop-up message.
 [None]
-*** 1b2a. User select `yes` button.
+*** 2b2a. User select `yes` button.
 [None]
-**** 1b2a1. Return to step 2.
-*** 1b2b. User select `no` button.
+**** 2b2a1. Return to step 2.
+*** 2b2b. User select `no` button.
 [None]
-**** 1b2b1. Use case ends.
+**** 2b2b1. Use case ends.
 
 [none]
-* 1c. Delino detects no orders.
+* 2c. Delino detects no orders.
 [none]
-** 1c1. Delino shows no order to be cleared message.
+** 2c1. Delino shows no order to be cleared message.
 +
 Use case ends.
 //end::use_case_clear[]
@@ -1576,29 +1581,31 @@ Use case ends.
 
 [discrete]
 === Use case: UC03 - Delete an order
+Preconditions: There should be a valid order/return order that can be deleted.
 
 *MSS*
 
 1.  User requests to [.underline]#list orders (UC10).#
-2.  User requests to delete a specific order in the list.
-3.  Delino deletes the order.
-4.  Delino displays order deleted.
+2.  User wants to delete a specific order/return oder.
+3.  User requests to delete a specific order/return order in the list.
+4.  Delino deletes the order/return order.
+5.  Delino displays order/return order deleted.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. Delino detects invalid syntax.
+* 3a. Delino detects invalid syntax from user input.
 [none]
 ** 3a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 3b. Delino unable to detect any order with the transaction id.
+* 3b. The given index for deletion is not valid.
 [none]
-** 3b1. Delino shows no order found message.
+** 3b1. Delino shows an error message indicating an invalid deletion index has been provided.
 +
 Use case ends.
 //end::use_case_delete[]
@@ -1611,40 +1618,40 @@ Use case ends.
 
 *MSS*
 
-1.  User request to mark order or return order as delivered,
-based on the <<command_prefix, `FLAG`>> provided, -o or -r respectively and <<command_prefix, `INDEX`>>.
-2.  Delino changes the delivery status of the specified order or return order to delivered.
-3.  Delino will display an updated order list or return order list.
+1.  User wants to mark an order or return order as delivered.
+2.  User request to mark order or return order as delivered.
+3.  Delino changes the delivery status of the specified order or return order to delivered.
+4.  Delino will display an updated order list or return order list.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino unable to detect any parcel with the <<command_prefix, `INDEX`>> provided.
+* 2b. Delino unable to detect any parcel with the <<command_prefix, `INDEX`>> provided.
 [none]
-** 1b1. Delino shows error message to the user.
+** 2b1. Delino shows error message to the user.
 +
 Use case ends.
 
 [none]
-* 1c. Delino unable to detect valid <<command_prefix, `INDEX`>> provided.
+* 2c. Delino unable to detect valid <<command_prefix, `INDEX`>> provided.
 [none]
-** 1c1. Delino shows error message to the user.
+** 2c1. Delino shows error message to the user.
 +
 Use case ends.
 
 [none]
-* 1d. Delino unable to detect valid <<command_prefix, `FLAG`>> provided.
+* 2d. Delino unable to detect valid <<command_prefix, `FLAG`>> provided.
 [none]
-** 1d1. Delino shows error message to the user.
+** 2d1. Delino shows error message to the user.
 +
 Use case ends.
 //end::use_case_delivered[]
@@ -1654,28 +1661,36 @@ Use case ends.
 
 [discrete]
 === Use case: UC05 - Editing order details
+Preconditions: There should be a valid order/return order that can be edited.
 
 *MSS*
 
-1.  User request to edit order details.
-2.  Delino edit the order details
-3.  Delino display changes made.
+1.  User requests to [.underline]#list orders (UC10).#
+2.  User wants to edit a specific order.
+3.  User request to edit order details.
+4.  Delino edit the order details.
+5.  Delino display changes made.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 3a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 3a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino unable to detect any order with the transaction id.
+* 3b. Delino unable to detect any order specified by the user.
 [none]
-** 1b1. Delino shows no order found message.
+** 3b1. Delino shows no order found message.
+
+[none]
+* 3c. Delino detects duplicate a order.
+[none]
+** 3c1. Delino shows duplicate order message.
 +
 Use case ends.
 //end::use_case_edit[]
@@ -1689,9 +1704,10 @@ Use case ends.
 
 *MSS*
 
-1.  User request to exit the program.
-2.  Delino displays goodbye message.
-3.  Delino closes the application window.
+1.  User wantos to exit the program.
+2.  User request to exit the program.
+3.  Delino displays goodbye message.
+4.  Delino closes the application window.
 +
 Use case ends.
 
@@ -1702,243 +1718,35 @@ Use case ends.
 
 *MSS*
 
-1.  User request to search specific order by transaction id
-2.  Delino display the requested order.
+1.  User wants to search a specifc order by a given keyword.
+2.  User request to search specific order by a given keyword.
+3.  Delino display the requested order.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Delino detects invalid syntax.
+* 2a. Delino detects invalid syntax from user input.
 [none]
-** 1a1. Delino shows an error message.
+** 2a1. Delino shows an error message.
 +
 Use case ends.
 
 [none]
-* 1b. Delino unable to find order with the transaction id.
+* 2b. Delino unable to find order with the transaction id.
 [none]
-** 1b1. Delino display order not found message.
+** 2b1. Delino display order not found message.
 +
 Use case ends.
 //end::use_case_search[]
 
-//@@author
-
-[discrete]
-=== Use case: UC08 - Request for help
-
-*MSS*
-
-1.  User request for help to navigate around application.
-2.  Delino shows help message.
-+
-Use case ends.
-
-//@@author Exeexe93
-//tag::use_case_import[]
-[discrete]
-
-=== Use case: UC09 -  Importing order details
-
-*MSS*
-
-1.  User requests to import orders from an external file.
-2.  Delino checks for file existence.
-3.  Delino imports all orders from the external file.
-4.  Delino displays all orders imported.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Delino detects invalid syntax.
-+
-[none]
-** 1a1. Delino shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. Delino detects invalid file path.
-+
-[none]
-** 2a1. Delino shows the invalid file path error message
-+
-Use case ends.
-
-[none]
-* 3a. Delino is unable to open the file.
-+
-[none]
-** 3a1. Delino shows permission denied error message.
-+
-Use case ends.
-//end::use_case_import[]
-
-//@@author Amoscheong97
-//tag::use_case_list[]
-
-[discrete]
-=== Use case: UC10 - Listing all orders
-
-*MSS*
-
-1.  User requests to view the list of orders.
-2.  Delino display list of orders.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Delino detects invalid syntax.
-+
-[none]
-** 1a1. Delino shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. Delino detects no orders.
-+
-[none]
-** 2a1. Delino shows empty order list message.
-+
-Use case ends.
-//end::use_case_list[]
-
-//@@author cherweijie
-//tag::use_case_return[]
-
-[discrete]
-=== Use case: UC11 - Returning an order
-
-*MSS*
-
-1.  User requests to return an order or create a new return order.
-2.  Either an order will be converted to a return order or a new return order will be created
-3.  Delino displays the updated return order list with the new return order.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Delino detects invalid syntax.
-+
-[none]
-** 1a1. Delino shows an error message to the user.
-+
-Use case ends.
-
-[none]
-* 1b. Delino detects invalid parcel attributes.
-+
-[none]
-** 1b1. Delino shows an error message to the user.
-+
-Use case ends.
-
-[none]
-* 1c. Delino detects invalid <<command_prefix, `TRANSACTION_ID`>>, i.e. order with
-the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
-+
-[none]
-** 1c1. Delino shows an error message to the user.
-+
-Use case ends.
-
-[none]
-* 1d. Delino detects missing parcel attributes.
-+
-[none]
-** 1d1. Delino shows an error message to the user.
-+
-Use case ends.
-//end::use_case_return[]
-
-//@@author JeremyLoh
-//tag::use_case_nearby[]
-
-[discrete]
-=== Use case: UC12 - Obtain orders in a postal sector
-
-*MSS*
-
-1.  User requests to obtain orders in a specified postal sector
-2.  Delino obtains all orders located in the postal sector
-3.  Delino display the list of orders
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Delino detects invalid syntax.
-+
-[none]
-** 1a1. Delino shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. Delino detects no orders.
-+
-[none]
-** 2a1. Delino shows empty order list message.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC13 - Undo previous command
-
-*MSS*
-
-1.  User request to undo current command
-2.  Delino revert back to the previous state.
-3.  Delino displays undo message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Delino detects invalid syntax.
-+
-[none]
-** 1a1. Delino shows an error message.
-+
-Use case ends.
-
-[none]
-* 2a. Delino detects nothing to be undo.
-+
-[none]
-** 2a1. Delino shows nothing to be undone message.
-+
-Use case ends.
-//end::use_case_nearby[]
-
-//tag::use_case_show[]
-[discrete]
-=== Use case: UC14 - Show statistics
-
-*MSS*
-
-1. User requests to see the statistics of orders.
-2. Delino opens a window that contains the statistics.
-+
-Use case ends.
-//end::use_case_show[]
 
 //@@author cherweijie
 //tag::use_case_help[]
 
 [discrete]
-=== Use case: UC12 - Display list of commands in Delino using help
+=== Use case: UC08 - Request for help
 
 *MSS*
 
@@ -1966,6 +1774,180 @@ Use case ends.
 +
 Use case ends.
 //end:use_case_help[]
+
+
+//@@author Exeexe93
+//tag::use_case_import[]
+[discrete]
+
+=== Use case: UC09 -  Importing order details
+
+*MSS*
+
+1.  User wants to import a specific orders from an external file.
+2.  User requests to import orders from an external file.
+3.  Delino checks for file existence.
+4.  Delino imports all orders from the external file.
+5.  Delino displays all orders imported.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 3a. Delino detects invalid file path.
++
+[none]
+** 3a1. Delino shows the invalid file path error message
++
+Use case ends.
+
+[none]
+* 4a. Delino is unable to open the file.
++
+[none]
+** 4a1. Delino shows permission denied error message.
++
+Use case ends.
+//end::use_case_import[]
+
+//@@author Amoscheong97
+//tag::use_case_list[]
+
+[discrete]
+=== Use case: UC10 - Listing all orders
+
+*MSS*
+
+1.  User wants to view all orders.
+2.  User requests to view the list of orders.
+3.  Delino display list of orders.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 3a. Delino detects no orders.
++
+[none]
+** 3a1. Delino shows empty order list message.
++
+Use case ends.
+//end::use_case_list[]
+
+//@@author cherweijie
+//tag::use_case_return[]
+
+[discrete]
+=== Use case: UC11 - Returning an order
+
+*MSS*
+
+1.  User wants to return an order or create a new return order.
+2.  User requests to return an order or create a new return order.
+3.  Either an order will be converted to a return order or a new return order will be created
+4.  Delino displays the updated return order list with the new return order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2b. Delino detects invalid parcel attributes.
++
+[none]
+** 2b1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2c. Delino detects invalid <<command_prefix, `TRANSACTION_ID`>>, i.e. order with
+the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
++
+[none]
+** 2c1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2d. Delino detects missing parcel attributes.
++
+[none]
+** 2d1. Delino shows an error message to the user.
++
+Use case ends.
+//end::use_case_return[]
+
+//@@author JeremyLoh
+//tag::use_case_nearby[]
+
+[discrete]
+=== Use case: UC12 - Obtain orders in a postal sector
+
+*MSS*
+
+1.  User wants to obtain all orders in a specified postal sector.
+2.  User requests to obtain orders in a specified postal sector
+3.  Delino obtains all orders located in the postal sector
+4.  Delino display the list of orders
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 3a. Delino detects no orders.
++
+[none]
+** 3a1. Delino shows empty order list message.
++
+Use case ends.
+
+
+//end::use_case_nearby[]
+
+//@@author Amoscheong97
+//tag::use_case_show[]
+[discrete]
+=== Use case: UC13 - Show statistics
+
+*MSS*
+
+1. User requests to see the statistics of orders.
+2. Delino opens a window that contains the statistics.
++
+Use case ends.
+//end::use_case_show[]
+
 
 //@@author cherweijie
 //tag::non_functional_requirements[]
