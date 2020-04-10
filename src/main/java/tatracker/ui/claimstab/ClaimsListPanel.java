@@ -40,6 +40,7 @@ public class ClaimsListPanel extends UiPart<Region> {
         super(FXML);
         this.taTracker = taTracker;
 
+        logger.fine("Showing Claims List");
         claimsListView.setItems(claimsList);
         claimsListView.setCellFactory(listView -> new ClaimsListViewCell());
         totalEarnings.setText("Total Earnings: " + this.taTracker.getTotalEarnings());
@@ -52,6 +53,7 @@ public class ClaimsListPanel extends UiPart<Region> {
      * Update Label in order to facilitate incrementing total earnings
      */
     public void updateLabel() {
+        logger.fine("Update label: Total Earning");
         totalEarnings.setText("Total Earnings: " + taTracker.getTotalEarnings());
     }
 

@@ -18,7 +18,6 @@ public class JsonSerializableTaTrackerTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableTaTrackerTest");
     private static final Path TYPICAL_STUDENTS_FILE = TEST_DATA_FOLDER.resolve("typicalStudentsTaTracker.json");
     private static final Path INVALID_STUDENT_FILE = TEST_DATA_FOLDER.resolve("invalidStudentTaTracker.json");
-    private static final Path DUPLICATE_STUDENT_FILE = TEST_DATA_FOLDER.resolve("duplicateStudentTaTracker.json");
 
     @Test
     public void toModelType_typicalStudentsFile_success() throws Exception {
