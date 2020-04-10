@@ -228,8 +228,8 @@ image::Ivan-PreprocessAssignActivityDiagram.png[]
 Notice that there are 2 main exit points in the activity diagram. The success case is straightforward and will lead to a
 the program continuing to execute the actual assign/un-assign command.
 
-However, for the failure case, should any of the conditions fail, this means that either the specified objects does `not exist`
-or that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
+However, for the failure case, should any of the conditions fail, this means that either the specified objects does `not exist`, or
+both entities are `already assigned` to each other or more importantly, that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
 
 ===== EdgeManager
 Explain flow for assign/unassign
