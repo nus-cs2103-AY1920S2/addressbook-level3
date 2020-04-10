@@ -121,6 +121,30 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
     }
 
     /**
+     * Gets the integer value of this MonetaryAmount
+     * as an integer (amount representing full units
+     * of a certain currency, e.g. dollars, pounds).
+     *
+     * @return Integer representing the integer value
+     *         stored in this MonetaryAmount.
+     */
+    public int getRawIntegerValue() {
+        return this.integerAmount;
+    }
+
+    /**
+     * Gets the decimal value of this MonetaryAmount as
+     * an integer (amount representing fractional units
+     * of a certain currency, e.g. cents, pennies).
+     *
+     * @return Integer representing the decimal value
+     *         stored in this MonetaryAmount.
+     */
+    public int getRawDecimalValue() {
+        return this.decimalAmount;
+    }
+
+    /**
      * Checks if this double is suitable for use
      * in the MonetaryAmount (should be at most
      * 2 decimal places).

@@ -373,7 +373,7 @@ public class ParserUtil {
      *         determined to fit within the limit.
      * @throws ParseException If the String s exceeds the limit.
      */
-    private static String checkStringLength(String s, int limit) throws ParseException {
+    protected static String checkStringLength(String s, int limit) throws ParseException {
         int currentLength = s.length();
         if (currentLength > limit) {
             throw new ParseException(String.format(MESSAGE_STRING_TOO_LONG, s, currentLength, limit));
