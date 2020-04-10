@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
+import seedu.recipe.model.goal.GoalCount;
 
 /**
  * Wraps all data at the address-book level
@@ -120,7 +121,7 @@ public class CookedRecordBook implements ReadOnlyCookedRecordBook {
     }
 
     @Override
-    public ObservableList<Integer> getFilteredGoalsTally() {
+    public ObservableList<GoalCount> getFilteredGoalsTally() {
         return records.getGoalsTally();
     }
 

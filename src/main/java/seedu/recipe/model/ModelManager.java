@@ -17,6 +17,7 @@ import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
@@ -288,7 +289,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Integer> getFilteredGoalsTally() {
+    public ObservableList<GoalCount> getFilteredGoalsTally() {
         return cookedRecordBook.getFilteredGoalsTally();
     }
 

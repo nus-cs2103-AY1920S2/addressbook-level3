@@ -21,6 +21,7 @@ import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.achievement.Streak;
 import seedu.recipe.model.cooked.Record;
+import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.ui.tab.Tab;
@@ -37,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private ObservableList<Integer> goalsCountList;
+    private ObservableList<GoalCount> goalsCountList;
 
     // Independent Ui parts residing in this Ui container
     private MainTabPanel mainTabPanel;
@@ -142,7 +143,6 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Record> cookedList = logic.getFilteredRecordList();
         goalsCountList = logic.getFilteredGoalsTally();
         cookedListPanel = new CookedListPanel(cookedList, goalsCountList);
-        cookedListPanel.setChart(goalsCountList);
 
         //using recipe list as stub for achievements, to be edited later todo
         //TODO set storage parameter instead of hardcode
