@@ -33,9 +33,10 @@ public class TypicalRecipes {
 
     public static final Recipe CAESAR_SALAD = new RecipeBuilder().withName("Caesar Salad")
             .withTime("10")
-            .withVegetables("100g, Lettuce")
+            .withVegetables("300g, Lettuce")
+            .withGrains("200g, Bread")
             .withSteps("Cut tomatoes", "Remove honeydew skin")
-            .withGoals("Herbivore").build();
+            .withGoals("Herbivore", "Wholesome Wholemeal").build();
 
     public static final Recipe GRILLED_SANDWICH = new RecipeBuilder().withName("Grilled Sandwich")
             .withTime("10")

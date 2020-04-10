@@ -24,9 +24,9 @@ public class JsonSerializableRecipeBookTest {
     public void toModelType_typicalRecipesFile_success() throws Exception {
         JsonSerializableRecipeBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_RECIPES_FILE,
                 JsonSerializableRecipeBook.class).get();
-        RecipeBook addressBookFromFile = dataFromFile.toModelType();
-        RecipeBook typicalRecipesAddressBook = TypicalRecipes.getTypicalRecipeBook();
-        assertEquals(addressBookFromFile, typicalRecipesAddressBook);
+        RecipeBook recipeBookFromFile = dataFromFile.toModelType();
+        RecipeBook typicalRecipeBook = TypicalRecipes.getTypicalRecipeBook();
+        assertEquals(recipeBookFromFile, typicalRecipeBook);
     }
 
     @Test

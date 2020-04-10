@@ -1,21 +1,21 @@
 {
-  "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
+  "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalRecipeBook()",
   "recipes" : [ {
     "name" : "Caesar Salad",
     "time" : "10",
     "isFavourite": false,
-    "grains": [ ],
-    "vegetables" : [ "100g, Lettuce" ],
+    "grains": ["200g, Bread" ],
+    "vegetables" : [ "300g, Lettuce" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ ],
     "steps" : ["Cut tomatoes", "Remove honeydew skin"],
-    "goals" : [ "Herbivore" ]
+    "goals" : [ "Herbivore", "Wholesome Wholemeal" ]
   }, {
     "name" : "Grilled Sandwich",
     "time" : "10",
     "isFavourite": false,
-    "grains": [ "50g, Bread" ],
+    "grains": [ "150g, Bread" ],
     "vegetables" : [ ],
     "proteins" : [ ],
     "fruits" : [ ],

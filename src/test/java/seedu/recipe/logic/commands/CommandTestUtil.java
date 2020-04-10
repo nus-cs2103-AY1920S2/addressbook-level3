@@ -48,6 +48,8 @@ public class CommandTestUtil {
     public static final String VALID_STEP_FISH = "Remove fish stomach";
     public static final String VALID_GOAL_PROTEIN = "Bulk like the Hulk";
     public static final String VALID_GOAL_GRAIN = "Wholesome Wholemeal";
+    public static final String VALID_GOAL_VEGE = "Herbivore";
+    public static final String VALID_GOAL_FRUIT = "Fruity Fiesta";
 
     public static final String FRUIT_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_FRUIT + VALID_FRUIT_TURKEY_SANDWICH;
     public static final String FRUIT_DESC_FISH = " " + PREFIX_INGREDIENT_FRUIT + VALID_FRUIT_FISH;
