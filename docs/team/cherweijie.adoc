@@ -14,11 +14,26 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 
 == Summary of contributions
 
-* *Major enhancement*: [Coming soon]
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*:
+Added the `help` command (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310[#310])
+** What it does: It displays a list of all Delino's commands
+** Justification: This command allows the user to see the usage of each command in Delino and
+quickly be able to utilise Delino's available features.
+
+** Added `return` command (Pull request: )
+*** What it does: This command allows the user to create a new return order and add it into the Return Order List or
+convert a delivered order into a return order
+and add it into the Return Order List.
+*** Justification: This feature is a must-have in Delino as it is a delivery management app. It allows the user to convert
+delivered orders into return orders and even create new return orders from scratch with the given parcel attributes.
+This feature requires a deep understanding of the AddressBook 3 (AB3) codebase and that took quite a bit of time.
+Two different logic execution paths had to be implemented and the testing of this feature also had to be extensive
+and exhaustive to ensure that no test cases were missed in the process of testing.
+
+** Added `delivered` command (Pull request: )
+*** What it does: Allows the user to mark orders or return orders as delivered.
+*** Justification: This is an important feature and it is a must-have for an app like Delino. It allows the user to easily
+mark an order or return order as delivered after delivering the parcel.
 
 * *Minor enhancement*: [Coming soon]
 
@@ -62,9 +77,25 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+== Design
+include::../DeveloperGuide.adoc[tag=Design-Model]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+== Features
+include::../DeveloperGuide.adoc[tag=return]
+include::../DeveloperGuide.adoc[tag=help]
+include::../DeveloperGuide.adoc[tag=delivered]
+
+== Use Cases
+include::../DeveloperGuide.adoc[tag=use_case_clear]
+include::../DeveloperGuide.adoc[tag=use_case_import]
+
+== Glossary
+include::../DeveloperGuide.adoc[tag=command_prefix]
+include::../DeveloperGuide.adoc[tag=command_flags]
+
+== Appendix G: Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=appendix-clear]
+include::../DeveloperGuide.adoc[tag=appendix-import]
 
 
 == PROJECT: PowerPointLabs
