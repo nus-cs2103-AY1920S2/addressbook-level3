@@ -1191,11 +1191,77 @@ Optionally you can click on the cross button of the application to exit!
 * Data is saved in the hard disk automatically after any command that changes data that is present.
 * There is no need to save manually.
 
+[WARNING]
+====
+There is no need to alter the JSON file in the data folder!
+====
 
+//@@author
 [[FAQ]]
 == FAQ
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Delino folder.
+. *Question*: How do I transfer my data to another Computer? +
+*Answer*: You can transfer your data by: +
+.. Installing the app in the new computer. +
+.. From your current Delino folder, transfer the data folder to your new Delino folder. +
+.. Overwrite any files if needed.
+
+. *Question*: If I am currently using Microsoft Excel to manage my orders, why should I use Delino? +
+*Answer*: Excel is not exactly optimized to display large amounts of data and
+it can be quite daunting to look at. +
+With Delino, we offer a centralized platform to easily manage all of your delivery orders! +
+The process to transfer all of your orders in Microsoft Excel is simple! +
+Simply use the <<import, import>> command!
+
+. *Question*: How can I obtain more information about the various commands in Delino? +
+*Answer*: You can use the <<help, help>> command!
+
+. *Question*: What is the difference between Orders and Return Orders? +
+*Answer*: Orders are used for delivering goods to the end user. +
+Return Orders are used for delivering goods that are rejected by the user.
+
+. *Question*: Where can I find the `INDEX` of an order/return order? +
+*Answer*: They can be found in the numbers located beside each individual order.
+
+image::index_location_FAQ.png[]
+
+[start=6]
+. *Question*: How do I know the delivery status of an existing order/return order? +
+*Answer*:
+
+Orders/Return orders that are *delivered* are indicated by the following icon:
+
+image::delivered.png[]
+
+Orders/Return orders that are *not delivered* are indicated by the following icon:
+
+image::not_delivered.png[]
+
+An example is shown below:
+
+image::delivered_symbol.png[]
+
+. *Question*: What does the other symbols in the app mean? +
+*Answer*:
+
+This icon represents an *address*:
+
+image::address.png[]
+
+This icon represents a *comment*:
+
+image::comments_icon.png[]
+
+This icon represents an *email*:
+
+image::email.png[]
+
+This icon represents a *name*:
+
+image::name.png[]
+
+This icon represents a *phone*:
+
+image:phone.png[]
 
 //@@author
 [[command-summary]]
@@ -1245,7 +1311,7 @@ the provided link in the table below.
 |`exit`
 
 |<<search, *Search*>>
-|`search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+|`search` `[<<command_flags, FLAG>>]` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
 |`search` `-r` `tid/ac1e345x7s` +
 `search` `-r` `Jeremy Loh` +
 `search` `-o` `tid/asj2od3943` +
