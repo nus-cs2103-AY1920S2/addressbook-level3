@@ -373,6 +373,12 @@ in the model component.
 .Model Components - Class Diagram
 image::ModelComponentsClassDiagram.png[]
 
+The following object diagram shows an example of the relationship between the different classes.
+This example is based on the state of TA-Tracker when it is first run (without any user data).
+
+.Model Components - Object Diagram
+image::ModelObjectDiagram.png[]
+
 [[Design-Storage]]
 === Storage component
 The following diagram is a simplified view of the Storage component.
