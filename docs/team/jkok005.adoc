@@ -100,12 +100,32 @@ Designed panel swapping logic to render correct UI panel based on user requests.
 ** Timekeeper for team to ensure we meet project milestones (PE Dry-run / Final submission)
 
 === Dev Ops
-
+** Set up jenkins CI/CD for repo
 
 === User Guide contributions
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/johan-ppp/docs/UserGuide.adoc[User Guide]
+
+Parts contributed:
+
+. Introduction
+. Target audiences
+. Quick start
+. Features
+. FAQ
 
 === Developer Guide contributions
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
 
+Parts contributed:
+
+. Setting up
+. Design + Architecture
+. Class diagram illustration
+. Architecture component interactions
+. Models
+. Design considerations EXCEPT:
+.. Logging
+.. Configuration
 
 === Credits
 Would like to thank the following for being a great source of help in this project
