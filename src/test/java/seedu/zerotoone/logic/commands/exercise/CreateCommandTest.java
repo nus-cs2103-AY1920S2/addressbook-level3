@@ -320,6 +320,8 @@ public class CreateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        // -----------------------------------------------------------------------------------------
+        // Log
         @Override
         public ReadOnlyLogList getLogList() {
             throw new AssertionError("This method should not be called.");
