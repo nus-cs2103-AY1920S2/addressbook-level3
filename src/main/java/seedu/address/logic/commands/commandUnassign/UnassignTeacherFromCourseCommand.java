@@ -3,7 +3,6 @@ package seedu.address.logic.commands.commandUnassign;
 import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
-import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
 import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
@@ -11,9 +10,7 @@ import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
-import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.ID;
-import seedu.address.model.tag.Tag;
 
 import java.util.Set;
 
@@ -59,9 +56,9 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
     /**
      * This performs all two main action to ensure successful Unassigning of Teacher from Course and that
      * the command can undo & redo successfully.
-     * 1. Check to ensure that the targeted Teacher & Course exists
+     * 1. Check to ensure that the targeted Teacher & Course exists.
      *
-     * @param model
+     * @param model the model.
      */
     @Override
     protected void preprocessUndoableCommand(Model model) throws CommandException {

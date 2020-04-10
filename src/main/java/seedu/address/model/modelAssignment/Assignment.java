@@ -78,7 +78,7 @@ public class Assignment extends ModelObject {
   }
 
   /**
-   * Get ID of a assignment.
+   * Get ID of an assignment.
    * @return ID of this assignment.
    */
   public ID getId() {
@@ -86,7 +86,7 @@ public class Assignment extends ModelObject {
   }
 
   /**
-   * Get deadline of a assignment.
+   * Get deadline of an assignment.
    * @return deadline of this assignment.
    */
   public Date getDeadline() {

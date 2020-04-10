@@ -26,7 +26,7 @@ public class AddressBookGeneric<K extends ModelObject> implements ReadOnlyAddres
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a generic AddressBook using the objects in the {@code toBeCopied}
      */
     public AddressBookGeneric(ReadOnlyAddressBookGeneric<K> toBeCopied) {
         this();
