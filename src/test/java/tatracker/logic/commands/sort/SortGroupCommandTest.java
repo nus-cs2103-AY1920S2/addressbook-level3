@@ -10,9 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
-import tatracker.model.group.Group;
 import tatracker.model.module.Module;
-import tatracker.testutil.group.GroupBuilder;
 import tatracker.testutil.module.ModuleBuilder;
 
 public class SortGroupCommandTest {
