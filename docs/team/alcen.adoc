@@ -68,7 +68,7 @@ https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=alcen[here
 
 include::../UserGuide.adoc[tag=saved]
 
-include::../UserGuide.adoc[tag=setpref]
+include::../UserGuide.adoc[tag=setcurrency]
 
 == Contributions to the Developer Guide
 

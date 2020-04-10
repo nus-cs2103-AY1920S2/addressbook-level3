@@ -6,16 +6,16 @@ import static java.util.Objects.requireNonNull;
 import csdev.couponstash.model.Model;
 
 /**
- * Edits the user preferences in Coupon Stash, for example
+ * Edits the user preferences in Coupon Stash, specifically
  * the money symbol/currency type used to display monetary
  * amounts of the Coupon's savings.
  */
-public class SetPrefCommand extends Command {
-    public static final String COMMAND_WORD = "setpref";
+public class SetCurrencyCommand extends Command {
+    public static final String COMMAND_WORD = "setcurrency";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets the user preferences for Coupon Stash\n\n"
+            + ": Sets the default currency for Coupon Stash\n\n"
             + "Parameters: " + PREFIX_MONEY_SYMBOL + " NEW_MONEY_SYMBOL\n\n"
-            + "Example: setpref " + PREFIX_MONEY_SYMBOL + "RM";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MONEY_SYMBOL + "RM";
     public static final String MESSAGE_MISSING_VALUES = COMMAND_WORD
             + " requires at least one value to be set!\n\n";
 
@@ -23,7 +23,7 @@ public class SetPrefCommand extends Command {
 
     private final String moneySymbol;
 
-    public SetPrefCommand(String newMoneySymbol) {
+    public SetCurrencyCommand(String newMoneySymbol) {
         this.moneySymbol = newMoneySymbol;
     }
 

@@ -23,7 +23,7 @@ import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
-import csdev.couponstash.logic.commands.SetPrefCommand;
+import csdev.couponstash.logic.commands.SetCurrencyCommand;
 import csdev.couponstash.logic.commands.ShareCommand;
 import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.commands.UnarchiveCommand;
@@ -116,8 +116,8 @@ public class CouponStashParser {
         case SavedCommand.COMMAND_WORD:
             return new SavedCommandParser().parse(arguments);
 
-        case SetPrefCommand.COMMAND_WORD:
-            return new SetPrefCommandParser().parse(arguments);
+        case SetCurrencyCommand.COMMAND_WORD:
+            return new SetCurrencyCommandParser().parse(arguments);
 
         case ShareCommand.COMMAND_WORD:
             return new ShareCommandParser().parse(arguments);
