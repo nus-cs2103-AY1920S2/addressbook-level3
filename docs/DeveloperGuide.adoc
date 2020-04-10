@@ -197,7 +197,8 @@ The three versioned classes use the same logic for versioning, so only `Versione
 subsequent examples and diagrams.
 
 The sequence diagram below illustrates the events that occur when a user calls the undo command assuming that there is
-a state to return to.
+a state to return to. `VersionedAddressBook#undo()` and `VersionedTransactionHistory#undo()` are called as well, but
+omitted for brevity.
 
 image::UndoSequenceDiagram.png[]
 
@@ -233,12 +234,15 @@ makes a copy of the modified `currentState` and stores it in the history, moving
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add-s n/David ...` to add a new supplier. The `add-s` command also calls `Model#commit()` as it modifies the database, causing another modified database state to be saved into the `databaseStateList`.
+Step 3. The user executes `buy 1 g/apple q/5` to buy 5 apples from the first supplier. Let us assume that the first
+supplier sells apples. The `buy` command also calls `Model#commit()` as it modifies the data,
+causing `LinearHistory<Inventory>` to save a copy of the modified `currentState`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commit()`, so the database state will not be saved into the `databaseStateList`.
+If a command fails its execution, it will not call `Model#commit()`, so the `currentState` will not be saved
+into the history.
 
 Step 4. The user now decides that adding the supplier was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous database state, and restores the database to that state.
 
