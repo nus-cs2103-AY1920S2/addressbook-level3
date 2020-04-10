@@ -221,11 +221,15 @@ For simplicity, goods are each represented with strings containing their name an
 
 Step 1. The user launches the application for the first time. The `VersionedInventory` will be created with a list
 of `Good` objects from storage, while creating a `LinearHistory<Inventory>` that stores a copy of this state,
-and also stores another copy in its history. Thus, `currentState` and `saved0` are independent `Inventory` objects.
+and also stores another copy in its history. Using `copy()` method from `Copyable<Inventory>` ensures
+`currentState` and `saved0` are independent `Inventory` objects.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete-s 5` command to delete the 5th supplier in the supplier list. The `delete-s` command calls `Model#commit()` since it modifies the database, causing the database state after the `delete-s 5` command executes to be saved in the `databaseStateList`, and the `currentStatePointer` is shifted to the newly inserted database state. This also applies to the `VersionedDatabase` for `Good` and `Transaction` even if there are no changes to them.
+Step 2. The user executes `delete-g 3` command to delete the 3rd good in the inventory list. The `delete-g` command
+first deletes the 3rd good in the `currentState` of the `LinearHistory<Inventory>`, exposed by `VersionedInventory`.
+Then, the command calls `Model#commit()` since it modifies the data. `LinearHistory<Inventory>` then
+makes a copy of the modified `currentState` and stores it in the history, moving the statePointer up.
 
 image::UndoRedoState1.png[]
 
