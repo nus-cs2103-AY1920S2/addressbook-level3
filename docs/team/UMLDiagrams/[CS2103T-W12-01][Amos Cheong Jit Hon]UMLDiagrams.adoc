@@ -1,0 +1,47 @@
+== Amos Cheong UML Diagrams
+
+* *Insert Feature UML Diagrams*
+
+image::../../images/InsertClassDiagram.svg[]
+The Insert Command Class Diagram describes and shows the dependencies of the InsertCommand class.
+
+image::../../images/InsertParserClassDiagram.svg[]
+The InsertParser Class Diagram shows the classes that InsertParser Class is dependant on. Developers will be able to
+know what classes are involved when the InsertParser class is used in the code.
+
+image::../../images/InsertActivityDiagram.svg[]
+The Insert Command Activity Diagram describes the execution of the Insert command. It considers
+the result of every scenario that could happen during the process.
+
+image::../../images/InsertCommandSequenceDiagram.svg[]
+The Insert Command Sequence Diagram shows the interactions of all the classes objects with the InsertCommand object
+during execution. Developers will be able to understand how will the internal class objects work when the
+user inputs a command.
+
+* *List Feature UML Diagrams*
+
+image::../../images/ListClassDiagram.svg[]
+The List Command Class Diagram describes and shows the dependencies of the ListCommand class.
+
+image::../../images/ListActivityDiagram.svg[]
+The List Command Activity Diagram describes the execution of the List command. It considers
+the result of every scenario that could happen during the process.
+
+image::../../images/ListCommandSequenceDiagram.svg[]
+The List Command Sequence Diagram shows the interactions of all the classes objects with the ListCommand object
+during execution. Developers will be able to understand how does the internal class objects work when the
+user inputs a command.
+
+* *Show Feature UML Diagrams*
+
+image::../../images/ShowCommandClassDiagram.svg[]
+The Show Command Class Diagram describes and shows the dependencies of the ShowCommand class.
+
+image::../../images/ShowCommandActivityDiagram.svg[]
+The Show Command Activity Diagram describes the execution of the Show command. It considers
+the result of every scenario that could happen during the process.
+
+image::../../images/ShowCommandSequenceDiagram.svg[]
+The Show Command Sequence Diagram shows the interactions of all the classes objects with the ShowCommand object
+during execution. Developers will be able to understand how does the internal class objects work when the
+user inputs a command.

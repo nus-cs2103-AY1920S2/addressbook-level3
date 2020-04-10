@@ -262,7 +262,7 @@ The second argument of the `list` command can be `done` or `undone` or an empty 
 ====
 
 The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
-the second argument into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
+into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
 Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
 the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
 argument is empty, the predicate that is parsed to the two methods will always result to true, which means to list
@@ -1070,6 +1070,63 @@ However, if `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` is given and the preamb
 
 The order and return order list updates automatically as the JavaFX class `ObservableList` is used to listen to any changes.
 //end::search[]
+
+//tag::show[]
+[[show]]
+=== Show feature
+This section describes the <<show-functionality, functionality>> , the <<show-structure, structure>>,
+<<show-interactions, interactions>> between objects and <<show-path, path>> the path execution of the *Show Command*.
+
+[[show-functionality]]
+==== What is the Show feature
+Show feature allows the user to see the statistical information of all the orders for both Delivery Orders
+and Return Orders.
+
+There are a few ways in which the user can input to the command box to execute the *Show Command* :
+
+* `show` `START_DATE` `[END_DATE]`
+
+* `show` `all`
+
+* `show` `today`
+
+* `show` `DATE`
+
+[[show-structure]]
+==== Structure Show feature
+The structure of the List Feature is as shown below:
+
+.Show Command Class Diagram
+image:ShowCommandClassDiagram.svg[]
+
+[[show-path]]
+==== Path execution of the Show Command
+.Show Command Activity Diagram
+image::ShowCommandActivityDiagram.svg[]
+
+The above activity diagram shows the logic and the path execution when the *Show Command* is executed.
+
+[[show-interactions]]
+==== Interaction between objects during execution of Show Command
+The sequence diagram for the *Show Command* is shown below: +
+
+.Show Command Sequence Diagram
+image::ShowCommandSequenceDiagram.svg[]
+
+The user first calls the command "show all".
+[NOTE]
+====
+It can accept either one or two arguments.
+====
+
+The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
+into the `ShowCommand` object. Within the object, it will call the parseData method to make sense of the dates given.
+After that, it returns the object to the `LogicManager`.
+Next, the `LogicManager` will call the execute(model) method using the `ShowCommand` object.
+When completed, the execute(model) will return a `CommandResult` object to the `LogicManager`, indicating that the command execution is a success.
+In this case where the input is "show all", it will have a message that indicates that the command is showing all information.
+//end::show[]
+
 
 === Logging
 
