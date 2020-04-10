@@ -23,7 +23,7 @@ public class DeleteEventCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Ok, I've deleted the following "
-            + "event for you: \n %1$s";
+            + "event for you:\n %1$s";
 
     private final Index targetIndex;
 

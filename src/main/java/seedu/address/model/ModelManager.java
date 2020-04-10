@@ -236,6 +236,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(Event target) {
+        createNewState("EVENTS");
         eventSchedule.removeEvent(target);
     }
 
