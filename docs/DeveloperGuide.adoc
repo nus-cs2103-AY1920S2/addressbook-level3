@@ -560,6 +560,9 @@ thus you do not have to remember who you split this item with!
 
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
+image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
+Figure : List Receipt Command Activity Diagram
+
 *Implementation of List Amount Command*
 
 The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
