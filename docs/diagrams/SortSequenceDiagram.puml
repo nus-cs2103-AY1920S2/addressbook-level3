@@ -5,7 +5,7 @@ box Sort LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":TaskListParser" as TaskListParser LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
-participant "r:SortCommandResult" as SortCommandResult LOGIC_COLOR
+participant "result:SortCommandResult" as SortCommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -47,7 +47,7 @@ activate Model
 Model -> Model: sortList()
 activate Model
 
-Model -> TaskList: sort(ac)
+Model -> TaskList: sort(comparator)
 activate TaskList
 TaskList -> Model
 deactivate TaskList
@@ -57,7 +57,7 @@ deactivate Model
 
 Model -> SortCommand
 deactivate Model
-
+Model -[hidden]> SortCommand
 
 create SortCommandResult
 SortCommand -> SortCommandResult
@@ -66,7 +66,7 @@ activate SortCommandResult
 SortCommandResult --> SortCommand
 deactivate SortCommandResult
 
-SortCommand --> LogicManager : r
+SortCommand --> LogicManager : result
 deactivate SortCommand
 
 [<--LogicManager
