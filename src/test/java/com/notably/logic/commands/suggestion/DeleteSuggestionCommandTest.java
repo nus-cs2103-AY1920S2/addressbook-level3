@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.parser.suggestion.DeleteSuggestionCommandParser;
 import com.notably.logic.suggestion.SuggestionTestUtil;
 import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
@@ -19,8 +20,6 @@ public class DeleteSuggestionCommandTest {
     private static AbsolutePath toCs2103t;
     private static List<AbsolutePath> paths;
     private static Model model;
-
-    private static final String COMMAND_WORD = "delete";
 
     @BeforeAll
     public static void setUp() {
@@ -60,7 +59,7 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
-        String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
+        String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " " + PREFIX_TITLE + " ";
         model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(paths,
             toCs2103t.getStringRepresentation());
@@ -79,7 +78,7 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
-        String userInputWithoutPath = COMMAND_WORD + " ";
+        String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " ";
         model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
         DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(paths,
                 toCs2103t.getStringRepresentation());

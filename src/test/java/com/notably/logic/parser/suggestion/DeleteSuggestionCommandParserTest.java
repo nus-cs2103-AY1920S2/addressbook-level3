@@ -25,7 +25,6 @@ public class DeleteSuggestionCommandParserTest {
     private static DeleteSuggestionCommandParser deleteSuggestionCommandParser;
     private static Model model;
 
-    private static final String COMMAND_WORD = "delete";
     private static final String RESPONSE_MESSAGE = "Delete a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
@@ -71,7 +70,7 @@ public class DeleteSuggestionCommandParserTest {
 
     @Test
     public void parse_correctCmdcorrectAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() {
-        String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
+        String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " " + PREFIX_TITLE + " ";
         String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
         String arg = " " + PREFIX_TITLE + " " + toCs2103t.getStringRepresentation();
 
@@ -117,7 +116,7 @@ public class DeleteSuggestionCommandParserTest {
 
     @Test
     public void parse_correctCmdcorrectRelativePathWithPrefix_returnsDeleteSuggestionCommand() {
-        String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
+        String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " " + PREFIX_TITLE + " ";
         String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
         String arg = " " + PREFIX_TITLE + " " + stringRelativePathToCs2103t;
 
@@ -187,7 +186,7 @@ public class DeleteSuggestionCommandParserTest {
 
     @Test
     public void parse_correctCmdcorrectedAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() {
-        String userInputWithoutPath = COMMAND_WORD + " ";
+        String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " ";
         String path = "/Y2S2/CS2104";
         String userInput = userInputWithoutPath + path;
         String arg = " " + path;
@@ -235,7 +234,7 @@ public class DeleteSuggestionCommandParserTest {
 
     @Test
     public void parse_correctCmdcorrectedRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() {
-        String userInputWithoutPath = COMMAND_WORD + " ";
+        String userInputWithoutPath = DeleteSuggestionCommandParser.COMMAND_WORD + " ";
         String path = "CS2104";
         String userInput = userInputWithoutPath + path;
         String arg = " " + path;
@@ -260,7 +259,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_invalidPath_returnsOptionalEmpty() {
         String path = "-";
-        String userInput = COMMAND_WORD + " " + path;
+        String userInput = DeleteSuggestionCommandParser.COMMAND_WORD + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
@@ -274,7 +273,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_uncorrectedPath_returnsOptionalEmpty() {
         String path = "random";
-        String userInput = COMMAND_WORD + " " + path;
+        String userInput = DeleteSuggestionCommandParser.COMMAND_WORD + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
