@@ -3,7 +3,6 @@ package seedu.zerotoone.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
@@ -35,18 +34,6 @@ public interface Logic extends WorkoutLogic, StatisticsLogic {
      * @throws ParseException If an error occurs during parsing.
      */
     ViewType getViewType(String commandText) throws ParseException;
-
-    // -----------------------------------------------------------------------------------------
-    // Common
-    /**
-     * Returns the user prefs' GUI settings.
-     */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Set the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
 
     // -----------------------------------------------------------------------------------------
     // Exercise List

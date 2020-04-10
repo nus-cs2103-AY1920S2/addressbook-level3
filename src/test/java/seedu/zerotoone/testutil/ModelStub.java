@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
@@ -36,16 +35,6 @@ public class ModelStub implements Model {
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
         throw new AssertionError("This method should not be called.");
     }
 
