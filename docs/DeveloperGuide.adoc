@@ -263,9 +263,11 @@ For the actual execution of an assign/unassign command, 3 main steps are perform
 
 ===== Preprocess Entities
 
+====== Rationale
 Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
 to ensure that all entity links are in correct state before command execution.
 
+====== Current Implementation
 Below is an activity diagram showing the pre-processing
 performed for assign commands. The diagram can be generalized for un-assign commands by checking if the course contains X and vice versa in the
 second stage instead.
