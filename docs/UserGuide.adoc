@@ -20,8 +20,8 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
 
-This user guide provides in-depth documentation on the EYLAH desktop application:
-features summary, getting started, features, FAQ, command summary, and glossary.
+This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 6 main portions,
+including the introduction, getting started, features, FAQ, command summary, and glossary.
 
 Hello there! welcome to EYLAH's User Guide.
 Are you someone who *lives in Temasek hall* in the National University of Singapore and
@@ -58,8 +58,8 @@ the symbols and their meaning.
 
 
 [NOTE]
-This block of text with a blue exclamation mark indicates *additional notes* that you should consider to prevent
-unexpected behaviour.
+This block of text with a blue exclamation mark indicates *additional notes* and *information* that you should
+consider to prevent unexpected behaviour you are using EYLAH.
 
 [TIP]
 This block of text with a yellow lightbulb indicate *additional tips* that will help you when using EYLAH. +
@@ -373,41 +373,74 @@ Example: +
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
-Display the current receipt which shows all the items and its
-respective price and person(s) involved in splitting the cost of that item
+In this section, you will learn more about the `listreceipt` command, <<howtouselistreceiptcommand,how to use it>>
+and the <<listreceiptexpectedoutcome,expected outcome>> after using the
+`listreceipt` command.
+
+*Summary of List Receipt Command:* `listreceipt` *shows you all the entries in your current receipt*.
+
+[[howtouselistreceiptcommand]]
+*How to use the List Receipt Command:*
 
 Format: +
 `listreceipt` +
 
-Example: +
+Valid Example: +
 `listreceipt`
+
+[[listreceiptexpectedoutcome]]
+*Expected outcome:*
+
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
+not have to remember who you split this item with!
+* When you enter `clearrreceipt` it deletes the old receipt's data. Use it with caution!
+====
+
+[TIP]
+====
+* Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
+such as `deleteitem` where you have to pass in the index of item to be deleted.
+====
+
 
 '''
 
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
-Listing the amount of money each Person owes you.
+In this section, you will learn more about the `listamount` command, <<howtouselistamountcommand,how to use it>>
+and the <<listamountexpectedoutcome,expected outcome>> after using the
+`listamount` command.
 
-OR
+*Summary of List Amount Command:* `listamount` *shows you how much each Person owes you*.
 
-If you want to find how much each Person(s) owes you!
-
-*Summary of List Amount Command: `listamount` shows you how much each Person owes you*.
-
+[[howtouselistamountcommand]]
 *How to use the List Amount Command:*
 
-Format of List Amount Command: +
+Format: +
 `listamount` +
 
-Example of valid List Amount Command: +
+Valid example: +
 `listamount`
 
-*Expected outcome after using Paid Command:*
+[[listamountexpectedoutcome]]
+*Expected outcome:*
 
 image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
 
-*Additional tips and notes for List Amount Command* +
+*Additional notes and tips* +
+
+[NOTE]
+====
+* The Person and amount owed will be automatically saved after each command.
+* A person is deleted after they have completely paid the amount they owe you.
+====
 
 [TIP]
 ====
@@ -424,12 +457,12 @@ In this section, you will learn more about the `paid` command, <<howtousepaidcom
 <<paidcommandexpectedoutcome,expected outcome>> after using the
 `paid` command.
 
-*Summary of Paid Command: `paid` subtracts the amount a Person owes you.*
+*Summary of Paid Command:* `paid` *subtracts the amount of money a Person owes you.*
 
 [[howtousepaidcommand]]
 *How to use the Paid Command:*
 
-Format of Paid Command: +
+Format: +
 
 `paid INDEX [AMOUNT]` +
 
@@ -445,7 +478,7 @@ empty is equivalent to the Person paying you the full amount he/she owes you.
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
-Example of valid Paid Commands: +
+Valid examples: +
 
 `paid 2` - This commmand means that the Person at index 2 has paid you the full amount they owe you. +
 
@@ -453,16 +486,11 @@ Example of valid Paid Commands: +
 
 
 [[paidcommandexpectedoutcome]]
-*Expected outcome after using Paid Command:*
+*Expected outcome:*
 
 image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 
-*Additional tips and notes for Paid Command*
-
-[TIP]
-====
-* Use `listamount` command to find the index of the person who paid you.
-====
+*Additional notes and tips*
 
 [NOTE]
 ====
@@ -470,6 +498,13 @@ image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 `donereceipt` command.
 * The person will automatically be removed from the list if the amount he owes you drops to $0.
 ====
+
+[TIP]
+====
+* Use `listamount` command to find the index of the person who paid you.
+====
+
+
 
 
 '''
@@ -715,6 +750,28 @@ or +
 |`help`
 
 |===
+
+== Glossary
+[width="%",cols="<20%,<40,<40,options="header",]
+|=======================================================================
+|Term | Explanation | Examples
+
+| Temasek Hall | This refers the one of the Halls of Residences at the National University of Singapore |
+
+| Halls of Residences | This refers to student accommodation on campus |
+
+| NUS | This is the short form of National Univeristy of Singapore. |
+
+| SOC or SoC | This is the short form for School of Computing. |
+
+| CLI | This is the short form for Command Line Interface. It processes commands to
+TA-Tracker in the form of lines of text |
+
+| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
+item in a list.
+
+
+|=======================================================================
 
 
 [[AppendixA]]

@@ -44,9 +44,10 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
         filteredPersons = new FilteredList<>(this.personAmountBook.getPersonList());
 
         if (receiptBook.isContainSingleReceipt()) {
-            this.receipt = receiptBook.getReceiptList().get(0); // current only have 1 receipt in receipt book.
+            this.receipt = this.receiptBook.getReceiptList().get(0); // current only have 1 receipt in receipt book.
         } else {
             this.receipt = new Receipt();
+            this.receiptBook.addReceipt(this.receipt);
         }
     }
 
