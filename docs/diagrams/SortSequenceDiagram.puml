@@ -5,7 +5,7 @@ box Sort LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":TaskListParser" as TaskListParser LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
-participant "r:CommandResult" as CommandResult LOGIC_COLOR
+participant "r:SortCommandResult" as SortCommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -55,12 +55,12 @@ Model -> SortCommand
 deactivate Model
 
 
-create CommandResult
-SortCommand -> CommandResult
-activate CommandResult
+create SortCommandResult
+SortCommand -> SortCommandResult
+activate SortCommandResult
 
-CommandResult --> SortCommand
-deactivate CommandResult
+SortCommandResult --> SortCommand
+deactivate SortCommandResult
 
 SortCommand --> LogicManager : r
 deactivate SortCommand
