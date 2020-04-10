@@ -1,29 +1,62 @@
+:stylesDir: ../../stylesheets
+
 == Cher Wei Jie UML Diagrams
 
 * *Return Features UML Diagrams*
 
-image::../../images/ReturnCommandActivityDiagram.png[]
+image::../../images/ReturnCommandActivityDiagram.png[width=40%]
 This Activity Diagram purpose is to describe the general work flow of the Return feature.
 
-image::../../images/ReturnClassDiagram.png[]
+image::../../images/ReturnClassDiagram.png[width=40%]
 This Class Diagram purpose is to describe the dependencies of `ReturnCommand`
 class when implementing this feature. It allows a developer to easily see the
 classes and interfaces associated with the `ReturnCommand`.
 
-image::../../images/ReturnSequenceDiagram1_a.png[]
-This Sequence Diagram is used to show a more detailed explanation of the interaction between the
-Logic and Model classes of Delino when the `return` command is executed. +
+image::../../images/ReturnSequenceDiagram1_a.png[width=40%]
+image::../../images/ReturnSequenceDiagram1_b.png[width=40%]
+The first Sequence Diagram depicts a simple overview of the entire execution flow of a valid
+`return` command for converting a delivered order into a return order. The second Sequence Diagram depicts a simple overview of the entire execution flow of a valid
+`return` command for creating a new return order based on given parcel attributes.
 
-This Sequence Diagram describes the execution flow of a valid
-`return` command for converting a delivered order into a return order. i.e. `return` `tid/AC31255`.
-It provides a simple overview for developers to maintain the `return`
-command and extend it easily if needed.
+image::../../images/ReturnSequenceDiagram2_a.png[width=40%]
+image::../../images/ReturnSequenceDiagram2_b.png[width=40%]
+The first Sequence Diagram depicts a detailed execution flow of a valid
+`return` command for converting a order into a return order. The second Sequence Diagram depicts
+a detailed execution flow of a valid `return` command for creating a new return order and
+this will throw an exception and display an error message to the user if any compulsory parcel
+attribute is missing.
 
-* *Search Features UML Diagram*
+* *Delivered Features UML Diagram*
 
-image::../../images/SearchCommandActivityDiagram.svg[]
-This Activity Diagram purpose is to describe the general work flow of the Search feature.
+image::../../images/DeliveredCommandActivityDiagram.png[width=40%]
+This Activity Diagram purpose is to describe the general work flow of the Delivered feature.
 
-image::../../images/SearchCommandClassDiagram.png[]
-image::../../images/SearchCommandSequenceDiagram.svg[]
+image::../../images/DeliveredClassDiagram.png[width=40%]
+This Class Diagram purpose is to describe the dependencies of `DeliveredCommand`
+class when implementing this feature. It allows a developer to easily see the
+classes and interfaces associated with the `DeliveredCommand`.
 
+image::../../images/DeliveredSequenceDiagram.png[width=40%]
+This Sequence Diagram depicts a simple overview of the entire execution flow of a valid
+`delivered` command for marking an order or return order as delivered.
+
+image::../../images/DeliveredSequenceDiagram2.png[width=40%]
+This Sequence Diagram depicts a detailed execution flow of a valid
+`delivered` command for delivering an order and this will throw an exception and display an error
+message to the user if the `FLAG` and/or the `INDEX` is/are invalid or missing. If both `FLAG` and `INDEX` are valid, the `delivered` command will update the respective order or return
+order list (depending on the provided `FLAG`) and display the success message to the user in the GUI.
+
+* *Help Features UML Diagram*
+
+image::../../images/HelpCommandActivityDiagram.png[width=40%]
+This Activity Diagram purpose is to describe the general work flow of the Delivered feature.
+
+image::../../images/HelpCommandClassDiagram.png[width=40%]
+This Class Diagram purpose is to describe the dependencies of `DeliveredCommand`
+class when implementing this feature. It allows a developer to easily see the
+classes and interfaces associated with the `DeliveredCommand`.
+
+image::../../images/HelpCommandSequenceDiagram.png[width=40%]
+This Sequence Diagram depicts detailed execution flow of a valid `help` command when it is
+executed. A `help` command is only valid if there are no non-whitespace characters following the `help`
+command word. The `help` command is used for displaying Delino's list of commands to the user.
