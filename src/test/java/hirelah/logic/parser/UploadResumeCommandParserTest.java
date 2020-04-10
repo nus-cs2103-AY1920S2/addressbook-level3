@@ -11,7 +11,6 @@ import static hirelah.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.jupiter.api.Test;
 
 import hirelah.logic.commands.UploadResumeCommand;
-import hirelah.logic.parser.UploadResumeCommandParser;
 
 class UploadResumeCommandParserTest {
 
