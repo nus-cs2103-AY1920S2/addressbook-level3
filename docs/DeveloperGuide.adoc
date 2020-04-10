@@ -356,7 +356,7 @@ future implementation.
 === Chart Analytics
 
 The *toggle* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
-his expenditure. 
+his expenditure.
 
 ==== Implementation
 
