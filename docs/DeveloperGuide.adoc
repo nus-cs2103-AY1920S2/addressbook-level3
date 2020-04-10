@@ -176,11 +176,15 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Command History --- Aaron Choo
 
-This feature allows users to browse and retrieve their previously entered commands using the kbd:[&uarr;] and kbd:[&darr;] arrow keys, similar to what most modern CLIs offer.
+This feature serves to improve the user experience by allowing users to browse and retrieve their previously entered commands using the kbd:[&uarr;] and kbd:[&darr;] arrow keys, similar to what most modern CLIs offer.
 
 ==== Implementation
 
-This command history mechanism is facilitated by the logic class `CommandHistory`, which controls both the model class `CommandHistoryState` and the storage utility class `StorageReaderWriter`. The behaviour of this feature has been implemented to mimic most modern CLIs, namely:
+This command history mechanism is facilitated by the logic class `CommandHistory`, which controls both the model class `CommandHistoryState` and the storage utility class `StorageReaderWriter`.
+
+===== Behaviour of this feature
+
+The behaviour of this feature has been implemented to mimic most modern CLIs, namely:
 
 . The empty string, `""`, should not be stored in the history
 . Commands that are similar to the most recently stored command in the history should not be stored (ie. duplicate commands will not be stored)
@@ -191,7 +195,9 @@ This command history mechanism is facilitated by the logic class `CommandHistory
 . The caret position should be at the end of the command string when browsing the history
 . Persistent storage of the command history should be supported (ie. a user can quit the app and come back to the same history as his previous usage of the app)
 
-Since all user inputs, be it valid or invalid commands, should be stored, and since detection of the kbd:[&uarr;] and kbd:[&darr;] arrow keys must occur in the `CommandBox` class found in the UI, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will be responsible for calling `CommandHistory#addToHistory`, `CommandHistory#getNextCommand`, and `CommandHistory#getPreviousCommand`. A simplified class diagram of the classes involved in this feature is given below:
+===== How it works
+
+Since all user inputs, be it valid or invalid commands, should be stored, and since detection of the kbd:[&uarr;] and kbd:[&darr;] arrow keys must occur in the JavaFX's `TextField` class found in `CommandBox`, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will be responsible for calling `CommandHistory#addToHistory`, `CommandHistory#getNextCommand`, and `CommandHistory#getPreviousCommand`. A simplified class diagram of the classes involved in this feature is given below:
 
 image::CommandHistoryClassDiagram.png[]
 
@@ -199,32 +205,37 @@ In the following sequence diagram, we trace the execution for when the user deci
 
 image::CommandHistorySequenceDiagram.png[]
 
+===== How the Command History is persisted on storage
+
+Each command that the user types is essentially just a line of text. We simply use the utility class `StorageReaderWriter` to write these lines of text (where each command is a new line of text) to a text-based file `command.txt`.
+
+Whenever FitBiz first launches, we will then try to open and read from this same `command.txt` file. If no such file exists, an empty new file will be created for use in the future.
+
 ==== Design Considerations
 
-In designing the model `CommandHistoryState`, we had to decide on the underlying data structure to store the command history. We currently use an `ArrayList<String>`, where each line of command is stored as an individual entry. Another alternative that we have considered is to store the commands in a `LinkedList<String>`.
+In designing the model `CommandHistoryState`, we had to decide on the underlying data structure to store the user's command history. We currently use an `ArrayList<String>`, where each line of command is stored as an individual entry. Another alternative that we have considered is to store the commands in a `LinkedList<String>`:
 
-[options='header']
+[options='header', cols="20%h,40%,40%"]
 |====================
-| Data Structure | Pros and Cons
-| Array list |
-*Pros*: Much easier to manipulate using indices
-
-*Cons*: Slower performance when list has the maximum number of commands stored and has to shift all indices back by 1 when removing the oldest command
-| Linked list |
-*Pros*: Fast removal of the oldest command
-
-*Cons*: Harder to implement as pointers have to be manipulated
+| Considerations | Array list (chosen) | Linked list
+| Time Complexity | Inserting to the list is O(1), removal of the first item is O(n), retrieval of any item is always O(1). | Inserting to the list is O(1), removal of the first/last item is O(1), retrieval of an item that is not the first/last item will be more expensive than O(1).
+| Ease of Implementation | Indices are concrete numbers and thus, are much easier to manipulate than pointers. | Pointers are arguably harder to keep track of and might be more difficult to implement.
 |====================
 
-In the interest of saving developement time and better code readability, we decided to use an array list to store the commands. Since we have capped the maximum size of history to be 100, there is a need to remove the first item (or the zeroth index) from the list to free up space. Of course, doing a `remove(0)` on a 100-item array list will require that all 99 remaining items in the list be reassigned to new indices. However, we found out through extensive testing that this causes no observable nor significant lag when the maximum capacity of 100 items is reached and this happens.
+In the interest of saving developement time and better code readability, we decided to use an array list to store the commands. Since we have decided to cap the maximum size of the list, should this limit be exceeded, we would then need to remove the first item (or the zeroth index) from the list to free up space. Of course, doing a `remove(0)` on a n-item array list will require that all remaining items in the list be reassigned to new indices, and thus incur an O(n) time operation. However, we found out through extensive testing that this causes no observable nor significant lag when the maximum capacity of 100 items is reached and this happens.
 
-Moreover, the implementation of `CommandHistoryStorage#saveCommandHistory` will rewrite the whole data file in storage (as opposed to appending the file with the newly entered command). This decision was made to protect the integrity of the storage file, making sure that it always has the exact same data as what is stored in the `CommandHistory` model. As such, this rewriting of the file during the maximum capacity of the array list will be the bigger bottleneck in terms of performance, as opposed to the reassignment of indices.
+Moreover, there is also a need to overwrite the whole storage file `command.txt` whenever this maximum size is reached. Before this maximum size is reached, we can easily append to the existing file the new command that the user has just entered. However, after this limit is exceeded, we must remove the first line stored in `command.txt`, shift all remaining lines up, and then append that new line. Hard disk operations like writing to storage is many order of magnitudes slower than memory operations like the reassignment of indices as discussed above. Since the much larger bottleneck is in the storage, this effectively nullifies the time complexity comparison that a linked list is faster than an array list in removing the first item.
 
-As such, the choice of 100 as the maximum size of the command history is thus chosen. This number must be small enough to not cause the app to lag when the whole history is being written to storage, as well as be big enough to satisfy the user. Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
+In choosing the maximum size of the command history, we have to take note of some important caveats: 
+
+. This number must be small enough to not cause the app to lag when the whole history is being written to storage
+. This number must be big enough to satisfy the user 
+
+Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
 
 === Command Autocompletion --- Aaron Choo
 
-Similar to the previously mentioned "Command History" feature, this feature improves the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
+Similar to the previously mentioned <<Command History --- Aaron Choo, Command History>> feature, this feature improves the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
 
 ==== Implementation
 
