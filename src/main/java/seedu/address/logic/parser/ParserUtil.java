@@ -133,13 +133,21 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code deadline} is invalid.
      */
-    public static String parseDeadline(String deadline) throws ParseException {
+    public static String[] parseDeadline(String deadline) throws ParseException {
         String trimmedDeadline = deadline.trim();
-        String[] dateTime = trimmedDeadline.split(" ");
-        if (dateTime.length < 2 || !Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
-            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        if (!trimmedDeadline.contains(" ")) {
+            if (!Deadline.isValidDate(trimmedDeadline)) {
+                throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            }
+            String[] datetime = {trimmedDeadline, "23:59"};
+            return datetime;
+        } else {
+            String[] dateTime = trimmedDeadline.split(" ");
+            if (dateTime.length < 2 || !Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
+                throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            }
+            return dateTime;
         }
-        return trimmedDeadline;
     }
 
     /**

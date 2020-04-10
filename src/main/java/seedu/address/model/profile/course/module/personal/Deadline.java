@@ -40,8 +40,6 @@ public class Deadline {
         } else {
             tag = "GREEN";
         }
-
-
     }
 
     public Deadline(String moduleCode, String description) {
@@ -107,6 +105,18 @@ public class Deadline {
         try {
             LocalDate.parse(date);
             LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if the given date are valid.
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date);
             return true;
         } catch (DateTimeParseException e) {
             return false;

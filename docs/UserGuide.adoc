@@ -184,19 +184,19 @@ This command edits your profile or a module in *MODdy*. +
 There are *three* ways you can use the `edit` command: +
 
 ==== Edit your profile +
-Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [f/FOCUS_AREA]` +
+Format: `edit [n/NAME] [c/COURSE] [y/CURRENT_SEMESTER] [f/FOCUS_AREA]` +
 
 ****
 * Fields in brackets [] are optional, but at least one of these fields should be present to be edited
-* If you did not specify your focusArea when you created your profile, `edit f/FOCUS_AREA` adds the focusArea to your profile
+* If you did not specify your focus area when you created your profile, `edit f/FOCUS_AREA` adds the focusArea to your profile
 ****
 
 .Profile Panel is updated with new details
 image::EditProfile.png[width="790"]
 
 
-TIP: `edit n/Brad c/Information Security s/Software Engineering` +
-Edits your profile name to "Brad", your course to "Information Security", and your focusArea to "Software Engineering" from what they were previously
+TIP: `edit n/Brad c/Computer Science s/Software Engineering` +
+Edits your profile name to "Brad", your course to "Computer Science", and your focusArea to "Software Engineering" from what they were previously
 
 ==== Edit a module's details in *MODdy* +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
@@ -427,6 +427,7 @@ e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105
 == Appendix
 
 . List of courses and focus areas (if applicable) currently supported by *MODdy*
+
 .. Business Analytics
 ... Financial Analytics
 ... Marketing Analytics
