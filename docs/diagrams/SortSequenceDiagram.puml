@@ -24,30 +24,32 @@ create SortCommand
 LogicManager -> SortCommand: SortCommand({"priority", "name"})
 activate SortCommand
 
-SortCommand -> LogicManager
+SortCommand -> LogicManager:
 deactivate SortCommand
 
 LogicManager -[hidden]-> SortCommand : 
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
-SortCommand -> SortCommand: get{Field}Comparator()
-activate SortCommand
+loop [int 1..n]
+    SortCommand -> SortCommand: get{Field}Comparator()
+    activate SortCommand
 
-SortCommand -> SortCommand: Comparator<Task>
-deactivate SortCommand
+    SortCommand -> SortCommand: Comparator<Task>
+    deactivate SortCommand
+end
 
-SortCommand -> Model : setComparators(\nComparator<Task>[])
+SortCommand -> Model : setComparator(ac)
 activate Model
 
 Model -> Model: sortList()
 activate Model
-loop [int n..1]
-    Model -> TaskList: sort(Comparator)
-    activate TaskList
-    TaskList -> Model
-    deactivate TaskList
-end
+
+Model -> TaskList: setComparator(ac)
+activate TaskList
+TaskList -> Model
+deactivate TaskList
+
 Model <- Model
 deactivate Model
 

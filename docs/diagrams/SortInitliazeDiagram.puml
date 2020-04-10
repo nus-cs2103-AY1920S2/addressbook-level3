@@ -1,0 +1,159 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "tl:TaskList" as TaskList MODEL_COLOR
+participant "ul:UniqueTaskList" as UniqueTaskList MODEL_COLOR
+participant "sl:SortedList" as SortedList MODEL_COLOR
+participant "fl:FilteredList" as FilteredList MODEL_COLOR
+end box
+
+[-> Model : getFilteredTaskList(readOnlyTaskList)
+activate Model
+
+create TaskList
+Model -> TaskList: readOnlyTaskList
+activate TaskList
+
+create UniqueTaskList
+TaskList -> UniqueTaskList: readOnlyTaskList
+activate UniqueTaskList
+
+UniqueTaskList -> TaskList: 
+deactivate UniqueTaskList
+
+TaskList -> Model:
+deactivate TaskList
+
+
+Model -[hidden]-> TaskList : 
+Model -> TaskList : execute()
+activate TaskList
+
+TaskList -> Model : setComparator(ac)
+activate Model
+
+Model -> Model: sortList()
+activate Model
+
+Model -> TaskList: setComparator(ac)
+activate TaskList
+TaskList -> Model
+deactivate TaskList
+
+Model <- Model
+deactivate Model
+
+Model -> TaskList
+deactivate Model
+
+
+create TaskListResult
+TaskList -> TaskListResult
+activate TaskListResult
+
+TaskListResult --> TaskList
+deactivate TaskListResult
+
+TaskList --> Model : r
+deactivate TaskList
+
+[<--Model
+deactivate Model
+@enduml
+
+
+' @startuml
+' !include style.puml
+
+' box Sort LOGIC_COLOR_T1
+' participant ":Model" as Model LOGIC_COLOR
+' participant ":TaskListParser" as TaskListParser LOGIC_COLOR
+' participant ":TaskListParser" as TaskListParser LOGIC_COLOR
+' participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+' participant "s:TaskList" as TaskList LOGIC_COLOR
+' participant "r:CommandResult" as CommandResult LOGIC_COLOR
+' end box
+
+' box Model MODEL_COLOR_T1
+' participant ":Model" as Model MODEL_COLOR
+' participant "tl:TaskList" as TaskList MODEL_COLOR
+' end box
+
+' [-> Model : execute("sort priority name")
+' activate Model
+
+' Model -> TaskListParser : parseCommand(\n"sort priority name")
+' activate TaskListParser
+
+' create TaskListParser
+' TaskListParser -> TaskListParser
+' activate TaskListParser
+
+' TaskListParser --> TaskListParser
+' deactivate TaskListParser
+
+' TaskListParser -> TaskListParser : parse(\n"sort priority name")
+' activate TaskListParser
+
+' TaskListParser -> ParserUtil :parseUniqueKeyWords(\n"priority name")
+' activate ParserUtil
+
+' ParserUtil -> TaskListParser :String[] words
+' deactivate ParserUtil
+
+' create TaskList
+' TaskListParser -> TaskList: String[] uniqueWords
+' activate TaskList
+
+' TaskList --> TaskListParser : s
+' deactivate TaskList
+
+' TaskListParser --> TaskListParser : s
+' deactivate TaskListParser
+' 'Hidden arrow to position the destroy marker below the end of the activation bar.
+' TaskListParser -[hidden]-> TaskListParser
+' destroy TaskListParser
+
+' Model -[hidden]-> TaskList : 
+' Model -> TaskList : execute()
+' activate TaskList
+
+' TaskList -> TaskList: get{Field}Comparator()
+' activate TaskList
+
+' TaskList -> TaskList: Comparator<Task>
+' deactivate TaskList
+
+' TaskList -> Model : setComparators(\nComparator<Task>[])
+' activate Model
+
+' Model -> Model: sortList()
+' activate Model
+' loop [int n..1]
+'     Model -> TaskList: sort(Comparator)
+'     activate TaskList
+'     TaskList -> Model
+'     deactivate TaskList
+' end
+' Model <- Model
+' deactivate Model
+
+' Model -> TaskList
+' deactivate Model
+
+
+' create CommandResult
+' TaskList -> CommandResult
+' activate CommandResult
+
+' CommandResult --> TaskList
+' deactivate CommandResult
+
+' TaskList --> Model : r
+' deactivate TaskList
+
+' [<--Model
+' deactivate Model
+' @enduml
