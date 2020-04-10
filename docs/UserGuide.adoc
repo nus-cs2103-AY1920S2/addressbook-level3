@@ -62,9 +62,9 @@ the application.
 
 +
 image::Ui.png[width="790"]
-This is what the GUI looks like when the TA-Tracker is opened.
+This is how the GUI may look like when the TA-Tracker is opened.
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type a command in the command box (the box with the `green` words), and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Usage>> for details of each command.
