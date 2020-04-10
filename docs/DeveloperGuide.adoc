@@ -826,24 +826,35 @@ These instructions only provide a starting point for testers to work on; testers
 
 In this section, we rate the amount of effort taken to develop each part of MODdy and its features with an estimated integer in the range [0, 20], using Address Book 3 (AB3) as a base estimation of 10.
 
-=== Overall estimated effort: 16
-To develop MODdy, the estimated effort that we believe we have spent on MODdy is 16 as MODdy is an extension of AB3.
+=== Overall effort
+
+Estimated effort: 16
 
 In short, AB3 essentially stores data related to multiple persons. MODdy does that for one, but does much more. MODdy is able to store data for a user such as their course, focus areas and personal information of their modules, be it in the past, present or future.
 
 However, we have scaled back on the estimated effort slightly as AB3 has certain code classes that are complicated to build and these classes could be reused in MODdy. Examples of these reused classes are found in the `commons` package, while MODdy-specific classes such as `JsonSerializableCourseList`, `JsonCourseListStorage` and `JsonCourse` were implemented with heavy reference to original AB3 classes.
 
-=== Estimated effort spent on planning MODdy: 15
+=== Planning of MODdy
+
+Estimated effort: 15
+
 We believe we have spent a considerable amount of time throughout the construction of MODdy.
 
 Firstly, we had to figure out how different courses and modules could be linked to each other in MODdy. Following which, we had to plan out features that could allow users to make this course and module management application more personal. Features were not just implemented immediately, but significant considerations were taken to decide whether it was consistent with the other features that MODdy offered.
 
 Feature implementation was also not just a single point of discussion. New features required edits to other features to maintain consistency, while some required even newer features to complement it. All these discussions were held at least once a week for a minimum of 2 hours each round to ensure that we were in sync with each others' work.
 
-=== Estimated effort for implementing MODdy: 17
+=== Implementation of MODdy
+
+Estimated effort: 16
+
 Implementation of MODdy was intertwined with ongoing discussions. Discussions led to implementations, which led to more discussions.
 
-Estimation of implementation scored slightly higher than planning as bugs often arose during the actual implementation of our discussions and we had to spend time fixing our own bugs, while also keeping out an eye for bugs from features that our group mates may have missed out on.
+We understand that as certain codes were reused, the estimated effort for this section might be slightly lower. However, we had to create a lot more classes to develop MODdy's features. Bugs also often arose during the actual implementation from our discussions and we had to spend time fixing our own bugs, while also keeping out an eye for bugs from other features that our group mates may have missed out on.
 
-=== Estimated effort for documentation of MODdy: 11
-Using the existing User Guides and Developer Guides of AB3 as a skeleton for MODdy's own guides made it slightly easier to document our application. However, estimated effort is still relatively higher AB3 as our extensive list of features also required much more documentation.
+
+=== Documentation of MODdy
+
+Estimated effort: 11
+
+Using the existing User Guides and Developer Guides of AB3 as a skeleton for MODdy's own guides made it slightly easier to document our application. However, estimated effort is still slightly higher than AB3 as our extensive list of features also required much more documentation.
