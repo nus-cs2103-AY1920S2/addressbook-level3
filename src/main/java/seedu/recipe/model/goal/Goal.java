@@ -43,6 +43,7 @@ public class Goal {
      * Returns true if a given string is a valid goal name with the same capitalisation.
      */
     public static boolean isValidGoalName(String test) {
+        requireNonNull(test);
         for (String name : VALIDGOALS) {
             if (name.equals(test)) {
                 return true;
