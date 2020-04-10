@@ -158,6 +158,8 @@ public class UniqueRecordList implements Iterable<Record> {
                 new GoalCount(new Goal("Fruity Fiesta"), goalMap.get("Fruity Fiesta")),
                 new GoalCount(new Goal("Bulk like the Hulk"), goalMap.get("Bulk like the Hulk")),
                 new GoalCount(new Goal("Wholesome Wholemeal"), goalMap.get("Wholesome Wholemeal")));
+
+        assert internalGoalsList.size() == 4 : "there should be only 4 main goals";
     }
 
     /**
