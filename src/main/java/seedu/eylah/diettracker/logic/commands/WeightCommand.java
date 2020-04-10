@@ -17,7 +17,7 @@ public class WeightCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": \n"
             + "Parameters: WEIGHT (must be in kilograms)\n"
-            + "Example: " + COMMAND_WORD + "65.3";
+            + "Example: " + COMMAND_WORD + " 65.3";
 
     public static final String MESSAGE_ADD_WEIGHT_SUCCESS = "Added Weight: %1$s";
 
@@ -36,7 +36,13 @@ public class WeightCommand extends Command {
         requireNonNull(model);
 
         if (weight.getWeightFloat() <= 0) {
-            throw new CommandException("Please enter a weight value >0.");
+            throw new CommandException("Please enter a weight value >0 and <1000.");
+        }
+
+        if (weight.getWeightFloat() > 1000) {
+            throw new CommandException("Please enter a weight value >0 and <1000. Fun fact: The heaviest person in the "
+                    + "world is Jon Brower Minnoch at 635kg. However, we at EYLAH believe people can grow till "
+                    + "1000kg!");
         }
 
         model.setWeight(weight);
