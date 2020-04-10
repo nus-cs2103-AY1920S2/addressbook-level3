@@ -55,17 +55,11 @@ activate CommandResult
 CommandResult --> ListAmountCommand: result()
 deactivate CommandResult
 
+ListAmountCommand --> SplitterLogicManager: result()
+deactivate ListAmountCommand
 
 
-
-
-
-
-
-
-
-
-
-
+[<--SplitterLogicManager : result()
+deactivate SplitterStorageManager
 
 @enduml

@@ -59,6 +59,7 @@ CommandResult --> PaidCommand :result()
 deactivate CommandResult
 
 PaidCommand --> SplitterLogicManager: result()
+deactivate PaidCommand
 
 
 @enduml
