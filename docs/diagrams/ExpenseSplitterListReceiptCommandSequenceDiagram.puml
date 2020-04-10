@@ -1,42 +1,74 @@
 @startuml
+/' @author @WillySeahh'/
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
-Participant ":Receipt" as receipt MODEL_COLOR
-Participant ":Entry" as entry MODEL_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":ListReceiptCommand" as ListReceiptCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "listreceipt"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":Receipt" as Receipt MODEL_COLOR
+participant ":Entry" as Entry MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("listreceipt")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
 
-logic -[LOGIC_COLOR]> splitterModel : listReceipt()
-activate splitterModel MODEL_COLOR
+[-> SplitterLogicManager : execute("listreceipt")
+activate SplitterLogicManager
 
-splitterModel -[MODEL_COLOR]> receipt : toString()
-activate receipt MODEL_COLOR
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("listreceipt")
+activate ExpenseSplitterParser
 
-receipt -[MODEL_COLOR]> entry : toString()
-activate entry MODEL_COLOR
+create ListReceiptCommand
+ExpenseSplitterParser -> ListReceiptCommand
+activate ListReceiptCommand
 
-entry --[MODEL_COLOR]> receipt : String
-deactivate entry
+ListReceiptCommand --> ExpenseSplitterParser: d
+deactivate ListReceiptCommand
+
+ExpenseSplitterParser --> SplitterLogicManager: d
+deactivate ExpenseSplitterParser
+
+SplitterLogicManager -> ListReceiptCommand: execute(model)
+activate ListReceiptCommand
+
+ListReceiptCommand -> SplitterModelManager: listReceipt()
+activate SplitterModelManager
+
+SplitterModelManager -> Receipt: toString()
+activate Receipt
+
+Receipt -> Entry: toString()
+activate Entry
+
+Entry --> Receipt: String
+deactivate Entry
+
+Receipt --> SplitterModelManager: String
+deactivate Receipt
 
 
-receipt --[MODEL_COLOR]-> splitterModel : String
-deactivate receipt
 
-splitterModel --[LOGIC_COLOR]> logic : CommandResult
-deactivate splitterModel
+SplitterModelManager --> ListReceiptCommand
+deactivate SplitterModelManager
 
-logic --[UI_COLOR]> ui : CommandResult
-deactivate logic
+ListReceiptCommand -> CommandResult:
+activate CommandResult
 
-ui --[UI_COLOR]> user : CommandResult
-deactivate ui
+CommandResult --> ListReceiptCommand: result()
+deactivate CommandResult
+
+ListReceiptCommand --> SplitterLogicManager: result()
+deactivate ListReceiptCommand
+
+
+[<--SplitterLogicManager : result()
+deactivate SplitterStorageManager
 
 @enduml
