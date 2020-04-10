@@ -391,7 +391,7 @@ In this section, you will learn more about the `listamount` command, <<howtousel
 and the <<listamountexpectedoutcome,expected outcome>> after using the
 `listamount` command.
 
-*Summary of List Amount Command: `listamount` shows you how much each Person owes you*.
+Summary of List Amount Command: `listamount` *shows you how much each Person owes you*.
 
 [[howtouselistamountcommand]]
 *How to use the List Amount Command:*
@@ -407,7 +407,7 @@ Valid example: +
 
 image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
 
-*Additional notes and tips for List Amount Command* +
+*Additional notes and tips* +
 
 [TIP]
 ====
@@ -424,7 +424,7 @@ In this section, you will learn more about the `paid` command, <<howtousepaidcom
 <<paidcommandexpectedoutcome,expected outcome>> after using the
 `paid` command.
 
-*Summary of Paid Command: `paid` subtracts the amount of money a Person owes you.*
+Summary of Paid Command: `paid` *subtracts the amount of money a Person owes you.*
 
 [[howtousepaidcommand]]
 *How to use the Paid Command:*
