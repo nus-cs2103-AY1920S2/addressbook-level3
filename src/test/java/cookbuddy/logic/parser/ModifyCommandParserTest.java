@@ -1,6 +1,7 @@
 package cookbuddy.logic.parser;
 
 import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cookbuddy.logic.commands.CommandTestUtil.BLANK_INSTRUCTIONS_DESC;
 import static cookbuddy.logic.commands.CommandTestUtil.CALORIE_DESC_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.DIFFICULTY_DESC_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.INGREDIENTS_DESC_EGGS_ON_TOAST;
@@ -8,7 +9,6 @@ import static cookbuddy.logic.commands.CommandTestUtil.INGREDIENTS_DESC_HAM_SAND
 import static cookbuddy.logic.commands.CommandTestUtil.INSTRUCTIONS_DESC_EGGS_ON_TOAST;
 import static cookbuddy.logic.commands.CommandTestUtil.INSTRUCTIONS_DESC_HAM_SANDWICH;
 import static cookbuddy.logic.commands.CommandTestUtil.INVALID_INGREDIENTS_DESC;
-import static cookbuddy.logic.commands.CommandTestUtil.INVALID_INSTRUCTIONS_DESC;
 import static cookbuddy.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static cookbuddy.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static cookbuddy.logic.commands.CommandTestUtil.NAME_DESC_EGGS_ON_TOAST;
@@ -42,7 +42,6 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.ModifyCommand.EditRecipeDescriptor;
 import cookbuddy.model.recipe.attribute.Ingredient;
-import cookbuddy.model.recipe.attribute.Instruction;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Tag;
 import cookbuddy.testutil.EditRecipeDescriptorBuilder;
@@ -55,6 +54,7 @@ public class ModifyCommandParserTest {
     public static final String invalidIndex = "Index must be a non-zero unsigned integer.\n";
     public static final String helpMessage = "For a command summary, type \"help modify\"";
     public static final String invalidFormat = "Invalid command format! \n";
+    public static final String noInstructions = "Recipes need to have instructions; please enter some instructions.";
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModifyCommand.MESSAGE_USAGE);
@@ -91,8 +91,8 @@ public class ModifyCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_INGREDIENTS_DESC, Ingredient.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_INSTRUCTIONS_DESC, Instruction.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_INGREDIENTS_DESC, Ingredient.MESSAGE_CONSTRAINTS); //invalid ingredient
+        assertParseFailure(parser, "1" + BLANK_INSTRUCTIONS_DESC, noInstructions); // invalid instr
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
@@ -106,11 +106,11 @@ public class ModifyCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Recipe} being edited,
         // parsing it together with a valid tag results in error
-        /*
-        assertParseFailure(parser, "1" + TAG_DESC_BREAKFAST + TAG_DESC_DINNER + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_LUNCH + TAG_EMPTY + TAG_DESC_DINNER, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_BREAKFAST + TAG_DESC_LUNCH, Tag.MESSAGE_CONSTRAINTS);
-         */
+
+        //ToDo: find a way to test tags.
+        //assertParseFailure(parser, "1" + TAG_DESC_BREAKFAST + TAG_DESC_DINNER + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        //assertParseFailure(parser, "1" + TAG_DESC_LUNCH + TAG_EMPTY + TAG_DESC_DINNER, Tag.MESSAGE_CONSTRAINTS);
+        //assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_BREAKFAST + TAG_DESC_LUNCH, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_INGREDIENTS_DESC + VALID_INSTRUCTIONS_EGGS_ON_TOAST,
@@ -158,13 +158,13 @@ public class ModifyCommandParserTest {
         ModifyCommand expectedCommand = new ModifyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
+        // ingredients
         userInput = targetIndex.getOneBased() + INGREDIENTS_DESC_HAM_SANDWICH;
         descriptor = new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_HAM_SANDWICH).build();
         expectedCommand = new ModifyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
+        // instructions
         userInput = targetIndex.getOneBased() + INSTRUCTIONS_DESC_HAM_SANDWICH;
         descriptor = new EditRecipeDescriptorBuilder().withInstructions(VALID_INSTRUCTIONS_HAM_SANDWICH).build();
         expectedCommand = new ModifyCommand(targetIndex, descriptor);

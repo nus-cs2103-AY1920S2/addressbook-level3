@@ -105,7 +105,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Ham Sandwich&"; // '&' not allowed in names
     public static final String INVALID_INGREDIENTS_DESC = " " + PREFIX_INGREDIENTS + " "; // ingredients can't be blank
-    public static final String INVALID_INSTRUCTIONS_DESC = " " + PREFIX_INSTRUCTIONS + " "; // ingredients can't be " "
+    public static final String BLANK_INSTRUCTIONS_DESC = " " + PREFIX_INSTRUCTIONS + ""; // ingredients can't be
+    // " "
     public static final String INVALID_CALORIE_DESC = " " + PREFIX_CALORIE + "abc"; // calorie can't be numeric
     public static final String INVALID_SERVING_DESC = " " + PREFIX_SERVING + "xyz"; // serving can't be numeric
 
