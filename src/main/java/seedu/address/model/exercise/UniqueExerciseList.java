@@ -100,10 +100,12 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         for (Exercise curr : internalList) {
             LocalDate currDate = curr.getExerciseDate().getValue();
             String currName = curr.getExerciseName().getValue().toLowerCase();
-            if (toAddDate.compareTo(currDate) > 0) {
+
+            int dateComparision = toAddDate.compareTo(currDate);
+            if (dateComparision > 0) {
                 // already at correct position
                 break;
-            } else if (toAddDate.compareTo(currDate) == 0) {
+            } else if (dateComparision == 0) {
                 // sort by name
                 if (toAddName.compareTo(currName) <= 0) {
                     break;
