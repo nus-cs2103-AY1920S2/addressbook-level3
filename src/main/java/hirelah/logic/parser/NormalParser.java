@@ -50,7 +50,7 @@ public class NormalParser {
             put("finalise", args -> new FinaliseCommandParser().parse(args));
             put("open", args -> new OpenReportCommandParser().parse(args));
             put("goto", args -> new NavigationCommandParser().parse(args));
-            put("best", args -> new BestCommandParser().parse(args));
+            put("interviewee", args -> new IntervieweeParser().parse(args));
             put("interview", args -> new StartInterviewCommand(args.trim()));
             put("exit", args -> new ExitCommand());
             put("help", args -> new HelpCommand());
