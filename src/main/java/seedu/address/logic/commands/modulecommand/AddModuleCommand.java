@@ -27,6 +27,7 @@ public class AddModuleCommand extends Command {
             + PREFIX_GRADE + "A+ ";
 
     public static final String MESSAGE_SUCCESS = "Module added: ";
+    public static final String MESSAGE_DUPLICATE_NUS_MODULE = "module already exist";
 
     private final NusModule toAdd;
 
@@ -43,7 +44,7 @@ public class AddModuleCommand extends Command {
         requireNonNull(model);
 
         if (model.hasModule(toAdd.getModuleCode())) {
-            throw new CommandException("module already exist");
+            throw new CommandException(MESSAGE_DUPLICATE_NUS_MODULE);
         }
 
         model.addModule(toAdd);
