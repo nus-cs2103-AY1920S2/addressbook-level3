@@ -55,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`search`**`CS2103T` : searches for the module `CS2103T`
-* **`calendar`** : Allows you to the calendar tab
+* **`calendar`** : Allows you to switch to the calendar tab
 * **`deadlineAdd desc/Finish homework by/30-04-2020 cat/School`** : schedules a deadline on the calendar for you to finish your homework
 * *`cap`* : calculates your CAP
 * *`exit`* : exits the app
@@ -278,7 +278,7 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 
 === Calendar
 
-A calendar in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
+The calendar feature in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
 
 The application allows you to add 2 type of tasks, `deadline` and `moduleTask`.
 
@@ -302,12 +302,12 @@ image::prioritylevels.png[width="790"]
 
 - Format: `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
 
-===== Removing Deadline: `taskDelete`
+.Adding Deadlines
+image::deadlineAdd.png[width="790"]
 
-- Deletes a task from the deadline list, marking the task as done
+After invoking the command, the deadline will be added to the calendar as shown in figure 5. The task will be tagged as light grey to signify it is uncompleted yet.
 
-- Format: `taskDelete index/INDEX`
-
+Deadline tasks are defaulty tagged with the lowest priority.
 
 ==== Module Tasks
 
@@ -316,6 +316,9 @@ image::prioritylevels.png[width="790"]
 - Schedules a module task, this module task includes priority level, module that is associated with the task.
 
 - Format: `taskAdd desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY PRI/PRIORITY-LEVEL`
+
+.Adding Module Tasks
+image::moduleTaskAdd.png[width="790"]
 
 [NOTE]
 This requires you to add a module under `moduleAdd` before you can use it
@@ -334,11 +337,31 @@ The commands stated in this section can be used for both moduleTask and deadline
 
 - Format: `done index/INDEX`
 
+.Completing a task
+image::taskDone.png[width="790"]
+
+After a task is completed, it will be pushed to the bottom, the dot on the calendar removed and the background of the task is changed to black to signify the task is compelted. 
+
+===== Removing Deadline: `taskDelete`
+
+- Deletes a task from the deadline list, marking the task as done
+
+- Format: `taskDelete index/INDEX`
+
+.Deleting a task
+image::taskDelete.png[width="790"]
+
+[TIP]
+Tip: delete a task only after the date have passed to make sure everything is completed up to your current date
+
 ===== Sorting the Calendar: `sortTask`
 
 - Allows you to sort the tasks list on the left by either date or priority. This gives you the flexibility to plan ahead, whether you want to complete a more urgent task or to complete a task with the deadline that is earlier
 
 - Format: `sortTask by/SORT`
+
+.Sorting tasks by priority
+image::taskSort.png[width="790"]
 
 [NOTE]
 SORT can only be either date or priority
@@ -349,11 +372,20 @@ SORT can only be either date or priority
 
 - Format: `findTask m/MODULECODE` or `findTask cat/CATEGORY` or `findTask date/DD-MM-YYYY`
 
+.Finding task by module Code
+image::findTask.png[width="790"]
+
+[NOTE]
+The dots on the calendar will not disappear and will show that there is still task to be completed on that date despite filtering
+
 ===== Listing back all tasks in the Calendar: `listTask`
 
 - Allows you to list back all task after you have filtered the list with findTask
 
 - Format: `listTask`
+
+.Listing all tasks
+image::listTask.png[width="790"]
 
 
 === Notes

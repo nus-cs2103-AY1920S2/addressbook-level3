@@ -5,8 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleTask;
+import seedu.address.model.nusmodule.Priority;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -37,6 +39,8 @@ public class CalenderDeadline extends UiPart<Region> {
     private Label date;
     @FXML
     private FlowPane modCode;
+    @FXML
+    private Circle circle;
 
 
     public CalenderDeadline(Task deadline, int displayedIndex) {
@@ -48,6 +52,9 @@ public class CalenderDeadline extends UiPart<Region> {
         date.setText("Deadline: " + deadline.getDate());
         if (deadline instanceof ModuleTask) {
             setModuleTask(deadline);
+            setPriorityColour(((ModuleTask) deadline).getPriority());
+        } else {
+            setPriorityColour(Priority.VERYLOW);
         }
         setStatusColor();
 
@@ -66,6 +73,27 @@ public class CalenderDeadline extends UiPart<Region> {
             cardPane.setStyle("-fx-background-color: #323232");
         } else {
             cardPane.setStyle("-fx-background-color: #515658");
+        }
+    }
+
+    /**
+     * Changes colour of the circle based on priority
+     * @param priority
+     */
+    public void setPriorityColour(Priority priority) {
+
+        String priorityLevel = priority.toString();
+
+        if (priorityLevel.equals("Very high")) {
+            circle.setStyle("-fx-fill: #dd2c00");
+        } else if (priorityLevel.equals("High")) {
+            circle.setStyle("-fx-fill: #ff5722");
+        } else if (priorityLevel.equals("Medium")) {
+            circle.setStyle("-fx-fill: #f2ed6f");
+        } else if (priorityLevel.equals("Low")) {
+            circle.setStyle("-fx-fill: #639a67");
+        } else {
+            circle.setStyle("-fx-fill: #2b580c");
         }
     }
 
