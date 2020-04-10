@@ -1,8 +1,5 @@
 package seedu.recipe.logic.commands.plan;
 
-import static seedu.recipe.testutil.Assert.assertThrows;
-import static seedu.recipe.testutil.TypicalDates.DATE_IN_FUTURE;
-import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
 import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 

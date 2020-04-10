@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.logic.commands.recipe.ClearCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
-import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.ui.tab.Tab;
 
 public class ClearCommandTest {

@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
-//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_NAME_FISH;
-//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
@@ -19,20 +17,23 @@ import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.recipe.ClearCommand;
 import seedu.recipe.logic.commands.recipe.EditCommand;
 import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
-import seedu.recipe.logic.commands.recipe.ClearCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
-import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.testutil.EditRecipeDescriptorBuilder;
 import seedu.recipe.testutil.RecipeBuilder;
 import seedu.recipe.ui.tab.Tab;
+
+//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
+//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

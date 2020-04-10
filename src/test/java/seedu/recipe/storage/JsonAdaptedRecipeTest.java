@@ -16,13 +16,13 @@ import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
 import seedu.recipe.model.recipe.ingredient.Ingredient;
+import seedu.recipe.storage.recipe.JsonAdaptedRecipe;
+import seedu.recipe.storage.recipe.JsonAdaptedStep;
 import seedu.recipe.storage.recipe.ingredient.JsonAdaptedFruit;
 import seedu.recipe.storage.recipe.ingredient.JsonAdaptedGrain;
 import seedu.recipe.storage.recipe.ingredient.JsonAdaptedOther;
 import seedu.recipe.storage.recipe.ingredient.JsonAdaptedProtein;
 import seedu.recipe.storage.recipe.ingredient.JsonAdaptedVegetable;
-import seedu.recipe.storage.recipe.JsonAdaptedRecipe;
-import seedu.recipe.storage.recipe.JsonAdaptedStep;
 
 public class JsonAdaptedRecipeTest {
     private static final String INVALID_NAME = "R@chel";
