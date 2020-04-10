@@ -109,6 +109,16 @@ public class ModelStub implements DietModel {
     }
 
     @Override
+    public Height getHeight() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Weight getWeight() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setMode(Mode mode) {
         throw new AssertionError("This method should not be called.");
     }

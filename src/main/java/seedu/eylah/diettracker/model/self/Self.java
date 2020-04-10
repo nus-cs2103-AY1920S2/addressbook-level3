@@ -29,7 +29,7 @@ public class Self {
         this.mode = Mode.MAINTAIN;
     }
 
-    public Self(){
+    public Self() {
         this.height = new Height(0);
         this.weight = new Weight(0);
         this.mode = Mode.MAINTAIN;
