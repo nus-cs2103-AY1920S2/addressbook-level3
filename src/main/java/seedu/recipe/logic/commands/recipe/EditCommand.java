@@ -110,7 +110,6 @@ public class EditCommand extends Command {
         editedRecipe.calculateGoals();
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-        model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES); //todo
         model.commitBook(commandType);
 
         String finalMessage = String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);

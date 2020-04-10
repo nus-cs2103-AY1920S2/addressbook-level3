@@ -55,6 +55,7 @@ public class CommandResultTest {
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
                 false, null, true).hashCode());
+
         // todo grocery list window tests
     }
 }

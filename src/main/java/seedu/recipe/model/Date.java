@@ -56,8 +56,6 @@ public class Date implements Comparable<Date> {
             return false;
         }
         try {
-            // DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM YYYY");
-            // todo: be able to parse other formats as well
             LocalDate.parse(test);
             return true;
         } catch (DateTimeParseException e) {

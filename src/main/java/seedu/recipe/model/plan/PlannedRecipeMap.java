@@ -60,7 +60,7 @@ public class PlannedRecipeMap {
      * Deletes all plans at {@code recipe} key if it exists.
      */
     public void deleteRecipe(Recipe recipe) {
-        if (internalMap.containsKey(recipe)) { // todo check first?
+        if (internalMap.containsKey(recipe)) {
             internalMap.remove(recipe);
         }
     }
