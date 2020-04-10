@@ -393,10 +393,10 @@ This feature allows the users (ie. gym managers) to view the personal bests of e
 
 The personal best feature is facilitated by the model `PersonalBest`, and the logic behind it is in `PersonalBestFinder`. The behaviour of this feature determines the personal best of each exercise done by the client based on these considerations:
 
-* If the `ExerciseWeight` attribute is recorded in the `Exercise`, then the `ExerciseWeight` is used as comparison
-* If there is no `ExerciseWeight` recorded in the `Exercise`, then `ExerciseReps` will be used as comparison
-* If neither of `ExerciseWeight` and `ExerciseReps` are recorded into the `Exercise`, then this particular exercise will not be put into the Exercise Personal Best table
-** However, if the another `Exercise` of the same name is added in the future with `ExerciseWeight` and/or `ExerciseReps` specified, then the personal best of this exercise will still be calculated and shown in the Exercise Personal Best table
+. If the `ExerciseWeight` attribute is recorded in the `Exercise`, then the `ExerciseWeight` is used as comparison
+. If there is no `ExerciseWeight` recorded in the `Exercise`, then `ExerciseReps` will be used as comparison
+. If neither of `ExerciseWeight` and `ExerciseReps` are recorded into the `Exercise`, then this particular exercise will not be put into the Exercise Personal Best table
+.. However, if the another `Exercise` of the same name is added in the future with `ExerciseWeight` and/or `ExerciseReps` specified, then the personal best of this exercise will still be calculated and shown in the Exercise Personal Best table
 
 When the user inputs `view-c`, `add-e` or `delete-c`, `PersonalBestFinder#generateAndSetPersonalBest` is called, taking the client currently in view as the parameter. `PersonalBestFinder#generateAndSetPersonalBest` then retrieves client's list of exercises using `Client#getExerciseList` and creates a new `HashMap`, where the `key` is `ExerciseName` and the `value` is `Exercise`. Then the personal bests of each exercise of the client in view are generated using the above considerations. Finally the list of personal bests is set using `PersonalBest#setPersonalBest`.
 
