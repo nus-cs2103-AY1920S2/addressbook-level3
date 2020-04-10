@@ -148,6 +148,10 @@ public class NotablyParserTest {
         Command command = parser.parseCommand("help").get(0);
 
         assertTrue(command instanceof HelpCommand);
+
+        assertFalse(model.isHelpOpen());
+        command.execute(model);
+        assertTrue(model.isHelpOpen());
     }
 
     @Test
