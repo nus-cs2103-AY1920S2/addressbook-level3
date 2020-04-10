@@ -619,7 +619,8 @@ String amountPaid will be converted into an Amount by instantiating a new instan
 
 5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount.
 
-*Sequence Diagram for Paid Command*
+*Sequence Diagram for Paid Command* +
+
 The following sequence diagram summarizes what happens during the execution of `paid` command.
 
 image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
@@ -627,6 +628,7 @@ Figure : Paid Command Sequence Diagram
 
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
 Figure : Execution of Paid Command
+
 
 [[Back-Command]]
 ==== Back Command

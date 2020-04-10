@@ -61,12 +61,4 @@ deactivate CommandResult
 PaidCommand --> SplitterLogicManager: result()
 
 
-
-
-
-
-
-
-
-
 @enduml
