@@ -3,7 +3,6 @@ package seedu.address.model.profile.course.module.personal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
@@ -23,8 +22,7 @@ public class Deadline {
     protected LocalTime time;
     private String tag;
 
-    private String inputTimePattern = "HH:mm";
-    private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
+    private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public Deadline(String moduleCode, String description, LocalDate date, LocalTime time) {
         this.moduleCode = moduleCode;
@@ -92,35 +90,6 @@ public class Deadline {
 
     public DateTimeFormatter getInputTimeFormatter() {
         return inputTimeFormatter;
-    }
-
-    public String getInputTimePattern() {
-        return inputTimePattern;
-    }
-
-    /**
-     * Returns true if the given date and time are valid.
-     */
-    public static boolean isValidDeadline(String date, String time) { // No point checking the description/task
-        try {
-            LocalDate.parse(date);
-            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Returns true if the given date are valid.
-     */
-    public static boolean isValidDate(String date) {
-        try {
-            LocalDate.parse(date);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
     }
 
     public String getModuleCode() {
