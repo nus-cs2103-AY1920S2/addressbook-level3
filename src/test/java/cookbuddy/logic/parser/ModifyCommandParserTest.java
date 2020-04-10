@@ -38,6 +38,8 @@ import static cookbuddy.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static cookbuddy.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static cookbuddy.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.ModifyCommand.EditRecipeDescriptor;
@@ -45,16 +47,17 @@ import cookbuddy.model.recipe.attribute.Ingredient;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Tag;
 import cookbuddy.testutil.EditRecipeDescriptorBuilder;
-import org.junit.jupiter.api.Test;
+
 
 public class ModifyCommandParserTest {
 
+
+    private static final String noIndex = "No index has been provided for the command!\n";
+    private static final String invalidIndex = "Index must be a non-zero unsigned integer.\n";
+    private static final String helpMessage = "For a command summary, type \"help modify\"";
+    private static final String invalidFormat = "Invalid command format! \n";
+    private static final String noInstructions = "Recipes need to have instructions; please enter some instructions.";
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
-    public static final String noIndex = "No index has been provided for the command!\n";
-    public static final String invalidIndex = "Index must be a non-zero unsigned integer.\n";
-    public static final String helpMessage = "For a command summary, type \"help modify\"";
-    public static final String invalidFormat = "Invalid command format! \n";
-    public static final String noInstructions = "Recipes need to have instructions; please enter some instructions.";
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModifyCommand.MESSAGE_USAGE);
@@ -113,8 +116,8 @@ public class ModifyCommandParserTest {
         //assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_BREAKFAST + TAG_DESC_LUNCH, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_INGREDIENTS_DESC + VALID_INSTRUCTIONS_EGGS_ON_TOAST,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_INGREDIENTS_DESC
+                        + VALID_INSTRUCTIONS_EGGS_ON_TOAST, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -122,12 +125,18 @@ public class ModifyCommandParserTest {
         Index targetIndex = INDEX_SECOND_RECIPE;
         String userInput = targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + TAG_DESC_LUNCH
                 + INSTRUCTIONS_DESC_HAM_SANDWICH + NAME_DESC_HAM_SANDWICH + CALORIE_DESC_HAM_SANDWICH
-                + RATING_DESC_HAM_SANDWICH + DIFFICULTY_DESC_EGGS_ON_TOAST + SERVING_DESC_HAM_SANDWICH + PHOTOGRAPH_DESC_EGGS_ON_TOAST;
+                + RATING_DESC_HAM_SANDWICH + DIFFICULTY_DESC_EGGS_ON_TOAST + SERVING_DESC_HAM_SANDWICH
+                + PHOTOGRAPH_DESC_EGGS_ON_TOAST;
 
         ModifyCommand.EditRecipeDescriptor descriptor =
-                new EditRecipeDescriptorBuilder().withName(VALID_NAME_HAM_SANDWICH).withInstructions(VALID_INSTRUCTIONS_HAM_SANDWICH)
-                        .withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).withDifficulty(VALID_DIFFICULTY_EGGS_ON_TOAST).withServing(VALID_SERVING_HAM_SANDWICH)
-                        .withRating(VALID_RATING_HAM_SANDWICH).withCalorie(VALID_CALORIE_HAM_SANDWICH).withPhotograph(VALID_PHOTOGRAPH_EGGS_ON_TOAST)
+                new EditRecipeDescriptorBuilder().withName(VALID_NAME_HAM_SANDWICH)
+                        .withInstructions(VALID_INSTRUCTIONS_HAM_SANDWICH)
+                        .withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST)
+                        .withDifficulty(VALID_DIFFICULTY_EGGS_ON_TOAST)
+                        .withServing(VALID_SERVING_HAM_SANDWICH)
+                        .withRating(VALID_RATING_HAM_SANDWICH)
+                        .withCalorie(VALID_CALORIE_HAM_SANDWICH)
+                        .withPhotograph(VALID_PHOTOGRAPH_EGGS_ON_TOAST)
                         .withTags(VALID_TAG_LUNCH).build();
         ModifyCommand expectedCommand = new ModifyCommand(targetIndex, descriptor);
 
@@ -138,7 +147,8 @@ public class ModifyCommandParserTest {
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_RECIPE;
         String userInput =
-                targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + INSTRUCTIONS_DESC_HAM_SANDWICH + TAG_DESC_LUNCH;
+                targetIndex.getOneBased() + INGREDIENTS_DESC_EGGS_ON_TOAST + INSTRUCTIONS_DESC_HAM_SANDWICH
+                        + TAG_DESC_LUNCH;
 
         ModifyCommand.EditRecipeDescriptor descriptor =
                 new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST)
@@ -216,7 +226,8 @@ public class ModifyCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_RECIPE;
         String userInput = targetIndex.getOneBased() + INVALID_INGREDIENTS_DESC + INGREDIENTS_DESC_EGGS_ON_TOAST;
-        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).build();
+        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
+                .withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).build();
         ModifyCommand expectedCommand = new ModifyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -224,8 +235,8 @@ public class ModifyCommandParserTest {
         userInput = targetIndex.getOneBased() + INSTRUCTIONS_DESC_EGGS_ON_TOAST + INVALID_INGREDIENTS_DESC
                 + INGREDIENTS_DESC_EGGS_ON_TOAST;
         descriptor =
-                new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST).withInstructions(VALID_INSTRUCTIONS_EGGS_ON_TOAST)
-                .build();
+                new EditRecipeDescriptorBuilder().withIngredients(VALID_INGREDIENTS_EGGS_ON_TOAST)
+                        .withInstructions(VALID_INSTRUCTIONS_EGGS_ON_TOAST).build();
         expectedCommand = new ModifyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
