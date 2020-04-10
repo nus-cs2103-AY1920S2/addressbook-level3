@@ -10,13 +10,13 @@ public class ProductQuantityTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Price(null));
+        assertThrows(NullPointerException.class, () -> new ProductQuantity(null));
     }
 
     @Test
     public void constructor_invalidQuantity_throwsIllegalArgumentException() {
         String invalidQuantity = "";
-        assertThrows(IllegalArgumentException.class, () -> new Price(invalidQuantity));
+        assertThrows(IllegalArgumentException.class, () -> new ProductQuantity(invalidQuantity));
     }
 
     @Test

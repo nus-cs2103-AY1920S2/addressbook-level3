@@ -49,7 +49,7 @@ public class TransactionQuantity implements Quantity {
         if (test.matches(VALIDATION_REGEX)) {
             try {
                 int value = Integer.parseInt(test);
-                return value <= MAX_VALUE;
+                return isValidValue(value) ;
             } catch (NumberFormatException e) {
                 return false;
             }
