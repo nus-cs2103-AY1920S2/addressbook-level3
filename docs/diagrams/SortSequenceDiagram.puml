@@ -35,17 +35,19 @@ loop [int 1..n]
     SortCommand -> SortCommand: get{Field}Comparator()
     activate SortCommand
 
-    SortCommand -> SortCommand: Comparator<Task>
+    SortCommand -> SortCommand: aggregateComparator.\nthenComparing(Comparator<Task>)
     deactivate SortCommand
+    SortCommand -[hidden]> SortCommand
+    
 end
 
-SortCommand -> Model : setComparator(ac)
+SortCommand -> Model : setComparator(aggregateComparator)
 activate Model
 
 Model -> Model: sortList()
 activate Model
 
-Model -> TaskList: setComparator(ac)
+Model -> TaskList: sort(ac)
 activate TaskList
 TaskList -> Model
 deactivate TaskList
