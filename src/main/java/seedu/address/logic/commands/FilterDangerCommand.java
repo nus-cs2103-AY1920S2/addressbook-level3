@@ -43,7 +43,6 @@ public class FilterDangerCommand implements AppCommand, BluetoothPingStorageAcce
         Conditions cond = new DangerConditions(this.THRESHOLD);
         Aggregators<BluetoothPings, BluetoothPingsSummary> agg = new GroupByIDPairsAggregators();
         ArrayList resp  = dao.search(cond, agg);
-        System.out.println("Searching danger");
 
         BluetoothSummaryMessage result = new BluetoothSummaryMessage("Identified dangerous users", false);
         result.setToDisplayList(resp);

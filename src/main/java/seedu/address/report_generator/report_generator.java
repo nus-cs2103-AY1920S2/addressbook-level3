@@ -86,7 +86,6 @@ public class report_generator {
 
         document.add(table);
         document.close();
-        System.out.println("Report Generation finished");
 
     }
 
