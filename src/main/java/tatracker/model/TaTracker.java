@@ -64,13 +64,6 @@ public class TaTracker implements ReadOnlyTaTracker {
         currentlyShownGroups = new UniqueGroupList();
         currentlyShownStudents = new UniqueStudentList();
 
-        currClaimFilter = "";
-        currSessionFilter = "";
-        currSessionDateFilter = "";
-        currSessionModuleFilter = "";
-        currSessionTypeFilter = "";
-        currStudentFilter = "";
-
         rate = DEFAULT_RATE;
     }
 
