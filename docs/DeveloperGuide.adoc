@@ -196,6 +196,11 @@ image::VersionClassDiagram.png[]
 The three versioned classes use the same logic for versioning, so only `VersionedInventory` will be mentioned in
 subsequent examples and diagrams.
 
+The sequence diagram below illustrates the events that occur when a user calls the undo command assuming that there is
+a state to return to.
+
+image::UndoSequenceDiagram.png[]
+
 Currently, `VersionedInventory` uses `LinearHistory<Inventory>` for versioning, and delegates all `Versionable` methods
 to it. `LinearHistory<Inventory>` stores Inventory, which has implemented the `Copyable<Inventory>` interface to allow
 creation of independent copies for storage. On the other hand, `LinearHistory` implements the interface
@@ -208,16 +213,15 @@ The class diagram below shows how the classes are connected such that `Versioned
 
 image::LinearHistoryClassDiagram.png[]
 
-The sequence diagram below illustrates the events that occur when a user calls the undo command assuming that there is
-a state to return to.
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the
+lifeline reaches the end of diagram.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+For simplicity, goods are each represented with strings containing their name and quantity.
 
-Step 1. The user launches the application for the first time. For each category, the `VersionedDatabaseManager` will be initialized with the respective initial database state, with the `currentStatePointer` pointing to that single database state.
+Step 1. The user launches the application for the first time. The `VersionedInventory` will be created with a list
+of `Good` objects from storage, while creating a `LinearHistory<Inventory>` that stores a copy of this state,
+and also stores another copy in its history. Thus, `currentState` and `saved0` are independent `Inventory` objects.
 
 image::UndoRedoState0.png[]
 
