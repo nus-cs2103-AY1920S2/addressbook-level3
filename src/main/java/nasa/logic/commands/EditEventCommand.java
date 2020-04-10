@@ -18,8 +18,8 @@ import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Event;
 import nasa.model.activity.Date;
+import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
@@ -28,8 +28,7 @@ import nasa.model.module.ModuleCode;
 /**
  * Edits a specific event in the moduleCode's list.
  */
-public class
-EditEventCommand extends Command {
+public class EditEventCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-e";
 
@@ -76,11 +75,11 @@ EditEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
+        if (!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
-       List<Event> lastShownList = model.getFilteredEventList(moduleCode);
+        List<Event> lastShownList = model.getFilteredEventList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
@@ -117,8 +116,8 @@ EditEventCommand extends Command {
         // by default date created cannot be edited, and will take previous value
         Date updatedDateCreated = editEventDescriptor.getDateCreated().orElse(eventToEdit.getDateCreated());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
-        Date updatedStartDate =  editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
-        Date updatedEndDate =  editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
+        Date updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
+        Date updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
 
         return new Event(updatedName, updatedDateCreated, updatedNote, updatedStartDate, updatedEndDate);
 

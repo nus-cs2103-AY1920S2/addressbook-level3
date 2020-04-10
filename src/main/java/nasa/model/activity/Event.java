@@ -19,7 +19,7 @@ public class Event extends Activity {
     private Date endDate;
     private boolean isOver;
 
-    public Event(Name name, Date startDate, Date endDate){
+    public Event(Name name, Date startDate, Date endDate) {
         super(name);
         requireAllNonNull(startDate, endDate);
         checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
@@ -66,11 +66,21 @@ public class Event extends Activity {
         this.endDate = endDate;
     }
 
+    /**
+     * Returns true if start date is valid (ie. start date is after end date)
+     * @param startDate
+     * @return
+     */
     public boolean isValidStartDate(Date startDate) {
         requireAllNonNull(startDate);
         return startDate.isBefore(endDate);
     }
 
+    /**
+     * Returns true if end date is valid (ie. end date is after start date)
+     * @param endDate
+     * @return
+     */
     public boolean isValidEndDate(Date endDate) {
         requireAllNonNull(endDate);
         return startDate.isBefore(endDate);

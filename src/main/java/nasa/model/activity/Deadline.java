@@ -93,6 +93,9 @@ public class Deadline extends Activity {
         this.isDone = true;
     }
 
+    /**
+     * Unmark deadline as done, and set {@code isOverdue} if overdue.
+     */
     public void unmarkAsDone() {
         isDone = false;
         if (isOverdue()) {

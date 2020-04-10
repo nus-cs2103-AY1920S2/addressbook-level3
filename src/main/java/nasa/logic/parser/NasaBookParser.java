@@ -72,7 +72,7 @@ public class NasaBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-        
+
         case ContinueCommand.COMMAND_WORD:
             return new ContinueCommandParser().parse(arguments);
 
@@ -90,10 +90,10 @@ public class NasaBookParser {
 
         case EditDeadlineCommand.COMMAND_WORD:
             return new EditDeadlineCommandParser().parse(arguments);
-        
+
         case EditEventCommand.COMMAND_WORD:
             return new EditEventCommandParser().parse(arguments);
-        
+
         case EditModuleCommand.COMMAND_WORD:
             return new EditModuleCommandParser().parse(arguments);
 

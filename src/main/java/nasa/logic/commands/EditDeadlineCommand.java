@@ -18,8 +18,8 @@ import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Deadline;
 import nasa.model.activity.Date;
+import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
@@ -75,11 +75,11 @@ public class EditDeadlineCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
+        if (!model.hasModule(moduleCode)) { // throw exception if module code is not found in nasa book
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
-       List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
+        List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(
@@ -118,7 +118,7 @@ public class EditDeadlineCommand extends Command {
         Date updatedDateCreated = editDeadlineDescriptor.getDateCreated().orElse(deadlineToEdit.getDateCreated());
         Note updatedNote = editDeadlineDescriptor.getNote().orElse(deadlineToEdit.getNote());
         Priority updatedPriority = editDeadlineDescriptor.getPriority().orElse(deadlineToEdit.getPriority());
-        Date updatedDueDate =  editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
+        Date updatedDueDate = editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
 
         return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate);
 

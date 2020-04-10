@@ -2,8 +2,6 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
-import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import java.util.function.Predicate;
 
@@ -11,9 +9,7 @@ import javafx.collections.ObservableList;
 
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 import nasa.model.module.Module;
-import nasa.model.module.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all activities in NASA whose name contains any of the argument keywords.

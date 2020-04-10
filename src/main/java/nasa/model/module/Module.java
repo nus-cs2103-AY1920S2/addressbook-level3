@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,7 +12,6 @@ import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Name;
 import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.activity.UniqueEventList;
 
@@ -34,7 +34,6 @@ public class Module {
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
-        
         this.eventList = new UniqueEventList();
         this.deadlineList = new UniqueDeadlineList();
         this.filteredEvent = new FilteredList<>(eventList.getActivityList());
@@ -91,12 +90,12 @@ public class Module {
         deadlineList.setActivities(replacement);
     }
 
-    public void setEvents(UniqueEventList replacement) {
-        eventList.setActivities(replacement);
-    }
-
     public void setDeadlines(List<Deadline> deadlines) {
         deadlineList.setActivities(deadlines);
+    }
+
+    public void setEvents(UniqueEventList replacement) {
+        eventList.setActivities(replacement);
     }
 
     public void setEvents(List<Event> events) {
@@ -107,7 +106,6 @@ public class Module {
         deadlineList.setSchedule(index, type);
         updateFilteredActivityList(x -> true);
     }
-    
     public void setEventSchedule(Index index, Index type) {
         eventList.setSchedule(index, type);
         updateFilteredActivityList(x -> true);
@@ -154,6 +152,10 @@ public class Module {
         return eventList.iterator();
     }
 
+    /**
+     * Updates module's underlying filtered activity lists
+     * @param predicate
+     */
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         filteredDeadline.setPredicate(predicate);
         filteredEvent.setPredicate(predicate);
@@ -183,7 +185,8 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode()) && otherModule.getModuleName().equals(getModuleName());
+        return otherModule.getModuleCode().equals(getModuleCode())
+                && otherModule.getModuleName().equals(getModuleName());
     }
 
     @Override
@@ -191,6 +194,11 @@ public class Module {
         return String.format("%s %s", moduleCode, moduleName);
     }
 
+    /**
+     * Returns true if deadline is found in the module's {@code UniqueDeadlineList}.
+     * @param deadline
+     * @return true if deadline is present in the module's deadline list
+     */
     public boolean hasDeadline(Deadline deadline) {
         for (Deadline currentDeadline : deadlineList.getActivityList()) {
             if (currentDeadline == deadline) {
@@ -200,6 +208,11 @@ public class Module {
         return false;
     }
 
+    /**
+     * Returns true if event is found in the module's {@code UniqueEventList}.
+     * @param event
+     * @return true if event is present in the module's event list
+     */
     public boolean hasEvent(Event event) {
         for (Event currentEvent : eventList.getActivityList()) {
             if (currentEvent == event) {
@@ -209,6 +222,11 @@ public class Module {
         return false;
     }
 
+    /**
+     * Returns true if activity is found in the module.
+     * @param activity
+     * @return true if activity is present in the module
+     */
     public boolean hasActivity(Activity activity) {
         if (activity instanceof Deadline) {
             return hasDeadline((Deadline) activity);

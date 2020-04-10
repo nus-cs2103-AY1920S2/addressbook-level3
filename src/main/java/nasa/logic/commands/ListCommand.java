@@ -5,6 +5,7 @@ import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import java.util.ArrayList;
+
 import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.NameContainsKeywordsPredicate;
@@ -37,7 +38,7 @@ public class ListCommand extends Command {
             if (model.hasModule(moduleCode)) {
                 model.updateFilteredModuleList(new NameContainsKeywordsPredicate(list));
                 return new CommandResult(moduleCode + " listed successfully!");
-            }  else {
+            } else {
                 return new CommandResult("Module cannot be found!");
             }
         }

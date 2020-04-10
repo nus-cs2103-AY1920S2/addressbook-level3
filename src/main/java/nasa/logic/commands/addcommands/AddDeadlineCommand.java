@@ -11,7 +11,6 @@ import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Deadline;
-import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -48,7 +47,7 @@ public class AddDeadlineCommand extends AddCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if(!model.hasModule(moduleCode)) {
+        if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
         }
 
