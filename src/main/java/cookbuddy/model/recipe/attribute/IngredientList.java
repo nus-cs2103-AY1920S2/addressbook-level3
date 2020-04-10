@@ -51,9 +51,8 @@ public class IngredientList {
     @Override
     public boolean equals(Object other) {
 
-        return (other == this || other instanceof IngredientList &&
-                ingredientData.equals(((IngredientList) other).ingredientData));
-                //((IngredientList) other).ingredientData.equals(ingredientData));
+        return (other == this || other instanceof IngredientList
+                && ingredientData.equals(((IngredientList) other).ingredientData));
     }
 
     @Override
