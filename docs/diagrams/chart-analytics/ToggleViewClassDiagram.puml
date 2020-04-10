@@ -6,7 +6,6 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Class ToggleView {
-    <color:#white>- <u>validFrequencies: String[] = {"daily", "weekly", "monthly", "yearly"}</u>
     <color:#white>- isViewList: boolean
 
     <color:#white>+ getIsViewList() : boolean

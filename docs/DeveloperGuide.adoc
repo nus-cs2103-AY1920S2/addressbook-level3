@@ -365,7 +365,6 @@ his expenditure.
 
 Here is a Class Diagram for the implementatino of `ToggleView`:
 image:chart-analytics/ToggleViewClassDiagram.png[]
-Figure XX. Implementation of `ToggleView` class
 
 The *ToggleView* mechanism utilizes `Logic` operations with the `ToggleViewCommand` class in place of `Command`. The following
 methods are concrete implementations for the *toggle* operation:
@@ -379,8 +378,9 @@ current value.
 - `ExpenseLa#switchToggleView()` is exposed in the `Model` interface as `Model#switchToggleView()`.
 
 The following sequence diagram illustrates **toggleview** command execution:
-image:chart-analytics/ToggleViewSequenceDiagram.png[]
-Figure XX. Sequence diagram for **toggleview** execution
+
+.Sequence diagram showing execution of **toggleview**
+image::chart-analytics/ToggleViewSequenceDiagram.png[]
 
 ===== Example of usage
 Given next is an example and explanation of how the **ToggleView** mechanism behaves at each step:
@@ -390,28 +390,53 @@ depicts the example list used throughout this scenario.
 
 :figure-caption!:
 .Example list on startup
-image::clone/cloneDG/CloneStep3.png[,650]
+image::chart-analytics/ToggleViewStep1.png[,650]
 
 Step 2. The user inputs **toggleview** to change the view from list of transactions to chart analysis.
 
 .User input for toggle view
-image::update/updateDG/UpdateStep2.png[,650]
+image::chart-analytics/ToggleViewStep2.png[,650]
 
 Step 3. `ToggleViewCommand#execute()` switches `isViewList` of `ToggleView` from true to false.
 
 .`isViewList` of `ToggleView` switched from `ToggleViewCommand#execute()`
-image::update/updateDG/UpdateStep3.png[,650]
+image::chart-analytics/ToggleViewStep3.png[,650]
 
-Step 4. `MainWindow#executeCommand()` checks the boolean value of isViewList which is false, and displays chart analysis.
+Step 4. `MainWindow#executeCommand()` checks the boolean value of isViewList in ToggleView, which is false,
+and displays chart analysis.
 
-image::update/updateDG/UpdateStep4Part1.png[,650]
 .Switched from showing list of transactions to chart analysis
-image::update/updateDG/UpdateStep4Part3.png[,650]
+image::chart-analytics/ToggleViewStep4.png[,650]
 
 Step 5. User inputs **toggleview** again to change view back to list of transactions.
 
 .Switched from showing list of transactions to chart analysis
-image::update/updateDG/UpdateStep4Part3.png[,650]
+image::chart-analytics/ToggleViewStep2.png[,650]
+image::chart-analytics/ToggleViewStep1.png[,650]
+
+Step 6. User can set filter to a certain month to view a different kind of bar chart.
+
+.Example of stacked bar chart of expenditure for a certain month
+image::chart-analytics/ToggleViewStep6.png[,650]
+
+The following code snippet from `MainWindow#executeCommand()` checking of the boolean value of isViewList in ToggleView,
+and deciding whether to show a list of transactions of chart analysis, and what bar graph to show:
+
+.MainWindow#executeCommand()
+[source, java]
+----
+// The if else statement checks the value of isViewList from ToggleView
+if (logic.getToggleView().getIsViewList()) {
+    // Creates ui for list of transactions
+    transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
+    transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+} else {
+    // Creates ui for chart analysis
+    // Calls logic.getIsFilterMonth() to check if the filter is set to a specific month or no filter
+    chartAnalyticsPanel = new ChartAnalyticsPanel(logic.getFilteredTransactionList(), logic.getIsFilterMonth());
+    transactionListAndChartAnalyticsPanelPlaceholder.getChildren().add(chartAnalyticsPanel.getRoot());
+}
+----
 
 ===== Execution shown to user
 The following activity diagram gives an overview of what ExpenseLa shows the user when executing **toggleview** command:
