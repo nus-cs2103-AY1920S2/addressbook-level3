@@ -65,7 +65,7 @@ public class CalenderDeadline extends UiPart<Region> {
         if (deadline.getStatus()) {
             cardPane.setStyle("-fx-background-color: #323232");
         } else {
-            cardPane.setStyle("-fx-background-color: #596157");
+            cardPane.setStyle("-fx-background-color: #515658");
         }
     }
 

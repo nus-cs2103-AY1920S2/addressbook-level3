@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 public class ListAllTaskCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all Tasks";
-    public static final String COMMAND_WORD = "taskList";
+    public static final String COMMAND_WORD = "listTask";
 
 
     public ListAllTaskCommand() {

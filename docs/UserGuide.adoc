@@ -20,28 +20,12 @@ By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 NUSProductivity is an application designed to let you better manage your school work. The app is set out to enhance your productivity in school through 5 main features, module planning, CAP (cumulative average point) tracking, note taking, deadline and task listing, and finally, diary logging. This app is designed mainly for NUS students with the possibility to customise it for students from other universities in the future. More importantly, NUSProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Read on to get you started on using the application!
 
-==  Quick Start
+==== An Introduction to NUSProductivity
 
-This section allows you to start up NUSProductivity with ease. Detailed steps are listed below.
+The image below shows the different parts of the user inteface of NUSProductivity
 
-.  Ensure you have Java `11` or above installed on your computer.
-.  Download the latest version of `NUSProductivity.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for NUSProductivity.
-.  Double-click the file to start the app. The GUI should appear in a few seconds (screenshot of GUI shown below).
-+
-image::Ui.png[width="790"]
-Figure 1. NUSProductivity calendar tab
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* **`search`**`CS2103T` : searches for the module `CS2103T`
-* **`deadlineAdd desc/Finish homework by/30-04-2020 cat/School`** : schedules a deadline on the calendar for you to finish your homework
-* *`cap`* : calculates your CAP
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+.NUSProductivity Introduction
+image::StartupDescription.png[width="790"]
 
 ==== Commonly Used Symbols
 
@@ -51,8 +35,35 @@ This symbol indicates something you should take note of.
 [TIP]
 This symbol indicates a tip that you could use.
 
-[CAUTION]
-This symbol indicates an aspect that should be used with caution.
+
+
+
+==  Quick Start
+
+This section allows you to start up NUSProductivity with ease. Detailed steps are listed below.
+
+.  Ensure you have Java `11` or above installed on your computer.
+.  Download the latest version of `NUSProductivity.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for NUSProductivity.
+.  Double-click the file to start the app. The GUI should appear in a few seconds (screenshot of GUI shown below).
++
+.NUSProductivity calendar tab
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* **`search`**`CS2103T` : searches for the module `CS2103T`
+* **`calendar`** : Allows you to the calendar tab
+* **`deadlineAdd desc/Finish homework by/30-04-2020 cat/School`** : schedules a deadline on the calendar for you to finish your homework
+* *`cap`* : calculates your CAP
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+
+
 
 [[Features]]
 == Features
@@ -81,12 +92,12 @@ This section shows the detailed list of usable commands.
 
 === Switching Tabs : `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
 
-- Switches to the respective tab
+- This command allows you to switch to the tab using the command line instead of clicking on the respective tab.
 - Format: `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
 
 +
+.Switching tabs
 image::switching_tabs.png[width="790"]
-Figure 2.Switching tabs
 +
 
 
@@ -269,20 +280,38 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 
 A calendar in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
 
+The application allows you to add 2 type of tasks, `deadline` and `moduleTask`.
 
-==== Adding Deadline: `deadlineAdd`
+`moduleTask` allows you to tag a module, that you have already inputted in your Profile tab, to the task itself. It allows you to set the priority level of the task.
+
+`deadline` allows you to input a deadline event into the calendar without any specified modules attached to it.
+
+==== Priority Levels
+
+We give you the flexibility to choose and indicate what priority each `moduleTask` should have. This priority is represented from 1 to 5, with 1 being the lowest priority and 5 being the highest.
+
+.NUSProductivity calendar priority levels
+image::prioritylevels.png[width="790"]
+
+
+==== Deadline
+
+===== Adding Deadline: `deadlineAdd`
 
 - Schedules a task tagged with a deadline to the calendar. A dot will be shown to indicate there is a deadline to be met on that day
 
 - Format: `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
 
-==== Removing Deadline: `taskDelete`
+===== Removing Deadline: `taskDelete`
 
 - Deletes a task from the deadline list, marking the task as done
 
 - Format: `taskDelete index/INDEX`
 
-==== Adding Module Tasks: `moduleTask`
+
+==== Module Tasks
+
+===== Adding Module Tasks: `moduleTask`
 
 - Schedules a module task, this module task includes priority level, module that is associated with the task.
 
@@ -291,6 +320,40 @@ A calendar in the app that allows you to schedule and set deadline for important
 [NOTE]
 This requires you to add a module under `moduleAdd` before you can use it
 
+.Error when adding a module task without adding a module first.
+image::moduleTaskAddError.png[width="790"]
+
+==== Shared Functions
+
+The commands stated in this section can be used for both moduleTask and deadline tasks.
+
+
+===== Marking a task as Done: `done`
+
+- Marks a task as completed, completed task will be shown with a black background while uncompleted task will be shown as a grey background.
+
+- Format: `done index/INDEX`
+
+===== Sorting the Calendar: `sortTask`
+
+- Allows you to sort the tasks list on the left by either date or priority. This gives you the flexibility to plan ahead, whether you want to complete a more urgent task or to complete a task with the deadline that is earlier
+
+- Format: `sortTask by/SORT`
+
+[NOTE]
+SORT can only be either date or priority
+
+===== Finding specific tasks in the Calendar: `findTask`
+
+- Allows you to see task at a glance based on what you specified.
+
+- Format: `findTask m/MODULECODE` or `findTask cat/CATEGORY` or `findTask date/DD-MM-YYYY`
+
+===== Listing back all tasks in the Calendar: `listTask`
+
+- Allows you to list back all task after you have filtered the list with findTask
+
+- Format: `listTask`
 
 
 === Notes
