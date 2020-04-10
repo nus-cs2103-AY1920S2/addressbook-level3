@@ -22,11 +22,11 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-Are you a Teaching Assistant at NUS School of Computing(SOC) who is tired of having to keep
-track of all your claimable hours in some unappealing excel spreadsheet just so you
+Are you a *Teaching Assistant at NUS School of Computing(SOC)* who is tired of having to *keep
+track of all your claimable hours* in some unappealing excel spreadsheet just so you
 can fill up the Teaching Support Student (TSS) Claims form accurately at the end of the semester?
-Do you want a desktop application where you can keep track of things related to your teaching duties,
-such as strongest and weakest students, all in one place? If so, TA-Tracker is the tool for you!
+Do you want a desktop application where you can *keep track of things related to your teaching duties,
+such as strongest and weakest students,* all in one place? If so, TA-Tracker is the tool for you!
 
 TA-Tracker is a productivity tool made for NUS SOC Teaching Assistants (TAs)
 who want to be able to track and manage their students and claimable
