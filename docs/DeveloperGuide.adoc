@@ -73,7 +73,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[UiClassDiagram,1000,1000]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -92,7 +92,7 @@ The `UI` component,
 image::LogicClassDiagram.png[LogicClassDiagram,1000,1000]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `InventorySystemParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -113,7 +113,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[ModelClassDiagram,1000,1000]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -135,7 +135,7 @@ image:BetterModelClassDiagram.png[BetterModelClassDiagram,500,500]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[StorageClassDiagram,700,700]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -178,19 +178,19 @@ The commands all inherit from superclass `Command`. Only add, delete, edit and f
 
 The following sequence diagram shows how the add operation works:
 
-image::AddItemSequenceDiagram.png[AddItemSequenceDiagram,1000,1000]
+image::AddItemSequenceDiagram.png[AddItemSequenceDiagram,1200,1000]
 
 The following sequence diagram shows how the list operation works:
 
-image::ListItemSequenceDiagram.png[ListItemSequenceDiagram,1000,1000]
+image::ListItemSequenceDiagram.png[ListItemSequenceDiagram,1200,1000]
 
 The following sequence diagram shows how the edit operation works:
 
-image::EditItemSequenceDiagram.png[EditItemSequenceDiagram,1000,1000]
+image::EditItemSequenceDiagram.png[EditItemSequenceDiagram,1200,1000]
 
 The following activity diagram summarizes what happens when a user executes a command that changes the customer/product list in the model:
 
-image::ProductActivityDiagram.png[ProductActivityDiagram,500,500]
+image::ProductActivityDiagram.png[ProductActivityDiagram,700,700]
 
 ==== Design Considerations
 
