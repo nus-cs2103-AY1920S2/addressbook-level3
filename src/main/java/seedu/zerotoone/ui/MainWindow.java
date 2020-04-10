@@ -10,7 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -73,10 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
         statisticsWindow = new StatisticsWindow();
-
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
             tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
@@ -142,18 +138,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }
-
-    /**
      * Opens the report window or focuses on it if it's already opened.
      */
     @FXML
@@ -182,9 +166,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
         logic.showdownTimer();
         statisticsWindow.hide();
         primaryStage.hide();

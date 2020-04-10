@@ -29,7 +29,6 @@ public class TypicalScheduledWorkouts {
     }
 
     public static List<ScheduledWorkout> getTypicalScheduledWorkouts() {
-        DateTime now = DateTime.now();
         return getTypicalSchedules().stream()
                 .map((Schedule schedule) -> schedule.getScheduledWorkout(DateTime.now()))
                 .filter(Optional::isPresent)

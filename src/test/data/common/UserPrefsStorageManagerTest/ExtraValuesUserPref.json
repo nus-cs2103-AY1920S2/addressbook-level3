@@ -1,13 +1,7 @@
 {
-  "guiSettings" : {
-    "windowWidth" : 1000.0,
-    "windowHeight" : 500.0,
-    "extra" : "some value ",
-    "windowCoordinates" : {
-      "x" : 300,
-      "y" : 100,
-      "z" : 99
-    }
-  },
-  "exerciseListFilePath" : "exerciselist.json"
+  "exerciseListFilePath" : "exerciselist.json",
+  "workoutListFilePath" : "workoutlist.json",
+  "scheduleListFilePath" : "schedulelist.json",
+  "logListFilePath" : "loglist.json",
+  "extra": "value"
 }
