@@ -131,16 +131,6 @@
     "others" : [ ],
     "steps" : [ "step 1", "edited step 2" ],
     "goals" : [ ]
-  }, {
-    "name" : "mememe",
-    "time" : "30",
-    "isFavourite" : false,
-    "grains" : [ "145.0g,  Bread" ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ ],
-    "steps" : [ ],
-    "goals" : [ "Wholesome Wholemeal" ]
-  } ]
+  }]
 }
+

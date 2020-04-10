@@ -27,4 +27,14 @@ public class Grain extends Ingredient {
     public void setWholemeal(boolean wholemeal) {
         isWholemeal = wholemeal;
     }
+
+    /**
+     * Method to indicate type of ingredient.
+     * Only exists for ingredients included in calculation for goals.
+     * @return Main Ingredient type of grain
+     */
+    @Override
+    public MainIngredientType getMainIngredientType() {
+        return MainIngredientType.GRAIN;
+    }
 }

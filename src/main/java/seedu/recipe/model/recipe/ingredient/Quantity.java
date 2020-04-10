@@ -19,10 +19,11 @@ public class Quantity {
 
     /**
      * According to Metric measurements and based on ingredient type (averages denser ingredients).
-     * from https://www.thecalculatorsite.com/cooking/cups-grams.php.
-     * @param ingredientType
+     * @param ingredientType from 4 main ingredients.
+     * @return new Quantity with unit in gram.
+     * @see <a href="https://www.thecalculatorsite.com/cooking/cups-grams.php">measurementConverter</a>
      */
-    public double convertToGram(MainIngredientType ingredientType) {
+    public Quantity convertToGram(MainIngredientType ingredientType) {
         double newMagnitude = this.magnitude;
         switch(this.unit) {
         case CUP:
@@ -55,7 +56,7 @@ public class Quantity {
         default:
             throw new IllegalStateException("Unexpected value: " + this.unit);
         }
-        return newMagnitude;
+        return new Quantity(newMagnitude, Unit.GRAM);
     }
 
     public Unit getUnit() {

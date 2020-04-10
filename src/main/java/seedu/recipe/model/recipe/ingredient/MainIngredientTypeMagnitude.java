@@ -4,7 +4,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Consists of magnitudes of main ingredient types being tracked by goals.
+ * Consists of magnitudes of main ingredient types being tracked by goals and main ingredient type that meets
+ * nutritional requirements.
  */
 public class MainIngredientTypeMagnitude {
 
@@ -12,7 +13,6 @@ public class MainIngredientTypeMagnitude {
     private double fruitCount = 0;
     private double proteinCount = 0;
     private double grainCount = 0;
-    private int index;
     private Set<MainIngredientType> mainIngredientTypes;
 
     public MainIngredientTypeMagnitude(double vegCount, double fruitCount, double proteinCount, double grainCount) {
@@ -20,7 +20,6 @@ public class MainIngredientTypeMagnitude {
         this.grainCount = grainCount;
         this.proteinCount = proteinCount;
         this.vegCount = vegCount;
-        this.index = index;
         this.mainIngredientTypes = getMainIngredientTypes();
     }
 
@@ -40,18 +39,10 @@ public class MainIngredientTypeMagnitude {
         return this.grainCount;
     }
 
-    public int getIndex() {
-        return this.index;
-    }
-
-    public void updateIndex(int index) {
-        this.index = index;
-    }
-
     /**
-     * Finding main ingredient types that meet nutrition requirement for each type according to
-     * https://www.nia.nih.gov/health/serving-and-portion-sizes-how-much-should-i-eat.
-     * @return set of MainIngredientTypes
+     * Finding main ingredient types that meet nutrition requirement for each type according to NIH.
+     * @return set of MainIngredientTypes that meets requirements for each food group.
+     * @see <a href="https://www.nia.nih.gov/health/serving-and-portion-sizes-how-much-should-i-eat">nutritionReq</a>
      */
     private Set<MainIngredientType> getMainIngredientTypes() {
         Set<MainIngredientType> setOfMainTypes = new TreeSet<MainIngredientType>();
@@ -70,13 +61,13 @@ public class MainIngredientTypeMagnitude {
         if (this.grainCount >= 145) {
             setOfMainTypes.add(MainIngredientType.GRAIN);
         }
-
         return setOfMainTypes;
     }
 
     public Set<MainIngredientType> getMainTypes() {
         return this.mainIngredientTypes;
     }
+
     @Override
     public String toString() {
         return String.format("vegetables: %.2f, fruits: %.2f, protein: %.2f, grains: %.2f \n",
