@@ -16,14 +16,12 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
-import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
-import com.notably.model.block.BlockModelImpl;
-import com.notably.model.block.Title;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
+import com.notably.testutil.TypicalBlockModel;
 
 class NewCommandParserTest {
     private static AbsolutePath toAnother;
@@ -32,24 +30,13 @@ class NewCommandParserTest {
 
     @BeforeEach
     public void setUp() {
-        // Set up paths
-        toAnother = AbsolutePath.fromString("/another");
-
         // Set up model
-        BlockModel blockModel = new BlockModelImpl();
+        BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
         newCommandParser = new NewCommandParser(model);
 
-        // Populate model with test data
-        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("another")));
-
-        model.setCurrentlyOpenBlock(toAnother);
-        model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("toAnother")));
     }
 
     @Test
@@ -65,7 +52,7 @@ class NewCommandParserTest {
     @Test
     void parse_jumpToCreatedBlock_openCommand() throws ParseException, CommandException {
         final List<Command> commandList = newCommandParser.parse(" -t Knapsack -o");
-        final AbsolutePath expectedPath = AbsolutePath.fromString("/another/Knapsack");
+        final AbsolutePath expectedPath = AbsolutePath.fromString("/Y2S2/Knapsack");
 
         for (Command command : commandList) {
             command.execute(model);
@@ -78,7 +65,7 @@ class NewCommandParserTest {
     void parse_emptyBodyArgument_openCommand() throws ParseException, CommandException {
         final NewCommand newCommand = (NewCommand) newCommandParser.parse(" -t Knapsack").get(0);
 
-        final AbsolutePath expectedPath = AbsolutePath.fromString("/another/Knapsack");
+        final AbsolutePath expectedPath = AbsolutePath.fromString("/Y2S2/Knapsack");
 
         newCommand.execute(model);
 
@@ -87,7 +74,7 @@ class NewCommandParserTest {
 
     @Test
     void parse_duplicateTitleArgument_throwsCommandException() throws ParseException, CommandException {
-        final NewCommand newCommand = (NewCommand) newCommandParser.parse(" -t block").get(0);
+        final NewCommand newCommand = (NewCommand) newCommandParser.parse(" -t CS2103T").get(0);
 
         assertThrows(CommandException.class, () -> newCommand.execute(model));
     }
