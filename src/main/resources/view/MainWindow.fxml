@@ -21,14 +21,17 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
             <VBox>
-                <MenuBar fx:id="menuBar">
-                    <Menu mnemonicParsing="false" text="File">
-                        <MenuItem fx:id="exitAppItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                    </Menu>
-                </MenuBar>
+                <HBox fx:id="HBoxMenu">
+                    <MenuBar fx:id="menuBar">
+                        <Menu mnemonicParsing="false" text="File">
+                            <MenuItem fx:id="exitAppItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                        </Menu>
+                    </MenuBar>
+                    <Label fx:id="timeHolder" text="ABC" alignment="CENTER"></Label>
+                </HBox>
                 <HBox VBox.vgrow="ALWAYS">
                     <VBox id="userActivityBox" HBox.hgrow="ALWAYS">
                         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">

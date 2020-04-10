@@ -2,16 +2,24 @@ package seedu.delino.ui;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.sun.tools.javadoc.Main;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
@@ -21,12 +29,15 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.delino.commons.core.GuiSettings;
 import seedu.delino.commons.core.LogsCenter;
 import seedu.delino.logic.Logic;
 import seedu.delino.logic.commands.CommandResult;
+import seedu.delino.logic.commands.EditCommand;
 import seedu.delino.logic.commands.ShowCommand;
 import seedu.delino.logic.commands.exceptions.CommandException;
 import seedu.delino.logic.parser.exceptions.ParseException;
@@ -77,6 +88,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private HBox HboxMenu;
+
+    @FXML
+    private Label timeHolder;
 
     @FXML
     private StackPane orderListPanelPlaceholder;
@@ -189,6 +206,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Try to start clock
+        showTime();
     }
 
     /**
@@ -409,5 +429,23 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void showTime() {
+
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG);
+        final Timeline clock = new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                event -> {
+                    timeHolder.setText(timeFormat.format(LocalDateTime.now()));
+                    Logger logger = LogsCenter.getLogger(MainWindow.class.getName());
+                    logger.info(timeFormat.format(LocalDateTime.now()) + "Abc");
+                }
+            )
+        );
+        Logger logger = LogsCenter.getLogger(MainWindow.class.getName());
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 }

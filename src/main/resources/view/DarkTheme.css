@@ -480,3 +480,9 @@
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }
+
+#timeHolder, #HBoxMenu {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-background-color: -fx-primary;
+}
