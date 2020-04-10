@@ -575,6 +575,16 @@ public class ModelStub implements Model {
         }
 
         @Override
+        public void showAllModules() {
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            requireNonNull(predicate);
+        }
+
+        @Override
         public boolean hasGroup(String groupCode, String moduleCode) {
             return getModule(moduleCode).hasGroup(new Group(groupCode));
         }
