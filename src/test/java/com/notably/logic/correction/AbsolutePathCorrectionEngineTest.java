@@ -89,15 +89,18 @@ public class AbsolutePathCorrectionEngineTest {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 model, distanceThreshold, true);
-        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2103t/tutorials/tutrial");
+        final AbsolutePath uncorrectedInput = AbsolutePath.fromString("/Y2S2/cs2105");
 
-        final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1,
-                TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2);
+        final List<AbsolutePath> expectedCorrectedItems = List.of(TypicalBlockModel.PATH_TO_CS2103T,
+                TypicalBlockModel.PATH_TO_CS2106);
         final CorrectionStatus expectedCorrectionStatus = CorrectionStatus.CORRECTED;
         final CorrectionResult<AbsolutePath> expectedCorrectionResult = new CorrectionResult<>(
                 expectedCorrectionStatus, expectedCorrectedItems);
 
         CorrectionResult<AbsolutePath> correctionResult = correctionEngine.correct(uncorrectedInput);
+
+        System.out.println(correctionResult.getCorrectedItems());
+
         assertEquals(expectedCorrectionResult, correctionResult);
     }
 }
