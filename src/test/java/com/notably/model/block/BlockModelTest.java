@@ -1,6 +1,7 @@
 package com.notably.model.block;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -8,7 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.commons.path.RelativePath;
 import com.notably.model.block.exceptions.CannotModifyRootException;
+import com.notably.model.block.exceptions.NoSuchBlockException;
 
 import javafx.collections.FXCollections;
 
@@ -70,8 +73,26 @@ public class BlockModelTest {
     public void removeBlock_nonRootPath() {
         blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS3230"));
         blockModel.addBlockToCurrentPath(new BlockImpl(new Title("Week1")));
-        blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/"));
+        blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS2103"));
         blockModel.removeBlock(AbsolutePath.fromString("/CS3230/Week1"));
+        assertEquals(blockModel.getCurrentlyOpenPath(), AbsolutePath.fromString("/CS2103"));
+        assertFalse(blockModel.hasPath(AbsolutePath.fromString("/CS3230/Week1")));
+    }
+
+    @Test
+    public void removeBlock_deleteCurrentlyOpenBlock() {
+        blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS3230"));
+        blockModel.removeBlock(AbsolutePath.fromRelativePath(
+            RelativePath.fromString("."), blockModel.getCurrentlyOpenPath()));
+        assertEquals(blockModel.getCurrentlyOpenPath(), AbsolutePath.fromString("/"));
+    }
+
+    @Test
+    public void removeBlock_deleteNonExistentDistantSibling_throws() {
+        blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS3230"));
+        assertThrows(NoSuchBlockException.class, () ->
+                blockModel.removeBlock(AbsolutePath.fromRelativePath(
+                RelativePath.fromString("../NonExistentBlock"), blockModel.getCurrentlyOpenPath())));
     }
 
     @Test
