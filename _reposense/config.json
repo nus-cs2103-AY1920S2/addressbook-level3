@@ -1,0 +1,15 @@
+{
+  "ignoreGlobList": ["about-us/**", "**index.html"],
+  "formats": ["html", "css"],
+  "ignoreCommitList": ["90018e49f129ce7e0abdc8b18e91c9813588c601", "67890def"],
+  "authors":
+  [
+    {
+      "githubId": "chlalstjr",
+      "emails": ["minschoi97@gmail.com"],
+      "displayName": "CS2103-T09-3 CHOI.. SUK",
+      "authorNames": ["chlalstjr", "Min Suk Choi"],
+      "ignoreGlobList": ["**.css"]
+    }
+  ]
+}
