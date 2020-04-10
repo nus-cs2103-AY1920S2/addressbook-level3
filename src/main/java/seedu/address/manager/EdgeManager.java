@@ -20,6 +20,7 @@ public class EdgeManager extends BaseManager {
     private static Model model = ModelManager.getInstance();
     private static final Logger logger = LogsCenter.getLogger(EdgeManager.class);
 
+    public static final String INVALID_ENTITY = "Handle delete entity in edge manager not valid object";
 
     // ========================== For Assigning of X TO Y =========================
 
@@ -116,7 +117,7 @@ public class EdgeManager extends BaseManager {
                 processEdgeFromStaff(staff, true);
             }
         } catch (CommandException e) {
-            System.out.println("handle delete entity in edge manager not valid object");
+            System.out.println(INVALID_ENTITY);
         }
     }
 
@@ -180,6 +181,7 @@ public class EdgeManager extends BaseManager {
             ID courseID = assignment.getAssignedCourseID();
             if (isDelete) {
                 unassignAssignmentFromCourse(assignment.getId(), courseID);
+                //ProgressManager.removeOneProgressFromAllStudents(courseID, assignment.getId());
             } else {
                 assignAssignmentToCourse(assignment.getId(), courseID);
             }

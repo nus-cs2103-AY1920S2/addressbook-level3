@@ -1,0 +1,25 @@
+@startuml
+
+title Activity Diagram for PreprocessAssignCommand \n
+
+(*) --> =====B1=====
+--> "Obtain Course ID"
+--> if "course exists" then
+-->[true]=====B2=====
+else
+-right>[false]"error"
+end if
+
+=====B1===== --> "Check X exists"
+--> if " X exists"
+-->[true]=====B2=====
+else
+-left>[false]"error"
+end if
+
+=====B2===== --> "test"
+--> =====B3=====
+
+=====B3===== --> (*)
+
+@enduml
