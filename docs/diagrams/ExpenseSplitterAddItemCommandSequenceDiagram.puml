@@ -56,11 +56,8 @@ SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmou
 activate SplitterStorageManager
 
 SplitterStorageManager --> SplitterLogicManager
-deactivate SplitterStorageManager
 
 SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
-activate SplitterStorageManager
-
 SplitterStorageManager --> SplitterLogicManager
 deactivate SplitterStorageManager
 
