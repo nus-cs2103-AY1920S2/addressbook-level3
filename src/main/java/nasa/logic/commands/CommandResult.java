@@ -20,6 +20,12 @@ public class CommandResult {
     /** The application should show statistics. */
     private final boolean statistics;
 
+    /** Qr code should be shown to the user. */
+    private final boolean showQr;
+
+    /** Qr code data to show */
+    private final byte[] qrData;
+
     /**
      * The application should show quote.
      */
@@ -31,12 +37,15 @@ public class CommandResult {
      * @param showHelp boolean
      * @param exit boolean
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistics) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean statistics, boolean showQr
+    ,byte[] qrData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.statistics = statistics;
         this.quote = false;
+        this.showQr = showQr;
+        this.qrData = qrData;
     }
 
     /**
@@ -45,11 +54,15 @@ public class CommandResult {
      * @param feedbackToUser String
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false, new byte[0]);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public byte[] getQrData() {
+        return qrData;
     }
 
     public boolean isShowHelp() {
@@ -66,6 +79,10 @@ public class CommandResult {
 
     public boolean isQuote() {
         return quote;
+    }
+
+    public boolean isShowQr() {
+        return showQr;
     }
 
     /**
@@ -89,12 +106,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showQr == otherCommandResult.showQr;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, showQr);
     }
 
 }

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
+import nasa.commons.util.StringUtil;
 import nasa.logic.Logic;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private QuotePanel quotePanel;
     private TabPanel tabPanel;
+    private ExportQrWindow exportQrWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -67,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        exportQrWindow = new ExportQrWindow();
+
         primaryStage.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
             //Overriding default redo
             if (event.getCode() == KeyCode.Z && event.isShortcutDown() && event.isShiftDown()) {
@@ -196,6 +200,20 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles export qr code.
+     */
+    @FXML
+    public void handleExportQr(byte[] qrData) {
+        exportQrWindow.update(qrData);
+
+        if (!exportQrWindow.isShowing()) {
+            exportQrWindow.show();
+        } else {
+            exportQrWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -209,6 +227,7 @@ public class MainWindow extends UiPart<Stage> {
             (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        exportQrWindow.hide();
         primaryStage.hide();
     }
 
@@ -235,9 +254,12 @@ public class MainWindow extends UiPart<Stage> {
                 tabPanel.getStatistics();
             }
 
-
             if (commandResult.isQuote()) {
                 getQuote(commandResult.getFeedbackToUser());
+            }
+
+            if (commandResult.isShowQr()) {
+                handleExportQr(commandResult.getQrData());
             }
 
             return commandResult;
