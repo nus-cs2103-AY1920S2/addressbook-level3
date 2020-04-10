@@ -208,16 +208,24 @@ These missing parameters will be stated in a later section of the guide. |
 == Layout
 This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
 into three different views - the *Student View*, the *Session View* and the *Claims View*.
+Each of the views correspond to their following `tab` header.
 
-When you enter a new command, you will be automatically switched to the relevant view
+When you enter a new command, you will be automatically switched to the relevant `tab`
 so that you can instantly see the command results. The tab will also be highlighted in
 orange.
 
 [NOTE]
 ====
-* The tab that you were switched to when you enter commands will remain highlighted even if
-you click on other tabs. That way, it is easier for you to remember where you last
-made changes to TA-Tracker.
+* You can click on a `tab` header to change the currently shown *View*. The new `tab`
+will be highlighted in blue.
+
+* The `tab` that you were switched to when you enter commands will remain highlighted
+in orange even if you click on other tabs. That way, it is easier for you to remember
+where you last made changes to TA-Tracker.
+
+* You may notice that the orange and blue highlights for the `tab` headers are not
+horizontally aligned.This is to prevent the highlights from overlapping each other,
+allowing you to see them better.
 ====
 
 === Student View
