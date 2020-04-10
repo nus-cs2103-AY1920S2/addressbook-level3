@@ -1,0 +1,138 @@
+= Johan Kok (JKOK005) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Contact Tracing
+
+== Link to RepoSense
+Code contributions can be found in https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=JKOK005&tabRepo=AY1920S2-CS2103-W15-1%2Fmain%5Bmaster%5D[RepoSense]
+
+---
+== Overview
+
+The contact tracing app is an extension of the Trace Together app recently developed by GovTech.
+It aims to simplify the way analysts query over data to understand cluster hotspots and individual behaviour.
+This app is built over https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook - Level 3]
+
+== Summary of contributions
+=== Feature requests
+* *Major enhancement*: defined *core backend framework of application*
+
+** *What*: Refractored previous code, adding new concepts such as `Conditions` / `Aggregator` / `InMemoryStorage`
+that form the backbone of new features being introduced to meet user requirements.
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/DeveloperGuide.adoc#class-diagram-illustration[Developer Guide] for more details.
+
+** *Justification*:
+*** Present code base does not implement Data Access Objects (DAO) protocols for abstracting data access from the application.
+*** Introducing `Conditions` / `Aggregator` classes allows easy extensibility of code base to accommodate new features.
+
+** *Highlights*: Team adopted this concept to build features down the road.
+
+
+* *Major enhancement*: added feature *Searching over timestamps*
+
+** *What*: Picks up all pings in between a timestamp range.
+
+** *Justification*:
+*** This is useful for analysts who want to understand interaction patterns across time.
+
+
+* *Major enhancement*: added feature *Searching over user ID*
+
+** *What*: Picks up all pings that contains the user ID.
+
+** *Justification*:
+*** This is useful for analysts who want to understand a particular user's behaviour pattern.
+
+
+* *Major enhancement*: added feature *Searching over user ID pairs*
+
+** *What*: Picks up all pings that contains a user ID pairs [A, B].
+
+** *Justification*:
+*** This is useful for analysts who want to understand how two users are behaving and whether they are observing social distancing measures.
+
+
+* *Major enhancement*: added feature *danger search*
+
+** *What*: Given a threshold value, find all user ID pairs that cross it.
+
+** *Justification*:
+*** Allows quick identification of users who are clearly breaching social distancing rules.
+Helps to narrow investigation and containment efforts.
+
+
+* *Major enhancement*: added feature *search over user details*
+
+** *What*: Displays a full / filtered trace of all registered users stored in the DB.
+
+** *Justification*:
+*** Helps link bluetooth ping user IDs' recoded with the actual user for authorities to contact.
+
+
+* *Major enhancement*: added feature *user detail modifications*
+
+** *What*: Allows the admin to add / delete new users into the system.
+
+** *Justification*:
+*** Useful when new users sign up / leave the system.
+
+
+* *Major enhancement*: added feature *UI panel swapping*
+
+** *What*: Displays information on main UI for all `BluetoothPing` and `Person` models.
+Designed panel swapping logic to render correct UI panel based on user requests.
+
+** *Justification*:
+*** Prior AddressBook code base does not allow rendering of different panels to the UI, which our application requires.
+
+
+* *Minor enhancement*: Seeded InMemory database with bluetooth / user records.
+
+** *What*: Manually added new records to the system that are loaded at runtime.
+
+** *Justification*:
+*** Helps with the visualization of our application and UI debugging
+
+=== Project management
+** Managed https://github.com/AY1920S2-CS2103-W15-1/main/releases[release] `v1.0` on Github
+** Reviewed team https://github.com/AY1920S2-CS2103-W15-1/main/pulls[PRs] to ensure code quality adherence
+** Reported bugs and suggestions for other teams in the class (via Catcher)
+** Filed several https://github.com/AY1920S2-CS2103-W15-1/main/issues[issues] for feature request based on User Stories.
+** Timekeeper for team to ensure we meet project milestones (PE Dry-run / Final submission)
+
+=== Dev Ops
+** Set up jenkins CI/CD for repo
+
+=== User Guide contributions
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/johan-ppp/docs/UserGuide.adoc[User Guide]
+
+Parts contributed:
+
+. Introduction
+. Target audiences
+. Quick start
+. Features
+. FAQ
+
+=== Developer Guide contributions
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
+
+Parts contributed:
+
+. Setting up
+. Design + Architecture
+. Class diagram illustration
+. Architecture component interactions
+. Models
+. Design considerations EXCEPT:
+.. Logging
+.. Configuration
+
+=== Credits
+Would like to thank the following for being a great source of help in this project
+
+** https://stackoverflow.com/[StackOverflow]
+** Team member @Yujian-Fu
+
