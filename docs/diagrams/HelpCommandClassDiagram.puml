@@ -1,0 +1,34 @@
+@startuml
+/' @author @cherweijie'/
+
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+class HelpCommandParser implements Parser {
+    /' Methods '/
+    + parse(args : String) : HelpCommand
+    - doesInputHaveExtraParameters(argument : String) : boolean
+}
+
+interface Parser<T extends Command> {
+    parse(userInput : String) : HelpCommand
+}
+
+abstract class Command {
+    {abstract} execute(Model model) : CommandResult
+}
+
+class HelpCommand extends Command {
+    /' Fields '/
+    - validity : boolean
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    + setValidity(validity : boolean) : void
+    + isValid() : boolean
+}
+
+
+HelpCommandParser ..> HelpCommand
+@enduml

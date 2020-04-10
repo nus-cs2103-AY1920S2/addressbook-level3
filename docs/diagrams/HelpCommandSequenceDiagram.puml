@@ -1,0 +1,85 @@
+@startuml
+/' @author @cherweijie'/
+
+!include style.puml
+mainframe sd Execution of Help Command
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":HelpCommandParser" as HelpCommandParser LOGIC_COLOR
+participant "d:HelpCommand" as HelpCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+participant "exception:ParseException" as ParseException LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("help...")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("help...")
+activate OrderBookParser
+
+create HelpCommandParser
+OrderBookParser -> HelpCommandParser
+activate HelpCommandParser
+HelpCommandParser --> OrderBookParser
+deactivate HelpCommandParser
+
+alt non-whitespace characters absent after help command word
+OrderBookParser -> HelpCommandParser : parse("...")
+activate HelpCommandParser
+HelpCommandParser -> HelpCommandParser : doesInputHaveExtraParameters("...")
+activate HelpCommandParser
+HelpCommandParser --> HelpCommandParser : false
+deactivate HelpCommandParser
+create HelpCommand
+HelpCommandParser -> HelpCommand
+HelpCommand -> HelpCommand : setValidity(true)
+activate HelpCommand
+
+HelpCommand -> CommandResult
+
+
+activate CommandResult
+CommandResult --> HelpCommand : result
+deactivate CommandResult
+HelpCommand --> HelpCommandParser : result
+deactivate HelpCommand
+
+
+HelpCommandParser --> OrderBookParser : result
+deactivate HelpCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+HelpCommandParser -[hidden]-> OrderBookParser
+destroy HelpCommandParser
+
+OrderBookParser --> LogicManager : result
+deactivate OrderBookParser
+[<--LogicManager : result
+
+deactivate LogicManager
+
+else non-whitespace characters present after help command word
+HelpCommandParser -> HelpCommandParser : doesInputHaveExtraParameters("...")
+activate HelpCommandParser
+HelpCommandParser --> HelpCommandParser : true
+deactivate HelpCommandParser
+HelpCommandParser -> ParseException
+activate ParseException
+ParseException --> HelpCommandParser : exception
+activate HelpCommandParser
+HelpCommandParser --> OrderBookParser : exception
+deactivate HelpCommandParser
+activate OrderBookParser
+OrderBookParser --> LogicManager : exception
+deactivate OrderBookParser
+
+activate LogicManager
+[<--LogicManager : exception
+deactivate LogicManager
+end
+
+@enduml

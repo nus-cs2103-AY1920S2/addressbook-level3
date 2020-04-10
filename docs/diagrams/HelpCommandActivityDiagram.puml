@@ -1,0 +1,22 @@
+@startuml
+start
+:User enters the help command;
+
+If () then ([Absent non-whitespace
+            characters after help
+            command word])
+            :Help command is valid;
+            :New pop-up help
+            window to display
+            list of commands to
+            user;
+else ([Present non-whitespace
+       characters after help
+       command word])
+       :Help command is invalid;
+       :Display error message to
+       user about presence of
+       non-whitespace characters;
+endif
+stop
+@endul
