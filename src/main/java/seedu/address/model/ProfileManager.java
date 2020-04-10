@@ -43,7 +43,7 @@ public class ProfileManager implements Model {
         super();
         requireAllNonNull(profileList, userPrefs);
 
-        logger.fine("Initializing with address book: " + profileList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MODdy " + profileList + " and user prefs " + userPrefs);
 
         this.profileList = profileList;
         this.userPrefs = new UserPrefs(userPrefs);
@@ -101,22 +101,28 @@ public class ProfileManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Profile profile) {
-        return profileList.hasProfileWithName(profile.getName());
+    public boolean hasProfile(Name name) {
+        requireNonNull(name);
+        return profileList.hasProfileWithName(name);
     }
 
     @Override
-    public void deletePerson(Profile target) {
+    public Profile getProfile(Name name) {
+        return profileList.getProfileWithName(name);
+    }
+
+    @Override
+    public void deleteProfile(Profile target) {
         profileList.deleteProfile(target);
     }
 
     @Override
-    public void addPerson(Profile profile) {
+    public void addProfile(Profile profile) {
         profileList.addProfile(profile);
     }
 
     @Override
-    public void setPerson(Profile target, Profile editedProfile) {
+    public void setProfile(Profile target, Profile editedProfile) {
         requireAllNonNull(target, editedProfile);
 
         profileList.setProfile(target, editedProfile);
@@ -131,16 +137,6 @@ public class ProfileManager implements Model {
     public void updateFilteredPersonList(Predicate<Profile> predicate) {
         requireNonNull(predicate);
         filteredProfiles.setPredicate(predicate);
-    }
-
-    @Override
-    public boolean hasProfile(Name name) {
-        return profileList.hasProfileWithName(name);
-    }
-
-    @Override
-    public Profile getProfile(Name name) {
-        return profileList.getProfileWithName(name);
     }
 
     public boolean hasOneProfile() {
@@ -159,17 +155,15 @@ public class ProfileManager implements Model {
         return sortedDeadlines;
     }
 
-    public void deleteDeadlineList() {
-        deadlineList.clear();
-    }
-
     @Override
     public void addDeadline(Deadline deadline) {
+        requireNonNull(deadline);
         this.deadlineList.add(deadline);
     }
 
     @Override
     public void deleteDeadline(Deadline deadline) {
+        requireNonNull(deadline);
         Iterator<Deadline> iter = this.deadlineList.iterator();
         Boolean flag = false;
         while (iter.hasNext()) {
@@ -190,6 +184,7 @@ public class ProfileManager implements Model {
      * To be used when deadline is edited.
      */
     public void replaceDeadline(Deadline oldDeadline, Deadline newDeadline) {
+        requireAllNonNull(oldDeadline, newDeadline);
         Iterator<Deadline> iter = this.deadlineList.iterator();
         Boolean flag = false;
         while (iter.hasNext()) {

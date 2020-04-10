@@ -143,7 +143,7 @@ public class EditCommand extends Command {
             }
 
             if (grade != null) {
-                int currentUserSemester = profileToEdit.getCurrentSemester();
+                int currentUserSemester = profileToEdit.getOverallSemester();
                 if (oldSemester > currentUserSemester) {
                     throw new CommandException(MESSAGE_ADD_FUTURE_GRADE_ERROR);
                 }
@@ -215,7 +215,7 @@ public class EditCommand extends Command {
             if (updatedSemester != 0) {
                 profileToEdit.setCurrentSemester(updatedSemester);
                 updateStatus(profileToEdit);
-                profileManager.deleteDeadlineList();
+                profileManager.clearDeadlineList();
             }
             if (focusAreaString != null) {
                 CourseName courseName = profileToEdit.getCourseName();
@@ -229,7 +229,7 @@ public class EditCommand extends Command {
 
             Profile editedPerson = createEditedPerson(profileToEdit);
 
-            profileManager.setPerson(profileToEdit, editedPerson);
+            profileManager.setProfile(profileToEdit, editedPerson);
             profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
             return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, editedPerson.getName()), false);
@@ -263,7 +263,7 @@ public class EditCommand extends Command {
      * Updates statuses of all modules in the Profile
      */
     private void updateStatus(Profile profileToEdit) {
-        int currentSemester = profileToEdit.getCurrentSemester();
+        int currentSemester = profileToEdit.getOverallSemester();
         HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
         for (ModuleList list: hashMap.values()) {
             int semester = getKey(hashMap, list);

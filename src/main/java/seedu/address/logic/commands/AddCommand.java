@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
@@ -13,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -95,13 +95,12 @@ public class AddCommand extends Command {
         Profile profile = profileManager.getFirstProfile();
         boolean hasModule = false;
         Module moduleToAdd = null;
-        try {
-            // throws error if module code does not exist! DO NOT REMOVE!
-            if (moduleManager.hasModule(toAdd)) {
-                moduleToAdd = moduleManager.getModule(toAdd);
-            }
-        } catch (ParseException e) {
-            throw new CommandException(e.getMessage());
+
+        // throws error if module code does not exist! DO NOT REMOVE!
+        if (moduleManager.hasModule(toAdd)) {
+            moduleToAdd = moduleManager.getModule(toAdd);
+        } else {
+            throw new CommandException(MESSAGE_INVALID_MODULE);
         }
         int semesterOfModule = 0;
 
@@ -133,11 +132,14 @@ public class AddCommand extends Command {
 
         }
 
-        int currentSemester = profile.getCurrentSemester();
+        int currentSemester = profile.getOverallSemester();
 
-        if (addGrade != null) {
+        if (addGrade != null && !hasModule) {
             personal.setGrade(addGrade);
+        } else if (addGrade != null && hasModule) {
+            throw new CommandException("To add grade to an existing module, use: edit m/MODULE g/GRADE");
         }
+
         if (addTask != null) {
             // Check if the deadline is added to a module in the current semester
             if (semesterOfModule != currentSemester && addSemester != currentSemester) {
@@ -159,7 +161,6 @@ public class AddCommand extends Command {
             String moduleCode = toAdd.toString();
             if (addDate != null) {
                 deadline = new Deadline(moduleCode, addTask, addDate, addTime);
-                //throw new CommandException("Invalid date or time! Try: YYYY-MM-DD HH:mm");
             } else {
                 deadline = new Deadline(moduleCode, addTask);
             }

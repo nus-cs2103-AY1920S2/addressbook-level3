@@ -45,13 +45,12 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 
-
+//@@author wanxuanong
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        //Profile expectedProfile = new PersonBuilder(BOB).build();
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
