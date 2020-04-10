@@ -16,10 +16,12 @@ endif::[]
 
 By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
+//@@author cherweijie
 //tag::introduction[]
 == Introduction
 This user guide provides in-depth documentation on the Delino desktop application:
-quick start guide, features, FAQ, command summary, and glossary.
+<<quick-start, quick start guide>>, <<Features, features>>, <<FAQ, FAQ>>,
+<<command-summary, command summary>>, and <<glossary, glossary>>.
 
 Delino is for couriers who *prefer to use a desktop app for managing their delivery tasks*.
 It is *optimised for those who have a strong preference towards Command Line Interface* (CLI)
@@ -28,10 +30,12 @@ Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get sta
 Have a delightful journey using Delino!
 //end::introduction[]
 
+//@@author
 //tag::product_information[]
 .Graphical User Interface (GUI) of Delino
 image::Ui.png[width="790"]
 
+//@@author khsc96
 === Product Information
 Are you still using pen and papers or Excel to keep track of all your orders? +
 
@@ -39,8 +43,9 @@ With Delino, you can be rest assured that it will help you to keep track of a la
 Are you interested in improving your parcel delivery management? Read further to discover the features of Delino!
 //end::product_information[]
 
+//@@author JeremyLoh
 //tag::how_to_navigate_user_guide[]
-
+[[navigate-user-guide]]
 === How to navigate this user guide
 Throughout this user guide, you might encounter additional symbols. These symbols are used to
 highlight important information. +
@@ -71,16 +76,18 @@ This block contains *important* information that you should be mindful of.
 
 `[FLAG]` : For the various commands, you might encounter *keywords* placed in square brackets. +
 (e.g. `nearby` `[FLAG]` `AREA`) +
-These indicate the optional arguments to a command.
+These indicate the *optional arguments* to a command.
 
 Keywords that are capitalized represent all possible combinations of an argument. +
 (e.g. `[FLAG]` represents all possible flag arguments available). +
 For the list of all possible combinations of an argument, you can refer to the <<glossary, glossary>>
 
 Finally, you will encounter links to external web pages for additional information.
-These links will link:[look like this].
+These links will <<navigate-user-guide,look like this>>.
 //end::how_to_navigate_user_guide[]
 
+//@@author khsc96
+[[quick-start]]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -92,12 +99,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * <<list, `list`>> `done` : lists all delivered orders and return orders.
-* <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
+* <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/90010019` `dts/2020-06-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
 * <<delete, `delete`>> `-o` `3` : deletes the 3rd delivery order shown in the current order list
 * <<exit, `exit`>> : exits the app
 
 .  Refer to <<Features>> for a more detailed explanation of each command.
 
+//@@author
 [[Features]]
 == Features
 In this section you will be able to learn about the various features of Delino.
@@ -150,31 +158,32 @@ In this section you will be able to learn about the various features of Delino.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
 * Items in square brackets are optional e.g `n/CUSTOMER_NAME [c/COMMENT]` can be used as `n/John Doe c/Leave the parcel outside` or as `n/John Doe`.
 * Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME` `p/PHONE_NUMBER`, +
 `p/PHONE_NUMBER` `n/CUSTOMER_NAME`  is also acceptable.
 ====
 
+//@@author cherweijie
 //tag::help[]
 [[help]]
 === Showing the Help message - `help` [Done by - Cher Wei Jie]
-* In this section, you will learn more about the Help command and how to use it. +
-Why would you want to use the Help command?
-You can use this Help command to see a summary of all available features of Delino.
+* In this section, you will learn more about the `help` command and how to use it. +
+Why would you want to use the `help` command?
+You can use this `help` command to see a summary of all available features of Delino.
 
 [[help-works]]
 ==== How to use the Help command?
 
-Here is how you can use the Help command to show a summary of all available commands in Delino.
+Here is how you can use the `help` command to show a summary of all available commands in Delino.
 
-*Step 1* : Type in the keyword *help*. +
+*Step 1* : Type in the keyword `help`. +
 *Step 2* : Press `Enter` on your keyboard to see the magic!
 
 [[help-examples]]
 ==== What constitutes a valid Help command?
 
-The syntax for a valid help command can be seen below!
+The syntax for a valid `help` command can be seen below!
 
 * `help`
 
@@ -182,41 +191,40 @@ The syntax for a valid help command can be seen below!
 |===
 |Scenario |Command |Result
 
-| If you want to view all the available commands in Delino, you can do this:
+| If you want to view all the available commands in Delino.
 | `help`
 | A pop-up window will be shown that includes a summary to briefly explain all the commands that Delino offers.
 |===
 //end::help[]
 
+//@@author Amoscheong97
 //tag::insert[]
 [[insert]]
 === Inserting an order: `insert` [Done by Amos Cheong Jit Hon]
-This section shows you how to use the Insert Command and the relevant examples.
+This section shows you how to use the `insert` Command and the relevant examples.
 
 Whenever you have a new delivery order to make, you have to add it into your list of orders.
-The Insert Command is in charge of this functionality.
+The `insert` Command is in charge of this functionality.
 
 [[insert-works]]
 ==== How to use the Insert Command
-Here are the steps on using the Insert Command: +
+Here are the steps on using the `insert` Command: +
 
-*Step 1* : Type in the keyword *insert* +
+*Step 1* : Type in the keyword `insert` +
 
 *Step 2* : Add in the prefixes `<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>`
 `<<command_prefix, ADDRESS>>` `<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, EMAIL>>`
 `<<command_prefix, ORDER_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>` `<<command_prefix, CASH_ON_DELIVERY>>`
 of the delivery orders +
 
-*Step 3* : Skip Step 4 if the specific order does not have the customer's comment and the type of item. +
+*Step 3 (Optional)* : Add in the Customer comment and type of item using the prefixes `[<<command_prefix, COMMENT_BY_CUSTOMER>>]`
+`[<<command_prefix, TYPE_OF_ITEM>>]` +
 
-*Step 4* : Add in the Customer comment and type of item using the prefixes `<<command_prefix, [COMMENT_BY_CUSTOMER]>>`
-`<<command_prefix, [TYPE_OF_ITEM]>>` +
-
-*Step 5* : Press `Enter` on your keyboard to see the magic!
+*Step 4* : Press `Enter` on your keyboard to see the magic!
 
 [[insert-examples]]
 ==== What constitutes a valid Insert command
-Here is the syntax of the *Insert* Command : +
+Here is the syntax of the `insert` Command : +
 `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [NOTE]
@@ -244,33 +252,33 @@ but `tid/TRANSACTION_IDn/CUSTOMER_NAME` will be an invalid command input.
 * `ADDRESS` must have a postal code.
 * `EMAIL` should be a valid email address.
 * `CASH_ON_DELIVERY` must start with a dollar sign followed by the value.
-* `CASH_ON_DELIVERY` value must be strictly less than $10,000,000,000,000.If there is a need
+* `CASH_ON_DELIVERY` value must be strictly less than $10,000,000,000,000. If there is a need
 to add decimal places, you can only add two.
-* *Do Not add any commas in the value of `CASH_ON_DELIVERY`*
+* *Do not add any commas in the value of `CASH_ON_DELIVERY`*
 * To add the Delivery Date and Time, first type in the date in this format : YYYY-MM-DD. Followed by adding the time
 in 24 hour format.
 * The value for `DELIVERY_DATE_&_TIME` must be a time in the future. For example, if the date and time now is 2020-04-03 1200,
 you are not allowed to add 2020-04-03 1159 as the `DELIVERY_DATE_&_TIME`.
-* `TYPE_OF_ITEM` must be alphanumeric (No numbers or special characters allowed).
-* `CUSTOMER_NAME` mut be alphanumeric(No numbers or special characters allowed).
+* `TYPE_OF_ITEM` must consist of only alphabets (No numbers or special characters allowed).
+* `CUSTOMER_NAME` must consist of only alphabets (No numbers or special characters allowed).
 * `PHONE_NUMBER` should not have a spacing in between. `n/90011009` is allowed, +
 but `n/9001 1009` is not allowed.
 * Only numbers are allowed in `PHONE_NUMBER`.
 ====
 
-There are two different scenarios on how to insert the orders :
+These are the possible combinations of the `insert` command:
 
 .Possible combinations of Insert Command
 |===
 |Scenario |Command |Result
 
-| Insert the order without a comment and no item type
+| Insert the order without a comment and no item type.
 | `insert` `tid/A094844` `n/John Doe` `a/Blk 505 Tampines #10-33 S520505` `p/98761111` `e/johndoe@example.com` `dts/2020-05-20 1300` `w/Yishun` `cod/$4`
-| You should be able to see that the order with transaction id 'A094844' will be inserted into the list of delivery orders.
+| You should be able to see that the order with transaction id `A094844` will be inserted into the list of delivery orders.
 
-| Insert the order with all the order attributes including the non-compulsory ones
+| Insert the order with all the order attributes including the non-compulsory ones.
 | `insert` `tid/C1023456789` `n/Amos Cheong` `a/Blk 571 Hougang st 51 #02-02 S530571` `e/amoscheong@example.com` `p/90010019` `dts/2020-05-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
-| You should see that the order with transaction id 'C1023456789' is inserted into the list of delivery orders.
+| You should see that the order with transaction id `C1023456789` is inserted into the list of delivery orders.
 
 |===
 
@@ -280,25 +288,26 @@ There are two different scenarios on how to insert the orders :
 ====
 //end::insert[]
 
+//@@author cherweijie
 //tag::return[]
 [[return]]
 === Returning an order : `return` [Done by - Cher Wei Jie]
-* In this section, you will learn more about the Return command and how to use it. +
-Why would you want to use the Return command?
-You can use this Return command to create a new return order to be added into the return order list.
+* In this section, you will learn more about the `return` command and how to use it. +
+Why would you want to use the `return` command?
+You can use this `return` command to create a new return order to be added into the return order list.
 
 [[return-works]]
 ==== How to use the Return command?
 
 Here is how you can convert an order into a return order or create a new return order by following the steps below:
 
-*Step 1* : Type in the keyword *return*. +
+*Step 1* : Type in the keyword `return`. +
 *Step 2a* : If you would like to convert an existing order into a return order,
 provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to be converted. +
 *Step 2b*: If you would like to create a new return order in the return list, provide the
 `<<command_prefix, TRANSACTION_ID>>` `<<command_prefix, CUSTOMER_NAME>>` `<<command_prefix, ADDRESS>>`
 `<<command_prefix, PHONE_NUMBER>>` `<<command_prefix, RETURN_TIMESTAMP>>` `<<command_prefix, WAREHOUSE_LOCATION>>`
-`<<command_prefix, CUSTOMER_EMAIL>>` `<<command_prefix, [COMMENTS_BY_CUSTOMER]>>` `<<command_prefix, [TYPE OF ITEM]>>` of the parcel. +
+`<<command_prefix, CUSTOMER_EMAIL>>` `[<<command_prefix, COMMENTS_BY_CUSTOMER>>]` `[<<command_prefix, TYPE OF ITEM>>]` of the parcel. +
 *Step 3* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
@@ -306,46 +315,50 @@ provide the `<<command_prefix, TRANSACTION_ID>>` corresponding to the order to b
 * Please include a whitespace in between the keyword & transaction id or keyword & the attributes aforementioned. +
 i.e. `return` `tid/123abcd` +
  or +
-`return` `tid/A999999` `n/John Doe` `p/98765432` `a/311 Clementi Ave 2 #02-25` `e/johndoe@gmail.com`
+`return` `tid/A999999` `n/John Doe` `p/98765432` `a/311 Clementi Ave 2 #02-25 S120363` `e/johndoe@gmail.com`
 `rts/2020-05-05 1500` `w/5 Toh Guan Rd E #02-30 S608831` `c/NIL` `type/glass`
 ====
 
 [[return-examples]]
 ==== What constitutes a valid Return command?
 
-The syntax for a valid Return command can be seen below!
+The syntax for a valid `return` command can be seen below!
 
-* `return` `TRANSACTION_ID` or `return` `TRANSACTION_ID` `CUSTOMER_NAME` `CUSTOMER_ADDRESS` `CUSTOMER_EMAIL`
+* `return` `TRANSACTION_ID` or `return` `TRANSACTION_ID` `CUSTOMER_NAME` `ADDRESS` `CUSTOMER_EMAIL`
 `WAREHOUSE_LOCATION` `PHONE_NUMBER` `RETURN_TIMESTAMP` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]`
 
 [NOTE]
+====
 * The `TRANSACTION_ID` refers to the transaction id of a parcel.
 * The `CUSTOMER_NAME` refers to the name of the recipient of the parcel.
-* The `CUSTOMER_ADDRESS` refers to the location which the return should be picked up from.
+* The `ADDRESS` refers to the location which the return should be picked up from. It *must* have a postal code.
 * The `WAREHOUSE_LOCATION` refers to the location which the return should be delivered to.
 * The `PHONE_NUMBER` refers to the phone number of the customer.
 * The `RETURN_TIMESTAMP` refers to the return date and time of the parcel. This field cannot be earlier than the current date and time.
 * The `COMMENTS_BY_CUSTOMER` is an optional attribute which can be included if the customer has special requests.
 * The `TYPE_OF_ITEM` is an optional attribute which can be included if the item requires special attention.
 For example, it can be used when the item is fragile.
+====
+
+These are the possible combinations of the `return` command:
 
 .Possible Combinations of Return command
 |===
 |Scenario |Command |Result
 
-| If you want to convert the order with Transaction Id 'abc1234' into a return order and display it on returns list, you can do this:
+| If you want to convert the order with Transaction Id `abc1234` into a return order and display it on returns list.
 | `return` `tid/abc1234`
 | This order will be removed from the order list and be added into the returns list as a return order.
 
-| If you want to create a new return order in the return order list, you can do this:
-| `return` `tid/123abcd` `n/weijie` `a/blk 32 clementi road` `p/92123412` `w/Jurong warehouse` `rts/2020-04-05`
+| If you want to create a new return order in the return order list.
+| `return` `tid/123abcd` `n/weijie` `a/311 Clementi Ave 2 #02-25 S120363` `p/92123412` `w/5 Toh Guan Rd E #02-30 S608831` `rts/2020-05-05 1600`
 | A return order with the input attributes will be created into the return order list.
 |===
 
 [NOTE]
 ====
 * The `TRANSACTION_ID` given belongs to the return order that will be created.
-* A return order will be created after executing this return command.
+* A return order will be created after executing this `return` command.
 * If the parcel is an existing order, it will be removed from the order list and converted into a return order
 and added into the return order list.
 * If the parcel is a new return order, it will be created and added into the return order list.
@@ -358,22 +371,23 @@ the item was already delivered and the money already was collected upon delivery
 * The conversion of an order into a return order can only be done if the order was already delivered.
 * The `TRANSACTION_ID` *is alphanumeric*, e.g: 123asd, 1234567, abcdef.
 * The `CUSTOMER_NAME` *must consist of only alphabets*.
-* The `CUSTOMER_ADDRESS` *is alphanumeric*.
+* The `ADDRESS` *is alphanumeric*.
 * The `CUSTOMER_PHONE` *must be numeric*
 * The `WAREHOUSE_LOCATION` *is alphanumeric*
 * The `RETURN_TIMESTAMP` *must follow the yyyy-mm-dd format* *must not be earlier than the current date and time*
 * The `COMMENTS_BY_CUSTOMER` *is alphanumeric*
-* The `TYPE_OF_ITEM` is *alphanumeric*
+* The `TYPE_OF_ITEM` *must* consist of only alphabets (No numbers or special characters allowed).
 * The resulting created return order will not have the `CASH_ON_DELIVERY` field as the money
 was already collected.
 ====
 //end::return[]
 
+//@@author khsc96
 //tag::edit[]
 [[edit]]
 === Editing an order : `edit` [Done by - Kenny Ho Si Chong]
 
-In this section, you will be able to find out how to properly <<edit-works, use>> the `Edit` command and the relevant <<edit-examples, examples>>. +
+In this section, you will be able to find out how to properly <<edit-works, use>> the `edit` command and the relevant <<edit-examples, examples>>. +
 Why will you want to use the `edit` command? If you wish to edit any field of a parcel, the `edit` command will provide you the means to do so.
 
 
@@ -382,7 +396,7 @@ Why will you want to use the `edit` command? If you wish to edit any field of a 
 
 Here is how you can edit the details of any parcel by following the steps below: +
 
-*Step 1* : Type in the keyword *edit* +
+*Step 1* : Type in the keyword `edit` +
 *Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to edit +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to edit +
 *Step 4* : Provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the new value you want to change to. +
@@ -397,7 +411,7 @@ Here is how you can edit the details of any parcel by following the steps below:
 [[edit-examples]]
 ==== What constitutes a valid Edit command
 
-The syntax for a valid `Edit` command can be seen below:
+The syntax for a valid `edit` command can be seen below:
 
 * `edit` `FLAG` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
 
@@ -410,23 +424,25 @@ The syntax for a valid `Edit` command can be seen below:
 * `NEW_VALUE` is the new value you want to replace the old value with.
 ====
 
+These are the possible combinations of the `edit` command:
+
 .Possible Combinations of Edit command
 |===
 |Scenario |Command |Result
 
-| If you want to edit the name of the first return order displayed on returns list you can do this:
+| If you want to edit the name of the first return order displayed on returns list
 | `edit` `-r` `1` `n/Xuan En` +
 | The index `1` customer's name of the return order list will be changed to `Xuan En`.
 
-| If you want to edit the phone number of the second order displayed on the orders list you can do this!
+| If you want to edit the phone number of the second order displayed on the orders list.
 | `edit` `-o` `2` `p/9999 4444`
 | The index `2` customer's phone number of the order list will be changed changed to `9999 4444`.
 
-| If you want to edit the address of the first order displayed on the orders list you can do this!
+| If you want to edit the address of the first order displayed on the orders list.
 | `edit` `-o` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
 | The index `1` customer's address of the order list will be changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
 
-| If you want to edit the name, phone number and address of the third return order displayed on the returns list you can do this!
+| If you want to edit the name, phone number and address of the third return order displayed on the returns list.
 | `edit` `-r` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
 | The index `3` customer's name, phone and address of the return order list will be changed accordingly to the prefix.
 |===
@@ -440,6 +456,7 @@ The syntax for a valid `Edit` command can be seen below:
 ====
 //end::edit[]
 
+//@@author JeremyLoh
 //tag::delete[]
 [[delete]]
 === Deleting an order : `delete` [Done by - Loh Jeremy Wen Jun]
@@ -453,7 +470,7 @@ This would allow you to correct any accidental additions that you may have made
 when <<insert, inserting orders>> or <<import, importing an order file>>.
 
 [[how_to_use_delete_command]]
-==== How to use the delete command
+==== How to use the Delete command
 In this section, you learn more about the exact inputs required to use the `delete` command.
 
 Here are the steps you should follow to delete an order using the `delete` command: +
@@ -477,7 +494,7 @@ The `INDEX` *must be a positive integer* i.e. 1, 2, 3, ...
 *Step 4* : Press `Enter` on your keyboard to see the magic!
 
 
-==== What constitutes a valid delete command
+==== What constitutes a valid Delete command
 In this section, you will learn more about the syntax of the `delete` command +
 
 The syntax for a valid `delete` command is the following: +
@@ -487,9 +504,9 @@ The syntax for a valid `delete` command is the following: +
 ==== Delete command usage scenarios
 In this section, you will learn more about the various usage scenarios of the `delete` command!
 
-The table below describes the possible usage scenarios of the delete command:
+These are the possible combinations of the `delete` command:
 
-.Possible Combinations of delete command
+.Possible Combinations of Delete command
 |===
 |Scenario |Command |Result
 
@@ -515,6 +532,7 @@ The table below describes the possible usage scenarios of the delete command:
 |===
 //end::delete[]
 
+//@@author Exeexe93
 //tag::clear[]
 [[clear]]
 === Clearing all entries : `clear` [Done by - Eng Xuan En]
@@ -562,33 +580,34 @@ These are the possible combinations of the `clear` command:
 |===
 |Scenario |Command |Result
 
-| If you want to have a confirmation notice before clearing both lists, you could use this:
+| If you want to have a confirmation notice before clearing both lists.
 | `clear`
-| Popup will appear and ask the user for confirmation to clear both order list and return order list.
+| Pop-up will appear and ask the user for confirmation to clear both order list and return order list.
 
-| If you don't want to get prompt before clearing both lists, you could use this:
+| If you don't want to get prompt before clearing both lists.
 | `clear` `-f`
 | Both order list and return order list will be cleared immediately.
 
-| If you want to have a confirmation notice before clearing return order list, you could use this:
+| If you want to have a confirmation notice before clearing return order list.
 | `clear` `-r`
-| Popup will appear and ask the user for confirmation to clear the return order list.
+| Pop-up will appear and ask the user for confirmation to clear the return order list.
 
-| If you don't want to get prompt before clearing return order list, you could use this:
+| If you don't want to get prompt before clearing return order list.
 | `clear` `-f` `-r`
 | Only return order list is cleared immediately.
 
-| If you want to have a confirmation notice before clearing order list, you could use this:
+| If you want to have a confirmation notice before clearing order list.
 | `clear` `-o`
-| Popup will appear and ask the user for confirmation to clear the order list.
+| Pop-up will appear and ask the user for confirmation to clear the order list.
 
-| If you don't want to get prompt before clearing order list, you could use this:
+| If you don't want to get prompt before clearing order list.
 | `clear` `-o` `-f`
 | Only order list is cleared immediately.
 |===
 
 //end::clear[]
 
+//@@author Exeexe93
 //tag::import[]
 
 [[import]]
@@ -604,14 +623,14 @@ to do so.
 Here is how you can import the orders and return orders into Delino by following the steps below: +
 
 *Step 1* : Type in the keyword `import`. +
-*Step 2* : Provides the CSV file name that you would like to import with the *.csv* extension behind +
+*Step 2* : Provide the CSV file name that you would like to import with the *.csv* extension behind. +
 *Step 3* : Press `Enter` on your keyboard to send the instruction to Delino.
 
 ==== What constitutes a valid Import command
 In this section, you will learn about the syntax of a valid `import` command, the format for both orders and return orders in the CSV file
-and the combination for the `import` command.
+and the possible combination for the `import` command.
 
-The syntax for a valid `Import` command can be seen below:
+The syntax for a valid `import` command can be seen below:
 
 * `import` `FILE_NAME` +
 `import` is the command and `FILE_NAME`  is the file name that is required to import with the *.csv* extension behind.
@@ -652,25 +671,25 @@ image::ReturnCSVFormat.png[]
 
 [NOTE]
 ====
-* Commas `,` are required in between of the different fields.
+* Commas `,` are required in between the different fields.
 * Prefixes are required before any value for that field.
 * `ORDER_TYPE` can only be either `order` or `return`.
 * Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
 * `ORDER_TYPE` denote the start of an delivery order or return order.
-* If there are 2 or more `ORDER_TYPE` within a single order sentence it will be treated as 2 or more orders.
+* If there are 2 or more `ORDER_TYPE` within a single CSV row, it will be treated as 2 or more orders.
 * The last value of the same type will be stored if duplicate prefix type is found in a single order sentence.
 * Duplicate and invalid order or return order will not be imported into Delino.
 * You could download a link:https://github.com/AY1920S2-CS2103T-W12-1/main/releases[sample CSV file] in our release under assets to start with.
 ====
 
 [[import-combination]]
-There are only one possible combination for the `import` Command:
+There is only one possible combination for the `import` Command:
 
 .Possible combination of Import command
 |===
 |Scenario |Command |Result
 
-| If you want to import all of the orders and return orders at once via a CSV file
+| If you want to import all of the orders and return orders at once via a CSV file.
 | `import` `orders.csv`
 | Import the contents of the CSV file, `orders.csv`, to Delino.
 
@@ -678,26 +697,28 @@ There are only one possible combination for the `import` Command:
 
 //end::import[]
 
+//@@author khsc96
 //tag::search[]
 [[search]]
 === Searching for parcels using their attributes: `search` [Done by Kenny Ho Si Chong]
-In this section, you will be able to find out how to properly <<edit-works, use>> the Search command and the relevant <<edit-examples, examples>>. +
-Why will you want to use the `search` command? If you wish to `search` for a parcel with specific keywords, the `search` command will provide you the means to do so.
+In this section, you will be able to find out how to properly <<search-works, use>> the `search` command and the relevant <<search-examples, examples>>. +
+Why will you want to use the `search` command? If you wish to search for a parcel with specific keywords, the `search` command will provide you the means to do so.
 
 
 [[search-works]]
 ==== How to use the Search command?
 
-Here is how you can `search` for any parcel containing the keywords given by following the steps below: +
+Here is how you can search for any parcel containing the keywords given by the following steps below: +
 
-*Step 1* : Type in the keyword *search* +
-*Step 2* (optional) : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return list.
+*Step 1* : Type in the keyword `search` +
+*Step 2 (optional)* : Provide `-o` flag if you want to only search for parcels in the order list. A `-r` flag also can be used to only search for parcels in the return list.
+
 [NOTE]
 ====
 If no flag is given in this step, `search` command will be performed on both the order and return list.
 ====
-*Step 3 (optional)* : If you wish to only specifically search for keyword in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
-*Step 4* : Provide any number of alphanumeric word you wish to search for in the parcel. +
+*Step 3 (optional)* : If you wish to only specifically search for keywords in a field, you should provide the `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` coupled with a front slash `/` and the keyword you want to search for. +
+*Step 4* : Provide any number of alphanumeric words you wish to search for in the parcel. +
 *Step 5* : Press `Enter` on your keyboard to see the magic!
 
 [NOTE]
@@ -710,10 +731,10 @@ If no flag is given in this step, `search` command will be performed on both the
 [[search-examples]]
 ==== What constitutes a valid Search command?
 
-The syntax for a valid `Search` command can be seen below:
+The syntax for a valid `search` command can be seen below:
 
-* `search` `<<command_flags, [FLAG]>>` `KEYWORD` `[MORE_KEYWORDS]...` OR
-* `search` `<<command_flags, [FLAG]>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
+* `search` `[<<command_flags, FLAG>>]` `KEYWORD` `[MORE_KEYWORDS]...` OR
+* `search` `[<<command_flags, FLAG>>]` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD MORE_KEYWORDS]...`
 
 [NOTE]
 ====
@@ -722,6 +743,8 @@ The syntax for a valid `Search` command can be seen below:
 * The `KEYWORD` is the word you want to search for in any of the parcel and it is case-insensitive.
 * `ORDER_ATTRIBUTE_PREFIX` is the field of the parcel you want to search for
 ====
+
+These are the possible combinations of the `search` command:
 
 .Possible Combinations of Search command
 |===
@@ -743,7 +766,7 @@ The syntax for a valid `Search` command can be seen below:
 | `search` `-o` `p/92039999` `tid/asj2od3943` `n/jeremy`
 | Return all order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
 
-| If you want to search for any parcel containing the name `Jeremy`
+| If you want to search for *any* parcel containing the name `Jeremy`.
 | `search` `n/Jeremy`
 | Return all parcel(s) with the name of `Jeremy`
 |===
@@ -757,6 +780,7 @@ The syntax for a valid `Search` command can be seen below:
 ====
 //end::search[]
 
+//@@author JeremyLoh
 //tag::nearby[]
 [[nearby]]
 === Viewing orders located at the same area or postal sector: `nearby` [Done by - Loh Jeremy Wen Jun]
@@ -844,7 +868,7 @@ A quick reference for the five areas of Singapore can be <<area_table, found her
 ==== Nearby command usage scenarios
 In this section, you will learn more about the various usage scenarios of the `nearby` command!
 
-The table below describes the possible usage scenarios of the `nearby` command:
+These are the possible combinations of the `nearby` command:
 
 .Possible Combinations of nearby command
 |===
@@ -913,25 +937,27 @@ You can obtain more information about the various postal sectors in the followin
 |===
 //end::nearby[]
 
-
+//@@author Amoscheong97
 //tag::list[]
 [[list]]
 === Listing orders : `list`  [Done by Amos Cheong Jit Hon]
-In this section, you will learn more about the List command and how to use it.
+In this section, you will learn more about the `list` command and how to use it.
 
-As a courier, you would want to take a look at all the orders that you have in your list of orders regardless of the type of orders or the order status. The List Command will enable you to
-view all these orders.
+As a courier, you would want to take a look at all the orders that you have in your list of orders regardless of the
+type of orders or the order status.
+The `list` Command will enable you to view all these orders.
+
 [[list-works]]
 ==== How does the List Command works
 
-Here are the steps to execute the List command:
+Here are the steps to execute the `list` command:
 
-*Step 1* : Type in the keyword *list*. +
+*Step 1* : Type in the keyword `list`. +
 
 *Step 2* : If you want to simply see all your delivery and return orders.
 Otherwise, please proceed to Step 3. Else, skip to Step 4 +
 
-*Step 3* : Provide the following `[KEYWORD]` : `done` (Showing all your completed orders) or `undone` (Show all your
+*Step 3* : Provide the following `[KEYWORD]` : `done` (Show all your completed orders) or `undone` (Show all your
 uncompleted orders) +
 
 *Step 4* : Press `Enter` on your keyboard and see the magic!
@@ -942,23 +968,23 @@ uncompleted orders) +
 The syntax of a valid `list` command is as shown:
 `list` `[KEYWORD]`
 
-There are three types of list commands that are shown in the examples below :
+These are the possible combinations of the `list` command:
 
 .Possible combinations of List Command
 
 |===
 |Scenario |Command |Result
 
-| Display all orders
+| Display all orders.
 | `list`
 | Show two lists of all orders. One list for delivery orders, the other for return orders
 
-| Display all completed orders
+| Display all completed orders.
 | `list` `done`
 | Show two lists of all completed orders. One list for delivery orders, the other for return orders
 
 
-| Display all uncompleted orders
+| Display all uncompleted orders.
 | `list` `undone`
 | Show two lists of all uncompleted orders. One list for delivery orders, the other for return orders
 
@@ -970,20 +996,21 @@ There are three types of list commands that are shown in the examples below :
 ====
 //end::list[]
 
+//@@author cherweijie
 //tag::delivered[]
 [[delivered]]
 === Delivering an order or return order : `delivered` [Done by - Cher Wei Jie]
-In this section, you will learn more about the Delivered command and how to use it. +
-Why would you want to use the Delivered command?
-If you have delivered an order or return order, you can mark it as delivered with the Delivered command.
+In this section, you will learn more about the `delivered` command and how to use it. +
+Why would you want to use the `delivered` command?
+If you have delivered an order or return order, you can mark it as delivered with the `delivered` command.
 
 [[delivered-works]]
 ==== How to use the Delivered command
-This section will explain the steps needed to use the Delivered command. +
+This section will explain the steps needed to use the `delivered` command. +
 
 Here is how you can mark the details of any order or return order by following the steps below: +
 
-*Step 1* : Type in the keyword *delivered* +
+*Step 1* : Type in the keyword `delivered` +
 *Step 2* : Provide the `<<command_flags, FLAG>>` corresponding to the parcel order type you want to mark as delivered +
 *Step 3* : Provide the `INDEX` of the parcel displayed on the screen that you wish to mark as delivered +
 *Step 4* : Press `Enter` on your keyboard to see the magic!
@@ -997,19 +1024,21 @@ If nothing is showing up, it means you got to <<insert, `insert`>> or <<return, 
 
 [[delivered-examples]]
 ==== What constitutes a valid Delivered command
-The syntax for a valid Delivered command can be seen below!
+The syntax for a valid `delivered` command can be seen below!
 
 * `delivered` `FLAG` `INDEX`
+
+These are the possible combinations of the `delivered` command:
 
 .Possible Combinations of Delivered command
 |===
 |Scenario |Command |Result
 
-| If you want to mark the first return order displayed on returns list as delivered, you can do this:
+| If you want to mark the first return order displayed on returns list as delivered.
 | `delivered` `-r` `1`
-| The Delivery Status of the first return order displayed on the returns list will be changed to "Returned to Warehouse"
+| The delivery status of the first return order displayed on the returns list will be changed to "Returned to Warehouse"
 
-| If you want to mark the second order displayed on the orders list, you can do this:
+| If you want to mark the second order displayed on the orders list.
 | `delivered` `-o` `2`
 | The delivery status of the second order in the order list will be changed to "Delivered".
 |===
@@ -1017,30 +1046,31 @@ The syntax for a valid Delivered command can be seen below!
 [NOTE]
 ====
 * The `INDEX` given is the parcel you will be marking as delivered.
-* The parcel will be marked as delivered after executing this delivered command.
-* If the parcel is an order, its Delivery Status will be changed from "Not Delivered" to "Delivered".
-* If the parcel is a return order, its Delivery Status will be changed from "Not returned to warehouse" to "Returned to warehouse"
+* The parcel will be marked as delivered after executing this `delivered` command.
+* If the parcel is an order, its delivery status will be changed from "Not Delivered" to "Delivered".
+* If the parcel is a return order, its delivery status will be changed from "Not returned to warehouse" to "Returned to warehouse".
 ====
 
 [WARNING]
 ====
 * The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
-* The `INDEX` *must be in range* of the number of displayed orders
+* The `INDEX` *must be in range* of the number of displayed orders.
 * Only can be used when there is at least an order or return order displayed.
 * The `FLAG` can only be either `-o` or `-r`, please refer to <<command_flags, here>> for more information.
 ====
 //end::delivered[]
 
+//@@author Amoscheong97
 //tag::show[]
 [[show]]
 === Showing statistics : `show` [Done by Amos Cheong Jit Hon]
-This section will explain more about the Show command and how to use it.
+This section will explain more about the `show` command and how to use it.
 
 At some point of time, you would want to know how many orders have you delivered or what is your earnings for today. Therefore,
-you have to use the Show Command to view those information.
+you have to use the `show` command to view those information.
 [[show-works]]
 ==== How to use the Show command
-In this section, you will learn how to use the Show Command.
+In this section, you will learn how to use the `show` Command.
 
 Here is how you can show the statistics of your orders: +
 
@@ -1089,42 +1119,43 @@ of dates
 regardless of the dates
 ====
 
-Here are the different scenarios of showing statistics :
+These are the possible combinations of the `show` command:
 
 .Possible combinations of Show Command
 |===
 |Scenario |Command |Result
 
-| Showing all the orders statistics regardless of date
+| Showing all the orders statistics regardless of date.
 | `show` `all`
-| You will be brought to the Statistics tab and the statistics of all orders will be displayed to you
+| You will be brought to the Statistics tab and the statistics of all orders will be displayed to you.
 
-| Showing the statistics for today
+| Showing the statistics for today.
 | `show` `today`
-| You will be brought to the Statistics tab and the statistics for today's orders will be displayed to you
+| You will be brought to the Statistics tab and the statistics for today's orders will be displayed to you.
 
-| Showing the statistics for the date between today and the end date provided
+| Showing the statistics for the date between today and the end date provided.
 | `show` `today` `2020-12-03`
 | You will be brought to the Statistics tab and the statistics between today's date and
-`2020-12-03` will be displayed to you
+`2020-12-03` will be displayed to you.
 
-| Showing the statistics for just the given date
+| Showing the statistics for just the given date.
 | `show` `2020-12-03`
-| You will be brought to the Statistics tab and the statistics in `2020-12-03` will be displayed to you
+| You will be brought to the Statistics tab and the statistics in `2020-12-03` will be displayed to you.
 
-| Showing the statistics within two given dates
+| Showing the statistics within two given dates.
 | `show` `2020-12-03` `2021-01-01`
 | You will be brought to the Statistics tab and the statistics for the date between `2020-12-03` and `2021-01-01`
-will be displayed to you
+will be displayed to you.
 
 |===
 //end::show[]
 
+//@@author Exeexe93
 //tag::exit[]
 [[exit]]
 === Exiting the program : `exit`
 
-In this section, you will be able to find out how to properly <<exit-works, use>> the `Exit` command and the relevant <<exit-examples, examples>>. +
+In this section, you will be able to find out how to properly <<exit-works, use>> the `exit` command and the relevant <<exit-examples, examples>>. +
 Why will you want to use the `exit` command? If you wish to exit the application, the `exit` command will allow you to do so.
 
 [[exit-works]]
@@ -1154,12 +1185,13 @@ Optionally you can click on the cross button of the application to exit!
 |===
 //end::exit[]
 
+//@@author Exeexe93
 [[saving]]
 === Saving the data
 * Data is saved in the hard disk automatically after any command that changes data that is present.
 * There is no need to save manually.
 
-
+//@@author
 == Future Features (v2.0)
 
 [[export]]
@@ -1183,11 +1215,13 @@ _{explain how the user can keep track of their work schedule}_
 _{explain how the user can view statistics such as on-time rates (difference between actual and expected
 delivery), number of deliveries completed in a day}_
 
+[[FAQ]]
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Delino folder.
 
-
+//@@author
+[[command-summary]]
 == Command Summary
 //tag::command_summary[]
 In this section, you can find out more about the commands supported by Delino
@@ -1356,6 +1390,7 @@ OR +
 |===
 //end::command_flags[]
 
+//@@author JeremyLoh
 //tag::area_table[]
 [[area_table]]
 === Area Information of Singapore
