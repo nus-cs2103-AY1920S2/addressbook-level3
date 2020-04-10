@@ -80,12 +80,12 @@ class DeleteCommandParserTest {
     }
 
     @Test
-    void parse_invalidBlock_throwParseException() throws ParseException {
+    void parse_invalidBlock_throwParseException() {
         assertThrows(ParseException.class, () -> deleteCommandParser.parse(" -t /nonExistent"));
     }
 
     @Test
-    void parse_deleteRootBlock_throwParseException() throws ParseException {
+    void parse_deleteRootBlock_throwParseException() {
         assertThrows(CommandException.class, () -> deleteCommandParser.parse(" -t /").get(0).execute(model));
     }
 }
