@@ -18,7 +18,7 @@ import com.notably.model.Model;
 public class OpenCommandParser implements CommandParser<OpenCommand> {
     private static final String ERROR_PATH = "The Path \"%s\" does not exist in the storage. "
             + "Please provide a valid Path";
-    private static final String ERROR_EMPTY_PATH = "Empty Path detected. "
+    private static final String ERROR_EMPTY_PATH = "Empty path detected. "
             + "Please provide a valid Path";
 
     private Model notablyModel;

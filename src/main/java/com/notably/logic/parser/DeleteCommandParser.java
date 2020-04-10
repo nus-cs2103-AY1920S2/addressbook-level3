@@ -16,9 +16,9 @@ import com.notably.model.Model;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
-    private static final String ERROR_EMPTY_PATH = "A empty Path is detected please enter a valid Path. "
+    private static final String ERROR_EMPTY_PATH = "An empty path is detected please enter a valid Path. "
             + "To see list of Command format, type: help";
-    private static final String ERROR_NO_MATCH_PATH = "The Path \"%s\" does not exist in the Storage";
+    private static final String ERROR_NO_MATCH_PATH = "The path \"%s\" does not exist in the Storage";
 
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
