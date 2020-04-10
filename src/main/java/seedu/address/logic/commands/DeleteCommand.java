@@ -146,12 +146,14 @@ public class DeleteCommand extends Command {
             if (deleteGrade != null) {
                 try {
                     profile.getModule(deleteModuleCode).deleteGrade();
+                    profileManager.setDisplayedView(profile);
+                    profile.updateCap();
                 } catch (ParseException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 } catch (NoSuchElementException e) {
                     throw new CommandException(String.format(MESSAGE_DELETE_GRADE_FAILURE, deleteModuleCode));
                 }
-                return new CommandResult(String.format(MESSAGE_DELETE_GRADE_SUCCESS, deleteModuleCode), false);
+                return new CommandResult(String.format(MESSAGE_DELETE_GRADE_SUCCESS, deleteModuleCode), true);
             }
 
             // Deleting a module
