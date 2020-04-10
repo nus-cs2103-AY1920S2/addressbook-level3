@@ -414,16 +414,9 @@ In designing this features, we had to decide on the placement of the `PersonalBe
 
 [options='header']
 |====================
-| Considerations | Pros and Cons
-| Put `PersonalBest` as a part of `Client` |
-*Pros*: Logically makes more sense, as each client has to have a list of exercises to themselves, and thus `PersonalBest` of each of these exercises
-
-*Cons*: Might have significant conflicts as the `Client` model is changed to include one more attribute
-
-| Put `PersonalBest` as a part of `Exercise` |
-*Pros*: Keep `Exercise` data and methods separate from `Client` data and methods
-
-*Cons*: Actually increases coupling as the logic was flawed
+| |  Put `PersonalBest` as a part of `Client`(Chosen) | Put `PersonalBest` as a part of `Exercise` 
+| *Adhering to OOP standard* | Logically makes more sense, as each client has to have a list of exercises to themselves, and thus `PersonalBest` of each of these exercises |  Actually increases coupling as the logic was flawed 
+| *Ease of Implementation* | Might have significant conflicts as the `Client` model is changed to include one more attribute | Keep `Exercise` data and methods separate from `Client` data and methods
 
 |====================
 
