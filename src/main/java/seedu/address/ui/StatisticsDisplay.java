@@ -13,6 +13,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.dayData.DayData;
 
+import java.util.List;
+
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
 
@@ -47,7 +49,7 @@ public class StatisticsDisplay extends UiPart<Region> {
         progressTarget.setText(progressTargetText + PROGRESS_UNITS);
     }
 
-    public void updateGraphs(ObservableList<DayData> customQueue) {
+    public void updateGraphs(List<DayData> customQueue) {
         XYChart.Series<String, Integer> dataSeriesPomDurationData = new XYChart.Series<>();
         XYChart.Series<String, Integer> dataSeriesTasksDoneData = new XYChart.Series<>();
 

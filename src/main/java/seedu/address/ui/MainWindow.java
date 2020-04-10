@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.SwitchTabCommand.TASKS_TAB_INDEX;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
@@ -433,7 +434,7 @@ public class MainWindow extends UiPart<Stage> {
         String progressDailyText = statisticsManager.getProgressDailyText();
         String progressBarDailyFilepathString =
                 statisticsManager.getProgressBarDailyFilepathString();
-        ObservableList<DayData> customQueue = statisticsManager.getCustomQueue();
+        List<DayData> customQueue = logic.getCustomQueue();
 
         statisticsDisplay.setProgressTargetText(dailyTargetText);
         statisticsDisplay.setProgressDailyText(progressDailyText);

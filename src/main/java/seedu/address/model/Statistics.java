@@ -17,8 +17,9 @@ import seedu.address.model.dayData.exceptions.InvalidTableException;
  * */
 public class Statistics implements ReadOnlyStatistics {
 
+    public static final String DEFAULT_DAILY_TARGET = "100";
+
     private final CustomQueue customQueue;
-    private final String DEFAULT_DAILY_TARGET = "100";
     private String dailyTarget;
 
     public Statistics() {
