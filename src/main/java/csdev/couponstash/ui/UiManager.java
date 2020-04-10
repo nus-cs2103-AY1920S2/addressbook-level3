@@ -1,5 +1,6 @@
 package csdev.couponstash.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import csdev.couponstash.MainApp;
@@ -7,6 +8,7 @@ import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.Logic;
 
+import csdev.couponstash.model.coupon.Coupon;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -25,6 +27,7 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private RemindWindow remindWindow;
 
     public UiManager(Logic logic) {
         super();
@@ -32,7 +35,7 @@ public class UiManager implements Ui {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage, List<Coupon> coupons) {
         logger.info("Starting UI...");
 
         //Set the application icon.
@@ -42,6 +45,11 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+
+            if (coupons.size() > 0) {
+                remindWindow = new RemindWindow(coupons);
+                remindWindow.show();
+            }
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

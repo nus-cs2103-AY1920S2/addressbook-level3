@@ -78,14 +78,14 @@ public class Usage {
      * Returns new {@code Usage} with an increase of 1 in value.
      */
     public Usage increaseUsageByOne() {
-        return increaseUsage("1");
+        return increaseUsage(1);
     }
 
     /**
      * Returns new {@code Usage} with an increase of {@code numberOfTimes} in value.
      */
-    public Usage increaseUsage(String numberOfTimes) {
-        Integer finalValue = Integer.parseInt(numberOfTimes) + value;
+    public Usage increaseUsage(int numberOfTimes) {
+        int finalValue = numberOfTimes + value;
         return new Usage(finalValue);
     }
 

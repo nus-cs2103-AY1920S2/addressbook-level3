@@ -32,11 +32,6 @@ The *_Architecture Diagram_* given above explains the high-level design of the
 App.
 Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the
-link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create
-and edit diagrams.
 
 `Main` has two classes called
 link:{repoURL}/src/main/java/csdev/couponstash/Main.java[`Main`] and
@@ -67,13 +62,6 @@ Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines
-it's API in the `Logic.java` interface and exposes its functionality using the
-`LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -457,16 +445,15 @@ coupon. The following methods in the `CouponStash`,
 `Coupon`, `Usage` class and the `Model` interface facilitates this feature:
 
 * `CouponStash#archiveExpiredCoupons()` -- Archives any coupon in the
-CouponStash that has expired, and returns a new updated CouponStash.
+`CouponStash` that has expired, and returns a new updated `CouponStash`.
 * `Coupon#increaseUsageByOne()` - Increases the usage of a coupon by one.
 * `Usage#isUsageAtLimit` - Returns true if the current usage is at its limit
 (abstracted by the `Limit` field).
-* `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A Predicate function that filters
-out archived coupons from a given CouponStash.
+* `Model#PREDICATE_SHOW_ALL_ACTIVE_COUPONS` - A `Predicate` function that filters
+out archived coupons from a given `CouponStash`.
 
 [#img-archiving]
-.Overview class diagram representation of the the coupon archiving
-implementation
+.Overview class diagram representation of the the coupon archiving implementation
 image::ArchivingClassDiagram.png[ArchivingClassDiagram]
 
 Given below is two example usage scenarios and how the archiving mechanism
@@ -1167,7 +1154,7 @@ Use case ends.
 ** 1b1. STASH informs the user that the list is empty.
 ** Use case ends
 
-=== **_Use Case: UC3 - Mark a coupon as used_**
+=== **Use Case: UC3 - Mark a coupon as used**
 **Actor**: `user` +
 **Pre-condition**: User has opened the application
 
@@ -1210,7 +1197,7 @@ done.
 ** 1c1. STASH informs user that coupon has been prevously marked as done.
 ** Use case ends.
 
-=== **_Use Case: UC4 - Find coupon(s) by keyword(s)_**
+=== **Use Case: UC4 - Find coupon(s) by keyword(s)**
 **Actor**: `user` +
 **Pre-condition**: User has opened the application
 
@@ -1548,15 +1535,22 @@ testers are expected to do more _exploratory_ testing.
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may
-not be optimum.
+   Expected: Shows the GUI with a set of sample coupons.
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different
 location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-_{ more test cases ... }_
+
+=== Adding a coupon
+
+. Adding a coupon
+
+.. Test case: `add n/Popular Bookstore e/31-12-2020 s/10%` +
+Expected: Coupon Popular Bookstore is added to the list. `Start Date` is set to
+today's date, while the Remind Date is set to 3 days before the specified
+`Expiry Date`. In this case, it would be 28-12-2020.
 
 === Deleting a coupon
 
@@ -1575,13 +1569,3 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is
 larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected
-behavior}_
-_{ more test cases ... }_

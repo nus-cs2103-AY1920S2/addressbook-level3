@@ -28,7 +28,6 @@ import csdev.couponstash.storage.JsonUserPrefsStorage;
 import csdev.couponstash.storage.Storage;
 import csdev.couponstash.storage.StorageManager;
 import csdev.couponstash.storage.UserPrefsStorage;
-import csdev.couponstash.ui.RemindWindow;
 import csdev.couponstash.ui.Ui;
 import csdev.couponstash.ui.UiManager;
 
@@ -172,10 +171,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting CouponStash " + MainApp.VERSION);
-        ui.start(primaryStage);
-
         List<Coupon> lastShownList = model.getFilteredCouponList();
-        RemindWindow.showRemind(lastShownList);
+        ui.start(primaryStage, lastShownList);
     }
 
     @Override
