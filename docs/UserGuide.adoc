@@ -287,10 +287,17 @@ NOTE: The module name, prerequisites, modular credits, description and semesters
 
 // tag::delete[]
 [[Delete]]
-=== Deleting a task / module / profile: `delete`
-To remove a task, module or profile from *MODdy*, use the `delete` command.
+=== Deleting a grade / task / module / profile: `delete`
+To remove a grade, task, module or profile from *MODdy*, use the `delete` command.
 
-There are *three* ways you can use the `delete` command:
+There are *four* ways you can use the `delete` command:
+
+==== Deleting a grade +
+If you have been using MODdy to simulate your grades or you have entered a grade for the wrong module, you can delete the grade using the command below. The effect of using this command is shown in the figure below.
+
+Format: `delete m/MODULE_CODE g/`
+
+(to include screenshot of MODdy on Mac and the caption)
 
 ==== Deleting a task +
 Once you have completed a task, you can delete it using the command below. The effect of using this command is shown in the figure below.
@@ -393,8 +400,8 @@ e.g. `show y/4`, `show c/information systems`, `show f/electronic commerce`, `sh
 
 * <<Delete, *Delete*>> : `delete n/NAME` +
 e.g. `delete n/Brad` +
-or `delete m/MODULE_CODE [t/TASK]` +
-e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`
+or `delete m/MODULE_CODE [t/TASK] [g/]` +
+e.g. `delete m/CS2107`, `delete m/CS2103 t/Project Submission`, `delete m/CS2105 g/` +
 
 * <<Home, *Home*>> : `home`
 

@@ -293,26 +293,28 @@ image::EditSequenceDiagram.png[]
 - By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
 
 // tag::delete[]
-=== Delete Profile / Module / Deadline Feature
+=== Delete Profile / Module / Deadline / Grade Feature
 
 The delete profile feature is a complementary feature to the new profile feature. It enables the removal of a profile from a `ProfileList`. This also deletes all modules and their deadlines under the `Profile`. This `delete` feature can be used by appending the command with the tag `n/name`
 
 In addition, the delete module feature is a complementary feature to the add module feature. It enables the removal of a `Module` from the list of modules the user is taking in his `Profile`. As a consequence, all deadlines stored under the module will be deleted. This `delete` feature can be used by appending the command with the tag `m/module_code`.
 
-Lastly, the delete deadline feature is a complementary feature to the add deadline feature. It enables the removal of a `Deadline` of a particular `Module`. This `delete` feature can be used by appending the command with the tags `m/module_code` and `t/deadline`.
+Next, the delete deadline feature is a complementary feature to the add deadline feature. It enables the removal of a `Deadline` of a particular `Module`. This `delete` feature can be used by appending the command with the tags `m/module_code` and `t/deadline`.
+
+Lastly, the delete grade feature enables the removal of a `Grade` from a particular `Module`. This `delete` feature can be used by appending the command with the tags `m/module_code` and `g/` without any grade.
 
 ==== Current Implementations
 
 `DeleteCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `DeleteCommand` is parsed using `DeleteCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows the interactions between `Ui`, `Logic` and `Model` components when a module is deleted.
+The following sequence diagram shows the interactions between `Ui`, `Logic` and `Model` components when a task is deleted.
 
 .Interactions between `Ui`, `Logic` and `Model` components for the `delete m/CS2101 t/work` command.
 image::DeleteDeadlineSequenceDiagram.png[]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):* Delete only one `Profile`, `Module` or `Deadline` object with one delete command
+* *Alternative 1 (current choice):* Delete only one `Module` or `Deadline` object with one delete command
 ** Pros: Easier to implement and consistent across all inputs
 ** Cons: More to type if user intends to delete multiple `Module` objects or `Deadline` objects
 
