@@ -143,21 +143,6 @@ public class EditStudentCommandParserTest {
                 Name.MESSAGE_CONSTRAINTS);
     }
 
-    // @Test
-    // public void parse_allFieldsSpecified_success() {
-    //     Index targetIndex = INDEX_SECOND_STUDENT;
-    //     String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-    //             + EMAIL_DESC_AMY + MATRIC_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
-    //
-    //     EditStudentDescriptor descriptor =
-    //             new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
-    //             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withMatric(VALID_MATRIC_AMY)
-    //             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    //     EditStudentCommand expectedCommand = new EditStudentCommand(targetIndex, descriptor);
-    //
-    //     assertParseSuccess(parser, userInput, expectedCommand);
-    // }
-
     @Test
     public void parse_allFieldsSpecified_success() {
         String userInput = MATRIC_DESC_AMY + MODULE_DESC_CS2030 + GROUP_DESC_T04 + NAME_DESC_AMY
