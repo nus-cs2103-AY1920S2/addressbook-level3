@@ -10,39 +10,46 @@
 == Overview
 
 Nice & Amazing Student Assistant (NASA) is an application for busy university students to manage their module
-assignments, lessons, exams and consultations etc.
+assignments, lessons, exams and other miscellaneous activities.
+
+While NASA has a user-centric Graphical User Interface, it is optimized for users who prefer to work with the
+Command Line Interface (CLI). If you can type fast, NASA can keep track of all your module activities faster than
+traditional GUI applications.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added *the ability to export data on NASA via QR code*
+** What it does: allows the user to export their deadlines and events by scanning the generated QR code with any QR code enabled scanners and smartphones.
+** Justification: This feature allows users to copy their deadlines and events to their phone conveniently, for easy reference on their mobile devices.
+** Highlights: This enhancement utilises ZXing, a 3rd party library, which outputs a QR code from an input byte array. A solid understanding of parsing strings to byte array, and rendering the resultant byte array as an image is needed. In the UI implementation, the resolution of the QR code is adjusted accordingly to the amount of data contained by the QR code to optimise QR code scan success rate.
+** Credits: ZXing
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Added *sorting of deadline via various sort criteria like name, due date, and priority.* This helps the user to navigate deadlines with ease.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=don-tay&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&since=2020-02-14&until=2020-04-10&tabType=authorship&tabAuthor=don-tay&tabRepo=AY1920S2-CS2103T-T10-4%2Fmain%5Bmaster%5D[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI display for activity priority (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/185[#185])
+*** Wrote all edit command and logic for modules, activities, deadlines, and events (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/113[#113] https://github.com/AY1920S2-CS2103T-T10-4/main/pull/260[#260])
+*** Wrote additional tests for existing features to increase coverage from 62.3% to 69.4% (Pull requests https://github.com/AY1920S2-CS2103T-T10-4/main/pull/113[#113], https://github.com[#38])
+*** Add regeneration helper class for teammate's repeat feature (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/103[#103])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: (Pull request https://github.com[#14])
+*** Wrote the team's Developer Guide Non-Functional Requirements (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/57[#57])
+*** Wrote the FAQ section for the User Guide (Pull request https://github.com/AY1920S2-CS2103T-T10-4/main/pull/159/files[#159])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S2-CS2103T-T10-4/main/pull/104[#104],
+https://github.com/AY1920S2-CS2103T-T10-4/main/pull/115[#115],
+https://github.com/AY1920S2-CS2103T-T10-4/main/pull/126[#126],
+https://github.com/AY1920S2-CS2103T-T10-4/main/pull/155[#155]
+*** Reported bugs and suggestions for other teams in the class (example:  https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/36#pullrequestreview-381674310[#36])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (ZXing) to the project (https://github.com[#42])
 
 == Contributions to the User Guide
 
@@ -51,9 +58,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=edit]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=export]
+
+include::../UserGuide.adoc[tag=faq]
 
 == Contributions to the Developer Guide
 
@@ -61,13 +72,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=sort]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=nfr]
