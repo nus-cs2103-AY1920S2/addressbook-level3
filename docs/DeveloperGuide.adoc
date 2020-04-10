@@ -1041,6 +1041,7 @@ The exception will be thrown in the `NearbyCommandParser`.
 
 //end::nearby[]
 
+//tag::help[]
 [[help]]
 === Help Feature
 In this section, the <<what-is-import, functionality>> of the `help` feature,
@@ -1084,8 +1085,37 @@ and its associated classes and interfaces. Some methods and fields are not inclu
 not extensively utilised in `HelpCommand`; such as public static fields and getter/setter methods.
 
 [[help-interactions]]
-==== Sequence Diagram for the Help Feature
+==== Interactions between objects when Help Command is executed
 
+==== Sequence Diagram for executing the Help Command
+The sequence diagrams for the *Help Command* are shown below.
+
+.Help Command Sequence Diagram
+image::HelpCommandSequenceDiagram.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`return` command word that will be parsed. +
+
+Then, a `HelpCommandParser` object will be created to parse the arguments after removing
+the command word `help` from the user's input. Based on the command word `help`,
+a `HelpCommand` object will be created. The parse() method in `HelpCommand` will
+check the validity of the user's input to see if there are any non-whitespace characters following
+the `help` command word. +
+
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input. +
+
+If the user input is invalid, i.e. there are non-whitespace characters after the `help` command word,
+a ParseException object will be created in the `parse` method in `HelpCommandParser`
+and an error message will be displayed to the user. +
+
+If the user input is valid, i.e. there are no non-whitespace characters after the `help` command word,
+the `parse` method of `HelpCommandParser` will return a new HelpCommand. +
+
+Then, a new `CommandResult` will be created based on the user input. This will then display the
+success message to the user.
+//end::help[]
 
 //tag::import[]
 [[import]]
