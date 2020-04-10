@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 
 /**
@@ -62,21 +63,29 @@ public class AddInfoCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        ArrayList<Remark> updatedRemarks = new ArrayList<>();
+        for (Remark i : personToEdit.getRemark()) {
+            updatedRemarks.add(i);
+        }
+
         if (remarks.size() != 0) {
             for (int i = 0; i < remarks.size(); i++) {
-                newRemarks = personToEdit.getRemark();
-                newRemarks.add(remarks.get(i));
+                updatedRemarks.add(remarks.get(i));
             }
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
-                personToEdit.getEmail(), personToEdit.getAddress(), getRemarks().orElse(personToEdit.getRemark()),
+                personToEdit.getEmail(), personToEdit.getAddress(), updatedRemarks,
                 personToEdit.getBirthday(), personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        model.updateFilteredPersonListResult(personExistPredicate);
+
+        return new CommandResult(generateSuccessMessage(editedPerson),
+                false, false, true, false, false, false, false, false);
     }
 
     /**
