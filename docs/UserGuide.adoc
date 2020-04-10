@@ -1048,7 +1048,7 @@ Example:
 All sessions in the *Claims View* with module code `CS2103T` are displayed.
 ====
 
-==== Changing the hourly rate : `set rate`
+==== Changing the hourly rate : `setrate`
 
 Sets the hourly rate for the total income and claim computation.
 
