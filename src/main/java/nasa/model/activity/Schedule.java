@@ -96,7 +96,6 @@ public class Schedule {
 
     /**
      * Initialize schedules.
-     * @param int
      */
     public void init() {
         switch (type) {

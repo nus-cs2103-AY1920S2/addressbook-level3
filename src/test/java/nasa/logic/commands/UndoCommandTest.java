@@ -19,7 +19,8 @@ import nasa.testutil.TypicalModules;
 
 public class UndoCommandTest {
 
-    private Model model = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(),
+            new HistoryBook<>(), new UserPrefs());
 
     @Test
     void multipleUndoCheck() {

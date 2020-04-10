@@ -19,8 +19,8 @@ public class EventBuilder {
     public static final String DEFAULT_NAME = VALID_ACTIVITY_NAME_EXAM;
     public static final String DEFAULT_DATE = "19-10-2020 03:00";
     public static final String DEFAULT_NOTE = VALID_NOTES_TEST;
-    public static final String DEFAULT_TO_DATE = VALID_DATE_TEST;
-    public static final String DEFAULT_FROM_DATE = VALID_DATE_TEST_2;
+    public static final String DEFAULT_FROM_DATE = VALID_DATE_TEST;
+    public static final String DEFAULT_TO_DATE = VALID_DATE_TEST_2;
 
     private Name name;
     private Date date;
@@ -95,7 +95,7 @@ public class EventBuilder {
      * Build an activity accordingly.
      */
     public Event build() {
-        Event event =  new Event(name, fromDate, toDate);
+        Event event = new Event(name, fromDate, toDate);
         event.setNote(note);
         return event;
     }

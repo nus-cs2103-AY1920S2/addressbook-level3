@@ -29,10 +29,8 @@ import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
-import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.logic.parser.addcommandparser.AddDeadlineCommandParser;
 import nasa.logic.parser.addcommandparser.AddEventCommandParser;
-import nasa.logic.parser.addcommandparser.AddLessonCommandParser;
 import nasa.logic.parser.exceptions.ParseException;
 
 /**
@@ -65,9 +63,6 @@ public class NasaBookParser {
 
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
-
-        case AddLessonCommand.COMMAND_WORD:
-            return new AddLessonCommandParser().parse(arguments);
 
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
@@ -112,7 +107,7 @@ public class NasaBookParser {
             return new HelpCommand();
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();

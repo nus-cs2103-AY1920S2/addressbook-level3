@@ -13,14 +13,15 @@ import nasa.model.module.ModuleCode;
 
 /**
  * Constructor to delete an event.
+ * Parser for {@code DeleteEventCommand}.
  */
 public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
 
     /**
-     * Parse argument and return delete event command.
-     * @param args String
-     * @return DeleteEventCommand
-     * @throws ParseException error
+     * Parses user input argument and returns a {@code DeleteEventCommand}.
+     * @param args user input argument
+     * @return {@code DeleteEventCommand}
+     * @throws ParseException
      */
     public DeleteEventCommand parse(String args) throws ParseException {
         requireNonNull(args);

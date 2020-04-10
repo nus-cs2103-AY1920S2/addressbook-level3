@@ -87,12 +87,12 @@ public class Module {
         return eventList;
     }
 
-    public void setDeadlines(List<Deadline> deadlines) {
-        deadlineList.setActivities(deadlines);
-    }
-
     public void setDeadlines(UniqueDeadlineList replacement) {
         deadlineList.setActivities(replacement);
+    }
+
+    public void setDeadlines(List<Deadline> deadlines) {
+        deadlineList.setActivities(deadlines);
     }
 
     public void setEvents(UniqueEventList replacement) {
@@ -161,7 +161,7 @@ public class Module {
     }
 
     /**
-     * Update filtered activity list.
+     * Updates module's underlying filtered activity lists
      * @param predicate Predicate
      */
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
@@ -193,8 +193,8 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getModuleCode().equals(getModuleCode()) && otherModule.getModuleName()
-                .equals(getModuleName());
+        return otherModule.getModuleCode().equals(getModuleCode())
+                && otherModule.getModuleName().equals(getModuleName());
     }
 
     @Override
@@ -203,9 +203,9 @@ public class Module {
     }
 
     /**
-     * Check whether module has the deadline.
-     * @param deadline Deadline
-     * @return boolean
+     * Returns true if deadline is found in the module's {@code UniqueDeadlineList}.
+     * @param deadline
+     * @return true if deadline is present in the module's deadline list
      */
     public boolean hasDeadline(Deadline deadline) {
         for (Deadline currentDeadline : deadlineList.getActivityList()) {
@@ -217,9 +217,9 @@ public class Module {
     }
 
     /**
-     * Check whether module has the event.
-     * @param event Event
-     * @return boolean
+     * Returns true if event is found in the module's {@code UniqueEventList}.
+     * @param event
+     * @return true if event is present in the module's event list
      */
     public boolean hasEvent(Event event) {
         for (Event currentEvent : eventList.getActivityList()) {
@@ -231,9 +231,9 @@ public class Module {
     }
 
     /**
-     * Check whether module has activity.
-     * @param activity Activity
-     * @return boolean
+     * Returns true if activity is found in the module.
+     * @param activity
+     * @return true if activity is present in the module
      */
     public boolean hasActivity(Activity activity) {
         if (activity instanceof Deadline) {

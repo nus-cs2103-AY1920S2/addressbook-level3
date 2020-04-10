@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import nasa.model.NasaBook;
-import nasa.model.activity.Event;
 import nasa.model.module.Module;
 
 /**
@@ -63,6 +62,6 @@ public class TypicalModules {
     }
 
     public static List<Module> getTypicalModules() {
-        return new ArrayList<>(Arrays.asList(CS2103T, CS2106));
+        return new ArrayList<>(Arrays.asList(CS2103T, GEH1001));
     }
 }

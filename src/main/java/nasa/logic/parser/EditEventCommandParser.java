@@ -30,8 +30,7 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_NOTE,
-                        PREFIX_PRIORITY,
-                        PREFIX_ACTIVITY_NAME);
+                        PREFIX_PRIORITY, PREFIX_ACTIVITY_NAME);
 
         Index index;
         ModuleCode moduleCode;

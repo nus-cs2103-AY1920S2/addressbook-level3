@@ -65,13 +65,15 @@ public class UniqueModuleList implements Iterable<Module> {
      * @param editedModule Module
      */
     public void setModule(ModuleCode target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+        ModuleCode editedModuleCode = editedModule.getModuleCode();
         int index = internalList.indexOf(getModule(target));
         if (index == -1) {
             throw new ModuleNotFoundException();
         }
 
-        if (!target.equals(editedModule) && contains(editedModule.getModuleCode())) {
-            // case when editedModule is a non-target module that already exists in { @code UniqueModuleList }
+        // case when editedModule is a non-target module that already exists in { @code UniqueModuleList }
+        if (!target.equals(editedModuleCode) && contains(editedModuleCode)) {
             throw new DuplicateModuleException();
         }
 

@@ -102,9 +102,9 @@ class JsonAdaptedEvent {
         }
         final Date modelEndDate = new Date(endDate);
         final Schedule modelSchedule = new Schedule(schedule);
+
         Event event = new Event(modelName, modelDate, modelNote, eventStartDate, modelEndDate);
         event.setSchedule(modelSchedule);
-
         return event;
     }
 }

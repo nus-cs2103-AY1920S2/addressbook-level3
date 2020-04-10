@@ -22,7 +22,6 @@ import nasa.model.module.ModuleCode;
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
     private static final int NUM_ARGS_TO_EDIT_MODULE_CODE = 2;
-    // Number of module code args to trigger an edit of module code
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditModuleCommand
@@ -48,8 +47,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
         List<String> allModuleCodeParsed = argMultimap.getAllValues(PREFIX_MODULE);
 
+        // case when exactly 2 module code is entered, allowing for module code to be edited
         if (isModuleCodeEditable(allModuleCodeParsed)) {
-            // case when exactly 2 module code is entered, allowing for module code to be edited
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULE_NAME).isPresent()) {

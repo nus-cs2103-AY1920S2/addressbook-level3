@@ -59,6 +59,9 @@ public class FindCommand extends Command {
             model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
             return new CommandResult(MESSAGE_REFRESH);
         }
+//        model.updateFilteredActivityList(predicate);
+//        return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
+//            getNumberOfFilteredActivities(model.getFilteredModuleList())));
     }
 
     private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {

@@ -324,11 +324,10 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
-     * Check whether nasa book has the activity.
-     *
-     * @param moduleCode ModuleCode
-     * @param activity   Activity
-     * @return boolean
+     * Returns true if activity is found in the module with {@code moduleCode}
+     * @param moduleCode module code of the module to be searched
+     * @param activity activity to be searched
+     * @return true if activity found in the module, else false
      */
     public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
         Module module = getModule(moduleCode);

@@ -42,8 +42,6 @@ public class Event extends Activity {
         super(name, date, note);
         this.startDate = startDate;
         this.endDate = endDate;
-        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
-        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
     }
 
     public Date getStartDate() {
@@ -67,9 +65,9 @@ public class Event extends Activity {
     }
 
     /**
-     * Check correct starting date.
-     * @param startDate Date
-     * @return boolean
+     * Returns true if start date is valid (ie. start date is after end date)
+     * @param startDate
+     * @return
      */
     public boolean isValidStartDate(Date startDate) {
         requireAllNonNull(startDate);
@@ -77,9 +75,9 @@ public class Event extends Activity {
     }
 
     /**
-     * Check valid end date.
-     * @param endDate Date
-     * @return boolean
+     * Returns true if end date is valid (ie. end date is after start date)
+     * @param endDate
+     * @return
      */
     public boolean isValidEndDate(Date endDate) {
         requireAllNonNull(endDate);
@@ -126,7 +124,7 @@ public class Event extends Activity {
 
     @Override
     public Activity deepCopy() {
-        Event event = new Event(getName(), getStartDate(), getStartDate());
+        Event event = new Event(getName(), getStartDate(), getEndDate());
         event.setNote(getNote());
         event.setDateCreated(getDateCreated());
         event.setSchedule(getSchedule().getDeepCopy());
@@ -137,16 +135,25 @@ public class Event extends Activity {
         return isOver;
     }
 
-    @Override
-    public boolean equals(Object other) {
+    /**
+     * Returns true if both are the same event with same event attributes.
+     * This defines a stronger notion of equality between two events.
+     */
+    public boolean isSameEvent(Object other) {
+        if (other == this) {
+            return true;
+        }
+
         if (!(other instanceof Event)) {
             return false;
         }
 
-        Event event = (Event) other;
-        return event.startDate.equals(((Event) other).startDate)
-            && event.endDate.equals(((Event) other).endDate)
-            && event.getNote().equals(((Event) other).getNote())
-            && event.getName().equals(((Event) other).getName());
+        Event otherEvent = (Event) other;
+        return otherEvent.getName().equals(getName())
+                && otherEvent.getStartDate().equals(getEndDate())
+                && otherEvent.getEndDate().equals(getEndDate())
+                && otherEvent.getDateCreated().equals(getDateCreated())
+                && otherEvent.getNote().equals(getNote());
     }
+
 }

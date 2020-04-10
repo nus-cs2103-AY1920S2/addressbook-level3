@@ -1,6 +1,5 @@
 package nasa.testutil;
 
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 

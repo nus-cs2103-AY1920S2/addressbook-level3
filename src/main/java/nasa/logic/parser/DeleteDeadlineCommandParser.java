@@ -12,14 +12,14 @@ import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
 /**
- * Parser for delete deadline command.
+ * Parser for {@code DeleteDeadlineCommand}.
  */
 public class DeleteDeadlineCommandParser implements Parser<DeleteDeadlineCommand> {
 
     /**
-     * Parse a deadline command.
-     * @param args String
-     * @return DeleteDeadlineCommand
+     * Parses user input argument and returns a {@code DeleteDeadlineCommand}.
+     * @param args user input argument
+     * @return {@code DeleteDeadlineCommand}
      * @throws ParseException
      */
     public DeleteDeadlineCommand parse(String args) throws ParseException {

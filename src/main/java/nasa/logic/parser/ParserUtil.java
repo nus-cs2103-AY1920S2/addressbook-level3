@@ -162,6 +162,7 @@ public class ParserUtil {
     public static SortMethod parseSortMethod(String sortMethod) throws ParseException {
         requireNonNull(sortMethod);
         String sortMethodTrimmed = sortMethod.trim();
+
         if (!SortMethod.isValidSortMethod(sortMethodTrimmed)) {
             throw new ParseException(SortMethod.MESSAGE_CONSTRAINTS);
         }

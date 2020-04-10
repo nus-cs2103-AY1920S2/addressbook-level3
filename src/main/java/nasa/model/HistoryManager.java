@@ -2,8 +2,6 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import javafx.collections.ObservableList;
 
 /**
