@@ -363,6 +363,12 @@ The `Model`,
 * these lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+The following class diagram shows the relationship between the different classes
+in the model component.
+
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[]
+
 [[Design-Storage]]
 === Storage component
 The following diagram is a simplified view of the Storage component.
@@ -602,7 +608,7 @@ destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
 2. The `TaTrackerParser` sees that the command is of type *student* and passes the
-command to the `StudentCommandParse`r.
+command to the `StudentCommandParser`.
 
 3. The `StudentCommandParser` sees that the command is of type *add* and passes the
 arguments to the `AddStudentCommandParser`.
@@ -639,7 +645,8 @@ command to the `StudentCommandParser`.
 3. The `StudentCommandParser` sees that the command is of type *delete* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
-4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number
+4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number,
+`A0181234G`.
 
 5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
 it the created student. The parser then returns the `DeleteStudentCommand`
@@ -746,16 +753,16 @@ is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 [[SessionView]]
 === Session View
 
-*Session View* is the term used to call the view that contains a list of all sessions
+*Session View* is the term used to refer to the view that contains a list of all sessions
 that haven't been completed yet.
 
 ==== Model Framework
 
 The following class diagram shows how different classes are related in the functioning
-of the *Session View* alongside the classes used in *Student View*.
+of the *Session View*.
 
-.Model Components - Class Diagram
-image::ModelComponentsClassDiagram.png[]
+.Class Diagram of Session View
+image::SessionModelClassDiagram.png[]
 
 The TaTracker model class contains a `UniqueSessionList` which helps keep track of
 all the *upcoming sessions* the user has.
@@ -1066,9 +1073,9 @@ The different filter commands exist to make it easier to search for relevant inf
 under each view.
 
 ==== Implementation
-This section describes in the implementation of the filter command.
+This section describes the implementation of the `filter` command.
 
-The activity diagram below summarises what happens when the user executes a filter command :
+The activity diagram below summarises what happens when the user executes a `filter` command :
 
 .Activity Diagram of the Filter Command
 image::FilterCommandActivityDiagram.png[]
@@ -1077,11 +1084,11 @@ image::FilterCommandActivityDiagram.png[]
 
 The filter feature consists of three main parts:
 
-1. Validating and parsing user input
+1. *Validating and parsing* user input
 
-2. Creating a filtering predicate from user's input
+2. Creating a *filtering predicate* from user's input
 
-3. Updating the filtered list with the filtering predicate
+3. *Updating the filtered* list with the *filtering predicate*
 
 *Filter under Student View*
 
@@ -1194,9 +1201,12 @@ I forget about them
 |`* * *` |TA |store contact details of my students |I can contact them with ease whenever
 necessary
 
+|`* * *` |TA |see an overview upcoming tasks I have | plan my schedule accordingly
+
 |`* * *` |TA |see all my claimable hours in one place |type my claims easily at the end of the semester
 
-|`* * *` |user |change between the different pages |view the information on the different pages
+|`* * *` |user |switch between the different views using command line |view the
+information in the different views
 
 |`* * *` |TA |add students to a group in a particular module | So that I know which group which student belongs to
 
@@ -1213,6 +1223,9 @@ necessary
 |`* * *` |TA |schedule consultation sessions with my students |keep track of claimable hours spent in consultations
 
 |`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* *` |TA |get information on how much money I've earned so far |keep track of how
+much money I have earned and stay motivated
 
 |`* *` |TA |give students ratings |keep a track of student participation in class
 
