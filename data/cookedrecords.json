@@ -1,3 +1,11 @@
 {
-  "records" : [ ]
+  "records" : [ {
+    "name" : "5 Ingredient Spelt Spaghetti",
+    "date" : "2020-04-11",
+    "goals" : [ "Wholesome Wholemeal" ]
+  }, {
+    "name" : "Quick Carrot Daikon Stir-fry",
+    "date" : "2020-04-11",
+    "goals" : [ ]
+  } ]
 }
