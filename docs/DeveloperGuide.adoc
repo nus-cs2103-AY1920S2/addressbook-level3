@@ -216,13 +216,10 @@ We iterate through all allowed sort fields and all fields in the input then perf
 If either the above conditions are hit, we complete the input with the sort field
 
 ==== Prefix Completion
-// TODO Add/edit activity diagram
-// TODO explain why those 2 prefixes 
-
-// TODO Pom just sets prefix on second number
+// DONE Add/edit activity diagram
 
 ==== Index Completion
-// TODO sequence diagram for this
+// DONE activity diagram for this
 
 
 ==== Auto Complete output:
@@ -236,23 +233,20 @@ An auto complete can be labelled as both a success and a warning if some fields 
 =====
 
 ==== Auto Complete UI
-// TODO add sequence diagram of how it is updated
+// DONE add sequence diagram of how it is updated
 To handle the above case where an auto complete can be both a warning and a success, we update the command line text color to reflect success and warning while only updating the user feedback for warnings. This allows us to inform users when input has been removed so that they are aware.
 
 
 ==== Auto Complete Success UI
-// TODO sequence diagram for completion
-// TODO sequence diagram for warning
 
 ==== Auto Complete Failure UI
-// TODO sequence diagram for failure
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
 
 We perform the match by taking chunks of the task name whereby a chunk = number of words used in the search term and performing some calculation between the search terms and those chunks.
 
-// TODO activity diagram for calculation of edit distance
+// DONE activity diagram for calculation of edit distance
 * We chose to not use edit distance for keywords of less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
 * We also chose to display task names who's start matches the search term for ease of usage
 * We've enabled searching by phrase so that users are able to find more specific tasks
