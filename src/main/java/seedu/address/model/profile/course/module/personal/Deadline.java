@@ -3,7 +3,6 @@ package seedu.address.model.profile.course.module.personal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
@@ -23,8 +22,7 @@ public class Deadline {
     protected LocalTime time;
     private String tag;
 
-    private String inputTimePattern = "HH:mm";
-    private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
+    private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public Deadline(String moduleCode, String description, LocalDate date, LocalTime time) {
         this.moduleCode = moduleCode;
@@ -94,35 +92,6 @@ public class Deadline {
         return inputTimeFormatter;
     }
 
-    public String getInputTimePattern() {
-        return inputTimePattern;
-    }
-
-    /**
-     * Returns true if the given date and time are valid.
-     */
-    public static boolean isValidDeadline(String date, String time) { // No point checking the description/task
-        try {
-            LocalDate.parse(date);
-            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Returns true if the given date are valid.
-     */
-    public static boolean isValidDate(String date) {
-        try {
-            LocalDate.parse(date);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-    }
-
     public String getModuleCode() {
         return this.moduleCode;
     }
@@ -157,14 +126,8 @@ public class Deadline {
             return true;
         }
         if (other instanceof Deadline) {
-            boolean sameDescription = this.description.equals(((Deadline) other).description);
-            boolean sameDate = (this.date == null && ((Deadline) other).date == null)
-                    || (this.date != null && ((Deadline) other).date != null
-                    && this.date.equals(((Deadline) other).date));
-            boolean sameTime = (this.time == null && ((Deadline) other).time == null)
-                    || (this.time != null && ((Deadline) other).time != null
-                    && this.time.equals(((Deadline) other).time));
-            return sameDescription && sameDate && sameTime;
+            Deadline otherDeadline = (Deadline) other;
+            return this.description.toUpperCase().equals(otherDeadline.getDescription().toUpperCase());
         }
         return false;
     }
