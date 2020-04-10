@@ -58,7 +58,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_DEADLINE)) {
             task = argMultimap.getValue(PREFIX_TASK).get();
-            String datetime[] = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+            String[] datetime = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
             String dateString = datetime[0];
             String timeString = datetime[1];
 

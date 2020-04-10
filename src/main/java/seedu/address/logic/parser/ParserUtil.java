@@ -139,7 +139,7 @@ public class ParserUtil {
             if (!Deadline.isValidDate(trimmedDeadline)) {
                 throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
             }
-            String datetime[] = {trimmedDeadline, "23:59"};
+            String[] datetime = {trimmedDeadline, "23:59"};
             return datetime;
         } else {
             String[] dateTime = trimmedDeadline.split(" ");
