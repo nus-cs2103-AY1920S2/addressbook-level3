@@ -41,7 +41,6 @@ public class CommandBox extends ViewPart<Region> {
      * the user types in the model, and also reflects changes in the model to the text field.
      */
     private void initializeListeners(StringProperty stringProperty) {
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandTextField.textProperty().bindBidirectional(stringProperty);
         commandTextField.focusedProperty().addListener((observable, unused, isNowFocused) -> {
@@ -53,7 +52,7 @@ public class CommandBox extends ViewPart<Region> {
     }
 
     /**
-     * Listens for keystrokes that signify the event where the user navigates out of the Suggestions List.
+     * Listens for keystrokes that signify the event where the user navigates out of the CommandBox.
      * Gives control to the {@link SuggestionsWindowView}.
      */
     private void setNavigationHandler() {
