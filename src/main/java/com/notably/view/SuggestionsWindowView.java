@@ -46,6 +46,7 @@ public class SuggestionsWindowView extends ViewPart<Region> {
 
     /**
      * Sets listeners to update the visibility of the {@code SuggestionsWindow}, and its components.
+     *
      * @param suggestionsList The current list of suggestions from the model.
      * @param responseTextProperty The info text to be displayed above the suggestions list, if any.
      */
@@ -55,9 +56,9 @@ public class SuggestionsWindowView extends ViewPart<Region> {
             Optional<String> response = responseTextProperty.getValue();
             if (response.isPresent()) {
                 responseText.setText(response.get());
-                setSuggestionsTextRenderingStatus(true);
+                setResponseTextRenderingStatus(true);
             } else {
-                setSuggestionsTextRenderingStatus(false);
+                setResponseTextRenderingStatus(false);
             }
         });
 
@@ -109,16 +110,31 @@ public class SuggestionsWindowView extends ViewPart<Region> {
         mainStage.getScene().lookup("#commandTextField").requestFocus();
     }
 
+    /**
+     * Toggles the visibility of the Suggestions List.
+     * @param bool true if the Suggestions List should be visible, false otherwise.
+     */
     private void setSuggestionsListRenderingStatus(boolean bool) {
         suggestionsListPanel.setManaged(bool);
         suggestionsListPanel.setVisible(bool);
     }
 
-    private void setSuggestionsTextRenderingStatus(boolean bool) {
+    /**
+     * Toggles the visibility of the responseText component.
+     * @param bool true if the responseText should be visible, false otherwise.
+     */
+    private void setResponseTextRenderingStatus(boolean bool) {
         responseText.setManaged(bool);
         responseText.setVisible(bool);
     }
 
+    /**
+     * Computes the height of the Suggestions List based on the number of items in the list.
+     * This allows for the dynamic resizing of the list as the number of items change.
+     *
+     * @param listSize the number of items in the Suggestions List at a given time.
+     * @return an int representing the height of the Suggestions List.
+     */
     private int computePrefListHeight(int listSize) {
         return listSize * LIST_CELL_HEIGHT + LIST_HORIZONTAL_MARGIN;
     }
