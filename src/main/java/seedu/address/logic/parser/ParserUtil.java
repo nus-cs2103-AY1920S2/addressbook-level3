@@ -10,6 +10,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_MISSING_MODULE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_SEMESTER;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.NewCommand;
@@ -136,14 +141,14 @@ public class ParserUtil {
     public static String[] parseDeadline(String deadline) throws ParseException {
         String trimmedDeadline = deadline.trim();
         if (!trimmedDeadline.contains(" ")) {
-            if (!Deadline.isValidDate(trimmedDeadline)) {
+            if (!isValidDate(trimmedDeadline)) {
                 throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
             }
             String[] datetime = {trimmedDeadline, "23:59"};
             return datetime;
         } else {
             String[] dateTime = trimmedDeadline.split(" ");
-            if (dateTime.length < 2 || !Deadline.isValidDeadline(dateTime[0], dateTime[1])) {
+            if (dateTime.length < 2 || !isValidDeadline(dateTime)) {
                 throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
             }
             return dateTime;
@@ -184,5 +189,36 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_INVALID_COURSE_FOCUS_AREA, NewCommand.MESSAGE_USAGE));
         }
         return new FocusArea(trimmedFocusArea);
+    }
+
+    /**
+     * Returns true if the given deadline is valid.
+     */
+    public static boolean isValidDeadline(String[] dateTime) {
+        return isValidDate(dateTime[0]) && isValidTime(dateTime[1]);
+    }
+
+    /**
+     * Returns true if the given date is valid.
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if the given time is valid.
+     */
+    public static boolean isValidTime(String time) {
+        try {
+            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
