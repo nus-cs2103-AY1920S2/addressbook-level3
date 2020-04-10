@@ -24,7 +24,7 @@ import csdev.couponstash.model.coupon.savings.Savings;
 public class JsonAdaptedCouponTest {
     private static final String INVALID_NAME = "R@chel";
     private static final JsonAdaptedSavings INVALID_SAVINGS =
-            new JsonAdaptedSavings(null, null, null, null, null);
+            new JsonAdaptedSavings(null, null, null);
     private static final String INVALID_EXPIRY_DATE = "31-12-202";
     private static final String INVALID_START_DATE = "31-01-202";
     private static final String INVALID_USAGE = "-10";

@@ -34,15 +34,10 @@ public class JsonAdaptedSavings {
      */
     @JsonCreator
     public JsonAdaptedSavings(@JsonProperty("monetaryAmount") JsonAdaptedMonetaryAmount jsma,
-                              @JsonProperty("monetaryAmounte") JsonAdaptedMonetaryAmount jsma2,
                               @JsonProperty("percentageAmount") Double pc,
                               @JsonProperty("saveables") List<JsonAdaptedSaveable> sva) {
 
-        if (jsma2 != null) {
-            this.monetaryAmount = jsma2;
-        } else {
-            this.monetaryAmount = jsma;
-        }
+        this.monetaryAmount = jsma;
         this.percentageAmount = pc;
         this.saveables = sva;
     }
