@@ -1,30 +1,24 @@
 package seedu.address.logic.commands.commandAdd;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FINANCETYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
-
-import java.util.Set;
+import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelStaff.Staff;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Amount;
 import seedu.address.model.person.FinanceType;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Adds a finance to the address book.
@@ -89,11 +83,11 @@ public class AddFinanceCommand extends AddCommand {
 
   public static final String MESSAGE_SUCCESS = "New finance added: %1$s";
   public static final String MESSAGE_DUPLICATE_FINANCE = "This finance already exists in the address book";
-  public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
-  public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
-  public static final String MESSAGE_INVALID_TEACHER_ID = "There is no such staff that with ID";
-  public static final String MESSAGE_INVALID_COURSESTUDENT = "The specified course does not contain a student with that ID";
-  public static final String MESSAGE_INVALID_COURSETEACHER = "The specified course does not contain a staff with that ID";
+  public static final String MESSAGE_NOTFOUND_COURSE_ID = "Cannot find such course that with this ID";
+  public static final String MESSAGE_NOTFOUND_STUDENT_ID = "Cannot find such student that with this ID";
+  public static final String MESSAGE_NOTFOUND_TEACHER_ID = "Cannot find such staff that with this ID";
+  public static final String MESSAGE_NOTFOUND_COURSE_STUDENT = "The specified course does not contain a student with that ID";
+  public static final String MESSAGE_NOTFOUND_COURSE_TEACHER = "The specified course does not contain a staff with that ID";
 
   private Finance toAdd;
 
@@ -113,116 +107,68 @@ public class AddFinanceCommand extends AddCommand {
     this.index = index;
   }
 
-
-  protected void generateOppositeCommand() throws CommandException {
+  protected void generateOppositeCommand() {
     oppositeCommand = new DeleteFinanceCommand(this.toAdd);
   }
 
   @Override
-  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+  protected void preprocessUndoableCommand(Model model) throws CommandException {
     requireNonNull(model);
 
     FinanceType financeType = toAdd.getFinanceType();
     if (financeType.toString().equals("cs")) {
-      ID courseid = toAdd.getCourseID();
-      ID studentid = toAdd.getStudentID();
-      Amount amount = new Amount("999");
-      String courseName = "";
-      String studentName = "";
-      Set<ID> assignedStudentsID = null;
-      boolean foundCourse = false;
-      boolean foundStudent = false;
-      boolean foundCourseStudent = false;
+      ID courseID = toAdd.getCourseID();
+      ID studentID = toAdd.getStudentID();
 
-      for (Course course : model.getFilteredCourseList()){
-        if (course.getId().toString().equals(courseid.toString())) {
-          courseName = course.getName().toString();
-          amount = course.getAmount();
-          assignedStudentsID = course.getAssignedStudentsID();
-          foundCourse = true;
-          break;
-        }
+      if (!model.has(courseID, Constants.ENTITY_TYPE.COURSE)) {
+        throw new CommandException(MESSAGE_NOTFOUND_COURSE_ID);
+      }
+      Course course = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+      if (!model.has(studentID, Constants.ENTITY_TYPE.STUDENT)) {
+        throw new CommandException(MESSAGE_NOTFOUND_STUDENT_ID);
+      }
+      Student student = (Student) model.get(studentID, Constants.ENTITY_TYPE.STUDENT);
+      if (!course.getAssignedStudentsID().contains(studentID)) {
+        throw new CommandException(MESSAGE_NOTFOUND_COURSE_STUDENT);
       }
 
-      for (Student student : model.getFilteredStudentList()){
-        if (student.getId().toString().equals(studentid.toString())) {
-          studentName = student.getName().toString();
-          foundStudent = true;
-          break;
-        }
-      }
-
-      if (!foundCourse) {
-        throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-      } else if (!foundStudent) {
-        throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
-      }
-
-      for (ID assignedStudentID : assignedStudentsID) {
-        if (assignedStudentID.equals(studentid)) {
-          foundCourseStudent = true;
-          break;
-        }
-      }
-
-      if (!foundCourseStudent) {
-        throw new CommandException(MESSAGE_INVALID_COURSESTUDENT);
-      }
-
-      Name name = new Name(String.format("Student %s %s has paid for Course %s %s", studentName, studentid.toString()
-      , courseName, courseid.toString()));
+      Name name = new Name(String.format("Student %s %s has paid for Course %s %s",
+              student.getName().toString(), studentID.toString(),
+              course.getName().toString(), courseID.toString()));
+      Amount amount = course.getAmount();
 
       try {
         toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-            toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+                toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
       } catch (ParseException e) {
         e.printStackTrace();
       }
 
     } else if (financeType.toString().equals("ct")) {
-      ID courseid = toAdd.getCourseID();
-      ID staffid = toAdd.getStaffID();
-      Amount amount = new Amount("999");
-      String courseName = "";
-      String staffName = "";
-      String assignedStaff = "";
-      boolean foundCourse = false;
-      boolean foundStaff = false;
+      ID courseID = toAdd.getCourseID();
+      ID staffID = toAdd.getStaffID();
 
-      for (Course course : model.getFilteredCourseList()){
-        if (course.getId().toString().equals(courseid.toString())) {
-          courseName = course.getName().toString();
-          amount = new Amount("-" + course.getAmount().toString());
-          assignedStaff = course.getAssignedStaffID().toString();
-          foundCourse = true;
-          break;
-        }
+      if (!model.has(courseID, Constants.ENTITY_TYPE.COURSE)) {
+        throw new CommandException(MESSAGE_NOTFOUND_COURSE_ID);
       }
-
-      for (Staff staff : model.getFilteredStaffList()){
-        if (staff.getId().toString().equals(staffid.toString())) {
-          staffName = staff.getName().toString();
-          foundStaff = true;
-          break;
-        }
+      Course course = (Course) model.get(courseID, Constants.ENTITY_TYPE.COURSE);
+      if (!model.has(staffID, Constants.ENTITY_TYPE.STAFF)) {
+        throw new CommandException(MESSAGE_NOTFOUND_TEACHER_ID);
       }
-
-      if (!foundCourse) {
-        throw new CommandException(MESSAGE_INVALID_COURSE_ID);
-      } else if (!foundStaff) {
-        throw new CommandException(MESSAGE_INVALID_TEACHER_ID);
+      Staff teacher = (Staff) model.get(staffID, Constants.ENTITY_TYPE.STAFF);
+      if (!course.getAssignedStaffID().equals(staffID)) {
+        throw new CommandException(MESSAGE_NOTFOUND_COURSE_TEACHER);
       }
+      String courseName = course.getName().toString();
+      Amount amount = new Amount("-" + teacher.getSalary().toString());
+      String staffName = teacher.getName().toString();
 
-      if (!assignedStaff.equals(staffid.toString())) {
-        throw new CommandException(MESSAGE_INVALID_COURSETEACHER);
-      }
-
-      Name name = new Name(String.format("Staff %s %s has been paid for teaching Course %s %s", staffName, staffid.toString()
-          , courseName, courseid.toString()));
+      Name name = new Name(String.format("Paid Staff %s %s for teaching Course %s %s", staffName, staffID.toString()
+              , courseName, courseID.toString()));
 
       try {
-        toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
-            toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
+        this.toAdd = new Finance(name, toAdd.getFinanceType(), toAdd.getDate(), amount,
+                toAdd.getCourseID(), toAdd.getStudentID(), toAdd.getStaffID(), toAdd.getTags());
       } catch (ParseException e) {
         e.printStackTrace();
       }
@@ -231,12 +177,18 @@ public class AddFinanceCommand extends AddCommand {
     if (model.has(toAdd)) {
       throw new CommandException(MESSAGE_DUPLICATE_FINANCE);
     }
+  }
+
+  @Override
+  public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    requireNonNull(model);
 
     if (index == null) {
       model.add(toAdd);
     } else {
       model.addAtIndex(toAdd, index);
     }
+    EdgeManager.revokeEdgesFromDeleteEvent(toAdd);
     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
   }
 
