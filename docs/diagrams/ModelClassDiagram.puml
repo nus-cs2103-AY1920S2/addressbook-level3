@@ -63,6 +63,6 @@ UniqueDoneSessionList o-down-> "*" Session
 ModelManager -->"1" Student
 ModelManager -->"1" Module
 ModelManager -->"1" Group
-ModelManager -right->"1" Session 
+ModelManager -right->"1" Session
 
 @enduml
