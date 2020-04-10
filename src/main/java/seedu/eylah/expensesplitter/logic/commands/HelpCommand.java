@@ -15,12 +15,12 @@ public class HelpCommand extends Command {
 
     public static final String DIVIDER = "--------------------------------\n";
 
-    public static final String SHOWING_HELP_MESSAGE = "Welcome to Diet Tracker! The following commands are "
+    public static final String SHOWING_HELP_MESSAGE = "Welcome to Expense Splitter! The following commands are "
             + "available:\n"
             + DIVIDER
             + "1. additem - Use this to add an item, price and the person(s) involved in the splitting for that item.\n"
             + "   USAGE: additem -i ITEMNAME -p PRICE -n NAME [-n NAME]...\n"
-            + "   EXAMPLE: additem -i pasta -p 19.90 -n alice -n bob -n ben\n"
+            + "   EXAMPLE: additem -i pasta -p 19.90 -n alice -n bob -n charlie\n"
             + DIVIDER
             + "2. deleteitem - Use this to delete the item at the specified index in your receipt.\n"
             + "   USAGE: deleteitem INDEX\n"
@@ -30,17 +30,17 @@ public class HelpCommand extends Command {
             + "   USAGE: listreceipt\n"
             + "   EXAMPLE: listreceipt\n"
             + DIVIDER
-            + "4. listamount - Use this to list all the person(s) and the amount they own.\n"
+            + "4. listamount - Use this to list all the person(s) and the amount they owe.\n"
             + "   USAGE: listamount\n"
-            + "   EXAMPLE: listamount -f\n"
+            + "   EXAMPLE: listamount\n"
             + DIVIDER
-            + "5. paid - Use this to subtract the amount paid by a Person at the specified index.\n"
-            + "   USAGE: paid INDEX [AMOUNT]\n"
-            + "   EXAMPLE: paid 2 3.90\n"
-            + DIVIDER
-            + "6. donereceipt - Use this to mark the receipt as done after completed adding all items.\n"
+            + "5. donereceipt - Use this to mark the receipt as done after adding all items.\n"
             + "   USAGE: donereceipt\n"
             + "   EXAMPLE: donereceipt\n"
+            + DIVIDER
+            + "6. paid - Use this to subtract the amount paid by a person at the specified index.\n"
+            + "   USAGE: paid INDEX [AMOUNT]\n"
+            + "   EXAMPLE: paid 2 3.90\n"
             + DIVIDER
             + "7. clearreceipt - Use this to clear the receipt and start a new receipt.\n"
             + "   USAGE: clearreceipt\n"

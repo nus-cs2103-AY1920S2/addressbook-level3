@@ -11,14 +11,23 @@ import seedu.eylah.expensesplitter.model.SplitterModel;
 public class ListAmountCommand extends Command {
 
     public static final String COMMAND_WORD = "listamount";
-
     public static final String MESSAGE_SUCCESS = "Listed all person with their amount.";
+    public static final String MESSAGE_EMPTY = "Currently no one owes you any money.\n"
+            + "\n"
+            + "Please use the additem command to add an item.\n"
+            + "Example:\n"
+            + "-i ITEMNAME -p PRICE -n NAME [-n NAME]..."
+            + "\n";
 
     @Override
     public CommandResult execute(SplitterModel splitterModel) {
         requireNonNull(splitterModel);
-        splitterModel.listAmount();
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (!splitterModel.getPersonAmountBook().getPersonList().isEmpty()) {
+            splitterModel.listAmount();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            return new CommandResult(MESSAGE_EMPTY);
+        }
     }
 
 }

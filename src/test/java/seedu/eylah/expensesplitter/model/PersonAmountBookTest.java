@@ -91,7 +91,7 @@ public class PersonAmountBookTest {
         personAmountBook.addPerson(alice);
         personAmountBook.addAmount(alice, amount);
 
-        Person editedAlice = new PersonBuilder().withName("Alice Seah")
+        Person editedAlice = new PersonBuilder().withName("alice seah")
                 .withAmount(new BigDecimal("13.50")).build();
 
         assertEquals(alice, editedAlice);
@@ -104,7 +104,7 @@ public class PersonAmountBookTest {
         personAmountBook.addPerson(alice);
         personAmountBook.removeAmount(alice, amount);
 
-        Person editedAlice = new PersonBuilder().withName("Alice Seah")
+        Person editedAlice = new PersonBuilder().withName("alice seah")
                 .withAmount(new BigDecimal("2.50")).build();
 
         assertEquals(alice, editedAlice);

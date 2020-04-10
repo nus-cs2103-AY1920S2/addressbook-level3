@@ -76,9 +76,7 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        String formattedName = getName().toString().substring(0, 1).toUpperCase()
-                + getName().toString().substring(1).toLowerCase();
-        builder.append(formattedName)
+        builder.append(getName())
                 .append(" owes: ")
                 .append(getAmount());
         return builder.toString();

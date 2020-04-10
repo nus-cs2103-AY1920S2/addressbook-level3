@@ -25,6 +25,7 @@ public class DoneReceiptCommand extends Command {
             return new CommandResult(MESSAGE_RECEIPT_DONE);
         } else {
             splitterModel.getReceipt().makeDone();
+            splitterModel.listReceipt();
             return new CommandResult(MESSAGE_SUCCESS);
         }
     }
