@@ -1,6 +1,6 @@
 package seedu.address.testutil.transaction;
 
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
 import static seedu.address.testutil.product.TypicalProducts.BAG;
 
 import java.util.UUID;

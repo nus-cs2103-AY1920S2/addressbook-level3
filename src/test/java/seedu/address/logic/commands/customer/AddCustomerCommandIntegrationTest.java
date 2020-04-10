@@ -2,7 +2,7 @@ package seedu.address.logic.commands.customer;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
+import static seedu.address.testutil.customer.TypicalCustomers.getTypicalInventorySystem;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
-import seedu.address.testutil.customer.PersonBuilder;
+import seedu.address.testutil.customer.CustomerBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCustomerCommand}.
@@ -28,7 +28,7 @@ public class AddCustomerCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Customer validCustomer = new PersonBuilder("a4365691-ea10-47ad-b33b-fc038f1e5e80").build();
+        Customer validCustomer = new CustomerBuilder("a4365691-ea10-47ad-b33b-fc038f1e5e80").build();
 
         Model expectedModel = new ModelManager(model.getInventorySystem(), new UserPrefs());
         expectedModel.addPerson(validCustomer);

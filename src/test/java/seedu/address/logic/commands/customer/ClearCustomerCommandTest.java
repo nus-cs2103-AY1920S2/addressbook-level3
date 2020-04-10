@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.customer;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
+import static seedu.address.testutil.customer.TypicalCustomers.getTypicalInventorySystem;
 
 import org.junit.jupiter.api.Test;
 

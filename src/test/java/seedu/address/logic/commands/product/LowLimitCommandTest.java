@@ -10,12 +10,25 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.util.QuantityThreshold;
 
 public class LowLimitCommandTest {
     @Test
     public void constructor_nullLowLimit_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new LowLimitCommand(null, null));
+    }
+
+    @Test
+    public void constructor_negativeLowLimit_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new LowLimitCommand(
+                new Index(0), new QuantityThreshold("-1")));
+    }
+
+    @Test
+    public void constructor_negativeIndex_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> new LowLimitCommand(
+                new Index(-1), new QuantityThreshold("10")));
     }
 
     @Test

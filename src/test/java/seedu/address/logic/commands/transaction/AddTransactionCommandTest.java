@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
 import static seedu.address.testutil.product.TypicalProducts.BAG;
 
 import java.nio.file.Path;

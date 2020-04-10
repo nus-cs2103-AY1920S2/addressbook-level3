@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE_ID;
-import static seedu.address.testutil.customer.TypicalPersons.BOB_ID;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE_ID;
+import static seedu.address.testutil.customer.TypicalCustomers.BOB_ID;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.customer.PersonBuilder;
+import seedu.address.testutil.customer.CustomerBuilder;
 
 public class AddCustomerCommandTest {
 
@@ -40,7 +40,7 @@ public class AddCustomerCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Customer validCustomer = new PersonBuilder(ALICE_ID).build();
+        Customer validCustomer = new CustomerBuilder(ALICE_ID).build();
 
         CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub);
 
@@ -51,7 +51,7 @@ public class AddCustomerCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Customer validCustomer = new PersonBuilder(ALICE_ID).build();
+        Customer validCustomer = new CustomerBuilder(ALICE_ID).build();
         AddCustomerCommand addCustomerCommand = new AddCustomerCommand(validCustomer);
         ModelStub modelStub = new ModelStubWithPerson(validCustomer);
 
@@ -61,8 +61,8 @@ public class AddCustomerCommandTest {
 
     @Test
     public void equals() {
-        Customer alice = new PersonBuilder(ALICE_ID).withName("Alice").build();
-        Customer bob = new PersonBuilder(BOB_ID).withName("Bob").build();
+        Customer alice = new CustomerBuilder(ALICE_ID).withName("Alice").build();
+        Customer bob = new CustomerBuilder(BOB_ID).withName("Bob").build();
         AddCustomerCommand addAliceCommand = new AddCustomerCommand(alice);
         AddCustomerCommand addBobCommand = new AddCustomerCommand(bob);
 

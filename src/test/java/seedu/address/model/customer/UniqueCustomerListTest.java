@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
-import static seedu.address.testutil.customer.TypicalPersons.BOB;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.customer.exceptions.DuplicatePersonException;
 import seedu.address.model.customer.exceptions.PersonNotFoundException;
-import seedu.address.testutil.customer.PersonBuilder;
+import seedu.address.testutil.customer.CustomerBuilder;
 
 public class UniqueCustomerListTest {
 
@@ -42,7 +42,7 @@ public class UniqueCustomerListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInListExceptAddress_returnsFalse() {
         uniqueCustomerList.add(ALICE);
-        Customer editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertFalse(uniqueCustomerList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueCustomerListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueCustomerList.add(ALICE);
-        Customer editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueCustomerList.setPerson(ALICE, editedAlice);
         UniqueCustomerList expectedUniqueCustomerList = new UniqueCustomerList();

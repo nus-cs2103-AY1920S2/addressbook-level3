@@ -3,10 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
-import static seedu.address.testutil.customer.TypicalPersons.HOON;
-import static seedu.address.testutil.customer.TypicalPersons.IDA;
-import static seedu.address.testutil.customer.TypicalPersons.getTypicalInventorySystem;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.HOON;
+import static seedu.address.testutil.customer.TypicalCustomers.IDA;
+import static seedu.address.testutil.customer.TypicalCustomers.getTypicalInventorySystem;
 
 import java.io.IOException;
 import java.nio.file.Path;

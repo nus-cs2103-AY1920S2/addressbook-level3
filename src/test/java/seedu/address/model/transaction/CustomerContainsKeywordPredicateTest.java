@@ -2,7 +2,7 @@ package seedu.address.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.customer.TypicalPersons.ALICE;
+import static seedu.address.testutil.customer.TypicalCustomers.ALICE;
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_ONE_BAG_MARCH_FIRST;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.customer.Customer;
-import seedu.address.testutil.customer.PersonBuilder;
+import seedu.address.testutil.customer.CustomerBuilder;
 import seedu.address.testutil.transaction.TransactionBuilder;
 
 public class CustomerContainsKeywordPredicateTest {
@@ -54,7 +54,7 @@ public class CustomerContainsKeywordPredicateTest {
 
         //multiple keyword
         predicate = new CustomerContainsKeywordPredicate(Arrays.asList("Alice", "Bob"));
-        Customer editedAlice = new PersonBuilder(ALICE).withName("Alice Bob").build();
+        Customer editedAlice = new CustomerBuilder(ALICE).withName("Alice Bob").build();
         assertTrue(predicate.test(new TransactionBuilder(ALICE_BUY_ONE_BAG_MARCH_FIRST)
                 .withCustomer(editedAlice).build()));
 

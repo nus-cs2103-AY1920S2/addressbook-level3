@@ -15,7 +15,7 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Customer objects.
  */
-public class PersonBuilder {
+public class CustomerBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -29,7 +29,7 @@ public class PersonBuilder {
     private Address address;
     private Set<Tag> tags;
 
-    public PersonBuilder(String id) {
+    public CustomerBuilder(String id) {
         this.id = UUID.fromString(id);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
@@ -39,9 +39,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code customerToCopy}.
+     * Initializes the CustomerBuilder with the data of {@code customerToCopy}.
      */
-    public PersonBuilder(Customer customerToCopy) {
+    public CustomerBuilder(Customer customerToCopy) {
         id = customerToCopy.getId();
         name = customerToCopy.getName();
         phone = customerToCopy.getPhone();
@@ -53,7 +53,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code UUID} of the {@code Customer} that we are building.
      */
-    public PersonBuilder withId(String id) {
+    public CustomerBuilder withId(String id) {
         this.id = UUID.fromString(id);
         return this;
     }
@@ -61,7 +61,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Customer} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public CustomerBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -69,7 +69,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Customer} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public CustomerBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -77,7 +77,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Customer} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public CustomerBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
@@ -85,7 +85,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Customer} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public CustomerBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -93,7 +93,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Customer} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public CustomerBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
