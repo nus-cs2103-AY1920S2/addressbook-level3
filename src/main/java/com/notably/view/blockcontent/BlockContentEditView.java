@@ -40,7 +40,10 @@ public class BlockContentEditView extends ViewPart<Stage> {
     private final Model model;
 
     @FXML
-    private TextArea blockContentTextArea;
+    private TextArea blockTitleTextArea;
+
+    @FXML
+    private TextArea blockBodyTextArea;
 
     public BlockContentEditView(Logic logic, Model model) {
         this(new Stage(), logic, model);
@@ -159,7 +162,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
     }
 
     /**
-     * Sets the {@link TextArea}'s content to the currently open block's Markdown body.
+     * Sets the {@link TextArea}'s content to the currently open block's content in markdown form.
      *
      * @param model App's model
      */
@@ -168,9 +171,12 @@ public class BlockContentEditView extends ViewPart<Stage> {
 
         AbsolutePath currentlyOpenPath = model.getCurrentlyOpenPath();
         BlockTreeItem currentlyOpenBlock = model.getBlockTree().get(currentlyOpenPath);
+
+        String markdownTitle = currentlyOpenBlock.getTitle().getText();
         String markdownBody = currentlyOpenBlock.getBody().getText();
 
-        blockContentTextArea.setText(markdownBody);
+        blockTitleTextArea.setText(markdownTitle);
+        blockBodyTextArea.setText(markdownBody);
     }
 
     /**
@@ -201,7 +207,6 @@ public class BlockContentEditView extends ViewPart<Stage> {
      * ie. the Block Edit modal is to be shown, false otherwise.
      */
     private void updateMainWindowStyle(Boolean isBlockEditable) {
-        //logger.severe(isBlockEditable.toString());
         Node mainWindow = parentStage.getScene().lookup("#mainWindow");
         ChangeListener<Boolean> focusedListener = (observable, unused, isFocused) -> {
             if (!isFocused && stage.isShowing()) {
@@ -271,7 +276,8 @@ public class BlockContentEditView extends ViewPart<Stage> {
      */
     private void saveData() {
         try {
-            logic.editCurrentBlockBody(blockContentTextArea.getText());
+            // Todo: logic.editCurrentblockTitle method should be called.
+            logic.editCurrentBlockBody(blockBodyTextArea.getText());
             logger.info("Writing new Note's contents to file...");
         } catch (EditBlockBodyException e) {
             logger.warning("Unable to write new contents to file.");
