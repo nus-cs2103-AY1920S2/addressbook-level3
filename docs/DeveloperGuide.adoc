@@ -275,10 +275,12 @@ second stage instead.
 .Activity Diagram of Pre-processing for Assign/Un-assign commands
 image::Ivan-PreprocessAssignActivityDiagram.png[]
 
-Notice that there are 2 main exit points in the activity diagram. The success case is straightforward and will lead to a
-the program continuing to execute the actual assign/un-assign command.
 
-However, for the failure case, should any of the conditions fail, this means that either that the
+Notice that there are 2 main exit points in the activity diagram.
+
+. The success case is straightforward and will lead to a
+the program continuing to execute the actual assign/un-assign command.
+. For the failure case, should any of the conditions fail, this means that either that the
 
 * specified objects does `not exist`,
 * both entities are `already assigned` to each other or,
@@ -286,19 +288,25 @@ However, for the failure case, should any of the conditions fail, this means tha
 
 
 ===== EdgeManager
+====== +++<u>Rationale</u>+++
 After the necessary checks have been performed, respective IDs need to be added to the targeted course and targeted object in order
-to ensure correct and consistent assigning of objects. Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
+to ensure correct and consistent assigning of objects.
+
+====== +++<u>Current Implementation</u>+++
+Below is a sequence diagram of how EdgeManager adds the IDs to the two objects involved.
 
 .Sequence Diagram of EdgeManager's AssignXtoCourse commands
 image::Ivan-SequenceDiagramForAssignCommand.png[]
 
+
 The flow of an assign command is as follows:
 
-. Obtain a copy of the requested modelObjects from ModelManager
-. For object X', add the courseID into X' assignedCourseIDs
+. Obtain a copy of the requested `modelObjects` from `ModelManager`
+.. One of which must be a `Course` modelObject, the other being either a `Student`/`Staff`/`Assignment` modelObject
+. For object X', add the `courseID` into the assignedCourseIDs in X`
 .. For assignments, every assignment can only be assigned to at most *one course*. Hence, it'll hold just an assignedCourseID instead
 of a set of Course IDs.
-. For Course C', add X's ID into C' assignedXIDs
+. For Course C', add `X's ID` into assignedXIDs in C'
 .. For courses, every course may only have at most *one teacher*. Hence, course will have an assignedTeacherID instead
 of a set of Teacher IDs.
 . Update the 2 affected models by executing `set(targetObj, editedObj)` in modelManager for both changed modelObjects
@@ -307,7 +315,10 @@ of a set of Teacher IDs.
 NOTE: This sequence diagram can be generalized for `un-assign command` as well. Instead of adding IDs, un-assign will remove
 each other's ID from the respective objects.
 
-Design Considerations:
+====== +++<u>Design Considerations</u>+++
+. Have
+. asd
+
 
 1/ How Undo and Redo works: Option A: Save the entire app state after every command. Pros: Very easy implementation. Cons: Serious memory performance issue when storing the whole address book at every time step.
 
