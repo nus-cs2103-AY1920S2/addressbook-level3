@@ -1,6 +1,7 @@
 package com.notably.logic.commands.suggestion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -38,6 +39,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         Objects.requireNonNull(model);
 
         List<AbsolutePath> possiblePaths = getPossiblePaths(paths, model);
+        Collections.sort(possiblePaths);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         model.setSuggestions(suggestions);
