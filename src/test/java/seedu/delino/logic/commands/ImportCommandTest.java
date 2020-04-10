@@ -75,7 +75,6 @@ class ImportCommandTest {
         List<String> dataRetrieved = new ArrayList<>();
         dataRetrieved.add(VALID_CSV_RETURN_ORDER_AMY);
         dataRetrieved.add(VALID_WHITESPACE_IN_BETWEEN_RETURN_ORDER_BOB);
-        // Extra Bob name after Amy name
 
         ImportCommand importCommand = new ImportCommand(dataRetrieved);
         HashMap<Integer, String> errorMessages = new HashMap<>();
