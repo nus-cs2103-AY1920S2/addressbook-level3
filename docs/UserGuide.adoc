@@ -1056,7 +1056,7 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at 40$ by default (the rate at which most SOC TAs are being paid per hour).
+* If you don't specify a rate, it is set at $40.00 by default (the rate at which most SOC TAs are being paid per hour).
 * `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * The `RATE` must be a positive integer.
@@ -1065,7 +1065,7 @@ Format: `setrate RATE`
 Examples:
 
 * `setrate 25` +
-Sets the current hourly rate to 25$.
+Sets the current hourly rate to $25.00.
 
 === Statistics Window
 
