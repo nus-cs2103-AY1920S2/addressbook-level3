@@ -1089,36 +1089,37 @@ my coupons
 [appendix]
 == Use Cases
 
-This is a list of Use-Cases for STASH, a coupon stash application.
+This is a list of Use-Cases for Coupon Stash, a coupon stash application.
 Primary actor is the user.
 
-.Use Cases Overview for STASH
+.Use Cases Overview for Coupon Stash
 image::usecase.png[Use Case Diagram,1000,1000]
 
 === **Use Case: UC1 -  Add Coupon**
 **Actor**: `user` +
 **Precondition**: User has opened the application
 
-This use case describes how a user uses STASH to add a new coupon entry.
+This use case describes how a user uses Coupon Stash to add a new coupon entry.
 
 **MSS**
 
 . User keys in command to add coupon.
-. STASH adds coupon.
+. Coupon Stash adds coupon.
+. Coupon Stash informs to user that coupon is added.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details.
+** 1a1. Coupon Stash requests the user to re-enter the details.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
 ** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
+** 1a4. Coupon Stash clears command line.
 ** Use case ends.
 
 
@@ -1127,33 +1128,34 @@ Use case ends.
 **Actor**: `user` +
 **Precondition**: User has opened the application
 
-This use case describes how a user uses STASH to list out all the coupon
+This use case describes how a user uses Coupon Stash to list out all the coupon
 entries.
 
 **MSS**
 
 . User keys in command to list all the coupons.
-. STASH lists out all coupons.
+. Coupon Stash lists out all coupons.
+. Coupon Stash informs to user the number of coupons found in list.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details.
+** 1a1. Coupon Stash requests the user to re-enter the details.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
 ** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
+** 1a4. Coupon Stash clears command line.
 ** Use case ends.
 
 [none]
-* 1b. STASH detects that the coupon list is empty.
+* 1b. Coupon Stash detects that the coupon list is empty.
 [none]
-** 1b1. STASH informs the user that the list is empty.
+** 1b1. Coupon Stash informs the user that the list is empty.
 ** Use case ends
 
 === **Use Case: UC3 - Mark a coupon as used**
@@ -1164,131 +1166,109 @@ Use case ends.
 
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
 . User marks coupon as used.
-. STASH marks the coupon as used.
+. Coupon Stash marks the coupon as used.
+. Coupon Stash informs the user the specific coupon that is succesdfully used.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1b. STASH detects that the specified coupon does not exist.
+* 1b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 1b1. STASH requests the user to enter an index that corresponds with an
+** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 1b2. User enters new index.
 ** Use case resumes from step 2.
-** 1b3. User enters wrong index twice.
-** 1b4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1c. STASH detects that the specified coupon has been previously marked as
+* 1c. Coupon Stash detects that the specified coupon has been previously marked as
 done.
 [none]
-** 1c1. STASH informs user that coupon has been prevously marked as done.
+** 1c1. Coupon Stash informs user that coupon has been previously marked as done.
 ** Use case ends.
 
 === **Use Case: UC4 - Find coupon(s) by keyword(s)**
 **Actor**: `user` +
 **Pre-condition**: User has opened the application
 
-This use case describes how a user uses STASH to find the coupon(s) with
+This use case describes how a user uses Coupon Stash to find the coupon(s) with
 keyword(s).
 
 **MSS**
 
 . User keys in command to find a coupon based on keyword(s).
 . Matched coupons are displayed.
+. Coupon Stash informs user the number of coupons found.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1b. STASH detects that the specified coupon does not exist.
+* 1b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 1b1. STASH requests the user to enter an index that corresponds with an
+** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 1b2. User enters new index.
 ** Use case resumes from step 2.
-** 1b3. User enters wrong index twice.
-** 1b4. STASH clears command line.
-** Use case ends.
 
 
 === **Use Case: UC5 - Edit coupon's details**
 **Actor**: `user` +
 **Precondition:** User has opened the application +
 
-This use case describes how a user uses STASH to edit details of an existing
+This use case describes how a user uses Coupon Stash to edit details of an existing
 coupon.
 
 **MSS**
 
 . User keys in command to pass:[<u>list all coupons (UC2)</u>].
 . User edits an existing coupon.
-. User confirms its decision during confirmation.
-. STASH updates the coupon details.
+. Coupon Stash updates the coupon details.
+. Coupon Stash informs the user the which coupon has been edited.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 2a. STASH detects an invalid format in the entered data.
+* 2a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 2a1. STASH requests the user to re-enter the details with the correct format.
+** 2a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 2a2. User enters new data.
 ** Steps 2a1 - 2a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 3.
-** 2a3. User enters wrong data twice.
-** 2a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 2b. STASH detects that the specified coupon does not exist.
+* 2b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 2b1. STASH requests the user to enter an index that corresponds with an
+** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 2b2. User enters new index.
 ** Use case resumes from step 3.
-** 2b3. User enters wrong index twice.
-** 2b4. STASH clears command line.
-** Use case ends.
-
-[none]
-* 3a. User cancels the confirmation pop up
-[none]
-** 3a1. STASH verifies that user has cancelled during confirmation
-** Use case ends.
 
 === **Use Case: UC6 - Set reminder**
 **Actor**: `user` +
 **Precondition:** User has opened the application +
 
-This use case describes how a user uses STASH to set reminders for an existing
+This use case describes how a user uses Coupon Stash to set reminders for an existing
 coupon.
 
 **MSS**
@@ -1300,144 +1280,111 @@ the coupon.
 +
 Use case ends.
 
-
 **Extensions**
 
 [none]
-* 2a. STASH detects an invalid format in the entered data.
+* 2a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 2a1. STASH requests the user to re-enter the details with the correct format.
+** 2a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 2a2. User enters new data.
 ** Steps 2a1 - 2a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 3.
-** 2a3. User enters wrong data twice.
-** 2a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 2b. STASH detects that the specified coupon does not exist.
+* 2b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 2b1. STASH requests the user to enter an index that corresponds with an
+** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 2b2. User enters new index.
 ** Use case resumes from step 3.
-** 2b3. User enters wrong index twice.
-** 2b4. STASH clears command line.
-** Use case ends.
 
 === **Use Case: UC7 - List coupon(s) expiring before date**
 **Actor**: `user` +
 **Precondition:** User has opened the application +
 
-This use case describes how a user uses STASH to find the coupon(s) expiring
+This use case describes how a user uses Coupon Stash to find the coupon(s) expiring
 before the input expiry date.
 
 **MSS**
 
 . User keys in command to find a coupon based on expiry date.
 . Matched coupons are displayed.
-+
++ Coupon Stash informs the user the number of coupons expiring before the specified date.
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 1b. STASH detects that the specified coupon does not exist.
+* 1b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 1b1. STASH requests the user to enter an index that corresponds with an
+** 1b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 1b2. User enters new index.
 ** Use case resumes from step 2.
-** 1b3. User enters wrong index twice.
-** 1b4. STASH clears command line.
-** Use case ends.
 
 === **Use Case: UC8 - Delete coupon**
 **Actor**: `user`
 
-This use case describes how a user uses STASH to delete an existing coupon.
+This use case describes how a user uses Coupon Stash to delete an existing coupon.
 
 **MSS**
 
 . User pass:[<u>list all coupons (UC2)</u>].
 . User deletes an existing coupon.
 . User confirms its decision during confirmation.
-. STASH removes the coupon.
+. Coupon Stash removes the coupon.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 2a. STASH detects an invalid format in the entered data.
+* 2a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 2a1. STASH requests the user to re-enter the details with the correct format.
+** 2a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 2a2. User enters new data.
 ** Steps 2a1 - 2a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 2.
-** 2a3. User enters wrong data twice.
-** 2a4. STASH clears command line.
-** Use case ends.
 
 [none]
-* 2b. STASH detects that the specified coupon does not exist.
+* 2b. Coupon Stash detects that the specified coupon does not exist.
 [none]
-** 2b1. STASH requests the user to enter an index that corresponds with an
+** 2b1. Coupon Stash requests the user to enter an index that corresponds with an
 existing coupon.
 ** 2b2. User enters new index.
 ** Use case resumes from step 2.
-** 2b3. User enters wrong index twice.
-** 2b4. STASH clears command line.
-** Use case ends.
-
-[none]
-* 3a. User cancels the confirmation pop up
-[none]
-** 3a1. STASH verifies that user has cancelled during confirmation
-** Use case ends.
 
 === **Use Case: UC9 - Undo previous command**
 **Actor**: `user`
 
-This use case describes how a user undo the previous command in STASH.
+This use case describes how a user undo the previous command in Coupon Stash.
 
 **MSS**
 
 . User keys in command to undo a previous command.
 . User confirms its decision during confirmation.
-. STASH undo the previous command.
+. Coupon Stash undo the previous command.
+. Coupon Stash informs the user which command has been undone.
 +
 Use case ends.
 
 **Extensions**
 
 [none]
-* 1a. STASH detects an invalid format in the entered data.
+* 1a. Coupon Stash detects an invalid format in the entered data.
 [none]
-** 1a1. STASH requests the user to re-enter the details with the correct format.
+** 1a1. Coupon Stash requests the user to re-enter the details with the correct format.
 ** 1a2. User enters new data.
 ** Steps 1a1 - 1a2 are repeated twice until the data entered are correct.
 ** Use case resumes from step 1.
-** 1a3. User enters wrong data twice.
-** 1a4. STASH clears command line.
-** Use case ends.
-
-[none]
-* 2a. User cancels the confirmation pop up
-[none]
-** 2a1. STASH verifies that user has cancelled during confirmation
-** Use case ends.
 
 [appendix]
 == Non-Functional Requirements

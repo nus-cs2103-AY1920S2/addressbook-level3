@@ -2,20 +2,23 @@
 
 start
 repeat
-    repeat: User enters used command;
-        backward :Invalid index message shown;
-        repeat while () ->[else]
-        ->[valid index provided];
-    :Stash checks if the Coupon specified
+    repeat :User enters used command;
+    backward :Invalid command message shown;
+    repeat while () ->[else]
+    ->[valid index and usage date];
+    :Checks if the coupon specified
     has a percentage amount;
-backward: Missing original amount message shown;
-repeat while () ->[has percentage amount \
-but original amount not specified]
+backward :Invalid command message shown;
+repeat while () ->[has percentage amount but original amount not specified]
 ->[else];
-:Coupon savings calculated
-and saved;
-:Coupon usage increased
-by one;
+:Coupon savings calculated and saved;
+:Coupon usage increased by one;
+:Checks if the coupon has reached its limit;
+
+if () then ([limit reached])
+    :Archive coupon;
+else ([else])
+endif
 stop
 
 @enduml

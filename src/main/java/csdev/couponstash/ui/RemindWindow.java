@@ -52,14 +52,22 @@ public class RemindWindow extends UiPart<Stage> {
      */
     public RemindWindow(Stage root, List<Coupon> coupons) {
         super(FXML, root);
-        this.coupons = coupons;
+        this.coupons = filterRemindCoupons(coupons);
         this.root = root;
 
-        remindMessage.setText(REMIND_MESSAGE);
-        String remindCouponsString = constructRemindCoupons();
-        remindCoupons.setText(remindCouponsString);
-        exitMessage.setText(EXIT_MESSAGE);
         UiUtil.setExitAccelerator(root, scene, logger, "Remind Window");
+    }
+
+    /**
+     * Filters the coupons that have reminders today.
+     */
+    private List<Coupon> filterRemindCoupons(List<Coupon> coupons) {
+        LocalDate today = LocalDate.now();
+
+        return coupons.stream()
+                .filter(coupon -> coupon.getRemindDate().getDate().equals(today))
+                .sorted(SortCommand.REMINDER_COMPARATOR)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -67,19 +75,11 @@ public class RemindWindow extends UiPart<Stage> {
      * limited to the {@code MAX_DISPLAY_REMIND_COUPONS} number of coupons.
      * This method will check all coupon's remind date against today's.
      */
-    public String constructRemindCoupons() {
-        assert coupons.size() > 0 : "Coupons to be reminded today should exist";
-
+    private String constructRemindCoupons() {
         int index = 1;
         String remindMessage = "";
-        LocalDate today = LocalDate.now();
 
-        List<Coupon> remindCoupons = coupons.stream()
-                .filter(coupon -> coupon.getRemindDate().getDate().equals(today))
-                .sorted(SortCommand.REMINDER_COMPARATOR)
-                .collect(Collectors.toList());
-
-        for (Coupon coupon : remindCoupons) {
+        for (Coupon coupon : coupons) {
             remindMessage += index + ". "
                     + coupon.getName().toString()
                     + " (Starts on " + coupon.getStartDate().toString() + ")"
@@ -96,9 +96,18 @@ public class RemindWindow extends UiPart<Stage> {
         return remindMessage;
     }
 
-    /** Opens and displays the RemindWindow */
-    public void show() {
-        logger.info("Remind Window is opening");
-        root.show();
+    /** Opens and displays the RemindWindow if there are any
+     *  coupons that need to be reminded of.
+     */
+    public void showIfAny() {
+        if (coupons.size() > 0) {
+            remindMessage.setText(REMIND_MESSAGE);
+            String remindCouponsString = constructRemindCoupons();
+            remindCoupons.setText(remindCouponsString);
+            exitMessage.setText(EXIT_MESSAGE);
+
+            logger.info("Remind Window is opening");
+            root.show();
+        }
     }
 }

@@ -46,10 +46,8 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
-            if (coupons.size() > 0) {
-                remindWindow = new RemindWindow(coupons);
-                remindWindow.show();
-            }
+            remindWindow = new RemindWindow(coupons);
+            remindWindow.showIfAny();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
