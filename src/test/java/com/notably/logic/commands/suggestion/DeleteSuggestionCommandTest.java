@@ -4,6 +4,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -16,7 +17,8 @@ import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class DeleteSuggestionCommandTest {
-    private static List<AbsolutePath> toCs2103t;
+    private static AbsolutePath toCs2103t;
+    private static List<AbsolutePath> paths;
     private static Model model;
 
     private static final String COMMAND_WORD = "delete";
@@ -24,6 +26,8 @@ public class DeleteSuggestionCommandTest {
     @BeforeAll
     public static void setUp() {
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        paths = new ArrayList<>();
+        paths.add(toCs2103t);
         model = SuggestionTestUtil.getModel();
     }
 
@@ -39,20 +43,20 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void constructor_nullTitle_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(toCs2103t,
+        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(paths,
             null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
-            toCs2103t.get(0).getStringRepresentation());
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(paths,
+            toCs2103t.getStringRepresentation());
         assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 
     @Test
     public void execute_blankOldTitle_generatesEmptySuggestion() {
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t, "    ");
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(paths, "    ");
         deleteSuggestionCommand.execute(model);
 
         assertTrue(model.getSuggestions().size() == 0);
@@ -61,9 +65,9 @@ public class DeleteSuggestionCommandTest {
     @Test
     public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
-        model.setInput(userInputWithoutPath + toCs2103t.get(0).getStringRepresentation());
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
-            toCs2103t.get(0).getStringRepresentation());
+        model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(paths,
+            toCs2103t.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         List<SuggestionItem> suggestions = model.getSuggestions();
@@ -84,9 +88,9 @@ public class DeleteSuggestionCommandTest {
     @Test
     public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
         String userInputWithoutPath = COMMAND_WORD + " ";
-        model.setInput(userInputWithoutPath + toCs2103t.get(0).getStringRepresentation());
-        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toCs2103t,
-                toCs2103t.get(0).getStringRepresentation());
+        model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(paths,
+                toCs2103t.getStringRepresentation());
         deleteSuggestionCommand.execute(model);
 
         List<SuggestionItem> suggestions = model.getSuggestions();

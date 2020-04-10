@@ -4,6 +4,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,8 @@ import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class SuggestionEngineImplTest {
-    private static List<AbsolutePath> toCs2103t;
+    private static AbsolutePath toCs2103t;
+    private static List<AbsolutePath> paths;
     private static Model model;
     private static SuggestionEngine suggestionEngine;
 
@@ -36,6 +38,8 @@ public class SuggestionEngineImplTest {
     public static void setUp() throws InvalidPathException {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        paths = new ArrayList<>();
+        paths.add(toCs2103t);
 
         // Set up SuggestionEngine
         suggestionEngine = new SuggestionEngineImpl(model);
@@ -61,7 +65,7 @@ public class SuggestionEngineImplTest {
     @Test
     public void suggest_correctedDeleteCommand_generatesSuggestions() {
         String userInputWithoutPath = "dele ";
-        String path = toCs2103t.get(0).getStringRepresentation();
+        String path = toCs2103t.getStringRepresentation();
         String userInput = userInputWithoutPath + path;
         suggestionEngine.suggest(userInput);
         model.setInput(userInput);
@@ -82,7 +86,7 @@ public class SuggestionEngineImplTest {
     @Test
     public void suggest_correctedOpenCommand_generatesSuggestions() {
         String userInputWithoutPath = "op ";
-        String path = toCs2103t.get(0).getStringRepresentation();
+        String path = toCs2103t.getStringRepresentation();
         String userInput = userInputWithoutPath + path;
         suggestionEngine.suggest(userInput);
         model.setInput(userInput);

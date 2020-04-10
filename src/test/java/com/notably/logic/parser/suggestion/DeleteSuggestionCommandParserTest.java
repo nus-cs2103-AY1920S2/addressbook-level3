@@ -21,7 +21,7 @@ import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class DeleteSuggestionCommandParserTest {
-    private static List<AbsolutePath> toCs2103t;
+    private static AbsolutePath toCs2103t;
     private static DeleteSuggestionCommandParser deleteSuggestionCommandParser;
     private static Model model;
 
@@ -76,7 +76,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctCmdcorrectAbsolutePathWithPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
-        String userInput = userInputWithoutPath + toCs2103t.get(0).getStringRepresentation();
+        String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
         String arg = userInput.replace(COMMAND_WORD, "");
 
         model.setInput(userInput);
@@ -86,7 +86,7 @@ public class DeleteSuggestionCommandParserTest {
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE,
-                toCs2103t.get(0).getStringRepresentation())), model.responseTextProperty().getValue());
+                toCs2103t.getStringRepresentation())), model.responseTextProperty().getValue());
 
         // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
@@ -107,7 +107,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctedCmdcorrectAbsolutePathWithoutPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = "dele ";
-        String userInput = userInputWithoutPath + toCs2103t.get(0).getStringRepresentation();
+        String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
         String arg = userInput.replace("dele", "");
 
         model.setInput(userInput);
@@ -117,7 +117,7 @@ public class DeleteSuggestionCommandParserTest {
         command.get().execute(model);
 
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE,
-                toCs2103t.get(0).getStringRepresentation())), model.responseTextProperty().getValue());
+                toCs2103t.getStringRepresentation())), model.responseTextProperty().getValue());
 
         // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
