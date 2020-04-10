@@ -1,63 +1,32 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.CalculateEarningsFinanceCommand;
-import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
-import seedu.address.logic.commands.commandAdd.AddCourseCommand;
-import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
-import seedu.address.logic.commands.commandAdd.AddStudentCommand;
-import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.commandAdd.*;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
-import seedu.address.logic.commands.commandClear.*;
-import seedu.address.logic.commands.commandDelete.DeleteAssignmentCommand;
-import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
-import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
-import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
-import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
+import seedu.address.logic.commands.commandClear.ClearCommand;
+import seedu.address.logic.commands.commandDelete.*;
 import seedu.address.logic.commands.commandDone.DoneCommandBase;
 import seedu.address.logic.commands.commandEdit.*;
 import seedu.address.logic.commands.commandFind.*;
-import seedu.address.logic.commands.commandList.ListAssignmentCommand;
-import seedu.address.logic.commands.commandList.ListCourseCommand;
-import seedu.address.logic.commands.commandList.ListFinanceCommand;
-import seedu.address.logic.commands.commandList.ListStudentCommand;
-import seedu.address.logic.commands.commandList.ListTeacherCommand;
-import seedu.address.logic.commands.commandSwitch.SwitchAssignmentCommand;
-import seedu.address.logic.commands.commandSwitch.SwitchCourseCommand;
-import seedu.address.logic.commands.commandSwitch.SwitchFinanceCommand;
-import seedu.address.logic.commands.commandSwitch.SwitchStaffCommand;
-import seedu.address.logic.commands.commandSwitch.SwitchStudentCommand;
-import seedu.address.logic.commands.commandSwitch.SwitchSummaryCommand;
+import seedu.address.logic.commands.commandList.*;
+import seedu.address.logic.commands.commandSwitch.*;
 import seedu.address.logic.commands.commandUnassign.UnassignCommandBase;
 import seedu.address.logic.commands.commandUndone.UndoneCommandBase;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.parserAdd.AddAssignmentCommandParser;
-import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
-import seedu.address.logic.parser.parserAdd.AddFinanceCommandParser;
-import seedu.address.logic.parser.parserAdd.AddStudentCommandParser;
-import seedu.address.logic.parser.parserAdd.AddTeacherCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteAssignmentCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteStudentCommandParser;
-import seedu.address.logic.parser.parserDelete.DeleteTeacherCommandParser;
+import seedu.address.logic.parser.parserAdd.*;
+import seedu.address.logic.parser.parserDelete.*;
 import seedu.address.logic.parser.parserDone.DoneCommandParser;
 import seedu.address.logic.parser.parserEdit.*;
 import seedu.address.logic.parser.parserFind.*;
 import seedu.address.logic.parser.parserUndone.UndoneCommandParser;
+
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
@@ -104,8 +73,8 @@ public class AddressBookParser {
         return new UndoneCommandParser().parse(arguments);
 
       // Add Operations
-      case AddTeacherCommand.COMMAND_WORD:
-        return new AddTeacherCommandParser().parse(arguments);
+      case AddStaffCommand.COMMAND_WORD:
+        return new AddStaffCommandParser().parse(arguments);
 
       case AddStudentCommand.COMMAND_WORD:
         return new AddStudentCommandParser().parse(arguments);
@@ -120,8 +89,8 @@ public class AddressBookParser {
         return new AddAssignmentCommandParser().parse(arguments);
 
         // Delete Operations
-      case DeleteTeacherCommand.COMMAND_WORD:
-        return new DeleteTeacherCommandParser().parse(arguments);
+      case DeleteStaffCommand.COMMAND_WORD:
+        return new DeleteStaffCommandParser().parse(arguments);
 
       case DeleteStudentCommand.COMMAND_WORD:
         return new DeleteStudentCommandParser().parse(arguments);
@@ -136,7 +105,7 @@ public class AddressBookParser {
         return new DeleteAssignmentCommandParser().parse(arguments);
 
       // Find Operations
-      case FindTeacherCommand.COMMAND_WORD:
+      case FindStaffCommand.COMMAND_WORD:
         return new FindTeacherCommandParser().parse(arguments);
 
       case FindStudentCommand.COMMAND_WORD:
@@ -160,8 +129,8 @@ public class AddressBookParser {
         return new CalculateEarningsFinanceCommand();
 
         // List Operations
-      case ListTeacherCommand.COMMAND_WORD:
-        return new ListTeacherCommand();
+      case ListStaffCommand.COMMAND_WORD:
+        return new ListStaffCommand();
 
       case ListStudentCommand.COMMAND_WORD:
         return new ListStudentCommand();
@@ -180,8 +149,8 @@ public class AddressBookParser {
         return new ClearCommand();
 
         // Edit Operations
-      case EditTeacherCommand.COMMAND_WORD:
-        return new EditTeacherCommandParser().parse(arguments);
+      case EditStaffCommand.COMMAND_WORD:
+        return new EditStaffCommandParser().parse(arguments);
 
       case EditStudentCommand.COMMAND_WORD:
         return new EditStudentCommandParser().parse(arguments);

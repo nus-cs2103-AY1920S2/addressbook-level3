@@ -32,6 +32,7 @@ public class FindCourseCommand extends Command {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredCourseList(predicate);
+    model.getMainWindow().callSwitchToCourse();
     return new CommandResult(
         String.format(Messages.MESSAGE_COURSES_LISTED_OVERVIEW,
             model.getFilteredCourseList().size()));

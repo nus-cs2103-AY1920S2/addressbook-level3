@@ -17,6 +17,9 @@ public class ListAssignmentCommand extends ListCommand {
     public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+        if (model.getMainWindow() != null){
+            model.getMainWindow().callSwitchToAssignment();
+        }
         return new CommandResult(MESSAGE_SUCCESS);
 
     }

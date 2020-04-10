@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
+import seedu.address.logic.commands.commandDelete.DeleteStaffCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.manager.EdgeManager;
 import seedu.address.model.Model;
@@ -20,7 +20,7 @@ import seedu.address.model.modelStaff.Staff;
 /**
  * Adds a teacher to the address book.
  */
-public class AddTeacherCommand extends AddCommand {
+public class AddStaffCommand extends AddCommand {
 
   public static final String COMMAND_WORD = "add-staff";
 
@@ -54,19 +54,19 @@ public class AddTeacherCommand extends AddCommand {
   /**
    * Creates an AddCommand to add the specified {@code Staff}
    */
-  public AddTeacherCommand(Staff teacher) {
+  public AddStaffCommand(Staff teacher) {
     requireNonNull(teacher);
     toAdd = teacher;
   }
 
-  public AddTeacherCommand(Staff teacher, Integer index) {
+  public AddStaffCommand(Staff teacher, Integer index) {
     requireNonNull(teacher);
     toAdd = teacher;
     this.index = index;
   }
 
   protected void generateOppositeCommand() throws CommandException {
-    oppositeCommand = new DeleteTeacherCommand(this.toAdd);
+    oppositeCommand = new DeleteStaffCommand(this.toAdd);
   }
 
   @Override
@@ -88,7 +88,7 @@ public class AddTeacherCommand extends AddCommand {
   @Override
   public boolean equals(Object other) {
     return other == this // short circuit if same object
-        || (other instanceof AddTeacherCommand // instanceof handles nulls
-        && toAdd.equals(((AddTeacherCommand) other).toAdd));
+        || (other instanceof AddStaffCommand // instanceof handles nulls
+        && toAdd.equals(((AddStaffCommand) other).toAdd));
   }
 }

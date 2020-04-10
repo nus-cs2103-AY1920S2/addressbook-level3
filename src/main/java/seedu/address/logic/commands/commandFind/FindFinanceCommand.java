@@ -32,6 +32,7 @@ public class FindFinanceCommand extends Command {
   public CommandResult execute(Model model) {
     requireNonNull(model);
     model.updateFilteredFinanceList(predicate);
+    model.getMainWindow().callSwitchToFinance();
     return new CommandResult(
         String.format(Messages.MESSAGE_FINANCES_LISTED_OVERVIEW,
             model.getFilteredFinanceList().size()));

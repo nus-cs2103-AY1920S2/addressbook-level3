@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
@@ -17,14 +16,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.Constants;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelStaff.Staff;
 import seedu.address.model.modelStaff.Staff.Level;
 import seedu.address.model.person.Address;
@@ -39,7 +35,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing teacher in the address book.
  */
-public class EditTeacherCommand extends EditCommand {
+public class EditStaffCommand extends EditCommand {
 
   public static final String COMMAND_WORD = "edit-staff";
 
@@ -76,7 +72,7 @@ public class EditTeacherCommand extends EditCommand {
    * @param targetID                 of the staff in the filtered staff list to edit
    * @param editTeacherDescriptor details to edit the staff with
    */
-  public EditTeacherCommand(ID targetID, EditTeacherDescriptor editTeacherDescriptor) {
+  public EditStaffCommand(ID targetID, EditTeacherDescriptor editTeacherDescriptor) {
     requireNonNull(targetID);
     requireNonNull(editTeacherDescriptor);
 
@@ -110,7 +106,7 @@ public class EditTeacherCommand extends EditCommand {
 
   @Override
   protected void generateOppositeCommand() {
-    oppositeCommand = new EditTeacherCommand(targetID, new EditTeacherCommand.EditTeacherDescriptor(toEdit));
+    oppositeCommand = new EditStaffCommand(targetID, new EditStaffCommand.EditTeacherDescriptor(toEdit));
   }
 
   @Override
@@ -157,12 +153,12 @@ public class EditTeacherCommand extends EditCommand {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof EditTeacherCommand)) {
+    if (!(other instanceof EditStaffCommand)) {
       return false;
     }
 
     // state check
-    EditTeacherCommand e = (EditTeacherCommand) other;
+    EditStaffCommand e = (EditStaffCommand) other;
     return targetID.equals(e.targetID)
         && editTeacherDescriptor.equals(e.editTeacherDescriptor);
   }
@@ -217,7 +213,7 @@ public class EditTeacherCommand extends EditCommand {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, phone, email, salary, address, tags);
+      return CollectionUtil.isAnyNonNull(name, gender, phone, email, salary, address, tags);
     }
 
     public Optional<Name> getName() {
