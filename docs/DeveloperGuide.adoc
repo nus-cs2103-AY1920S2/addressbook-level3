@@ -641,7 +641,7 @@ model and removes the student.
 
 The `student edit` command has been implemented in a similar manner.
 
-The `student add` command has been implemented in a similar way. The main
+The `student add` command has been implemented in a similar way as well. The main
 difference is that the `AddStudentCommand` checks whether an object with the given
 matric number exists in the TA-Tracker. If such student exists, a command exception
 is thrown saying that a student with the given matric number already exists.
@@ -781,7 +781,7 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 
 7. The updated filtered session list will be displayed to the user.
 
-The `session add`, `session edit` and `session delete` command has been implemented in a similar manner.
+The `session add`, `session edit` and `session delete` commands have been implemented in a similar manner.
 
 //tag::claimsview[]
 === Claims View
