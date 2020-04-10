@@ -208,6 +208,12 @@ The `insert` Command is in charge of this functionality.
 
 [[insert-works]]
 ==== How to use the Insert Command
+
+[IMPORTANT]
+====
+Orders inserted are sorted by their delivery date and time.
+====
+
 Here are the steps on using the `insert` Command: +
 
 *Step 1* : Type in the keyword `insert` +
@@ -298,6 +304,11 @@ You can use this `return` command to create a new return order to be added into 
 
 [[return-works]]
 ==== How to use the Return command?
+
+[IMPORTANT]
+====
+Return orders inserted are sorted by their delivery date and time.
+====
 
 Here is how you can convert an order into a return order or create a new return order by following the steps below:
 
