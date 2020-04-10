@@ -4,9 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
-//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_NAME_FISH;
-//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
+import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.recipe.logic.commands.CommandTestUtil.showRecipeAtIndex;
@@ -31,6 +30,9 @@ import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.EditRecipeDescriptorBuilder;
 import seedu.recipe.testutil.RecipeBuilder;
 import seedu.recipe.ui.tab.Tab;
+
+//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
+//import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -60,18 +62,17 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
 
-    /*
+
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastRecipe = Index.fromOneBased(model.getFilteredRecipeList().size());
         Recipe lastRecipe = model.getFilteredRecipeList().get(indexLastRecipe.getZeroBased());
 
         RecipeBuilder recipeInList = new RecipeBuilder(lastRecipe);
-        Recipe editedRecipe = recipeInList.withName(VALID_NAME_FISH).withTime(VALID_TIME_FISH)
-                .withGoals(VALID_GOAL_PROTEIN).build();
+        Recipe editedRecipe = recipeInList.withName(VALID_NAME_FISH).withTime(VALID_TIME_FISH).build();
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
-                .withTime(VALID_TIME_FISH).withGoals(VALID_GOAL_PROTEIN).build();
+                .withTime(VALID_TIME_FISH).build();
         EditCommand editCommand = new EditCommand(indexLastRecipe, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
@@ -85,9 +86,8 @@ public class EditCommandTest {
                 new CommandResult(expectedMessage, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
-    }*/
+    }
 
-    /*
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, new EditRecipeDescriptor());
@@ -102,8 +102,8 @@ public class EditCommandTest {
                 new CommandResult(expectedMessage, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
-    }*/
-    /*
+    }
+
     @Test
     public void execute_filteredList_success() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
@@ -124,7 +124,7 @@ public class EditCommandTest {
                 new CommandResult(expectedMessage, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
-    }*/
+    }
 
     @Test
     public void execute_duplicateRecipeUnfilteredList_failure() {

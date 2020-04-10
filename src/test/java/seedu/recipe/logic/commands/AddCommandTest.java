@@ -60,26 +60,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Recipe alice = new RecipeBuilder().withName("Alice").build();
-        Recipe bob = new RecipeBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Recipe salad = new RecipeBuilder().withName("Salad").build();
+        Recipe bread = new RecipeBuilder().withName("Bread").build();
+        AddCommand addSaladCommand = new AddCommand(salad);
+        AddCommand addBreadCommand = new AddCommand(bread);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addSaladCommand.equals(addSaladCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(salad);
+        assertTrue(addSaladCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addSaladCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addSaladCommand.equals(null));
 
         // different recipe -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addSaladCommand.equals(addBreadCommand));
     }
 
     /**

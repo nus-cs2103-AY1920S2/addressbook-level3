@@ -40,14 +40,14 @@ public class TypicalRecipes {
 
     public static final Recipe GRILLED_SANDWICH = new RecipeBuilder().withName("Grilled Sandwich")
             .withTime("10")
-            .withGrains("50g, Bread")
+            .withGrains("150g, Bread")
             .withOthers("50g, Cheese")
             .withSteps("Spread butter on bread", "Heat pan to medium heat")
             .withGoals("Wholesome Wholemeal").build();
 
     public static final Recipe BOILED_CHICKEN = new RecipeBuilder().withName("Boiled Chicken")
             .withTime("10")
-            .withProteins("100g, Chicken")
+            .withProteins("300g, Chicken")
             .withSteps("Dice chicken")
             .withGoals("Bulk like the Hulk").build();
 
@@ -68,8 +68,8 @@ public class TypicalRecipes {
 
     public static final Recipe TUNA_BREAD = new RecipeBuilder().withName("Tuna Bread")
             .withTime("60")
-            .withGrains("100g, Bread")
-            .withProteins("100g, Tuna")
+            .withGrains("200g, Bread")
+            .withProteins("300g, Tuna")
             .withGoals("Bulk like the Hulk", "Wholesome Wholemeal")
             .withSteps("Slice tuna").build();
 
@@ -82,8 +82,8 @@ public class TypicalRecipes {
     public static final Recipe VEGETARIAN_PIZZA = new RecipeBuilder().withName("Vegetarian Pizza").withTime("45")
             .withGrains("300g, Dough")
             .withVegetables("100g, Capsicum")
-            .withOthers("100g, Tomato sauce")
-            .withGoals("Herbivore").withSteps("Roll dough until stretchy and thin").build();
+            .withOthers("200g, Tomato sauce")
+            .withGoals("Herbivore", "Wholesome Wholemeal").withSteps("Roll dough until stretchy and thin").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}
     public static final Recipe TURKEY_SANDWICH = new RecipeBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
@@ -101,7 +101,7 @@ public class TypicalRecipes {
             .withProteins(VALID_PROTEIN_FISH)
             .withFruits(VALID_FRUIT_FISH)
             .withOthers(VALID_OTHER_FISH)
-            .withGoals(VALID_GOAL_PROTEIN).withSteps(VALID_STEP_FISH).build();
+            .withSteps(VALID_STEP_FISH).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

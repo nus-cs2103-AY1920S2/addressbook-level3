@@ -61,9 +61,10 @@ public class EditIngredientCommandTest {
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
-                .withGrains("50g, Bread")
+                .withGrains("150g, Bread")
                 .withOthers("100g, Cheese")
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
+                .withGoals("Wholesome Wholemeal")
                 .build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
@@ -121,9 +122,11 @@ public class EditIngredientCommandTest {
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
-                .withGrains("50g, Bread")
+                .withGrains("150g, Bread")
                 .withOthers("100g, Cheese")
-                .withSteps("Spread butter on bread", "Heat pan to medium heat").build();
+                .withSteps("Spread butter on bread", "Heat pan to medium heat")
+                .withGoals("Wholesome Wholemeal")
+                .build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
