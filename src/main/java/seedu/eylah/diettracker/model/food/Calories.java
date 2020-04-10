@@ -40,6 +40,10 @@ public class Calories {
         return new Calories(this.getValue() + other.getValue());
     }
 
+    public Calories difference(Calories other) {
+        return new Calories(Math.abs(this.getValue() - other.getValue()));
+    }
+
     @Override
     public String toString() {
         return String.valueOf(value);
