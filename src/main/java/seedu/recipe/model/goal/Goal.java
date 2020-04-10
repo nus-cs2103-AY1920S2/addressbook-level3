@@ -71,7 +71,7 @@ public class Goal {
             name = null;
             break;
         }
-        assert name !=null : "name should not be null";
+        assert name != null : "name should not be null";
         return name;
     }
 

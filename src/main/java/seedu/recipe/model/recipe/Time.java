@@ -36,7 +36,7 @@ public class Time {
      * Returns true if a given string is a valid time number.
      */
     public static boolean isValidTime(String test) {
-        return isValidSingularTime(test);
+        return isValidSingularTime(test) || isValidRange(test);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Time {
      * Returns true if a given string is a valid time range.
      */
     public static boolean isValidRange(String test) {
-        if(test.contains("-") && test.matches(VALIDATION_REGEX)) {
+        if (test.contains("-") && test.matches(VALIDATION_REGEX)) {
             String[] range = test.split("-");
             return isValidSingularTime(range[0]) && isValidSingularTime(range[1])
                     && (Integer.parseInt(range[0]) < Integer.parseInt(range[1]));
