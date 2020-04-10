@@ -33,6 +33,10 @@ public class ExerciseSets {
         return test.equals(EMPTY_STRING) || test.matches(VALIDATION_REGEX);
     }
 
+    public String getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return value;
