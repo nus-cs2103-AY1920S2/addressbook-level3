@@ -183,9 +183,14 @@ public interface Model {
     ObservableList<Integer> getFilteredGoalsTally();
 
     /**
-     * Replaces record book data with the data in {@code CookedRecordBook}.
+     * Returns the cooked record book.
      */
     ReadOnlyCookedRecordBook getRecordBook();
+
+    /**
+     * Replaces record book data with the data in {@code CookedRecordBook}.
+     */
+    void setCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook);
 
     /**
      * Returns true if a record with the same identity as {@code record} exists in the record book.

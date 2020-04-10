@@ -35,7 +35,7 @@ public class MultipleBookStateManager extends RecipeBook {
      * Checks if it is possible to undo. Returns true if there is at least {@code numberOfUndo} older states
      * of the RecipeBook (relative to the current state) stored in the list.
      */
-    public boolean canUndo(int numberOfUndo) {
+    boolean canUndo(int numberOfUndo) {
         assert numberOfUndo >= 0;
         if (numberOfUndo > 0) {
             return numberOfUndo <= stackToUndo.size();
@@ -48,7 +48,7 @@ public class MultipleBookStateManager extends RecipeBook {
      * Checks if it is possible to redo. Returns true if there is are at least {@code numberOfRedo} newer states
      * of the RecipeBook (relative to the current state) stored in the list.
      */
-    public boolean canRedo(int numberOfRedo) {
+    boolean canRedo(int numberOfRedo) {
         assert numberOfRedo >= 0;
         if (numberOfRedo > 0) {
             return numberOfRedo <= stackToRedo.size();
@@ -58,11 +58,12 @@ public class MultipleBookStateManager extends RecipeBook {
     }
 
     /**
-     * Removes redundant states after a user commits a book.
+     * Removes redundant states before a user commits a book.
      */
     private void removeRedundantStates() {
         while (recipeBookStateList.size() - 1 > recipeBookStatePointer
-                || plannedBookStateList.size() - 1 > plannedBookStatePointer) {
+                || plannedBookStateList.size() - 1 > plannedBookStatePointer
+                || cookedRecordBookStateList.size() - 1 > cookedRecordBookStatePointer) {
             assert !stackToRedo.empty();
             CommandType redoCommandType = stackToRedo.pop();
             switch (redoCommandType) {
@@ -76,6 +77,9 @@ public class MultipleBookStateManager extends RecipeBook {
             case PLAN:
                 plannedBookStateList.remove(plannedBookStateList.size() - 1);
                 break;
+            case GOALS:
+                cookedRecordBookStateList.remove(cookedRecordBookStateList.size() - 1);
+                break;
             default:
                 break;
             }
@@ -87,12 +91,9 @@ public class MultipleBookStateManager extends RecipeBook {
      * If the current state is not the last item on the list, the new state will override all states
      * after the current state.
      */
-    public void commitRecipeBook(ReadOnlyRecipeBook recipeBook, CommandType commandType) {
+    void commitRecipeBook(ReadOnlyRecipeBook recipeBook, CommandType commandType) {
         stackToUndo.push(commandType); // CommandType.MAIN_LONE
-        if ((recipeBookStatePointer != recipeBookStateList.size() - 1)
-                || (plannedBookStatePointer != plannedBookStateList.size() - 1)) {
-            removeRedundantStates();
-        }
+
         recipeBookStateList.add(recipeBook);
         recipeBookStatePointer++;
     }
@@ -100,13 +101,10 @@ public class MultipleBookStateManager extends RecipeBook {
     /**
      * Commits both the recipe book and planned book as there are changes made to both of them.
      */
-    public void commitRecipeAndPlannedBook(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook plannedBook,
+    void commitRecipeAndPlannedBook(ReadOnlyRecipeBook recipeBook, ReadOnlyPlannedBook plannedBook,
                                            CommandType commandType) {
         stackToUndo.push(commandType); // CommandType.MAIN
-        if ((recipeBookStatePointer != recipeBookStateList.size() - 1)
-            || (plannedBookStatePointer != plannedBookStateList.size() - 1)) {
-            removeRedundantStates();
-        }
+        removeRedundantStates();
         recipeBookStateList.add(recipeBook);
         recipeBookStatePointer++;
         plannedBookStateList.add(plannedBook);
@@ -116,19 +114,27 @@ public class MultipleBookStateManager extends RecipeBook {
     /**
      * Commits only the planned book as changes were only made to it.
      */
-    public void commitPlannedBook(ReadOnlyPlannedBook plannedBook, CommandType commandType) {
+    void commitPlannedBook(ReadOnlyPlannedBook plannedBook, CommandType commandType) {
         stackToUndo.push(commandType); // CommandType.PLAN
-        if (plannedBookStatePointer != plannedBookStateList.size() - 1) {
-            removeRedundantStates();
-        }
+        removeRedundantStates();
         plannedBookStateList.add(plannedBook);
         plannedBookStatePointer++;
     }
 
     /**
+     * Commits only the cooked record book as changes were only made to it.
+     */
+    void commitCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook, CommandType commandType) {
+        stackToUndo.push(commandType); // CommandType.GOALS
+        removeRedundantStates();
+        cookedRecordBookStateList.add(cookedRecordBook);
+        cookedRecordBookStatePointer++;
+    }
+
+    /**
      * Reverts the books back by {@code numberOfUndo} states.
      */
-    public void undo(int numberOfUndo, Model model) {
+    void undo(int numberOfUndo, Model model) {
         assert numberOfUndo >= 0;
         int undoCounter = numberOfUndo;
         if (numberOfUndo == 0) {
@@ -158,12 +164,13 @@ public class MultipleBookStateManager extends RecipeBook {
         }
         model.setRecipeBook(recipeBookStateList.get(recipeBookStatePointer));
         model.setPlannedBook(plannedBookStateList.get(plannedBookStatePointer));
+        model.setCookedRecordBook(cookedRecordBookStateList.get(cookedRecordBookStatePointer));
     }
 
     /**
      * Fast forwards the books by {@code numberOfRedo} states.
      */
-    public void redo(int numberOfRedo, Model model) {
+    void redo(int numberOfRedo, Model model) {
         assert numberOfRedo >= 0;
         int redoCounter = numberOfRedo;
         if (numberOfRedo == 0) {
@@ -193,6 +200,7 @@ public class MultipleBookStateManager extends RecipeBook {
         }
         model.setRecipeBook(recipeBookStateList.get(recipeBookStatePointer));
         model.setPlannedBook(plannedBookStateList.get(plannedBookStatePointer));
+        model.setCookedRecordBook(cookedRecordBookStateList.get(cookedRecordBookStatePointer));
     }
 
 }

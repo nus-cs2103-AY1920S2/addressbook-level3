@@ -162,7 +162,7 @@ public class ModelManager implements Model {
             states.commitPlannedBook(new PlannedBook(plannedBook), commandType);
             break;
         case GOALS:
-            // Need to develop methods for deleting records before this can be implemented
+            states.commitCookedRecordBook(new CookedRecordBook(cookedRecordBook), commandType);
             break;
         default:
             // This block will never be reached
@@ -295,6 +295,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCookedRecordBook getRecordBook() {
         return cookedRecordBook;
+    }
+
+    @Override
+    public void setCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) {
+        this.cookedRecordBook.resetData(cookedRecordBook);
     }
 
     @Override
