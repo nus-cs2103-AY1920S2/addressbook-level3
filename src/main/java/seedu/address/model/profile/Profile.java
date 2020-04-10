@@ -77,6 +77,10 @@ public class Profile {
         return courseName;
     }
 
+    public int getOverallSemester() {
+        return this.currentSemester;
+    }
+
     public int getCurrentSemester() {
         if (currentSemester % 2 == 0) {
             return 2;

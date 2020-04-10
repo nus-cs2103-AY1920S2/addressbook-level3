@@ -143,7 +143,7 @@ public class EditCommand extends Command {
             }
 
             if (grade != null) {
-                int currentUserSemester = profileToEdit.getCurrentSemester();
+                int currentUserSemester = profileToEdit.getOverallSemester();
                 if (oldSemester > currentUserSemester) {
                     throw new CommandException(MESSAGE_ADD_FUTURE_GRADE_ERROR);
                 }
@@ -263,7 +263,7 @@ public class EditCommand extends Command {
      * Updates statuses of all modules in the Profile
      */
     private void updateStatus(Profile profileToEdit) {
-        int currentSemester = profileToEdit.getCurrentSemester();
+        int currentSemester = profileToEdit.getOverallSemester();
         HashMap<Integer, ModuleList> hashMap = profileToEdit.getSemModHashMap();
         for (ModuleList list: hashMap.values()) {
             int semester = getKey(hashMap, list);

@@ -55,7 +55,7 @@ class JsonProfile {
         name = source.getName().toString();
         courseName = source.getCourseName().toString();
         specialisation = source.getFocusAreaString();
-        currentSemester = Integer.toString(source.getCurrentSemester());
+        currentSemester = Integer.toString(source.getOverallSemester());
         records = new ArrayList<>();
         for (Map.Entry<Integer, ModuleList> entry: source.getMappings()) {
             String sem = entry.getKey().toString();

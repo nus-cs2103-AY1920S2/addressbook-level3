@@ -132,7 +132,7 @@ public class AddCommand extends Command {
 
         }
 
-        int currentSemester = profile.getCurrentSemester();
+        int currentSemester = profile.getOverallSemester();
 
         if (addGrade != null && !hasModule) {
             personal.setGrade(addGrade);
