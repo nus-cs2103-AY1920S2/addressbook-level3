@@ -79,7 +79,7 @@ public class ChartAnalyticsPanel extends UiPart<Region> {
 
         for (Transaction transaction : transactionList) {
             String category = transaction.getCategory().toString();
-            if (category.equals("INCOME")) {
+            if (category.equals("INCOME") || transaction.getAmount().positive) {
                 continue;
             }
             Amount amount = transaction.getAmount();
