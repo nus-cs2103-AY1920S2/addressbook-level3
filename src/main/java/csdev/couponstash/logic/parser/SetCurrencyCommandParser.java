@@ -36,8 +36,7 @@ public class SetCurrencyCommandParser implements Parser<SetCurrencyCommand> {
              ArgumentTokenizer.tokenize(
                      userInput,
                      CliSyntax.PREFIX_MONEY_SYMBOL);
-        ParseException emptySymbolException = new ParseException(MESSAGE_MISSING_VALUES
-                + "\n" + MESSAGE_USAGE);
+        ParseException emptySymbolException = new ParseException(MESSAGE_MISSING_VALUES);
         String newSymbol = argMultimap.getValue(CliSyntax.PREFIX_MONEY_SYMBOL)
                 .map(String::trim)
                 .orElseThrow(() -> emptySymbolException);

@@ -17,7 +17,7 @@ public class SetCurrencyCommand extends Command {
             + "Parameters: " + PREFIX_MONEY_SYMBOL + " NEW_MONEY_SYMBOL\n\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_MONEY_SYMBOL + "RM";
     public static final String MESSAGE_MISSING_VALUES = COMMAND_WORD
-            + " requires at least one value to be set!\n\n";
+            + " requires at least one value to be set!\n\n" + MESSAGE_USAGE;
     public static final String MESSAGE_CONSTRAINTS = "Numbers are not allowed"
             + " within currency symbols!";
 
@@ -36,5 +36,11 @@ public class SetCurrencyCommand extends Command {
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, oldSymbol) + this.moneySymbol + "!");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this == o || (o instanceof SetCurrencyCommand
+                && this.moneySymbol.equals(((SetCurrencyCommand) o).moneySymbol));
     }
 }
