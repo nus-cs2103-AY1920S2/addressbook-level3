@@ -609,9 +609,6 @@ image::DeleteStudentSequenceDiagram.png[]
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 ====
 
-.Student Delete - Sequence Diagram
-image::DeleteStudentSequenceDiagram.png[]
-
 1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
 2. The `TaTrackerParser` sees that the command is of type *student* and passes the
