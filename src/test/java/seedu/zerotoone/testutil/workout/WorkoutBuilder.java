@@ -3,6 +3,7 @@ package seedu.zerotoone.testutil.workout;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutName;
@@ -17,6 +18,9 @@ public class WorkoutBuilder {
     private WorkoutName workoutName;
     private List<Exercise> workoutExercises;
 
+    /**
+     * Constructor for a fresh instance of WorkoutBuilder.
+     */
     public WorkoutBuilder() {
         workoutName = new WorkoutName(DEFAULT_WORKOUT_NAME);
         workoutExercises = new ArrayList<>();
@@ -41,9 +45,39 @@ public class WorkoutBuilder {
     /**
      * Exercises the {@code workoutExercises} of the {@code Workout} that we are building.
      */
-    public WorkoutBuilder withWorkoutExercise(Exercise exercise) {
+    public WorkoutBuilder withWorkoutExerciseList(List<Exercise> workoutExerciseList) {
+        this.workoutExercises = workoutExerciseList;
+        return this;
+    }
+
+    /**
+     * Exercises the {@code workoutExercises} of the {@code Workout} that we are building.
+     */
+    public WorkoutBuilder withWorkoutExercise(Exercise ... exercises) {
         List<Exercise> workoutExercisesCopy = new ArrayList<>(workoutExercises);
-        workoutExercisesCopy.add(exercise);
+        for (Exercise exercise : exercises) {
+            workoutExercisesCopy.add(exercise);
+        }
+        workoutExercises = workoutExercisesCopy;
+        return this;
+    }
+
+    /**
+     * Exercises the {@code workoutExercises} of the {@code Workout} that we are building.
+     */
+    public WorkoutBuilder setWorkoutExercise(Index target, Exercise newExercise) {
+        List<Exercise> workoutExercisesCopy = new ArrayList<>(workoutExercises);
+        workoutExercisesCopy.set(target.getZeroBased(), newExercise);
+        workoutExercises = workoutExercisesCopy;
+        return this;
+    }
+
+    /**
+     * Exercises the {@code workoutExercises} of the {@code Workout} that we are building.
+     */
+    public WorkoutBuilder deleteWorkoutExercise(Exercise exerciseToDelete) {
+        List<Exercise> workoutExercisesCopy = new ArrayList<>(workoutExercises);
+        workoutExercisesCopy.remove(exerciseToDelete);
         workoutExercises = workoutExercisesCopy;
         return this;
     }

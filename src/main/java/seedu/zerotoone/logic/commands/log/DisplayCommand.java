@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 
 /**
@@ -26,8 +28,11 @@ public class DisplayCommand extends LogCommand {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.isInSession()) {
+            throw new CommandException(Command.MESSAGE_SESSION_STARTED);
+        }
 
         model.setStatisticsDateRange(startRange, endRage);
         return new CommandResult(MESSAGE_SUCCESS, false, true, false);

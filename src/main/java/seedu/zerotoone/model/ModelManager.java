@@ -247,6 +247,26 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public ReadOnlyLogList getLogList() {
+        return logList;
+    }
+
+    @Override
+    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
+        return new ArrayList<>(this.getLogList().getLogList());
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsStartDateRange() {
+        return statisticsStartRange;
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsEndDateRange() {
+        return statisticsEndStartRange;
+    }
+
     // -----------------------------------------------------------------------------------------
     // Session List
 
@@ -355,7 +375,6 @@ public class ModelManager implements Model {
         this.timer.cancel();
         this.timer.purge();
     }
-
     // -----------------------------------------------------------------------------------------
     // Schedule
     @Override
@@ -366,26 +385,6 @@ public class ModelManager implements Model {
     @Override
     public void populateSortedScheduledWorkoutList() {
         scheduler.populateSortedScheduledWorkoutList();
-    }
-
-    @Override
-    public ReadOnlyLogList getLogList() {
-        return logList;
-    }
-
-    @Override
-    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
-        return new ArrayList<>(this.getLogList().getLogList());
-    }
-
-    @Override
-    public Optional<LocalDateTime> getStatisticsStartDateRange() {
-        return statisticsStartRange;
-    }
-
-    @Override
-    public Optional<LocalDateTime> getStatisticsEndDateRange() {
-        return statisticsEndStartRange;
     }
 
     @Override
@@ -448,6 +447,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteExerciseFromWorkouts(Exercise exercise) {
+        workoutList.removeExerciseFromWorkouts(exercise);
+    }
+
+    @Override
     public void addWorkout(Workout workout) {
         workoutList.addWorkout(workout);
         updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
@@ -488,7 +492,7 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
-                && logList.equals(other.logList);
-        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
+                && logList.equals(other.logList)
+                && scheduler.equals(other.scheduler);
     }
 }

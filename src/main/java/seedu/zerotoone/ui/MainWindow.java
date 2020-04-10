@@ -13,10 +13,12 @@ import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.logic.commands.util.AllCommands;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.ui.util.UiPart;
 import seedu.zerotoone.ui.util.ViewType;
 import seedu.zerotoone.ui.views.exercise.ExerciseListPanel;
+import seedu.zerotoone.ui.views.help.HelpDisplay;
 import seedu.zerotoone.ui.views.home.HomePanel;
 import seedu.zerotoone.ui.views.log.LogListPanel;
 import seedu.zerotoone.ui.views.schedule.ScheduledWorkoutListPanel;
@@ -27,9 +29,7 @@ import seedu.zerotoone.ui.views.workout.WorkoutListPanel;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
-
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
@@ -41,53 +41,43 @@ public class MainWindow extends UiPart<Stage> {
     private WorkoutListPanel workoutListPanel;
     private ScheduledWorkoutListPanel scheduledWorkoutListPanel;
     private LogListPanel logListPanel;
-
     private ResultDisplay resultDisplay;
-
     private StatisticsWindow statisticsWindow;
+    private HelpDisplay helpDisplay;
 
     @FXML
     private VBox tabsVBox;
-
     @FXML
     private StackPane commandBoxPlaceholder;
-
+    @FXML
+    private StackPane helpDisplayPlaceholder;
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private TabPane tabPanePlaceHolder;
-
     @FXML
     private StackPane homeContentPlaceholder;
-
     @FXML
     private StackPane exerciseContentPlaceholder;
-
     @FXML
     private StackPane workoutContentPlaceholder;
-
     @FXML
     private StackPane scheduleContentPlaceholder;
-
     @FXML
     private StackPane logContentPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-
-        // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
         statisticsWindow = new StatisticsWindow();
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
-            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 6);
-            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 5 - 6);
+            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
+            tabPanePlaceHolder.setTabMinWidth(newValue.doubleValue() / 6 - 6);
         });
     }
 
@@ -96,9 +86,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Initialises the MainWindow
      */
-    void fillInnerParts() {
+    void start() {
+        primaryStage.show();
+
+        // Fills up all the placeholders of this window.
         homePanel = new HomePanel(logic.getOngoingSetList(), logic.getLastSet(), logic.getTimerList());
         homeContentPlaceholder.getChildren().add(homePanel.getRoot());
 
@@ -111,13 +104,14 @@ public class MainWindow extends UiPart<Stage> {
         scheduledWorkoutListPanel = new ScheduledWorkoutListPanel(logic.getSortedScheduledWorkoutList());
         scheduleContentPlaceholder.getChildren().add(scheduledWorkoutListPanel.getRoot());
 
-
         logListPanel = new LogListPanel(logic.getFilteredLogList());
         logContentPlaceholder.getChildren().add(logListPanel.getRoot());
 
+        helpDisplay = new HelpDisplay(new AllCommands().getCommandList());
+        helpDisplayPlaceholder.getChildren().add(helpDisplay.getRoot());
+
         tabPanePlaceHolder.setMinWidth(530);
         tabPanePlaceHolder.setMinHeight(200);
-
 
         VBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
 
@@ -126,6 +120,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Focus on command box
+        commandBox.requestFocus();
     }
 
     /**
@@ -150,6 +147,14 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             statisticsWindow.focus();
         }
+    }
+
+    /**
+     * Shows a view of the app information such as a list of all commands.
+     */
+    @FXML
+    public void handleAbout() {
+        tabPanePlaceHolder.getSelectionModel().select(5);
     }
 
     void show() {
@@ -180,6 +185,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowAbout()) {
+                handleAbout();
+            }
 
             if (commandResult.isShowReport()) {
                 handleReport();
