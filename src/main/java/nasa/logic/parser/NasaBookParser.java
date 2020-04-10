@@ -19,6 +19,7 @@ import nasa.logic.commands.EditEventCommand;
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.ExportCalendarCommand;
+import nasa.logic.commands.ExportQrCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
@@ -100,6 +101,9 @@ public class NasaBookParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case ExportQrCommand.COMMAND_WORD:
+            return new ExportQrCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

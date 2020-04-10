@@ -150,7 +150,7 @@ public class Event extends Activity {
 
         Event otherEvent = (Event) other;
         return otherEvent.getName().equals(getName())
-                && otherEvent.getStartDate().equals(getEndDate())
+                && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate())
                 && otherEvent.getDateCreated().equals(getDateCreated())
                 && otherEvent.getNote().equals(getNote());

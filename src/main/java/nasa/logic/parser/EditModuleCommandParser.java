@@ -13,6 +13,7 @@ import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/* @@author don-tay */
 /**
  * Parses input arguments and creates a new EditModuleCommand object.
  * Valid format: edit m/MODULE CODE [m/MODULE CODE] [n/MODULE NAME]
@@ -52,6 +53,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         if (isModuleCodeEditable(allModuleCodeParsed)) {
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_MODULE_NAME).isPresent()) {
             editModuleDescriptor.setModuleName(ParserUtil.parseModuleName(
                     argMultimap.getValue(PREFIX_MODULE_NAME).get()));
