@@ -24,25 +24,66 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureNewDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 ==== Design Pattern and Control Flow
 Two main design patterns were used in the design of our software.
 
-* Model - View - ViewModel Control Flow
+* A/ Model - View - ViewModel Control Flow
 
-** Explain why we decide to use MVVM instead of MVC
+Design Consideration between Model-View-Controller(MVC) and Model-View-ViewModel(MVVM) design:
 
-* Event-Driven Design
+- The original design was a standard MVC, where Controller is our LogicManager,
+and the Model is our ModelManager. Then components in the view will bind to
+the model objects, whenever there is an update to the model object the UI view will be updated automatically.
 
-** Explain rational behind choosing event-driven design
-*** Really de-couple between components, and facilitate communication between components a lot.
-** Explain two types of managers ,
-*** one is publishing managers (those in Model section, i.e EdgeManager, ProgressManager, etc)
-*** the other one is subscribing managers, one is the ViewModel (which is DetailManager) and StorageManager.
+- However, the more UI custom views logic we decide, we might need to push more and more custom
+UI-specific logic to our Model and ViewController class, which is not very desirable. Or as the infamous quote, MVC becomes
+"Massive View Controller".
 
+- Instead, we will adapt to MVVM design, where ViewModel will hold a list of observableMap
+of data. Each custom view in our UI will have a one-to-one mapping with an observableMap,
+and to calculate those observableMap the ViewModel will make use of the Managers we define.
+
+* B/ Event-Driven Design
+
+
+We adopt event-driven design, where different components will try to communicate with each other
+through publishing events and subscribing to events, de-couple between components, and facilitate communication between components a lot.
+
+** To separate responsibilities well between components, we divide them into multiple managers,
+all extending from the BaseManager class. The BaseManager will always hold refer to the EventsCenter
+(which is designed to be a singleton class in our case)
+
+*** One is publishing managers (those in Model section, i.e EdgeManager, ProgressManager, etc).
+They can post events to the EventsCenterSingleton.
+
+*** The other one is subscribing managers, one is the ViewModel (which is DetailManager) and StorageManager.
+Subscribing managers will have handler method that listen to the events and decide what to do.
+
+** Different events types will extend from the BaseEvent. In our app we have
+
+- DataStorageChangeEvent: signals when model object changes
+
+- DeleteEntitySyncEvent: signals when the entity linking relationship is broken (e.g
+when a student is deleted, its link to course and progress and teacher, etc will be broken)
+
+Here is an example of how a command to delete student with ID 1 will invoke different parts along the flow.
+
+image::EventsFlowDiagram.png[]
+
+* 1/ ViewController(i.e LogicManager) will invoke ModelManager.delete method (Note that ModelManager extends from BaseManager,
+and has the Publisher capacity)
+* 2/ ModelManager will invoke publishing of events to EventsCenterSingleton (which holds
+an EventBus), in this case postDataStorageChangeEvent
+and postDeleteEntitySyncEvent will be invoked.
+* 3/ Other BaseManagers will also hold this EventsCenterSingleton and listen to new publish events
+in the event bus. If the manager class has the handler function for that types of events,
+the method will be invoked.
+* In this case, StorageManager will have handler for both DataStorageChangeEvent and
+DeleteEntitySyncEvent, while ViewModel will have handler for DataStorageChangeEvent.
 
 
 ==== Architecture-Level Components
@@ -240,7 +281,69 @@ Explain flow for capturing delete event (and unassign correspondingly)
 
 === Undo/Redo
 
-Explain flow for extending from undoableCommand
+Currently we only support undo/redo for commands that modify the storage (or state of
+the app). I.e add / delete, assign / unassign, edit commands.
+
+View Controller (LogicManager) will hold UndoRedoStack class, which stores the undoStack
+and redoStack which will be explained below.
+
+Those commands listed above will inherit from UndoableCommand abstract class.
+UndoableCommand will extends from Command class.
+
+UndoableCommand will contain the general algorithm flow for doing undo/ redo, while there
+will be some details delegated to the actual command class. This technique is also known as
+template pattern.
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    public abstract void preprocessUndoableCommand() {}
+
+    public abstract void generateOppositeUndoableCommand()
+
+    public CommandResult executeUndoableCommand();
+    @Override
+    public CommandResult execute() {
+        preprocessUndoableCommand();
+        generateOppositeUndoableCommand();
+        return executeUndoableCommand();
+    }
+}
+----
+
+Note that for each UndoableCommand, before execution, it needs to save some information
+(through the preprocessUndoableCommand) then generate (and store) the opposite corresponding command
+(through generateOppositeUndoableCommand)
+
+Let's go through the example in diagram below.
+- The user first executes a new UndoableCommand delete-student. Before this delete command is executed,
+we preprocessUndoableCommand to get the to-be-deleted student object, as well as the current index
+of this student object in list.
+
+- Then we will generate a AddStudentCommand (which is
+opposite of this DeleteStudentCommand) with this studentObject and index and push it to undoStack
+
+- When undo command is executed, the top of undoStack is popped out, then pushed to
+redoStack. Then the oppositeCommand of it will be excecuted (in this case
+AddStudentCommand will be invoked)
+
+- When redo command is executed, the top of redoStack is popped out, then pushed to
+undoStack. Then the originalCommand will be executed (again) (in this case it
+will be DeleteStudentCommand again).
+
+image::UndoRedoStack.png[]
+
+* Design Considerations:
+1/ How Undo and Redo works:
+Option A: Save the entire app state after every command.
+Pros: Very easy implementation.
+Cons: Serious memory performance issue when storing the whole address book at every time step.
+
+Option B (Current choice): Each (undoable) command will know how to generateOpposite command itself.
+Pros: Reduce a lot of memory issue.
+
+Cons: Harder to implement
+
 
 ==== Opposite Command for edit
 
