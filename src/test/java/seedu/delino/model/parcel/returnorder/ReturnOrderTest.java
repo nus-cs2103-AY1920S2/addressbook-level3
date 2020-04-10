@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.delino.testutil.ReturnOrderBuilder;
 
+//@@author cherweijie
 public class ReturnOrderTest {
 
     @Test
@@ -30,13 +31,13 @@ public class ReturnOrderTest {
 
         assertFalse(ALICE_RETURN.isSameParcel(editedAlice));
 
-        // different name -> returns false
+        // different name -> returns true
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE_RETURN.isSameParcel(editedAlice));
+        assertTrue(ALICE_RETURN.isSameParcel(editedAlice));
 
-        // different phone -> returns false
+        // different phone -> returns true
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE_RETURN.isSameParcel(editedAlice));
+        assertTrue(ALICE_RETURN.isSameParcel(editedAlice));
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new ReturnOrderBuilder(ALICE_RETURN).withAddress(VALID_ADDRESS_BOB)
