@@ -260,11 +260,11 @@ This feature is facilitated by the logic found in the `AutoComplete` class. Befo
 [options='header']
 |===
 | Unambiguous Commands | Ambiguous Commands
-| Can uniquely identify a single command using the sequence of letters that the user has entered | Cannot uniquely identify a single command user the sequence of letters that the user has entered
+| Can uniquely identify a single command using the sequence of letters that the user has entered | Cannot uniquely identify a single command using the sequence of letters that the user has entered
 |===
 
 [TIP]
-For example, assume we only have 3 commands in our app, `add-c`, `add-e`, and `edit-c`. If the user enters `e` and tries to autocomplete the command using kbd:[Tab], we say that this is an unambiguous command since clearly only `edit-c` can be uniquely identified. If instead, the user enters `a` and presses kbd:[Tab] to autocomplete the command, we say that this is an ambiguous command, since both `add-c` and `add-e` are possible choices.
+For example, assume we only have 3 commands in our app, `add-c`, `add-e`, and `edit-c`. If the user enters `e` and tries to autocomplete the command using kbd:[Tab], we say that this is an unambiguous command since clearly, `edit-c` can be uniquely identified by `e`. If instead, the user enters `a` and presses kbd:[Tab] to autocomplete the command, we say that this is an ambiguous command, since both `add-c` and `add-e` are possible choices.
 
 [[command-history-behaviour]]
 ===== Behaviour of this feature
