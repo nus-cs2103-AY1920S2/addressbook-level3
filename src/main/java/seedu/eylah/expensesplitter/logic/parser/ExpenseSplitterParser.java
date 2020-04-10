@@ -46,6 +46,7 @@ public class ExpenseSplitterParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
+
         // New Command need to add to here!!!
         switch(commandWord) {
         case ListReceiptCommand.COMMAND_WORD:

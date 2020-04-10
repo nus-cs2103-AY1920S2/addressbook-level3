@@ -50,6 +50,10 @@ public class HelpCommand extends Command {
             + "   USAGE: bmi [-h HEIGHT] [-w WEIGHT]\n"
             + "   EXAMPLE: bmi -h 170.2 -w 65.7\n"
             + DIVIDER
+            + "9. back - Use this to go back to EYLAH main application window in order to switch between Diet Tracker"
+            + " and Expense Splitter.\n"
+            + "   USAGE: back\n"
+            + "   EXAMPLE: back\n"
             + "We hope you enjoy your usage of Eylah Diet Tracker!";
 
     @Override

@@ -2,7 +2,6 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.eylah.commons.core.Messages;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -37,7 +36,7 @@ public class WeightCommand extends Command {
         requireNonNull(model);
 
         if (weight.getWeightFloat() <= 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new CommandException("Please enter a weight value >0.");
         }
 
         model.setWeight(weight);

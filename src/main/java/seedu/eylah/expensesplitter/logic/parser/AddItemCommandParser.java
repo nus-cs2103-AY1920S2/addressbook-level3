@@ -28,6 +28,7 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddItemCommand parse(String args) throws ParseException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ITEM, PREFIX_PRICE, PREFIX_NAME);
 
@@ -36,8 +37,18 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddItemCommand.MESSAGE_USAGE));
         }
 
+        ItemPrice price;
+
+        try {
+            price = ParserUtil.parseItemPrice(argMultimap.getValue(PREFIX_PRICE).get());
+        } catch (NumberFormatException ex) {
+            throw new ParseException(String.format("Amount field"
+                    + " does not require the '$' sign and can only contain numerical digits. "
+                    + "Do enter `help` if you require further clarification.",
+                AddItemCommand.MESSAGE_USAGE));
+        }
+
         ItemName itemName = ParserUtil.parseItemName(argMultimap.getValue(PREFIX_ITEM).get());
-        ItemPrice price = ParserUtil.parseItemPrice(argMultimap.getValue(PREFIX_PRICE).get());
         ArrayList<Name> names = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
         Amount amountPerPerson = ParserUtil.parseAmount(price, names.size());
         ArrayList<Person> persons = ParserUtil.parsePersons(names, amountPerPerson);
