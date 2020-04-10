@@ -4,7 +4,7 @@ import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
-import static fithelper.testutil.Assert.assertThrows;
+import static fithelper.testutil.AssertUtil.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -93,6 +93,6 @@ public class FitHelperParserTest {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
     }
-
 }
+
 
