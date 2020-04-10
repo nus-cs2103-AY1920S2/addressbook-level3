@@ -195,7 +195,7 @@ The behaviour of this feature has been implemented to mimic most modern CLIs, na
 . The caret position should be at the end of the command string when browsing the history
 . Persistent storage of the command history should be supported (ie. a user can quit the app and come back to the same history as his previous usage of the app)
 
-===== How it works
+===== How this feature works
 
 Since all user inputs, be it valid or invalid commands, should be stored, and since detection of the kbd:[&uarr;] and kbd:[&darr;] arrow keys must occur in the JavaFX's `TextField` class found in `CommandBox`, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will be responsible for calling `CommandHistory#addToHistory`, `CommandHistory#getNextCommand`, and `CommandHistory#getPreviousCommand`. A simplified class diagram of the classes involved in this feature is given below:
 
@@ -237,19 +237,34 @@ Ultimately, we felt that 100 is a very generous estimate given that a user reall
 
 === Command Autocompletion --- Aaron Choo
 
-Similar to the previously mentioned <<Command History --- Aaron Choo, Command History>> feature, this feature improves the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
+Similar to the previously mentioned <<Command History --- Aaron Choo, Command History>> feature, this feature also serves to improve the user experience by allowing users to press the kbd:[Tab] key to autocomplete their partially entered commands.
 
 ==== Implementation
 
-This feature is facilitated by the logic found in the `AutoComplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are. Unambiguous commands are those that can be uniquely identified by the sequence of letters that the user has entered. Ambiguous commands are those that cannot be identified by the said sequence of letters. For example, assume we only have 3 commands in our app, `add-c`, `add-e`, and `edit-c`. If the user enters `e` and presses kbd:[Tab], we say that this is an unambiguous command since clearly only `edit-c` can be the correct command. If instead, the user enters `a` and presses kbd:[Tab], we say that this is an ambiguous command, since both `add-c` and `add-e` are possible choices. Again, let us start by defining the behaviour (which also has been implemented to mimic most modern CLIs):
+This feature is facilitated by the logic found in the `AutoComplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are: 
 
-. The caret position should be at the end of the line after any successful autocompletion of commands
-. Any unambiguous commands should be completed upon pressing of the kbd:[Tab] key
+[options='header']
+|===
+| Unambiguous Commands | Ambiguous Commands
+| Can uniquely identify a single command using the sequence of letters that the user has entered | Cannot uniquely identify a single command user the sequence of letters that the user has entered 
+|===
+
+[TIP]
+For example, assume we only have 3 commands in our app, `add-c`, `add-e`, and `edit-c`. If the user enters `e` and tries to autocomplete the command using kbd:[Tab], we say that this is an unambiguous command since clearly only `edit-c` can be uniquely identified. If instead, the user enters `a` and presses kbd:[Tab] to autocomplete the command, we say that this is an ambiguous command, since both `add-c` and `add-e` are possible choices.
+
+[[command-history-behaviour]]
+===== Behaviour of this feature
+
+Again, this feature has also been implemented to mimic most modern CLIs, namely:
+
+. Any unambiguous commands should be immediately completed upon pressing of the kbd:[Tab] key
 . Any ambiguous commands should be completed up till the longest common prefix of all similar commands
-** Using the ambiguous command example in the introduction above, when the user enters `a` and presses kbd:[Tab], the autocompletion should return `add-` to the user
+** Using the ambiguous command example in the introduction above, when the user enters `a` and presses kbd:[Tab], the autocompletion should return `add-` (the longest common prefix of `add-e` and `add-c`) to the user
 . A list of all similar commands should be presented to the user should he try to autocomplete an ambiguous command
 
-A limitation of the current design is that we are only able to autocomplete _commands_, and not other fields/parameters like names and addresses that have been used by the user before. As such, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to disable this feature (ie. when the user has already completed the command and has moved on to entering the parameters). As such, the following code snippet is used in `AutoComplete#execute` to stop trying to autocomplete if white spaces has been detected:
+===== How this feature works
+
+A limitation of the current design is that we are only able to autocomplete _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. As such, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to disable this feature (ie. when the user has already completed the command and has moved on to entering the parameters). As such, the following code snippet is used in `AutoComplete#execute` to stop trying to autocomplete if white spaces has been detected:
 
 ```java
 if (currCommand.contains(WHITE_SPACE_STRING)) {
@@ -260,6 +275,33 @@ if (currCommand.contains(WHITE_SPACE_STRING)) {
 Similarly, since this feature relies heavily on the UI `CommandBox`, we have decided to let `CommandBox` interact with `AutoComplete` directly. `AutoComplete` makes use of the `Trie` data structure which we will discuss in the next section. As such, the following simplified class diagram shows exactly which classes are responsible for this feature:
 
 image::CommandAutocompleteClassDiagram.png[]
+
+===== How the Trie data structure works
+
+Since Java does not provide a native Trie data structure, we had to implement our own version of it. Moreover, Java also does not allow methods with multiple return values, and thus, we had to create a wrapper class `SimilarWordsResult` to store the multiple results returned by `Trie#listAllSimilarWords`. In this section, we shall take a more in depth look at the overall implementation of this data structure.
+
+We first look at the `Node` class provided in the same package which `Trie` relies on. Each `Node` object should contain the following attributes:
+
+* The parent node (`null` if the node is the root of the Trie)
+* The current letter it represents
+* The children nodes (if any)
+* A boolean to know whether that node represents a completed word
+
+Since each node stores with it their parent node pointer, we can easily construct the word represented by a node by recursively building the word up letter by letter until the root is reached. This is implemented in `Node#constructWord`, as shown here:
+
+```java
+public String constructWord() {
+      if (isRoot()) {
+            return EMPTY_STRING;
+      }
+      return parent.constructWord() + getLetter();
+}
+```
+
+Now, let us discuss about how `Trie` is implemented to support the <<command-history-behaviour, second behaviour discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns the `Node` whose constructed word (when constructed using `Node#constructWord`) is:
+
+* If the argument `word` is unambiguous: the longest word contained in `Trie` that can be formed from `word`
+* If the argument `word` is ambiguous: the longest common prefix of all words similar to `word` contained in `Trie` 
 
 ==== Design Considerations
 
