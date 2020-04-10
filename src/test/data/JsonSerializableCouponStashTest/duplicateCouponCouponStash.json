@@ -3,7 +3,10 @@
     "name": "Alice Pauline",
     "promoCode": "I<3STASH",
     "savingsPerUse" : {
-      "monetaryAmount" : 123.0,
+      "monetaryAmount" : {
+        "integer" : 123,
+        "decimal" : 0
+      },
       "percentageAmount" :null,
       "saveables" : [ {
         "saveableDesc" : "Water Bottle",
@@ -25,7 +28,10 @@
     "name": "Alice Pauline",
     "promoCode": "I<3STASH",
     "savingsPerUse" : {
-      "monetaryAmount" : 123.0,
+      "monetaryAmount" : {
+        "integer" : 123,
+        "decimal" : 0
+      },
       "percentageAmount" :null,
       "saveables" : [ {
         "saveableDesc" : "Water Bottle",
