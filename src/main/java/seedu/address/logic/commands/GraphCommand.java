@@ -52,7 +52,9 @@ public class GraphCommand extends Command {
     public static final String MESSAGE_EXERCISE_NOT_IN_LIST = "Graph cannot be plotted as no such exercise is"
             + " recorded for this client from %1$s to %2$s.";
 
-    public static final String MESSAGE_NO_GRAPH_FOR_AXIS = "There is no graph to plot for this axis specified. ";
+    public static final String MESSAGE_NO_GRAPH_FOR_AXIS = "There is no graph to plot for this axis specified. "
+            + "Please choose a different axis or a different exercise.";
+
 
     private final Graph graph;
 
@@ -82,6 +84,10 @@ public class GraphCommand extends Command {
         }
 
         List<Exercise> graphList = graph.generateGraphList(clientInView);
+
+        if (graphList.size() == 0) {
+            throw new CommandException(MESSAGE_NO_GRAPH_FOR_AXIS);
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, clientInView.getName().toString(),
             graph.getExerciseName().toString(), graph.getStartDate().toString(), graph.getEndDate().toString()),
