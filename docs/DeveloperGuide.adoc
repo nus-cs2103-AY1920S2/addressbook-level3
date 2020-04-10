@@ -59,7 +59,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="790"]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -67,7 +67,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `moduleAdd m/CS2103T`.
 
 .Component interactions for `moduleAdd m/CS2103T` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[width="790"]
 
 The sections below give more details of each component.
 
@@ -75,7 +75,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="790"]
 
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -94,7 +94,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="790"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -108,7 +108,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::DeleteSequenceDiagram.png[width="790"]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -116,7 +116,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Part of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width="790"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -136,7 +136,7 @@ image:BetterModelClassDiagram.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[width="790"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -176,7 +176,7 @@ Our module search function consists of 2 main implementation
 Our program will check if the module code is valid by using the search feature above.
 * The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a module in our program.
 
-image::ModuleAddSequenceDiagram.png[]
+image::ModuleAddSequenceDiagram.png[width="790"]
 
 ==== Update your grades
 - For modules that you have taken, users can store their grade in our application.
@@ -212,10 +212,10 @@ This feature is implemented using a panel on the main window, listing out a list
 Notes features includes `notesOpen`, `notesCreate`, `notesDelete` and `notesList`.
 
 .Notes List Activity Diagram
-image::NotesList.png[]
+image::NotesList.png[width="600"]
 
 .Notes Open Activity Diagram
-image::NotesCreation.png[]
+image::NotesCreation.png[width="600"]
 
 notesCreate and notesDelete activity diagram works similar to notesOpen.
 
@@ -227,7 +227,7 @@ The Path interface in java allows for 2 implementation of pathing namely:
    2. RelativePath
 
 .Notes Pathing Diagram
-image::absVSrel.png[]
+image::absVSrel.png[width="600"]
 
 AbsolutePath will take the path given from `usr/`.
 
