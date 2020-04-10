@@ -13,6 +13,8 @@ import seedu.address.model.util.Description;
 import seedu.address.model.util.Money;
 import seedu.address.model.util.Quantity;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Creates a transaction with the customer and product index.
  */
@@ -40,6 +42,7 @@ public class TransactionFactory {
      * @return created transaction.
      */
     public Transaction createTransaction(Model model) throws CommandException {
+        requireNonNull(model);
         Money updatedMoney;
 
         List<Customer> customerList = model.getFilteredCustomerList();
