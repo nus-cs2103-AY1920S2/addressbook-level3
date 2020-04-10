@@ -699,6 +699,56 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `delete m/CS1231 g/` +
    Expected: No grade is deleted. Error details shown in the status message. All panels remain the same.
 
+=== Editing the name of a profile
+
+. Editing the name of an existing profile.
+
+.. Prerequisites: Profile with name `john` has been created.
+.. Test case: `edit n/tom` +
+   Expected: In the profile panel, the name has been changed from `JOHN` to `TOM`. All other fields in the existing profile remain the same.
+.. Test case: `edit n/tom&` +
+   Expected: Name of profile is not modified. Error details shown in the status message. All panels and fields of profile remain the same.
+
+=== Editing the course of a profile
+
+. Editing the course of an existing profile.
+
+.. Prerequisites: Profile with name `john` has been created with course `computer science`.
+.. Test case: `edit n/john c/business analytics` +
+   Expected: In the profile panel, the course has been changed from `COMPUTER SCIENCE` to `BUSINESS ANALYTICS`. All other fields in the existing profile remain the same.
+.. Test case: `edit n/john c/course` +
+   Expected: Course of profile is not modified. Error details shown in the status message. All panels and fields of profile remain the same.
+
+=== Editing the focus area of a profile
+
+. Editing the focus area of an existing profile.
+
+.. Prerequisites: Profile with name `john` has been created with focus area `computer security`.
+.. Test case: `edit n/john f/artificial intelligence` +
+   Expected: In the profile panel, the focus area has been changed from `COMPUTER SECURITY` to `ARTIFICIAL INTELLIGENCE`. All other fields in the existing profile remain the same.
+.. Test case: `edit n/john c/course` +
+   Expected: Focus area of profile is not modified. Error details shown in the status message. All panels and fields of profile remain the same.
+
+=== Editing the semester of a module
+
+. Editing the semester of an existing module.
+
+.. Prerequisites: Profile with name `john` has been created. The module `CS1010` has been added to year 1 semester 1 but the module `CS1231` has NOT been added to any semester. View all modules using the `show n/john` command.
+.. Test case: `edit m/CS1010 y/1.2` +
+   Expected: In the overview panel, the module `CS1010` moves from year 1 semester 1 to year 1 semester 2.
+.. Test case: `edit m/CS1231 y/1.2` +
+   Expected: Semester of the module is not modified. Error details shown in the status message. All panels remain the same.
+
+=== Editing a task of a module
+
+. Editing the name of a task of a module.
+
+.. Prerequisites: Profile has been created. The module `CS1010` has been added with one deadline named `work`.
+.. Test case: `edit m/CS1010 t/work nt/exam` +
+   Expected: In the deadline panel, the name of the task `work` under module `CS1010` is changed to `exam`.
+.. Test case: `edit m/CS1010 t/midterm nt/exam` +
+   Expected: Name of the task is not modified. Error details shown in the status message. All panels remain the same.
+
 === Viewing module overview
 
 . Viewing the module overview throughout all semesters.
