@@ -96,6 +96,10 @@ public class AbsolutePath implements Path, Comparable<AbsolutePath> {
     public int compareTo(AbsolutePath path) {
         Objects.requireNonNull(path);
 
+        if (components.size() != path.components.size()) {
+            return components.size() - path.components.size();
+        }
+
         int i = 0;
         while (i < components.size() && i < path.components.size()) {
             if (!components.get(i).equalsIgnoreCase(path.components.get(i))) {
@@ -104,7 +108,7 @@ public class AbsolutePath implements Path, Comparable<AbsolutePath> {
             i++;
         }
 
-        return components.size() - path.components.size();
+        return 0;
     }
 
     @Override
