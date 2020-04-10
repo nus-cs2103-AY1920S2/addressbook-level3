@@ -625,6 +625,8 @@ Showing the *parameter usage*
 This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 === Navigation
+These commands are used to control the different *windows* in *TA-Tracker*,
+as well as switching between the different *Views*.
 
 ==== Viewing help : `help`
 
@@ -1377,7 +1379,7 @@ Examples:
 * `setrate 25` +
 Sets the current hourly rate to 25$.
 
-== GLOSSARY
+== Glossary
 
 [width="%",cols="<20%,<40,<40,options="header",]
 |=======================================================================
@@ -1426,9 +1428,9 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 == Command Summary
 
 === Navigation
-* *Viewing Help:* `help`
-* *Switching tabs:* `goto TAB_NAME`
-* *Exiting the program:* `exit`
+* *View Help:* `help`
+* *Switch Tabs:* `goto TAB_NAME`
+* *Exit the Program:* `exit`
 
 === Student View
 
@@ -1439,7 +1441,7 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 ==== Group commands
 * *Add Group:* `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
-* *Edit Group:* `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]
+* *Edit Group:* `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
 * *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
 
 ==== Student commands
@@ -1448,10 +1450,10 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 * *Edit Student:* `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…`
 
 ==== Others
-* *Sorting a Group:* `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
-* *Sorting a Module:* `sort module m/MOD_CODE t/SORT_TYPE`
-* *Sorting All Modules:* `sort all t/SORT_TYPE`
-* *Filter:* `student filter m/MOD_CODE [g/GROUP_CODE]`
+* *Sort Group:* `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
+* *Sort Module:* `sort module m/MOD_CODE t/SORT_TYPE`
+* *Sort All Modules:* `sort all t/SORT_TYPE`
+* *Filter Students:* `student filter m/MOD_CODE [g/GROUP_CODE]`
 
 === Session View
 
@@ -1459,11 +1461,11 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 * *Add Session:* `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEK] [t/SESSION_TYPE] [n/NOTES]`
 * *Delete Session:* `session delete INDEX`
 * *Edit Session:* `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR] [m/MODULE] [t/SESSION_TYPE] [n/NOTES]`
-* *Mark as Done:* `session done INDEX`
+* *Done Session:* `session done INDEX`
 
 ==== Others
-* *Filter:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
+* *Filter Sessions:* `session filter [d/DATE]  [m/MOD_CODE] [t/SESSION_TYPE]`
 
 === Claims View
 * *Set Rate:* `setrate RATE`
-* *Filter:* `claims filter m/MOD_CODE`
+* *Filter Claims:* `claims filter m/MOD_CODE`
