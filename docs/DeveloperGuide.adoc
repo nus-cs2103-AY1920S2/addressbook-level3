@@ -164,11 +164,11 @@ image::SortSequenceDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/commands/SortCommand.java[`SortCommand.java`]
 
 ==== Implementation
-We decided to add 
-The tasklist has no default sorting set on it. It will only be sorted when a sort command is used like so `sort {field1} {field2} ...`.
-First our Model accepts an array of Comparators which it will iterate through from the back to ensure that the first comparator is the highest sort order.
+In order for the UI to remain updated, we've decided to use the same FilteredList in the Model. The sorting is thus performed not on the FilteredList but on the TaskList which the FilteredList references. +
+// TODO add diagram for FilteredList and taskList interaction.
+We decided to keep the list of Comparators in the Model so that we may maintain the sorted order even with edited or added tasks. We set the comparator as seen in the diagram via the setComparators call to Model. The Model will thus now keep a list of comparators parsed by the SortCommand when setComparators is called on the Model. Everytime the sort command is called, the ModelManager sorts the taskList of the model that the filteredList is still referencing. This allows the UI to use the same filteredList and predicates the filteredList has applied and be sorted as well. 
 
-To implement this, we've augmented the UniqueTaskList and TaskList with a function setComparator. This allows us to set several comparators on the taskList to perform multi level sorting while maintaing the ObservableList which JavaFX can then use to update the UI.
+To implement this, we've augmented the UniqueTaskList and TaskList with a function setComparator. This allows us to set several comparators on the taskList to perform multi level sorting.
 
 === AutoComplete
 
