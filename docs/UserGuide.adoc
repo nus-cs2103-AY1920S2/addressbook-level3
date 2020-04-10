@@ -1048,6 +1048,7 @@ Example:
 All sessions in the *Claims View* with module code `CS2103T` are displayed.
 ====
 
+[#setrate]
 ==== Changing the hourly rate : `setrate`
 
 Sets the hourly rate for the total income and claim computation.
@@ -1084,10 +1085,10 @@ Format: `report [MOD_CODE]`
 [NOTE]
 ====
 * Similar to the *Claims View*, the report will only display sessions that have been marked as done.
-* `Total Claimable Hours` is computed using the current specified `rate`. See *Changing the hourly rate*
+* `Total Claimable Hours` is computed using the current specified `rate`. See <<#setrate>>.
 ====
 
-Example: 
+Example:
 
 * `report`
 +
