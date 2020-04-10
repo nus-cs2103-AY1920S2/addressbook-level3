@@ -1,10 +1,9 @@
 //package cookbuddy.logic.commands;
 package cookbuddy.logic.parser;
 
+import static cookbuddy.testutil.Assert.assertThrows;
 import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.RecipeBook;
 import cookbuddy.model.recipe.Recipe;
@@ -39,9 +38,9 @@ public class ModifyParserTest {
         RecipeBook rb = new RecipeBook();
         rb.addRecipe(HAM_SANDWICH);
 
-        ModifyCommand newName = new ModifyCommandParser().parse("/n Hammy");
-        assertEquals(newName, newName);
-        //assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
+       // ModifyCommand newName = new ModifyCommandParser().parse("/n Hammy");
+        //assertEquals(newName, newName);
+         assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
     }
 
     /*
