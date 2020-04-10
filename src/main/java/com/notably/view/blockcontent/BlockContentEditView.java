@@ -109,7 +109,7 @@ public class BlockContentEditView extends ViewPart<Stage> {
     /**
      * Sets listeners to trigger changes in the visibility of the Edit modal when certain Keystrokes
      * are registered. Primarily, allows for the user to exit the Block Edit modal using the "ESC"
-     * and "CTRL/CMD + S" keyboard shortcuts.
+     * keyboard shortcut.
      */
     private void setKeyboardListeners() {
         stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
