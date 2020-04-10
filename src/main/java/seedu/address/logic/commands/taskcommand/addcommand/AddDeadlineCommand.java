@@ -36,6 +36,7 @@ public class AddDeadlineCommand extends Command {
         Task.getDeadlineTaskList().add(deadlineToAdd);
         Task.addTaskPerDate(deadlineToAdd.getDate(), deadlineToAdd);
         Task.sortDeadlineTaskList("date");
+        Task.sortDeadlineTaskList("done");
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
 
         if (model.isEmptyDeadline(deadlineToAdd)) {

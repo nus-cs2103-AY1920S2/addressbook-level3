@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -30,6 +31,7 @@
                            </minWidth>
                         </Label>
                         <Label fx:id="category" styleClass="cell_big_label" text="\$category" />
+                        <Circle fx:id="circle" fill="DODGERBLUE" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </HBox>
                   <FlowPane fx:id="modCode" maxWidth="30.0" prefHeight="0.0" prefWidth="30.0" />

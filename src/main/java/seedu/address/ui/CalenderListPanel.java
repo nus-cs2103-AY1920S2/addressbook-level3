@@ -50,13 +50,15 @@ public class CalenderListPanel extends UiPart<Region> {
                     if (flag == false) {
                         calenderDate.setCircleVisible();
                         ArrayList<Task> allTask = Task.getDeadlineTaskHashMap().get(calenderDate.getDate());
+                        Priority highestPriority = Priority.VERYLOW;
                         for (Task tasks : allTask) {
                             if (tasks instanceof ModuleTask) {
-                                calenderDate.setPriorityColour(((ModuleTask) tasks).getPriority());
-                            } else {
-                                calenderDate.setPriorityColour(Priority.VERYLOW);
+                                if (((ModuleTask) tasks).getPriority().compareTo(highestPriority) < 0) {
+                                    highestPriority = ((ModuleTask) tasks).getPriority();
+                                }
                             }
                         }
+                        calenderDate.setPriorityColour(highestPriority);
                     }
 
                 }
