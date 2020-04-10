@@ -481,6 +481,12 @@ public class MainWindow extends UiPart<Stage> {
         petManager.updateDisplayElements();
     }
 
+    /**
+     * Triggers reminder to display as a pop up after time delay based on the reminder given in argument.
+     * @param reminder
+     * @param name
+     * @param description
+     */
     @FXML
     public static void triggerReminder(Reminder reminder, String name, String description) {
         long delay = reminder.getDelay();
@@ -497,8 +503,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     /**
-     * Is triggered at the delayed time in Duke itself.
-     * https://thecodinginterface.com/blog/javafx-alerts-and-dialogs/#informational-alert
+     * Displays the reminder's name and description as a javaFX alert.
      */
     public static void showReminder(String name, String description) {
         var alert = new Alert(Alert.AlertType.INFORMATION);
