@@ -31,7 +31,6 @@ import seedu.eylah.expensesplitter.model.receipt.Entry;
 import seedu.eylah.expensesplitter.testutil.EntryBuilder;
 import seedu.eylah.expensesplitter.testutil.TypicalEntries;
 
-
 public class AddItemCommandParserTest {
     private AddItemCommandParser parser = new AddItemCommandParser();
 

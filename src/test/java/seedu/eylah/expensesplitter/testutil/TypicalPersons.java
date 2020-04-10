@@ -83,8 +83,4 @@ public class TypicalPersons {
     public static ArrayList<Person> getTypicalPersonsArrayListV2() {
         return new ArrayList<>(Arrays.asList(DARREN, ELYSHA));
     }
-
-    public static ArrayList<Person> getAnnaSinglePersonsArrayList() {
-        return new ArrayList<>(Arrays.asList(ANNA));
-    }
 }
