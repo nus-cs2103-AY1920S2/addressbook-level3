@@ -105,3 +105,7 @@ include::../DeveloperGuide.adoc[tag=search]
 include::../DeveloperGuide.adoc[tag=use_case_edit]
 
 include::../DeveloperGuide.adoc[tag=use_case_search]
+
+include::../DeveloperGuide.adoc[tag=appendix-edit]
+
+include::../DeveloperGuide.adoc[tag=appendix-search]
