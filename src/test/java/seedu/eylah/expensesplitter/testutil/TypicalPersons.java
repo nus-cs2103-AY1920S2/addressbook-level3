@@ -14,33 +14,33 @@ import seedu.eylah.expensesplitter.model.person.Person;
 public class TypicalPersons {
 
     // -------------- PersonAmountBook ------------------------------------------------------
-    public static final Person ALICE = new PersonBuilder().withName("Alice Seah")
+    public static final Person ALICE = new PersonBuilder().withName("alice seah")
             .withAmount(new BigDecimal("3.50")).build();
 
-    public static final Person BOB = new PersonBuilder().withName("Bob Tan")
+    public static final Person BOB = new PersonBuilder().withName("bob tan")
         .withAmount(new BigDecimal("4.50")).build();
 
-    public static final Person CARL = new PersonBuilder().withName("Carl Lim")
+    public static final Person CARL = new PersonBuilder().withName("carl lim")
         .withAmount(new BigDecimal("5.50")).build();
 
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Lee")
+    public static final Person DANIEL = new PersonBuilder().withName("daniel lee")
         .withAmount(new BigDecimal("6.50")).build();
 
-    public static final Person ELLE = new PersonBuilder().withName("Elle Seah")
+    public static final Person ELLE = new PersonBuilder().withName("elle seah")
         .withAmount(new BigDecimal("7.50")).build();
 
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kwok")
+    public static final Person FIONA = new PersonBuilder().withName("fiona kwok")
         .withAmount(new BigDecimal("8.50")).build();
 
-    public static final Person GEORGE = new PersonBuilder().withName("Geroge Peet")
+    public static final Person GEORGE = new PersonBuilder().withName("geroge peet")
         .withAmount(new BigDecimal("9.50")).build();
 
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Seah")
+    public static final Person HOON = new PersonBuilder().withName("hoon seah")
         .withAmount(new BigDecimal("10.50")).build();
 
-    public static final Person IDA = new PersonBuilder().withName("IDA Seah")
+    public static final Person IDA = new PersonBuilder().withName("ida seah")
         .withAmount(new BigDecimal("11.60")).build();
 
     // -------------- Receipt ------------------------------------------------------
@@ -54,10 +54,10 @@ public class TypicalPersons {
     public static final Person CHARLIE = new PersonBuilder().withName("charlie")
             .withAmount(new BigDecimal("8.33")).build();
 
-    public static final Person DARREN = new PersonBuilder().withName("Darren").withAmount(new BigDecimal("9.95"))
+    public static final Person DARREN = new PersonBuilder().withName("darren").withAmount(new BigDecimal("9.95"))
         .build();
 
-    public static final Person ELYSHA = new PersonBuilder().withName("Elysha").withAmount(new BigDecimal("9.95"))
+    public static final Person ELYSHA = new PersonBuilder().withName("elysha").withAmount(new BigDecimal("9.95"))
         .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
