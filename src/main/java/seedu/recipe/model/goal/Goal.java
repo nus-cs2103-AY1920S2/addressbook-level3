@@ -3,6 +3,10 @@ package seedu.recipe.model.goal;
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 
 /**
@@ -12,7 +16,8 @@ import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 public class Goal {
 
     public static final String MESSAGE_CONSTRAINTS = "Goals names should contain only alphabetical letters or spaces";
-    public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
+    public static final List<String> VALIDGOALS = new ArrayList<>(Arrays.asList("Herbivore", "Bulk like the Hulk",
+            "Wholesome Wholemeal", "Fruity Fiesta"));
 
     public final String goalName;
     private final MainIngredientType mainIngredientType;
@@ -35,10 +40,16 @@ public class Goal {
     }
 
     /**
-     * Returns true if a given string is a valid goal name.
+     * Returns true if a given string is a valid goal name with the same capitalisation.
      */
     public static boolean isValidGoalName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+        for (String name : VALIDGOALS) {
+            if (name.equals(test)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String setGoalName() {
