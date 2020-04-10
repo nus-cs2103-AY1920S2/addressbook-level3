@@ -156,6 +156,9 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+.Task Class Diagram
+image::TaskClassDiagram.png[]
+
 // // tag::undoredo[ ]
 // === [Proposed] Undo/Redo feature
 // ==== Proposed Implementation
@@ -379,6 +382,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a task by specifying a task description and a reminder |record tasks that needs to be done by a specific period
 
+|`* * *` |user |add a task that is recurring |record tasks that are either recurring daily or weekly without having to input it every day or week
+
 |`* * *` |user |sort upcoming tasks by date |filter out the latest/oldest tasks according to my needs
 
 |`* * *` |user |sort my tasks by priority |manage my tasks
@@ -395,13 +400,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |pro user |navigate commands using shortcuts |save more time
 
-|`* *` |pro user |delete several tasks at once |save more time
+// |`* *` |pro user |delete several tasks at once |save more time
 
-|`* *` |pro user |mark several tasks done at once |save more time
+// |`* *` |pro user |mark several tasks done at once |save more time
 
 |`* *` |pro user |customise the rate at which I should do work in the Pomodoro |fit my workstyle better
 
-|`* *` |pro user |automate when my done tasks are cleared |customise when I want my tasks to be removed
+|`* * *` |pro user |be able to remind myself on a recurring basis for repetitive tasks |be on track to complete my tasks, including those that are repetitive and also done on a recurring basis
+
+// |`* *` |pro user |automate when my done tasks are cleared |customise when I want my tasks to be removed
 
 |`* *` |user |view the total number of tasks/duration spent on tasks I have done over a period of time |track my productivity over different periods
 

@@ -1,0 +1,107 @@
+@startuml
+
+Task o-- "1" Name
+Task o-- "1" Priority
+Task o-- "0..1" Description
+Task o--  "*" Tag
+Task o-- "0..1" Reminder
+Task o--> "0..1" Recurring
+Recurring --> "0..1" RecurType
+ModelManager --> Recurring
+LogicManager --> ModelManager
+
+class Task {
+    - name : Name
+    - priority : Priority
+    - description : Description
+    - done : Done
+    - tags : Set<Tag> 
+    - optionalReminder : Optional<Reminder> 
+    - optionalRecurring : Optional<Recurring> 
+  __
+  + triggerReminderIfPresent()
+  + getRecurredTask()
+}
+
+class Recurring {
+    - type : RecurType
+    - referenceDateTime : LocalDateTime
+  __
+  + shouldUpdateReminder()
+  + getUpdatedReminderTime()
+  + getDelayToFirstTrigger()
+}
+
+class Name {
+    + fullName : String
+  __
+  + toString()
+}
+
+class Priority {
+    + value : String
+  __
+  + toString()
+}
+
+class Description {
+    + value : String
+  __
+  + toString()
+}
+
+class Tag {
+    + tagName : String
+  __
+  + toString()
+}
+
+class Reminder {
+    - reminderDateTime : LocalDateTime
+    - delay : long
+    - hasFired : boolean
+    __
+    - setDelay()
+    - static calculateDelay()
+}
+
+class ModelManager {
+    - taskList : TaskList
+    - pomodoro : Pomodoro 
+    - statistics : Statistics
+    - pet : Pet
+    - userPrefs : UserPrefs
+    - filteredTasks : FilteredList<Task>
+    - comparator : Comparator<Task>[]
+    - recurringTimerTasks : HashMap<Task, TimerTask>
+    - recurringTimer: Timer
+    - taskSaver : TaskSaver
+    __
+    - setRecurringTimers()
+    - generateTimerTask()
+    - cancelTimerTask()
+    - setTimer()
+}
+
+class LogicManager {
+    - model : Model 
+    - storage : Storage
+    - taskListParser : TaskListParser
+    __
+    - taskSaver()
+}
+
+enum RecurType {
+    static weekIntervalMilliseconds : long
+    static weekIntervalDays : long
+
+    static dayIntervalMilliseconds : long
+    static dayIntervalDays : long
+    __
+    - getDayInterval()
+    - getInterval()
+}
+
+
+
+@enduml
