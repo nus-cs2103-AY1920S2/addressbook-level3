@@ -163,12 +163,16 @@ Format: `help`
 
 === Diet Tracker : `diet`
 
-Tracks our daily calories intake. Add food, then calculate
+Using a Dieting App has never been easier! You can easily achieve the functionalities of a standard Dieting App with Diet Tracker.
+
+Diet Tracker will help you achieve your ideal weight and body mass!
+
+You can store all your food intake everyday and calculate useful information.
 
 '''
 [[mode]]
 ==== Dieting Mode `mode`
-Allows users to decide which dieting mode they want, based on the following modes: +
+You can use this command to switch the dieting mode, based on the following modes: +
 
 * Lose Weight (-l)
 * Gain Weight (-g)
@@ -181,28 +185,30 @@ Example: `mode -m`
 
 [[height]]
 ==== Storing Height `height`
-Allows user to input their height.
+You can use this command to save your Height to the Diet Tracker.
 
 Format: `height HEIGHT` +
 Example: `height 172`
 
-NOTE: Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
+[NOTE]
+Height in centimetres (cm). Decimal places are accepted. I.e. `height 172.305` is accepted.
 
 '''
 [[weight]]
 ==== Storing Weight `weight`
-Allows user to input their weight.
+You can use this command to save your Weight to the Diet Tracker.
 
 Format: `weight WEIGHT` +
 Example: `weight 65.7`
 
-NOTE: Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
+[NOTE]
+Weight in kilograms (kg). Decimal places are accepted. I.e. `weight 65.77` is accepted.
 
 '''
 
 [[addfood]]
 ==== Adding food `add`
-Adds food to the list.
+You can use this command to add a food to the list.
 
 ****
 * Adds food item with the given name, calories and tags.
@@ -210,14 +216,17 @@ Adds food to the list.
 * Tags are optional.
 ****
 
-Format: `add -n NAME -c CALORIES` +
-Example: `add -n Fishball Noodles -c 383`
+[NOTE]
+Any food that you add will be added based on the time that you keyed in the food data. As of Diet Tracker's current functionalities, you cannot add in foods that you have consumed the day before while also setting that food to appear for the previous day's data.
+
+Format: `add -n NAME -c CALORIES [-t TAG]...` +
+Example: `add -n Fishball Noodles -c 383 -t favourite -t noodles`
 
 '''
 [[listfooditem]]
 ==== Listing items `list`
-List food in your current diet tracker along with the total calorie count.
-Watch your diet intake for different time frames and food of different categories.
+You can use this function to list out the different foods that you have consumed and their total calories.
+Different listing modes allow you to watch your overall diet during the period, and gives you a tip on your level of consumption based on your Dieting Mode.
 
 Displays different data based on the below flags:
 
@@ -239,8 +248,8 @@ Example: `list`, `list -a`, `list -d 3`, `list -t healthy` ,
 
 [[deletefooditem]]
 ==== Deleting a Food Item `delete`
+You can delete a food item based on the previous list of Foods that you have listed. +
 
-Deletes a Food item from the list of foods stored. +
 Format: `delete INDEX`
 
 ****
@@ -262,8 +271,8 @@ Deletes the 2nd row of food data from the past 7 days of food.
 
 [[editfooditem]]
 ==== Editing a Food Item `edit`
+You can edit either the Food name, or the calories of the food at the specified index.  +
 
-Allows you to edit either the Food name, or the calories.  +
 Format: `edit -i INDEX [-n NAME] [-c CALORIES]`
 
 ****
@@ -273,6 +282,9 @@ The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
+
+[TIP]
+Index has to be a valid index in the list of Foods. You can use `list` to check this out.
 
 Example:
 
@@ -284,7 +296,8 @@ Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories
 [[calculatebmi]]
 ==== Calculating Body Mass Index (BMI) `bmi`
 
-Allows the user to calculate their BMI based on the height and weight stored in the program. +
+You can calculate your BMI either through an input Height and Weight or your previously stored Height and Weight. +
+
 It will display the following data: +
 
 * BMI value
@@ -292,11 +305,17 @@ It will display the following data: +
 Format: `bmi [-h HEIGHT] [-w WEIGHT]`
 
 ****
-* There are 2 ways to use `bmi`.
+* There are 3 ways to use `bmi`.
 * The first is if there is no input height and weight. This will use
 the height and weight that is stored in the Self object.
-* The second is to calculate bmi with an input height and weight.
+* The second is if there is either no input height or input weight. This will use the
+stored Height (in the case of missing input height) or stored Weight (in the case of missing input weight)
+to do the calculation instead.
+* The third is to calculate bmi with an input height and weight.
 ****
+
+[TIP]
+If you are unsure whether you have already input your height and weight, you may `metrics` to check.
 
 Examples:
 
@@ -305,6 +324,10 @@ Examples:
 `bmi` +
 Change your height and your weight to your current measurements before calculating your BMI.
 BMI is calculated based off the stored height and weight in this instance.
+* `height 173.5` +
+`bmi -w 59.9`
+Change your height to your current measurements before calculating you BMI.
+BMI is calculated based off the stored height and input weight in this instance.
 * `bmi -h 172 -w 65.5` +
 Calculate BMI based on the input height and weight values.
 
@@ -312,7 +335,8 @@ Calculate BMI based on the input height and weight values.
 
 [[diettrackerhelp]]
 ==== Displaying available commands for Diet Tracker `help`
-If uncertain, you may use the `help` command to see the list of available commands for Diet Tracker.
+
+You can use the `help` command, if you are uncertain, to see the list of available commands for Diet Tracker.
 
 Format: `help`
 
@@ -628,7 +652,7 @@ e.g. `back`
 |Command |Format |Example
 
 |<<addfood, *Adding Food*>>
-|`add -n NAME -c CALORIES -t TAGS`
+|`add -n NAME -c CALORIES [-t TAGS]`
 |`insert -n salad -c 235` +
 `insert -n fries -c 195 -t fastfood`
 
@@ -638,16 +662,16 @@ e.g. `back`
 `delete 2`
 
 |<<editfooditem, *Editing Food*>>
-|`edit INDEX [-n NAME] [-c CALORIES]`
-|`edit 1 -n carbonara -c 543` +
-`edit 2 -n chips -c 230`
+|`edit -i INDEX [-n NAME] [-c CALORIES]`
+|`edit -i 1 -n carbonara -c 543` +
+`edit -i 2 -n chips`
 
 |<<listfooditem, *Listing Food*>>
-|`list [-a] [-d NUMDAYS] [-t TAGNAME]`
+|`list [-a] [-d NUMDAYS] [-t TAG]`
 |`list` +
 `list -a` +
 `list -d 6` +
-`list-t healthy`
+`list -t healthy`
 
 |<<mode, *Setting Mode*>>
 |`mode MODE`
