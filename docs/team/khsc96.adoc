@@ -48,9 +48,9 @@ This feature requires a thorough understanding of the existing code of AB3 such 
 
 . Changes to all asiicdoc files title to match our app Delino (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/92[#92]).
 
-. Improve UI of Delino (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/209[#209], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/221[#221])
+. Improve UI of Delino (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/209[#209], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/221[#221]).
 
-. Refine constraint of receiver name (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/305[#305])
+. Allow user to easily see the time in Delino by adding a real-time clock (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/336[#336]).
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=khsc96&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code & Test code]]
 
