@@ -148,7 +148,7 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        createNewState("ADDRESS");
+        createNewState("GETDETAIL");
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -334,6 +334,10 @@ public class ModelManager implements Model {
     public void updateFilteredPersonListResult(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersonsResult.setPredicate(predicate);
+
+        ModelState temp = undoStates.pop();
+        undoStates.peek().getFilteredPersonsResult().setPredicate(predicate);
+        undoStates.push(temp);
     }
 
     @Override
