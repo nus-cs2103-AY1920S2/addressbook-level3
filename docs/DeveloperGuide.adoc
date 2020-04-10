@@ -275,7 +275,7 @@ second stage instead.
 .Activity Diagram of Pre-processing for Assign/Un-assign commands
 image::Ivan-PreprocessAssignActivityDiagram.png[]
 
-
+---
 Notice that there are 2 main exit points in the activity diagram.
 
 . The success case is straightforward and will lead to a
