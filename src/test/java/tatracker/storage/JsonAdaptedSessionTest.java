@@ -61,36 +61,13 @@ public class JsonAdaptedSessionTest {
     @Test
     public void toModelType_validSessionDetails_returnsSession() throws Exception {
         JsonAdaptedSession session = new JsonAdaptedSession(AFTERNOON_TUTORIAL);
-
-        Session actualSession = session.toModelType();
-
-        assertEquals(AFTERNOON_TUTORIAL.getStartDateTime(), actualSession.getStartDateTime());
-        assertEquals(AFTERNOON_TUTORIAL.getEndDateTime(), actualSession.getEndDateTime());
-        assertEquals(AFTERNOON_TUTORIAL.getSessionType(), actualSession.getSessionType());
-        assertEquals(AFTERNOON_TUTORIAL.getDescription(), actualSession.getDescription());
-        assertEquals(AFTERNOON_TUTORIAL.getModuleCode(), actualSession.getModuleCode());
-        assertEquals(AFTERNOON_TUTORIAL.getIsDone(), actualSession.getIsDone());
-        assertEquals(AFTERNOON_TUTORIAL.getRecurring(), actualSession.getRecurring());
-
-        // //TODO: Change once session added
-        // assertEquals(AFTERNOON_TUTORIAL, session.toModelType());
+        assertEquals(AFTERNOON_TUTORIAL, session.toModelType());
     }
 
     @Test
     public void toModelType_validDoneSession_success() throws Exception {
         JsonAdaptedSession session = new JsonAdaptedSession(AFTERNOON_LAB);
-        Session actualSession = session.toModelType();
-
-        assertEquals(AFTERNOON_LAB.getStartDateTime(), actualSession.getStartDateTime());
-        assertEquals(AFTERNOON_LAB.getEndDateTime(), actualSession.getEndDateTime());
-        assertEquals(AFTERNOON_LAB.getSessionType(), actualSession.getSessionType());
-        assertEquals(AFTERNOON_LAB.getDescription(), actualSession.getDescription());
-        assertEquals(AFTERNOON_LAB.getModuleCode(), actualSession.getModuleCode());
-        assertEquals(AFTERNOON_LAB.getIsDone(), actualSession.getIsDone());
-        assertEquals(AFTERNOON_LAB.getRecurring(), actualSession.getRecurring());
-
-        // //TODO: Change once session added
-        // assertEquals(AFTERNOON_TUTORIAL, session.toModelType());
+        assertEquals(AFTERNOON_LAB, session.toModelType());
     }
 
     @Test
