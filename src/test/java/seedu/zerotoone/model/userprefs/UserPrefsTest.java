@@ -10,19 +10,19 @@ public class UserPrefsTest {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setExerciseListFilePath(null));
     }
-    
+
     @Test
     public void setWorkoutListFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setWorkoutListFilePath(null));
     }
-    
+
     @Test
     public void setScheduleListFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setScheduleListFilePath(null));
     }
-    
+
     @Test
     public void setLogListFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
