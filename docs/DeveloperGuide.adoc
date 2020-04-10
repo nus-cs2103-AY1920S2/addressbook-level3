@@ -501,7 +501,7 @@ in the `model`.
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
 
-
+//tag::delivered[]
 [[delivered]]
 === Delivered Feature
 In this section, the <<what-is-delivered, functionality>> of the `delivered` feature, the
@@ -601,6 +601,7 @@ delivery status of the object to delivered. Then, the `updateFilteredOrderList()
 method to update the list in the `model`. +
 
 Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
+//end::delivered[]
 
 //tag::edit[]
 [[edit]]
@@ -683,7 +684,7 @@ The main function of these methods are to help `EditCommand` in updating the `Ob
 The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
-
+//tag::return[]
 [[return]]
 === Return Feature
 In this section, you will learn more about how the `return` feature is implemented.
@@ -855,6 +856,7 @@ toBeCreated, will be added to the model's return order list using the addReturnO
 
 Finally, a new CommandResult will be created to display the success message to the user for creating a
 new return order with the given parcel attributes.
+//end::return[]
 
 [[nearby]]
 === Nearby Feature
@@ -1453,14 +1455,16 @@ Use case ends.
 +
 Use case ends.
 
+//tag::use_case_delivered[]
 [discrete]
-=== Use case: UC04 - Mark order as done
+=== Use case: UC04 - Mark order or return order as delivered
 
 *MSS*
 
-1.  User request to mark order as done.
-2.  Delino changes order status to done.
-3.  Delino display marked order.
+1.  User request to mark order or return order as delivered,
+based on the flag provided, -o or -r respectively.
+2.  Delino changes the delivery status of the order or return order to delivered.
+3.  Delino will display an updated order list or return order list.
 +
 Use case ends.
 
@@ -1474,11 +1478,19 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. Delino unable to detect any order with the transaction id.
+* 1b. Delino unable to detect any parcel with the <<command_prefix, `TRANSACTION_ID`>>.
 [none]
-** 1b1. Delino shows no order found message.
+** 1b1. Delino shows error message to the user.
 +
 Use case ends.
+
+[none]
+* 1c. Delino unable to detect valid <<command_prefix, `FLAG`>>.
+[none]
+** 1c1. Delino shows error message to the user.
++
+Use case ends.
+//end::use_case_delivered[]
 
 //tag::use_case_edit[]
 [discrete]
@@ -1631,14 +1643,15 @@ Use case ends.
 Use case ends.
 //end::use_case_list[]
 
+//tag::use_case_return[]
 [discrete]
-=== Use case: UC11 - Order returns
+=== Use case: UC11 - Returning an order
 
 *MSS*
 
-1.  User requests to add order return.
-2.  Delino add order return.
-3.  Delino display order return added.
+1.  User requests to return an order or create a new return order.
+2.  Either an order will be converted to a return order or a new return order will be created
+3.  Delino displays updated return order list with the new return order.
 +
 Use case ends.
 
