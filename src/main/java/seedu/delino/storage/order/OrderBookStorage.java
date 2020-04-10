@@ -1,4 +1,4 @@
-package seedu.delino.storage;
+package seedu.delino.storage.order;
 
 import java.io.IOException;
 import java.nio.file.Path;

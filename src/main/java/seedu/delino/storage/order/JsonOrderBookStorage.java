@@ -1,4 +1,4 @@
-package seedu.delino.storage;
+package seedu.delino.storage.order;
 
 import static java.util.Objects.requireNonNull;
 

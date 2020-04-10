@@ -3,20 +3,28 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
-
+package Storage {
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface OrderBookStorage <<Interface>>
-Interface ReturnOrderBookStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonOrderBookStorage
-Class JsonReturnOrderBookStorage
-Class JsonSerializableOrderBookStorage
-Class JsonSerializableReturnOrderBookStorage
-Class JsonAdaptedOrder
 
+package Order {
+Interface OrderBookStorage <<Interface>>
+Class JsonOrderBookStorage
+Class JsonSerializableDeliveryOrderBook
+Class JsonAdaptedOrder
+}
+package ReturnOrder {
+Interface ReturnOrderBookStorage <<Interface>>
+Class JsonSerializableReturnOrderBook
+Class JsonReturnOrderBookStorage
+Class JsonAdaptedReturnOrder
+}
+}
+
+OrderBookStorage -left[hidden]-> ReturnOrderBookStorage
 StorageManager .left.|> Storage
 StorageManager o-up-> UserPrefsStorage
 StorageManager o--> OrderBookStorage
@@ -26,8 +34,8 @@ JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonOrderBookStorage .left.|> OrderBookStorage
 OrderBookStorage .left[hidden].> ReturnOrderBookStorage
 JsonReturnOrderBookStorage .right.|> ReturnOrderBookStorage
-JsonOrderBookStorage .down.> JsonSerializableOrderBookStorage
-JsonReturnOrderBookStorage .down.> JsonSerializableReturnOrderBookStorage
-JsonSerializableOrderBookStorage .down.> JsonAdaptedOrder
-JsonSerializableReturnOrderBookStorage .down.> JsonAdaptedReturnOrder
+JsonOrderBookStorage .down.> JsonSerializableDeliveryOrderBook
+JsonReturnOrderBookStorage .down.> JsonSerializableReturnOrderBook
+JsonSerializableDeliveryOrderBook .down.> JsonAdaptedOrder
+JsonSerializableReturnOrderBook .down.> JsonAdaptedReturnOrder
 @enduml
