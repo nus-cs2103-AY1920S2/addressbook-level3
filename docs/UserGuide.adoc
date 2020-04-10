@@ -232,7 +232,7 @@ allowing you to see them better.
 
 === Student View
 Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
-have been categorised according to the *module* and *group* they belong to. The *Student View* has been divided into
+have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
 
 . The first column shows you a list of all the modules that you are a teaching
@@ -255,6 +255,11 @@ show you information such as:
 * `RATING`: ratings you have given the student, represented by stars (on a scale from 1 - 5)
 * `EMAIL` and `PHONE`: contact details
 * `TAG`: any additional information you have about the student
+
+[NOTE]
+====
+The `RATING` value must be a positive integer.
+====
 
 === Session View
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
@@ -285,7 +290,7 @@ divided into two columns.
 . The first column shows you a list of all the modules that you are a teaching
 assistant for.
 
-. The second column shows you a list of all the sessions that have been marked as done.
+. The second column shows you a list of all the sessions that you have marked as done.
 
 [[Usage]]
 == Usage
@@ -737,7 +742,7 @@ The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the first group of the module
 that you have sorted. If you want to see the other groups, you can use the `student filter`
-command as explained later in this guide.
+command (details given below in 5.2.13.)
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
@@ -774,7 +779,7 @@ The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the first group of the  first module
 in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
-command as explained later in this guide.
+command (details given below in 5.2.13.)
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort all t/SORT_TYPE`
@@ -1051,7 +1056,7 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at 40$ by default (the rate at which most SOC TAs are being paid per hour.
+* If you don't specify a rate, it is set at 40$ by default (the rate at which most SOC TAs are being paid per hour).
 * `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
 * The `RATE` must be a positive integer.
