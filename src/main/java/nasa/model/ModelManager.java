@@ -125,6 +125,8 @@ public class ModelManager implements Model {
                 test = test.subList(2, test.size());
                 if (!test.get(0).equals("null")) {
                     updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
+                } else {
+                    updateFilteredActivityList(x -> false);
                 }
             } else if (test.get(1).equals("module")) {
                 test = test.subList(2, test.size());
@@ -229,14 +231,12 @@ public class ModelManager implements Model {
     public void deleteModule(ModuleCode target) {
         nasaBook.removeModule(target);
         updateHistory("delete" + currentUiLocation());
-        //updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
         updateHistory("add" + currentUiLocation());
-        //updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
@@ -317,7 +317,7 @@ public class ModelManager implements Model {
             if (!test) {
                 location.append(" null");
             }
-        } else if (getFilteredModuleList().size() == 1){
+        } else if (getFilteredModuleList().size() == 1) {
             location.append(" module ");
             location.append(getFilteredModuleList().get(0).getModuleCode().moduleCode);
         } else {
