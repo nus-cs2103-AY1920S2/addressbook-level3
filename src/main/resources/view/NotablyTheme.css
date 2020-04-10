@@ -26,7 +26,6 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Open Sans";
-    -fx-background-color: pink;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -270,6 +269,16 @@
 
 #blockContentTextArea {
     -fx-text-box-border: transparent;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Open Sans";
+    -fx-focus-color: white;
+    -fx-control-inner-background: white;
+    -fx-faint-focus-color: white;
+    -fx-control-inner-background: white;
+}
+
+.block-edit-modal {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
 .list-view .scroll-bar:vertical {

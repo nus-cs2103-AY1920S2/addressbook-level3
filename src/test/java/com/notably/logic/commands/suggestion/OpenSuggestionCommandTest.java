@@ -2,7 +2,6 @@ package com.notably.logic.commands.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -51,11 +50,8 @@ public class OpenSuggestionCommandTest {
     }
 
     @Test
-    public void execute_blankOldTitle_generatesEmptySuggestion() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103t, "    ");
-        openSuggestionCommand.execute(model);
-
-        assertTrue(model.getSuggestions().size() == 0);
+    public void execute_blankOldTitle_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new OpenSuggestionCommand(toCs2103t, "   "));
     }
 
     @Test
@@ -68,17 +64,13 @@ public class OpenSuggestionCommandTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 
     @Test
@@ -91,16 +83,12 @@ public class OpenSuggestionCommandTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
-        // Test suggestions
-        SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
-        // Test inputs
-        SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
+        SuggestionTestUtil.assertInputs(expectedInputs, suggestions, model);
     }
 }
