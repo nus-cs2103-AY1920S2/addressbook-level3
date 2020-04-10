@@ -78,7 +78,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -101,7 +101,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -124,7 +124,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -147,7 +147,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -171,7 +171,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -195,7 +195,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -219,7 +219,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
@@ -243,7 +243,7 @@ public class DeleteSuggestionCommandParserTest {
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(arg);
-        assertTrue(command.get() instanceof DeleteSuggestionCommand);
+        assertTrue(command.isPresent());
 
         command.get().execute(model);
 
