@@ -11,7 +11,6 @@ import static fithelper.logic.commands.CommandTestUtil.LOCATION_DESC_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.LOCATION_DESC_CAKE;
 import static fithelper.logic.commands.CommandTestUtil.NAME_DESC_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.NAME_DESC_CAKE;
-import static fithelper.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static fithelper.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static fithelper.logic.commands.CommandTestUtil.TIME_DESC_BURGER;
 import static fithelper.logic.commands.CommandTestUtil.TIME_DESC_CAKE;

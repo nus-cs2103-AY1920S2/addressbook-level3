@@ -31,6 +31,8 @@ public class Type {
         return "food".equals(test) || "f".equals(test) || "sports".equals(test) || "s".equals(test);
     }
 
+
+
     public String getValue() {
         return this.value;
     }
