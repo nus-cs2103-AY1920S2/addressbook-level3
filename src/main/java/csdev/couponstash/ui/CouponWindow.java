@@ -126,35 +126,33 @@ public class CouponWindow extends UiPart<Stage> {
             this.numericalAmount.setText(savingsNumber);
         }
         // handle saveables
-        s.getSaveables().ifPresentOrElse(
-                saveablesList -> {
-                    String saveablesPrelude = "Saveables:";
-                    Label preludeLabel = new Label(saveablesPrelude);
-                    preludeLabel.setStyle(CouponWindow.SAVEABLES_PRELUDE_STYLE);
-                    this.saveables.getChildren().add(preludeLabel);
-                    for (Saveable sva: saveablesList) {
-                        Label saveableLabel = new Label();
-                        if (sva.getCount() == 1) {
-                            saveableLabel.setText(sva.getValue());
-                        } else {
-                            saveableLabel.setText(sva.toString());
-                        }
-                        saveableLabel.setStyle(CouponWindow.SAVEABLE_LABEL_STYLE);
-                        this.saveables.getChildren().add(saveableLabel);
-                    }
-                    // put an invisible ending label to ensure that width of
-                    // ScrollPane with scroll bar does not truncate the
-                    // prelude text, which happens quite often
-                    Label invisibleEndingLabel = new Label(saveablesPrelude + "----");
-                    invisibleEndingLabel.setStyle(CouponWindow.SAVEABLES_PRELUDE_STYLE);
-                    invisibleEndingLabel.setMinHeight(0.0);
-                    invisibleEndingLabel.setMaxHeight(0.0);
-                    this.saveables.getChildren().add(invisibleEndingLabel);
-                },
-                () -> {
-                    this.saveables.setStyle(CouponWindow.HIDDEN);
-                    this.numericalAmount.setTranslateX(20);
-                });
+        s.getSaveables().ifPresentOrElse(saveablesList -> {
+            String saveablesPrelude = "Saveables:";
+            Label preludeLabel = new Label(saveablesPrelude);
+            preludeLabel.setStyle(CouponWindow.SAVEABLES_PRELUDE_STYLE);
+            this.saveables.getChildren().add(preludeLabel);
+            for (Saveable sva: saveablesList) {
+                Label saveableLabel = new Label();
+                if (sva.getCount() == 1) {
+                    saveableLabel.setText(sva.getValue());
+                } else {
+                    saveableLabel.setText(sva.toString());
+                }
+                saveableLabel.setStyle(CouponWindow.SAVEABLE_LABEL_STYLE);
+                this.saveables.getChildren().add(saveableLabel);
+            }
+            // put an invisible ending label to ensure that width of
+            // ScrollPane with scroll bar does not truncate the
+            // prelude text, which happens quite often
+            Label invisibleEndingLabel = new Label(saveablesPrelude + "----");
+            invisibleEndingLabel.setStyle(CouponWindow.SAVEABLES_PRELUDE_STYLE);
+            invisibleEndingLabel.setMinHeight(0.0);
+            invisibleEndingLabel.setMaxHeight(0.0);
+            this.saveables.getChildren().add(invisibleEndingLabel);
+        }, () -> {
+                this.saveables.setStyle(CouponWindow.HIDDEN);
+                this.numericalAmount.setTranslateX(20);
+            });
     }
 
     /**
