@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import csdev.couponstash.testutil.MoneySymbolStub;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
@@ -29,6 +28,7 @@ import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
+import csdev.couponstash.testutil.MoneySymbolStub;
 
 /**
  * Contains helper methods for testing commands.

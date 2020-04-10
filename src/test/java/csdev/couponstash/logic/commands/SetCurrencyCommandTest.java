@@ -2,13 +2,13 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import csdev.couponstash.testutil.UserPrefsStub;
 import org.junit.jupiter.api.Test;
 
-import csdev.couponstash.testutil.MoneySymbolStub;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
+import csdev.couponstash.testutil.MoneySymbolStub;
 import csdev.couponstash.testutil.TypicalCoupons;
+import csdev.couponstash.testutil.UserPrefsStub;
 
 /**
  * Unit tests for Set Currency Command, as well
