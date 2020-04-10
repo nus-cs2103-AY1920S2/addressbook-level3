@@ -205,6 +205,8 @@ Export the filtered transaction list to a csv file
 Expected Outcome: A csv file will be created at the root directory and all transactions currently visible in the app
 will be exported to the csv file.
 
+image::Csv.png[width="790"]
+
 
 === Clear all data : `clear`
 
@@ -226,7 +228,6 @@ Format: `exit`
 ExpenseLa data are saved in the hard disk automatically as a json file after any command that changes the data. +
 There is no need to save manually.
 
-image::Csv.png[width="790"]
 
 == FAQ
 
