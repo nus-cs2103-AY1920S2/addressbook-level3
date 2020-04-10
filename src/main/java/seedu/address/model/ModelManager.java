@@ -197,6 +197,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteAssignment(Assignment target) {
+        createNewState("ASSIGNMENTS");
         assignmentSchedule.removeAssignment(target);
     }
 
@@ -209,6 +210,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(Event event) {
+        createNewState("EVENTS");
         eventSchedule.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
@@ -235,6 +237,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(Event target) {
+        createNewState("EVENTS");
         eventSchedule.removeEvent(target);
     }
 
