@@ -137,8 +137,7 @@ public class SideBarTreeView extends ViewPart<Region> {
 
     /**
      * Custom {@code EventDispatcher} to allow for finer control over mouse click events.
-     * A {@link SideBarTreeViewCell} should have the flexibility to expand or contract through
-     * user mouse clicks, but should not respond to any other mouse events.
+     * A {@link SideBarTreeViewCell} should not respond to any mouse click events.
      *
      */
     class TreeCellEventDispatcher implements EventDispatcher {
