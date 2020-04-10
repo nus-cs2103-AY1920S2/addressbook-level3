@@ -8,7 +8,6 @@ import tatracker.logic.commands.module.EditModuleCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,9 +29,9 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
             throw new ParseException(Messages.getInvalidCommandMessage(EditModuleCommand.DETAILS.getUsage()));
         }
 
-        String moduleCode = argMultimap.getValue(MODULE).get().toUpperCase();
+        String moduleCode = argMultimap.getValue(MODULE).map(String::trim).map(String::toUpperCase).get();
 
-        String newName = ParserUtil.parseValue(argMultimap.getValue(NAME).get());
+        String newName = argMultimap.getValue(NAME).map(String::trim).get();
 
         return new EditModuleCommand(moduleCode, newName);
     }

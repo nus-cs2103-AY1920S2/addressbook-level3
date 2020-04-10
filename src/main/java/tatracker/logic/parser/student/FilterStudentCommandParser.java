@@ -8,7 +8,6 @@ import tatracker.logic.commands.student.FilterStudentCommand;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
-import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -35,11 +34,11 @@ public class FilterStudentCommandParser implements Parser<FilterStudentCommand> 
         String groupCode = "";
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            moduleCode = (ParserUtil.parseValue(argMultimap.getValue(MODULE).get())).toUpperCase();
+            moduleCode = argMultimap.getValue(MODULE).map(String::trim).map(String::toUpperCase).get();
         }
 
         if (argMultimap.getValue(GROUP).isPresent()) {
-            groupCode = (ParserUtil.parseValue(argMultimap.getValue(GROUP).get())).toUpperCase();
+            groupCode = argMultimap.getValue(GROUP).map(String::trim).map(String::toUpperCase).get();
         }
 
         return new FilterStudentCommand(moduleCode, groupCode);
