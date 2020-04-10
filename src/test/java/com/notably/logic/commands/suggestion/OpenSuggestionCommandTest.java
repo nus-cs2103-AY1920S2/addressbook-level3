@@ -3,6 +3,7 @@ package com.notably.logic.commands.suggestion;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -10,19 +11,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
+import com.notably.logic.parser.suggestion.OpenSuggestionCommandParser;
 import com.notably.logic.suggestion.SuggestionTestUtil;
 import com.notably.model.Model;
 import com.notably.model.suggestion.SuggestionItem;
 
 public class OpenSuggestionCommandTest {
     private static AbsolutePath toCs2103t;
+    private static List<AbsolutePath> paths;
     private static Model model;
-
-    private static final String COMMAND_WORD = "open";
 
     @BeforeAll
     public static void setUp() {
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        paths = new ArrayList<>();
+        paths.add(toCs2103t);
         model = SuggestionTestUtil.getModel();
     }
 
@@ -38,27 +41,27 @@ public class OpenSuggestionCommandTest {
 
     @Test
     public void constructor_nullTitle_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(toCs2103t,
+        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(paths,
                 null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103t,
+        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(paths,
                 toCs2103t.getStringRepresentation());
         assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
     }
 
     @Test
     public void execute_blankOldTitle_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new OpenSuggestionCommand(toCs2103t, "   "));
+        assertThrows(IllegalArgumentException.class, () -> new OpenSuggestionCommand(paths, "   "));
     }
 
     @Test
     public void execute_correctAbsolutePathWithPrefix_generatesResponseCorrectly() {
-        String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
+        String userInputWithoutPath = OpenSuggestionCommandParser.COMMAND_WORD + " " + PREFIX_TITLE + " ";
         model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103t,
+        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(paths,
                 toCs2103t.getStringRepresentation());
         openSuggestionCommand.execute(model);
 
@@ -75,9 +78,9 @@ public class OpenSuggestionCommandTest {
 
     @Test
     public void execute_correctAbsolutePathWithoutPrefix_generatesResponseCorrectly() {
-        String userInputWithoutPath = COMMAND_WORD + " ";
+        String userInputWithoutPath = OpenSuggestionCommandParser.COMMAND_WORD + " ";
         model.setInput(userInputWithoutPath + toCs2103t.getStringRepresentation());
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103t,
+        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(paths,
                 toCs2103t.getStringRepresentation());
         openSuggestionCommand.execute(model);
 

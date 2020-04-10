@@ -74,7 +74,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
+        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems(), title));
 
     }
 }

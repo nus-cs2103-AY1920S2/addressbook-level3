@@ -4,6 +4,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ import com.notably.model.suggestion.SuggestionItem;
 
 public class SuggestionEngineImplTest {
     private static AbsolutePath toCs2103t;
+    private static List<AbsolutePath> paths;
     private static Model model;
     private static SuggestionEngine suggestionEngine;
 
@@ -36,6 +38,8 @@ public class SuggestionEngineImplTest {
     public static void setUp() throws InvalidPathException {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        paths = new ArrayList<>();
+        paths.add(toCs2103t);
 
         suggestionEngine = new SuggestionEngineImpl(model);
     }
