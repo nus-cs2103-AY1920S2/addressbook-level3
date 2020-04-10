@@ -1,7 +1,6 @@
 package seedu.eylah.commons.util;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 
 import seedu.eylah.expensesplitter.model.person.Amount;
@@ -12,9 +11,9 @@ import seedu.eylah.expensesplitter.model.person.Amount;
  */
 public class CalculateUtil {
 
-    private static int DECIMALS = 2;
-    private static int EXTRA_DECIMALS = 4;
-    private static RoundingMode ROUNDING_MODE = RoundingMode.HALF_DOWN;
+    private static final int DECIMALS = 2;
+    private static final int EXTRA_DECIMALS = 4;
+    private static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_DOWN;
 
     /**
      * Calculates the price per person by dividing the cost of item with the number of persons involved.
