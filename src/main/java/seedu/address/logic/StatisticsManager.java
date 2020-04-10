@@ -6,12 +6,13 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Statistics;
 import seedu.address.model.dayData.DayData;
 
+/** Manages logic of StatisticsDisplay */
 public class StatisticsManager {
     private Statistics statistics;
     private String dailyTargetText;
     private String progressDailyText;
     private String progressBarDailyFilepathString;
-    private ObservableList<DayData> customQueue;
+    private ObservableList<DayData> dayDatas;
 
     public StatisticsManager() {}
 
@@ -19,9 +20,16 @@ public class StatisticsManager {
         this.statistics = statistics;
     }
 
-    public void updateStatistics(ObservableList<DayData> customQueue) {
-        this.customQueue = customQueue;
-        DayData latestDayData = customQueue.get(CONSTANT_SIZE - 1);
+    /**
+     * Update StatisticsDisplay fields for user output.
+     *
+     * @param dayDatas current dayDatas information.
+     */
+    public void updateStatisticsDisplayValues(ObservableList<DayData> dayDatas) {
+        assert(statistics != null);
+
+        this.dayDatas = dayDatas;
+        DayData latestDayData = dayDatas.get(CONSTANT_SIZE - 1);
         int currProgress = latestDayData.getPomDurationData().value;
 
         String currTargetText = statistics.getDailyTarget();
@@ -92,6 +100,6 @@ public class StatisticsManager {
     }
 
     public ObservableList<DayData> getCustomQueue() {
-        return customQueue;
+        return dayDatas;
     }
 }
