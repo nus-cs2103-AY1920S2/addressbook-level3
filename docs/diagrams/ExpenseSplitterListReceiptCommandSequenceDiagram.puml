@@ -67,6 +67,15 @@ deactivate CommandResult
 ListReceiptCommand --> SplitterLogicManager: result()
 deactivate ListReceiptCommand
 
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
+
+SplitterStorageManager --> SplitterLogicManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
+
 
 [<--SplitterLogicManager : result()
 deactivate SplitterStorageManager
