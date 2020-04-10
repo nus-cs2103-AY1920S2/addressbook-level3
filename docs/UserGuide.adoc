@@ -464,7 +464,16 @@ This can only be use to delete a file and not a folder
 
 This section summarizes the list of commands.
 
-* Calendar:
+* *General*:
+** *calendar*: `calendar`
+** *notes*: `notes`
+** *modplan*: `modplan`
+** *diary*: `diary`
+** *profile*: `profile`
+** *help*: `help`
+** *exit*: `exit`
+
+* *Calendar*:
 ** *deadline* : `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
 e.g. `deadlineAdd desc/Do Chores by/30-04-2020 cat/Misc`
 ** *moduleTask*: `moduleTask desc/DESCRIPTION m/MODULE CODE date/DD-MM-YYYY pri/PRIORITY`
@@ -481,7 +490,7 @@ e.g. `findTask m/CS2103T`
 e.g. `listTask`
 
 
-* Notes
+* *Notes*
 ** *notesList* loc/PATH pt/PATH TYPE
 e.g. `notesList loc/Desktop pt/abs`
 ** *notesOpen* loc/PATH name/FILE_NAME pt/PATH_TYPE
@@ -509,7 +518,6 @@ e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
 * Profile
 ** cap : cap {BREAKDOWN}
 
-* help : help
 * Diary :
 ** diary log LIMIT
 e.g. `diary log 10`
