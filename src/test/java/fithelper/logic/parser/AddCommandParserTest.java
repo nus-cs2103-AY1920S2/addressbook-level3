@@ -28,8 +28,8 @@ import org.junit.jupiter.api.Test;
 
 import fithelper.logic.commands.AddCommand;
 import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Location;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Time;
 import fithelper.testutil.EntryBuilder;
@@ -59,7 +59,7 @@ public class AddCommandParserTest {
                 + LOCATION_DESC_BURGER + CALORIE_DESC_BURGER, new AddCommand(expectedEntry));
 
         // multiple calories - last calories accepted
-        assertParseSuccess(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + TIME_DESC_BURGER 
+        assertParseSuccess(parser, TYPE_DESC_FOOD + NAME_DESC_BURGER + TIME_DESC_BURGER
                 + LOCATION_DESC_BURGER + CALORIE_DESC_CAKE + CALORIE_DESC_BURGER, new AddCommand(expectedEntry));
 
     }
@@ -122,6 +122,5 @@ public class AddCommandParserTest {
                         + LOCATION_DESC_BURGER + INVALID_CALORIE_DESC, Name.MESSAGE_CONSTRAINTS);
 
     }
-    
 }
 
