@@ -2,17 +2,27 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import seedu.address.model.exercise.Exercise;
+import seedu.address.model.graph.AxisType;
 
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
+    public static final List<Exercise> NO_GRAPH_LIST = new ArrayList<Exercise>();
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
+
+    private final boolean openGraph;
+    private final List<Exercise> exerciseGraphList;
+    private final AxisType axisType;
 
     /** The application should exit. */
     private final boolean exit;
@@ -23,7 +33,26 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
+
+        this.openGraph = false;
+        this.exerciseGraphList = NO_GRAPH_LIST;
+        this.axisType = AxisType.NA;
+
         this.exit = exit;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, AxisType axisType, List<Exercise> exerciseGraphList) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+
+        this.openGraph = true;
+        this.exerciseGraphList = exerciseGraphList;
+        this.axisType = axisType;
+
+        this.exit = false;
     }
 
     /**
@@ -40,6 +69,18 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isOpenGraph() {
+        return openGraph;
+    }
+
+    public List<Exercise> getGraphList() {
+        return exerciseGraphList;
+    }
+
+    public AxisType getAxisType() {
+        return axisType;
     }
 
     public boolean isExit() {

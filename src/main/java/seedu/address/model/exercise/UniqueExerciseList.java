@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
+import seedu.address.model.graph.EndDate;
+import seedu.address.model.graph.StartDate;
 
 /**
  * A list of exercises that enforces uniqueness between its elements and does
@@ -41,6 +43,18 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     public boolean contains(Exercise toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameExercise);
+    }
+
+    /**
+     * Returns true if the list contains an exercise with the name equivalent as the given
+     * argument.
+     */
+    public boolean containsNameWithinDate(ExerciseName toCheck, StartDate startDate, EndDate endDate) {
+        requireNonNull(toCheck);
+        return internalList.stream()
+                .filter(exercise -> (exercise.getExerciseDate().value.compareTo(startDate.value) >= 0))
+                .filter(exercise -> (exercise.getExerciseDate().value.compareTo(endDate.value) <= 0))
+                .anyMatch(exercise -> exercise.getExerciseName().value.equals(toCheck.value));
     }
 
     /**

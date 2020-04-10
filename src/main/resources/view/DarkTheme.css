@@ -264,3 +264,11 @@
   -fx-background-radius: 2;
   -fx-font-size: 13;
 }
+
+.default-color0.chart-series-line {
+  -fx-stroke: #39BE5F;
+}
+
+.default-color0.chart-line-symbol {
+  -fx-background-color: #39BE5F, #ffffff;
+}
