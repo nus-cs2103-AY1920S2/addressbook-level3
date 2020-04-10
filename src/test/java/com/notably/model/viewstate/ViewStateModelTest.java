@@ -26,6 +26,11 @@ public class ViewStateModelTest {
         assertNotNull(viewStateModel.getInput());
     }
 
+    @Test
+    public void setInput_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> viewStateModel.setInput(null));
+    }
+
     //============ HelpFlagModel ==================================================================
     @Test
     public void helpOpenProperty_void_returnsValidProperty() {
