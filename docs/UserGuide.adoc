@@ -38,8 +38,8 @@ This feature is just like the command navigation feature in your favourite comma
 
 * *`budget b/1000 rc/no`* : set a non-recurring budget of $1000 for the current month
 * **`add a/100`**`n/Wagyu Steak d/2020-02-28 c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on `2020-02-28` in category `FOOD` to the expense tracker
-* **`delete`**`1` : deletes the expense with id `1` in the current list
 * **`filter`**`m/ 2020-02` : filters to only show transactions made on `2020-02`
+* **`delete`**`1` : deletes the expense with id `1` in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -57,6 +57,8 @@ This feature is just like the command navigation feature in your favourite comma
 * Items in square brackets are optional e.g `spend a/AMOUNT n/ OBJECT [d/ DATE] [c/ CAT]` and can used as `add a/100 n/Pizza` or `add a/100 n/Pizza d/2020-02-02 c/Food`
 
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AMOUNT`, `a/AMOUNT n/NAME` is also acceptable.
+
+* The length of command a user can input is at most 140 characters.
 ====
 
 
