@@ -6,7 +6,6 @@
 == PROJECT: Contact Tracing
 
 ---
-
 == Overview
 
 The contact tracing app is an extension of the Trace Together app recently developed by GovTech.
@@ -14,7 +13,7 @@ It aims to simplify the way analysts query over data to understand cluster hotsp
 This app is built over https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook - Level 3]
 
 == Summary of contributions
-
+=== Feature requests
 * *Major enhancement*: defined *core backend framework of application*
 
 ** *What*: Refractored previous code, adding new concepts such as `Conditions` / `Aggregator` / `InMemoryStorage`
@@ -24,63 +23,93 @@ Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/Develope
 ** *Justification*:
 *** Present code base does not implement Data Access Objects (DAO) protocols for abstracting data access from the application.
 *** Introducing `Conditions` / `Aggregator` classes allows easy extensibility of code base to accommodate new features.
-*** Highlights: Team member follows this concept to build his features.
-*** Credits: https://stackoverflow.com/[StackOverflow]
 
-* *Major enhancement*: proposed *idea and motivation for Contact Tracing app*
+** *Highlights*: Team adopted this concept to build features down the road.
 
 
+* *Major enhancement*: added feature *Searching over timestamps*
+
+** *What*: Picks up all pings in between a timestamp range.
+
+** *Justification*:
+*** This is useful for analysts who want to understand interaction patterns across time.
 
 
+* *Major enhancement*: added feature *Searching over user ID*
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *What*: Picks up all pings that contains the user ID.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
-
-== Contributions to the User Guide
+** *Justification*:
+*** This is useful for analysts who want to understand a particular user's behaviour pattern.
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+* *Major enhancement*: added feature *Searching over user ID pairs*
 
-include::../UserGuide.adoc[tag=delete]
+** *What*: Picks up all pings that contains a user ID pairs [A, B].
 
-include::../UserGuide.adoc[tag=dataencryption]
-
-== Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+** *Justification*:
+*** This is useful for analysts who want to understand how two users are behaving and whether they are observing social distancing measures.
 
 
-== PROJECT: PowerPointLabs
+* *Major enhancement*: added feature *danger search*
 
----
+** *What*: Given a threshold value, find all user ID pairs that cross it.
 
-_{Optionally, you may include other projects in your portfolio.}_
+** *Justification*:
+*** Allows quick identification of users who are clearly breaching social distancing rules.
+Helps to narrow investigation and containment efforts.
+
+
+* *Major enhancement*: added feature *search over user details*
+
+** *What*: Displays a full / filtered trace of all registered users stored in the DB.
+
+** *Justification*:
+*** Helps link bluetooth ping user IDs' recoded with the actual user for authorities to contact.
+
+
+* *Major enhancement*: added feature *user detail modifications*
+
+** *What*: Allows the admin to add / delete new users into the system.
+
+** *Justification*:
+*** Useful when new users sign up / leave the system.
+
+
+* *Major enhancement*: added feature *UI panel swapping*
+
+** *What*: Displays information on main UI for all `BluetoothPing` and `Person` models.
+Designed panel swapping logic to render correct UI panel based on user requests.
+
+** *Justification*:
+*** Prior AddressBook code base does not allow rendering of different panels to the UI, which our application requires.
+
+
+* *Minor enhancement*: Seeded InMemory database with bluetooth / user records.
+
+** *What*: Manually added new records to the system that are loaded at runtime.
+
+** *Justification*:
+*** Helps with the visualization of our application and UI debugging
+
+=== Project management
+** Managed https://github.com/AY1920S2-CS2103-W15-1/main/releases[release] `v1.0` on Github
+** Reviewed team https://github.com/AY1920S2-CS2103-W15-1/main/pulls[PRs] to ensure code quality adherence
+** Reported bugs and suggestions for other teams in the class (via Catcher)
+** Filed several https://github.com/AY1920S2-CS2103-W15-1/main/issues[issues] for feature request based on User Stories.
+** Timekeeper for team to ensure we meet project milestones (PE Dry-run / Final submission)
+
+=== Dev Ops
+
+
+=== User Guide contributions
+
+=== Developer Guide contributions
+
+
+=== Credits
+Would like to thank the following for being a great source of help in this project
+
+** https://stackoverflow.com/[StackOverflow]
+** Team member @Yujian-Fu
+
