@@ -23,7 +23,7 @@ import com.notably.testutil.TypicalBlockModel;
 
 class OpenCommandParserTest {
     private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_FORWARD_MATCHING = true;
+    private static final boolean USE_FORWARD_MATCHING = false;
     private static AbsolutePath toBlock;
     private static AbsolutePath toAnother;
     private static AbsolutePath toAnotherBlock;
@@ -71,6 +71,16 @@ class OpenCommandParserTest {
     }
 
     @Test
+    void parse_absolutePathArgumentTypo_openCommand() throws ParseException, CommandException {
+        final AbsolutePath toOpenPath = TypicalBlockModel.PATH_TO_CS2106;
+        final OpenCommand openCommand = openCommandParser.parse(" -t /Y2S1/CS2106").get(0);
+
+        openCommand.execute(model);
+
+        assertEquals(toOpenPath, model.currentlyOpenPathProperty().getValue());
+    }
+
+    @Test
     void parse_relativePathArgument_openCommand() throws ParseException, CommandException {
         final AbsolutePath toOpenPath = TypicalBlockModel.PATH_TO_CS2106;
         final OpenCommand openCommand = openCommandParser.parse(" -t CS2106").get(0);
@@ -85,7 +95,7 @@ class OpenCommandParserTest {
     @Test
     void parse_relativePathArgumentTypo_openCommand() throws ParseException, CommandException {
         final AbsolutePath toOpenPath = TypicalBlockModel.PATH_TO_CS2106;
-        final OpenCommand openCommand = openCommandParser.parse(" -t CS2105").get(0);
+        final OpenCommand openCommand = openCommandParser.parse(" -t /Y2S2/CS210").get(0);
 
         // Current directory `/Y2S2`
         openCommand.execute(model);

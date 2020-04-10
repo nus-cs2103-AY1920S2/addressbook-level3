@@ -1,7 +1,6 @@
 package com.notably.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -25,7 +24,7 @@ import com.notably.testutil.TypicalBlockModel;
 
 class DeleteCommandParserTest {
     private static final int CORRECTION_THRESHOLD = 2;
-    private static final boolean USE_FORWARD_MATCHING = true;
+    private static final boolean USE_FORWARD_MATCHING = false;
     private static Model model;
     private static DeleteCommandParser deleteCommandParser;
 
@@ -43,16 +42,39 @@ class DeleteCommandParserTest {
     }
 
     @Test
-    void parse_relativePathWithPrefix_validDeleteCommand() throws ParseException {
+    void parse_relativePathWithPrefix_validDeleteCommand() throws ParseException, CommandException {
+        final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_Y2S2;
         final DeleteCommand deleteCommand = deleteCommandParser.parse(" -t /Y2S2").get(0);
 
-        assertNotNull(deleteCommand);
+        assertTrue(model.hasPath(toDeletePath));
+        deleteCommand.execute(model);
+        assertFalse(model.hasPath(toDeletePath));
     }
 
     @Test
     void parse_absolutePathWithPrefix_validDeleteCommand() throws ParseException, CommandException {
         final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2106;
         final DeleteCommand deleteCommand = deleteCommandParser.parse(" -t /Y2S2/CS2106").get(0);
+
+        assertTrue(model.hasPath(toDeletePath));
+        deleteCommand.execute(model);
+        assertFalse(model.hasPath(toDeletePath));
+    }
+
+    @Test
+    void parse_relativePathWithPrefixTypo_validDeleteCommand() throws ParseException, CommandException {
+        final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_Y2S2;
+        final DeleteCommand deleteCommand = deleteCommandParser.parse(" -t /YaS2").get(0);
+
+        assertTrue(model.hasPath(toDeletePath));
+        deleteCommand.execute(model);
+        assertFalse(model.hasPath(toDeletePath));
+    }
+
+    @Test
+    void parse_absolutePathWithPrefixTypo_validDeleteCommand() throws ParseException, CommandException {
+        final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2106;
+        final DeleteCommand deleteCommand = deleteCommandParser.parse(" -t /YbS2/CS2106").get(0);
 
         assertTrue(model.hasPath(toDeletePath));
         deleteCommand.execute(model);
@@ -70,6 +92,16 @@ class DeleteCommandParserTest {
     }
 
     @Test
+    void parse_relativePathWithoutPrefixTypo_validDeleteCommand() throws ParseException, CommandException {
+        final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2106;
+        final DeleteCommand deleteCommand = deleteCommandParser.parse(" CS210a").get(0);
+
+        assertTrue(model.hasPath(toDeletePath));
+        deleteCommand.execute(model);
+        assertFalse(model.hasPath(toDeletePath));
+    }
+
+    @Test
     void parse_absolutePathWithoutPrefix_validDeleteCommand() throws ParseException, CommandException {
         final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2106;
         final DeleteCommand deleteCommand = deleteCommandParser.parse(" /Y2S2/CS2106").get(0);
@@ -79,6 +111,15 @@ class DeleteCommandParserTest {
         assertFalse(model.hasPath(toDeletePath));
     }
 
+    @Test
+    void parse_absolutePathWithoutPrefixTypo_validDeleteCommand() throws ParseException, CommandException {
+        final AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2106;
+        final DeleteCommand deleteCommand = deleteCommandParser.parse(" /Y2S2/CS2109").get(0);
+
+        assertTrue(model.hasPath(toDeletePath));
+        deleteCommand.execute(model);
+        assertFalse(model.hasPath(toDeletePath));
+    }
     @Test
     void parse_invalidBlock_throwParseException() {
         assertThrows(ParseException.class, () -> deleteCommandParser.parse(" -t /nonExistent"));
