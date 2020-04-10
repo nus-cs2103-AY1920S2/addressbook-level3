@@ -48,6 +48,10 @@ public class Personal {
         return this.grade.getGrade();
     }
 
+    public void deleteGrade() {
+        this.grade.deleteGrade();
+    }
+
     public DeadlineList getDeadlineList() {
         return this.deadlineList;
     }

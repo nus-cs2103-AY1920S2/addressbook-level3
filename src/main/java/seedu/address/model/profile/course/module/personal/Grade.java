@@ -31,6 +31,13 @@ public class Grade {
         throw new NoSuchElementException("Grade " + grade + " does not exist");
     }
 
+    public void deleteGrade() {
+        if (myGrade == null) {
+            throw new NoSuchElementException();
+        }
+        myGrade = null;
+    }
+
     public static boolean isValidGrade(String grade) {
         return Stream.of(ModuleGrade.values()).map(ModuleGrade::toString).anyMatch(x -> x.equals(grade));
     }

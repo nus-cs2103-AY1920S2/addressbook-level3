@@ -92,6 +92,10 @@ public class Module {
         return personal.getGrade();
     }
 
+    public void deleteGrade() {
+        personal.deleteGrade();
+    }
+
     public DeadlineList getDeadlineList() {
         return personal.getDeadlineList();
     }

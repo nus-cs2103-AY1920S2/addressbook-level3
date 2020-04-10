@@ -18,6 +18,8 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
+import java.util.NoSuchElementException;
+
 /**
  * Deletes a profile identified using it's displayed index from the address book.
  */
@@ -39,8 +41,10 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Profile: %1$s";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Deleted Deadline: %1$s";
+    public static final String MESSAGE_DELETE_GRADE_SUCCESS = "Deleted grade of module %1$s";
     public static final String MESSAGE_DELETE_DEADLINE_FAILURE = "Unable to delete task: %1$s";
     public static final String MESSAGE_DELETE_PROFILE_FAILURE = "Profile with name %1$s does not exist!";
+    public static final String MESSAGE_DELETE_GRADE_FAILURE = "Module with module code %1$s has no grade";
 
     public static final String MESSAGE_NOT_TAKING_MODULE =
             "User is currently not taking a module with module code %1$s";
@@ -48,6 +52,7 @@ public class DeleteCommand extends Command {
     private final Name deleteName;
     private final ModuleCode deleteModuleCode;
     private final Deadline deleteDeadline;
+    private final String deleteGrade;
 
     /**
      * Creates a delete command to delete the profile with name {@code name}.
@@ -57,6 +62,7 @@ public class DeleteCommand extends Command {
         this.deleteName = name;
         this.deleteModuleCode = null;
         this.deleteDeadline = null;
+        this.deleteGrade = null;
     }
 
     /**
@@ -67,6 +73,7 @@ public class DeleteCommand extends Command {
         this.deleteModuleCode = moduleCode;
         this.deleteName = null;
         this.deleteDeadline = null;
+        this.deleteGrade = null;
     }
 
     /**
@@ -79,6 +86,20 @@ public class DeleteCommand extends Command {
         this.deleteModuleCode = moduleCode;
         this.deleteDeadline = deadline;
         this.deleteName = null;
+        this.deleteGrade = null;
+    }
+
+    /**
+     * Creates a delete command to delete the grade of the module
+     * with module code {@code moduleCode} of the current profile.
+     */
+    public DeleteCommand(ModuleCode moduleCode, String grade) {
+        requireNonNull(moduleCode);
+        requireNonNull(grade);
+        this.deleteModuleCode = moduleCode;
+        this.deleteGrade = grade;
+        this.deleteName = null;
+        this.deleteDeadline = null;
     }
 
     @Override
@@ -107,18 +128,9 @@ public class DeleteCommand extends Command {
             if (!profile.hasModule(deleteModuleCode)) {
                 throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
             }
-            if (deleteDeadline == null) { // Deleting a module
-                try {
-                    profile.deleteModule(deleteModuleCode);
-                    profileManager.deleteModuleDeadlines(deleteModuleCode);
-                    profile.updateCap();
-                    profileManager.setDisplayedView(profile);
 
-                } catch (ParseException e) {
-                    throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
-                }
-                return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode), true);
-            } else { // Deleting a deadline/task
+            // Deleting a deadline/task
+            if (deleteDeadline != null) {
                 try {
                     profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
                     profileManager.deleteDeadline(deleteDeadline); //delete from observablelist
@@ -129,6 +141,30 @@ public class DeleteCommand extends Command {
                 }
                 return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline), false);
             }
+
+            // Delete grade
+            if (deleteGrade != null) {
+                try {
+                    profile.getModule(deleteModuleCode).deleteGrade();
+                } catch (ParseException e) {
+                    throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
+                } catch (NoSuchElementException e) {
+                    throw new CommandException(String.format(MESSAGE_DELETE_GRADE_FAILURE, deleteModuleCode));
+                }
+                return new CommandResult(String.format(MESSAGE_DELETE_GRADE_SUCCESS, deleteModuleCode), false);
+            }
+
+            // Deleting a module
+            try {
+                profile.deleteModule(deleteModuleCode);
+                profileManager.deleteModuleDeadlines(deleteModuleCode);
+                profile.updateCap();
+                profileManager.setDisplayedView(profile);
+
+            } catch (ParseException e) {
+                throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
+            }
+            return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode), true);
         }
 
         throw new CommandException("Please ensure that either a profile name or a module code has been entered");

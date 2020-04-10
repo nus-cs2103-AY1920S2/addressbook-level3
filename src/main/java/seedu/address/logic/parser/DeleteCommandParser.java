@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
@@ -25,7 +26,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE, PREFIX_TASK);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE, PREFIX_TASK, PREFIX_GRADE);
 
         Name name;
         ModuleCode moduleCode;
@@ -38,19 +39,24 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(name);
         }
 
-        // Delete deadline/task
-        if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TASK)) {
-            String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
-            moduleCode = ParserUtil.parseModuleCode(strModuleCode);
-            String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
-            task = new Deadline(strModuleCode, strDeadline);
-            return new DeleteCommand(moduleCode, task);
-        }
-
-        // Delete module
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
             String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
             moduleCode = ParserUtil.parseModuleCode(strModuleCode);
+
+            // Delete task
+            if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
+                task = new Deadline(strModuleCode, strDeadline);
+                return new DeleteCommand(moduleCode, task);
+            }
+
+            // Delete grade
+            if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
+                String grade = argMultimap.getValue(PREFIX_GRADE).get();
+                return new DeleteCommand(moduleCode, grade);
+            }
+
+            // Delete module
             return new DeleteCommand(moduleCode);
         }
 
