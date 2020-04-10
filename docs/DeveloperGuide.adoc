@@ -361,7 +361,7 @@ The `Model`,
 * exposes 5 unmodifiable `ObservableList<>` objects:
 . `filteredStudentList`, an `ObservableList<Student>` that contains all the Students in the TA-Tracker.
 . `filteredSessionList`, an `ObservableList<Session>` that contains all the Sessions in the TA-Tracker that have not been marked as done.
-. `filteredDoneSessionList`, an `ObservableList<Session> that contains all the Sessions in the TA-Tracker that have been marked as done.
+. `filteredDoneSessionList`, an `ObservableList<Session>` that contains all the Sessions in the TA-Tracker that have been marked as done.
 . `filteredModuleList`, an `ObservableList<Module>` that contains all the Modules in the TA-Tracker.
 . `filteredGroupList`, an `ObservableList<Group>` that contains all the Groups in the TA-Tracker.
 * these lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -372,6 +372,7 @@ in the model component.
 
 .Model Components - Class Diagram
 image::ModelComponentsClassDiagram.png[]
+
 
 The following object diagram shows an example of the relationship between the different classes.
 This example is based on the state of TA-Tracker when it is first run (without any user data).
