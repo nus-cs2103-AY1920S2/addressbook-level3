@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.recipe.attribute.Calorie;
@@ -96,16 +98,20 @@ public class RecipeBuilder {
     /**
      * Sets the {@code IngredientList} of the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withIngredients(List<Ingredient> ingredients) {
-        this.ingredients = new IngredientList(ingredients);
+    public RecipeBuilder withIngredients(String ingredients) {
+        List<Ingredient> ingredientList =
+                Stream.of(ingredients.trim().split(";")).map(String::trim).map(Ingredient::new).collect(Collectors.toList());
+        this.ingredients = new IngredientList(ingredientList);
         return this;
     }
 
     /**
      * Sets the {@code InstructionList} of the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withInstructions(List<Instruction> instructions) {
-        this.instructions = new InstructionList(instructions);
+    public RecipeBuilder withInstructions(String instructions) {
+        List<Instruction> instructionList = (Stream.of(instructions.trim().split(";")).map(String::trim)
+                .map(Instruction::new).collect(Collectors.toList()));
+        this.instructions = new InstructionList(instructionList);
         return this;
     }
 
