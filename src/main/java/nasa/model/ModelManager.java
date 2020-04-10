@@ -108,7 +108,7 @@ public class ModelManager implements Model {
         StringBuilder output = new StringBuilder();
         output.append(type);
         input.forEach(x -> {
-                    output.append(",");
+                    output.append(" ");
                     output.append(x);
                 });
         System.out.println(output.toString());
@@ -117,26 +117,17 @@ public class ModelManager implements Model {
 
     public void refreshUi() {
         String temp = historyManager.getUiItem();
-        List<String> test = Arrays.asList(temp.split(","));
+        List<String> test = Arrays.asList(temp.split("\\s+"));
         String type = test.get(0);
-
-
-        if (type.equals("find")) {
-            if (test.get(1).equals("activity")) {
-                test.subList(2, test.size());
-                updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
-            } else if (test.get(1).equals("module")) {
-                test.subList(2, test.size());
-                updateFilteredModuleList(new NameContainsKeywordsPredicate(test));
-            }
-        }
 
         if (!type.equals("null")) {
             if (test.get(1).equals("activity")) {
-                test.subList(2, test.size());
-                updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
+                test = test.subList(2, test.size());
+                if (!test.get(0).equals("null")) {
+                    updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
+                }
             } else if (test.get(1).equals("module")) {
-                test.subList(2, test.size());
+                test = test.subList(2, test.size());
                 updateFilteredModuleList(new NameContainsKeywordsPredicate(test));
             }
         }
@@ -232,39 +223,39 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(ModuleCode target) {
         nasaBook.removeModule(target);
-        updateHistory("delete");
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        updateHistory("delete" + currentUiLocation());
+        //updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        updateHistory("add");
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        updateHistory("add" + currentUiLocation());
+        //updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.addDeadline(target, deadline);
-        updateHistory("deadline");
+        updateHistory("deadline" + currentUiLocation());
     }
 
     @Override
     public void addEvent(ModuleCode target, Event event) {
         nasaBook.addEvent(target, event);
-        updateHistory("event");
+        updateHistory("event" + currentUiLocation());
     }
 
     @Override
     public void removeDeadline(ModuleCode target, Deadline deadline) {
         nasaBook.removeDeadline(target, deadline);
-        updateHistory("deadline");
+        updateHistory("deadline" + currentUiLocation());
     }
 
     @Override
     public void removeEvent(ModuleCode target, Event event) {
         nasaBook.removeEvent(target, event);
-        updateHistory("event");
+        updateHistory("event" + currentUiLocation());
     }
 
     @Override
@@ -272,7 +263,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
-        updateHistory("module");
+        updateHistory("module" + currentUiLocation());
     }
 
     @Override
@@ -280,7 +271,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedDeadline);
 
         nasaBook.setDeadline(moduleCode, target, editedDeadline);
-        updateHistory("deadline");
+        updateHistory("deadline" + currentUiLocation());
     }
 
     @Override
@@ -288,21 +279,35 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEvent);
 
         nasaBook.setEvent(moduleCode, target, editedEvent);
-        updateHistory("event");
+        updateHistory("event" + currentUiLocation());
     }
 
     public String currentUiLocation() {
         StringBuilder location = new StringBuilder();
         if (getFilteredModuleList().size() > 1) {
             //not in Find
-            location.append(",activity,");
-            if (getFilteredModuleList().get(0).getDeepCopyDeadlineList().size() > 1) {
-                location.append("null");
-            } else if (getFilteredModuleList().get(0).getDeepCopyDeadlineList().size() == 1) {
-                location.append(getFilteredModuleList().get(0).getDeepCopyDeadlineList().get(0).getName().name);
+            location.append(" activity");
+            int i = 0;
+            boolean test = false;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredDeadlineList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredDeadlineList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
+            if (!test) {
+                location.append(" null");
             }
         } else {
-            location.append(",module,");
+            location.append(" module ");
             location.append(getFilteredModuleList().get(0).getModuleCode().moduleCode);
         }
         return location.toString();
@@ -358,7 +363,7 @@ public class ModelManager implements Model {
         for (Module module : filteredModules) {
             module.sortDeadlineList(sortMethod);
         }
-        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        updateHistory("sort" + currentUiLocation());
     }
 
     @Override

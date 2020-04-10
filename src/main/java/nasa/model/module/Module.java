@@ -105,12 +105,10 @@ public class Module {
 
     public void setDeadlineSchedule(Index index, Index type) {
         deadlineList.setSchedule(index, type);
-//        updateFilteredActivityList(x -> true);
     }
 
     public void setEventSchedule(Index index, Index type) {
         eventList.setSchedule(index, type);
-//        updateFilteredActivityList(x -> true);
     }
 
     public ObservableList<Deadline> getFilteredDeadlineList() {

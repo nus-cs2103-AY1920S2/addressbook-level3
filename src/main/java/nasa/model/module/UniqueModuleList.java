@@ -116,7 +116,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public Module getModule(ModuleCode moduleCode) {
         requireAllNonNull(moduleCode);
-        return internalList.parallelStream()
+        return internalList.stream()
                 .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
                 .orElse(null);
