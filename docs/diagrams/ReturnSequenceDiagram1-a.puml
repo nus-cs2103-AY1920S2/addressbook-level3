@@ -1,0 +1,55 @@
+@startuml
+/' @author @cherweijie'/
+
+!include style.puml
+mainframe sd execution of return feature for converting an order to a return order
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":ReturnCommandParser" as ReturnCommandParser LOGIC_COLOR
+participant ":ReturnCommand" as ReturnCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("return tid/AC31255")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("return tid/AC31255")
+activate OrderBookParser
+
+create ReturnCommandParser
+OrderBookParser -> ReturnCommandParser
+activate ReturnCommandParser
+ReturnCommandParser --> OrderBookParser
+deactivate ReturnCommandParser
+
+OrderBookParser -> ReturnCommandParser : parse("tid/AC31255")
+activate ReturnCommandParser
+
+create ReturnCommand
+ReturnCommandParser -> ReturnCommand
+activate ReturnCommand
+
+ReturnCommand --> ReturnCommandParser : d
+deactivate ReturnCommand
+
+ReturnCommandParser --> OrderBookParser : d
+deactivate ReturnCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReturnCommandParser -[hidden]-> OrderBookParser
+destroy ReturnCommandParser
+
+OrderBookParser --> LogicManager : d
+deactivate OrderBookParser
+
+ref over LogicManager, Model : Conversion of an order into a return order
+
+[<--LogicManager : result
+deactivate LogicManager
+
+@enduml

@@ -1,4 +1,6 @@
 @startuml
+/' @author @cherweijie'/
+
 start
 :User enters the delivered command and keywords;
 If () then ([valid flag is given])

@@ -16,6 +16,7 @@ endif::[]
 
 By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
+//tag::introduction[]
 == Introduction
 This user guide provides in-depth documentation on the Delino desktop application:
 quick start guide, features, FAQ, command summary, and glossary.
@@ -25,14 +26,18 @@ It is *optimised for those who have a strong preference towards Command Line Int
 while still enjoying the benefits of a Graphical User Interface (GUI).
 Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
 Have a delightful journey using Delino!
+//end::introduction[]
 
+//tag::product_information[]
 .Graphical User Interface (GUI) of Delino
 image::Ui.png[width="790"]
 
 === Product Information
 Are you still using pen and papers or Excel to keep track of all your orders? +
 
-With Delino, you can be rest assured that it will help you to keep track of a large number of orders in the most efficient way possible. Are you interested in improving your parcel delivery management? Read further to discover the features of Delino!
+With Delino, you can be rest assured that it will help you to keep track of a large number of orders in the most efficient way possible.
+Are you interested in improving your parcel delivery management? Read further to discover the features of Delino!
+//end::product_information[]
 
 //tag::how_to_navigate_user_guide[]
 

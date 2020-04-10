@@ -111,6 +111,7 @@ image::DeleteSequenceDiagram.svg[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//tag::design_model[]
 [[Design-Model]]
 === Model component
 
@@ -130,6 +131,7 @@ The `Model`,
 An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
 every UniqueOrderList is part of an OrderBook.
 image:BetterModelClassDiagram.svg[]
+//end::design_model[]
 
 //tag::Design-Storage[]
 [[Design-Storage]]
@@ -271,7 +273,6 @@ to the `LogicManager`, indicating that the command execution is a success.
 //end::list[]
 
 //tag::clear[]
-
 === Clear feature
 In this section, the <<what-is-clear, functionality>> of the `clear` feature, the expected <<clear-execution-path, execution path>>,
 the <<clear-structure, structure>> of the `ClearCommand` class and the <<clear-interaction, interactions>>
@@ -503,9 +504,9 @@ The specified return order at `INDEX` 2 will be deleted using the `deleteReturnO
 in the `model`.
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
-
 //end::delete[]
 
+//tag::delivered[]
 [[delivered]]
 === Delivered Feature
 In this section, the <<what-is-delivered, functionality>> of the `delivered` feature, the
@@ -551,7 +552,7 @@ not extensively utilised in `DeliveredCommand`; such as public static fields and
 ==== Sequence Diagram for delivering an order
 The sequence diagrams for the *Delivered Command* are shown below.
 
-.Search Command Sequence Diagram
+.Delivered Command Sequence Diagram
 image::DeliveredSequenceDiagram.png[]
 
 .Execution of Delivered Command
@@ -605,6 +606,7 @@ delivery status of the object to delivered. Then, the `updateFilteredOrderList()
 method to update the list in the `model`. +
 
 Based on the new updates, a new `CommandResult` object will be instantiated to print the message success to the user.
+//end::delivered[]
 
 //tag::edit[]
 [[edit]]
@@ -687,6 +689,179 @@ The main function of these methods are to help `EditCommand` in updating the `Ob
 The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
+//tag::return[]
+[[return]]
+=== Return Feature
+In this section, you will learn more about how the `return` feature is implemented.
+
+[[what-is-return]]
+==== What is the Return Feature
+The return feature allows the user to either: +
+1. Create a new return order from his/her input parcel attributes. +
+2. Convert an existing delivered order to a return order.
+
+The return feature was implemented as a `ReturnCommand` in the `Logic` package. +
+
+The `return` command has two possible formats: +
+
+1. `return` <<command_prefix, `TRANSACTION_ID`>>
+If the user provides only a valid <<command_prefix, `TRANSACTION_ID`>> in his input, the order with the given
+<<command_prefix, `TRANSACTION_ID`>> will be converted into a return order with the same attributes.
+The created return order will be added into the return order list.
+
+2. `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
+<<command_prefix, `EMAIL`>> <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `[COMMENTS]`>>
+<<command_prefix, `[ITEM_TYPE]`>>
+If the user provides these compulsory parcel attributes, a return order with the given parcel attributes will be created and added to the return order list.
+
+[NOTE]
+====
+1. All return orders do not have the <<command_prefix, `CASH_ON_DELIVERY`>> parcel attribute.
+2. The <<command_prefix, `TRANSACTION_ID`>> is alphanumeric, which determines the <<command_prefix, `TRANSACTION_ID`>> of the resulting return order.
+3. The <<command_prefix, `NAME`>> consists of alphabets and determines the <<command_prefix, `NAME`>> of the resulting return order.
+4. The <<command_prefix, `ADDRESS`>> is alphanumeric and determines the <<command_prefix, `ADDRESS`>>  of the resulting return order.
+5. The <<command_prefix, `PHONE_NUMBER`>> consists of only numbers and determines the <<command_prefix, `PHONE_NUMBER`>> of the resulting return order.
+6. The <<command_prefix, `EMAIL`>> is alphanumeric and determines the <<command_prefix, `EMAIL`>> of the resulting return order.
+7. The <<command_prefix, `RETURN_TIMESTAMP`>> should include the date in YYYY-MM-DD format and time in 24-hour format with a whitespace in between
+the date and time.
+8. The <<command_prefix, `WAREHOUSE_LOCATION`>> is alphanumeric and it determines the <<command_prefix, `WAREHOUSE_LOCATION`>> of the resulting return order.
+9. The <<command_prefix, `[COMMENTS]`>> is an optional alphanumeric field and determines the <<command_prefix, `[COMMENTS]`>> of the resulting return order.
+10. The <<command_prefix, `[ITEM_TYPE]`>> is an optional alphanumeric field and determines the <<command_prefix, `[ITEM_TYPE]`>> of the resulting return order.
+====
+
+[[execution-paths-return]]
+==== Execution paths of Return command
+In this section, you will learn more about the execution paths for the `return` command.
+
+.Return Command Activity Diagram
+image::ReturnCommandActivityDiagram.png[]
+
+There are three possible execution paths for the `return` command
+
+1. User provides an invalid `return` command input +
+This will result in a parse exception and an error message will be displayed to the user.
+2. User provides a valid `return` command input with a valid <<command_prefix, `TRANSACTION_ID`>>, i.e. +
+`return` <<command_prefix, `TRANSACTION_ID`>> +
+If the order with the given <<command_prefix, `TRANSACTION_ID`>> is delivered,
+it will be converted to an existing order with the given <<command_prefix, `TRANSACTION_ID`>> into a return order. +
+This return order will then be added into the return order list.
+3. User provides a valid `return` command input with all compulsory parcel attributes, i.e. +
+`return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
+<<command_prefix, `EMAIL`>> <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `[COMMENTS]`>>
+<<command_prefix, `[ITEM_TYPE]`>> +
+If the given <<command_prefix, `TRANSACTION_ID`>> does not exist as an order or return order,
+this will create a new return order based on the given parcel attributes and the resulting return order
+will be added to the return order list. +
+If the given `return` <<command_prefix, `TRANSACTION_ID`>> already exists as an order or return order, an error message
+will be displayed to the user that an order or return order already exists in the order list or return order list respectively.
+4. User provides a valid `return` command input with an invalid <<command_prefix, `TRANSACTION_ID`>> +
+This will result in a parse exception and an error message will be displayed to the user.
+5. User provides a valid `return` command but one or more of the compulsory parcel attributes is/are invalid.
+This will result in a parse exception and an error message will be displayed to the user.
+
+[[structure-return]]
+==== Structure of Return Command
+image::ReturnClassDiagram.png[]
+The above class diagram shows the structure of the `ReturnCommand`
+and its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in `ReturnCommand`; such as public static fields and getter/setter methods.
+
+The above class diagram shows the structure of the `DeliveredCommand` and
+its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in `DeliveredCommand`; such as public static fields and getter/setter methods.
+
+[[return-interactions]]
+==== Interactions between objects when Return Command is executed
+
+==== Sequence Diagram for converting an order into a return order
+The sequence diagrams for the *Return Command* are shown below.
+
+.Return Command Sequence Diagram
+image::ReturnSequenceDiagram1_a.png[
+
+.Execution of Return Command to convert a delivered Order into a Return Order
+image::ReturnSequenceDiagram2_a.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`return` command word that will be parsed. +
+
+Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+the command word `return` from the user's input. Based on the command word `return`,
+a `ReturnCommand` object will be created. +
+
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input; which is determined by the `execute` method in
+`ReturnCommand`. +
+
+The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
+ReturnCommand is present. In this case, since we are converting an order into a return order,
+the return order will not be present in the constructor of `ReturnCommand` and
+the isReturnOrderNotPresent() method will return true. +
+
+If the given <<command_prefix, `TRANSACTION_ID`>> exists in the order list, the
+getOrderByTransactionId(model) method will attempt to create a new Order object from
+the model's Order list based on the given transaction ID, i.e. orderToBeReturned. +
+
+The isDelivered() method checks if the newly created Order is delivered. If the order was not
+delivered, it will throw a command exception and display an error message to the user. +
+
+If the order was delivered, the deleteOrder(orderToBeReturned) method will be triggered
+to delete the order from the model's order list. Also, a new return order will be created based
+on the ReturnOrder's constructor that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
+creates a new Return Order object, toBeCreated. +
+
+Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+model's return order list using the hasParcel(toBeCreated) method. If it exists, a command exception will be thrown
+and an error message will be displayed to the user. +
+
+If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
+
+Finally, a new CommandResult will be created to display the success message to the user for converting
+a delivered order to a return order.
+
+==== Sequence Diagram for creating a new return order
+The sequence diagrams for the *Return Command* are shown below.
+
+.Return Command Sequence Diagram
+image::ReturnSequenceDiagram1_b.png[]
+
+.Execution of Return Command to create a new Return Order
+image::ReturnSequenceDiagram2_b.png[]
+The arguments typed into Delino by the user will first be done by the `execute`
+method in `LogicManager`. After which, an `OrderBookParser` object will be created to parse
+the input which is determined by the command word via the parseCommand method. In this case, it is the
+`return` command word that will be parsed. +
+
+Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
+the command word `return` from the user's input. Based on the command word `return`,
+a `ReturnCommand` object will be created. +
+
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
+based on the validity of the user's input; which is determined by the `execute` method in
+`ReturnCommand`. +
+
+The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
+ReturnCommand is present. In this case, since we are creating a new return order from the given parcel attributes, a
+return order will be created and it will be used in the constructor of `ReturnCommand` and
+the isReturnOrderNotPresent() method will return false. +
+
+Also, a new return order will be created based on the ReturnOrder's constructor
+that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
+creates a new ReturnOrder object, toBeCreated. +
+
+Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
+model's return order list using the hasParcel(toBeCreated) method.
+If it exists, a command exception will be thrown
+and an error message will be displayed to the user. +
+
+If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
+toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
+
+Finally, a new CommandResult will be created to display the success message to the user for creating a
+new return order with the given parcel attributes.
+//end::return[]
 
 //tag::nearby[]
 [[nearby]]
@@ -871,6 +1046,17 @@ image::NearbySequenceDiagramParseException.svg[]
 The exception will be thrown in the `NearbyCommandParser`.
 
 //end::nearby[]
+
+[[help]]
+=== Help Feature
+[[what-is-help]]
+==== What is the Help Feature
+[[execution-paths-help]]
+==== Execution paths of the Help command
+[[structure-help]]
+==== Structure of Help Command
+[[help-interactions]]
+==== Sequence Diagram for the Help Feature
 
 
 //tag::import[]
@@ -1346,14 +1532,16 @@ Use case ends.
 +
 Use case ends.
 
+//tag::use_case_delivered[]
 [discrete]
-=== Use case: UC04 - Mark order as done
+=== Use case: UC04 - Mark order or return order as delivered
 
 *MSS*
 
-1.  User request to mark order as done.
-2.  Delino changes order status to done.
-3.  Delino display marked order.
+1.  User request to mark order or return order as delivered,
+based on the <<command_prefix, `FLAG`>> provided, -o or -r respectively and <<command_prefix, `INDEX`>>.
+2.  Delino changes the delivery status of the specified order or return order to delivered.
+3.  Delino will display an updated order list or return order list.
 +
 Use case ends.
 
@@ -1367,11 +1555,26 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. Delino unable to detect any order with the transaction id.
+* 1b. Delino unable to detect any parcel with the <<command_prefix, `INDEX`>> provided.
 [none]
-** 1b1. Delino shows no order found message.
+** 1b1. Delino shows error message to the user.
 +
 Use case ends.
+
+[none]
+* 1c. Delino unable to detect valid <<command_prefix, `INDEX`>> provided.
+[none]
+** 1c1. Delino shows error message to the user.
++
+Use case ends.
+
+[none]
+* 1d. Delino unable to detect valid <<command_prefix, `FLAG`>> provided.
+[none]
+** 1d1. Delino shows error message to the user.
++
+Use case ends.
+//end::use_case_delivered[]
 
 //tag::use_case_edit[]
 [discrete]
@@ -1524,14 +1727,15 @@ Use case ends.
 Use case ends.
 //end::use_case_list[]
 
+//tag::use_case_return[]
 [discrete]
-=== Use case: UC11 - Order returns
+=== Use case: UC11 - Returning an order
 
 *MSS*
 
-1.  User requests to add order return.
-2.  Delino add order return.
-3.  Delino display order return added.
+1.  User requests to return an order or create a new return order.
+2.  Either an order will be converted to a return order or a new return order will be created
+3.  Delino displays the updated return order list with the new return order.
 +
 Use case ends.
 
@@ -1541,10 +1745,35 @@ Use case ends.
 * 1a. Delino detects invalid syntax.
 +
 [none]
-** 1a1. Delino shows an error message.
+** 1a1. Delino shows an error message to the user.
 +
 Use case ends.
 
+[none]
+* 1b. Delino detects invalid parcel attributes.
++
+[none]
+** 1b1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 1c. Delino detects invalid <<command_prefix, `TRANSACTION_ID`>>, i.e. order with
+the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
++
+[none]
+** 1c1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 1d. Delino detects missing parcel attributes.
++
+[none]
+** 1d1. Delino shows an error message to the user.
++
+Use case ends.
+//end::use_case_return[]
 
 [discrete]
 === Use case: UC12 - Obtain orders in a postal sector
@@ -1616,6 +1845,38 @@ Use case ends.
 Use case ends.
 //end::use_case_show[]
 
+//tag::use_case_help[]
+[discrete]
+=== Use case: UC12 - Display list of commands in Delino using help
+
+*MSS*
+
+1.  User requests to list all commands in Delino
+2.  Delino opens a new window after execution of the help command.
+3.  Delino display the list of commands and a button to provide user a link to Delino's User Guide
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message to tell user the right way to use the help command.
++
+Use case ends.
+
+[none]
+* 1b. Delino detects additional non-whitespace characters after the command word, help.
++
+[none]
+** 1b1. Delino shows an error message to tell user the right way to use the help command.
++
+Use case ends.
+//end:use_case_help[]
+
+//tag::non_functional_requirements[]
 [appendix]
 == Non Functional Requirements
 
@@ -1626,6 +1887,7 @@ Use case ends.
 .  The system should be able to work without internet access.
 .  A user should be able to get all the information he/she needs within four commands.
 .  A user should be able to familiarise himself/herself within an hour of usage.
+//end::non_functional_requirements[]
 
 [appendix]
 == Glossary
@@ -1783,6 +2045,31 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::appendix-insert[]
 
+//tag::appendix-return[]
+=== Returning an order
+
+. Convert a delivered order into a return order or create a new return order
+
+.. Insert command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-02-20 1300` `w/Yishun` +
+   Expected: Creates a new return order with the above details and adds it into the return order list. This will be displayed on the GUI
+.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `rts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
+   Expected: Creates a new return order with the above details, including type and comments and adds it into the return order list. This will be displayed on the GUI
+.. Test case: `return` `tid/1023456789` +
+   Expected: Checks if an order with the given <<command_prefix, `TRANSACTION_ID`>> exists. If it exists and
+it was delivered, it will be converted into a return order and added into the return order list.
+.. Test case: Invalid Syntax +
+   Expected: No return order is added. Error details shown in the response message. A help message displayed for user to use the return command accordingly.
+.. Test case: Return order with invalid Transaction ID in order list +
+   Expected: An error will occur and a message will be displayed, stating that order with the given <<command_prefix, `TRANSACTION_ID`>>
+cannot be found in the order list.
+.. Test case: Return order with missing parcel attributes +
+   Expected: An error will occur and a message will be displayed, indicating the right message usage of the return feature.
+.. Test case: Order to be converted was not delivered +
+   Expected: An error will occur and a message will be displayed, indicating that the order was not delivered and cannot be returned.
+//end::appendix-return[]
+
 //tag::appendix-delete[]
 === Deleting an order
 
@@ -1855,21 +2142,6 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 
 //end::appendix-list[]
 
-=== Returning an order
-
-. Returning an order with the specific order attributes
-
-.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
-.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `ts/2020-02-20 1300` `w/Yishun` +
-   Expected: Creates and adds a return order with the above details to the return order book.
-.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `ts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
-   Expected: Creates and adds the return order to the return order book, including the item type and comment.
-.. Test case: Invalid Syntax +
-   Expected: No return order is added. Error details shown in the response message. A help message displayed for user to type the return command accordingly. Status bar remain unchanged
-.. Test case: Return order with existing Transaction ID in list +
-   Expected: An error will occur and a message will be displayed, stating that the return order with duplicate ID cannot be added into the list
-
 === Search an order
 
 . Search an order based on the `KEYWORD` and `FLAG`(if any) given. For a more detailed explanation of the implementation click <<search, here>>.
@@ -1889,19 +2161,22 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    `search` +
    Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
 
-=== Mark order as Done
+//tag::appendix-delivered[]
+=== Mark parcel as delivered
 
-. Mark order as done whenever an order transaction is completed
+. Mark a parcel's delivery status as delivered based on its <<command_prefix, `INDEX`>> and <<command_prefix, `FLAG`>>
+whenever the parcel has been delivered.
 
-.. Done command format: `done` `INDEX`
+.. Delivered command format: `delivered` <<command_prefix, `FLAG`>> <<command_prefix, `INDEX`>>
 
-.. Prerequisite: Ensure that your list has more than or equals to two orders
-.. Test case: `done` `1` +
-   Expected: The first order in the currently displayed list will be marked as done
-.. Test case: `done` `2` +
-   Expected: The second order in the currently displayed list will be marked as done
+.. Prerequisite: Ensure that your order list or return order list has at least one order.
+.. Test case: `delivered` `-o` `1` +
+   Expected: The first order in the currently displayed order list will be marked as delivered
+.. Test case: `delivered` `-r` `2` +
+   Expected: The second return order in the currently displayed return order list will be marked as delivered
 .. Test case: Invalid syntax +
-   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error
+   Expected: No parcel is marked as delivered. The error message will be displayed on the error response box describing the error
+//end::appendix-delivered[]
 
 //tag::appendix-clear[]
 === Clear orders
@@ -1928,14 +2203,16 @@ Expected: Invalid command input, as space is required in between flags. +
    Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 //end::appendix-clear[]
 
+//tag::appendix-help[]
 === Help
 
 . Display a list of available commands to user
 
 .. Test case: `help` +
-   Expected: A list of commands will be displayed and the response box will indicate a successful command.
+   Expected: A list of commands will be displayed in a new pop-up window and the response box will indicate a successful command.
 .. Test case: Invalid syntax +
    Expected: An error will occur and the response box will show an error message
+//end::appendix-help[]
 
 //tag::appendix-show[]
 === Show
@@ -2003,16 +2280,6 @@ There are *5* different areas in Singapore: Central, East, North East, West, Nor
 https://keylocation.sg/singapore/districts-map[this website] +
 
 //end::appendix-nearby[]
-
-=== Undo previous action
-
-. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
-
-.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
-.. Test case: `undo` +
-   Expected: The original list will be replaced with the current new list. The previous state will be restored
-.. Test case: `undo` `INVALID_SYNTAX` +
-   Expected: Error message displayed in the response box
 
 === Saving data
 
