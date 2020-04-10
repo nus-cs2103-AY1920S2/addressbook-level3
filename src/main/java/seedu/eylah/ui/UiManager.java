@@ -49,17 +49,17 @@ public class UiManager implements Ui {
 
     @Override
     public void showWelcome() {
-        showToUser(USAGE, NAV_LIST);
+        showToUser(SEPARATOR, USAGE, NAV_LIST);
     }
 
     @Override
     public void showLogo() {
-        showToUser(WELCOME_MESSAGE, SEPARATOR, LOGO, SEPARATOR, LS);
+        showToUser(SEPARATOR, LOGO, SEPARATOR, WELCOME_MESSAGE);
     }
 
     @Override
     public void showMode(Mode mode) {
-        showToUser(String.format(MODE_MESSAGE, mode.toString()));
+        showToUser(SEPARATOR, String.format(MODE_MESSAGE, mode.toString()));
     }
 
     @Override
