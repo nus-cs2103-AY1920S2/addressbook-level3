@@ -376,6 +376,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
+        scheduler.deleteWorkoutFromSchedule(workoutToDelete);
+    }
+
+    @Override
+    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
+        scheduler.editWorkoutInSchedule(workoutToEdit, editedWorkout);
+    }
+
+    @Override
     public boolean hasSchedule(Schedule schedule) {
         return scheduler.hasSchedule(schedule);
     }

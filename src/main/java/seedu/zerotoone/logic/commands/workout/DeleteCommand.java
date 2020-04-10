@@ -41,6 +41,7 @@ public class DeleteCommand extends WorkoutCommand {
 
         Workout workoutToDelete = lastShownList.get(workoutId.getZeroBased());
         model.deleteWorkout(workoutToDelete);
+        model.deleteWorkoutFromSchedule(workoutToDelete);
 
         String outputMessage = String.format(MESSAGE_DELETE_WORKOUT_SUCCESS,
                 workoutToDelete.getWorkoutName().toString());
