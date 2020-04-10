@@ -13,12 +13,12 @@ import com.notably.model.ModelManager;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
-import com.notably.model.block.BlockModelImpl;
 import com.notably.model.block.Title;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
+import com.notably.testutil.TypicalBlockModel;
 
 class NewCommandTest {
     private static Model model;
@@ -26,7 +26,7 @@ class NewCommandTest {
     @BeforeEach
     public void setUp() {
         // Set up model
-        BlockModel blockModel = new BlockModelImpl();
+        BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
