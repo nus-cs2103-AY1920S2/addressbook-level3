@@ -463,7 +463,7 @@ public class MainWindow extends UiPart<Stage> {
             new KeyFrame(
                 Duration.ZERO,
                 event -> {
-                    DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("E, dd-MM-uuuu HH:mm:ss");
+                    DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("E, dd-MMM-uuuu HH:mm:ss");
                     String timeNow = LocalDateTime.now().format(timeFormat);
                     timeHolder.setText(timeNow);
                 }
