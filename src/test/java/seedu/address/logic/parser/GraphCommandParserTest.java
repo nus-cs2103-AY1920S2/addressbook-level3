@@ -1,6 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.GraphCommandTestUtil.INVALID_AXIS_DESC;
+import static seedu.address.logic.commands.GraphCommandTestUtil.INVALID_ENDDATE_DESC;
+import static seedu.address.logic.commands.GraphCommandTestUtil.INVALID_EXERCISE_NAME_DESC;
+import static seedu.address.logic.commands.GraphCommandTestUtil.INVALID_STARTDATE_DESC;
 import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_AXIS_REPS;
 import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_AXIS_REPS_DESC;
 import static seedu.address.logic.commands.GraphCommandTestUtil.VALID_ENDDATE;
@@ -68,22 +72,22 @@ public class GraphCommandParserTest {
     }
 
 
-    // @Test
-    // public void parse_invalidValue_failure() {
-    //     // invalid exercise name
-    //     assertParseFailure(parser, INVALID_EXERCISE_NAME_DESC + EXERCISE_DATE_DESC_PUSHUP,
-    //             ExerciseName.MESSAGE_CONSTRAINTS);
+    @Test
+    public void parse_invalidValue_failure() {
+        // invalid exercise name
+        assertParseFailure(parser, INVALID_EXERCISE_NAME_DESC + VALID_AXIS_REPS_DESC
+                + VALID_STARTDATE_DESC + VALID_ENDDATE_DESC, ExerciseName.MESSAGE_CONSTRAINTS);
 
-    //     // invalid axis
-    //     assertParseFailure(parser, EXERCISE_NAME_DESC_PUSHUP + INVALID_EXERCISE_DATE_DESC,
-    //             ExerciseDate.MESSAGE_CONSTRAINTS);
+        // invalid axis
+        assertParseFailure(parser, VALID_EXERCISE_NAME_DESC + INVALID_AXIS_DESC
+                + VALID_STARTDATE_DESC + VALID_ENDDATE_DESC, Axis.MESSAGE_CONSTRAINTS);
 
-    //     // invalid start date
-    //     assertParseFailure(parser, EXERCISE_NAME_DESC_PUSHUP + EXERCISE_DATE_DESC_PUSHUP
-    //             + INVALID_EXERCISE_REPS_DESC, ExerciseReps.MESSAGE_CONSTRAINTS);
+        // invalid start date
+        assertParseFailure(parser, VALID_EXERCISE_NAME_DESC + VALID_AXIS_REPS_DESC
+                + INVALID_STARTDATE_DESC + VALID_ENDDATE_DESC, StartDate.MESSAGE_CONSTRAINTS);
 
-    //     // invalid end date
-    //     assertParseFailure(parser, EXERCISE_NAME_DESC_PUSHUP + EXERCISE_DATE_DESC_PUSHUP
-    //             + INVALID_EXERCISE_WEIGHT_DESC, ExerciseWeight.MESSAGE_CONSTRAINTS);
-    // }
+        // invalid end date
+        assertParseFailure(parser, VALID_EXERCISE_NAME_DESC + VALID_AXIS_REPS_DESC
+                + VALID_STARTDATE_DESC + INVALID_ENDDATE_DESC, EndDate.MESSAGE_CONSTRAINTS);
+    }
 }
