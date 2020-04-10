@@ -39,9 +39,9 @@ public class DeleteSessionCommandTest {
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSessionList().size() + 1);
         DeleteSessionCommand deleteSessionCommand = new DeleteSessionCommand(outOfBoundIndex);
-
+        String expectedMessage = Messages.getInvalidCommandMessage(Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
         assertCommandFailure(deleteSessionCommand,
-                 model, Messages.MESSAGE_INVALID_SESSION_DISPLAYED_INDEX);
+                 model, expectedMessage);
     }
 
     @Test

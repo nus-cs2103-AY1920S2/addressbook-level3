@@ -1,8 +1,6 @@
 package tatracker.testutil.sessions;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
@@ -57,20 +55,22 @@ public class SessionBuilder {
     /**
      * Sets the {@code startTime} of the {@code Session} that we are building.
      */
-    public SessionBuilder withStartTime(String startTime) throws ParseException {
-        LocalDate date = ParserUtil.parseDate(startTime);
-        LocalTime time = ParserUtil.parseTime(startTime);
-        this.startTime = LocalDateTime.of(date, time);
+    public SessionBuilder withStartTime(LocalDateTime startTime) throws ParseException {
+        //LocalDate date = ParserUtil.parseDate(startTime);
+        //LocalTime time = ParserUtil.parseTime(startTime);
+        //this.startTime = LocalDateTime.of(date, time);
+        this.startTime = startTime;
         return this;
     }
 
     /**
      * Sets the {@code endTime} of the {@code Session} that we are building.
      */
-    public SessionBuilder withEndTime(String endTime) throws ParseException {
-        LocalDate date = ParserUtil.parseDate(endTime);
-        LocalTime time = ParserUtil.parseTime(endTime);
-        this.endTime = LocalDateTime.of(date, time);
+    public SessionBuilder withEndTime(LocalDateTime endTime) throws ParseException {
+        //LocalDate date = ParserUtil.parseDate(endTime);
+        //LocalTime time = ParserUtil.parseTime(endTime);
+        //this.endTime = LocalDateTime.of(date, time);
+        this.endTime = endTime;
         return this;
     }
 

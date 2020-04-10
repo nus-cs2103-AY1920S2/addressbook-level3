@@ -1,5 +1,6 @@
 package tatracker.testutil.sessions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +18,8 @@ public class TypicalSessions {
     static {
         SessionBuilder sessionBuilder = new SessionBuilder();
         try {
-            sessionBuilder.withStartTime("2020-05-29T17:00");
-            sessionBuilder.withEndTime("2020-05-29T17:00");
+            sessionBuilder.withStartTime(LocalDateTime.of(2020, 05, 29, 13, 00));
+            sessionBuilder.withEndTime(LocalDateTime.of(2020, 05, 29, 13, 00));
             sessionBuilder.withSessionType("lab");
         } catch (ParseException e) {
             e.printStackTrace();
@@ -35,8 +36,8 @@ public class TypicalSessions {
     static {
         SessionBuilder sessionBuilder = new SessionBuilder();
         try {
-            sessionBuilder.withStartTime("2020-06-10T12:00");
-            sessionBuilder.withEndTime("2020-06-10T14:00");
+            sessionBuilder.withStartTime(LocalDateTime.of(2020, 06, 10, 10, 00));
+            sessionBuilder.withEndTime(LocalDateTime.of(2020, 06, 10, 12, 00));
             sessionBuilder.withSessionType("consultation");
         } catch (ParseException e) {
             e.printStackTrace();
@@ -53,8 +54,8 @@ public class TypicalSessions {
     static {
         SessionBuilder sessionBuilder = new SessionBuilder();
         try {
-            sessionBuilder.withStartTime("2020-06-01T10:00");
-            sessionBuilder.withEndTime("2020-06-01T11:00");
+            sessionBuilder.withStartTime(LocalDateTime.of(2020, 06, 01, 10, 00));
+            sessionBuilder.withEndTime(LocalDateTime.of(2020, 06, 01, 11, 00));
             sessionBuilder.withSessionType("Preparation");
         } catch (ParseException e) {
             e.printStackTrace();
@@ -71,8 +72,8 @@ public class TypicalSessions {
     static {
         SessionBuilder sessionBuilder = new SessionBuilder();
         try {
-            sessionBuilder.withStartTime("2020-06-15T12:00");
-            sessionBuilder.withEndTime("2020-06-15T14:00");
+            sessionBuilder.withStartTime(LocalDateTime.of(2020, 06, 15, 12, 30));
+            sessionBuilder.withEndTime(LocalDateTime.of(2020, 06, 15, 14, 00));
             sessionBuilder.withSessionType("gradings");
         } catch (ParseException e) {
             e.printStackTrace();
