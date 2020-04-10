@@ -81,4 +81,16 @@ class OpenCommandParserTest {
         //Expected directory after executing Command /another/block
         assertEquals(toOpenPath, model.currentlyOpenPathProperty().getValue());
     }
+
+    @Test
+    void parse_relativePathArgumentTypo_openCommand() throws ParseException, CommandException {
+        final AbsolutePath toOpenPath = TypicalBlockModel.PATH_TO_CS2106;
+        final OpenCommand openCommand = openCommandParser.parse(" -t CS2105").get(0);
+
+        // Current directory `/Y2S2`
+        openCommand.execute(model);
+
+        //Expected directory after executing Command /another/block
+        assertEquals(toOpenPath, model.currentlyOpenPathProperty().getValue());
+    }
 }
