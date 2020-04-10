@@ -73,7 +73,7 @@ public class OpenSuggestionCommandParserTest {
     public void parse_correctCmdcorrectAbsolutePathWithPrefix_returnsOpenSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
         String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + PREFIX_TITLE + " " + toCs2103t.getStringRepresentation();
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -96,7 +96,7 @@ public class OpenSuggestionCommandParserTest {
     public void parse_correctedCmdcorrectAbsolutePathWithoutPrefix_returnsOpenSuggestionCommand() {
         String userInputWithoutPath = "op ";
         String userInput = userInputWithoutPath + toCs2103t.getStringRepresentation();
-        String arg = userInput.replace("op", "");
+        String arg = " " + toCs2103t.getStringRepresentation();
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -119,7 +119,7 @@ public class OpenSuggestionCommandParserTest {
     public void parse_correctCmdcorrectRelativePathWithPrefix_returnsOpenSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
         String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + PREFIX_TITLE + " " + stringRelativePathToCs2103t;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -142,7 +142,7 @@ public class OpenSuggestionCommandParserTest {
     public void parse_correctedCmdcorrectRelativePathWithoutPrefix_returnsOpenSuggestionCommand() {
         String userInputWithoutPath = "op ";
         String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
-        String arg = userInput.replace("op", "");
+        String arg = " " + stringRelativePathToCs2103t;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -166,7 +166,7 @@ public class OpenSuggestionCommandParserTest {
         String userInputWithoutPath = "op " + PREFIX_TITLE + " ";
         String path = "/Y2S2/CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace("op", "");
+        String arg = " " + PREFIX_TITLE + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -190,7 +190,7 @@ public class OpenSuggestionCommandParserTest {
         String userInputWithoutPath = COMMAND_WORD + " ";
         String path = "/Y2S2/CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -214,7 +214,7 @@ public class OpenSuggestionCommandParserTest {
         String userInputWithoutPath = "op " + PREFIX_TITLE + " ";
         String path = "CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace("op", "");
+        String arg = " " + PREFIX_TITLE + " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
@@ -238,7 +238,7 @@ public class OpenSuggestionCommandParserTest {
         String userInputWithoutPath = COMMAND_WORD + " ";
         String path = "CS2104";
         String userInput = userInputWithoutPath + path;
-        String arg = userInput.replace(COMMAND_WORD, "");
+        String arg = " " + path;
 
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = openSuggestionCommandParser.parse(arg);
