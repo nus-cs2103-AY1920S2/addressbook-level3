@@ -39,6 +39,13 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
 
         ItemPrice price;
 
+        if (argMultimap.getValue(PREFIX_PRICE).get().length() >= 5) {
+            throw new ParseException(String.format("Amount field"
+            + " cannot be more than 5 digits long. "
+            + " The maximum price of an item is 9999.",
+                AddItemCommand.MESSAGE_USAGE));
+        }
+
         try {
             price = ParserUtil.parseItemPrice(argMultimap.getValue(PREFIX_PRICE).get());
         } catch (NumberFormatException ex) {
@@ -47,6 +54,7 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
                     + "Do enter `help` if you require further clarification.",
                 AddItemCommand.MESSAGE_USAGE));
         }
+
 
         ItemName itemName = ParserUtil.parseItemName(argMultimap.getValue(PREFIX_ITEM).get());
         ArrayList<Name> names = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
