@@ -68,7 +68,6 @@ public class Eylah {
     private Ui ui;
     private UserPrefs userPrefs;
     private UserPrefsStorage userPrefsStorage;
-    private Config config;
     private Storage storage;
     private Model model;
     private Logic logic;
@@ -91,7 +90,7 @@ public class Eylah {
     private void start() {
         isExit = false;
         ui = new UiManager();
-        config = initConfig(null);
+        Config config = initConfig();
         LogsCenter.init(config);
         userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -325,16 +324,11 @@ public class Eylah {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Path configFilePath) {
+    protected Config initConfig() {
         Config initializedConfig;
         Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
 
         logger.info("Using config file : " + configFilePathUsed);
 
