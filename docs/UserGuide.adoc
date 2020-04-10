@@ -373,14 +373,40 @@ Example: +
 [[listreceipt]]
 ==== Listing the current receipt: `listreceipt`
 
-Display the current receipt which shows all the items and its
-respective price and person(s) involved in splitting the cost of that item
+In this section, you will learn more about the `listreceipt` command, <<howtouselistreceiptcommand,how to use it>>
+and the <<listreceiptexpectedoutcome,expected outcome>> after using the
+`listreceipt` command.
+
+Summary of List Receipt Command: `listreceipt` *shows you all the entries in your current receipt*.
+
+[[howtouselistreceiptcommand]]
+*How to use the List Receipt Command:*
 
 Format: +
 `listreceipt` +
 
-Example: +
+Valid Example: +
 `listreceipt`
+
+[[listreceiptexpectedoutcome]]
+*Expected outcome:*
+
+image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
+
+*Additional notes and tips* +
+
+[NOTE]
+====
+* Each entry in the receipt has the item's name, price and person(s) who is splitting that item with you thus you do
+not have to remember who did you split this item with!
+====
+
+[TIP]
+====
+* Use `listreceipt` command to find the index of the item in the receipt. The index is useful for commands
+such as `deleteitem` where you have to pass in the index of item.
+====
+
 
 '''
 
@@ -408,6 +434,12 @@ Valid example: +
 image::expenseSplitterListAmountCommandSuccessPhoto.png[width="890", height="200"]
 
 *Additional notes and tips* +
+
+[NOTE]
+====
+* The Person and amount owed will be automatically saved after each command.
+* A person is deleted after they have completely paid the amount they owe you.
+====
 
 [TIP]
 ====
