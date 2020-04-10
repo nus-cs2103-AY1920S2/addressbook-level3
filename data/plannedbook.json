@@ -21,7 +21,7 @@
       "fruits" : [ ],
       "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
       "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
-      "goals" : [ "Herbivore" ]
+      "goals" : [ ]
     } ],
     "date" : "2020-04-03"
   }, {
