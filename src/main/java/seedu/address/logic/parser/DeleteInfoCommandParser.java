@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_INTEGER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
@@ -37,7 +38,15 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
                 .getAllValues(PREFIX_LINE_NUMBER).get(0).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_NO_LINE_NUMBER, DeleteInfoCommand.MESSAGE_USAGE));
         }
-        ArrayList<Integer> line = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER));
+
+        ArrayList<Integer> line;
+        try {
+            line = ParserUtil.parseLines(argMultimap.getAllValues(PREFIX_LINE_NUMBER));
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                    DeleteInfoCommand.MESSAGE_USAGE), nfe);
+        }
+
         return new DeleteInfoCommand(index, line);
     }
 
