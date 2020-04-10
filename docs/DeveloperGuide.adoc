@@ -261,7 +261,7 @@ For the actual execution of an assign/unassign command, 3 main steps are perform
 . Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
 
 
-Preprocess Entities::
+===== Preprocess Entities
 
 Firstly, a `pre-processing step` must be performed before executing an undo-able assign/un-assign command
 to ensure that all entity links are in correct state before command execution.
