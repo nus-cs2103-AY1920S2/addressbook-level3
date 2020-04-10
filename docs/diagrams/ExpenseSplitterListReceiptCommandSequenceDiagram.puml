@@ -44,14 +44,17 @@ activate SplitterModelManager
 SplitterModelManager -> Receipt: toString()
 activate Receipt
 
-Receipt -> Entry: toString()
-activate Entry
-
-Entry --> Receipt: String
+loop for all entries
+    Receipt -> Entry: toString()
+    activate Entry
+    Entry --> Receipt: String
+end
 deactivate Entry
+
 
 Receipt --> SplitterModelManager: String
 deactivate Receipt
+
 
 
 
