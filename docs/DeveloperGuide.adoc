@@ -556,19 +556,40 @@ image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 [[List-Amount-Command]]
 ==== List Amount Command
 
-*Implementation*
+In this section, we will learn more about how the 'liatamount' command is implemented.
+
+*What is the List Amount Command*
+
+The `listamount` command allows users to find out how much each Person owes them. +
+
+The `listamount` command was implemented as a `ListAmountCommand` in the `expenseSplitterLogic` package.
+
+The `listamount` command has the following input format:
+
+`listamount`
+
+The following activity diagram illustrates what happens when a user executes `listamount` command:
+
+
+
+*Implementation of List Amount Command*
 
 The following is a detailed explanation of the operations `ListAmountCommand` performs. +
 
 1. The `ListAmountCommand#execute(Model splitterModel)` method is executed.
 
-2. The method `Model#listAmount()` will then be called to return the list of person with amount.
+2. The method `splitterModel#listAmount()` will then be called to return the list of Person(s) with their amount.
 
 3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format.
 
-The following is a sample sequence diagram of the ListAmountCommand.
+*Sequence Diagram for List Amount Command*
+
+The following sequence diagram summarizes what happens during the execution of `listamount` command.
 
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+
+Figure : List Amount Sequence Diagram
+
 
 [[Paid-Command]]
 ==== Paid Command

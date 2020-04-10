@@ -1,33 +1,71 @@
 @startuml
+/' @author @WillySeahh'/
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
-Participant ":PersonAmountBook" as personAmountBook MODEL_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":ListAmountCommand" as ListAmountCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "listamount"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("listamount")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
 
-logic -[LOGIC_COLOR]> splitterModel : listAmount()
-activate splitterModel MODEL_COLOR
+[-> SplitterLogicManager : execute("listamount")
+activate SplitterLogicManager
 
-splitterModel -[MODEL_COLOR]> personAmountBook : toString()
-activate personAmountBook MODEL_COLOR
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("listamount")
+activate ExpenseSplitterParser
 
-personAmountBook --[STORAGE_COLOR]> splitterModel : String
-deactivate personAmountBook
+create ListAmountCommand
+ExpenseSplitterParser -> ListAmountCommand
+activate ListAmountCommand
 
-splitterModel --[STORAGE_COLOR]-> logic : String
-deactivate splitterModel
+ListAmountCommand --> ExpenseSplitterParser: d
+deactivate ListAmountCommand
 
-logic --[LOGIC_COLOR]> ui : CommandResult
-deactivate logic
+ExpenseSplitterParser --> SplitterLogicManager: d
+deactivate ExpenseSplitterParser
 
-ui--[UI_COLOR]> user : CommandResult
-deactivate ui
+SplitterLogicManager -> ListAmountCommand: execute()
+activate ListAmountCommand
+
+ListAmountCommand -> SplitterModelManager: listAmount()
+activate SplitterModelManager
+
+SplitterModelManager -> PersonAmountBook: toString()
+activate PersonAmountBook
+
+PersonAmountBook --> SplitterModelManager: String
+deactivate PersonAmountBook
+
+SplitterModelManager --> ListAmountCommand
+deactivate SplitterModelManager
+
+ListAmountCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ListAmountCommand: result()
+deactivate CommandResult
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @enduml
