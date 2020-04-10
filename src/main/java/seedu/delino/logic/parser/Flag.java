@@ -1,5 +1,6 @@
 package seedu.delino.logic.parser;
 
+//@@author Exeexe93
 /**
  * A flag that indicate additional command to the system to work in certain way in an arguments string.
  * E.g. '-f' in clear command, force the system clear the command without notify the user.

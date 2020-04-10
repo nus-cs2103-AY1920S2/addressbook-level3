@@ -21,13 +21,18 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 * *Major enhancement*:
 ** Added `import` command (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/215[#215])
 *** What it does: Allows the user to add multiple orders and return orders via a CSV file.
-*** Justification: This is an essential update, which allows the user to save time +
-from adding multiple orders and return order one by one.
+*** Justification: This is an essential update, which allows the user to save time from adding multiple orders and
+return order one by one.
+*** Highlights: This enhancement depends heavily on `InsertCommandParser` and `ReturnCommandParser` to process the data
+retrieve from the data. Considerations have to be made to differentiate the data for `Order` and `ReturnOrder`, as they
+have different attributes in their models.
 
 ** Add return order book for storage (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/186[#186])
 *** What it does: Stores return orders.
 *** Justification: The storage of return orders is important, as the return orders are required to be separate from
 orders and store as a separate json file in the hard disk from the orders.
+*** Highlights: Considerations are to be made for how to store and retrieve the return order data from the json file
+which is stored in hard disk.
 
 ** Modify the `clear` command (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/180[#180], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/218[#218])
 *** What it does: Gives the user three options to clear:
@@ -35,6 +40,8 @@ orders and store as a separate json file in the hard disk from the orders.
 **** Only return order list
 **** Both order list and return order list
 *** Justification: This is an essential update, which prevent the user from having the trouble clearing the orders or return orders one by one.
+*** Highlights: Considerations are to be made for the clearing either one of the list or both order list and return order list,
+as clearing the wrong list, the data in that list would be lost permanently.
 
 * *Minor enhancement*:
 ** Add `timestamp` field into the model(Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/175[#175], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/198[#198])
@@ -46,6 +53,8 @@ orders and store as a separate json file in the hard disk from the orders.
 *** Justification: This is an essential update, which allows the courier to be able to take note about +
 the customer's request, such as sending a message to notify the customer that the courier will be sending +
 their parcel on that day.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=exeexe93&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true[Functional code & Test code]]
 
 * *Other contributions*:
 
@@ -66,9 +75,11 @@ and clear features (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S2-CS2103T-W12-1/main/pull/126[#126],
-https://github.com/AY1920S2-CS2103T-W12-1/main/pull/139[#139], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/174[#174], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/189[#189], ...)
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/139[#139], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/174[#174], https://github.com/AY1920S2-CS2103T-W12-1/main/pull/189[#189])
+*** Reported bugs and suggestions for other teams in the class: (Examples: https://github.com/Exeexe93/ped/issues[PE dry run issue])
+*** Contributed to forum discussion  by asking help question: (Example: https://github.com/nus-cs2103-AY1920S2/forum/issues/104[#104])
 ** Tools:
-*** Integrated a new Github plugin (AppVeyor) to the team repo
+*** Integrated a new Github plugin (AppVeyor) to the team repo (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/37b0cd15b16cfe6fe08cb9bdba9ac8e37a1722a3[#37b0cd1])
 
 == Contributions to the User Guide
 
@@ -111,5 +122,3 @@ include::../DeveloperGuide.adoc[tag=command_flags]
 == Appendix G: Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=appendix-clear]
 include::../DeveloperGuide.adoc[tag=appendix-import]
-
-

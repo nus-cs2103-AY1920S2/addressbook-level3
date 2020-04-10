@@ -345,6 +345,8 @@ public class ParserUtil {
         return new TypeOfItem(itemTypeTrimmed);
     }
 
+
+    //@@author Exeexe93
     /**
      * Parses a {@code String filePath} into a {@code List<String>}
      * Leading and trailing whitespaces will be trimmed.

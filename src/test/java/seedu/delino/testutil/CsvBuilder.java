@@ -15,8 +15,9 @@ import static seedu.delino.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.delino.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
+//@@author Exeexe93
 /**
- * A utility class to help with building Order objects.
+ * A utility class to help with building order or return order objects.
  */
 public class CsvBuilder {
 

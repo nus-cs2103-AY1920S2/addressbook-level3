@@ -1,0 +1,23 @@
+== Cher Wei Jie UML Diagrams
+
+* *Edit Features UML Diagrams*
+
+image::../../images/EditCommandActivityDiagram.svg[]
+This Activity Diagram purpose is to describe the general work flow of the Edit feature.
+
+image::../../images/EditCommandClassDiagram.png[]
+This Class Diagram purpose is to describe the dependencies of EditCommand class when implementing this feature.
+
+image::../../images/EditCommandSequenceDiagram.svg[]
+This Sequence Diagram is to show a more detailed explanation of the communication between the Logic and Model class of Delino once an execution of edit command is performed. +
+This diagram allows developers or users who are interested to further understand the implementation of Edit command and allow them to use it as a reference to further develop this feature in the future.
+Edit command is an essential feature in Delino as a busy courier might have some hiccups when typing their orders. This feature allows them not only to do the minute changes to their orders but also reschedule their delivery to some other day upon customers' request.
+
+* *Search Features UML Diagram*
+
+image::../../images/SearchCommandActivityDiagram.svg[]
+This Activity Diagram purpose is to describe the general work flow of the Search feature.
+
+image::../../images/SearchCommandClassDiagram.png[]
+image::../../images/SearchCommandSequenceDiagram.svg[]
+
