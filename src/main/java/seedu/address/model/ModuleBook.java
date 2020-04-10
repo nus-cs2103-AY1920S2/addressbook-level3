@@ -58,7 +58,7 @@ public class ModuleBook {
             }
         }
         modules.remove(index);
-        this.modulesTakenList.remove(index);
+        //this.modulesTakenList.remove(index);
     }
 
     public NusModule getModule(ModuleCode moduleCode) {

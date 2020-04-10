@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.modulecommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES_TAKEN;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -19,7 +20,8 @@ public class DeleteModuleCommand extends Command {
             + "Parameters: MODULE CODE "
             + "Example: " + COMMAND_WORD + " CS2103T ";
 
-    public static final String MESSAGE_SUCCESS = "Module deleted";
+    public static final String MESSAGE_SUCCESS = "Module deleted ";
+    public static final String MESSAGE_NO_SUCH_MODULE = "module does not exist!";
 
     private final ModuleCode targetModuleCode;
 
@@ -36,11 +38,12 @@ public class DeleteModuleCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModuleCode)) {
-            throw new CommandException("module does not exist!");
+            throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
         model.deleteModule(targetModuleCode);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetModuleCode));
+        model.updateModulesListTaken(PREDICATE_SHOW_ALL_MODULES_TAKEN);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

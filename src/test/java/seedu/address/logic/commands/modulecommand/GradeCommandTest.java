@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.*;
+package seedu.address.logic.commands.modulecommand;
 
 class GradeCommandTest {
 
