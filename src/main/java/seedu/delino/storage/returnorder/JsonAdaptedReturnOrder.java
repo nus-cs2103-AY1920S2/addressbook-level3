@@ -1,4 +1,4 @@
-package seedu.delino.storage;
+package seedu.delino.storage.returnorder;
 
 import java.util.logging.Logger;
 
@@ -9,7 +9,6 @@ import seedu.delino.commons.core.LogsCenter;
 import seedu.delino.commons.exceptions.IllegalValueException;
 import seedu.delino.model.parcel.comment.Comment;
 import seedu.delino.model.parcel.itemtype.TypeOfItem;
-import seedu.delino.model.parcel.order.CashOnDelivery;
 import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.parcelattributes.Address;
 import seedu.delino.model.parcel.parcelattributes.Email;
@@ -18,13 +17,14 @@ import seedu.delino.model.parcel.parcelattributes.Phone;
 import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.parcelattributes.Warehouse;
+import seedu.delino.model.parcel.returnorder.ReturnOrder;
 
 /**
  * Jackson-friendly version of {@link Order}.
  */
-class JsonAdaptedOrder {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
-    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedOrder.class);
+class JsonAdaptedReturnOrder {
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Return Order's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedReturnOrder.class);
 
     private final String tid;
     private final String name;
@@ -33,26 +33,24 @@ class JsonAdaptedOrder {
     private final String address;
     private final String timeStamp;
     private final String warehouse;
-    private final String cod;
     private final String comment;
     private final String itemType;
     private final boolean deliveryStatus;
 
     /**
-     * Constructs a {@code JsonAdaptedOrder} with the given order details.
+     * Constructs a {@code JsonAdaptedReturnOrder} with the given return order details.
      */
     @JsonCreator
-    public JsonAdaptedOrder(@JsonProperty("tid") String tid,
-                            @JsonProperty("name") String name,
-                            @JsonProperty("phone") String phone,
-                            @JsonProperty("email") String email,
-                            @JsonProperty("address") String address,
-                            @JsonProperty("timestamp") String timeStamp,
-                            @JsonProperty("warehouse") String warehouse,
-                            @JsonProperty("cashOnDelivery") String cod,
-                            @JsonProperty("comment") String comment,
-                            @JsonProperty("itemType") String itemType,
-                            @JsonProperty("deliveryStatus") boolean deliveryStatus) {
+    public JsonAdaptedReturnOrder(@JsonProperty("tid") String tid,
+                                  @JsonProperty("name") String name,
+                                  @JsonProperty("phone") String phone,
+                                  @JsonProperty("email") String email,
+                                  @JsonProperty("address") String address,
+                                  @JsonProperty("timestamp") String timeStamp,
+                                  @JsonProperty("warehouse") String warehouse,
+                                  @JsonProperty("comment") String comment,
+                                  @JsonProperty("itemType") String itemType,
+                                  @JsonProperty("deliveryStatus") boolean deliveryStatus) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
@@ -60,16 +58,15 @@ class JsonAdaptedOrder {
         this.address = address;
         this.timeStamp = timeStamp;
         this.warehouse = warehouse;
-        this.cod = cod;
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = deliveryStatus;
     }
 
     /**
-     * Converts a given {@code Order} into this class for Jackson use.
+     * Converts a given {@code ReturnOrder} into this class for Jackson use.
      */
-    public JsonAdaptedOrder(Order source) {
+    public JsonAdaptedReturnOrder(ReturnOrder source) {
         tid = source.getTid().tid;
         name = source.getName().fullName;
         phone = source.getPhone().value;
@@ -77,19 +74,18 @@ class JsonAdaptedOrder {
         address = source.getAddress().value;
         timeStamp = source.getTimestamp().value;
         warehouse = source.getWarehouse().address;
-        cod = source.getCash().cashOnDelivery;
         comment = source.getComment().commentMade;
         itemType = source.getItemType().itemType;
         deliveryStatus = source.isDelivered();
     }
 
     /**
-     * Converts this Jackson-friendly adapted order object into the model's {@code Order} object.
+     * Converts this Jackson-friendly adapted return order object into the model's {@code ReturnOrder} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted order.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted return order.
      */
-    public Order toModelType() throws IllegalValueException {
-        logger.fine("Converting Json adapted order to order");
+    public ReturnOrder toModelType() throws IllegalValueException {
+        logger.fine("Converting Json adapted return order to return order");
 
         if (tid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -156,18 +152,9 @@ class JsonAdaptedOrder {
         }
         final Warehouse modelWarehouse = new Warehouse(warehouse);
 
-        if (cod == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    CashOnDelivery.class.getSimpleName()));
-        }
-        if (!CashOnDelivery.isValidCashValue(cod)) {
-            throw new IllegalValueException(CashOnDelivery.MESSAGE_CONSTRAINTS);
-        }
-        final CashOnDelivery modelCash = new CashOnDelivery(cod);
-
         final Comment modelComment;
         if (comment == null) {
-            logger.fine("No comment for the order.");
+            logger.fine("No comment for the return order.");
             modelComment = new Comment("NIL");
         } else {
             logger.fine("Check whether the comment is valid");
@@ -188,10 +175,10 @@ class JsonAdaptedOrder {
             modelItem = new TypeOfItem(itemType);
         }
 
-        Order finalOrder = new Order(modelTid, modelName, modelPhone, modelEmail, modelAddress, modelTimeStamp,
-                modelWarehouse, modelCash, modelComment, modelItem);
-        finalOrder.setDeliveryStatus(deliveryStatus);
-        return finalOrder;
+        ReturnOrder finalReturnOrder = new ReturnOrder(modelTid, modelName, modelPhone, modelEmail, modelAddress,
+                modelTimeStamp, modelWarehouse, modelComment, modelItem);
+        finalReturnOrder.setDeliveryStatus(deliveryStatus);
+        return finalReturnOrder;
     }
 
 }

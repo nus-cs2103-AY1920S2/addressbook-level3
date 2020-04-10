@@ -1,7 +1,7 @@
-package seedu.delino.storage;
+package seedu.delino.storage.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.delino.storage.JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.delino.storage.order.JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.delino.testutil.Assert.assertThrows;
 import static seedu.delino.testutil.TypicalOrders.BENSON;
 
