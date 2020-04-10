@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 
 /**
@@ -28,8 +29,8 @@ public class DeleteInfoCommand extends Command {
             + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_LINE_NUMBER + "LINE_NUMBER] "
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_LINE_NUMBER + " 2 ";
+            + "\nExample: " + COMMAND_WORD + " 1 "
+            + PREFIX_LINE_NUMBER + "2 ";
 
     public static final String MESSAGE_REMOVE_REMARK_SUCCESS = "Deleted remark for Person: %1$s";
 
@@ -69,18 +70,27 @@ public class DeleteInfoCommand extends Command {
             }
         }
 
+        ArrayList<Remark> updatedRemarks = new ArrayList<>();
+        for (Remark i : personToEdit.getRemark()) {
+            updatedRemarks.add(i);
+        }
+
         for (Remark r : remarks) {
-            personToEdit.getRemark().remove(r);
+            updatedRemarks.remove(r);
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getBirthday(),
+                personToEdit.getAddress(), updatedRemarks, personToEdit.getBirthday(),
                 personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_REMOVE_REMARK_SUCCESS, editedPerson));
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        model.updateFilteredPersonListResult(personExistPredicate);
+
+        return new CommandResult(String.format(MESSAGE_REMOVE_REMARK_SUCCESS, editedPerson),
+                false, false, true, false, false, false, false, false);
     }
 
     @Override

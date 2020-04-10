@@ -126,7 +126,7 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate} in the result panel.
      * This does not change the state (only called by the vanilla (ab)get command)
      * @param predicate the predicate
-     * @param isGet this is always true, extra parameter for method overriding
+     * @param isGet this is always true, extra parameter for method overloading
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonListResult(Predicate<Person> predicate, boolean isGet);
