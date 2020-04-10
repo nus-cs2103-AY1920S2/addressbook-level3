@@ -1067,6 +1067,37 @@ Examples:
 * `setrate 25` +
 Sets the current hourly rate to 25$.
 
+=== Statistics Window
+
+==== Generate Statistic Report : `report`
+
+You can use this command to generate a report to display information such as:
+
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student's ratings
+
+Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
+
+Format: `report [MOD_CODE]`
+
+====
+Example: 
+
+* `report`
++
+Generate and display a report of sessions and students from all modules.
+
+* `report CS3243`
++
+Generate and display a report of sessions and students from the module CS3243.
+
+[NOTE]
+====
+* Similar to the *Claims View*, the report will only display sessions that have been marked as done.
+* `Total Claimable Hours` is computed using the current specified `rate`. See *Changing the hourly rate*
+====
+
 == GLOSSARY
 
 [width="%",cols="<20%,<40,<40,options="header",]
