@@ -337,6 +337,31 @@
   -fx-padding: 10px;
 }
 
+#history-pane .scroll-bar {
+  -fx-background-color: transparent;
+  visibility: hidden;
+}
+
+#history-pane .scroll-bar .increment-button, .scroll-bar .decrement-button {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+}
+
+#history-pane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+  -fx-shape: " ";
+}
+
+#history-pane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+  -fx-padding: 0;
+  -fx-background-color: transparent;
+}
+
+#history-pane .scroll-bar:vertical .thumb {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
+  -fx-border-color :transparent;
+  -fx-background-radius : 7px;
+}
+
 #history-text-area {
   -fx-background-color: -fx-tertiary-green;
   -fx-text-fill: white;
