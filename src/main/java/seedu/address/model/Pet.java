@@ -1,6 +1,9 @@
 package seedu.address.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import seedu.address.model.InvalidPetException;
 
 public class Pet implements ReadOnlyPet {
     private static final String DEFAULT_NAME = "BB";
@@ -18,7 +21,32 @@ public class Pet implements ReadOnlyPet {
     public String mood;
     public String lastDoneTaskTime;
 
-    public Pet(String name, String exp, String level, String mood, String lastDoneTaskTime) {
+    public Pet(String name, String exp, String level, String mood, String lastDoneTaskTime) throws InvalidPetException, DateTimeParseException {
+        if (! (level.equals("1") || level.equals("2") || level.equals("3"))) {
+            throw new InvalidPetException("Invalid level input");
+        }
+        int expInt = Integer.parseInt(exp);
+
+        if (level.equals("1")) {
+            if (!(expInt >= 0 && expInt < 100)) {
+                throw new InvalidPetException("Invalid experience input");
+            }
+        } else if (level.equals("2")) {
+            if (!(expInt >= 100 && expInt < 200)) {
+                throw new InvalidPetException("Invalid experience input");
+            }
+        } else {
+            if (!(expInt >= 200)) {
+                throw new InvalidPetException("Invalid experience input");
+            }
+        }
+
+        if (!(mood.equals("HAPPY") || mood.equals("HANGRY"))) {
+            throw new InvalidPetException("Invalid mood input");
+        }
+
+        LocalDateTime.parse(lastDoneTaskTime);
+
         this.name = name;
         this.exp = exp;
         this.level = level;
@@ -26,16 +54,16 @@ public class Pet implements ReadOnlyPet {
         this.lastDoneTaskTime = lastDoneTaskTime;
     }
 
-    public Pet(ReadOnlyPet source) {
-        this.exp = source.getExp();
-        this.level = source.getLevel();
-        this.name = source.getName();
-        this.mood = source.getMood();
-        this.lastDoneTaskTime = source.getLastDoneTaskTime();
+    public Pet(ReadOnlyPet source) throws InvalidPetException {
+        this(source.getName(), source.getExp(), source.getLevel(), source.getMood(), source.getLastDoneTaskTime());
     }
 
     public Pet() {
-        this(DEFAULT_NAME, DEFAULT_EXP, DEFAULT_LEVEL, DEFAULT_MOOD, DEFAULT_LAST_DONE_TASK_TIME);
+        this.name = DEFAULT_NAME;
+        this.exp = DEFAULT_EXP;
+        this.level = DEFAULT_LEVEL;
+        this.mood = DEFAULT_MOOD;
+        this.lastDoneTaskTime = DEFAULT_LAST_DONE_TASK_TIME;
     }
 
     public void setName(String name) {

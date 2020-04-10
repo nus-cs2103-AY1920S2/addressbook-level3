@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.InvalidPetException;
 import seedu.address.model.Pet;
 import seedu.address.model.ReadOnlyPet;
 
@@ -47,7 +48,7 @@ class JsonAdaptedPet {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      *     task.
      */
-    public ReadOnlyPet toModelType() throws IllegalValueException {
+    public ReadOnlyPet toModelType() throws IllegalValueException, InvalidPetException {
         // TODO set up proper model for all attributes of the Pet
         // if (name == null) {
         // throw new IllegalValueException(
@@ -75,7 +76,6 @@ class JsonAdaptedPet {
         // throw new IllegalValueException(level.MESSAGE_CONSTRAINTS);
         // }
         // final level modellevel = new level(level);
-
         return new Pet(name, exp, level, mood, lastDoneTaskTime);
     }
 }
