@@ -22,7 +22,6 @@ public class ErrorSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
 
-        // initialize parser
         errorSuggestionCommandParser = new ErrorSuggestionCommandParser(model);
     }
 

@@ -35,6 +35,10 @@ public class SuggestionTestUtil {
         return TypicalBlockModel.PATH_TO_CS2103T;
     }
 
+    public static String getStringRelativePathToCs2103t() {
+        return "CS2103T";
+    }
+
     public static List<SuggestionItem> getExpectedSugForCs2103tPathInput() {
         SuggestionItem cs2103t = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2103T.getStringRepresentation(), () -> {});
@@ -47,11 +51,7 @@ public class SuggestionTestUtil {
         SuggestionItem cs2103tTut2 = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2.getStringRepresentation(), () -> {});
 
-        List<SuggestionItem> expectedSuggestions;
-        SuggestionItem[] items = new SuggestionItem[]{cs2103t, cs2103tLect, cs2103tTut, cs2103tTut1, cs2103tTut2};
-        expectedSuggestions = List.of(items);
-
-        return expectedSuggestions;
+        return List.of(cs2103t, cs2103tLect, cs2103tTut, cs2103tTut1, cs2103tTut2);
     }
 
     public static List<String> getExpectedInputsForCs2103tPathInput(String userInputWithoutPath) {
@@ -92,7 +92,7 @@ public class SuggestionTestUtil {
      * @param expectedSuggestions The expected suggestions list.
      * @param suggestions The actual list of suggestions.
      */
-    public static void testSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
+    public static void assertSuggestions(List<SuggestionItem> expectedSuggestions, List<SuggestionItem> suggestions) {
         assertEquals(expectedSuggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()),
                 suggestions.stream().map(s -> s.getProperty("displayText")).collect(Collectors.toList()));
     }
@@ -119,21 +119,12 @@ public class SuggestionTestUtil {
      * @param suggestions The actual list of suggestions.
      * @param model The app's model.
      */
-    public static void testInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
+    public static void assertInputs(List<String> expectedInputs, List<SuggestionItem> suggestions, Model model) {
         for (int i = 0; i < expectedInputs.size(); i++) {
-            System.out.println("length expectedInputs: " + expectedInputs.size());
-            System.out.println("length suggestions: " + suggestions.size());
-
-            System.out.println("i: " + i);
-            SuggestionItem thirdSuggestionItem = suggestions.get(2);
-            System.out.println("3rd sug item: " + thirdSuggestionItem.getProperty("displayText"));
-
             SuggestionItem suggestionItem = suggestions.get(i);
-            System.out.println(suggestionItem.getProperty("displayText"));
             String expectedInput = expectedInputs.get(i);
             suggestionItem.getAction().run();
             String input = model.getInput();
-            System.out.println("input: " + input);
             assertEquals(expectedInput, input);
         }
     }
