@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -65,5 +66,37 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Returns the Map of the {@ArgumentMultiMap}.
+     * @return Map of {@ArgumentMultiMap}.
+     */
+    public Map<Prefix, List<String>> getMultiMap() {
+        return this.argMultimap;
+    }
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public boolean anyPrefixesPresent(Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> this.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if any of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public boolean arePrefixesPresent(Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> this.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if the prefix is the only contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public boolean isOnlyPrefixPresent(Prefix prefix) {
+        //size == 2 to account for the preamble
+        return argMultimap.size() == 2 && argMultimap.containsKey(prefix);
     }
 }

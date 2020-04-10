@@ -276,12 +276,13 @@ public class Savings implements Comparable<Savings> {
             return false;
         } else {
             Savings s = (Savings) o;
-            return this.getMonetaryAmount().equals(s.getMonetaryAmount())
-                    && this.getPercentageAmount().equals(s.getPercentageAmount())
-                    // does not take order of saveables list into account
-                    && ((this.getSaveables().isEmpty() && s.getSaveables().isEmpty())
-                    || (this.getSaveables().isPresent() && s.getSaveables().isPresent()
-                    && this.saveables.containsAll(s.saveables)));
+            if (this.getMonetaryAmount().equals(s.getMonetaryAmount())
+                && this.getPercentageAmount().equals(s.getPercentageAmount())) {
+                // don't take order of saveables list into account
+                return compareSaveablesList(this.saveables, s.saveables);
+            } else {
+                return false;
+            }
         }
     }
 
@@ -331,5 +332,28 @@ public class Savings implements Comparable<Savings> {
         return nameToCountMap.entrySet().stream()
                 .map(mapping -> new Saveable(mapping.getKey(), mapping.getValue()))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Utility function to compare two Saveable Lists.
+     * Returns true if the items are the same in list1
+     * and list2, regardless of order of the items.
+     *
+     * @param list1 The first list to be compared.
+     * @param list2 The second list to be compared.
+     *
+     * @return Returns true, if every Saveable in list1
+     *         can be found in list2, and vice versa.
+     *         Returns false otherwise (if some Saveable
+     *         does not exist in both lists).
+     */
+    private static boolean compareSaveablesList(List<Saveable> list1, List<Saveable> list2) {
+        if (list1 == null && list2 == null) {
+            return true;
+        } else if (list1 == null || list2 == null) {
+            return false;
+        } else {
+            return list1.containsAll(list2) && list2.containsAll(list1);
+        }
     }
 }

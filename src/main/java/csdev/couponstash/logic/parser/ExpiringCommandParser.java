@@ -26,19 +26,21 @@ public class ExpiringCommandParser implements Parser<ExpiringCommand> {
     @Override
     public ExpiringCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_EXPIRY_DATE, PREFIX_MONTH_YEAR);
-        boolean monthYearPresent = argMultiMap.getValue(PREFIX_MONTH_YEAR).isPresent();
-        boolean expiryDatePresent = argMultiMap.getValue(PREFIX_EXPIRY_DATE).isPresent();
+        boolean isMonthYearPresent = argMultiMap.getValue(PREFIX_MONTH_YEAR).isPresent();
+        boolean isExpiryDatePresent = argMultiMap.getValue(PREFIX_EXPIRY_DATE).isPresent();
+        boolean isBothPresent = isExpiryDatePresent && isMonthYearPresent;
+        boolean isBothAbsent = !isExpiryDatePresent && !isMonthYearPresent;
 
-        if (monthYearPresent && !expiryDatePresent) {
+        if (isBothAbsent || isBothPresent) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpiringCommand.MESSAGE_USAGE));
+        } else if (isMonthYearPresent) {
             // Month-Year only
             YearMonth yearMonth = ParserUtil.parseYearMonth(argMultiMap.getValue(PREFIX_MONTH_YEAR).get());
             return new ExpiringCommand(new DateIsInMonthYearPredicate(yearMonth));
-        } else if (!monthYearPresent && expiryDatePresent) {
+        } else {
             // Expiry Date only
             ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultiMap.getValue(PREFIX_EXPIRY_DATE).get());
             return new ExpiringCommand(new DateIsEqualsPredicate(expiryDate.value));
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpiringCommand.MESSAGE_USAGE));
         }
     }
 }

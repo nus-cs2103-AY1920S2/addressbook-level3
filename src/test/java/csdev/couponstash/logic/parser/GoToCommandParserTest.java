@@ -6,6 +6,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_MONTH_YEAR;
 
 import org.junit.jupiter.api.Test;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.commands.GoToCommand;
 
 public class GoToCommandParserTest {
@@ -16,11 +17,11 @@ public class GoToCommandParserTest {
     public void parse_invalidArg_throwsParseException() {
         //Invalid YearMonth
         CommandParserTestUtil.assertParseFailure(parser, " " + PREFIX_MONTH_YEAR + "22-2020",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE));
+                DateUtil.MESSAGE_YEAR_MONTH_WRONG_FORMAT);
 
         //Invalid format
         CommandParserTestUtil.assertParseFailure(parser, " " + PREFIX_MONTH_YEAR + "222-222",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE));
+                DateUtil.MESSAGE_YEAR_MONTH_WRONG_FORMAT);
 
         //Invalid prefix
         CommandParserTestUtil.assertParseFailure(parser, " " + PREFIX_EXPIRY_DATE + "22-2020",

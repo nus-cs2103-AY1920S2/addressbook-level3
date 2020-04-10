@@ -2,6 +2,7 @@ package csdev.couponstash.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 
@@ -23,6 +24,8 @@ public class GoToCommand extends Command {
     private String value;
 
     public GoToCommand(String yearMonth) {
+        requireNonNull(yearMonth);
+        assert DateUtil.isValidYearMonth(yearMonth) : "yearMonth of GoToCommand should be valid";
         this.value = yearMonth;
     }
 
