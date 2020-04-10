@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.DeleteSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
@@ -22,15 +21,14 @@ import com.notably.model.suggestion.SuggestionItem;
 
 public class DeleteSuggestionCommandParserTest {
     private static AbsolutePath toCs2103t;
+    private static String stringRelativePathToCs2103t;
     private static DeleteSuggestionCommandParser deleteSuggestionCommandParser;
     private static Model model;
 
-    private static final String RELATIVE_PATH_TO_CS2103T = "CS2103T";
     private static final String COMMAND_WORD = "delete";
     private static final String RESPONSE_MESSAGE = "Delete a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_DELETE_NOTE = "Cannot delete \"%s\" as it is an invalid path";
-
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
 
@@ -38,6 +36,7 @@ public class DeleteSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        stringRelativePathToCs2103t = SuggestionTestUtil.getStringRelativePathToCs2103t();
 
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
@@ -119,7 +118,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctCmdcorrectRelativePathWithPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
-        String userInput = userInputWithoutPath + RELATIVE_PATH_TO_CS2103T;
+        String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
         String arg = userInput.replace(COMMAND_WORD, "");
 
         model.setInput(userInput);
@@ -128,7 +127,7 @@ public class DeleteSuggestionCommandParserTest {
 
         command.get().execute(model);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, stringRelativePathToCs2103t)),
                 model.responseTextProperty().getValue());
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
@@ -142,7 +141,7 @@ public class DeleteSuggestionCommandParserTest {
     @Test
     public void parse_correctedCmdcorrectRelativePathWithoutPrefix_returnsDeleteSuggestionCommand() {
         String userInputWithoutPath = "dele ";
-        String userInput = userInputWithoutPath + RELATIVE_PATH_TO_CS2103T;
+        String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
         String arg = userInput.replace("dele", "");
 
         model.setInput(userInput);
@@ -151,7 +150,7 @@ public class DeleteSuggestionCommandParserTest {
 
         command.get().execute(model);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, stringRelativePathToCs2103t)),
                 model.responseTextProperty().getValue());
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();

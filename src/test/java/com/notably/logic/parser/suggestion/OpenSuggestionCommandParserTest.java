@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.path.AbsolutePath;
-import com.notably.logic.commands.suggestion.OpenSuggestionCommand;
 import com.notably.logic.commands.suggestion.SuggestionCommand;
 import com.notably.logic.correction.AbsolutePathCorrectionEngine;
 import com.notably.logic.correction.CorrectionEngine;
@@ -22,15 +21,14 @@ import com.notably.model.suggestion.SuggestionItem;
 
 public class OpenSuggestionCommandParserTest {
     private static AbsolutePath toCs2103t;
+    private static String stringRelativePathToCs2103t;
     private static OpenSuggestionCommandParser openSuggestionCommandParser;
     private static Model model;
 
-    private static final String RELATIVE_PATH_TO_CS2103T = "CS2103T";
     private static final String COMMAND_WORD = "open";
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
     private static final String ERROR_MESSAGE_CANNOT_OPEN_NOTE = "Cannot open \"%s\" as it is an invalid path";
-
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
 
@@ -38,6 +36,7 @@ public class OpenSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
+        stringRelativePathToCs2103t = SuggestionTestUtil.getStringRelativePathToCs2103t();
 
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
@@ -119,7 +118,7 @@ public class OpenSuggestionCommandParserTest {
     @Test
     public void parse_correctCmdcorrectRelativePathWithPrefix_returnsOpenSuggestionCommand() {
         String userInputWithoutPath = COMMAND_WORD + " " + PREFIX_TITLE + " ";
-        String userInput = userInputWithoutPath + RELATIVE_PATH_TO_CS2103T;
+        String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
         String arg = userInput.replace(COMMAND_WORD, "");
 
         model.setInput(userInput);
@@ -128,7 +127,7 @@ public class OpenSuggestionCommandParserTest {
 
         command.get().execute(model);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, stringRelativePathToCs2103t)),
                 model.responseTextProperty().getValue());
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
@@ -142,7 +141,7 @@ public class OpenSuggestionCommandParserTest {
     @Test
     public void parse_correctedCmdcorrectRelativePathWithoutPrefix_returnsOpenSuggestionCommand() {
         String userInputWithoutPath = "op ";
-        String userInput = userInputWithoutPath + RELATIVE_PATH_TO_CS2103T;
+        String userInput = userInputWithoutPath + stringRelativePathToCs2103t;
         String arg = userInput.replace("op", "");
 
         model.setInput(userInput);
@@ -151,7 +150,7 @@ public class OpenSuggestionCommandParserTest {
 
         command.get().execute(model);
 
-        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
+        assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, stringRelativePathToCs2103t)),
                 model.responseTextProperty().getValue());
 
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();

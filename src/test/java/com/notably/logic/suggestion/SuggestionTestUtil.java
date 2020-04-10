@@ -35,6 +35,10 @@ public class SuggestionTestUtil {
         return TypicalBlockModel.PATH_TO_CS2103T;
     }
 
+    public static String getStringRelativePathToCs2103t() {
+        return "CS2103T";
+    }
+
     public static List<SuggestionItem> getExpectedSugForCs2103tPathInput() {
         SuggestionItem cs2103t = new SuggestionItemImpl(
                 TypicalBlockModel.PATH_TO_CS2103T.getStringRepresentation(), () -> {});
