@@ -286,8 +286,8 @@ image::ShowModule.png[width="790"]
 
 NOTE: The module name, prerequisites, modular credits, description and semesters the module is offered in will be displayed.
 
-NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/1101s`, only 1 object will be shown. +
-The object that is prioritised to be shown is in this order, beginning with the highest priority: Profile, Semester information, Module information, Focus area information, Course information.
+NOTE: If you request for MODdy to show multiple information at one time, such as course information on Computer Science and module information on CS1101S, using the command `show c/Computer Science m/1101s`, no objects will be displayed. +
+MODdy will remind you that you can only display one object at a time.
 // end::show[]
 
 //****

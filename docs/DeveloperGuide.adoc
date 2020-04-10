@@ -240,14 +240,12 @@ The tags are:
 
 `ShowCommand` extends from the `Command` class and uses the inheritance to facilitate the implementation. `ShowCommand` is parsed using `ShowCommandParser` to split the user input into relevant fields.
 
-The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science m/CS1101S`
+The following sequence diagram shows how the `show` operation works with input: `show c/Computer Science`
 
 .Activity Diagram for a Show Command input
 image::ShowCommandActivityDiagram.png[]
 
-NOTE: The example input requested two different information to be displayed (Course information and Module information). However, only one object can be displayed. +
-The priority of an object displayed is in this order, beginning with the highest priority: Profile, Semester information, Module information, Focus area information, Course information. +
-This only occurs when more than 1 parameter is provided.
+NOTE: If more than accepted tag is given, such as `show c/Computer Science m/CS1101s`, MODdy will not display anything and will show the user a message that only one tag should be provided.
 
 
 ==== Design Considerations

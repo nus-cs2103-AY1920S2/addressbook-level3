@@ -1,19 +1,15 @@
 @startuml
 start
 :User executes show command;
-:MODdy parses commands and checks arguments for parameters;
-->Argument contains;
-if (n/) then ([yes])
-  :Display overall view;
-elseif (y/) then ([yes])
-  :Display semester modules;
-elseif (m/) then ([yes])
-  :Display module information;
-elseif (f/) then ([yes])
-  :Display focus area information;
-elseif (c/) then ([yes])
-  :Display course information;
-else ()
+:MODdy parses command for tags;
+if (User input command) then ([contains valid tag])
+  :Check object name given as parameter;
+  if (Object to be shown) then ([valid object])
+  :Display object on UI;
+  else ([else])
+  :Display invalid object message;
+  endif
+else ([else])
   :Display usage error message;
 endif
 stop
