@@ -105,8 +105,8 @@ public class AddEventCommandParserTest {
 
 class EventTemplate {
     public static Event getNoteFieldMissing() {
-        final Event NOTE_FIELD_MISSING = new Event(new Name(VALID_ACTIVITY_NAME_EXAM),
+        Event noteFieldMissing = new Event(new Name(VALID_ACTIVITY_NAME_EXAM),
             new Date(VALID_DATE_TEST), new Date(VALID_DATE_TEST_2));
-        return NOTE_FIELD_MISSING;
+        return noteFieldMissing;
     }
 }

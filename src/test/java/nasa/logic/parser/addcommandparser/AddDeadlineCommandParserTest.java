@@ -106,24 +106,24 @@ public class AddDeadlineCommandParserTest {
 class DeadlineBuilder {
 
     public static Deadline getAllFieldsPresent() {
-        final Deadline ALL_FIELDS_PRESENT = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+        Deadline allFieldsPresent = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
             new Date(VALID_DATE_TEST));
-        ALL_FIELDS_PRESENT.setNote(new Note(VALID_NOTES_TEST));
-        ALL_FIELDS_PRESENT.setPriority(new Priority(VALID_PRIORITY_HIGH));
-        return ALL_FIELDS_PRESENT;
+        allFieldsPresent.setNote(new Note(VALID_NOTES_TEST));
+        allFieldsPresent.setPriority(new Priority(VALID_PRIORITY_HIGH));
+        return allFieldsPresent;
     }
 
     public static Deadline getNoteFieldMissing() {
-        final Deadline NOTE_FIELD_MISSING = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+        Deadline noteFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
             new Date(VALID_DATE_TEST));
-        NOTE_FIELD_MISSING.setPriority(new Priority(VALID_PRIORITY_HIGH));
-        return NOTE_FIELD_MISSING;
+        noteFieldMissing.setPriority(new Priority(VALID_PRIORITY_HIGH));
+        return noteFieldMissing;
     }
 
     public static Deadline getPriorityFieldMissing() {
-        final Deadline PRIORITY_FIELD_MISSING = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+        Deadline priorityFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
             new Date(VALID_DATE_TEST));
-        PRIORITY_FIELD_MISSING.setNote(new Note(VALID_NOTES_TEST));
-        return PRIORITY_FIELD_MISSING;
+        priorityFieldMissing.setNote(new Note(VALID_NOTES_TEST));
+        return priorityFieldMissing;
     }
 }
