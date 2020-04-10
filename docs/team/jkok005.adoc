@@ -5,6 +5,9 @@
 
 == PROJECT: Contact Tracing
 
+== Link to RepoSense
+Code contributions can be found in https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=JKOK005&tabRepo=AY1920S2-CS2103-W15-1%2Fmain%5Bmaster%5D[RepoSense]
+
 ---
 == Overview
 
