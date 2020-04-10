@@ -242,7 +242,15 @@ To handle the above case where an auto complete can be both a warning and a succ
 // TODO sequence diagram for failure
 
 === Enhanced Find
-We've built upon the existing find function in AB-3 by using the levenshtein distance to calculate the edit distance between the phrase being searched and the names of our task. 
+We've built upon the existing find function in AB-3 to filter Tasks with names that:
+
+. Have an edit distance of < 2
+. Have the search term match the front of the names
+
+[NOTE]
+=====
+The filtered list will still adhere to the existing sort order if defined.
+=====
 
 [[Pomodoro]]
 === Pomodoro
