@@ -61,7 +61,7 @@ import seedu.eylah.ui.UiManager;
  */
 public class Eylah {
 
-    public static final Version VERSION = new Version(0, 1, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(Eylah.class);
 
@@ -88,6 +88,7 @@ public class Eylah {
      * Setup the required objects and show welcome message.
      */
     private void start() {
+        logger.info("Starting EYLAH " + Eylah.VERSION);
         isExit = false;
         ui = new UiManager();
         Config config = initConfig();
