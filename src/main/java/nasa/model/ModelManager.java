@@ -318,6 +318,22 @@ public class ModelManager implements Model {
                 }
                 i++;
             }
+
+            i = 0;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredEventList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredEventList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
             System.out.println(location.toString());
             if (!test) {
                 location.append(" null");
@@ -335,6 +351,22 @@ public class ModelManager implements Model {
                     continue;
                 } else {
                     getFilteredModuleList().get(i).getFilteredDeadlineList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
+
+            i = 0;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredEventList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredEventList()
                             .forEach(x-> {
                                 location.append(" ");
                                 location.append(x.getName().name);
