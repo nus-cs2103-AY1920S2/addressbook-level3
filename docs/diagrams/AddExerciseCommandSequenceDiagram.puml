@@ -32,7 +32,7 @@ deactivate client
 
 activate model MODEL_COLOR
 ref over model, client
-    addToSort
+    addToSorted
 end ref
 
 AddExerciseCommand -[LOGIC_COLOR]> client2 ** : Client(...)
