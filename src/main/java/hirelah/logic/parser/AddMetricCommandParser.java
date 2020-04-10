@@ -14,8 +14,8 @@ import hirelah.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new object of type AddMetricCommand
  */
 public class AddMetricCommandParser implements Parser<AddMetricCommand> {
-    private static final String MESSAGE_INCOMPLETE_ARGUMENT = "Missing attribute and weightage details.\n%s";
-    private static final String MESSAGE_INVALID_WEIGHTAGE_FORMAT = "There is an invalid format of the weightage."
+    public static final String MESSAGE_INCOMPLETE_ARGUMENT = "Missing attribute and weightage details.\n%s";
+    public static final String MESSAGE_INVALID_WEIGHTAGE_FORMAT = "There is an invalid format of the weightage."
             + "Please ensure your weightage are in numbers.";
 
     /**

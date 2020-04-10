@@ -58,4 +58,14 @@ public class EditMetricCommand extends Command {
             throw new CommandException(e.getMessage());
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditMetricCommand // instanceof handles nulls
+                && toEdit.equals(((EditMetricCommand) other).toEdit)
+                && updatedName.equals(((EditMetricCommand) other).updatedName)
+                && attributePrefixes.equals(((EditMetricCommand) other).attributePrefixes)
+                && weightages.equals(((EditMetricCommand) other).weightages));
+    }
 }

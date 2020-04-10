@@ -59,6 +59,7 @@ public class DeleteCommandParser implements Parser<Command> {
             return new DeleteQuestionCommand(index);
 
         case DeleteMetricCommand.COMMAND_WORD:
+            ParserUtil.checkEmptyArgument(deleteArguments, DeleteMetricCommand.MESSAGE_USAGE);
             return new DeleteMetricCommand(deleteArguments.trim());
 
         default:

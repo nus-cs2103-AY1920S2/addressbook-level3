@@ -17,8 +17,8 @@ import hirelah.logic.parser.exceptions.ParseException;
  */
 
 public class EditMetricCommandParser implements Parser<EditMetricCommand> {
-    private static final String MESSAGE_INCOMPLETE_ARGUMENT = "Missing name, attribute and weightage details.\n%s";
-    private static final String MESSAGE_INVALID_WEIGHTAGE_FORMAT = "There is an invalid format of the weightage."
+    public static final String MESSAGE_INCOMPLETE_ARGUMENT = "Missing name, attribute or weightage details.\n%s";
+    public static final String MESSAGE_INVALID_WEIGHTAGE_FORMAT = "There is an invalid format of the weightage."
             + "Please ensure your weightage are in numbers.";
     /**
      * Parses the given {@code String} of arguments in the context of the EditMetricCommand
@@ -35,18 +35,27 @@ public class EditMetricCommandParser implements Parser<EditMetricCommand> {
         if (arguments.equals("")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMetricCommand.MESSAGE_USAGE));
-        } else if (!argMultimap.arePrefixesPresent(PREFIX_WEIGHTAGE, PREFIX_ATTRIBUTE)
+
+        } else if (!argMultimap.arePrefixesPresent(PREFIX_WEIGHTAGE)
+                && !argMultimap.arePrefixesPresent(PREFIX_ATTRIBUTE)
                 && argMultimap.arePrefixesPresent(PREFIX_NAME)) {
+
             return new EditMetricCommand(argMultimap.getPreamble(), argMultimap.getValue(PREFIX_NAME).get(),
                     new ArrayList<>(), new ArrayList<>());
         } else if (argMultimap.arePrefixesPresent(PREFIX_WEIGHTAGE, PREFIX_ATTRIBUTE)) {
             List<String> weightages = argMultimap.getAllValues(PREFIX_WEIGHTAGE);
             try {
                 List<Double> castedWeightages = weightages.stream().map(Double::valueOf).collect(Collectors.toList());
+                List<String> attributePrefixes = argMultimap.getAllValues(PREFIX_ATTRIBUTE);
+
+                if (attributePrefixes.size() != castedWeightages.size()) {
+                    throw new ParseException(String.format(MESSAGE_INCOMPLETE_ARGUMENT,
+                            EditMetricCommand.MESSAGE_USAGE));
+                }
                 return new EditMetricCommand(argMultimap.getPreamble(),
                         argMultimap.arePrefixesPresent(PREFIX_NAME) ? argMultimap.getValue(PREFIX_NAME).get()
                                                                     : "",
-                        argMultimap.getAllValues(PREFIX_ATTRIBUTE), castedWeightages);
+                        attributePrefixes, castedWeightages);
             } catch (NumberFormatException e) {
                 throw new ParseException(MESSAGE_INVALID_WEIGHTAGE_FORMAT);
             }

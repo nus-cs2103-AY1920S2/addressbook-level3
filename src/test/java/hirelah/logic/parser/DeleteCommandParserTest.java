@@ -4,8 +4,10 @@ import static hirelah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static hirelah.logic.commands.CommandTestUtility.INVALID_QUESTION_NUMBER_1;
 import static hirelah.logic.commands.CommandTestUtility.VALID_ATTRIBUTE_PERSISTENCE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
+import static hirelah.logic.commands.CommandTestUtility.VALID_METRIC_SINGLE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PROPERTY_ATTRIBUTE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PROPERTY_INTERVIEWEE;
+import static hirelah.logic.commands.CommandTestUtility.VALID_PROPERTY_METRIC;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PROPERTY_QUESTION;
 import static hirelah.logic.commands.CommandTestUtility.WHITESPACE;
 import static hirelah.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -15,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import hirelah.logic.commands.DeleteAttributeCommand;
 import hirelah.logic.commands.DeleteIntervieweeCommand;
+import hirelah.logic.commands.DeleteMetricCommand;
 import hirelah.logic.commands.DeleteQuestionCommand;
 
 class DeleteCommandParserTest {
@@ -24,14 +27,19 @@ class DeleteCommandParserTest {
     void parse_allFieldsPresent_success() {
 
         assertParseSuccess(parser, WHITESPACE + VALID_PROPERTY_INTERVIEWEE
-                        + WHITESPACE + VALID_INTERVIEWEE_JANE,
+                + WHITESPACE + VALID_INTERVIEWEE_JANE,
                 new DeleteIntervieweeCommand("Jane Doe"));
 
         assertParseSuccess(parser, WHITESPACE
-                        + VALID_PROPERTY_ATTRIBUTE
-                        + WHITESPACE
-                        + VALID_ATTRIBUTE_PERSISTENCE,
+                + VALID_PROPERTY_ATTRIBUTE
+                + WHITESPACE
+                + VALID_ATTRIBUTE_PERSISTENCE,
                 new DeleteAttributeCommand("persistence"));
+
+        assertParseSuccess(parser, WHITESPACE
+                + VALID_PROPERTY_METRIC
+                + WHITESPACE
+                + VALID_METRIC_SINGLE, new DeleteMetricCommand(VALID_METRIC_SINGLE));
     }
 
     @Test
@@ -44,6 +52,9 @@ class DeleteCommandParserTest {
 
         assertParseFailure(parser, WHITESPACE + VALID_PROPERTY_QUESTION + WHITESPACE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteQuestionCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, WHITESPACE + VALID_PROPERTY_METRIC + WHITESPACE,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMetricCommand.MESSAGE_USAGE));
     }
 
     @Test
