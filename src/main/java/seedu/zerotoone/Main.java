@@ -1,6 +1,7 @@
 package seedu.zerotoone;
 
 import javafx.application.Application;
+import seedu.zerotoone.ui.SplashScreen;
 
 /**
  * The main entry point to the application.
@@ -19,7 +20,11 @@ import javafx.application.Application;
  * to be the entry point of the application, we avoid this issue.
  */
 public class Main {
+    /**
+     * Main Method
+     */
     public static void main(String[] args) {
+        System.setProperty("javafx.preloader", SplashScreen.class.getCanonicalName());
         Application.launch(MainApp.class, args);
     }
 }
