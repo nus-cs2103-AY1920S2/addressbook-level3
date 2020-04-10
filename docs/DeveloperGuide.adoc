@@ -551,12 +551,12 @@ The following is a detailed explanation of the operations `ListReceiptCommand` p
 
 The following is a sample sequence diagram of the ListReceiptCommand.
 
-image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
 
 [[List-Amount-Command]]
 ==== List Amount Command
 
-In this section, we will learn more about how the 'liatamount' command is implemented.
+In this section, we will learn more about how the `listamount` command is implemented.
 
 *What is the List Amount Command*
 
@@ -567,6 +567,12 @@ The `listamount` command was implemented as a `ListAmountCommand` in the `expens
 The `listamount` command has the following input format:
 
 `listamount`
+
+[NOTE]
+====
+* The Person and amount owed will be automatically saved after each command.
+* A person is deleted after they have completely paid the amount they owe you.
+====
 
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
