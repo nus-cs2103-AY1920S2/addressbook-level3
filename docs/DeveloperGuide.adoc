@@ -373,6 +373,7 @@ After executing any of the sequences above, a new `CommandResult` object will be
 
 //end::clear[]
 
+//tag::delete[]
 [[delete]]
 === Delete Feature
 In this section, you will learn more about how the `delete` feature is implemented.
@@ -501,6 +502,7 @@ in the `model`.
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
 
+//end::delete[]
 
 [[delivered]]
 === Delivered Feature
@@ -684,6 +686,7 @@ The `ObeservableList` is a JavaFX function which listens and automatically chang
 //end::edit[]
 
 
+//tag::nearby[]
 [[nearby]]
 === Nearby Feature
 In this section, you will learn more about how the `nearby` feature is implemented.
@@ -860,10 +863,13 @@ The sequence diagram below shows the interactions for a `nearby` command executi
 `nearby`. +
 This will result in a `ParseException` as invalid arguments are provided.
 
-.Nearby Command Sequence Diagram of `nearby`
+.Parse Exception due to invalid `nearby` command
 image::NearbySequenceDiagramParseException.svg[]
 
 The exception will be thrown in the `NearbyCommandParser`.
+
+//end::nearby[]
+
 
 //tag::import[]
 [[import]]
@@ -1652,6 +1658,7 @@ Refers to the display field showing the results of an executed command
 |===
 //end::command_flags[]
 
+//tag::appendix-product-survey[]
 [appendix]
 == Product Survey
 
@@ -1679,6 +1686,8 @@ Cons:
 
 * There are no statistics available.
 * Required to scan the parcels one by one, which can be slow and tedious.
+
+//end::appendix-product-survey[]
 
 [appendix]
 == Instructions for Manual Testing
@@ -1715,6 +1724,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 //end::appendix-insert[]
 
+//tag::appendix-delete[]
 === Deleting an order
 
 . Deleting an order with respect to the current list displayed
@@ -1731,6 +1741,8 @@ These instructions only provide a starting point for testers to work on; testers
    An error message will be displayed in the response box.
 .. Test case: `delete` `-r` `INVALID_INDEX` +
    Expected: No order is deleted. An error message will be displayed in the response box, indicating that the index cannot be found in the list
+
+//end::appendix-delete[]
 
 === Edit orders
 
@@ -1856,6 +1868,7 @@ Expected: Only return order list will be cleared. Notify the user that return or
 Expected: Invalid command input, as space is required in between flags. +
    Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
 //end::appendix-clear[]
+
 === Help
 
 . Display a list of available commands to user
@@ -1886,6 +1899,7 @@ as earnings made, orders delivered and orders returned (Including a PieChart).
 
 //end::appendix-show[]
 
+//tag::appendix-nearby[]
 === Obtain all nearby orders based on area or postal sector
 
 There are two possible search criteria for nearby orders
@@ -1929,6 +1943,7 @@ There are *5* different areas in Singapore: Central, East, North East, West, Nor
 .. Information about each area was obtained from
 https://keylocation.sg/singapore/districts-map[this website] +
 
+//end::appendix-nearby[]
 
 === Undo previous action
 
