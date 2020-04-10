@@ -27,6 +27,7 @@ InventoryManager is for those who *prefer to use a desktop app for managing thei
 .  Copy the file to the folder you want to use as the home folder for your InventoryManager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds. For Mac OS users, permission may need to be granted to the file before usage.
 +
+.GUI of Inventory Manager
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -55,8 +56,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
+To view the command usage or the command format of this application.
 
 Format: `help`
+
+An url link will be shown that linked to this page.
+
+.Demo for `help` command
+image::UG/help.png[width="790"]
+
 
 === Adding a supplier: `add`
 
@@ -234,11 +242,85 @@ Format: `warn INDEX q/MIN_QUANTITY`
 
 Example:
 
-* `warn 1 q/100` +
-This sets the minimum quantity threshold for good at index 1 with an quantity of 100.
+* `warn 5 q/100` +
+This sets the minimum quantity threshold for good at index 5 with an quantity of 100.
+
+.Demo for `warn` command
+image::UG/warn.png[width="790"]
 
 [NOTE]
 When a new good is added into the inventory, its minimum quantity threshold is set at 0.
+
+=== Locating transactions by search criteria:
+
+Display list of transactions that fulfills the given search criteria.
+
+3 types of search criteria:
+
+. transaction type
+. supplier's name
+. good's name
+
+Format: `find-t [TRANSACTION TYPE] [n/NAME] [g/GOOD NAME]`;
+
+.GUI before demo
+image::UG/original.png[width="790"]
+
+Example:
+
+* Search by transaction type: +
+`find-t buy` +
+display all `buy` transactions.
+
+NOTE: Currently, there are only two types of transaction: `buy` and `sell`. Type of transaction is case sensitive.
+
+.Demo for `find-t` command that uses only [TRANSACTION TYPE] criteria
+image::UG/find-t buy.png[width="790"]
+
+* Search by `Name` of `Supplier`: +
+`find-t n/alex bernice` +
+display all transactions that related to `Alex` or `Bernice`.
+
+****
+* The search is case insensitive. e.g `bernice` will match `Bernice`
+* The order of the keywords does not matter. e.g. `Bernice Yu` will match `Yu Bernice`
+* Only the name is searched.
+* Only full words will be matched e.g. `bernice` will not match `bernices`
+* Supplier matching at least one keyword will be returned (i.e. `OR` search). e.g. `Alex Bernice` will return `Alex Yeoh`, `Bernice Yu`
+****
+
+.Demo for `find-t` command that uses only [NAME] criteria
+image::UG/find-t name.png[width="790"]
+
+* Search by `Good Name` of `Good`: +
+`find-t g/apple noodle` +
+display all transactions that related to `Apple` or `Noodle`.
+
+.Demo for `find-t` command that uses only [GOOD NAME] criteria
+image::UG/find-t good name.png[width="790"]
+
+`Combination of criteria` +
+Criteria can be combined to give a more constraint search.
+
+Example:
+
+* Search by transaction type and `GoodName` of `Good: +
+`find-t buy n/apple noodle` +
+display all `buy` transactions that is related to `Apple` or `Noodle`.
+
+.Demo for `find-t` command that uses [TRANSACTION TYPE] and [GOOD NAME] criteria.
+image::UG/combination.png[width="790"]
+
+NOTE: The transaction related to `Noodle` is no longer shown as compare to search only by
+`Good Name`, as that transaction is a sell transaction and does not fulfill the transaction type.
+
+=== Listing all transactions : `list-t`
+Shows the list of transaction history in the inventory manager. +
+
+Format: `list-t`
+
+.Demo for `list-t` command
+image::UG/list-t.png[width="790"]
 
 === Undoing a recently executed command: `undo`
 
@@ -284,13 +366,15 @@ e.g. `edit-s 2 n/James Lee e/jameslee@example.com` gp/apple 10
 * *Find supplier* : `find-s KEYWORD [MORE_KEYWORDS]` +
 e.g. `find-s James Jake`
 * *List supplier for a goods*: `source`
-* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY` +
+* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
 e.g. `buy n/Dave g/apple q/4`
-* *Sell goods*: `sell g/GOOD_NAME q/QUANTITY p/PRICE` +
-e.g. `sell g/apple q/4 p/5`
-* *Delete goods*: `delete-g INDEX` +
-e.g. `delete-g 2`
-* *Set minimum quantity for goods*: `warn INDEX q/MIN_QUANTITY`
+* *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
+e.g. `sell g/apple q/4`
+* *Set minimum threshold quantity for goods*: `warn INDEX q/MIN_QUANTITY`
+* *List expiring goods*: `list-e`
+* *List transaction history*: `list-t`
+* *Find transaction*: `find-t [TRANSACTION TYPE][NAME][GOOD NAME]`
+* *Clear transaction history*: `clear-t`
 * *Undo*: `undo`
 * *Redo*: `redo`
 * *Help* : `help`
