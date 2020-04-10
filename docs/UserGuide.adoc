@@ -326,7 +326,7 @@ Format: `goto TAB_NAME`
 
 [NOTE]
 ====
-* You cannot go to a tab which does not exist in TA-Tracker
+* You cannot switch to a tab that does not exist in TA-Tracker
 ====
 
 ====
@@ -600,11 +600,14 @@ inside group `G03` of the module `CS2103`.
 [TIP]
 ====
 [horizontal]
+* * You can't edit the `MATRIC_NUMBER` once the student has been created, so do take
+care to ensure that the number is correct.
 * You can use the rating feature to give your students participation marks.
 * A student is given a default rating of 3/5 (average) if you do not specify a rating.
 * You can either specify a rating in the add student
 command or,
-* you can later edit their rating by using the edit student command (details given below.)
+* you can later edit their rating by using the edit student command (details given below
+in 3.2.9.)
 ====
 
 
