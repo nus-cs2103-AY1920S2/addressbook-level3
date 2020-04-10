@@ -28,6 +28,7 @@ public class GradeCommand extends Command {
             + PREFIX_GRADE + "A+ ";
 
     public static final String MESSAGE_SUCCESS = "Module grade updated: ";
+    public static final String MESSAGE_NO_SUCH_MODULE = "module does not exist!";
 
     private final Grade gradeToBeUpdated;
     private final ModuleCode targetModuleCode;
@@ -46,7 +47,7 @@ public class GradeCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasModule(targetModuleCode)) {
-            throw new CommandException("module does not exist!");
+            throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
         model.gradeModule(targetModuleCode, gradeToBeUpdated);
