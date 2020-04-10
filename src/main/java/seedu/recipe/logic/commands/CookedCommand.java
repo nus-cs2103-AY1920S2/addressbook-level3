@@ -53,7 +53,7 @@ public class CookedCommand extends Command {
             if (model.hasRecord(record)) {
                 throw new CommandException(MESSAGE_DUPLICATE_RECORD);
             }
-            //addPlan record to internal list and update goals tally for each record added
+            //add record to internal list and update goals tally for each record added
             model.addRecord(record);
             model.updateGoalsTally(record);
 

@@ -79,7 +79,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Checks if the recipe that the user wishes to deletePlan exists within the recipe list.
+     * Checks if the recipe that the user wishes to remove exists within the recipe list.
      */
     private boolean canDeleteTargetRecipes(int lastShownListSize, Index[] targetIndex) {
         for (int i = targetIndex.length - 1; i >= 0; i--) {

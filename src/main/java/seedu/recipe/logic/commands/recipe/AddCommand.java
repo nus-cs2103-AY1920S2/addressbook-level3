@@ -51,7 +51,7 @@ public class AddCommand extends Command {
     private final CommandType commandType;
 
     /**
-     * Creates an AddCommand to addPlan the specified {@code Recipe}
+     * Creates an AddCommand to add the specified {@code Recipe}
      */
     public AddCommand(Recipe recipe) {
         requireNonNull(recipe);

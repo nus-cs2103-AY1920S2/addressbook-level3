@@ -46,15 +46,15 @@ public class SampleDataUtil {
                             "0.5 tsp, brown sugar"),
                     getStepsList("Heat oil in a saucepan. Add the vegetables (broccoli, mushroom) and saute till"
                                     + " they turn soft. Transfer to a plate and set aside.",
-                            "In the same saucepan, addPlan the green curry paste. Saute the curry paste for a minute.",
+                            "In the same saucepan, add the green curry paste. Saute the curry paste for a minute.",
                             "Add the coconut milk, brown sugar and soy sauce. "
                                     + "Stir until the curry paste is nicely dissolved.",
-                            "Now addPlan the vegetable stock, salt, red chillies and stir to combine.",
+                            "Now add the vegetable stock, salt, red chillies and stir to combine.",
                             "Bring the soup to a boil over high heat. Reduce the heat and allow the soup to "
                                     + "simmer for 5 minutes.",
                             "Add the vermicelli noodles and the vegetables. Simmer till the noodles are cooked.",
                             "Turn off the heat and give soup a nice stir. Taste and adjust the seasoning and"
-                                    + " consistency accordingly. If too thick addPlan more stock or coconut milk.",
+                                    + " consistency accordingly. If too thick add more stock or coconut milk.",
                             "Just before serving garnish soup with fresh herbs, crushed peanuts and juice of lemon.",
                             "Serve Thai Green Curry Soup warm."),
                     getGoalSet("Herbivore"), false),
@@ -72,7 +72,7 @@ public class SampleDataUtil {
                             "Uncover and quickly stir in spaghetti. Cover and continue to simmer, "
                                     + "stirring occasionally.",
                             "Once most liquid is absorbed and barley and spaghetti are tender, "
-                                    + "deletePlan from hit and let sit.",
+                                    + "remove from hit and let sit.",
                             "Season to taste with salt and pepper and sprinkle with chopped chives."),
                     getGoalSet("Wholesome Wholemeal"), false),
             new Recipe(new Name("Asian BBQ Chicken"), new Time("30"),
@@ -104,7 +104,7 @@ public class SampleDataUtil {
                                     + "along with corn flour, soy sauce, and salt.",
                             "In a wok, take some oil, saute the carrots, cabbage, onions, and bell peppers. "
                                     + "Add tomato juice and bring to a slight boil.",
-                            "Fry the chicken and addPlan to the wok along with some stock and set to simmer.",
+                            "Fry the chicken and add to the wok along with some stock and set to simmer.",
                             "Garnish with coriander and serve with rice."),
                     getGoalSet("Bulk like the Hulk"),
                     false),
@@ -129,7 +129,7 @@ public class SampleDataUtil {
                             "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, "
                                     + "and white parts of the scallions. Stir to combine, cover, "
                                     + "turn down heat to medium. Simmer for 5-8 minutes until tender.",
-                            "Uncover, addPlan in rest of the scallions and mix everything well. "
+                            "Uncover, add in rest of the scallions and mix everything well. "
                                     + "When daikon is translucent and tender, the dish is done."),
                     getGoalSet("Herbivore"), false),
             new Recipe(new Name("Chinese Tomato Egg Stir-fry"), new Time("10"),
@@ -144,11 +144,11 @@ public class SampleDataUtil {
                             "Crack eggs into bowl and season with ¼ tsp salt, white pepper",
                             "sesame oil, and shaoxing wine. Beat the eggs.",
                             "Preheat wok over medium heat until it starts to smoke."
-                                    + " Add 2 tbsp of oil and immediately addPlan eggs. Scramble the eggs and deletePlan from "
+                                    + " Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from "
                                     + "wok immediately. Set aside.",
-                            "Add the remaining tbsp of oil to the wok, turn up heat to high, addPlan tomatoes"
-                                    + " and scallions. Stir-fry for 1min, then addPlan sugar, ½ tsp salt, and water. "
-                                    + "If water cooks off too quickly, addPlan a little more water. Add the cooked eggs.",
+                            "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes"
+                                    + " and scallions. Stir-fry for 1min, then add sugar, ½ tsp salt, and water. "
+                                    + "If water cooks off too quickly, add a little more water. Add the cooked eggs.",
                             "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely"
                                     + " softened.",
                             "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!"),
@@ -169,11 +169,11 @@ public class SampleDataUtil {
                             "0.5 tbsp, Olive Oil"),
                     getStepsList("Thinly slice Tomatoes and Leek and shred your Zucchini.",
                             "Heat up Oil in a large Pan on a medium-high Level and roast Leek until golden.",
-                            "Now addPlan Zucchini.",
+                            "Now add Zucchini.",
                             "When the Zucchini´s roasted, stir in Tomatoes and turn down Heat to a lower Level.",
                             "Let cook for 5-7 Minutes until it turn into a Sauce.",
                             "Meanwhile, prepare Spaghetti according to the Directions stated on the Package.",
-                            "Then, addPlan Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.",
+                            "Then, add Ketchup, Basil, Italian Herbs and Salt, Pepper as desired.",
                             "Finally, stir in Arugula and cooked Noodles and serve on a Plate with Poached Egg,"
                                     + " Parmesan and more fresh Basil."),
                     getGoalSet("Wholesome Wholemeal"), false),
@@ -188,11 +188,11 @@ public class SampleDataUtil {
                             "1 tbsp, pepper",
                             "1 tbsp, garlic powder",
                             "0.5 cup, Parmesan cheese sprinkles"),
-                    getStepsList("In a large skillet, addPlan your bacon and cook for 1-2 mins until bacon is halfway done",
+                    getStepsList("In a large skillet, add your bacon and cook for 1-2 mins until bacon is halfway done",
                             "In that same pan, and some butter, sugar, spices, and onion; "
                                     + "sautee until the onion becomes tender, and bacon starts to crisp up.",
                             "Boil pasta in salted water until al dente",
-                            "Once the pasta is done, drain it loosely, but leave a tiny amount of water and addPlan it to "
+                            "Once the pasta is done, drain it loosely, but leave a tiny amount of water and add it to "
                                     + "the skillet with the bacon, and onion mixture.",
                             "Mix in the spinach and stir until tender",
                             "Sprinkle with Parmesan before serving."),
@@ -212,9 +212,9 @@ public class SampleDataUtil {
                                     + "prepare lettuce by washing/chopping it if needed."
                                     + " Also prepare nuts by chopping them if needed, making 1 tbsp chopped nuts.",
                             "Make chicken salad by adding shredded/chopped chicken to a small mixing bowl, "
-                                    + "then addPlan 1/4 c Greek yogurt, 1/4 c mayo, 1/4 tsp garlic salt, "
+                                    + "then add 1/4 c Greek yogurt, 1/4 c mayo, 1/4 tsp garlic salt, "
                                     + "1 tsp Dijon mustard.",
-                            "Mix together well. Once all incorporated, addPlan in 1/4 c chopped celery, "
+                            "Mix together well. Once all incorporated, add in 1/4 c chopped celery, "
                                     + "1/4 c quartered red grapes, and 1 T chopped mixed nuts. Stir together.",
                             "Fill pita with chicken salad mixture and lettuce. Enjoy. "
                                     + "Store chicken salad in airtight container for up to 5 days"),
@@ -229,7 +229,7 @@ public class SampleDataUtil {
                     getOtherSet("4 tbsp, plain hummus", "1 tbsp, cilantro leaves",
                             "2 tbsp, kosher salt and fresh black pepper"),
                     getStepsList("Spread 1 tablespoon of hummus on each slice of bread.",
-                            "Then addPlan the avocado pulp of 1/2 avocado per slice and lightly mash with a fork.",
+                            "Then add the avocado pulp of 1/2 avocado per slice and lightly mash with a fork.",
                             "Depending on the size of your bread slices you may need to use little less avocado. "
                                     + "I used about 1 avocado per sandwich.",
                             "Layer on spinach leaves, cucumber slices, red pepper, pea shoots, and cilantro leaves. "
@@ -254,7 +254,7 @@ public class SampleDataUtil {
                                     + "Whisk in enough water to create a drizzable consistency. Set aside.",
                             "In a dry cast-iron skillet over medium heat, char the peppers whole, "
                                     + "rotating until the edges have a little char, about 2 minutes per side. Remove."
-                                    + " When cool to the touch, slice in half lengthwise, deletePlan the stem, ribbing, "
+                                    + " When cool to the touch, slice in half lengthwise, remove the stem, ribbing, "
                                     + "and seeds and slice horizontally into thin strips.",
                             "In a large bowl, combine the cabbage, peppers, scallions, cilantro, basil, chiles, "
                                     + "and ¾ of the dressing. Toss until combined. Add the remaining dressing, "
@@ -294,10 +294,10 @@ public class SampleDataUtil {
                             "4 tbsp, cornstarch", "4 tsp, reduced sodium soy sauce", "4 tsp, reduced sodium soy sauce",
                             "3 tsp, brown sugar(packed)", "0.5 tbsp, honey", "0.25 tbsp, olive oil",
                             "0.25 tbsp, sesame seeds"),
-                    getStepsList("In a large pot of boiling water, addPlan Yaki-Soba until loosened, "
+                    getStepsList("In a large pot of boiling water, add Yaki-Soba until loosened, "
                                     + "about 1-2 minutes; drain well.",
                             "In a small bowl, whisk together cornstarch and 1/4 cup water; set aside.",
-                            "In a small saucepan over medium heat, addPlan soy sauce, brown sugar, garlic, ginger, "
+                            "In a small saucepan over medium heat, add soy sauce, brown sugar, garlic, ginger, "
                                     + "honey and 1 cup water; bring to a simmer. "
                                     + "Stir in cornstarch mixture until thickened enough to coat the back of a spoon, "
                                     + "about 2 minutes; let cool to room temperature. Reserve 1/4 cup and set aside.",
@@ -319,7 +319,7 @@ public class SampleDataUtil {
                     getOtherSet(" 4 cup, water", "0.5 cup, milk"),
                     getStepsList("In a slow cooker, combine all ingredients and set to low heat. "
                                     + "Cover and let cook for 8 to 9 hours.",
-                            "Stir and deletePlan to serving bowls. "
+                            "Stir and remove to serving bowls. "
                                     + "This method works best if started before you go to bed."),
                     getGoalSet("Wholesome Wholemeal"), false),
         };

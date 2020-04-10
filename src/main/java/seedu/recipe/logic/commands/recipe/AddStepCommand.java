@@ -43,7 +43,7 @@ public class AddStepCommand extends Command {
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
-     * @param newSteps is the list of steps that the user wishes to addPlan to the recipe
+     * @param newSteps is the list of steps that the user wishes to add to the recipe
      */
     public AddStepCommand(Index index, List<Step> newSteps) {
         this.index = index;

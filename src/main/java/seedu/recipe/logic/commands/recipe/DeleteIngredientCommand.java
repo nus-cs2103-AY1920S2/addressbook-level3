@@ -53,7 +53,7 @@ public class DeleteIngredientCommand extends Command {
             + PREFIX_INGREDIENT_OTHER + "Honeydew";
 
     public static final String MESSAGE_DELETE_INGREDIENTS_SUCCESS = "Successfully deleted ingredient(s) from %1$s!";
-    public static final String MESSAGE_DELETING_TOO_MANY_INGREDIENTS = "Attempting to deletePlan all ingredients or "
+    public static final String MESSAGE_DELETING_TOO_MANY_INGREDIENTS = "Attempting to remove all ingredients or "
             + "more ingredients than %1$s has. Ingredients list cannot be empty!";
     public static final String MESSAGE_NO_SUCH_INGREDIENT = "%1$s is either not %2$s ingredient "
             + "or it does not exist in %3$s!";

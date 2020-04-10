@@ -68,7 +68,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book.";
-    public static final String MESSAGE_CANNOT_DELETE_ALL_INGREDIENTS = "Cannot deletePlan all ingredients!";
+    public static final String MESSAGE_CANNOT_DELETE_ALL_INGREDIENTS = "Cannot remove all ingredients!";
 
     private final Tab recipesTab = Tab.RECIPES;
     private final Index index;

@@ -12,13 +12,16 @@ import javafx.stage.Stage;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.ui.UiPart;
 
+/**
+ * Controller for the grocery list window.
+ */
 public class GroceryListWindow extends UiPart<Stage> {
-    
+
     public static String groceryListMessage = "";
-    
+
     private static final Logger logger = LogsCenter.getLogger(GroceryListWindow.class);
     private static final String FXML = "GroceryListWindow.fxml";
-    
+
     @FXML
     private Button copyButton;
     @FXML
@@ -101,9 +104,9 @@ public class GroceryListWindow extends UiPart<Stage> {
      */
     @FXML
     private void copyGroceryList() {
-    final Clipboard clipboard = Clipboard.getSystemClipboard();
-    final ClipboardContent groceryList = new ClipboardContent();
-        groceryList.putString(groceryListMessage);
-        clipboard.setContent(groceryList);
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent groceryList = new ClipboardContent();
+            groceryList.putString(groceryListMessage);
+            clipboard.setContent(groceryList);
     }
 }

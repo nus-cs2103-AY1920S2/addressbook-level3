@@ -34,7 +34,7 @@ public class DeleteGoalCommand extends Command {
     public static final String MESSAGE_DELETE_GOAL_SUCCESS = "Successfully deleted goal from %1$s!";
     public static final String MESSAGE_INVALID_GOAL_NAME = "Invalid goal name! "
             + "Ensure that the capitalization of goals are the same.";
-    public static final String MESSAGE_INVALID_GOAL = "Attempting to deletePlan a non-existent goal.";
+    public static final String MESSAGE_INVALID_GOAL = "Attempting to remove a non-existent goal.";
 
     private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
@@ -43,7 +43,7 @@ public class DeleteGoalCommand extends Command {
 
     /**
      * @param index of the recipe in the filtered recipe list to edit.
-     * @param goal is the name of goal user wishes to deletePlan from recipe.
+     * @param goal is the name of goal user wishes to remove from recipe.
      */
     public DeleteGoalCommand(Index index, String goal) {
         this.index = index;

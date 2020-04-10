@@ -33,7 +33,7 @@ public class DeleteStepCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 3 5 (deletes steps 3 and 5 of recipe 1)";
 
     public static final String MESSAGE_DELETE_STEPS_SUCCESS = "Successfully deleted step(s) from %1$s!";
-    public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to deletePlan a non-existent step";
+    public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to remove a non-existent step";
 
     private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
@@ -42,7 +42,7 @@ public class DeleteStepCommand extends Command {
 
     /**
      * @param index of the recipe in the filtered recipe list to edit
-     * @param stepNumbers is the array of step numbers that the user wishes to deletePlan from the recipe
+     * @param stepNumbers is the array of step numbers that the user wishes to remove from the recipe
      */
     public DeleteStepCommand(Index index, Integer[] stepNumbers) {
         this.index = index;
