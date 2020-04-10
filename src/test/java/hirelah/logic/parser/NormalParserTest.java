@@ -16,6 +16,7 @@ import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_INTERVIEWEE_JANICE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_NUMBER_1;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_ATTRIBUTE;
+import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_INTERVIEWEE;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_METRIC;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PLURAL_QUESTION;
 import static hirelah.logic.commands.CommandTestUtility.VALID_PROPERTY_INTERVIEWEE;
@@ -36,6 +37,7 @@ import hirelah.logic.commands.ExitCommand;
 import hirelah.logic.commands.FinaliseCommand;
 import hirelah.logic.commands.HelpCommand;
 import hirelah.logic.commands.ListAttributeCommand;
+import hirelah.logic.commands.ListIntervieweeCommand;
 import hirelah.logic.commands.ListMetricCommand;
 import hirelah.logic.commands.ListQuestionCommand;
 import hirelah.logic.commands.NavigationQuestionCommand;
@@ -89,6 +91,12 @@ class NormalParserTest {
     void parse_validListAttributeCommand_success() throws ParseException {
         Command result = parser.parseCommand(VALID_PLURAL_ATTRIBUTE);
         assertEquals(result, new ListAttributeCommand());
+    }
+
+    @Test
+    void parse_validListIntervieweeCommand_success() throws ParseException {
+        Command result = parser.parseCommand(VALID_PLURAL_INTERVIEWEE);
+        assertEquals(result, new ListIntervieweeCommand());
     }
 
     @Test

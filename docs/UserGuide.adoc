@@ -97,7 +97,7 @@ Your interviewees could come from anywhere after all. But do not give blanks or 
 *Commands*
 
 ....
-add interviewee <interviewee> [-aka <alias>]
+add interviewee <full name> [-aka <alias>]
 edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]
 delete interviewee <interviewee>
 ....
@@ -266,13 +266,13 @@ image::Screenshots/Question.png[]
 
 ==== Switching views
 
-When working on the interviewees, attributes, questions and metrics (more about metrics in <<Metrics>>),
-HireLah! displays the relevant content you are working on. To switch views, HireLah! also provides the list commands.
+When working on the attributes, questions and metrics (more about metrics in <<Metrics>>),
+HireLah! displays the relevant content you are working on on the right side of the application.
+To switch views, HireLah! also provides these commands.
 
 *Command*
 
 ....
-interviewees
 attributes
 questions
 metrics
@@ -283,14 +283,31 @@ _Action:_ Switches between displaying attributes, questions and metrics.
 _Output:_
 
 ....
-Here is the list of interviewees:
-
 Here is the list of attributes:
 
 Here is the list of questions:
 
 Here is the list of metrics:
 ....
+
+On the left side of the application, all of the interviewees are listed. It will switch to only show several
+best interviewees when the the command is entered by the user. To switch back to list down the interviewees, HireLah!
+provides this command.
+
+*Command*
+
+....
+interviewees
+....
+
+_Action:_ Displays the interviewee list.
+
+_Output:_
+
+....
+Here is the list of interviewees:
+....
+
 
 ==== Finalise Interview Attributes and Questions
 
@@ -793,12 +810,13 @@ interview is incomplete!
 
 *Initialization Phase*
 
-* Add an interviewee: `add interviewee <interviewee> [-aka <alias>]` +
+* Add an interviewee: `add interviewee <full name> [-aka <alias>]` +
 e.g. `add interviewee Jane Doe -aka Doe`
 * Edit an interviewee: `edit interviewee <interviewee> [-n <new full name>] [-aka <new alias>]` +
 e.g. `edit interviewee Jane Doe -n Janice Doe -aka JDoe`
 * Delete an interviewee: `delete interviewee <interviewee>` +
 e.g. `delete interviewee Doe`
+* List interviewees: `interviewees`
 * Add an attribute: `add attribute <attribute>` +
 e.g. `add attribute teamwork`
 * Edit an attribute: `edit attribute <old attribute> -a <new attribute>` +
