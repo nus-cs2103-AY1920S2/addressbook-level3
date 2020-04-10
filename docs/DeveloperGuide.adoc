@@ -173,7 +173,7 @@ Given that the FilteredList cannot perform sorting, we could:
 To do this, our TaskList is sorted internally. We chose to do this by having the TaskList maintain  a SortedList form JavaFx which references the UniqueTaskList in TaskList as seen in the diagram. This allows us to maintain a unique list of Tasks while having new tasks added remain in the defined sort order. The FilteredList thus uses the refernce from the SortedList. 
 
 ==== Updating UI
-image::SortUpdateUi.png[] // TODO add in sequence diagram
+image::SortUpdateUi.png[] // DONE add in sequence diagram
 
 Meanwhile to update the UI on the newest sorting order, the SortCommand will return a SortCommandResult. This SortCommandResult contains an additional field which would be the final sorting order of the TaskList. The SortCommandResult is then passed to the MainWindow and provides the payload for updating the sort order UI.
 
