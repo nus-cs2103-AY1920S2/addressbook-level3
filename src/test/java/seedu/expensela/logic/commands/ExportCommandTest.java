@@ -1,7 +1,6 @@
 package seedu.expensela.logic.commands;
 
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.nio.file.Paths;
