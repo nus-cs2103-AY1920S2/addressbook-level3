@@ -15,7 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DELETE_TAG = new Prefix("-t/");
     public static final Prefix PREFIX_REMARK = new Prefix("i/");
     public static final Prefix PREFIX_BIRTHDAY = new Prefix("b/");
-    public static final Prefix PREFIX_ORGANIZATION = new Prefix("g/"); // g is for group (o was taken)
+    public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");
     public static final Prefix PREFIX_LINE_NUMBER = new Prefix("l/");
     public static final Prefix PREFIX_TITLE = new Prefix("t/");
     public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
@@ -36,8 +36,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_LINE_NUMBER_RECOMMENDED = new Prefix("rl/");
     public static final Prefix PREFIX_LINE_NUMBER_GOOD = new Prefix("gl/");
     public static final Prefix PREFIX_LINE_NUMBER_BAD = new Prefix("bl/");
-    public static final Prefix PREFIX_EVENTTITLE = new Prefix("et/"); // event title
-    public static final Prefix PREFIX_EVENTDATE = new Prefix("edt/"); // event date time
-    public static final Prefix PREFIX_PLACE = new Prefix("ep/"); // event place
-    public static final Prefix PREFIX_DURATION = new Prefix("ed/"); // event duration
+    public static final Prefix PREFIX_EVENTTITLE = new Prefix("t/"); // event title
+    public static final Prefix PREFIX_EVENTDATE = new Prefix("dt/"); // event date time
+    public static final Prefix PREFIX_PLACE = new Prefix("p/"); // event place
+    public static final Prefix PREFIX_DURATION = new Prefix("d/"); // event duration
 }

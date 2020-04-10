@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
- * API of the Logic component
+ * API of the Logic component of the application
  */
 public interface Logic {
     /**

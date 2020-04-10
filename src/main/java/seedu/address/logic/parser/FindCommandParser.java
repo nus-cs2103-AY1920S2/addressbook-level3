@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.GroupContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.OrganizationContainsKeywordsPredicate;
 import seedu.address.model.person.TagsContainsKeywordsPredicate;
 
 /**
@@ -28,42 +28,42 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String[] keywords = trimmedArgs.split("\\s+");
 
-        ArrayList<String> groupnameKeywords = new ArrayList<>();
-        ArrayList<String> wordKeywords = new ArrayList<>();
+        ArrayList<String> organizationKeywords = new ArrayList<>();
+        ArrayList<String> nameKeywords = new ArrayList<>();
         ArrayList<String> tagKeywords = new ArrayList<>();
 
         // run some check to make sure there is no invalid command!
-        boolean hasGroupName = false;
-        boolean hasWord = false;
+        boolean hasOrganization = false;
+        boolean hasName = false;
         boolean hasTags = false;
-        for (int i = 0; i < nameKeywords.length; i++) {
-            if (nameKeywords[i].contains("-g/")) {
-                hasGroupName = true;
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("o/")) {
+                hasOrganization = true;
             }
-            if (nameKeywords[i].contains("-n/")) {
-                hasWord = true;
+            if (keywords[i].contains("n/")) {
+                hasName = true;
             }
-            if (nameKeywords[i].contains("-t/")) {
+            if (keywords[i].contains("t/")) {
                 hasTags = true;
             }
         }
-        if ((hasGroupName == false) && (hasWord == false) && (hasTags == false)) {
+        if ((hasOrganization == false) && (hasName == false) && (hasTags == false)) {
             // then they did not provide any keywords to search for!
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
 
-        for (int i = 0; i < nameKeywords.length; i++) {
-            if (nameKeywords[i].contains("-g/")) {
-                nameKeywords[i] = nameKeywords[i].substring(3);
-                while (!nameKeywords[i].contains("-n/") && !nameKeywords[i].contains("-t/")
-                        && i != nameKeywords.length) {
-                    groupnameKeywords.add(nameKeywords[i]);
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("o/")) {
+                keywords[i] = keywords[i].substring(2);
+                while (!keywords[i].contains("n/") && !keywords[i].contains("t/")
+                        && i != keywords.length) {
+                    organizationKeywords.add(keywords[i]);
                     i++;
-                    if (i == nameKeywords.length) {
+                    if (i == keywords.length) {
                         break;
                     }
                 }
@@ -71,14 +71,14 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
-        for (int i = 0; i < nameKeywords.length; i++) {
-            if (nameKeywords[i].contains("-n/")) {
-                nameKeywords[i] = nameKeywords[i].substring(3);
-                while (!nameKeywords[i].contains("-g/") && !nameKeywords[i].contains("-t/")
-                        && i != nameKeywords.length) {
-                    wordKeywords.add(nameKeywords[i]);
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("n/")) {
+                keywords[i] = keywords[i].substring(2);
+                while (!keywords[i].contains("o/") && !keywords[i].contains("t/")
+                        && i != keywords.length) {
+                    nameKeywords.add(keywords[i]);
                     i++;
-                    if (i == nameKeywords.length) {
+                    if (i == keywords.length) {
                         break;
                     }
                 }
@@ -86,14 +86,14 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
         }
 
-        for (int i = 0; i < nameKeywords.length; i++) {
-            if (nameKeywords[i].contains("-t/")) {
-                nameKeywords[i] = nameKeywords[i].substring(3);
-                while (!nameKeywords[i].contains("-g/") && !nameKeywords[i].contains("-n/")
-                        && i != nameKeywords.length) {
-                    tagKeywords.add(nameKeywords[i]);
+        for (int i = 0; i < keywords.length; i++) {
+            if (keywords[i].contains("t/")) {
+                keywords[i] = keywords[i].substring(2);
+                while (!keywords[i].contains("o/") && !keywords[i].contains("n/")
+                        && i != keywords.length) {
+                    tagKeywords.add(keywords[i]);
                     i++;
-                    if (i == nameKeywords.length) {
+                    if (i == keywords.length) {
                         break;
                     }
                 }
@@ -102,27 +102,27 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
 
-        String[] groupnameKeywordsArray = new String[groupnameKeywords.size()];
-        for (int i = 0; i < groupnameKeywords.size(); i++) {
-            groupnameKeywordsArray[i] = groupnameKeywords.get(i);
+        String[] organizationKeywordsArray = new String[organizationKeywords.size()];
+        for (int i = 0; i < organizationKeywords.size(); i++) {
+            organizationKeywordsArray[i] = organizationKeywords.get(i);
         }
-        String[] wordKeywordsArray = new String[wordKeywords.size()];
-        for (int i = 0; i < wordKeywords.size(); i++) {
-            wordKeywordsArray[i] = wordKeywords.get(i);
+        String[] nameKeywordsArray = new String[nameKeywords.size()];
+        for (int i = 0; i < nameKeywords.size(); i++) {
+            nameKeywordsArray[i] = nameKeywords.get(i);
         }
         String[] tagKeywordsArray = new String[tagKeywords.size()];
         for (int i = 0; i < tagKeywords.size(); i++) {
             tagKeywordsArray[i] = tagKeywords.get(i);
         }
 
-        GroupContainsKeywordsPredicate groupnamePredicate =
-                new GroupContainsKeywordsPredicate(Arrays.asList(groupnameKeywordsArray));
-        NameContainsKeywordsPredicate wordPredicate =
-                new NameContainsKeywordsPredicate(Arrays.asList(wordKeywordsArray));
+        OrganizationContainsKeywordsPredicate organizationPredicate =
+                new OrganizationContainsKeywordsPredicate(Arrays.asList(organizationKeywordsArray));
+        NameContainsKeywordsPredicate namePredicate =
+                new NameContainsKeywordsPredicate(Arrays.asList(nameKeywordsArray));
         TagsContainsKeywordsPredicate tagPredicate = new TagsContainsKeywordsPredicate(Arrays.asList(tagKeywordsArray));
 
 
-        return new FindCommand(groupnamePredicate, wordPredicate, tagPredicate);
+        return new FindCommand(organizationPredicate, namePredicate, tagPredicate);
     }
 
 }

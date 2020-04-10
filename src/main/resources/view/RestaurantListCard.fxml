@@ -27,12 +27,11 @@
                 </Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="visit" />
+            <Label fx:id="visit" />
             <Label fx:id="locationR" styleClass="cell_small_label" text="\$location" />
             <Label fx:id="hours" styleClass="cell_small_label" text="\$hours" />
             <Label fx:id="price" styleClass="cell_small_label" text="\$price" />
             <Label fx:id="cuisine" styleClass="cell_small_label" text="\$cuisine" />
-            <Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks" />
             <Label fx:id="recommendedFood" styleClass="cell_small_label" text="\$recommendedFood" />
             <Label fx:id="goodFood" styleClass="cell_small_label" text="\$goodFood" />
             <Label fx:id="badFood" styleClass="cell_small_label" text="\$badFood" />

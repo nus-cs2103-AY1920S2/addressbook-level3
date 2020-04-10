@@ -1,7 +1,7 @@
 package seedu.address.model.day;
 
 /**
- * Represents the expected workload for a given day.
+ * Represents the expected workload for a given {@code Day}.
  * Guarantees: Immutable
  */
 public class Hours {

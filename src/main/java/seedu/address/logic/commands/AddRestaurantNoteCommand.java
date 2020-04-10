@@ -76,26 +76,41 @@ public class AddRestaurantNoteCommand extends Command {
 
         Restaurant restaurantToEdit = lastShownList.get(index.getZeroBased());
 
+        ArrayList<Note> updatedRecFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getRecommendedFood()) {
+            updatedRecFood.add(i);
+        }
+
+        ArrayList<Note> updatedGoodFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getGoodFood()) {
+            updatedGoodFood.add(i);
+        }
+
+        ArrayList<Note> updatedBadFood = new ArrayList<>();
+        for (Note i : restaurantToEdit.getBadFood()) {
+            updatedBadFood.add(i);
+        }
+
         if (recommendedFood.size() != 0) {
             for (int i = 0; i < recommendedFood.size(); i++) {
-                restaurantToEdit.getRecommendedFood().add(recommendedFood.get(i));
+                updatedRecFood.add(recommendedFood.get(i));
             }
         }
         if (goodFood.size() != 0) {
-            for (int j = 0; j < goodFood.size(); j++) {
-                restaurantToEdit.getGoodFood().add(goodFood.get(j));
+            for (int i = 0; i < goodFood.size(); i++) {
+                updatedGoodFood.add(goodFood.get(i));
             }
         }
         if (badFood.size() != 0) {
-            for (int k = 0; k < badFood.size(); k++) {
-                restaurantToEdit.getBadFood().add(badFood.get(k));
+            for (int i = 0; i < badFood.size(); i++) {
+                updatedBadFood.add(badFood.get(i));
             }
         }
 
         Restaurant editedRestaurant = new Restaurant(restaurantToEdit.getName(), restaurantToEdit.getLocation(),
                 restaurantToEdit.getHours(), restaurantToEdit.getPrice(), restaurantToEdit.getCuisine(),
-                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), restaurantToEdit.getRecommendedFood(),
-                restaurantToEdit.getGoodFood(), restaurantToEdit.getBadFood());
+                restaurantToEdit.getRemark(), restaurantToEdit.getVisit(), updatedRecFood,
+                updatedGoodFood, updatedBadFood);
 
         model.setRestaurant(restaurantToEdit, editedRestaurant);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);

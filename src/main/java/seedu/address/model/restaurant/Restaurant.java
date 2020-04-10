@@ -150,8 +150,6 @@ public class Restaurant {
                 .append(getCuisine())
                 .append("\nVisited: ")
                 .append(getVisit())
-                .append("\nRemarks: ")
-                .append(getRecommendedFood())
                 .append("\nRecommended food: ")
                 .append(getGoodFood())
                 .append("\nGood food: ")

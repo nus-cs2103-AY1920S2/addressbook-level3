@@ -22,7 +22,7 @@ import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.Storage;
 
 /**
- * The main LogicManager of the app.
+ * The main LogicManager of the application.
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
             }
         } else if (command.toString().contains("(st)")) {
             try {
-                storage.saveScheduler(model.getScheduler());
+                storage.saveScheduler(model.getAssignmentSchedule());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -73,7 +73,7 @@ public class LogicManager implements Logic {
         } else if (command.toString().contains("undo")) {
             try {
                 storage.saveAddressBook(model.getAddressBook());
-                storage.saveScheduler(model.getScheduler());
+                storage.saveScheduler(model.getAssignmentSchedule());
                 storage.saveEventSchedule(model.getEventSchedule());
                 storage.saveRestaurantBook(model.getRestaurantBook());
             } catch (IOException ioe) {

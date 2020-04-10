@@ -8,11 +8,11 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
-import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -27,13 +27,13 @@ public class ListCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(),
                 new RestaurantBook(),
-                new Scheduler(),
+                new AssignmentSchedule(),
                 new EventSchedule(),
                 new UserPrefs());
 
         expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
-                new Scheduler(),
+                new AssignmentSchedule(),
                 new EventSchedule(),
                 new UserPrefs());
     }
