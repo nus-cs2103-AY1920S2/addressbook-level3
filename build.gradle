@@ -23,7 +23,6 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://mvnrepository.com/artifact/org.slf4j/slf4j-api/1.7.25'}
 }
 
 checkstyle {
