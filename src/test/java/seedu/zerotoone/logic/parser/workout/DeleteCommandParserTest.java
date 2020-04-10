@@ -1,4 +1,4 @@
-package seedu.zerotoone.logic.parser.exercise;
+package seedu.zerotoone.logic.parser.workout;
 
 import static seedu.zerotoone.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
@@ -7,7 +7,7 @@ import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
+import seedu.zerotoone.logic.commands.workout.DeleteCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

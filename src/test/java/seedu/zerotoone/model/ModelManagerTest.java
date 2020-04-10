@@ -101,6 +101,39 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setWorkoutListFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setWorkoutListFilePath(null));
+    }
+
+    @Test
+    public void setWorkoutListFilePath_validPath_setsWorkoutListFilePath() {
+        Path path = Paths.get("workout/list/file/path");
+        modelManager.setWorkoutListFilePath(path);
+        assertEquals(path, modelManager.getWorkoutListFilePath());
+    }
+
+    @Test
+    public void hasWorkout_nullWorkout_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasWorkout(null));
+    }
+
+    @Test
+    public void hasWorkout_workoutNotInWorkoutList_returnsFalse() {
+        assertFalse(modelManager.hasWorkout(ARMS_WORKOUT));
+    }
+
+    @Test
+    public void hasWorkout_workoutInWorkoutList_returnsTrue() {
+        modelManager.addWorkout(ARMS_WORKOUT);
+        assertTrue(modelManager.hasWorkout(ARMS_WORKOUT));
+    }
+
+    @Test
+    public void getFilteredWorkoutList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredWorkoutList().remove(0));
+    }
+
+    @Test
     public void equals() {
         ExerciseList exerciseList = new ExerciseListBuilder().withExercise(BENCH_PRESS).withExercise(DEADLIFT).build();
         ScheduleList scheduleList = new ScheduleList();

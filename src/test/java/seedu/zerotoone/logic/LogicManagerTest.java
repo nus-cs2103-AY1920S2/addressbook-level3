@@ -109,6 +109,11 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
     }
 
+    @Test
+    public void getFilteredWorkoutList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWorkoutList().remove(0));
+    }
+
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */

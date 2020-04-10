@@ -1,14 +1,13 @@
-package seedu.zerotoone.logic.commands.exercise;
+package seedu.zerotoone.logic.commands.workout;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandFailure;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandSuccess;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.showExerciseAtIndex;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
+import static seedu.zerotoone.testutil.workout.WorkoutCommandTestUtil.assertCommandFailure;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +15,10 @@ import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
-import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.log.LogList;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.model.workout.Workout;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -35,11 +34,11 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_OBJECT.getZeroBased());
+        Workout workoutToDelete = model.getFilteredWorkoutList().get(INDEX_FIRST_OBJECT.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_OBJECT);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
-                exerciseToDelete.getExerciseName());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WORKOUT_SUCCESS,
+                workoutToDelete.getWorkoutName());
 
         ModelManager expectedModel = new ModelManager(new UserPrefs(),
                 model.getExerciseList(),
@@ -47,53 +46,21 @@ public class DeleteCommandTest {
                 model.getScheduleList(),
                 model.getLogList());
 
-        expectedModel.deleteExercise(exerciseToDelete);
+        expectedModel.deleteWorkout(workoutToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredWorkoutList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showExerciseAtIndex(model, INDEX_FIRST_OBJECT);
-
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_OBJECT.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_OBJECT);
-
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
-                exerciseToDelete.getExerciseName());
-
-        ModelManager expectedModel = new ModelManager(new UserPrefs(),
-                model.getExerciseList(),
-                model.getWorkoutList(),
-                model.getScheduleList(),
-                model.getLogList());
-
-        expectedModel.deleteExercise(exerciseToDelete);
-        showNoExercise(expectedModel);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showExerciseAtIndex(model, INDEX_FIRST_OBJECT);
-
-        Index outOfBoundIndex = INDEX_SECOND_OBJECT;
-        // ensures that outOfBoundIndex is still in bounds of exercise list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getExerciseList().size());
-
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INDEX);
-    }
+    // TODO: execute_validIndexFilteredList_success() & execute_invalidIndexFilteredList_throwsCommandException()
+    // Problem with ShowWorkoutAtIndex
 
     @Test
     public void equals() {
@@ -113,16 +80,16 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different exercise -> returns false
+        // different workout -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoExercise(Model model) {
-        model.updateFilteredExerciseList(p -> false);
+    private void showNoWorkout(Model model) {
+        model.updateFilteredWorkoutList(p -> false);
 
-        assertTrue(model.getFilteredExerciseList().isEmpty());
+        assertTrue(model.getFilteredWorkoutList().isEmpty());
     }
 }

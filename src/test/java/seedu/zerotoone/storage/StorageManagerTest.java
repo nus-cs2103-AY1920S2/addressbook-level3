@@ -3,6 +3,7 @@ package seedu.zerotoone.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.workout.TypicalWorkouts.getTypicalWorkoutList;
 
 import java.nio.file.Path;
 
@@ -14,6 +15,8 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.WorkoutList;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.log.LogListStorageManager;
 import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
@@ -80,6 +83,24 @@ public class StorageManagerTest {
     @Test
     public void getExerciseListFilePath() {
         assertNotNull(storageManager.getExerciseListFilePath());
+    }
+
+    @Test
+    public void workoutListReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonWorkoutListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonWorkoutListStorageTest} class.
+         */
+        WorkoutList original = getTypicalWorkoutList();
+        storageManager.saveWorkoutList(original);
+        ReadOnlyWorkoutList retrieved = storageManager.readWorkoutList().get();
+        assertEquals(original, new WorkoutList(retrieved));
+    }
+
+    @Test
+    public void getWorkoutListFilePath() {
+        assertNotNull(storageManager.getWorkoutListFilePath());
     }
 
 }
