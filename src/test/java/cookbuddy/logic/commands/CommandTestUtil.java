@@ -35,22 +35,12 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_HAM_SANDWICH = "Ham Sandwich";
     public static final String VALID_NAME_EGGS_ON_TOAST = "Eggs on Toast";
-    //public static final List<Ingredient> VALID_INGREDIENTS_HAM_SANDWICH = List.of(new Ingredient("bread, 2 slices"),
-            //new Ingredient("ham, 1 slice"), new Ingredient(("cheese spread, 10g")));
     public static final String VALID_INGREDIENTS_HAM_SANDWICH = "bread, 2 slices; ham, 1 slice";
-    //public static final List<Ingredient> VALID_INGREDIENTS_EGGS_ON_TOAST = List.of(new Ingredient("bread, 2 slices"),
-            //new Ingredient("egg, 1"), new Ingredient("pepper, 1/16 tsp"));
     public static final String VALID_INGREDIENTS_EGGS_ON_TOAST = "bread, 2 slices; egg, 1";
-    //public static final List<Instruction> VALID_INSTRUCTIONS_HAM_SANDWICH = List.of(
-            //new Instruction("spread cheese on both slices of bread"),
-            //new Instruction("put the slice of ham between bread"), new Instruction("serve on plate"));
-    public static final String VALID_INSTRUCTIONS_HAM_SANDWICH = "spread cheese on both slides of bread; put slice of" +
-            " ham between bread; serve on plate";
-   // public static final List<Instruction> VALID_INSTRUCTIONS_EGGS_ON_TOAST = List.of(
-            //new Instruction("toast the 2 slices of bread"), new Instruction("scramble the eggs with the pepper"),
-            //new Instruction("put egg between bread"), new Instruction("serve on plate"));
-    public static final String VALID_INSTRUCTIONS_EGGS_ON_TOAST = "toast the 2 slices of bread; scramble the eggs; " +
-           "put eggs on toasted bread; serve";
+    public static final String VALID_INSTRUCTIONS_HAM_SANDWICH = "spread cheese on both slides of bread; put slice of "
+            + "ham between bread; serve on plate";
+    public static final String VALID_INSTRUCTIONS_EGGS_ON_TOAST = "toast the 2 slices of bread; scramble the eggs; "
+            + "put eggs on toasted bread; serve";
     public static final String VALID_CALORIE_HAM_SANDWICH = "300";
     public static final String VALID_CALORIE_EGGS_ON_TOAST = "200";
     public static final int VALID_SERVING_HAM_SANDWICH = 2;
@@ -95,7 +85,8 @@ public class CommandTestUtil {
     public static final String DIFFICULTY_DESC_HAM_SANDWICH = " " + PREFIX_DIFFICULTY + VALID_DIFFICULTY_HAM_SANDWICH;
     public static final String PHOTOGRAPH_DESC_HAM_SANDWICH =
             " " + PREFIX_IMAGEFILEPATH + VALID_PHOTOGRAPH_HAM_SANDWICH;
-    public static final String PHOTOGRAPH_DESC_EGGS_ON_TOAST = " " + PREFIX_IMAGEFILEPATH + VALID_PHOTOGRAPH_EGGS_ON_TOAST;
+    public static final String PHOTOGRAPH_DESC_EGGS_ON_TOAST = " " + PREFIX_IMAGEFILEPATH
+            + VALID_PHOTOGRAPH_EGGS_ON_TOAST;
 
     // TODO: add RATING_DESC once Rating has been merged
 
