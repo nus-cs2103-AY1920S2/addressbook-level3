@@ -2,15 +2,13 @@
 
 start
 repeat
-    repeat :User enters used command;
-
-    backward :Invalid command message shown;
-    repeat while () ->[else]
-    ->[valid index provided];
+    repeat: User enters used command;
+        backward :Invalid index message shown;
+        repeat while () ->[else]
+        ->[valid index provided];
     :Stash checks if the Coupon specified
     has a percentage amount;
-backward :Missing original amount \
-message shown;
+backward: Missing original amount message shown;
 repeat while () ->[has percentage amount \
 but original amount not specified]
 ->[else];

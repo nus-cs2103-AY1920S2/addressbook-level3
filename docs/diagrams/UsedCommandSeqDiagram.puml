@@ -9,8 +9,8 @@ participant "u:UsedCommand" as UsedCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+box ModelManager MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
 [-> LogicManager : execute("used 1 $100")
@@ -48,10 +48,11 @@ deactivate CouponStashParser
 LogicManager -> UsedCommand : execute(model, "used 1 $100")
 activate UsedCommand
 
-UsedCommand -> Model : setCoupon(couponToBeUsed, newCoupon)
-activate Model
+UsedCommand -> ModelManager : setCoupon(couponToBeUsed, newCoupon)
+activate ModelManager
 
-deactivate Model
+ModelManager --> UsedCommand :
+deactivate ModelManager
 
 create CommandResult
 UsedCommand -> CommandResult

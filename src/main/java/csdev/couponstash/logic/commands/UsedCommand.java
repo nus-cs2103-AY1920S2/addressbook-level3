@@ -88,7 +88,7 @@ public class UsedCommand extends IndexedCommand {
 
         Usage currentUsage = couponToBeUsed.getUsage();
         Limit limit = couponToBeUsed.getLimit();
-        if (Usage.isUsageAtLimit(currentUsage, limit)) {
+        if (currentUsage.isAtLimit(limit)) {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));
         }
 
@@ -108,7 +108,7 @@ public class UsedCommand extends IndexedCommand {
 
         Optional<Coupon> archivedUsedCoupon = Optional.empty();
         Usage newUsage = usedCoupon.getUsage();
-        if (Usage.isUsageAtLimit(newUsage, limit)) {
+        if (newUsage.isAtLimit(limit)) {
             archivedUsedCoupon = Optional.of(usedCoupon.archive());
         }
 
