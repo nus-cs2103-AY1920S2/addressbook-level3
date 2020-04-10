@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -12,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 
 /**
@@ -29,7 +31,7 @@ public class EditInfoCommand extends Command {
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
             + PREFIX_LINE_NUMBER + "LINE_NUMBER " + PREFIX_REMARK + "INFO\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_LINE_NUMBER + " 2 " + PREFIX_REMARK + " Likes to swim.";
+            + PREFIX_LINE_NUMBER + "2 " + PREFIX_REMARK + " Likes to swim.";
 
     public static final String MESSAGE_EDIT_REMARK_SUCCESS = "Edited remark for Person: %1$s";
     public static final String MESSAGE_EMPTY = "No remark to be edited is provided.";
@@ -69,15 +71,25 @@ public class EditInfoCommand extends Command {
         if (remark.value.isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY);
         }
-        personToEdit.getRemark().set(line - 1, remark);
+
+        ArrayList<Remark> updatedRemarks = new ArrayList<>();
+        for (Remark i : personToEdit.getRemark()) {
+            updatedRemarks.add(i);
+        }
+        updatedRemarks.set(line - 1, remark);
+
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getBirthday(),
+                personToEdit.getAddress(), updatedRemarks, personToEdit.getBirthday(),
                 personToEdit.getOrganization(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_REMARK_SUCCESS, editedPerson));
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, model);
+        model.updateFilteredPersonListResult(personExistPredicate);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_REMARK_SUCCESS, editedPerson),
+                false, false, true, false, false, false, false, false);
     }
 
     @Override
