@@ -74,6 +74,6 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return Optional.of(new DeleteSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
+        return Optional.of(new DeleteSuggestionCommand(correctionResult.getCorrectedItems(), title));
     }
 }
