@@ -48,10 +48,10 @@ public class EditEventCommand extends Command {
             + PREFIX_DATE + "2020-03-20 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event successfully.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
-    public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited";
+    public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited.";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -92,7 +92,7 @@ public class EditEventCommand extends Command {
 
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
 
-        if (eventToEdit.equals(editedEvent)) { // if edit is exactly the same as the original
+        if (eventToEdit.isSameEvent(editedEvent)) { // if edit is exactly the same as the original
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
         }
 

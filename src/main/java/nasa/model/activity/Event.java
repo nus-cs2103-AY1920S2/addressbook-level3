@@ -141,8 +141,7 @@ public class Event extends Activity {
      * Returns true if both are the same event with same event attributes.
      * This defines a stronger notion of equality between two events.
      */
-    @Override
-    public boolean equals(Object other) {
+    public boolean isSameEvent(Object other) {
         if (other == this) {
             return true;
         }

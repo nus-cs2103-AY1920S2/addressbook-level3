@@ -48,10 +48,10 @@ public class EditDeadlineCommand extends Command {
             + PREFIX_DATE + "2020-03-20 "
             + PREFIX_ACTIVITY_NAME + "Assignment 2.3";
 
-    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Edited Deadline";
+    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Edited Deadline successfully.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
-    public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited";
+    public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited.";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -93,7 +93,7 @@ public class EditDeadlineCommand extends Command {
         Deadline editedDeadline = createEditedDeadline(deadlineToEdit, editDeadlineDescriptor);
 
         // case when edit made to deadline is exactly the same
-        if (deadlineToEdit.equals(editedDeadline)) {
+        if (deadlineToEdit.isSameDeadline(editedDeadline)) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
         }
 

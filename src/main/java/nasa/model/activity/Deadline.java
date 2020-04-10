@@ -153,8 +153,7 @@ public class Deadline extends Activity {
      * Returns true if both are the same deadline with same deadline attributes.
      * This defines a stronger notion of equality between two deadlines.
      */
-    @Override
-    public boolean equals(Object other) {
+    public boolean isSameDeadline(Object other) {
         if (other == this) {
             return true;
         }
