@@ -40,10 +40,8 @@ class JsonSerializableMyself {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public Myself toModelType() throws IllegalValueException {
-        Myself myself = new Myself();
-        myself.setHeight(Self.getHeight());
-        myself.setWeight(Self.getWeight());
-        myself.setMode(Self.getMode());
+        Self self = this.self.toModelType();
+        Myself myself = new Myself(self);
         return myself;
     }
 

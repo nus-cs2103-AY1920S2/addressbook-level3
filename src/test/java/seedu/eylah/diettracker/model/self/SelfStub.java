@@ -9,32 +9,32 @@ import seedu.eylah.diettracker.model.Mode;
  */
 public class SelfStub extends Self {
     // Data fields
-    private static Height height;
-    private static Weight weight;
-    private static Mode mode;
+    private Height height;
+    private Weight weight;
+    private Mode mode;
 
-    public static Height getHeight() {
+    public Height getHeight() {
         return height;
     }
 
-    public static Weight getWeight() {
+    public Weight getWeight() {
 
         return weight;
     }
 
-    public static Mode getMode() {
+    public Mode getMode() {
         return mode;
     }
 
-    public static void setHeight(Height newHeight) {
+    public void setHeight(Height newHeight) {
         height = newHeight;
     }
 
-    public static void setWeight(Weight newWeight) {
+    public void setWeight(Weight newWeight) {
         weight = newWeight;
     }
 
-    public static void setMode(Mode newMode) {
+    public void setMode(Mode newMode) {
         mode = newMode;
     }
 

@@ -47,6 +47,7 @@ public class DietStorageManager extends StorageManager implements DietStorage {
 
     @Override
     public void saveMyself(ReadOnlyMyself myself) throws IOException {
+        logger.info(myself.toString());
         saveMyself(myself, myselfStorage.getMyselfFilePath());
     }
 

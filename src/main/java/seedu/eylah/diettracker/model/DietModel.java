@@ -61,6 +61,19 @@ public interface DietModel extends Model {
     void setWeight(Weight weight);
 
     /**
+     *
+     * Getter method to obtain height of user
+     * @return height of user
+     */
+    Height getHeight();
+
+    /**
+     * Getter method to obtain weight of user
+     * @return weight of user
+     */
+    Weight getWeight();
+
+    /**
      * Replaces the user's mode in Myself with {@code mode}.
      * {@code mode} must be a valid mode.
      */

@@ -45,6 +45,8 @@ public class DietLogicManager implements DietLogic {
         commandResult = command.execute(model);
 
         try {
+            logger.info("Food Book: " + model.getFoodBook().toString());
+            logger.info("Myself: " + model.getMyself().toString());
             dietStorage.saveFoodBook(model.getFoodBook());
             dietStorage.saveMyself(model.getMyself());
         } catch (IOException ioe) {

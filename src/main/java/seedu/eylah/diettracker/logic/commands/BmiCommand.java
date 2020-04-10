@@ -8,7 +8,7 @@ import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.self.Bmi;
 import seedu.eylah.diettracker.model.self.Height;
-import seedu.eylah.diettracker.model.self.Self;
+//import seedu.eylah.diettracker.model.self.Self;
 import seedu.eylah.diettracker.model.self.Weight;
 
 /**
@@ -37,8 +37,8 @@ public class BmiCommand extends Command {
      * Constructor for Command that does not include Height and Weight.
      */
     public BmiCommand() {
-        height = Self.getHeight();
-        weight = Self.getWeight();
+        height = new Height(175);
+        weight = new Weight(70);
         bmi = new Bmi(height, weight);
     }
 

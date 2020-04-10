@@ -23,9 +23,23 @@ public class Weight {
     private Float weightFloat;
 
     /**
+     * Constructs a {@code Height}.
+     *
+     * @param weight A valid weight in float.
+     */
+    public Weight(float weight) {
+        requireNonNull(weight);
+        String heightString = Float.valueOf(weight).toString();
+        checkArgument(isValidWeight(heightString), MESSAGE_CONSTRAINTS);
+        this.weightString = heightString;
+        this.weightFloat = weight;
+    }
+
+
+    /**
      * Constructs a {@code Weight}.
      *
-     * @param weightString A valid weight.
+     * @param weightString A valid weight in string.
      */
     public Weight(String weightString) {
         requireNonNull(weightString);
