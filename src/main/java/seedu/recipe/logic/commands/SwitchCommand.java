@@ -1,5 +1,7 @@
 package seedu.recipe.logic.commands;
 
+import java.util.Arrays;
+
 import seedu.recipe.model.Model;
 import seedu.recipe.ui.tab.Tab;
 
@@ -24,6 +26,13 @@ public class SwitchCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_SUCCESS, false, tab, false);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SwitchCommand // instanceof handles nulls
+                && tab.equals(((SwitchCommand) other).tab)); // state check
     }
 }
 
