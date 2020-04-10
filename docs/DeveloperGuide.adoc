@@ -190,7 +190,7 @@ image::Ivan-OODMForEntityRS.png[]
 The group came up with the structure above where we centralize most links around the `Course` object so as
 for easier management of entity links. Every non-directed association between 2 objects ensures that both objects have each other's ID.
 [NOTE]
-Note, that the only exception is `Progress` objects which are created via
+The only exception is `Progress` objects which are created via
 a composite ID of `studentID` and `assignmentID`.
 
 The group then uses 3 different managers in order to ensure that the links are successfully maintained during each
