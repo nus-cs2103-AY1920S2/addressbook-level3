@@ -2,7 +2,6 @@ package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.DESC_CS1231;
 import static nasa.logic.commands.CommandTestUtil.DESC_CS2030;
-import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.model.util.SampleDataUtil.getSampleNasaBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -62,19 +61,20 @@ public class EditModuleCommandTest {
 
     @Test
     public void execute_duplicateModuleUnfilteredList_failure() {
-//        Module firstModule = model.getFilteredModuleList().get(0);
-//        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(firstModule).build();
-//        EditModuleCommand editModuleCommand = new EditModuleCommand(firstModuleCodeToEdit, descriptor);
-//
-//        assertCommandFailure(editModuleCommand, model, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        // Module firstModule = model.getFilteredModuleList().get(0);
+        // EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(firstModule).build();
+        // EditModuleCommand editModuleCommand = new EditModuleCommand(firstModuleCodeToEdit, descriptor);
+
+        // assertCommandFailure(editModuleCommand, model, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
 
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
-//        EditModuleCommand editModuleCommand = new EditModuleCommand(firstModuleCodeToEdit, new EditModuleDescriptor());
-//
-//        assertCommandFailure(editModuleCommand, model, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
+        // EditModuleCommand editModuleCommand = new EditModuleCommand(firstModuleCodeToEdit,
+        // new EditModuleDescriptor());
+
+        // assertCommandFailure(editModuleCommand, model, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
     }
 
     @Test
