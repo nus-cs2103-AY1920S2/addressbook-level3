@@ -794,15 +794,31 @@ The TaTracker model class contains a UniqueDoneSessionList which keeps track of
 all the sessions that have been marked as done. Each of the sessions are associated
 with a Module in the UniqueModuleList.
 
+==== Session Done Command
 The following diagram describes how TaTracker is updated when a Done Session command is entered.
 
-==== Session Done Command
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
 Note: The above diagram assumes that a valid index has been input into the TA-Tracker during
 the done session command.
 
 ==== Set Rate Command
+
+Given below is an example scenario where the user enters the command `setrate 50`.
+
+*Step 1:* The user command is passed through the `LogicManager` to `TaTrackerParser`.
+`TaTrackerParser` checks the input arguments and identify the String keywords.
+
+*Step 2:* The `TaTrackerParser` sees that the command is a type of SetRate and passes the command
+to the `SetRateCommandParser`.
+
+*Step 3:* The `SetRateCommandParser` object checks that the given `RATE` input
+by the user is a valid integer. If it is, the `SetRateCommandParser` creates a
+`SetRateCommand` object with the relevant integer.
+
+*Step 5:* `LogicManager` calls `SetRateCommand` 's execute method.
+
+*Step 6:* `MainWindow` updates the `TotalEarnings` label in the `ClaimsTab` and the `StatisticsWindow`
 
 
 // tag::syntaxhighlighting[]
@@ -1066,8 +1082,7 @@ with the relevant keywords.
 
 *Step 5:* `LogicManager` calls `GotoCommand` 's execute method.
 The `GotoCommand` object checks whether any of the keywords given by the user
-matches the existing module and/or group.
-If it does, the `GotoCommand` returns a `CommandResult`
+matches the existing tab headers. If it does, the `GotoCommand` returns a `CommandResult`
 with a success message.
 
 *Step 6:* `MainWindow` selects the `ClaimsTab` in the `TabPane` to switch to the `Claims Tab`
