@@ -40,6 +40,7 @@ public class TypicalEntries {
     private static final ArrayList<Person> PERSONS_LIST_FOUR = new ArrayList<>(Arrays.asList(ANNA));
     private static final ArrayList<Person> PERSONS_LIST_FIVE = new ArrayList<>(Arrays.asList(ANNA, BRANDON, CHARLIE));
 
+
     // made entries to simulate receipt
     public static final Entry ENTRY_TWO = new EntryBuilder().withItem(PIZZA)
             .withPersons(PERSONS_LIST_TWO).build();

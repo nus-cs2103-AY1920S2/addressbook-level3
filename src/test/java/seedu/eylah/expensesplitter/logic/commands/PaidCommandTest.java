@@ -49,7 +49,7 @@ public class PaidCommandTest {
 
 
         assertEquals(String.format(PaidCommand.MESSAGE_SUCCESS + TypicalPersons.ALICE.getName()
-            + ". Amount decreased from " + "$3.50 to $2.50."), commandResult.getFeedbackToUser());
+            + ". Amount owed decreased from " + "$3.50 to $2.50."), commandResult.getFeedbackToUser());
 
     }
 
