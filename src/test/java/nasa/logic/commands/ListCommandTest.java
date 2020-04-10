@@ -21,8 +21,9 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
-        expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
+        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(), new UserPrefs());
+        expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
     }
 
     @Test

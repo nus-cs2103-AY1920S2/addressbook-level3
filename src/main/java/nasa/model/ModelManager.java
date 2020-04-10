@@ -105,16 +105,19 @@ public class ModelManager implements Model {
         StringBuilder output = new StringBuilder();
         output.append(type);
         input.forEach(x -> {
-                    output.append(" ");
-                    output.append(x);
-                });
-        System.out.println(output.toString());
+            output.append(" ");
+            output.append(x);
+        });
         historyManager.add(temp, output.toString());
     }
 
+    /**
+     * Refresh filter settings.
+     */
     public void refreshUi() {
         String temp = historyManager.getUiItem();
-        List<String> test = Arrays.asList(temp.split("\\s+"));
+        List<String> test = Arrays.asList(temp.trim().split("\\s+"));
+        System.out.println(test.toString());
         String type = test.get(0);
 
         if (!type.equals("null")) {
@@ -206,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyHistory<String> getUiHistoryBook() {
+        return historyManager.getUiHistoryBook();
+    }
+
+    @Override
     public boolean hasModule(ModuleCode module) {
         requireNonNull(module);
         return nasaBook.hasModule(module);
@@ -279,6 +287,10 @@ public class ModelManager implements Model {
         updateHistory("event" + currentUiLocation());
     }
 
+    /**
+     * Find out current UI filter property.
+     * @return String
+     */
     public String currentUiLocation() {
         StringBuilder location = new StringBuilder();
         if (getFilteredModuleList().size() > 1) {
@@ -300,12 +312,15 @@ public class ModelManager implements Model {
                 }
                 i++;
             }
+            System.out.println(location.toString());
             if (!test) {
                 location.append(" null");
             }
-        } else {
+        } else if (getFilteredModuleList().size() == 1){
             location.append(" module ");
             location.append(getFilteredModuleList().get(0).getModuleCode().moduleCode);
+        } else {
+            return " null";
         }
         return location.toString();
     }

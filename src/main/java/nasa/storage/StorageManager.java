@@ -83,6 +83,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException {
+        return readHistoryBook(nasaBookStorage.getHistoryBookFilePath());
+    }
+
+    @Override
     public Optional<ReadOnlyHistory> readUiHistoryBook() throws DataConversionException, IOException {
         return readHistoryBook(nasaBookStorage.getUiHistoryBookFilePath());
     }
@@ -91,11 +96,6 @@ public class StorageManager implements Storage {
     public Optional<ReadOnlyHistory> readUiHistoryBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return nasaBookStorage.readUiHistoryBook(filePath);
-    }
-
-    @Override
-    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException {
-        return readHistoryBook(nasaBookStorage.getHistoryBookFilePath());
     }
 
     @Override
@@ -113,7 +113,7 @@ public class StorageManager implements Storage {
     public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
                              ReadOnlyHistory<String> uiHistoryBook)
             throws IOException {
-        saveUltimate(nasaBook, historyBook, uiHistoryBook,nasaBookStorage.getNasaBookFilePath(),
+        saveUltimate(nasaBook, historyBook, uiHistoryBook, nasaBookStorage.getNasaBookFilePath(),
                 nasaBookStorage.getHistoryBookFilePath(), nasaBookStorage.getUiHistoryBookFilePath());
     }
 

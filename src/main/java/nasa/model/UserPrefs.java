@@ -94,7 +94,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && nasaBookFilePath.equals(o.nasaBookFilePath)
                 && historyBookFilePath.equals(o.historyBookFilePath)
-                && uiHistoryBookFilePath.equals(o.historyBookFilePath);
+                && uiHistoryBookFilePath.equals(o.uiHistoryBookFilePath);
     }
 
     @Override

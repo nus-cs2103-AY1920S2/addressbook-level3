@@ -23,13 +23,13 @@ public class UniqueDeadlineListTest {
 
     @Test
     public void contains_activityNotInList_returnsFalse() {
-        assertFalse(uniqueDeadlineList.contains((Deadline) DEADLINE));
+        assertFalse(uniqueDeadlineList.contains(DEADLINE));
     }
 
     @Test
     public void contains_activityInList_returnsTrue() {
-        uniqueDeadlineList.add((Deadline) DEADLINE);
-        assertTrue(uniqueDeadlineList.contains((Deadline) DEADLINE));
+        uniqueDeadlineList.add(DEADLINE);
+        assertTrue(uniqueDeadlineList.contains(DEADLINE));
     }
 
     @Test

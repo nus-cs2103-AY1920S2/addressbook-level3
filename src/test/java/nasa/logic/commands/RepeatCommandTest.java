@@ -35,8 +35,8 @@ class RepeatCommandTest {
                 RepeatDeadlineCommand.MESSAGE_SUCCESS,
                 CS2103T.getModuleCode(), name, correctIndex.getZeroBased()));
 
-        RepeatDeadlineCommand repeatCommand = new RepeatDeadlineCommand(CS2103T.getModuleCode(), Index.fromZeroBased(1)
-                , correctIndex);
+        RepeatDeadlineCommand repeatCommand = new RepeatDeadlineCommand(CS2103T.getModuleCode(), Index.fromZeroBased(1),
+                correctIndex);
 
         RepeatDeadlineCommand incorrectRepeatCommand = new RepeatDeadlineCommand(CS2103T.getModuleCode(),
                 Index.fromZeroBased(1), wrongIndex);

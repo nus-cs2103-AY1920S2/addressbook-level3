@@ -31,14 +31,14 @@ public class ListCommand extends Command {
         if (moduleCode == null) {
             model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
             model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
-            model.updateHistory("list " + model.currentUiLocation());
+            model.updateHistory("list" + model.currentUiLocation());
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
             ArrayList<String> list = new ArrayList<>();
             list.add(moduleCode.toString());
             if (model.hasModule(moduleCode)) {
                 model.updateFilteredModuleList(new NameContainsKeywordsPredicate(list));
-                model.updateHistory("list " + model.currentUiLocation());
+                model.updateHistory("list" + model.currentUiLocation());
                 return new CommandResult(moduleCode + " listed successfully!");
             } else {
                 return new CommandResult("Module cannot be found!");

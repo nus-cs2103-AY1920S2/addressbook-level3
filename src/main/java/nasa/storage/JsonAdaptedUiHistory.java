@@ -1,5 +1,6 @@
 package nasa.storage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +18,7 @@ public class JsonAdaptedUiHistory {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deadline's %s field is missing!";
 
-    private final List<String> name;
+    private List<String> name = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedDeadline} with the given activity details.
@@ -28,9 +29,14 @@ public class JsonAdaptedUiHistory {
     }
 
     public JsonAdaptedUiHistory(ReadOnlyHistory<String> uiHistory) {
-        this.name = uiHistory.getModuleListHistory();
+        name.addAll(uiHistory.getModuleListHistory());
     }
 
+    /**
+     * Return HistoryBook using json file.
+     * @return HistoryBook
+     * @throws IllegalValueException
+     */
     public HistoryBook<String> toModelType() throws IllegalValueException {
         final ModuleListHistory<String> temp = new ModuleListHistory<>();
         temp.setStack(name);

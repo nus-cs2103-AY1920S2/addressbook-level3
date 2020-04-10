@@ -95,8 +95,6 @@ public class EventBuilder {
      * Build an activity accordingly.
      */
     public Event build() {
-        Event event = new Event(name, fromDate, toDate);
-        event.setNote(note);
-        return event;
+        return new Event(name, fromDate, toDate, note);
     }
 }

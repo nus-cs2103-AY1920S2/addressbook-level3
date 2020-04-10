@@ -12,9 +12,6 @@ import nasa.MainApp;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.util.StringUtil;
 import nasa.logic.Logic;
-import nasa.logic.commands.Command;
-import nasa.logic.commands.QuoteCommand;
-import nasa.logic.parser.NasaBookParser;
 
 /**
  * The manager of the UI component.

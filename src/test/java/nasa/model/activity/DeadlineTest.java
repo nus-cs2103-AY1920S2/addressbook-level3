@@ -1,6 +1,5 @@
 package nasa.model.activity;
 
-import static nasa.testutil.TypicalActivities.DEADLINE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,7 +16,7 @@ class DeadlineTest {
     @Test
     void set_due_date() {
         Date date = new Date("19-12-2020 03:00");
-        Deadline subject = (Deadline) DEADLINE;
+        Deadline subject = new Deadline(new Name("Hello"), new Date("20-12-2021 03:00"));
 
         assertFalse(subject.getDueDate().equals(date));
 
@@ -27,7 +26,7 @@ class DeadlineTest {
 
     @Test
     void set_done() {
-        Deadline subject = (Deadline) DEADLINE;
+        Deadline subject = new Deadline(new Name("Hello"), new Date("12-12-2020 23:59"));
         subject.setDone(true);
 
         assertTrue(subject.isDone());

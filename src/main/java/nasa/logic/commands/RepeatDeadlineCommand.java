@@ -65,6 +65,6 @@ public class RepeatDeadlineCommand extends Command {
 
     @Override
     public String toString() {
-        return String.format("%s %s %d", module, index.getZeroBased(), schedule.getZeroBased());
+        return String.format("%s %d %d", module, index.getZeroBased(), schedule.getZeroBased());
     }
 }

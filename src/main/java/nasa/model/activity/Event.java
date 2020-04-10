@@ -30,6 +30,21 @@ public class Event extends Activity {
     }
 
     /**
+     * This constructor is use for testing.
+     * @param name Name of event
+     * @param startDate Start date of event
+     * @param endDate End date of event
+     * @param note Notes
+     */
+    public Event(Name name, Date startDate, Date endDate, Note note) {
+        super(name);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isOver = endDate.isBefore(Date.now());
+        super.setNote(note);
+    }
+
+    /**
      * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
      * @param name Name
@@ -150,7 +165,7 @@ public class Event extends Activity {
 
         Event otherEvent = (Event) other;
         return otherEvent.getName().equals(getName())
-                && otherEvent.getStartDate().equals(getEndDate())
+                && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate())
                 && otherEvent.getDateCreated().equals(getDateCreated())
                 && otherEvent.getNote().equals(getNote());

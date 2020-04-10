@@ -209,7 +209,7 @@ public class Module {
      */
     public boolean hasDeadline(Deadline deadline) {
         for (Deadline currentDeadline : deadlineList.getActivityList()) {
-            if (currentDeadline == deadline) {
+            if (currentDeadline.isSameDeadline(deadline)) {
                 return true;
             }
         }
@@ -223,7 +223,7 @@ public class Module {
      */
     public boolean hasEvent(Event event) {
         for (Event currentEvent : eventList.getActivityList()) {
-            if (currentEvent == event) {
+            if (currentEvent.isSameEvent(event)) {
                 return true;
             }
         }

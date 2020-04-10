@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.RepeatDeadlineCommand;
-import nasa.model.activity.Name;
 import nasa.model.module.ModuleCode;
 
 class RepeatActivityCommandParserTest {
@@ -19,6 +18,6 @@ class RepeatActivityCommandParserTest {
     @Test
     void commandParserTest() {
         assertParseSuccess(parser, "1 m/CS1231 r/1",
-               new RepeatDeadlineCommand(moduleCode, Index.fromZeroBased(1), index));
+               new RepeatDeadlineCommand(moduleCode, Index.fromOneBased(1), index));
     }
 }

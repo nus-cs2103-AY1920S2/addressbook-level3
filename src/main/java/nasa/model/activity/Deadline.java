@@ -45,6 +45,8 @@ public class Deadline extends Activity {
         requireAllNonNull(priority, dueDate);
         this.priority = priority;
         this.dueDate = dueDate;
+        isDone = false;
+        isOverdue = isOverdue();
     }
 
     /**

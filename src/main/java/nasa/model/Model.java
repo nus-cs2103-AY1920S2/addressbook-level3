@@ -78,6 +78,11 @@ public interface Model {
      */
     ReadOnlyHistory getHistoryBook();
 
+    /** Returns the UiHistoryBook
+     * @return ReadOnlyHistory
+     */
+    ReadOnlyHistory getUiHistoryBook();
+
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      * @param moduleCode ModuleCode

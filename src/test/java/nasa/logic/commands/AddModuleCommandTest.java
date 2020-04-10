@@ -31,14 +31,16 @@ public class AddModuleCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<UniqueModuleList>(), new UserPrefs());
+        model = new ModelManager(getTypicalNasaBook(), new HistoryBook<UniqueModuleList>(), new HistoryBook<String>(),
+                new UserPrefs());
     }
 
     @Test
     public void execute_newModule_success() throws Exception {
         Module validModule = new Module(new ModuleCode(MODULE_CODE), new ModuleName(MODULE_NAME));
 
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUiHistoryBook(),
+                model.getUserPrefs());
         expectedModel.addModule(validModule);
 
         assertCommandSuccess(new AddModuleCommand(validModule), model, String.format(AddModuleCommand.MESSAGE_SUCCESS,
