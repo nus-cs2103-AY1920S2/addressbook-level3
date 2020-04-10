@@ -16,14 +16,16 @@ This app is built over https://github.com/nus-cs2103-AY1920S2/addressbook-level3
 == Summary of contributions
 
 * *Major enhancement*: defined *core backend framework of application*
-** *What*: Refractored previous code, adding new concepts such as `Conditions` / `Aggregations` / `InMemoryStorage`
+
+** *What*: Refractored previous code, adding new concepts such as `Conditions` / `Aggregator` / `InMemoryStorage`
 that form the backbone of new features being introduced to meet user requirements.
+Refer to https://github.com/AY1920S2-CS2103-W15-1/main/blob/master/docs/DeveloperGuide.adoc#class-diagram-illustration[Developer Guide] for more details.
 
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-
-** Credits: https://stackoverflow.com/[StackOverflow]
-
+** *Justification*:
+*** Present code base does not implement Data Access Objects (DAO) protocols for abstracting data access from the application.
+*** Introducing `Conditions` / `Aggregator` classes allows easy extensibility of code base to accommodate new features.
+*** Highlights: Team member follows this concept to build his features.
+*** Credits: https://stackoverflow.com/[StackOverflow]
 
 * *Major enhancement*: proposed *idea and motivation for Contact Tracing app*
 
