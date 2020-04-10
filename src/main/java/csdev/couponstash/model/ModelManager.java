@@ -105,12 +105,16 @@ public class ModelManager implements Model {
 
     @Override
     public String setMoneySymbol(String moneySymbol) {
+        logger.info("Currency symbol changed to " + moneySymbol);
         String oldSymbol = this.getStashSettings().getMoneySymbol().setString(moneySymbol);
         // force refresh of the JavaFX list so Coupons will show the new symbol
         Predicate<? super Coupon> pred = this.filteredCoupons.getPredicate();
         updateFilteredCouponList(coupon -> false);
         // restore the old list after a short moment
-        Platform.runLater(() -> updateFilteredCouponList(pred));
+        Platform.runLater(() -> {
+            updateFilteredCouponList(pred);
+            logger.info("Coupon list refreshed to show new symbol " + moneySymbol);
+        });
         return oldSymbol;
     }
 
