@@ -15,11 +15,21 @@ public class ListReceiptCommand extends Command {
     public static final String MESSAGE_USAGE = "listreceipt is entered as `listreceipt`";
     public static final String MESSAGE_SUCCESS = "Listed current receipt containing all Items and Person(s) involved "
             + "in splitting it.";
+    public static final String MESSAGE_EMPTY = "Receipt is currently empty.\n"
+            + "\n"
+            + "Please use the additem command to add an item.\n"
+            + "Example:\n"
+            + "-i ITEMNAME -p PRICE -n NAME [-n NAME]..."
+            + "\n";
 
     @Override
     public CommandResult execute(SplitterModel splitterModel) {
         requireNonNull(splitterModel);
-        splitterModel.listReceipt();
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (!splitterModel.getReceipt().getReceipt().isEmpty()) {
+            splitterModel.listReceipt();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            return new CommandResult(MESSAGE_EMPTY);
+        }
     }
 }

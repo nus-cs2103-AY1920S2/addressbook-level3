@@ -17,7 +17,7 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "P3rm@s";
     private static final String INVALID_ITEM_NAME = "B33r T()W3R";
 
-    private static final String VALID_NAME = "Permas";
+    private static final String VALID_NAME = "permas";
     private static final String VALID_ITEM_NAME = "Beer Tower";
 
     private static final String WHITESPACE = " \t\r\n";

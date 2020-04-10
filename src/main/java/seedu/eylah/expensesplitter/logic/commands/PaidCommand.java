@@ -72,7 +72,7 @@ public class PaidCommand extends Command {
 
             // This cases handles when user key in `paid 1` which stands for paid the full amount Person in Index 1
             // owes.
-            if (amountPaid == "all") {
+            if (amountPaid.equals("all")) {
                 PaidCommand newPaidCommand = new PaidCommand(indexOfPersonPaid, initialAmount.substring(1));
                 return newPaidCommand.execute(splitterModel);
 

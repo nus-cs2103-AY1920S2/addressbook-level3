@@ -26,9 +26,9 @@ public class AddItemCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the receipt. "
             + "Parameters: "
-            + PREFIX_ITEM + "ITEM NAME "
-            + PREFIX_PRICE + "PRICE "
-            + PREFIX_NAME + "PERSON NAME";
+            + PREFIX_ITEM + " ITEM NAME "
+            + PREFIX_PRICE + " PRICE "
+            + PREFIX_NAME + " PERSON NAME";
 
     public static final String MESSAGE_SUCCESS = "The entry: \n  -> %1$s\nhas been added.";
 
