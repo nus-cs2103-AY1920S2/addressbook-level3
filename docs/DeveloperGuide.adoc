@@ -505,7 +505,7 @@ Figure : AddItem Command Activity Diagram
 
 *Implementation of AddItem Command*
 
-The following is a detailed explanation of the operations `AddItemCommand` performs. +
+The following is a detailed explanation of the operations AddItemCommand performs. +
 
 1. The `AddItemCommand#execute(SplitterModel splitterModel)` method is executed and it checks if the specified `ITEM`
 and `PERSONS` to be added are valid. If valid, a new `Entry` would be created with the specified `ITEM` and `PERSONS`.
