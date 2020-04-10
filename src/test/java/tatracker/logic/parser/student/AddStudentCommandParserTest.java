@@ -35,8 +35,6 @@ import tatracker.model.student.Phone;
 import tatracker.model.tag.Tag;
 
 public class AddStudentCommandParserTest {
-    private static final Module MODULE = new Module(VALID_MODULE_CS2030);
-    private static final Group GROUP = new Group(VALID_GROUP_T04);
 
     private AddStudentCommandParser parser = new AddStudentCommandParser();
     //

@@ -19,8 +19,6 @@ import tatracker.model.student.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalTaTrackerWithStudents(), new UserPrefs());
 
     @Test
     public void equals() {
