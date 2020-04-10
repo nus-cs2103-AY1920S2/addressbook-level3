@@ -26,6 +26,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
 
@@ -49,6 +50,8 @@ class AddInfoCommandTest {
         AddInfoCommand addInfoCommand = new AddInfoCommand(INDEX_FIRST_PERSON, remarks);
 
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
@@ -58,7 +61,10 @@ class AddInfoCommandTest {
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(addInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(addInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -73,6 +79,8 @@ class AddInfoCommandTest {
         AddInfoCommand addInfoCommand = new AddInfoCommand(INDEX_FIRST_PERSON, remarks);
 
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
@@ -82,7 +90,10 @@ class AddInfoCommandTest {
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(addInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(addInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
