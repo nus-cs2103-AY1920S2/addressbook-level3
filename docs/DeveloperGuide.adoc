@@ -179,7 +179,7 @@ This section describes some noteworthy details on how certain features are imple
     Progress + ProgressManager goes here
 
 === Entity Linking - Assigning/Un-Assigning an Entity to/from a Course
-In order to allow the program to be able to keep track of the students/assignments/teachers that are assigned
+In order to allow the tracking of the students/assignments/teachers that are assigned
 to a course and vice versa, this required us to implement a structure which allowed us to obtain information
 from the aforementioned objects, without causing any circular referencing errors.
 
@@ -223,6 +223,14 @@ Explain flow for extending from undoableCommand
 ==== Opposite Command for edit
 
 ==== Opposite command for assign/ unassign
+As explained in 2.3, a `pre-processing step` must first be done before executing an undo-able assign/unassign command
+to ensure that all entity links are in correct state before command execution.
+
+.Relationship between Entities
+image::IVAN-ProprocessingAssignActivityDiagram.png[]
+
+
+
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
 

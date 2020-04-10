@@ -4,6 +4,7 @@ import seedu.address.commons.util.Constants;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandAssign.AssignDescriptor;
 import seedu.address.logic.commands.commandAssign.AssignStudentToCourseCommand;
+import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.manager.EdgeManager;
@@ -91,6 +92,6 @@ public class UnassignTeacherFromCourseCommand extends UnassignCommandBase {
 
     @Override
     protected void generateOppositeCommand() throws CommandException {
-        oppositeCommand = new AssignStudentToCourseCommand(this.assignDescriptor);
+        oppositeCommand = new AssignTeacherToCourseCommand(this.assignDescriptor);
     }
 }
