@@ -589,7 +589,7 @@ exist, it is removed from the module.
 
 The `group edit` command has been implemented in a similar manner.
 
-==== Implementation of the Student Add and Delete Commands
+==== Implementation of the Student Add, Delete and Edit Commands
 
 The following sequence diagram shows the sequence of commands that take place
 between the logic and model components of the TA-Tracker when the user enters the
@@ -660,6 +660,8 @@ doesn't exist in the TA-Tracker.
 
 7. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
 model and removes the student.
+
+The `student edit` command has been implemented in a similar manner.
 
 ==== Implementation of the Sort Command
 
