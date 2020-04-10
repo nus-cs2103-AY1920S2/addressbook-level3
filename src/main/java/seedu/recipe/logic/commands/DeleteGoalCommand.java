@@ -26,8 +26,9 @@ public class DeleteGoalCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 Herbivore";
 
     public static final String MESSAGE_DELETE_GOAL_SUCCESS = "Successfully deleted goal from %1$s!";
-    public static final String MESSAGE_INVALID_GOAL_NAME = "Attempting to delete a non-existent goal. "
+    public static final String MESSAGE_INVALID_GOAL_NAME = "Invalid goal name! "
             + "Ensure that the capitalization of goals are the same.";
+    public static final String MESSAGE_INVALID_GOAL = "Attempting to delete a non-existent goal.";
 
     private final Tab recipesTab = Tab.RECIPES;
     private final Index index;
@@ -60,7 +61,13 @@ public class DeleteGoalCommand extends Command {
         if (!Goal.isValidGoalName(this.goal)) {
             throw new CommandException(MESSAGE_INVALID_GOAL_NAME);
         }
-        updatedGoalsList.remove(new Goal(this.goal));
+        Goal currGoal = new Goal(this.goal);
+        if(updatedGoalsList.contains(currGoal)) {
+            updatedGoalsList.remove(currGoal);
+        } else {
+            throw new CommandException(MESSAGE_INVALID_GOAL);
+        }
+
 
         editRecipeDescriptor.setGoals(updatedGoalsList);
 
