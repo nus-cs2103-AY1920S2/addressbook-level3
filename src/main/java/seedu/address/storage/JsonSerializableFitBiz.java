@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.FitBiz;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.client.Client;
 
 /**
  * An Immutable FitBiz that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "fitbiz")
 class JsonSerializableFitBiz {
 
     public static final String MESSAGE_DUPLICATE_CLIENT = "Clients list contains duplicate client(s).";
@@ -32,16 +32,16 @@ class JsonSerializableFitBiz {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyFitBiz} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableFitBiz}.
      */
-    public JsonSerializableFitBiz(ReadOnlyAddressBook source) {
+    public JsonSerializableFitBiz(ReadOnlyFitBiz source) {
         clients.addAll(source.getClientList().stream().map(JsonAdaptedClient::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code FitBiz} object.
+     * Converts this FitBiz into the model's {@code FitBiz} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

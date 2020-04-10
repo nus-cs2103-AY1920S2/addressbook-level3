@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.schedule.Schedule;
@@ -18,6 +19,8 @@ import seedu.address.model.schedule.ScheduleList;
  * Adds the training schedule of the client in FitBiz.
  */
 public class ScheduleCommand extends Command {
+
+    public static final List<Prefix> PREFIXES = List.of(PREFIX_SCHEDULE);
 
     public static final String COMMAND_WORD = "schedule";
 
@@ -67,7 +70,6 @@ public class ScheduleCommand extends Command {
                 clientToEdit.getRemark(), clientToEdit.getSports(), clientToEdit.getExerciseList(),
                 clientToEdit.getPersonalBest(), newScheduleList);
         model.setClient(clientToEdit, editedClient);
-        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
 
         // if toAdd is empty, meaning the schedule has been cleared
         if (toAdd.isEmpty()) {

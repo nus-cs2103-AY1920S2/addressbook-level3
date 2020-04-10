@@ -19,7 +19,7 @@ import seedu.address.model.ClientInView;
 import seedu.address.model.FitBiz;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        FitBizStorage fitBizStorage = new JsonFitBizStorage(userPrefs.getAddressBookFilePath());
+        FitBizStorage fitBizStorage = new JsonFitBizStorage(userPrefs.getFitBizFilePath());
         storage = new StorageManager(fitBizStorage, userPrefsStorage);
         ClientInView clientInView = new ClientInView();
 
@@ -71,19 +71,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s FitBiz and {@code userPrefs}. <br>
+     * The data from the sample FitBiz will be used instead if {@code storage}'s FitBiz is not found,
+     * or an empty FitBiz will be used instead if errors occur when reading {@code storage}'s FitBiz.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ClientInView clientInView) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyFitBiz> fitBizOptional;
+        ReadOnlyFitBiz initialData;
         try {
-            addressBookOptional = storage.readFitBiz();
-            if (!addressBookOptional.isPresent()) {
+            fitBizOptional = storage.readFitBiz();
+            if (!fitBizOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample FitBiz");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = fitBizOptional.orElseGet(SampleDataUtil::getSampleFitBiz);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FitBiz");
             initialData = new FitBiz();
@@ -175,7 +175,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping FitBiz ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

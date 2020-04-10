@@ -20,29 +20,29 @@ import seedu.address.model.schedule.ScheduleDay;
 import seedu.address.model.schedule.ScheduleList;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the FitBiz data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final FitBiz addressBook;
+    private final FitBiz fitBiz;
     private final UserPrefs userPrefs;
     private final FilteredList<Client> filteredClients;
     private final ClientInView clientInView;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given fitBiz and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ClientInView clientInView) {
+    public ModelManager(ReadOnlyFitBiz fitBiz, ReadOnlyUserPrefs userPrefs, ClientInView clientInView) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(fitBiz, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with FitBiz: " + fitBiz + " and user prefs " + userPrefs);
 
-        this.addressBook = new FitBiz(addressBook);
+        this.fitBiz = new FitBiz(fitBiz);
         this.userPrefs = new UserPrefs(userPrefs);
         this.clientInView = clientInView;
-        filteredClients = new FilteredList<>(this.addressBook.getClientList());
+        filteredClients = new FilteredList<>(this.fitBiz.getClientList());
     }
 
     public ModelManager() {
@@ -74,32 +74,32 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getFitBizFilePath() {
+        return userPrefs.getFitBizFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setFitBizFilePath(Path fitBizFilePath) {
+        requireNonNull(fitBizFilePath);
+        userPrefs.setFitBizFilePath(fitBizFilePath);
     }
 
     //=========== FitBiz ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setFitBiz(ReadOnlyFitBiz fitBiz) {
+        this.fitBiz.resetData(fitBiz);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyFitBiz getFitBiz() {
+        return fitBiz;
     }
 
     @Override
     public boolean hasClient(Client client) {
         requireNonNull(client);
-        return addressBook.hasClient(client);
+        return fitBiz.hasClient(client);
     }
 
     @Override
@@ -107,27 +107,29 @@ public class ModelManager implements Model {
         if (target == getClientInView()) {
             clearClientInView();
         }
-        addressBook.removeClient(target);
+        fitBiz.removeClient(target);
     }
 
     @Override
     public void addClient(Client client) {
-        addressBook.addClient(client);
+        fitBiz.addClient(client);
         updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
     }
 
     @Override
     public void setClient(Client target, Client editedClient) {
         requireAllNonNull(target, editedClient);
-
-        addressBook.setClient(target, editedClient);
+        if (hasClientInView() && getClientInView().equals(target)) {
+            clientInView.setClient(editedClient);
+        }
+        fitBiz.setClient(target, editedClient);
     }
 
     //=========== Filtered Client List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Client} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedFitBiz}
      */
     @Override
     public ObservableList<Client> getFilteredClientList() {
@@ -164,6 +166,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateClientViewIfApplicable(Client clientToEdit, Client editedClient) {
+        requireAllNonNull(clientToEdit, editedClient);
         if (!clientInView.hasClientInView()) {
             return;
         }
@@ -188,19 +191,61 @@ public class ModelManager implements Model {
 
     //=========== Exercise ================================================================================
 
-    @Override
-    public void deleteExercise (Exercise exercise) {
-        Client clientToEdit = getClientInView();
-        UniqueExerciseList clientToEditExerciseList = clientToEdit.getExerciseList();
-
-        // mutates the list belonging to the client by removing the exercise
-        clientToEditExerciseList.remove(exercise);
+    /**
+     * Creates a new {@code Client} with the new exercise list. Other attributes remain the
+     * same.
+     */
+    private Client buildClientWithNewExerciseList(Client clientToEdit,
+        UniqueExerciseList clientToEditExerciseList) {
 
         Client editedClient = new Client(clientToEdit.getName(), clientToEdit.getGender(), clientToEdit.getPhone(),
             clientToEdit.getEmail(), clientToEdit.getAddress(), clientToEdit.getTags(), clientToEdit.getBirthday(),
             clientToEdit.getCurrentWeight(), clientToEdit.getTargetWeight(), clientToEdit.getHeight(),
             clientToEdit.getRemark(), clientToEdit.getSports(), clientToEditExerciseList,
             clientToEdit.getPersonalBest(), clientToEdit.getScheduleList());
+
+        return editedClient;
+    }
+
+    @Override
+    public Client addExerciseToClient(Exercise exercise) {
+        requireNonNull(exercise);
+
+        Client clientToEdit = getClientInView();
+        UniqueExerciseList clientToEditExerciseList = clientToEdit.getExerciseList();
+        clientToEditExerciseList.addToSorted(exercise);
+
+        Client editedClient = buildClientWithNewExerciseList(clientToEdit, clientToEditExerciseList);
+
+        setClient(clientToEdit, editedClient);
+        return editedClient;
+    }
+
+    @Override
+    public boolean hasExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        return getClientInView().getExerciseList().contains(exercise);
+    }
+
+
+    @Override
+    public void editExercise (Exercise target, Exercise editedExercise) {
+        Client clientToEdit = getClientInView();
+        UniqueExerciseList clientToEditExerciseList = clientToEdit.getExerciseList();
+
+        clientToEditExerciseList.setExercise(target, editedExercise);
+    }
+
+    @Override
+    public void deleteExercise (Exercise exercise) {
+        requireNonNull(exercise);
+        Client clientToEdit = getClientInView();
+        UniqueExerciseList clientToEditExerciseList = clientToEdit.getExerciseList();
+
+        // mutates the list belonging to the client by removing the exercise
+        clientToEditExerciseList.remove(exercise);
+
+        Client editedClient = buildClientWithNewExerciseList(clientToEdit, clientToEditExerciseList);
 
         setClient(clientToEdit, editedClient);
     }
@@ -219,7 +264,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return fitBiz.equals(other.fitBiz)
                 && userPrefs.equals(other.userPrefs)
                 && filteredClients.equals(other.filteredClients)
                 && clientInView.equals(other.clientInView);

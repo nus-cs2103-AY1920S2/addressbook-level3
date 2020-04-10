@@ -28,6 +28,8 @@ public class ExerciseSetsTest {
         assertFalse(ExerciseSets.isValidExerciseSets(" ")); // spaces only
         assertFalse(ExerciseSets.isValidExerciseSets("ab")); // contains no numbers
         assertFalse(ExerciseSets.isValidExerciseSets(".2")); // decimal numbers
+        assertFalse(ExerciseReps.isValidExerciseReps("01")); // starts with 0
+        assertFalse(ExerciseReps.isValidExerciseReps("10000")); // over 9999
         assertFalse(ExerciseSets.isValidExerciseSets("-23")); // negative numbers
         assertFalse(ExerciseSets.isValidExerciseSets("-23.23")); // negative decimals
         assertFalse(ExerciseSets.isValidExerciseSets("as.23")); // inclusion of letters
@@ -40,10 +42,10 @@ public class ExerciseSetsTest {
 
         // valid weight
         assertTrue(ExerciseSets.isValidExerciseSets("")); // empty string
-        assertTrue(ExerciseSets.isValidExerciseSets("0")); // single digit
         assertTrue(ExerciseSets.isValidExerciseSets("5")); // single digit
-        assertTrue(ExerciseSets.isValidExerciseSets("003")); // leading zeros
         assertTrue(ExerciseSets.isValidExerciseSets("456")); // numbers only
+        assertTrue(ExerciseReps.isValidExerciseReps("1")); // near boundary
+        assertTrue(ExerciseReps.isValidExerciseReps("9999")); // near boundary
     }
 
 }

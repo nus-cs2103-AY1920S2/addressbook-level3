@@ -19,7 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FitBiz;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.client.Client;
 import seedu.address.model.exercise.Exercise;
@@ -102,12 +102,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getFitBizFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setFitBizFilePath(Path fitBizFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -117,12 +117,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyFitBiz getFitBiz() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setFitBiz(ReadOnlyFitBiz newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -182,6 +182,20 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasExercise(Exercise exercise) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void editExercise(Exercise target, Exercise editedExercise) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public Client addExerciseToClient(Exercise exercise) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteExercise(Exercise exercise) {
             throw new AssertionError("This method should not be called.");
         }
@@ -224,7 +238,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyFitBiz getFitBiz() {
             return new FitBiz();
         }
     }

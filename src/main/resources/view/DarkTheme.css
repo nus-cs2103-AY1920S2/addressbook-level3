@@ -241,6 +241,16 @@
   -fx-font-family: "Ubuntu Mono", monospace
 }
 
+.error-text-field {
+  -fx-focus-color: red;
+  -fx-faint-focus-color: #ff000022;
+}
+
+.success-text-field {
+  -fx-focus-color: rgb(0, 206, 0);
+  -fx-faint-focus-color: #00ff0022;
+}
+
 #tags {
   -fx-hgap: 7;
   -fx-vgap: 3;

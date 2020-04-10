@@ -20,11 +20,11 @@ public class CommandHistoryStorageTest {
     @TempDir
     public Path testFolder;
 
-    private CommandHistoryStorage historyStorage;
+    private StorageReaderWriter historyStorage;
 
     @BeforeEach
     public void setUp() {
-        historyStorage = new CommandHistoryStorage(getTempFilePath("test.txt"));
+        historyStorage = new StorageReaderWriter(getTempFilePath("test.txt"));
     }
 
     private Path getTempFilePath(String fileName) {
@@ -38,13 +38,13 @@ public class CommandHistoryStorageTest {
 
     @Test
     public void saveToStorage_nullHistory_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> historyStorage.saveToStorage(null));
+        assertThrows(NullPointerException.class, () -> historyStorage.writeToStorage(null));
     }
 
     @Test
     public void readFromStorage_afterSavingToStorage_returnsCorrectList() {
-        historyStorage.saveToStorage(VALID_HISTORY_LIST);
-        ArrayList<String> storageListRead = historyStorage.readFromStorage();
+        historyStorage.writeToStorage(VALID_HISTORY_LIST);
+        List<String> storageListRead = historyStorage.readFromStorage();
 
         assertEquals(VALID_HISTORY_LIST.toString(), storageListRead.toString());
     }
@@ -52,14 +52,14 @@ public class CommandHistoryStorageTest {
     @Test
     void saveToStorage_calledMultipleTimes_overwritesStorage() {
         // makes sure saveToStorage is overwriting, not appending
-        historyStorage.saveToStorage(VALID_HISTORY_LIST);
-        ArrayList<String> read1 = historyStorage.readFromStorage();
-        historyStorage.saveToStorage(VALID_HISTORY_LIST);
-        ArrayList<String> read2 = historyStorage.readFromStorage();
-        historyStorage.saveToStorage(VALID_HISTORY_LIST);
-        ArrayList<String> read3 = historyStorage.readFromStorage();
-        historyStorage.saveToStorage(VALID_HISTORY_LIST);
-        ArrayList<String> read4 = historyStorage.readFromStorage();
+        historyStorage.writeToStorage(VALID_HISTORY_LIST);
+        List<String> read1 = historyStorage.readFromStorage();
+        historyStorage.writeToStorage(VALID_HISTORY_LIST);
+        List<String> read2 = historyStorage.readFromStorage();
+        historyStorage.writeToStorage(VALID_HISTORY_LIST);
+        List<String> read3 = historyStorage.readFromStorage();
+        historyStorage.writeToStorage(VALID_HISTORY_LIST);
+        List<String> read4 = historyStorage.readFromStorage();
 
         assertEquals(VALID_HISTORY_LIST.toString(), read1.toString());
         assertEquals(VALID_HISTORY_LIST.toString(), read2.toString());
@@ -69,9 +69,9 @@ public class CommandHistoryStorageTest {
 
     @Test
     public void clearStorage_onInitialNonEmptyStorage_returnsEmptyList() {
-        historyStorage.saveToStorage(VALID_HISTORY_LIST);
+        historyStorage.writeToStorage(VALID_HISTORY_LIST);
         historyStorage.clearStorage();
-        ArrayList<String> storageList = historyStorage.readFromStorage();
+        List<String> storageList = historyStorage.readFromStorage();
 
         assertEquals(EMPTY_HISTORY_LIST.toString(), storageList.toString());
     }

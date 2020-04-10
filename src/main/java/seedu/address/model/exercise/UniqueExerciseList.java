@@ -65,7 +65,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
 
     /**
      * Inserts an exercise to the list while ensuring list is sorted by the exercise
-     * dates.
+     * date in descending order and by exercise name in ascending order.
      *
      * <p>
      * The exercise must not already exist in the list. This basically does
@@ -75,14 +75,29 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      */
     public void addToSorted(Exercise toAdd) {
         requireNonNull(toAdd);
+
         if (contains(toAdd)) {
             throw new DuplicateExerciseException();
         }
+
         int idx = 0;
+        LocalDate toAddDate = toAdd.getExerciseDate().value;
+        String toAddName = toAdd.getExerciseName().value.toLowerCase();
         for (Exercise curr : internalList) {
-            LocalDate toAddDate = toAdd.getExerciseDate().value;
             LocalDate currDate = curr.getExerciseDate().value;
-            if (toAddDate.compareTo(currDate) < 0) {
+            String currName = curr.getExerciseName().value.toLowerCase();
+            if (toAddDate.compareTo(currDate) > 0) {
+                // already at correct position
+                break;
+            } else if (toAddDate.compareTo(currDate) == 0) {
+                // sort by name
+                if (toAddName.compareTo(currName) <= 0) {
+                    break;
+                } else {
+                    idx++;
+                }
+            } else {
+                // toAddDate is later than currDate
                 idx++;
             }
         }
@@ -103,19 +118,29 @@ public class UniqueExerciseList implements Iterable<Exercise> {
             throw new ExerciseNotFoundException();
         }
 
+        remove(target);
+
         if (!target.isSameExercise(editedExercise) && contains(editedExercise)) {
             throw new DuplicateExerciseException();
         }
 
-        internalList.set(index, editedExercise);
+        addToSorted(editedExercise);
     }
 
     /**
-     * Sorts the list by the exercise date in descending order.
+     * Sorts the list by the exercise date in descending order, and if the dates
+     * are equal, then by the exercise name in ascending order.
      */
-    public void sortByExerciseDate() {
+    public void sortByExerciseDateAndName() {
         Comparator<Exercise> byExerciseDate = (Exercise e1, Exercise e2) -> {
-            return e2.getExerciseDate().value.compareTo(e1.getExerciseDate().value);
+            LocalDate e1Date = e1.getExerciseDate().value;
+            LocalDate e2Date = e2.getExerciseDate().value;
+            String e1Name = e1.getExerciseName().value.toUpperCase();
+            String e2Name = e2.getExerciseName().value.toUpperCase();
+            if (e2Date.compareTo(e1Date) == 0) {
+                return e1Name.compareTo(e2Name);
+            }
+            return e2Date.compareTo(e1Date);
         };
         FXCollections.sort(internalList, byExerciseDate);
     }

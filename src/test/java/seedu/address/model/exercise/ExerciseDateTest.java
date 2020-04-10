@@ -4,9 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 
 class ExerciseDateTest {
+
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final LocalDate DATE_NOW = LocalDate.now();
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -32,13 +38,20 @@ class ExerciseDateTest {
         assertFalse(ExerciseDate.isValidExerciseDate("11-13-1213")); // months more than 12
         assertFalse(ExerciseDate.isValidExerciseDate("32-11-1213")); // dates more than 31
         assertFalse(ExerciseDate.isValidExerciseDate("9-11-12131")); // years more than 4 digits
+        assertFalse(ExerciseDate.isValidExerciseDate(
+            DATE_NOW.plusDays(1).format(DATE_TIME_FORMATTER))); // 1 day after the current day
+        assertFalse(ExerciseDate.isValidExerciseDate(
+            DATE_NOW.minusYears(1).minusDays(1).format(DATE_TIME_FORMATTER))); // 1 year and 1 day before current date
+        assertFalse(ExerciseDate.isValidExerciseDate(
+            DATE_NOW.minusYears(2).format(DATE_TIME_FORMATTER))); // 2 years before current date
 
         // valid birthday
-        assertTrue(ExerciseDate.isValidExerciseDate("01-01-1980")); // exercise date on 01-01-1980
-        assertTrue(ExerciseDate.isValidExerciseDate("01-01-2820")); // exercise date on 01-01-2820
-        assertTrue(ExerciseDate.isValidExerciseDate("31-01-2010")); // exercise date on 31-01-2010
+        assertTrue(ExerciseDate.isValidExerciseDate(
+            DATE_NOW.format(DATE_TIME_FORMATTER))); // current date
+        assertTrue(ExerciseDate.isValidExerciseDate(
+            DATE_NOW.minusMonths(4).format(DATE_TIME_FORMATTER))); // 4 months before current date
+        assertTrue(ExerciseDate.isValidExerciseDate(
+            DATE_NOW.minusYears(1).format(DATE_TIME_FORMATTER))); // 1 year before current date
 
-        assertTrue(new ExerciseDate("01-01-1980").hashCode() == new ExerciseDate("01-01-1980").hashCode());
-        assertTrue(new ExerciseDate("01-01-1980").toString().equals("01-01-1980") == true);
     }
 }

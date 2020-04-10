@@ -26,13 +26,13 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" styleClass="list-name-label" text="\$first" />
+        <Label fx:id="name" styleClass="list-name-label" text="\$first" wrapText="true" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="list-attributes-label" text="\$phone" />
-      <Label fx:id="gender" styleClass="list-attributes-label" text="\$gender" />
-      <Label fx:id="birthday" styleClass="list-attributes-label" text="\$birthday" />
-      <Label fx:id="sports" styleClass="list-attributes-label" text="\$sports" />
+      <Label fx:id="phone" styleClass="list-attributes-label" text="\$phone" wrapText="true" />
+      <Label fx:id="email" styleClass="list-attributes-label" text="\$email" wrapText="true" />
+      <Label fx:id="address" styleClass="list-attributes-label" text="\$address" wrapText="true" />
+      <Label fx:id="sports" styleClass="list-attributes-label" text="\$sports" wrapText="true" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

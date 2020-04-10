@@ -139,7 +139,7 @@ class JsonAdaptedClient {
         for (JsonAdaptedExercise ex : exerciseList) {
             modelExerciseList.add(ex.toModelType());
         }
-        modelExerciseList.sortByExerciseDate(); // do a sanity presort to ensure initial list is sorted
+        modelExerciseList.sortByExerciseDateAndName(); // do a sanity presort to ensure initial list is sorted
 
         final PersonalBest modelPersonalBest = new PersonalBest();
 

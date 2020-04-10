@@ -47,6 +47,19 @@ public class Exercise {
     }
 
     /**
+     * Returns a string of describing {@code Exercise} to be shown in {@code ResultDisplay}
+     */
+    public String getForOutput() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Exercise name: ").append(getExerciseName())
+            .append("\nDate: ").append(getExerciseDate())
+            .append("\nReps: ").append(getExerciseReps())
+            .append("\nWeight: ").append(getExerciseWeight())
+            .append("\nSets: ").append(getExerciseSets());
+        return builder.toString();
+    }
+
+    /**
      * Returns true if both exercises of the same name, date, reps and weight.
      * This defines a weaker notion of equality between two exercises.
      */

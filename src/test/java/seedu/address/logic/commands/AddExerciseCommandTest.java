@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
@@ -27,10 +27,12 @@ import seedu.address.testutil.ExerciseBuilder;
 public class AddExerciseCommandTest {
 
     private Model model;
+    private Client clientInView;
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
+        model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
+        clientInView = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
     }
 
     @Test
@@ -40,22 +42,19 @@ public class AddExerciseCommandTest {
 
     @Test
     public void execute_exerciseAcceptedByModel_addSuccessful() throws Exception {
-        Client client = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
-        model.setClientInView(client);
-
+        model.setClientInView(clientInView);
         Exercise newExercise = new ExerciseBuilder().withExerciseName("Changed").build();
 
         CommandResult commandResult = new AddExerciseCommand(newExercise).execute(model);
 
-        assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS, client.getExerciseList().toString()),
-                commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS,
+            newExercise.getForOutput()),
+            commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_noClientInView_throwsCommandException() {
-        Client client = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
-
-        Exercise exerciseToAdd = client.getExerciseList().getExercise(INDEX_FIRST_EXERCISE);
+        Exercise exerciseToAdd = clientInView.getExerciseList().getExercise(INDEX_FIRST_EXERCISE);
 
         AddExerciseCommand addExerciseCommand = new AddExerciseCommand(exerciseToAdd);
 
@@ -64,7 +63,6 @@ public class AddExerciseCommandTest {
 
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
-        Client clientInView = model.getFilteredClientList().get(INDEX_FIRST_EXERCISE.getZeroBased());
         model.setClientInView(clientInView);
 
         Exercise exerciseToAdd = clientInView.getExerciseList().getExercise(INDEX_FIRST_EXERCISE);

@@ -25,7 +25,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ClientInView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
 import seedu.address.storage.JsonFitBizStorage;
@@ -44,10 +44,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonFitBizStorage addressBookStorage =
-                new JsonFitBizStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonFitBizStorage fitBizStorage =
+                new JsonFitBizStorage(temporaryFolder.resolve("fitbiz.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(fitBizStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -72,11 +72,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonFitBizIoExceptionThrowingStub
-        JsonFitBizStorage addressBookStorage =
-                new JsonFitBizIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonFitBizStorage fitBizStorage =
+                new JsonFitBizIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionFitBiz.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(fitBizStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -130,7 +130,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ClientInView());
+        Model expectedModel = new ModelManager(model.getFitBiz(), new UserPrefs(), new ClientInView());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -156,7 +156,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveFitBiz(ReadOnlyAddressBook fitBiz, Path filePath) throws IOException {
+        public void saveFitBiz(ReadOnlyFitBiz fitBiz, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -6,18 +6,18 @@ import seedu.address.model.FitBiz;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the FitBiz.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes all data from FitBiz";
+    public static final String MESSAGE_SUCCESS = "FitBiz has been cleared!";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new FitBiz());
+        model.setFitBiz(new FitBiz());
         model.clearClientInView();
         return new CommandResult(MESSAGE_SUCCESS);
     }

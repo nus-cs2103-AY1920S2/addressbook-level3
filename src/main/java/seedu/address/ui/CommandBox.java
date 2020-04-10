@@ -18,7 +18,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommandBox extends UiPart<Region> {
 
-    public static final String ERROR_STYLE_CLASS = "error";
+    public static final String ERROR_STYLE_CLASS = "error-text-field";
+    public static final String SUCCESS_STYLE_CLASS = "success-text-field";
     private static final String FXML = "CommandBox.fxml";
     // A generous estimate for the length of the user input string
     private static final int CARET_POSITION_INDEX = Integer.MAX_VALUE;
@@ -87,8 +88,9 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandTextField.setText("");
             commandExecutor.execute(enteredCommand);
+            setStyleToIndicateCommandStatus(SUCCESS_STYLE_CLASS);
         } catch (CommandException | ParseException e) {
-            setStyleToIndicateCommandFailure();
+            setStyleToIndicateCommandStatus(ERROR_STYLE_CLASS);
         }
     }
 
@@ -96,20 +98,30 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
-    }
-
-    /**
-     * Sets the command box style to indicate a failed command.
-     */
-    private void setStyleToIndicateCommandFailure() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();
 
         if (styleClass.contains(ERROR_STYLE_CLASS)) {
+            commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+        }
+
+        if (styleClass.contains(SUCCESS_STYLE_CLASS)) {
+            commandTextField.getStyleClass().remove(SUCCESS_STYLE_CLASS);
+        }
+    }
+
+    /**
+     * Sets the command box to {@code style} to indicate command status.
+     */
+    private void setStyleToIndicateCommandStatus(String style) {
+        setStyleToDefault(); // clear all status styles first
+
+        ObservableList<String> styleClass = commandTextField.getStyleClass();
+
+        if (styleClass.contains(style)) {
             return;
         }
 
-        styleClass.add(ERROR_STYLE_CLASS);
+        styleClass.add(style);
     }
 
     /**

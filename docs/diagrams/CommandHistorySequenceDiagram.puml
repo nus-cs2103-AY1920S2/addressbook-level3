@@ -2,10 +2,10 @@
 !include style.puml
 
 Actor User as user USER_COLOR
-Participant ":commandBox" as ui UI_COLOR
-Participant ":commandHistory" as logic LOGIC_COLOR
-Participant ":commandHistoryState" as model MODEL_COLOR
-Participant ":commandHistoryStorage" as storage STORAGE_COLOR
+Participant ":CommandBox" as ui UI_COLOR
+Participant ":CommandHistory" as logic LOGIC_COLOR
+Participant ":CommandHistoryState" as model MODEL_COLOR
+Participant ":CommandHistoryStorage" as storage STORAGE_COLOR
 
 user -[USER_COLOR]> ui : "list-c"
 activate ui UI_COLOR

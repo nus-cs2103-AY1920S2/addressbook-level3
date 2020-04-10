@@ -31,12 +31,6 @@ public class ClientView extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private Label gender;
     @FXML
     private Label birthday;
@@ -57,18 +51,6 @@ public class ClientView extends UiPart<Region> {
         super(FXML);
         this.client = client;
         name.setText(client.getName().fullName);
-        String phoneLabel = "Phone: ";
-        String phoneAttributeForDisplay = getAttributeForDisplay(client.getPhone().value);
-        String fullPhoneForDisplay = phoneLabel + phoneAttributeForDisplay;
-        phone.setText(fullPhoneForDisplay);
-        String addressLabel = "Address: ";
-        String addressAttributeForDisplay = getAttributeForDisplay(client.getAddress().value);
-        String fullAddressForDisplay = addressLabel + addressAttributeForDisplay;
-        address.setText(fullAddressForDisplay);
-        String emailLabel = "Email: ";
-        String emailAttributeForDisplay = getAttributeForDisplay(client.getEmail().value);
-        String fullEmailForDisplay = emailLabel + emailAttributeForDisplay;
-        email.setText(fullEmailForDisplay);
         String genderLabel = "Gender: ";
         String genderAttributeForDisplay = getAttributeForDisplay(client.getGender().value);
         String fullGenderForDisplay = genderLabel + genderAttributeForDisplay;

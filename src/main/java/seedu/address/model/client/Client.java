@@ -13,10 +13,14 @@ import seedu.address.model.schedule.ScheduleList;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Client in the address book. Guarantees: details are present and
+ * Represents a Client in FitBiz. Guarantees: details are present and
  * not null, field values are validated, immutable.
  */
 public class Client {
+
+    private static final String EMPTY_STRING = "";
+    private static final String FORMAT_ONLY_ONE_PRESENT = "(%s)";
+    private static final String FORMAT_BOTH_PRESENT = "(%s, %s)";
 
     // Identity fields
     private final Name name;
@@ -138,6 +142,28 @@ public class Client {
 
     public PersonalBest getPersonalBest() {
         return personalBest;
+    }
+
+    /**
+     * Formats and returns a string representing the client's age and gender.
+     */
+    public String buildBirthdayAndGender() {
+        if (birthday.isEmpty() && gender.isEmpty()) {
+            // if both are empty
+            return EMPTY_STRING;
+        }
+
+        if (gender.isEmpty()) {
+            // if only gender is empty
+            return String.format(FORMAT_ONLY_ONE_PRESENT, birthday.getAge());
+        }
+
+        if (birthday.isEmpty()) {
+            // if only birthday is empty
+            return String.format(FORMAT_ONLY_ONE_PRESENT, gender.getOneLetterFormat());
+        }
+
+        return String.format(FORMAT_BOTH_PRESENT, birthday.getAge(), gender.getOneLetterFormat());
     }
 
     /**

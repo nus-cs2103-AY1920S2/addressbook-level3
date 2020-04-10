@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
@@ -61,21 +62,37 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE), pe);
         }
 
-        ArrayList<String>[] processedInput = ParserUtil.parseRawScheduleInput(
+        // Creates an ArrayList of HashMap, each HashMap contains 3 input attributes day, start time, end time.
+        ArrayList<HashMap<String, String>> processedInput = ParserUtil.parseRawScheduleInput(
                 argMultimap.getAllValues(PREFIX_SCHEDULE));
 
-        ArrayList<Day> dayList = ParserUtil.parseDay(processedInput[0]);
-        ArrayList<StartTime> startTimeList = ParserUtil.parseStartTime(processedInput[1]);
-        ArrayList<EndTime> endTimeList = ParserUtil.parseEndTime(processedInput[2]);
+        // Process the input attributes into their respective ArrayList<String>
+        ArrayList<String> dayStringList = new ArrayList<>();
+        ArrayList<String> startListString = new ArrayList<>();
+        ArrayList<String> endListString = new ArrayList<>();
+
+        for (HashMap<String, String> h: processedInput) {
+            dayStringList.add(h.get("day"));
+            startListString.add(h.get("start"));
+            endListString.add(h.get("end"));
+        }
+
+        // Passes in the respective ArrayList<String> for the input attributes to their parser functions to obtain
+        // their respective ArrayLists.
+        ArrayList<Day> dayList = ParserUtil.parseDay(dayStringList);
+        ArrayList<StartTime> startTimeList = ParserUtil.parseStartTime(startListString);
+        ArrayList<EndTime> endTimeList = ParserUtil.parseEndTime(endListString);
+
         ArrayList<Schedule> scheduleList = new ArrayList<>();
 
-        // Checks if there are the same number of arguments for Day, StarTime and EndTime.
+        // Checks if there are the same number of arguments for Day, StartTime and EndTime.
         if (dayList.size() != startTimeList.size() || dayList.size() != endTimeList.size()) {
             String invalidCountMsg = String.format(ScheduleCommand.MESSAGE_INVALID_ARG_COUNT, dayList.size(),
                     startTimeList.size(), endTimeList.size());
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, invalidCountMsg));
         }
 
+        // Checks for overlapping schedules.
         TreeSet<Schedule> scheduleSet = new TreeSet<>();
         for (int i = 0; i < dayList.size(); i++) {
             Day day = dayList.get(i);

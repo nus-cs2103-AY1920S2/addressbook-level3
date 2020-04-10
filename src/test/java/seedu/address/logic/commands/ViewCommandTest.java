@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showClientAtIndex;
-import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
 
@@ -25,7 +25,7 @@ import seedu.address.model.client.Client;
  */
 public class ViewCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
+    private Model model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +34,7 @@ public class ViewCommandTest {
 
         String expectedMessage = String.format(ViewCommand.MESSAGE_SUCCESS, clientToView.getName().fullName);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ClientInView());
+        ModelManager expectedModel = new ModelManager(model.getFitBiz(), new UserPrefs(), new ClientInView());
         expectedModel.setClientInView(clientToView);
 
         assertCommandSuccess(viewCommand, model, expectedMessage, expectedModel);
@@ -57,7 +57,7 @@ public class ViewCommandTest {
 
         String expectedMessage = String.format(ViewCommand.MESSAGE_SUCCESS, clientToView.getName().fullName);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ClientInView());
+        Model expectedModel = new ModelManager(model.getFitBiz(), new UserPrefs(), new ClientInView());
 
         showClientAtIndex(expectedModel, INDEX_FIRST_CLIENT);
         expectedModel.setClientInView(clientToView);
@@ -70,8 +70,8 @@ public class ViewCommandTest {
         showClientAtIndex(model, INDEX_FIRST_CLIENT);
 
         Index outOfBoundIndex = INDEX_SECOND_CLIENT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getClientList().size());
+        // ensures that outOfBoundIndex is still in bounds of FitBiz list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getFitBiz().getClientList().size());
 
         ViewCommand viewCommand = new ViewCommand(outOfBoundIndex);
 
