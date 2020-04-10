@@ -11,8 +11,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * JavaFX class that controls the splash screen
+ */
 public class SplashScreen extends Preloader {
-    private final String FXML = "/view/SplashScreen.fxml";
+    private static final String FXML = "/view/SplashScreen.fxml";
     private FXMLLoader loader = new FXMLLoader();
     private Stage stage;
 
@@ -51,14 +54,14 @@ public class SplashScreen extends Preloader {
         stage.setY((screenBoundary.getHeight() - stage.getHeight()) / 2);
         stage.show();
     }
- 
+
     @Override
     public void handleApplicationNotification(PreloaderNotification info) {
         if (info instanceof ProgressNotification) {
-           double v = ((ProgressNotification) info).getProgress();
-           progressBar.setProgress(v);
+            double v = ((ProgressNotification) info).getProgress();
+            progressBar.setProgress(v);
         } else if (info instanceof StateChangeNotification) {
             stage.hide();
         }
-    }  
+    }
 }

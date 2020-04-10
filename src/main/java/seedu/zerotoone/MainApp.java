@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.application.Preloader.ProgressNotification;
+import javafx.application.Preloader.StateChangeNotification;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.Config;
 import seedu.zerotoone.commons.core.LogsCenter;
@@ -50,7 +52,6 @@ import seedu.zerotoone.ui.UiManager;
  */
 public class MainApp extends Application {
     public static final Version VERSION = new Version(0, 6, 0, true);
-    private static final String ICON_APPLICATION = "/images/icon.png";
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -58,6 +59,9 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+
+    private final int totalNumSteps = 13;
+    private int numCompletedSteps = 0;
 
     @Override
     public void init() throws Exception {
@@ -67,20 +71,36 @@ public class MainApp extends Application {
         // -----------------------------------------------------------------------------------------
         // Common
         AppParameters appParameters = AppParameters.parse(getParameters());
+        increaseProgress();
+
         config = initConfig(appParameters.getConfigPath());
+        increaseProgress();
+
         UserPrefsStorage userPrefsStorage = new UserPrefsStorageManager(config.getUserPrefsFilePath());
+        increaseProgress();
+
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        increaseProgress();
+
         initLogging(config);
+        increaseProgress();
 
         // -----------------------------------------------------------------------------------------
         // Exercise List
         ExerciseListStorage exerciseListStorage = new ExerciseListStorageManager(userPrefs.getExerciseListFilePath());
+        increaseProgress();
+
         // Workout List
         WorkoutListStorage workoutListStorage = new WorkoutListStorageManager(userPrefs.getWorkoutListFilePath());
+        increaseProgress();
+
         // Schedule
         ScheduleListStorage scheduleListStorage = new ScheduleListStorageManager(userPrefs.getScheduleListFilePath());
+        increaseProgress();
+
         // Log
         LogListStorage logListStorage = new LogListStorageManager(userPrefs.getLogListFilePath());
+        increaseProgress();
 
         // -----------------------------------------------------------------------------------------
         // Common
@@ -89,9 +109,21 @@ public class MainApp extends Application {
                 workoutListStorage,
                 scheduleListStorage,
             logListStorage);
+        increaseProgress();
+
         model = initModelManager(storage, userPrefs);
+        increaseProgress();
+
         logic = new LogicManager(model, storage);
+        increaseProgress();
+
         ui = new UiManager(logic);
+        increaseProgress();
+    }
+
+    private void increaseProgress() {
+        this.numCompletedSteps++;
+        notifyPreloader(new ProgressNotification((double) this.numCompletedSteps / totalNumSteps));
     }
 
     /**
@@ -255,8 +287,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting ZeroToOne " + MainApp.VERSION);
+        notifyPreloader(new StateChangeNotification(StateChangeNotification.Type.BEFORE_START));
         ui.start(primaryStage);
-
     }
 
     @Override
