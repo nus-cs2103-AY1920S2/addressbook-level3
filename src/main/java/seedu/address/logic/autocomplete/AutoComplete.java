@@ -17,6 +17,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditExerciseCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -69,6 +70,7 @@ public class AutoComplete {
         trie.insert(EditExerciseCommand.COMMAND_WORD);
         trie.insert(ExitCommand.COMMAND_WORD);
         trie.insert(ExportCommand.COMMAND_WORD);
+        trie.insert(FilterCommand.COMMAND_WORD);
         trie.insert(FindCommand.COMMAND_WORD);
         trie.insert(HelpCommand.COMMAND_WORD);
         trie.insert(ListCommand.COMMAND_WORD);
@@ -142,6 +144,11 @@ public class AutoComplete {
         case EditExerciseCommand.COMMAND_WORD:
             textToSet += PREAMBLE_WHITE_SPACE;
             textToFeedback = EditExerciseCommand.MESSAGE_USAGE;
+            break;
+        case FilterCommand.COMMAND_WORD:
+            textToSet += generatePrefixesString(FilterCommand.PREFIXES);
+            textToFeedback = FilterCommand.MESSAGE_USAGE;
+            caretPositionToSet = textToSet.indexOf(PREFIX_DELIMITTER) + 1;
             break;
         case FindCommand.COMMAND_WORD:
             textToSet += PREAMBLE_WHITE_SPACE;
