@@ -59,7 +59,6 @@ public class EditGroupCommandTest {
     @Test
     public void execute_invalidModule_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         EditGroupCommand editGroupCommand =
                 new EditGroupCommand(new Group("G15"), validModule.getIdentifier(),
                         "GNEW", GroupType.OTHER);

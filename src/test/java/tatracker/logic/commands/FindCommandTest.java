@@ -2,7 +2,6 @@ package tatracker.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithStudents;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,9 +9,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.commons.FindCommand;
-import tatracker.model.Model;
-import tatracker.model.ModelManager;
-import tatracker.model.UserPrefs;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 
 /**

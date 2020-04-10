@@ -20,7 +20,6 @@ public class SortGroupCommandTest {
     @Test
     public void execute_invalidGroup_throwsCommandException() throws CommandException {
         Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
         SortGroupCommand sortGroupCommand =
@@ -33,8 +32,6 @@ public class SortGroupCommandTest {
 
     @Test
     public void execute_invalidModule_throwsCommandException() throws CommandException {
-        Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         SortGroupCommand sortGroupCommand =
                 new SortGroupCommand(SortType.ALPHABETIC, "G03",
                         "CS2030");
