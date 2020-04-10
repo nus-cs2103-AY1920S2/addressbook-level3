@@ -208,7 +208,9 @@ public class ModelManager implements Model {
         cancelTimerTask(target);
         setTimer(editedTask);
         this.sortList();
-        this.taskSaver.saveTask(this.taskList);
+        if (taskSaver != null) {
+            this.taskSaver.saveTask(this.taskList);
+        }
     }
 
     // =========== Subject Methods for Observer
