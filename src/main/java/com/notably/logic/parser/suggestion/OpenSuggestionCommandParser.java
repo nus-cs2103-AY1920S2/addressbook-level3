@@ -20,6 +20,7 @@ import com.notably.model.Model;
  */
 public class OpenSuggestionCommandParser implements SuggestionCommandParser<OpenSuggestionCommand> {
     public static final String COMMAND_WORD = "open";
+    public static final String COMMAND_SHORTHAND = "o";
 
     private static final String RESPONSE_MESSAGE = "Open a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Open a note titled \"%s\"";
@@ -73,7 +74,7 @@ public class OpenSuggestionCommandParser implements SuggestionCommandParser<Open
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
+        return Optional.of(new OpenSuggestionCommand(correctionResult.getCorrectedItems(), title));
 
     }
 }

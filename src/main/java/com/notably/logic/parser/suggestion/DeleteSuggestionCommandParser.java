@@ -20,6 +20,7 @@ import com.notably.model.Model;
  */
 public class DeleteSuggestionCommandParser implements SuggestionCommandParser<DeleteSuggestionCommand> {
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_SHORTHAND = "d";
 
     private static final String RESPONSE_MESSAGE = "Delete a note";
     private static final String RESPONSE_MESSAGE_WITH_TITLE = "Delete a note titled \"%s\"";
@@ -73,6 +74,6 @@ public class DeleteSuggestionCommandParser implements SuggestionCommandParser<De
         }
 
         // TODO: Pass in the list of corrected items and create suggestions based on that
-        return Optional.of(new DeleteSuggestionCommand(correctionResult.getCorrectedItems().get(0), title));
+        return Optional.of(new DeleteSuggestionCommand(correctionResult.getCorrectedItems(), title));
     }
 }

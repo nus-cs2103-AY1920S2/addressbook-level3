@@ -2,10 +2,13 @@ package com.notably.model.block;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.notably.commons.path.AbsolutePath;
 import com.notably.model.block.exceptions.DuplicateBlockException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
@@ -27,8 +30,19 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         blockTreeItem = treeItem;
     }
 
+    /**
+     * Static method to create a root {@code BlockTreeItem}
+     */
     public static BlockTreeItem createRootBlockTreeItem() {
-        return new BlockTreeItemImpl(BlockImpl.createRootBlock());
+        Block root = BlockImpl.createRootBlock();
+        TreeItem<Block> rootTreeItem = new TreeItem<Block>(root);
+        rootTreeItem.leafProperty().addListener((observable, oldValue, newValue) -> {
+            Body rootBody = newValue
+                ? new Body("Create a new note to get started!")
+                : new Body("Open a note to get started!");
+            rootTreeItem.setValue(new BlockImpl(rootTreeItem.getValue().getTitle(), rootBody));
+        });
+        return new BlockTreeItemImpl(rootTreeItem);
     }
 
     @Override
@@ -53,6 +67,9 @@ public class BlockTreeItemImpl implements BlockTreeItem {
 
     @Override
     public BlockTreeItem getBlockParent() {
+        if (blockTreeItem.getParent() == null) {
+            return this;
+        }
         return new BlockTreeItemImpl(blockTreeItem.getParent());
     }
 
@@ -111,6 +128,18 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         requireNonNull(toRemove);
         TreeItem<Block> itemToRemove = getBlockChild(toRemove.getTitle()).getTreeItem();
         blockTreeItem.getChildren().remove(itemToRemove);
+    }
+
+    @Override
+    public AbsolutePath getAbsolutePath() {
+        ArrayList<String> blockPath = new ArrayList<>();
+        BlockTreeItem current = this;
+        while (!current.isRootBlock()) {
+            blockPath.add(current.getTitle().getText());
+            current = current.getBlockParent();
+        }
+        Collections.reverse(blockPath);
+        return AbsolutePath.fromComponents(blockPath);
     }
 
     @Override
