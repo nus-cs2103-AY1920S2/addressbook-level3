@@ -136,19 +136,24 @@ Format: `list [m/MODULE_CODE....]`
 === Editing a module: `edit`
 
 Edits an existing module in the NASA application. +
-Format: `edit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
+Format: `edit m/MODULE_CODE [m/MODULE_CODE] [n/MODULE_NAME]`
 
 ****
 * Edits an existing module in the application.
-* First `m/` is taken as the module code of the existing module to be edited.
-* To edit module code, EXACTLY two `m/` tag must be entered.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* First `MODULE_CODE` is the module code of the target module to be edited. Second `MODULE_CODE` is the new module code to edit to.
 ****
 
 Examples:
-* `edit m/CS2030 m/CS2030S n/Programming Methodology for CS` +
+
+`edit m/CS2030 m/CS2030S n/Programming Methodology for CS` +
 Edits the CS2030 module to CS2030S along with its new module name.
+
+[NOTE]
+====
+* If module code is edited, the new module code CANNOT have the same module code as any non-target module that already exist in NASA.
+* To edit module code, EXACTLY TWO module codes must be entered.
+====
 
 === Editing a deadline : `edit-d`
 
@@ -156,9 +161,8 @@ Edits an existing deadline in the module's deadline list. +
 Format: `edit-d INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [d/DUE DATE] [p/PRIORITY] [n/NOTES]`
 
 ****
-* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module deadline-list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the deadline at the specified `INDEX` in the specified `MODULE_CODE` deadline-list. The index refers to the index number shown in the module's corresponding deadline-list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 ****
 
 Examples:
@@ -176,7 +180,6 @@ Format: `edit-e INDEX m/MODULE_CODE [a/ACTIVITY_NAME] [sd/START DATE] [ed/END DA
 ****
 * Edits the event at the specified `INDEX` in the specified `MODULE_CODE` event-list. The index refers to the index number shown in the module event-list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 ****
 
 Examples:
