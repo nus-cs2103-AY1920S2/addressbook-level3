@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.WELCOME_MESSAGE;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -170,7 +172,6 @@ public class MainWindow extends UiPart<Stage> {
         if (showTab.isSelected()) {
             logger.info("Show Tab is selected by the user");
             tabPane.getSelectionModel().select(showTab);
-            //Do stuff here
         }
     }
 
@@ -186,9 +187,19 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        printStartUpMessage();
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void printStartUpMessage() {
+        List<String> startUpMessages = logic.getStartUpMessages();
+        String printMessage = WELCOME_MESSAGE;
+        for (String message : startUpMessages) {
+            printMessage += message;
+        }
+        resultDisplay.setFeedbackToUser(printMessage);
     }
 
     /**

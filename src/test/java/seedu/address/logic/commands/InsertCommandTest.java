@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.parcel.Parcel;
 import seedu.address.model.parcel.order.Order;
 import seedu.address.model.parcel.returnorder.ReturnOrder;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.OrderBuilder;
 
 //@author Amoscheong97
@@ -211,6 +213,10 @@ public class InsertCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public List<String> getStartUpMessages() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
