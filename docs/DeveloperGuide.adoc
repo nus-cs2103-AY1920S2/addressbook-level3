@@ -176,11 +176,11 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Command History --- Aaron Choo
 
-This feature allows users to save their previously entered commands and to retrieve them using the kbd:[&uarr;] and kbd:[&darr;] arrow keys, similar to what most modern CLIs offer.
+This feature allows users to browse and retrieve their previously entered commands using the kbd:[&uarr;] and kbd:[&darr;] arrow keys, similar to what most modern CLIs offer.
 
 ==== Implementation
 
-This command history mechanism is facilitated by the logic class `CommandHistory`, which controls both the model `CommandHistoryState` and the storage `CommandHistoryStorage`. The behaviour has been implemented to mimic most modern CLIs, namely:
+This command history mechanism is facilitated by the logic class `CommandHistory`, which controls both the model class `CommandHistoryState` and the storage utility class `StorageReaderWriter`. The behaviour of this feature has been implemented to mimic most modern CLIs, namely:
 
 . The empty string, `""`, should not be stored in the history
 . Commands that are similar to the most recently stored command in the history should not be stored (ie. duplicate commands will not be stored)
