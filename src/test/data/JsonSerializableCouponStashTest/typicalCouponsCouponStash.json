@@ -4,7 +4,10 @@
     "name" : "Alice Pauline",
     "promoCode" : "I<3STASH",
     "savingsPerUse" : {
-      "monetaryAmount" : 0.5,
+      "monetaryAmount" : {
+        "integer" : 0,
+        "decimal" : 50
+      },
       "percentageAmount" : null,
       "saveables" : [ {
         "saveableDesc" : "MRT Ticket",
@@ -20,7 +23,10 @@
       "mappings" : [ {
         "date" : "14-9-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Vehicle",
             "count" : 1
@@ -32,13 +38,19 @@
       }, {
         "date" : "11-2-2019",
         "savings" : {
-          "monetaryAmount" : 71.16,
+          "monetaryAmount" : {
+            "integer" : 71,
+            "decimal" : 16
+          },
           "saveables" : null
         }
       }, {
         "date" : "19-12-2019",
         "savings" : {
-          "monetaryAmount" : 38.68,
+          "monetaryAmount" : {
+            "integer" : 38,
+            "decimal" : 68
+          },
           "saveables" : [ {
             "saveableDesc" : "Addition",
             "count" : 1
@@ -52,8 +64,8 @@
     "tagged" : [ "friends" ],
     "condition" : "While Stock Last",
     "archived" : "false",
-    "expiryDate" : "2-12-2020",
-    "startDate" : "31-7-2019",
+    "expiryDate" : "02-12-2020",
+    "startDate" : "31-07-2019",
     "remindDate" : "29-11-2020"
   }, {
     "name" : "Benson Meier",
@@ -69,7 +81,10 @@
       "mappings" : [ {
         "date" : "31-10-2019",
         "savings" : {
-          "monetaryAmount" : 79.23,
+          "monetaryAmount" : {
+            "integer" : 79,
+            "decimal" : 23
+          },
           "saveables" : [ {
             "saveableDesc" : "Insurance",
             "count" : 2
@@ -81,13 +96,19 @@
       }, {
         "date" : "14-5-2019",
         "savings" : {
-          "monetaryAmount" : 1.24,
+          "monetaryAmount" : {
+            "integer" : 1,
+            "decimal" : 24
+          },
           "saveables" : null
         }
       }, {
         "date" : "11-8-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Apartment",
             "count" : 1
@@ -102,13 +123,16 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "31-12-2020",
-    "startDate" : "31-7-2019",
+    "startDate" : "31-07-2019",
     "remindDate" : "28-11-2020"
   }, {
     "name" : "Carl Kurz",
     "promoCode" : "KKB",
     "savingsPerUse" : {
-      "monetaryAmount" : 20.0,
+      "monetaryAmount" : {
+        "integer" : 20,
+        "decimal" : 0
+      },
       "percentageAmount" : null,
       "saveables" : [ {
         "saveableDesc" : "Door Gift",
@@ -127,7 +151,10 @@
       "mappings" : [ {
         "date" : "7-2-2019",
         "savings" : {
-          "monetaryAmount" : 34.57,
+          "monetaryAmount" : {
+            "integer" : 34,
+            "decimal" : 57
+          },
           "saveables" : [ {
             "saveableDesc" : "Cabinet",
             "count" : 1
@@ -139,13 +166,19 @@
       }, {
         "date" : "14-1-2019",
         "savings" : {
-          "monetaryAmount" : 39.52,
+          "monetaryAmount" : {
+            "integer" : 39,
+            "decimal" : 52
+          },
           "saveables" : null
         }
       }, {
         "date" : "6-9-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Cabinet",
             "count" : 1
@@ -159,8 +192,8 @@
     "tagged" : [ ],
     "condition" : "While Stock Last",
     "archived" : "false",
-    "expiryDate" : "30-8-2020",
-    "startDate" : "31-7-2019",
+    "expiryDate" : "30-08-2020",
+    "startDate" : "31-07-2019",
     "remindDate" : "27-8-2020"
   }, {
     "name" : "Daniel Meier",
@@ -185,13 +218,19 @@
       "mappings" : [ {
         "date" : "15-4-2019",
         "savings" : {
-          "monetaryAmount" : 7.23,
+          "monetaryAmount" : {
+            "integer" : 7,
+            "decimal" : 23
+          },
           "saveables" : null
         }
       }, {
         "date" : "12-9-2019",
         "savings" : {
-          "monetaryAmount" : 26.08,
+          "monetaryAmount" : {
+            "integer" : 26,
+            "decimal" : 8
+          },
           "saveables" : [ {
             "saveableDesc" : "Perception",
             "count" : 1
@@ -203,7 +242,10 @@
       }, {
         "date" : "24-5-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Professor",
             "count" : 34
@@ -216,9 +258,9 @@
     },
     "tagged" : [ "friends" ],
     "condition" : "While Stock Last",
-    "archived" : "false",
+    "archived" : "true",
     "expiryDate" : "31-12-2019",
-    "startDate" : "31-7-2019",
+    "startDate" : "31-07-2019",
     "remindDate" : "28-12-2019"
   }, {
     "name" : "Elle Meyer",
@@ -243,7 +285,10 @@
       "mappings" : [ {
         "date" : "7-2-2019",
         "savings" : {
-          "monetaryAmount" : 72.29,
+          "monetaryAmount" : {
+            "integer" : 72,
+            "decimal" : 29
+          },
           "saveables" : [ {
             "saveableDesc" : "Inspection",
             "count" : 1
@@ -255,13 +300,19 @@
       }, {
         "date" : "30-3-2019",
         "savings" : {
-          "monetaryAmount" : 50.21,
+          "monetaryAmount" : {
+            "integer" : 50,
+            "decimal" : 21
+          },
           "saveables" : null
         }
       }, {
         "date" : "17-4-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Strategy",
             "count" : 1
@@ -275,14 +326,17 @@
     "tagged" : [ ],
     "condition" : "While Stock Last",
     "archived" : "true",
-    "expiryDate" : "30-8-2020",
-    "startDate" : "31-7-2019",
+    "expiryDate" : "30-08-2020",
+    "startDate" : "31-07-2019",
     "remindDate" : "27-8-2020"
   }, {
     "name" : "Fiona Kunz",
     "promoCode" : "9482427",
     "savingsPerUse" : {
-      "monetaryAmount" : 3.0,
+      "monetaryAmount" : {
+        "integer" : 3,
+        "decimal" : 0
+      },
       "percentageAmount" : null,
       "saveables" : null
     },
@@ -292,13 +346,19 @@
       "mappings" : [ {
         "date" : "7-2-2019",
         "savings" : {
-          "monetaryAmount" : 216.54,
+          "monetaryAmount" : {
+            "integer" : 216,
+            "decimal" : 54
+          },
           "saveables" : null
         }
       }, {
         "date" : "5-10-2019",
         "savings" : {
-          "monetaryAmount" : 583.5,
+          "monetaryAmount" : {
+            "integer" : 583,
+            "decimal" : 50
+          },
           "saveables" : [ {
             "saveableDesc" : "Performance",
             "count" : 1
@@ -310,7 +370,10 @@
       }, {
         "date" : "28-9-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Policy",
             "count" : 2
@@ -324,8 +387,8 @@
     "tagged" : [ ],
     "condition" : "While Stock Last",
     "archived" : "false",
-    "expiryDate" : "30-8-2020",
-    "startDate" : "31-7-2019",
+    "expiryDate" : "30-08-2020",
+    "startDate" : "31-07-2019",
     "remindDate" : "27-8-2020"
   }, {
     "name" : "George Best",
@@ -341,7 +404,10 @@
       "mappings" : [ {
         "date" : "7-2-2019",
         "savings" : {
-          "monetaryAmount" : 0.0,
+          "monetaryAmount" : {
+            "integer" : 0,
+            "decimal" : 0
+          },
           "saveables" : [ {
             "saveableDesc" : "Construction",
             "count" : 1
@@ -353,7 +419,10 @@
       }, {
         "date" : "14-12-2019",
         "savings" : {
-          "monetaryAmount" : 475103.66,
+          "monetaryAmount" : {
+            "integer" : 475103,
+            "decimal" : 66
+          },
           "saveables" : [ {
             "saveableDesc" : "Expression",
             "count" : 6
@@ -365,7 +434,10 @@
       }, {
         "date" : "10-2-2019",
         "savings" : {
-          "monetaryAmount" : 3648.07,
+          "monetaryAmount" : {
+            "integer" : 3648,
+            "decimal" : 7
+          },
           "saveables" : null
         }
       } ]
@@ -374,7 +446,7 @@
     "condition" : "While Stock Last",
     "archived" : "false",
     "expiryDate" : "31-12-2020",
-    "startDate" : "31-7-2019",
+    "startDate" : "31-07-2019",
     "remindDate" : "28-12-2020"
   } ]
 }
