@@ -49,7 +49,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing TaTracker ]============================");
+        logger.info("=============================[ Initializing TaTracker ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
