@@ -1,6 +1,6 @@
 package seedu.delino.ui;
 
-import static seedu.address.commons.core.Messages.WELCOME_MESSAGE;
+import static seedu.delino.commons.core.Messages.WELCOME_MESSAGE;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;

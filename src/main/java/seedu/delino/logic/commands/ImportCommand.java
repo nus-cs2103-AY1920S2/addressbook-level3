@@ -1,7 +1,7 @@
 package seedu.delino.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERTYPE;
+import static seedu.delino.logic.parser.CliSyntax.PREFIX_ORDERTYPE;
 
 import java.util.HashMap;
 import java.util.List;

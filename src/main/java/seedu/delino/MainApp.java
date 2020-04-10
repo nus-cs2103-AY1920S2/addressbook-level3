@@ -1,7 +1,7 @@
 package seedu.delino;
 
-import static seedu.address.commons.core.Messages.MESSAGE_JSON_UNABLE_TO_READ;
-import static seedu.address.commons.core.Messages.MESSAGE_ORDER_DATA_CHECK;
+import static seedu.delino.commons.core.Messages.MESSAGE_JSON_UNABLE_TO_READ;
+import static seedu.delino.commons.core.Messages.MESSAGE_ORDER_DATA_CHECK;
 
 import java.io.IOException;
 import java.nio.file.Path;
