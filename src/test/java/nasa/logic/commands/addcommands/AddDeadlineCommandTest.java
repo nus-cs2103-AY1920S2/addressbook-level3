@@ -8,7 +8,6 @@ import static nasa.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
@@ -37,7 +36,8 @@ public class AddDeadlineCommandTest {
         Deadline deadline = new DeadlineBuilder().build();
 
         Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
-        expectedModel.addModule(new Module(new ModuleCode(VALID_MODULE_CODE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231)));
+        expectedModel.addModule(new Module(new ModuleCode(VALID_MODULE_CODE_CS1231),
+                new ModuleName(VALID_MODULE_NAME_CS1231)));
         expectedModel.addDeadline(new ModuleCode(VALID_MODULE_CODE_CS1231), deadline);
 
         AddDeadlineCommand command = new AddDeadlineCommand(deadline, new ModuleCode(VALID_MODULE_CODE_CS1231));

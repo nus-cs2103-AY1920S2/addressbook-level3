@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
-public class UniqueDeadlineList extends UniqueActivityList<Deadline> {
-    
-}
+/**
+ * List containing all deadlines.
+ */
+public class UniqueDeadlineList extends UniqueActivityList<Deadline> {}

@@ -2,7 +2,9 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nasa.commons.core.index.Index;
@@ -143,7 +145,7 @@ public class NasaBook implements ReadOnlyNasaBook {
      */
     public void setDeadline(ModuleCode moduleCode, Deadline target, Deadline editedDeadline) {
         requireAllNonNull(moduleCode, target, editedDeadline);
-        
+
         UniqueDeadlineList deadlineList = getDeadlines(moduleCode);
         assert deadlineList != null;
         deadlineList.setActivity(target, editedDeadline);
@@ -301,6 +303,12 @@ public class NasaBook implements ReadOnlyNasaBook {
         return moduleList.getModule(moduleCode);
     }
 
+    /**
+     * Returns true if activity is found in the module with {@code moduleCode}
+     * @param moduleCode module code of the module to be searched
+     * @param activity activity to be searched
+     * @return true if activity found in the module, else false
+     */
     public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
         Module module = getModule(moduleCode);
         return module.hasActivity(activity);

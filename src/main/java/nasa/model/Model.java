@@ -2,13 +2,12 @@ package nasa.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
-import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.SortMethod;

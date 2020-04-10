@@ -9,6 +9,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -365,6 +366,11 @@ public class CalendarView extends UiPart<Region> {
         monthAndYear.setAlignment(Pos.CENTER);
     }
 
+    /**
+     * Adds event to the calendar.
+     * @param events list of events to be added
+     * @param activityHashMap underlying data structure to show activities on the calendar
+     */
     public void addEvents(ObservableList<Event> events, HashMap<Integer, ArrayList<Activity>> activityHashMap) {
         for (Event event : events) {
             int startYear = event.getStartDate().getDate().getYear();
@@ -391,7 +397,7 @@ public class CalendarView extends UiPart<Region> {
                         continue;
                     } else if (startMonth < currentMonth && currentMonth < endMonth) {
                         populateMonthWithEvents(event, activityHashMap);
-                    } else if (startYear == currentYear && startMonth == currentMonth){
+                    } else if (startYear == currentYear && startMonth == currentMonth) {
                         populateMonthFromStartToEnd(event, activityHashMap,
                             event.getStartDate().getDate().getDayOfMonth(), getMaxDaysInMonth());
                     } else if (endYear == currentYear && endMonth == currentMonth) {
@@ -405,6 +411,13 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Helper method to populate month with event {@code event}
+     * @param startMonth
+     * @param endMonth
+     * @param event
+     * @param activityHashMap
+     */
     public void addEventHelper(int startMonth, int endMonth, Event event,
                                HashMap<Integer, ArrayList<Activity>> activityHashMap) {
         if (startMonth > currentMonth || endMonth < currentMonth) {
@@ -433,6 +446,13 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Populates month with event that span over multiple days.
+     * @param event event to be shown
+     * @param activityHashMap underlying data structure to store activities
+     * @param startDate start date of event
+     * @param endDate end date of event
+     */
     public void populateMonthFromStartToEnd(Event event, HashMap<Integer, ArrayList<Activity>> activityHashMap,
                                             int startDate, int endDate) {
         for (int i = startDate; i <= endDate; i++) {
@@ -446,6 +466,11 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Populates months with event.
+     * @param event event to be shown
+     * @param activityHashMap underlying data structure to store activities
+     */
     public void populateMonthWithEvents(Event event, HashMap<Integer, ArrayList<Activity>> activityHashMap) {
         int totalDaysInMonth = getMaxDaysInMonth();
 

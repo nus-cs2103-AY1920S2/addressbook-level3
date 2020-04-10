@@ -3,9 +3,11 @@ package nasa.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.NasaBook;
 import nasa.model.ReadOnlyNasaBook;
@@ -17,7 +19,7 @@ import nasa.model.module.Module;
 @JsonRootName(value = "nasabook")
 class JsonSerializableNasaBook {
 
-    public static final String MESSAGE_DUPLICATE_MODULE= "Module list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Module list contains duplicate module(s).";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 

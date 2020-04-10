@@ -1,17 +1,12 @@
 package nasa.logic.parser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import java.util.Arrays;
 
 import nasa.logic.commands.FindCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
-import nasa.model.activity.Name;
-import nasa.model.module.ModuleCode;
-import nasa.model.module.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object.

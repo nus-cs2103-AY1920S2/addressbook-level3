@@ -12,10 +12,8 @@ import javafx.collections.ObservableList;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.UniqueActivityList;
 import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
@@ -47,6 +45,7 @@ public class EditModuleCommand extends Command {
     public static final String EXCESS_MODULE_CODE = "Failed to edit module code. EXACTLY 2 module codes must be "
             + "entered to edit module code.";
     public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
+    public static final String MESSAGE_NO_NEW_EDIT = "No new field is being edited.";
 
     private final ModuleCode moduleCode;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
@@ -70,17 +69,22 @@ public class EditModuleCommand extends Command {
 
         ModuleCode moduleCodeToEdit = this.moduleCode;
         Module moduleToEdit = model.getModule(moduleCodeToEdit);
-        requireNonNull(moduleToEdit);
 
-        if (!model.hasModule(moduleToEdit.getModuleCode())) { // case when module to be edited is not found in the NasaBook
+        // case when module to be edited is not found in the NasaBook
+        if (!model.hasModule(moduleCodeToEdit)) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
         }
 
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
         if (moduleToEdit.equals(editedModule)) { // case when edit made is exactly the same as original
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_NO_NEW_EDIT);
+        }
+
+        if (model.hasModule(editedModule.getModuleCode())) { // case when edited module exists already exist in model
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_MODULE);
         }
+
 
         model.setModule(moduleToEdit.getModuleCode(), editedModule);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);

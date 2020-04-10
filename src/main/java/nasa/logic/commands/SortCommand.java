@@ -1,7 +1,6 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static nasa.logic.parser.CliSyntax.PREFIX_SORT_METHOD;
 
 import nasa.model.Model;
 import nasa.model.module.SortMethod;
@@ -14,8 +13,8 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all activities according to the the method "
-            + "specified.\nParameters: " + PREFIX_SORT_METHOD + "SORT METHOD \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_SORT_METHOD + "priority";;
+            + "specified.\nParameters: " + "SORT METHOD \n"
+            + "Example: " + COMMAND_WORD + " " + "priority";;
 
     public static final String MESSAGE_SUCCESS = "Sorted all activities";
 

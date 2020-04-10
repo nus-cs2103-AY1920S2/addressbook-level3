@@ -1,6 +1,7 @@
 package nasa.model;
 
 import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
 import nasa.model.history.ModuleListHistory;
 

@@ -89,9 +89,9 @@ class ModelManagerTest {
 
     @Test
     public void addModule_uniqueModule_success() {
-        Module CS1010 = new Module(new ModuleCode("CS1010"), new ModuleName("Test"));
-        modelManager.addModule(CS1010);
-        assertTrue(modelManager.hasModule(CS1010.getModuleCode()));
+        Module cs1010 = new Module(new ModuleCode("CS1010"), new ModuleName("Test"));
+        modelManager.addModule(cs1010);
+        assertTrue(modelManager.hasModule(cs1010.getModuleCode()));
     }
 
     @Test
@@ -174,7 +174,7 @@ class ModelManagerTest {
     }
 
     @Test
-    public void hasModule_nullModule_throwsNullPointerException() { 
+    public void hasModule_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasModule((nasa.model.module.ModuleCode) null));
     }
 
