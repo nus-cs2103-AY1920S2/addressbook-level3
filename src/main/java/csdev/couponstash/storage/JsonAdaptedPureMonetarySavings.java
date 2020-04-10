@@ -13,6 +13,8 @@ import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Saveable;
 
+import static csdev.couponstash.commons.util.AppUtil.checkArgument;
+
 /**
  * Jackson-friendly version of {@link PureMonetarySavings}.
  * PureMonetarySavings is used to represent total savings
@@ -22,20 +24,35 @@ import csdev.couponstash.model.coupon.savings.Saveable;
  * separately from Savings.
  */
 public class JsonAdaptedPureMonetarySavings {
-    private final Double monetaryAmount;
+    private final JsonAdaptedMonetaryAmount monetaryAmounte;
     private final List<JsonAdaptedSaveable> saveables;
 
     /**
      * Constructs a {@code JsonAdaptedPureMonetarySavings} with the given savings details.
      * At least one field should be non-null.
-     * @param ma Double representing monetary amount (could be null).
+     *
+     * @param jsma JsonAdaptedMonetaryAmount representing
+     *             MonetaryAmount (could be null).
+     * @param ma Double representing MonetaryAmount. Warning: this property
+     *           is depreciated, but still exists mainly to support old save
+     *           files for Coupon Stash v1.3 and before.
      * @param sva List of JsonAdaptedSaveables (could be null).
      */
     @JsonCreator
-    public JsonAdaptedPureMonetarySavings(@JsonProperty("monetaryAmount") Double ma,
+    public JsonAdaptedPureMonetarySavings(@JsonProperty("monetaryAmounte") JsonAdaptedMonetaryAmount jsma,
+                                          @Deprecated
+                                          @JsonProperty("monetaryAmount") Double ma,
                                           @JsonProperty("saveables") List<JsonAdaptedSaveable> sva) {
 
-        this.monetaryAmount = ma;
+        if (ma == null) {
+            this.monetaryAmounte = jsma;
+        } else {
+            int intAmount = (int) Math.floor(ma); // get rid of decimal
+            int decAmount = ((int) Math.round(ma * 100)) % 100;
+            checkArgument(MonetaryAmount.isValidMonetaryAmount(intAmount, decAmount),
+                    MonetaryAmount.MESSAGE_CONSTRAINTS);
+            this.monetaryAmounte = new JsonAdaptedMonetaryAmount(intAmount, decAmount);
+        }
         this.saveables = sva;
     }
 
@@ -46,7 +63,7 @@ public class JsonAdaptedPureMonetarySavings {
      * @param pms The PureMonetarySavings to be used.
      */
     public JsonAdaptedPureMonetarySavings(PureMonetarySavings pms) {
-        this.monetaryAmount = pms.getMonetaryAmount().map(MonetaryAmount::getValue).orElse(null);
+        this.monetaryAmounte = pms.getMonetaryAmount().map(JsonAdaptedMonetaryAmount::new).orElse(null);
         Function<List<Saveable>, List<JsonAdaptedSaveable>> mapToJson =
             svaList -> svaList.stream()
                     .map(JsonAdaptedSaveable::new)
@@ -62,7 +79,7 @@ public class JsonAdaptedPureMonetarySavings {
      *     constraints violated in the adapted PureMonetarySavings.
      */
     public PureMonetarySavings toModelType() throws IllegalValueException {
-        if (monetaryAmount == null) {
+        if (this.monetaryAmounte == null) {
             throw new IllegalValueException(PureMonetarySavings.MESSAGE_CONSTRAINTS);
         }
 
@@ -74,9 +91,9 @@ public class JsonAdaptedPureMonetarySavings {
         }
 
         if (modelSaveables.isEmpty()) {
-            return new PureMonetarySavings(new MonetaryAmount(monetaryAmount));
+            return new PureMonetarySavings(monetaryAmounte.toModelType());
         } else {
-            return new PureMonetarySavings(new MonetaryAmount(monetaryAmount), modelSaveables);
+            return new PureMonetarySavings(monetaryAmounte.toModelType(), modelSaveables);
         }
     }
 }

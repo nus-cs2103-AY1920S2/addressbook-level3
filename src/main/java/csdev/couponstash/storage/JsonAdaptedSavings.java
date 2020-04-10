@@ -20,8 +20,7 @@ import csdev.couponstash.model.coupon.savings.Savings;
  * Jackson-friendly version of {@link Savings}.
  */
 public class JsonAdaptedSavings {
-    private final Integer monetaryAmountInteger;
-    private final Integer monetaryAmountDecimal;
+    private final JsonAdaptedMonetaryAmount monetaryAmounte;
     private final Double percentageAmount;
     private final List<JsonAdaptedSaveable> saveables;
 
@@ -31,36 +30,39 @@ public class JsonAdaptedSavings {
      * present or both be null. If either one is present but the other is
      * not, the Savings will not be loaded properly.
      *
+     * @param jsma JsonAdaptedMonetaryAmount representing
+     *             MonetaryAmount (could be null).
      * @param mai Integer representing monetary amount
      *            integer value (could be null);
      * @param mad Integer representing monetary amount
      *            decimal value (could be null);
-     * @param ma Double representing MonetaryAmount.Warning: this property
+     * @param ma Double representing MonetaryAmount. Warning: this property
      *           is depreciated, but still exists mainly to support old save
      *           files for Coupon Stash v1.3 and before.
      * @param pc Double representing percentage amount (could be null).
      * @param sva List of JsonAdaptedSaveables (could be null).
      */
     @JsonCreator
-    public JsonAdaptedSavings(@JsonProperty("monetaryAmountInteger") Integer mai,
+    public JsonAdaptedSavings(@JsonProperty("monetaryAmounte") JsonAdaptedMonetaryAmount jsma,
+                              @Deprecated
+                              @JsonProperty("monetaryAmountInteger") Integer mai,
+                              @Deprecated
                               @JsonProperty("monetaryAmountDecimal") Integer mad,
                               @Deprecated
                               @JsonProperty("monetaryAmount") Double ma,
                               @JsonProperty("percentageAmount") Double pc,
                               @JsonProperty("saveables") List<JsonAdaptedSaveable> sva) {
 
-        assert (mai != null && mad != null) || (mai == null && mad == null)
-                : "Monetary value missing integer or decimal field";
-        if (ma == null) {
-            this.monetaryAmountInteger = mai;
-            this.monetaryAmountDecimal = mad;
-        } else {
+        if (mai != null & mad != null) {
+            this.monetaryAmounte = new JsonAdaptedMonetaryAmount(mai, mad);
+        } else if (ma != null) {
             int intAmount = (int) Math.floor(ma); // get rid of decimal
             int decAmount = ((int) Math.round(ma * 100)) % 100;
             checkArgument(MonetaryAmount.isValidMonetaryAmount(intAmount, decAmount),
                     MonetaryAmount.MESSAGE_CONSTRAINTS);
-            this.monetaryAmountInteger = intAmount;
-            this.monetaryAmountDecimal = decAmount;
+            this.monetaryAmounte = new JsonAdaptedMonetaryAmount(intAmount, decAmount);
+        } else {
+            this.monetaryAmounte = jsma;
         }
         this.percentageAmount = pc;
         this.saveables = sva;
@@ -76,14 +78,7 @@ public class JsonAdaptedSavings {
      * @param sv The Savings to be used.
      */
     public JsonAdaptedSavings(Savings sv) {
-        if (sv.hasMonetaryAmount()) {
-            MonetaryAmount ma = sv.getMonetaryAmount().get();
-            this.monetaryAmountInteger = ma.getRawIntegerValue();
-            this.monetaryAmountDecimal = ma.getRawDecimalValue();
-        } else {
-            this.monetaryAmountInteger = null;
-            this.monetaryAmountDecimal = null;
-        }
+        this.monetaryAmounte = sv.getMonetaryAmount().map(JsonAdaptedMonetaryAmount::new).orElse(null);
         this.percentageAmount = sv.getPercentageAmount().map(PercentageAmount::getValue).orElse(null);
         Function<List<Saveable>, List<JsonAdaptedSaveable>> mapToJson =
             svaList -> svaList.stream()
@@ -112,16 +107,16 @@ public class JsonAdaptedSavings {
             for (JsonAdaptedSaveable jsv : saveables) {
                 modelSaveables.add(jsv.toModelType());
             }
-            if (monetaryAmountInteger != null) {
-                return new Savings(new MonetaryAmount(monetaryAmountInteger, monetaryAmountDecimal), modelSaveables);
+            if (monetaryAmounte != null) {
+                return new Savings(monetaryAmounte.toModelType(), modelSaveables);
             } else if (percentageAmount != null) {
                 return new Savings(new PercentageAmount(percentageAmount), modelSaveables);
             } else {
                 return new Savings(modelSaveables);
             }
 
-        } else if (monetaryAmountInteger != null) {
-            return new Savings(new MonetaryAmount(monetaryAmountInteger, monetaryAmountDecimal));
+        } else if (monetaryAmounte != null) {
+            return new Savings(monetaryAmounte.toModelType());
         } else {
             return new Savings(new PercentageAmount(percentageAmount));
         }
@@ -136,12 +131,9 @@ public class JsonAdaptedSavings {
      *         an invalid Savings object.
      */
     private boolean checkIfValuesInvalid() {
-        // check if monetaryAmount has either value but not the other
-        return (monetaryAmountInteger != null && monetaryAmountDecimal == null )
-                || (monetaryAmountInteger == null && monetaryAmountDecimal != null)
-                // check if no values present at all in this Savings
-                || (monetaryAmountInteger == null && percentageAmount == null && saveables == null)
+        // check if no values present at all in this Savings
+        return (monetaryAmounte == null && percentageAmount == null && saveables == null)
                 // check if both monetaryAmount and percentageAmount present
-                || (monetaryAmountInteger != null && percentageAmount != null);
+                || (monetaryAmounte != null && percentageAmount != null);
     }
 }
