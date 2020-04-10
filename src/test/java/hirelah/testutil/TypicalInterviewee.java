@@ -23,10 +23,22 @@ public class TypicalInterviewee {
         typicalInterviewee.setTranscript(getTypicalTranscript());
         return typicalInterviewee;
     }
+    public static Interviewee createInterviewee(String name, int id, String alias) throws IllegalValueException {
+        Interviewee typicalInterviewee = new Interviewee(name, id);
+        typicalInterviewee.setAlias(alias);
+        return typicalInterviewee;
+    }
     public static IntervieweeList getIntervieweeList() throws IllegalValueException {
         List<Interviewee> list;
         list = List.of(buildInterviewee(NAME1, ID1, ALIAS1),
                 buildInterviewee(NAME2, ID2, ALIAS2));
+        return IntervieweeList.fromList(3, list);
+    }
+
+    public static IntervieweeList IntervieweeBeforeInterview() throws IllegalValueException {
+        List<Interviewee> list;
+        list = List.of(createInterviewee(NAME1, ID1, ALIAS1),
+                createInterviewee(NAME2, ID2, ALIAS2));
         return IntervieweeList.fromList(3, list);
     }
 }
