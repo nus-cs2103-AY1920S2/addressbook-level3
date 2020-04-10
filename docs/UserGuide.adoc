@@ -18,16 +18,21 @@ By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-NUSProductivity is an application designed to let you better manage your school work. The app is set out to enhance your productivity in school through 5 main features, module planning, CAP (cumulative average point) tracking, note taking, deadline and task listing, and finally, diary logging. This app is designed mainly for NUS students with the possibility to customise it for students from other universities in the future. More importantly, NUSProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Read on to get you started on using the application!
 
-==== An Introduction to NUSProductivity
 
-The image below shows the different parts of the user inteface of NUSProductivity
+=== An Introduction to NUSProductivity User guide
+
+- NUSProductivity is an application designed for all NUS students to better manage their school work. The app is set out to enhance your productivity in school through 5 main features, module planning, CAP (cumulative average point) tracking, note taking, deadline and task listing, and finally, diary logging. This app is designed only for NUS students for now with the possibility to customise it for students from other universities in the future. More importantly, NUSProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Read on to get you started on using the application!
+
+- The purpose of this document is for you to familiarise yourself with the functions and capabilities of what NUSProductivity can do.
+
+- The image below shows the different parts of the user interface of NUSProductivity
 
 .NUSProductivity Introduction
 image::StartupDescription.png[width="790"]
 
-==== Commonly Used Symbols
+
+=== Commonly Used Symbols
 
 [NOTE]
 This symbol indicates something you should take note of.
@@ -36,18 +41,17 @@ This symbol indicates something you should take note of.
 This symbol indicates a tip that you could use.
 
 
-
-
 ==  Quick Start
 
 This section allows you to start up NUSProductivity with ease. Detailed steps are listed below.
 
-.  Ensure you have Java `11` or above installed on your computer.
+.  Ensure you have Java `11` or above installed on your computer, if not you can refer to the guide below
+.  https://docs.oracle.com/en/java/javase/11/install/installation-jdk-microsoft-windows-platforms.html#GUID-C11500A9-252C-46FE-BB17-FC5A9528EAEB[Windows] https://docs.oracle.com/en/java/javase/11/install/installation-jdk-macos.html#GUID-2FE451B0-9572-4E38-A1A5-568B77B146DE[Mac]
 .  Download the latest version of `NUSProductivity.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for NUSProductivity.
 .  Double-click the file to start the app. The GUI should appear in a few seconds (screenshot of GUI shown below).
 +
-.NUSProductivity calendar tab
+.NUSProductivity Start up
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -397,36 +401,62 @@ Default location is set to
 `/User/<ACCOUNT NAME>` for mac
 `C:\Users\<ACCOUNT NAME>` for windows
 
-[NOTE]
-Path type gives you the flexibility to choose whether you want to use the current directory's path or the absolute path
 
-- INSERT PATH IMAGES
+
+==== Pathing
+
+- The notes feature allows you to specify the pathing used to access the file/folder you specify
+
+- The diagram below shows a comparision between absolute vs relative pathing
+
+.Pathing Absolute vs Rel
+image::pathing.png[width="790"]
+
+[TIP]
+if you want to access the Documents folder as shown in figure 13, you can use the absolute pathing and specify loc/Desktop instead of typing loc/../../../Documents
+
 
 ==== Listing Directory: `notesList`
 
-- List the directory that you supplied.
+- List the directory that you supplied. The display will show all folders that is in that directory.
 
 - Format: `notesList loc/PATH pt/PATH TYPE`
 
-==== Listing Directory: `notesCreate`
+.Listing files in directory
+image::notesListingUG.png[width="790"]
+
+==== Creating a note: `notesCreate`
 
 - Creates a file/directory based on what you specified.
 
 - Format: `notesCreate loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE`
 
-==== Listing Directory: `notesOpen`
+[NOTE]
+The type can only be file or folder
+
+.Creating a file in a specified directory
+image::notesCreateUG.png[width="790"]
+
+
+==== Opening a note: `notesOpen`
 
 - Opens a file/directory based on what you specified.
 
 - Format: `notesOpen loc/PATH name/FILE_NAME pt/PATH_TYPE`
 
-==== Listing Directory: `notesDelete`
+.Opening a file in a specified directory
+image::notesOpenUG.png[width="790"]
+
+==== Deleting a note: `notesDelete`
 
 - Delete a file based on what you specified.
 
 - Format: `notesDelete loc/PATH name/FILE_NAME pt/PATH_TYPE`
 
-[CAUTION]
+.Deleting a file in a specified directory
+image::notesDeleteUG.png[width="790"]
+
+[NOTE]
 This can only be use to delete a file and not a folder
 
 
