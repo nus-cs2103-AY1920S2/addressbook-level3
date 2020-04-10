@@ -41,7 +41,7 @@ public class SplashScreen extends Preloader {
         // Set Width and Height based on Screen Size
         Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
         stage.setWidth(screenBoundary.getWidth() / 3);
-        stage.setHeight(screenBoundary.getWidth() / 3 + 20);
+        stage.setHeight(screenBoundary.getWidth() / 3 + 4);
 
         // Set Width and Height of inner elements
         imageView.preserveRatioProperty();
