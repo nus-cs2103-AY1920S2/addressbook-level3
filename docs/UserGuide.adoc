@@ -273,14 +273,20 @@ duties. It will show you information such as:
 * `WEEK`: the recurring period of the session
 
 === Claims View
-Under the `claims` tab, the Claim View contains a list of all the claimable duties you
-have completed so far.
+Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
+duties you have completed so far.
 
 The purpose of this view is to allow a you to keep track of all your claims so
 you can easily enter it into the TSS claims form at the end of the semester.
 
 The claims under this tab can be filtered by module code to enable you to easily see
-what claims to submit for each of the modules you teach.
+what claims to submit for each of the modules you teach. The *Claims View* has been
+divided into two columns.
+
+. The first column shows you a list of all the modules that you are a teaching
+assistant for.
+
+. The second column shows you a list of all the sessions that have been marked as done.
 
 [[Usage]]
 == Usage
