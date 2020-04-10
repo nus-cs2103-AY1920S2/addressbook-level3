@@ -27,6 +27,7 @@ public class EditCommand extends Command {
      */
     public void execute(Model notablyModel) throws CommandException {
         requireNonNull(notablyModel);
+        logger.info("Executing EditCommand");
         if (notablyModel.getCurrentlyOpenPath().equals(ROOT)) {
             throw new CommandException(ERROR_ROOT_MODIFICATION);
         }

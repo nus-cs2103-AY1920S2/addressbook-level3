@@ -31,7 +31,6 @@ public class OpenCommand extends Command {
     public void execute(Model notablyModel) throws CommandException {
         requireNonNull(notablyModel);
         logger.info("Executing OpenCommand");
-
         try {
             notablyModel.setCurrentlyOpenBlock(path);
         } catch (NoSuchBlockException ex) {
