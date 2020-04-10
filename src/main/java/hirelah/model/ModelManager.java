@@ -276,6 +276,7 @@ public class ModelManager implements Model {
     /**
      * Finalizes the questions and attributes so they do not change between interviews.
      */
+    @Override
     public void finaliseInterviewProperties() {
         this.finalisedInterviewProperties = true;
     }

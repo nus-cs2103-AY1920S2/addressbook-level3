@@ -86,6 +86,8 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
+* After executing each command, performs command-specific view updates as instructed
+  by the CommandResult returned by that command.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
@@ -102,8 +104,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  `Logic` uses either the `NormalParser` or `InterviewParser` class to parse the user command, depending on the app phase stored in the Model.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an attribute).
+.  The command execution may also call the storage to save the Model if the command modified the Model.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying the
+.  The `CommandResult` object then instructs the `Ui` to perform certain actions, such as displaying the
 list of the current attribute.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add attribute leadership")` API call.
@@ -111,7 +114,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `add attribute leadership` Command
 image::AddSequenceDiagram.png[]
 
-NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram. +
+The exact details of how `AddAttributeCommand` gets the `AttributeList` from `Model`, then modifies the list, then passes the `AttributeList` to `Storage` is left
+out in this diagram.
 
 // end::logic[]
 
@@ -167,6 +172,13 @@ When an interviewer wants to take a decision on hiring interviewees, it will be 
 a look of the interviewees' score, to take a decision, especially when it comes to a large scale hiring pool. Therefore,
 HireLah! provides a Find Best Interviewees feature to show the top interviewees, depending on how many employees the
 company need, and what kind of employees does the company desire.
+
+=== Session Feature
+
+// tag::undoredo[]
+=== [Proposed] Undo/Redo feature
+==== Proposed Implementation
+
 
 ==== Implementation
 
