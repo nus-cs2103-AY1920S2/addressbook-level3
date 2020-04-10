@@ -78,14 +78,20 @@ public class SuggestionsWindowView extends ViewPart<Region> {
     private void initializeSuggestionsList(ObservableList<SuggestionItem> suggestionsList) {
         suggestionsListPanel.setItems(suggestionsList);
         suggestionsListPanel.setCellFactory(listView -> new SuggestionsListViewCell());
-        initializeSelectionHandler();
+        initializeSelectionHandlers();
     }
 
     /**
-     * Sets up an {@code EventHandler} that track whether the user has selected a {@link SuggestionItem}, and
-     * whether the user is navigating out of the Suggestions List.
+     * Sets up handlers that facilitate the selection of {@link SuggestionItem's}, and
+     * facilitate navigation out of the Suggestions List.
      */
-    private void initializeSelectionHandler() {
+    private void initializeSelectionHandlers() {
+        suggestionsListPanel.focusedProperty().addListener((observable, unused, isNowFocused) -> {
+            if (isNowFocused && suggestionsListPanel.isVisible()) {
+                suggestionsListPanel.getSelectionModel().select(0);
+            }
+        });
+
         suggestionsListPanel.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (KeyCode.ENTER == event.getCode()) {
                 suggestionsListPanel.getSelectionModel().getSelectedItem().getAction().run();
