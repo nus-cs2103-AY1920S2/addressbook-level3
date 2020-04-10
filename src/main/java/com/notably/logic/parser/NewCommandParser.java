@@ -7,7 +7,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.NewCommand;
@@ -24,6 +26,7 @@ import com.notably.model.block.Title;
  */
 public class NewCommandParser implements CommandParser<Command> {
     private Model notablyModel;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public NewCommandParser(Model notablyModel) {
         this.notablyModel = notablyModel;
@@ -68,6 +71,7 @@ public class NewCommandParser implements CommandParser<Command> {
 
         AbsolutePath path = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         commands.add(new OpenCommand(path));
+        logger.info("OpenCommand created");
         return commands;
     }
 

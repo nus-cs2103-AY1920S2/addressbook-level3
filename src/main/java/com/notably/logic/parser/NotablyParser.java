@@ -3,9 +3,11 @@ package com.notably.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
@@ -26,7 +28,6 @@ import com.notably.model.Model;
  * Parse in users input and generate the respective Commands
  */
 public class NotablyParser {
-
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "open", "help", "exit");
@@ -34,6 +35,7 @@ public class NotablyParser {
     private static final boolean USE_PATH_FORWARD_MATCHING = false;
 
     private Model notablyModel;
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private final CorrectionEngine<String> commandCorrectionEngine;
     private final CorrectionEngine<AbsolutePath> pathCorrectionEngine;
 
@@ -51,6 +53,7 @@ public class NotablyParser {
      */
     public List<? extends Command> parseCommand(String userInput) throws ParseException {
         requireNonNull(userInput);
+        logger.info(String.format("Parsing '%s'", userInput));
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));
@@ -90,7 +93,6 @@ public class NotablyParser {
 
         case ExitCommand.COMMAND_WORD:
             return List.of(new ExitCommand());
-
         default:
             throw new ParseException("Invalid Command Word");
         }

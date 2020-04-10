@@ -4,7 +4,9 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.notably.commons.LogsCenter;
 import com.notably.commons.path.AbsolutePath;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.correction.CorrectionEngine;
@@ -19,6 +21,7 @@ import com.notably.model.Model;
 public class OpenCommandParser implements CommandParser<OpenCommand> {
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public OpenCommandParser(Model notablyModel, CorrectionEngine<AbsolutePath> pathCorrectionEngine) {
         this.notablyModel = notablyModel;
@@ -52,6 +55,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
             throw new ParseException("Invalid Path");
         }
 
+        logger.info("OpenCommand created");
         return List.of(new OpenCommand(correctionResult.getCorrectedItems().get(0)));
     }
 }
