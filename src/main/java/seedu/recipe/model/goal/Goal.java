@@ -99,7 +99,7 @@ public class Goal {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Goal // instanceof handles nulls
-                && goalName.toLowerCase().equals(((Goal) other).goalName.toLowerCase())); // state check
+                && goalName.equals(((Goal) other).goalName));
     }
 
     @Override
