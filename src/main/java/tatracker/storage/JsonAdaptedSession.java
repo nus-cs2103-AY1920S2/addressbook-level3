@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tatracker.commons.exceptions.IllegalValueException;
+import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 
@@ -14,15 +15,25 @@ import tatracker.model.session.SessionType;
  * Jackson-friendly version of {@link Session}.
  */
 class JsonAdaptedSession {
+    public static final String MESSAGE_INVALID_TIMING = "Session's timing is invalid"
+            + " because the end date time is before its start date time";
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Session's %s field is missing!";
+    private static final String MESSAGE_INVALID_DATE_TIME = "\nDate Times should"
+            + " start with a date in yyyy-MM-dd format,"
+            + " followed by the letter T,"
+            + " then the time in HH:mm format.";
 
-    private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
-    private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
-    private static final String MESSAGE_INVALID_DATE_TIME =
-            "Session's %s date time is invalid!\n"
-            + MESSAGE_INVALID_DATE + "\n"
-            + MESSAGE_INVALID_TIME;
+    public static final String MESSAGE_INVALID_START_DATE_TIME = "Session's start date time is invalid."
+            + MESSAGE_INVALID_DATE_TIME;
+    public static final String MESSAGE_INVALID_END_DATE_TIME = "Session's end date time is invalid."
+            + MESSAGE_INVALID_DATE_TIME;
+
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Session's %s field is missing!";
+    public static final String MISSING_START_DATE_TIME = String.format(MISSING_FIELD_MESSAGE_FORMAT, "start date time");
+    public static final String MISSING_END_DATE_TIME = String.format(MISSING_FIELD_MESSAGE_FORMAT, "end date time");
+    public static final String MISSING_SESSION_TYPE = String.format(MISSING_FIELD_MESSAGE_FORMAT, "type");
+    public static final String MISSING_DESCRIPTION = String.format(MISSING_FIELD_MESSAGE_FORMAT, "description");
+    public static final String MISSING_MODULE_ID = String.format(MISSING_FIELD_MESSAGE_FORMAT, "module");
 
     private String startDateTime;
     private String endDateTime;
@@ -77,42 +88,58 @@ class JsonAdaptedSession {
     public Session toModelType() throws IllegalValueException {
         // ==== Start Date Time ====
         if (startDateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "start date time"));
+            throw new IllegalValueException(MISSING_START_DATE_TIME);
         }
 
         final LocalDateTime modelStartDateTime;
         try {
             modelStartDateTime = LocalDateTime.parse(startDateTime);
         } catch (DateTimeParseException dtpe) {
-            throw new IllegalValueException(String.format(MESSAGE_INVALID_DATE_TIME, "start"));
+            throw new IllegalValueException(MESSAGE_INVALID_START_DATE_TIME);
         }
 
         // ==== End Date Time ====
         if (endDateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "end date time"));
+            throw new IllegalValueException(MISSING_END_DATE_TIME);
         }
 
         final LocalDateTime modelEndDateTime;
         try {
             modelEndDateTime = LocalDateTime.parse(endDateTime);
         } catch (DateTimeParseException dtpe) {
-            throw new IllegalValueException(String.format(MESSAGE_INVALID_DATE_TIME, "end"));
+            throw new IllegalValueException(MESSAGE_INVALID_END_DATE_TIME);
+        }
+
+        // ==== Time Constraints ====
+        if (modelEndDateTime.isBefore(modelStartDateTime)) {
+            throw new IllegalValueException(MESSAGE_INVALID_TIMING);
         }
 
         // ==== Type ====
         if (type == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Session type"));
+            throw new IllegalValueException(MISSING_SESSION_TYPE);
         }
-        final SessionType modelSessionType = SessionType.valueOf(type);
+        if (!SessionType.isValidSessionType(type)) {
+            throw new IllegalValueException(SessionType.MESSAGE_CONSTRAINTS);
+        }
+        final SessionType modelSessionType = SessionType.getSessionType(type);
 
         // ==== Description ====
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "description"));
+            throw new IllegalValueException(MISSING_DESCRIPTION);
         }
 
         // ==== Module Id ====
         if (moduleId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module id"));
+            throw new IllegalValueException(MISSING_MODULE_ID);
+        }
+        if (moduleId.isBlank()) {
+            throw new IllegalValueException(Module.CONSTRAINTS_MODULE_CODE);
+        }
+
+        // ==== Module Id ====
+        if (recurring < 0) {
+            throw new IllegalValueException(Session.CONSTRAINTS_RECURRING_WEEKS);
         }
 
         Session session = new Session(modelStartDateTime, modelEndDateTime, modelSessionType,
@@ -121,8 +148,6 @@ class JsonAdaptedSession {
         if (isDone) {
             session.done();
         }
-
         return session;
     }
-
 }
