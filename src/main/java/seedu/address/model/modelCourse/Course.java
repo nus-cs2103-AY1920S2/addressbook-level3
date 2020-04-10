@@ -40,9 +40,8 @@ public class Course extends ModelObject {
   }
 
   /**
-   * Overloaded constructor for edited object, loaded from storage, or sample data
+   * Overloaded constructor for edited object, loaded from storage, or sample data.
    */
-
   public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
@@ -51,6 +50,9 @@ public class Course extends ModelObject {
     this.tags.addAll(tags);
   }
 
+  /**
+   * Overloaded constructor for edited object, loaded from storage, or sample data.
+   */
   public Course(Name name, ID id, Amount amount, ID assignedStaffID, Set<ID> assignedStudentsID, Set<ID> assignedAssignmentsID, Set<Tag> tags) {
     requireAllNonNull(name, id, amount, tags);
     this.name = name;
