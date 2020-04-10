@@ -109,16 +109,20 @@ public class Eylah {
             isBack = false;
 
             switch(commandWord.toLowerCase()) {
+            case "diet": // Fallthrough
             case "1":
                 initSetup(Mode.DIET);
                 runCommandLoopUntilBackCommand(Mode.DIET);
                 break;
+            case "split": // Fallthrough
             case "2":
                 initSetup(Mode.SPLITTER);
                 runCommandLoopUntilBackCommand(Mode.SPLITTER);
                 break;
             case "exit":
                 isExit = true;
+                break;
+            case "help":
                 break;
             default:
                 ui.showError(MESSAGE_UNKNOWN_COMMAND);
@@ -281,14 +285,6 @@ public class Eylah {
                 } else {
                     initialReceiptData = receiptBookOptional.get();
                 }
-
-                /*
-                initialPersonData = personAmountBookOptional
-                        .orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
-                initialReceiptData = receiptBookOptional.orElseGet(SampleReceiptDataUtil::getSampleReceiptBook);
-
-                 */
-
             } catch (DataConversionException e) {
                 logger.warning("Data file not in the correct format. Will be starting with an empty "
                         + "PersonAmountBook and ReceiptBook");
