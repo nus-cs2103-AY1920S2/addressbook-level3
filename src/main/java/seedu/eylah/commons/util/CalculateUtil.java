@@ -12,6 +12,10 @@ import seedu.eylah.expensesplitter.model.person.Amount;
  */
 public class CalculateUtil {
 
+    private static int DECIMALS = 2;
+    private static int EXTRA_DECIMALS = 4;
+    private static RoundingMode ROUNDING_MODE = RoundingMode.HALF_DOWN;
+
     /**
      * Calculates the price per person by dividing the cost of item with the number of persons involved.
      *
@@ -20,9 +24,7 @@ public class CalculateUtil {
      * @return Price per person.
      */
     public static Amount calculatePricePerPerson(BigDecimal itemPrice, BigDecimal numPersons) {
-        BigDecimal pricePerPerson = itemPrice.divide(numPersons,
-
-                new MathContext(3, RoundingMode.HALF_DOWN));
+        BigDecimal pricePerPerson = itemPrice.divide(numPersons, DECIMALS, ROUNDING_MODE);
 
         return new Amount(pricePerPerson);
     }
