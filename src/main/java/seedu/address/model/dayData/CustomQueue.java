@@ -147,7 +147,7 @@ public class CustomQueue implements Iterable<DayData> {
 
     /** Removes oldest DayData from head of the queue. */
     public void pop() {
-        assert(internalList.size() > 0);
+        assert (internalList.size() > 0);
         internalList.remove(0);
     }
 

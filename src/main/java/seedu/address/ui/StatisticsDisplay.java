@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
-import javafx.collections.ObservableList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -12,8 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.dayData.DayData;
-
-import java.util.List;
 
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {

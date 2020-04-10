@@ -102,10 +102,8 @@ public class ModelManagerTest {
     @Test
     public void getCustomQueue_modifyQueue_throwsUnsupportedOperationException() {
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> modelManager.getCustomQueue().remove(0));
+                UnsupportedOperationException.class, () -> modelManager.getCustomQueue().remove(0));
     }
-
 
     @Test
     public void equals() {

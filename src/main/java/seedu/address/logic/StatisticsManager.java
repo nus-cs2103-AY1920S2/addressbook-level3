@@ -3,11 +3,9 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 
-import javafx.collections.ObservableList;
+import java.util.List;
 import seedu.address.model.Statistics;
 import seedu.address.model.dayData.DayData;
-
-import java.util.List;
 
 /** Manages logic of StatisticsDisplay */
 public class StatisticsManager {
@@ -31,7 +29,7 @@ public class StatisticsManager {
     public void updateStatisticsDisplayValues(List<DayData> dayDatas) {
         requireNonNull(statistics);
         requireNonNull(dayDatas);
-        assert(dayDatas.size() > 0);
+        assert (dayDatas.size() > 0);
 
         // get daily challenge target
         String currTargetText = statistics.getDailyTarget();
@@ -53,7 +51,8 @@ public class StatisticsManager {
             expBarPerc = 100;
         }
 
-        progressBarDailyFilepathString = "/images/progress/ProgressBar" + String.valueOf(expBarPerc) + "%.png";
+        progressBarDailyFilepathString =
+                "/images/progress/ProgressBar" + String.valueOf(expBarPerc) + "%.png";
     }
 
     public void setDailyTargetText(String dailyTargetText) {
