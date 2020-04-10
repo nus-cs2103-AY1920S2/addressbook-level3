@@ -1,25 +1,35 @@
 package tatracker.logic.commands.session;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import tatracker.commons.core.Messages;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.ModelStub;
+import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
+import tatracker.model.ModelStub.ModelStubWithSession;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.testutil.sessions.SessionBuilder;
 
 public class AddSessionCommandTest {
 
-    private static final String DEFAULT_START = LocalDateTime
-            .of(2020, 05, 20, 17, 30).toString();
-    private static final String DEFAULT_END = LocalDateTime
-            .of(2020, 05, 20, 19, 30).toString();
+    private static final LocalDateTime DEFAULT_START = LocalDateTime
+            .of(2020, 05, 20, 17, 30);
+    private static final LocalDateTime DEFAULT_END = LocalDateTime
+            .of(2020, 05, 20, 19, 30);
     private static final String DEFAULT_MODULE = "CS2103T";
-    private static final String DEFAULT_TYPE = SessionType.TUTORIAL.toString();
+    private static final String DEFAULT_TYPE = "tutorial";
+            //SessionType.TUTORIAL.toString();
     private static final String DEFAULT_DESCRIPTION = "finishes his tutorial";
     private static final int DEFAULT_RECURRING = 2;
 
@@ -28,7 +38,7 @@ public class AddSessionCommandTest {
         assertThrows(NullPointerException.class, () -> new AddSessionCommand(null));
     }
 
-    /* @Test
+    /*@Test
     public void parse_invalidValue_failure() throws ParseException {
 
         //start end after end time
@@ -44,7 +54,7 @@ public class AddSessionCommandTest {
         ModelStub modelStub = new ModelStubWithSession(invalidSession);
         assertThrows(CommandException.class, Messages.MESSAGE_INVALID_SESSION_TIMES, ()
                 -> addSessionCommand.execute(modelStub));
-    } */
+    }*/
 
     /*@Test
     public void execute_sessionAcceptedByModel_addSuccessful() throws Exception {
@@ -53,17 +63,18 @@ public class AddSessionCommandTest {
 
         CommandResult commandResult = new AddSessionCommand(validSession).execute(modelStub);
 
-        assertEquals(String.format(AddSessionCommand.MESSAGE_SUCCESS, validSession), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddSessionCommand.MESSAGE_ADD_SESSION_SUCCESS,
+                validSession.getMinimalDescription()), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSession), modelStub.sessionsAdded);
     } */
 
-    /* @Test
+    /*@Test
     public void execute_duplicateSession_throwsCommandException() {
         Session validSession = new SessionBuilder().build();
         AddSessionCommand addSessionCommand = new AddSessionCommand(validSession);
         ModelStub modelStub = new ModelStubWithSession(validSession);
 
-        assertThrows(CommandException.class, AddSessionCommand.MESSAGE_DUPLICATE_SESSION, ()
+        assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_SESSION, ()
                 -> addSessionCommand.execute(modelStub));
     } */
 
