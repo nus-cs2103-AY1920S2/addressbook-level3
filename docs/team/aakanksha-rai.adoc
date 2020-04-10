@@ -25,35 +25,55 @@ I also wrote most of the commands that come under *Student View*.
 I created the `Module`, `UniqueModuleList`, `Group` and `UniqueGroupList` models
 that were used in *Student View* from scratch.
 
+* *Justification:* A TA would need to keep track of their students, grouped according
+to which group and module they are a part of. These models were required in all the features
+of our product.
+
+* *Highlights:* The models were created the way they were as initially the UI plans for
+*Student View* were different. Once we realised that our previous plan wasn't feasible,
+we switched to our current implementation and I had to add many functions to support
+the new UI.
+
 ==== Sort Commands
 
 This was one of my main features.
 
-** What it does: Allows the user to sort the students by rating (in ascending or
+* *What it does:* Allows the user to sort the students by rating (in ascending or
 descending order), by matriculation number or alphabetically. There are three variations
-of the sort
+of the sort - `sort all` which is used to sort all students in all groups of all modules,
+`sort module` which is used to sort all students in all groups of a particular module and
+`sort group` which is used to sort all students in a particular group of a particular module.
 
-* *Major enhancement*: in charge of *Student View* and did most of the commands
-used in the *Student View*
+* *Justification:* This feature improves the product as TA's are often required to
+sort their students in different ways. For example, *alphabetically* when taking attendance,
+by *matriculation number* when grading assessments or by *rating* when keeping track of
+strong or weak students.
 
-** What it does:
+* *Highlights:* This feature was difficult to implement as it had several sub-parts.
+Furthermore, it had initially been implemented in a different way but had to be changed
+significantly in order for it to be compatible with the *interactive parser*.
 
-allows the user to undo all previous commands one at a time.
-Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a
-user can make mistakes in commands and the app should provide a convenient way
-to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added
-in future. It required an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or
-if a third-party library is heavily used in the feature so that a reader can make
-a more accurate judgement of how much effort went into the feature}_
+==== Other Minor Enhancements
+My other minor enhancements include the implementation of the following commands:
 
-* *Minor enhancement*: added a history command that allows the user to navigate
-to previous commands using up/down keys.
+. `module add`
+. `module delete`
+. `module edit`
+. `group add`
+. `group delete`
+. `group edit`
 
-* *Code contributed*: [https://github.com[Functional code]]
+* *Justification:* These commands are needed to manipulate data in the *Student View*.
+
+* *Highlights:* While they come under Minor Enhancements, overall these commands were
+quite a lot of work as they had many edge cases such as editing the group code of to
+make it a duplicate group.
+
+=== Code contributed
+The code I contributed can be found here:
+
+[https://github.com[Functional code]] _{give links to collated code files}_
+
 [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
