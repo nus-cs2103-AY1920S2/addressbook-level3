@@ -36,9 +36,11 @@ Only successful commands are stored in the command history. There can be at most
 This feature is just like the command navigation feature in your favourite command line or shell.
 .  Some example commands you can try:
 
-* *`budget b/1000 rc/no`* : set a non-recurring budget of $1000 for the current month
-* **`add a/100`**`n/Wagyu Steak d/2020-02-28 c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on `2020-02-28` in category `FOOD` to the expense tracker
-* **`filter`**`m/ 2020-02` : filters to only show transactions made on `2020-02`
+* *`budget b/1000 rc/`* : set a recurring budget of $1000 for the current month and subsequent months
+* *`add i/ c/Income n/salary a/2500 d/2020-04-02 rc/` : adds a recurring income with amount `$2500.00`
+* **`add a/100`**`n/Wagyu Steak c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on the day it is added in category `FOOD` to the expense tracker
+* **`add a/50`**`n/shirt c/SHOPPING d/2020-04-08` : adds an expense named `shirt` with amount `50.00` spent on `2020-04-08` in category `SHOPPING` to the expense tracker
+* **`filter`**`m/ 2020-04` : filters to only show transactions made on `2020-02`
 * **`delete`**`1` : deletes the expense with id `1` in the current list
 * *`exit`* : exits the app
 
@@ -205,6 +207,8 @@ Export the filtered transaction list to a csv file
 Expected Outcome: A csv file will be created at the root directory and all transactions currently visible in the app
 will be exported to the csv file.
 
+image::Csv.png[width="790"]
+
 
 === Clear all data : `clear`
 
@@ -226,7 +230,6 @@ Format: `exit`
 ExpenseLa data are saved in the hard disk automatically as a json file after any command that changes the data. +
 There is no need to save manually.
 
-image::Csv.png[width="790"]
 
 == FAQ
 
