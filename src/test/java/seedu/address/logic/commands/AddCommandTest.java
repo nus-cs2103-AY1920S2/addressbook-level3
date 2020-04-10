@@ -60,6 +60,8 @@ import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
+//@@author wanxuanong
+
 public class AddCommandTest {
 
     // No profile exists, hence modules cannot be added

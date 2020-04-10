@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course.module;
 
+//@@author chanckben
 /**
  * Represents a Module's list of preclusions in the module list.
  */

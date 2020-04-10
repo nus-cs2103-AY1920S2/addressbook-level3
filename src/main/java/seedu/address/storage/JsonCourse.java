@@ -11,6 +11,7 @@ import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseRequirement;
 
+//@@author gyant6
 /**
  * Jackson-friendly version of {@link JsonCourse}.
  */

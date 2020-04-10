@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course;
 
+//@@author joycelynteo
 /**
  * Accepted specialisations stored as enumerations.
  */

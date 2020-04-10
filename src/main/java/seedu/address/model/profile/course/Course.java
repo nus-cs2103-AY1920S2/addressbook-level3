@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author gyant6
 /**
  * Represents a profile's course in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.

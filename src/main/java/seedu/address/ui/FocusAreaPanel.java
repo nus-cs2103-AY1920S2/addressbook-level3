@@ -13,6 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.module.Module;
 
+//@@author jadetayy
 /**
  * Panel containing information related to CourseFocusArea.
  */

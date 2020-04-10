@@ -24,6 +24,8 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
 
+//@@author joycelynteo
+
 /**
  * Adds a profile to the address book.
  */

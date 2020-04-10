@@ -7,6 +7,7 @@ import seedu.address.model.profile.course.module.personal.DeadlineList;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
+//@@author gyant6
 /**
  * Represents a Module in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.

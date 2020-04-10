@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author chanckben
 public class JsonCourseFocusAreaTest {
     private static final List<String> VALID_PRIMARIES = new ArrayList<>();
     private static final List<String> VALID_ELECTIVES = new ArrayList<>();

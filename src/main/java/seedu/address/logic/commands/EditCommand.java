@@ -35,6 +35,8 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
+//@@author joycelynteo
+
 /**
  * Edits Profile or Module specified by user.
  */

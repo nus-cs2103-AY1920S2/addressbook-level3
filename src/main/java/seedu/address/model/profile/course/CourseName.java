@@ -1,5 +1,6 @@
 package seedu.address.model.profile.course;
 
+//@@author gyant6
 /**
  * Represents a Course's name
  * Guarantees:

@@ -10,6 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.module.Module;
 
+//@@author chanckben
 /**
  * An Immutable ModuleList that is serializable to JSON format.
  */

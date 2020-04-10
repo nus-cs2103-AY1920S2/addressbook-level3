@@ -20,6 +20,8 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
+//@@author chanckben
+
 /**
  * Deletes a profile identified using it's displayed index from the address book.
  */
@@ -184,6 +186,8 @@ public class DeleteCommand extends Command {
                 || ((deleteModuleCode != null) && this.deleteModuleCode.equals(command.deleteModuleCode));
         boolean sameDeadline = (deleteDeadline == null && command.deleteDeadline == null)
                 || ((deleteDeadline != null) && this.deleteDeadline.equals(command.deleteDeadline));
-        return sameName && sameModuleCode && sameDeadline;
+        boolean sameGrade = (deleteGrade == null && command.deleteGrade == null)
+                || ((deleteGrade != null) && this.deleteGrade.equals(command.deleteGrade));
+        return sameName && sameModuleCode && sameDeadline && sameGrade;
     }
 }

@@ -7,6 +7,7 @@ import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 
+//@@author jadetayy
 /**
  * Lists all persons in the address book to the user.
  */

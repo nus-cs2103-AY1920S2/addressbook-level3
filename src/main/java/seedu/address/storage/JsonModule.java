@@ -17,6 +17,7 @@ import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 
+//@@author chanckben
 /**
  * Jackson-friendly version of {@link Module}.
  */

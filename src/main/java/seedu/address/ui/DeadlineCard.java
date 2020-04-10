@@ -11,6 +11,7 @@ import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
+//@@author jadetayy
 /**
  * An UI component that displays information of a {@code Profile}.
  */

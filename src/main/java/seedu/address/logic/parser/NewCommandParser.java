@@ -17,6 +17,8 @@ import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.FocusArea;
 
+//@@author joycelynteo
+
 /**
  * Parses input arguments and creates a new Profile Object.
  */

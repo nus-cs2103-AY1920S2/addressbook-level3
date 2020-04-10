@@ -62,6 +62,8 @@ import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
 
+//@@author joycelynteo
+
 public class EditCommandTest {
 
 

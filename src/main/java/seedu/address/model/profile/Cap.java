@@ -9,6 +9,7 @@ import seedu.address.model.ModuleList;
 import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
 
+//@@author gyant6
 /**
  * Creates a Cumulative Average Point (CAP) class
  */

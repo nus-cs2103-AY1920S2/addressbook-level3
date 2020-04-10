@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
+//@@author jadetayy
 /**
  * Controller for a help page
  */

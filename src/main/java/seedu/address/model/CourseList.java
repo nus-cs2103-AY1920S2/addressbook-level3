@@ -10,6 +10,7 @@ import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
 
+//@@author gyant6
 /**
  * Creates a new CourseList object which contains Module objects.
  */
