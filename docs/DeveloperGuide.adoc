@@ -336,11 +336,11 @@ The `Exercise` class is facilitated by the `UniqueExerciseList`, which is a wrap
 
 `Exercise` comprises five attributes:
 
-1. `ExerciseName`
-2. `ExerciseDate`
-3. `ExerciseReps`
-4. `ExerciseWeight`
-5. `ExerciseSets`
+. `ExerciseName`
+. `ExerciseDate`
+. `ExerciseReps`
+. `ExerciseWeight`
+. `ExerciseSets`
 
 All instances of `Exercise` of a client will be contained in the client's `UniqueExerciseList`. There is an additional class `PersonalBest` which is also associated to `Exercise`. It is omitted and will discuss in (...) section due to its high significance. Below shows a UML class diagram which shows `Exercise` class interactions.
 
@@ -357,10 +357,10 @@ image::IsSameExerciseObjectDiagram.png[]
 
 The two `Exercise` only have different values in `ExerciseSets` but the same values in:
 
-1. `ExerciseName`
-2. `ExerciseDate`
-3. `ExerciseReps`
-4. `ExerciseWeight`
+. `ExerciseName`
+. `ExerciseDate`
+. `ExerciseReps`
+. `ExerciseWeight`
 
 This implementation is chosen as we felt that the user should increment the value in `ExerciseSets` in the existing `Exercise`. We do consider that the user might want to record the two instances separately as it might be done at different periods of the day. However, we want to keep the exercises in the table compact and the user can easily view what exercises were done on that day.
 
@@ -368,9 +368,9 @@ This implementation is chosen as we felt that the user should increment the valu
 
 The exercise commands edits the client's `UniqueExerciseList`. Currently, there are 3 exercise commands. 
 
-1. `add-e` : Adds an exercise to a client
-2. `edit-e` : Edits a client's exercise
-3. `delete-e` : Deletes a client's exercise
+. `add-e` : Adds an exercise to a client
+. `edit-e` : Edits a client's exercise
+. `delete-e` : Deletes a client's exercise
 
 The commands follow a similar execution flow as other commands.
 
