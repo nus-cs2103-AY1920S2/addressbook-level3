@@ -126,14 +126,8 @@ public class Deadline {
             return true;
         }
         if (other instanceof Deadline) {
-            boolean sameDescription = this.description.equals(((Deadline) other).description);
-            boolean sameDate = (this.date == null && ((Deadline) other).date == null)
-                    || (this.date != null && ((Deadline) other).date != null
-                    && this.date.equals(((Deadline) other).date));
-            boolean sameTime = (this.time == null && ((Deadline) other).time == null)
-                    || (this.time != null && ((Deadline) other).time != null
-                    && this.time.equals(((Deadline) other).time));
-            return sameDescription && sameDate && sameTime;
+            Deadline otherDeadline = (Deadline) other;
+            return this.description.toUpperCase().equals(otherDeadline.getDescription().toUpperCase());
         }
         return false;
     }

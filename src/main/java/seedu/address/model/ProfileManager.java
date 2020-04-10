@@ -171,7 +171,7 @@ public class ProfileManager implements Model {
         while (iter.hasNext()) {
             Deadline dl = iter.next();
             if (dl.getModuleCode().equals(deadline.getModuleCode())
-                    && dl.getDescription().equals(deadline.getDescription())) {
+                    && dl.getDescription().toUpperCase().equals(deadline.getDescription().toUpperCase())) {
                 iter.remove();
                 flag = true;
             }
