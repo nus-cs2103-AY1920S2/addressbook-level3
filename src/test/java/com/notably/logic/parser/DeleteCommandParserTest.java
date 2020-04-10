@@ -26,19 +26,11 @@ import com.notably.testutil.TypicalBlockModel;
 class DeleteCommandParserTest {
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_FORWARD_MATCHING = true;
-    private static AbsolutePath toBlock;
-    private static AbsolutePath toAnother;
-    private static AbsolutePath toAnotherBlock;
     private static Model model;
     private static DeleteCommandParser deleteCommandParser;
 
     @BeforeEach
     public void setUp() {
-        // Set up paths
-        toBlock = AbsolutePath.fromString("/block");
-        toAnother = AbsolutePath.fromString("/another");
-        toAnotherBlock = AbsolutePath.fromString("/another/block");
-
         // Set up model
         BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
