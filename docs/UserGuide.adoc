@@ -1191,29 +1191,6 @@ Optionally you can click on the cross button of the application to exit!
 * Data is saved in the hard disk automatically after any command that changes data that is present.
 * There is no need to save manually.
 
-//@@author
-== Future Features (v2.0)
-
-[[export]]
-=== Export order list `[coming in v2.0]`
-_{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
-
-[[reminder]]
-=== Reminder `[coming in v2.0]`
-_{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
-
-[[rescheduling]]
-=== Rescheduling orders `[coming in v2.0]`
-_{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
-
-[[tracking-work]]
-=== Keeping track of work schedule `[coming in v2.0]`
-_{explain how the user can keep track of their work schedule}_
-
-[[statistics]]
-=== Statistics for completed orders `[coming in v2.0]`
-_{explain how the user can view statistics such as on-time rates (difference between actual and expected
-delivery), number of deliveries completed in a day}_
 
 [[FAQ]]
 == FAQ
