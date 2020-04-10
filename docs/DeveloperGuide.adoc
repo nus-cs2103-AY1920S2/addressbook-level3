@@ -159,6 +159,8 @@ each of the List Cells is defined by the respective Card.
 
 The other 2 Tabs follow the same structure as the Class diagram above.
 
+==== Windows (not sure if this is necessary)
+
 [[Design-Logic]]
 === Logic component
 
@@ -1039,6 +1041,38 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 [[Implementation-Goto]]
 === Goto Command
 
+==== Description
+
+The `goto` command has been implemented to allow user to programmatically switch through the tabs using
+the command line, rather than clicking on the tab headers. The command can be utilised by inputing `goto TAB_NAME`.
+`TAB_NAME` is a compulsory parameter for the user.
+
+==== Implementation
+This section describes the implementation of the `goto` command.
+
+.Sequence Diagram for Goto Claims Command
+image::GotoClaimsSequenceDiagram.png[]
+
+Given below is an example scenario where the user enters a command to switch to the claims tab.
+
+*Step 1:* The user command is passed through the `LogicManager` to `TaTrackerParser`.
+`TaTrackerParser` checks the input arguments and identify the String keywords.
+
+*Step 2:* The `TaTrackerParser` sees that the command is a type of Goto and passes the command
+to the `GotoCommandParser`.
+
+*Step 3:* The `GotoCommandParser` creates a `GotoCommand` object
+with the relevant keywords.
+
+*Step 5:* `LogicManager` calls `GotoCommand` 's execute method.
+The `GotoCommand` object checks whether any of the keywords given by the user
+matches the existing module and/or group.
+If it does, the `GotoCommand` returns a `CommandResult`
+with a success message.
+
+*Step 6:* `MainWindow` selects the `ClaimsTab` in the `TabPane` to switch to the `Claims Tab`
+
+
 [[Implementation-Filter]]
 === Filter Command
 
@@ -1062,8 +1096,6 @@ The activity diagram below summarises what happens when the user executes a `fil
 
 .Activity Diagram of the Filter Command
 image::FilterCommandActivityDiagram.png[]
-
-==== Implementation
 
 The filter feature consists of three main parts:
 
