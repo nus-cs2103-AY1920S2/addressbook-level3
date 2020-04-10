@@ -464,6 +464,35 @@ This can only be use to delete a file and not a folder
 
 This section summarizes the list of commands.
 
+* Calendar:
+** *deadline* : `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
+e.g. `deadlineAdd desc/Do Chores by/30-04-2020 cat/Misc`
+** *moduleTask*: `moduleTask desc/DESCRIPTION m/MODULE CODE date/DD-MM-YYYY pri/PRIORITY`
+e.g. `moduleTask desc/Project Deadline date/30-04-2020 m/CS2103T pri/5`
+** *done*: `done index/INDEX`
+e.g. `done index/1`
+** *taskDelete*: `taskDelete index/INDEX`
+e.g. `taskDelete index/1`
+** *sortTask*: `sortTask by/SORT`
+e.g. `sortTask by/priority`
+** *findTask*: `findTask m/MODULECODE` or `findTask cat/CATEGORY` or `findTask date/DD-MM-YYYY`
+e.g. `findTask m/CS2103T`
+** *listTask*: `listTask`
+e.g. `listTask`
+
+
+* Notes
+** *notesList* loc/PATH pt/PATH TYPE
+e.g. `notesList loc/Desktop pt/abs`
+** *notesOpen* loc/PATH name/FILE_NAME pt/PATH_TYPE
+e.g. `notesOpen loc/Desktop name/test.doc pt/abs`
+** *notesCreate* loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE
+e.g. `notesCreate loc/Desktop/ name/Test.doc type/file pt/abs`
+** *notesDelete* loc/PATH name/FILE_NAME pt/PATH_TYPE
+e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
+
+
+
 
 * Address Book:
 ** add  n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
@@ -497,10 +526,6 @@ e.g. `diary weather 1 SUNNY`
 ** diary emotion ID EMOTION
 e.g. `diary emotion 1 HAPPY`
 
-* Calendar:
-** deadline : deadlineAdd DESCRIPTION /by DD-MM-YYYY HHMM
-e.g. `deadlineAdd Finish homework /by 30-03-2020 1800`
-
 * Mod Plan:
 ** mymodplan: mymodplan
 ** mymodplan add MODULE CODE
@@ -509,14 +534,4 @@ e.g. `mymodplan add CS2103T`
 e.g. `mymodplan done CS2103T`
 ** modreq : modreq {\MAJOR} +
 e.g. `modreq computer science`
-
-* Notes
-** notesList loc/PATH pt/PATH TYPE
-e.g. `notesList loc/Desktop pt/abs`
-** notesOpen loc/PATH name/FILE_NAME pt/PATH_TYPE
-e.g. `notesOpen loc/Desktop name/test.doc pt/abs`
-** notesCreate loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE
-Example: `notesCreate loc/Desktop/ name/Test.doc type/file pt/abs`
-** notesDelete loc/PATH name/FILE_NAME pt/PATH_TYPE
-e.g. `notesDelete loc/Desktop/ name/Test.doc pt/abs`
 
