@@ -73,6 +73,14 @@ class RelativePathTest {
     }
 
     @Test
+    public void compareTo_differentSizePathsWithDifferentPrefix() {
+        final RelativePath relativePath1 = RelativePath.fromString("Hello/../hellO/zz/again!");
+        final RelativePath relativePath2 = RelativePath.fromString("./hello/notes");
+
+        assertTrue(relativePath1.compareTo(relativePath2) > 0);
+    }
+
+    @Test
     public void equals_similarPathWithSameCasing_pathAreEqual() {
         final RelativePath inputRelativePath1 = RelativePath.fromString("@CS2103/../@CS2103");
         final RelativePath inputRelativePath2 = RelativePath.fromString("@CS2103");

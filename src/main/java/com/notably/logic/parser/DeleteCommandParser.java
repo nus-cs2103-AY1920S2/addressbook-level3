@@ -19,6 +19,10 @@ import com.notably.model.Model;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
+    private static final String ERROR_EMPTY_PATH = "An empty path is detected please enter a valid Path. "
+            + "To see list of Command format, type: help";
+    private static final String ERROR_NO_MATCH_PATH = "The path \"%s\" does not exist in the Storage";
+
     private Model notablyModel;
     private CorrectionEngine<AbsolutePath> pathCorrectionEngine;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -41,17 +45,18 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             title = args.trim();
-            if (title.isEmpty()) {
-                throw new ParseException("Path cannot be empty");
-            }
         } else {
             title = argMultimap.getValue(PREFIX_TITLE).get();
+        }
+
+        if (title.isEmpty()) {
+            throw new ParseException(ERROR_EMPTY_PATH);
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException("Invalid Path");
+            throw new ParseException(String.format(ERROR_NO_MATCH_PATH, title));
         }
 
         logger.info("DeleteCommand created");
