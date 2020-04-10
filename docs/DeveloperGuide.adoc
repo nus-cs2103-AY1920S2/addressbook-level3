@@ -261,20 +261,17 @@ Again, this feature has also been implemented to mimic most modern CLIs, namely:
 . Any ambiguous commands should be completed up till the longest common prefix of all similar commands
 ** Using the ambiguous command example in the introduction above, when the user enters `a` and presses kbd:[Tab], the autocompletion should return `add-` (the longest common prefix of `add-e` and `add-c`) to the user
 . A list of all similar commands should be presented to the user should he try to autocomplete an ambiguous command
+. [[command-history-behaviour-4]]Pressing kbd:[Tab] when the command has already been completed will bring the user's caret to the next prefix delimitter (`/` in our case) with wraparound
 
 ===== How this feature works
 
-A limitation of the current design is that we are only able to autocomplete _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. As such, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to disable this feature (ie. when the user has already completed the command and has moved on to entering the parameters). As such, the following code snippet is used in `AutoComplete#execute` to stop trying to autocomplete if white spaces has been detected:
+This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above, by simply checking for the presence of white spaces from the trimmed user input.
 
-```java
-if (currCommand.contains(WHITE_SPACE_STRING)) {
-      return;
-}
-```
+Similarly, since this feature relies heavily on the UI class `CommandBox`, we have decided to let `CommandBox` interact with `AutoComplete` directly. The sequence diagram for when the user presses the kbd:[Tab] key is given as such:
 
-Similarly, since this feature relies heavily on the UI `CommandBox`, we have decided to let `CommandBox` interact with `AutoComplete` directly. `AutoComplete` makes use of the `Trie` data structure which we will discuss in the next section. As such, the following simplified class diagram shows exactly which classes are responsible for this feature:
+// TODO: do sequence diagram for auto complete
 
-image::CommandAutocompleteClassDiagram.png[]
+// TOOD: activity diagram for AutoComplete#execute
 
 ===== How the Trie data structure works
 
@@ -298,10 +295,41 @@ public String constructWord() {
 }
 ```
 
-Now, let us discuss about how `Trie` is implemented to support the <<command-history-behaviour, second behaviour discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns the `Node` whose constructed word (when constructed using `Node#constructWord`) is:
+Now, let us discuss about how we implemented `Trie` to support the <<command-history-behaviour, behaviours discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns the `Node` whose constructed word (when constructed using `Node#constructWord`) is:
 
 * If the argument `word` is unambiguous: the longest word contained in `Trie` that can be formed from `word`
 * If the argument `word` is ambiguous: the longest common prefix of all words similar to `word` contained in `Trie` 
+
+If no such `Node` can be found, in the case where the argument `word` matches no words currently in the `Trie`, `null` will be returned.
+
+Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of `Trie#getLongestPrefixNode`. Three distinct cases exists for the `Node` returned by `Trie#getLongestPrefixNode`: 
+
+. The returned `Node` is `null`, which means that the user command cannot be found in the `Trie` at all
+. The returned `Node` is a completed, valid word, which means that the user command is unambiguous
+. The returned `Node` is not a completed word, which means that the user command is ambiguous
+
+Cases 1 and 2 are relatively trivial and we shall not discuss about their implementations here. For case 3, in order for us to find all the similar words, we have chosen to use a Depth-First Search (DFS) approach, starting the search from the `Node` returned by `Trie#getLongestPrefixNode`, as shown here:
+
+```java
+Node subtrie = getLongestPrefixNode(word);
+ArrayList<String> similarWords = new ArrayList<>();
+
+Stack<Node> stack = new Stack<>();
+
+stack.push(subtrie);
+
+while (!stack.isEmpty()) {
+      Node current = stack.pop();
+      if (current.isWordEnd()) {
+            similarWords.add(current.constructWord());
+      } else {
+            stack.addAll(current.getChildren().values());
+      }
+}
+```
+
+[NOTE]
+The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach is arbitrary, both should work as expected.
 
 ==== Design Considerations
 
