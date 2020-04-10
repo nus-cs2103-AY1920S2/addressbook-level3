@@ -1188,3 +1188,6 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 === Claims View
 * *Set Rate:* `setrate RATE`
 * *Filter:* `claims filter m/MOD_CODE`
+
+=== Statistics
+* *Generate Statistics Report:* `report [MOD_CODE]`
