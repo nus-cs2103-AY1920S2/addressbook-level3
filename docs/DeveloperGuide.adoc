@@ -373,6 +373,7 @@ in the model component.
 .Model Components - Class Diagram
 image::ModelComponentsClassDiagram.png[]
 
+==== Example of Model Usage
 
 The following object diagram shows an example of the relationship between the different classes.
 This example is based on the state of TA-Tracker when it is first run (without any user data).
