@@ -384,33 +384,34 @@ This is how it goes :
 
 image::activityDiagramAutomation2.png[]
 
-=== Sort Activity Feature (To be implemented)
+// tag::sort[]
+=== Sort Deadline Feature
 
-Activities (ie. deadlines, lessons and events) are sorted by a specific criteria, such as date added or priority.
-By default, activities are sorted by date added.
+Deadlines are sorted by a specific criteria, such as due date or priority.
+By default, deadlines are sorted from top to bottom, date added from earliest to latest.
 
-The list of criteria to be sorted are as follows:
+The list of sort criteria are as follows:
 
-. Date added
+. Due date
 
 . Lexicographical order
 
 . Priority
 
 
-Refer to the user guide for the specific commands. Sorting of activities is facilitated by
-ModelManager#sortActivityList.
+Refer to the user guide for the specific commands. Sorting of deadlines is facilitated by
+ModelManager#sortList.
 
 ==== Implementation
-To sort activities, the command will use the keyword `sort` followed by the flag `/sm`, then the sort criteria.
+To sort deadlines, the command will use the keyword `sort` followed by the flag `/sm`, then the sort criteria.
 
-The following diagram shows how activities are sorted.
+The following diagram shows how deadlines are sorted.
 
-image::SortActivityDiagram.png[]
+image::SortDeadlineDiagram.png[]
 
-==== Internal workings for the sort activity command
+==== Internal workings for the sort deadline command
 
-Below is an example of a user sorting activities by priority and how the underlying system works.
+Below is an example of a user sorting deadlines by priority and how the underlying system works.
 
 . The user enters the command `sort sm/priority`
 
@@ -418,9 +419,9 @@ Below is an example of a user sorting activities by priority and how the underly
 
 . NasaBookParser will create an SortCommandParser which parses the input and returns an SortCommand.
 
-. LogicManager will execute the SortCommand. SortCommand will sort all activities by the criteria specified.
+. LogicManager will execute the SortCommand. SortCommand will sort all deadlines by the criteria specified.
 
-. The underlying model's activity lists are all updated.
+. The underlying model's deadline lists are all updated.
 
 . The view is updated to the new model.
 
@@ -437,13 +438,14 @@ The design considerations for the classes are shown below:
 [width="59%",cols="22%,<100%,<100%",options="header",]
 |=======================================================================
 |Choice|Pros|Cons
-|Permanent modification on the model's activity list when sorting.|Persistence of sorting ensure consistency
-regardless of user activity. |Rigid design, user will have to explicitly enter the sort command and criteria to change
+|Permanent modification on the model's deadline list when sorting.|Persistence of sorting ensure consistency
+regardless of user input command. |Rigid design, user will have to explicitly enter the sort command and criteria to change
 sort format.
-|All CRUD operations on activity list after sort criteria is defined will adhere to the sort criteria.|Consistency in
+|All CRUD operations on deadline list after sort criteria is defined will adhere to the sort criteria.|Consistency in
 sort criteria is ensured, removing the need to enter the sort command after CRUD operations.|Can be expensive on
-performance, and affect responsiveness of application when there are many entries of activities.
+performance, and affect responsiveness of application when there are many entries of deadlines.
 |=======================================================================
+// end::sort[]
 
 === Statistics Feature (To be implemented)
 
@@ -692,28 +694,6 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Add Lesson
-
-*MSS*
-
-1.  User requests to add an event for a particular module. +
-`Madd lesson m/CS2103T /d01-03-2019 23:59 /tTutorial [/nThis are the notes.]`
-2.  NASA will provide a acknowledgement messages.
-3.  NASA will displays a list of all the items inside the modules
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. No such modules.
-* 1b. Prompt user to add the modules not listed.
-+
-Use case ends.
-
-Use case resumes at step 1.
-
-[discrete]
 === Use case: List
 
 *MSS*
@@ -738,8 +718,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to change the date to 01-04-2019 and set priority to the lowest 5 for a tasksID=12 under the module CS2103T. +
-`edit m/CS2103T 12 /d01-04-2019 23:59 /p5`
+1.  User requests to change the date to 01-04-2019 and set priority to the lowest 5 for a taskID=12 under the module CS2103T. +
+`edit 12 m/CS2103T d/01-04-2019 23:59 p/5`
 2.  NASA will provide a acknowledgement messages
 3.  NASA will display the module and it's items.
 +
@@ -966,6 +946,7 @@ Use case ends.
 
 _{More to be added}_
 
+// tag::nfr[]
 [appendix]
 == Non Functional Requirements
 
@@ -1012,7 +993,7 @@ with basic CRUD function.
 3. App should be useable without requiring internet connection (apart from downloading the file online).
 
 
-_{More to be added}_
+// end::nfr[]
 
 [appendix]
 == Glossary
@@ -1021,10 +1002,9 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[task]] Tasks::
-** Tasks consist of deadlines, lessons and events
-** Deadlines are essentially assignments, homework or whatever that needs to be done by a specific date
-** Lessons are tutorials and classes and will be auto-generated
-** Events are other academic activities such as competitions, remedial and exams
+** Activities consist of deadlines and lessons
+** Deadlines are essentially assignments, homework or whatever that needs to be done by a specific due date
+** Events are academic activities such as tutorial classes, tests, competitions and remedial
 
 [appendix]
 == Product Survey
@@ -1102,15 +1082,12 @@ Expected: Unless the user adds in the module above, there should be an error mes
 .. Test case: `Mdelete m/1@00` +
 Expected: Error message with wrong format for module will be shown.
 
-=== Adding an Activity
+=== Adding an activity
 
 . Adding a new activity
 
 .. Test case: `deadline m/CS2030 a/Lab 2 d/12-12-2020 23:59 p/1` +
 Expected: A new deadline activity with the above description is displayed within the CS2030 module activity list.
-
-.. Test case: `lesson m/CS2030 a/Tutorial sd/12-12-2020 10:00 ed/12-12-2020 12:00 n/Do tutorial` +
-Expected: A new lesson activity with the above description is displayed within the CS2030 module activity list.
 
 .. Test case: `event m/CS2030 a/Recitation sd/12-12-2020 12:00 ed/12-12-2020 14:00` +
 Expected: A new event activity with the above description is displayed within the CS2030 module activity list.
@@ -1149,24 +1126,27 @@ Expected: An error message will be displayed.
 
 . Editing a module
 
-.. Test case: `Medit m/CS2O30 m/CS1231 n/Discrete Structures in Mathematics` +
-Expected: Module CS2030 will be changed to CS1231 with the name.
+.. Test case: `edit m/CS2030 m/CS1231 n/Discrete Structures in Mathematics` +
+Expected: Module CS2030 will be changed to CS1231 with the name Discrete Structures in Mathematics.
 
 . Editing a module that does not exist
 
-.. Test case: `Medit m/AX1107 m/CS1231 n/Discrete Structures in Mathematics` +
-Expected: Module cannot be found error will be displayed.
+.. Test case: `edit m/AX1107 m/CS1231 n/Discrete Structures in Mathematics` +
+Expected: Module does not exist error will be displayed.
 
-. Editing a module but with the same name and/or module code
+. Editing a module with the same name and module code
 
-.. Test case: `Medit m/CS2030 m/CS2030 n/Programming Methodology II` +
-Expected: Module being edited already contains the following descriptions error will be shown.
+.. Test case: `edit m/CS2030 m/CS2030 n/Programming Methodology II` +
+Expected: No new field is being edited error will be shown.
+
+. Editing a module with a different name but same module code
+
+.. Test case: `edit m/CS2030 m/CS2030 n/Java OOP Class` +
+Expected: Module CS2030 will be changed to the name Java OOP Class.
+
 === Deleting a module
 
-=== Editing an Activity
 . Deleting a module while all modules are listed
-
-. Editing an activity
 .. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
@@ -1174,6 +1154,10 @@ Expected: Module being edited already contains the following descriptions error 
    Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+
+=== Editing an Activity
+
+. Editing an activity
 
 .. Test case: `edit 1 m/CS2030 n/Remember to do checkstyle testing` +
 Expected: The first activity notes will be updated to the following.
