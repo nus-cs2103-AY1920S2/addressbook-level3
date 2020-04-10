@@ -9,8 +9,8 @@ import seedu.address.logic.messages.BluetoothSummaryMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bluetooth.BluetoothPings;
 import seedu.address.model.bluetooth.BluetoothPingsSummary;
-import seedu.address.report_generator.DangerReportGenerator;
-import seedu.address.report_generator.ReportGenerator;
+import seedu.address.report.DangerReportGenerator;
+import seedu.address.report.ReportGenerator;
 import seedu.address.storage.AppStorage;
 import seedu.address.storage.BluetoothPingStorageAccess;
 
@@ -21,13 +21,13 @@ import java.util.regex.Pattern;
 
 public class ReportGenerationCommand implements AppCommand, BluetoothPingStorageAccess {
     public static final String COMMAND_WORD = "report";
-    public static String con_type = "None";
-    public static int TARGET_ID;
-    public static long START_TIME;
-    public static long END_TIME;
+    public static String ConType = "None";
+    public static int TargetID;
+    public static long StartTime;
+    public static long EndTime;
     public static int ID1;
     public static int ID2;
-    public static int THRESHOLD;
+    public static int Threshold;
     public static final String CON_TYPE_ERROR = "Condition type not well defined";
 
 
@@ -36,8 +36,7 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
 
         if (arguments.trim().equals("all"))
         {
-            System.out.println("Report all");
-            con_type = "None";
+            ConType = "None";
         }
         else
         {
@@ -45,8 +44,8 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
             Matcher m = ID.matcher(arguments.trim());
             if (m.matches())
             {
-                this.TARGET_ID = Integer.parseInt(m.group("userid"));
-                this.con_type = "ID";
+                this.TargetID = Integer.parseInt(m.group("userid"));
+                this.ConType = "ID";
             }
             else
             {
@@ -54,9 +53,9 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
                 m = Time.matcher(arguments.trim());
                 if (m.matches())
                 {
-                    this.START_TIME = Long.parseLong(m.group("start"));
-                    this.END_TIME = Long.parseLong(m.group("end"));
-                    this.con_type = "Time";
+                    this.StartTime = Long.parseLong(m.group("start"));
+                    this.EndTime = Long.parseLong(m.group("end"));
+                    this.ConType = "Time";
                 }
 
                 else
@@ -68,7 +67,7 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
                     {
                         this.ID1 = Integer.parseInt(m.group("userA"));
                         this.ID2 = Integer.parseInt(m.group("userB"));
-                        this.con_type = "pairs";
+                        this.ConType = "pairs";
                     }
                     else
                     {
@@ -77,8 +76,8 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
 
                         if (m.matches())
                         {
-                            this.THRESHOLD = Integer.parseInt(m.group("threshold"));
-                            this.con_type = "danger";
+                            this.Threshold = Integer.parseInt(m.group("threshold"));
+                            this.ConType = "danger";
                         }
                         else
                         {
@@ -90,27 +89,25 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
                 }
             }
         }
-
-        //System.out.println(this.con_type + " " + this.TARGET_ID + " " + this.START_TIME + " " +this.END_TIME + " " + this.ID1 + " " + this.ID2 + " " + this.THRESHOLD);
         return this;
     }
 
     @Override
     public AppMessage execute(AppStorage dao) {
         ArrayList resp = new ArrayList<BluetoothPings>();
-        int danger_flag = 0;
-        switch (this.con_type)
+        int DangerFlag = 0;
+        switch (this.ConType)
         {
             case "ID":
                 System.out.println("Search by ID");
-                Conditions cond = new UserIDConditions(this.TARGET_ID);
+                Conditions cond = new UserIDConditions(this.TargetID);
                 resp = dao.search(cond);
 
                 break;
 
             case "Time":
                 System.out.println("Search by time");
-                cond = new TimestampConditions(this.START_TIME, this.END_TIME);
+                cond = new TimestampConditions(this.StartTime, this.EndTime);
                 resp = dao.search(cond);
 
                 break;
@@ -123,8 +120,8 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
 
             case "danger":
                 System.out.println("search by danger");
-                danger_flag = 1;
-                cond = new DangerConditions(this.THRESHOLD);
+                DangerFlag = 1;
+                cond = new DangerConditions(this.Threshold);
                 Aggregators<BluetoothPings, BluetoothPingsSummary> agg = new GroupByIDPairsAggregators();
                 agg = new GroupByIDPairsAggregators();
                 resp  = dao.search(cond, agg);
@@ -136,15 +133,14 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
                 break;
         }
 
-        System.out.println("Generating reports");
-        if (danger_flag == 0)
+
+        if (DangerFlag == 0)
         {
             ReportGenerator generator = new ReportGenerator();
             try {
                 generator.GenerateReport(resp);
             }catch (Exception e)
             {
-                System.out.println("Write failed");
                 BluetoothPingsMessage result = new BluetoothPingsMessage("Write failed.", false);
                 result.setToDisplayList(resp);
                 return result;

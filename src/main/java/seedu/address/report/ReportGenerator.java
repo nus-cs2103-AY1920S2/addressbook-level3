@@ -1,4 +1,4 @@
-package seedu.address.report_generator;
+package seedu.address.report;
 
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -10,24 +10,24 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import seedu.address.model.bluetooth.BluetoothPings;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import seedu.address.model.bluetooth.BluetoothPingsSummary;
+
 
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class DangerReportGenerator {
+public class ReportGenerator {
     public static final String DEST = "results/report.pdf";
 
-    public void GenerateReport(ArrayList<BluetoothPingsSummary> resp) throws IOException
+    public void GenerateReport(ArrayList<BluetoothPings> resp) throws IOException
     {
         File file = new File(DEST);
         file.getParentFile().mkdirs();
-        new DangerReportGenerator().createPdf(DEST, resp);
+        new ReportGenerator().createPdf(DEST, resp);
     }
 
-    public void createPdf(String dest, ArrayList<BluetoothPingsSummary> resp) throws IOException
+    public void createPdf(String dest, ArrayList<BluetoothPings> resp) throws IOException
     {
         PdfWriter writer = new PdfWriter(dest);
 
@@ -45,41 +45,42 @@ public class DangerReportGenerator {
         Table table = new Table(pointColumnWidths);
 
 
-        table.addCell("Counts");
+        table.addCell("Time");
         table.addCell("ID1");
         table.addCell("ID2");
 
 
-        Set ID_set = new HashSet();
+
+        Set IDSet = new HashSet();
+        BluetoothPings instance = resp.get(0);
 
         if (resp.size() > 0) {
             for (int i = 0; i < resp.size(); i++) {
-                BluetoothPingsSummary instance = resp.get(i);
-                table.addCell(instance.getCounts() + "");
+                instance = resp.get(i);
+                table.addCell(instance.getEpochTs() + "");
                 List<Integer> epochTimes = instance.getUserIDs();
                 table.addCell(epochTimes.get(0) + "");
-                ID_set.add(epochTimes.get(0) + "");
+                IDSet.add(epochTimes.get(0) + "");
                 table.addCell(epochTimes.get(1) + "");
-                ID_set.add(epochTimes.get(1) + "");
+                IDSet.add(epochTimes.get(1) + "");
             }
         }
 
 
-
         document.add(new Paragraph("CONTACT TRACING REPORT"));
         document.add(new Paragraph("----------------------------------------------"));
-        Paragraph paragraph = new Paragraph("This is the report for dangerous cases");
+        Paragraph paragraph = new Paragraph("The total number of instances in this report is: " + resp.size());
 
         document.add(paragraph);
 
-        String text_string = "The ID included in this report are:";
-        Iterator it = ID_set.iterator();
+        String TextString = "The ID included in this file are:";
+        Iterator it = IDSet.iterator();
         while (it.hasNext())
         {
-            text_string = text_string + "   " + it.next();
+            TextString = TextString + "   " + it.next();
         }
 
-        document.add(new Paragraph((text_string)));
+        document.add(new Paragraph((TextString)));
         document.add(new Paragraph("----------------------------------------------"));
 
 
