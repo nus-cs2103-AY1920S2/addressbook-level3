@@ -253,7 +253,7 @@ transaction is only generated in AddTransactionCommand.
 * **Alternative 2:** Store an unique id and name of the product/ customer.
 ** Pros: Do not need to update transaction while product is editted.
 
-===== Aspect: How to change the quantity & sales attribute of product while edtting transactions.
+===== Aspect: How to change the quantity & sales attribute of product while editing transactions.
 
 * **Alternative 1 (current choice):** If quantity/ product is changed,
 re-store the quantity & sales of the original product, check validation
@@ -303,6 +303,32 @@ The revenue operation works in the same way as the profit operation.
 ** Pros: No need to calculate when revenue/profit command is executed (instead, revenue/profit is updated whenever a transaction is added or edited)
 ** Cons: Hard to unit test, increase coupling
 // end::getprofitrevenue[]
+
+//tag::lowlimitfeature[]
+=== Setting low limit threshold to receive notifications for products
+The low limit mechanism is facilitated by `InventorySystemParser`.
+First, the InventorySystemParser class parses the user command.
+Then the `LowLimitCommandParser` parses the user input arguments into `LowLimitCommand` object.
+The resulting `LowLimitCommand` is executed by the LogicManager.
+The command execution sets the updated threshold for the chosen product.
+The result of the command execution is encapsulated as a CommandResult object which is passed back to the Ui.
+
+The command inherit from superclass `Command` and require command parser to parse the user input arguments.
+
+The following sequence diagram shows how the low limit operation works:
+image:LowLimitCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How the threshold field is being updated.
+
+* **Alternative 1 (current choice):** Separate low limit threshold command with edit product command
+** Pros: Decreases coupling, easier to test.
+** Cons: Additional command to edit the field of an product.
+* **Alternative 2:** Integrate with existing edit product command
+** Pros: Will reduce number of commands the user needs to use.
+** Cons: Hard to unit test, increase coupling.
+//end::lowlimitfeature[]
 
 === Logging
 
