@@ -44,15 +44,19 @@ public class LogicManager implements Logic {
     public void execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        List<? extends Command> commands = notablyParser.parseCommand(commandText);
-        for (Command command : commands) {
-            command.execute(model);
-        }
-
         try {
+            List<? extends Command> commands = notablyParser.parseCommand(commandText);
+            for (Command command : commands) {
+                    command.execute(model);
+            }
             storage.saveBlockModel(model);
+
         } catch (IOException ioe) {
+            model.setResponseText(FILE_OPS_ERROR_MESSAGE + ioe);
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        } catch (CommandException | ParseException ex) {
+            model.setResponseText(ex.getMessage());
+            throw ex;
         }
     }
 
