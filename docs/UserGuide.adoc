@@ -94,7 +94,7 @@ This section shows the detailed list of usable commands.
 
 - Format: `exit`
 
-=== Switching Tabs : `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
+==== Switching Tabs : `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
 
 - This command allows you to switch to the tab using the command line instead of clicking on the respective tab.
 - Format: `calendar`, `diary`, `modplan`, `addressbook`, `notes`, `profile`
@@ -103,6 +103,188 @@ This section shows the detailed list of usable commands.
 .Switching tabs
 image::switching_tabs.png[width="790"]
 +
+
+
+
+=== Calendar
+
+The calendar feature in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
+
+The application allows you to add 2 type of tasks, `deadline` and `moduleTask`.
+
+`moduleTask` allows you to tag a module, that you have already inputted in your Profile tab, to the task itself. It allows you to set the priority level of the task.
+
+`deadline` allows you to input a deadline event into the calendar without any specified modules attached to it.
+
+==== Priority Levels
+
+We give you the flexibility to choose and indicate what priority each `moduleTask` should have. This priority is represented from 1 to 5, with 1 being the lowest priority and 5 being the highest.
+
+.NUSProductivity calendar priority levels
+image::prioritylevels.png[width="790"]
+
+
+==== Deadline
+
+===== Adding Deadline: `deadlineAdd`
+
+- Schedules a task tagged with a deadline to the calendar. A dot will be shown to indicate there is a deadline to be met on that day
+
+- Format: `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
+
+.Adding Deadlines
+image::deadlineAdd.png[width="790"]
+
+After invoking the command, the deadline will be added to the calendar as shown in figure 5. The task will be tagged as light grey to signify it is uncompleted yet.
+
+Deadline tasks are defaulty tagged with the lowest priority.
+
+==== Module Tasks
+
+===== Adding Module Tasks: `moduleTask`
+
+- Schedules a module task, this module task includes priority level, module that is associated with the task.
+
+- Format: `taskAdd desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY PRI/PRIORITY-LEVEL`
+
+.Adding Module Tasks
+image::moduleTaskAdd.png[width="790"]
+
+[NOTE]
+This requires you to add a module under `moduleAdd` before you can use it
+
+.Error when adding a module task without adding a module first.
+image::moduleTaskAddError.png[width="790"]
+
+==== Shared Functions
+
+The commands stated in this section can be used for both moduleTask and deadline tasks.
+
+
+===== Marking a task as Done: `done`
+
+- Marks a task as completed, completed task will be shown with a black background while uncompleted task will be shown as a grey background.
+
+- Format: `done index/INDEX`
+
+.Completing a task
+image::taskDone.png[width="790"]
+
+After a task is completed, it will be pushed to the bottom, the dot on the calendar removed and the background of the task is changed to black to signify the task is compelted.
+
+===== Removing Deadline: `taskDelete`
+
+- Deletes a task from the deadline list, marking the task as done
+
+- Format: `taskDelete index/INDEX`
+
+.Deleting a task
+image::taskDelete.png[width="790"]
+
+[TIP]
+Tip: delete a task only after the date have passed to make sure everything is completed up to your current date
+
+===== Sorting the Calendar: `sortTask`
+
+- Allows you to sort the tasks list on the left by either date or priority. This gives you the flexibility to plan ahead, whether you want to complete a more urgent task or to complete a task with the deadline that is earlier
+
+- Format: `sortTask by/SORT`
+
+.Sorting tasks by priority
+image::taskSort.png[width="790"]
+
+[NOTE]
+SORT can only be either date or priority
+
+===== Finding specific tasks in the Calendar: `findTask`
+
+- Allows you to see task at a glance based on what you specified.
+
+- Format: `findTask m/MODULECODE` or `findTask cat/CATEGORY` or `findTask date/DD-MM-YYYY`
+
+.Finding task by module Code
+image::findTask.png[width="790"]
+
+[NOTE]
+The dots on the calendar will not disappear and will show that there is still task to be completed on that date despite filtering
+
+===== Listing back all tasks in the Calendar: `listTask`
+
+- Allows you to list back all task after you have filtered the list with findTask
+
+- Format: `listTask`
+
+.Listing all tasks
+image::listTask.png[width="790"]
+
+
+=== Notes
+
+- Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
+
+- Allows for users to create documents for notes, organise their notes in folders.
+Default location is set to
+`/User/<ACCOUNT NAME>` for mac
+`C:\Users\<ACCOUNT NAME>` for windows
+
+
+
+==== Pathing
+
+- The notes feature allows you to specify the pathing used to access the file/folder you specify
+
+- The diagram below shows a comparision between absolute vs relative pathing
+
+.Pathing Absolute vs Rel
+image::pathing.png[width="790"]
+
+[TIP]
+if you want to access the Documents folder as shown in figure 13, you can use the absolute pathing and specify loc/Desktop instead of typing loc/../../../Documents
+
+
+==== Listing Directory: `notesList`
+
+- List the directory that you supplied. The display will show all folders that is in that directory.
+
+- Format: `notesList loc/PATH pt/PATH TYPE`
+
+.Listing files in directory
+image::notesListingUG.png[width="790"]
+
+==== Creating a note: `notesCreate`
+
+- Creates a file/directory based on what you specified.
+
+- Format: `notesCreate loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE`
+
+[NOTE]
+The type can only be file or folder
+
+.Creating a file in a specified directory
+image::notesCreateUG.png[width="790"]
+
+
+==== Opening a note: `notesOpen`
+
+- Opens a file/directory based on what you specified.
+
+- Format: `notesOpen loc/PATH name/FILE_NAME pt/PATH_TYPE`
+
+.Opening a file in a specified directory
+image::notesOpenUG.png[width="790"]
+
+==== Deleting a note: `notesDelete`
+
+- Delete a file based on what you specified.
+
+- Format: `notesDelete loc/PATH name/FILE_NAME pt/PATH_TYPE`
+
+.Deleting a file in a specified directory
+image::notesDeleteUG.png[width="790"]
+
+[NOTE]
+This can only be use to delete a file and not a folder
+
 
 
 === Address Book
@@ -280,184 +462,6 @@ The diary feature allows you to jot down any thoughts, be it for your personal l
 - Format: `diaryMood id/ENTRY_ID m/MOOD`
 
 
-=== Calendar
-
-The calendar feature in the app that allows you to schedule and set deadline for important tasks such as project or assignment deadlines.
-
-The application allows you to add 2 type of tasks, `deadline` and `moduleTask`.
-
-`moduleTask` allows you to tag a module, that you have already inputted in your Profile tab, to the task itself. It allows you to set the priority level of the task.
-
-`deadline` allows you to input a deadline event into the calendar without any specified modules attached to it.
-
-==== Priority Levels
-
-We give you the flexibility to choose and indicate what priority each `moduleTask` should have. This priority is represented from 1 to 5, with 1 being the lowest priority and 5 being the highest.
-
-.NUSProductivity calendar priority levels
-image::prioritylevels.png[width="790"]
-
-
-==== Deadline
-
-===== Adding Deadline: `deadlineAdd`
-
-- Schedules a task tagged with a deadline to the calendar. A dot will be shown to indicate there is a deadline to be met on that day
-
-- Format: `deadlineAdd desc/DESCRIPTION by/DD-MM-YYYY cat/CATEGORY`
-
-.Adding Deadlines
-image::deadlineAdd.png[width="790"]
-
-After invoking the command, the deadline will be added to the calendar as shown in figure 5. The task will be tagged as light grey to signify it is uncompleted yet.
-
-Deadline tasks are defaulty tagged with the lowest priority.
-
-==== Module Tasks
-
-===== Adding Module Tasks: `moduleTask`
-
-- Schedules a module task, this module task includes priority level, module that is associated with the task.
-
-- Format: `taskAdd desc/DESCRIPTION m/MODULE_CODE date/DD-MM-YYYY PRI/PRIORITY-LEVEL`
-
-.Adding Module Tasks
-image::moduleTaskAdd.png[width="790"]
-
-[NOTE]
-This requires you to add a module under `moduleAdd` before you can use it
-
-.Error when adding a module task without adding a module first.
-image::moduleTaskAddError.png[width="790"]
-
-==== Shared Functions
-
-The commands stated in this section can be used for both moduleTask and deadline tasks.
-
-
-===== Marking a task as Done: `done`
-
-- Marks a task as completed, completed task will be shown with a black background while uncompleted task will be shown as a grey background.
-
-- Format: `done index/INDEX`
-
-.Completing a task
-image::taskDone.png[width="790"]
-
-After a task is completed, it will be pushed to the bottom, the dot on the calendar removed and the background of the task is changed to black to signify the task is compelted. 
-
-===== Removing Deadline: `taskDelete`
-
-- Deletes a task from the deadline list, marking the task as done
-
-- Format: `taskDelete index/INDEX`
-
-.Deleting a task
-image::taskDelete.png[width="790"]
-
-[TIP]
-Tip: delete a task only after the date have passed to make sure everything is completed up to your current date
-
-===== Sorting the Calendar: `sortTask`
-
-- Allows you to sort the tasks list on the left by either date or priority. This gives you the flexibility to plan ahead, whether you want to complete a more urgent task or to complete a task with the deadline that is earlier
-
-- Format: `sortTask by/SORT`
-
-.Sorting tasks by priority
-image::taskSort.png[width="790"]
-
-[NOTE]
-SORT can only be either date or priority
-
-===== Finding specific tasks in the Calendar: `findTask`
-
-- Allows you to see task at a glance based on what you specified.
-
-- Format: `findTask m/MODULECODE` or `findTask cat/CATEGORY` or `findTask date/DD-MM-YYYY`
-
-.Finding task by module Code
-image::findTask.png[width="790"]
-
-[NOTE]
-The dots on the calendar will not disappear and will show that there is still task to be completed on that date despite filtering
-
-===== Listing back all tasks in the Calendar: `listTask`
-
-- Allows you to list back all task after you have filtered the list with findTask
-
-- Format: `listTask`
-
-.Listing all tasks
-image::listTask.png[width="790"]
-
-
-=== Notes
-
-- Allows you to create notes from the application, making it easier for you to find your files since often time students have a lot of research papers or references opened when writing a report.
-
-- Allows for users to create documents for notes, organise their notes in folders.
-Default location is set to
-`/User/<ACCOUNT NAME>` for mac
-`C:\Users\<ACCOUNT NAME>` for windows
-
-
-
-==== Pathing
-
-- The notes feature allows you to specify the pathing used to access the file/folder you specify
-
-- The diagram below shows a comparision between absolute vs relative pathing
-
-.Pathing Absolute vs Rel
-image::pathing.png[width="790"]
-
-[TIP]
-if you want to access the Documents folder as shown in figure 13, you can use the absolute pathing and specify loc/Desktop instead of typing loc/../../../Documents
-
-
-==== Listing Directory: `notesList`
-
-- List the directory that you supplied. The display will show all folders that is in that directory.
-
-- Format: `notesList loc/PATH pt/PATH TYPE`
-
-.Listing files in directory
-image::notesListingUG.png[width="790"]
-
-==== Creating a note: `notesCreate`
-
-- Creates a file/directory based on what you specified.
-
-- Format: `notesCreate loc/PATH name/FILE_NAME type/TYPE pt/PATH_TYPE`
-
-[NOTE]
-The type can only be file or folder
-
-.Creating a file in a specified directory
-image::notesCreateUG.png[width="790"]
-
-
-==== Opening a note: `notesOpen`
-
-- Opens a file/directory based on what you specified.
-
-- Format: `notesOpen loc/PATH name/FILE_NAME pt/PATH_TYPE`
-
-.Opening a file in a specified directory
-image::notesOpenUG.png[width="790"]
-
-==== Deleting a note: `notesDelete`
-
-- Delete a file based on what you specified.
-
-- Format: `notesDelete loc/PATH name/FILE_NAME pt/PATH_TYPE`
-
-.Deleting a file in a specified directory
-image::notesDeleteUG.png[width="790"]
-
-[NOTE]
-This can only be use to delete a file and not a folder
 
 
 == Command Summary
