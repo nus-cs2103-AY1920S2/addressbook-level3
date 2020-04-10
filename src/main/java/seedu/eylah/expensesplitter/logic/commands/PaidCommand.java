@@ -80,7 +80,7 @@ public class PaidCommand extends Command {
                 //This ensures that amountPaid is correct. p.getAmount MUST be BIGGER OR EQUAL TO AMOUNT PAID
                 if (person.getAmount().amount.compareTo(new BigDecimal(amountPaid)) == -1) {
                     throw new CommandException("Person cannot pay more than what he owes you. Please use `listamount` "
-                        + "to get the index.");
+                        + "to get the index of Person and Amount he owes you.");
                 }
 
                 splitterModel.paidPerson(person, amountPaid);
