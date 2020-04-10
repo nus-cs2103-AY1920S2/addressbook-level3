@@ -196,9 +196,20 @@ public class DietModelManager extends ModelManager implements DietModel {
             } else { // MAINTAIN
                 calorieIntake = MAINTAIN_CALORIES;
             }
+
             caloriesLeft = new Calories(calorieIntake);
-            caloriesLeft = caloriesLeft.difference(calorieCount);
-            result.append("\nCalories Left For The Day : " + caloriesLeft + "\n");
+            if (caloriesLeft.greaterThan(calorieCount)) {
+                caloriesLeft = caloriesLeft.difference(calorieCount);
+                result.append("\nYou have " + caloriesLeft + " calories left for the day!\n");
+            } else if (caloriesLeft.lessThan(calorieCount)) {
+                caloriesLeft = caloriesLeft.difference(calorieCount);
+                result.append("\nYou have exceeded your daily calorie limit (" + Long.valueOf(calorieIntake)
+                        + ") by " + caloriesLeft + " calories!\n");
+            } else {
+                result.append("\nYou have hit your calorie limit for the day!\n");
+            }
+
+
         }
 
         System.out.println(result.toString());
