@@ -14,6 +14,10 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
  */
 public class GoToCommandParser implements Parser<GoToCommand> {
 
+    private void throwParseException() throws ParseException {
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE));
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the GoToCommand
      * and returns a GoToCommand object for execution.
@@ -23,20 +27,21 @@ public class GoToCommandParser implements Parser<GoToCommand> {
     @Override
     public GoToCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_MONTH_YEAR);
-        boolean monthYearPresent = argMultiMap.getValue(PREFIX_MONTH_YEAR).isPresent();
+        boolean isMonthYearPresent = argMultiMap.getValue(PREFIX_MONTH_YEAR).isPresent();
+
+        if (!isMonthYearPresent) {
+            throwParseException();
+        }
+
+        String my = argMultiMap.getValue(PREFIX_MONTH_YEAR).get();
 
         try {
-            if (monthYearPresent) {
-                String my = argMultiMap.getValue(PREFIX_MONTH_YEAR).get();
-                ParserUtil.parseYearMonth(my);
-                return new GoToCommand(my);
-            } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE));
-            }
-        } catch (DateTimeParseException | ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCommand.MESSAGE_USAGE), pe);
+            ParserUtil.parseYearMonth(my);
+        } catch (DateTimeParseException e) {
+            throwParseException();
         }
+
+        return new GoToCommand(my);
     }
 }
 
