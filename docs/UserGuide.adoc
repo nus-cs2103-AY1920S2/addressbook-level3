@@ -606,8 +606,8 @@ care to ensure that the number is correct.
 * A student is given a default rating of 3/5 (average) if you do not specify a rating.
 * You can either specify a rating in the add student
 command or,
-* you can later edit their rating by using the edit student command (details given below
-in 3.2.9.)
+* you can edit their rating later by using the `student edit` command (details given below
+in 5.2.9.)
 ====
 
 
@@ -817,7 +817,7 @@ You can filter the students in *Student View* in the following ways:
 ****
 
 You will see the group with the specified `GROUP_CODE` and the module with the specified
-`MOD_CODE` highlighted in the list.
+`MOD_CODE` highlighted in orange in the list.
 
 You will automatically be switched to the student
 tab as well, if you were currently on a different tab.
@@ -842,7 +842,7 @@ This will show you all students in module `CS2103T`, under group `G06`.
 
 If you use just the module code, you will see:
 
-* The first group of the module specified by the given module code highlighted
+* The first group of the module specified by the given module code highlighted in orange
 
 * All the students belonging to that group
 
@@ -888,7 +888,8 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 . If you want to create a session with the current date, start time and end time,
 you can omit `s/START` , `e/END` and `d/DATE`.
 
-. You can edit the end time `e/END` and other details later.
+. You can edit the end time `e/END` and other details later by using the `session edit`
+command (details given below in 5.3.3.).
 
 . If the session has a recurring period `[w/WEEKS]`, a new session with the updated date
 and timing will be added to Session View when it is marked as done.
@@ -917,7 +918,7 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 ====
 ==== Deleting a Session : `session delete`
 
-You can use this command to delete a session at a specific index.
+You can use this command to delete a session at a specific `index`.
 
 If you were on a different tab, you will automatically be switched to the session tab.
 
@@ -926,7 +927,7 @@ Format: `session delete INDEX`
 [CAUTION]
 ====
 [horizontal]
-Do not confuse delete and done session commands.
+Do not confuse the `session delete` and `session done` commands.
 ====
 
 ====
@@ -970,7 +971,7 @@ Edits the session at index 1 to have:
 
 You can use this command to mark a session as done.
 
-The session marked done will be removed from the *Session View* and
+The session marked as done will be removed from the *Session View* and
 will automatically appear as a new claim in the *Claims View*.
 If the session marked done has a recurring period, a new session with the updated date
 and timing will be added to Session View.
@@ -1005,7 +1006,7 @@ The keyword is case-insensitive.
 
 When you execute a new filter command, any previous filters applied on the sessions will
 be removed and only the filters from the latest command will be applied on the sessions
-list.
+list. The filters that are currently being applied are shown at the top of the *Session View*
 
 If you were on a different tab, you will automatically be switched to the session tab.
 
@@ -1030,9 +1031,9 @@ session type  ‘Tutorial` will be shown.
 
 You can use this command to filters sessions in the *Claims View* by the module code.
 
-You will see the module with the specified `MOD_CODE` highlighted in the list.
+You will see the module with the specified `MOD_CODE` highlighted in orange in the list.
 
-All completed sessions with matching module code are displayed. Keyword is case-insensitive.
+All completed sessions with matching `MOD_CODE` are displayed. Keyword is case-insensitive.
 
 Format: `claims filter [m/MOD_CODE]`
 
@@ -1052,11 +1053,10 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at 40$ by default.
-* AMOUNT is the amount you want to change the hourly rate to, this value will be used to calulate the
+* If you don't specify a rate, it is set at 40$ by default (the rate at which most SOC TAs are being paid per hour.
+* `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
-* To specify in exact dollars, you can write it as just the number (example: 20).
-* To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
+* The `RATE` must be a positive integer.
 ====
 
 Examples:
