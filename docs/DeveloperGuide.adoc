@@ -135,6 +135,15 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 All these, including the `MainWindow`, inherit from the
 abstract `UiPart` class.
 
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/tatracker/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+==== Tabs
+
 .Structure of the Student Tab Component
 image::StudentTabClassDiagram.png[]
 
@@ -149,13 +158,6 @@ respective Card (e.g. `StudentCard`). In each List Panel, the the `Graphics` com
 each of the List Cells is defined by the respective Card.
 
 The other 2 Tabs follow the same structure as the Class diagram above.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/tatracker/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-
-The `UI` component,
-
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
