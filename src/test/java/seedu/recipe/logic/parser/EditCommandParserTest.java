@@ -1,8 +1,6 @@
 package seedu.recipe.logic.parser;
 
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_GOAL_DESC;
 import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_STEP_DESC;
 import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
@@ -11,14 +9,11 @@ import static seedu.recipe.logic.commands.CommandTestUtil.STEP_DESC_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.STEP_DESC_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.TIME_DESC_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
-import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
-import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_NAME_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_STEP_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_STEP_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
-
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -31,7 +26,6 @@ import org.junit.jupiter.api.Test;
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.EditCommand;
 import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
-import seedu.recipe.model.goal.Goal;
 import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.Step;
 import seedu.recipe.model.recipe.Time;
@@ -98,8 +92,7 @@ public class EditCommandParserTest {
                 + STEP_DESC_TURKEY_SANDWICH + NAME_DESC_TURKEY_SANDWICH;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
-                .withTime(VALID_TIME_FISH).withSteps(VALID_STEP_TURKEY_SANDWICH)
-                .withGoals(VALID_GOAL_PROTEIN, VALID_GOAL_GRAIN).build();
+                .withTime(VALID_TIME_FISH).withSteps(VALID_STEP_TURKEY_SANDWICH).build();
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -151,7 +144,7 @@ public class EditCommandParserTest {
                 + TIME_DESC_FISH + STEP_DESC_FISH;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_FISH)
-                .withGoals(VALID_GOAL_GRAIN, VALID_GOAL_PROTEIN).withSteps(VALID_STEP_TURKEY_SANDWICH, VALID_STEP_FISH)
+                .withSteps(VALID_STEP_TURKEY_SANDWICH, VALID_STEP_FISH)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

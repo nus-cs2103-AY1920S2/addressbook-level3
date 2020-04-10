@@ -1,6 +1,5 @@
 package seedu.recipe.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -24,5 +23,4 @@ class SwitchCommandParserTest {
         assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SwitchCommand.MESSAGE_USAGE));
     }
-
 }

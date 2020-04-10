@@ -30,5 +30,4 @@ class CookedCommandParserTest {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 CookedCommand.MESSAGE_USAGE));
     }
-
 }

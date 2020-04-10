@@ -3,7 +3,6 @@ package seedu.recipe.testutil;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_FRUIT_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_FRUIT_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
-import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GRAIN_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GRAIN_TURKEY_SANDWICH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_NAME_FISH;

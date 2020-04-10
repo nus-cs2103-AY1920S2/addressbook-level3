@@ -25,6 +25,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
 import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.PlannedDate;
@@ -312,4 +313,48 @@ public class AddCommandTest {
             return new RecipeBook();
         }
     }
+
+    /**
+     * A Model stub that contains a single record.
+     */
+    private class ModelStubWithRecord extends ModelStub {
+        private final Record record;
+
+        ModelStubWithRecord(Record record) {
+            requireNonNull(record);
+            this.record = record;
+        }
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return this.record.isSameRecord(record);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the record being added.
+     */
+    private class ModelStubAcceptingRecordAdded extends ModelStub {
+        final ArrayList<Record> recordsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return recordsAdded.stream().anyMatch(record::isSameRecord);
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            requireNonNull(record);
+            recordsAdded.add(record);
+        }
+
+        @Override
+        public ReadOnlyCookedRecordBook getRecordBook() {
+            return new CookedRecordBook();
+        }
+    }
+
+
 }
