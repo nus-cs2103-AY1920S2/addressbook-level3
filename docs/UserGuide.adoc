@@ -191,9 +191,11 @@ the group's official code assigned by SoC | *G06*
 
 |`NOTES` | Refers to any extra description | *This time was spent correcting 40 assignments...*
 
-| `START` | Indicates the starting time. Must be in the HH:mm format. | *10:42*
+| `START` | Indicates the starting time. Must be in the `HH:mm` format. | *10:42*
 
-| `END` | Indicates the ending time. Must be in the HH:mm format. | *11:42*
+| `END` | Indicates the ending time. Must be in the `HH:mm` format. | *11:42*
+
+| `DATE` | Indicates the date of a session. Must be in the `yyyy-MM-dd` format. | *2020-06-20*
 
 | `WEEK`| Indicates the recurring period of sessions. | *1*
 
@@ -229,8 +231,8 @@ allowing you to see them better.
 ====
 
 === Student View
-Under the `student` tab, the *Student View* is used to show you the students that you're teaching. The students
-have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
+Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
+have been categorised according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
 
 . The first column shows you a list of all the modules that you are a teaching
@@ -250,15 +252,25 @@ show you information such as:
 
 * `NAME`: student name
 * `MATRIC_NUMBER`: matriculation number
-* `RATING`: ratings you have given the student (on a scale from 1 - 5)
+* `RATING`: ratings you have given the student, represented by stars (on a scale from 1 - 5)
 * `EMAIL` and `PHONE`: contact details
 * `TAG`: any additional information you have about the student
 
 === Session View
-Under the `session` tab, the *Session View* contains a list of the upcoming sessions
+Under the `session tab`, the *Session View* contains a list of the upcoming sessions
 that you haven't done yet.
 
 The sessions are automatically sorted by date.
+
+The purpose of the *Session View* is to help you keep track a of your upcoming teaching.
+duties. It will show you information such as:
+
+* `SESSION_TYPE`: the type of session
+* `DATE`: the date that the session will occur on
+* `START` and `END`: the start time and end time of the session
+* `MODULE`: the module that the session is under
+* `NOTES`: any additional information
+* `WEEK`: the recurring period of the session
 
 === Claims View
 Under the `claims` tab, the Claim View contains a list of all the claimable duties you
