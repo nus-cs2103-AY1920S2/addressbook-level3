@@ -42,6 +42,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) { // EDIT MODULE
             if (!arePrefixesPresent(argMultimap, PREFIX_YEAR) && !arePrefixesPresent(argMultimap, PREFIX_GRADE)
                     && !arePrefixesPresent(argMultimap, PREFIX_TASK)
+                    && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)
                     && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
@@ -71,17 +72,24 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new ParseException(MESSAGE_MISSING_OLD_TASK);
             }
 
+            // Reject when new task is given but task name not given
+            if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)
+                    && !arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                throw new ParseException(MESSAGE_MISSING_OLD_TASK);
+            }
+
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-                oldTask = argMultimap.getValue(PREFIX_TASK).get();
+                oldTask = argMultimap.getValue(PREFIX_TASK).get().trim().toLowerCase();
                 if (!arePrefixesPresent(argMultimap, PREFIX_DEADLINE)
                         && !arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
                     throw new ParseException(MESSAGE_MISSING_NEW_TASK_OR_DEADLINE);
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_NEW_TASK)) {
-                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim();
+                    newTask = argMultimap.getValue(PREFIX_NEW_TASK).get().trim().toLowerCase();
                 }
                 if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
-                    newDeadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+                    String datetime[] = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
+                    newDeadline = datetime[0] + " " + datetime[1];
                 }
             }
             return new EditCommand(moduleCode, intSemester, grade, oldTask, newTask, newDeadline);
