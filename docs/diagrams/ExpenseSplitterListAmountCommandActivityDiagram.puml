@@ -1,0 +1,16 @@
+@startuml
+/' @author @WillySeahh'/
+title Activity: List Amount Command
+
+start
+:User enters the list amount command;
+
+if () then ([no person owes money])
+    :Inform user that no ones owes money;
+else ([else])
+    :Displays to user all the person and the
+    amount they owe;
+
+endif
+stop
+@enduml

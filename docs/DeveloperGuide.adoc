@@ -576,6 +576,9 @@ The `listamount` command has the following input format:
 
 The following activity diagram illustrates what happens when a user executes `listamount` command:
 
+image::ExpenseSplitterListAmountCommandActivityDiagram.png[]
+Figure : List Amount Command Activity Diagram
+
 
 
 *Implementation of List Amount Command*
