@@ -468,10 +468,13 @@ The feature comprises of six commands namely.
 
 Below are some diagrams to explain how our team implemented this portion.
 
-
 *Activity Diagram* of Expense Splitter: +
 
+image::ExpenseSplitterActivityDiagramV2.png[]
+Figure : Expense Splitter Activity Diagram
+
 image::ExpenseSplitterActivityDiagram.png[]
+Figure : Add Item Activity Diagram
 
 [[Add-Item-Command]]
 ==== AddItem Command
