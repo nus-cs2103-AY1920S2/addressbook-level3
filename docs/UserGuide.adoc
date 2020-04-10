@@ -20,8 +20,8 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`
 
 == Introduction
 
-This user guide provides in-depth documentation on the EYLAH desktop application:
-features summary, getting started, features, FAQ, command summary, and glossary.
+This user guide provides in-depth documentation on the EYLAH desktop application. It comprises of 6 main portions,
+including the introduction, getting started, features, FAQ, command summary, and glossary.
 
 Hello there! welcome to EYLAH's User Guide.
 Are you someone who *lives in Temasek hall* in the National University of Singapore and
