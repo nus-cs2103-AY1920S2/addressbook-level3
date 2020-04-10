@@ -11,7 +11,7 @@ Participant ":StorageReaderWriter" as storageReaderWriter STORAGE_COLOR
 activate commandBox UI_COLOR
 
 commandBox -[UI_COLOR]> textField : getText()
-activate textField UI_COLOR 
+activate textField UI_COLOR
 
 textField -[UI_COLOR]> commandBox : "list-c"
 deactivate textField

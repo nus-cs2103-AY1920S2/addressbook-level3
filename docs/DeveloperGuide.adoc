@@ -219,7 +219,7 @@ In designing the model `CommandHistoryState`, we had to decide on the underlying
 
 [options='header', cols="20%h,40%,40%"]
 |====================
-| Considerations | Array list (chosen) | Linked list
+| Considerations | ArrayList (chosen) | LinkedList
 | Time Complexity | Inserting to the list is O(1).
 
 Removal of the first item is O(n).
@@ -229,7 +229,7 @@ Retrieval of any item is always O(1). | Inserting to the list is O(1).
 Removal of the first/last item is O(1).
 
 Retrieval of an item that is not the first/last item will require traversal of the list and will be more expensive than O(1).
-| Ease of Implementation | Indices are concrete numbers and thus, are much easier to manipulate than pointers. 
+| Ease of Implementation | Indices are concrete numbers and thus, are much easier to manipulate than pointers.
 
 The use of indices are enough to support the retrieval operations needed by this feature and is efficient since retrieval is always O(1).
 | Pointers are arguably harder to keep track of and might be more difficult to implement.
@@ -241,10 +241,10 @@ In the interest of saving developement time and better code readability, we deci
 
 Moreover, there is also a need to overwrite the whole storage file `command.txt` whenever this maximum size is reached. Before this maximum size is reached, we can easily append to the existing file the new command that the user has just entered. However, after this limit is exceeded, we must remove the first line stored in `command.txt`, shift all remaining lines up, and then append that new line. Hard disk operations like writing to storage is many order of magnitudes slower than memory operations like the reassignment of indices as discussed above. Since the much larger bottleneck is in the storage, this effectively nullifies the time complexity comparison that a linked list is faster than an array list in removing the first item.
 
-In choosing the maximum size of the command history, we have to take note of some important caveats: 
+In choosing the maximum size of the command history, we have to take note of some important caveats:
 
 . This number must be small enough to not cause the app to lag when the whole history is being written to storage
-. This number must be big enough to satisfy the user 
+. This number must be big enough to satisfy the user
 
 Ultimately, we felt that 100 is a very generous estimate given that a user really only needs the past few commands at any point of time.
 
@@ -255,12 +255,12 @@ Similar to the previously mentioned <<Command History --- Aaron Choo, Command Hi
 [[command-history-implementation]]
 ==== Implementation
 
-This feature is facilitated by the logic found in the `AutoComplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are: 
+This feature is facilitated by the logic found in the `AutoComplete` class. Before we dive into the implementation, let us first define what _unambiguous_ and _ambiguous_ commands are:
 
 [options='header']
 |===
 | Unambiguous Commands | Ambiguous Commands
-| Can uniquely identify a single command using the sequence of letters that the user has entered | Cannot uniquely identify a single command user the sequence of letters that the user has entered 
+| Can uniquely identify a single command using the sequence of letters that the user has entered | Cannot uniquely identify a single command user the sequence of letters that the user has entered
 |===
 
 [TIP]
@@ -302,11 +302,11 @@ public String constructWord() {
 Now, let us discuss about how we implemented `Trie` to support the <<command-history-behaviour, behaviours discussed above>> by first looking at `Trie#getLongestPrefixNode`. This method takes in an argument `word` and returns the `Node` whose constructed word (when constructed using `Node#constructWord`) is:
 
 * If the argument `word` is unambiguous: the longest word contained in `Trie` that can be formed from `word`
-* If the argument `word` is ambiguous: the longest common prefix of all words similar to `word` contained in `Trie` 
+* If the argument `word` is ambiguous: the longest common prefix of all words similar to `word` contained in `Trie`
 
 If no such `Node` can be found, in the case where the argument `word` matches no words currently in the `Trie`, `null` will be returned.
 
-Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of `Trie#getLongestPrefixNode`. Three distinct cases exists for the `Node` returned by `Trie#getLongestPrefixNode`: 
+Let us move on to `Trie#listAllSimilarWords` which contains the main driver logic, and which makes use of `Trie#getLongestPrefixNode`. Three distinct cases exists for the `Node` returned by `Trie#getLongestPrefixNode`:
 
 . The returned `Node` is `null`, which means that the user command cannot be found in the `Trie` at all
 . The returned `Node` is a completed, valid word, which means that the user command is unambiguous
@@ -364,11 +364,13 @@ Custom class means that additional, custom logic can be easily added.
 | Much faster initial development.
 
 Custom logic cannot be easily added.
-|=== 
+|===
 
-As such, the choice of implementing our own Trie data structure is obvious. Exchanging some initial development time for future scalability of our app will ensure that we, or future developers, do not end up wasting time refactoring what could have been done in the first place. Moreover, the Trie data structure is much more effective and computationally inexpensive in finding the longest common prefix of all ambiguous commands. The same cannot be said when using just a list.
+As such, the choice of implementing our own Trie data structure is obvious. As this app grows bigger in the forseeable future, the number of commands as well as the number of things we would want to autocomplete would increase. Overall, we felt that the Trie data structure will scale much better as compared to a List.
 
-Also, since we have implemented our own Trie data structure, it would also allow more custom logic to be added later, and allow more creative freedom with respect to the features that future developers would want to add. For example, future version of this application might want to also include the autocompletion of frequently used parameters by the user.
+Exchanging some initial development time for future scalability of our app will ensure that we, or future developers, do not end up wasting time refactoring what could have been done in the first place. Moreover, the Trie data structure is much more effective and computationally inexpensive in finding the longest common prefix of all ambiguous commands. The same cannot be said when using a List.
+
+Also, since we have implemented our own Trie data structure, it would also allow more custom logic to be added later, and allow more creative freedom with respect to the features that we, or future developers would want to add. For example, future version of this application might want to also include the autocompletion of frequently used parameters by the user.
 
 === Scheduling for a Client --- Ng Ming Liang
 This feature allows for a user to assign a weekly schedule to a client. Timings are represented in the 24-hour format `HHmm`. Each client can have none or multiple schedules that do not have overlapping timings. Multiple clients are allowed to have overlapping timings with each other.
