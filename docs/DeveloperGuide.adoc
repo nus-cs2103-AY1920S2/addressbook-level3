@@ -1651,7 +1651,7 @@ Use case ends.
 
 1.  User requests to return an order or create a new return order.
 2.  Either an order will be converted to a return order or a new return order will be created
-3.  Delino displays updated return order list with the new return order.
+3.  Delino displays the updated return order list with the new return order.
 +
 Use case ends.
 
@@ -1661,10 +1661,35 @@ Use case ends.
 * 1a. Delino detects invalid syntax.
 +
 [none]
-** 1a1. Delino shows an error message.
+** 1a1. Delino shows an error message to the user.
 +
 Use case ends.
 
+[none]
+* 1b. Delino detects invalid parcel attributes.
++
+[none]
+** 1b1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 1c. Delino detects invalid <<command_prefix, `TRANSACTION_ID`>>, i.e. order with
+the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
++
+[none]
+** 1c1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 1d. Delino detects missing parcel attributes.
++
+[none]
+** 1d1. Delino shows an error message to the user.
++
+Use case ends.
+//end::use_case_return[]
 
 [discrete]
 === Use case: UC12 - Obtain orders in a postal sector
@@ -1736,6 +1761,7 @@ Use case ends.
 Use case ends.
 //end::use_case_show[]
 
+//tag::non_functional_requirements[]
 [appendix]
 == Non Functional Requirements
 
