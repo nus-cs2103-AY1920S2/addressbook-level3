@@ -1051,7 +1051,7 @@ the command line, rather than clicking on the tab headers. The command can be ut
 This section describes the implementation of the `goto` command.
 
 .Sequence Diagram for Goto Claims Command
-image::GotoClaimsSequenceDiagram.png[]
+image::GotoSequenceDiagram.png[]
 
 Given below is an example scenario where the user enters a command to switch to the claims tab.
 
