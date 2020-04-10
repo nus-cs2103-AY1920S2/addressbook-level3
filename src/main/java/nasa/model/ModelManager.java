@@ -126,11 +126,16 @@ public class ModelManager implements Model {
                 if (!test.get(0).equals("null")) {
                     updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
                 } else {
+                    updateFilteredModuleList(x->true);
                     updateFilteredActivityList(x -> false);
                 }
             } else if (test.get(1).equals("module")) {
-                test = test.subList(2, test.size());
-                updateFilteredModuleList(new NameContainsKeywordsPredicate(test));
+                List<String> listTemp = test.subList(2, 3);
+                updateFilteredModuleList(new NameContainsKeywordsPredicate(listTemp));
+                if (test.size() > 2) {
+                    List<String> help = test.subList(4, test.size());
+                    updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(help));
+                }
             }
         }
 
@@ -320,6 +325,28 @@ public class ModelManager implements Model {
         } else if (getFilteredModuleList().size() == 1) {
             location.append(" module ");
             location.append(getFilteredModuleList().get(0).getModuleCode().moduleCode);
+
+            location.append(" activity");
+            int i = 0;
+            boolean test = false;
+            while (i < getFilteredModuleList().size()) {
+                if (getFilteredModuleList().get(i).getFilteredDeadlineList().size() == 0) {
+                    i++;
+                    continue;
+                } else {
+                    getFilteredModuleList().get(i).getFilteredDeadlineList()
+                            .forEach(x-> {
+                                location.append(" ");
+                                location.append(x.getName().name);
+                            });
+                    test = true;
+                }
+                i++;
+            }
+            System.out.println(location.toString());
+            if (!test) {
+                location.append(" null");
+            }
         } else {
             return " null";
         }

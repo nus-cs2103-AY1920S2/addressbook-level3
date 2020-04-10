@@ -89,7 +89,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyHistory> readUiHistoryBook() throws DataConversionException, IOException {
-        return readHistoryBook(nasaBookStorage.getUiHistoryBookFilePath());
+        return readUiHistoryBook(nasaBookStorage.getUiHistoryBookFilePath());
     }
 
     @Override

@@ -107,7 +107,7 @@ public class JsonNasaBookStorage implements NasaBookStorage {
     }
 
     /**
-     * Similar to {@link #readHistoryBook()}.
+     * Similar to {@link #readUiHistoryBook()}.
      * @param filePath
      * @return
      * @throws DataConversionException
