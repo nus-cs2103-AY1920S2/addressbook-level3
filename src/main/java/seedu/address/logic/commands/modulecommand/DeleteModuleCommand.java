@@ -43,7 +43,7 @@ public class DeleteModuleCommand extends Command {
 
         model.deleteModule(targetModuleCode);
         model.updateModulesListTaken(PREDICATE_SHOW_ALL_MODULES_TAKEN);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + targetModuleCode);
     }
 
     @Override

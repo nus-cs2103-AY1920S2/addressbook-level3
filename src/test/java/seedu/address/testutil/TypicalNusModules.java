@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
@@ -16,10 +17,10 @@ public class TypicalNusModules {
     public static final List<ModuleTask> EMPTY_TASKS = new ArrayList<>();
 
     public static final NusModule CS2103 = new NusModule(new ModuleCode("CS2103"),
-            4, null, EMPTY_TASKS);
+            4, Optional.empty(), EMPTY_TASKS);
 
     public static final NusModule CS2030 = new NusModule(new ModuleCode("CS2030"),
-            4, null, EMPTY_TASKS);
+            4, Optional.empty(), EMPTY_TASKS);
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

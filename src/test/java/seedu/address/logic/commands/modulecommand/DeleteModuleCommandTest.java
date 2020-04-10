@@ -41,7 +41,7 @@ class DeleteModuleCommandTest {
         NusModule validModule = TypicalNusModules.CS2030;
         CommandResult commandResult = new DeleteModuleCommand(validModule.getModuleCode()).execute(model);
 
-        assertEquals(DeleteModuleCommand.MESSAGE_SUCCESS,
+        assertEquals(DeleteModuleCommand.MESSAGE_SUCCESS + validModule.getModuleCode(),
                 commandResult.getFeedbackToUser());
     }
 
