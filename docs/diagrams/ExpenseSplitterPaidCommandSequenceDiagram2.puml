@@ -12,6 +12,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+participant ":Amount" as Amount MODEL_COLOR
 participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
 participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
 participant ":Person" as Person MODEL_COLOR
@@ -23,6 +24,12 @@ activate PaidCommand
 
 PaidCommand -> SplitterModelManager : paidPerson(Person person, String amountPaid)
 activate SplitterModelManager
+
+SplitterModelManager -> Amount
+activate Amount
+
+Amount --> SplitterModelManager
+deactivate Amount
 
 SplitterModelManager -> PersonAmountBook : remove Amount(Person person, Amount amount)
 activate PersonAmountBook

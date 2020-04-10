@@ -598,14 +598,20 @@ empty is equivalent to the Person paying you the full amount he/she owes the use
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
+The following activity diagram illustrates what happens when a user executes `paid` command:
+
+image::ExpenseSplitterPaidCommandActivityDiagram.png[]
+Figure : Paid Command Activity Diagram
+
 
 *Implementation of Paid Command*
 
-The following is a detailed explanation of the operations `PaidCommand` performs. +
+The following is a detailed explanation of the operations PaidCommand performs. +
 
 1. The `PaidCommand#execute(Model splitterModel)` method is executed.
 
-2. The `Model#paidPerson(Person person, String amountPaid)` will be called. String amountPaid will be converted into an Amount.
+2. The `Model#paidPerson(Person person, String amountPaid)` will be called.
+String amountPaid will be converted into an Amount by instantiating a new instance of Amount.
 
 3. The `personAmountBook#removeAmount(Person person, Amount amount)` is then called to remove Amount from Person.
 
@@ -613,14 +619,11 @@ The following is a detailed explanation of the operations `PaidCommand` performs
 
 5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount.
 
-[NOTE]
-Person(s) with $0 Amount will be deleted from UniquePersonList. +
-
-
 *Sequence Diagram for Paid Command*
+The following sequence diagram summarizes what happens during the execution of `paid` command.
 
 image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
-Figure :Paid Command Sequence Diagram
+Figure : Paid Command Sequence Diagram
 
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
 Figure : Execution of Paid Command

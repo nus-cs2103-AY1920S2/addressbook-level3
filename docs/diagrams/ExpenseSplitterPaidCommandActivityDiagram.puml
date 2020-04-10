@@ -1,0 +1,21 @@
+@startuml
+/' @author @WillySeahh'/
+title Activity: Paid Command
+
+start
+:User enters the paid command;
+
+if () then ([index is not specified])
+    :Display an error message;
+else ([else])
+    if () then ([amountPaid is specified])
+        :amountPaid is set to User's input;
+    else ([else])
+        :amountPaid is set to the total Amount
+        owed by the Person;
+    endif
+    :Reduce Amount owed by the Person;
+    :Updates the Storage;
+endif
+stop
+@enduml
