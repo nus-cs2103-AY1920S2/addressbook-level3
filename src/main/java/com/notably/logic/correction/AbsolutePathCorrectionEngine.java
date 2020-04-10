@@ -153,7 +153,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
             String referenceComponent = referenceComponents.get(i);
 
             if (forwardMatch && i == inputComponents.size() - 1
-                    && inputComponent.length() < referenceComponent.length()) {
+                    && inputComponent.length() <= referenceComponent.length()) {
                 distance += calculateForwardMatchingDistance(inputComponent, referenceComponent);
             } else {
                 distance += editDistanceCalculator.calculateDistance(inputComponent, referenceComponent);
