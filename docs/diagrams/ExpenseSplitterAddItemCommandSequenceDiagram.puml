@@ -1,55 +1,66 @@
 @startuml
+/' @author @ailanthustng'/
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
-Participant ":StorageManager" as splitterStorage STORAGE_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
+participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
+participant ":AddItemCommandParser" as AddItemCommandParser LOGIC_COLOR
+participant ":AddItemCommand" as AddItemCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "additem -i pasta -p 5 -n bob"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("additem -i pasta -p 5 -n bob")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":SplitterStorage" as SplitterStorageManager STORAGE_COLOR
+end box
 
-logic -[LOGIC_COLOR]> splitterModel : addEntry(entry)
-activate splitterModel MODEL_COLOR
+[-> SplitterLogicManager : execute("additem -i pasta -p 5 -n bob")
+activate SplitterLogicManager
 
-splitterModel -[MODEL_COLOR]-> logic
-deactivate splitterModel
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand("additem -i pasta -p 5 -n bob")
+activate ExpenseSplitterParser
 
-alt person does not exist in splitterModel
+create AddItemCommandParser
+ExpenseSplitterParser -> AddItemCommandParser
+activate AddItemCommandParser
 
-    logic -[LOGIC_COLOR]> splitterModel : addPerson(person)
-    activate splitterModel MODEL_COLOR
+AddItemCommandParser --> ExpenseSplitterParser
+deactivate AddItemCommandParser
 
-    splitterModel -[MODEL_COLOR]-> logic
-    deactivate splitterModel
+ExpenseSplitterParser -> AddItemCommandParser : parse("additem -i pasta -p 5 -n bob")
+activate AddItemCommandParser
 
-else person already exist in splitterModel
+create AddItemCommand
+AddItemCommandParser -> AddItemCommand
+activate AddItemCommand
 
-        logic -[LOGIC_COLOR]> splitterModel : addAmount(person, amount)
-        activate splitterModel MODEL_COLOR
+AddItemCommand --> AddItemCommandParser :d
+deactivate AddItemCommand
 
-        splitterModel -[MODEL_COLOR]-> logic
-        deactivate splitterModel
+AddItemCommandParser --> ExpenseSplitterParser :d
+deactivate AddItemCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddItemCommandParser -[hidden]-> ExpenseSplitterParser
+destroy AddItemCommandParser
 
-end
+ExpenseSplitterParser --> SplitterLogicManager :d
+deactivate ExpenseSplitterParser
 
-logic -[LOGIC_COLOR]> splitterStorage : savePersonAmountBook(personAmount)
-activate splitterStorage STORAGE_COLOR
+ref over SplitterLogicManager, SplitterModelManager: Execution of AddItemCommand
 
-splitterStorage -[STORAGE_COLOR]> splitterStorage : Save to file
-activate splitterStorage STORAGE_COLOR_T1
-deactivate splitterStorage
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
+activate SplitterStorageManager
 
-splitterStorage --[STORAGE_COLOR]> logic
-deactivate splitterStorage
+SplitterStorageManager --> SplitterLogicManager
 
-logic --[LOGIC_COLOR]> ui : CommandResult
-deactivate logic
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
+SplitterStorageManager --> SplitterLogicManager
+deactivate SplitterStorageManager
 
-ui--[UI_COLOR]> user : CommandResult
-deactivate ui
+[<--SplitterLogicManager : result()
+deactivate SplitterStorageManager
 @enduml
