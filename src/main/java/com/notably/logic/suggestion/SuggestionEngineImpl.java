@@ -34,6 +34,7 @@ public class SuggestionEngineImpl implements SuggestionEngine {
             EditSuggestionCommandParser.COMMAND_WORD, DeleteSuggestionCommandParser.COMMAND_WORD,
             OpenSuggestionCommandParser.COMMAND_WORD, HelpSuggestionCommandParser.COMMAND_WORD,
             ExitSuggestionCommandParser.COMMAND_WORD, SearchSuggestionCommandParser.COMMAND_WORD);
+
     private static final int CORRECTION_THRESHOLD = 2;
     private static final boolean USE_PATH_FORWARD_MATCHING = true;
 
@@ -74,32 +75,43 @@ public class SuggestionEngineImpl implements SuggestionEngine {
         }
 
         String commandWord = matcher.group("commandWord");
-        CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
-        if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            model.setResponseText(String.format(ERROR_MESSAGE_INVALID_COMMAND, userInput));
-            return Optional.empty();
+
+        if (commandWord.length() > 1) {
+            CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
+
+            if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+                model.setResponseText(String.format(ERROR_MESSAGE_INVALID_COMMAND, userInput));
+                return Optional.empty();
+            }
+
+            commandWord = correctionResult.getCorrectedItems().get(0);
         }
-        commandWord = correctionResult.getCorrectedItems().get(0);
 
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
         case OpenSuggestionCommandParser.COMMAND_WORD:
+        case OpenSuggestionCommandParser.COMMAND_SHORTHAND:
             return new OpenSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         case DeleteSuggestionCommandParser.COMMAND_WORD:
+        case DeleteSuggestionCommandParser.COMMAND_SHORTHAND:
             return new DeleteSuggestionCommandParser(model, pathCorrectionEngine).parse(arguments);
 
         case SearchSuggestionCommandParser.COMMAND_WORD:
+        case SearchSuggestionCommandParser.COMMAND_SHORTHAND:
             return new SearchSuggestionCommandParser(model).parse(arguments);
 
         case NewSuggestionCommandParser.COMMAND_WORD:
+        case NewSuggestionCommandParser.COMMAND_SHORTHAND:
             return new NewSuggestionCommandParser(model).parse(arguments);
 
         case EditSuggestionCommandParser.COMMAND_WORD:
+        case EditSuggestionCommandParser.COMMAND_SHORTHAND:
             return new EditSuggestionCommandParser(model).parse(arguments);
 
         case HelpSuggestionCommandParser.COMMAND_WORD:
+        case HelpSuggestionCommandParser.COMMAND_SHORTHAND:
             return new HelpSuggestionCommandParser(model).parse(arguments);
 
         case ExitSuggestionCommandParser.COMMAND_WORD:

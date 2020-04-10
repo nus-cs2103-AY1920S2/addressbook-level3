@@ -15,6 +15,7 @@ import com.notably.model.Model;
  */
 public class SearchSuggestionCommandParser implements SuggestionCommandParser<SearchSuggestionCommand> {
     public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_SHORTHAND = "s";
 
     private static final String RESPONSE_MESSAGE = "Search through all notes based on keyword";
     private static final String RESPONSE_MESSAGE_WITH_KEYWORD = "Search through all notes based on keyword \"%s\"";
