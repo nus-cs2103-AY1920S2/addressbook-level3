@@ -558,12 +558,12 @@ thus you do not have to remember who you split this item with!
 * When you enter `clearrreceipt` it deletes the old receipt’s data. Use it with caution!
 ====
 
-The following activity diagram illustrates what happens when a user executes `listamount` command:
+The following activity diagram illustrates what happens when a user executes `listreceipt` command:
 
 image::ExpenseSplitterListReceiptCommandActivityDiagram.png[]
 Figure : List Receipt Command Activity Diagram
 
-*Implementation of List Amount Command*
+*Implementation of List Receipt Command*
 
 The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
 
