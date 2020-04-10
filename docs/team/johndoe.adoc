@@ -9,7 +9,8 @@
 
 == Overview
 
-TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs) who want to be able to track and manage all of their claimable hours in NUS.
+TA-Tracker is a productivity tool made for NUS Computing
+Teaching Assistants (TAs) who want to be able to track and manage all of their claimable hours in NUS.
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*

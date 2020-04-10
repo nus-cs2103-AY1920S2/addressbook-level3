@@ -87,7 +87,7 @@ public class DeleteStudentCommandTest {
         assertFalse(deleteCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteCommand.equals(null));
+        assertFalse(deleteCommand == null);
 
         // different matric -> returns false
         assertFalse(deleteCommand.equals(deleteCommandDifferentMatric));

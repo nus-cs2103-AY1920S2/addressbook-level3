@@ -95,11 +95,7 @@ public class EditStudentCommandTest {
         EditStudentCommand editStudentCommand = new EditStudentCommand(MATRIC_FIRST_STUDENT,
                 typicalModuleCode, typicalGroupCode, new EditStudentDescriptor());
 
-        Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-
         String expectedMessage = String.format(MESSAGE_NOT_EDITED);
-
-        ModelManager expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
 
         assertCommandFailure(editStudentCommand, model, expectedMessage);
     }
@@ -133,7 +129,7 @@ public class EditStudentCommandTest {
         assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertFalse(standardCommand == null);
 
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
