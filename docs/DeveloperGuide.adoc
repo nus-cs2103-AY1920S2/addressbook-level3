@@ -663,7 +663,7 @@ model and removes the student.
 
 The `student edit` command has been implemented in a similar manner.
 
-==== Implementation of the Sort Command
+==== Implementation of the Sort Group, Module and All Command
 
 The sort command allows the user to sort the students in the student view either *alphabetically*,
 by *rating (in ascending or descending order)* or by *matriculation number*.
@@ -771,7 +771,7 @@ image::SessionModelClassDiagram.png[]
 The TaTracker model class contains a `UniqueSessionList` which helps keep track of
 all the *upcoming sessions* the user has.
 
-==== Implementation of the Session Done Command
+==== Implementation of the Session Add, Edit, Delete and Done Command
 
 The following sequence diagram shows the sequence of commands that take place between
 the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
@@ -798,6 +798,8 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 
 7. The updated filtered session list will be displayed to the user.
 
+The `session add`, `session edit` and `session delete` command has been implemented in a similar manner.
+
 //tag::claimsview[]
 === Claims View
 *Claims View* refers to the view that contains a list of all the sessions that have
@@ -822,7 +824,8 @@ image::TssActivityDiagram.png[]
 Note: The above diagram assumes that a valid index has been input into the TA-Tracker during
 the done session command.
 
-{insert Filter Claims sequence diagram here}
+==== Set Rate Command
+
 
 // tag::syntaxhighlighting[]
 === Syntax Highlighting
@@ -1057,7 +1060,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-[[Implementation-Navigation]]
+[[Implementation-Goto]]
+=== Goto Command
+
+[[Implementation-Filter]]
 === Filter Command
 
 ==== Description
