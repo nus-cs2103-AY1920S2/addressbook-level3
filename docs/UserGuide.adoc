@@ -825,7 +825,7 @@ You will see the group with the specified `GROUP_CODE` and the module with the s
 
 If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
-Format: `student filter [m/MOD_CODE] g/GROUP_CODE`
+Format: `student filter m/MOD_CODE [g/GROUP_CODE]`
 [NOTE]
 ====
 [horizontal]
@@ -1038,7 +1038,7 @@ You will see the module with the specified `MOD_CODE` highlighted in orange in t
 
 All completed sessions with matching `MOD_CODE` are displayed. Keyword is case-insensitive.
 
-Format: `claims filter [m/MOD_CODE]`
+Format: `claims filter m/MOD_CODE`
 
 ====
 Example:
@@ -1117,7 +1117,7 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 === Navigation
 * *Viewing Help:* `help`
-* *Switching tabs:* `goto`
+* *Switching tabs:* `goto TAB_NAME`
 * *Exiting the program:* `exit`
 
 === Student View
@@ -1133,10 +1133,9 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 * *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
 
 ==== Student commands
-* *Add Student:* `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
-[e/EMAIL] [r/RATING] [t/TAG]…​`
+* *Add Student:* `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE [e/EMAIL] [r/RATING] [t/TAG]…`
 * *Delete Student:* `student delete id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE`
-* *Edit Student:* `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]… `
+* *Edit Student:* `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…`
 
 ==== Others
 * *Sorting a Group:* `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
