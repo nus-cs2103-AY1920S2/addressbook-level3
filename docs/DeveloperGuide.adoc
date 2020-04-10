@@ -14,16 +14,21 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Ease Your Lives At Hall (EYLAH) is a Command Line Interface (CLI) application designed to aid students staying in NUS with commonly faced problems in halls such as,
-tracking their diet and splitting the bill with a large group of friends.
+=== About EYLAH
 
-Shown below is the GUI of EYLAH.
+Ease Your Lives At Hall (EYLAH) is a Command Line Interface (CLI) application designed to aid students staying in
+*Temasek Hall within the National University of Singapore* with commonly faced problems such as,
+*tracking their diet* and *splitting a large bill* with a group of friends.
+
+Shown below is the CLI of EYLAH.
 
 image::Ui.png[]
+
+=== About this guide
 
 This documentation serves as an introduction to the architecture and implementation of EYLAH,
 and is made for developers who wish to maintain,
@@ -183,7 +188,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how the features in EYLAH are implemented.
 
 // tag::undoredo[]
 === DietTracker feature
@@ -468,6 +473,7 @@ Below are some diagrams to explain how our team implemented this portion.
 
 image::ExpenseSplitterActivityDiagram.png[]
 
+[[Add-Item-Command]]
 ==== Add Item Command
 
 *Implementation*
@@ -500,6 +506,7 @@ The following is a sample sequence diagram of the DeleteItemCommand.
 
 image::ExpenseSplitterAddItemCommandSequenceDiagram.png[]
 
+[[Delete-Item-Command]]
 ==== Delete Item Command
 
 *Implementation*
@@ -529,6 +536,7 @@ The following is a sample sequence diagram of the DeleteItemCommand.
 
 image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
+[[List-Receipt-Command]]
 ==== List Receipt Command
 
 *Implementation*
@@ -545,6 +553,7 @@ The following is a sample sequence diagram of the ListReceiptCommand.
 
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
+[[List-Amount-Command]]
 ==== List Amount Command
 
 *Implementation*
@@ -561,10 +570,36 @@ The following is a sample sequence diagram of the ListAmountCommand.
 
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
-
+[[Paid-Command]]
 ==== Paid Command
 
-*Implementation*
+In this section, we will learn more about how the `paid` command is implemented.
+
+*What is the Paid Command* +
+
+The `paid` command allows user to reduce the amount of money owed by a Person after they
+have paid.
+
+The `paid` command was implemented as a `PaidCommand` in the `expenseSplitterLogic` package.
+
+The `paid` command has the following input format:
+
+`paid` `INDEX` `[AMOUNT]`
+
+[NOTE]
+====
+* `INDEX` is a *compulsory* field. Instead of typing a Person's name, the user
+can type their index. To find out his/her index, use the command
+ `listamount`.
+
+* `AMOUNT` is an *optional* field. It refers to the amount paid by that Person. Leaving this field
+empty is equivalent to the Person paying you the full amount he/she owes the user.
+
+* `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
+====
+
+
+*Implementation of Paid Command*
 
 The following is a detailed explanation of the operations `PaidCommand` performs. +
 
@@ -583,6 +618,7 @@ Person(s) with $0 Amount will be deleted from UniquePersonList.
 
 image::ExpenseSplitterPaidCommandSequenceDiagramV2.png[]
 
+[[Back-Command]]
 ==== Back Command
 
 *Implementation*
@@ -665,13 +701,47 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
 
-|`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
+|`*` |Temasek Hall exchange student |have a translation for Singaporean lingo |better understand the language my friends speak in hall
 
-|`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
+|`*` |Temasek Hall sports captain |keep track of the various attendances for my training |know who usually attends training and who does not
 
-|`*` |Temasek Hall leader |to keep track of my committee events |ensure things run smoothly
+|`*` |Temasek Hall leader |keep track of my committee events |ensure things run smoothly
 
-|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
+|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date
+
+|`*` |Temasek Hall leader |keep track of when my meetings are |ensure I do not keep my teammates or committee member waiting
+
+|`*` |forgetful Temasek Hall resident|keep track of the myriad of hall activities |attend all the fun and exciting events at hall
+
+|`*` |organised resident of Teamsek Hall|remind myself for the tasks i have |meet all deadlines
+
+|`*` |main person in-charge of fixing faults in Temasek Hall|keep track of all different faults that have been
+reported|fix is as soon as possible to reduce the disruptions to my fellow hall mates
+
+|`*` |international student who is new to Singapore's culture |keep track of upcoming
+hall events|join all the fun activities in hall
+
+|`*` |hardworking Temasek Hall resident who wants to manage his schedule|to check
+module prerequisites|plan my modules
+
+|`*` |attentive resident who notices that the gym has many users|log the entry of users
+|track the entry and exit timings of all gym users
+
+|`*` |food-loving Temasek Hall resident who frequently uses Grab Food|
+keep track of my expenses|calculate my savings every month
+
+|`*` |Temasek Hall resident who has many hall friends|
+keep track of my friends's particulars, especially their room number |find them easily in case I need help
+
+|`*` |Temasek Hall resident who has to pay hall fees|
+record down my school payments |inform my parents about the necessary expenditures in school
+
+|`*` |swimming captain of Temasek Hall|
+plan my training sets |better prepare my team for the upcoming competition
+
+|`*` |Temasek hall exchange student
+have a translation for Singaporean lingo |better understand the language my friends speak in hall
+
 |=======================================================================
 
 
