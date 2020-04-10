@@ -1,6 +1,7 @@
 package com.notably.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,44 +21,24 @@ import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
-import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockModel;
-import com.notably.model.block.BlockModelImpl;
-import com.notably.model.block.Title;
 import com.notably.model.suggestion.SuggestionModel;
 import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
+import com.notably.testutil.TypicalBlockModel;
 
 public class NotablyParserTest {
-
-    private static AbsolutePath toBlock;
-    private static AbsolutePath toAnother;
-    private static AbsolutePath toAnotherBlock;
     private static Model model;
     private static NotablyParser parser;
 
     @BeforeEach
     public void setUp() {
-        // Set up paths
-        toBlock = AbsolutePath.fromString("/block");
-        toAnother = AbsolutePath.fromString("/another");
-        toAnotherBlock = AbsolutePath.fromString("/another/block");
-
         // Set up model
-        BlockModel blockModel = new BlockModelImpl();
+        BlockModel blockModel = TypicalBlockModel.getTypicalBlockModel();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
-
-        // Populate model with test data
-        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("another")));
-
-        model.setCurrentlyOpenBlock(toAnother);
-        model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
-        model.addBlockToCurrentPath(new BlockImpl(new Title("toAnother")));
 
         parser = new NotablyParser(model);
     }
@@ -76,7 +57,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_existingNoteInput_throwsError() throws Exception {
-        Command command = parser.parseCommand("new -t block").get(0);
+        Command command = parser.parseCommand("new -t CS2106").get(0);
 
         assertTrue(command instanceof NewCommand);
 
@@ -98,52 +79,68 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_openCommandInput_openCommand() throws Exception {
-        Command command = parser.parseCommand("open -t CS2104").get(0);
+        final Command command = parser.parseCommand("open -t CS2106").get(0);
+        final AbsolutePath expectedPath = TypicalBlockModel.PATH_TO_CS2106;
 
         assertTrue(command instanceof OpenCommand);
 
         command.execute(model);
 
-        assertEquals(AbsolutePath.fromString("/another/CS2103"), model.getCurrentlyOpenPath());
+        assertEquals(expectedPath , model.getCurrentlyOpenPath());
     }
 
     @Test
     public void parseCommand_openCommandShorthandInput() throws Exception {
-        Command command = parser.parseCommand("o -t CS2104").get(0);
+        Command command = parser.parseCommand("o -t CS2103T").get(0);
 
         assertTrue(command instanceof OpenCommand);
 
         command.execute(model);
 
-        assertEquals(AbsolutePath.fromString("/another/CS2103"), model.getCurrentlyOpenPath());
+        assertEquals(AbsolutePath.fromString("/Y2S2/CS2103T"), model.getCurrentlyOpenPath());
     }
 
     @Test
-    public void parseCommand_deleteCommandInput_deleteCommand() throws Exception {
-        Command command = parser.parseCommand("delete -t ../CS2103").get(0);
+    public void parseCommand_deleteCommandInput_deleteBlocks() throws Exception {
+        AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2103T;
+        Command command = parser.parseCommand("delete -t CS2103T").get(0);
 
         assertTrue(command instanceof DeleteCommand);
+
+        final AbsolutePath expectedChildrenDeletion1 = TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_1;
+        final AbsolutePath expectedChildrenDeletion2 = TypicalBlockModel.PATH_TO_CS2103T_TUTORIAL_2;
+        final AbsolutePath expectedChildrenDeletion3 = TypicalBlockModel.PATH_TO_CS2103T_TUTORIALS;
+        final AbsolutePath expectedChildrenDeletion4 = TypicalBlockModel.PATH_TO_CS2103T_LECTURES;
+
+        command.execute(model);
+
+        assertFalse(model.hasPath(toDeletePath));
+        assertFalse(model.hasPath(expectedChildrenDeletion1));
+        assertFalse(model.hasPath(expectedChildrenDeletion2));
+        assertFalse(model.hasPath(expectedChildrenDeletion3));
+        assertFalse(model.hasPath(expectedChildrenDeletion4));
     }
 
     @Test
     public void parseCommand_deleteCommandInputNoPrefix_deleteCommand() throws Exception {
-        Command command = parser.parseCommand("delete ../CS2103").get(0);
+        AbsolutePath toDeletePath = TypicalBlockModel.PATH_TO_CS2106_TUTORIAL_1;
+        Command command = parser.parseCommand("delete CS2106/Tutorials/Tutorial 1").get(0);
 
         assertTrue(command instanceof DeleteCommand);
+
+        command.execute(model);
+
+        assertFalse(model.hasPath(toDeletePath));
     }
 
     @Test
     public void parseCommand_editCommandInput_editCommand() throws Exception {
-        Command command = parser.parseCommand("edit -b lorem ").get(0);
-
+        Command command = parser.parseCommand("edit").get(0);
         assertTrue(command instanceof EditCommand);
-    }
 
-    @Test
-    public void parseCommand_editCommandInputNoPrefix_editCommand() throws Exception {
-        Command command = parser.parseCommand("edit lorem").get(0);
+        command.execute(model);
 
-        assertTrue(command instanceof EditCommand);
+        assertTrue(model.blockEditableProperty().getValue());
     }
 
     @Test
@@ -158,6 +155,10 @@ public class NotablyParserTest {
         Command command = parser.parseCommand("h").get(0);
 
         assertTrue(command instanceof HelpCommand);
+
+        assertFalse(model.isHelpOpen());
+        command.execute(model);
+        assertTrue(model.isHelpOpen());
     }
 
     @Test
