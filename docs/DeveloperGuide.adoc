@@ -614,11 +614,16 @@ The following is a detailed explanation of the operations `PaidCommand` performs
 5. Lastly, `Person#removeAmount(Amount amount)` is called to subtract the amount.
 
 [NOTE]
-Person(s) with $0 Amount will be deleted from UniquePersonList.
+Person(s) with $0 Amount will be deleted from UniquePersonList. +
+
+
+*Sequence Diagram for Paid Command*
 
 image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
+Figure :Paid Command Sequence Diagram
 
 image::ExpenseSplitterPaidCommandSequenceDiagram2.png[]
+Figure : Execution of Paid Command
 
 [[Back-Command]]
 ==== Back Command
