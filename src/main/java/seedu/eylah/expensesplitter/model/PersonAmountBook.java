@@ -138,7 +138,7 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
                     .append(index)
                     .append(". ")
                     .append(person.getName())
-                    .append(" : $")
+                    .append(" : ")
                     .append(person.getAmount())
                     .append("\n");
         }
