@@ -387,11 +387,7 @@ Example: +
 [[listamount]]
 ==== Listing amounts owed by each person: `listamount`
 
-Listing the amount of money each Person owes you.
-
-OR
-
-If you want to find how much each Person(s) owes you!
+This command is helpful if you want to find how much each Person(s) owes you!
 
 *Summary of List Amount Command: `listamount` shows you how much each Person owes you*.
 
@@ -429,7 +425,7 @@ In this section, you will learn more about the `paid` command, <<howtousepaidcom
 [[howtousepaidcommand]]
 *How to use the Paid Command:*
 
-Format of Paid Command: +
+Format: +
 
 `paid INDEX [AMOUNT]` +
 
@@ -445,7 +441,7 @@ empty is equivalent to the Person paying you the full amount he/she owes you.
 * `AMOUNT` can be up to 2 decimal places, i.e. 7.99.  There is no need to add the dollar sign ($).
 ====
 
-Example of valid Paid Commands: +
+Valid examples: +
 
 `paid 2` - This commmand means that the Person at index 2 has paid you the full amount they owe you. +
 
@@ -453,11 +449,11 @@ Example of valid Paid Commands: +
 
 
 [[paidcommandexpectedoutcome]]
-*Expected outcome after using Paid Command:*
+*Expected outcome:*
 
 image::expenseSplitterPaidCommandSuccessPhoto.png[width="890", height="200"]
 
-*Additional tips and notes for Paid Command*
+*Additional tips and notes*
 
 [TIP]
 ====
