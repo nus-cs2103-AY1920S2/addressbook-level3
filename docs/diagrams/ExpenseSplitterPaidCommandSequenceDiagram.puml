@@ -10,10 +10,10 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":ModelManager" as ModelManager MODEL_COLOR
-participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
-participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
-participant ":Person" as Person MODEL_COLOR
+participant ":SplitterModelManager" as SplitterModelManager MODEL_COLOR
+'participant ":PersonAmountBook" as PersonAmountBook MODEL_COLOR
+'participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+'participant ":Person" as Person MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
@@ -40,36 +40,19 @@ create PaidCommand
 PaidCommandParser -> PaidCommand
 activate PaidCommand
 
-PaidCommand --> PaidCommandParser
+PaidCommand --> PaidCommandParser:d
 deactivate PaidCommand
 
-PaidCommandParser --> ExpenseSplitterParser
+PaidCommandParser --> ExpenseSplitterParser :d
 deactivate PaidCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 PaidCommandParser -[hidden]-> ExpenseSplitterParser
 destroy PaidCommandParser
 
-ExpenseSplitterParser --> SplitterLogicManager
+ExpenseSplitterParser --> SplitterLogicManager :d
 deactivate ExpenseSplitterParser
 
-SplitterLogicManager -> PaidCommand : execute()
-activate PaidCommand
-
-PaidCommand -> ModelManager : paidPerson(Person person, String amountPaid)
-activate ModelManager
-
-ModelManager --> PaidCommand
-deactivate ModelManager
-
-create CommandResult
-PaidCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> PaidCommand
-deactivate CommandResult
-
-PaidCommand --> SplitterLogicManager : result
-deactivate PaidCommand
+ref over SplitterLogicManager, SplitterModelManager: Execution of PaidCommand
 
 SplitterLogicManager -> SplitterStorageManager : saveFoodBook(foodBook)
 activate SplitterStorageManager
@@ -77,6 +60,6 @@ activate SplitterStorageManager
 SplitterStorageManager --> SplitterLogicManager
 deactivate SplitterStorageManager
 
-[<--SplitterLogicManager
+[<--SplitterLogicManager : result
 deactivate SplitterStorageManager
 @enduml
