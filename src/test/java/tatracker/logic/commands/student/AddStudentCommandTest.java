@@ -83,7 +83,7 @@ public class AddStudentCommandTest {
         assertFalse(addAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAliceCommand == null);
 
         // different student -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));

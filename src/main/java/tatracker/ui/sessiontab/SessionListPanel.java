@@ -45,6 +45,7 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
 
     public SessionListPanel(ObservableList<Session> sessionList) {
         super(FXML);
+        logger.fine("Showing Session List");
         sessionListView.setItems(sessionList);
         sessionListView.setCellFactory(listView -> new SessionListViewCell());
         currentDateFilters.setText(NO_FILTER);
@@ -59,6 +60,8 @@ public class SessionListPanel extends UiPart<Region> implements Focusable {
      * Update Label in order to facilitate changing current filters
      */
     public void updateLabel(String dateFilter, String moduleFilter, String typeFilter) {
+        logger.fine("Update session filters label");
+
         String actualDateFilter = dateFilter;
         if (dateFilter.isBlank()) {
             actualDateFilter = NO_FILTER;

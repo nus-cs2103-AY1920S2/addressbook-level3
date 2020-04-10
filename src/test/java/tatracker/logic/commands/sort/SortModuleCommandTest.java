@@ -48,7 +48,7 @@ public class SortModuleCommandTest {
         assertFalse(sortModuleCommand.equals(1));
 
         // null -> returns false
-        assertFalse(sortModuleCommand.equals(null));
+        assertFalse(sortModuleCommand == null);
 
         // different modules -> returns false
         assertFalse(sortModuleCommand.equals(sortNewModuleCommand));

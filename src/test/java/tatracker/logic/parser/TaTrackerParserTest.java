@@ -12,15 +12,10 @@ import tatracker.logic.commands.commons.ExitCommand;
 import tatracker.logic.commands.commons.HelpCommand;
 import tatracker.logic.commands.commons.ListCommand;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.group.Group;
-import tatracker.model.module.Module;
 
 public class TaTrackerParserTest {
 
     private final TaTrackerParser parser = new TaTrackerParser();
-
-    private final Group testGroup = new Group("W17-4");
-    private final Module testModule = new Module("CS2103T");
 
     // @Test
     // public void parseCommand_add() throws Exception {
