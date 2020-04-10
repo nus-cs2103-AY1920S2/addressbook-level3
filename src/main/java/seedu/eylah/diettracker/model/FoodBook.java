@@ -96,6 +96,10 @@ public class FoodBook implements ReadOnlyFoodBook {
 
     //// util methods
 
+    public UniqueFoodList getFoods() {
+        return this.foods;
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(foods.asUnmodifiableObservableList().toArray());
@@ -110,7 +114,7 @@ public class FoodBook implements ReadOnlyFoodBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FoodBook // instanceof handles nulls
-                && foods.equals(((FoodBook) other).foods));
+                && foods.equals(((FoodBook) other).getFoods()));
     }
 
     @Override

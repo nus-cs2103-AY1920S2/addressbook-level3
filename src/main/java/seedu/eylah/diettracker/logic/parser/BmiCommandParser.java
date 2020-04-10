@@ -33,28 +33,28 @@ public class BmiCommandParser implements Parser<BmiCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BmiCommand.MESSAGE_USAGE));
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_HEIGHT) && !arePrefixesPresent(argMultimap, PREFIX_WEIGHT)) {
-            height = Self.getHeight();
-            weight = Self.getWeight();
-            if (height == null || weight == null) {
-                throw new ParseException("You did not set your own height and weight yet.");
-            }
-        } else if (!arePrefixesPresent(argMultimap, PREFIX_HEIGHT)) {
-            height = Self.getHeight();
-            weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-            if (height == null) {
-                throw new ParseException("You did not set your own height yet.");
-            }
-        } else if (!arePrefixesPresent(argMultimap, PREFIX_WEIGHT)) {
+//        if (!arePrefixesPresent(argMultimap, PREFIX_HEIGHT) && !arePrefixesPresent(argMultimap, PREFIX_WEIGHT)) {
+//            height = Self.getHeight();
+//            weight = Self.getWeight();
+//            if (height == null || weight == null) {
+//                throw new ParseException("You did not set your own height and weight yet.");
+//            }
+//        } else if (!arePrefixesPresent(argMultimap, PREFIX_HEIGHT)) {
+//            height = Self.getHeight();
+//            weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+//            if (height == null) {
+//                throw new ParseException("You did not set your own height yet.");
+//            }
+//        } else if (!arePrefixesPresent(argMultimap, PREFIX_WEIGHT)) {
+//            height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
+//            weight = Self.getWeight();
+//            if (weight == null) {
+//                throw new ParseException("You did not set your own weight yet.");
+//            }
+//        } else {
             height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
-            weight = Self.getWeight();
-            if (weight == null) {
-                throw new ParseException("You did not set your own weight yet.");
-            }
-        } else {
-            height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
             weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-        }
+//        }
 
         return new BmiCommand(height, weight);
     }

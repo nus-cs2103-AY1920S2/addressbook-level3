@@ -24,7 +24,20 @@ public class Height {
     /**
      * Constructs a {@code Height}.
      *
-     * @param heightString A valid height.
+     * @param height A valid height in float.
+     */
+    public Height(float height) {
+        requireNonNull(height);
+        String heightString = Float.valueOf(height).toString();
+        checkArgument(isValidHeight(heightString), MESSAGE_CONSTRAINTS);
+        this.heightString = heightString;
+        this.heightFloat = height;
+    }
+
+    /**
+     * Constructs a {@code Height}.
+     *
+     * @param heightString A valid height in string.
      */
     public Height(String heightString) {
         requireNonNull(heightString);

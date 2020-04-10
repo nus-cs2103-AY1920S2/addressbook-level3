@@ -12,7 +12,15 @@ import seedu.eylah.diettracker.model.self.Weight;
  */
 public class Myself implements ReadOnlyMyself {
 
-    public Myself() {}
+    private Self self;
+
+    public Myself() {
+        this.self = new Self();
+    }
+
+    public Myself(Self self) {
+        this.self = self;
+    }
 
     /**
      * Creates a FoodBook using the Foods in the {@code toBeCopied}
@@ -28,21 +36,21 @@ public class Myself implements ReadOnlyMyself {
      * Replaces the height of the personal user with {@code newHeight}.
      */
     public void setHeight(Height newHeight) {
-        Self.setHeight(newHeight);
+        self.setHeight(newHeight);
     }
 
     /**
      * Replaces the weight of the personal user with {@code newWeight}.
      */
     public void setWeight(Weight newWeight) {
-        Self.setWeight(newWeight);
+        self.setWeight(newWeight);
     }
 
     /**
      * Replaces the mode of the personal user with {@code newMode}.
      */
     public void setMode(Mode newMode) {
-        Self.setMode(newMode);
+        self.setMode(newMode);
     }
 
     /**
@@ -61,28 +69,34 @@ public class Myself implements ReadOnlyMyself {
     //// util methods
     @Override
     public String toString() {
-        return (new Self()).toString();
+        return self.toString();
     }
 
     @Override
     public Height getHeight() {
-        return Self.getHeight();
+        return self.getHeight();
     }
 
     @Override
     public Weight getWeight() {
-        return Self.getWeight();
+        return self.getWeight();
     }
 
     @Override
     public Mode getMode() {
-        return Self.getMode();
+        return self.getMode();
+    }
+
+    @Override
+    public Self getSelf() {
+        return this.self;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Myself);
+                || (other instanceof Myself)
+                && self.equals(((Myself) other).getSelf());
     }
 
     @Override

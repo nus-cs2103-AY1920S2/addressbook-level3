@@ -72,6 +72,16 @@ public class DietModelManager extends ModelManager implements DietModel {
     }
 
     @Override
+    public Height getHeight() {
+        return myself.getHeight();
+    }
+
+    @Override
+    public Weight getWeight() {
+        return myself.getWeight();
+    }
+
+    @Override
     public void setHeight(Height height) {
         myself.setHeight(height);
     }

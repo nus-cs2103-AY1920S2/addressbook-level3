@@ -13,43 +13,50 @@ import seedu.eylah.diettracker.model.Mode;
 public class Self {
 
     // Data fields
-    private static Height height;
-    private static Weight weight;
-    private static Mode mode;
+    private Height height;
+    private Weight weight;
+    private Mode mode;
 
     /**
      * Every field must be present
      * height and weight fields must not be null.
+     * mode set to default value of MAINTAIN
      */
     public Self(Height height, Weight weight) {
         requireAllNonNull(height, weight);
-        Self.height = height;
-        Self.weight = weight;
+        this.height = height;
+        this.weight = weight;
+        this.mode = Mode.MAINTAIN;
     }
 
-    public Self(){}
+    public Self(){
+        this.height = new Height(0);
+        this.weight = new Weight(0);
+        this.mode = Mode.MAINTAIN;
 
-    public static Height getHeight() {
+    }
+
+    public Height getHeight() {
         return height;
     }
 
-    public static Weight getWeight() {
+    public Weight getWeight() {
         return weight;
     }
 
-    public static Mode getMode() {
+    public Mode getMode() {
         return mode;
     }
 
-    public static void setHeight(Height newHeight) {
+    public void setHeight(Height newHeight) {
         height = newHeight;
     }
 
-    public static void setWeight(Weight newWeight) {
+    public void setWeight(Weight newWeight) {
         weight = newWeight;
     }
 
-    public static void setMode(Mode newMode) {
+    public void setMode(Mode newMode) {
         mode = newMode;
     }
 

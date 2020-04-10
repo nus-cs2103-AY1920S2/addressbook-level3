@@ -37,8 +37,10 @@ public class BmiCommand extends Command {
      * Constructor for Command that does not include Height and Weight.
      */
     public BmiCommand() {
-        height = Self.getHeight();
-        weight = Self.getWeight();
+//        height = Self.getHeight();
+//        weight = Self.getWeight();
+        height = new Height(175);
+        weight = new Weight(70);
         bmi = new Bmi(height, weight);
     }
 
