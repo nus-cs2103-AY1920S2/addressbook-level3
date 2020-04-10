@@ -45,7 +45,7 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_UNSIGNED_INT);
         }
 
-        return Integer.parseUnsignedInt(integer);
+        return Integer.parseUnsignedInt(trimmedInteger);
     }
 
     /**
@@ -160,15 +160,6 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
-    }
-
-    /**
-     * Parses and returns the given value.
-     */
-    public static String parseValue(String value) {
-        requireNonNull(value);
-        String trimmedValue = value.trim();
-        return trimmedValue;
     }
 
     /**
@@ -311,20 +302,13 @@ public class ParserUtil {
      * @throws ParseException invalid pay rate
      */
     public static int parseRate(String rate) throws ParseException {
-        requireNonNull(rate);
-        String trimmedRate = rate.trim();
-
-        if (!StringUtil.isUnsignedInteger(trimmedRate)) {
-            throw new ParseException(TaTracker.CONSTRAINTS_RATE);
-        }
-
         try {
-            int parsedRate = Integer.parseUnsignedInt(trimmedRate);
-            if (parsedRate == 0) {
-                throw new ParseException(TaTracker.CONSTRAINTS_RATE);
+            int parsedRate = parseUnsignedInteger(rate);
+            if (parsedRate <= 0) {
+                throw new NumberFormatException();
             }
             return parsedRate;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ParseException e) {
             throw new ParseException(TaTracker.CONSTRAINTS_RATE);
         }
     }

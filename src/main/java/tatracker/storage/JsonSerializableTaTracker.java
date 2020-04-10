@@ -1,7 +1,11 @@
 package tatracker.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,6 +25,7 @@ import tatracker.model.session.Session;
 class JsonSerializableTaTracker {
 
     public static final String MESSAGE_DUPLICATE_SESSIONS = "Session list contains duplicate session(s).";
+    public static final String MESSAGE_DUPLICATE_DONE_SESSIONS = "Done session list contains duplicate session(s).";
     public static final String MESSAGE_DUPLICATE_MODULES = "Module list contains duplicate module(s).";
 
     private final List<JsonAdaptedSession> sessions = new ArrayList<>();
@@ -68,7 +73,7 @@ class JsonSerializableTaTracker {
      */
     public TaTracker toModelType() throws IllegalValueException {
         // ==== Sessions ====
-        final List<Session> modelSessions = new ArrayList<>();
+        final Set<Session> modelSessions = new HashSet<>();
         for (JsonAdaptedSession jsonAdaptedSession : sessions) {
             Session session = jsonAdaptedSession.toModelType();
             if (modelSessions.contains(session)) {
@@ -78,30 +83,30 @@ class JsonSerializableTaTracker {
         }
 
         // ==== Done Sessions ====
-        final List<Session> modelDoneSessions = new ArrayList<>();
+        final Set<Session> modelDoneSessions = new HashSet<>();
         for (JsonAdaptedSession jsonAdaptedSession : doneSessions) {
-            Session session = jsonAdaptedSession.toModelType();
-            if (modelDoneSessions.contains(session)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSIONS);
+            Session doneSession = jsonAdaptedSession.toModelType();
+            if (modelDoneSessions.contains(doneSession)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DONE_SESSIONS);
             }
-            modelDoneSessions.add(session);
+            modelDoneSessions.add(doneSession);
         }
 
         // ==== Modules ====
-        final List<Module> modelModules = new ArrayList<>();
+        final Map<String, Module> modelModules = new HashMap<>();
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
-            if (modelModules.contains(module)) {
+            if (modelModules.containsKey(module.getIdentifier())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULES);
             }
-            modelModules.add(module);
+            modelModules.put(module.getIdentifier(), module);
         }
 
         // ==== Build ====
         TaTracker taTracker = new TaTracker();
         modelSessions.forEach(taTracker::addSession);
         modelDoneSessions.forEach(taTracker::addDoneSession);
-        modelModules.forEach(taTracker::addModule);
+        modelModules.values().forEach(taTracker::addModule);
 
         return taTracker;
     }
