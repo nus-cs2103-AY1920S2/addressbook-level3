@@ -1,6 +1,11 @@
 package csdev.couponstash.ui;
 
+import java.util.List;
+import java.util.function.Consumer;
+
+import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -19,12 +24,14 @@ public class SavingsBox extends UiPart<Region> {
     private static final String SAVEABLE_CLASS = "sv-label";
     // make it more obvious that savings can exist without
     // numerical but with saveable free items
-    private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 12;"
+    private static final String INFO_TEXT_STYLE = "-fx-font-size: 12;"
             + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: #6c96be;";
     // controls font size of number amount
     private static final int BASE_FONT_SIZE = 105;
     // if no saveables, translate numerical amount
     private static final int NUMERICAL_AMOUNT_TRANSLATE_AMOUNT = 12;
+    // maximum number of saveables to be displayed
+    private static final int MAXIMUM_NUMBER_OF_SHOWN_SAVEABLES = 2;
 
     @FXML
     private VBox savingsPane;
@@ -44,23 +51,41 @@ public class SavingsBox extends UiPart<Region> {
      * @param moneySymbol Money symbol for the display.
      */
     public void setSavings(Savings s, String moneySymbol) {
-        // handle saveables
-        s.getSaveables().ifPresentOrElse(saveablesList -> saveablesList.stream()
-            .forEach(sva -> {
-                Label label = new Label(sva.getValue());
-                // ensure that label has the correct CSS style
-                label.getStyleClass().add(SavingsBox.SAVEABLE_CLASS);
+
+        // logic for adding labels to the savings box for saveables
+        Consumer<List<Saveable>> labelAdderForSaveablesList = saveablesList -> {
+            int numberOfSaveables = saveablesList.size();
+
+            // loop through all the items, or to maximum number to show (ignore last item)
+            int loopLimit = Math.min(numberOfSaveables, SavingsBox.MAXIMUM_NUMBER_OF_SHOWN_SAVEABLES - 1);
+            for (int i = 0; i < loopLimit; i++) {
+                addLabelToSavingsBox(saveablesList.get(i));
+            }
+
+            // special cases for last item
+            if (numberOfSaveables > SavingsBox.MAXIMUM_NUMBER_OF_SHOWN_SAVEABLES) {
+                // show a label that denotes presence of more saveables
+                // but these saveables are not shown in savings box
+                Label label = new Label("(and more...)");
+                label.setStyle(SavingsBox.INFO_TEXT_STYLE);
                 saveables.getChildren().add(label);
-            }), () -> {
-                this.saveables.setStyle(SavingsBox.HIDDEN);
-                this.numericalAmount.setTranslateY(SavingsBox.NUMERICAL_AMOUNT_TRANSLATE_AMOUNT);
-            });
+            } else if (numberOfSaveables == SavingsBox.MAXIMUM_NUMBER_OF_SHOWN_SAVEABLES) {
+                // if there is only one more item, we have enough space to show it
+                addLabelToSavingsBox(saveablesList.get(numberOfSaveables - 1));
+            }
+        };
+
+        // handle saveables
+        s.getSaveables().ifPresentOrElse(labelAdderForSaveablesList, () -> {
+            this.saveables.setStyle(SavingsBox.HIDDEN);
+            this.numericalAmount.setTranslateY(SavingsBox.NUMERICAL_AMOUNT_TRANSLATE_AMOUNT);
+        });
 
         // handle numerical value
         String savingsNumber = getSavingsString(s, moneySymbol);
         if (savingsNumber.isBlank()) {
             this.numericalAmount.setText("(no amount)");
-            this.numericalAmount.setStyle(SavingsBox.NO_NUMERICAL_AMOUNT_STYLE);
+            this.numericalAmount.setStyle(SavingsBox.INFO_TEXT_STYLE);
         } else {
             this.numericalAmount.setText(savingsNumber);
             // resize numerical amount dynamically
@@ -90,5 +115,19 @@ public class SavingsBox extends UiPart<Region> {
         s.getMonetaryAmount().ifPresent(ma ->
             sb.append(ma.getStringWithMoneySymbol(moneySymbol)));
         return sb.toString();
+    }
+
+    /**
+     * Given a Saveable, adds a label to the SavingsBox
+     * that displays the name of the Saveable.
+     *
+     * @param sva The Saveable to be displayed in
+     *            SavingsBox as a Label.
+     */
+    private void addLabelToSavingsBox(Saveable sva) {
+        Label label = new Label(sva.getValue());
+        // ensure that label has the correct CSS style
+        label.getStyleClass().add(SavingsBox.SAVEABLE_CLASS);
+        saveables.getChildren().add(label);
     }
 }
