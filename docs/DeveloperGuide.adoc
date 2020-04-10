@@ -210,11 +210,33 @@ Explain rationale behind using IDs
 Consideration 1
 
 Consideration 2
-==== ProgressManager
 
-==== EdgeManager
+==== Execution of Assign/Unassign Command
+For the actual execution of an assign/unassign command, 3 main steps are performed.
+
+. Pre-process the targeted entities to ensure consistent state - Via `PreprocessUndoCommand` method call
+. Add both object's ID into each other - Handled by `EdgeManager`
+. Create/remove Progress objects when assignments/students are involved - Handled by `Progress Manager`
+
+==== Preprocess Entities
+Firstly, a `pre-processing step` must be performed before executing an undo-able assign/unassign command
+to ensure that all entity links are in correct state before command execution.
+
+.Activity Diagram of Pre-processing for
+image::Ivan-PreprocessAssignActivityDiagram.png[]
+
+Notice that there are 2 main exit points in the activity diagram. The success case is straightforward and will lead to a
+the program continuing to execute the actual assign/un-assign command.
+
+However, for the failure case, should any of the conditions fail, this means that either the specified objects does `not exist`
+or that the model is in an `inconsistent state` where one entity is assigned to the other but not vice versa.
+
+===== EdgeManager
 Explain flow for assign/unassign
 Explain flow for capturing delete event (and unassign correspondingly)
+
+
+===== ProgressManager
 
 === Undo/Redo
 
@@ -223,13 +245,6 @@ Explain flow for extending from undoableCommand
 ==== Opposite Command for edit
 
 ==== Opposite command for assign/ unassign
-As explained in 2.3, a `pre-processing step` must first be done before executing an undo-able assign/unassign command
-to ensure that all entity links are in correct state before command execution.
-
-.Relationship between Entities
-image::IVAN-ProprocessingAssignActivityDiagram.png[]
-
-
 
 
 ==== Opposite command for add/ delete (and maintain the corresponding links between entities)
