@@ -199,10 +199,12 @@ The behaviour of this feature has been implemented to mimic most modern CLIs, na
 
 Since all user inputs, be it valid or invalid commands, should be stored, and since detection of the kbd:[&uarr;] and kbd:[&darr;] arrow keys must occur in the JavaFX's `TextField` class found in `CommandBox`, we have decided to let `CommandBox` directly interact with `CommandHistory`. In other words, `CommandBox` will be responsible for calling `CommandHistory#addToHistory`, `CommandHistory#getNextCommand`, and `CommandHistory#getPreviousCommand`. A simplified class diagram of the classes involved in this feature is given below:
 
+.Class Diagram for Command History
 image::CommandHistoryClassDiagram.png[]
 
-In the following sequence diagram, we trace the execution for when the user decides to enter the command `list-c` into FitBiz:
+In the following sequence diagram, we trace the execution of the classes involved in the class diagram given above for when the user decides to enter the command `list-c` into FitBiz:
 
+.Sequence Diagram for Saving a User Entered Command
 image::CommandHistorySequenceDiagram.png[]
 
 ===== How the Command History is persisted on storage
