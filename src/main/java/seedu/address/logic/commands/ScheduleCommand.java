@@ -399,7 +399,7 @@ public class ScheduleCommand extends Command {
         BigDecimal secondMin = new BigDecimal(Float.MAX_VALUE);
 
         for (int i = 0; i < Math.min(distributedHoursAllAssignments.size(), daysInBetween + 1); i++) {
-            if (i != 0 || hoursLeftEachDay.get(0).compareTo(new BigDecimal(0.01)) > 0) {
+            if ((i != 0 && i != daysInBetween) || (hoursLeftEachDay.get(i).compareTo(new BigDecimal(0.01)) > 0)) {
                 if (distributedHoursAllAssignments.get(i).compareTo(min) < 0) {
                     secondMin = min.add(BigDecimal.ZERO);
                     min = distributedHoursAllAssignments.get(i).add(BigDecimal.ZERO);
