@@ -23,7 +23,6 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://mvnrepository.com/artifact/com.itextpdf/kernel/7.0.4'}
 }
 
 checkstyle {
@@ -67,7 +66,6 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
-    compile fileTree(dir:'libs',include:['*.jar'])
 }
 
 shadowJar {
