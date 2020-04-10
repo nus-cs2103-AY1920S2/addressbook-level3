@@ -12,11 +12,11 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import csdev.couponstash.commons.MoneySymbolStub;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.testutil.MoneySymbolStub;
 
 public class JsonUserPrefsStorageTest {
 
