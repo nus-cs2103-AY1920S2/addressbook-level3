@@ -42,6 +42,8 @@ import seedu.address.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    public static final String EMPTY_ATTRIBUTE = "";
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -64,7 +66,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Optional<String> genderString = argMultimap.getValue(PREFIX_GENDER);
         Gender gender = genderString.isPresent()
                 ? ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get())
-                : new Gender("");
+                : new Gender(EMPTY_ATTRIBUTE);
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
@@ -73,23 +75,23 @@ public class AddCommandParser implements Parser<AddCommand> {
         Optional<String> birthdayString = argMultimap.getValue(PREFIX_BIRTHDAY);
         Birthday birthday = birthdayString.isPresent()
                 ? ParserUtil.parseBirthday(birthdayString.get())
-                : new Birthday("");
+                : new Birthday(EMPTY_ATTRIBUTE);
         Optional<String> heightString = argMultimap.getValue(PREFIX_HEIGHT);
         Height height = heightString.isPresent()
                 ? ParserUtil.parseHeight(heightString.get())
-                : new Height("");
+                : new Height(EMPTY_ATTRIBUTE);
         Optional<String> currentWeightString = argMultimap.getValue(PREFIX_CURRENT_WEIGHT);
         CurrentWeight currentWeight = currentWeightString.isPresent()
                 ? ParserUtil.parseCurrentWeight(currentWeightString.get())
-                : new CurrentWeight("");
+                : new CurrentWeight(EMPTY_ATTRIBUTE);
         Optional<String> targetWeightString = argMultimap.getValue(PREFIX_TARGET_WEIGHT);
         TargetWeight targetWeight = targetWeightString.isPresent()
                 ? ParserUtil.parseTargetWeight(targetWeightString.get())
-                : new TargetWeight("");
+                : new TargetWeight(EMPTY_ATTRIBUTE);
         Optional<String> remarkString = argMultimap.getValue(PREFIX_REMARK);
         Remark remark = remarkString.isPresent()
                 ? ParserUtil.parseRemark(remarkString.get())
-                : new Remark("");
+                : new Remark(EMPTY_ATTRIBUTE);
         Set<Sport> sportList = ParserUtil.parseSports(argMultimap.getAllValues(PREFIX_SPORT));
         UniqueExerciseList exerciseList = new UniqueExerciseList();
         PersonalBest personalBest = new PersonalBest();

@@ -42,6 +42,7 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String EMPTY_ATTRIBUTE = "";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     private static final int DAY_INDEX = 0;
@@ -157,7 +158,7 @@ public class ParserUtil {
         case "o":
             return new Gender("Others");
         default:
-            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+            return new Gender(EMPTY_ATTRIBUTE);
         }
     }
 
@@ -183,6 +184,9 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
+            if (tagName.equals(EMPTY_ATTRIBUTE)) {
+                continue;
+            }
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
@@ -268,6 +272,9 @@ public class ParserUtil {
         requireNonNull(sports);
         final Set<Sport> sportSet = new HashSet<>();
         for (String sportName : sports) {
+            if (sportName.equals(EMPTY_ATTRIBUTE)) {
+                continue;
+            }
             sportSet.add(parseSport(sportName));
         }
         return sportSet;

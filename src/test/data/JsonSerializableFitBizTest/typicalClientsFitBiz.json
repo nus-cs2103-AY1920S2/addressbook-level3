@@ -59,7 +59,7 @@
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "birthday" : "",
-    "tagged" : [ ],
+    "tagged" : [],
     "currentWeight" : "",
     "targetWeight" : "",
     "height" : "",
@@ -72,7 +72,7 @@
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "birthday" : "",
-    "tagged" : [ ],
+    "tagged" : ["normal"],
     "currentWeight" : "",
     "targetWeight" : "",
     "height" : "",
@@ -85,11 +85,11 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "birthday" : "",
-    "tagged" : [ ],
+    "tagged" : ["normal"],
     "currentWeight" : "",
     "targetWeight" : "",
     "height" : "",
     "remark" : "",
-    "sports" : [ ]
+    "sports" : ["dance"]
   } ]
 }

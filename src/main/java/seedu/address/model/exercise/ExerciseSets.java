@@ -12,6 +12,7 @@ public class ExerciseSets {
     public static final String MESSAGE_CONSTRAINTS =
         "Input Sets must be a whole number from 1 to 9999 (eg. 5)";
     public static final String VALIDATION_REGEX = "^([1-9][0-9]{0,3})$";
+    private static final String EMPTY_STRING = "";
     public final String value;
 
     /**
@@ -29,7 +30,7 @@ public class ExerciseSets {
      * Returns true if a given string is a valid exercise sets.
      */
     public static boolean isValidExerciseSets(String test) {
-        return test.equals("") || test.matches(VALIDATION_REGEX);
+        return test.equals(EMPTY_STRING) || test.matches(VALIDATION_REGEX);
     }
 
     @Override

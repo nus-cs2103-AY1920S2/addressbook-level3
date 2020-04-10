@@ -119,7 +119,9 @@ public class ModelManager implements Model {
     @Override
     public void setClient(Client target, Client editedClient) {
         requireAllNonNull(target, editedClient);
-
+        if (hasClientInView() && getClientInView().equals(target)) {
+            clientInView.setClient(editedClient);
+        }
         fitBiz.setClient(target, editedClient);
     }
 

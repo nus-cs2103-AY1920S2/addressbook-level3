@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,6 @@ public class ScheduleCommand extends Command {
                 clientToEdit.getRemark(), clientToEdit.getSports(), clientToEdit.getExerciseList(),
                 clientToEdit.getPersonalBest(), newScheduleList);
         model.setClient(clientToEdit, editedClient);
-        model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
 
         // if toAdd is empty, meaning the schedule has been cleared
         if (toAdd.isEmpty()) {

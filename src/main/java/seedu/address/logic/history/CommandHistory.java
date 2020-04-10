@@ -7,8 +7,8 @@ import seedu.address.model.CommandHistoryState;
 import seedu.address.storage.StorageReaderWriter;
 
 /**
- * This class represents the logic behind the command history feature and acts
- * as an interface by exposing the necessary methods needed.
+ * This class contains the logic behind the command history feature and exposes
+ * the necessary methods needed.
  */
 public class CommandHistory {
 

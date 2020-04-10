@@ -55,16 +55,16 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_SPORT + "SPORT] "
+            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_BIRTHDAY + "BIRTHDAY] "
             + "[" + PREFIX_CURRENT_WEIGHT + "CURRENT_WEIGHT] "
             + "[" + PREFIX_TARGET_WEIGHT + "TARGET_WEIGHT] "
             + "[" + PREFIX_HEIGHT + "HEIGHT] "
+            + "[" + PREFIX_SPORT + "SPORT]... "
+            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_REMARK + "REMARK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -74,7 +74,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_CLIENT_SUCCESS = "Edited Client: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in FitBiz.";
+    public static final String MESSAGE_DUPLICATE_CLIENT = "This phone number and/or email already exists in FitBiz.\n"
+            + "Clients must have different phone numbers and email addresses.";
 
     private final Index index;
     private final EditClientDescriptor editClientDescriptor;

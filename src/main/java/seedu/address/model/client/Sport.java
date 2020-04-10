@@ -9,6 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Sport {
 
+    public static final String EMPTY_STRING = "";
     public static final String MESSAGE_CONSTRAINTS = "Sport should only contain alphanumeric characters and spaces";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public final String sportName;
@@ -28,7 +29,7 @@ public class Sport {
      * Returns true if a given string is a valid sport.
      */
     public static boolean isValidSport(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.equals(EMPTY_STRING) || test.matches(VALIDATION_REGEX);
     }
 
     public String getSportName() {

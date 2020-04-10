@@ -27,10 +27,10 @@ public class Node {
     }
 
     /**
-     * Constructs a child {@code Node} with a {@code parent}.
+     * Constructs a child node {@code Node} with a parent node {@code parent}.
      *
      * @param letter the letter that this new child contains
-     * @param parent the parent {@code Node} of this child, which must not be
+     * @param parent the parent node {@code Node} of this child, which must not be
      *               {@code null}
      */
     public Node(char letter, Node parent) {

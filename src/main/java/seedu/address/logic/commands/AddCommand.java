@@ -39,31 +39,32 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_SPORT + "SPORT]... "
-            + "[" + PREFIX_BIRTHDAY + "BIRTHDAY] "
             + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_BIRTHDAY + "BIRTHDAY] "
             + "[" + PREFIX_CURRENT_WEIGHT + "CURRENT_WEIGHT] "
             + "[" + PREFIX_TARGET_WEIGHT + "TARGET_WEIGHT] "
             + "[" + PREFIX_HEIGHT + "HEIGHT] "
+            + "[" + PREFIX_SPORT + "SPORT]... "
+            + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_REMARK + "REMARK]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney "
             + PREFIX_GENDER + "Male "
             + PREFIX_BIRTHDAY + "26-01-1980 "
             + PREFIX_CURRENT_WEIGHT + "96 "
             + PREFIX_TARGET_WEIGHT + "69 "
             + PREFIX_HEIGHT + "156 "
-            + PREFIX_SPORT + "arm wrestling "
-            + PREFIX_REMARK + "need to do more pushups";
+            + PREFIX_SPORT + "Sumo Wrestling "
+            + PREFIX_TAG + "Vegan "
+            + PREFIX_TAG + "Lacks Protein "
+            + PREFIX_REMARK + "History of back injuries";
 
     public static final String MESSAGE_SUCCESS = "New client added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in FitBiz";
+    public static final String MESSAGE_DUPLICATE_CLIENT = "This phone number and/or email already exists in FitBiz.\n"
+            + "Clients must have different phone numbers and email addresses.";
 
     private final Client toAdd;
 
