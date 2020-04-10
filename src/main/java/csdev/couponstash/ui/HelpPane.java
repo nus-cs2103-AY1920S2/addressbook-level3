@@ -19,13 +19,12 @@ import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
-import csdev.couponstash.logic.commands.SetPrefCommand;
+import csdev.couponstash.logic.commands.SetCurrencyCommand;
 import csdev.couponstash.logic.commands.ShareCommand;
 import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.commands.UnarchiveCommand;
 import csdev.couponstash.logic.commands.UndoCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,7 +56,7 @@ public class HelpPane extends UiPart<Region> {
                     new CommandCard(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_USAGE),
                     new CommandCard(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_USAGE),
                     new CommandCard(SavedCommand.COMMAND_WORD, SavedCommand.MESSAGE_USAGE),
-                    new CommandCard(SetPrefCommand.COMMAND_WORD, SetPrefCommand.MESSAGE_USAGE),
+                    new CommandCard(SetCurrencyCommand.COMMAND_WORD, SetCurrencyCommand.MESSAGE_USAGE),
                     new CommandCard(ShareCommand.COMMAND_WORD, ShareCommand.MESSAGE_USAGE),
                     new CommandCard(SortCommand.COMMAND_WORD, SortCommand.MESSAGE_USAGE),
                     new CommandCard(UnarchiveCommand.COMMAND_WORD, UnarchiveCommand.MESSAGE_USAGE),

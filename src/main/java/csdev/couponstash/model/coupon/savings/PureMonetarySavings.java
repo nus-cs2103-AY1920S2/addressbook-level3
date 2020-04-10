@@ -152,6 +152,19 @@ public class PureMonetarySavings extends Savings {
         }
     }
 
+    @Override
+    public String getStringWithMoneySymbol(String symbol) {
+        return "Saved: " + this.getMonetaryAmount().get().getStringWithMoneySymbol(symbol)
+                + this.getSaveables().map(svaList -> {
+                    StringBuilder saveablesString = new StringBuilder();
+                    for (Saveable sva : svaList) {
+                        saveablesString.append(", ");
+                        saveablesString.append(sva.toString());
+                    }
+                    return saveablesString.toString();
+                }).orElse("");
+    }
+
     /**
      * Make a new copy of current PureMonetarySavings
      *

@@ -15,7 +15,6 @@ import java.awt.datatransfer.DataFlavor;
 
 import org.junit.jupiter.api.Test;
 
-import csdev.couponstash.commons.MoneySymbolStub;
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
@@ -26,6 +25,7 @@ import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.testutil.CouponBuilder;
+import csdev.couponstash.testutil.MoneySymbolStub;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
 

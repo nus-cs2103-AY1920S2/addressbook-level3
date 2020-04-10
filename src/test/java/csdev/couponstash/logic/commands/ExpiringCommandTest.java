@@ -85,11 +85,10 @@ public class ExpiringCommandTest {
     @Test
     public void execute_noCouponsFoundOnDate_success() {
         String inputDate = "1-6-2020";
-        String expectedMessage = String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, inputDate);
+        String expectedMessage = String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE, 0, inputDate);
         DateIsEqualsPredicate predicate = prepareDatePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
         expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
-        expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredCouponList());
@@ -102,7 +101,6 @@ public class ExpiringCommandTest {
         DateIsEqualsPredicate predicate = prepareDatePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
         expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
-        expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(TypicalCoupons.CARL, TypicalCoupons.FIONA, TypicalCoupons.ELLE),
@@ -112,11 +110,10 @@ public class ExpiringCommandTest {
     @Test
     public void execute_noCouponsFoundInMonth_success() {
         String inputDate = "6-2020";
-        String expectedMessage = String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, inputDate);
+        String expectedMessage = String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH, 0, inputDate);
         DateIsInMonthYearPredicate predicate = prepareYearMonthPredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
         expectedModel.sortCoupons(Model.COMPARATOR_NON_ARCHIVED_FIRST);
-        expectedModel.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredCouponList());

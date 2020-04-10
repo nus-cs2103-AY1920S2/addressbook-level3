@@ -64,6 +64,7 @@ public class CopyCommand extends IndexedCommand {
     }
 
     public String getCopiedString(Coupon coupon) {
+        assert coupon != null : "coupon should not be null";
         Savings savings = coupon.getSavingsForEachUse();
         String totalSavings = "";
         if (savings.hasMonetaryAmount()) {
@@ -87,8 +88,7 @@ public class CopyCommand extends IndexedCommand {
             conditionString = PREFIX_CONDITION + condition.value + " ";
         }
 
-        String copyCommand = couponAsAddCommand(coupon, totalSavings, conditionString);
-        return copyCommand;
+        return couponAsAddCommand(coupon, totalSavings, conditionString);
     }
 
     /**

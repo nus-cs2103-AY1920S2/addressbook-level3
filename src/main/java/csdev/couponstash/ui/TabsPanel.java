@@ -1,5 +1,8 @@
 package csdev.couponstash.ui;
 
+import java.util.logging.Logger;
+
+import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.Logic;
 import javafx.fxml.FXML;
@@ -13,6 +16,7 @@ import javafx.scene.layout.StackPane;
  * The ui for the Tabs on the left half.
  */
 public class TabsPanel extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(TabsPanel.class);
     private static final String FXML = "TabsPanel.fxml";
 
     // Independent Ui parts residing in this Ui container
@@ -52,6 +56,7 @@ public class TabsPanel extends UiPart<Region> {
                 .addListener((ov, oldTab, newTab) -> {
                     if (newTab == summaryTab) {
                         summaryPane.updateView();
+                        logger.info("Switching to summary tab!");
                     }
                 });
     }
@@ -99,6 +104,8 @@ public class TabsPanel extends UiPart<Region> {
 
         case SAVED:
             selectionModel.select(summaryTab);
+            logger.info("Switched to summary tab!");
+
             break;
 
         case HELP:

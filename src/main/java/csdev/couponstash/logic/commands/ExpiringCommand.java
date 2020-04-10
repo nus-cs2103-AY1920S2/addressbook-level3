@@ -2,7 +2,6 @@ package csdev.couponstash.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.YearMonth;
 import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.Messages;
@@ -33,11 +32,13 @@ public class ExpiringCommand extends Command {
     private final String date;
 
     public ExpiringCommand(DateIsEqualsPredicate predicate) {
+        requireNonNull(predicate);
         this.predicate = predicate;
         this.date = predicate.getDate();
     }
 
     public ExpiringCommand(DateIsInMonthYearPredicate predicate) {
+        requireNonNull(predicate);
         this.predicate = predicate;
         this.date = predicate.getDate();
     }
@@ -57,20 +58,14 @@ public class ExpiringCommand extends Command {
 
         model.updateFilteredCouponList(predicate);
         int filteredListSize = model.getFilteredCouponList().size();
-        if (filteredListSize > 0) {
-            if (DateUtil.isValidDate(date)) {
-                model.updateMonthView(DateUtil.formatDateStringToYearMonthString(date));
-                return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE,
-                        filteredListSize, date));
-            } else {
-                model.updateMonthView(date);
-                return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH,
-                        filteredListSize, date));
-            }
-        } else { // Empty list
-            assert filteredListSize == 0 : "Filtered list should be empty.";
-            model.updateMonthView(DateUtil.formatYearMonthToString(YearMonth.now()));
-            return new CommandResult(String.format(Messages.MESSAGE_NO_COUPONS_EXPIRING, date));
+        if (DateUtil.isValidDate(date)) {
+            model.updateMonthView(DateUtil.formatDateStringToYearMonthString(date));
+            return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_ON_DATE, filteredListSize, date));
+        } else {
+            assert DateUtil.isValidYearMonth(date) : "Should be a valid month year!";
+            model.updateMonthView(date);
+            return new CommandResult(String.format(Messages.MESSAGE_COUPONS_EXPIRING_DURING_YEAR_MONTH,
+                    filteredListSize, date));
         }
     }
 

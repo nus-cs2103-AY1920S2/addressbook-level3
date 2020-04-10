@@ -1,10 +1,12 @@
-package csdev.couponstash.commons;
+package csdev.couponstash.testutil;
 
 import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 
 /**
- * A money symbol stub that has irrelevant methods failing.
- * MoneySymbolStub is immutable as compared to MoneySymbol.
+ * A money symbol stub that does not provide full
+ * functionality of the real MoneySymbol (which
+ * relies on mutability). However, MoneySymbolStub
+ * is immutable as compared to MoneySymbol.
  */
 public class MoneySymbolStub implements MoneySymbol {
     private String moneySymbol;
@@ -15,7 +17,8 @@ public class MoneySymbolStub implements MoneySymbol {
 
     @Override
     public String setString(String newSymbol) {
-        throw new AssertionError("This method should not be called.");
+        // does not do anything
+        return this.moneySymbol;
     }
 
     @Override

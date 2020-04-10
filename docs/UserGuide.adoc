@@ -56,7 +56,7 @@ a|
    . Redoing the undone command: redo
    . Displaying a month-year on the calendar: goto
    . Displaying a coupon: expand
-   . Setting user preferences: setpref
+   . Setting currency symbol: setcurrency
    . Viewing help: help
    . Clearing all entries: clear
    . Exiting the program: exit
@@ -669,23 +669,26 @@ Example:
 * `expand 1` +
 Open the coupon at index 1 in a new window.
 
-// tag::setpref[]
-=== Setting user preferences: `setpref`
-Sets the user preferences in Coupon Stash. Available user
-preferences currently consist of:
-
-* The symbol used to represent monetary amount
-
-* More to be added in v2.0
-
-Format: `setpref [ms/NEW_MONEY_SYMBOL]`
-// end::setpref[]
+// tag::setcurrency[]
+=== Setting currency symbol: `setcurrency`
+Sets the currency symbol used in Coupon Stash.
+This will force Coupon Stash to reload all coupons
+to use the new symbol instead.
 
 ****
-* At least one of the optional fields must be provided.
-* The preferences may affect the visual look of the
-program, as well as modify commands entered
+* The currency symbol may affect the visual look of the
+program, as well as modify commands entered!
 ****
+
+Format: `setcurrency ms/NEW_MONEY_SYMBOL`
+
+Examples:
+
+* `setcurrency ms/€` +
+Sets the money symbol used in commands, as well as to
+display coupons' savings, to € (Euro). The changes will
+be visible immediately.
+// end::setcurrency[]
 
 === Viewing help: `help`
 Open a browser window that accesses an offline copy of this user guide.
@@ -708,14 +711,6 @@ Coupon data is saved in the hard disk automatically after any
 command that changes the data.
 
 There is no need to save manually.
-
-
-Examples:
-
-* `setpref ms/€` +
-Sets the money symbol used in commands, as well as to
-display coupons' savings, to € (Euro). The changes will
-be visible immediately.
 
 
 == FAQ
@@ -815,9 +810,9 @@ e.g.`goto 9-2020`
 |*Expand*
 |`expand INDEX` +
 e.g. `expand 1`
-|*SetPref*
-|`setpref [ms/NEW_MONEY_SYMBOL]` +
-e.g. setpref ms/€
+|*SetCurrency*
+|`setcurrency [ms/NEW_MONEY_SYMBOL]` +
+e.g. setcurrency ms/€
 |*Help*
 |`help`
 |*Clear*
