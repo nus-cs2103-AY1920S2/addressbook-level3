@@ -55,9 +55,12 @@ deactivate ExpenseSplitterParser
 
 ref over SplitterLogicManager, SplitterModelManager: Execution of PaidCommand
 
-SplitterLogicManager -> SplitterStorageManager : saveFoodBook(foodBook)
+SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
 activate SplitterStorageManager
 
+SplitterStorageManager --> SplitterLogicManager
+
+SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
 SplitterStorageManager --> SplitterLogicManager
 deactivate SplitterStorageManager
 
