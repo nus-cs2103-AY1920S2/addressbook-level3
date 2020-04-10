@@ -5,8 +5,6 @@
 
 == PROJECT: Delino
 
----
-
 == Overview
 
 Delino is a desktop application for couriers to manage delivery tasks. The user
@@ -14,12 +12,7 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 
 == Summary of contributions
 
-====
-* *Major enhancement*: +
-Add `nearby` command +
-(searching by postal sector) +
-(March 17 2020) +
-*(+1091 -45 LOC)* +
+* *Major enhancement*: Add `nearby` command (searching by postal sector) *(+1091 -45 LOC)* +
 (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/181[#181])
 
 ** *What it does*: +
@@ -32,60 +25,20 @@ a more efficient manner.
 ** *Highlights*: +
 Ability to find orders based on all postal codes in Singapore. +
 A helpful message regarding the specified postal code is also shown. +
-Parsing has been done to user input of a valid postal sector (the first two digits of a six digit Singapore postal code)
+Parsing has been done to user input of a valid postal sector (the first two digits of a six digit Singapore postal code).
+Figuring out an effective way of testing and implementing all possible postal sectors
+was time consuming as there are 28 postal sectors in Singapore. +
+Thankfully, JUnit 5 has https://www.baeldung.com/parameterized-tests-junit-5[parameterized tests]
+that allowed me to test more effectively. The mapping of postal sectors was done using a *HashMap*.
 
-[[postal_sector]]
-.Postal Sectors in Singapore
-|===
-|Postal Sector |General Location
+** *Credits*: Information about the various postal sectors was obtained from https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here]
 
-|01, 02, 03, 04, 05, 06 |Raffles Place, Cecil, Marina, People's Park
-|07, 08 |Anson, Tanjong Pagar
-|14, 15, 16 |Queenstown, Tiong Bahru
-|09, 10 |Telok Blangah, Harbourfront
-|11, 12, 13 |Pasir Panjang, Hong Leong Garden, Clementi New Town
-|17 |High Street, Beach Road (part)
-|18, 19 |Middle Road, Golden Mile
-|20, 21 |Little India
-|22, 23 |Orchard, Cairnhill, River Valley
-|24, 25, 26, 27 |Ardmore, Bukit Timah, Holland Road, Tanglin
-|28, 29, 30 |Watten Estate, Novena, Thomson
-|31, 32, 33 |Balestier, Toa Payoh, Serangoon
-|34, 35, 36, 37 |Macpherson, Braddell
-|38, 39, 40, 41 |Geylang, Eunos
-|42, 43, 44, 45 |Katong, Joo Chiat, Amber Road
-|46, 47, 48 |Bedok, Upper East Coast, Eastwood, Kew Drive
-|49, 50, 81 |Loyang, Changi
-|51, 52 |Tampines, Pasir Ris
-|53, 54, 55, 82 |Serangoon Garden, Hougang, Punggol
-|56, 57 |Bishan, Ang Mo Kio
-|58, 59 |Upper Bukit Timah, Clementi Park, Ulu Pandan
-|60, 61, 62, 63, 64 |Jurong
-|65, 66, 67, 68 |Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang
-|69, 70, 71 |Lim Chu Kang, Tengah
-|72, 73 |Kranji, Woodgrove
-|77, 78 |Upper Thomson, Springleaf
-|75, 76 |Yishun, Sembawang
-|79, 80 |Seletar
-|===
-** Credits: N.A
-====
 
-====
-* *Major enhancement*:
 
-image::https://user-images.githubusercontent.com/38811217/77161742-5b4c3f00-6ae5-11ea-9572-17d6953d5ce1.png[]
-Enhancement to `nearby` command to search the 5 general regions of Singapore +
-Add ability for `nearby` command to search orders located at one of the 5 areas of Singapore: +
+* *Major enhancement*: Enhancement to `nearby` command to search the 5 general regions of Singapore +
 
-1. Central
-2. East
-3. North-east
-4. West
-5. North
-
-(March 22 2020) +
-*(+1,579 −164 LOC)* +
+** Add ability for `nearby` command to search orders located at one of the 5 areas of Singapore: +
+Central, East, North-east, West, North. *(+1,579 −164 LOC)* +
 (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/194[#194]) +
 
 ** *What it does*: +
@@ -93,228 +46,12 @@ Allows the user to find all orders located at a specified region of Singapore. +
 ** *Justification*: +
 This makes it easy for couriers in a certain area to select orders to be done in that region.
 ** *Highlights*: +
-Ability to find orders based on the 5 regions in Singapore. +
-A helpful message regarding the specified area is also shown. +
+Ability to find orders based on the 5 regions in Singapore. A helpful message regarding the specified area is also shown. +
+The 5 regions were mapped using a separate helper class as these regions were
+grouped using their postal sectors.
 
-The following table shows more information about the 5 regions of Singapore:
+** *Credits*: Information about the various areas was obtained from https://keylocation.sg/singapore/districts-map
 
-[[area_table]]
-*Area Information of Singapore*
-
-.Central
-|===
-|District |Areas |Location
-
-|1 |Marina Area
-a|
-* Boat Quay
-* Chinatown
-* Havelock Road
-* Marina Square
-* Raffles Place
-* Suntec City
-
-|2 |CBD
-a|
-* Anson Road
-* Chinatown
-* Neil Road
-* Raffles Place
-* Shenton Way
-* Tanjong Pagar
-
-|3 |Central South
-a|
-* Alexandra Road
-* Tiong Bahru
-* Queenstown
-
-|4 |Keppel
-a|
-* Keppel
-* Mount Faber
-* Sentosa
-* Telok Blangah
-
-|5 |South West
-a|
-* Buona Vista
-* Dover
-* Pasir Panjang
-* West Coast
-
-|6 |City Hall
-a|
-* City Hall
-* High Street
-* North Bridge Road
-
-|7 |Beach Road
-a|
-* Beach Road
-* Bencoolen Road
-* Bugis
-* Rochor
-
-|8 |Little India
-a|
-* Little India
-* Farrer Park
-* Serangoon Road
-
-|9 |Orchard
-a|
-* Cairnhill
-* Killiney
-* Leonie Hill
-* Orchard
-* Oxley
-
-|10 |Tanglin
-a|
-* Balmoral
-* Bukit Timah
-* Grange Road
-* Holland
-* Orchard Boulevard
-* River Valley
-* Tanglin Road
-
-|11 |Newton
-a|
-* Chancery
-* Bukit Timah
-* Dunearn Road
-* Newton
-
-|12 |Toa Payoh
-a|
-* Balestier
-* Moulmein
-* Novena
-* Toa Payoh
-
-|13 |Central East
-a|
-* Potong Pasir
-* Macpherson
-
-|14 |Eunos
-a|
-* Eunos
-* Geylang
-* Kembangan
-* Paya Lebar
-
-|15 |East Coast
-a|
-* Katong
-* Marine Parade
-* Siglap
-* Tanjong Rhu
-
-|21 |Central West
-a|
-* Clementi
-* Upper Bukit Timah
-* Hume Avenue
-|===
-
-.East +
-|===
-|District |Areas |Location
-
-|16 |Upper East Coast
-a|
-* Bayshore
-* Bedok
-* Chai Chee
-
-|17 |Far East
-a|
-* Changi
-* Loyang
-* Pasir Ris
-
-|18 |Tampines
-a|
-* Pasir Ris
-* Simei
-* Tampines
-|===
-
-.North East
-|===
-|District |Areas |Location
-
-|19 |North East
-a|
-* Hougang
-* Punggol
-* Sengkang
-
-|20 |Ang Mo Kio
-a|
-* Ang Mo Kio
-* Bishan
-* Braddell Road
-* Thomson
-
-|28 |North East
-a|
-* Seletar
-* Yio Chu Kang
-|===
-
-.West
-|===
-|District |Areas |Location
-
-|22 |Far West
-a|
-* Boon Lay
-* Jurong
-* Tuas
-
-|23 |North West
-a|
-* Bukit Batok
-* Choa Chu Kang
-* Hillview Avenue
-* Upper Bukit Timah
-
-|24 |Far North West
-a|
-* Kranji
-* Lim Chu Kang
-* Sungei Gedong
-* Tengah
-|===
-
-.North
-|===
-|District |Areas |Location
-
-|25 |Far North
-a|
-* Admiralty
-* Woodlands
-
-|26 |North
-a|
-* Tagore
-* Yio Chu Kang
-
-|27 |Far North
-a|
-* Admiralty
-* Sembawang
-* Yishun
-|===
-
-
-** Credits: Information about the various areas was obtained from https://keylocation.sg/singapore/districts-map
-====
 
 * *Minor enhancement*:
 ** Add Warehouse field for Orders. +
@@ -337,22 +74,27 @@ original UI of AddressBook Level 3.
 *** What it does: Allows for deletion of orders or return orders.
 *** Justification: It is a must have. Couriers need to be able to delete from a specific list.
 Our application has two lists: Order list and Return Order list.
+Deletion is done by providing an appropriate flag.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=jeremyloh&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test Code]]
 
 * *Other contributions*:
 
-** Project management:
-*** In charge of Documentation. Supporting role in Testing and Code Quality.
-** Enhancements to existing features:
-***
-***
+** Project management: In charge of Documentation. Supporting role in Testing and Code Quality. +
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Update delete and nearby command DG:
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/251[#251]
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (with non-trivial review comments): +
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/71[#71]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/171[#171]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/187[#187]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226[#226]
+https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310[#310]
+
+*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1920S2/forum/issues/88[88])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/JeremyLoh/ped/issues[PE dry run issues])
 ** Tools:
 *** Integrated a third party library (Coveralls) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/248bb4db86666270ee5025f1d4f9276ef1d530ec[248bb4d])
 *** Configure Repo to Provide Additional Data to RepoSense (Pull request https://github.com/AY1920S2-CS2103T-W12-1/main/pull/220[#220])
@@ -365,9 +107,16 @@ Our application has two lists: Order list and Return Order list.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=how_to_navigate_user_guide]
 
-include::../UserGuide.adoc[tag=dataencryption]
+== Features
+include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=nearby]
+
+== Glossary
+include::../UserGuide.adoc[tag=command_prefix]
+include::../UserGuide.adoc[tag=command_flags]
+include::../UserGuide.adoc[tag=area_table]
 
 == Contributions to the Developer Guide
 
@@ -375,13 +124,18 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+== Features
+include::../DeveloperGuide.adoc[tag=delete]
+include::../DeveloperGuide.adoc[tag=nearby]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+== Glossary
+include::../DeveloperGuide.adoc[tag=command_prefix]
+include::../DeveloperGuide.adoc[tag=command_flags]
 
+// Appendix F: Product Survey
+include::../DeveloperGuide.adoc[tag=appendix-product-survey]
 
-== PROJECT: PowerPointLabs
+== Appendix G: Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=appendix-delete]
+include::../DeveloperGuide.adoc[tag=appendix-nearby]
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
