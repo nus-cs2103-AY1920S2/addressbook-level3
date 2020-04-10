@@ -59,7 +59,7 @@ The following steps will walk you through installing *CookBuddy* on your compute
 . Double-click the executable to start *CookBuddy*. CookBuddy's GUI should appear in a few seconds.
 +
 [caption=]
-.Home page of CookBuddy
+.Home page of *CookBuddy*
 image::Ui.png[width="790"]
 +
 . Type your command in the command box and press kbd:[Enter] to execute it.
@@ -533,23 +533,23 @@ Example: You can type `exit` and *CookBuddy* will terminate.
 
 The following section answers some questions you might have regarding *CookBuddy*.
 
-*Q: Is CookBuddy safe to use?* +
-*A*: Yes, CookBuddy is safe to use. We regularly review our code to ensure that there are no vulnerabilities for hackers to exploit.
+*Q: Is *CookBuddy* safe to use?* +
+*A*: Yes, *CookBuddy* is safe to use. We regularly review our code to ensure that there are no vulnerabilities for hackers to exploit.
 
-*Q: Is CookBuddy secure?* +
-*A*: Yes, CookBuddy is secure. Your data is stored only on your computer. No data is sent to any online server.
+*Q: Is *CookBuddy* secure?* +
+*A*: Yes, *CookBuddy* is secure. Your data is stored only on your computer. No data is sent to any online server.
 
-*Q: Do I need an Internet connection to use CookBuddy?* +
-*A*: No. CookBuddy works 100% offline.
+*Q: Do I need an Internet connection to use *CookBuddy*?* +
+*A*: No. *CookBuddy* works 100% offline.
 
-*Q: Will CookBuddy receive updates?* +
+*Q: Will *CookBuddy* receive updates?* +
 *A*: Yes. We are a dedicated team of software developers who are constantly collating feedback and running tests on the app. We are also working towards delivering additional features for our users.
 
-*Q: Can I use CookBuddy on a mobile device?* +
-*A*: CookBuddy is designed to work best on a desktop/ laptop computer. We are currently working on releasing CookBuddy on mobile platforms.
+*Q: Can I use *CookBuddy* on a mobile device?* +
+*A*: *CookBuddy* is designed to work best on a desktop/ laptop computer. We are currently working on releasing *CookBuddy* on mobile platforms.
 
-*Q: How do I transfer my data to another Computer?
-*A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run CookBuddy and update the preferences.json if necessary.
+*Q: How do I transfer my data to another computer?
+*A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run *CookBuddy* and update the preferences.json if necessary.
 
 == Command Summary
 
