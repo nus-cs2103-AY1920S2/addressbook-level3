@@ -182,11 +182,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasExercise(Exercise exercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void editExercise(Exercise target, Exercise editedExercise) {
             throw new AssertionError("This method should not be called.");
         }
