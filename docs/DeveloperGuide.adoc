@@ -363,6 +363,12 @@ The `Model`,
 * these lists can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+The following class diagram shows the relationship between the different classes
+in the model component.
+
+.Model Components - Class Diagram
+image::ModelComponentsClassDiagram.png[]
+
 [[Design-Storage]]
 === Storage component
 The following diagram is a simplified view of the Storage component.
@@ -409,9 +415,6 @@ Classes used by multiple components are in the `tatracker.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-.Model Components - Class Diagram
-image::ModelComponentsClassDiagram.png[]
-
 [[StudentView]]
 === Student View
 *Student View* is used to display all modules, groups and students in the TA-Tracker.
@@ -427,7 +430,7 @@ image::ModuleModelClassDiagram.png[]
 
 The `TaTracker` class contains a `UniqueModuleList` which helps it keep track
 of the different *modules* the user is associated with. Each `Module` contains a
-`UniqueGroupList``.
+`UniqueGroupList`.
 
 The `UniqueGroupList` contains a list of all the *groups* of a module that the user
 is affiliated with. Each `Group` contains a `UniqueStudentsList` that contains the
@@ -588,9 +591,9 @@ The `group edit` command has been implemented in a similar manner.
 
 The following sequence diagram shows the sequence of commands that take place
 between the logic and model components of the TA-Tracker when the user enters the
-command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
+command `student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G`.
 
-Note: This diagram assumes that there is no student with the matric number 'A0181234G'
+Note: This diagram assumes that there is no student with the matric number `A0181234G`
 pre-existing in the TA-Tracker.
 
 .Student Add - Sequence Diagram
@@ -602,20 +605,20 @@ image::AddStudentSequenceDiagram.png[]
 destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 ====
 
-1. LogicManager uses the TATrackerParser to first parse the user command.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The TATrackerParser sees that the command is of type student and passes the
-command to the StudentCommandParser.
+2. The `TaTrackerParser` sees that the command is of type *student* and passes the
+command to the `StudentCommandParser`.
 
-3. The StudentCommandParser sees that the command is of type add and passes the
-arguments to the AddStudentCommandParser.
+3. The `StudentCommandParser` sees that the command is of type *add* and passes the
+arguments to the `AddStudentCommandParser`.
 
-4. The AddStudentCommandParser creates a Student with the given parameters.
+4. The `AddStudentCommandParser` creates a *Student* with the given parameters.
 
-5. The AddStudentCommandParser then creates an AddStudentCommand object and passes
-it the created module. The parser then returns the AddStudentCommand
+5. The `AddStudentCommandParser` then creates an `AddStudentCommand` object and passes
+it the created module. The parser then returns the `AddStudentCommand`.
 
-6. LogicManager calls AddStudentCommand's execute method. The AddStudentCommand object
+6. `LogicManager` calls `AddStudentCommand` 's execute method. The `AddStudentCommand` object
 checks whether a student with the given matric number already exists in TA-Tracker.
 If it does, a command exception is thrown saying that a student with the matric number
 already exists in the TA-Tracker.
@@ -623,26 +626,27 @@ already exists in the TA-Tracker.
 7. If no such student exists, the student is added to the TA-Tracker.
 
 The command used to delete a student has been implemented in a similar way. The main
-difference is that the DeleteStudentCommand checks whether an object with the given
+difference is that the `DeleteStudentCommand` checks whether an object with the given
 matric number exists in the TA-Tracker. If no such student exists, a command exception
 is thrown saying that a student with the given matric number doesn't exist. If it does
 exist, the student is removed from the TA-Tracker.
 
-Note: This diagram assumes that a student with the matric number 'A0181234G' exists
+Note: This diagram assumes that a student with the matric number `A0181234G` exists
 in the TA-Tracker.
 
 .Student Delete - Sequence Diagram
 image::DeleteStudentSequenceDiagram.png[]
 
-1. `LogicManager` uses the `TATrackerParser` to first parse the user command.
+1. `LogicManager` uses the `TaTrackerParser` to first parse the user command.
 
-2. The `TATrackerParser` sees that the command is of type student and passes the
+2. The `TaTrackerParser` sees that the command is of type *student* and passes the
 command to the `StudentCommandParser`.
 
-3. The `StudentCommandParser` sees that the command is of type delete and passes the
+3. The `StudentCommandParser` sees that the command is of type *delete* and passes the
 arguments to the `DeleteStudentCommandParser`.
 
-4. The `DeleteStudentCommandParser` creates a Student with the given matric number
+4. The `DeleteStudentCommandParser` creates a *Student* with the given matric number,
+`A0181234G`.
 
 5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
 it the created student. The parser then returns the `DeleteStudentCommand`
@@ -657,7 +661,7 @@ model and removes the student.
 
 ==== Implementation of the Sort Command
 
-The sort command allows the user to sort the students in the module view either *alphabetically*,
+The sort command allows the user to sort the students in the student view either *alphabetically*,
 by *rating (in ascending or descending order)* or by *matriculation number*.
 
 The sort command can be used in three ways:
@@ -699,10 +703,6 @@ image::SortParserActivityDiagram.png[]
 
 [NOTE]
 ====
-* Typically, the alternative paths would emerge from a single diamond but due to
-a limitation in PlantUML's beta version of showing activity diagrams, we were
-unable to show it that way.
-
 * The final else clause would throw an error explaining that the command format is
 invalid. But due to a limitation in PlantUML's beta version of showing activity diagrams,
 we were unable to indicate exceptions thrown in the proper way and decided to mention
@@ -727,7 +727,7 @@ destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the
 
 * The `SortCommandParser`, which creates `Sort` commands, is different from the other
 command parsers. While the other commands have another level of parsing (such as the
-`ModuleCommandParser` for `Module` commands), the SortCommandParser
+`ModuleCommandParser` for `Module` commands), the `SortCommandParser`
 creates all the different Sort commands within itself.
 ====
 
@@ -736,8 +736,8 @@ creates all the different Sort commands within itself.
 2. The `TaTrackerParser` sees that the command is of type `sort` and passes the
 command to the `SortCommandParser`.
 
-3. The SortCommandParser performs the steps shown in the previous activity diagram
-and determines that the sort command word is `all` and creates and returns a
+3. The `SortCommandParser` performs the steps shown in the previous activity diagram
+and determines that since the sort command word is `all` , it must create and return a
 `SortCommand`.
 
 4. `LogicManager` calls `SortCommand` 's execute method.
@@ -753,19 +753,19 @@ is `matric` , it calls `model` 's `sortModulesByMatricNumber()` command.
 [[SessionView]]
 === Session View
 
-Session View is the term used to characterise the different functionalities related to
-sessions that the user is affiliated with.
+*Session View* is the term used to refer to the view that contains a list of all sessions
+that haven't been completed yet.
 
 ==== Model Framework
 
-The following class diagrams hows how different classes are related in the functioning
-of the Session View.
+The following class diagram shows how different classes are related in the functioning
+of the *Session View*.
 
 .Class Diagram of Session View
 image::SessionModelClassDiagram.png[]
 
 The TaTracker model class contains a `UniqueSessionList` which helps keep track of
-all the *upcoming sessions* of the user.
+all the *upcoming sessions* the user has.
 
 ==== Implementation of the Session Done Command
 
@@ -797,10 +797,10 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 .Activity Diagram for Done Session
 image::DoneSessionActivityDiagram.png[]
 
-//tag::tssview[]
-=== TSS View
-TSS view is the term used to characterise the different functionalities
-related to the done sessions that the user is affiliated with.
+//tag::claimsview[]
+=== Claims View
+*Claims View* refers to the view that contains a list of all the sessions that have
+been done.
 
 ==== Model Framework
 The following class diagram shows how different classes are related in the
@@ -1064,42 +1064,38 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 Different view has its own designated filter command.
 
 ====
-* Student View, `Student filter` command is provided.
-* Session View, `Session filter` command is provided.
-* Claims View, `Claims filter` command is provided.
+* Student View, `student filter` command is provided.
+* Session View, `session filter` command is provided.
+* Claims View, `claims filter` command is provided.
 ====
 
-The different filter commands are used so that searching
-for relevant information under the specific view will be easier.
-
-The Filter Command returns specified search that contains any of the given keywords.
+The different filter commands exist to make it easier to search for relevant information
+under each view.
 
 ==== Implementation
-This section will describe in detail the implementation of the filter command.
+This section describes the implementation of the `filter` command.
 
-The activity diagram below summarises what happens when a user executes the filter command :
+The activity diagram below summarises what happens when the user executes a `filter` command :
 
 .Activity Diagram of the Filter Command
 image::FilterCommandActivityDiagram.png[]
 
-Figure 1 Activity Diagram for the Execution of Filter Command
-
 ==== Implementation
 
-Filter Feature consists of three main parts:
+The filter feature consists of three main parts:
 
-1. validate and parse user input
+1. *Validating and parsing* user input
 
-2. create a filtering predicate from user's specified keywords
+2. Creating a *filtering predicate* from user's input
 
-3. update the filtered list with the filtering predicate
+3. *Updating the filtered* list with the *filtering predicate*
 
 *Filter under Student View*
 
 Students are filtered based on the module code and/or
 group code given by the user.
 
-Module code is a compulsory parameter for user.
+Module code is a compulsory parameter for the user.
 
 .Sequence Diagram for Filter Student Command
 image::FilterStudentSequenceDiagram.png[]
@@ -1129,7 +1125,7 @@ a command exception is thrown saying that no such students exists.
 
 *Filter under Session View*
 
-Sessions can be filtered with these parameters:
+Sessions can be filtered with the following parameters:
 
 * `d/DATE`
 * `m/MODULE CODE`
@@ -1139,7 +1135,7 @@ These parameters can be used alone or together.
 
 The command used to filter sessions has been implemented in a similar way. The main
 difference is that the `FilterSessionCommandParser` creates a `SessionPredicate` object.
-The `SessionPredicate` objects updates the filtered session list by keywords in Model.
+The `SessionPredicate` object updates the filtered session list by keywords in Model.
 The filtered list will then be displayed.
 
 When one or more parameters are used by the user, if one of the keywords used appears
@@ -1152,13 +1148,11 @@ image::FindCommandClassDiagram.png[]
 
 *Filter under Claims View*
 
-Under Claims View, sessions that done by the user will be here.
-
-User are only allowed to filter claims with module code.
-When the user calls `claims filter m/MODULE_CODE`, done sessions that contains the module code
+The user can only filter the Claims View by module code.
+When the user enters the command `claims filter m/MODULE_CODE`, claims that contain the module code
 will be filtered.
 
-The command used to filter claims are implemented the same way as `SessionFilterCommand`.
+The command used to filter claims is implemented the same way as `SessionFilterCommand`.
 
 
 == Documentation
@@ -1199,93 +1193,55 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |TA |see an overview of events in a week |know what I have that week in a glance
+|`* * *` |new user | be able to use a help command |refer to instructions on what commands are available when
+I forget about them
 
 |`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
 
-|`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
+|`* * *` |TA |store contact details of my students |I can contact them with ease whenever
+necessary
 
-|`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
+|`* * *` |TA |see an overview upcoming tasks I have | plan my schedule accordingly
 
-|`* * *` |user |change between the different pages |view the information on the different pages
+|`* * *` |TA |see all my claimable hours in one place |type my claims easily at the end of the semester
 
-|`* * *` |TA |add students to a particular module |
+|`* * *` |user |switch between the different views using command line |view the
+information in the different views
+
+|`* * *` |TA |add students to a group in a particular module | So that I know which group which student belongs to
 
 |`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
 
 |`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
 
-|`* * *` |TA |edit student details |
+|`* * *` |careless TA |edit student details | rectify mistakes I make
 
 |`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
 
-|`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
+|`* * *` |TA |mark a session as done | keep a track of things I have completed in my claims
 
 |`* * *` |TA |schedule consultation sessions with my students |keep track of claimable hours spent in consultations
 
-|`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
-
-|`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
-
-|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
-
-|`* * *` |user |change between the different pages |view the information on the different pages
-
-|`* * *` |TA |add students to a particular module |
-
-|`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
-
-|`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
-
-|`* * *` |TA |edit student details |
-
-|`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
-
-|`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
-
 |`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* *` |TA |get information on how much money I've earned so far |keep track of how
+much money I have earned and stay motivated
 
 |`* *` |TA |give students ratings |keep a track of student participation in class
 
 |`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
 
-|`* *` |TA |be able to get tasks on a particular date |
+|`* *` |TA |be able to get tasks on a particular date | plan events accordingly
 
 |`* *` |TA |filter by a module |see events relating to a particular module clearly
-
-|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
 
 |`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
 
 |`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
 
-|`* *` |TA |give students ratings |keep a track of student participation in class
-
-|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
-
-|`* *` |TA |be able to get tasks on a particular date |
-
-|`* *` |TA |filter by a module |see events relating to a particular module clearly
-
-|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
-
-|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
-
-|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
-
-|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
-
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
+|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule (coming in V2.0)
 
 |`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
-
-|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
-
-|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
-
-|`*` |user |change the default view of the application |
 
 |=======================================================================
 
@@ -1805,52 +1761,70 @@ Use case ends.
 . `**TAT**` should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
 . `**TAT**` should support screen resolution of 1920 x 1080 or higher.
-. `**TAT**` should support the English <<locale, locale>> only. Any locale from this link:https://docs.microsoft.com/en-us/cpp/c-runtime-library/language-strings?view=vs-2019[link] that starts with "en" will be supported.
 
 [appendix]
 == Glossary
-[horizontal]
-[[tat]] TAT::
-Stands for "Teaching Assistant Tracker". It is the application this developer guide is for.
 
-[[ta]] TA::
-Stands for "Teaching Assistant", and in our context limited to undergraduate and graduate teaching assistants in the National University of Singapore. A teaching assistant is an individual who assists a teacher with instructional responsibilities such as holding tutorials, labs, consultations, etc.
+== GLOSSARY
 
-[[nus]] NUS::
-Stands for "National University of Singapore".
+[width="%",cols="<20%,<40,<40,options="header",]
+|=======================================================================
+|Term | Explanation | Examples
 
-[[module]] Module::
-Refers to one of multiple academic courses in NUS.
+| TSS Claims Form | This refers the claims form that Teaching Assistants
+at NUS School of Computing have to fill up at the end of each semester to claim money
+for the tasks they have completed. |
 
-[[tutorial]] Tutorial::
-A tutorial is a regular meeting between a tutor and one or several students, for discussion of a subject that is being studied.
+| TA | This is the short form for `Teaching Assistant. |
 
-[[api]] API::
-Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
+| SOC or SoC | This is the short form for School of Computing. |
 
-[[locale]] Locale::
-Stands for a setting on the user's computer that defines the user's language and region.
+| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
+item in a list.
 
-[[puml]] PlantUML::
-Stands for a software tool that we use to render the diagrams used in this document.
+| Matric Number | This refers to a student's matriculation number. | A0123456X
 
-[[nfr]] NFR::
-Stands for "Non-functional Requirement"
+| Group | The is the general term given to a group of students a TA teaches. |
+lab , tutorial , recitation
 
-[[mainstream-os]] Mainstream OS::
-Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X
+| TAT | This is the short form of TA-Tracker. |
 
-[[regular-english-text]] Regular English Text::
+| NUS | This is the short form of National Univeristy of Singapore. |
+
+| Module | Refers to one of the academic courses in NUS. |
+
+| Tutorial | A tutorial is a regular meeting between a tutor and one or several
+students, for discussion of a subject that is being studied.  |
+
+| API | Stands for "Application Programming Interface" which simplifies programming
+by abstracting the underlying implementation and only exposing objects or actions
+the developer needs. |
+
+| Locale | Stands for a setting on the user's computer that defines the user's
+language and region. |
+
+| PlantUML | Stands for a software tool that we use to render the diagrams used
+in this document. |
+
+| NFR | Stands for "Non-functional Requirement" |
+
+| Mainstream OS | Stands for commonly used Operating Systems (OS) such as Windows, Linux, Unix, OS-X. |
+
+| Regular English Text |
 Stands for text with ordinary english grammar structures and vocabulary generally used by the public.
 It excludes syntax related to programming and <<system-administration, system administration>>.
+|
 
-[[system-administration]] System Administration::
+| System Administration |
 Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
 with the goal of ensuring the systems are running efficiently and effectively.
+|
 
-[[MSS]] MSS::
-Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
+| MSS |
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong. |
 
+
+|=======================================================================
 
 [appendix]
 == Product Survey
@@ -1872,7 +1846,9 @@ Cons:
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the app manually. These instructions will help you
+navigate through the app and get an idea of what to test. We suggest you use this in
+conjunction with our User Guide to test the product thoroughly.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1891,26 +1867,272 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Default view
+
+.. Switch to a tab different from the student tab. Close the window.
+.. Relaunch the app +
+Expected: The student view under the student app is shown.
+
+=== Viewing help
+
+. Opens the help window.
+
+.. Test Case: `help` +
+Expected: Opens the help window.
+
+=== Changing Tabs
+
+. Changes the tab.
+
+.. Test Case: `goto session` +
+Expected: Opens the session tab.
+.. Test Case: `goto claims` +
+Expected: Opens the claims tab.
+.. Test Case: `goto student` +
+Expected: Opens the student tab.
+
+=== Adding a module
+
+. Adding a module from any view.
+
+.. Test Case: `module add m/CS1101S n/Programming Methodology I` +
+ Expected: A module with the module code `CS1101S` and name `Programming Methodology I`
+is added to the module list on student view. If you were on a different tab, you are
+automatically switched to *Student View*.
+.. Test Case: `module add m/CS1101S n/PE2` +
+ Expected: You will see an error message that this module already exists. (Assuming you
+ added a module with module code CS1101S)
+
+[NOTE]
+====
+The test cases after this assume that your TA-Tracker has a module with module code
+CS1101S.
+====
+
+=== Adding a group to a module
+
+. Adding a group to a module.
+
+.. Test Case: `group add g/G06 m/CS1101S t/lab` +
+Expected: A group with group code `G06` of type `lab` will be added to the module
+`CS1101S`. If you were on a different tab, you are
+automatically switched to *Student View*.
+.. Test Case: `group add g/G06 m/CS1101S t/lab`` +
+Expected: You will see an error message that this group already exists in the module. (Assuming you
+added a group with group code G06 to the module CS1101S)
+.. Test Case: `group add g/G06 m/CS3243 t/lab` +
+Expected: Assuming a module with module code `CS3243` exists in the TA-Tracker and
+doesn't contain a group with group code `G06` ,
+A group with group code `G06` of type `lab` will be added to the module
+`CS3243`.
+
+[NOTE]
+====
+The test cases after this assume that your TA-Tracker has a group with group code
+`G06` in the module CS1101S.
+====
+
+=== Adding students to a group
+
+. Adding a student to a group.
+
+.. Test Case: `student add id/A0123456X g/G06 m/CS1101S n/Jane Doe` +
+Expected: A student named `Jane Doe` with matriculation number `A0123456X` is added
+to the group `G06` of the module `CS1101S` with a default rating of 3.
+.. Test Case: `student add id/A0123457X g/G06 m/CS1101S n/John Doe r/5` +
+Expected: A student named `John Doe` with matriculation number `A0123457X` is added
+to the group `G06` of the module `CS1101S` with a rating of 5.
+
+=== Editing a student
+
+. Editing a student in a group.
+
+.. Test Case: `student edit g/G06 m/CS1101S id/A0123456X r/4` +
+Expected: Changes the rating of the student with matric number `A123456X` to 4.
+
+=== Editing a group
+
+. Editing a group in a module.
+
+.. Test Case: `group edit g/G06 m/CS1101S nt/tutorial` +
+Expected: The group with group code `G06` will be changed to type `tutorial` from the module
+`CS1101S`. The students inside the group will be unchanged. If you were on a different
+tab, you are automatically switched to *Student View*.
+
+=== Editing a module's name
+
+. Edits the name of a module.
+
+.. Test Case: `module edit m/CS1101S n/New Name`
+ Expected: The name of the module with module code `CS1101S` will change to `New Name`
+but the groups and students inside it will remain intact.
+
+=== Viewing a specific module
+
+. Allows you to view groups in a particular module.
+
+.. Test Case: `student filter m/CS1101S`
+Expected: You can now view the groups of the module `CS1101S`. You will see the students
+of the group at index 1 of the module's group list.
+
+=== Viewing a specific group
+
+. Allows you to view students in a particular group of a particular module.
+
+.. Test Case: `student filter g/G06 m/CS1101S`
+Expected: You can now view the groups of the module `CS1101S`. You will see the students
+of the group `G06`.
+
+=== Sorting a group
+
+. Sorting students in a group.
+
+.. Test Case: `sort group g/G06 m/CS1101S t/alpha` +
+Expected: Sorts all the students in the group `G06` of module `CS1101S` alphabetically.
+
+=== Sorting a module
+
+. Sorting students in a module.
+
+.. Test Case: `sort module g/G06 m/CS1101S t/alpha` +
+Expected: Sorts all the students in all the groups of module `CS1101S` alphabetically.
+You will see the students in the group at index 1 of the group list of module `CS1101S`.
+
+=== Sorting all modules
+
+. Sorting students in all modules.
+
+.. Test Case: `sort all t/alpha` +
+Expected: Sorts all the students in all the groups of all modules alphabetically.
+You will see the students in the group at index 1 of the group list of the module
+at index 1 of the module list.
+
 
 === Deleting a student
 
-. Deleting a student while all students are listed
+. Deleting a student from a group
 
-.. Prerequisites: List all students using the `list` command. Multiple students in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test Case: `student delete g/G06 m/CS1101S id/A0123456X` +
+Expected: Deletes the student with matric number `A123456X` from the group `G06`
+of the module `m/CS1101S`.
 
-_{ more test cases ... }_
+=== Deleting a group
 
-=== Saving data
+. Deleting a group from a module.
 
-. Dealing with missing/corrupted data files
+.. Test Case: `group delete g/G06 m/CS1101S` +
+Expected: The group with group code `G06`` will be deleted from the module
+`CS1101S`. The students inside the group will be deleted. If you were on a different
+tab, you are automatically switched to *Student View*.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Adding a session
 
-_{ more test cases ... }_
+. Adding a session to the session list.
+
+.. Test Case: `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2
+t/consultation n/with Alice and Bob` +
+Expected: A session starting at `14:00` and ending at `16:00` on `2020-06-20`
+recurring every two weeks will be added to the sessions list. It will be associated
+with the module `CS1101S` and be a `consultation` with Alice and Bob.
+
+=== Marking a session as done
+
+. Marking a session as done.
+
+.. Test Case: `session done 1` +
+Expected: Marks the session at index `1` of the session list as done. If it is a
+recurring session, a new session will be added in its place, dated after the recurring
+period. The session marked as done will be added to the claims list.
+
+=== Deleting a session
+
+. Deleting a session.
+
+.. Test Case: `session delete 1` +
+Expected: Deletes the session at index `1` of the session list.
+
+=== Editing a session
+
+. Editing a session
+
+.. Test Case: `session edit 1 t/lab` +
+Expected: Edits the session at index `1` of the session list to be of type `lab`.
+
+=== Filtering sessions
+
+. Filtering sessions based on keywords.
+
+.. Test Case: `session filter m/CS1101S` +
+Expected: Shows all sessions associated with the module `CS1101S`.
+.. Test Case: `session filter t/tutorial` +
+Expected: Shows all sessions that are of type tutorial.
+.. Test Case: `session filter d/2020-03-20` +
+Expected: Shows all sessions on the date `2020-03-20`.
+
+=== Filtering Claims
+
+. Filtering claims by module code.
+
+.. Test Case: `claims filter m/CS1101S` +
+Expected: Shows all sessions that have been marked as done
+(aka claims) associated with the module `CS1101S`.
+
+=== Changing rate
+
+. Setting the hourly rate.
+
+.. Test Case: `setrate 25` +
+Expected: Sets the rate of the claims to be 25$ per hour. Money computation is
+changed accordingly.
+=== Viewing Statistics
+
+. Displays the statistics window.
+
+.. Test Case: `report` +
+Expected: Displays the statistics report showing statistics of all modules.
+.. Test Case: `report CS1101S` +
+Expected: Displays the statistics report of the module `CS1101S`.
+
+=== Deleting a module
+
+. Deleting a module.
+
+.. Test Case: `module delete m/CS1101S` +
+Expected: Assuming you already had a module with module code m/CS1101S in your TA-Tracker,
+this would delete the module with module code m/CS1101S. This would also delete all
+groups, students and sessions related to this module.
+.. Test Case: `module delete m/CS1101S` +
+Expected: Assuming you already deleted the module with module code m/CS1101S from your TA-Tracker,
+this would show you an error message.
+
+=== Exiting the program
+
+. Exiting the program.
+
+.. Test Case: `exit` +
+Expected: Exits the program.
+
+== Effort
+
+Creating this application was fairly difficult and required a lot of effort from us.
+
+While AB3 deals with only one entity, this application deals with multiple entities.
+AB3 contains only `persons`. This application has 3 views to begin with - the *Student View*,
+*Session View* and *Claims View*. This is a big change from AB3's UI.
+
+While we were able to refactor `person` into `student`,
+we had to create `session`, `group` and `module` from scratch. In addition to that,
+we also have a `statistics` window and our `help` window is significantly more appealing
+than the AB3 `help` window.
+
+Due to our inexperience with UI work, we had initially planned *Student View* to look
+very different. Therefore, the way it was implemented was a little different.
+Once we got more familiar with JavaFX, we realised that our initial plan was no longer
+feasible and had to change the way *Student View* was implemented and had to add a lot
+of supporting methods to allow the UI to work the way it does.
+
+Another challenge we faced was that we were unaware of restrictions regarding timing
+in features for the module CS2103 for which this application has been created. Two of
+our features that relied on timing that were almost ready had to be scrapped and we
+had to look for new features to replace them.
+

@@ -1,36 +1,11 @@
 package tatracker.logic.parser.session;
 
 import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
-import static tatracker.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.GROUP_DESC_T04;
-import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.MATRIC_DESC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
-import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static tatracker.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static tatracker.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_GROUP_T04;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MATRIC_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
-import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static tatracker.logic.commands.CommandTestUtil.S1;
-import static tatracker.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static tatracker.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_SESSION;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,18 +14,9 @@ import tatracker.commons.util.DateTimeUtil;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.session.EditSessionCommand;
 import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
-import tatracker.logic.commands.student.EditStudentCommand;
-import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
-import tatracker.model.student.Email;
-import tatracker.model.student.Matric;
-import tatracker.model.student.Name;
-import tatracker.model.student.Phone;
-import tatracker.model.tag.Tag;
 import tatracker.testutil.sessions.EditSessionDescriptorBuilder;
-import tatracker.testutil.student.EditStudentDescriptorBuilder;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

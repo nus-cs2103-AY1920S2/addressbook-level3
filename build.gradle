@@ -9,7 +9,6 @@ plugins {
     id 'jacoco'
     id 'checkstyle'
     id 'pmd'
-    id 'findbugs'
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
@@ -43,13 +42,21 @@ test {
     useJUnitPlatform()
 }
 
+apply plugin: 'findbugs'
 findbugs {
-    ignoreFailures = true
+    ignoreFailures = false
     toolVersion = "3.0.1"
-    sourceSets = [sourceSets.main]
+    sourceSets=[sourceSets.main]
     reportsDir = file("$project.buildDir/reports/findbugs")
     effort = "max"
 }
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
 
 pmd {
     toolVersion = '6.22.0'

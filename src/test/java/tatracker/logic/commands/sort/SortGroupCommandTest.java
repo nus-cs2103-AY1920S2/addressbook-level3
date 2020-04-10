@@ -10,9 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.ModelStub;
-import tatracker.model.group.Group;
 import tatracker.model.module.Module;
-import tatracker.testutil.group.GroupBuilder;
 import tatracker.testutil.module.ModuleBuilder;
 
 public class SortGroupCommandTest {
@@ -20,7 +18,6 @@ public class SortGroupCommandTest {
     @Test
     public void execute_invalidGroup_throwsCommandException() throws CommandException {
         Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         ModelStub.ModelStubAcceptingModuleAdded modelStub = new ModelStub.ModelStubAcceptingModuleAdded();
         modelStub.addModule(validModule);
         SortGroupCommand sortGroupCommand =
@@ -33,8 +30,6 @@ public class SortGroupCommandTest {
 
     @Test
     public void execute_invalidModule_throwsCommandException() throws CommandException {
-        Module validModule = new ModuleBuilder().build();
-        Group validGroup = new GroupBuilder().build();
         SortGroupCommand sortGroupCommand =
                 new SortGroupCommand(SortType.ALPHABETIC, "G03",
                         "CS2030");
@@ -73,7 +68,7 @@ public class SortGroupCommandTest {
         assertFalse(sortGroupCommand.equals(1));
 
         // null -> returns false
-        assertFalse(sortGroupCommand.equals(null));
+        assertFalse(sortGroupCommand == null);
 
         // different modules -> returns false
         assertFalse(sortGroupCommand.equals(sortGroupCommandTwo));

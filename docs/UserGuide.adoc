@@ -22,14 +22,13 @@ By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-Are you a Teaching Assistant at School of Computing who is tired of having to keep
-track of all your claimable hours in some unappealing excel spreadsheet just so you
-can fill up the TSS Claims form accurately at the end of the semester? Do you want
-a place where you can keep track of things related to your teaching duties, such as
-keeping a track of your strongest and weakest students, all in one place? If so,
-TA-Tracker is the tool for you!
+Are you a *Teaching Assistant at NUS School of Computing (SOC)* who is tired of having to *keep
+track of all your claimable hours* in some unappealing excel spreadsheet just so you
+can fill up the Teaching Support Student (TSS) Claims form accurately at the end of the semester?
+Do you want a desktop application where you can *keep track of things related to your teaching duties,
+such as strongest and weakest students,* all in one place? If so, TA-Tracker is the tool for you!
 
-TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+TA-Tracker is a productivity tool made for NUS SOC Teaching Assistants (TAs)
 who want to be able to track and manage their students and claimable
 hours in one place.
 
@@ -87,30 +86,37 @@ This symbol indicates that there is something you should be careful to avoid.
 All the commands written in the user guide follow some rules that have been mentioned
 below. This will help you better understand how to use the commands.
 
-====
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
-For example, in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
+[width="%",cols="<20%,<40,options="header",]
+|=======================================================================
+| Rule | Examples
 
-* Items in square brackets are optional.
-For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/Fast learner` or as `n/John Doe`.
+| Words in `UPPER_CASE` are the parameters to be supplied by the user. | In
+`student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.
-For example, `[t/TAG]...` can be left empty (i.e. 0 times), `t/friend` (i.e. once) or
-`t/friend t/family` (i.e. multiple times).
+| Items in square brackets are optional. | `n/NAME [t/TAG]` can be used as
+`n/John Doe t/Fast learner` or as `n/John Doe`.
 
-* If you use a prefix without `...` mentioned multiple times, TA-Tracker will accept
-the last instance of the prefix.
-For example, in the command `module add m/CS2103T n/SE n/Software Engineering` ,
+| Items with `…`​ after them can be used multiple times or none at all. |
+
+- Left Empty: `t/` (i.e. 0 times)
+
+- Used one time: `t/friend` (i.e. once)
+
+- Used multiple times: `t/friend t/family` (i.e. 2 times).
+
+| If you use a prefix without `...` mentioned multiple times, TA-Tracker only will accept
+the last instance of the prefix. | In the command `module add m/CS2103T n/SE n/Software Engineering` ,
 a module with the module code `CS2013T` and name `Software Engineering` will be created.
 
-* If you separate the the prefix letter and `/` while writing a command, the TA-Tracker
-will not recognise the prefix. For example, in the command `module add m/CS2103T
-n /Software Engineering` , the TA-Tracker doesn't recognise `n /` to be the same
-as `n/` and you'll get an error message saying that the command format used it wrong.
+| If you separate the the prefix letter and `/` while writing a command, TA-Tracker
+will not recognise the prefix. | In the command `module add m/CS2103T
+n /Software Engineering` , TA-Tracker doesn't recognise `n /` to be the same
+as `n/` and you'll get an error message saying that the command format used is wrong.
 
-* Parameters can be in any order.
-For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+| Parameters can be in any order. | If the command specifies `n/NAME p/PHONE_NUMBER`,
+`p/PHONE_NUMBER n/NAME` is also acceptable.
+
+|=======================================================================
 
 === Common Parameters
 
@@ -120,7 +126,7 @@ This section lists and explains what the parameters commonly used in the command
 |=======================================================================
 |Parameter | Explanation | Examples
 
-| `TAB_NAME` | This refers to the different tab names. |
+| `TAB_NAME` | This refers to the different `tab` names. |
 
 *student* - to indicate the *Student View*
 
@@ -185,9 +191,11 @@ the group's official code assigned by SoC | *G06*
 
 |`NOTES` | Refers to any extra description | *This time was spent correcting 40 assignments...*
 
-| `START` | Indicates the starting time. Must be in the HH:mm format. | *10:42*
+| `START` | Indicates the starting time. Must be in the `HH:mm` format. | *10:42*
 
-| `END` | Indicates the ending time. Must be in the HH:mm format. | *11:42*
+| `END` | Indicates the ending time. Must be in the `HH:mm` format. | *11:42*
+
+| `DATE` | Indicates the date of a session. Must be in the `yyyy-MM-dd` format. | *2020-06-20*
 
 | `WEEK`| Indicates the recurring period of sessions. | *1*
 
@@ -202,20 +210,28 @@ These missing parameters will be stated in a later section of the guide. |
 == Layout
 This is a brief overview of the layout of the TA-Tracker. The TA-Tracker is divided
 into three different views - the *Student View*, the *Session View* and the *Claims View*.
+Each of the views correspond to their following `tab` header.
 
-When you enter a new command, you will be automatically switched to the relevant view
-so that you can instantly see the command results. The tab will also be highlighted in
+When you enter a new command, you will be automatically switched to the relevant `tab`
+so that you can instantly see the command results. The `tab` will also be highlighted in
 orange.
 
 [NOTE]
 ====
-* The tab that you were switched to when you enter commands will remain highlighted even if
-you click on other tabs. That way, it is easier for you to remember where you last
-made changes to TA-Tracker.
+* You can click on a `tab` header to change the currently shown *View*. The new `tab`
+will be highlighted in blue.
+
+* The `tab` that you were switched to when you enter commands will remain highlighted
+in orange even if you click on other `tabs`. That way, it is easier for you to remember
+where you last made changes to TA-Tracker.
+
+* You may notice that the orange and blue highlights for the `tab` headers are not
+horizontally aligned.This is to prevent the highlights from overlapping each other,
+allowing you to see them better.
 ====
 
 === Student View
-Under the `student` tab, the *Student View* is used to show you the students that you're teaching. The students
+Under the `student tab`, the *Student View* is used to show you the students that you're teaching. The students
 have been grouped according to the *module* and *group* they belong to. The *Student View* has been divided into
 three columns.
 
@@ -236,25 +252,45 @@ show you information such as:
 
 * `NAME`: student name
 * `MATRIC_NUMBER`: matriculation number
-* `RATING`: ratings you have given the student (on a scale from 1 - 5)
+* `RATING`: ratings you have given the student, represented by stars (on a scale from 1 - 5)
 * `EMAIL` and `PHONE`: contact details
 * `TAG`: any additional information you have about the student
 
+[NOTE]
+====
+The `RATING` value must be a positive integer.
+====
+
 === Session View
-Under the `session` tab, the *Session View* contains a list of the upcoming sessions
+Under the `session tab`, the *Session View* contains a list of the upcoming sessions
 that you haven't done yet.
 
 The sessions are automatically sorted by date.
 
+The purpose of the *Session View* is to help you keep track a of your upcoming teaching.
+duties. It will show you information such as:
+
+* `SESSION_TYPE`: the type of session
+* `DATE`: the date that the session will occur on
+* `START` and `END`: the start time and end time of the session
+* `MODULE`: the module that the session is under
+* `NOTES`: any additional information
+* `WEEK`: the recurring period of the session
+
 === Claims View
-Under the `claims` tab, the Claim View contains a list of all the claimable duties you
-have completed so far.
+Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
+duties you have completed so far.
 
 The purpose of this view is to allow a you to keep track of all your claims so
 you can easily enter it into the TSS claims form at the end of the semester.
 
-The claims under this tab can be filtered by module code to enable you to easily see
-what claims to submit for each of the modules you teach.
+The *Claims View* has been
+divided into two columns.
+
+. The first column shows you a list of all the modules that you are a teaching
+assistant for.
+
+. The second column shows you a list of all the sessions that you have marked as done.
 
 [[Usage]]
 == Usage
@@ -286,15 +322,15 @@ You can open the help window with this command.
 
 Format: `help`
 
-==== Changing tabs : `goto`
+==== Switching tabs : `goto`
 
-You can switch to different tabs with this command.
+You can switch to different `tabs` with this command to show their associated *view*.
 
 Format: `goto TAB_NAME`
 
 [NOTE]
 ====
-* You cannot go to a tab which does not exist in TA-Tracker
+* You cannot switch to a `tab` that does not exist in TA-Tracker
 ====
 
 ====
@@ -302,7 +338,7 @@ Example:
 
 `goto student`
 
-This command will take you to the student tab.
+This command will take you to the `student tab`.
 
 ====
 
@@ -325,7 +361,7 @@ You can use this command to add a new module to the TA-Tracker.
 When a new module is created, the *Student View* will show the groups
 and students of the new module. (Initially, a new module doesn't have any students or
 groups till you add some).
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module add m/MOD_CODE n/NAME`
 
@@ -372,7 +408,7 @@ the module will also be deleted.
 When a module is deleted, the *Student View* will go back to its default
 setting. That is, you will see the details of the first group in the first module of
 the TA-Tracker.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `module delete m/MOD_CODE`
 
@@ -395,8 +431,8 @@ This will delete the module with the module code `CS2103` from the TA-Tracker.
 You can use this command to edit a module's name in the TA-Tracker.
 
 When a module is edited, the *Student View* will show the groups of the edited module and
-the students of the first group of the edited module. If you were on a different tab,
-you will automatically be switched to the student tab.
+the students of the first group of the edited module. If you were on a different `tab`,
+you will automatically be switched to the `student tab`.
 
 Format: `module edit m/MOD_CODE n/NEW NAME`
 
@@ -428,7 +464,7 @@ You can use this command to add a group to the TA-Tracker.
 
 When a new group is created, the *Student View* will show the groups of the module
 this new group belongs to and students of the new group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group add g/GROUP_CODE m/MOD_CODE t/GROUP_TYPE`
 
@@ -467,7 +503,7 @@ When a group is deleted from the TA-Tracker, all students in the group are also 
 
 When a group is deleted, the *Student View* will show the details of the first group
 of the module the group was deleted from.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group delete g/GROUP_CODE m/MOD_CODE`
 
@@ -502,7 +538,7 @@ The students inside the group will remain intact.
 
 When a group is edited, the *Student View* will show the groups in the module that
 the edited group belongs to, as well as the students that belong to the edited group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `group edit g/GROUP_CODE m/MOD_CODE [ng/NEW_GROUP_CODE] [nt/NEW_GROUP_TYPE]`
 
@@ -538,7 +574,7 @@ You can use this command to add a new student to the TA-Tracker.
 
 When a new student is added, the *Student View* will show that the new student
 is added into the student list of the provided module group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
 [e/EMAIL] [r/RATING] [t/TAG]…​`
@@ -568,11 +604,14 @@ inside group `G03` of the module `CS2103`.
 [TIP]
 ====
 [horizontal]
+* * You can't edit the `MATRIC_NUMBER` once the student has been created, so do take
+care to ensure that the number is correct.
 * You can use the rating feature to give your students participation marks.
 * A student is given a default rating of 3/5 (average) if you do not specify a rating.
 * You can either specify a rating in the add student
 command or,
-* you can later edit their rating by using the edit student command (details given below.)
+* you can edit their rating later by using the `student edit` command (details given below
+in 5.2.9.)
 ====
 
 
@@ -584,7 +623,7 @@ You can use this command to delete a student from the TA-Tracker.
 When a student is removed, the *Student View* will show that the student
 is removed from the student list of the provided module group.
 You will see an empty list if there are no more students inside the module group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 
@@ -613,7 +652,7 @@ You can use this command to edit a student in the TA-Tracker.
 
 When a student is edited, the *Student View* will show that the student has been
 edited in the student list of the provided module group.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
@@ -664,7 +703,7 @@ You can use this command to chose how you want to sort your students in a specif
 The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the group that you have sorted.
-If you were on a different tab, you will automatically be switched to the student tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 
@@ -702,9 +741,9 @@ You can use this command to chose how you want to sort your students in a specif
 The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the first group of the module
-that you have sorted. If you want to view the other groups, you can use the `student filter`
-command as explained later in this guide.
-If you were on a different tab, you will automatically be switched to the student tab.
+that you have sorted. If you want to see the other groups, you can use the `student filter`
+command (details given below in 5.2.13.)
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort module m/MOD_CODE t/SORT_TYPE`
 
@@ -739,9 +778,9 @@ You can use this command to chose how you want to sort all of your students.
 The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the first group of the  first module
-in the TA-Tracker. If you want to view the other groups or modules, you can use the `student filter`
-command as explained later in this guide.
-If you were on a different tab, you will automatically be switched to the student tab.
+in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
+command (details given below in 5.2.13.)
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
 Format: `sort all t/SORT_TYPE`
 
@@ -771,7 +810,7 @@ Sorts all students in all groups inside all modules `alphabetically`.
 [[FilterStudent]]
 ==== Filter : `filter`
 
-You can use this command to view the students in a particular group
+You can use this command to see the students in a particular group
 and module.
 
 You can filter the students in *Student View* in the following ways:
@@ -782,12 +821,11 @@ You can filter the students in *Student View* in the following ways:
 ****
 
 You will see the group with the specified `GROUP_CODE` and the module with the specified
-`MOD_CODE` highlighted in the list.
+`MOD_CODE` highlighted in orange in the list.
 
-You will automatically be switched to the student
-tab as well, if you were currently on a different tab.
+If you were on a different `tab`, you will automatically be switched to the `student tab`.
 
-Format: `student filter [m/MOD_CODE] g/GROUP_CODE`
+Format: `student filter m/MOD_CODE [g/GROUP_CODE]`
 [NOTE]
 ====
 [horizontal]
@@ -807,7 +845,7 @@ This will show you all students in module `CS2103T`, under group `G06`.
 
 If you use just the module code, you will see:
 
-* The first group of the module specified by the given module code highlighted
+* The first group of the module specified by the given module code highlighted in orange
 
 * All the students belonging to that group
 
@@ -843,7 +881,7 @@ You can use this command to add a new session.
 The new session will be shown in the *Session View*, and will automatically
 be marked as `not done`.
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_TYPE] [n/NOTES]`
 
@@ -853,10 +891,11 @@ Format: `session add m/MOD_CODE [s/START] [e/END] [d/DATE] [w/WEEKS] [t/SESSION_
 . If you want to create a session with the current date, start time and end time,
 you can omit `s/START` , `e/END` and `d/DATE`.
 
-. You can edit the end time `e/END` and other details later.
+. You can edit the end time `e/END` and other details later by using the `session edit`
+command (details given below in 5.3.3.).
 
 . If the session has a recurring period `[w/WEEKS]`, a new session with the updated date
-and timing will be added to Session View when it is marked as done.
+and timing will be added to *Session View* when it is marked as done.
 
 . You will find the recurring period `[w/WEEKS]` field handy for tasks that happen once every few weeks
 such as your weekly lab sessions or fortnightly assignment grading.
@@ -882,16 +921,16 @@ be created with `DATE d/2020-07-04` (2 weeks later from the date of the original
 ====
 ==== Deleting a Session : `session delete`
 
-You can use this command to delete a session at a specific index.
+You can use this command to delete a session at a specific `index`.
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session delete INDEX`
 
 [CAUTION]
 ====
 [horizontal]
-Do not confuse delete and done session commands.
+Do not confuse the `session delete` and `session done` commands.
 ====
 
 ====
@@ -905,7 +944,7 @@ This command deletes the third session in the *Session View*.
 ==== Editing a Session : `session edit`
 You can use this command to edit a session in the TA-Tracker.
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 [m/MODULE] [t/SESSION_TYPE] [n/NOTES]​`
@@ -935,12 +974,12 @@ Edits the session at index 1 to have:
 
 You can use this command to mark a session as done.
 
-The session marked done will be removed from the *Session View* and
+The session marked as done will be removed from the *Session View* and
 will automatically appear as a new claim in the *Claims View*.
 If the session marked done has a recurring period, a new session with the updated date
-and timing will be added to Session View.
+and timing will be added to *Session View*.
 
-If you were on a different tab, you will automatically be switched to the claims tab.
+If you were on a different `tab`, you will automatically be switched to the `claims tab`.
 
 Format: `session done INDEX`
 
@@ -970,9 +1009,9 @@ The keyword is case-insensitive.
 
 When you execute a new filter command, any previous filters applied on the sessions will
 be removed and only the filters from the latest command will be applied on the sessions
-list.
+list. The filters that are currently being applied are shown at the top of the *Session View*
 
-If you were on a different tab, you will automatically be switched to the session tab.
+If you were on a different `tab`, you will automatically be switched to the `session tab`.
 
 Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 
@@ -995,11 +1034,11 @@ session type  ‘Tutorial` will be shown.
 
 You can use this command to filters sessions in the *Claims View* by the module code.
 
-You will see the module with the specified `MOD_CODE` highlighted in the list.
+You will see the module with the specified `MOD_CODE` highlighted in orange in the list.
 
-All completed sessions with matching module code are displayed. Keyword is case-insensitive.
+All completed sessions with matching `MOD_CODE` are displayed. Keyword is case-insensitive.
 
-Format: `claims filter [m/MOD_CODE]`
+Format: `claims filter m/MOD_CODE`
 
 ====
 Example:
@@ -1017,11 +1056,10 @@ Format: `setrate RATE`
 
 [NOTE]
 ====
-* If you don't specify a rate, it is set at 40$ by default.
-* AMOUNT is the amount you want to change the hourly rate to, this value will be used to calulate the
+* If you don't specify a rate, it is set at 40$ by default (the rate at which most SOC TAs are being paid per hour).
+* `RATE` is the amount you want to change the hourly rate to, this value will be used to calulate the
 `Total Earnings` label in the `Claims Tab` as well as the `Statistics Window`.
-* To specify in exact dollars, you can write it as just the number (example: 20).
-* To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
+* The `RATE` must be a positive integer.
 ====
 
 Examples:
@@ -1042,6 +1080,12 @@ for the tasks they have completed. |
 | TA | This is the short form for `Teaching Assistant. |
 
 | SOC or SoC | This is the short form for School of Computing. |
+
+| CLI | This is the short form for Command Line Interface. It processes commands to
+TA-Tracker in the form of lines of text |
+
+| GUI | This is the short form for Graphical User Interface. It is a form of user interface
+that allows users to interact with electronic devices through graphical icons |
 
 | Index | This refers to the position of an item on a list. | Index of 1 refers to the first
 item in a list.
@@ -1071,10 +1115,16 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 
 == Command Summary
 
+=== Navigation
+* *Viewing Help:* `help`
+* *Switching tabs:* `goto TAB_NAME`
+* *Exiting the program:* `exit`
+
 === Student View
 
 ==== Module commands
 * *Add Module:* `module add m/MOD_CODE n/NAME`
+* *Edit Module:* `module edit m/MOD_CODE n/NEW NAME`
 * *Delete Module:* `module delete m/MOD_CODE`
 
 ==== Group commands
@@ -1083,11 +1133,9 @@ the empty data file it creates with the data file of your previous TA-Tracker fo
 * *Delete Group:* `group delete g/GROUP_CODE m/MOD_CODE`
 
 ==== Student commands
-* *Add Student:* `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE
-[e/EMAIL] [r/RATING] [t/TAG]…​`
+* *Add Student:* `student add id/MATRIC_NUMBER n/NAME m/MOD_CODE g/GROUP_CODE [e/EMAIL] [r/RATING] [t/TAG]…`
 * *Delete Student:* `student delete id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE`
-* *Edit Student:* `student add id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME]
-[e/EMAIL] [r/RATING] [t/TAG]…​`
+* *Edit Student:* `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…`
 
 ==== Others
 * *Sorting a Group:* `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`

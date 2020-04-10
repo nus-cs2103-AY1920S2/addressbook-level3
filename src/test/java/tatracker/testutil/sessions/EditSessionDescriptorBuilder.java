@@ -1,17 +1,12 @@
 package tatracker.testutil.sessions;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
-import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
-import tatracker.model.student.Student;
 
 /**
  * A utility class to help with building EditStudentDescriptor objects.
@@ -48,7 +43,7 @@ public class EditSessionDescriptorBuilder {
     public EditSessionDescriptorBuilder withStartTime(LocalDateTime startTime) throws ParseException {
         //LocalDate date = ParserUtil.parseDate(startTime);
         //LocalTime time = ParserUtil.parseTime(startTime);
-//        descriptor.setStartTime(LocalDateTime.of(date, time));
+        //descriptor.setStartTime(LocalDateTime.of(date, time));
         descriptor.setStartTime(startTime);
         return this;
     }
@@ -59,7 +54,7 @@ public class EditSessionDescriptorBuilder {
     public EditSessionDescriptorBuilder withEndTime(LocalDateTime endTime) throws ParseException {
         //LocalDate date = ParserUtil.parseDate(endTime);
         //LocalTime time = ParserUtil.parseTime(endTime);
-//        descriptor.setEndTime(LocalDateTime.of(date, time));
+        //descriptor.setEndTime(LocalDateTime.of(date, time));
         descriptor.setEndTime(endTime);
         return this;
     }

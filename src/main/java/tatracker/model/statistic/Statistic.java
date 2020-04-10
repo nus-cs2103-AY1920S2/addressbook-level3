@@ -34,7 +34,7 @@ public class Statistic {
         UniqueSessionList fList = new UniqueSessionList();
         UniqueStudentList sList = new UniqueStudentList();
 
-        fList.setSessions(taTracker.getSessionList());
+        fList.setSessions(taTracker.getDoneSessionList());
         sList.setStudents(taTracker.getCompleteStudentList());
 
         // If targetModule is not null, filter by target module.

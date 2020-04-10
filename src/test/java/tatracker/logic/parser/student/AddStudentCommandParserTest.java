@@ -50,6 +50,7 @@ import tatracker.model.tag.Tag;
 import tatracker.testutil.student.StudentBuilder;
 
 public class AddStudentCommandParserTest {
+
     private static final Module MODULE = new Module(VALID_MODULE_CS2030);
     private static final Group GROUP = new Group(VALID_GROUP_T04);
 

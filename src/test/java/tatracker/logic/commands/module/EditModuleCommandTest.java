@@ -72,7 +72,7 @@ public class EditModuleCommandTest {
         assertFalse(editSoftwareEngineeringCommand.equals(1));
 
         // null -> returns false
-        assertFalse(editSoftwareEngineeringCommand.equals(null));
+        assertFalse(editSoftwareEngineeringCommand == null);
 
         // different person -> returns false
         assertFalse(editSoftwareEngineeringCommand.equals(editArtificialIntelligenceCommand));

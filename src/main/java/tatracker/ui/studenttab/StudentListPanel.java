@@ -29,6 +29,8 @@ public class StudentListPanel extends UiPart<Region> implements Focusable {
 
     public StudentListPanel(ObservableList<Student> studentList) {
         super(FXML);
+        logger.fine("Showing Student List");
+
         studentListView.setItems(studentList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
     }

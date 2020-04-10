@@ -2,6 +2,7 @@ package tatracker.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.logic.parser.ParserUtil.MESSAGE_INVALID_UNSIGNED_INT;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
@@ -15,7 +16,13 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.index.Index;
+import tatracker.commons.util.DateTimeUtil;
+import tatracker.logic.commands.commons.GotoCommand.Tab;
+import tatracker.logic.commands.sort.SortType;
 import tatracker.logic.parser.exceptions.ParseException;
+import tatracker.model.TaTracker;
+import tatracker.model.group.GroupType;
+import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -31,77 +38,56 @@ public class ParserUtilTest {
     private static final String INVALID_MATRIC = "!0123456&";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String INVALID_DATE = "04/04/2020";
+    private static final String INVALID_TIME = "4pm";
+
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_MATRIC = "A0123456J";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-    private static final String VALID_DATE = "2020-02-20";
-    private static final String VALID_TIME = "15:33";
-    private static final String VALID_TYPE = "consultation";
+
+    private static final String VALID_DATE = "2020-04-04";
+    private static final String VALID_TIME = "16:00";
+
 
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
-    public void parseDate_validInput_success() throws ParseException {
-        LocalDate expectedDate = LocalDate.of(2020, 02, 20);
-        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+    public void parseUnsignedInteger_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, () -> ParserUtil.parseUnsignedInteger("10 a"));
+
+        // - Signed
+        assertThrows(ParseException.class, () -> ParserUtil.parseUnsignedInteger("-10"));
+
+        // + Signed
+        assertThrows(ParseException.class, () -> ParserUtil.parseUnsignedInteger("+10"));
     }
 
     @Test
-    public void parseDate_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("2020-02-31"));
+    public void parseUnsignedInteger_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseUnsignedInteger(null));
     }
 
     @Test
-    public void parseDate_wrongFormat_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDate("20-03-2020"));
+    public void parseUnsignedInteger_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_UNSIGNED_INT, ()
+            -> ParserUtil.parseUnsignedInteger(Long.toString((long) Integer.MAX_VALUE + 1)));
     }
 
     @Test
-    public void parseTime_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTime("6:30"));
-    }
+    public void parseUnsignedInteger_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(1, ParserUtil.parseUnsignedInteger("1"));
 
-    @Test
-    public void parseTime_validInput_success() throws ParseException {
-        LocalTime expectedTime = LocalTime.of(15, 33);
-        assertEquals(expectedTime, ParserUtil.parseTime(VALID_TIME));
-    }
+        // Leading and trailing whitespaces
+        assertEquals(1, ParserUtil.parseUnsignedInteger("  1  "));
 
-    @Test
-    public void parseSessionType_validInput_success() throws ParseException {
-        SessionType expectedType = SessionType.getSessionType("consultation");
-        assertEquals(expectedType, ParserUtil.parseSessionType(VALID_TYPE));
+        // Zero
+        assertEquals(0, ParserUtil.parseUnsignedInteger("  0  "));
     }
-
-    @Test
-    public void parseSessionTypeCaps_validInput_success() throws ParseException {
-        SessionType expectedType = SessionType.getSessionType("CONSULTATION");
-        assertEquals(expectedType, ParserUtil.parseSessionType(VALID_TYPE));
-    }
-
-    @Test
-    public void parseSessionType_invalidInput_throwsParseException() throws ParseException {
-        assertThrows(ParseException.class, () -> ParserUtil.parseSessionType("consult"));
-    }
-
-    @Test
-    public void parseNumWeeks_validInput_success() throws ParseException {
-        assertEquals(1, ParserUtil.parseNumWeeks("1"));
-    }
-
-    @Test
-    public void parseNumWeeks_invalidLetters_throwsParseException() throws ParseException {
-        assertThrows(ParseException.class, () -> ParserUtil.parseNumWeeks("a"));
-    }
-
-    @Test
-    public void parseNumWeeks_invalidNegativeNum_throwsParseException() throws ParseException {
-        assertThrows(ParseException.class, () -> ParserUtil.parseNumWeeks("-1"));
-    }
-
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -111,7 +97,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, Index.MESSAGE_CONSTRAINTS, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> ParserUtil.parseIndex(Long.toString((long) Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -125,7 +111,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -147,8 +133,15 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseName_validValueWithManyWhitespaces_returnsCapitalizedName() throws Exception {
+        String nameWithManyWhitespaces = "lee      kuan    yew";
+        Name expectedName = new Name("Lee Kuan Yew");
+        assertEquals(expectedName, ParserUtil.parseName(nameWithManyWhitespaces));
+    }
+
+    @Test
     public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
 
     @Test
@@ -171,7 +164,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail(null));
     }
 
     @Test
@@ -194,7 +187,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseMatric_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseMatric((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMatric(null));
     }
 
     @Test
@@ -209,7 +202,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseM_validValueWithWhitespace_returnsTrimmedMatric() throws Exception {
+    public void parseMatric_validValueWithWhitespace_returnsTrimmedMatric() throws Exception {
         String matricWithWhitespace = WHITESPACE + VALID_MATRIC + WHITESPACE;
         Matric expectedMatric = new Matric(VALID_MATRIC);
         assertEquals(expectedMatric, ParserUtil.parseMatric(matricWithWhitespace));
@@ -307,5 +300,248 @@ public class ParserUtilTest {
         String ratingWithWhitespace = WHITESPACE + "3" + WHITESPACE;
         Rating expectedRating = new Rating(3);
         assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
+    }
+
+    @Test
+    public void parseDate_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, DateTimeUtil.CONSTRAINTS_DATE, ()
+            -> ParserUtil.parseDate(INVALID_DATE));
+    }
+
+    @Test
+    public void parseDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
+    }
+
+    @Test
+    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
+        LocalDate expectedDate = LocalDate.of(2020, 4, 4);
+        assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsDate() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
+        LocalDate expectedDate = LocalDate.of(2020, 4, 4);
+        assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseTime_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, DateTimeUtil.CONSTRAINTS_TIME, ()
+            -> ParserUtil.parseTime(INVALID_TIME));
+    }
+
+    @Test
+    public void parseTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTime(null));
+    }
+
+    @Test
+    public void parseTime_validValueWithoutWhitespace_returnsTime() throws Exception {
+        LocalTime expectedTime = LocalTime.of(16, 0);
+        assertEquals(expectedTime, ParserUtil.parseTime(VALID_TIME));
+    }
+
+    @Test
+    public void parseTime_validValueWithWhitespace_returnsTime() throws Exception {
+        String timeWithWhitespace = WHITESPACE + VALID_TIME + WHITESPACE;
+        LocalTime expectedTime = LocalTime.of(16, 0);
+        assertEquals(expectedTime, ParserUtil.parseTime(timeWithWhitespace));
+    }
+
+    @Test
+    public void parseSessionType_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, SessionType.MESSAGE_CONSTRAINTS, ()
+            -> ParserUtil.parseSessionType("junk"));
+    }
+
+    @Test
+    public void parseSessionType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSessionType(null));
+    }
+
+    @Test
+    public void parseSessionType_validValueWithoutWhitespace_returnsSessionType() throws Exception {
+        assertEquals(SessionType.TUTORIAL, ParserUtil.parseSessionType("tutorial"));
+        assertEquals(SessionType.LAB, ParserUtil.parseSessionType("lab"));
+        assertEquals(SessionType.CONSULTATION, ParserUtil.parseSessionType("consultation"));
+        assertEquals(SessionType.GRADING, ParserUtil.parseSessionType("grading"));
+        assertEquals(SessionType.PREPARATION, ParserUtil.parseSessionType("preparation"));
+        assertEquals(SessionType.OTHER, ParserUtil.parseSessionType("other"));
+    }
+
+    @Test
+    public void parseSessionType_validValueWithWhitespace_returnsSessionType() throws Exception {
+        String typeWithWhitespace = WHITESPACE + "tutorial" + WHITESPACE;
+        SessionType expectedSessionType = SessionType.TUTORIAL;
+        assertEquals(expectedSessionType, ParserUtil.parseSessionType(typeWithWhitespace));
+    }
+
+    @Test
+    public void parseGroupType_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, GroupType.MESSAGE_CONSTRAINTS, ()
+            -> ParserUtil.parseGroupType("junk"));
+    }
+
+    @Test
+    public void parseGroupType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseGroupType(null));
+    }
+
+    @Test
+    public void parseGroupType_validValueWithoutWhitespace_returnsGroupType() throws Exception {
+        assertEquals(GroupType.TUTORIAL, ParserUtil.parseGroupType("tutorial"));
+        assertEquals(GroupType.LAB, ParserUtil.parseGroupType("lab"));
+        assertEquals(GroupType.RECITATION, ParserUtil.parseGroupType("recitation"));
+        assertEquals(GroupType.OTHER, ParserUtil.parseGroupType("other"));
+    }
+
+    @Test
+    public void parseGroupType_validValueWithWhitespace_returnsGroupType() throws Exception {
+        String typeWithWhitespace = WHITESPACE + "tutorial" + WHITESPACE;
+        GroupType expectedGroupType = GroupType.TUTORIAL;
+        assertEquals(expectedGroupType, ParserUtil.parseGroupType(typeWithWhitespace));
+    }
+
+    @Test
+    public void parseSortType_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, SortType.MESSAGE_CONSTRAINTS, ()
+            -> ParserUtil.parseSortType("junk"));
+    }
+
+    @Test
+    public void parseSortType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortType(null));
+    }
+
+    @Test
+    public void parseSortType_validValueWithoutWhitespace_returnsSortType() throws Exception {
+        assertEquals(SortType.ALPHABETIC, ParserUtil.parseSortType("alphabetically"));
+        assertEquals(SortType.ALPHABETIC, ParserUtil.parseSortType("alpha"));
+        assertEquals(SortType.ALPHABETIC, ParserUtil.parseSortType("alphabetical"));
+
+        assertEquals(SortType.MATRIC, ParserUtil.parseSortType("matric"));
+
+        assertEquals(SortType.RATING_ASC, ParserUtil.parseSortType("rating asc"));
+        assertEquals(SortType.RATING_ASC, ParserUtil.parseSortType("asc"));
+
+        assertEquals(SortType.RATING_DESC, ParserUtil.parseSortType("rating desc"));
+        assertEquals(SortType.RATING_DESC, ParserUtil.parseSortType("desc"));
+    }
+
+    @Test
+    public void parseSortType_validValueWithWhitespace_returnsSortType() throws Exception {
+        String typeWithWhitespace = WHITESPACE + "matric" + WHITESPACE;
+        SortType expectedSortType = SortType.MATRIC;
+        assertEquals(expectedSortType, ParserUtil.parseSortType(typeWithWhitespace));
+    }
+
+    @Test
+    public void parseTabName_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, Tab.MESSAGE_CONSTRAINTS, ()
+            -> ParserUtil.parseTabName("junk"));
+    }
+
+    @Test
+    public void parseTabName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTabName(null));
+    }
+
+    @Test
+    public void parseTabName_validValueWithoutWhitespace_returnsTab() throws Exception {
+        assertEquals(Tab.STUDENT, ParserUtil.parseTabName("student"));
+        assertEquals(Tab.SESSION, ParserUtil.parseTabName("session"));
+        assertEquals(Tab.CLAIMS, ParserUtil.parseTabName("claims"));
+    }
+
+    @Test
+    public void parseTabName_validValueWithWhitespace_returnsTab() throws Exception {
+        String tabWithWhitespace = WHITESPACE + "claims" + WHITESPACE;
+        Tab expectedTab = Tab.CLAIMS;
+        assertEquals(expectedTab, ParserUtil.parseTabName(tabWithWhitespace));
+    }
+
+    @Test
+    public void parseNumWeeks_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, Session.CONSTRAINTS_RECURRING_WEEKS, ()
+            -> ParserUtil.parseNumWeeks("10 a"));
+
+        // - Signed
+        assertThrows(ParseException.class, Session.CONSTRAINTS_RECURRING_WEEKS, ()
+            -> ParserUtil.parseNumWeeks("-10"));
+
+        // + Signed
+        assertThrows(ParseException.class, Session.CONSTRAINTS_RECURRING_WEEKS, ()
+            -> ParserUtil.parseNumWeeks("+10"));
+    }
+
+    @Test
+    public void parseNumWeeks_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNumWeeks(null));
+    }
+
+    @Test
+    public void parseNumWeeks_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, Session.CONSTRAINTS_RECURRING_WEEKS, ()
+            -> ParserUtil.parseNumWeeks(Long.toString((long) Integer.MAX_VALUE + 1)));
+    }
+
+    @Test
+    public void parseNumWeeks_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(1, ParserUtil.parseNumWeeks("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(1, ParserUtil.parseNumWeeks("  1  "));
+
+        // Zero
+        assertEquals(0, ParserUtil.parseNumWeeks("  0  "));
+    }
+
+    @Test
+    public void parseRate_invalidInput_throwsParseException() {
+        // Invalid characters
+        assertThrows(ParseException.class, TaTracker.CONSTRAINTS_RATE, ()
+            -> ParserUtil.parseRate("10 a"));
+
+        // - Signed
+        assertThrows(ParseException.class, TaTracker.CONSTRAINTS_RATE, ()
+            -> ParserUtil.parseRate("-10"));
+
+        // + Signed
+        assertThrows(ParseException.class, TaTracker.CONSTRAINTS_RATE, ()
+            -> ParserUtil.parseRate("+10"));
+
+        // Zero
+        assertThrows(ParseException.class, TaTracker.CONSTRAINTS_RATE, ()
+            -> ParserUtil.parseRate("0"));
+    }
+
+    @Test
+    public void parseRate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRate(null));
+    }
+
+    @Test
+    public void parseRate_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, TaTracker.CONSTRAINTS_RATE, ()
+            -> ParserUtil.parseRate(Long.toString((long) Integer.MAX_VALUE + 1)));
+    }
+
+    @Test
+    public void parseRate_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(1, ParserUtil.parseRate("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(1, ParserUtil.parseRate("  1  "));
     }
 }

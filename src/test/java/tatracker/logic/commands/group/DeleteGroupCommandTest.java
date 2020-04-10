@@ -87,7 +87,7 @@ public class DeleteGroupCommandTest {
         assertFalse(deleteSoftwareEngineeringCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteSoftwareEngineeringCommand.equals(null));
+        assertFalse(deleteSoftwareEngineeringCommand == null);
 
         // different modules -> returns false
         assertFalse(deleteSoftwareEngineeringCommand.equals(deleteArtificialIntelligenceCommand));

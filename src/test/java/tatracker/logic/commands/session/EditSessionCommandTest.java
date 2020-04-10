@@ -2,17 +2,20 @@ package tatracker.logic.commands.session;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tatracker.logic.commands.CommandTestUtil.S1;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_SESSION;
 import static tatracker.testutil.TypicalTaTracker.getTypicalTaTrackerWithSessions;
+
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.commons.ClearCommand;
 import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
+import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
+import tatracker.testutil.sessions.EditSessionDescriptorBuilder;
 
 
 /**
@@ -20,6 +23,24 @@ import tatracker.model.UserPrefs;
  * and unit tests for EditStudentCommand.
  */
 public class EditSessionCommandTest {
+    private static EditSessionCommand.EditSessionDescriptor SESSION = null;
+
+    private static final LocalDateTime STARTTIME = LocalDateTime.of(2020, 05, 20, 17, 00);
+    private static final LocalDateTime ENDTIME = LocalDateTime.of(2020, 05, 20, 17, 00);
+    static {
+        try {
+            SESSION = new EditSessionDescriptorBuilder()
+                    .withStartTime(STARTTIME)
+                    .withEndTime(ENDTIME)
+                    .withModule("CS2103T")
+                    .withSessionType("Lab")
+                    .withDescription("prepare notes")
+                    .withRecurring(2).build();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Model model = new ModelManager(getTypicalTaTrackerWithSessions(), new UserPrefs());
 
     /*@Test
@@ -41,10 +62,10 @@ public class EditSessionCommandTest {
 
     @Test
     public void equals() {
-        final EditSessionCommand standardCommand = new EditSessionCommand(INDEX_FIRST_SESSION, S1);
+        final EditSessionCommand standardCommand = new EditSessionCommand(INDEX_FIRST_SESSION, SESSION);
 
         // same values -> returns true
-        EditSessionDescriptor copyDescriptor = new EditSessionDescriptor(S1);
+        EditSessionDescriptor copyDescriptor = new EditSessionDescriptor(SESSION);
         EditSessionCommand commandWithSameValues = new EditSessionCommand(INDEX_FIRST_SESSION, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
