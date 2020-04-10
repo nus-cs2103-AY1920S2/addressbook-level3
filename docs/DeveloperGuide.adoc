@@ -764,10 +764,6 @@ The above class diagram shows the structure of the `ReturnCommand`
 and its associated classes and interfaces. Some methods and fields are not included because they are
 not extensively utilised in `ReturnCommand`; such as public static fields and getter/setter methods.
 
-The above class diagram shows the structure of the `DeliveredCommand` and
-its associated classes and interfaces. Some methods and fields are not included because they are
-not extensively utilised in `DeliveredCommand`; such as public static fields and getter/setter methods.
-
 [[return-interactions]]
 ==== Interactions between objects when Return Command is executed
 
@@ -775,7 +771,7 @@ not extensively utilised in `DeliveredCommand`; such as public static fields and
 The sequence diagrams for the *Return Command* are shown below.
 
 .Return Command Sequence Diagram
-image::ReturnSequenceDiagram1_a.png[
+image::ReturnSequenceDiagram1_a.png[]
 
 .Execution of Return Command to convert a delivered Order into a Return Order
 image::ReturnSequenceDiagram2_a.png[]
@@ -1047,12 +1043,46 @@ The exception will be thrown in the `NearbyCommandParser`.
 
 [[help]]
 === Help Feature
+In this section, the <<what-is-import, functionality>> of the `help` feature,
+the expected <<import-execution-path, execution path>>, the <<import-structure, structure>>
+of the `HelpCommand` class and the <<import-interaction, interactions>>
+between objects with the `HelpCommand` object will be discussed.
+
 [[what-is-help]]
 ==== What is the Help Feature
+The `help` feature was implemented as the `HelpCommand` in the `logic` package. +
+The `help` feature allows users to save the trouble of adding the delivery orders and the return orders one by one
+when they have large amount of delivery orders or return orders to add into Delino.
+
+
 [[execution-paths-help]]
 ==== Execution paths of the Help command
+The execution path of the `HelpCommand` is shown below: +
+
+.Help Command Activity Diagram
+image::HelpCommandActivityDiagram.png[]
+
+After the user enters the help command word, there will be a validation check to ensure that there are no
+non-whitespace characters following after the `help` command word so that the help command can
+be processed as a valid command.
+
+If there are non-whitespace characters following `help` command word, a ParseException object willl
+be created and thrown to the user by displaying an error message.
+
+If there are no non-whitespace characters following the `help` command word, a new HelpCommand object
+will be created and a CommandResult object will be created subsequently to display the success message
+to the user.
+
 [[structure-help]]
 ==== Structure of Help Command
+The following diagram shows the overview structure of the `HelpCommand` Class Diagram: +
+
+.Help Command Class Diagram
+image::HelpCommandClassDiagram.png[]
+The above class diagram shows the structure of the `HelpCommand`
+and its associated classes and interfaces. Some methods and fields are not included because they are
+not extensively utilised in `HelpCommand`; such as public static fields and getter/setter methods.
+
 [[help-interactions]]
 ==== Sequence Diagram for the Help Feature
 

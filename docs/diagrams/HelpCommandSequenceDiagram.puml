@@ -39,10 +39,7 @@ create HelpCommand
 HelpCommandParser -> HelpCommand
 HelpCommand -> HelpCommand : setValidity(true)
 activate HelpCommand
-
 HelpCommand -> CommandResult
-
-
 activate CommandResult
 CommandResult --> HelpCommand : result
 deactivate CommandResult
