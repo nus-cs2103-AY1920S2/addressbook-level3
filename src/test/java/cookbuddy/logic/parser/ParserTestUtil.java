@@ -9,13 +9,15 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.logic.parser.ParserUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.attribute.Name;
 import cookbuddy.model.recipe.attribute.Rating;
 import cookbuddy.model.recipe.attribute.Tag;
 import cookbuddy.model.recipe.attribute.Time;
-import org.junit.jupiter.api.Test;
+
 
 
 
@@ -109,7 +111,7 @@ public class ParserTestUtil {
     }
 
     @Test
-    public void parseRating_invalidValue_ParseException() {
+    public void parseRating_invalidType_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseRating("abc"));
     }
 

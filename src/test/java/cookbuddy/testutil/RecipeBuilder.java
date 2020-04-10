@@ -100,7 +100,8 @@ public class RecipeBuilder {
      */
     public RecipeBuilder withIngredients(String ingredients) {
         List<Ingredient> ingredientList =
-                Stream.of(ingredients.trim().split(";")).map(String::trim).map(Ingredient::new).collect(Collectors.toList());
+                Stream.of(ingredients.trim().split(";")).map(String::trim).map(Ingredient::new)
+                        .collect(Collectors.toList());
         this.ingredients = new IngredientList(ingredientList);
         return this;
     }

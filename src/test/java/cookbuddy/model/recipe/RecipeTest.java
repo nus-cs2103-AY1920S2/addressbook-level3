@@ -11,12 +11,15 @@ import static cookbuddy.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static cookbuddy.testutil.Assert.assertThrows;
 import static cookbuddy.testutil.TypicalRecipes.EGGS_ON_TOAST;
 import static cookbuddy.testutil.TypicalRecipes.HAM_SANDWICH;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.testutil.RecipeBuilder;
-import org.junit.jupiter.api.Test;
+
 
 public class RecipeTest {
 
