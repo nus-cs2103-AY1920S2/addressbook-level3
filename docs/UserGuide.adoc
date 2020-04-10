@@ -31,12 +31,15 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  You can navigate through your command history by pressing the kbd:[Up] or kbd:[Down] arrow key.
+Only successful commands are stored in the command history. There can be at most 50 commands stored.
+This feature is just like the command navigation feature in your favourite command line or shell.
 .  Some example commands you can try:
 
 * *`budget b/1000 rc/no`* : set a non-recurring budget of $1000 for the current month
 * **`add a/100`**`n/Wagyu Steak d/2020-02-28 c/FOOD` : adds an expense named `Wagyu Steak` with amount `$100.00` spent on `2020-02-28` in category `FOOD` to the expense tracker
-* **`delete`**`1` : deletes the expense with id `1` in the current list
 * **`filter`**`m/ 2020-02` : filters to only show transactions made on `2020-02`
+* **`delete`**`1` : deletes the expense with id `1` in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -54,6 +57,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `spend a/AMOUNT n/ OBJECT [d/ DATE] [c/ CAT]` and can used as `add a/100 n/Pizza` or `add a/100 n/Pizza d/2020-02-02 c/Food`
 
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AMOUNT`, `a/AMOUNT n/NAME` is also acceptable.
+
+* The length of command a user can input is at most 140 characters.
 ====
 
 
@@ -61,6 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+image::Help.png[width="790"]
 
 === Set a monthly budget : `budget`
 
@@ -86,6 +92,9 @@ Adds an expense or income to the expense tracker. Expenses/incomes are stored as
 
 Format: `add [i/] n/ NAME a/ AMOUNT [d/ DATE] [c/ CATEGORY] [r/ REMARK]  [rc/]`
 
+Expected Outcome: A new transaction would be created in the list of transactions. If the newly
+created transaction is part of the currently filtered transaction, it'll be visible in the list
+
 [TIP]
 Leaving the DATE option blank will auto fill with today's date
 [TIP]
@@ -109,12 +118,18 @@ Filters transactions for user to see by filter type.
 Format: `filter m/ YYYY-MM` to view a certain month's transactions
         `filter c/ CATEGORY` to view transactions of a certain category
 
+Expected Outcome: Filter is changed to the filter specified. List of transactions will only
+show transactions that fulfill the filter criteria
+
 Examples:
 
-* `filter m/ 2020-02`
-* `filter c/ TRANSPORT`
-* `filter m/ 2020-03 c/ FOOD`
+* `filter m/ 2020-04` (filter by month and remove category filter)
+* `filter c/ TRANSPORT` (filter by category and remove month filter)
+* `filter m/ 2020-04 c/ FOOD` (filter by both category and month)
 
++
+image::Filter.png[width="790"]
++
 
 === Deleting a transaction : `delete`
 
@@ -122,15 +137,15 @@ Deletes the specified transaction from the expense tracker.
 
 Format: `delete TRANSACTION_ID`
 
+Expected Outcome: Transaction at the specified index in the current transaction list is deleted
+
 [TIP]
-Every transaction is given a unique `TRANSACTION_ID` when added to the expense tracker.
-[TIP]
-The transaction ID of a particular transaction can be found either by searching to the transaction with the search function.
+`TRANSACTION_ID` refers to the index of the transaction in the list visible to user.
 
 Examples:
 
 * `delete 3` +
-Deletes the transaction with ID 3 in the expense tracker.
+Deletes the transaction with index number 3 in the expense tracker's current transaction list.
 
 
 === Edit a transaction : `edit`
@@ -138,6 +153,8 @@ Deletes the transaction with ID 3 in the expense tracker.
 Edit the specified transaction from the expense tracker
 
 Format: `edit TRANSACTION_ID [n/ NAME] [a/ AMOUNT] [d/ DATE] [c/ CAT] [r/ REMARK]`
+
+Expected Outcome: Transaction at the given index has its parameters changed as specified
 
 Examples:
 
@@ -150,6 +167,11 @@ Examples:
 
 Toggle between viewing list of transactions and analytics with bar graph and pie chart to show expense trend
 
+Expected Outcome: changed view to charts if previously was list view and to list view if previously was chart view
+
+image::ListView.png[width="790"]
+image::ChartView.png[width="790"]
+
 
 === Find transaction by name : `find`
 
@@ -157,10 +179,11 @@ Find Transaction that matches one of the words from a given list of keywords
 
 Format: `find KEYWORD_1 [KEYWORD_2] ... [KEYWORD_N]`
 
+Expected Outcome: Clears all filter and display all transactions whose name matches any of the keyword
 
 Examples:
 
-* `find bottle school`
+* `find bottle school` (find all transactions whose name contain either bottle or school)
 
 
 === List of transactions : `list`
@@ -172,10 +195,23 @@ List all transactions and reset all filters
 
 Clear all recurring transactions stored
 
+Expected Outcome: All recurring transactions in the json file GlobalData.json will be cleared
+
+
+=== Export transaction data to csv : `export`
+
+Export the filtered transaction list to a csv file
+
+Expected Outcome: A csv file will be created at the root directory and all transactions currently visible in the app
+will be exported to the csv file.
+
 
 === Clear all data : `clear`
 
 Clear all data in expenseLa including monthly data and global data
+
+Expected Outcome: All transactions are deleted, balance is set to 0 and monthly data is also set to 0.
+All recurring data such as budget and transactions are also cleared
 
 
 === Exiting the program : `exit`
@@ -184,11 +220,13 @@ Exits the program.
 
 Format: `exit`
 
+
 === Saving the data
 
 ExpenseLa data are saved in the hard disk automatically as a json file after any command that changes the data. +
 There is no need to save manually.
 
+image::Csv.png[width="790"]
 
 == FAQ
 
@@ -224,5 +262,6 @@ e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
 * *Clear*: `clear`
 * *Exit*: `exit`
 * *List* : `list`
+* *Export* : `export`
 * *Clear Recurring Transactions*: `clearrecurring`
 * *Help* : `help`

@@ -356,7 +356,7 @@ future implementation.
 === Chart Analytics
 
 The *toggleview* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
-his expenditure. 
+his expenditure.
 
 ==== Implementation
 
@@ -364,9 +364,8 @@ his expenditure.
 `Logic#getToggleView()`.
 
 Here is a Class Diagram for the implementatino of `ToggleView`:
-image::
+image:chart-analytics/ToggleViewClassDiagram.png[]
 Figure XX. Implementation of `ToggleView` class
-
 
 The *ToggleView* mechanism utilizes `Logic` operations with the `ToggleViewCommand` class in place of `Command`. The following
 methods are concrete implementations for the *toggle* operation:
@@ -380,7 +379,7 @@ current value.
 - `ExpenseLa#switchToggleView()` is exposed in the `Model` interface as `Model#switchToggleView()`.
 
 The following sequence diagram illustrates **toggleview** command execution:
-image::
+image:chart-analytics/ToggleViewSequenceDiagram.png[]
 Figure XX. Sequence diagram for **toggleview** execution
 
 ===== Example of usage
@@ -419,7 +418,7 @@ The following activity diagram gives an overview of what ExpenseLa shows the use
 
 :figure-caption: Figure
 .Activity diagram for execution of toggleview command
-image::update/updateDG/UpdateActivityDiagram.png[]
+image::chart-analytics/ToggleViewActivityDiagram.png[]
 
 === Logging
 

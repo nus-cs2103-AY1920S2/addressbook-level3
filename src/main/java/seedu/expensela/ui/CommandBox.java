@@ -1,5 +1,7 @@
 package seedu.expensela.ui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -57,6 +59,15 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, handler);
+        commandTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (commandTextField.getText().length() > 140) {
+                    String s = commandTextField.getText().substring(0, 140);
+                    commandTextField.setText(s);
+                }
+            }
+        });
     }
 
     /**

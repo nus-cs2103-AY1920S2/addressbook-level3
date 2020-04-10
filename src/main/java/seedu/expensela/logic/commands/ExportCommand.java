@@ -66,7 +66,7 @@ public class ExportCommand extends Command {
      */
     private StringBuilder buildStringFromTransaction(Transaction transaction, StringBuilder sb) {
         String name = transaction.getName().toString();
-        String amount = transaction.getAmount().toString();
+        String amount = transaction.getAmount().toString().replace(",", "");
         String date = transaction.getDate().toString();
         String remark = transaction.getRemark().toString();
         String category = transaction.getCategory().toString();
