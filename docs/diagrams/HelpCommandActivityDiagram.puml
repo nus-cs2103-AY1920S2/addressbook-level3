@@ -19,4 +19,4 @@ else ([Present non-whitespace
        non-whitespace characters;
 endif
 stop
-@endul
+@enduml
