@@ -17,7 +17,7 @@ public class Time {
             + "of minutes, be more than 0 and less than 3000, and be separated by a single dash "
             + "where first number is smaller than the second (for range).\n"
             + "Example: filter t/10 or filter t/10-20";
-    public static final String VALIDATION_REGEX = "\\d{1,9}";
+    public static final String VALIDATION_REGEX = "\\d{1,4}";
     public final String value;
 
     /**
@@ -36,26 +36,7 @@ public class Time {
      * Returns true if a given string is a valid time number.
      */
     public static boolean isValidTime(String test) {
-        return isValidSingularTime(test) || isValidRange(test);
-    }
-
-    /**
-     * Returns true if a given string is a valid singular time number.
-     */
-    public static boolean isValidSingularTime(String test) {
         return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0 && Integer.parseInt(test) < 3000;
-    }
-
-    /**
-     * Returns true if a given string is a valid time range.
-     */
-    public static boolean isValidRange(String test) {
-        if (test.contains("-") && test.matches(VALIDATION_REGEX)) {
-            String[] range = test.split("-");
-            return isValidSingularTime(range[0]) && isValidSingularTime(range[1])
-                    && (Integer.parseInt(range[0]) < Integer.parseInt(range[1]));
-        }
-        return false;
     }
 
     /**
