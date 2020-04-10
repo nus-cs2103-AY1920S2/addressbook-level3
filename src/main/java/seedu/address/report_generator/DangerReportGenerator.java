@@ -10,24 +10,24 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import seedu.address.model.bluetooth.BluetoothPings;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-
+import seedu.address.model.bluetooth.BluetoothPingsSummary;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class report_generator {
+public class DangerReportGenerator {
     public static final String DEST = "results/report.pdf";
 
-    public void GenerateReport(ArrayList<BluetoothPings> resp) throws IOException
+    public void GenerateReport(ArrayList<BluetoothPingsSummary> resp) throws IOException
     {
         File file = new File(DEST);
         file.getParentFile().mkdirs();
-        new report_generator().createPdf(DEST, resp);
+        new danger_report_generator().createPdf(DEST, resp);
     }
 
-    public void createPdf(String dest, ArrayList<BluetoothPings> resp) throws IOException
+    public void createPdf(String dest, ArrayList<BluetoothPingsSummary> resp) throws IOException
     {
         PdfWriter writer = new PdfWriter(dest);
 
@@ -45,19 +45,17 @@ public class report_generator {
         Table table = new Table(pointColumnWidths);
 
 
-        table.addCell("Time");
+        table.addCell("Counts");
         table.addCell("ID1");
         table.addCell("ID2");
 
 
-
         Set ID_set = new HashSet();
-        BluetoothPings instance = resp.get(0);
 
         if (resp.size() > 0) {
             for (int i = 0; i < resp.size(); i++) {
-                instance = resp.get(i);
-                table.addCell(instance.getEpochTs() + "");
+                BluetoothPingsSummary instance = resp.get(i);
+                table.addCell(instance.getCounts() + "");
                 List<Integer> epochTimes = instance.getUserIDs();
                 table.addCell(epochTimes.get(0) + "");
                 ID_set.add(epochTimes.get(0) + "");
@@ -67,13 +65,14 @@ public class report_generator {
         }
 
 
+
         document.add(new Paragraph("CONTACT TRACING REPORT"));
         document.add(new Paragraph("----------------------------------------------"));
-        Paragraph paragraph = new Paragraph("The total number of instances in this report is: " + resp.size());
+        Paragraph paragraph = new Paragraph("This is the report for dangerous cases");
 
         document.add(paragraph);
 
-        String text_string = "The ID included in this file are:";
+        String text_string = "The ID included in this report are:";
         Iterator it = ID_set.iterator();
         while (it.hasNext())
         {

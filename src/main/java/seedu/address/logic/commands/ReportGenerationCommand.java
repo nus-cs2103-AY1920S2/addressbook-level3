@@ -9,6 +9,8 @@ import seedu.address.logic.messages.BluetoothSummaryMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bluetooth.BluetoothPings;
 import seedu.address.model.bluetooth.BluetoothPingsSummary;
+import seedu.address.report_generator.DangerReportGenerator;
+import seedu.address.report_generator.ReportGenerator;
 import seedu.address.report_generator.danger_report_generator;
 import seedu.address.report_generator.report_generator;
 import seedu.address.storage.AppStorage;
@@ -139,7 +141,7 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
         System.out.println("Generating reports");
         if (danger_flag == 0)
         {
-            report_generator generator = new report_generator();
+            ReportGenerator generator = new ReportGenerator();
             try {
                 generator.GenerateReport(resp);
             }catch (Exception e)
@@ -155,7 +157,7 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
         }
         else
         {
-            danger_report_generator generator = new danger_report_generator();
+            DangerReportGenerator generator = new DangerReportGenerator();
             try {
                 generator.GenerateReport(resp);
             }catch (Exception e)
