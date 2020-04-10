@@ -418,7 +418,7 @@ In this section, you will learn more about the `listamount` command, <<howtousel
 and the <<listamountexpectedoutcome,expected outcome>> after using the
 `listamount` command.
 
-Summary of List Amount Command: `listamount` *shows you how much each Person owes you*.
+*Summary of List Amount Command:* `listamount` *shows you how much each Person owes you*.
 
 [[howtouselistamountcommand]]
 *How to use the List Amount Command:*
@@ -457,7 +457,7 @@ In this section, you will learn more about the `paid` command, <<howtousepaidcom
 <<paidcommandexpectedoutcome,expected outcome>> after using the
 `paid` command.
 
-Summary of Paid Command: `paid` *subtracts the amount of money a Person owes you.*
+*Summary of Paid Command:* `paid` *subtracts the amount of money a Person owes you.*
 
 [[howtousepaidcommand]]
 *How to use the Paid Command:*
@@ -750,6 +750,28 @@ or +
 |`help`
 
 |===
+
+== Glossary
+[width="%",cols="<20%,<40,<40,options="header",]
+|=======================================================================
+|Term | Explanation | Examples
+
+| Temasek Hall | This refers the one of the Halls of Residences at the National University of Singapore |
+
+| Halls of Residences | This refers to student accommodation on campus |
+
+| NUS | This is the short form of National Univeristy of Singapore. |
+
+| SOC or SoC | This is the short form for School of Computing. |
+
+| CLI | This is the short form for Command Line Interface. It processes commands to
+TA-Tracker in the form of lines of text |
+
+| Index | This refers to the position of an item on a list. | Index of 1 refers to the first
+item in a list.
+
+
+|=======================================================================
 
 
 [[AppendixA]]
