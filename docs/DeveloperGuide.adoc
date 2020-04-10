@@ -2249,7 +2249,7 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 `search` `n/Jeremy` +
    Expected: Specifically search for both return order or order from both list that has one word of the name matching the key word `Jeremy`.
 .. Test case: `list` +
-   `search` +
+`search` +
    Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
 
 //end::appendix-search[]

@@ -4,11 +4,15 @@ import static seedu.delino.commons.core.Messages.WELCOME_MESSAGE;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,6 +21,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -25,6 +30,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.delino.commons.core.GuiSettings;
 import seedu.delino.commons.core.LogsCenter;
 import seedu.delino.logic.Logic;
@@ -81,6 +87,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private Menu timeHolder;
+
+    @FXML
     private StackPane orderListPanelPlaceholder;
 
     @FXML
@@ -107,6 +116,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private PieChart deliveryPieChart;
 
+    //@@author
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -191,6 +201,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Try to start clock
+        showTime();
     }
 
     /**
@@ -217,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author cherweijie
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -245,6 +259,7 @@ public class MainWindow extends UiPart<Stage> {
     }
     //@@author
 
+    //@@Amoscheong97
     /**
      * Calculate the total earnings of the Courier.
      * The method will use a DecimalFormatter instance to convert a double
@@ -263,6 +278,7 @@ public class MainWindow extends UiPart<Stage> {
         totalCash.setText(earnings);
     }
 
+    //@@Amoscheong97
     /**
      * Populate the PieChart with the data filtered by the
      * ShowCommand Class
@@ -282,6 +298,7 @@ public class MainWindow extends UiPart<Stage> {
         deliveryPieChart.setData(pieChartData);
     }
 
+    //@@Amoscheong97
     /**
      * With the LogicManager given, use it to get the lists of delivery orders.
      * The list will be used to display the statistics of the delivery orders.
@@ -299,6 +316,7 @@ public class MainWindow extends UiPart<Stage> {
                 .collect(Collectors.toList());
     }
 
+    //@@Amoscheong97
     /**
      * Putting the data values for delivery orders into the Labels.
      *
@@ -307,6 +325,7 @@ public class MainWindow extends UiPart<Stage> {
         doneOrders.setText(String.valueOf(deliveredList.size()));
     }
 
+    //@@Amoscheong97
     /**
      * With the LogicManager given, use it to get the lists of return orders.
      * The list will be used to display the statistics of the return orders.
@@ -324,6 +343,7 @@ public class MainWindow extends UiPart<Stage> {
                 .collect(Collectors.toList());
     }
 
+    //@@Amoscheong97
     /**
      * Putting the data values for return orders into the Labels.
      *
@@ -332,6 +352,7 @@ public class MainWindow extends UiPart<Stage> {
         returnedOrders.setText(String.valueOf(returnedList.size()));
     }
 
+    //@@Amoscheong97
     /**
      * Opens the show window or focus on it if it the window is already opened.
      */
@@ -367,6 +388,7 @@ public class MainWindow extends UiPart<Stage> {
         populatePieChart();
     }
 
+    //@@author
     void show() {
         primaryStage.show();
     }
@@ -427,5 +449,26 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    //@@author khsc96-reused
+    //Reused from https://stackoverflow.com/a/52785067 with minor modifications, added specific day and change
+    //formatting
+    /**
+     * Method handler to display clock on the menu bar.
+     */
+    public void showTime() {
+
+        final Timeline clock = new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                event -> {
+                    DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("E, dd-MMM-uuuu HH:mm:ss");
+                    String timeNow = LocalDateTime.now().format(timeFormat);
+                    timeHolder.setText(timeNow);
+                }
+            ), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 }
