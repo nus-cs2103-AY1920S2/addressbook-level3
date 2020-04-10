@@ -1,0 +1,23 @@
+@startuml
+start
+
+:User executes toggle command;
+:Switches value of isViewList in ToggleView;
+
+if () then ([Currently shows list of transactions])
+    if () then ([Filter is set to certain month])
+        : Display stacked bar graph showing
+        expenditure of filtered month by days
+           of week, stacked by week number;
+        else ([else])
+        :Display bar graph showing
+        expenditure of this year and
+        last year by individual month;
+        endif
+else ([else])
+    :Display list of transactions
+            according to filter;
+endif
+
+stop
+@enduml

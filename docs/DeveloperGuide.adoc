@@ -355,21 +355,71 @@ future implementation.
 
 === Chart Analytics
 
-The *toggle* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
+The *toggleview* command allows the user to switch between viewing the list of 'Transactions' and viewing an analysis of
 his expenditure. 
 
 ==== Implementation
 
-*Toggle* mechanism utilizes `Logic` operations with the `ToggleCommand` class in place of `Command`. The following
+`MainWindow` decides whether to show a list of transactions or chart analysis based on `ToggleView#isViewList`, by accessing
+`Logic#getToggleView()`.
+
+Here is a Class Diagram for the implementatino of `ToggleView`:
+image::
+Figure XX. Implementation of `ToggleView` class
+
+
+The *ToggleView* mechanism utilizes `Logic` operations with the `ToggleViewCommand` class in place of `Command`. The following
 methods are concrete implementations for the *toggle* operation:
 
-* `ToggleCommand#execute()` - Modifies the `ToggleView` in `Model` to view list of transactions or view analytics, and
+* `ToggleViewCommand#execute()` - Modifies the `ToggleView` in `Model` to view list of transactions or view analytics, and
 returns a `CommandResult` (<<Design-Logic, Step 4 of Logic>>).
 * `ToggleView#switchIsViewList()` - Modifies the boolean value `isViewList` in `ToggleView` to the negation of it's
 current value.
 - This `ToggleView` is wrapped in `ExpenseLa` and its `switchIsViewList()` is called through
 `ExpenseLa#switchToggleView()`.
 - `ExpenseLa#switchToggleView()` is exposed in the `Model` interface as `Model#switchToggleView()`.
+
+The following sequence diagram illustrates **toggleview** command execution:
+image::
+Figure XX. Sequence diagram for **toggleview** execution
+
+===== Example of usage
+Given next is an example and explanation of how the **ToggleView** mechanism behaves at each step:
+
+Step 1. The user starts up the application with an initial list loaded from external storage file. The diagram here
+depicts the example list used throughout this scenario.
+
+:figure-caption!:
+.Example list on startup
+image::clone/cloneDG/CloneStep3.png[,650]
+
+Step 2. The user inputs **toggleview** to change the view from list of transactions to chart analysis.
+
+.User input for toggle view
+image::update/updateDG/UpdateStep2.png[,650]
+
+Step 3. `ToggleViewCommand#execute()` switches `isViewList` of `ToggleView` from true to false.
+
+.`isViewList` of `ToggleView` switched from `ToggleViewCommand#execute()`
+image::update/updateDG/UpdateStep3.png[,650]
+
+Step 4. `MainWindow#executeCommand()` checks the boolean value of isViewList which is false, and displays chart analysis.
+
+image::update/updateDG/UpdateStep4Part1.png[,650]
+.Switched from showing list of transactions to chart analysis
+image::update/updateDG/UpdateStep4Part3.png[,650]
+
+Step 5. User inputs **toggleview** again to change view back to list of transactions.
+
+.Switched from showing list of transactions to chart analysis
+image::update/updateDG/UpdateStep4Part3.png[,650]
+
+===== Execution shown to user
+The following activity diagram gives an overview of what ExpenseLa shows the user when executing **toggleview** command:
+
+:figure-caption: Figure
+.Activity diagram for execution of toggleview command
+image::update/updateDG/UpdateActivityDiagram.png[]
 
 === Logging
 
