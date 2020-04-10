@@ -32,6 +32,7 @@ public class Profile {
     private Name name;
     private CourseName courseName;
     private Cap cap;
+    private List<Deadline> deadlineList;
 
     /**
      * Every field must be present and not null.
@@ -61,12 +62,9 @@ public class Profile {
             semModHashMap.put(semester, moduleList);
         }
 
-        int id = 0;
-        if (semModHashMap.containsKey(currentSemester)) {
-            for (Module mod : semModHashMap.get(currentSemester)) { //for colourising module names
-                mod.setTag(id++);
-            }
-        }
+        int id = semModHashMap.get(semester).getModuleList().size();
+        module.setTag(id);
+
     }
 
     public Name getName() {
@@ -167,12 +165,16 @@ public class Profile {
 
     public List<Deadline> getDeadlines() {
         ModuleList modules = semModHashMap.get(currentSemester); // Deadlines should only be from the current semester
-        List<Deadline> deadlineList = new ArrayList<>();
-        for (Module module: modules) {
-            deadlineList.addAll(module.getDeadlines());
+        deadlineList = new ArrayList<>();
+
+        if (modules != null) {
+            for (Module module: modules) {
+                deadlineList.addAll(module.getDeadlines());
+            }
         }
         return deadlineList;
     }
+
 
     public void updateCap() {
         cap.updateCap(semModHashMap);

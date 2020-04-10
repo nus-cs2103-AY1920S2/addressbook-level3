@@ -157,6 +157,11 @@ public class AddCommand extends Command {
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
             }
 
+            if (!hasModule) {
+                profile.addModule(addSemester, moduleToAdd);
+                hasModule = true;
+            }
+
             Deadline deadline;
             String moduleCode = toAdd.toString();
             if (addDate != null) {
@@ -197,6 +202,8 @@ public class AddCommand extends Command {
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;
         }
+
+
 
         profile.updateCap();
         return new CommandResult(String.format(messageShown, toAdd), false);
