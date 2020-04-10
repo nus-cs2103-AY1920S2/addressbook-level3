@@ -798,9 +798,6 @@ If it does, a new session with the updated date will be added to `Model#UniqueSe
 
 7. The updated filtered session list will be displayed to the user.
 
-.Activity Diagram for Done Session
-image::DoneSessionActivityDiagram.png[]
-
 //tag::claimsview[]
 === Claims View
 *Claims View* refers to the view that contains a list of all the sessions that have
