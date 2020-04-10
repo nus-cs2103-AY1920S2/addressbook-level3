@@ -34,7 +34,7 @@ deactivate ListAmountCommand
 ExpenseSplitterParser --> SplitterLogicManager: d
 deactivate ExpenseSplitterParser
 
-SplitterLogicManager -> ListAmountCommand: execute()
+SplitterLogicManager -> ListAmountCommand: execute(model)
 activate ListAmountCommand
 
 ListAmountCommand -> SplitterModelManager: listAmount()
