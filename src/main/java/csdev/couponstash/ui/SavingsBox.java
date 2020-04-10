@@ -22,7 +22,7 @@ public class SavingsBox extends UiPart<Region> {
     private static final String NO_NUMERICAL_AMOUNT_STYLE = "-fx-font-size: 12;"
             + "-fx-font-weight: normal; -fx-font-style: italic; -fx-text-fill: #6c96be;";
     // controls font size of number amount
-    private static final int BASE_FONT_SIZE = 125;
+    private static final int BASE_FONT_SIZE = 105;
     // if no saveables, translate numerical amount
     private static final int NUMERICAL_AMOUNT_TRANSLATE_AMOUNT = 12;
 
