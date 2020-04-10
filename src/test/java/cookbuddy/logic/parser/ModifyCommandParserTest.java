@@ -170,6 +170,24 @@ public class ModifyCommandParserTest {
         expectedCommand = new ModifyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        // serving
+        userInput = targetIndex.getOneBased() + SERVING_DESC_HAM_SANDWICH;
+        descriptor = new EditRecipeDescriptorBuilder().withServing(VALID_SERVING_HAM_SANDWICH).build();
+        expectedCommand = new ModifyCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // rating
+        userInput = targetIndex.getOneBased() + RATING_DESC_HAM_SANDWICH;
+        descriptor = new EditRecipeDescriptorBuilder().withRating(VALID_RATING_HAM_SANDWICH).build();
+        expectedCommand = new ModifyCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // calorie
+        userInput = targetIndex.getOneBased() + CALORIE_DESC_HAM_SANDWICH;
+        descriptor = new EditRecipeDescriptorBuilder().withCalorie(VALID_CALORIE_HAM_SANDWICH).build();
+        expectedCommand = new ModifyCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_BREAKFAST;
         descriptor = new EditRecipeDescriptorBuilder().withTags(VALID_TAG_BREAKFAST).build();
