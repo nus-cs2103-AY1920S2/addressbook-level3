@@ -9,6 +9,10 @@ import static seedu.address.testutil.transaction.TypicalDateTimes.MARCH_SECOND_2
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 public class DateTimeTest {
 
     @Test
@@ -42,6 +46,12 @@ public class DateTimeTest {
 
     @Test
     public void isValidDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
+        LocalDateTime currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Singapore"));
+        LocalDateTime currentPlusOneHour =  currentDateTime.plusHours(1);
+        LocalDateTime currentPlusOneDay = currentDateTime.plusDays(1);
+
+
         //null date time
         assertThrows(NullPointerException.class, () -> DateTime.isValidDateTime(null));
 
@@ -56,6 +66,8 @@ public class DateTimeTest {
         assertFalse(DateTime.isValidDateTime("2020-02-02 10")); // missing minute value
         assertFalse(DateTime.isValidDateTime("02-02-2020 10:00")); // wrong date format
         assertFalse(DateTime.isValidDateTime("2020/02/02 10:00")); // wrong date format
+        assertFalse(DateTime.isValidDateTime(currentPlusOneHour.format(formatter))); // in future by one hour
+        assertFalse(DateTime.isValidDateTime(currentPlusOneDay.format(formatter))); // in future by one day
 
         //valid date time string
         assertTrue(DateTime.isValidDateTime("2020-02-20 10:00"));
