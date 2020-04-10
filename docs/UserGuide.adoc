@@ -114,9 +114,9 @@ n /Software Engineering` , TA-Tracker doesn't recognise `n /` to be the same
 as `n/` and you'll get an error message saying that the command format used is wrong.
 
 | Parameters can be in any order. | If the command specifies `n/NAME p/PHONE_NUMBER`,
-`p/PHONE_NUMBER n/NAME` is also acceptable. |
+`p/PHONE_NUMBER n/NAME` is also acceptable.
 
-====
+|=======================================================================
 
 === Common Parameters
 
