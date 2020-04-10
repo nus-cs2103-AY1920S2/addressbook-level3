@@ -35,16 +35,17 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     private static final long DEFAULT_HOURS = 0;
     private static final int DEFAULT_RATE = 40;
-    private static String currClaimFilter;
-    private static String currSessionFilter;
-    private static String currSessionDateFilter;
-    private static String currSessionModuleFilter;
-    private static String currSessionTypeFilter;
-    private static String currStudentFilter;
 
-    private static Group currentlyShownGroup;
-    private static Module currentlyShownModule;
-    private static Module currentlyShownModuleClaim;
+    private static String currClaimFilter = "";
+    private static String currSessionFilter = "";
+    private static String currSessionDateFilter = "";
+    private static String currSessionModuleFilter = "";
+    private static String currSessionTypeFilter = "";
+    private static String currStudentFilter = "";
+
+    private static Group currentlyShownGroup = null;
+    private static Module currentlyShownModule = null;
+    private static Module currentlyShownModuleClaim = null;
 
     private int rate;
 
@@ -62,9 +63,6 @@ public class TaTracker implements ReadOnlyTaTracker {
         modules = new UniqueModuleList();
         currentlyShownGroups = new UniqueGroupList();
         currentlyShownStudents = new UniqueStudentList();
-        currentlyShownGroup = null;
-        currentlyShownModule = null;
-        currentlyShownModuleClaim = null;
 
         currClaimFilter = "";
         currSessionFilter = "";
