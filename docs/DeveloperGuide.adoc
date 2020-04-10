@@ -111,6 +111,7 @@ image::DeleteSequenceDiagram.svg[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//tag::design_model[]
 [[Design-Model]]
 === Model component
 
@@ -130,6 +131,7 @@ The `Model`,
 An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
 every UniqueOrderList is part of an OrderBook.
 image:BetterModelClassDiagram.svg[]
+//end::design_model[]
 
 //tag::Design-Storage[]
 [[Design-Storage]]
@@ -766,6 +768,9 @@ The above class diagram shows the structure of the `DeliveredCommand` and
 its associated classes and interfaces. Some methods and fields are not included because they are
 not extensively utilised in `DeliveredCommand`; such as public static fields and getter/setter methods.
 
+[[return-interactions]]
+==== Interactions between objects when Return Command is executed
+
 ==== Sequence Diagram for converting an order into a return order
 The sequence diagrams for the *Return Command* are shown below.
 
@@ -813,9 +818,6 @@ toBeCreated, will be added to the model's return order list using the addReturnO
 
 Finally, a new CommandResult will be created to display the success message to the user for converting
 a delivered order to a return order.
-
-[[return-interactions]]
-==== Interactions between objects when Return Command is executed
 
 ==== Sequence Diagram for creating a new return order
 The sequence diagrams for the *Return Command* are shown below.
@@ -1042,6 +1044,17 @@ image::NearbySequenceDiagramParseException.svg[]
 The exception will be thrown in the `NearbyCommandParser`.
 
 //end::nearby[]
+
+[[help]]
+=== Help Feature
+[[what-is-help]]
+==== What is the Help Feature
+[[execution-paths-help]]
+==== Execution paths of the Help command
+[[structure-help]]
+==== Structure of Help Command
+[[help-interactions]]
+==== Sequence Diagram for the Help Feature
 
 
 //tag::import[]
@@ -1773,6 +1786,37 @@ Use case ends.
 Use case ends.
 //end::use_case_show[]
 
+//tag::use_case_help[]
+[discrete]
+=== Use case: UC12 - Display list of commands in Delino using help
+
+*MSS*
+
+1.  User requests to list all commands in Delino
+2.  Delino opens a new window after execution of the help command.
+3.  Delino display the list of commands and a button to provide user a link to Delino's User Guide
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message to tell user the right way to use the help command.
++
+Use case ends.
+
+[none]
+* 1b. Delino detects additional non-whitespace characters after the command word, help.
++
+[none]
+** 1b1. Delino shows an error message to tell user the right way to use the help command.
++
+Use case ends.
+//end:use_case_help[]
+
 //tag::non_functional_requirements[]
 [appendix]
 == Non Functional Requirements
@@ -2177,16 +2221,6 @@ There are *5* different areas in Singapore: Central, East, North East, West, Nor
 https://keylocation.sg/singapore/districts-map[this website] +
 
 //end::appendix-nearby[]
-
-=== Undo previous action
-
-. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
-
-.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
-.. Test case: `undo` +
-   Expected: The original list will be replaced with the current new list. The previous state will be restored
-.. Test case: `undo` `INVALID_SYNTAX` +
-   Expected: Error message displayed in the response box
 
 === Saving data
 

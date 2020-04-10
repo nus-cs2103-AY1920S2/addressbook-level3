@@ -15,50 +15,67 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 == Summary of contributions
 
 * *Major enhancement*:
-Added the `help` command (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310[#310])
-** What it does: It displays a list of all Delino's commands
-** Justification: This command allows the user to see the usage of each command in Delino and
-quickly be able to utilise Delino's available features.
-
-** Added `return` command (Pull request: )
+** Added `return` command (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/303[#303])
 *** What it does: This command allows the user to create a new return order and add it into the Return Order List or
 convert a delivered order into a return order
 and add it into the Return Order List.
 *** Justification: This feature is a must-have in Delino as it is a delivery management app. It allows the user to convert
 delivered orders into return orders and even create new return orders from scratch with the given parcel attributes.
-This feature requires a deep understanding of the AddressBook 3 (AB3) codebase and that took quite a bit of time.
+*** Highlights: This feature requires a deep understanding of the AddressBook 3 (AB3) codebase and that took quite a bit of time.
 Two different logic execution paths had to be implemented and the testing of this feature also had to be extensive
-and exhaustive to ensure that no test cases were missed in the process of testing.
+and exhaustive to ensure that no test cases were missed in the process of testing. The parametized testing functionality
+provided by JUnit 5 made this process to be much more convenient (https://www.baeldung.com/parameterized-tests-junit-5).
+Furthermore, new classes such as ReturnOrder, ReturnCommand, Parcel abstract class also had to be implemented for this
+feature to be fully functional. Therefore, this feature affects subsequent features to be added due to changes in inheritance of classes.
 
-** Added `delivered` command (Pull request: )
+** Added `delivered` command (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/302[#302] )
 *** What it does: Allows the user to mark orders or return orders as delivered.
-*** Justification: This is an important feature and it is a must-have for an app like Delino. It allows the user to easily
+*** Justification: This is a must-have feature for a delivery management app like Delino. It allows the user to easily
 mark an order or return order as delivered after delivering the parcel.
+*** Highlights: This feature required good understanding of the AB3 codebase and how the entire order list and return order
+list are edited to display the changes in the GUI. As such, this required a deep level of understanding of how the entire
+app worked so that the changes can be executed and displayed on the GUI from the start of the command till the end of execution.
 
-* *Minor enhancement*: [Coming soon]
+** Added the `help` command (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/310[#310])
+*** What it does: It displays a list of all Delino's commands and llows the user to see the usage of each command in Delino and
+quickly be able to utilise Delino's available features.
+*** Justification: This command was rather simple to implement but the main problem faced was deciding the right window size
+for the pop-up help window as different screens have different resolutions and this resulted in some bugs that had to be
+re-looked at and fixed.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Minor enhancement*:
+. Updated Delino's icon image and link in the Developer Guide (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/245[#245])
+. Added Non-functional requirements (NFR) in the Developer Guide (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/89[#89])
+. Wrote Must-haves for user stories in Developer Guide (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/65[#65])
+. Did the first mock-up for Delino's UI using Adobe XD (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/85[#85])
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=cherweijie&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code & Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** In charge of team facilitation, code integration and UI design.
+. In charge of team facilitation, code integration and UI design.
+. Set up Codacy with Jeremy to improve code quality of Delino's repository. (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/61[#61])
+. Ensure that project deliverables are completed on time.
 
 ** Enhancements to existing features:
-*** Adapted the given Address Book UI into Delino's first draft UI. https://github.com/
+*** Adapted the given Address Book UI into Delino's first draft UI. (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/85[#85])
 
 ** Documentation:
-*** To be added
+*** Updated Developer Guide to include Delivered Command (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/253[#253])
+*** Updated Developer Guide to include Return Command (Pull request: )
+*** Updated Developer Guide to include Help Command (Pull request: )
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Set up Codacy to improve
+*** PRs reviewed (with non-trivial review comments): (Pull requests: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/118[#118],
+ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/191[#191],
+ https://github.com/AY1920S2-CS2103T-W12-1/main/pull/226[#226])
 
-_{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/Cherweijie/ped/issues)
+
+** Tools:
+*** Set up Codacy and updated its badge to link to our repository together with Jeremy (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/61[#61])
 
 == Contributions to the User Guide
 
@@ -67,9 +84,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=introduction]
+include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=return]
+include::../UserGuide.adoc[tag=delivered]
+include::../UserGuide.adoc[tag=product_information]
 
 == Contributions to the Developer Guide
 
@@ -78,7 +97,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |===
 
 == Design
-include::../DeveloperGuide.adoc[tag=Design-Model]
+include::../DeveloperGuide.adoc[tag=design_model]
 
 == Features
 include::../DeveloperGuide.adoc[tag=return]
@@ -86,20 +105,15 @@ include::../DeveloperGuide.adoc[tag=help]
 include::../DeveloperGuide.adoc[tag=delivered]
 
 == Use Cases
-include::../DeveloperGuide.adoc[tag=use_case_clear]
-include::../DeveloperGuide.adoc[tag=use_case_import]
+include::../DeveloperGuide.adoc[tag=use_case_help]
+include::../DeveloperGuide.adoc[tag=use_case_return]
+include::../DeveloperGuide.adoc[tag=use_case_delivered]
 
 == Glossary
 include::../DeveloperGuide.adoc[tag=command_prefix]
 include::../DeveloperGuide.adoc[tag=command_flags]
 
 == Appendix G: Instructions for Manual Testing
-include::../DeveloperGuide.adoc[tag=appendix-clear]
-include::../DeveloperGuide.adoc[tag=appendix-import]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=appendix-delivered]
+include::../DeveloperGuide.adoc[tag=appendix-return]
+include::../DeveloperGuide.adoc[tag=appendix-help]
