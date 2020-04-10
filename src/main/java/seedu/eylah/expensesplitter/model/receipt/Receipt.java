@@ -140,14 +140,15 @@ public class Receipt {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        int indexToBeDisplayed = 1;
         builder.append("Receipt:\n");
         for (Entry entry : receipt) {
-            int index = receipt.indexOf(entry) + 1;
             builder.append("    ")
-                    .append(index)
+                    .append(indexToBeDisplayed)
                     .append(". ")
                     .append(entry.toString())
                     .append("\n");
+            indexToBeDisplayed++;
         }
         return builder.toString();
     }
