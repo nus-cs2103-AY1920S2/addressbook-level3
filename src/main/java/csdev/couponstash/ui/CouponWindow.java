@@ -2,12 +2,15 @@ package csdev.couponstash.ui;
 
 import static csdev.couponstash.commons.util.DateUtil.DAY_SHORT_MONTH_YEAR_FORMATTER;
 
+import java.time.LocalDate;
+import java.util.*;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 
@@ -164,13 +167,17 @@ public class CouponWindow extends UiPart<Stage> {
      * @param moneySymbol Money symbol for the display.
      */
     public void setHistory(DateSavingsSumMap dssm, String moneySymbol) {
-        dssm.forEach((ld, pms) -> {
-            Label dateLabel = new Label(ld.format(DateUtil.DATE_FORMATTER));
+        List<Map.Entry<LocalDate, PureMonetarySavings>> sortedEntries =
+                new ArrayList<Map.Entry<LocalDate, PureMonetarySavings>>(dssm.entrySet());
+        // sort by dates (descending, from present to past)
+        sortedEntries.sort((e1, e2) -> e2.getKey().compareTo(e1.getKey()));
+        sortedEntries.forEach(entry -> {
+            Label dateLabel = new Label(entry.getKey().format(DateUtil.DATE_FORMATTER));
             dateLabel.getStyleClass().add(CouponWindow.EXPANDED_COUPON_DETAILS_TITLE);
 
             Text savingsLabel = new Text();
             savingsLabel.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 16));
-            savingsLabel.setText(pms.getStringWithMoneySymbol(moneySymbol) + "\n");
+            savingsLabel.setText(entry.getValue().getStringWithMoneySymbol(moneySymbol) + "\n");
             savingsLabel.setWrappingWidth(190);
             savingsLabel.setFill(Color.WHITE);
 
