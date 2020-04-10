@@ -39,7 +39,6 @@ public class DeleteSuggestionCommandParserTest {
         model = SuggestionTestUtil.getModel();
         toCs2103t = SuggestionTestUtil.getToCs2103t();
 
-        // initialize parser
         CorrectionEngine<AbsolutePath> pathCorrectionEngine = new AbsolutePathCorrectionEngine(model,
                 CORRECTION_THRESHOLD, USE_FORWARD_MATCHING);
         deleteSuggestionCommandParser = new DeleteSuggestionCommandParser(model, pathCorrectionEngine);
@@ -53,8 +52,7 @@ public class DeleteSuggestionCommandParserTest {
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE),
-                model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
 
         assertFalse(command.isPresent());
     }
@@ -67,8 +65,7 @@ public class DeleteSuggestionCommandParserTest {
         model.setInput(userInput);
         Optional<? extends SuggestionCommand> command = deleteSuggestionCommandParser.parse(path);
 
-        assertEquals(Optional.of(RESPONSE_MESSAGE),
-                model.responseTextProperty().getValue());
+        assertEquals(Optional.of(RESPONSE_MESSAGE), model.responseTextProperty().getValue());
 
         assertFalse(command.isPresent());
     }
@@ -88,19 +85,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, toCs2103t.getStringRepresentation())),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -119,19 +108,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, toCs2103t.getStringRepresentation())),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -150,19 +131,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -181,19 +154,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, RELATIVE_PATH_TO_CS2103T)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -213,19 +178,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -245,19 +202,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -277,19 +226,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -309,19 +250,11 @@ public class DeleteSuggestionCommandParserTest {
         assertEquals(Optional.of(String.format(RESPONSE_MESSAGE_WITH_TITLE, path)),
                 model.responseTextProperty().getValue());
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
-
-        // Actual suggestions
         List<SuggestionItem> suggestions = model.getSuggestions();
-
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
-
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 

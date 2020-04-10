@@ -21,7 +21,6 @@ public class EditSuggestionCommandParserTest {
     public static void setUp() {
         model = SuggestionTestUtil.getModel();
 
-        // initialize parser
         editSuggestionCommandParser = new EditSuggestionCommandParser(model);
     }
 

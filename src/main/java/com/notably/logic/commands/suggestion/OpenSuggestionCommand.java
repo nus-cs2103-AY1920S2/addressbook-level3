@@ -35,16 +35,12 @@ public class OpenSuggestionCommand implements SuggestionCommand {
 
     @Override
     public void execute(Model model) {
-        // Nullity check
         Objects.requireNonNull(model);
 
-        if (!oldTitle.isBlank()) {
-            // Set suggestions
-            List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
-            List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
+        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
+        List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
-            model.setSuggestions(suggestions);
-        }
+        model.setSuggestions(suggestions);
     }
 
     /**

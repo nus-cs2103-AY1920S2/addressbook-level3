@@ -35,15 +35,12 @@ public class DeleteSuggestionCommand implements SuggestionCommand {
 
     @Override
     public void execute(Model model) {
-        // Nullity check
         Objects.requireNonNull(model);
 
-        // Set suggestions
         List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         model.setSuggestions(suggestions);
-
     }
 
     /**

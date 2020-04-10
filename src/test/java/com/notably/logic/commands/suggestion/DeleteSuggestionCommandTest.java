@@ -64,16 +64,12 @@ public class DeleteSuggestionCommandTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 
@@ -87,16 +83,12 @@ public class DeleteSuggestionCommandTest {
 
         List<SuggestionItem> suggestions = model.getSuggestions();
 
-        // Expected suggestions
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSugForCs2103tPathInput();
 
-        // Test suggestions
         SuggestionTestUtil.testSuggestions(expectedSuggestions, suggestions);
 
-        // Expected inputs
         List<String> expectedInputs = SuggestionTestUtil.getExpectedInputsForCs2103tPathInput(userInputWithoutPath);
 
-        // Test inputs
         SuggestionTestUtil.testInputs(expectedInputs, suggestions, model);
     }
 }
