@@ -651,6 +651,7 @@ image::ReturnCSVFormat.png[]
 * `ORDER_TYPE` can only be either `order` or `return`.
 * Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
 * `ORDER_TYPE` denote the start of an delivery order or return order.
+* If there are 2 or more `ORDER_TYPE` within a single order sentence it will be treated as 2 or more orders.
 * The last value of the same type will be stored if duplicate prefix type is found in a single order sentence.
 * Duplicate and invalid order or return order will not be imported into Delino.
 * You could download a link:https://github.com/AY1920S2-CS2103T-W12-1/main/releases[sample CSV file] in our release under assets to start with.

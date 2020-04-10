@@ -1,6 +1,7 @@
 package seedu.delino.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -159,4 +160,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate);
+
+    /**
+     * Get start up messages when Delino start up.
+     * @return list of string to be display to user when start up.
+     */
+    List<String> getStartUpMessages();
 }
