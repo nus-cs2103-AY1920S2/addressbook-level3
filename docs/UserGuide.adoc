@@ -1080,6 +1080,8 @@ You can use this command to generate a report to display information such as:
 
 Optionally, you can specify a module code. If a module code is specified, the report generated will only include data from the specified module.
 
+Pressing the `esc` key on your keyboard will close the statistics window.
+
 Format: `report [MOD_CODE]`
 
 [NOTE]
