@@ -76,8 +76,8 @@ your data manually.
 This User Guide introduces you to TA-Tracker's features and shows you how you can use
 the TA-Tracker to make your life as a Teaching Assistant easier.
 
-=== Commonly Used Symbols
-This section shows you the symbols commonly used in the User Guide.
+=== Common Symbols
+This section shows you the symbols commonly used in this guide.
 
 [NOTE]
 ====
@@ -96,38 +96,86 @@ This symbol indicates that there is something you should be careful to avoid.
 
 === Command Format
 
-All the commands written in the user guide follow some rules that have been mentioned
-below. This will help you better understand how to use the commands.
+This section shows you how all the commands in this guide have been formatted.
 
-[width="%",cols="<20%,<40,options="header",]
+Here is a table outlining how the commands have been formatted in this guide:
+
+[width="%",cols="<20%a,<30%a,<50a",options="header"]
 |=======================================================================
-| Rule | Examples
+| Format | Meaning | Example
 
-| Words in `UPPER_CASE` are the parameters to be supplied by the user. | In
-`student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
+|
+`lower_case/`
 
-| Items in square brackets are optional. | `n/NAME [t/TAG]` can be used as
-`n/John Doe t/Fast learner` or as `n/John Doe`.
+Any lower case letters, followed by a forward slash
+|
+These are *prefixes*.
 
-| Items with `…`​ after them can be used multiple times or none at all. |
+They are used to separate the different parameters of a command.
+|
+These are prefixes: +
+`n/`, `d/`, `t/`
 
-- Left Empty: `t/` (i.e. 0 times)
+Note that prefixes *cannot have spaces*: +
+`n /` is *not a prefix*, and will not be recognized.
 
-- Used one time: `t/friend` (i.e. once)
+|
+`UPPER_CASE`
 
-- Used multiple times: `t/friend t/family` (i.e. 2 times).
+Words in upper case
+|
+These are *parameters*.
 
-| If you use a prefix without `...` mentioned multiple times, TA-Tracker only will accept
-the last instance of the prefix. | In the command `module add m/CS2103T n/SE n/Software Engineering` ,
-a module with the module code `CS2013T` and name `Software Engineering` will be created.
+You will need to supply parameters in order to complete certain commands.
+|
+You can create a *student* with the name *John Doe* using the `student add` command.
 
-| If you separate the the prefix letter and `/` while writing a command, TA-Tracker
-will not recognise the prefix. | In the command `module add m/CS2103T
-n /Software Engineering` , TA-Tracker doesn't recognise `n /` to be the same
-as `n/` and you'll get an error message saying that the command format used is wrong.
+Suppose the `student add` command looks like this: +
+`student add n/NAME`
 
-| Parameters can be in any order. | If the command specifies `n/NAME p/PHONE_NUMBER`,
-`p/PHONE_NUMBER n/NAME` is also acceptable.
+Simply replace `NAME` with `John Doe` to create the student *John Doe*: +
+`student add n/John Doe`
+
+|
+`[UPPER_CASE]`
+
+Words in upper case, surrounded by square brackets
+|
+These are *optional parameters*.
+
+Certain commands can be used without these parameters.
+|
+Suppose a command contains *two parameters* next to each other: +
+`n/NAME [t/TAG]`
+
+The *first parameter* `NAME` is *compulsory*. +
+The *second parameter* `TAG` is *optional*.
+
+Since a `TAG` is *optional*, you will be able to use the command with these *inputs*:
+
+* `n/John Doe t/Fast learner`, or
+* `n/John Doe`
+
+|
+`UPPER_CASE...`
+
+`[UPPER_CASE]...`
+
+An ellipsis `...` following any words in upper case
+|
+These are parameters that can be used *multiple times* or *none at all*.
+|
+The following parameter can be used *multiple times*: +
+`t/TAG...`
+
+This means that it can be:
+
+* *Left empty* (i.e. 0 times): +
+`t/`
+* *Used one time* (i.e. 1 time): +
+`t/friend`
+* *Used multiple times* (i.e. 2 or more times): +
+`t/friend t/family`
 
 |=======================================================================
 
