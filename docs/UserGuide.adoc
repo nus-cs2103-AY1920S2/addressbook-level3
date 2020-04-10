@@ -737,7 +737,7 @@ You can use this command to chose how you want to sort your students in a specif
 The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the first group of the module
-that you have sorted. If you want to view the other groups, you can use the `student filter`
+that you have sorted. If you want to see the other groups, you can use the `student filter`
 command as explained later in this guide.
 If you were on a different tab, you will automatically be switched to the student tab.
 
@@ -774,7 +774,7 @@ You can use this command to chose how you want to sort all of your students.
 The students will be sorted according to your specified `SORT_TYPE`.
 
 The *Student View* will show you the students inside the first group of the  first module
-in the TA-Tracker. If you want to view the other groups or modules, you can use the `student filter`
+in the TA-Tracker. If you want to see the other groups or modules, you can use the `student filter`
 command as explained later in this guide.
 If you were on a different tab, you will automatically be switched to the student tab.
 
@@ -806,7 +806,7 @@ Sorts all students in all groups inside all modules `alphabetically`.
 [[FilterStudent]]
 ==== Filter : `filter`
 
-You can use this command to view the students in a particular group
+You can use this command to see the students in a particular group
 and module.
 
 You can filter the students in *Student View* in the following ways:
@@ -892,7 +892,7 @@ you can omit `s/START` , `e/END` and `d/DATE`.
 command (details given below in 5.3.3.).
 
 . If the session has a recurring period `[w/WEEKS]`, a new session with the updated date
-and timing will be added to Session View when it is marked as done.
+and timing will be added to *Session View* when it is marked as done.
 
 . You will find the recurring period `[w/WEEKS]` field handy for tasks that happen once every few weeks
 such as your weekly lab sessions or fortnightly assignment grading.
@@ -974,7 +974,7 @@ You can use this command to mark a session as done.
 The session marked as done will be removed from the *Session View* and
 will automatically appear as a new claim in the *Claims View*.
 If the session marked done has a recurring period, a new session with the updated date
-and timing will be added to Session View.
+and timing will be added to *Session View*.
 
 If you were on a different tab, you will automatically be switched to the claims tab.
 
