@@ -85,7 +85,7 @@ Student2 -- Group2
 Student3 -- Group1
 Student4 -- Group1
 
-Session1 -- Module1
-Session2 -- Module1
+Session1 -up- Module1
+Session2 -up- Module1
 
 @enduml
