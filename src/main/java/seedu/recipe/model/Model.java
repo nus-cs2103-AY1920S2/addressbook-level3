@@ -12,6 +12,7 @@ import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.Plan;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -151,6 +152,11 @@ public interface Model {
     void updateFilteredPlannedList(Predicate<Plan> predicate) throws NullPointerException;
 
     /**
+     * Returns the mapping of all plans.
+     */
+    PlannedRecipeMap getPlannedMap();
+
+    /**
      * Returns the Optional of list of plans that uses {@code recipe}.
      * Returns Optional empty if no plans use {@code recipe}.
      */
@@ -207,4 +213,5 @@ public interface Model {
      * Returns true if a quote with the same identity as {@code quote} exists in the quote book.
      */
     boolean hasQuote(Quote quote);
+
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.recipe.model.recipe.Recipe;
 
@@ -98,6 +99,13 @@ public class PlannedRecipeMap {
      */
     public Map<Recipe, List<Plan>> getInternalMap() {
         return new HashMap<>(internalMap);
+    }
+
+    /**
+     * Returns all entries in the mapping.
+     */
+    public Set<Map.Entry<Recipe, List<Plan>>> getAllEntries() {
+        return internalMap.entrySet();
     }
 
 }

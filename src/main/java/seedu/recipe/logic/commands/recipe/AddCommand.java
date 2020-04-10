@@ -23,7 +23,7 @@ import seedu.recipe.ui.tab.Tab;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "addPlan";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the recipe book.\n"
             + "Parameters: "

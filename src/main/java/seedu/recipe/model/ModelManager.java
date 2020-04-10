@@ -21,6 +21,7 @@ import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.RecipeBook;
 
@@ -251,6 +252,11 @@ public class ModelManager implements Model {
     public void updateFilteredPlannedList(Predicate<Plan> predicate) {
         requireNonNull(predicate);
         filteredPlannedDates.setPredicate(predicate);
+    }
+
+    @Override
+    public PlannedRecipeMap getPlannedMap() {
+        return plannedBook.getPlannedMap();
     }
 
     //=========== Cooked Recipe List Accessors =============================================================

@@ -66,6 +66,16 @@ public class Quantity {
         return magnitude;
     }
 
+    /**
+     * Sums up the quantity in {@code toAdd} with the current quantity.
+     */
+    public Quantity addQuantityInGram(Quantity toAdd, MainIngredientType mainIngredientType) {
+        Quantity currentInGram = convertToGram(mainIngredientType);
+        Quantity toAddInGram = toAdd.convertToGram(mainIngredientType);
+        double sumMagnitude = currentInGram.magnitude + toAddInGram.magnitude;
+        return new Quantity(sumMagnitude, Unit.GRAM);
+    }
+
     @Override
     public String toString() {
         return String.format("%.01f", magnitude) + unit;

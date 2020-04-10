@@ -4,7 +4,7 @@
     "time" : "25",
     "isFavourite" : false,
     "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
-    "vegetables" : [ "30.0g,  Same vege" ],
+    "vegetables" : [ "50.0g,  This is a looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong ingredient" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
@@ -119,6 +119,28 @@
     "fruits" : [ "50.0g,  Fruit" ],
     "others" : [ ],
     "steps" : [ "step 1", "edited step 2" ],
+    "goals" : [ ]
+  }, {
+    "name" : "test one with same vege",
+    "time" : "20",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "30.0g,  Uniquevege" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ ]
+  }, {
+    "name" : "test two with same vege",
+    "time" : "20",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "30.0g,  Uniquevege" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ ],
     "goals" : [ ]
   } ]
 }

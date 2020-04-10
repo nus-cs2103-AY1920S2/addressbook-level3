@@ -36,6 +36,7 @@ public class GroceryListWindow extends UiPart<Stage> {
         scrollPane.setFitToWidth(true);
         groceryList.setWrapText(true);
         root.setHeight(500);
+        root.setWidth(300);
     }
     
     /**
