@@ -1,6 +1,5 @@
 package cookbuddy.commons.util;
 
-import static cookbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,9 +14,7 @@ public class PhotographUtilTest {
 
         // invalid path
         assertFalse(PhotographUtil.isPlaceHolderImage("a\0"));
-
-        // null path -> throws NullPointerException
-        assertThrows(NullPointerException.class, () -> PhotographUtil.isPlaceHolderImage((String) null));
+        
     }
 
 }
