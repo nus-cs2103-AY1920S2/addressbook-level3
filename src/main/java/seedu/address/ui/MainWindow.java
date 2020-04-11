@@ -48,6 +48,7 @@ import seedu.address.model.settings.DailyTarget;
 import seedu.address.model.settings.PetName;
 import seedu.address.model.settings.PomDuration;
 import seedu.address.model.task.Reminder;
+import seedu.address.logic.Observer;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -395,6 +396,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void displayRecurring(String recurringFeedback) {
+        resultDisplay.setFeedbackToUser(recurringFeedback);
+    }
+
     public void setPomCommandExecutor() {
         commandBox = new CommandBox(this::pomExecuteCommand, this::suggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -507,4 +512,6 @@ public class MainWindow extends UiPart<Stage> {
         alert.setContentText(description);
         alert.show();
     }
+
+    
 }

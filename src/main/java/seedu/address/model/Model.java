@@ -110,11 +110,11 @@ public interface Model {
     ObservableList<DayData> getCustomQueue();
 
     /**
-     * Notifies observers when a change is made. Observer in this case is the logic manager.
+     * Notifies observers when a change is made. Observer in this case is the MainWindow.
      *
      * @throws CommandException
      */
-    void notifyObservers() throws CommandException;
+    void notifyMainWindow(String input) throws CommandException;
 
     void addObserver(Observer observer);
 

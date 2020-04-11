@@ -85,10 +85,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         ObservableList<Task> tasklist = model.getFilteredTaskList();
-        // for (int i = 0; i < tasklist.size(); i++) {
-        //     Task currentTask = tasklist.get(i);
-        //     currentTask.triggerRecurringIfPresent(model, Index.fromZeroBased(i));
-        // }
         return tasklist;
     }
 
@@ -117,12 +113,12 @@ public class LogicManager implements Logic {
         return model.getPomodoro();
     }
 
-    @Override
-    public void update() throws CommandException {
-        try {
-            storage.saveTaskList(model.getTaskList());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-    }
+    // @Override
+    // public void update() throws CommandException {
+    //     try {
+    //         storage.saveTaskList(model.getTaskList());
+    //     } catch (IOException ioe) {
+    //         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+    //     }
+    // }
 }

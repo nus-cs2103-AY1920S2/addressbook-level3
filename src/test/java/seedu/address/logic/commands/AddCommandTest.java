@@ -256,7 +256,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void notifyObservers() throws CommandException {
+        public void notifyMainWindow(String inputString) throws CommandException {
             // TODO Auto-generated method stub
 
         }

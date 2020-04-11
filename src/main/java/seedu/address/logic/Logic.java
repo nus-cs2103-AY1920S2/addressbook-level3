@@ -12,7 +12,7 @@ import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 
 /** API of the Logic component */
-public interface Logic extends Observer {
+public interface Logic {
     /**
      * Executes the command and returns the result.
      *
