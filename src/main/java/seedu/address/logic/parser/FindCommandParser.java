@@ -4,10 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -18,8 +15,6 @@ import seedu.address.model.person.TagsContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -34,12 +29,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         String[] keywords = trimmedArgs.split("\\s+");
-
-        // prints all keywords
-        for (int i = 0; i < keywords.length; i++) {
-            logger.info(keywords[i]);
-            logger.info(String.valueOf(keywords[i].getClass()));
-        }
 
         ArrayList<String> organizationKeywords = new ArrayList<>();
         ArrayList<String> nameKeywords = new ArrayList<>();
