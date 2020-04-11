@@ -383,13 +383,13 @@ e.g. `monday` or `obese200kg`
 |`s/SPORT` | `SPORT` is the sport of the clients you want to match and list. +
 
 `SPORT` is case-insensitive. +
-e.g.  `track and field` will match `Track And Field`
+e.g.  `track and field` returns the same result as `Track And Field`
 
 `SPORT` should only contain letters, numbers or spaces.
 e.g. `sumo wrestling` or `100m sprint`
 
 Order of words in `SPORT` does not matter
-e.g. `track and field` will match `field and track`
+e.g. `track and field` returns the same result as `field and track`
 |===
 
 ==== Example
