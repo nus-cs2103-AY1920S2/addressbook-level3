@@ -301,7 +301,7 @@ Sets: 4 +
 |============
 You can use the `add-e` command to add the exercise as shown.
 
-1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
+1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the `view-c` section. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
 
 image::addeExamplePart1.png[]
 
@@ -334,9 +334,11 @@ You might have the following exercise in your table.
 
 image::addeDuplicatePart1.png[]
 
-If you were to enter `....` into the command box, the only information that is different is the number of sets. The result box will show that you have a duplicate exercise.
+If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
 
 image::addeDuplicatePart2.png[]
+
+The result box will show that you have a duplicate exercise.
 
 image::addeDuplicatePart3.png[]
 
