@@ -193,7 +193,7 @@ public interface Model {
     boolean hasRecord(Record record);
 
     /**
-     * Replaces quotelist data with the data in {@code quotes}.
+     * Returns an unmodifiable view of the filtered quote list
      */
     ObservableList<Quote> getFilteredQuoteList();
 
@@ -206,4 +206,5 @@ public interface Model {
      * Returns true if a quote with the same identity as {@code quote} exists in the quote book.
      */
     boolean hasQuote(Quote quote);
+
 }
