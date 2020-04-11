@@ -42,6 +42,7 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 
 /**
@@ -381,13 +382,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
-        scheduler.deleteWorkoutFromSchedule(workoutToDelete);
+    public void deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete) {
+        scheduler.deleteWorkoutNameFromSchedule(workoutNameToDelete);
     }
 
-    @Override
-    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
-        scheduler.editWorkoutInSchedule(workoutToEdit, editedWorkout);
+    public void editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName) {
+        scheduler.editWorkoutNameInSchedule(workoutNameToEdit, editedWorkoutName);
     }
 
     @Override
