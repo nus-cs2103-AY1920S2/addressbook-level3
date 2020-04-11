@@ -29,6 +29,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +70,7 @@ public class AddCommandTest {
     public void execute_noExistingProfile_throwsCommandException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
-        AddCommand addCommand = new AddCommand(moduleCode, semester, null, null, null, null);
+        AddCommand addCommand = new AddCommand(Set.of(moduleCode), semester, null, null, null, null);
         assertThrows(CommandException.class, MESSAGE_EMPTY_PROFILE_LIST, () ->
                 addCommand.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()));
     }
@@ -78,7 +79,7 @@ public class AddCommandTest {
     @Test
     public void constructor_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                new ModuleCode(null), 0, null, null, null, null));
+                Set.of(new ModuleCode(null)), 0, null, null, null, null));
     }
 
     //No semester added, user inputs "add m/CS1231 y/"
@@ -86,7 +87,7 @@ public class AddCommandTest {
     public void constructor_nullSemester_throwsNullPointerException() {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_AMY);
         assertThrows(NullPointerException.class, () -> new AddCommand(
-                moduleCode, new Year(null).getSemester(), null, null, null, null));
+                Set.of(moduleCode), new Year(null).getSemester(), null, null, null, null));
     }
 
     //Invalid module, valid semester, user inputs "add m/123ABC y/2.1"
@@ -95,7 +96,7 @@ public class AddCommandTest {
         ModuleCode moduleCode = new ModuleCode(INVALID_MODCODE_DESC);
         int semester = new Year(VALID_SEMESTER_AMY).getSemester();
         AddCommand addCommandModule = new AddCommand(
-                moduleCode, semester, null, null, null, null);
+                Set.of(moduleCode), semester, null, null, null, null);
         assertThrows(CommandException.class, MESSAGE_INVALID_MODULE, () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -108,7 +109,7 @@ public class AddCommandTest {
         ModuleCode moduleCode = new ModuleCode("CS1101S");
         int semester = new Year("1.2").getSemester();
         AddCommand addCommandModule = new AddCommand(
-                moduleCode, semester, null, null, null, null);
+                Set.of(moduleCode), semester, null, null, null, null);
         assertThrows(CommandException.class, MESSAGE_DUPLICATE_MODULE, () ->
                 addCommandModule.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -120,11 +121,11 @@ public class AddCommandTest {
         ModuleCode moduleCode = new ModuleCode("CS1231");
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         AddCommand addCommandAllCap = new AddCommand(
-                moduleCode, semester, null, null, null, null);
+                Set.of(moduleCode), semester, null, null, null, null);
         AddCommand addCommandVariety = new AddCommand(
-                new ModuleCode("Cs1231"), semester, null, null, null, null);
+                Set.of(new ModuleCode("Cs1231")), semester, null, null, null, null);
         AddCommand addCommandNoCap = new AddCommand(
-                new ModuleCode("cs1231"), semester, null, null, null, null);
+                Set.of(new ModuleCode("cs1231")), semester, null, null, null, null);
 
         try {
             assertEquals(addCommandAllCap.execute(
@@ -148,7 +149,7 @@ public class AddCommandTest {
         int semester = new Year(VALID_SEMESTER_BOB).getSemester();
         String grade = VALID_GRADE_BOB;
         AddCommand addCommandGrade = new AddCommand(
-                moduleCode, semester, grade, null, null, null);
+                Set.of(moduleCode), semester, grade, null, null, null);
         try {
             assertEquals(addCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                     new ModuleManagerStubCs()).getFeedbackToUser(), String.format(MESSAGE_ADD_SUCCESS, moduleCode));
@@ -181,7 +182,7 @@ public class AddCommandTest {
         LocalDate date = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime time = LocalTime.parse(VALID_DEADLINE_TIME_AMY);
         AddCommand addCommandTask = new AddCommand(
-                moduleCode, semester, null, task, date, time);
+                Set.of(moduleCode), semester, null, task, date, time);
         assertThrows(CommandException.class, MESSAGE_DEADLINE_INVALID_SEMESTER, () ->
                 addCommandTask.execute(
                         new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
@@ -192,22 +193,22 @@ public class AddCommandTest {
         LocalDate modelDate = LocalDate.parse(VALID_DEADLINE_DATE_AMY);
         LocalTime modelTime = LocalTime.parse(VALID_DEADLINE_TIME_AMY, DateTimeFormatter.ofPattern("HH:mm"));
 
-        AddCommand addAmyCommand = new AddCommand(new ModuleCode(VALID_MODCODE_AMY),
+        AddCommand addAmyCommand = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_AMY)),
                 new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, modelDate, modelTime);
         AddCommand addBobCommand = new AddCommand(
-                new ModuleCode(VALID_MODCODE_BOB), new Year(VALID_SEMESTER_BOB).getSemester(),
+                Set.of(new ModuleCode(VALID_MODCODE_BOB)), new Year(VALID_SEMESTER_BOB).getSemester(),
                 VALID_GRADE_BOB, VALID_TASK_BOB, modelDate, modelTime);
 
         // same object -> returns true
         assertTrue(addAmyCommand.equals(addAmyCommand));
 
         // same values -> returns true
-        AddCommand addAmyCommandCopy = new AddCommand(new ModuleCode(VALID_MODCODE_AMY),
+        AddCommand addAmyCommandCopy = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_AMY)),
                 new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, modelDate, modelTime);
         assertTrue(addAmyCommand.equals(addAmyCommandCopy));
 
         // same module code but remainder fields differ -> returns true
-        AddCommand addBobCommandDiff = new AddCommand(new ModuleCode(VALID_MODCODE_BOB),
+        AddCommand addBobCommandDiff = new AddCommand(Set.of(new ModuleCode(VALID_MODCODE_BOB)),
                 new Year(VALID_SEMESTER_AMY).getSemester(), VALID_GRADE_AMY, VALID_TASK_AMY, modelDate, modelTime);
         assertTrue(addBobCommand.equals(addBobCommandDiff));
 

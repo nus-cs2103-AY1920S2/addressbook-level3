@@ -12,8 +12,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.DuplicateDeadlineException;
 import seedu.address.model.CourseManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -55,19 +57,19 @@ public class AddCommand extends Command {
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
             + "%1$s before semester %2$s\nPrerequisites: %3$s";
 
-    private final ModuleCode toAdd;
+    private final Set<ModuleCode> toAdd;
     private int addSemester;
     private String addGrade;
     private String addTask;
     private LocalDate addDate;
     private LocalTime addTime;
 
-    public AddCommand(ModuleCode moduleCode, int semester, String grade,
+    public AddCommand(Set<ModuleCode> moduleCodes, int semester, String grade,
                       String task, LocalDate date, LocalTime time) {
-        requireNonNull(moduleCode);
+        requireNonNull(moduleCodes);
         requireNonNull(semester);
 
-        toAdd = moduleCode;
+        toAdd = moduleCodes;
         addSemester = semester;
         if (grade != null) {
             addGrade = grade;
@@ -95,12 +97,25 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
         Profile profile = profileManager.getFirstProfile();
+
+        if (toAdd.size() > 1) {
+            if (!moduleManager.hasModules(toAdd)) {
+                throw new CommandException(MESSAGE_INVALID_MODULE);
+            }
+            for (ModuleCode moduleCode: toAdd) {
+                AddCommand command = new AddCommand(Set.of(moduleCode), addSemester, null, null, null, null);
+                command.execute(profileManager, courseManager, moduleManager);
+            }
+            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), true);
+        }
+
+        ModuleCode moduleCodeToAdd = toAdd.iterator().next();
         boolean hasModule = false;
         Module moduleToAdd = null;
 
         // throws error if module code does not exist! DO NOT REMOVE!
-        if (moduleManager.hasModule(toAdd)) {
-            moduleToAdd = moduleManager.getModule(toAdd);
+        if (moduleManager.hasModule(moduleCodeToAdd)) {
+            moduleToAdd = moduleManager.getModule(moduleCodeToAdd);
         } else {
             throw new CommandException(MESSAGE_INVALID_MODULE);
         }
@@ -144,9 +159,6 @@ public class AddCommand extends Command {
 
         if (addTask != null) {
             // Check if the deadline is added to a module in the current semester
-            if (semesterOfModule != currentSemester && addSemester != currentSemester) {
-                //throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
-            }
             if (hasModule && semesterOfModule != currentSemester) {
                 // This module has been added but it is not in current semester
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
@@ -170,6 +182,10 @@ public class AddCommand extends Command {
                 deadline = new Deadline(moduleCode, addTask, addDate, addTime);
             } else {
                 deadline = new Deadline(moduleCode, addTask);
+            }
+
+            if (personal.hasDeadline(deadline)) {
+                throw new DuplicateDeadlineException();
             }
 
             personal.addDeadline(deadline);
@@ -200,15 +216,13 @@ public class AddCommand extends Command {
             }
             profileManager.setDisplayedView(profile);
             profile.updateCap();
-            return new CommandResult(String.format(messageShown, toAdd), true);
+            return new CommandResult(String.format(messageShown, moduleCodeToAdd), true);
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;
         }
 
-
-
         profile.updateCap();
-        return new CommandResult(String.format(messageShown, toAdd), false);
+        return new CommandResult(String.format(messageShown, moduleCodeToAdd), false);
     }
 
     @Override
