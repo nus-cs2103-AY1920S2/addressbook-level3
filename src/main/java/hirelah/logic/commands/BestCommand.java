@@ -25,28 +25,26 @@ import javafx.collections.transformation.SortedList;
 public class BestCommand extends Command {
     public static final String COMMAND_WORD = "best";
     public static final boolean DESIRED_MODEL_FINALIZED_STATE = true;
-    public static final String MESSAGE_SIZE_NOT_A_NUMBER = "The size of the interviewees provided is not a number.";
-    public static final String MESSAGE_NON_POSITIVE_SIZE = "The size of the interviewees provided must be positive.";
     public static final String MESSAGE_PARAM_NOT_FOUND = "The parameter provided: %s is not found.";
     public static final String MESSAGE_SUCCESS = "Here are the best %s interviewees.";
     public static final String MESSAGE_FORMAT = COMMAND_WORD + "<number of interviewees> "
             + "[-a <attribute>] [-m <metrics>]";
-    public static final String MESSAGE_FUNCTION = ": Finds best N candidates from the list.\n";
+    public static final String MESSAGE_FUNCTION = ": Finds best candidates from the list.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
             + MESSAGE_FUNCTION
-            + "e.g. best 3 -a leadership";
+            + "e.g. interviewee -best 3 -a leadership";
 
-    private final String numberOfInterviewees;
+    private final int numberOfInterviewees;
     private final String paramPrefix;
     private final BestParameter paramType;
 
-    public BestCommand(String numberOfInterviewees, BestParameter paramType) {
+    public BestCommand(int numberOfInterviewees, BestParameter paramType) {
         this.numberOfInterviewees = numberOfInterviewees;
         this.paramPrefix = "";
         this.paramType = paramType;
     }
 
-    public BestCommand(String numberOfInterviewees, String paramPrefix, BestParameter paramType) {
+    public BestCommand(int numberOfInterviewees, String paramPrefix, BestParameter paramType) {
         this.numberOfInterviewees = numberOfInterviewees;
         this.paramPrefix = paramPrefix;
         this.paramType = paramType;
@@ -62,7 +60,6 @@ public class BestCommand extends Command {
      */
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         validateFinalisation(model, DESIRED_MODEL_FINALIZED_STATE);
-        int size = parseNumberOfInterviewees(numberOfInterviewees);
         Comparator<Interviewee> comparator;
         try {
             switch (paramType) {
@@ -75,7 +72,7 @@ public class BestCommand extends Command {
             default:
                 comparator = getOverallComparator(model.getAttributeList());
             }
-            getBestN(comparator, size, model);
+            getBestN(comparator, numberOfInterviewees, model);
         } catch (IllegalValueException e) {
             throw new CommandException(String.format(MESSAGE_PARAM_NOT_FOUND, paramPrefix));
         }
@@ -217,31 +214,11 @@ public class BestCommand extends Command {
         return totalScore;
     }
 
-    /**
-     * Parses the number of interviewees entered by the client to the corresponding integer.
-     *
-     * @param numberOfInterviewees The String representing the size of the interviewees entered by the client.
-     * @return The corresponding integer value.
-     * @throws CommandException If the value entered is not a number or the number is less than or equal to zero.
-     */
-    private int parseNumberOfInterviewees(String numberOfInterviewees) throws CommandException {
-        try {
-            int result = Integer.parseInt(numberOfInterviewees);
-            if (result <= 0) {
-                throw new CommandException(MESSAGE_NON_POSITIVE_SIZE);
-            }
-
-            return result;
-        } catch (NumberFormatException e) {
-            throw new CommandException(MESSAGE_SIZE_NOT_A_NUMBER);
-        }
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BestCommand // instanceof handles nulls
-                && numberOfInterviewees.equals(((BestCommand) other).numberOfInterviewees)
+                && numberOfInterviewees == (((BestCommand) other).numberOfInterviewees)
                 && paramType.equals(((BestCommand) other).paramType));
     }
 }

@@ -1,6 +1,7 @@
 package hirelah.logic.commands;
 
 import static hirelah.commons.util.ModelUtil.validateFinalisation;
+import static hirelah.logic.util.CommandUtil.saveMetrics;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -50,10 +51,21 @@ public class EditMetricCommand extends Command {
 
         try {
             String name = metrics.edit(toEdit, updatedName, attributes, attributePrefixes, weightages);
+            saveMetrics(model, storage);
             return new ToggleCommandResult(
                     String.format(MESSAGE_EDIT_METRIC_SUCCESS, name), ToggleView.METRIC);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditMetricCommand // instanceof handles nulls
+                && toEdit.equals(((EditMetricCommand) other).toEdit)
+                && updatedName.equals(((EditMetricCommand) other).updatedName)
+                && attributePrefixes.equals(((EditMetricCommand) other).attributePrefixes)
+                && weightages.equals(((EditMetricCommand) other).weightages));
     }
 }
