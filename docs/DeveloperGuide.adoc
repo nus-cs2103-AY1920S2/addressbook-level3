@@ -208,7 +208,7 @@ Above diagram shows the decisions `CommandCompletor` goes through when deciding 
 .. Remove all other fields
 
 ==== Field Completion
-// TODO sequence diagram for this
+image::PredicateActivityDiagram.png[]
 We iterate through all allowed sort fields and all fields in the input then perform all three checks:
 
 . If input matches start of sort field
@@ -245,9 +245,11 @@ To handle the above case where an auto complete can be both a warning and a succ
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
 
+image::FindSequenceDiagram.png[]
+
 We perform the match by taking chunks of the task name whereby a chunk = number of words used in the search term and performing some calculation between the search terms and those chunks.
 
-// TODO activity diagram for calculation of edit distance
+image::
 * We chose to not use edit distance for keywords of less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
 * We also chose to display task names who's start matches the search term for ease of usage
 * We've enabled searching by phrase so that users are able to find more specific tasks
