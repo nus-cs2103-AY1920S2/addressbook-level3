@@ -1313,18 +1313,18 @@ with the command `report CS3247`.
 Hence, `TaTrackerParser` creates a `ShowStatisticCommandParser` object and passes the command argument `CS3247`
 to the `ShowStatisticCommandParser` object.
 
-. The `ShowStatisticCommandParser` stores the target module, `CS3247`, in a `ShowStatisticCommand` object and 
+. The `ShowStatisticCommandParser` stores the target module, `CS3247`, in a `ShowStatisticCommand` object and
 this command object is returned all the way back to the `LogicManager`.
 
 . `LogicManager` executes the `ShowStatisticCommand`, which creates and return a `StatiscCommandResult`. This command
-result is returned by `LogicManager` to `MainWindow` 
+result is returned by `LogicManager` to `MainWindow`
 
 . `MainWindow` detects that the the command result is of type `StatisticCommandResult`, and prepares the `StatisticWindow`
 by creating a `Statistic` object that retreives data necessary for generating the report, from `ReadOnlyTaTracker`. These data is then processed further by `Statistic`. This includes computing the total number of sessions per session type and sorting the students by rating.
 
 . A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
 
-. Finally, `StatisticWindow` updates its FXML elements and is shown to the user. 
+. Finally, `StatisticWindow` updates its FXML elements and is shown to the user.
 
 === Logging
 
