@@ -41,6 +41,10 @@ public class Personal {
         this.deadlineList.addDeadline(deadline);
     }
 
+    public boolean hasDeadline(Deadline deadline) {
+        return this.deadlineList.hasDeadline(deadline);
+    }
+
     public String getStatus() {
         return this.status.getStatus();
     }

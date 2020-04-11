@@ -46,13 +46,17 @@ public class DeadlineList {
         list.add(deadline);
     }
 
+    public boolean hasDeadline(Deadline deadline) {
+        return list.contains(deadline);
+    }
+
     /**
      * Removes Deadline {@code Deadline} specified by user
      * @param deadline To be removed
      * @throws DeadlineNotFoundException if the deadline cannot be found
      */
     public void deleteDeadline(Deadline deadline) throws DeadlineNotFoundException {
-        if (!list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()))) {
+        if (!list.removeIf(dl->dl.getDescription().toUpperCase().equals(deadline.getDescription().toUpperCase()))) {
             throw new DeadlineNotFoundException();
         }
     }
