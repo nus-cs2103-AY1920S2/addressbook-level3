@@ -33,8 +33,8 @@ import javafx.collections.ObservableList;
  * CheckStyle checks, which have since been disabled.
  */
 public class ImageUtil {
-    public final String PLACEHOLDER_IMAGE_PATH_STRING = "/images/recipe_placeholder.jpg";
-    public final Path PLACEHOLDER_IMAGE_PATH = Paths.get(PLACEHOLDER_IMAGE_PATH_STRING);
+    public static final String PLACEHOLDER_IMAGE_PATH_STRING = "/images/recipe_placeholder.jpg";
+    public static final Path PLACEHOLDER_IMAGE_PATH = Paths.get(PLACEHOLDER_IMAGE_PATH_STRING);
     public final InputStream PLACEHOLDER_IMAGE_STREAM;
     public final BufferedImage PLACEHOLDER_IMAGE;
     public final Path DEFAULT_STORAGE_PATH = FileUtil.relativePathFrom("data", "images");
@@ -148,7 +148,7 @@ public class ImageUtil {
      * See {@link #isPlaceHolderImage(Path)}.
      *
      */
-    public boolean isPlaceHolderImage(String... imageFilePathStrings) {
+    public static boolean isPlaceHolderImage(String... imageFilePathStrings) {
         return isPlaceHolderImage(FileUtil.relativePathFrom(imageFilePathStrings));
     }
 
@@ -157,7 +157,7 @@ public class ImageUtil {
      * @param imageFilePath A {@link Path} where an image is stored.
      * @return {@code true} if {@link imageFilePath} resolves to the placeholder.
      */
-    public boolean isPlaceHolderImage(Path imageFilePath) {
+    public static boolean isPlaceHolderImage(Path imageFilePath) {
         return imageFilePath.compareTo(PLACEHOLDER_IMAGE_PATH) == 0
                 || imageFilePath.compareTo(FileUtil.relativePathFrom("data", "images", "placeholder")) == 0;
     }

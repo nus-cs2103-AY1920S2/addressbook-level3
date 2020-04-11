@@ -3,146 +3,21 @@ package cookbuddy.commons.util;
 import static cookbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static cookbuddy.commons.util.FileUtil.getResourceAsInputStream;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
-
-import cookbuddy.MainApp;
-import cookbuddy.commons.core.LogsCenter;
-import cookbuddy.model.recipe.Recipe;
-import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 
 public class ImageUtilTest {
-    public final String PLACEHOLDER_IMAGE_PATH_STRING = "/images/recipe_placeholder.jpg";
-    public final Path PLACEHOLDER_IMAGE_PATH = Paths.get(PLACEHOLDER_IMAGE_PATH_STRING);
-    public final InputStream PLACEHOLDER_IMAGE_STREAM;
-    public final BufferedImage PLACEHOLDER_IMAGE;
-    public final Path DEFAULT_STORAGE_PATH = FileUtil.relativePathFrom("data", "images");
-    public final String MESSAGE_CONSTRAINTS = "Image not found, or invalid image path given. "
-            + "Placeholder image used instead.";
-    private final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    /**
-     * Returns a {@link BufferedImage} from the given {@code Path}
-     *
-     * @param path An image file path
-     * @return An image object
-     */
-    public BufferedImage readImage(Path path) {
-        try {
-            return ImageIO.read(path.toFile());
-        } catch (IOException e) {
-            logger.warning(MESSAGE_CONSTRAINTS);
-            return this.PLACEHOLDER_IMAGE;
-        }
-    }
+    @Test
+    public void isValidPlaceHolderImagePath() {
+        // valid path
+        assertTrue(ImageUtil.isPlaceHolderImage("/images/recipe_placeholder.jpg"));
 
-    /**
-     * Returns an {@link InputStream} from the given {@code image}, by invoking a
-     * {@link ByteArrayOutputStream} and copying the data out.
-     *
-     * @param image An image object
-     * @return A data object representing that image
-     */
-    public InputStream getImageInputStream(BufferedImage image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream() {
-            @Override
-            public synchronized byte[] toByteArray() {
-                return this.buf;
-            }
-        };
+        // invalid path
+        assertFalse(ImageUtil.isPlaceHolderImage("a\0"));
 
-        try {
-            ImageIO.write(image, "png", baos);
-        } catch (IOException e) {
-            logger.warning("An error has occurred. Using placeholder image instead.");
-            return PLACEHOLDER_IMAGE_STREAM;
-        }
-        return new BufferedInputStream(new ByteArrayInputStream(baos.toByteArray()));
-    }
-
-    /**
-     * Returns a {@link BufferedImage} from the given {@code imageInputStream}
-     *
-     * @param imageInputStream A data object representing an image.
-     * @return An image object.
-     */
-    public BufferedImage getImage(InputStream imageInputStream) {
-        try {
-            return ImageIO.read(imageInputStream);
-        } catch (IOException e) {
-            logger.warning("An error has occurred. Using placeholder image instead.");
-            return PLACEHOLDER_IMAGE;
-        }
-    }
-
-    /**
-     * Returns a {@link BufferedImage} from the specified {@code url}.
-     *
-     * @param url The {@link URL} that the image is located at.
-     * @return The image at the URL.
-     */
-    public BufferedImage getImage(URL url) {
-        try {
-            return ImageIO.read(url);
-        } catch (IOException e) {
-            logger.warning("An error has occurred. Using placeholder image instead.");
-            return PLACEHOLDER_IMAGE;
-        }
-    }
-
-    /**
-     * Compares two {@link BufferedImage}s, specified by {@code i1} and {@code i2},
-     * pixel-by-pixel, to determine if they are the same image.
-     * <p>
-     * Expensive O(n^2) operation; use sparingly.
-     *
-     * @return {@code true} if {@code i1}'s pixels are all equal to those of
-     *         {@code i2}'s.
-     */
-    public boolean isSameImage(BufferedImage i1, BufferedImage i2) {
-        if (i1.getWidth() != i2.getWidth() || i1.getHeight() != i2.getHeight()) {
-            return false;
-        }
-
-        for (int x = 0; x < i1.getWidth(); x++) {
-            for (int y = 0; y < i2.getHeight(); y++) {
-                if (i1.getRGB(x, y) != i2.getRGB(x, y)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * See {@link #isPlaceHolderImage(Path)}.
-     *
-     */
-    public boolean isPlaceHolderImage(String... imageFilePathStrings) {
-        return isPlaceHolderImage(FileUtil.relativePathFrom(imageFilePathStrings));
-    }
-
-    /**
-     * Checks if {@link imageFilePath} refers to the placeholder image.
-     * @param imageFilePath A {@link Path} where an image is stored.
-     * @return {@code true} if {@link imageFilePath} resolves to the placeholder.
-     */
-    public boolean isPlaceHolderImage(Path imageFilePath) {
-        return imageFilePath.compareTo(PLACEHOLDER_IMAGE_PATH) == 0
-                || imageFilePath.compareTo(FileUtil.relativePathFrom("data", "images", "placeholder")) == 0;
+        // null path -> throws NullPointerException
+        assertThrows(NullPointerException.class, () -> ImageUtil.isPlaceHolderImage((String) null));
     }
 
 }
