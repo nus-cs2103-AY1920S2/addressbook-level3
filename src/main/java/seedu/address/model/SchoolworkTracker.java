@@ -12,7 +12,7 @@ import seedu.address.model.assignment.AssignmentList;
  * Wraps all data at the assignment schedule level.
  * Duplicates are not allowed (by .isSameAssignment comparison).
  */
-public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
+public class SchoolworkTracker implements ReadOnlySchoolworkTracker {
     private final AssignmentList assignments;
 
     /*
@@ -26,12 +26,12 @@ public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
         assignments = new AssignmentList();
 
     }
-    public AssignmentSchedule() {}
+    public SchoolworkTracker() {}
 
     /**
      * Creates an AssignmentList using the Assignments in the {@code toBeCopied}
      */
-    public AssignmentSchedule(ReadOnlyAssignmentSchedule toBeCopied) {
+    public SchoolworkTracker(ReadOnlySchoolworkTracker toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -47,7 +47,7 @@ public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
     /**
      * Resets the existing data of this {@code AssignmentList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAssignmentSchedule newData) {
+    public void resetData(ReadOnlySchoolworkTracker newData) {
         requireNonNull(newData);
         setAssignments(newData.getAssignmentsList());
     }
@@ -81,7 +81,7 @@ public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
     }
 
     /**
-     * Removes {@code key} from this {@code AssignmentSchedule}.
+     * Removes {@code key} from this {@code SchoolworkTracker}.
      * {@code key} must exist in the scheduler.
      */
     public void removeAssignment(Assignment key) {
@@ -96,8 +96,8 @@ public class AssignmentSchedule implements ReadOnlyAssignmentSchedule {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AssignmentSchedule // instanceof handles nulls
-                && assignments.equals(((AssignmentSchedule) other).assignments));
+                || (other instanceof SchoolworkTracker // instanceof handles nulls
+                && assignments.equals(((SchoolworkTracker) other).assignments));
     }
 
     @Override

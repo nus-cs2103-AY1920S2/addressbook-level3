@@ -7,10 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.ReadOnlySchoolworkTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -22,13 +23,13 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private RestaurantBookStorage restaurantBookStorage;
-    private AssignmentScheduleStorage schedulerStorage;
+    private SchoolworkTrackerStorage schedulerStorage;
     private EventScheduleStorage eventScheduleStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage,
                           RestaurantBookStorage restaurantBookStorage,
-                          AssignmentScheduleStorage schedulerStorage,
+                          SchoolworkTrackerStorage schedulerStorage,
                           EventScheduleStorage eventScheduleStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
@@ -116,37 +117,37 @@ public class StorageManager implements Storage {
         restaurantBookStorage.saveRestaurantBook(restaurantBook, filePath);
     }
 
-    // ============== AssignmentSchedule methods =======================================
-
+    // ============== SchoolworkTracker methods =======================================
     @Override
-    public Path getSchedulerFilePath() {
-        return schedulerStorage.getSchedulerFilePath();
+    public Path getSchoolworkTrackerFilePath() {
+        return schedulerStorage.getSchoolworkTrackerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException, IOException {
-        return readScheduler(schedulerStorage.getSchedulerFilePath());
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException, IOException {
+        return readSchoolworkTracker(schedulerStorage.getSchoolworkTrackerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException,
-        IOException {
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker(Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return schedulerStorage.readScheduler(filePath);
+        return schedulerStorage.readSchoolworkTracker(filePath);
     }
 
     @Override
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException {
-        saveScheduler(scheduler, schedulerStorage.getSchedulerFilePath());
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) throws IOException {
+        saveSchoolworkTracker(schoolworkTracker, schedulerStorage.getSchoolworkTrackerFilePath());
     }
 
     @Override
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        schedulerStorage.saveScheduler(scheduler, filePath);
+        schedulerStorage.saveSchoolworkTracker(schoolworkTracker, filePath);
     }
 
-    // ============== Event AssignmentSchedule methods =================================
+
+    // ============== Event SchoolworkTracker methods =================================
 
     @Override
     public Path getEventScheduleFilePath() {

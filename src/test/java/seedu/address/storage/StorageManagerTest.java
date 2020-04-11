@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalAssignments.getTypicalScheduler;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
@@ -12,10 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
+
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
+import seedu.address.model.ReadOnlySchoolworkTracker;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -31,7 +32,7 @@ public class StorageManagerTest {
         JsonRestaurantBookStorage restaurantBookStorage = new JsonRestaurantBookStorage(getTempFilePath("rb"));
         JsonEventScheduleStorage eventScheduleStorage =
                 new JsonEventScheduleStorage(getTempFilePath("eventSchedule"));
-        JsonAssignmentScheduleStorage schedulerStorage = new JsonAssignmentScheduleStorage(getTempFilePath("schedule"));
+        JsonSchoolworkTrackerStorage schedulerStorage = new JsonSchoolworkTrackerStorage(getTempFilePath("schedule"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage,
                 restaurantBookStorage,
@@ -78,16 +79,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void schedulerReadSave() throws Exception {
+    public void getSchoolworkTrackerFilePath() {
+        assertNotNull(storageManager.getSchoolworkTrackerFilePath());
+    }
+
+    @Test
+    public void assignmentScheduleReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAssignmentScheduleStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAssignmentScheduleStorageTest} class.
+         * {@link JsonSchoolworkTrackerStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonSchoolworkTrackerStorageTest} class.
          */
-        AssignmentSchedule original = getTypicalScheduler();
-        storageManager.saveScheduler(original);
-        ReadOnlyAssignmentSchedule retrieved = storageManager.readScheduler().get();
+        SchoolworkTracker original = getTypicalSchoolworkTracker();
+        storageManager.saveSchoolworkTracker(original);
+        ReadOnlySchoolworkTracker retrieved = storageManager.readSchoolworkTracker().get();
 
-        assertEquals(original, new AssignmentSchedule(retrieved));
+        assertEquals(original, new SchoolworkTracker(retrieved));
     }
 }

@@ -1,16 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ESTHOURS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WORKLOAD_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_CS2103;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ESTHOURS_CS2103;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ESTHOURS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS2103;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.WORKLOAD_DESC_CS2103;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
@@ -32,8 +33,8 @@ public class AddAssignmentCommandParserTest {
         Assignment expectedAssignment = new AssignmentBuilder(CS2103_TP).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_TITLE_DESC + VALID_DEADLINE_DESC
-                + VALID_ESTHOURS_DESC, new AddAssignmentCommand(expectedAssignment));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC_CS2103 + DEADLINE_DESC_CS2103
+                + WORKLOAD_DESC_CS2103, new AddAssignmentCommand(expectedAssignment));
     }
 
     @Test
@@ -41,34 +42,34 @@ public class AddAssignmentCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE);
 
         // missing title prefix
-        assertParseFailure(parser, VALID_TITLE_CS2103 + VALID_DEADLINE_DESC + VALID_ESTHOURS_DESC,
+        assertParseFailure(parser, VALID_TITLE_CS2103 + DEADLINE_DESC_CS2103 + WORKLOAD_DESC_CS2103,
                 expectedMessage);
 
         // missing deadline prefix
-        assertParseFailure(parser, VALID_TITLE_DESC + VALID_DEADLINE_CS2103 + VALID_ESTHOURS_DESC,
+        assertParseFailure(parser, TITLE_DESC_CS2103 + VALID_DEADLINE_CS2103 + WORKLOAD_DESC_CS2103,
                 expectedMessage);
 
         // missing workload prefix
-        assertParseFailure(parser, VALID_TITLE_DESC + VALID_DEADLINE_DESC + VALID_ESTHOURS_CS2103,
+        assertParseFailure(parser, TITLE_DESC_CS2103 + DEADLINE_DESC_CS2103 + VALID_WORKLOAD_CS2103,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_TITLE_CS2103 + VALID_DEADLINE_CS2103 + VALID_ESTHOURS_CS2103,
+        assertParseFailure(parser, VALID_TITLE_CS2103 + VALID_DEADLINE_CS2103 + VALID_WORKLOAD_CS2103,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid title
-        assertParseFailure(parser, INVALID_TITLE_DESC + VALID_DEADLINE_DESC + VALID_ESTHOURS_DESC,
+        assertParseFailure(parser, INVALID_TITLE_DESC + DEADLINE_DESC_CS2103 + WORKLOAD_DESC_CS2103,
                 Title.MESSAGE_CONSTRAINTS);
 
         // invalid deadline
-        assertParseFailure(parser, VALID_TITLE_DESC + INVALID_DEADLINE_DESC + VALID_ESTHOURS_DESC,
+        assertParseFailure(parser, TITLE_DESC_CS2103 + INVALID_DEADLINE_DESC + WORKLOAD_DESC_CS2103,
                 Deadline.MESSAGE_CONSTRAINTS);
 
         // invalid workload
-        assertParseFailure(parser, VALID_TITLE_DESC + VALID_DEADLINE_DESC + INVALID_ESTHOURS_DESC,
+        assertParseFailure(parser, TITLE_DESC_CS2103 + DEADLINE_DESC_CS2103 + INVALID_WORKLOAD_DESC,
                 Workload.MESSAGE_CONSTRAINTS);
     }
 }

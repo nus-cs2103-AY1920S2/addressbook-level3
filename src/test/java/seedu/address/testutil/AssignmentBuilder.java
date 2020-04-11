@@ -11,7 +11,7 @@ import seedu.address.model.assignment.Workload;
  */
 public class AssignmentBuilder {
     public static final String DEFAULT_TITLE = "CS2103 tP";
-    public static final String DEFAULT_DEADLINE = "2020-04-17 23:59";
+    public static final String DEFAULT_DEADLINE = "2020-11-17 23:59";
     public static final String DEFAULT_WORKLOAD = "100";
     public static final String DEFAULT_STATUS = "Uncompleted";
 
@@ -56,7 +56,7 @@ public class AssignmentBuilder {
     /**
      * Sets the {@Workload} of the {@Assignment} that we are building.
      */
-    public AssignmentBuilder withHours(String estHours) {
+    public AssignmentBuilder withWorkload(String estHours) {
         this.estHours = new Workload(estHours);
         return this;
     }

@@ -178,10 +178,10 @@ public interface Model {
     /**
      * Replaces assignmentSchedule data with the data in {@code assignmentSchedule}.
      */
-    void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule);
+    void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule);
 
-    /** Returns the AssignmentSchedule */
-    ReadOnlyAssignmentSchedule getAssignmentSchedule();
+    /** Returns the SchoolworkTracker */
+    ReadOnlySchoolworkTracker getSchoolworkTracker();
 
     /**
      * Adds the given assignment.

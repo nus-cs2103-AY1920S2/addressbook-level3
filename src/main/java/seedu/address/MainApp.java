@@ -16,29 +16,30 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.ReadOnlySchoolworkTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.AssignmentScheduleStorage;
 import seedu.address.storage.EventScheduleStorage;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonAssignmentScheduleStorage;
 import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
+import seedu.address.storage.JsonSchoolworkTrackerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.RestaurantBookStorage;
+import seedu.address.storage.SchoolworkTrackerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -73,8 +74,8 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         RestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
-        AssignmentScheduleStorage schedulerStorage =
-            new JsonAssignmentScheduleStorage(userPrefs.getSchedulerFilePath());
+        SchoolworkTrackerStorage schedulerStorage =
+            new JsonSchoolworkTrackerStorage(userPrefs.getSchedulerFilePath());
         EventScheduleStorage eventScheduleStorage = new JsonEventScheduleStorage(userPrefs.getEventScheduleFilePath());
         storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage,
                 eventScheduleStorage, userPrefsStorage);
@@ -99,9 +100,9 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialPersonsData;
         ReadOnlyRestaurantBook initialRestaurantsData;
 
-        Optional<ReadOnlyAssignmentSchedule> schedulerOptional;
+        Optional<ReadOnlySchoolworkTracker> schedulerOptional;
         Optional<ReadOnlyEventSchedule> eventScheduleOptional;
-        ReadOnlyAssignmentSchedule initialAssignmentsData;
+        ReadOnlySchoolworkTracker initialAssignmentsData;
         ReadOnlyEventSchedule initialEventsData;
         try {
             addressBookOptional = storage.readAddressBook();
@@ -132,17 +133,17 @@ public class MainApp extends Application {
         }
 
         try {
-            schedulerOptional = storage.readScheduler();
+            schedulerOptional = storage.readSchoolworkTracker();
             if (!schedulerOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty AssignmentSchedule.");
+                logger.info("Data file not found. Will be starting with an empty SchoolworkTracker.");
             }
-            initialAssignmentsData = schedulerOptional.orElse(new AssignmentSchedule());
+            initialAssignmentsData = schedulerOptional.orElse(new SchoolworkTracker());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AssignmentSchedule");
-            initialAssignmentsData = new AssignmentSchedule();
+            logger.warning("Data file not in the correct format. Will be starting with an empty SchoolworkTracker");
+            initialAssignmentsData = new SchoolworkTracker();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AssignmentSchedule");
-            initialAssignmentsData = new AssignmentSchedule();
+            logger.warning("Problem while reading from the file. Will be starting with an empty SchoolworkTracker");
+            initialAssignmentsData = new SchoolworkTracker();
         }
 
         try {

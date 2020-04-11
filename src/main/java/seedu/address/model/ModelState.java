@@ -14,7 +14,7 @@ import seedu.address.model.restaurant.Restaurant;
 public class ModelState {
     private final AddressBook addressBook;
     private final RestaurantBook restaurantBook;
-    private final AssignmentSchedule assignmentSchedule;
+    private final SchoolworkTracker assignmentSchedule;
     private final EventSchedule eventSchedule;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -30,7 +30,7 @@ public class ModelState {
      * Initializes a ModelState with the given addressBook and userPrefs at the start.
      */
     public ModelState(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                      ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
+                      ReadOnlySchoolworkTracker scheduler, ReadOnlyEventSchedule eventSchedule,
                       ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
@@ -40,7 +40,7 @@ public class ModelState {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.assignmentSchedule = new AssignmentSchedule(scheduler);
+        this.assignmentSchedule = new SchoolworkTracker(scheduler);
         this.eventSchedule = new EventSchedule(eventSchedule);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
@@ -53,7 +53,7 @@ public class ModelState {
      * Initializes a ModelState with the given addressBook and userPrefs.
      */
     public ModelState(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                      ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
+                      ReadOnlySchoolworkTracker scheduler, ReadOnlyEventSchedule eventSchedule,
                       ReadOnlyUserPrefs userPrefs, String commandType) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
@@ -63,7 +63,7 @@ public class ModelState {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.assignmentSchedule = new AssignmentSchedule(scheduler);
+        this.assignmentSchedule = new SchoolworkTracker(scheduler);
         this.eventSchedule = new EventSchedule(eventSchedule);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
@@ -83,7 +83,7 @@ public class ModelState {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook();
-        this.assignmentSchedule = new AssignmentSchedule();
+        this.assignmentSchedule = new SchoolworkTracker();
         this.eventSchedule = new EventSchedule();
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.assignmentSchedule.getAssignmentsList());
@@ -110,7 +110,7 @@ public class ModelState {
         return this.restaurantBook;
     }
 
-    public AssignmentSchedule getAssignmentSchedule() {
+    public SchoolworkTracker getAssignmentSchedule() {
         return this.assignmentSchedule;
     }
 

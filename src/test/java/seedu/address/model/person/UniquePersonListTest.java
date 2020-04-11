@@ -189,4 +189,32 @@ public class UniquePersonListTest {
         bDay = LocalDate.now(ZoneId.of("Singapore")).plusDays(5).format(format);
         assertFalse(uniquePersonList.withinRange(bDay, currDate, fiveDaysLater));
     }
+
+    @Test
+    public void setBdayList_contactHasNoBirthday_success() {
+        // Contact has no birthday
+        Person person = new PersonBuilder(ALICE).withBirthday("").build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+        assertTrue(uniquePersonList.getBdayList().isEmpty());
+    }
+
+    @Test
+    public void setBdayList_contactHasBirthday_success() {
+        // Contact's birthday not in the next 5 days
+        Person person = new PersonBuilder(ALICE).withBirthday(LocalDate.now(ZoneId.of("Singapore")).plusDays(5)
+            .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+
+        assertTrue(uniquePersonList.getBdayList().isEmpty());
+
+        // Contact's birthday in the next 5 days
+        person = new PersonBuilder(BOB).withBirthday(LocalDate.now(ZoneId.of("Singapore"))
+            .format(DateTimeFormatter.ofPattern("MM-dd"))).build();
+        uniquePersonList.add(person);
+        uniquePersonList.setBdayList();
+
+        assertEquals(uniquePersonList.getBdayList(), Arrays.asList(person));
+    }
 }

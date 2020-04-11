@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.ReadOnlySchoolworkTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -16,7 +16,7 @@ import seedu.address.model.UserPrefs;
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, RestaurantBookStorage, UserPrefsStorage,
-        AssignmentScheduleStorage, EventScheduleStorage {
+    SchoolworkTrackerStorage, EventScheduleStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -43,13 +43,13 @@ public interface Storage extends AddressBookStorage, RestaurantBookStorage, User
     void saveRestaurantBook(ReadOnlyRestaurantBook restaurantBook) throws IOException;
 
     @Override
-    Path getSchedulerFilePath();
+    Path getSchoolworkTrackerFilePath();
 
     @Override
-    Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException, IOException;
+    Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException, IOException;
 
     @Override
-    void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException;
+    void saveSchoolworkTracker(ReadOnlySchoolworkTracker scheduler) throws IOException;
 
     @Override
     Path getEventScheduleFilePath();

@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
             }
         } else if (command.toString().contains("(st)")) {
             try {
-                storage.saveScheduler(model.getAssignmentSchedule());
+                storage.saveSchoolworkTracker(model.getSchoolworkTracker());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -73,7 +73,7 @@ public class LogicManager implements Logic {
         } else if (command.toString().contains("undo")) {
             try {
                 storage.saveAddressBook(model.getAddressBook());
-                storage.saveScheduler(model.getAssignmentSchedule());
+                storage.saveSchoolworkTracker(model.getSchoolworkTracker());
                 storage.saveEventSchedule(model.getEventSchedule());
                 storage.saveRestaurantBook(model.getRestaurantBook());
             } catch (IOException ioe) {
@@ -135,7 +135,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Day> getScheduleVisual() {
+    public ObservableList<Day> getSchedule() {
         return model.getScheduleVisualResult();
     }
 }
