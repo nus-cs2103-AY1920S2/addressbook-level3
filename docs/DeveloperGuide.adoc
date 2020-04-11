@@ -306,6 +306,49 @@ The readable Json data is then stored in the Json file, which can be read by `Js
 
 // end::dataencryption[]
 
+// tag::findtransaction[]
+
+=== Find transaction (Fang Shao Hua)
+
+Inventory Manager has a find transaction feature which allows the user to filter transactions, so that it
+saves time for the user to look for specific transactions among the transaction history.
+
+User can provide 3 different types of filter, or combination of filters to filter the transaction list.
+These 3 types of filter are `TransactionType`, `Name` and `GoodName`.
+
+To extract out these filter specifications, `ArgumentMultimap` is needed.
+`TransactionType` will be stored in the `preamble`, `Name` will stored in the value under prefix `n/`
+and `GoodName` will be stored in the value under prefix `g/`.
+
+`FindTransactionCommandParser` will called `ArgumentMultimap` to parse the user input into respective values.
+These values will then set up filters in the `Predicate` for the model to filter the transaction list.
+
+If the user did not specify a particular type of filter, that particular type of filter will not be activated.
+The feature requires at least one filter to be able to functional.
+
+For the `Name` and `GoodName` filters, these filters can take in multiple `Name` and `GoodName` respectively.
+This means that there can be multiple `Name` keywords in the `Name` filter, and the transaction only need to match
+any of the `Name` to pass the filter. Same goes for the `GoodName` filter.
+
+NOTE: The transaction has to fulfill all active filters to be added into the filtered list.
+
+Here is a sample activity diagram that shows the general flow:
+
+image::FindTransactionActivityDiagram.png[]
+
+This feature mainly involves within `Logic`, but also require interaction with `Model` to update the filter list.
+
+Here is a sample activity diagram that shows the flow when user inputs: `find-t buy n/alice g/apple`:
+
+image::FindTransactionSequenceDiagram.png[]
+
+==== Design Considerations
+
+
+
+// end::findtransaction[]
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
