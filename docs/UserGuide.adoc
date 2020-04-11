@@ -599,7 +599,7 @@ The following section gives a quick summary of all the commands you can use in C
 == Glossary
 This section will cover and explain certain technical/CookBuddy specific terms used in this user guide.
 
-.Explanation of various terms.
+.Explanation of various terms used in this user guide.
 [cols="1, 3", options="header"]
 |==============
 |Term                           | Explanation
