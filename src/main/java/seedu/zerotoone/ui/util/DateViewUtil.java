@@ -12,6 +12,12 @@ import java.time.temporal.ChronoUnit;
  */
 public class DateViewUtil {
 
+    /**
+     * Gets pretty date time.
+     *
+     * @param time the time
+     * @return the pretty date time
+     */
     public static String getPrettyDateTime(LocalDateTime time) {
         int year = time.getYear();
         int day = time.getDayOfMonth();
@@ -115,6 +121,13 @@ public class DateViewUtil {
     }
 
 
+    /**
+     * Gets duration in minutes.
+     *
+     * @param start the start
+     * @param end   the end
+     * @return the duration in minutes
+     */
     public static Long getDurationInMinutes(LocalDateTime start, LocalDateTime end) {
         return (Duration.between(start, end)).toMinutes();
     }
