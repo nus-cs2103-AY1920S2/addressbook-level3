@@ -12,6 +12,7 @@ import com.notably.view.blockcontent.BlockContent;
 
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;

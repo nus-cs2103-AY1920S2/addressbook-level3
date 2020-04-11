@@ -54,6 +54,8 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
         String htmlContent = htmlTitle + htmlBody;
 
         blockContentDisplay.getEngine().loadContent(htmlContent);
+        blockContentDisplay.getEngine().setUserStyleSheetLocation(getClass()
+                .getResource("/view/blockcontent/BlockContentDisplay.css").toExternalForm());
     }
 
     /**
@@ -93,9 +95,6 @@ public class BlockContentDisplayView extends ViewPart<WebView> {
         model.currentlyOpenPathProperty().addListener(observable -> setBlockContentDisplay(model));
         model.getBlockTree().getRootBlock().getTreeItem()
                 .addEventHandler(TreeItem.treeNotificationEvent(), event -> setBlockContentDisplay(model));
-        blockContentDisplay.getEngine().setUserStyleSheetLocation(getClass()
-                .getResource("/view/blockcontent/BlockContentDisplay.css").toExternalForm());
-        blockContentDisplay.getEngine().loadContent(htmlBody);
     }
 }
 
