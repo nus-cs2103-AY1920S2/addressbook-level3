@@ -276,18 +276,18 @@ Lastly, the edit deadline feature is a complementary feature to the add deadline
 
 To edit `profile`, the command `edit` should be appended with one or more of the tags:
 
-- `n/NAME` : New name
-- `c/COURSE` : New course
-- `y/CURRENT_SEMESTER` : New current semester
-- `f/FOCUS_AREA` : New focus area
+* `n/NAME` : New name
+* `c/COURSE` : New course
+* `y/CURRENT_SEMESTER` : New current semester
+* `f/FOCUS_AREA` : New focus area
 
 To edit `module`, the command `edit` should be appended with `m/MODULE`, followed by one or more of the tags:
 
-- `s/SEMESTER` : New semester where module is taken
-- `g/GRADE` : New grade for the module
-- `t/TASK` : Old task description
-- `nt/NEW_TASK` : New task description
-- `d/DEADLINE` : New date and time
+* `s/SEMESTER` : New semester where module is taken
+* `g/GRADE` : New grade for the module
+* `t/TASK` : Old task description
+** `nt/NEW_TASK` : New task description
+** `d/DEADLINE` : New date and time
 
 To edit a deadline, append `edit m/MODULE` with `t/TASK` that already exists and is to be edited, followed by either `nt/NEW_TASK` and/or `d/DEADLINE` which contain the new task or deadline that will replace the existing one.
 
@@ -298,7 +298,20 @@ image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
 
-- By requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+* *Alternative 1 (current choice):* Edit `Profile`, `Module` or `Deadline` object with one delete command.
+** Pros: Easier for the user as they will not have to remember different edit commands for different purposes.
+** Cons: More considerations to differentiate the intent of the user and there is more room for error.
+
+* *Alternative 2:* Have separate command to edit `Profile`, `Module` and `Deadline`.
+** Pros: Makes it clearer what the user intent is and is easier to parse.
+** Cons: Harder for the user to remember the commands and the user will not be allowed to edit both module details and deadline tasks within the module at the same time.
+
+Eventually, we decided on alternative 1 due to the benefits of consistency. Additionally, by requiring a `m/MODULE` field for the user to edit `Module`, it clearly shows the intent of the user, and whether the `Profile` or a `Module` should be edited.
+
+The following activity diagram shows how the `edit` command decides what to edit (profile, module details or deadline task):
+
+.Activity Diagram for an Edit Command input
+image::EditCommandActivityDiagram.png[]
 
 // end::edit[]
 // tag::delete[]
