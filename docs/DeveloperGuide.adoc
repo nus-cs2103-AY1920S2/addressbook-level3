@@ -470,7 +470,7 @@ Moreover, storing the exercise data from client data does not provide any perfor
 
 Lastly, we foresee that it is improbable for the data size of both clients and exercises to exceed the maximum size limit of a JSON file. With the target user in mind, it is unlikely that he will have an enormous amount of clients as he will have to cater time for each of them. Even though each client might have many exercises, the information of each exercise is relatively small. For now, collectively, the client and exercise data is unlikely to exceed the JSON size limit. We might consider to have multiple JSON files if the data size gets too big in future versions.
 
-Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in-charge of the client's information and the exercises he did. However, we felt that the benefits outweighted the costs.
+Indeed, `JsonAdaptedClient` having a list of `JsonAdaptedExercise` would violate separation of concerns. `JsonAdaptedClient` is now in-charge of the client's information and the exercises he did. However, we felt that the benefits outweighted the costs and proceeded with the first choice.
 
 === Personal Best --- Li Zi Ying
 
