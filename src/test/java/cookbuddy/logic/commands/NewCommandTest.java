@@ -1,20 +1,18 @@
 package cookbuddy.logic.commands;
 
+import static cookbuddy.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static cookbuddy.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import cookbuddy.model.recipe.attribute.Time;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
@@ -22,7 +20,10 @@ import cookbuddy.model.ReadOnlyRecipeBook;
 import cookbuddy.model.ReadOnlyUserPrefs;
 import cookbuddy.model.RecipeBook;
 import cookbuddy.model.recipe.Recipe;
+import cookbuddy.model.recipe.attribute.Time;
 import cookbuddy.testutil.RecipeBuilder;
+import javafx.collections.ObservableList;
+
 
 public class NewCommandTest {
 
