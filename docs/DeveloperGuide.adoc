@@ -950,16 +950,23 @@ Finally, a new *CommandResult* will be created to display the success message to
 new return order with the given parcel attributes.
 //end::return[]
 
+//@@author JeremyLoh
 //tag::nearby[]
 [[nearby]]
 === Nearby Feature
+
+In this section, the <<what-is-nearby,functionality>> of the `nearby` feature, the
+expected <<nearby-path-execution, execution path>>, the <<nearby-structure, structure>> of the *NearbyCommand* class
+and the <<nearby-interactions, interactions>> between objects with the *NearbyCommand* object will be discussed.
+
 In this section, you will learn more about how the `nearby` feature is implemented.
 
+[[what-is-nearby]]
 ==== What is the Nearby Feature
-The nearby feature allows the user to view all orders that are located at a particular area
+The `nearby` feature allows the user to view all orders that are located at a particular area
 based on a given search criteria. +
 
-The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
+The `nearby` feature was implemented as a *NearbyCommand* in the Logic package. +
 
 The `nearby` command has two possible formats: +
 
@@ -990,7 +997,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 https://keylocation.sg/singapore/districts-map[this website]
 ====
 
-
+[[nearby-path-execution]]
 ==== Execution paths of Nearby command
 In this section, you will learn more about the execution paths for the `nearby` command.
 
@@ -1019,6 +1026,7 @@ There are currently five areas that are searchable:
 4. West
 5. North
 
+[[nearby-structure]]
 ==== Structure of Nearby command
 In this section, you will learn more about the relationships between objects
 related to the `nearby` command.
@@ -1026,7 +1034,7 @@ related to the `nearby` command.
 .Nearby Command Class Diagram
 image::NearbyClassDiagram.svg[]
 
-In the `NearbyCommand` class, there are also static strings present that represent the
+In the *NearbyCommand* class, there are also static strings present that represent the
 various possible messages. +
 For some of the message strings, there are placeholder %s strings used for including dynamic input +
 These messages are the following:
@@ -1051,7 +1059,7 @@ Invalid postal sector given. +
 5. `MESSAGE_FAILURE_AREA` +
 Invalid area given. +
 
-
+[[nearby-interactions]]
 ==== Interactions between Nearby command and its associated objects
 In this section, you will learn more about the `nearby` command and its inner workings.
 
@@ -1065,30 +1073,30 @@ should be displayed to the user.
 .Nearby Command Sequence Diagram for `nearby` `-o` `14`
 image::NearbyCommandSequenceDiagram1.svg[]
 
-The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
-If the given arguments are valid, a new `NearbyCommand` object will be returned. +
-In this class, invalid arguments will result in a `ParseException`. +
+The arguments passed to the Nearby Command will be parsed by the *NearbyCommandParser* class. +
+If the given arguments are valid, a new *NearbyCommand* object will be returned. +
+In this class, invalid arguments will result in a *ParseException*. +
 Two types of invalid arguments are checked for: empty arguments
 and arguments with only whitespace characters.
 
-The `execute()` function of the `NearbyCommand` will first check if the given arguments
+The execute() function of the *NearbyCommand* will first check if the given arguments
 are in the format required for postal sector search (the argument can be converted into an integer).
 If the first check is successful, the argument will be converted into an integer and
-a second check is performed via the `isValidPostalSector(Index postalSector)` function
-of the `NearbyCommandUtil` helper class.
+a second check is performed via the isValidPostalSector(Index postalSector) function
+of the *NearbyCommandUtil* helper class.
 
 [NOTE]
 ====
-`NearbyCommandUtil` is a helper class that contains functions and variables used for
+*NearbyCommandUtil* is a helper class that contains functions and variables used for
 identifying postal sectors and their corresponding general locations. +
-This class was created to reduce the responsibility of the `NearbyCommand` class. +
+This class was created to reduce the responsibility of the *NearbyCommand* class. +
 
-* A `HashMap` was used to store information about postal sectors and their respective general locations.
+* A *HashMap* was used to store information about postal sectors and their respective general locations.
 ====
 
-The `model` will then be updated by the `updateFilteredOrderList(orderPredicate)` function. +
+The model will then be updated by the updateFilteredOrderList(orderPredicate) function. +
 
-A `CommandResult` is then generated and returned to the `LogicManager`.
+A *CommandResult* is then generated and returned to the *LogicManager*.
 
 
 The sequence diagram below shows the interactions for a `nearby` command execution of
@@ -1100,37 +1108,38 @@ should be displayed to the user.
 .Nearby Command Sequence Diagram of `nearby` `-o` `central`
 image::NearbyCommandSequenceDiagram2.svg[]
 
-The `NearbyCommandParser` will check for invalid arguments given by the user. +
+The *NearbyCommandParser* will check for invalid arguments given by the user. +
 Invalid arguments can be either empty arguments or arguments with
 only whitespace characters.
-A `ParseException` will be generated if an invalid argument is present.
+A *ParseException* will be generated if an invalid argument is present.
 
-A new `NearbyCommand` will be created and returned to `LogicManager`.
+A new *NearbyCommand* will be created and returned to *LogicManager*.
 
-`LogicManager` will then call the `execute()` function of the `NearbyCommand`. +
+*LogicManager* will then call the execute() function of the *NearbyCommand*. +
 There will then be a check for whether the given argument is a valid area with the
-function `isValidArea(area)` present in the `DistrictInfo` class.
+function isValidArea(area) present in the *DistrictInfo* class.
 
 [NOTE]
 ====
-`DistrictInfo` is a helper class that contains functions and variables used for
+*DistrictInfo* is a helper class that contains functions and variables used for
 identifying areas. +
-This class was created to reduce the responsibility of the `NearbyCommand` class. +
+This class was created to reduce the responsibility of the *NearbyCommand* class. +
+
 ====
 
-The model will then be updated using the `updateFilteredOrderList(orderPredicate)` function.
+The model will then be updated using the updateFilteredOrderList(orderPredicate) function.
 
-A new `CommandResult` will be created and returned to the `LogicManager`.
+A new *CommandResult* will be created and returned to the *LogicManager*.
 
 
 The sequence diagram below shows the interactions for a `nearby` command execution of
 `nearby`. +
-This will result in a `ParseException` as invalid arguments are provided.
+This will result in a *ParseException* as invalid arguments are provided.
 
 .Parse Exception due to invalid `nearby` command
 image::NearbySequenceDiagramParseException.svg[]
 
-The exception will be thrown in the `NearbyCommandParser`.
+The exception will be thrown in the *NearbyCommandParser*.
 
 //end::nearby[]
 
