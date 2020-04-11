@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import cookbuddy.logic.parser.ParserUtil;
 import cookbuddy.logic.parser.exceptions.ParseException;
-import cookbuddy.model.recipe.testattribute.Name;
-import cookbuddy.model.recipe.testattribute.Rating;
-import cookbuddy.model.recipe.testattribute.Tag;
-import cookbuddy.model.recipe.testattribute.Time;
+import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Rating;
+import cookbuddy.model.recipe.attribute.Tag;
+import cookbuddy.model.recipe.attribute.Time;
 
 
 

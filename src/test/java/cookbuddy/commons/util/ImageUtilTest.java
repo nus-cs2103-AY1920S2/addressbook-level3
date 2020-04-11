@@ -1,7 +1,5 @@
 package cookbuddy.commons.util;
 
-package cookbuddy.commons.util;
-
 import static cookbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,15 +33,6 @@ public class ImageUtilTest {
     public final String MESSAGE_CONSTRAINTS = "Image not found, or invalid image path given. "
             + "Placeholder image used instead.";
     private final Logger logger = LogsCenter.getLogger(MainApp.class);
-
-    private ImageUtilTest() {
-        this.PLACEHOLDER_IMAGE_STREAM = getResourceAsInputStream(PLACEHOLDER_IMAGE_PATH_STRING);
-        this.PLACEHOLDER_IMAGE = getImage(PLACEHOLDER_IMAGE_STREAM);
-    }
-
-    public static ImageUtilTest imageUtil() {
-        return new ImageUtilTest();
-    }
 
     /**
      * Returns a {@link BufferedImage} from the given {@code Path}
@@ -156,33 +145,4 @@ public class ImageUtilTest {
                 || imageFilePath.compareTo(FileUtil.relativePathFrom("data", "images", "placeholder")) == 0;
     }
 
-    /**
-     * Writes all images in {@code recipeList} to disk; skips if the file already
-     * exists.
-     *
-     * @param recipeList    An unmodifiable list of recipes whose images are to be
-     *                      saved.
-     * @param imageFilePath
-     * @throws IOException
-     */
-    public void saveAllImages(ObservableList<Recipe> recipeList, Path imageFilePath) throws IOException {
-        for (Recipe recipe : recipeList) {
-            Path recipeImagePath = FileUtil.joinPaths(imageFilePath, recipe.getPhotograph().getImageFileName(recipe));
-            if (!isPlaceHolderImage(recipeImagePath) && !FileUtil.isFileExists(recipeImagePath)) {
-                FileUtil.createIfMissing(recipeImagePath);
-                ImageIO.write(recipe.getPhotograph().getData(), "png", recipeImagePath.toFile());
-            }
-        }
-    }
-
-    /**
-     * Generates a hashcode for {@code image}, based on its RGB pixel data. Two
-     * identical images should return the same hashcode.
-     *
-     * @param image A {@link BufferedImage} to hash
-     * @return The hashcode.
-     */
-    public int hashImage(BufferedImage image) {
-        return Arrays.hashCode(image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth()));
-    }
 }

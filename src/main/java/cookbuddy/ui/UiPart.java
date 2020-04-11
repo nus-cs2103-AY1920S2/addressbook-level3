@@ -21,7 +21,7 @@ public abstract class UiPart<T> {
 
     /**
      * Constructs a UiPart with the specified FXML file URL.
-     * The FXML file must not specify the {@code fx:controller} testattribute.
+     * The FXML file must not specify the {@code fx:controller} attribute.
      */
     public UiPart(URL fxmlFileUrl) {
         loadFxmlFile(fxmlFileUrl, null);
@@ -37,7 +37,7 @@ public abstract class UiPart<T> {
 
     /**
      * Constructs a UiPart with the specified FXML file URL and root object.
-     * The FXML file must not specify the {@code fx:controller} testattribute.
+     * The FXML file must not specify the {@code fx:controller} attribute.
      */
     public UiPart(URL fxmlFileUrl, T root) {
         loadFxmlFile(fxmlFileUrl, root);

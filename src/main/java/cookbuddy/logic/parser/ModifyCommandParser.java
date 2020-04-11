@@ -18,7 +18,7 @@ import java.util.Set;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
-import cookbuddy.model.recipe.testattribute.Tag;
+import cookbuddy.model.recipe.attribute.Tag;
 
 
 /**

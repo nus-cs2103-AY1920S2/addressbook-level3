@@ -24,15 +24,15 @@ import cookbuddy.commons.util.CollectionUtil;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.testattribute.Calorie;
-import cookbuddy.model.recipe.testattribute.Difficulty;
-import cookbuddy.model.recipe.testattribute.IngredientList;
-import cookbuddy.model.recipe.testattribute.InstructionList;
-import cookbuddy.model.recipe.testattribute.Name;
-import cookbuddy.model.recipe.testattribute.Photograph;
-import cookbuddy.model.recipe.testattribute.Rating;
-import cookbuddy.model.recipe.testattribute.Serving;
-import cookbuddy.model.recipe.testattribute.Tag;
+import cookbuddy.model.recipe.attribute.Calorie;
+import cookbuddy.model.recipe.attribute.Difficulty;
+import cookbuddy.model.recipe.attribute.IngredientList;
+import cookbuddy.model.recipe.attribute.InstructionList;
+import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Photograph;
+import cookbuddy.model.recipe.attribute.Rating;
+import cookbuddy.model.recipe.attribute.Serving;
+import cookbuddy.model.recipe.attribute.Tag;
 import cookbuddy.ui.UiManager;
 
 /**

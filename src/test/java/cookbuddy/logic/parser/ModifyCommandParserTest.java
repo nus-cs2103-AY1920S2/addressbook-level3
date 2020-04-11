@@ -43,9 +43,9 @@ import org.junit.jupiter.api.Test;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.ModifyCommand;
 import cookbuddy.logic.commands.ModifyCommand.EditRecipeDescriptor;
-import cookbuddy.model.recipe.testattribute.Ingredient;
-import cookbuddy.model.recipe.testattribute.Name;
-import cookbuddy.model.recipe.testattribute.Tag;
+import cookbuddy.model.recipe.attribute.Ingredient;
+import cookbuddy.model.recipe.attribute.Name;
+import cookbuddy.model.recipe.attribute.Tag;
 import cookbuddy.testutil.EditRecipeDescriptorBuilder;
 
 

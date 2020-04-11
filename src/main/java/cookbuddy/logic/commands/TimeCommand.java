@@ -9,7 +9,7 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.testattribute.Time;
+import cookbuddy.model.recipe.attribute.Time;
 
 /**
  * Adds a time to a recipe, identified using it's displayed index from the recipe book.

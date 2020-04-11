@@ -9,7 +9,7 @@ import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.model.Model;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.testattribute.Name;
+import cookbuddy.model.recipe.attribute.Name;
 
 /**
  * Adds a duplicate of the recipe identified using it's displayed index from the recipe book.

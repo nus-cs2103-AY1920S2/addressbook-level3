@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.testattribute.Time;
+import cookbuddy.model.recipe.attribute.Time;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

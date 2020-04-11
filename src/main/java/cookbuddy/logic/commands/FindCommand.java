@@ -14,9 +14,9 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose testattribute contains any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose attribute contains any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: testattribute/ KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: attribute/ KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " n/ sandwich";
 
     private final ContainsKeywordsPredicate predicate;

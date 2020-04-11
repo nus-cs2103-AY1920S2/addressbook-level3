@@ -1,8 +1,8 @@
 package cookbuddy.ui;
 
 import cookbuddy.model.recipe.Recipe;
-import cookbuddy.model.recipe.testattribute.Ingredient;
-import cookbuddy.model.recipe.testattribute.Instruction;
+import cookbuddy.model.recipe.attribute.Ingredient;
+import cookbuddy.model.recipe.attribute.Instruction;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

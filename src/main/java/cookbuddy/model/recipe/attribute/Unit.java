@@ -1,4 +1,4 @@
-package cookbuddy.model.recipe.testattribute;
+package cookbuddy.model.recipe.attribute;
 
 /**
  * A unit class to model units for each {@code Quantity}.

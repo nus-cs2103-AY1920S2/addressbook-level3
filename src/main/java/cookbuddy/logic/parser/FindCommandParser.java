@@ -12,7 +12,7 @@ import cookbuddy.logic.parser.exceptions.ParseException;
 import cookbuddy.model.recipe.IngredientContainsKeywordsPredicate;
 import cookbuddy.model.recipe.InstructionContainsKeywordsPredicate;
 import cookbuddy.model.recipe.NameContainsKeywordsPredicate;
-import cookbuddy.model.recipe.testattribute.Name;
+import cookbuddy.model.recipe.attribute.Name;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -40,7 +40,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // TODO: allow finding via multiple prefixes
         if (!isSinglePrefixPresent(argumentMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS)) {
-            throw new ParseException("Please search for 1 testattribute at a time!");
+            throw new ParseException("Please search for 1 attribute at a time!");
         }
 
         String[] keywords;

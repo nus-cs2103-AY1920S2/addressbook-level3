@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import cookbuddy.model.recipe.testattribute.Calorie;
+import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.testutil.RecipeBuilder;
 
 
