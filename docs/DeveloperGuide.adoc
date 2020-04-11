@@ -1865,14 +1865,14 @@ Use case ends.
 Use case ends.
 
 [none]
-* 3b. Delino unable to detect any order specified by the user.
+* 3b. Delino unable to detect any parcel specified by the user.
 [none]
-** 3b1. Delino shows no order found message.
+** 3b1. Delino shows no parcel found message.
 
 [none]
-* 3c. Delino detects duplicate a order.
+* 3c. Delino detects duplicate parcel.
 [none]
-** 3c1. Delino shows duplicate order message.
+** 3c1. Delino shows duplicate parcel message.
 +
 Use case ends.
 //end::use_case_edit[]
@@ -1897,6 +1897,7 @@ Use case ends.
 //tag::use_case_search[]
 [discrete]
 === Use case: UC07 - Search an order
+Preconditions: There should be a valid order/return order in Delino.
 
 *MSS*
 
@@ -1916,9 +1917,9 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2b. Delino unable to find any order or return order that matches the given keyword.
+* 2b. Delino unable to find any parcel field that matches the given keyword.
 [none]
-** 2b1. Delino display order not found message.
+** 2b1. Delino display parcel not found message.
 +
 Use case ends.
 //end::use_case_search[]
