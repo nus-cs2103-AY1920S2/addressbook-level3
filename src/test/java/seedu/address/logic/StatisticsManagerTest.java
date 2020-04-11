@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.model.Statistics.DEFAULT_DAILY_TARGET;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDayDatas.DAY6;
-import static seedu.address.testutil.TypicalDayDatas.getTypicalDayDatas;
 import static seedu.address.testutil.TypicalDayDatas.getTypicalStatistics;
 
 import org.junit.jupiter.api.Test;

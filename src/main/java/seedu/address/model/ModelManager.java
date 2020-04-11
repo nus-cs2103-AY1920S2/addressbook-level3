@@ -20,10 +20,10 @@ import seedu.address.logic.Observer;
 import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.task.Recurring;
 import seedu.address.model.task.Task;
 
 /** Represents the in-memory model of the task list data. */
@@ -130,10 +130,12 @@ public class ModelManager implements Model {
         this.recurringTimerTasks.clear();
         for (Task t : this.taskList.getTaskList()) {
             if (t.getOptionalRecurring().isPresent()) {
-                TimerTask tt = this.generateTimerTask(t);
-                recurringTimerTasks.put(t, tt);
-                this.recurringTimer.scheduleAtFixedRate(
-                        tt, t.getDelayToFirstTrigger(), t.getRecurPeriod());
+                if (Recurring.shouldUpdateTask(t)) {
+                    TimerTask tt = this.generateTimerTask(t);
+                    recurringTimerTasks.put(t, tt);
+                    this.recurringTimer.scheduleAtFixedRate(
+                            tt, t.getDelayToFirstTrigger(), t.getRecurPeriod());
+                }
             }
         }
     }
@@ -144,7 +146,13 @@ public class ModelManager implements Model {
             public void run() {
                 Platform.runLater(
                         () -> {
-                            setTask(t, t.getRecurredTask());
+                            if (Recurring.shouldUpdateTask(t)) {
+                                Task recurredTask = t.getRecurredTask();
+                                setTask(t, recurredTask);
+                                String recurredString =
+                                        "Recurring task has been reset: " + recurredTask.toString();
+                                notifyMainWindow(recurredString);
+                            }
                         });
             }
         };
@@ -216,9 +224,9 @@ public class ModelManager implements Model {
 
     // =========== Subject Methods for Observer
     // ================================================================================
-    public void notifyObservers() throws CommandException {
+    public void notifyMainWindow(String input) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(input);
         }
     }
 

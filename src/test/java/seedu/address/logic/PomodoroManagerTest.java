@@ -93,7 +93,8 @@ public class PomodoroManagerTest {
         LocalDateTime end = LocalDateTime.now();
         LocalDateTime start = end.minusMinutes(AMOUNT_TO_TEST);
         DayData d =
-                model.getDayDataFromDateStatistics(new Date(LocalDateTime.now().toLocalDate().toString()));
+                model.getDayDataFromDateStatistics(
+                        new Date(LocalDateTime.now().toLocalDate().toString()));
         assertTrue(d.getPomDurationData().value == 0);
         pomodoroManager.setStartDateTime(start);
         pomodoroManager.updateStatistics(model);

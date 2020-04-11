@@ -13,7 +13,6 @@ import java.util.TimerTask;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -393,6 +392,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void displayRecurring(String recurringFeedback) {
+        resultDisplay.setFeedbackToUser(recurringFeedback);
     }
 
     public void setPomCommandExecutor() {

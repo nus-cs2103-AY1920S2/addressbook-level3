@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -45,10 +46,22 @@ public class Recurring {
         }
     }
 
-    public boolean shouldUpdateReminder(LocalDateTime reminderDateTime) {
+    public static boolean shouldUpdateReminder(LocalDateTime reminderDateTime) {
         Duration duration = Duration.between(LocalDateTime.now(), reminderDateTime);
         boolean hasPassed = duration.getSeconds() < 0;
         return hasPassed;
+    }
+
+    /** Returns boolean on whether the task should be updated or not */
+    public static boolean shouldUpdateTask(Task t) {
+        boolean isDone = t.getDone().getIsDone();
+        Optional<Reminder> optReminder = t.getOptionalReminder();
+        boolean updateReminder = false;
+        if (optReminder.isPresent()) {
+            LocalDateTime reminderDateTime = optReminder.get().getDateTime();
+            updateReminder = shouldUpdateReminder(reminderDateTime);
+        }
+        return isDone || updateReminder;
     }
 
     public LocalDateTime getUpdatedReminderTime(Reminder currentReminder) {
