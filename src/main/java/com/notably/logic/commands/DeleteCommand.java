@@ -38,7 +38,11 @@ public class DeleteCommand extends Command {
 
         try {
             notablyModel.removeBlock((AbsolutePath) this.targetPath);
-        } catch (NoSuchBlockException | CannotModifyRootException ex) {
+        } catch (NoSuchBlockException ex) {
+            logger.warning(String.format("Path '%s' cannot be found", this.targetPath));
+            throw new CommandException(ex.getMessage());
+        } catch (CannotModifyRootException ex) {
+            logger.warning("Deleting the root is forbidden");
             throw new CommandException(ex.getMessage());
         }
         logger.info(String.format("Block at path '%s' deleted", this.targetPath.toString()));

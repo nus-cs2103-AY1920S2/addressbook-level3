@@ -29,6 +29,7 @@ public class EditCommand extends Command {
         requireNonNull(notablyModel);
         logger.info("Executing EditCommand");
         if (notablyModel.getCurrentlyOpenPath().equals(ROOT)) {
+            logger.warning("Editing the root's body is forbidden");
             throw new CommandException(ERROR_ROOT_MODIFICATION);
         }
         notablyModel.setBlockEditable(true);

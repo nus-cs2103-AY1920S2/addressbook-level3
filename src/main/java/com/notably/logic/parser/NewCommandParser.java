@@ -45,6 +45,7 @@ public class NewCommandParser implements CommandParser<Command> {
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.warning(String.format("The Prefix '%s' is missing. ", PREFIX_TITLE));
             throw new ParseException(String.format(ERROR_PREFIX_MISSING, PREFIX_TITLE));
         }
 
@@ -54,6 +55,7 @@ public class NewCommandParser implements CommandParser<Command> {
         try {
             block = new BlockImpl(new Title(title));
         } catch (IllegalArgumentException ex) {
+            logger.warning(String.format("The title '%s' provided is invalid. ", title));
             throw new ParseException(ex.getMessage());
         }
 
@@ -66,7 +68,7 @@ public class NewCommandParser implements CommandParser<Command> {
 
         AbsolutePath path = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         commands.add(new OpenCommand(path));
-        logger.info("OpenCommand created");
+        logger.info("Command jumps to the block after creation");
         return commands;
     }
 

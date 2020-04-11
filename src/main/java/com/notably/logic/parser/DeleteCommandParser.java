@@ -50,16 +50,19 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         }
 
         if (title.isEmpty()) {
+            logger.warning("Empty path detected.");
             throw new ParseException(ERROR_EMPTY_PATH);
         }
 
         AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+            logger.warning(String.format("The path \"%s\" does not exist in the storage.", title));
             throw new ParseException(String.format(ERROR_NO_MATCH_PATH, title));
         }
 
-        logger.info("DeleteCommand created");
-        return List.of(new DeleteCommand(correctionResult.getCorrectedItems().get(0)));
+        AbsolutePath correctedPath = correctionResult.getCorrectedItems().get(0);
+        logger.info(String.format("DeleteCommand with the path '%s' is created", correctedPath));
+        return List.of(new DeleteCommand(correctedPath));
     }
 }

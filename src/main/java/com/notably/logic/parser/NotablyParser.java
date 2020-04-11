@@ -57,6 +57,7 @@ public class NotablyParser {
         logger.info(String.format("Parsing '%s'", userInput));
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
+            logger.warning(String.format("'%s' is an invalid command format.", userInput));
             throw new ParseException(String.format(ERROR_MESSAGE, userInput));
         }
 
@@ -64,6 +65,7 @@ public class NotablyParser {
         if (commandWord.length() > 1) {
             CorrectionResult<String> correctionResult = commandCorrectionEngine.correct(commandWord);
             if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
+                logger.warning(String.format("'%s' is an invalid command word.", commandWord));
                 throw new ParseException(String.format(ERROR_MESSAGE, commandWord));
             }
             commandWord = correctionResult.getCorrectedItems().get(0);

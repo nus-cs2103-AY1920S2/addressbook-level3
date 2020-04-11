@@ -21,5 +21,6 @@ public class HelpCommand extends Command {
         requireNonNull(notablyModel);
         logger.info("Executing HelpCommand");
         notablyModel.setHelpOpen(true);
+        logger.info("Help Modal Enabled");
     }
 }

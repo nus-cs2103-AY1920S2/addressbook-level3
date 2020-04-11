@@ -42,8 +42,7 @@ public class LogicManager implements Logic {
 
     @Override
     public void execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-
+        logger.info(String.format("User inputted '%s'", commandText));
         try {
             List<? extends Command> commands = notablyParser.parseCommand(commandText);
             for (Command command : commands) {

@@ -35,7 +35,9 @@ public class NewCommand extends Command {
         try {
             notablyModel.addBlockToCurrentPath(toAdd);
         } catch (DuplicateBlockException ex) {
+            logger.warning("Duplicate block detected.");
             throw new CommandException(ex.getMessage());
         }
+        logger.info(String.format("Block titled '%s' successfully created", this.toAdd.getTitle().getText()));
     }
 }

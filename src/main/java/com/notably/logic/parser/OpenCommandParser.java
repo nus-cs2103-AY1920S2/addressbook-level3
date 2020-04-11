@@ -43,24 +43,27 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
 
-        String titles;
+        String title;
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            titles = args.trim();
-            if (titles.isEmpty()) {
+            title = args.trim();
+            if (title.isEmpty()) {
+                logger.warning("Empty path detected");
                 throw new ParseException(ERROR_EMPTY_PATH);
             }
         } else {
-            titles = argMultimap.getValue(PREFIX_TITLE).get();
+            title = argMultimap.getValue(PREFIX_TITLE).get();
         }
 
-        AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(titles, notablyModel.getCurrentlyOpenPath());
+        AbsolutePath uncorrectedPath = ParserUtil.createAbsolutePath(title, notablyModel.getCurrentlyOpenPath());
         CorrectionResult<AbsolutePath> correctionResult = pathCorrectionEngine.correct(uncorrectedPath);
         if (correctionResult.getCorrectionStatus() == CorrectionStatus.FAILED) {
-            throw new ParseException(String.format(ERROR_PATH, titles));
+            logger.warning(String.format("The path \"%s\" does not exist in the storage.", title));
+            throw new ParseException(String.format(ERROR_PATH, title));
         }
 
-        logger.info("OpenCommand created");
-        return List.of(new OpenCommand(correctionResult.getCorrectedItems().get(0)));
+        AbsolutePath correctedPath = correctionResult.getCorrectedItems().get(0);
+        logger.info(String.format("OpenCommand with the path '%s' is created", correctedPath));
+        return List.of(new OpenCommand(correctedPath));
     }
 }

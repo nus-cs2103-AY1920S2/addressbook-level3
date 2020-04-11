@@ -36,6 +36,7 @@ public class OpenCommand extends Command {
         } catch (NoSuchBlockException ex) {
             throw new CommandException(ex.getMessage());
         }
+        logger.info(String.format("Current Open directory set to '%s'", this.path));
     }
 
 }
