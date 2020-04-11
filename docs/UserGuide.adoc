@@ -713,9 +713,9 @@ care to ensure that the code is correct.
 ====
 Examples:
 
-* `module add m/CS2103 n/Software Engineering`
+* `module add m/CS2100 n/Computer Organisation`
 +
-This will add a module with the module code `CS2103` and name `Software Engineering`
+This will add a module with the module code `CS2100` and name `Computer Organisation`
 to the TA-Tracker.
 ====
 
@@ -742,9 +742,9 @@ Format: `module delete m/MOD_CODE`
 ====
 Examples:
 
-* `module delete m/CS2103`
+* `module delete m/CS2103T`
 +
-This will delete the module with the module code `CS2103` from the TA-Tracker.
+This will delete the module with the module code `CS2103T` from the TA-Tracker.
 ====
 
 [[EditModule]]
@@ -774,9 +774,9 @@ groups inside the module.
 ====
 Examples:
 
-* `module edit m/CS2103 n/Software Engineering`
+* `module edit m/CS3243 n/Intro to AI`
 +
-This will change the name of the module with module code `CS2103` to `Software Engineering`.
+This will change the name of the module with module code `CS3243` to `Intro to AI`.
 ====
 
 [[AddGroup]]
@@ -810,10 +810,10 @@ group code for it.
 ====
 Examples:
 
-* `group add g/G03 m/CS2103 t/tutorial`
+* `group add g/G03 m/CS2100 t/tutorial`
 +
 This will add a group with the group code `G03`, which is a `tutorial`, inside the module that
-has module code `CS2103`.
+has module code `CS2100`.
 ====
 
 [[DeleteGroup]]
@@ -844,10 +844,10 @@ you want to delete.
 ====
 Examples:
 
-* `group delete g/G03 m/CS2103`
+* `group delete g/G06 m/CS3243`
 +
-This will delete the group with the group code `G03` from the module that
-has module code `CS2103`.
+This will delete the group with the group code `G06` from the module that
+has module code `CS3243`.
 ====
 
 [[EditGroup]]
@@ -883,10 +883,10 @@ same group code as the new group code.
 ====
 Examples:
 
-* `group edit g/G03 m/CS2103 nt/tutorial`
+* `group edit g/G01 m/CS3243 nt/lab`
 +
-This will change the group type of the group with group code `G03`, inside the module with
-module code `CS2103`, to be a `tutorial`.
+This will change the group type of the group with group code `G01`, inside the module with
+module code `CS3243`, to be a `lab`.
 ====
 
 [[AddStudent]]
@@ -917,10 +917,10 @@ space after the hyphen, the second half of the name will not be capitalised.
 ====
 Examples:
 
-* `student add id/A0123456J n/Alice m/CS2103 g/G03`
+* `student add id/A0123456J n/Alice m/CS2100 g/G03`
 +
 This will add a student named Alice with the matriculation number `A0123456J`
-inside group `G03` of the module `CS2103`.
+inside group `G03` of the module `CS2100`.
 ====
 
 [TIP]
@@ -961,10 +961,10 @@ Format: `student delete id/MATRIC_NUMBER g/GROUP_CODE m/MOD_CODE`
 ====
 Examples:
 
-* `student delete id/A0123456J g/G03 m/CS2103`
+* `student delete m/CS3243 g/G01 id/A0187945J`
 +
-Deletes the student with the matriculation number `A0123456J` from group `G03` of
-the module `CS2103`.
+Deletes the student with the matriculation number `A0187945J` from group `G01` of
+the module `CS3243`.
 ====
 
 [[EditStudent]]
@@ -1003,18 +1003,19 @@ Format: `student edit id/MATRIC_NUMBER m/MOD_CODE g/GROUP_CODE
 ====
 Examples:
 
-* `student edit id/A0123456J g/G03 m/CS2103 p/91234567 e/johndoe@example.com`
+* `student edit id/A0181137L g/G01 m/CS3243 p/91234567 e/bernie@example.com r/4`
 +
-Edits the student with the matriculation number `A0123456J` to have:
+Edits the student with the matriculation number `A0181137L` from group `G01`
+of module `CS3243` to have:
 
+** The new rating of `4`
 ** The new phone number `91234567`
-** The new email address `johndoe@example.com`
+** The new email address `bernie@example.com`
 
-* `student edit A9876543K n/Betsy Crower t/`
+* `student edit m/CS3243 g/G01 id/A0186153P t/`
 +
-Edits student with the matriculation number `A9876543K` to have:
+Edits student with the matriculation number `A0186153P` to have:
 
-** The new name `Betsy Crower`
 ** All existing tags removed
 ====
 
@@ -1051,9 +1052,10 @@ Format: `sort group g/GROUP_CODE m/MOD_CODE t/SORT_TYPE`
 ====
 Examples:
 
-* `sort group g/G03 m/CS2103 t/alpha`
+* `sort group g/G01 m/CS3243 t/rating asc`
 +
-Sorts the student inside `G03` of module `CS2103` `alphabetically`.
+Sorts the student inside `G01` of module `CS3242` by `rating asc` (that is, rating in
+ascending order).
 ====
 
 
@@ -1160,9 +1162,9 @@ by the module code.
 ====
 Examples:
 
-* `student filter m/cs2103t g/g06`
+* `student filter m/cs2100 g/g03`
 +
-This will show you all students in module `CS2103T`, under group `G06`.
+This will show you all students in module `CS2100`, under group `G03`.
 ====
 
 If you use just the module code, you will see:
@@ -1179,9 +1181,9 @@ Format: `student filter m/MOD_CODE`
 ====
 Examples:
 
-* `student filter m/cs2103t`
+* `student filter m/cs3243`
 +
-This shows you the students in the first group of the module `CS2103`
+This shows you the students in the first group of the module `CS3243`
 ====
 
 [NOTE]
@@ -1227,7 +1229,7 @@ such as your weekly lab sessions or fortnightly assignment grading.
 ====
 Examples:
 
-* `session add m/CS2103T s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
+* `session add m/CS3243 s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
 +
 Adds a new session with:
 
@@ -1236,7 +1238,7 @@ Adds a new session with:
 ** `DATE` on 2020-06-20 in `yyyy-MM-dd` format
 ** `WEEK` recurring period of 2 weeks: Once this session has been marked as done, a new session will
 be created with `DATE d/2020-07-04` (2 weeks later from the date of the original session)
-** `MOD_CODE` of CS2103T
+** `MOD_CODE` of CS3243
 ** `TYPE` consultation
 ** `NOTE` "with Alice and Bob"
 
@@ -1258,9 +1260,9 @@ Do not confuse the `session delete` and `session done` commands.
 ====
 Examples:
 
-* `session delete 3`
+* `session delete 2`
 +
-This command deletes the third session in the *Session View*.
+This command deletes the second session in the *Session View*.
 ====
 
 ==== Editing a Session : `session edit`
@@ -1280,14 +1282,13 @@ Format: `session edit INDEX [s/START_TIME] [e/END_TIME] [d/DATE] [w/RECUR]
 ====
 Examples:
 
-* `edit 1 s/14:00 e/16:00 d/2020-02-19 m/CS3243 t/grading n/Location: PLAB 04`
+* `session edit 1 s/14:00 e/16:00 d/2020-02-19 t/grading n/Location: PLAB 04`
 +
 Edits the session at index 1 to have:
 
 ** The new `START_TIME` at 14:00
 ** The new `END_TIME` at 16:00
 ** The new `DATE` on 2020-02-19 in `yyyy-MM-dd` format
-** The new `MOD_CODE` CS3243
 ** The new `TYPE` grading
 ** The new `NOTE` "Location: PLAB04"
 ====
@@ -1310,8 +1311,8 @@ Marks the session with the given unique index as done.
 ====
 Examples:
 
-* `session done 25` +
-This will mark the 25th session in the *Session View* as done.
+* `session done 2` +
+This will mark the 2nd session in the *Session View* as done.
 ====
 
 ==== Filter : `filter`
@@ -1340,14 +1341,14 @@ Format: `session filter [m/MOD_CODE] [t/SESSION_TYPE] [d/DATE]`
 ====
 Example:
 
-* `session filter m/CS2103T`
+* `session filter m/CS3243`
 +
-All sessions in the *Session View* with module code `CS2103T` are displayed.
+All sessions in the *Session View* with module code `CS3243` are displayed.
 
-* `session filter m/CS2030T t/tutorial d/2020-03-20`
+* `session filter m/CS3243 t/grading`
 +
-All sessions in the *Session View* that take place on `2020-03-20`, with module code  `CS2103T`,
-session type  ‘Tutorial` will be shown.
+All sessions in the *Session View* that take place with module code  `CS2103T`
+*or* session type  ‘Grading` will be shown.
 ====
 
 === Claims View
@@ -1365,9 +1366,9 @@ Format: `claims filter m/MOD_CODE`
 ====
 Example:
 
-* `claims filter m/CS2103T`
+* `claims filter m/CS3243`
 +
-All sessions in the *Claims View* with module code `CS2103T` are displayed.
+All sessions in the *Claims View* with module code `CS3243` are displayed.
 ====
 
 [#setrate]
@@ -1418,7 +1419,7 @@ Example:
 +
 Generate and display a report of sessions and students from all modules.
 
-* `report CS3243`
+* `report CS2103T`
 +
 Generate and display a report of sessions and students from the module CS3243.
 
