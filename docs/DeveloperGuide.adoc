@@ -501,7 +501,8 @@ to the `GotoCommandParser`.
 with the relevant keywords.
 
 . `LogicManager` calls `GotoCommand` 's execute method.
-The `GotoCommand` object checks whether any of the keywords given by the user
+
+. The `GotoCommand` object checks whether any of the keywords given by the user
 matches the existing tab headers. If it does, the `GotoCommand` returns a `CommandResult`
 with a success message.
 
@@ -697,9 +698,9 @@ code doesn't exist in the TA-Tracker
 .
 
 6. If the module exists, the `DeleteGroupCommand` then checks whether a group with the
-given group code exists within that module. If it doesn't,
-a command exception is thrown saying that no such group exists. If the group does
-exist, it is removed from the module.
+given group code exists within that module.
+.. If the group doesn't exist, a command exception is thrown saying that no such group exists.
+.. If the group does exist, it is removed from the module.
 
 7. The `DeleteGroupCommand` returns a `CommandResult` with a success message.
 
@@ -739,14 +740,14 @@ arguments to the `DeleteStudentCommandParser`.
 5. The `DeleteStudentCommandParser` then creates a `DeleteStudentCommand` object and passes
 it the created student. The parser then returns the `DeleteStudentCommand`
 
-6. `LogicManager` calls `DeleteStudentCommand's` execute method. The `DeleteStudentCommand` object
-checks whether a student with the given matric number already exists in TA-Tracker
-.
-If it doesn't, a command exception is thrown saying that a student with the given matric number
-doesn't exist in the TA-Tracker
-.
+6. `LogicManager` calls `DeleteStudentCommand's` execute method.
 
-7. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
+7. The `DeleteStudentCommand` object
+checks whether a student with the given matric number already exists in TA-Tracker
+
+.. If it student doesn't exist, a command exception is thrown saying that a student with the given matric number
+doesn't exist in the TA-Tracker
+.. If the student exists, the `DeleteStudentCommand` object retrieves the student from the
 model and removes the student.
 
 The `student edit` command has been implemented in a similar manner.
@@ -888,13 +889,16 @@ arguments to the `DoneSessionCommandParser`.
 
 4. The `DoneSessionCommandParser` creates a `DoneSessionCommand` with the given index.
 
-5. `LogicManager` calls `DoneSessionCommand#execute()` method. The `DoneSessionCommand`
-checks whether the current session called by the user has a recurring period.
-If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
+5. `LogicManager` calls `DoneSessionCommand#execute()` method.
 
-6. The current session will be removed from `Model#UniqueSessionList`.
+6. The `DoneSessionCommand`checks whether the current session called by the user has a recurring period.
 
-7. The updated filtered session list will be displayed to the user.
+.. If it doesn't, ...
+.. If it does, a new session with the updated date will be added to `Model#UniqueSessionList()`.
+
+7. The current session will be removed from `Model#UniqueSessionList`.
+
+8. The updated filtered session list will be displayed to the user.
 
 The `session add`, `session edit` and `session delete` commands have been implemented in a similar manner.
 
@@ -1210,25 +1214,26 @@ image::FilterStudentSequenceDiagram.png[]
 
 Given below is an example scenario where the user enters a command to filter students.
 
-*Step 1:* The user command is passed through the `LogicManager` to `TaTrackerParser`.
+. The user command is passed through the `LogicManager` to `TaTrackerParser`.
 `TaTrackerParser` checks the input arguments and identify the String keywords.
 
-*Step 2:* The `TaTrackerParser` sees that the command is a type of Student and passes the command
+. The `TaTrackerParser` sees that the command is a type of Student and passes the command
 to the `StudentCommandParser`.
 
-*Step 3:* The `StudentCommandParser` sees that the command is a type of filter and passes the
+. The `StudentCommandParser` sees that the command is a type of filter and passes the
 arguments to the `FilterStudentCommandParser`.
 
-*Step 4:* The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
+. The `FilterStudentCommandParser` creates a `FilterStudentCommand` object
 with the relevant keywords.
 
-*Step 5:* `LogicManager` calls `FilterStudentCommand` 's execute method.
-The `FilterStudentCommand` object checks whether any of the keywords given by the user
-matches the existing module and/or group.
-If it does, the `FilterStudentCommand` returns a `CommandResult`
-with a success message.
+. `LogicManager` calls `FilterStudentCommand` 's execute method.
 
-*Step 6:* If all of the given inputs does not match any existing modules and/or group,
+. The `FilterStudentCommand` object checks whether any of the keywords given by the user matches the existing
+module and/or group.
+.. If it doesn't ...
+.. If it does, the `FilterStudentCommand` returns a `CommandResult` with a success message.
+
+. If all of the given inputs does not match any existing modules and/or group,
 a command exception is thrown saying that no such students exists.
 
 *Filter under Session View*
