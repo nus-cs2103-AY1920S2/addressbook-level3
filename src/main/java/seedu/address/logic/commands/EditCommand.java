@@ -30,7 +30,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "(ab)edit";
     public static final String COMMAND_FUNCTION = "Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.";
+            + "Other than tags, existing values will be overwritten by the input values. "
+            + "If a tag not currently present is specified for deletion, it will be ignored.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
