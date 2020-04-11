@@ -4,18 +4,10 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Model *-right-> "1" TaskList 
-TaskList *-right-> "1" UniqueTaskList 
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
-
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
-
-Person o-up-> "*" Tag
-
-Person *--> Name
-Person *--> Priority
-Person *--> Email
-Person *--> Address
+Model *-right-> "1" TaskList
+TaskList *-right-> "1" UniqueTaskList
+TaskList o--> "1" SortedList
+SortedList ..> UniqueTaskList: ObservableList <
+Model o--> "1" FilteredList
+FilteredList ..> SortedList
 @enduml

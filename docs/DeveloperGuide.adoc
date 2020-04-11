@@ -165,6 +165,7 @@ image::SortSequenceDiagram.png[]
 The sort command takes in a list of fields and creates an aggregate comparator. The Model will then set the same `Comparator` on the `TaskList` which internally sets it on a `SortedList` form the javaFx library. This SortedList will then help us maintain a sorted order with new or edited tasks.
 
 image::SortInitliazeDiagram.png[]
+image::SortedListClassDiagram.png[]
 Given that the FilteredList cannot perform sorting, we could:
 
 . Create a SortedList from the FilteredList and set the comparator and then create a new FilteredList from the SortedList. But this means we need to reassign the new FilteredList to the UI to reflect the change.
