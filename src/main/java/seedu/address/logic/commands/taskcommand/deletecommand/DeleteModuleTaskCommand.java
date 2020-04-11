@@ -16,6 +16,7 @@ import seedu.address.model.nusmodule.ModuleCode;
 public class DeleteModuleTaskCommand extends DeleteTaskCommand {
 
     public static final String MESSAGE_SUCCESS = "Task Deleted: ";
+    public static final String MESSAGE_NO_SUCH_MODULE = "Module specified does not exist!";
 
     private final Index targetIndex;
     private final ModuleCode targetModule;
@@ -32,7 +33,7 @@ public class DeleteModuleTaskCommand extends DeleteTaskCommand {
         requireNonNull(model);
 
         if (!model.hasModule(targetModule)) {
-            throw new CommandException("Module specified does not exist!");
+            throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
         if (targetIndex.getZeroBased() >= model.getSizeOfModuleTaskList(targetModule)) {

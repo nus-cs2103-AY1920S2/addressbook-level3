@@ -40,4 +40,22 @@ public class ModuleTask extends Task {
         return desiredString;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ModuleTask)) {
+            return false;
+        }
+
+        ModuleTask otherTask = (ModuleTask) other;
+        return otherTask.getDescription().equals(getDescription())
+                && otherTask.getDate().equals(this.getDate())
+                && otherTask.getModuleRelated().equals(getModuleRelated())
+                && otherTask.getPriority().equals(getPriority());
+
+    }
+
 }

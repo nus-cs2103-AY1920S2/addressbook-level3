@@ -10,6 +10,7 @@ import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.ModuleTask;
 import seedu.address.model.nusmodule.NusModule;
+import seedu.address.model.nusmodule.Priority;
 
 /**
  * A utility class containing a list of {@code NusModule} objects to be used in tests.
@@ -26,6 +27,15 @@ public class TypicalNusModules {
     public static final NusModule ST3131 = new NusModule(new ModuleCode("ST3131"),
             4, Optional.of(Grade.getGrade("S")), EMPTY_TASKS);
 
+    public static final ModuleTask TYPICAL_MODULE_TASK_1 = new ModuleTask("assignment", CS2030.getModuleCode(),
+            "02-02-2020", Priority.HIGH);
+
+    public static final ModuleTask TYPICAL_MODULE_TASK_2 = new ModuleTask("assignment", new ModuleCode("GET1036"),
+            "01-02-2020", Priority.HIGH);
+
+    public static final ModuleTask TYPICAL_MODULE_TASK_3 = new ModuleTask("assignment", CS2030.getModuleCode(),
+            "01-02-2020", Priority.LOW);
+
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
@@ -38,6 +48,8 @@ public class TypicalNusModules {
     }
 
     public static List<NusModule> getTypicalNusModules() {
+        CS2030.addTask(TYPICAL_MODULE_TASK_1);
+        CS2030.addTask(TYPICAL_MODULE_TASK_3);
         return new ArrayList<>(Arrays.asList(CS2103, CS2030, ST3131));
     }
 }
