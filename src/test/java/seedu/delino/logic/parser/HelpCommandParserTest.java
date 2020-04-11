@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import seedu.delino.commons.core.Messages;
 import seedu.delino.logic.commands.HelpCommand;
 
+//@@author cherweijie
 public class HelpCommandParserTest {
 
     private HelpCommandParser parser = new HelpCommandParser();

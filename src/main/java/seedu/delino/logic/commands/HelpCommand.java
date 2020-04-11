@@ -2,6 +2,7 @@ package seedu.delino.logic.commands;
 
 import seedu.delino.model.Model;
 
+//@@author cherweijie
 /**
  * Format full help instructions for every command for display.
  */
