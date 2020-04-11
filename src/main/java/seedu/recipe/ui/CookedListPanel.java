@@ -39,7 +39,7 @@ public class CookedListPanel extends UiPart<Region> {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         for (GoalCount goalCount : goalCountList) {
             String goalName = goalCount.getGoal().goalName;
-            Integer count = goalCount.getCount();
+            int count = goalCount.getCount();
             pieChartData.add(new PieChart.Data(goalName, count));
         }
         pieChart.setTitle("My Healthy Plate");

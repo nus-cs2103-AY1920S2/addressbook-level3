@@ -2,6 +2,7 @@ package seedu.recipe.testutil;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_FRUIT_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_FRUIT_TURKEY_SANDWICH;
+import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_FRUIT;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GRAIN_FISH;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GRAIN_TURKEY_SANDWICH;
@@ -92,7 +93,7 @@ public class TypicalRecipes {
             .withProteins(VALID_PROTEIN_TURKEY_SANDWICH)
             .withFruits(VALID_FRUIT_TURKEY_SANDWICH)
             .withOthers(VALID_OTHER_TURKEY_SANDWICH)
-            .withGoals(VALID_GOAL_GRAIN).withSteps(VALID_STEP_TURKEY_SANDWICH).build();
+            .withGoals(VALID_GOAL_GRAIN, VALID_GOAL_FRUIT).withSteps(VALID_STEP_TURKEY_SANDWICH).build();
 
     public static final Recipe FISH = new RecipeBuilder().withName(VALID_NAME_FISH).withTime(VALID_TIME_FISH)
             .withGrains(VALID_GRAIN_FISH)
