@@ -19,7 +19,7 @@ end box
 [-> LogicManager : execute("return tid/AC31255")
 activate LogicManager
 
-LogicManager -> DelinoParser : parseCommand("return tid/AC31255")
+LogicManager -> DelinoParser : parseCommand("return tid/AC31255 rts/2020-05-03 1800")
 activate DelinoParser
 
 create ReturnCommandParser
@@ -28,7 +28,7 @@ activate ReturnCommandParser
 ReturnCommandParser --> DelinoParser
 deactivate ReturnCommandParser
 
-DelinoParser -> ReturnCommandParser : parse("tid/AC31255")
+DelinoParser -> ReturnCommandParser : parse("tid/AC31255 rts/2020-05-03 1800")
 activate ReturnCommandParser
 
 create ReturnCommand

@@ -15,7 +15,7 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 == Summary of contributions
 
 * *Major enhancement*:
-** Added `return` command (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/303[#303])
+** Added `return` command (Pull request: https://github.com/AY1920S2-CS2103T-W12-1/main/pull/353[#353])
 *** What it does: This command allows the user to create a new return order and add it into the Return Order List or
 convert a delivered order into a return order
 and add it into the Return Order List.
