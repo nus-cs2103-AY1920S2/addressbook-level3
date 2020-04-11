@@ -131,7 +131,7 @@ Let's say that you want to find a client named "Bryan Low" in client list. You c
 
 /photo
 
-3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive.
+3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in the search results.
 
 /photo
 
@@ -142,7 +142,7 @@ You might face some errors or difficulties when you `find-c`. In this section, y
 You might wonder why `find-c` do not show the clients even though the client is in clearly in your client list. It might be possible that you have entered an incomplete name and does not match any word in the name of that client. The example below might help you understand better.
 
 Example:
-You want to find the client named "Bryan" in client list. Below shows that "Bryan" indeed exists in the client list.
+You want to find the client named "Bryan Low" in client list. Below shows that "Bryan Low" indeed exists in the client list.
 
 /photo
 
@@ -154,9 +154,7 @@ You will obtain "no clients listed!".
 
 /photo
 
-This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan`.
-
-/photo
+This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan` as seen in the example.
 
 ===== Using multiple keywords for `NAME`
 
@@ -293,11 +291,14 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 
 ==== Example
 Let's say that you want to add an exercise with the following details: +
+[width="50%"]
+|============
 Name: Bench Press +
 Date: 12-02-2020 +
 Reps: 4 +
 Weight: 100 +
 Sets: 4 +
+|============
 You can use the `add-e` command to add the exercise as shown.
 
 1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
