@@ -330,8 +330,42 @@ Cons::
 new model object
 .. More memory intensive and can hurt overall program performance.
 
-
 ===== Step 3: Add Progress objects via ProgressManager
+====== +++<u>Rationale</u>+++
+New `Progress` objects must be created in 2 main scenarios.
+
+. If a `Student` has been added to a `Course`, the `Student` will need to complete all `Assignments` that have already been assigned
+to the `Course`.
+. If an `Assignment` has been added to a `Course`, all `Students` currently taking the `Course` must now complete that `Assignment`.
+
+The rationale is similar when un-assigning either `Student` or `Assignment` from a `Course`.
+`Progress` objects need to be removed instead.
+
+====== +++<u>Current Implementation</u>+++
+Below is a sequence diagram illustrating how the ProgressManager adds Progress objects into the ProgressAddressBook
+when a `AssignStudentToCourse` command is run.
+
+.Activity Diagram for creating Progress objects when assigning a Student to a Course
+image::Ivan-ProgressManagerAssignStudentToCourse.png[]
+
+---
+The flow of adding Progress objects in a AssignStudentToCourse is as follows
+
+. If there are `Progress` objects that were previously in ProgressAddressBook but was removed due to an `unassign/delete` command,
+add those `Progress` objects back in. Refer to `Section 3.2.2` for more information.
+. Else, i.e. if this is an entirely new AssignStudentToCourse command,
+.. Obtain *C'*, a copy of the targeted `Course`
+.. From *C'*, obtain all assignmentIDs that are assigned to it.
+.. For each of the obtained assignmentIDs, create a new CompositeID of assignmentID and studentID
+.. Create a `Progress` object using each of the `CompositeID`
+.. Finally, add these `Progress` objects into the `ProgressAddressBook`.
+
+[NOTE]
+
+The flow is largely the same for AssignAssignmentToCourse! Instead, we want every `Student` that is currently studying in
+course *C'* to complete the particular `Assignment`. Hence, rather than obtain all assignmentIDs, we will need to obtain all
+`studentIDs` that are studying *C'*, and create a `Progress` object so that we can track whether those students have completed
+the assignment.
 
 === Undo/Redo
 
