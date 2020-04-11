@@ -41,9 +41,9 @@ public class UniqueRecipeListTest {
     @Test
     public void contains_recipeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(HAM_SANDWICH);
-        Recipe editedHAM_SANDWICH = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST)
+        Recipe editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST)
             .build();
-        assertTrue(uniqueRecipeList.contains(editedHAM_SANDWICH));
+        assertTrue(uniqueRecipeList.contains(editedHamSandwich));
     }
 
     @Test
@@ -84,11 +84,11 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipe_editedRecipeHasSameIdentity_success() {
         uniqueRecipeList.add(HAM_SANDWICH);
-        Recipe editedHAM_SANDWICH = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST)
+        Recipe editedHamSandwich = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_BREAKFAST)
             .build();
-        uniqueRecipeList.setRecipe(HAM_SANDWICH, editedHAM_SANDWICH);
+        uniqueRecipeList.setRecipe(HAM_SANDWICH, editedHamSandwich);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
-        expectedUniqueRecipeList.add(editedHAM_SANDWICH);
+        expectedUniqueRecipeList.add(editedHamSandwich);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
 
