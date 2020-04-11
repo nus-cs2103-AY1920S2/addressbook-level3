@@ -1,4 +1,4 @@
-package hirelah.storage.storagetest;
+package hirelah.storage.storagetests;
 
 import static hirelah.testutil.Assert.assertThrows;
 import static hirelah.testutil.TypicalAttributes.getAttributePrefix;
