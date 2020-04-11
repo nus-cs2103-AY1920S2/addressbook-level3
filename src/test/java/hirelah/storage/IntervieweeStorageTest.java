@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import hirelah.model.hirelah.AttributeList;
+import hirelah.model.hirelah.QuestionList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -28,13 +30,16 @@ public class IntervieweeStorageTest {
 
     @Test
     public void readInterviewee_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readInterviewee(null));
+        assertThrows(NullPointerException.class, () -> readInterviewee(null, getTypicalQns(),
+                getTypicalAttributes(), model, transcriptStorage));
     }
     /**Create a readInterviewee method to support the tests*/
-    private java.util.Optional<IntervieweeList> readInterviewee(String filePath) throws Exception {
+    private java.util.Optional<IntervieweeList> readInterviewee(String filePath, QuestionList questionList,
+                                                                AttributeList attributeList, boolean model,
+                                                                TranscriptStorage transcriptStorage) throws Exception {
         IntervieweeStorage intervieweeStorage = new IntervieweeStorage(Paths.get(filePath));
         return intervieweeStorage.readInterviewee(addToTestDataPathIfNotNull(filePath),
-                getTypicalQns(), getTypicalAttributes(), model, transcriptStorage);
+                questionList, attributeList, model, transcriptStorage);
 
     }
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -44,22 +49,26 @@ public class IntervieweeStorageTest {
     }
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readInterviewee("NonExistentFile.json").isPresent());
+        assertFalse(readInterviewee("NonExistentFile.json", getTypicalQns(),
+                getTypicalAttributes(), model, transcriptStorage).isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readInterviewee("notJsonFormat.json"));
+        assertThrows(DataConversionException.class, () -> readInterviewee("notJsonFormat.json", getTypicalQns(),
+                getTypicalAttributes(), model, transcriptStorage));
     }
 
     @Test
     public void readInterviewee_invalidIntervieweeList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readInterviewee("invalidInterviewee.json"));
+        assertThrows(DataConversionException.class, () -> readInterviewee("invalidInterviewee.json", getTypicalQns(),
+                getTypicalAttributes(), model, transcriptStorage));
     }
 
     @Test
     public void readInterviewee_invalidAndValidInterviewee_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readInterviewee("invalidAndValidInterviewee.json"));
+        assertThrows(DataConversionException.class, () -> readInterviewee("invalidAndValidInterviewee.json" , getTypicalQns(),
+                getTypicalAttributes(), model, transcriptStorage));
     }
     @Test
     public void readAndSaveInterviewees_allInOrder_success() throws Exception {

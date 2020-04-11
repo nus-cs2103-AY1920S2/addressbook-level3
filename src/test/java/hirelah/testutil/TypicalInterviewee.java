@@ -39,4 +39,9 @@ public class TypicalInterviewee {
         list = List.of(firstInterviewee, secondInterviewee);
         return IntervieweeList.fromList(3, list);
     }
+    public static Interviewee getAnInterviewee() throws IllegalValueException {
+        Interviewee firstInterviewee = new Interviewee(NAME1, ID1);
+        firstInterviewee.setAlias(ALIAS1);
+        return firstInterviewee;
+    }
 }

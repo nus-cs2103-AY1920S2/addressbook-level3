@@ -1,3 +1,6 @@
 {
-  "metrics" : [ not a valid]
+  "metrics" : [ {
+    "name" : "CEOmaterial",
+    "attributeToWeight" : "kind-a0.8-asmart-a0.9-a"
+  } , not a valid metric
 }

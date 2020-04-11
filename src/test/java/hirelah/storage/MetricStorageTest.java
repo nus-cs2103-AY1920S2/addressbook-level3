@@ -72,7 +72,7 @@ public class MetricStorageTest {
         // Modify data, overwrite exiting file, and read back, without specifying file path
         original.add("Initiative", getTypicalAttributes(),
                 getAttributePrefix(),getSamplemetricWeight());
-        original.delete("Leadership");
+        original.delete("Leader");
         MetricStorage.saveMetrics(original);
         readBack = MetricStorage.readMetric(filePath).get();
         assertEquals(original, readBack);
