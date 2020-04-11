@@ -19,7 +19,7 @@ public class JsonSerializableFoodBookTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableFoodBookTest");
     // private static final Path TYPICAL_FOODS_FILE = TEST_DATA_FOLDER.resolve("typicalFoodFoodBook.json");
     private static final Path INVALID_FOOD_FILE = TEST_DATA_FOLDER.resolve("invalidFoodFoodBook.json");
-    private static final Path DUPLICATE_FOOD_FILE = TEST_DATA_FOLDER.resolve("duplicateFoodFoodBook.json");
+    // private static final Path DUPLICATE_FOOD_FILE = TEST_DATA_FOLDER.resolve("duplicateFoodFoodBook.json");
 
     // @Test
     // public void toModelType_typicalFoodFile_success() throws Exception {
@@ -38,11 +38,11 @@ public class JsonSerializableFoodBookTest {
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
-    @Test
-    public void toModelType_duplicateFood_throwsIllegalValueException() throws Exception {
-        JsonSerializableFoodBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_FOOD_FILE,
-                JsonSerializableFoodBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableFoodBook.MESSAGE_DUPLICATE_FOOD,
-                dataFromFile::toModelType);
-    }
+    // @Test
+    // public void toModelType_duplicateFood_throwsIllegalValueException() throws Exception {
+    //     JsonSerializableFoodBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_FOOD_FILE,
+    //             JsonSerializableFoodBook.class).get();
+    //     assertThrows(IllegalValueException.class, JsonSerializableFoodBook.MESSAGE_DUPLICATE_FOOD,
+    //             dataFromFile::toModelType);
+    // }
 }
