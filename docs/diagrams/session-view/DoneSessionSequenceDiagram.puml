@@ -60,12 +60,13 @@ deactivate TaTrackerParser
 LogicManager -> DoneSessionCommand : execute()
 activate DoneSessionCommand
 
-alt recurring() != 0
+alt #beige recurring() > 0
     DoneSessionCommand -> Model : addSession(updatedSession)
     activate Model
     Model --> AddSessionCommand
     deactivate Model
 
+end
 
 DoneSessionCommand -> Model : DoneSession()
 activate Model

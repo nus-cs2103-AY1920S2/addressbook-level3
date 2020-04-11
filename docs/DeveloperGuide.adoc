@@ -771,7 +771,7 @@ all the *upcoming sessions* the user has.
 
 The following _sequence diagram_ shows the sequence of commands that take place between
 the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
-`session done 1`. This session being called `done` has a recurring week of 1 week.
+`session done 1`.
 
 .Sequence Diagram for Done Session
 image::DoneSessionSequenceDiagram.png[]
