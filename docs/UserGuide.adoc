@@ -436,6 +436,10 @@ Example:
 * You can remove all the course's tags by typing `t/` without specifying any tags after it
 ****
 
+// end::coursemanagement[]
+
+// tag::financemanagement[]
+
 === Finance
 .Finance labels. Type m is Finance Type 1, Type cs is Finance Type 2, and Type ct is Finance Type 3
 image::financeTab.png[width="1000"]
@@ -533,6 +537,10 @@ Format: `earnings`
 ==== Get total expenses: `expenses`
 Shows all the expenses (finances with positive amount) as a number. +
 Format: `expenses`
+
+// end::financemanagement[]
+
+// tag::assignmentmanagement[]
 
 === Assignment
 .Assignment labels.
@@ -678,25 +686,22 @@ contains the data of your previous *CodeCampX* folder.
 |*Unassign Assignment from a Course* | `unassign cid/COURSEID aid/ASSIGNMENTID`  | `unassign cid/829 aid/21`
 .6+|Student Commands
 |*Add Student* |`add-student n/NAME [t/TAG]…` | `add-student n/Jon Snow t/Hardworking`
-|*Delete Student* | `delete-student INDEX` | `delete-student 1`
+|*Delete Student* | `delete-student ID` | `delete-student 16100`
 |*Find Student* | `find-student KEYWORD [MORE_KEYWORDS]...` | `find-student Lannister Targaryen Stark`
 |*List Student* | `list-student` | `list-student`
-| *Edit Student* | `edit-student INDEX [n/NAME] [t/TAG]…` | `edit-student 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
-| *Clear Student* | `clear-student` | `clear-student`
+| *Edit Student* | `edit-student ID [n/NAME] [t/TAG]…` | `edit-student 16100 n/Aegon Targaryen t/knownothing`
 .6+|Teacher Commands
-|*Add Teacher* |`add-teacher n/NAME [t/TAG]…` |`add-teacher n/Jon Snow t/Hardworking`
-|*Delete Teacher* | `delete-teacher INDEX` | `delete-teacher 1`
-|*Find Teacher* | `find-teacher KEYWORD [MORE_KEYWORDS]...` | `find-teacher Lannister Targaryen Stark`
-|*List Teacher* | `list-teacher` | `list-teacher`
-| *Edit Teacher* | `edit-teacher INDEX [n/NAME] [t/TAG]…` | `edit-teacher 1 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
-| *Clear Teacher* | `clear-teacher` | `clear-teacher`
+|*Add Teacher* |`add-staff n/NAME [t/TAG]…` |`add-staff n/Jon Snow t/Hardworking`
+|*Delete Teacher* | `delete-staff ID` | `delete-staff 16100`
+|*Find Teacher* | `find-staff KEYWORD [MORE_KEYWORDS]...` | `find-staff Lannister Targaryen Stark`
+|*List Teacher* | `list-staff` | `list-staff`
+| *Edit Teacher* | `edit-staff ID [n/NAME] [t/TAG]…` | `edit-staff 16100 n/Aegon Targaryen t/Son of Lyanna Stark and Rhaegar Targaryen`
 .6+|Course Commands
 |*Add Course* |`add-course n/NAME a/AMOUNT [t/TAG]…` | `add-course n/Cozmo Programming a/2000 t/Fun t/Robot`
-|*Delete Course* | `delete-course INDEX` | `delete-course 1`
+|*Delete Course* | `delete-course ID` | `delete-course 16100`
 |*Find Course* | `find-course KEYWORD [MORE_KEYWORDS]...` | `find-course Java Python C`
 |*List Course* | `list-course` | `list-course`
-| *Edit Course* | `edit-course INDEX [n/NAME] [a/AMOUNT] [t/TAG]…` | `edit-course 1 n/Java Programming a/2000`
-| *Clear Course* | `clear-course` | `clear-course`
+| *Edit Course* | `edit-course ID [n/NAME] [a/AMOUNT] [t/TAG]…` | `edit-course 16100 n/Java Programming a/2000`
 .9+|Finance Commands
 |*Add Finance Type 1 (ft/m)* |`add-finance ft/FINANCETYPE d/DATE n/NAME a/AMOUNT [t/TAG]...` |`add-finance ft/m d/2020-12-09 n/Paid NTU a/1200 t/Partnership t/Monthly`
 |*Add Finance Type 2 (ft/cs)* |`add-finance ft/FINANCETYPE d/DATE cid/COURSEID sid/STUDENTID [t/TAG]...` |`add-finance ft/cs d/2020-12-09 cid/829 sid/33 t/Late`
@@ -706,7 +711,6 @@ contains the data of your previous *CodeCampX* folder.
 |*List Finance* | `list-finance` | `list-finance`
 |*Calculate Earnings* | `earnings` | `earnings`
 |*Calculate Expenses* | `expenses` | `expenses`
-| *Clear Finance* | `clear-finance` | `clear-finance`|
 
 |=======================================================================
 
