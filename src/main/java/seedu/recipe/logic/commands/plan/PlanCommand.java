@@ -15,6 +15,7 @@ import seedu.recipe.logic.commands.Command;
 import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.CommandType;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.plan.DuplicatePlannedRecipeException;
@@ -63,7 +64,7 @@ public class PlanCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        List<String> newPlansMessage = new ArrayList<>(); // lists to hold messages to user
+        List<String> successfulPlansMessage = new ArrayList<>(); // lists to hold messages to user
         List<String> duplicatePlansMessage = new ArrayList<>();
 
         if (!allIndexesAreValid(indexes, lastShownList)) {
@@ -77,7 +78,7 @@ public class PlanCommand extends Command {
             Plan plan = new Plan(recipe, date);
             try {
                 model.addPlan(recipe, plan);
-                newPlansMessage.add(formatIndexToString(currentIndex, recipe));
+                successfulPlansMessage.add(formatIndexToString(currentIndex, recipe));
             } catch (DuplicatePlannedRecipeException duplicate) {
                 duplicatePlansMessage.add(formatIndexToString(currentIndex, recipe));
             }
@@ -85,7 +86,7 @@ public class PlanCommand extends Command {
 
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
         model.commitBook(commandType);
-        return new CommandResult(formatSuccessMessage(newPlansMessage, duplicatePlansMessage, date),
+        return new CommandResult(formatSuccessMessage(successfulPlansMessage, duplicatePlansMessage, date),
                 false, false, planTab, false);
     }
 
@@ -127,6 +128,14 @@ public class PlanCommand extends Command {
             sb.append(String.format(MESSAGE_DUPLICATE_PLANNED_RECIPE, formatListToString(duplicatePlans)));
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PlanCommand // instanceof handles nulls
+                && date.equals(((PlanCommand) other).date)
+                && indexes.equals(((PlanCommand) other).indexes));
     }
 
 }
