@@ -27,10 +27,10 @@ public class DeleteStepCommand extends Command {
 
     public static final String COMMAND_WORD = "deletestep";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes step(s) from an existing recipe in the "
-            + "recipe book.\n"
-            + "Parameters: [INDEX of recipe] [Step numbers]\n"
-            + "Example: " + COMMAND_WORD + " 1 3 5 (deletes steps 3 and 5 of recipe 1)";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the specified step(s) from an "
+            + "existing recipe.\n"
+            + "Parameters: [recipe index] [step index] <step index>...\n"
+            + "Example: " + COMMAND_WORD + " 3 2 3 5 (deletes steps 2, 3, and 5 of recipe 3)";
 
     public static final String MESSAGE_DELETE_STEPS_SUCCESS = "Successfully deleted step(s) from %1$s!";
     public static final String MESSAGE_INVALID_STEP_INDEX = "Attempting to remove a non-existent step";
@@ -76,7 +76,7 @@ public class DeleteStepCommand extends Command {
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
 
         String finalMessage = String.format(MESSAGE_DELETE_STEPS_SUCCESS, recipeToEdit.getName().toString());
         return new CommandResult(finalMessage, false, false, recipesTab, false);

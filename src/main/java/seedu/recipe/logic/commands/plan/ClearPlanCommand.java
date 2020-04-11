@@ -22,7 +22,7 @@ public class ClearPlanCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setPlannedBook(new PlannedBook());
-        model.commitBook(commandType);
+        model.commitBook(commandType, planTab);
         return new CommandResult(MESSAGE_SUCCESS, false, false, planTab, false);
     }
 }

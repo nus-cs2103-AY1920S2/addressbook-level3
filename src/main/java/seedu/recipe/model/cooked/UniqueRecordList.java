@@ -143,16 +143,14 @@ public class UniqueRecordList implements Iterable<Record> {
      * Sets goal tally when records are set initially.
      */
     private void setGoalsTally() {
-        HashMap<MainIngredientType, Integer> goalMap = new HashMap<MainIngredientType, Integer>();
+        HashMap<MainIngredientType, Integer> goalMap = new HashMap<>();
         goalMap.put(MainIngredientType.VEGETABLE, 0);
         goalMap.put(MainIngredientType.FRUIT, 0);
         goalMap.put(MainIngredientType.PROTEIN, 0);
         goalMap.put(MainIngredientType.GRAIN, 0);
 
-        for (int i = 0; i < internalList.size(); i++) {
-
-            List<Goal> currGoals = new ArrayList<Goal>();
-            currGoals.addAll(internalList.get(i).getGoals());
+        for (Record record : internalList) {
+            List<Goal> currGoals = new ArrayList<>(record.getGoals());
             for (Goal currGoal : currGoals) {
                 MainIngredientType goalType = currGoal.getMainIngredientType();
                 if (goalMap.containsKey(goalType)) {
@@ -165,10 +163,12 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Adds goalcount to internal goallist  with the specified index for each food group.
+     * Adds goalCount to internalGoalsList  with the specified index for each food group.
      * @param goalMap of goals and respective tally.
      */
     public void addToGoalsList(HashMap<MainIngredientType, Integer> goalMap) {
+        internalGoalsList.clear();
+
         internalGoalsList.add(VEG_INDEX,
                 new GoalCount(new Goal(MainIngredientType.VEGETABLE), goalMap.get(MainIngredientType.VEGETABLE)));
         internalGoalsList.add(FRUIT_INDEX,
@@ -185,11 +185,9 @@ public class UniqueRecordList implements Iterable<Record> {
      * Updates goals for a record where index.
      * 0: Herbivores 1: Fruity Fiesta.
      * 2: Bulk Like the Hulk. 3:Wholesome Wholemeal.
-     * @param record
      */
     public void updateGoalsTally(Record record) {
-        List<Goal> currGoals = new ArrayList<Goal>();
-        currGoals.addAll(record.getGoals());
+        List<Goal> currGoals = new ArrayList<>(record.getGoals());
         for (Goal currGoal: currGoals) {
             MainIngredientType goalType = currGoal.getMainIngredientType();
             int goalIndex;

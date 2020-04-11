@@ -67,7 +67,7 @@ public class DeletePlanCommand extends Command {
             deletedPlansMessage.add(formatIndexToString(indexes[i], recipe, plan.getDate()));
         }
 
-        model.commitBook(commandType);
+        model.commitBook(commandType, planTab);
         return new CommandResult(formatSuccessMessage(deletedPlansMessage), false,
                 false, planTab, false);
     }

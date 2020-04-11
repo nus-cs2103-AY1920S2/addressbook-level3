@@ -2,6 +2,7 @@ package seedu.recipe.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.recipe.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
@@ -22,19 +23,20 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes that matches the "
-            + "specified arguments (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: favourites "
-            + "[" + PREFIX_TIME + "TIME (upperbound) or TIME RANGE (lowerbound-upperbound)] "
-            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
-            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
-            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]... "
-            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]... "
-            + "[" + PREFIX_GOAL + "GOAL]...\n"
+            + "specified criteria.\n"
+            + "Parameters: [<favourites> "
+            + "<" + PREFIX_TIME + "time (upperbound) or time range (lowerbound-upperbound)> "
+            + "<" + PREFIX_INGREDIENT_GRAIN + "grain>... "
+            + "<" + PREFIX_INGREDIENT_VEGE + "vegetable>... "
+            + "<" + PREFIX_INGREDIENT_PROTEIN + "protein>... "
+            + "<" + PREFIX_INGREDIENT_FRUIT + "fruit>... "
+            + "<" + PREFIX_INGREDIENT_OTHER + "other>... "
+            + "<" + PREFIX_GOAL + "goal>...]\n"
             + "Example: " + COMMAND_WORD + " favourites "
             + PREFIX_TIME + "10-20 "
-            + PREFIX_INGREDIENT_VEGE + "Search for vegetable "
-            + PREFIX_INGREDIENT_PROTEIN + "Search for protein-rich ingredient "
-            + PREFIX_GOAL + "Search for goal ";
+            + PREFIX_INGREDIENT_VEGE + "Kailan "
+            + PREFIX_INGREDIENT_PROTEIN + "Chicken thigh "
+            + PREFIX_GOAL + "Bulk like the Hulk";
 
     private final RecipeMatchesKeywordsPredicate predicate;
     private final Tab recipesTab = Tab.RECIPES;
