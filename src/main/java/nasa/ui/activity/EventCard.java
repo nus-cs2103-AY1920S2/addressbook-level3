@@ -3,6 +3,7 @@ package nasa.ui.activity;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 import nasa.model.activity.Event;
@@ -26,7 +27,7 @@ public class EventCard extends UiPart<Region> {
 
     public final Event event;
     @FXML
-    private GridPane eventPane;
+    private HBox eventPane;
     @FXML
     private Label index;
     @FXML

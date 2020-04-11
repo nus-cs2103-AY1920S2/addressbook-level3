@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import nasa.model.module.Module;
 import nasa.ui.activity.EventListPanel;
@@ -34,7 +35,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label code;
     @FXML
-    private StackPane activityListPanelPlaceholder;
+    private VBox activityListPanelPlaceholder;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);

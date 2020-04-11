@@ -1,13 +1,21 @@
 package nasa.ui.activity;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 
 import nasa.model.activity.Deadline;
+import nasa.storage.NasaBookStorage;
+import nasa.storage.Storage;
+import nasa.storage.StorageManager;
+import nasa.ui.MainWindow;
 import nasa.ui.UiPart;
 
 /**
@@ -27,7 +35,9 @@ public class DeadlineCard extends UiPart<Region> {
 
     public final Deadline deadline;
     @FXML
-    private GridPane deadlinePane;
+    private HBox deadlinePane;
+    @FXML
+    private CheckBox isDone;
     @FXML
     private Label index;
     @FXML
@@ -36,8 +46,6 @@ public class DeadlineCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label note;
-    @FXML
-    private Label status;
     @FXML
     private Label priority;
     @FXML
@@ -51,18 +59,22 @@ public class DeadlineCard extends UiPart<Region> {
 
     public DeadlineCard(Deadline deadline, int displayedIndex) {
         super(FXML);
-        setPriority();
         this.deadline = deadline;
         index.setText(String.valueOf(displayedIndex));
         name.setText(deadline.getName().toString());
         date.setText("Due by: " + deadline.getDueDate().toString());
         note.setText(deadline.getNote().toString());
-        //status.setText(deadline.getStatus().toString());
-        priority.setText("Priority: " + deadline.getPriority().toString());
         dateToRepeat.setText("-");
         if (deadline.getSchedule().getType() != 0) {
             dateToRepeat.setText("Repeat: " + deadline.getScheduleDate().toString());
         }
+        isDone.setSelected(deadline.isDone());
+        isDone.setOnAction(e -> {
+            deadline.setDone(!deadline.isDone());
+            //mainWindow.handleDeadlineClick(displayedIndex);
+            isDone.setSelected(deadline.isDone());
+        });
+        setPriority();
     }
 
     /**

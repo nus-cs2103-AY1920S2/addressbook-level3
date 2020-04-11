@@ -41,11 +41,12 @@ public class Deadline extends Activity {
      * @param priority Priority
      * @param dueDate Date
      */
-    public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate) {
+    public Deadline(Name name, Date date, Note note, Priority priority, Date dueDate, boolean isDone) {
         super(name, date, note);
         requireAllNonNull(priority, dueDate);
         this.priority = priority;
         this.dueDate = dueDate;
+        this.isDone = isDone;
     }
 
     /**
@@ -146,18 +147,10 @@ public class Deadline extends Activity {
         return !(dueDate.isBefore(Date.now()));
     }
 
+
+
     @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof Deadline)) {
-            return false;
-        }
-
-        Deadline deadline = (Deadline) other;
-        return deadline.dueDate.equals(((Deadline) other).dueDate)
-            && deadline.priority.equals(((Deadline) other).priority)
-            && deadline.isDone == ((Deadline) other).isDone
-            && deadline.isOverdue == ((Deadline) other).isOverdue
-            && deadline.getName().equals(((Deadline) other).getName());
+    public String toString() {
+        return this.getName().toString();
     }
-
 }

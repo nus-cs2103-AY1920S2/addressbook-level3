@@ -123,7 +123,7 @@ public class EditDeadlineCommand extends Command {
         Priority updatedPriority = editDeadlineDescriptor.getPriority().orElse(deadlineToEdit.getPriority());
         Date updatedDueDate =  editDeadlineDescriptor.getDueDate().orElse(deadlineToEdit.getDueDate());
 
-        return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate);
+        return new Deadline(updatedName, updatedDateCreated, updatedNote, updatedPriority, updatedDueDate, true);
 
     }
 
