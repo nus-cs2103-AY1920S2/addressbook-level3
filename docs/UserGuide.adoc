@@ -487,6 +487,7 @@ data of your previous HYBB folder.
 
 |Command Line Interface | text-based interface used for entering commands.
 |Healthy Eating Plate | Refers to My Healthy Plate designed for Singaporeans by the Health Promotion Board. It is a visual guide that shows you what to eat in the right amounts for each meal, so that you can plan your portions accordingly.
+|===
 
 == Command Summary
 
