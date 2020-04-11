@@ -194,9 +194,9 @@ image::demo/Open.png[]
 
 === Edit an existing note: `edit`
 
-If you want to change the `BODY` content of a note, use the `edit` command. This command *replaces* the existing `BODY` content of the currently open note, with the new `BODY` content. +
+If you want to change the `BODY` content of a note, use the `edit` command. This command *updates* the existing `BODY` content of the currently open note, with the new `BODY` content. +
 
-*Format:* `edit -b BODY`
+*Format:* `edit`
 
 [WARNING]
 ====
@@ -204,9 +204,9 @@ If you want to change the `BODY` content of a note, use the `edit` command. This
 ====
 
 ==== Example: Editing the currently opened note
-. Let's replace the `BODY` content of the currently opened note `Workspace`, with "This is the new paragraph". This can be done with the command: +
+. Let's update the `BODY` content of the currently opened note `Workspace`, with "This is the new paragraph". This can be done with the command: +
 
-    edit -b This is the new paragraph
+    edit
 
 .Demo for the `edit` command
 image::demo/Edit1.png[]
