@@ -25,8 +25,6 @@ import seedu.recipe.model.Date;
 
 class PlanCommandParserTest {
 
-    private PlanCommandParser parser = new PlanCommandParser();
-
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE);
 
@@ -34,8 +32,11 @@ class PlanCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE);
 
     private static final Index[] VALID_INDEXES = new Index[] {INDEX_FIRST_RECIPE};
-    private static final Index[] VALID_MULTIPLE_INDEXES = new Index[]{INDEX_FIRST_RECIPE,
-            INDEX_SECOND_RECIPE, INDEX_THIRD_RECIPE};
+    private static final Index[] VALID_MULTIPLE_INDEXES =
+            new Index[] {INDEX_FIRST_RECIPE, INDEX_SECOND_RECIPE, INDEX_THIRD_RECIPE};
+
+    private PlanCommandParser parser = new PlanCommandParser();
+
     @Test
     public void parse_missingParts_failure() {
         // no index specified
@@ -87,7 +88,7 @@ class PlanCommandParserTest {
     }
 
     @Test
-    public void parse_validValues_multipleIndexes_success() {
+    public void parse_validValuesMultipleIndexes_success() {
         String userInputForIndex = Arrays.stream(VALID_MULTIPLE_INDEXES)
                 .map(index -> index.getOneBased())
                 .map(indexInt -> indexInt.toString())

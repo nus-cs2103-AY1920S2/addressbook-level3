@@ -29,12 +29,14 @@ public class PlanCommand extends Command {
 
     public static final String COMMAND_WORD = "plan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans a recipe to be cooked in the future. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Plans recipe(s) to be cooked in the future. "
+            + "The date input must be a date in the future. \n"
             + "Parameters: "
-            + "RECIPE_INDEX "
-            + PREFIX_DATE + "YYYY-MM-DD\n"
-            + "Example: " + COMMAND_WORD + " 3 "
-            + PREFIX_DATE + "2020-03-16";
+            + "[recipe index]... "
+            + PREFIX_DATE + "yyyy-mm-dd\n"
+            + "Example: " + COMMAND_WORD + " 1 2 3 "
+            + PREFIX_DATE + "2020-08-16\n"
+            + "Plans recipes at indexes 1, 2 and 3 on 16 August 2020.";
 
     public static final String MESSAGE_INVALID_DATE = "The latest date you can input is today's date.";
     public static final String MESSAGE_DATE = "Date: %1$s\n";

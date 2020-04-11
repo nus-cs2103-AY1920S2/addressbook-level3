@@ -27,11 +27,11 @@ public class DeletePlanCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteplan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a planned recipe on a certain day. "
-            + "Parameters: " + "PLANNED_RECIPE_INDEX "
-            + PREFIX_DATE + "YYYY-MM-DD \n"
-            + "Example: " + COMMAND_WORD + " 3 "
-            + PREFIX_DATE + "2020-03-16 ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes planned recipe(s) on a certain date. \n"
+            + "Parameters: " + "[planned recipe index]...\n"
+            + "Example: " + COMMAND_WORD + " 1 2 3 "
+            + PREFIX_DATE + "2020-03-16 \n"
+            + "Deletes planned recipes at indexes 1, 2 and 3 ";
 
     public static final String MESSAGE_SUCCESS = "The plans at the following index(es) have been deleted:\n%1$s";
 
@@ -108,7 +108,7 @@ public class DeletePlanCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) { // todo do we need a new method
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeletePlanCommand // instanceof handles nulls
                 && Arrays.equals(indexes, ((DeletePlanCommand) other).indexes)); // state check

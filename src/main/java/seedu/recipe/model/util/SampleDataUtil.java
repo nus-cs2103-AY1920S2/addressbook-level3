@@ -61,7 +61,7 @@ public class SampleDataUtil {
             new Recipe(new Name("Barley Pilaf"), new Time("50"),
                     getGrainSet("0.5 cup, small pieces of broken spaghetti"),
                     getVegetableSet("50g, small onion (chopped)", "2 tbsp, chives (chopped)"),
-                    getProteinSet("2.5 cups, low-sodium chicken broth"),
+                    getProteinSet("2.5 cup, low-sodium chicken broth"),
                     getFruitSet(),
                     getOtherSet("1 tbsp, unsalted butter", "1 cup, hulled barley", "10g, Salt & Pepper"),
                     getStepsList("Melt butter in saucepan over medium heat. "
@@ -147,7 +147,7 @@ public class SampleDataUtil {
                                     + " Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from "
                                     + "wok immediately. Set aside.",
                             "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes"
-                                    + " and scallions. Stir-fry for 1min, then add sugar, ½ tsp salt, and water. "
+                                    + " and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. "
                                     + "If water cooks off too quickly, add a little more water. Add the cooked eggs.",
                             "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely"
                                     + " softened.",
@@ -155,7 +155,7 @@ public class SampleDataUtil {
                     getGoalSet("Herbivore"), false),
             new Recipe(new Name("5 Ingredient Spelt Spaghetti"), new Time("25"),
                     getGrainSet("80g, Spelt Spaghetti"),
-                    getVegetableSet("2 cups, Arugula (Salad Rockets)",
+                    getVegetableSet("2 cup, Arugula (Salad Rockets)",
                             "300g, Tomatoes",
                             "300g, Zucchini",
                             "50g, Leek"),
