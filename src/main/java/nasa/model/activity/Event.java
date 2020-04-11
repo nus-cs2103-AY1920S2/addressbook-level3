@@ -149,8 +149,7 @@ public class Event extends Activity {
         Date endDateCopy = new Date(getEndDate().toString());
         Note noteCopy = new Note(getNote().toString());
         Date dateCreatedCopy = new Date(getDateCreated().toString());
-        Event eventCopy = new Event(nameCopy, startDateCopy, endDateCopy, noteCopy);
-        eventCopy.setDateCreated(dateCreatedCopy);
+        Event eventCopy = new Event(nameCopy, dateCreatedCopy, noteCopy, startDateCopy, endDateCopy);
         return eventCopy;
     }
 

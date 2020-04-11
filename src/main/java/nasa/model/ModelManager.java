@@ -429,13 +429,13 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Event> getFilteredEventList(ModuleCode moduleCode) {
         Module module = nasaBook.getModule(moduleCode);
-        return module.getEventList().getActivityList();
+        return module.getFilteredEventList();
     }
 
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList(ModuleCode moduleCode) {
         Module module = nasaBook.getModule(moduleCode);
-        return module.getDeadlineList().getActivityList();
+        return module.getFilteredDeadlineList();
     }
 
     @Override

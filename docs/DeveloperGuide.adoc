@@ -402,10 +402,10 @@ The list of sort criteria are as follows:
 
 
 Refer to the user guide for the specific commands. Sorting of deadlines is facilitated by
-ModelManager#sortList.
+ModelManager#sortDeadlineList.
 
 ==== Implementation
-To sort deadlines, the command will use the keyword `sort` followed by the flag `/sm`, then the sort criteria.
+To sort deadlines, the command will use the keyword `sort` followed by the sort criteria.
 
 The following diagram shows how deadlines are sorted.
 
@@ -415,7 +415,7 @@ image::SortDeadlineDiagram.png[]
 
 Below is an example of a user sorting deadlines by priority and how the underlying system works.
 
-. The user enters the command `sort sm/priority`
+. The user enters the command `sort priority`
 
 . The LogicManager will create NasaBookParser to parse the user input.
 
