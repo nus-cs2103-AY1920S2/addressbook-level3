@@ -303,7 +303,7 @@ You can use the `add-e` command to add the exercise as shown.
 
 1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
 
-/photo
+image::addeExamplePart1.png[]
 
 2.Now enter the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. To recap,
 
@@ -318,15 +318,11 @@ The sets of the exercise after `sets/` +
 
 Press enter to execute it.
 
-/photo
+image::addeExamplePart2.png[]
 
-3.After it has been successfully entered, the result box will display the recorded exercise.
+3.After it has been successfully entered, the result box will display the recorded exercise. You will also be able to see the recorded exercise in the table.
 
-/photo
-
-4.You will also be able to see the recorded exercise in the table.
-
-/photo
+image::addeExamplePart3.png[]
 
 ==== Common errors / problems
 You might face some errors or difficulties when you `add-e`. In this section, you will be able to understand these errors and resolve them.
@@ -336,13 +332,13 @@ You might wonder where the application shows you a duplicate exercise error when
 
 You might have the following exercise in your table.
 
-/photo
+image::addeDuplicatePart1.png[]
 
 If you were to enter `....` into the command box, the only information that is different is the number of sets. The result box will show that you have a duplicate exercise.
 
-/photo type
+image::addeDuplicatePart2.png[]
 
-/photo error
+image::addeDuplicatePart3.png[]
 
 To solve this, we suggest incrementing the sets of existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
 
