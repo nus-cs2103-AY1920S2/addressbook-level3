@@ -74,7 +74,7 @@ public class CalendarPane extends UiPart<Region> {
     private void initializeUi() {
         for (int i = 0; i < MAX_NUMBER_OF_WEEKS_TO_SHOW_PER_MONTH; i++) {
             for (int j = 0; j < NUMBER_OF_DAYS_IN_A_WEEK; j++) {
-                DateCell dateCell = new DateCell(logic);
+                DateCell dateCell = new DateCell();
                 addDateCellToArray(dateCell);
                 StackPane calendarDateStackPane = dateCell.getCalendarDateStackPane();
                 calendarGrid.add(calendarDateStackPane, j, i);
@@ -228,7 +228,6 @@ public class CalendarPane extends UiPart<Region> {
         } else if (dateCell.getNumberOfCoupons() > 0 && dateIsInCurrentMonth(date)) {
             circle.setFill(Paint.valueOf("#B80f0A"));
             dateCell.setCircle(circle);
-            dateCell.setCursor();
         } else {
             circle = new Circle(0);
             dateCell.setCircle(circle);
@@ -275,7 +274,6 @@ public class CalendarPane extends UiPart<Region> {
         if (!DateUtil.isValidYear(currentYearMonth.plusMonths(1).getYear())) {
             throw new IllegalValueException(MAX_YEAR_MESSAGE);
         }
-        closeAllDisplayedCouponWindows();
         currentYearMonth = currentYearMonth.plusMonths(1);
         monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
     }
@@ -290,19 +288,10 @@ public class CalendarPane extends UiPart<Region> {
         if (!DateUtil.isValidYear(currentYearMonth.minusMonths(1).getYear())) {
             throw new IllegalValueException(MIN_YEAR_MESSAGE);
         }
-        closeAllDisplayedCouponWindows();
         currentYearMonth = currentYearMonth.minusMonths(1);
         monthView.setValue(DateUtil.formatYearMonthToString(currentYearMonth));
     }
 
-    /**
-     * Closes all displayed coupon windows.
-     */
-    private void closeAllDisplayedCouponWindows() {
-        for (DateCell dateCell : dateCells) {
-            dateCell.closeDisplayedCoupons();
-        }
-    }
 
     /**
      * Returns an integer corresponding to the specified day of {@String}.
