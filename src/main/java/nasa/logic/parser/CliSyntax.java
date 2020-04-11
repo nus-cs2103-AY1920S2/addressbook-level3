@@ -16,4 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_DATE = new Prefix("ed/");
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
     public static final Prefix PREFIX_TIME = new Prefix("at/");
+    public static final Prefix PREFIX_FILEPATH = new Prefix("f/");
 }

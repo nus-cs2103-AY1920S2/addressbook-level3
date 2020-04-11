@@ -28,8 +28,6 @@ public class NameTest {
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("\t\t"));
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("run*")); // contains non-alphanumeric characters
 
         // valid name
         assertTrue(Name.isValidName("tutorial")); // alphabets only

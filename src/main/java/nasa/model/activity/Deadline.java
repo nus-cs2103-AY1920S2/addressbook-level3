@@ -105,7 +105,7 @@ public class Deadline extends Activity {
         }
     }
 
-    private boolean isOverdue() {
+    public boolean isOverdue() {
         return !isDone && Date.now().isAfter(dueDate);
     }
 
@@ -117,10 +117,15 @@ public class Deadline extends Activity {
 
     @Override
     public Activity deepCopy() {
-        Deadline copy = new Deadline(getName(), getDueDate());
-        copy.setDateCreated(getDateCreated());
-        copy.setPriority(priority);
-        copy.setNote(getNote());
+        Name nameCopy = new Name(getName().toString());
+        Date dueDateCopy = new Date(getDueDate().toString());
+        Note noteCopy = new Note(getNote().toString());
+        Date dateCreatedCopy = new Date(getDateCreated().toString());
+        Priority priorityCopy = new Priority(getPriority().toString());
+        Deadline copy = new Deadline(nameCopy, dueDateCopy);
+        copy.setDateCreated(dateCreatedCopy);
+        copy.setPriority(priorityCopy);
+        copy.setNote(noteCopy);
         if (isDone) {
             copy.markAsDone();
         }

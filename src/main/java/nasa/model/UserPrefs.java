@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path nasaBookFilePath = Paths.get("data" , "nasabook.json");
     private Path historyBookFilePath = Paths.get("data" , "history.json");
+    private Path calendarExportPath = Paths.get("data");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -97,5 +98,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal data file location : " + nasaBookFilePath);
         sb.append("\nLocal history data file location : " + historyBookFilePath);
         return sb.toString();
+    }
+
+    public Path getCalendarExportPath() {
+        return calendarExportPath;
     }
 }
