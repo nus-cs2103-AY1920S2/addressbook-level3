@@ -350,17 +350,6 @@ public class ModelManager implements Model {
 
     //=========== Deadline Module ==================================================================================
 
-    /**
-     * Dummy java docs
-     *
-     * @param deadline contains task
-     */
-
-    @Override
-    public void addDeadline(Task deadline) {
-
-    }
-
     @Override
     public boolean isEmptyDeadline(Task deadline) {
         return false;
@@ -400,6 +389,41 @@ public class ModelManager implements Model {
             }
         }
         return targetTasks;
+    }
+
+    @Override
+    public void addDeadlineTask(Task deadline) {
+
+        Task.getDeadlineTaskList().add(deadline);
+        Task.addTaskPerDate(deadline.getDate(), deadline);
+    }
+
+    @Override
+    public Task doneDeadlineTask(Task deadline) {
+        Task.getDeadlineTaskList().get(deadline.getIndex() - 1).markAsDone();
+
+        Task done = Task.getDeadlineTaskList().get(deadline.getIndex() - 1);
+        Task.getDeadlineTaskList().remove(deadline.getIndex() - 1);
+        Task.getDeadlineTaskList().add(done);
+        return done;
+    }
+
+    @Override
+    public void sortTaskList() {
+        Task.sortDeadlineTaskList("date");
+        Task.sortDeadlineTaskList("done");
+    }
+
+    @Override
+    public Task deleteTask(Task task) {
+        Task removed = Task.getDeadlineTaskList().remove(task.getIndex() - 1);
+        Task.removeTaskPerDate(removed.getDate(), removed);
+        return removed;
+    }
+
+    @Override
+    public void sortTask(String param) {
+        Task.sortDeadlineTaskList(param);
     }
 
 

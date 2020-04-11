@@ -7,7 +7,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.ModuleCode;
 
 /**
@@ -40,13 +39,8 @@ public class DoneModuleTaskCommand extends DoneCommand {
         }
 
         model.doneModuleTask(targetModule, targetIndex);
-        //Task.getDeadlineTaskList().get(targetIndex.getZeroBased()).markAsDone();
 
-        //Task done = Task.getDeadlineTaskList().get(targetIndex.getZeroBased() - 1);
-        //Task.getDeadlineTaskList().remove(targetIndex.getZeroBased() - 1);
-        //Task.getDeadlineTaskList().add(done);
-        Task.sortDeadlineTaskList("date");
-        Task.sortDeadlineTaskList("done");
+        model.sortTaskList();
         model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
                 + targetIndex.getOneBased());
