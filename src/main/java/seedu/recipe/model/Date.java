@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
@@ -18,8 +19,7 @@ import java.util.Locale;
 public class Date implements Comparable<Date> {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Date should be written in the format YYYY-MM-DD";
+    public static final String MESSAGE_CONSTRAINTS = "Date should be written in the format YYYY-MM-DD";
 
     public static final String VALIDATION_REGEX = "^[0-9-]+";
     public static final DateTimeFormatter DAY_OF_WEEK = DateTimeFormatter.ofPattern("EEEE");
@@ -56,8 +56,6 @@ public class Date implements Comparable<Date> {
             return false;
         }
         try {
-            // DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM YYYY");
-            // todo: be able to parse other formats as well
             LocalDate.parse(test);
             return true;
         } catch (DateTimeParseException e) {
@@ -73,11 +71,26 @@ public class Date implements Comparable<Date> {
     }
 
     /**
+     * Returns the number of days between the input days.
+     */
+    public long noOfDaysBetween(Date otherDate, Date currDate) {
+        long days = ChronoUnit.DAYS.between(otherDate.date, currDate.date);
+        return days;
+    }
+
+    /**
      * Returns true if the date is older than today's date, according to the input timezone.
      */
     public boolean isDateInFuture() {
         Date yesterday = new Date(LocalDate.now(ZONE_ID).minusDays(1));
         return isAfter(yesterday);
+    }
+
+    /**
+     * Returns true if the date is the same as {@code otherDate}.
+     */
+    public boolean isOnDate(Date otherDate) {
+        return date.isEqual(otherDate.date);
     }
 
     /**

@@ -9,9 +9,9 @@ import java.util.TreeSet;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.EditCommand;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
-import seedu.recipe.logic.commands.EditIngredientCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.EditIngredientCommand;
 import seedu.recipe.model.recipe.ingredient.Other;
 import seedu.recipe.testutil.RecipeBuilder;
 

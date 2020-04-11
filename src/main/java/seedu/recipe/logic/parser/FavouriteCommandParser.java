@@ -3,7 +3,7 @@ package seedu.recipe.logic.parser;
 import static seedu.recipe.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.FavouriteCommand;
+import seedu.recipe.logic.commands.recipe.FavouriteCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 
 /**

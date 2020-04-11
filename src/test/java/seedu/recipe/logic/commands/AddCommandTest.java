@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -17,18 +18,21 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.achievement.Quote;
+import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.Plan;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class AddCommandTest {
@@ -60,26 +64,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Recipe alice = new RecipeBuilder().withName("Alice").build();
-        Recipe bob = new RecipeBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Recipe salad = new RecipeBuilder().withName("Salad").build();
+        Recipe bread = new RecipeBuilder().withName("Bread").build();
+        AddCommand addSaladCommand = new AddCommand(salad);
+        AddCommand addBreadCommand = new AddCommand(bread);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addSaladCommand.equals(addSaladCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addSaladCommandCopy = new AddCommand(salad);
+        assertTrue(addSaladCommand.equals(addSaladCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addSaladCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addSaladCommand.equals(null));
 
         // different recipe -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addSaladCommand.equals(addBreadCommand));
     }
 
     /**
@@ -158,7 +162,7 @@ public class AddCommandTest {
 
         @Override
         public void commitBook(CommandType commandType) {
-            // throw new AssertionError("This method should not be called.");
+            // throw new AssertionError("This method should not be called."); todo
         }
 
         @Override
@@ -192,22 +196,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        public void addPlan(Recipe recipe, Plan plan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
+        public void deletePlan(Recipe recipe, Plan plan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteAllRecipePlans(Recipe recipe) {
+        public ObservableList<Plan> getFilteredPlannedList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -231,10 +230,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public ObservableList<PlannedDate> getFilteredPlannedList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public ReadOnlyCookedRecordBook getRecordBook() {
             throw new AssertionError("This method should not be called.");
@@ -251,12 +246,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
+        public void updateFilteredPlannedList(Predicate<Plan> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
+        public PlannedRecipeMap getPlannedMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<List<Plan>> getPlans(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroceryList(String groceryList) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -317,4 +327,48 @@ public class AddCommandTest {
             return new RecipeBook();
         }
     }
+
+    /**
+     * A Model stub that contains a single record.
+     */
+    private class ModelStubWithRecord extends ModelStub {
+        private final Record record;
+
+        ModelStubWithRecord(Record record) {
+            requireNonNull(record);
+            this.record = record;
+        }
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return this.record.isSameRecord(record);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the record being added.
+     */
+    private class ModelStubAcceptingRecordAdded extends ModelStub {
+        final ArrayList<Record> recordsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return recordsAdded.stream().anyMatch(record::isSameRecord);
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            requireNonNull(record);
+            recordsAdded.add(record);
+        }
+
+        @Override
+        public ReadOnlyCookedRecordBook getRecordBook() {
+            return new CookedRecordBook();
+        }
+    }
+
+
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import seedu.recipe.logic.commands.CommandType;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
  * Maintains different versions (states) of RecipeBooks, PlannedBooks, and CookedRecordBooks in a list.

@@ -18,7 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.EditIngredientCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
@@ -61,14 +62,15 @@ public class EditIngredientCommandTest {
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
-                .withGrains("50g, Bread")
+                .withGrains("150g, Bread")
                 .withOthers("100g, Cheese")
                 .withSteps("Spread butter on bread", "Heat pan to medium heat")
+                .withGoals("Wholesome Wholemeal")
                 .build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editIngredientCommand, model, expectedCommandResult, expectedModel);
     }
@@ -121,13 +123,15 @@ public class EditIngredientCommandTest {
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
         Recipe expectedRecipe = new RecipeBuilder().withName("Grilled Sandwich")
                 .withTime("10")
-                .withGrains("50g, Bread")
+                .withGrains("150g, Bread")
                 .withOthers("100g, Cheese")
-                .withSteps("Spread butter on bread", "Heat pan to medium heat").build();
+                .withSteps("Spread butter on bread", "Heat pan to medium heat")
+                .withGoals("Wholesome Wholemeal")
+                .build();
         expectedModel.setRecipe(recipeToEditIngredients, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editIngredientCommand, model, expectedCommandResult, expectedModel);
     }

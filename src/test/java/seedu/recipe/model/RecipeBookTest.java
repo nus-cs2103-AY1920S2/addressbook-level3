@@ -18,7 +18,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.exceptions.DuplicateRecipeException;
+import seedu.recipe.model.recipe.RecipeBook;
+import seedu.recipe.model.recipe.exceptions.DuplicateRecordException;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class RecipeBookTest {
@@ -50,7 +51,7 @@ public class RecipeBookTest {
         List<Recipe> newRecipes = Arrays.asList(CAESAR_SALAD, editedAlice);
         RecipeBookStub newData = new RecipeBookStub(newRecipes);
 
-        assertThrows(DuplicateRecipeException.class, () -> recipeBook.resetData(newData));
+        assertThrows(DuplicateRecordException.class, () -> recipeBook.resetData(newData));
     }
 
     @Test

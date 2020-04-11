@@ -8,6 +8,7 @@ import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
@@ -30,18 +31,18 @@ public class AddCommandIntegrationTest {
                 new QuoteBook());
     }
 
+
     @Test
     public void execute_newRecipe_success() {
         Recipe validRecipe = new RecipeBuilder().build();
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs(),
                 model.getRecordBook(), new PlannedBook(), new QuoteBook());
-        // System.out.println(validRecipe); // todo remove later
 
         expectedModel.addRecipe(validRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validRecipe),
+                new CommandResult(String.format(AddCommand.MESSAGE_SUCCESS, validRecipe), false,
                         false, Tab.RECIPES, false);
 
         assertCommandSuccess(new AddCommand(validRecipe), model, expectedCommandResult, expectedModel);

@@ -27,16 +27,7 @@ public class PlanCommandParser implements Parser<PlanCommand> {
      */
     public PlanCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE), pe);
-        }
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_USAGE));
         }
 
@@ -45,7 +36,10 @@ public class PlanCommandParser implements Parser<PlanCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE));
         }
 
-        return new PlanCommand(index, date);
+        String allIndexes = argMultimap.getPreamble();
+        Index[] indexes = ParserUtil.parseMultipleIndex(allIndexes);
+
+        return new PlanCommand(indexes, date);
     }
 
     /**

@@ -23,7 +23,6 @@ public class QuantityUtil {
 
     /**
      * Parses the unit String into a Unit, assuming ParseExceptions have been handled.
-     *
      */
     public static Unit parseUnit(String unit) {
         unit = unit.toLowerCase();
@@ -63,31 +62,7 @@ public class QuantityUtil {
     }
 
     /**
-     * Converts the Quantity into a double value of the quantity, converted into grams.
-     */
-    public static double getQuantityInGram(Quantity quantity) {
-        Unit unit = quantity.getUnit();
-        double magnitude = quantity.getMagnitude();
-        switch (unit) {
-        case GRAM:
-            return magnitude;
-        case MILLILITER:
-            return magnitude;
-        case TABLESPOON:
-            return magnitude * 15;
-        case TEASPOON:
-            return magnitude * 5;
-        case CUP:
-            return magnitude; // todo: throw exception
-        default:
-            System.out.println("This unit is not supported.");
-            return -1;
-        }
-    }
-
-    /**
      * Returns the index of the first alphabet detected in a String.
-     *
      */
     public static int indexOfFirstAlphabet(String details) {
         int index = 0;
@@ -97,4 +72,12 @@ public class QuantityUtil {
         return index;
     }
 
+    /**
+     * Returns a new Quantity with a magnitude of {@code quantity} multiplied by {@code scale}.
+     */
+    public static Quantity scaleQuantity(Quantity quantity, int scale) {
+        double scaledMagnitude = quantity.getMagnitude() * scale;
+        Unit unit = quantity.getUnit();
+        return new Quantity(scaledMagnitude, unit);
+    }
 }

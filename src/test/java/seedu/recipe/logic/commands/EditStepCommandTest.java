@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
+import seedu.recipe.logic.commands.recipe.EditStepCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
@@ -58,7 +59,7 @@ public class EditStepCommandTest {
         expectedModel.setRecipe(recipeToEditSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editStepCommand, model, expectedCommandResult, expectedModel);
     }
@@ -109,7 +110,7 @@ public class EditStepCommandTest {
         expectedModel.setRecipe(recipeToEditSteps, expectedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editStepCommand, model, expectedCommandResult, expectedModel);
     }

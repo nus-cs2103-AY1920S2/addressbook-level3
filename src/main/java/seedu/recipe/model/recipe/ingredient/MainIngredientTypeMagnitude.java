@@ -8,6 +8,11 @@ import java.util.TreeSet;
  * nutritional requirements.
  */
 public class MainIngredientTypeMagnitude {
+    //average nutritional count per day/3 meals
+    public static final int MIN_VEGETABLE_NUTRITIONAL_COUNT = 200;
+    public static final int MIN_FRUIT_NUTRITIONAL_COUNT = 160;
+    public static final int MIN_PROTEIN_NUTRITIONAL_COUNT = 85;
+    public static final int MIN_GRAIN_NUTRITIONAL_COUNT = 80;
 
     private double vegCount = 0;
     private double fruitCount = 0;
@@ -46,19 +51,19 @@ public class MainIngredientTypeMagnitude {
      */
     private Set<MainIngredientType> getMainIngredientTypes() {
         Set<MainIngredientType> setOfMainTypes = new TreeSet<MainIngredientType>();
-        if (this.vegCount >= 300) {
+        if (this.vegCount >= MIN_VEGETABLE_NUTRITIONAL_COUNT) {
             setOfMainTypes.add(MainIngredientType.VEGETABLE);
         }
 
-        if (this.fruitCount >= 300) {
+        if (this.fruitCount >= MIN_FRUIT_NUTRITIONAL_COUNT) {
             setOfMainTypes.add(MainIngredientType.FRUIT);
         }
 
-        if (this.proteinCount >= 200) {
+        if (this.proteinCount >= MIN_PROTEIN_NUTRITIONAL_COUNT) {
             setOfMainTypes.add(MainIngredientType.PROTEIN);
         }
 
-        if (this.grainCount >= 145) {
+        if (this.grainCount >= MIN_GRAIN_NUTRITIONAL_COUNT) {
             setOfMainTypes.add(MainIngredientType.GRAIN);
         }
         return setOfMainTypes;

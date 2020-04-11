@@ -76,7 +76,7 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match time and step, but does not match name
         predicate = new NameContainsKeywordsPredicate(true, "12345 alice@email.com Main Street");
-        assertFalse(predicate.test(new RecipeBuilder().withName("Alice").withTime("12345")
+        assertFalse(predicate.test(new RecipeBuilder().withName("Alice").withTime("145")
                 .withSteps("Sample step").build()));
     }
 }

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.recipe.commons.core.Config;
 import seedu.recipe.commons.core.LogsCenter;
 import seedu.recipe.commons.core.Version;
@@ -22,24 +23,24 @@ import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.model.util.SampleDataUtil;
-import seedu.recipe.storage.JsonRecipeBookStorage;
-import seedu.recipe.storage.JsonUserPrefsStorage;
-import seedu.recipe.storage.RecipeBookStorage;
 import seedu.recipe.storage.Storage;
 import seedu.recipe.storage.StorageManager;
-import seedu.recipe.storage.UserPrefsStorage;
 import seedu.recipe.storage.achievement.JsonQuoteBookStorage;
 import seedu.recipe.storage.achievement.QuoteBookStorage;
 import seedu.recipe.storage.cooked.CookedRecordBookStorage;
 import seedu.recipe.storage.cooked.JsonCookedRecordBookStorage;
 import seedu.recipe.storage.plan.JsonPlannedBookStorage;
 import seedu.recipe.storage.plan.PlannedBookStorage;
+import seedu.recipe.storage.recipe.JsonRecipeBookStorage;
+import seedu.recipe.storage.recipe.RecipeBookStorage;
+import seedu.recipe.storage.userpref.JsonUserPrefsStorage;
+import seedu.recipe.storage.userpref.UserPrefsStorage;
 import seedu.recipe.ui.Ui;
 import seedu.recipe.ui.UiManager;
 

@@ -11,7 +11,7 @@ import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -29,12 +29,13 @@ public interface Logic {
 
     /**
      * Returns the RecipeBook.
-     *
      * @see seedu.recipe.model.Model#getRecipeBook()
      */
     ReadOnlyRecipeBook getRecipeBook();
 
-    /** Returns an unmodifiable view of the filtered list of recipes */
+    /**
+     * Returns an unmodifiable view of the filtered list of recipes.
+     */
     ObservableList<Recipe> getFilteredRecipeList();
 
     /**
@@ -67,10 +68,12 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the scheduled recipes.
      */
-    ObservableList<PlannedDate> getFilteredPlannedList();
+    ObservableList<Plan> getFilteredPlannedList();
 
     /**
-     * Returns an unmodifiable view of the scheduled recipes.
+     * Returns the grocery list.
      */
+    String getGroceryList();
+
     ObservableList<Quote> getFilteredQuoteList();
 }

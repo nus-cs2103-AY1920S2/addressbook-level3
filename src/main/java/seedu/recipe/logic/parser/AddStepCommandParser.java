@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.AddStepCommand;
+import seedu.recipe.logic.commands.recipe.AddStepCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.recipe.Step;
 

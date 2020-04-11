@@ -6,7 +6,7 @@ import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.FindCommand;
+import seedu.recipe.logic.commands.recipe.FindCommand;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {

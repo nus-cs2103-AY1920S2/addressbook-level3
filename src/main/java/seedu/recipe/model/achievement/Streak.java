@@ -2,17 +2,51 @@ package seedu.recipe.model.achievement;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.collections.ObservableList;
+import seedu.recipe.model.Date;
+import seedu.recipe.model.cooked.Record;
+
 /**
  * Streak helps user track how often they're eating healthy
  */
 public class Streak {
 
-    private final int currStreak;
-    private final int highStreak = 0;
+    private int currStreak;
+    private int highStreak = 0;
+    private Date date; // current date
+    private ObservableList<Record> records;
 
-    public Streak(int streak) {
-        requireNonNull(streak);
-        this.currStreak = streak;
+    public Streak(ObservableList<Record> records, Date date) {
+        requireNonNull(date);
+        this.currStreak = 0;
+        this.date = date; //most recent date update
+        this.records = records;
+    }
+
+    /**
+     * Updates Streak every time App is opened
+     */
+    public void updateStreak() {
+        System.out.println(records.size());
+        if (records.size() == 0) {
+            currStreak = 0;
+        } else {
+            boolean stillStreak = true;
+            int index = records.size() - 1;
+            Date currDate = this.date;
+            while (stillStreak && index >= 0) {
+                long days = date.noOfDaysBetween(records.get(index).getDate(), currDate);
+                if (days <= 1) {
+                    currDate = records.get(index).getDate();
+                    index--;
+                    if (days == 1) {
+                        currStreak++;
+                    }
+                } else {
+                    stillStreak = false;
+                }
+            }
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.recipe.model.goal.exceptions.InvalidGoalException;
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
 
 /**
@@ -71,6 +72,7 @@ public class Goal {
             name = null;
             break;
         }
+        assert name != null : "name should not be null";
         return name;
     }
 
@@ -90,9 +92,13 @@ public class Goal {
             main = MainIngredientType.FRUIT;
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + goalName);
+            throw new InvalidGoalException("Unexpected value: " + goalName);
         }
         return main;
+    }
+
+    public MainIngredientType getMainIngredientType() {
+        return this.mainIngredientType;
     }
 
     @Override
@@ -104,7 +110,7 @@ public class Goal {
 
     @Override
     public int hashCode() {
-        return goalName.toLowerCase().hashCode();
+        return goalName.hashCode();
     }
 
     /**
