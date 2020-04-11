@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
@@ -117,7 +118,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public Module getModule(ModuleCode moduleCode) {
         requireAllNonNull(moduleCode);
-        return internalList.parallelStream()
+        return internalList.stream()
                 .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
                 .orElse(null);

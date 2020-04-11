@@ -26,7 +26,8 @@ import nasa.testutil.ModuleBuilder;
  */
 public class EditModuleCommandTest {
 
-    private final Model model = new ModelManager(getSampleNasaBook(), new HistoryBook<>(), new UserPrefs());
+    private final Model model = new ModelManager(getSampleNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+            new UserPrefs());
     private final ModuleCode firstModuleCodeToEdit = model.getFilteredModuleList().get(0).getModuleCode();
     private final ModuleCode lastModuleCodeToEdit = model.getFilteredModuleList()
              .get(model.getFilteredModuleList().size() - 1).getModuleCode();
@@ -46,7 +47,8 @@ public class EditModuleCommandTest {
         /**
          * Initializing model with same initial state as global model variable
          */
-        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), new HistoryBook<>(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), new HistoryBook<>(),
+                new HistoryBook<>(), new UserPrefs());
 
         // Replace existing module in model with new, editedModule
         expectedModel.setModule(firstModuleCodeToEdit, editedModule);

@@ -84,8 +84,7 @@ public class EditDeadlineCommand extends Command {
         List<Deadline> lastShownList = model.getFilteredDeadlineList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(
-                    Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         Deadline deadlineToEdit = lastShownList.get(index.getZeroBased());
@@ -116,7 +115,7 @@ public class EditDeadlineCommand extends Command {
      * edited with {@code editModuleDescriptor}.
      */
     private static Deadline createEditedDeadline(Deadline deadlineToEdit,
-                                                  EditDeadlineDescriptor editDeadlineDescriptor) {
+                                                 EditDeadlineDescriptor editDeadlineDescriptor) {
         requireNonNull(deadlineToEdit);
         Name updatedName = editDeadlineDescriptor.getName().orElse(deadlineToEdit.getName());
         // by default date created cannot be edited, and will take previous value

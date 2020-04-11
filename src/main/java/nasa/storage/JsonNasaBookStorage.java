@@ -25,10 +25,12 @@ public class JsonNasaBookStorage implements NasaBookStorage {
 
     private Path filePathOne;
     private Path filePathTwo;
+    private Path filePathThree;
 
-    public JsonNasaBookStorage(Path filePathOne, Path filePathTwo) {
+    public JsonNasaBookStorage(Path filePathOne, Path filePathTwo, Path filePathThree) {
         this.filePathOne = filePathOne;
         this.filePathTwo = filePathTwo;
+        this.filePathThree = filePathThree;
     }
 
     public Path getNasaBookFilePath() {
@@ -37,6 +39,10 @@ public class JsonNasaBookStorage implements NasaBookStorage {
 
     public Path getHistoryBookFilePath() {
         return filePathTwo;
+    }
+
+    public Path getUiHistoryBookFilePath() {
+        return filePathThree;
     }
 
     @Override
@@ -96,6 +102,34 @@ public class JsonNasaBookStorage implements NasaBookStorage {
     }
 
     @Override
+    public Optional<ReadOnlyHistory> readUiHistoryBook() throws DataConversionException {
+        return readUiHistoryBook(filePathThree);
+    }
+
+    /**
+     * Similar to {@link #readUiHistoryBook()}.
+     * @param filePath
+     * @return
+     * @throws DataConversionException
+     */
+    public Optional<ReadOnlyHistory> readUiHistoryBook(Path filePath) throws DataConversionException {
+        requireNonNull(filePath);
+
+        Optional<JsonAdaptedUiHistory> jsonHistoryBook = JsonUtil.readJsonFile(
+                filePath, JsonAdaptedUiHistory.class);
+        if (!jsonHistoryBook.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonHistoryBook.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
     public void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException {
         saveNasaBook(nasaBook, filePathOne);
     }
@@ -114,29 +148,36 @@ public class JsonNasaBookStorage implements NasaBookStorage {
     }
 
     @Override
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook)
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
+                             ReadOnlyHistory<String> uiHistoryBook)
             throws IOException {
-        saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
+        saveUltimate(nasaBook, historyBook, uiHistoryBook, filePathOne, filePathTwo, filePathThree);
     }
 
     /**
-     * Similar to {@link #saveUltimate(ReadOnlyNasaBook, ReadOnlyHistory, Path, Path)}.
+     * Save data into json files.
      * @param nasaBook
      * @param historyBook
+     * @param uiHistoryBook
      * @param filePathOne
      * @param filePathTwo
+     * @param filePathThree
      * @throws IOException
      */
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
-                             Path filePathTwo) throws IOException {
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
+                             ReadOnlyHistory<String> uiHistoryBook, Path filePathOne,
+                             Path filePathTwo, Path filePathThree) throws IOException {
         requireNonNull(nasaBook);
         requireNonNull(filePathOne);
         requireNonNull(filePathTwo);
+        requireNonNull(filePathThree);
 
         FileUtil.createIfMissing(filePathOne);
         FileUtil.createIfMissing(filePathTwo);
+        FileUtil.createIfMissing(filePathThree);
         JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePathOne);
         JsonUtil.saveJsonFile(new JsonAdaptedHistory(historyBook), filePathTwo);
+        JsonUtil.saveJsonFile(new JsonAdaptedUiHistory(uiHistoryBook), filePathThree);
     }
 }
 

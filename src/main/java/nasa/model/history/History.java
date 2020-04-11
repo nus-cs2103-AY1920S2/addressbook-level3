@@ -70,8 +70,12 @@ public abstract class History<T> {
         return item;
     }
 
+    /**
+     * Reset redo action.
+     */
     public void resetItem() {
-        this.item = null;
+        item = null;
+        stack.clear();
     }
 
     public void setStack(List<T> stack) {

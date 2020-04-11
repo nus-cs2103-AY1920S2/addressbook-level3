@@ -20,7 +20,8 @@ import nasa.model.module.ModuleCode;
 
 public class ContinueCommandTest {
 
-    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+            new UserPrefs());
 
     @Test
     public void execute_validCommandUnfilteredList_success() throws CommandException {
@@ -31,7 +32,8 @@ public class ContinueCommandTest {
 
         String expectedMessage = String.format(ContinueCommand.MESSAGE_SUCCESS);
 
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         doneCommand.execute(expectedModel);
         doneCommand.execute(model); // set the activity to done for it to be undone
 
@@ -54,7 +56,8 @@ public class ContinueCommandTest {
 
         // a module that is already undone
         continueCommand = new ContinueCommand(INDEX_FIRST_ACTIVITY, moduleCode);
-        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(getTypicalNasaBook(), new HistoryBook<>(), new HistoryBook<>(),
+                new UserPrefs());
         assertCommandFailure(continueCommand, expectedModel, ContinueCommand.MESSAGE_ACTIVITY_ALREADY_UNDONE);
     }
 

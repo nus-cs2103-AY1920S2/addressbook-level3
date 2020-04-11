@@ -20,15 +20,15 @@ class ScheduleTest {
     @Test
     void checkChangeType() {
         Date dateExpected = new Date(date.toString()).addDaysToCurrDate(7);
-        schedule.setType(1);
+        schedule.setType(1, date);
         assertEquals(dateExpected, schedule.getRepeatDate());
 
         dateExpected = new Date(date.toString()).addDaysToCurrDate(14);
-        schedule.setType(2);
+        schedule.setType(2, date);
         assertEquals(dateExpected, schedule.getRepeatDate());
 
         dateExpected = new Date(date.toString()).addMonthsToCurrDate(1);
-        schedule.setType(3);
+        schedule.setType(3, date);
         assertEquals(dateExpected, schedule.getRepeatDate());
 
         schedule.cancel();
@@ -37,8 +37,8 @@ class ScheduleTest {
 
     @Test
     void checkWrongSchedule() {
-        assertThrows(IllegalArgumentException.class, () -> schedule.setType(-1));
-        assertThrows(IllegalArgumentException.class, () -> schedule.setType(4));
+        assertThrows(IllegalArgumentException.class, () -> schedule.setType(-1, date));
+        assertThrows(IllegalArgumentException.class, () -> schedule.setType(4, date));
     }
 
 }

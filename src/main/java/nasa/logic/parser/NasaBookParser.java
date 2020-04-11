@@ -25,7 +25,7 @@ import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.QuoteCommand;
 import nasa.logic.commands.RedoCommand;
-import nasa.logic.commands.RepeatCommand;
+import nasa.logic.commands.RepeatDeadlineCommand;
 import nasa.logic.commands.SortCommand;
 import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.commands.UndoCommand;
@@ -117,8 +117,8 @@ public class NasaBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case RepeatCommand.COMMAND_WORD:
-            return new RepeatActivityCommandParser().parse(arguments);
+        case RepeatDeadlineCommand.COMMAND_WORD:
+            return new RepeatDeadlineCommandParser().parse(arguments);
 
         case QuoteCommand.COMMAND_WORD:
             return new QuoteCommand();

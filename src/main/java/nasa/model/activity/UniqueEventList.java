@@ -1,6 +1,6 @@
 package nasa.model.activity;
 
 /**
- * List containing all events.
+ * Constructor for uniqueEventList.
  */
 public class UniqueEventList extends UniqueActivityList<Event> {}

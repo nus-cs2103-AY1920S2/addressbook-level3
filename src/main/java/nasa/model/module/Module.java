@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
@@ -104,11 +105,10 @@ public class Module {
 
     public void setDeadlineSchedule(Index index, Index type) {
         deadlineList.setSchedule(index, type);
-        updateFilteredActivityList(x -> true);
     }
+
     public void setEventSchedule(Index index, Index type) {
         eventList.setSchedule(index, type);
-        updateFilteredActivityList(x -> true);
     }
 
     public ObservableList<Deadline> getFilteredDeadlineList() {
@@ -123,8 +123,16 @@ public class Module {
         return deadlineList.getDeepCopyList();
     }
 
+    public ObservableList<Deadline> getModifiableDeadlineList() {
+        return deadlineList.getActivityList();
+    }
+
     public ObservableList<Activity> getDeepCopyEventList() {
         return eventList.getDeepCopyList();
+    }
+
+    public ObservableList<Event> getModifiableEventList() {
+        return eventList.getActivityList();
     }
 
     public Module getDeepCopyModule() {
@@ -154,7 +162,7 @@ public class Module {
 
     /**
      * Updates module's underlying filtered activity lists
-     * @param predicate
+     * @param predicate Predicate
      */
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         filteredDeadline.setPredicate(predicate);
@@ -203,7 +211,7 @@ public class Module {
      */
     public boolean hasDeadline(Deadline deadline) {
         for (Deadline currentDeadline : deadlineList.getActivityList()) {
-            if (currentDeadline == deadline) {
+            if (currentDeadline.isSameDeadline(deadline)) {
                 return true;
             }
         }
@@ -217,7 +225,7 @@ public class Module {
      */
     public boolean hasEvent(Event event) {
         for (Event currentEvent : eventList.getActivityList()) {
-            if (currentEvent == event) {
+            if (currentEvent.isSameEvent(event)) {
                 return true;
             }
         }

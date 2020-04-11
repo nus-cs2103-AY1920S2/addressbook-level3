@@ -85,8 +85,7 @@ public class EditEventCommand extends Command {
         List<Event> lastShownList = model.getFilteredEventList(moduleCode);
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(
-                    Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         Event eventToEdit = lastShownList.get(index.getZeroBased());
@@ -120,12 +119,10 @@ public class EditEventCommand extends Command {
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editModuleDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit,
-                                                  EditEventDescriptor editEventDescriptor) {
+    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         requireNonNull(eventToEdit);
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
-        // by default date created cannot be edited, and will take previous value
         Date updatedDateCreated = editEventDescriptor.getDateCreated().orElse(eventToEdit.getDateCreated());
         Note updatedNote = editEventDescriptor.getNote().orElse(eventToEdit.getNote());
         Date updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());

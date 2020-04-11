@@ -25,6 +25,8 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " assignment lab tutorial";
 
+    public static final String MESSAGE_REFRESH = "Screen has been refreshed.";
+
     private final Predicate predicate;
 
     public FindCommand() {
@@ -39,6 +41,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredActivityList(predicate);
+        model.updateHistory("find" + model.currentUiLocation());
         return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
             getNumberOfFilteredActivities(model.getFilteredModuleList())));
     }

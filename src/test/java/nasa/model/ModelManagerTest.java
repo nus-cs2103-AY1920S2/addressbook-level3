@@ -32,6 +32,7 @@ import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.testutil.NasaBookBuilder;
+import nasa.testutil.UiHistoryBuilder;
 
 class ModelManagerTest {
 
@@ -39,6 +40,7 @@ class ModelManagerTest {
      * Initialized model manager with NasaBook, NASABOOK_TYPE_1
      */
     private ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<>(),
+            new UiHistoryBuilder().build(),
             new UserPrefs());
 
     @Test
@@ -201,8 +203,8 @@ class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(nasaBook, new HistoryBook<>(), userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(nasaBook, new HistoryBook<>(), userPrefs);
+        modelManager = new ModelManager(nasaBook, new HistoryBook<>(), new HistoryBook<>(), userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(nasaBook, new HistoryBook<>(), new HistoryBook<>(), userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -215,7 +217,8 @@ class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentNasaBook, new HistoryBook<>(), userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentNasaBook, new HistoryBook<>(), new HistoryBook<>(),
+                userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = GEH1001.getModuleName().toString().split("\\s+");
@@ -228,6 +231,7 @@ class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setNasaBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(nasaBook, new HistoryBook<>(), differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(nasaBook, new HistoryBook<>(), new HistoryBook<>(),
+                differentUserPrefs)));
     }
 }
