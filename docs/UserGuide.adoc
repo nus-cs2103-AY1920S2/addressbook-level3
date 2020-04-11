@@ -125,7 +125,7 @@ The product list updates and sorts by the progress bar indicator automatically. 
 Products are ordered by the level of progress bar indicator. (E.g. the lower the bar, the higher it is in the list).
 This is to help the user easier to know which products are running low on stock.
 
-image::ProductCard.png[align="center"]
+image::ProductCard.png[ProductCard,600,600]
 
 ****
 * The progress bar indicator beside the products' name visualises the remaining balance. +
@@ -204,7 +204,7 @@ Format: `findc [n/NAME [NAME]...] [p/PHONE] [e/EMAIL] [a/ADDRESS [ADDRESS]...]`
 * At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
 * The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, n/Bob a/31 will match a/31 n/Bob
-* Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and 31 in their addresses
+* Only customers matching all attributes will be returned (i.e. AND search) e.g. `findc n/Jane a/31` will return customers with 'jane' in their names and '31' in their addresses
 * Customers matching any keywords in an attribute (for name and address only) will be returned (i.e. OR search) e.g. `findc a/clementi ave` will return customers with 'clementi' or 'ave' in their addresses
 ****
 
@@ -383,7 +383,7 @@ Deletes all transactions as well.
 
 User can navigate to the transaction panel by clicking on the transactions tab.
 
-image::TransactionTab.png[align="center"]
+image::TransactionTab.png[Transaction,120,120]
 
 // tag::addt[]
 ==== Adding a transaction : `addt`
@@ -453,7 +453,7 @@ Format: `findt [p/PRODUCT_NAME [PRODUCT_NAME]...] [c/CUSTOMER_NAME [CUSTOMER_NAM
 * The search is case insensitive. e.g blue will match Blue
 * At least one of the option fields must be provided.
 * The order of the keywords and attributes does not matter. e.g. Hans Bo will match Bo Hans, c/Bob m/31 will match m/31 c/Bob
-* Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and bag in their product names
+* Only transactions matching all attributes will be returned (i.e. AND search). e.g. `findt c/Jane p/bag` will return transactions with 'jane' in their customer names and 'bag' in their product names
 * Transactions matching any keywords in an attribute (for product or customer name only) will be returned (i.e. OR search) e.g. `findt c/jane avery` will return transactions with 'jane' or 'avery' in their customer names
 ****
 
@@ -472,7 +472,7 @@ Returns all transactions that involve a customer named Bob *OR* a customer named
 * `findt dt/2020-02-07 16:00` +
 Returns all transactions made on 7th February 2020 4pm.
 * `findt m/100` +
-Returns all transactions that have a selling price of 100 dollars.
+Returns all transactions that have an amount of 100 dollars.
 * `findt c/bob dt/2020-02-07 16:00` +
 Returns all transactions that Bob made on the 7th February 2020 4pm.
 // end::findt[]
@@ -520,7 +520,7 @@ Permanently deletes all the stored transaction data in the application.
 
 User can navigate to the statistics panel by clicking on the statistics tab.
 
-image::StatisticsTab.png[align="center"]
+image::StatisticsTab.png[Statistics,120,120]
 
 // tag::viewtopsellingproducts[]
 ==== Viewing the top-selling and worst-selling products.
@@ -531,7 +531,7 @@ Displays and updates the top-selling and worst-selling products (sorted by profi
 This is a passive feature.
 // end::viewtopsellingproducts[]
 
-image::TopSellingProducts.png[align="center"]
+image::TopSellingProducts.png[TopSellingProducts,650,650]
 
 // tag::viewproductsalesquantity[]
 ==== Viewing the product sales and quantity histogram.
@@ -544,7 +544,7 @@ Plots 2 graphs: +
 [NOTE]
 This is a passive feature.
 
-image::ViewInventory2.png[align="center"]
+image::ViewInventory2.png[ViewInventory2,600,600]
 // end::viewproductsalesquantity[]
 
 // tag::revenue[]
@@ -616,7 +616,7 @@ The average of the profits made in the past three months is the predicted sales 
 // end::predict[]
 
 // tag::plotsales[]
-==== Plotting sales: `plotsales`
+==== Plotting sales of a product: `plotsales`
 
 Plots a graph with the sales of the selected product in a given time period. +
 Format: `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
@@ -639,7 +639,7 @@ Plots a graph with the sales of the selected product between 20th Feb 10am and 2
 * `plotsales 1` +
 Plots a graph with the sales of the selected product in the past week.
 
-image::SalesPlot.png[align="center"]
+image::SalesPlot.png[SalesPlot,500,500]
 // end::plotsales[]
 
 == FAQ
