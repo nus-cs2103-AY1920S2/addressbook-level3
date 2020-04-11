@@ -89,7 +89,6 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -103,6 +102,8 @@ The `UI` component does the following actions:
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+Hubert
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -126,6 +127,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+.Interactions Inside the Logic Component for the `clear` Command
+image::ClearSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -692,3 +696,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+

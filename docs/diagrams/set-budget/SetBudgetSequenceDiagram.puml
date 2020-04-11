@@ -10,7 +10,7 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":MonthlyData" as MonthlyData MODEL_COLOR
+participant "monthlyData:MonthlyData" as MonthlyData MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 participant ":GlobalData" as GlobalData MODEL_COLOR
 end box
