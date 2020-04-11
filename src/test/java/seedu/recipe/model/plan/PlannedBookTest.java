@@ -1,14 +1,9 @@
 package seedu.recipe.model.plan;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.recipe.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.recipe.testutil.Assert.assertThrows;
 import static seedu.recipe.testutil.TypicalDates.DATE_IN_FUTURE;
-import static seedu.recipe.testutil.TypicalDates.DATE_IN_PAST;
 import static seedu.recipe.testutil.TypicalDates.DATE_TODAY;
-import static seedu.recipe.testutil.TypicalPlans.CAESAR_FUTURE_PLAN;
 import static seedu.recipe.testutil.TypicalPlans.CHICKEN_TODAY_PLAN;
 import static seedu.recipe.testutil.TypicalPlans.SANDWICH_PAST_PLAN;
 import static seedu.recipe.testutil.TypicalPlans.getTypicalPlannedBook;
@@ -22,14 +17,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
 import seedu.recipe.model.ReadOnlyPlannedBook;
-import seedu.recipe.model.recipe.Recipe;
-import seedu.recipe.model.recipe.RecipeBookTest;
-import seedu.recipe.model.recipe.exceptions.DuplicateRecordException;
-import seedu.recipe.testutil.RecipeBuilder;
 
 public class PlannedBookTest {
     private final PlannedBook plannedBook = new PlannedBook();

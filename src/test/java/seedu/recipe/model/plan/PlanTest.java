@@ -9,6 +9,7 @@ import static seedu.recipe.testutil.TypicalRecipes.CAESAR_SALAD;
 import static seedu.recipe.testutil.TypicalRecipes.GRILLED_SANDWICH;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.testutil.RecipeBuilder;
 
