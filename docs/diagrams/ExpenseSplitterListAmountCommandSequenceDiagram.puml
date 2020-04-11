@@ -5,7 +5,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
 participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
-participant ":ListAmountCommand" as ListAmountCommand LOGIC_COLOR
+participant "command:ListAmountCommand" as ListAmountCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -21,17 +21,17 @@ end box
 [-> SplitterLogicManager : execute("listamount")
 activate SplitterLogicManager
 
-SplitterLogicManager -> ExpenseSplitterParser : parseCommand("listamount")
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand\n("listamount")
 activate ExpenseSplitterParser
 
 create ListAmountCommand
 ExpenseSplitterParser -> ListAmountCommand
 activate ListAmountCommand
 
-ListAmountCommand --> ExpenseSplitterParser: d
+ListAmountCommand --> ExpenseSplitterParser: command
 deactivate ListAmountCommand
 
-ExpenseSplitterParser --> SplitterLogicManager: d
+ExpenseSplitterParser --> SplitterLogicManager: command
 deactivate ExpenseSplitterParser
 
 SplitterLogicManager -> ListAmountCommand: execute(model)
@@ -49,13 +49,18 @@ deactivate PersonAmountBook
 SplitterModelManager --> ListAmountCommand
 deactivate SplitterModelManager
 
+create CommandResult
 ListAmountCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> ListAmountCommand: result()
+CommandResult --> ListAmountCommand: result
 deactivate CommandResult
 
-ListAmountCommand --> SplitterLogicManager: result()
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CommandResult -[hidden]-> ListAmountCommand
+destroy CommandResult
+
+ListAmountCommand --> SplitterLogicManager: result
 deactivate ListAmountCommand
 
 SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
@@ -68,7 +73,7 @@ SplitterStorageManager --> SplitterLogicManager
 deactivate SplitterStorageManager
 
 
-[<--SplitterLogicManager : result()
+[<--SplitterLogicManager : result
 deactivate SplitterStorageManager
 
 @enduml
