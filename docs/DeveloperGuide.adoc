@@ -234,13 +234,16 @@ An auto complete can be labelled as both a success and a warning if some fields 
 =====
 
 ==== Auto Complete UI
-image::SortUiDiagram.png[]
+image::ACSequenceDiagram.png[]
 To handle the above case where an auto complete can be both a warning and a success, we update the command line text color to reflect success and warning while only updating the user feedback for warnings. This allows us to inform users when input has been removed so that they are aware.
 
 
 ==== Auto Complete Success UI
+image::AC_success.png[width=600]
+
 
 ==== Auto Complete Failure UI
+image::AC_failure.png[width=600]
 
 === Enhanced Find
 We've built upon the existing find function in AB-3 to filter tasks based on phrases instead of words.
