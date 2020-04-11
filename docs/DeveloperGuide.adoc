@@ -164,7 +164,7 @@ This section describes some noteworthy details on how certain features are imple
 image::SortSequenceDiagram.png[]
 The sort command takes in a list of fields and creates an aggregate comparator. The Model will then set the same `Comparator` on the `TaskList` which internally sets it on a `SortedList` form the javaFx library. This SortedList will then help us maintain a sorted order with new or edited tasks.
 
-// DONE add diagram of how TaskListPanel is referencing FilteredList and FilteredList references TaskList which contains SortedList that is aware of the UniqueTaskList
+image::SortInitliazeDiagram.png[]
 Given that the FilteredList cannot perform sorting, we could:
 
 . Create a SortedList from the FilteredList and set the comparator and then create a new FilteredList from the SortedList. But this means we need to reassign the new FilteredList to the UI to reflect the change.
@@ -173,7 +173,7 @@ Given that the FilteredList cannot perform sorting, we could:
 To do this, our TaskList is sorted internally. We chose to do this by having the TaskList maintain  a SortedList form JavaFx which references the UniqueTaskList in TaskList as seen in the diagram. This allows us to maintain a unique list of Tasks while having new tasks added remain in the defined sort order. The FilteredList thus uses the refernce from the SortedList. 
 
 ==== Updating UI
-image::SortUpdateUi.png[] // DONE add in sequence diagram
+image::SortUiDiagram.png[]
 
 Meanwhile to update the UI on the newest sorting order, the SortCommand will return a SortCommandResult. This SortCommandResult contains an additional field which would be the final sorting order of the TaskList. The SortCommandResult is then passed to the MainWindow and provides the payload for updating the sort order UI.
 
@@ -216,10 +216,10 @@ We iterate through all allowed sort fields and all fields in the input then perf
 If either the above conditions are hit, we complete the input with the sort field
 
 ==== Prefix Completion
-// DONE Add/edit activity diagram
+image::CompletePrefixActivityDiagram.png[]
 
 ==== Index Completion
-// DONE activity diagram for this
+image::CompleteIndexActivityDiagram.png[]
 
 
 ==== Auto Complete output:
@@ -233,7 +233,7 @@ An auto complete can be labelled as both a success and a warning if some fields 
 =====
 
 ==== Auto Complete UI
-// DONE add sequence diagram of how it is updated
+image::SortUiDiagram.png[]
 To handle the above case where an auto complete can be both a warning and a success, we update the command line text color to reflect success and warning while only updating the user feedback for warnings. This allows us to inform users when input has been removed so that they are aware.
 
 
@@ -246,7 +246,7 @@ We've built upon the existing find function in AB-3 to filter tasks based on phr
 
 We perform the match by taking chunks of the task name whereby a chunk = number of words used in the search term and performing some calculation between the search terms and those chunks.
 
-// DONE activity diagram for calculation of edit distance
+// TODO activity diagram for calculation of edit distance
 * We chose to not use edit distance for keywords of less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
 * We also chose to display task names who's start matches the search term for ease of usage
 * We've enabled searching by phrase so that users are able to find more specific tasks
