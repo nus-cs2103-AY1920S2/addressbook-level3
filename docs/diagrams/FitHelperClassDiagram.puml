@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+Class FitHelper
+
+Class UniqueDiaryList
+
+Class UniqueEntryList
+
+Class FoodCalorieTable
+
+Class SportsCalorieTable
+
+FitHelper *-left-> "1" UniqueDiaryList
+FitHelper *-right-> "5" UniqueEntryList
+FitHelper *-down-> "1" FoodCalorieTable
+FitHelper *-down-> "1" SportsCalorieTable
+
+@enduml

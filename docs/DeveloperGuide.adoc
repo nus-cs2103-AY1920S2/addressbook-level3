@@ -114,19 +114,31 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 
 [[Design-Model]]
 === Model component
-
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
-
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the fitHelper data.
-* exposes an unmodifiable `ObservableList<Entry>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores `UserProfile` and `WeightRecords` objects for user's personal information.
+* stores the FitHelper data.
+* stores `FitHelperCommit` and `VersionedFitHelper` objects for execution of `redo` and `undo` instructions.
+* exposes multiple unmodifiable `ObservableList<Entry>` and one unmodifiable `ObservableList<Diary>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+Below are the class diagrams for different components of model
+
+.Class Diagram for FitHelper
+image::FitHelperClassDiagram.png[]
+.Class Diagram for UserPrefs
+image::UserPrefsClassDiagram.png[]
+.Class Diagram for UserProfile
+image::UserProfileClassDiagram.png[]
+.Structure of VersionedFitHelper and FitHelperCommit
+image::VersionedFitHelperClassDiagram.png[]
+.Class Diagram for WeightRecords
+image::WeightRecordsClassDiagram.png[]
 [[Design-Storage]]
 === Storage component
 

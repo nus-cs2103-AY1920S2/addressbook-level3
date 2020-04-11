@@ -101,5 +101,4 @@ Entry *-down-> "1" Duration
 Entry *-down-> "1" Status
 Entry *-down-> "1" Type
 
-show members
 @enduml
