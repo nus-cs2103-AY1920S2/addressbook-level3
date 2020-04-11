@@ -3,15 +3,25 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BAD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECOMMENDED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITED;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -87,13 +97,28 @@ public class CommandTestUtil {
     public static final String STATUS_DESC_CS2103 = " " + PREFIX_STATUS + VALID_STATUS_CS2103;
     public static final String TITLE_DESC_CS3243 = " " + PREFIX_TITLE + VALID_TITLE_CS3243;
     public static final String DEADLINE_DESC_CS3243 = " " + PREFIX_DEADLINE + VALID_DEADLINE_CS3243;
-    public static final String WORKLOAD_DESC_CS3243 = " " + PREFIX_ESTHOURS + VALID_WORKLOAD_CS3243;
-    public static final String STATUS_DESC_CS3243 = " " + PREFIX_STATUS + VALID_STATUS_CS3243;
 
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + INVALID_TITLE;
     public static final String INVALID_DEADLINE_DESC = " " + PREFIX_DEADLINE + INVALID_DEADLINE;
     public static final String INVALID_WORKLOAD_DESC = " " + PREFIX_ESTHOURS + INVALID_WORKLOAD;
     public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + INVALID_STATUS;
+
+    public static final String VALID_NAME_AMEENS = "Ameens";
+    public static final String VALID_LOCATION_AMEENS = "Clementi";
+    public static final String VALID_HOURS_AMEENS = "0900:2300";
+    public static final String VALID_PRICE_AMEENS = "$";
+    public static final String VALID_CUISINE_AMEENS = "Indian";
+    public static final String VALID_VISITED_AMEENS = "Yes";
+    public static final String VALID_RECOMMENEDED_AMEENS = "Butter chicken";
+    public static final String VALID_GOOD_AMEENS = "Cheese Fries";
+    public static final String VALID_BAD_AMEENS = "Fried rice";
+
+    public static final String DESC_NAME_AMEENS = " " + PREFIX_RESTAURANT + VALID_NAME_AMEENS;
+    public static final String DESC_LOCATION_AMEENS = " " + PREFIX_LOCATION + VALID_LOCATION_AMEENS;
+    public static final String DESC_HOURS_AMEENS = " " + PREFIX_OPERATING_HOURS + VALID_HOURS_AMEENS;
+    public static final String DESC_PRICE_AMEENS = " " + PREFIX_PRICE + VALID_PRICE_AMEENS;
+    public static final String DESC_CUISINE_AMEENS = " " + PREFIX_CUISINE + VALID_CUISINE_AMEENS;
+    public static final String DESC_VISITED_AMEENS = " " + PREFIX_VISITED + VALID_VISITED_AMEENS;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

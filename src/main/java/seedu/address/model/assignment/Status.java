@@ -11,7 +11,7 @@ public class Status {
     public static final String ASSIGNMENT_DONE = "COMPLETED";
     public static final String ASSIGNMENT_OUTSTANDING = "UNCOMPLETED";
     public static final String MESSAGE_CONSTRAINTS = "Status can only be " + ASSIGNMENT_DONE + " or "
-        + ASSIGNMENT_OUTSTANDING;
+        + ASSIGNMENT_OUTSTANDING + " (case insensitive)";
 
     // Instance variable
     public final String status;

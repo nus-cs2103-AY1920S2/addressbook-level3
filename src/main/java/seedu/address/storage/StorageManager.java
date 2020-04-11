@@ -119,31 +119,31 @@ public class StorageManager implements Storage {
     // ============== AssignmentSchedule methods =======================================
 
     @Override
-    public Path getSchedulerFilePath() {
-        return schedulerStorage.getSchedulerFilePath();
+    public Path getAssignmentScheduleFilePath() {
+        return schedulerStorage.getAssignmentScheduleFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException, IOException {
-        return readScheduler(schedulerStorage.getSchedulerFilePath());
+    public Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule() throws DataConversionException, IOException {
+        return readAssignmentSchedule(schedulerStorage.getAssignmentScheduleFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule(Path filePath) throws DataConversionException,
         IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return schedulerStorage.readScheduler(filePath);
+        return schedulerStorage.readAssignmentSchedule(filePath);
     }
 
     @Override
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException {
-        saveScheduler(scheduler, schedulerStorage.getSchedulerFilePath());
+    public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler) throws IOException {
+        saveAssignmentSchedule(scheduler, schedulerStorage.getAssignmentScheduleFilePath());
     }
 
     @Override
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
+    public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        schedulerStorage.saveScheduler(scheduler, filePath);
+        schedulerStorage.saveAssignmentSchedule(scheduler, filePath);
     }
 
     // ============== Event AssignmentSchedule methods =================================

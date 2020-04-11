@@ -43,13 +43,13 @@ public interface Storage extends AddressBookStorage, RestaurantBookStorage, User
     void saveRestaurantBook(ReadOnlyRestaurantBook restaurantBook) throws IOException;
 
     @Override
-    Path getSchedulerFilePath();
+    Path getAssignmentScheduleFilePath();
 
     @Override
-    Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException, IOException;
+    Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule() throws DataConversionException, IOException;
 
     @Override
-    void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException;
+    void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler) throws IOException;
 
     @Override
     Path getEventScheduleFilePath();

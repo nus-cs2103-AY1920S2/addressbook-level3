@@ -132,7 +132,7 @@ public class MainApp extends Application {
         }
 
         try {
-            schedulerOptional = storage.readScheduler();
+            schedulerOptional = storage.readAssignmentSchedule();
             if (!schedulerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty AssignmentSchedule.");
             }

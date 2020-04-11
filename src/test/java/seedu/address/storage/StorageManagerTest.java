@@ -78,15 +78,20 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void schedulerReadSave() throws Exception {
+    public void getAssignmentScheduleFilePath() {
+        assertNotNull(storageManager.getAssignmentScheduleFilePath());
+    }
+
+    @Test
+    public void assignmentScheduleReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonAssignmentScheduleStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAssignmentScheduleStorageTest} class.
          */
         AssignmentSchedule original = getTypicalAssignmentSchedule();
-        storageManager.saveScheduler(original);
-        ReadOnlyAssignmentSchedule retrieved = storageManager.readScheduler().get();
+        storageManager.saveAssignmentSchedule(original);
+        ReadOnlyAssignmentSchedule retrieved = storageManager.readAssignmentSchedule().get();
 
         assertEquals(original, new AssignmentSchedule(retrieved));
     }

@@ -15,7 +15,7 @@ public interface AssignmentScheduleStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getSchedulerFilePath();
+    Path getAssignmentScheduleFilePath();
 
     /**
      * Returns AssignmentSchedule data as a {@link ReadOnlyAssignmentSchedule}.
@@ -23,22 +23,22 @@ public interface AssignmentScheduleStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException, IOException;
+    Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule() throws DataConversionException, IOException;
 
     /**
-     * @see #getSchedulerFilePath()
+     * @see #getAssignmentScheduleFilePath()
      */
-    Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAssignmentSchedule} to the storage.
      * @param scheduler cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException;
+    void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler) throws IOException;
 
     /**
-     * @see #saveScheduler(ReadOnlyAssignmentSchedule) (ReadOnlyAssignmentSchedule)
+     * @see #saveAssignmentSchedule(ReadOnlyAssignmentSchedule) (ReadOnlyAssignmentSchedule)
      */
-    void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException;
+    void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException;
 }

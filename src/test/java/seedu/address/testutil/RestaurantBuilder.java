@@ -21,7 +21,7 @@ public class RestaurantBuilder {
     public static final String DEFAULT_HOURS = "0900:2300";
     public static final String DEFAULT_PRICE = "$";
     public static final String DEFAULT_CUISINE = "Indian";
-    public static final String DEFAULT_REMARKS = "Good supper spot";
+    public static final String DEFAULT_REMARKS = "";
     public static final String DEFAULT_VISIT = "Yes";
     public static final String DEFAULT_RECOMMENDED = "Butter chicken";
     public static final String DEFAULT_GOOD = "Cheese Fries";

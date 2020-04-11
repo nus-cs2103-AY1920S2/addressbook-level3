@@ -32,7 +32,7 @@ public class JsonAssignmentScheduleStorageTest {
 
     private java.util.Optional<ReadOnlyAssignmentSchedule> readScheduler(String filePath) throws Exception {
         return new JsonAssignmentScheduleStorage(Paths.get(filePath))
-            .readScheduler(addToTestDataPathIfNotNull(filePath));
+            .readAssignmentSchedule(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -68,20 +68,20 @@ public class JsonAssignmentScheduleStorageTest {
         JsonAssignmentScheduleStorage jsonAssignmentScheduleStorage = new JsonAssignmentScheduleStorage(filePath);
 
         // Save in new file and read back
-        jsonAssignmentScheduleStorage.saveScheduler(original, filePath);
-        ReadOnlyAssignmentSchedule readBack = jsonAssignmentScheduleStorage.readScheduler(filePath).get();
+        jsonAssignmentScheduleStorage.saveAssignmentSchedule(original, filePath);
+        ReadOnlyAssignmentSchedule readBack = jsonAssignmentScheduleStorage.readAssignmentSchedule(filePath).get();
         assertEquals(original, new AssignmentSchedule(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addAssignment(IS1103_QUIZ);
-        jsonAssignmentScheduleStorage.saveScheduler(original, filePath);
-        readBack = jsonAssignmentScheduleStorage.readScheduler(filePath).get();
+        jsonAssignmentScheduleStorage.saveAssignmentSchedule(original, filePath);
+        readBack = jsonAssignmentScheduleStorage.readAssignmentSchedule(filePath).get();
         assertEquals(original, new AssignmentSchedule(readBack));
 
         // Save and read without specifying file path
         original.addAssignment(CS2103_QUIZ);
-        jsonAssignmentScheduleStorage.saveScheduler(original); // file path not specified
-        readBack = jsonAssignmentScheduleStorage.readScheduler().get(); // file path not specified
+        jsonAssignmentScheduleStorage.saveAssignmentSchedule(original); // file path not specified
+        readBack = jsonAssignmentScheduleStorage.readAssignmentSchedule().get(); // file path not specified
         assertEquals(original, new AssignmentSchedule(readBack));
     }
 
@@ -96,7 +96,7 @@ public class JsonAssignmentScheduleStorageTest {
     private void saveScheduler(ReadOnlyAssignmentSchedule scheduler, String filePath) {
         try {
             new JsonAssignmentScheduleStorage(Paths.get(filePath))
-                    .saveScheduler(scheduler, addToTestDataPathIfNotNull(filePath));
+                    .saveAssignmentSchedule(scheduler, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

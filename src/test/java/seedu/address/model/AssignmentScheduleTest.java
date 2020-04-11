@@ -22,7 +22,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.AssignmentBuilder;
 
-public class SchedulerTest {
+public class AssignmentScheduleTest {
 
     private final AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
 

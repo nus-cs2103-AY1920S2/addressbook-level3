@@ -84,7 +84,7 @@ public class EditAssignmentCommandTest {
     public void execute_duplicateAssignmentUnfilteredList_failure() {
         Assignment firstAssignment = model.getFilteredAssignmentList().get(FIRST_INDEX.getZeroBased());
         EditAssignmentDescriptor descriptor = new EditAssignmentDescriptorBuilder(firstAssignment).build();
-        EditAssignmentCommand editCommand = new EditAssignmentCommand(FIRST_INDEX, descriptor);
+        EditAssignmentCommand editCommand = new EditAssignmentCommand(SECOND_INDEX, descriptor);
 
         assertCommandFailure(editCommand, model, EditAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT);
     }

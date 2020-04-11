@@ -26,22 +26,22 @@ public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage 
         this.filePath = filePath;
     }
 
-    public Path getSchedulerFilePath() {
+    public Path getAssignmentScheduleFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler() throws DataConversionException {
-        return readScheduler(filePath);
+    public Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule() throws DataConversionException {
+        return readAssignmentSchedule(filePath);
     }
 
     /**
-     * Similar to {@link #readScheduler()}.
+     * Similar to {@link #readAssignmentSchedule()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAssignmentSchedule> readScheduler(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAssignmentSchedule> jsonScheduler = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonAssignmentScheduleStorage implements AssignmentScheduleStorage 
     }
 
     @Override
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler) throws IOException {
-        saveScheduler(scheduler, filePath);
+    public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler) throws IOException {
+        saveAssignmentSchedule(scheduler, filePath);
     }
 
     /**
-     * Similar to {@link #saveScheduler(ReadOnlyAssignmentSchedule)}.
+     * Similar to {@link #saveAssignmentSchedule(ReadOnlyAssignmentSchedule)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveScheduler(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
+    public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
         requireNonNull(scheduler);
         requireNonNull(filePath);
 
