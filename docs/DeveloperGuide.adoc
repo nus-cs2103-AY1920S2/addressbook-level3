@@ -195,9 +195,6 @@ implemented.
 
 // tag::undoredo[]
 === Undo/Redo feature
-
-==== Current Implementation
-
 The undo/redo mechanism is facilitated by with an undo/redo history, stored
 internally as an `couponStashStateList` with a `commandTextHistory` and
 `currStateIndex`. All these components are encapsulated in the `HistoryManager`
@@ -212,6 +209,7 @@ stash state and the command text that triggered the change in state into
 * `Model#redo()` -- Restores a previously undone coupon stash state from
 `HistoryManager`.
 
+==== Current Implementation
 Given below is an example usage scenario and how the undo/redo mechanism
 behaves at each step.
 
@@ -630,10 +628,16 @@ No changes to the stack and `currIndex` will be effected.
 
 ===== Aspect: Data structure to support the key actions
 
-* We used a `LinkedList` as a stack to store the command text history.
-** The first in first out nature of a stack made it a very suitable data
-structure
-for the storage of history that is retrived in chronological order of execution.
+* *Alternative 1 (current choice):* Use `LinkedList` as a stack to store
+the command text history.
+** Pros: `LinkedList` is a better data structure that allows for more efficient
+operations supported by stacks.
+
+* *Alternative 2:* *Use `ArrayList` as a stack to store
+the command text history.
+** Pros: `ArrayList` is more recognizable to people who are relatively new to
+Java, thus reducing confusion.
+** Cons: Stack operations are less effifcient on `ArrayList` s.
 // end::updownarrowcommandhistory[]
 
 
