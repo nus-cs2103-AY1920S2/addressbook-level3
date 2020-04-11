@@ -36,13 +36,19 @@ icons (#120, #182, #227), and by creating all the ListPanels (and their respecti
 
 I also took care to ensure that the information displayed in the Cards were integrated with the backend whenever my teammates
 made new contributions to the application such as adding new fields (PR #322) or commands (PR #330). In addition, I added
-a "Total Earnings" label in claims tab to improve the user experience, as money makes the world go round (#243, #322).
+a "Total Earnings" label in Claims tab to improve the user experience, as money makes the world go round (#243, #322).
 
 === Enabled highlighting of applied filters
 
-* Contribute to the filter and list commands and their highlighting features so that the command is better represented
-(#210, #227, #235, #238, #243, #314, #322)
-* filter bar in sessions view since nothing to highlight over there (#322)
+As TA-Tracker was initially based on the AB3 project, the UI looked rather dull and plain at the beginning of the project.
+However, rather than adding colours to TA-Tracker indiscriminately, I enabled relevant ListCells in the Student Tab and Claims Tab to be highlighted
+whenever filter commands were input by the user (#210, #227, #235, #238).This addition made a huge leap in the visual
+differences between TA-Tracker and AB3, and enabled users to better focus on the information displayed.
+
+This contribution also required extensive debugging and contributions to the inner workings of the filter command, which
+was in itself a rather challenging command to implement (#243, #314, #322). In the Session Tab, highlighting of ListCells
+was a less favourable option since there was only one ListPanel to display. I overcame this challenge by creating a
+filter header (#322).
 
 === Implemented relevant commands to improve User Experience
 
