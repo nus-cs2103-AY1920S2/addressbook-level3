@@ -56,6 +56,7 @@ public class IntervieweeList {
         this(1, new TreeMap<>(), new TreeMap<>());
     }
 
+    //@@author CornCobs
     /**
      * Restores an IntervieweeList from saved session.
      *
@@ -86,6 +87,7 @@ public class IntervieweeList {
         intervieweeList.observableList.addAll(intervieweeList.interviewees.values());
         return intervieweeList;
     }
+    //@@author
 
     public ObservableList<Interviewee> getObservableList() {
         return FXCollections.unmodifiableObservableList(observableList);
