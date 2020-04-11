@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -54,7 +55,7 @@ public class DeleteCommand extends Command {
             "User is currently not taking a module with module code %1$s";
 
     private final Name deleteName;
-    private final ModuleCode deleteModuleCode;
+    private final Set<ModuleCode> deleteModuleCodes;
     private final Deadline deleteDeadline;
     private final String deleteGrade;
 
@@ -64,7 +65,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Name name) {
         requireNonNull(name);
         this.deleteName = name;
-        this.deleteModuleCode = null;
+        this.deleteModuleCodes = null;
         this.deleteDeadline = null;
         this.deleteGrade = null;
     }
@@ -72,9 +73,9 @@ public class DeleteCommand extends Command {
     /**
      * Creates a delete command to delete the module with module code {@code moduleCode} in the current profile.
      */
-    public DeleteCommand(ModuleCode moduleCode) {
-        requireNonNull(moduleCode);
-        this.deleteModuleCode = moduleCode;
+    public DeleteCommand(Set<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        this.deleteModuleCodes = moduleCodes;
         this.deleteName = null;
         this.deleteDeadline = null;
         this.deleteGrade = null;
@@ -84,10 +85,10 @@ public class DeleteCommand extends Command {
      * Creates a delete command to delete the deadline with description {@code deadline}
      * of the module with module code {@code moduleCode} of the current profile.
      */
-    public DeleteCommand(ModuleCode moduleCode, Deadline deadline) {
-        requireNonNull(moduleCode);
+    public DeleteCommand(Set<ModuleCode> moduleCodes, Deadline deadline) {
+        requireNonNull(moduleCodes);
         requireNonNull(deadline);
-        this.deleteModuleCode = moduleCode;
+        this.deleteModuleCodes = moduleCodes;
         this.deleteDeadline = deadline;
         this.deleteName = null;
         this.deleteGrade = null;
@@ -97,10 +98,10 @@ public class DeleteCommand extends Command {
      * Creates a delete command to delete the grade of the module
      * with module code {@code moduleCode} of the current profile.
      */
-    public DeleteCommand(ModuleCode moduleCode, String grade) {
-        requireNonNull(moduleCode);
+    public DeleteCommand(Set<ModuleCode> moduleCodes, String grade) {
+        requireNonNull(moduleCodes);
         requireNonNull(grade);
-        this.deleteModuleCode = moduleCode;
+        this.deleteModuleCodes = moduleCodes;
         this.deleteGrade = grade;
         this.deleteName = null;
         this.deleteDeadline = null;
@@ -124,10 +125,29 @@ public class DeleteCommand extends Command {
             } else {
                 throw new CommandException(String.format(MESSAGE_DELETE_PROFILE_FAILURE, deleteName));
             }
-        } else if (deleteModuleCode != null) {
+        } else if (deleteModuleCodes != null) {
             if (!profileManager.hasOneProfile()) {
                 throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
             }
+
+            // Case of multiple module codes: Execute DeleteCommand multiple times
+            if (deleteModuleCodes.size() > 1) {
+                String message = "";
+                for (ModuleCode moduleCode: deleteModuleCodes) {
+                    DeleteCommand deleteCommand;
+                    if (deleteGrade != null) {
+                        message = MESSAGE_DELETE_GRADE_SUCCESS;
+                        deleteCommand = new DeleteCommand(Set.of(moduleCode), deleteGrade);
+                    } else {
+                        message = MESSAGE_DELETE_MODULE_SUCCESS;
+                        deleteCommand = new DeleteCommand(Set.of(moduleCode));
+                    }
+                    deleteCommand.execute(profileManager, courseManager, moduleManager);
+                }
+                return new CommandResult(String.format(message, deleteModuleCodes), true);
+            }
+
+            ModuleCode deleteModuleCode = deleteModuleCodes.iterator().next();
             Profile profile = profileManager.getFirstProfile(); // To edit when dealing with multiple profiles
             if (!profile.hasModule(deleteModuleCode)) {
                 throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
@@ -184,8 +204,8 @@ public class DeleteCommand extends Command {
         DeleteCommand command = ((DeleteCommand) other);
         boolean sameName = (deleteName == null && command.deleteName == null)
                 || ((deleteName != null) && this.deleteName.equals(command.deleteName));
-        boolean sameModuleCode = (deleteModuleCode == null && command.deleteModuleCode == null)
-                || ((deleteModuleCode != null) && this.deleteModuleCode.equals(command.deleteModuleCode));
+        boolean sameModuleCode = (deleteModuleCodes == null && command.deleteModuleCodes == null)
+                || ((deleteModuleCodes != null) && this.deleteModuleCodes.equals(command.deleteModuleCodes));
         boolean sameDeadline = (deleteDeadline == null && command.deleteDeadline == null)
                 || ((deleteDeadline != null) && this.deleteDeadline.equals(command.deleteDeadline));
         boolean sameGrade = (deleteGrade == null && command.deleteGrade == null)

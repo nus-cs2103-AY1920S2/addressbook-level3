@@ -1,11 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_MODULES_ADD_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DeleteCommand;
@@ -31,7 +35,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MODULE, PREFIX_TASK, PREFIX_GRADE);
 
         Name name;
-        ModuleCode moduleCode;
+        //ModuleCode moduleCode;
         Deadline task;
 
         // Delete profile
@@ -42,24 +46,32 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE)) {
-            String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get().trim().toUpperCase();
-            moduleCode = ParserUtil.parseModuleCode(strModuleCode);
+            Collection<String> strModuleCodes = argMultimap.getAllValues(PREFIX_MODULE)
+                    .stream()
+                    .map(x->x.trim().toUpperCase())
+                    .collect(Collectors.toList());
+            Set<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
 
             // Delete task
             if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+                // Deleting task will only occur for one module
+                if (moduleCodes.size() > 1) {
+                    throw new ParseException(MESSAGE_MULTIPLE_MODULES_ADD_TASK);
+                }
+                String strModuleCode = strModuleCodes.iterator().next();
                 String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
                 task = new Deadline(strModuleCode, strDeadline);
-                return new DeleteCommand(moduleCode, task);
+                return new DeleteCommand(moduleCodes, task);
             }
 
             // Delete grade
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
                 String grade = argMultimap.getValue(PREFIX_GRADE).get();
-                return new DeleteCommand(moduleCode, grade);
+                return new DeleteCommand(moduleCodes, grade);
             }
 
             // Delete module
-            return new DeleteCommand(moduleCode);
+            return new DeleteCommand(moduleCodes);
         }
 
         throw new ParseException(
