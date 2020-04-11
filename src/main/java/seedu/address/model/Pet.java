@@ -128,7 +128,6 @@ public class Pet implements ReadOnlyPet {
                 return false;
             }
         }
-    
     }
 
     @Override

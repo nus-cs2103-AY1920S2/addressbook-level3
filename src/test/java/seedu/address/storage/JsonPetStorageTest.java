@@ -4,15 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import seedu.address.model.Pet;
-import seedu.address.model.ReadOnlyPet;
-import seedu.address.commons.exceptions.DataConversionException;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.Pet;
+import seedu.address.model.ReadOnlyPet;
 
 public class JsonPetStorageTest {
     private static final Path TEST_DATA_FOLDER =
@@ -20,8 +19,7 @@ public class JsonPetStorageTest {
 
     @TempDir public Path testFolder;
 
-    private java.util.Optional<ReadOnlyPet> readPet(String filePath)
-            throws Exception {
+    private java.util.Optional<ReadOnlyPet> readPet(String filePath) throws Exception {
         return new JsonPetStorage(Paths.get(filePath))
                 .readPet(addToTestDataPathIfNotNull(filePath));
     }
@@ -44,9 +42,7 @@ public class JsonPetStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(
-                DataConversionException.class,
-                () -> readPet("notJsonFormatPet.json"));
+        assertThrows(DataConversionException.class, () -> readPet("notJsonFormatPet.json"));
     }
 
     @Test
