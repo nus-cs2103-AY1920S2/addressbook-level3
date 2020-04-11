@@ -138,6 +138,7 @@ Examples:
 image::Filter.png[width="790"]
 +
 
+
 === Deleting a transaction : `delete`
 
 Deletes the specified transaction from the expense tracker.
@@ -279,5 +280,6 @@ e.g. `edit 1 a/ 26.00 n/ Grab Share d/ 2020-02-19 c/ TRANSPORT` +
 * *Exit*: `exit`
 * *List* : `list`
 * *Export* : `export`
+* *Import* : `import`
 * *Clear Recurring Transactions*: `clearrecurring`
 * *Help* : `help`
