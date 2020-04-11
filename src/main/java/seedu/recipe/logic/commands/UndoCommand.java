@@ -34,7 +34,6 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_CANNOT_UNDO);
         }
         Tab toSwitch = model.undoBook(numberOfUndo, model);
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         if (numberOfUndo > 0) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfUndo),
                     false, false, toSwitch, false);
