@@ -330,7 +330,7 @@ The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach
 
 ===== How this feature works
 
-Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `AutoComplete` directly. In the following sequence diagram, we follow the execution for when the user presses the kbd:[Tab] key, given that the command entered is an unambiguous command:
+Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `AutoComplete` directly. In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `sch` (which in the current state of the application is an unambigous command, and will result in the full completion of the `schedule` command as well as the prefixes):
 
 // TODO: do sequence diagram for auto complete
 
