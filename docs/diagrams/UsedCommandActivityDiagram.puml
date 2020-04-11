@@ -1,22 +1,15 @@
 @startuml
 
 start
-repeat
-    repeat :User enters used command;
-    backward :Invalid command message shown;
-    repeat while () ->[else]
-    ->[valid index and usage date];
-    :Checks if the coupon specified
-    has a percentage amount;
-backward :Invalid command message shown;
-repeat while () ->[has percentage amount but original amount not specified]
-->[else];
-:Coupon savings calculated and saved;
-:Coupon usage increased by one;
-:Checks if the coupon has reached its limit;
-
-if () then ([limit reached])
-    :Archive coupon;
+:User enters used command;
+:Checks validity of index and usage date;
+if () then ([is valid index and usage date])
+    :Checks if the coupon specified has a percentage amount;
+    if () then ([has percentage amount but original amount not specified])
+        :Coupon savings calculated and saved;
+        :Coupon usage increased by one;
+    else ([else])
+    endif
 else ([else])
 endif
 stop

@@ -34,7 +34,7 @@ public class UsedCommand extends IndexedCommand {
             + "Example with Savings: " + COMMAND_WORD + " 1 " + "%s100";
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";
-    public static final String MESSAGE_USAGE_LIMIT_REACHED = "Coupon usage limit has been reached!\n"
+    public static final String MESSAGE_USAGE_LIMIT_REACHED = "Coupon usage limit has been reached! "
             + "You can only use it for a maximum of %s time(s).";
     public static final String MESSAGE_MISSING_ORIGINAL_AMOUNT = "Coupon has percentage savings "
             + "that requires the input of the original amount of purchase.\n"

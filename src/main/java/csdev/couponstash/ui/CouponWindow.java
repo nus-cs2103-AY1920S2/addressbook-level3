@@ -50,7 +50,6 @@ public class CouponWindow extends UiPart<Stage> {
     private static final String EXPANDED_COUPON_DETAILS_TITLE = "expanded-coupon-details-title";
 
     public final Coupon coupon;
-    private final Stage root;
 
     @FXML
     private HBox cardPane;
@@ -84,7 +83,6 @@ public class CouponWindow extends UiPart<Stage> {
      */
     public CouponWindow(Stage root, Coupon coupon, String moneySymbol) {
         super(FXML, root);
-        this.root = root;
         this.coupon = coupon;
 
         name.setText(coupon.getName().fullName);

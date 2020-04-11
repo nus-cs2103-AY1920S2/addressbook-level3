@@ -43,14 +43,13 @@ a|
    . Editing a coupon: edit
    . Deleting a coupon: delete
    . Listing all coupons: list
-   . Locating coupons by name: find
-   . Sorting coupons: sort
-   . Listing all expiring coupons: expiring
-   . Adding a reminder: remind
    . Using a coupon: used
    . Viewing savings: saved
    . Archiving a coupon: archive
    . Unarchiving a coupon: unarchive
+   . Locating coupons by name: find
+   . Listing all expiring coupons: expiring
+   . Sorting coupons: sort
    . Copying a coupon: copy
    . Sharing a coupon: share
    . Undoing the previous command: undo
@@ -95,8 +94,8 @@ along the way.
 
 Coupon Stash is meant for School of Computing (SoC) students and staff who enjoy
 managing their coupons with a desktop command-line interface. It is optimised
-for efficient usage in this aspect, while still offering a sleek Graphical User
-Interface (GUI).
+for efficient usage in this aspect, while still offering a sleek, beautiful
+Graphical User Interface (GUI).
 
 Jump to the <<Quick Start, Quick Start section>> to get started now. We
 sincerely hope you enjoy using Coupon Stash!
@@ -116,7 +115,7 @@ Warnings bring your attention to certain practices
 that may have unintended consequences!
 
 [NOTE]
-A note describes certain features or behaviour that may
+Notes describe certain features or behaviour that may
 not be so obvious!
 
 ====
@@ -167,8 +166,12 @@ Also, take note of the general format of all the commands below!
 *Command Format* +
 
 * Words in UPPERCASE: parameters to be supplied by you (the user) +
-** e.g. `add n/NAME` +
-** `NAME` is a parameter which can be used as `add n/The Deck Chicken Rice`
+** e.g. `add n/NAME`
+* `INDEX`: positive integer that specifies the index number shown in
+the displayed coupon list. The index must be a positive
+integer
+** e.g. 1, 2, 3, …​
+* `NAME` is a parameter which can be used as `add n/The Deck Chicken Rice`
 * Letter(s) followed by a `/` : prefixes to come before some parameters
 ** e.g. `n/NAME`
 ** `n/` is the prefix for the `NAME` parameter
@@ -196,12 +199,14 @@ Adds a coupon. Some fields like `name`, `expiry date` and `savings` are
 required.
 Optional fields like `promo code` and `tags` may be provided as well.
 
-Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE]
-[p/PROMO_CODE]
-[c/CONDITIONS] [u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
+Format: `add n/NAME e/EXPIRY_DATE s/SAVINGS_OR_FREE_ITEM [sd/START_DATE] [r/REMIND_DATE] [p/PROMO_CODE] [c/CONDITIONS][u/USAGE] [l/USAGE_LIMIT] [s/EXTRA_FREE_ITEMS]... [t/TAG]...`
 
 [TIP]
 A coupon can have any number of tags (including 0)
+
+[TIP]
+If unspecified, the default `REMIND_DATE` of a coupon will be set to
+`EXPIRY_DATE` - 3 days.
 
 ****
 * Coupons must have at least one "savings" value, whether it is
@@ -215,16 +220,16 @@ monetary amounts or percentage amounts.
 
 Examples:
 
-* `add n/The Deck Chicken Rice s/20% s/Free Add Rice sd/5-5-2020 e/6-5-2020
-t/value`
+* `add n/McDonald's McGriddles p/ILOVEMCGRIDDLES e/31-12-2020 s/$2
+   sd/1-4-2020 l/2 t/value t/savoury`
 +
 Adds a new Coupon: +
-image:ug_deck_chicken.png[]
+image:ug_mcdonalds_mcgriddles.png[]
 
-* `add n/Preenz Gjorjes Pak Mala s/$1.50 e/22-4-2020 t/value t/friends`
+* `add n/Grabfood s/40% e/30-4-2020 p/GRAB40 t/delivery`
 +
 Adds a new Coupon: +
-image:ug_pgp_mala.png[]
+image:ug_grabfood.png[]
 
 [TIP]
 If your coupon has unlimited use, set the limit of the coupon to a number less
@@ -238,9 +243,7 @@ Format: `edit INDEX [n/NAME] [s/SAVINGS]... [sd/START_DATE] [e/EXPIRY_DATE]
 [p/PROMO_CODE] [c/CONDITIONS] [l/USAGE_LIMIT] [t/TAG]...`
 
 ****
-* Edits the coupon at the specified INDEX. The index refers to the index
-number shown in the displayed coupon list. The index *must be a positive
-integer* 1, 2, 3, …​
+* Edits the coupon at the specified `INDEX`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the coupon will be removed i.e
@@ -278,9 +281,6 @@ Format: `delete INDEX`
 
 ****
 * Deletes the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon
-list.
-* The index *must be a positive integer* 1, 2, 3, …​
 ****
 
 Examples:
@@ -309,7 +309,7 @@ Format: `list [PREFIX]` +
 ****
 * The `PREFIX` can be either `a/` or `u/`.
 * Using `a/` lists all coupons that are archived, while `u/` lists all coupons
-that are used.
+that are used before.
 ****
 
 [NOTE]
@@ -327,25 +327,7 @@ Shows a list of all *archived* coupons
 * `list u/` +
 Shows a list of all *used* coupons (but not fully used)
 
-=== Adding a reminder: `remind`
-
-Adds a reminder to remind yourself to use a coupon +
-Format: `remind INDEX r/(specific date to remind)`
-
-****
-* Reminds you about the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon list.
-* The index must be a positive integer 1, 2, 3, …​
-* Date provided has to be in Coupon Stash date format
-
-****
-Examples:
-
-* `remind 5 r/ 01-05-2020` +
-Reminds you about the 5th coupon in the list on 1 May 2020.
-Reminders will be displayed as a pop up when you launch the app.
-
-
+// tag::used[]
 === Using a coupon: `used`
 Uses a coupon if its usage has yet to reached its limit.
 Requires an original amount of purchase if the coupon has savings in a
@@ -357,25 +339,26 @@ symbol e.g. ($4.50, where the currency symbol is "$").
 
 ****
 * Uses the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon.
-list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The monetary symbol is the one preset by the user e.g. $, RM ...
-* The original amount *must be a positive double* e.g. 10.00, 23.11, 0.50 ...
 ****
 
 Examples:
 
 * `used 1` +
 Uses the first coupon in the coupon stash.
-If coupon usage limit has been reached previously, an error message will appear,
-stating the maximum number of usages for first coupon.
 
 
 * `used 1 $10.0` +
 Uses the first coupon in the coupon stash, which also has a percentage savings.
 The total savings of the coupon will be calculated, and can be seen with the
 command `saved`.
+
+[WARNING]
+A coupon cannot be used if it has not reached its start date, or it is archived.
+If there is an intention to use the coupon, you can
+<<Editing a coupon: `edit`, `edit`>> the start date or
+<<Unarchiving a coupon: `unarchive`, `unarchive`>> the coupon.
+// end::used[]
+
 
 // tag::saved[]
 === Viewing savings: `saved`
@@ -424,6 +407,7 @@ A message will be displayed: You have saved $117.15 as well as earned
 between 1 May 2019 and 20 March 2020.
 // end::saved[]
 
+// tag::archive[]
 === Archiving a coupon: `archive`
 Archives a coupon when you want to keep a record of it, without cluttering your
 current stash of coupons.
@@ -445,9 +429,6 @@ Format: `archive INDEX`
 
 ****
 * Archives the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon
-list.
-* The index *must be a positive integer* 1, 2, 3, …​
 ****
 
 Examples:
@@ -455,10 +436,11 @@ Examples:
 * `archive 1` +
 Archives the first coupon in the coupon stash.
 
-[NOTE]
+[TIP]
 Coupon Stash will automatically archive your coupons once their usage limit has
 been reached,
 or when they have expired, to keep your stash more organized!
+// end::archive[]
 
 === Unarchiving a coupon: `unarchive`
 Unarchive a coupon, thus brining it back to your active coupons list.
@@ -473,9 +455,6 @@ Format: `unarchive INDEX`
 
 ****
 * Unarchive the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon
-list.
-* The index *must be a positive integer* 1, 2, 3, …​
 ****
 
 Examples:
@@ -517,7 +496,7 @@ non-archived matches.
 
 === Listing all expiring coupons: `expiring`
 
-Shows a list of all your coupons expiring on a date or during a Month-Year.
+Shows a list of all your coupons expiring on a date or during a MonthYear.
 
 Format: `expiring e/EXPIRY_DATE` or `expiring my/MONTH_YEAR`
 
@@ -536,12 +515,9 @@ Shows you all the coupons that will expire on 11 September 2020.
 Shows you all the coupons that will expire during September 2020.
 
 [NOTE]
-The <<Listing all expiring coupons: `expiring`, `expiring`>> command will
-include coupons in the
-<<Archiving a coupon: `archive`, `archive`>> in its results too. Coupons that
-are expiring
-in the <<Archiving a coupon: `archive`, `archive`>> are displayed **below** the
-non-archived matches.
+The `expiring` command will include archived coupons in its results
+too. Coupons that are expiring in the archives are
+displayed **below** the non-archived matches.
 // Insert GIF/image
 
 === Sorting coupons: `sort`
@@ -551,11 +527,9 @@ coupon name or expiry date.
 
 [NOTE]
 The sorting order will persist throughout the runtime of the program.
-The command will sort any coupons currently on screen, including ones in the
-<<Archiving a coupon: `archive`, `archive`>>, if
-they are present on screen. Coupons in the <<Archiving a coupon: `archive`,
-`archive`>> will always appear **below** coupons not
-in the archive.
+The command will sort any coupons currently on screen, including
+archived coupons , if they are present on screen. Archived coupons will always appear
+**below** active coupons.
 // Put GIF here
 
 Format: `sort PREFIX`
@@ -581,11 +555,9 @@ Format: `copy INDEX`
 
 ****
 * Copies the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon
-list.
-* The index *must be a positive integer* 1, 2, 3, …​
 * The <<Adding a coupon: `add`, `add`>> command of the coupon will be copied to
-your clipboard. Simply ctrl + v to paste it!
+your clipboard. Simply kbd:[Ctrl] + kbd:[V] to paste it!
+(kbd:[Cmd] + kbd:[V] for macOS)
 ****
 // Put GIF
 
@@ -628,7 +600,7 @@ Below is a sample of how a shared coupon image looks like:
 image::example_shared_coupon.png[]
 
 
-=== Undo the previous command: `undo`
+=== Undoing the previous command: `undo`
 Undo the most recent operation on the coupon stash. Only operations that change
 the coupons in the coupon stash can be undone.
 
@@ -640,8 +612,8 @@ coupons in the coupon stash) +
 * <<Adding a coupon: `add`, `add`>>
 * <<Editing a coupon: `edit`, `edit`>>
 * <<Deleting a coupon: `delete`, `delete`>>
-* <<Adding a reminder: `remind`, `remind`>>
 * <<Archiving a coupon: `archive`, `archive`>>
+* <<Unarchiving a coupon: `unarchive`, `unarchive`>>
 * <<Clearing all entries: `clear`, `clear`>>
 
 Note that changes to user preferences cannot be undone.
@@ -660,7 +632,7 @@ Revert the edit that was performed.
 
 === Redoing the undone command: `redo`
 Redo the previously undone operation. This is akin to undoing an
-<<Undo the previous command: `undo`, `undo`>>.
+<<Undoing the previous command: `undo`, `undo`>>.
 
 Format: `redo`
 
@@ -684,20 +656,15 @@ Format: `goto my/MONTH_YEAR`  +
 Example:
 
 * `goto my/12-2020` +
-Goes to the December 2020 on the Calendar
+Goes to December 2020 on the Calendar
 
 === Displaying a Coupon: `expand`
-Display a coupon in its own window, giving you a complete view of it.
+Displays a coupon in its own window, giving you a complete view of it.
 
 Format: `expand INDEX`
 
 ****
 * Expands the coupon at the specified INDEX.
-* The index refers to the index number shown in the displayed coupon
-list.
-* The index *must be a positive integer* 1, 2, 3, …​
-* Coupon will be displayed in its separate window as per the screenshot
-below.
 ****
 
 image:expand_example.png[]
@@ -753,8 +720,8 @@ There is no need to save manually.
 [[KeyboardShortcuts]]
 == Keyboard Shortcuts
 With Coupon Stash being optimized for efficient command line usage, how can we
-miss out the inclusion of some nifty keyboard shortcuts to further streamline
-your workflow?! This section introduces some of the keyboard shortcuts available
+not include some nifty keyboard shortcuts to further streamline
+your workflow! This section introduces some of the keyboard shortcuts available
 for use in this program.
 
 === Restore previously entered command texts: kbd:[↑] and kbd:[↓]
@@ -785,9 +752,7 @@ Demonstration:
 
 image::gifs/ctrl tab.gif[]
 
-
 == FAQ
-
 
 *Q*: How do I transfer my data to another computer?
 
