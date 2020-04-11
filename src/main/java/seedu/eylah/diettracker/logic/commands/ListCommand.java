@@ -24,6 +24,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists all food in the book. Use tags to list "
             + "different things."
             + "Parameters: [-a] / [-d][numDays] / [-t [tag]]";
+    public static final String MESSAGE_USAGE_DAYS = "Parameter number of days after flag -d must be greater than zero!";
     public static final String MESSAGE_SUCCESS = "All foods over period based on input tag has been listed.\n";
 
     private String mode = "";

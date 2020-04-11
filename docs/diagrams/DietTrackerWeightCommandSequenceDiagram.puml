@@ -1,33 +1,95 @@
 @startuml
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":WeightCommandParser" as WeightCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "w:WeightCommand" as WeightCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "weight 73"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant "weight:Weight" as WeightWeight MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("weight 73")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+end box
 
-create "w:Weight" as weight STORAGE_COLOR
-logic -[LOGIC_COLOR]> weight : new Weight(170)
-activate weight STORAGE_COLOR
+[-> LogicManager : execute("weight 65.7")
+activate LogicManager
 
-weight -[STORAGE_COLOR]-> logic
-deactivate weight
+LogicManager -> FoodBookParser : parseCommand("weight 65.7")
+activate FoodBookParser
 
-logic -[LOGIC_COLOR]> splitterModel : setWeight(w)
-activate splitterModel MODEL_COLOR
+create WeightCommandParser
+FoodBookParser -> WeightCommandParser
+activate WeightCommandParser
 
-splitterModel -[MODEL_COLOR]-> logic
-deactivate splitterModel
+WeightCommandParser --> FoodBookParser
+deactivate WeightCommandParser
 
-logic --[LOGIC_COLOR]> ui : CommandResult
-deactivate logic
+FoodBookParser -> WeightCommandParser : parse("65.7")
+activate WeightCommandParser
 
-ui--[UI_COLOR]> user : CommandResult
-deactivate ui
+create ParserUtil
+WeightCommandParser -> ParserUtil : parseWeight("65.7")
+activate ParserUtil
+
+create WeightWeight
+ParserUtil -> WeightWeight
+activate WeightWeight
+
+WeightWeight --> ParserUtil : weight
+deactivate WeightWeight
+
+ParserUtil --> WeightCommandParser : weight
+deactivate ParserUtil
+
+create WeightCommand
+WeightCommandParser -> WeightCommand
+activate WeightCommand
+
+WeightCommand --> WeightCommandParser : w
+deactivate WeightCommand
+
+WeightCommandParser --> FoodBookParser : w
+deactivate WeightCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+WeightCommandParser -[hidden]-> FoodBookParser
+destroy WeightCommandParser
+
+FoodBookParser --> LogicManager : w
+deactivate FoodBookParser
+
+LogicManager -> WeightCommand : execute()
+activate WeightCommand
+
+WeightCommand -> Model : setWeight(weight)
+activate Model
+
+Model --> WeightCommand
+deactivate Model
+
+create CommandResult
+WeightCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> WeightCommand
+deactivate CommandResult
+
+WeightCommand --> LogicManager : commandResult
+deactivate WeightCommand
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager
+deactivate LogicManager
 @enduml

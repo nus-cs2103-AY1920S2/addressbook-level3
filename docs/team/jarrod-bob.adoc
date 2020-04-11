@@ -29,15 +29,16 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 ** *Adding of HeightCommand, WeightCommand, BmiCommand, ModeCommand for the Diet Tracker portion of EYLAH*
 *** What it does: HeightCommand, WeightCommand and BmiCommand are all health metric commands that are essential for any diet tracking app to help the User. BmiCommand is a simple function to allow the user to gauge their current health status.
-*** Justification:
-*** Highlights:
-*** Credits:
+*** Justification: Without this, a user would not have any realistic goal to aim for.
+*** Highlights: Height and Weight, which are taken in as Floating Point numbers, are interesting in that they can be exploited by putting a very large number like '100000000000000000000000' which would then cause permanent damage to the application as it is stored as 'Infinity'.
+In order to fix this, I set a cap on the value which could be input into the height field. I injected some fun facts so the user would feel more affection for the application.
+*** Credits: For the bug on Floating Point and Storage, I would like to thank my team mate Shee Xiong, who actually brought the bug issues to light.
 
 ** *Adapted most of the beginning classes for the DietModel class from Addressbook 3*
 *** What it does: The Model and Parsers are extremely important in order to ensure a functioning pre-product.
 *** Justification:
 *** Highlights:
-*** Credits:
+*** Credits: AddressBook Level 3 "https://github.com/se-edu/addressbook-level3"
 
 ** *Suggested for the renaming of same sounding class components across both DietTracker and ExpenseSplitter for EYLAH*
 *** What it does: Allows the integration of the both Diet Tracker and Expense Splitter seamlessly in the unified Eylah class.
@@ -47,15 +48,22 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 
 * *Minor enhancement*: [In Process]
+** *Fixed the Calories bug that occurs when Calories are not in the desired range.*
+*** What it does: Properly validates the user's Calories input for any of the Diet Tracker Commands which involve Calories.
+*** Justification: Otherwise, the previously poor implementation would cause the application to crash.
+*** Highlights: This was brought up during internal testing within the team and also by others during the Mock PE Testing.
+It was important to fix this bug. I found that the cause of this overall bug was due to a few lapses in terms of the original implementation.
+The original implementation had failed to consider a VALIDATION_REGEX for the Calories String itself, since Calories was built using a long instead of directly from a String.
+This caused problems when typing unknown characters that were not longs. Another issue was that you could exceed in the input long for Calories which would crash the program also.
+This was circumvented using BigInteger when validating the long.
+
 ** *Drew Diet Tracker component of UML Class diagram*
 +
 image::diet_tracker_uml_class_diagram.png[]
 +
-** *Added tests for HeightCommand, WeightCommand, BmiCommand, ModeCommand, and some of the tests for EditCommand*
+** *Added tests for HeightCommand, WeightCommand, BmiCommand, ModeCommand, MetricsCommand and some of the tests for EditCommand*
 +
-** *Added tests for the respective Command Parser classes as seen in the previous point. Also added tests for the FoodBookParser and Parser classes.*
-
-** *Assisted in downscaling of AddressBook3 by removing Email object*
+** *Added tests for the FoodBookParser and Parser classes.*
 
 ** *Drew Activity Diagrams for various Diet Tracker functions.*
 +
