@@ -16,6 +16,56 @@ endif::[]
 
 By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
+//@@author
+== About Us
+Delino is for couriers who *prefer to use a desktop app for managing their delivery tasks*.
+It is *optimised for those who have a strong preference towards Command Line Interface* (CLI)
+while still enjoying the benefits of a Graphical User Interface (GUI).
+
+Delino is adapted from the https://se-education.org/addressbook-level3/[AddressBook-Level3] project created by
+https://se-education.org[SE-EDU initiative].
+
+If you wish to contact the team, more details can be found <<AboutUs#, here>>.
+
+== How to navigate this Developer Guide
+This developer guide is written for anyone who wish to extend/modify Delino.
+This guide will first touch on the overview of our application in the <<Design-Architecture, design architecture>>.
+Secondly, the specific implementation of Delino's commands will be further elaborated in the
+<<implementation, implementation>> section.
+
+If you need help setting up your development environment to work on Delino, you can follow the
+<<SettingUp#, Setting Up>> guide.
+
+Manual testing of Delino can be done by following <<manual-testing, Appendix G: Instructions for Manual Testing>>.
+
+Throughout this developer guide, you might encounter additional symbols. These symbols are used to
+highlight important information. +
+This developer guide uses the following symbols:
+
+[NOTE]
+====
+This block contains additional *notes*. +
+It contains more information regarding complex content that you should take note of.
+====
+
+[TIP]
+====
+This block contains additional *tips*.
+====
+
+[WARNING]
+====
+This block contains *warning* information.
+====
+
+[IMPORTANT]
+====
+This block contains *important* information that you should be mindful of.
+====
+
+`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`)
+*bold* : This is used to indicate the various Java files in Delino.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -80,7 +130,7 @@ image::UiClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -99,7 +149,7 @@ image::LogicClassDiagram.svg[]
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/delino/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `OrderBookParser` class to parse the user command.
+.  `Logic` uses the `DelinoParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a new order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -154,21 +204,25 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.delino.commons` package.
 
+[[implementation]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//@@author Amoscheong97
 //tag::insert[]
 [[insert]]
 === Insert Feature
-This section, will <<what-is-insert, introduce>> the Insert Feature. In addition, it will show the expected
-<<insert-sequence, path-execution>>, the <<insert-class, structure>> of the of the *InsertCommand* class,
+This section, will <<what-is-insert, introduce>> the `insert` feature.
+In addition, it will show the expected <<insert-sequence, path-execution>>,
+the <<insert-class, structure>> of the of the *InsertCommand* class,
 <<insertparser-class, structure>> of the *InsertCommandParser* class and
-it will also describe the <<insert-activity, interaction>> of objects between the *InsertCommand* object and other object classes.
+it will also describe the <<insert-activity, interaction>> of objects between the *InsertCommand* object
+and other object classes.
 
 [[what-is-insert]]
 ==== What is the Insert feature
-The insert feature allows the user to insert an incoming delivery order into the list using the command line.
+The `insert` feature allows the user to insert an incoming delivery order into the list using the command line. +
 The order consists of : Transaction ID, Name, Phone, Address, Email, Delivery Timestamp, Warehouse location,
 CashOnDelivery
 
@@ -200,41 +254,47 @@ Here is the sequence diagram for the *Insert Command* as shown below: +
 .Insert
 image::InsertCommandSequenceDiagram.svg[]
 
-The arguments of the Insert Command will be parsed using the parse method of the `InsertCommandParser` class. +
-The `InsertCommandParser` will tokenize the arguments parsed in using the tokenize method of `ArgumentTokenizer` class which
-returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the arguments parsed in matches with the
+The arguments of the `insert` command will be parsed using the parse method of the *InsertCommandParser* class. +
+The *InsertCommandParser* will tokenize the arguments parsed in using the tokenize method of
+*ArgumentTokenizer* class which returns the tokenized arguments.
+Using the tokenized arguments, the Parser will check if the arguments parsed in matches with the
 tokenized arguments using the arePrefixesPresent method.
 
 There are two scenarios : +
 
 . Some compulsory prefixes are not present : +
-`InsertCommandParser` will throw a new `ParseException` object to the `LogicManager`.
+*InsertCommandParser* will throw a new *ParseException* object to the *LogicManager*.
 
 . All compulsory prefixes are present in the arguments : +
-It will the  proceed to use the getValue method of the `ArgumentMultimap` class to get the value of the prefix. For example,
-if the argument parsed in is tid/A12345, the getValue method will get the value 'A12345'. Subsequently, it will use the
-`ParseUtil` methods to get the corresponding object values and put it into the parameters of the new `Order` object.
-The order object will be put into the parameter of the `InsertCommand` object and this will be returned
-to the `LogicManager` class for execution.
+It will the  proceed to use the getValue method of the *ArgumentMultimap* class to get the value of the prefix.
+For example, if the argument parsed in is tid/A12345, the getValue method will get the
+value 'A12345'. Subsequently, it will use the *ParseUtil* methods to get the corresponding object
+values and put it into the parameters of the new *Order* object.
+The order object will be put into the parameter of the *InsertCommand* object and this will be returned
+to the *LogicManager* class for execution.
 
-`LogicManager` will call the execute() method of this `InsertCommand` object. In the execute() method, it will use the `Model` class
-to call hasOrder method to check for duplicates, if it is a duplicate, the order will throw a CommandException which
-indicates that there is a duplicate order in the OrderBook already. Else, it will successfully inserts the new order
-using addOder method. Finally, it return a new `CommandResult` object, containing a String that indicates a successful
-insertion.
+*LogicManager* will call the execute() method of this *InsertCommand* object.
+In the execute() method, it will use the *Model* class to call hasOrder method to check
+for duplicates, if it is a duplicate, the order will throw a *CommandException* which
+indicates that there is a duplicate order in the *OrderBook* already.
+Else, it will successfully inserts the new order
+using addOrder method. Finally, it return a new *CommandResult* object,
+containing a String that indicates a successful insertion.
 //end::insert[]
 
+//@@author Amoscheong97
 //tag::list[]
 [[list]]
 === List feature
 This section describes the <<list-functionality, functionality>> , the <<list-structure, structure>>,
-<<list-interactions, interactions>> between objects and <<list-path, path>> the path execution of the *List Command*.
+<<list-interactions, interactions>> between objects and <<list-path, path>> the path execution
+of the `list` command.
 
 [[list-functionality]]
 ==== What is the List feature
 List feature allows the user to see all the orders from both Delivery Orders and Return Orders.
 
-The user can enter `list` to display all the orders. Besides that, the user can also input `done` to dispay
+The user can enter `list` to display all the orders. Besides that, the user can also input `done` to display
 all delivered orders and `undone` to display all orders that are not delivered.
 
 [[list-structure]]
@@ -249,57 +309,62 @@ image::ListClassDiagram.svg[]
 .List Activity Diagram
 image::ListActivityDiagram.svg[]
 
-The above activity diagram shows the logic and the path execution when the *List Command* is executed.
+The above activity diagram shows the logic and the path execution when the `list` command is executed.
 
 [[list-interactions]]
 ==== Interaction between objects during execution of List Command
-The sequence diagram for the *List Command* is shown below: +
+The sequence diagram for the `list` command is shown below: +
 
 .List Command Sequence Diagram
 image::ListCommandSequenceDiagram.svg[]
 
-The user first calls the command "list".
+The user first calls the command `list`.
 [NOTE]
 ====
 The second argument of the `list` command can be `done` or `undone` or an empty String.
 ====
 
-The LogicManager will call the parseCommand method of OrderBookParser, which then passes the second argument
-into the `ListCommand` object. This object will then be ultimately returned to the `LogicManager`.
-Next, the `LogicManager` will call the execute(model) method using the `ListCommand` object. In this method, it wil use
-the `Model` object to call the methods : updateFilteredOrderList and updateFilteredReturnOrderList. Since in this case, the
-argument is empty, the predicate that is parsed to the two methods will always result to true, which means to list
-everything from the order book and return book. When completed, the execute(model) will return a `CommandResult` object
-to the `LogicManager`, indicating that the command execution is a success.
+The LogicManager will call the parseCommand method of *OrderBookParser*, which then passes the second argument
+into the *ListCommand* object. This object will then be ultimately returned to the *LogicManager*.
+Next, the *LogicManager* will call the execute(model) method using the *ListCommand* object.
+In this method, it wil use the *Model* object to call the methods :
+updateFilteredOrderList and updateFilteredReturnOrderList.
+Since in this case, the argument is empty, the predicate that is parsed to the two methods
+will always result to true, which means to list
+everything from the order book and return book.
+When completed, the execute(model) will return a *CommandResult* object
+to the *LogicManager*, indicating that the command execution is a success.
 //end::list[]
 
+//@@author Exeexe93
 //tag::clear[]
 === Clear feature
-In this section, the <<what-is-clear, functionality>> of the `clear` feature, the expected <<clear-execution-path, execution path>>,
-the <<clear-structure, structure>> of the `ClearCommand` class and the <<clear-interaction, interactions>>
-between objects with the `ClearCommand` object will be discussed.
+In this section, the <<what-is-clear, functionality>> of the `clear` feature,
+the expected <<clear-execution-path, execution path>>,
+the <<clear-structure, structure>> of the *ClearCommand* class and the <<clear-interaction, interactions>>
+between objects with the *ClearCommand* object will be discussed.
 
 [[what-is-clear]]
 ==== What is the Clear feature
-The `clear` feature was implemented as a `ClearCommand` in the `logic` package. +
+The `clear` feature was implemented as a *ClearCommand* in the logic package. +
 The `clear` feature allows the user to remove the orders and return orders by input one command line. +
 
 [[clear-execution-path]]
 ==== Execution paths of Clear Command
-The execution path of the `ClearCommand` is shown below: +
+The execution path of the `clear` command is shown below: +
 
 .Clear Class Activity Diagram
 image::ClearActivityDiagram.svg[]
 
-After user enter the `clear` command, the `ClearCommandParser` will run the following two checks: +
+After user enter the `clear` command, the *ClearCommandParser* will run the following two checks: +
 
 ** Check if flag in the arguments do not belong to one of the three valid flags: `-f`, `-r` and `-o`
 ** Check if both `-r` and `-o` flags found in the arguments +
 
 If either one of the conditions occurs, exception will be thrown and the error message will be display to the user.
-Afterward,  the new `ClearCommand` object will be executed.
+Afterward,  the new *ClearCommand* object will be executed.
 
-During the execution of the `ClearCommand`:
+During the execution of the `clear` command:
 
 ** If `-f` flag is found in flags, the respective order book will be cleared and
 display a success message to the user.
@@ -310,12 +375,12 @@ display a success message to the user.
 
 [[clear-structure]]
 ==== Structure of Clear Command
-The following diagrams shows the overview of the `ClearCommand` Class Diagram: +
+The following diagrams shows the overview of the `clear` command Class Diagram: +
 
 .Clear Command Class Diagram
 image::ClearCommandClassDiagram.svg[]
 
-In the `ClearCommand` class, there are also some static messages for the different input command
+In the *ClearCommand* class, there are also some static messages for the different input command
 the user has key in:
 
 1. `MESSAGE_USAGE` +
@@ -343,37 +408,38 @@ Confirmation message to the user if the user want to clear both order book lists
 
 [[clear-interaction]]
 ==== Interactions between objects when Clear Command is executed
-In this section, the interactions between objects when `ClearCommand` is executed will be display in the Clear Command
+In this section, the interactions between objects when `clear` command is executed will be display in the Clear Command
 Sequence Diagram below: +
 
 .Clear Command Sequence Diagram
 image::ClearCommandSequenceDiagram.svg[]
 
-The above sequence diagram illustrate how `Clear` Command being processed when the user input `clear -f` to force clear
-both order book and return order book.
+The above sequence diagram illustrate how the `clear` Command is being processed when the user inputs
+`clear -f` to force clear both the order book and return order book.
 
-After the user input. the arguments passed to the `Clear` Command will be parsed by the `ClearCommandParser` class +
-If the given arguments are valid, a new `Clear` Command object will be returned.
+After the user input. the arguments passed to the `clear` command will be parsed by the *ClearCommandParser* class +
+If the given arguments are valid, a new *ClearCommand* object will be returned.
 
-In the `ClearCommandParser`, there will be two validation checks: +
+In *ClearCommandParser*, there will be two validation checks: +
 1. Ensure the flag is one of the three flags: `-f`, `-o` and `-r` +
 2. Ensure the arguments do not have both `-o` and `-r` flags.
 
 After the two validation checks, the flag will be added into HashSet, *flags* which will then passed to
-the new `ClearCommand` object created by `ClearCommandParser` and it is being returned to the `LogicManager`.
-The `LogicManager` will start to run the execute the `clear` Command, which will be
+the new *ClearCommand* object created by *ClearCommandParser* and it is being returned to the *LogicManager*.
+The *LogicManager* will start to run the execute the `clear` command, which will be
 shown in details in below diagram:
 
 .Execution of Clear Command Sequence Diagram
 image::ExecuteClearCommand.svg[]
 
-After `LogicManager` call the `ClearCommand#execute(model)`, the `clear` Command will update the model by pass a new
-`OrderBook` object and a new `ReturnOrderBook` object to `Model`.  The `Model` will then update its own orderBook and
-returnOrderBook. In addition, the `clear` Command will pass back a new `CommandResult` object with the success message
-in it to the `LogicManager` at the end of the execution.
+After *LogicManager* call the ClearCommand#execute(model), the `clear` command will update the model by pass a new
+*OrderBook* object and a new *ReturnOrderBook* object to *Model*.  The *Model* will then update its own orderBook and
+returnOrderBook. In addition, the `clear` command will pass back a new *CommandResult* object with the success message
+in it to the *LogicManager* at the end of the execution.
 
 //end::clear[]
 
+//@@author JeremyLoh
 //tag::delete[]
 [[delete]]
 === Delete Feature
@@ -2086,6 +2152,7 @@ Cons:
 
 //end::appendix-product-survey[]
 
+[[manual-testing]]
 [appendix]
 == Instructions for Manual Testing
 
