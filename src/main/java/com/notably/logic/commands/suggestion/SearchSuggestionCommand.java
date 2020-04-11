@@ -39,6 +39,7 @@ public class SearchSuggestionCommand implements SuggestionCommand {
 
     /**
      * Traverses the whole block tree to get the blocks which contains the keyword.
+     *
      * @param model The app's model.
      * @return List of SuggestionItem with a display text of the block's path and action of opening the block.
      */
@@ -47,51 +48,68 @@ public class SearchSuggestionCommand implements SuggestionCommand {
         pathQueue.offer(AbsolutePath.fromString("/"));
 
         List<SuggestionItem> suggestions = new ArrayList<>();
+        BlockTree blockTree = model.getBlockTree();
 
         while (!pathQueue.isEmpty()) {
             AbsolutePath currentPath = pathQueue.poll();
-            BlockTree blockTree = model.getBlockTree();
 
             List<BlockTreeItem> childrenBlocks = blockTree.get(currentPath).getBlockChildren();
             List<AbsolutePath> childrenPaths = childrenBlocks
                     .stream()
-                    .map(item -> {
-                        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
-                        combinedComponents.add(item.getTitle().getText());
-                        AbsolutePath absolutePath = AbsolutePath.fromComponents(combinedComponents);
-
-                        BlockTreeItem blockTreeItem = blockTree.get(absolutePath);
-                        String blockBody = blockTreeItem.getBody().getText();
-
-                        /* If a blockBody contains the keyword, we create SuggestionItem by
-                           counting the keyword's number of occurrences in the blockBody, setting display text,
-                           and setting action to open that particular block when the user chooses that suggestion. */
-                        String bodyLowerCase = blockBody.toLowerCase();
-                        if (bodyLowerCase.contains(keyword.toLowerCase())) {
-                            String[] blockBodies = bodyLowerCase.split(keyword.toLowerCase(), -1);
-
-                            int frequency = blockBodies.length - 1;
-                            String displayText = absolutePath.getStringRepresentation();
-                            Runnable action = () -> {
-                                try {
-                                    OpenCommand openCommand = new OpenCommand(absolutePath);
-                                    openCommand.execute(model);
-                                } catch (CommandException ex) {
-                                    /* notes suggested will definitely be able to be opened,
-                                       as the block actually exists.
-                                       AssertionError would never be thrown */
-                                    throw new AssertionError(ex.getMessage());
-                                }
-                            };
-                            SuggestionItem suggestionItem = new SuggestionItemImpl(displayText, frequency, action);
-                            suggestions.add(suggestionItem);
-                        }
-                        return absolutePath;
-                    })
+                    .map(item -> getPossiblePath(item, currentPath, blockTree, model, suggestions))
                     .collect(Collectors.toList());
             pathQueue.addAll(childrenPaths);
         }
         return suggestions;
+    }
+
+    private AbsolutePath getPossiblePath(BlockTreeItem item, AbsolutePath currentPath, BlockTree blockTree,
+                                          Model model, List<SuggestionItem> suggestions) {
+        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
+        combinedComponents.add(item.getTitle().getText());
+        AbsolutePath absolutePath = AbsolutePath.fromComponents(combinedComponents);
+
+        BlockTreeItem blockTreeItem = blockTree.get(absolutePath);
+        String blockBody = blockTreeItem.getBody().getText();
+
+        /* If a blockBody contains the keyword, we create SuggestionItem by
+           counting the keyword's number of occurrences in the blockBody, setting display text,
+           and setting action to open that particular block when the user chooses that suggestion. */
+        String bodyLowerCase = blockBody.toLowerCase();
+        if (bodyLowerCase.contains(keyword.toLowerCase())) {
+            addSuggestions(bodyLowerCase, absolutePath, model, suggestions);
+        }
+
+        return absolutePath;
+    }
+
+    /**
+     * Adds a Suggestion Item into the list of suggestions if it contains the keyword.
+     *
+     * @param bodyLowerCase The body of the block in lower case.
+     * @param absolutePath The absolute path of the currently checked block.
+     * @param model The app's model.
+     * @param suggestions The list of suggestions.
+     */
+    private void addSuggestions(String bodyLowerCase, AbsolutePath absolutePath, Model model,
+                                List<SuggestionItem> suggestions) {
+        String[] blockBodies = bodyLowerCase.split(keyword.toLowerCase(), -1);
+
+        int frequency = blockBodies.length - 1;
+        String displayText = absolutePath.getStringRepresentation();
+        Runnable action = () -> {
+            try {
+                OpenCommand openCommand = new OpenCommand(absolutePath);
+                openCommand.execute(model);
+            } catch (CommandException ex) {
+                /* notes suggested will definitely be able to be opened,
+                as the block actually exists. AssertionError would never be thrown */
+                throw new AssertionError(ex.getMessage());
+            }
+        };
+
+        SuggestionItem suggestionItem = new SuggestionItemImpl(displayText, frequency, action);
+        suggestions.add(suggestionItem);
     }
 
     /**
