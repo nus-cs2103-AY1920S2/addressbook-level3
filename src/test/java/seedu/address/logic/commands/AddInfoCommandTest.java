@@ -19,13 +19,14 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
 
@@ -35,7 +36,7 @@ class AddInfoCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
-            new AssignmentSchedule(),
+            new SchoolworkTracker(),
             new EventSchedule(),
             new UserPrefs());
 
@@ -49,16 +50,21 @@ class AddInfoCommandTest {
         AddInfoCommand addInfoCommand = new AddInfoCommand(FIRST_INDEX, remarks);
 
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(addInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(addInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -73,16 +79,21 @@ class AddInfoCommandTest {
         AddInfoCommand addInfoCommand = new AddInfoCommand(FIRST_INDEX, remarks);
 
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(addInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(addInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

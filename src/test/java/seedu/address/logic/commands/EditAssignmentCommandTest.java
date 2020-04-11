@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalAssignments.getTypicalAssignmentSchedule;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 import static seedu.address.testutil.TypicalIndexes.FIRST_INDEX;
 import static seedu.address.testutil.TypicalIndexes.SECOND_INDEX;
 
@@ -23,11 +23,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditAssignmentDescriptor;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.assignment.Assignment;
 
@@ -37,7 +37,7 @@ import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 public class EditAssignmentCommandTest {
     private Model model = new ModelManager(new AddressBook(),
         new RestaurantBook(),
-        getTypicalAssignmentSchedule(),
+        getTypicalSchoolworkTracker(),
         new EventSchedule(),
         new UserPrefs());
 
@@ -62,7 +62,7 @@ public class EditAssignmentCommandTest {
         Model expectedModel =
             new ModelManager(new AddressBook(),
                 new RestaurantBook(),
-                new AssignmentSchedule(model.getAssignmentSchedule()),
+                new SchoolworkTracker(model.getSchoolworkTracker()),
                 new EventSchedule(),
                 new UserPrefs());
 
@@ -91,7 +91,7 @@ public class EditAssignmentCommandTest {
         Model expectedModel =
             new ModelManager(new AddressBook(),
                 new RestaurantBook(),
-                new AssignmentSchedule(model.getAssignmentSchedule()),
+                new SchoolworkTracker(model.getSchoolworkTracker()),
                 new EventSchedule(),
                 new UserPrefs());
 

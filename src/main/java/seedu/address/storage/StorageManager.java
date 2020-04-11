@@ -7,10 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyEventSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.ReadOnlySchoolworkTracker;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -22,13 +23,13 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private RestaurantBookStorage restaurantBookStorage;
-    private AssignmentScheduleStorage schedulerStorage;
+    private SchoolworkTrackerStorage schedulerStorage;
     private EventScheduleStorage eventScheduleStorage;
     private UserPrefsStorage userPrefsStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage,
                           RestaurantBookStorage restaurantBookStorage,
-                          AssignmentScheduleStorage schedulerStorage,
+                          SchoolworkTrackerStorage schedulerStorage,
                           EventScheduleStorage eventScheduleStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
@@ -116,37 +117,37 @@ public class StorageManager implements Storage {
         restaurantBookStorage.saveRestaurantBook(restaurantBook, filePath);
     }
 
-    // ============== AssignmentSchedule methods =======================================
-
+    // ============== SchoolworkTracker methods =======================================
     @Override
-    public Path getAssignmentScheduleFilePath() {
-        return schedulerStorage.getAssignmentScheduleFilePath();
+    public Path getSchoolworkTrackerFilePath() {
+        return schedulerStorage.getSchoolworkTrackerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule() throws DataConversionException, IOException {
-        return readAssignmentSchedule(schedulerStorage.getAssignmentScheduleFilePath());
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException, IOException {
+        return readSchoolworkTracker(schedulerStorage.getSchoolworkTrackerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentSchedule> readAssignmentSchedule(Path filePath) throws DataConversionException,
-        IOException {
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker(Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return schedulerStorage.readAssignmentSchedule(filePath);
+        return schedulerStorage.readSchoolworkTracker(filePath);
     }
 
     @Override
-    public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler) throws IOException {
-        saveAssignmentSchedule(scheduler, schedulerStorage.getAssignmentScheduleFilePath());
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) throws IOException {
+        saveSchoolworkTracker(schoolworkTracker, schedulerStorage.getSchoolworkTrackerFilePath());
     }
 
     @Override
-    public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule scheduler, Path filePath) throws IOException {
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        schedulerStorage.saveAssignmentSchedule(scheduler, filePath);
+        schedulerStorage.saveSchoolworkTracker(schoolworkTracker, filePath);
     }
 
-    // ============== Event AssignmentSchedule methods =================================
+
+    // ============== Event SchoolworkTracker methods =================================
 
     @Override
     public Path getEventScheduleFilePath() {

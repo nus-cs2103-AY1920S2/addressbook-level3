@@ -98,7 +98,7 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         RestaurantBook restaurantBook = new RestaurantBook();
         AddressBook differentAddressBook = new AddressBook();
-        AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
+        SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
         EventSchedule eventSchedule = new EventSchedule();
         UserPrefs userPrefs = new UserPrefs();
 

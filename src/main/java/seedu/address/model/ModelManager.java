@@ -32,7 +32,7 @@ public class ModelManager implements Model {
 
     private AddressBook addressBook;
     private RestaurantBook restaurantBook;
-    private AssignmentSchedule assignmentSchedule;
+    private SchoolworkTracker assignmentSchedule;
     private EventSchedule eventSchedule;
     private Schedule schedule;
     private UserPrefs userPrefs;
@@ -46,7 +46,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
-                        ReadOnlyAssignmentSchedule scheduler, ReadOnlyEventSchedule eventSchedule,
+                        ReadOnlySchoolworkTracker scheduler, ReadOnlyEventSchedule eventSchedule,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, eventSchedule, userPrefs);
@@ -75,7 +75,7 @@ public class ModelManager implements Model {
         createNewState("BIRTHDAY");
         setAddressBook(new AddressBook());
         setRestaurantBook(new RestaurantBook());
-        setAssignmentSchedule(new AssignmentSchedule());
+        setAssignmentSchedule(new SchoolworkTracker());
         setEventSchedule(new EventSchedule());
     }
 
@@ -148,14 +148,14 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-        createNewState("ADDRESS");
+        createNewState("GETDETAIL");
         addressBook.setPerson(target, editedPerson);
     }
 
     //========== Schoolwork Tracker ==========================================================================
 
     @Override
-    public void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule) {
+    public void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule) {
         this.assignmentSchedule.resetData(assignmentSchedule);
     }
 
@@ -186,7 +186,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyAssignmentSchedule getAssignmentSchedule() {
+    public ReadOnlySchoolworkTracker getSchoolworkTracker() {
         return assignmentSchedule;
     }
 
@@ -197,6 +197,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteAssignment(Assignment target) {
+        createNewState("ASSIGNMENTS");
         assignmentSchedule.removeAssignment(target);
     }
 
@@ -209,6 +210,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addEvent(Event event) {
+        createNewState("EVENTS");
         eventSchedule.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
@@ -235,6 +237,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteEvent(Event target) {
+        createNewState("EVENTS");
         eventSchedule.removeEvent(target);
     }
 
@@ -332,6 +335,16 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonListResult(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersonsResult.setPredicate(predicate);
+
+        ModelState temp = undoStates.pop();
+        undoStates.peek().getFilteredPersonsResult().setPredicate(predicate);
+        undoStates.push(temp);
+    }
+
+    @Override
+    public void updateFilteredPersonListResult(Predicate<Person> predicate, boolean isGet) {
         requireNonNull(predicate);
         filteredPersonsResult.setPredicate(predicate);
     }

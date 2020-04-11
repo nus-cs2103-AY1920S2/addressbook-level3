@@ -17,13 +17,14 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonExistPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
 
@@ -33,7 +34,7 @@ class EditInfoCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(),
             new RestaurantBook(),
-            new AssignmentSchedule(),
+            new SchoolworkTracker(),
             new EventSchedule(),
             new UserPrefs());
 
@@ -46,16 +47,21 @@ class EditInfoCommandTest {
                 1, new Remark(REMARK_STUB));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(editInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -69,16 +75,21 @@ class EditInfoCommandTest {
                 1, new Remark(REMARK_STUB));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false, false, false, false, false);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()),
                         new RestaurantBook(),
-                        new AssignmentSchedule(),
+                        new SchoolworkTracker(),
                         new EventSchedule(),
                         new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
-        assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
+        PersonExistPredicate personExistPredicate = new PersonExistPredicate(editedPerson, expectedModel);
+        expectedModel.updateFilteredPersonListResult(personExistPredicate);
+
+        assertCommandSuccess(editInfoCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

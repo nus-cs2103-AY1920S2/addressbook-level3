@@ -6,7 +6,7 @@ import seedu.address.model.assignment.Assignment;
 /**
  * Unmodifiable view of the scheduler.
  */
-public interface ReadOnlyAssignmentSchedule {
+public interface ReadOnlySchoolworkTracker {
     /**
      * Returns an unmodifiable view of the assignment list.
      * The list will not contain any duplicate assignments.

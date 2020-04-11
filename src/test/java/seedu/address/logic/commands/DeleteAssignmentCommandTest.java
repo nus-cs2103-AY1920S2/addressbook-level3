@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalAssignments.getTypicalAssignmentSchedule;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 import static seedu.address.testutil.TypicalIndexes.FIRST_INDEX;
 import static seedu.address.testutil.TypicalIndexes.SECOND_INDEX;
 
@@ -25,7 +25,7 @@ import seedu.address.model.assignment.Assignment;
 public class DeleteAssignmentCommandTest {
     private Model model = new ModelManager(new AddressBook(),
         new RestaurantBook(),
-        getTypicalAssignmentSchedule(),
+        getTypicalSchoolworkTracker(),
         new EventSchedule(),
         new UserPrefs());
 
@@ -40,7 +40,7 @@ public class DeleteAssignmentCommandTest {
 
         ModelManager expectedModel = new ModelManager(new AddressBook(),
             new RestaurantBook(),
-            getTypicalAssignmentSchedule(),
+            getTypicalSchoolworkTracker(),
             new EventSchedule(),
             new UserPrefs());
         expectedModel.deleteAssignment(assignmentToDelete);

@@ -117,9 +117,19 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate} in the result panel.
+     * This changes the state (called by a command that edits the database)
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonListResult(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate} in the result panel.
+     * This does not change the state (only called by the vanilla (ab)get command)
+     * @param predicate the predicate
+     * @param isGet this is always true, extra parameter for method overloading
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonListResult(Predicate<Person> predicate, boolean isGet);
 
     /**
      * Replaces restaurant book data with the data in {@code restaurantBook}.
@@ -168,10 +178,10 @@ public interface Model {
     /**
      * Replaces assignmentSchedule data with the data in {@code assignmentSchedule}.
      */
-    void setAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule);
+    void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule);
 
-    /** Returns the AssignmentSchedule */
-    ReadOnlyAssignmentSchedule getAssignmentSchedule();
+    /** Returns the SchoolworkTracker */
+    ReadOnlySchoolworkTracker getSchoolworkTracker();
 
     /**
      * Adds the given assignment.
@@ -308,4 +318,5 @@ public interface Model {
      * Redo any command that was undone
      */
     String redo();
+
 }

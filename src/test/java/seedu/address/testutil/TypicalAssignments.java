@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AssignmentSchedule;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -35,8 +35,8 @@ public class TypicalAssignments {
     /**
      * Returns a scheduler with all the typical assignments in loaded.
      */
-    public static AssignmentSchedule getTypicalAssignmentSchedule() {
-        AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
+    public static SchoolworkTracker getTypicalSchoolworkTracker() {
+        SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
         for (Assignment assignment : getTypicalAssignments()) {
             assignmentSchedule.addAssignment(assignment);
         }

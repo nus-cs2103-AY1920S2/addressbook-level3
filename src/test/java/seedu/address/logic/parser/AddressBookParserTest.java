@@ -47,10 +47,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().build();
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + FIRST_INDEX.getOneBased());
-        assertEquals(new DeleteCommand(FIRST_INDEX, descriptor), command);
+        assertEquals(new DeleteCommand(FIRST_INDEX), command);
     }
 
     @Test

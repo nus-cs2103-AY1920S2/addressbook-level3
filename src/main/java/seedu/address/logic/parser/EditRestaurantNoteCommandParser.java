@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_INTEGER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER_BAD;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_LINE_NUMBER_GOOD;
@@ -64,7 +65,12 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
                 //Checks if recommended food is provided
                 throw new ParseException(EditRestaurantNoteCommand.MESSAGE_EMPTY_REC);
             } else {
-                lineRec = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).get());
+                try {
+                    lineRec = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_RECOMMENDED).get());
+                } catch (NumberFormatException nfe) {
+                    throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                            EditRestaurantNoteCommand.MESSAGE_USAGE), nfe);
+                }
                 recommendedFood = argMultimap.getValue(PREFIX_RECOMMENDED).get();
             }
         }
@@ -83,7 +89,12 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
                 //Checks if good food is provided
                 throw new ParseException(EditRestaurantNoteCommand.MESSAGE_EMPTY_GOOD);
             } else {
-                lineGood = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).get());
+                try {
+                    lineGood = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_GOOD).get());
+                } catch (NumberFormatException nfe) {
+                    throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                            EditRestaurantNoteCommand.MESSAGE_USAGE), nfe);
+                }
                 goodFood = argMultimap.getValue(PREFIX_GOOD).get();
             }
         }
@@ -102,7 +113,12 @@ public class EditRestaurantNoteCommandParser implements Parser<EditRestaurantNot
                 //Checks if bad food is empty
                 throw new ParseException(EditRestaurantNoteCommand.MESSAGE_EMPTY_BAD);
             } else {
-                lineBad = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).get());
+                try {
+                    lineBad = Integer.parseInt(argMultimap.getValue(PREFIX_LINE_NUMBER_BAD).get());
+                } catch (NumberFormatException nfe) {
+                    throw new ParseException(String.format(MESSAGE_INDEX_NOT_INTEGER,
+                            EditRestaurantNoteCommand.MESSAGE_USAGE), nfe);
+                }
                 badFood = argMultimap.getValue(PREFIX_BAD).get();
             }
         }

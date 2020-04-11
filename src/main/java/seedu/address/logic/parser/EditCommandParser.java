@@ -20,10 +20,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditPersonDescriptor;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Birthday;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Organization;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -60,35 +56,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-
-            if (!email.value.isEmpty()) {
-                editPersonDescriptor.setEmail(email);
-            }
+            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
 
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-
-            if (!address.value.isEmpty()) {
-                editPersonDescriptor.setAddress(address);
-            }
+            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
 
         if (argMultimap.getValue(PREFIX_BIRTHDAY).isPresent()) {
-            Birthday birthday = ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get());
-
-            if (!birthday.birthday.isEmpty()) {
-                editPersonDescriptor.setBirthday(birthday);
-            }
+            editPersonDescriptor.setBirthday(ParserUtil.parseBirthday(argMultimap.getValue(PREFIX_BIRTHDAY).get()));
         }
 
         if (argMultimap.getValue(PREFIX_ORGANIZATION).isPresent()) {
-            Organization organisation = ParserUtil.parseOrganization(argMultimap.getValue(PREFIX_ORGANIZATION).get());
-
-            if (!organisation.organization.isEmpty()) {
-                editPersonDescriptor.setOrganization(organisation);
-            }
+            editPersonDescriptor
+                    .setOrganization(ParserUtil.parseOrganization(argMultimap.getValue(PREFIX_ORGANIZATION).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTagsToBeAdded);

@@ -18,6 +18,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_CS2103;
 import static seedu.address.logic.commands.CommandTestUtil.WORKLOAD_DESC_CS2103;
+
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -37,24 +38,25 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.AssignmentSchedule;
 import seedu.address.model.EventSchedule;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAssignmentSchedule;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.ReadOnlySchoolworkTracker;
 import seedu.address.model.RestaurantBook;
+import seedu.address.model.SchoolworkTracker;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonAssignmentScheduleStorage;
 import seedu.address.storage.JsonEventScheduleStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
+import seedu.address.storage.JsonSchoolworkTrackerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+
 import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.RestaurantBuilder;
@@ -74,8 +76,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonRestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(temporaryFolder.resolve("restaurantBook.json"));
-        JsonAssignmentScheduleStorage schedulerStorage =
-                new JsonAssignmentScheduleStorage(temporaryFolder.resolve("assignments.json"));
+        JsonSchoolworkTrackerStorage schedulerStorage =
+                new JsonSchoolworkTrackerStorage(temporaryFolder.resolve("assignments.json"));
         JsonEventScheduleStorage eventScheduleStorage =
                 new JsonEventScheduleStorage(temporaryFolder.resolve("events.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -112,8 +114,8 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonRestaurantBookStorage restaurantBookStorage =
                 new JsonRestaurantBookStorage(temporaryFolder.resolve("ioExceptionRestaurantBook.json"));
-        JsonAssignmentScheduleStorage assignmentScheduleStorage =
-                new JsonAssignmentScheduleStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
+        JsonSchoolworkTrackerStorage assignmentScheduleStorage =
+                new JsonSchoolworkTrackerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
         JsonEventScheduleStorage eventScheduleStorage =
                 new JsonEventScheduleStorage(temporaryFolder.resolve("ioExceptionEvents.json"));
         JsonUserPrefsStorage userPrefsStorage =
@@ -137,7 +139,7 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAssignmentScheduleIoExceptionThrowingStub
         addressBookStorage = new JsonAddressBookStorage(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         assignmentScheduleStorage =
-            new JsonAssignmentScheduleIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAssignments.json"));
+            new JsonSchoolworkTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAssignments.json"));
 
         storage = new StorageManager(addressBookStorage,
             restaurantBookStorage,
@@ -157,7 +159,7 @@ public class LogicManagerTest {
 
         // Setup LogicManager with JsonRestaurantBookIoExceptionThrowingStub
         assignmentScheduleStorage =
-            new JsonAssignmentScheduleStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
+            new JsonSchoolworkTrackerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
         restaurantBookStorage =
             new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRestaurantBook.json"));
 
@@ -221,7 +223,7 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(),
                 new RestaurantBook(),
-                new AssignmentSchedule(),
+                new SchoolworkTracker(),
                 new EventSchedule(),
                 new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
@@ -271,13 +273,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAssignmentScheduleIoExceptionThrowingStub extends JsonAssignmentScheduleStorage {
-        private JsonAssignmentScheduleIoExceptionThrowingStub(Path filePath) {
+    private static class JsonSchoolworkTrackerIoExceptionThrowingStub extends JsonSchoolworkTrackerStorage {
+        private JsonSchoolworkTrackerIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAssignmentSchedule(ReadOnlyAssignmentSchedule assignmentSchedule, Path filePath)
+        public void saveSchoolworkTracker(ReadOnlySchoolworkTracker assignmentSchedule, Path filePath)
             throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }

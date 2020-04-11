@@ -104,7 +104,7 @@ public class Restaurant {
 
     /**
      * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * This defines a stronger notion of equality between two restaurants.
      */
     @Override
     public boolean equals(Object other) {
@@ -151,10 +151,11 @@ public class Restaurant {
                 .append("\nVisited: ")
                 .append(getVisit())
                 .append("\nRecommended food: ")
-                .append(getGoodFood())
+                .append(getRecommendedFood())
                 .append("\nGood food: ")
-                .append(getBadFood())
-                .append("\nBad food: ");
+                .append(getGoodFood())
+                .append("\nBad food: ")
+                .append(getBadFood());
         getRemark().forEach(builder::append);
         return builder.toString();
     }

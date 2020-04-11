@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
 import static seedu.address.testutil.TypicalAssignments.CS2106_ASSIGNMENT;
-import static seedu.address.testutil.TypicalAssignments.getTypicalAssignmentSchedule;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,9 +24,9 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.AssignmentBuilder;
 
-public class AssignmentScheduleTest {
+public class SchoolworkTrackerTest {
 
-    private final AssignmentSchedule assignmentSchedule = new AssignmentSchedule();
+    private final SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
 
     @Test
     public void constructor() {
@@ -40,7 +40,7 @@ public class AssignmentScheduleTest {
 
     @Test
     public void resetData_withValidReadOnlyScheduler_replacesData() {
-        AssignmentSchedule newData = getTypicalAssignmentSchedule();
+        SchoolworkTracker newData = getTypicalSchoolworkTracker();
         assignmentSchedule.resetData(newData);
         assertEquals(newData, assignmentSchedule);
     }
@@ -51,7 +51,7 @@ public class AssignmentScheduleTest {
         Assignment editedCs2103Tp = new AssignmentBuilder(CS2103_TP).withWorkload(VALID_WORKLOAD_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         List<Assignment> newAssignments = Arrays.asList(CS2103_TP, editedCs2103Tp);
-        AssignmentScheduleStub newData = new AssignmentScheduleStub(newAssignments);
+        SchoolworkTrackerStub newData = new SchoolworkTrackerStub(newAssignments);
 
         assertThrows(DuplicateAssignmentException.class, () -> assignmentSchedule.resetData(newData));
     }
@@ -86,12 +86,12 @@ public class AssignmentScheduleTest {
     }
 
     /**
-     * A stub ReadOnlyAssignmentSchedule whose assignment list can violate interface constraints.
+     * A stub ReadOnlySchoolworkTracker whose assignment list can violate interface constraints.
      */
-    private static class AssignmentScheduleStub implements ReadOnlyAssignmentSchedule {
+    private static class SchoolworkTrackerStub implements ReadOnlySchoolworkTracker {
         private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
 
-        AssignmentScheduleStub(Collection<Assignment> assignments) {
+        SchoolworkTrackerStub(Collection<Assignment> assignments) {
             this.assignments.setAll(assignments);
         }
 
