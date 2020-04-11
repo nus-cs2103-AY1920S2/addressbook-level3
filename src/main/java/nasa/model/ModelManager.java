@@ -124,6 +124,9 @@ public class ModelManager implements Model {
             if (test.get(1).equals("activity")) {
                 test = test.subList(2, test.size());
                 if (!test.get(0).equals("null")) {
+                    if (type.equals("list") || type.equals("find")) {
+                        updateFilteredModuleList(x->true);
+                    }
                     updateFilteredActivityList(new ActivityContainsKeyWordsPredicate(test));
                 } else {
                     updateFilteredModuleList(x->true);
