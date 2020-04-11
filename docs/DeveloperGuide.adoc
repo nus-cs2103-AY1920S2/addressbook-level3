@@ -429,6 +429,52 @@ Moreover, even though personal best is generated using the list of exercises in 
 
 This personal best feature also leads into the `Graph` feature, which will be discussed in the next section, where we plot a graph of the client's progress of a specified exercise.
 
+=== Graph --- Li Zi Ying
+
+This feature allows users to see the progress graph of the current client in view. The user has to specify the exercise name, the y-axis (either weights or reps), the start date and the end date. There has to be existing exercises in the client's exercise list for the specified axis and time period for the graph to be plotted, if no graph can be plotted, an error will be thrown.
+
+==== Implementation 
+
+The graph mechanism is faciliated by the model class `Graph`, which contains the details of the graph. These include `ExerciseName`, `Axis`, `StartDate` and `EndDate`. The figure below is a UML class diagram to illustrate the `Graph` model.
+
+// image here
+
+These attributes are bounded by these characteristics:
+. `ExerciseName` can only be alphanumeric characters
+. `Axis` can either be `reps` or `weight` only, case insensitive (`sets` are not considered due to the same reasoning in the above section)
+. Earliest `StartDate` possible can only be one year before the current date and cannot be after `EndDate`. `StartDate` also cannot be a future date
+. Earliest `EndDate` possible can only be one year before the current date and cannot be before `StartDate`. `EndDate` also cannot be a future date
+
+The behaviour of this feature determines the graph plotted of the exercise specified based on these considerations:
+
+. If there is no such exercise with the matching `ExerciseName` in the client's exercise list from the specified `StartDate` to `EndDate`, then the graph cannot be plotted
+. If the `Axis` input is `reps` and the exercise specified does not have any reps input withint the `StartDate` to `EndDate`, then the graph cannot be plot
+. If the `Axis` input is `weight` and the exercise specified does not have any weight input within the `StartDate` to `EndDate`, then the graph cannot be plot
+. If all of the above are fulfilled (ie. there is at least one valid exercise with the matching `ExerciseName` and has weight/reps input depending on the `Axis` specified), then the graph will be plotted, with each exercise in chronological order
+
+When the user inputs `graph` with all relevant arguments input correctly, a new `GraphCommand()` is created, taking the newly created `Graph` object as parameter.
+
+`GraphCommand#execute()` then retrieves the exercise list from the client currently in view and checks if there is at least one exercise with a matching exercise name. If there is no exercise to plot, then an error `GraphCommand.MESSAGE_EXERCISE_NOT_IN_LIST` will be thrown. Next, the list of exercises to be plot will be generated using `Graph#generateGraphList()`. Once again, there will be a sanity check to see if the list size is zero, which means that no graph cannot be plotted. 
+
+The flow of the program is illustrated using the sequence diagram below:
+
+// image here
+
+==== Design Considerations
+
+In designing this feature, we had to decide on the implementation of certain classes like `Axis` to comply with the OOP standards of Abstraction. 
+
+[options='header']
+.Table of Design Considerations
+|====================
+| |  Create enum class `Axis Type`(Chosen) | Check for `Axis` value using raw types 
+| *Adhering to OOP standards (Abstraction)* | Increases level of abstraction as there are only two different types of axis that can be chosen |  Less abstraction and increases complexity as we will have to check for the equality of the axis type using the equality check for the `String` raw type
+| *Ease of Implementation* | Requires some refactoring to include `AxisType` class and the relevant getter methods | Easier to implemention as no extra classes or methods are needed, so no refactoring is needed
+
+|====================
+
+We decided to use the approach of abstracting the axis types away into `AxisType` enum class. 
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
