@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
@@ -30,11 +31,12 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the profile identified by the name used in the displayed profile list.\n"
+            + ": Deletes the profile, module, task or grade identified by the respective parameters.\n"
             + "Parameters: "
             + "(" + PREFIX_NAME + "NAME) "
             + "(" + PREFIX_MODULE + "MODULE) "
             + "(" + PREFIX_TASK + "TASK) "
+            + "(" + PREFIX_GRADE + "GRADE) "
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 "
