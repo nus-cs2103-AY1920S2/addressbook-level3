@@ -154,6 +154,94 @@ Classes used by multiple components are in the `fithelper.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Entry Feature
+The Entry consists of the following:
+
+* Each `Entry` consists of a unique combination of `Name`, `Calorie`, `Location`, `Duration`, `Type` and `Time`
+* Each `Entry` consists of a `Duration` in hours, default set to 1, smallest accuracy is 0.02 (1 min).
+* Each `Entry` consists of a `Type`, either food or sports
+* Each `Entry` consists of a `Remark`, default set to be empty
+* Each `Entry` consists of a `Status`, either `Done` or `Undone`
+* Each class has their respective getter methods
+
+The class diagram below is an overview of the `Entry` class.
+
+.Entry Class Diagram
+image::EntryClassDiagram.png[]
+
+==== Implementation of Entry Commands
+
+`Entry` class supports multiple commands. It includes:
+
+* `AddCommand` - Adds a `Entry` into `FitHelper`
+* `DeleteCommand` - Deletes a `Entry` from `FitHelper`
+* `EditCommand` -  Edits a `Entry` from `FitHelper`
+* `FindCommand` - Finds all `Entry` whose `name` contains the keywords user entered
+* `ListCommand` - Lists all `Entry`
+
+All the above entry commands will be parsed in `FitHelperParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding parsers will be invoked (i.e `AddCommandParser`,
+`EditCommandParser` etc). After which, the corresponding command will be executed (i.e `AddCommand`,
+`EditCommand` etc).
+
+The figure below shows the execution of an `EditCommand`.
+
+.EditCommand Activity Diagram
+image::EditEntryActivityDiagram.png[]
+
+After a successful execution, the entry with the given index will be edited from FitHelper.
+
+==== Design Considerations
+
+===== Aspect: `Type` for the entry
+
+* **Option 1:** As a string attribute in `Entry`
+
+** Pros: Easy to implement, less code required
+
+** Cons: Provides a lower level of abstraction
+
+* **Option 2:** Use two different classes to represent types, such as `FoodEntry` and `SportsEntry`
+
+** Pros: Higher level of abstraction
+
+** Cons: More code, generic types are required for implementation of common functionality
+
+In the end, we chose Option 1 as it reduces the amount of duplicated code required, given that all parameters of food entries and sports entries are the same.
+However, Option 2 is still an viable option.
+
+===== Aspect: `Time` for the entry
+
+* **Option 1:** Fix the format of `Time` to be `yyyy-MM-dd-hh:mm`
+
+** Pros: Easy to implement, less bug prone
+
+** Cons: Adds inconvenience to the user
+
+* **Option 2:** Use natty, the natural language date parser
+** Pros: Brings more convenience for CLI users
+
+** Cons: More bug prone due to the inaccuracy of the date parser. Moreover, only date can be parsed, not time.
+
+Consequently, we chose Option 1 as it standardized the format of date and time across this application.
+
+===== Aspect: `Duration` for the entry
+
+* **Option 1:** As an optional attribute
+
+** Pros: More user friendly, since duration for food entry is less meaningful
+
+** Cons: Calendar display will not able to display food entries
+
+* **Option 2:** As an optional attribute, with default set to 1
+
+** Pros: Calendar display will not able to display food entries with no duration provided
+
+** Cons: The duration does not reflect the true value when user chooses not to enter
+
+We chose Option 2 for better display of entries on the calendar
+
+
 // tag::today[]
 === Today Feature
 
@@ -329,6 +417,8 @@ image::CommitActivityDiagram.png[]
 
 // tag::calendar[]
 === Calendar
+
+==== Implementation
 . The user enters a view command in the `calendar d/tmr`.
 
 . `LogicManager` parses the user input, constructs and executes the `CalendarCommand`.
@@ -339,9 +429,30 @@ image::CommitActivityDiagram.png[]
 
 . The `Ui` gets the `date` from `LogicManager` and updates the Ui to display the module.
 The following sequence diagram shows how the update operation works to change calendar page in model:
-image:CalendarSequenceDiagram.png[]
-Structure of calendar command:
-image:CalendarClassDiagram.png[]
+
+.CalendarCommand Sequence Diagram
+image::CalendarSequenceDiagram.png[]
+
+.CalendarCommand Class Diagram
+image::CalendarClassDiagram.png[]
+
+==== Design consideration
+
+===== Aspect: Allowing no time clashes for all entries
+
+* **Option 1:** Allow multiple entries to exist over the same time period
+
+** Pros: More user friendly, since users might be doing multiple things for a given time period
+
+** Cons: Calendar display will not able to display food entries
+
+* **Option 2:** No time clashes allowed
+
+** Pros: Calendar display becomes clearer
+
+** Cons: Users are not given the freedom to add multiple entries with the same time period
+
+We chose Option 1 for better display of entries on the calendar
 // end::calendar[]
 
 === Logging
@@ -354,10 +465,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Add Weight Records
