@@ -51,7 +51,7 @@ public class DeleteCommandTest {
         ReturnOrder returnOrderToDelete = model.getFilteredReturnOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ORDER_SUCCESS, returnOrderToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RETURN_ORDER_SUCCESS, returnOrderToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(),
                 new UserPrefs());
@@ -98,7 +98,7 @@ public class DeleteCommandTest {
         ReturnOrder returnOrderToDelete = model.getFilteredReturnOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_ORDER, FLAG_RETURN_BOOK);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_ORDER_SUCCESS, returnOrderToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RETURN_ORDER_SUCCESS, returnOrderToDelete);
         Model expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         expectedModel.deleteReturnOrder(returnOrderToDelete);
         showNoReturnOrder(expectedModel);
