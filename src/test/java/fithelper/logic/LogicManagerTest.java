@@ -41,9 +41,7 @@ public class LogicManagerTest {
                 new JsonUserProfileStorage(temporaryFolder.resolve("userProfile.json"));
         JsonWeightRecordsStorage weightRecordsStorage =
                 new JsonWeightRecordsStorage(temporaryFolder.resolve("weightRecords.json"));
-        StorageManager storage =
-                new StorageManager(fitHelperStorage, userPrefsStorage, userProfileStorage, weightRecordsStorage);
-        logic = new LogicManager(model, fitHelperStorage, userProfileStorage, weightRecordsStorage);
+         logic = new LogicManager(model, fitHelperStorage, userProfileStorage, weightRecordsStorage);
     }
 
     @Test
@@ -59,7 +57,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredEntryList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredEntryListModifyListThrowsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredFoodEntryList().remove(0));
     }
 
