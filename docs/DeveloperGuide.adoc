@@ -1364,9 +1364,11 @@ Use case resumes at step 3.
 
 *MSS*
 
-1.  User requests to add a new group.
-2. TA-Tracker shows adds a new group linked to the specified module.
-3. TA-Tracker layout changes to show the student tab.
+. User requests to go to the Student Tab (UC02) to view
+the list of existing modules in the Student View.
+. TA-Tracker switches to the Student Tab.
+. User requests to add a group to a module
+. TA-Tracker adds the new group
 
 +
 Use case ends.
@@ -1392,8 +1394,20 @@ Use case resumes at step 1.
 [discrete]
 ==== Use case: UC08 - Editing a group
 
+. User requests to go to the Student Tab (UC02) to view
+the list of existing groups in the Student View.
+. TA-Tracker switches to the Student Tab.
+. User requests to edit a group
+. TA-Tracker edits the group
+
 [discrete]
 ==== Use case: UC09 - Deleting group
+
+. User requests to go to the Student Tab (UC02) to view
+the list of existing groups in the Student View.
+. TA-Tracker switches to the Student Tab.
+. User requests to delete a group
+. TA-Tracker deletes the group and all of the students in it
 
 *MSS*
 
@@ -1421,6 +1435,12 @@ Use case resumes at step 3.
 
 [discrete]
 ==== Use case: UC10 - Adding a student
+
+. User requests to go to the Student Tab (UC02) to view
+the list of existing groups in the Student View.
+. TA-Tracker switches to the Student Tab.
+. User requests to add a new student to a group
+. TA-Tracker adds the new student
 
 *MSS*
 
