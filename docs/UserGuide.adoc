@@ -125,15 +125,15 @@ Let's say that you want to find a client named "Bryan Low" in client list. You c
 
 1.Type `find-c bryan` into the command box, and press `Enter` to execute it.
 
-image::findcExamplePart1.png[]
+image::ug-findcExamplePart1.png[]
 
 2.The result box will display the message of the number of clients listed. In this case, there are 2 clients with "bryan" in their name.
 
-image::findcExamplePart2.png[]
+image::ug-findcExamplePart2.png[]
 
 3.You can now see the clients with "bryan" in their names. As you can see, the name you use to search does not need to be case-senstive. The client that we are looking for "Bryan Low" is in the search results.
 
-image::findcExamplePart3.png[]
+image::ug-findcExamplePart3.png[]
 
 ==== Common errors / problems
 You might face some errors or difficulties when you `find-c`. In this section, you will be able to understand these errors and resolve them. You will also get a better understanding of the reply from the result box when using `find-c`.
@@ -144,15 +144,15 @@ You might wonder why `find-c` do not show the clients even though the client is 
 Example:
 You want to find the client named "Bryan Low" in client list. Below shows that "Bryan Low" indeed exists in the client list.
 
-image::findcIncompleteNamePart1.png[]
+image::ug-findcIncompleteNamePart1.png[]
 
 Type `find-c bry" into the command box, and press `Enter` to execute it.
 
-image::findcIncompleteNamePart2.png[]
+image::ug-findcIncompleteNamePart2.png[]
 
 You will obtain "no clients listed!".
 
-image::findcIncompleteNamePart3.png[]
+image::ug-findcIncompleteNamePart3.png[]
 
 This is because the name that you have entered is incomplete and does not match any word in the name of any of the clients. To correct this, you have to enter `find-c bryan` as seen in the example.
 
@@ -165,11 +165,11 @@ You want to find the client named "Bryan Low" in client list.
 
 Type `find-c bryan low` in to the command box, and press `Enter` to execute it.
 
-image::findcMultiplePart1.png[]
+image::ug-findcMultiplePart1.png[]
 
 You will obtain clients which have `bryan` in their name or `low` in the name. In the case below, there are 3 clients. `Bryan Low`, `Bryan Tan` and `Alice Low`.
 
-image::findcMultiplePart2.png[]
+image::ug-findcMultiplePart2.png[]
 
 You can try to enter keywords for `NAME` that are more specific to the client you are looking for. This will help to keep your search more scoped.
 
@@ -303,7 +303,7 @@ You can use the `add-e` command to add the exercise as shown.
 
 1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the `view-c` section. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
 
-image::addeExamplePart1.png[]
+image::ug-addeExamplePart1.png[]
 
 2.Now type the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. To recap,
 
@@ -318,11 +318,11 @@ The sets of the exercise after `sets/` +
 
 Press enter to execute it.
 
-image::addeExamplePart2.png[]
+image::ug-addeExamplePart2.png[]
 
 3.After it has been successfully entered, the result box will display the recorded exercise. You will also be able to see the recorded exercise in the table.
 
-image::addeExamplePart3.png[]
+image::ug-addeExamplePart3.png[]
 
 ==== Common errors / problems
 You might face some errors or difficulties when you use `add-e`. In this section, you will be able to understand these errors and resolve them.
@@ -332,15 +332,15 @@ You might wonder why the application shows you a duplicate exercise error when t
 
 You might have the following exercise in your table.
 
-image::addeDuplicatePart1.png[]
+image::ug-addeDuplicatePart1.png[]
 
 If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
 
-image::addeDuplicatePart2.png[]
+image::ug-addeDuplicatePart2.png[]
 
 The result box will show that you have a duplicate exercise.
 
-image::addeDuplicatePart3.png[]
+image::ug-addeDuplicatePart3.png[]
 
 To solve this, we suggest incrementing the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
 
@@ -402,11 +402,11 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 ==== Example
 Let's say that you want to edit an exercise done by the client you are currently viewing. The exercise that you want to edit is the one highlighted in the photo below.
 
-image::addeExamplePart2.png[]
+image::ug-editeExamplePart1.png[]
 
 The exercise, "Bench Press", currently is 4 reps and weight of 100. However, they might be entered wrongly and you want to change the values. You can use the `edit-e` command to edit the exercise as shown.
 
-1.Identify the index of the exercise in the exercise table. From the photo above, the index is 2. Type `edit-e 2 reps/4 ew/100` into the command box. To recap,
+1.Identify the index of the exercise in the exercise table. From the photo above, the index is 2. Type `edit-e 2 reps/8 ew/50` into the command box. To recap,
 
 [width="50%"]
 |============
@@ -416,11 +416,11 @@ The weight of the exercise after `ew/` +
 
 Press enter to execute it.
 
-image::addeExamplePart2.png[]
+image::ug-editeExamplePart2.png[]
 
 2.After it has been successfully entered, the result box will display a success message that the exercise has been edited. You will also be able to see the edited exercise in the table.
 
-image::addeExamplePart3.png[]
+image::ug-editeExamplePart3.png[]
 
 ==== Common errors / problems
 You might face some errors or difficulties when you use `edit-e`. In this section, you will be able to understand these errors and resolve them.
@@ -430,15 +430,15 @@ You might wonder why the application shows you a duplicate exercise error when y
 
 You might have the following exercise in your table.
 
-image::addeDuplicatePart1.png[]
+image::ug-editeDuplicatePart1.png[]
 
 If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
 
-image::addeDuplicatePart2.png[]
+image::ug-editeDuplicatePart2.png[]
 
 The result box will show that you have a duplicate exercise.
 
-image::addeDuplicatePart3.png[]
+image::ug-editeDuplicatePart3.png[]
 
 To solve this, we suggest you delete the exercise you want to edit and increment the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact.
 
