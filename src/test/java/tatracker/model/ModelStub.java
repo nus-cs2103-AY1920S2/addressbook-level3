@@ -362,6 +362,11 @@ public class ModelStub implements Model {
             this.session = session;
         }
 
+        public boolean hasModule(String moduleCode) {
+            requireNonNull(moduleCode);
+            return this.session.getModuleCode().equals(session.getModuleCode());
+        }
+
         @Override
         public boolean hasSession(Session session) {
             requireNonNull(session);

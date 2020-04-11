@@ -1,6 +1,5 @@
 package tatracker.logic.commands.session;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,29 +7,18 @@ import static tatracker.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-//import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-
-//import tatracker.commons.core.Messages;
-//import tatracker.logic.commands.CommandResult;
-//import tatracker.logic.commands.exceptions.CommandException;
-//import tatracker.logic.parser.exceptions.ParseException;
-//import tatracker.model.ModelStub;
-//import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
-//import tatracker.model.ModelStub.ModelStubWithSession;
 
 import tatracker.commons.core.Messages;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.ModelStub;
 import tatracker.model.ModelStub.ModelStubAcceptingSessionAdded;
 import tatracker.model.ModelStub.ModelStubWithSession;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
-import tatracker.model.session.SessionType;
 import tatracker.testutil.sessions.SessionBuilder;
 
 public class AddSessionCommandTest {
@@ -82,7 +70,7 @@ public class AddSessionCommandTest {
         assertEquals(Arrays.asList(validSession), modelStub.sessionsAdded);
     }
 
-    /*@Test
+    @Test
     public void execute_duplicateSession_throwsCommandException() {
         Session validSession = new SessionBuilder().build();
         AddSessionCommand addSessionCommand = new AddSessionCommand(validSession);
@@ -92,7 +80,7 @@ public class AddSessionCommandTest {
         assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_SESSION, ()
                 -> addSessionCommand.execute(modelStub));
     }
-*/
+
     @Test
     public void equals() {
         Session first = new SessionBuilder().withModule("CS3243").build();
