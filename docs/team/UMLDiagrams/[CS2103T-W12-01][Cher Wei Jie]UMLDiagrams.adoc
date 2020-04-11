@@ -20,8 +20,8 @@ The first Sequence Diagram depicts a simple overview of the entire execution flo
 
 image::../../images/ReturnSequenceDiagram2_a.png[width=40%]
 image::../../images/ReturnSequenceDiagram2_b.png[width=40%]
-The first Sequence Diagram depicts a detailed execution flow of a valid
-`return` command for converting a order into a return order. The second Sequence Diagram depicts
+The third Sequence Diagram depicts a detailed execution flow of a valid
+`return` command for converting a order into a return order. The fourth Sequence Diagram depicts
 a detailed execution flow of a valid `return` command for creating a new return order and
 this will throw an exception and display an error message to the user if any compulsory parcel
 attribute is missing.

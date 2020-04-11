@@ -39,15 +39,6 @@ CommandException --> ReturnCommand -- : exception
 ReturnCommand --> LogicManager : exception
 [<--LogicManager : exception
 
-else order timestamp invalid, throws exception
-ReturnCommand -> ReturnCommand : checkIfNewTimeStampIsValid(model)
-activate ReturnCommand
-deactivate ReturnCommand
-ReturnCommand -> CommandException ++ : CommandException(MESSAGE_ORDER_TIMESTAMP_INVALID)
-CommandException --> ReturnCommand -- : exception
-ReturnCommand --> LogicManager : exception
-[<--LogicManager : exception
-
 else order delivered and valid timestamp, order can be converted to a return order
 ReturnCommand -> ReturnCommand : checkIfOrderWasDelivered(model)
 activate ReturnCommand
