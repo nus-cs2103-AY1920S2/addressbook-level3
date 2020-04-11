@@ -16,9 +16,9 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import java.util.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static hirelah.logic.commands.OpenReportCommand.MESSAGE_NOT_INTERVIEWED;
 import static java.util.Objects.requireNonNull;
@@ -108,8 +108,8 @@ public class GenerateReportCommand extends Command {
 
 
             PDDocument document = new PDDocument();
-            printAttributeScoresPart(document, attributeToScoreData);
-            printRemarksPart(document, remarks);
+            Pair<Integer, PDPage> positionAfterAttributeScorePrinting = printAttributeScoresPart(document, attributeToScoreData);
+            printRemarksPart(document, remarks, positionAfterAttributeScorePrinting);
             //currentPage.getPageContentStream().endText();
             //currentPage.getPageContentStream().close();
             document.save("data/Jo.pdf");
@@ -119,16 +119,58 @@ public class GenerateReportCommand extends Command {
         }
     }
 
-    private static void printAttributeScoresPart(PDDocument document, ObservableList<Remark> remarks) throws IOException {
-
+    private static Pair<Integer, PDPage> printAttributeScoresPart(PDDocument document, ObservableList<Pair<Attribute, Double>> attributeScores) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Pair<Attribute, Double> attributeScorePair : attributeScores) {
+            stringBuilder.append(attributeScorePair.getKey());
+            stringBuilder.append(": ");
+            stringBuilder.append(attributeScorePair.getValue());
+            if (attributeScorePair.equals(attributeScores.get(attributeScores.size()-1))) {
+                break;
+            }
+            stringBuilder.append(", ");
+        }
+        ArrayList<String> splitAttributeScoresSentence = splitSentence(stringBuilder.toString());
+        return new Pair(splitAttributeScoresSentence.size() * 13, generateAttributeScores(document, splitAttributeScoresSentence));
     }
-    private static void printRemarksPart(PDDocument document, ObservableList<Remark> remarks) throws IOException {
+
+    private static PDPage generateAttributeScores(PDDocument document, ArrayList<String> splitAttributeScoresList) throws IOException {
+        while (splitAttributeScoresList.size() > 60) {
+            ArrayList<String> firstSixtyAttributeScoresList = new ArrayList<>();
+            for (int i = 0; i < 60; i++) {
+                firstSixtyAttributeScoresList.add(splitAttributeScoresList.get(i));
+                splitAttributeScoresList.remove(i);
+            }
+            generateAttributeScoresPage(document, firstSixtyAttributeScoresList);
+        }
+        return generateAttributeScoresPage(document, splitAttributeScoresList);
+    }
+
+    private static PDPage generateAttributeScoresPage(PDDocument document, ArrayList<String> sentenceList) throws IOException {
+        PDPage page = new PDPage(PDRectangle.A4);
+        document.addPage(page);
+        PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
+        pageContentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        pageContentStream.beginText();
+        pageContentStream.newLineAtOffset(50, 800);
+        for (String currentString : sentenceList) {
+            pageContentStream.showText(currentString);
+            pageContentStream.newLineAtOffset(0, -13);
+        }
+        pageContentStream.endText();
+        pageContentStream.close();
+        return page;
+    }
+
+
+    private static void printRemarksPart(PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition) throws IOException {
         ArrayList<Remark> remarkList = new ArrayList<>();
         remarkList.addAll(remarks);
-        int currentYOffset = 800;
+        int currentYOffset = 800 - startingPosition.getKey();
+        boolean firstPage = true;
         ArrayList<TableRowEntry> rowsInAPage = new ArrayList<>();
         for (Remark currentRemark : remarkList) {
-            ArrayList<String> splitRemarks = splitRemark(currentRemark.getMessage());
+            ArrayList<String> splitRemarks = splitSentence(currentRemark.getMessage());
             for (String currentLine : splitRemarks) {
                 TableRowEntry currentRow = new TableRowEntry(currentLine,
                         currentLine.equals(splitRemarks.get(0))? currentRemark.getTimeString() : "",
@@ -136,21 +178,48 @@ public class GenerateReportCommand extends Command {
                 rowsInAPage.add(currentRow);
                 currentYOffset -= 13;
                 if (currentYOffset < 20) {
-                    generateOnePage(document, rowsInAPage);
-                    rowsInAPage = new ArrayList<>();
-                    currentYOffset = 800;
+                    if (firstPage) {
+                        generatePartialRemarkPage(document, startingPosition.getValue(), rowsInAPage);
+                    } else {
+                        firstPage = false;
+                        generateFullRemarkPage(document, rowsInAPage);
+                        rowsInAPage = new ArrayList<>();
+                        currentYOffset = 800;
+                    }
                 }
             }
             currentYOffset -= 20;
             if (currentYOffset < 20) {
-                generateOnePage(document, rowsInAPage);
-                rowsInAPage = new ArrayList<>();
-                currentYOffset = 800;
+                if (firstPage) {
+                    generatePartialRemarkPage(document, startingPosition.getValue(), rowsInAPage);
+                } else {
+                    firstPage = false;
+                    generateFullRemarkPage(document, rowsInAPage);
+                    rowsInAPage = new ArrayList<>();
+                    currentYOffset = 800;
+                }
             }
         }
-        generateOnePage(document, rowsInAPage);
+        generateFullRemarkPage(document, rowsInAPage);
     }
-    private static void generateOnePage(PDDocument document, ArrayList<TableRowEntry> rowList) throws IOException {
+
+    private static void generatePartialRemarkPage(PDDocument document, PDPage currentPage, ArrayList<TableRowEntry> rowList) throws IOException {
+        PDPageContentStream pageContentStream = new PDPageContentStream(document, currentPage);
+        pageContentStream.setFont( PDType1Font.HELVETICA , 12 );
+        pageContentStream.beginText();
+        pageContentStream.newLineAtOffset(0, 800);
+        for (TableRowEntry currentRow : rowList) {
+            pageContentStream.newLineAtOffset(50, currentRow.getValueYOffset());
+            pageContentStream.showText(currentRow.getDuration());
+            pageContentStream.newLineAtOffset(50, 0);
+            pageContentStream.showText(currentRow.getMessage());
+            pageContentStream.newLineAtOffset(-100, 0);
+        }
+        pageContentStream.endText();
+        pageContentStream.close();
+    }
+
+    private static void generateFullRemarkPage(PDDocument document, ArrayList<TableRowEntry> rowList) throws IOException {
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream pageContentStream = new PDPageContentStream(document, page);
@@ -273,14 +342,14 @@ public class GenerateReportCommand extends Command {
     }
 
     /**
-     * Splits the remark to a maximum of 80 characters per line.
+     * Splits the sentence to a maximum of 80 characters per line.
      *
-     * @param remark the remark to be splitted.
+     * @param sentence the sentence to be splitted.
      */
-    private static ArrayList<String> splitRemark(String remark) {
-        int numberOfLines = (remark.length()/80) + 1;
+    private static ArrayList<String> splitSentence(String sentence) {
+        int numberOfLines = (sentence.length()/80) + 1;
         ArrayList<String> splitRemarks = new ArrayList<>();
-        String[] words = remark.split(" ");
+        String[] words = sentence.split(" ");
 
         int i = 0;
         while (splitRemarks.size() < numberOfLines) {
