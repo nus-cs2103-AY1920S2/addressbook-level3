@@ -125,7 +125,7 @@ The product list updates and sorts by the progress bar indicator automatically. 
 Products are ordered by the level of progress bar indicator. (E.g. the lower the bar, the higher it is in the list).
 This is to help the user easier to know which products are running low on stock.
 
-image::ProductCard.png[ProductCard,600,600]
+image::ProductCard.png[align="center" width="600"]
 
 ****
 * The progress bar indicator beside the products' name visualises the remaining balance. +
@@ -383,7 +383,7 @@ Deletes all transactions as well.
 
 User can navigate to the transaction panel by clicking on the transactions tab.
 
-image::TransactionTab.png[Transaction,120,120]
+image::TransactionTab.png[width="200" align="center"]
 
 // tag::addt[]
 ==== Adding a transaction : `addt`
@@ -520,7 +520,7 @@ Permanently deletes all the stored transaction data in the application.
 
 User can navigate to the statistics panel by clicking on the statistics tab.
 
-image::StatisticsTab.png[Statistics,120,120]
+image::StatisticsTab.png[width="200" align="center"]
 
 // tag::viewtopsellingproducts[]
 ==== Viewing the top-selling and worst-selling products.
