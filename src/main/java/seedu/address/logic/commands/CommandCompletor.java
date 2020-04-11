@@ -26,7 +26,7 @@ public class CommandCompletor {
             "Message auto completed with these prefixes %1$s";
     public static final String UNCHANGED_SUCCESS = "Command has nothing to complete :)";
     public static final String COMMAND_UNFOUND_FAILURE =
-            "Auto complete not possible %1$s not found!";
+            "Auto complete not possible '%1$s' is not a valid command!";
     public static final String COMPLETE_FAILURE_COMMAND = "Auto complete not possible!";
     private Set<String> commands = new HashSet<>();
 

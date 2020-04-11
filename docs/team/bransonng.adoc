@@ -4,7 +4,9 @@
 :stylesDir: ../stylesheets
 
 image::bransonng.png[width="200", align="left"]
-{empty}[http://github.com/bransonng[github]] [<<bransonng#, portfolio>>]
+{empty}[http://github.com/bransonng[github]] [<<bransonng#, portfolio>>] +
+{empty}[https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&until=2020-03-30&tabAuthor=BransonNg&tabRepo=AY1920S2-CS2103T-W16-1%2Fmain%5Bmaster%5D[CodeBase]]
+
 
 Role: Git expert, Integration +
 Responsibilities: Task Manager, AutoComplete
