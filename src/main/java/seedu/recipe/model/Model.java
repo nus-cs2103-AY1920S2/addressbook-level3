@@ -200,7 +200,7 @@ public interface Model {
     boolean hasRecord(Record record);
 
     /**
-     * Replaces quotelist data with the data in {@code quotes}.
+     * Returns an unmodifiable view of the filtered quote list
      */
     ObservableList<Quote> getFilteredQuoteList();
 

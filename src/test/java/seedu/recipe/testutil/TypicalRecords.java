@@ -12,24 +12,33 @@ import seedu.recipe.model.cooked.Record;
  */
 public class TypicalRecords {
 
-    public static final Record CAESAR_SALAD = new RecordBuilder().withName("Caesar Salad").build();
+    public static final Record CAESAR_SALAD = new RecordBuilder().withName("Caesar Salad").withDate("2020-03-05")
+            .withGoals("Herbivore").build();
 
-    public static final Record GRILLED_SANDWICH = new RecordBuilder().withName("Grilled Sandwich").build();
+    public static final Record GRILLED_SANDWICH = new RecordBuilder().withName("Grilled Sandwich")
+            .withDate("2020-03-06").build();
 
-    public static final Record BOILED_CHICKEN = new RecordBuilder().withName("Boiled Chicken").build();
+    public static final Record BOILED_CHICKEN = new RecordBuilder().withName("Boiled Chicken")
+            .withDate("2020-03-07").build();
 
-    public static final Record CHOCOLATE_CAKE = new RecordBuilder().withName("Chocolate Cake").build();
+    public static final Record CHOCOLATE_CAKE = new RecordBuilder().withName("Chocolate Cake")
+            .withDate("2020-03-08").build();
 
-    public static final Record OMELET = new RecordBuilder().withName("Omelet").build();
+    public static final Record OMELET = new RecordBuilder().withName("Omelet")
+            .withDate("2020-03-15").build();
 
-    public static final Record STEAMED_EGG = new RecordBuilder().withName("Steamed Egg").build();
+    public static final Record STEAMED_EGG = new RecordBuilder().withName("Steamed Egg")
+            .withDate("2020-03-25").build();
 
-    public static final Record TUNA_BREAD = new RecordBuilder().withName("Tuna Bread").build();
+    public static final Record TUNA_BREAD = new RecordBuilder().withName("Tuna Bread")
+            .withDate("2020-03-25").build();
 
     // Manually added
-    public static final Record FISH_TACO = new RecordBuilder().withName("Fish Taco").build();
+    public static final Record FISH_TACO = new RecordBuilder().withName("Fish Taco")
+            .withDate("2020-04-05").withGoals("Bulk like the Hulk").build();
 
-    public static final Record VEGETARIAN_PIZZA = new RecordBuilder().withName("Vegetarian Pizza").build();
+    public static final Record VEGETARIAN_PIZZA = new RecordBuilder().withName("Vegetarian Pizza")
+            .withDate("2020-04-07").build();
 
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

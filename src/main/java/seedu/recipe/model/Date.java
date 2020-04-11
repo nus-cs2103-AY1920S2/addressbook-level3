@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
@@ -67,6 +68,14 @@ public class Date implements Comparable<Date> {
      */
     public static Date today() {
         return new Date(LocalDate.now(ZONE_ID));
+    }
+
+    /**
+     * Returns the number of days between the input days.
+     */
+    public long noOfDaysBetween(Date otherDate, Date currDate) {
+        long days = ChronoUnit.DAYS.between(otherDate.date, currDate.date);
+        return days;
     }
 
     /**
