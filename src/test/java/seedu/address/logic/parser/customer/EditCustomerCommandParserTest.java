@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.customer;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -16,9 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -92,7 +91,7 @@ public class EditCustomerCommandParserTest {
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, MESSAGE_MULTIPLE_SAME_PREFIX);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Customer} being edited,
         // parsing it together with a valid tag results in error
@@ -169,36 +168,26 @@ public class EditCustomerCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_multipleRepeatedFields_showsErrorMessage() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_MULTIPLE_SAME_PREFIX);
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
+    public void parse_invalidValueFollowedByValidValue_showsErrorMessage() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditCustomerCommand expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_MULTIPLE_SAME_PREFIX);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + PHONE_DESC_BOB;
-        descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_MULTIPLE_SAME_PREFIX);
     }
 
     @Test

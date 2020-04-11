@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
@@ -84,7 +85,7 @@ public class EditProductCommandParserTest {
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PRICE_DESC_WATCH + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + PRICE_DESC_WATCH + INVALID_PRICE_DESC, MESSAGE_MULTIPLE_SAME_PREFIX);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC
@@ -148,18 +149,12 @@ public class EditProductCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_multipleRepeatedFields_showsErrorMessage() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PRICE_DESC_BAG + SALES_DESC_BAG + QUANTITY_DESC_BAG
                 + PRICE_DESC_BAG + SALES_DESC_BAG + QUANTITY_DESC_BAG
                 + PRICE_DESC_WATCH + SALES_DESC_WATCH + QUANTITY_DESC_WATCH;
-
-        EditProductDescriptor descriptor = new EditProductDescriptorBuilder().withPrice(VALID_PRICE_WATCH)
-                .withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH)
-                .build();
-        EditProductCommand expectedCommand = new EditProductCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, MESSAGE_MULTIPLE_SAME_PREFIX);
     }
 
     @Test

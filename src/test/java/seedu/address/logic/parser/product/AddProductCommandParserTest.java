@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.COSTPRICE_DESC_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.COSTPRICE_DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BAG;
@@ -47,22 +48,22 @@ public class AddProductCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
                 + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
 
-        // multiple descriptions - last description accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_BAG + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
+        // multiple descriptions - shows error message
+        assertParseFailure(parser, DESCRIPTION_DESC_BAG + DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH
                 + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH
-                + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+                + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
 
-        // multiple prices - last price accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_BAG
-                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        // multiple prices - shows error message
+        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_BAG
+                + PRICE_DESC_WATCH + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
 
-        // multiple quantities - last quantity accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
-                + QUANTITY_DESC_BAG + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        // multiple quantities - shows error message
+        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
+                + QUANTITY_DESC_BAG + QUANTITY_DESC_WATCH + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
 
-        // multiple sales - last sales accepted
-        assertParseSuccess(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
-                + QUANTITY_DESC_WATCH + SALES_DESC_BAG + SALES_DESC_WATCH, new AddProductCommand(expectedProduct));
+        // multiple sales - shows error message
+        assertParseFailure(parser, DESCRIPTION_DESC_WATCH + COSTPRICE_DESC_WATCH + PRICE_DESC_WATCH
+                + QUANTITY_DESC_WATCH + SALES_DESC_BAG + SALES_DESC_WATCH, MESSAGE_MULTIPLE_SAME_PREFIX);
     }
 
     @Test

@@ -1,10 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_MULTIPLE_SAME_PREFIX;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -34,8 +38,11 @@ public class ArgumentMultimap {
     /**
      * Returns the last value of {@code prefix}.
      */
-    public Optional<String> getValue(Prefix prefix) {
+    public Optional<String> getValue(Prefix prefix) throws ParseException {
         List<String> values = getAllValues(prefix);
+        if (values.size() > 1) {
+            throw new ParseException(MESSAGE_MULTIPLE_SAME_PREFIX);
+        }
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
     }
 
@@ -54,7 +61,7 @@ public class ArgumentMultimap {
     /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
-    public String getPreamble() {
+    public String getPreamble() throws ParseException {
         return getValue(new Prefix("")).orElse("");
     }
 }
