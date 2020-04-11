@@ -5,11 +5,8 @@ import static seedu.recipe.logic.commands.CommandTestUtil.DESC_DATE_FUTURE;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_DATE_PAST;
 import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_DATE_FUTURE;
-
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import static seedu.recipe.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
