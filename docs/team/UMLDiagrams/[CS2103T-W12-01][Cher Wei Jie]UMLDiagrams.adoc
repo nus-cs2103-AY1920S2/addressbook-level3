@@ -20,8 +20,8 @@ The first Sequence Diagram depicts a simple overview of the entire execution flo
 
 image::../../images/ReturnSequenceDiagram2_a.png[width=40%]
 image::../../images/ReturnSequenceDiagram2_b.png[width=40%]
-The first Sequence Diagram depicts a detailed execution flow of a valid
-`return` command for converting a order into a return order. The second Sequence Diagram depicts
+The third Sequence Diagram depicts a detailed execution flow of a valid
+`return` command for converting a order into a return order. The fourth Sequence Diagram depicts
 a detailed execution flow of a valid `return` command for creating a new return order and
 this will throw an exception and display an error message to the user if any compulsory parcel
 attribute is missing.
@@ -46,17 +46,6 @@ This Sequence Diagram depicts a detailed execution flow of a valid
 message to the user if the `FLAG` and/or the `INDEX` is/are invalid or missing. If both `FLAG` and `INDEX` are valid, the `delivered` command will update the respective order or return
 order list (depending on the provided `FLAG`) and display the success message to the user in the GUI.
 
-* *Help Features UML Diagram*
-
-image::../../images/HelpCommandActivityDiagram.png[width=40%]
-This Activity Diagram purpose is to describe the general work flow of the Delivered feature.
-
-image::../../images/HelpCommandClassDiagram.png[width=40%]
-This Class Diagram purpose is to describe the dependencies of `DeliveredCommand`
-class when implementing this feature. It allows a developer to easily see the
-classes and interfaces associated with the `DeliveredCommand`.
-
-image::../../images/HelpCommandSequenceDiagram.png[width=40%]
-This Sequence Diagram depicts detailed execution flow of a valid `help` command when it is
-executed. A `help` command is only valid if there are no non-whitespace characters following the `help`
-command word. The `help` command is used for displaying Delino's list of commands to the user.
+Please refer to the following link for the implementation of the class diagram, sequence diagram and activity
+diagram of Help Command.
+https://ay1920s2-cs2103t-w12-1.github.io/main/DeveloperGuide.html#help

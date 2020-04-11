@@ -685,7 +685,7 @@ image::DeliveredSequenceDiagram.png[]
 .Execution of Delivered Command
 image::DeliveredSequenceDiagram2.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in *LogicManager*. After which, an *DelinoParser* object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `delivered` command word that will be parsed. +
 
@@ -715,7 +715,7 @@ If both <<command_prefix, `FLAG`>> and <<command_prefix, `INDEX`>> are valid, an
 or *ReturnOrder* object will be created based on the <<command_prefix, `FLAG`>>.
 The <<command_prefix, `INDEX`>> will determine which order or return order to take from
 the order list or return order list respectively using the appropriate getter method.
-The *Order* or *ReturnOrder* object will be checked to see if it was delivered using the isDelivered() method. +
+The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `checkIfOrderWasDelivered(model)` method. +
 
 If the *Order* or *ReturnOrder* was already delivered, this will call the updateOrderList(model) or
 updatedReturnOrderList(model) method respectively in *DeliveredCommand* and a new
@@ -848,10 +848,10 @@ The return feature was implemented as a *ReturnCommand* in the Logic package. +
 
 The `return` command has two possible formats: +
 
-1. `return` <<command_prefix, `TRANSACTION_ID`>>
-If the user provides only a valid <<command_prefix, `TRANSACTION_ID`>> in his input, the order with the given
-<<command_prefix, `TRANSACTION_ID`>> will be converted into a return order with the same attributes.
-The created return order will be added into the return order list.
+1. `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `RETURN_TIMESTAMP`>>
+If the user provides a valid <<command_prefix, `TRANSACTION_ID`>> and <<command_prefix, `RETURN_TIMESTAMP`>> in his input, the order with the given
+<<command_prefix, `TRANSACTION_ID`>> will be converted into a return order with the same attributes but with the updated
+<<command_prefix, `RETURN_TIMESTAMP`>>. The created return order will be added into the return order list.
 
 2. `return` <<command_prefix, `TRANSACTION_ID`>> <<command_prefix, `NAME`>> <<command_prefix, `ADDRESS`>> <<command_prefix, `PHONE_NUMBER`>>
 <<command_prefix, `EMAIL`>> <<command_prefix, `RETURN_TIMESTAMP`>> <<command_prefix, `WAREHOUSE_LOCATION`>> <<command_prefix, `[COMMENTS]`>>
@@ -915,53 +915,59 @@ not extensively utilised in *ReturnCommand*; such as public static fields and ge
 
 The sequence diagrams for the `return` command are shown below.
 
+==== Sequence Diagram for converting an order into a return order
+The sequence diagrams for the *Return Command* are shown below.
+
 .Return Command Sequence Diagram
 image::ReturnSequenceDiagram1_a.png[]
 
 .Execution of Return Command to convert a delivered Order into a Return Order
 image::ReturnSequenceDiagram2_a.png[]
 The arguments typed into Delino by the user will first be done by the `execute`
-method in *LogicManager*. After which, an *DelinoParser* object will be created to parse
+method in `LogicManager`. After which, an `DelinoParser` object will be created to parse
 the input which is determined by the command word via the parseCommand method. In this case, it is the
 `return` command word that will be parsed. +
 
-Then, a *ReturnCommandParser* object will be created to parse the arguments after removing
+Then, a `ReturnCommandParser` object will be created to parse the arguments after removing
 the command word `return` from the user's input. Based on the command word `return`,
-a *ReturnCommand* object will be created. +
+a `ReturnCommand` object will be created. +
 
-Subsequently, the parseCommand method in *LogicManager* will continue to create a *CommandResult*
+Subsequently, the parseCommand method in `LogicManager` will continue to create a CommandResult
 based on the validity of the user's input; which is determined by the `execute` method in
-*ReturnCommand*. +
+`ReturnCommand`. +
 
-The `execute` method of *ReturnCommand* will first check if the return order in the constructor of
-*ReturnCommand* is present. In this case, since we are converting an order into a return order,
-the return order will not be present in the constructor of *ReturnCommand* and
+The `execute` method of `ReturnCommand` will first check if the return order in the constructor of
+ReturnCommand is present. In this case, since we are converting an order into a return order,
+the return order will not be present in the constructor of `ReturnCommand` and
 the isReturnOrderNotPresent() method will return true. +
 
 If the given <<command_prefix, `TRANSACTION_ID`>> exists in the order list, the
-getOrderByTransactionId(model) method will attempt to create a new *Order* object from
+getOrderByTransactionId(model) method will attempt to create a new Order object from
 the model's Order list based on the given transaction ID, i.e. orderToBeReturned. +
 
-The isDelivered() method checks if the newly created *Order* is delivered. If the order was not
+The checkIfOrderWasDelivered(model) method checks if the newly created Order is delivered. If the order was not
 delivered, it will throw a command exception and display an error message to the user. +
 
-If the order was delivered, the deleteOrder(orderToBeReturned) method will be triggered
-to delete the order from the model's order list. Also, a new return order will be created based
-on the *ReturnOrder*'s constructor that takes in an *Order*, i.e. ReturnOrder(orderToBeReturned). This
-creates a new *ReturnOrder* object, toBeCreated. +
+If the order was delivered, Delino will proceed to check if the timestamp input was valid. If it was
+invalid, an exception will be thrown and an error message will be displayed to the user.
 
-Subsequently, this newly created *ReturnOrder* object toBeCreated, will be checked against the
+If the order was delivered and the timestamp input was valid,
+the deleteOrder(orderToBeReturned) method will be triggered to delete the order from the model's order list. Also, a new return order will be created based
+on the ReturnOrder's constructor that takes in an Order, i.e. ReturnOrder(orderToBeReturned). This
+creates a new Return Order object, toBeCreated. +
+
+Subsequently, this newly created ReturnOrder object toBeCreated, will be checked against the
 model's return order list using the hasParcel(toBeCreated) method. If it exists, a command exception will be thrown
 and an error message will be displayed to the user. +
 
-If the *ReturnOrder* does not exist in the model's return order list, the newly created *ReturnOrder* object,
+If the ReturnOrder does not exist in the model's return order list, the newly created ReturnOrder object,
 toBeCreated, will be added to the model's return order list using the addReturnOrder(toBeCreated) method. +
 
-Finally, a new *CommandResult* will be created to display the success message to the user for converting
-a delivered order to a return order.
+Finally, a new CommandResult will be created to display the success message to the user for converting
+a delivered order to a return order.`
 
 ==== Sequence Diagram for creating a new return order
-The sequence diagrams for the `return` command are shown below.
+The sequence diagrams for the *Return Command* are shown below.
 
 .Return Command Sequence Diagram
 image::ReturnSequenceDiagram1_b.png[]
@@ -2070,10 +2076,19 @@ the given <<command_prefix, `TRANSACTION_ID`>> does not exist.
 Use case ends.
 
 [none]
-* 2d. Delino detects missing parcel attributes.
+* 2d. Delino detects invalid <<command_prefix, `RETURN_TIMESTAMP`>>, i.e. order with
+the given <<command_prefix, `RETURN_TIMESTAMP`>> is bfeore the delivery time stamp of the order.
 +
 [none]
 ** 2d1. Delino shows an error message to the user.
++
+Use case ends.
+
+[none]
+* 2e. Delino detects missing parcel attributes.
++
+[none]
+** 2e1. Delino shows an error message to the user.
 +
 Use case ends.
 //end::use_case_return[]
@@ -2322,19 +2337,22 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Convert a delivered order into a return order or create a new return order
 
-.. Insert command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
+.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_TIMESTAMP` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+OR `return` `tid/TRANSACTION_ID` `rts/RETURN_TIMESTAMP`
 .. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `rts/2020-02-20 1300` `w/Yishun` +
    Expected: Creates a new return order with the above details and adds it into the return order list. This will be displayed on the GUI
 .. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `rts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
    Expected: Creates a new return order with the above details, including type and comments and adds it into the return order list. This will be displayed on the GUI
-.. Test case: `return` `tid/1023456789` +
-   Expected: Checks if an order with the given <<command_prefix, `TRANSACTION_ID`>> exists. If it exists and
-it was delivered, it will be converted into a return order and added into the return order list.
+.. Test case: `return` `tid/1023456789` `rts/2020-05-12 1300` +
+   Expected: Checks if an order with the given Transaction ID exists. If it exists and
+it was delivered, check if the given return time stamp is after the delivery time stamp. If it is both delivered and the return time stamp is after
+the delivery time stamp, the order will be converted into a return order and added into the return order list.
 .. Test case: Invalid Syntax +
    Expected: No return order is added. Error details shown in the response message. A help message displayed for user to use the return command accordingly.
 .. Test case: Return order with invalid Transaction ID in order list +
-   Expected: An error will occur and a message will be displayed, stating that order with the given <<command_prefix, `TRANSACTION_ID`>>
+   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID.
+.. Test case: Return order with invalid return time stamp in order list +
+   Expected: An error will occur and a message will be displayed, stating that order with the given Transaction ID.
 cannot be found in the order list.
 .. Test case: Return order with missing parcel attributes +
    Expected: An error will occur and a message will be displayed, indicating the right message usage of the return feature.
