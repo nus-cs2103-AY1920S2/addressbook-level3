@@ -5,7 +5,6 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
-Class "{abstract}\nUiPart" as UiPart
 Class MainWindow
 package StudentTab{
 Class StudentListPanel
@@ -32,18 +31,8 @@ StudentListPanel --> StudentCard
 ModuleListPanel --> ModuleCard
 GroupListPanel --> GroupCard
 
-MainWindow -up-|> UiPart
-
-StudentListPanel -up-|> UiPart
-StudentCard -up-|> UiPart
-ModuleListPanel -up-|> UiPart
-ModuleCard -up-|> UiPart
-GroupListPanel -up-|> UiPart
-GroupCard -up-|> UiPart
-
 StudentCard .down.> Model
 ModuleCard .down.> Model
 GroupCard .down..> Model
 
-MainWindow -[hidden]-|> UiPart
 @enduml
