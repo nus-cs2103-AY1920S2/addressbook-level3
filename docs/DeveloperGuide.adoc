@@ -918,14 +918,12 @@ The `session edit` and `session delete` commands have been implemented in a simi
 to `DoneSessionCommand`.
 
 
-For `session add` command,
-these following steps are taken once the execute command of an `AddSessionCommand` object is called:
+The `session add` command has been implemented in a similar way. The main difference is that the
+`SessionAddCommand` checks whether an object with the given module code exists in the TA-Tracker.
 
-The `AddSessionCommand` object checks whether the module is present in the model of the TA-Tracker .
+* If no such module code exists, the session is created successfully.
 
-If it exists, the session is created.
-
-If it doesn’t exist, an exception is thrown explaining that the module doesn’t exist.
+* If it doesn’t exist, an exception is thrown saying that the given module code doesn’t exist.
 
 //tag::claimsview[]
 
@@ -1677,12 +1675,14 @@ the list of existing students in the *Student View*.
 +
 Use case ends.
 
+*Extensions*
+
 [none]
 * 3a. The module and/or group does not exist.
 [none]
 ** 3a1. TA-Tracker shows an error message.
 +
-Use case ends.
+Use case resumes at step 3.
 
 === Session View
 
