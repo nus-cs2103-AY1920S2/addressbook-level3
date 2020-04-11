@@ -23,7 +23,7 @@ import seedu.address.model.supplier.Phone;
 import seedu.address.model.supplier.Supplier;
 
 /**
- * delete entries of good price pair from supplier's good list given the good name which is identified by keywords
+ * Delete entries of good price pair from supplier's good list given the good name which is identified by keywords.
  */
 public class DeleteGoodPricePairFromSupplierCommand extends Command {
 
@@ -37,8 +37,8 @@ public class DeleteGoodPricePairFromSupplierCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1" + " g/apple" + " g/orange (to delete two different goods)";
 
     public static final String MESSAGE_SUCCESS_DELETE_GOOD = "Successfuly deleted goods from supplier's list: ";
-    public static final String MESSAGE_COULD_NOT_FIND_GOOD = "COULD NOT FIND GOODS: ";
-    public static final String MESSAGE_MUST_INCLUDE_GOODNAME = "MUST INCLUDE AT LEAST ONE GOOD NAME";
+    public static final String MESSAGE_COULD_NOT_FIND_GOOD = "Could not find goods: ";
+    public static final String MESSAGE_MUST_INCLUDE_GOODNAME = "Must include at least one good name";
 
     private static String errorMessage = MESSAGE_COULD_NOT_FIND_GOOD;
     private static String successMessage = MESSAGE_SUCCESS_DELETE_GOOD;
