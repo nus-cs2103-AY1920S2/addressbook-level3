@@ -1199,12 +1199,22 @@ Optionally you can click on the cross button of the application to exit!
 //@@author Exeexe93
 [[saving]]
 === Saving the data
-* Data is saved in the hard disk automatically after any command that changes data that is present.
-* There is no need to save manually.
+In this section, you will learn more about how Delino save your data.
+
+* Data is saved as JSON file in the hard disk automatically after any command that changes the data that is present.
+* There is no need for you to save manually.
+
+[IMPORTANT]
+====
+It is intended behaviour for allowing the order or return order to have a timestamp before the current time when
+the data is loaded from JSON files.
+====
 
 [WARNING]
 ====
-There is no need to alter the JSON file in the data folder!
+There is no need to alter the JSON file in the data folder! +
+If you still insist on changing the data in JSON file,
+please ensure that all amended fields are in the valid format.
 ====
 
 //@@author
@@ -1251,6 +1261,7 @@ An example is shown below:
 
 image::delivered_symbol.png[]
 
+[start=7]
 . *Question*: What does the other symbols in the app mean? +
 *Answer*:
 
