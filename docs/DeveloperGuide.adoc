@@ -1900,8 +1900,8 @@ Use case ends.
 
 *MSS*
 
-1.  User wants to search a specifc order by a given keyword.
-2.  User request to search specific order by a given keyword.
+1.  User wants to search a specifc order or return order by a given keyword.
+2.  User request to search specific order or return order by a given keyword.
 3.  Delino display the requested order.
 +
 Use case ends.
@@ -1916,7 +1916,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2b. Delino unable to find order with the transaction id.
+* 2b. Delino unable to find any order or return order that matches the given keyword.
 [none]
 ** 2b1. Delino display order not found message.
 +
@@ -2130,12 +2130,24 @@ Use case ends.
 //tag::use_case_show[]
 [discrete]
 === Use case: UC13 - Show statistics
+Preconditions: There should be a delivered order/return order in the list.
 
 *MSS*
 
-1. User requests to see the statistics of orders.
-2. Delino opens a window that contains the statistics.
-+
+1. User wants to know about their delivery statistics.
+2. User requests to see the statistics of orders or return orders.
+3. Delino displays the statistics.
+
+*Extensions*
+[none]
+* 2a. Delino detects invalid syntax from user input.
+[none]
+** 2a1. Delino shows an error message.
+[none]
+* 2b. Delino detecs an invalid date from user input.
+[none]
+** 2b1. Delino shows an error message.
+
 Use case ends.
 //end::use_case_show[]
 
@@ -2383,11 +2395,11 @@ cannot be found in the order list.
 .. Test case: `edit` `-r` `1` `n/Xuan En` +
    Expected: The first index customer's name is changed to Xuan En.
 .. Test case: `edit` `-o` `2` `p/99521654` +
-   Expected: The second index phone number is changed to 9952 1654.
+   Expected: The second index phone number is changed to 99521654.
 .. Test case: `edit` `-o` `1` `a/Blk 123 Pasir Ris street 51 #12-23 S510123` +
    Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123.
-.. Test case: `edit` `-r` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S609601` +
-   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S609601.
+.. Test case: `edit` `-r` `2` `n/Mr Tan` `p/98776655` `a/Blk 841 Yishun st 81 #01-02 S760841` +
+   Expected: The second index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 841 Yishun st 81 #01-02 S760841.
 .. Test case: `edit` `-o` `1` `dts/09/08/2020` +
    Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020.
 .. Test case: `edit` `-r` `1` `rts/02/02/1900` +
@@ -2551,7 +2563,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
    Expected: An error will occur as the given postal sector is invalid
 .. Test case: `nearby` `-o` `600` +
    Expected: An error will occur as the given postal sector is invalid
-.. Test case: `nearby -o` +
+.. Test case: `nearby` `-o` +
    Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 
