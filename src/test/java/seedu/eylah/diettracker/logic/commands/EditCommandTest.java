@@ -97,27 +97,6 @@ public class EditCommandTest {
     //     assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     // }
 
-    // @Test
-    // public void execute_duplicateFoodUnfilteredList_failure() {
-    //     Food firstFood = model.getFilteredFoodList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //     EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder(firstFood).build();
-    //     EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
-
-    //     assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_FOOD);
-    // }
-
-    // @Test
-    // public void execute_duplicateFoodFilteredList_failure() {
-    //     showFoodAtIndex(model, INDEX_FIRST_PERSON);
-
-    //     // edit food in filtered list into a duplicate in address book
-    //     Food foodInList = model.getFoodBook().getFoodList().get(INDEX_SECOND_PERSON.getZeroBased());
-    //     EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-    //             new EditFoodDescriptorBuilder(foodInList).build());
-
-    //     assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_FOOD);
-    // }
-
     @Test
     public void execute_invalidFoodIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFoodList().size() + 1);

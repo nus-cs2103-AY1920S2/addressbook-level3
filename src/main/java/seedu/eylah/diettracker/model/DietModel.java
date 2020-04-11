@@ -80,6 +80,11 @@ public interface DietModel extends Model {
     void setMode(Mode mode);
 
     /**
+     * Prints out the user's metrics, like Height, Weight and their Dieting Mode.
+     */
+    void printMetrics();
+
+    /**
      * Returns the user prefs' food book file path.
      */
     Path getFoodBookFilePath();
@@ -127,10 +132,12 @@ public interface DietModel extends Model {
      */
     void setFood(Food target, Food editedFood);
 
-    /** Returns an unmodifiable view of the filtered food list */
+    /**
+     * Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 
-    /** Returns the String format of the foods based on the mode input.
+    /**
+     * Returns the String format of the foods based on the mode input.
      */
     void listFoods(String mode);
 
