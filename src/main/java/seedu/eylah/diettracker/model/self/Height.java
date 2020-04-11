@@ -65,6 +65,14 @@ public class Height {
         return this.heightFloat;
     }
 
+    public boolean isZero() {
+        return heightFloat.equals(Float.valueOf(0));
+    }
+
+    public boolean isNotZero() {
+        return !heightFloat.equals(Float.valueOf(0));
+    }
+
     @Override
     public String toString() {
         return "" + heightString;
