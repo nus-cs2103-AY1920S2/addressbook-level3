@@ -49,6 +49,7 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@example.com-")); // domain name ends with a hyphen
         assertFalse(Email.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
         assertFalse(Email.isValidEmail("if.you.dream.it_you.can.do.it@example.com")); // long local part
+        assertFalse(Email.isValidEmail("aaaaaaaaabbbbbbbbbbcccccccccccddddddddeeeeeeeeeee@example.com")); // long email
 
         // valid email
         assertTrue(Email.isValidEmail("PeterJack_1190@example.com"));

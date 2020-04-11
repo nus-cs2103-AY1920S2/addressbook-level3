@@ -58,6 +58,14 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'linux'
+
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'linux'
+
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
@@ -135,7 +143,7 @@ asciidoctor {
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'iTrack Pro',
         'site-githuburl': 'https://github.com/AY1920S2-CS2103-T09-2/main.git',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        //'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
     options['template_dirs'].each {

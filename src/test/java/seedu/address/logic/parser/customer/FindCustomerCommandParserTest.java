@@ -23,12 +23,17 @@ public class FindCustomerCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        FindCustomerCommand expectedFindCustomerCommand =
-                new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        //        assertParseSuccess(parser, "Alice Bob", expectedFindCustomerCommand);
+        NameContainsKeywordsPredicate predicate = preparePredicate("amy");
+        //        assertParseSuccess(parser, NAME_DESC_AMY, new FindCustomerCommand(predicate));
 
         // multiple whitespaces between keywords
         //        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCustomerCommand);
     }
 
+    /**
+     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     */
+    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
 }
