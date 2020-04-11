@@ -318,4 +318,5 @@ public interface Model {
      * Redo any command that was undone
      */
     String redo();
+
 }
