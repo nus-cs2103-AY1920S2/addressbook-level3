@@ -25,4 +25,6 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the system";
 
     public static final String MESSAGE_INVALID_THRESHOLD_AMOUNT = "Threshold amount must be more than 0!";
+
+    public static final String MESSAGE_MULTIPLE_SAME_PREFIX = "Please only use each prefix once!";
 }

@@ -84,6 +84,13 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).anyMatch(prefix -> {
+            try {
+                return argumentMultimap.getValue(prefix).isPresent();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return true;
+        });
     }
 }
