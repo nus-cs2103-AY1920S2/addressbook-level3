@@ -330,9 +330,19 @@ The choice of a DFS approach as opposed to a Breadth-First Search (BFS) approach
 
 ===== How this feature works
 
-Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `AutoComplete` directly. In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `sch` (which in the current state of the application is an unambigous command, and will result in the full completion of the `schedule` command as well as the prefixes):
+Similar to <<Command History --- Aaron Choo, Command History>> , this feature also relies heavily on the UI class `CommandBox`, and thus we have decided to let `CommandBox` interact with `AutoComplete` directly. A simplified class diagram of the classes involved is shown here:
 
-// TODO: do sequence diagram for auto complete
+.Simplified Class Diagram for Autocomplete
+image::CommandAutocompleteClassDiagram.png[]
+
+
+In the following sequence diagram, we follow the execution for when the user tries to autocomplete his partially entered command `gra` (which, in the current application, is an unambiguous command, and will result in the full completion of the `graph` command as well as the prefixes):
+
+.Simplified Sequence Diagram for Command Autocomplete
+image::CommandAutocompleteSequenceDiagram.png[]
+
+.Sequence Diagram for the AutoComplete Logic
+image::CommandAutocompleteSequenceDiagramRef.png[]
 
 This feature currently only supports autocompletion of _commands_ and _prefixes_, and not other fields/parameters like names and addresses that have been used by the user before. Implicitly, since all commands defined in FitBiz do not have empty spaces in them, this allows us to easily determine when to enable <<command-history-behaviour-4, behaviour 4>> as defined above: by simply checking for the presence of white spaces from the trimmed user input. The following activity diagram is given to show the decisions made at each step of the execution:
 
