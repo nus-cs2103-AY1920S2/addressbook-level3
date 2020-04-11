@@ -1215,7 +1215,7 @@ group code given by the user.
 
 Module code is a compulsory parameter for the user.
 
-The following _Sequence diagram_ shows the sequence of commands that take place between
+The following _Sequence Diagram_ shows the sequence of commands that take place between
 the `Logic` and `Model` components of the Ta-Tracker when the user enters the command
 `student filter m\CS2103T g\G06`. This command will return students from module code `CS2103T`, under group `G06`.
 
@@ -1293,7 +1293,7 @@ A module code can be specified such that the generated report will only include 
 
 This section describes the implementation of the `report` command.
 
-The following _Sequence diagram_ shows the interactions between the `UI` and the `Logic` components of TA-Tracker,
+The following _Sequence Diagram_ shows the interactions between the `UI` and the `Logic` components of TA-Tracker,
 when the user enters the command `report CS3247`.
 
 .Sequence Diagram for Statistic Report Generation
