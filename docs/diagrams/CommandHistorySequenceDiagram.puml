@@ -13,7 +13,7 @@ activate commandBox UI_COLOR
 commandBox -[UI_COLOR]> textField : getText()
 activate textField UI_COLOR
 
-textField -[UI_COLOR]> commandBox : "list-c"
+textField -[UI_COLOR]-> commandBox : "list-c"
 deactivate textField
 
 commandBox -[UI_COLOR]> commandHistory : addToHistory("list-c")
@@ -38,10 +38,10 @@ storageReaderWriter -[STORAGE_COLOR]> storageReaderWriter : Save to file
 activate storageReaderWriter STORAGE_COLOR_T1
 deactivate storageReaderWriter
 
-storageReaderWriter -[STORAGE_COLOR]> commandHistory
+storageReaderWriter -[STORAGE_COLOR]-> commandHistory
 deactivate storageReaderWriter
 
-commandHistory -[LOGIC_COLOR]> commandBox
+commandHistory -[LOGIC_COLOR]-> commandBox
 deactivate commandHistory
 
 [<[UI_COLOR]-- commandBox
