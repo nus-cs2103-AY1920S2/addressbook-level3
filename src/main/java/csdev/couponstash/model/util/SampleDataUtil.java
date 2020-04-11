@@ -31,86 +31,153 @@ import csdev.couponstash.model.tag.Tag;
  */
 public class SampleDataUtil {
     public static Coupon[] getSampleCoupons() {
-        ExpiryDate azahExpiry = new ExpiryDate("30-12-2020");
-        ExpiryDate bosziniExpiry = new ExpiryDate("30-11-2020");
-        ExpiryDate cappleExpiry = new ExpiryDate("30-10-2020");
-        ExpiryDate daidasExpiry = new ExpiryDate("30-09-2020");
-        ExpiryDate ikeeaExpiry = new ExpiryDate("01-10-2020");
-        ExpiryDate rabsExpiry = new ExpiryDate("11-09-2020");
 
-        ArrayList<Saveable> azahSaveables = new ArrayList<Saveable>();
-        azahSaveables.add(new Saveable("Sambal Sauce"));
-        DateSavingsSumMap azahSavings = new DateSavingsSumMap();
-        azahSavings.add(LocalDate.of(2020, 1, 29),
-                new PureMonetarySavings(new MonetaryAmount(1, 0), azahSaveables));
-        azahSavings.add(LocalDate.of(2020, 2, 19),
-                new PureMonetarySavings(new MonetaryAmount(13, 60)));
+        // Coupon names
 
-        DateSavingsSumMap bosziniSavings = new DateSavingsSumMap();
-        bosziniSavings.add(LocalDate.of(2020, 3, 11),
+        Name adidas = new Name("Adidas");
+        Name gongCha = new Name("Gong Cha");
+        Name shopee = new Name("Shopee");
+        Name lazada = new Name("Lazada");
+        Name liHo = new Name("LiHO");
+        Name grabFood = new Name("GrabFood");
+
+        // Coupon Promo Codes
+
+        PromoCode adidasCode = new PromoCode("30ADIDAS");
+        PromoCode gongChaCode = new PromoCode("ILOVEGONGCHA");
+        PromoCode shopeeCode = new PromoCode("NEWUSER");
+        PromoCode lazadaCode = new PromoCode("DBSFLASH");
+        PromoCode liHoCode = new PromoCode("STUDENT");
+        PromoCode grabFoodCode = new PromoCode("40OFF");
+
+        // Coupon Savings
+
+        ArrayList<Saveable> adidasSaveables = new ArrayList<Saveable>();
+        adidasSaveables.add(new Saveable("Adidas Cap"));
+        DateSavingsSumMap adidasSavingsSum = new DateSavingsSumMap();
+        Savings adidasSavings = new Savings(new PercentageAmount(30d), adidasSaveables);
+
+        DateSavingsSumMap gongChaSavingsSum = new DateSavingsSumMap();
+        gongChaSavingsSum.add(LocalDate.of(2020, 3, 11),
                 new PureMonetarySavings(new MonetaryAmount(7, 30)));
-        bosziniSavings.add(LocalDate.of(2020, 3, 18),
+        gongChaSavingsSum.add(LocalDate.of(2020, 3, 18),
                 new PureMonetarySavings(new MonetaryAmount(17, 0)));
+        Savings gongChaSavings = new Savings(new PercentageAmount(10d));
 
-        ArrayList<Saveable> cappleSaveables = new ArrayList<Saveable>();
-        cappleSaveables.add(new Saveable("Brattby Bag"));
-        cappleSaveables.add(new Saveable("Goggle Pix 1"));
-        DateSavingsSumMap cappleSavings = new DateSavingsSumMap();
-        cappleSavings.add(LocalDate.of(2020, 2, 26),
-                new PureMonetarySavings(new MonetaryAmount(4, 0), cappleSaveables));
-        cappleSavings.add(LocalDate.of(2020, 4, 1),
-                new PureMonetarySavings(new MonetaryAmount(25, 20)));
+        ArrayList<Saveable> shopeeSaveables = new ArrayList<Saveable>();
+        shopeeSaveables.add(new Saveable("USB-C cable"));
+        shopeeSaveables.add(new Saveable("iPhone 11 case"));
+        DateSavingsSumMap shopeeSavingsSum = new DateSavingsSumMap();
+        shopeeSavingsSum.add(LocalDate.of(2020, 4, 1),
+                new PureMonetarySavings(new MonetaryAmount(25, 20), shopeeSaveables));
+        Savings shopeeSavings = new Savings(new MonetaryAmount(7, 0), shopeeSaveables);
 
-        DateSavingsSumMap daidasSavings = new DateSavingsSumMap();
-        daidasSavings.add(LocalDate.of(2020, 3, 25),
-                new PureMonetarySavings(new MonetaryAmount(1, 50)));
+        Savings lazadaSavings = new Savings(new PercentageAmount(20d));
+        DateSavingsSumMap lazadaSavingsSum = new DateSavingsSumMap();
+        lazadaSavingsSum.add(LocalDate.of(2020, 3, 25),
+                new PureMonetarySavings(new MonetaryAmount(10, 50)));
 
-        ArrayList<Saveable> ikeeaSaveables = new ArrayList<Saveable>();
-        ikeeaSaveables.add(new Saveable("Brattby Bag"));
-        ikeeaSaveables.add(new Saveable("IKEEA Pencil"));
-        DateSavingsSumMap ikeeaSavings = new DateSavingsSumMap();
-        ikeeaSavings.add(LocalDate.of(2020, 2, 5),
-                new PureMonetarySavings(new MonetaryAmount(2, 75), ikeeaSaveables));
+        Savings liHoSavings = new Savings(new MonetaryAmount(1, 0));
+        DateSavingsSumMap liHoSavingsSum = new DateSavingsSumMap();
 
-        DateSavingsSumMap rabsSavings = new DateSavingsSumMap();
-        rabsSavings.add(LocalDate.of(2020, 3, 4),
-                new PureMonetarySavings(new MonetaryAmount(11, 0)));
+        Savings grabFoodSavings = new Savings(new PercentageAmount(40d));
+        DateSavingsSumMap grabFoodSavingsSum = new DateSavingsSumMap();
 
-        return new Coupon[] {
-            new Coupon(new Name("Auntie Azah's Nasi Lemak"), new PromoCode("AZAH BAIK LA"),
-                new Savings(new MonetaryAmount(5, 50)), azahExpiry,
-                    new StartDate("01-12-2020"), new Usage("0"), new Limit("1"),
-                    getTagSet("sedap"), azahSavings, new RemindDate(azahExpiry),
-                    new Condition("Min spending of $15 on sambal sauce"), new Archived()),
-            new Coupon(new Name("Boszini Clothing"), new PromoCode("NAKED SUMMER"),
-                new Savings(new PercentageAmount(25d)), bosziniExpiry, new StartDate("01-11-2020"),
-                    new Usage("0"), new Limit("1"), getTagSet("trendy", "cheap"),
-                    bosziniSavings, new RemindDate(bosziniExpiry),
-                    new Condition("Only applicable to selected beachwear"), new Archived()),
-            new Coupon(new Name("Capple oPhone"), new PromoCode("ILOVECAP_5.0"),
-                new Savings(new PercentageAmount(12.5d)), cappleExpiry, new StartDate("01-10-2020"),
-                    new Usage("0"), new Limit("1"), getTagSet("silver"),
-                    cappleSavings, new RemindDate(cappleExpiry),
-                    new Condition("Need to trade in one apple phone"), new Archived()),
-            new Coupon(new Name("Daidas Shoes"), new PromoCode("JUSTDOIT"),
-                new Savings(new PercentageAmount(10d),
-                        Arrays.asList(new Saveable("Water Bottle"), new Saveable("Notebook"))),
-                            daidasExpiry, new StartDate("01-08-2020"), new Usage("0"),
-                    new Limit("1"), getTagSet("whilestockslast"),
-                    daidasSavings, new RemindDate(daidasExpiry),
-                    new Condition("While Stocks Last"), new Archived()),
-            new Coupon(new Name("IKEEA"), new PromoCode("BRATTBY_IS_YOUR_FRIEND"),
-                new Savings(new MonetaryAmount(1, 0),
-                        Arrays.asList(new Saveable("Brattby Bag"))), ikeeaExpiry,
-                    new StartDate("01-09-2020"), new Usage("0"), new Limit("1"), getTagSet("limitededition"),
-                    ikeeaSavings, new RemindDate(ikeeaExpiry),
-                    new Condition("Meatball are made of horsemeat"), new Archived()),
-            new Coupon(new Name("Rab's Kebabs"), new PromoCode("UPZ KEBABZ"),
-                new Savings(new PercentageAmount(100d)), rabsExpiry, new StartDate("01-8-2020"),
-                    new Usage("0"), new Limit("1"), getTagSet("lunch"),
-                    rabsSavings, new RemindDate(rabsExpiry),
-                    new Condition("Muslim students get an additional begedil (Worth $50)"), new Archived())
-        };
+        // Coupon Expiry Date
+
+        ExpiryDate adidasExpiry = new ExpiryDate("31-12-2020");
+        ExpiryDate gongChaExpiry = new ExpiryDate("30-06-2020");
+        ExpiryDate shopeeExpiry = new ExpiryDate("31-10-2020");
+        ExpiryDate lazadaExpiry = new ExpiryDate("30-09-2020");
+        ExpiryDate liHoExpiry = new ExpiryDate("31-05-2020");
+        ExpiryDate grabFoodExpiry = new ExpiryDate("30-04-2020");
+
+        // Coupon Start Date
+
+        StartDate adidasStart = new StartDate("01-01-2020");
+        StartDate gongChaStart = new StartDate("01-04-2020");
+        StartDate shopeeStart = new StartDate("01-01-2020");
+        StartDate lazadaStart = new StartDate("01-01-2020");
+        StartDate liHoStart = new StartDate("01-04-2020");
+        StartDate grabFoodStart = new StartDate("01-04-2020");
+
+        // Coupon Usage
+
+        Usage adidasUsage = new Usage(0);
+        Usage gongChaUsage = new Usage(2);
+        Usage shopeeUsage = new Usage(1);
+        Usage lazadaUsage = new Usage(1);
+        Usage liHoUsage = new Usage(0);
+        Usage grabFoodUsage = new Usage(0);
+
+        // Coupon Limit
+
+        Limit adidasLimit = new Limit(1);
+        Limit gongChaLimit = new Limit(3);
+        Limit shopeeLimit = new Limit(2);
+        Limit lazadaLimit = new Limit(5);
+        Limit liHoLimit = new Limit(0);
+        Limit grabFoodLimit = new Limit(3);
+
+        // Coupon Remind Date
+
+        RemindDate adidasRemind = new RemindDate("28-12-2020");
+        RemindDate gongChaRemind = new RemindDate("27-06-2020");
+        RemindDate shopeeRemind = new RemindDate("28-10-2020");
+        RemindDate lazadaRemind = new RemindDate("27-09-2020");
+        RemindDate liHoRemind = new RemindDate("28-05-2020");
+        RemindDate grabFoodRemind = new RemindDate("27-04-2020");
+
+        // Coupon Tags
+
+        Set<Tag> adidasTags = getTagSet("sports");
+        Set<Tag> gongChaTags = getTagSet("bubbletea");
+        Set<Tag> shopeeTags = getTagSet("newuser");
+        Set<Tag> lazadaTags = getTagSet("ecommerce");
+        Set<Tag> liHoTags = getTagSet("bobatea");
+        Set<Tag> grabFoodTags = getTagSet("delivery", "grab", "food");
+
+        // Coupon Condition
+
+        Condition adidasCondition = new Condition("No condition stated.");
+        Condition gongChaCondition = new Condition("While stocks lasts");
+        Condition shopeeCondition = new Condition("New users only");
+        Condition lazadaCondition = new Condition("While stocks lasts");
+        Condition liHoCondition = new Condition("Show student card");
+        Condition grabFoodCondition = new Condition("Min. order $20");
+
+        // Coupon Archive
+
+        Archived adidasArchive = new Archived(false);
+        Archived gongChaArchive = new Archived(false);
+        Archived shopeeArchive = new Archived(false);
+        Archived lazadaArchive = new Archived(false);
+        Archived liHoArchive = new Archived(false);
+        Archived grabFoodArchive = new Archived(false);
+
+        // Coupon
+
+        Coupon adidasCoupon = new Coupon(adidas, adidasCode, adidasSavings, adidasExpiry, adidasStart, adidasUsage,
+                adidasLimit, adidasTags, adidasSavingsSum, adidasRemind, adidasCondition, adidasArchive);
+        Coupon gongChaCoupon = new Coupon(gongCha, gongChaCode, gongChaSavings, gongChaExpiry, gongChaStart,
+                gongChaUsage, gongChaLimit, gongChaTags, gongChaSavingsSum, gongChaRemind,
+                gongChaCondition, gongChaArchive);
+        Coupon shopeeCoupon = new Coupon(shopee, shopeeCode, shopeeSavings, shopeeExpiry, shopeeStart, shopeeUsage,
+                shopeeLimit, shopeeTags, shopeeSavingsSum, shopeeRemind, shopeeCondition, shopeeArchive);
+        Coupon lazadaCoupon = new Coupon(lazada, lazadaCode, lazadaSavings, lazadaExpiry, lazadaStart, lazadaUsage,
+                lazadaLimit, lazadaTags, lazadaSavingsSum, lazadaRemind, lazadaCondition, lazadaArchive);
+        Coupon liHoCoupon = new Coupon(liHo, liHoCode, liHoSavings, liHoExpiry, liHoStart, liHoUsage,
+                liHoLimit, liHoTags, liHoSavingsSum, liHoRemind, liHoCondition, liHoArchive);
+        Coupon grabFoodCoupon = new Coupon(grabFood, grabFoodCode, grabFoodSavings, grabFoodExpiry, grabFoodStart,
+                grabFoodUsage, grabFoodLimit, grabFoodTags, grabFoodSavingsSum, grabFoodRemind,
+                grabFoodCondition, grabFoodArchive);
+
+        // Coupons
+
+        Coupon[] coupons = new Coupon[] {adidasCoupon, gongChaCoupon, shopeeCoupon, lazadaCoupon,
+            liHoCoupon, grabFoodCoupon};
+
+        return coupons;
     }
 
     public static ReadOnlyCouponStash getSampleCouponStash() {
