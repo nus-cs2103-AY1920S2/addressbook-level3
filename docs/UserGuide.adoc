@@ -996,6 +996,7 @@ Examples:
 
 * `student delete m/CS3243 g/G01 id/A0187945J`
 +
+image::StudentDelete.png[width="790"]
 Deletes the student with the matriculation number `A0187945J` from group `G01` of
 the module `CS3243`.
 ====
@@ -1038,6 +1039,7 @@ Examples:
 
 * `student edit id/A0181137L g/G01 m/CS3243 p/91234567 e/bernie@example.com r/4`
 +
+image::StudentEdit.png[width="790"]
 Edits the student with the matriculation number `A0181137L` from group `G01`
 of module `CS3243` to have:
 
@@ -1047,6 +1049,7 @@ of module `CS3243` to have:
 
 * `student edit m/CS3243 g/G01 id/A0186153P t/`
 +
+image::StudentEditTag.png[width="790"]
 Edits student with the matriculation number `A0186153P` to have:
 
 ** All existing tags removed
@@ -1087,6 +1090,7 @@ Examples:
 
 * `sort group g/G01 m/CS3243 t/rating asc`
 +
+image::SortGroup.png[width="790"]
 Sorts the student inside `G01` of module `CS3242` by `rating asc` (that is, rating in
 ascending order).
 ====
