@@ -46,12 +46,12 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
             if (keywords[i].contains("n/")) {
                 if (keywords[i].substring(0, 2).equals("n/")) {
-                    hasOrganization = true;
+                    hasName = true;
                 }
             }
             if (keywords[i].contains("t/")) {
                 if (keywords[i].substring(0, 2).equals("t/")) {
-                    hasOrganization = true;
+                    hasTags = true;
                 }
             }
         }
