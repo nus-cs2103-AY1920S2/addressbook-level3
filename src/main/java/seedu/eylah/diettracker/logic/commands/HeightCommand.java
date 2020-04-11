@@ -17,7 +17,7 @@ public class HeightCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": \n"
             + "Parameters: HEIGHT (must be in centimeters)\n"
-            + "Example: " + COMMAND_WORD + "170";
+            + "Example: " + COMMAND_WORD + " 170";
 
     public static final String MESSAGE_ADD_HEIGHT_SUCCESS = "Added Height: %1$s";
 
@@ -36,8 +36,16 @@ public class HeightCommand extends Command {
         requireNonNull(model);
 
         if (height.getHeightFloat() <= 0) {
-            throw new CommandException("Please enter a height value >0.");
+            throw new CommandException("Please enter a height value >0 and <1000. Fun fact: The shortest person in the "
+                    + "world is Chandra Bahadur Dangi at 54.6cm. However, we at EYLAH know you might want to calculate"
+                    + " metrics for your baby too!");
         }
+
+        if (height.getHeightFloat() > 1000) {
+            throw new CommandException("Please enter a height value >0 and <1000. Fun fact: The tallest person in the "
+                    + "world is Robert Wadlow at 2.72m. However, we at EYLAH believe people can grow till 10m!");
+        }
+
 
         model.setHeight(height);
 
