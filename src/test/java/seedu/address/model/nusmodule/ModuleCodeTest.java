@@ -10,9 +10,10 @@ class ModuleCodeTest {
 
     @Test
     void isValidModuleCode() {
-        assertTrue(ModuleCode.isValidModuleCode("cs2040"));
-        assertTrue(ModuleCode.isValidModuleCode("cs1101s"));
-        assertTrue(ModuleCode.isValidModuleCode("st3131"));
+        assertTrue(ModuleCode.isValidModuleCode("CS2030"));
+        assertTrue(ModuleCode.isValidModuleCode("CS2040"));
+        assertTrue(ModuleCode.isValidModuleCode("CS1101S"));
+        assertTrue(ModuleCode.isValidModuleCode("ST3131"));
         assertFalse(ModuleCode.isValidModuleCode(""));
         assertFalse(ModuleCode.isValidModuleCode("casfas"));
         assertFalse(ModuleCode.isValidModuleCode("12312rd"));
