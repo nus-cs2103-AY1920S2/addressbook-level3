@@ -1,33 +1,87 @@
 @startuml
 !include style.puml
 
-Actor User as user USER_COLOR
-Participant ":EYLAH" as ui UI_COLOR
-Participant ":LogicManager" as logic LOGIC_COLOR
-Participant ":ModelManager" as splitterModel MODEL_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":ModeCommandParser" as ModeCommandParser LOGIC_COLOR
+participant "m:ModeCommand" as ModeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-user -[USER_COLOR]> ui : "mode -m"
-activate ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant "mode:Mode" as ModeMode MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
 
-ui -[UI_COLOR]> logic : execute("mode -m")
-activate logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+end box
 
-create "m:Mode" as mode STORAGE_COLOR
-logic -[LOGIC_COLOR]> mode : new MODE.Maintain
-activate mode STORAGE_COLOR
+[-> LogicManager : execute("mode -l")
+activate LogicManager
 
-mode -[STORAGE_COLOR]-> logic
-deactivate mode
+LogicManager -> FoodBookParser : parseCommand("mode -l")
+activate FoodBookParser
 
-logic -[LOGIC_COLOR]> splitterModel : setMode(m)
-activate splitterModel MODEL_COLOR
+create ModeCommandParser
+FoodBookParser -> ModeCommandParser
+activate ModeCommandParser
 
-splitterModel -[MODEL_COLOR]-> logic
-deactivate splitterModel
+ModeCommandParser --> FoodBookParser
+deactivate ModeCommandParser
 
-logic --[LOGIC_COLOR]> ui : CommandResult
-deactivate logic
+FoodBookParser -> ModeCommandParser : parse("-l")
+activate ModeCommandParser
 
-ui--[UI_COLOR]> user : CommandResult
-deactivate ui
+create ModeMode
+ModeCommandParser -> ModeMode
+activate ModeMode
+
+ModeMode --> ModeCommandParser : mode
+deactivate ModeMode
+
+create ModeCommand
+ModeCommandParser -> ModeCommand
+activate ModeCommand
+
+ModeCommand --> ModeCommandParser : m
+deactivate ModeCommand
+
+ModeCommandParser --> FoodBookParser : m
+deactivate ModeCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ModeCommandParser -[hidden]-> FoodBookParser
+destroy ModeCommandParser
+
+FoodBookParser --> LogicManager : m
+deactivate FoodBookParser
+
+LogicManager -> ModeCommand : execute()
+activate ModeCommand
+
+ModeCommand -> Model : setMode(mode)
+activate Model
+
+Model --> ModeCommand
+deactivate Model
+
+create CommandResult
+ModeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ModeCommand
+deactivate CommandResult
+
+ModeCommand --> LogicManager : commandResult
+deactivate ModeCommand
+
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
+
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
+
+[<--LogicManager
+deactivate LogicManager
 @enduml

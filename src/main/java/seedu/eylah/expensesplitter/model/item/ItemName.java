@@ -37,6 +37,7 @@ public class ItemName {
      * @param test whether a name is valid or not.
      */
     public static boolean isValidName(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -63,6 +64,10 @@ public class ItemName {
     @Override
     public int hashCode() {
         return itemName.hashCode();
+    }
+
+    public String getItemName() {
+        return this.itemName;
     }
 
 }

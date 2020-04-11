@@ -1,55 +1,103 @@
 @startuml
 !include style.puml
 
-Actor User as User USER_COLOR
-Participant ":EYLAH" as Ui UI_COLOR
-Participant ":LogicManager" as Logic LOGIC_COLOR
-Participant ":ModelManager" as Model MODEL_COLOR
-Participant ":StorageManager" as Storage STORAGE_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "efd:EditFoodDescriptor" as EditFoodDescriptor LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-User -[USER_COLOR]> Ui : "edit 1 -n Pasta"
-activate Ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "foodToEdit:Food" as FoodToEdit MODEL_COLOR
+participant "editedFood:Food" as EditedFood MODEL_COLOR
+end box
 
-Ui -[UI_COLOR]> Logic : execute("edit 1 -n Pasta")
-activate Logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+end box
 
-Logic -[LOGIC_COLOR]> Model : getFilteredFoodList()
-activate Model MODEL_COLOR
+[-> LogicManager : execute("edit -i 1 -n Pasta -c 1200")
+activate LogicManager
 
-Model -[MODEL_COLOR]-> Logic : lastShownList
+LogicManager -> FoodBookParser : parseCommand("edit -i 1 -n Pasta -c 1200")
+activate FoodBookParser
+
+create EditCommandParser
+FoodBookParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> FoodBookParser
+deactivate EditCommandParser
+
+FoodBookParser -> EditCommandParser : parse("-i 1 -n Pasta -c 1200")
+activate EditCommandParser
+
+create EditFoodDescriptor
+EditCommandParser -> EditFoodDescriptor
+activate EditFoodDescriptor
+
+EditFoodDescriptor --> EditCommandParser : efd
+deactivate EditFoodDescriptor
+
+create EditCommand
+EditCommandParser -> EditCommand
+activate EditCommand
+
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> FoodBookParser : e
+deactivate EditCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditCommandParser -[hidden]-> FoodBookParser
+destroy EditCommandParser
+
+FoodBookParser --> LogicManager : e
+deactivate FoodBookParser
+
+LogicManager -> EditCommand : execute()
+activate EditCommand
+
+create FoodToEdit
+EditCommand -> FoodToEdit
+activate FoodToEdit
+
+FoodToEdit -> EditCommand : foodToEdit
+deactivate FoodToEdit
+
+create EditedFood
+EditCommand -> EditedFood
+activate EditedFood
+
+EditedFood -> EditCommand : editedFood
+deactivate EditedFood
+
+EditCommand -> Model : setFood(foodToEdit, editedFood)
+activate Model
+
+Model --> EditCommand
 deactivate Model
 
-Logic -[LOGIC_COLOR]> Logic : get()
-activate Logic LOGIC_COLOR_T1
+create CommandResult
+EditCommand -> CommandResult
+activate CommandResult
 
-Logic -[MODEL_COLOR]-> Logic : foodToEdit
-deactivate Logic
+CommandResult --> EditCommand
+deactivate CommandResult
 
-Logic -[LOGIC_COLOR]> Logic : createEditedFood(foodToEdit, editFoodDescriptor)
-activate Logic LOGIC_COLOR_T1
+EditCommand --> LogicManager : commandResult
+deactivate EditCommand
 
-Logic -[MODEL_COLOR]-> Logic : editedFood
-deactivate Logic
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
 
-Logic -[LOGIC_COLOR]> Model : setFood(foodToEdit, editedFood)
-activate Model MODEL_COLOR
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
 
-Model -[MODEL_COLOR]-> Logic :
-deactivate Model
-
-Logic -[LOGIC_COLOR]> Storage : saveFoodBook(foodBook)
-activate Storage STORAGE_COLOR
-
-Storage -[STORAGE_COLOR]> Storage : Save to file
-activate Storage STORAGE_COLOR_T1
-deactivate Storage
-
-Storage --[STORAGE_COLOR]> Logic
-deactivate Storage
-
-Logic --[LOGIC_COLOR]> Ui : CommandResult
-deactivate Logic
-
-Ui--[UI_COLOR]> User : CommandResult
-deactivate Ui
+[<--LogicManager
+deactivate LogicManager
 @enduml

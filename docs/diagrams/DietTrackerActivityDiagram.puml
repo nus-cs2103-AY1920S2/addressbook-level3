@@ -1,0 +1,43 @@
+@startuml
+start
+
+:Enter Diet Tracker;
+
+if () then ([allMetricsNotEntered])
+
+    if () then ([heightNotAdded])
+    : Height Command;
+
+    else ([heightAdded])
+
+    endif
+        if () then ([weightNotAdded])
+        : Weight Command;
+
+        else ([weightAdded])
+        endif
+
+            if () then ([modeNotSet])
+            : Mode Command;
+
+            else ([modeSet])
+
+            endif
+
+
+
+
+else ([allMetricsEntered])
+
+endif
+
+
+: Add Command;
+
+: List Command;
+
+
+
+
+stop
+@enduml

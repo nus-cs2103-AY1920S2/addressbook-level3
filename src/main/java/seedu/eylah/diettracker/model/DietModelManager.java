@@ -100,6 +100,37 @@ public class DietModelManager extends ModelManager implements DietModel {
     }
 
     @Override
+    public void printMetrics() {
+        StringBuilder result = new StringBuilder("Your metrics are as follows:\n\n");
+
+        // checks for stored height, displays height if available.
+        if (myself.getHeight().toString().equals("0.0")) {
+            result.append("    Height: You have not stored your own height yet! Type 'height <<insert height here>>' "
+                    + "to store your height!\n");
+        } else {
+            result.append("    Height: " + myself.getHeight() + "\n");
+        }
+
+        // checks for stored weight, displays weight if available.
+        if (myself.getWeight().toString().equals("0.0")) {
+            result.append("    Weight: You have not stored your own weight yet! Type 'weight <<insert weight here>>' "
+                    + "to store your weight!\n");
+        } else {
+            result.append("    Weight: " + myself.getWeight() + "\n");
+        }
+
+        // checks for stored mode, displays mode if available.
+        if (myself.getMode() == null) {
+            result.append("    Dieting Mode: You have not chosen your dieting mode yet! Type 'mode <<-l/-m/-g>>' "
+                    + "to choose your dieting mode!\n");
+        } else {
+            result.append("    Dieting Mode: " + myself.getMode() + "\n");
+        }
+
+        System.out.println(result);
+    }
+
+    @Override
     public Mode getMode() {
         return myself.getMode();
     }

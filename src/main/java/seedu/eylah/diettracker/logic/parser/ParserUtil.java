@@ -43,11 +43,15 @@ public class ParserUtil {
      */
     public static Calories parseCalories(String calories) throws ParseException {
         requireNonNull(calories);
-        String trimmedName = calories.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        String trimmedCalories = calories.trim();
+        if (!Calories.isValidCaloriesString(trimmedCalories)) {
+            throw new ParseException(Calories.MESSAGE_CONSTRAINTS);
         }
-        return new Calories(Long.parseLong(trimmedName));
+        if (Double.parseDouble(trimmedCalories) > 1000000) {
+            throw new ParseException("Maximum Calories for a food is 1000000. You have entered a value for calories"
+                    + " beyond that.");
+        }
+        return new Calories(Long.parseLong(trimmedCalories));
     }
 
     /**
@@ -135,7 +139,7 @@ public class ParserUtil {
         try {
             result = Integer.parseInt(trimmedDays);
         } catch (Exception e) {
-            throw new ParseException("Should only input positive integer values");
+            throw new ParseException("Input days is invalid.");
         }
         return result;
     }

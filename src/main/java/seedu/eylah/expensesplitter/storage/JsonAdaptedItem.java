@@ -37,8 +37,8 @@ public class JsonAdaptedItem {
      * Converts a given {@code Item} into this class for Jackson use.
      */
     public JsonAdaptedItem(Item source) {
-        itemName = source.getItemName().itemName;
-        itemPrice = source.getItemPrice().itemPrice;
+        itemName = source.getItemName().getItemName();
+        itemPrice = source.getItemPrice().getItemPrice();
         amountPerPerson = source.getAmountPerPerson().amount;
     }
 

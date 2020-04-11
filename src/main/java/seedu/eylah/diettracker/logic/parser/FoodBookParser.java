@@ -17,6 +17,7 @@ import seedu.eylah.diettracker.logic.commands.ExitCommand;
 import seedu.eylah.diettracker.logic.commands.HeightCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
+import seedu.eylah.diettracker.logic.commands.MetricsCommand;
 import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
 import seedu.eylah.diettracker.model.DietModel;
@@ -34,7 +35,7 @@ public class FoodBookParser extends CommonParser<DietModel> {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group( "arguments");
+        final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand(); // No Args so no need to Parse.
@@ -58,17 +59,10 @@ public class FoodBookParser extends CommonParser<DietModel> {
             return new BackCommand(); // No Args so no need to Parse.
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand(); // No Args so no need to Parse.
+        case MetricsCommand.COMMAND_WORD:
+            return new MetricsCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-
-        //case ClearCommand.COMMAND_WORD:
-        //    return new ClearCommand();
-
-        //case FindCommand.COMMAND_WORD:
-        //    return new FindCommandParser().parse(arguments);
-
-        //case ExitCommand.COMMAND_WORD:
-        //    return new ExitCommand();
     }
 }

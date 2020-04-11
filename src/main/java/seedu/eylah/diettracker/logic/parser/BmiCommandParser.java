@@ -4,13 +4,15 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
+import seedu.eylah.diettracker.logic.DietLogicManager;
 import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.model.self.Height;
-//import seedu.eylah.diettracker.model.self.Self;
 import seedu.eylah.diettracker.model.self.Weight;
 
 /**
@@ -18,6 +20,7 @@ import seedu.eylah.diettracker.model.self.Weight;
  */
 public class BmiCommandParser implements Parser<BmiCommand> {
 
+    private final Logger logger = LogsCenter.getLogger(DietLogicManager.class);
     /**
      * Parses the given {@code String} of arguments in the context of the BmiCommand
      * and returns an BmiCommand object for execution.
@@ -34,28 +37,20 @@ public class BmiCommandParser implements Parser<BmiCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BmiCommand.MESSAGE_USAGE));
         }
 
-        //if (!arePrefixesPresent(argMultimap, PREFIX_HEIGHT) && !arePrefixesPresent(argMultimap, PREFIX_WEIGHT)) {
-        //    height = Self.getHeight();
-        //    weight = Self.getWeight();
-        //    if (height == null || weight == null) {
-        //        throw new ParseException("You did not set your own height and weight yet.");
-        //    }
-        //} else if (!arePrefixesPresent(argMultimap, PREFIX_HEIGHT)) {
-        //    height = Self.getHeight();
-        //    weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-        //    if (height == null) {
-        //        throw new ParseException("You did not set your own height yet.");
-        //    }
-        //} else if (!arePrefixesPresent(argMultimap, PREFIX_WEIGHT)) {
-        //    height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
-        //    weight = Self.getWeight();
-        //    if (weight == null) {
-        //        throw new ParseException("You did not set your own weight yet.");
-        //    }
-        //} else {
-        height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
-        weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+        if (argMultimap.getValue(PREFIX_HEIGHT).isEmpty()) {
+            height = new Height(0);
+        } else {
+            height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get());
+        }
+
+        if (argMultimap.getValue(PREFIX_WEIGHT).isEmpty()) {
+            weight = new Weight(0);
+        } else {
+            weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+        }
+
         //}
+
 
         return new BmiCommand(height, weight);
     }

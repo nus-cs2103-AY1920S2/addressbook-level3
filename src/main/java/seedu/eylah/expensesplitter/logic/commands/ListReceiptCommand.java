@@ -20,7 +20,7 @@ public class ListReceiptCommand extends Command<SplitterModel> {
             + "\n"
             + "Please use the additem command to add an item.\n"
             + "Example:\n"
-            + "-i ITEMNAME -p PRICE -n NAME [-n NAME]..."
+            + "additem -i ITEMNAME -p PRICE -n NAME [-n NAME]..."
             + "\n";
 
     @Override
