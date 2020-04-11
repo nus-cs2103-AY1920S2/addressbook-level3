@@ -677,17 +677,19 @@ updateFilteredReturnOrderList() method to update the list in the model. +
 Based on the new updates, a new *CommandResult* object will be instantiated to print the message success to the user.
 //end::delivered[]
 
+//@@author khsc96
 //tag::edit[]
 [[edit]]
 === Edit Feature
 
-In this section, the <<what-is-edit,functionality>> of the `edit` feature, the expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the `EditCommand` class
-and the <<edit-interactions, interactions>> between objects with the `EditCommand` object will be discussed.
+In this section, the <<what-is-edit,functionality>> of the `edit` feature, the
+expected <<edit-path-execution, execution path>>, the <<edit-structure, structure>> of the *EditCommand* class
+and the <<edit-interactions, interactions>> between objects with the *EditCommand* object will be discussed.
 
 [[what-is-edit]]
 ==== What is Edit Command
 
-The `edit` feature was implemented as `EditCommand` in the `Logic` package. +
+The `edit` feature was implemented as *EditCommand* in the Logic package. +
 
 `edit` feature format : `edit` `INDEX` `<<command_flags, FLAG>>` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`/`NEW_VALUE]`
 
@@ -715,12 +717,14 @@ image::EditCommandActivityDiagram.svg[]
 
 The above figure illustrates the execution path of `edit` command when performed by the user. +
 
-Input when received, will be parsed by the `OrderBookParser`. `OrderBookParser` will check if command word matches any features command word. +
-In this feature, the command word is `edit`. If no command word is detected, a exception class should be generated for displaying of error message. `CommandException` is used in this feature to achieve that function. +
+Input when received, will be parsed by the *OrderBookParser*.
+*OrderBookParser* will check if command word matches any features command word. +
+In this feature, the command word is `edit`. If no command word is detected, a exception class should be
+generated for displaying of error message. *CommandException* is used in this feature to achieve that function. +
 
 Once validated, user input is once again parse and check for validity. At this step, if user have provided input not matching the valid `edit` <<what-is-edit, format>>, an exception class is thrown. +
 Furthermore, if `NEW_VALUE` is invalid an exception should be thrown as well. +
-`ParseException` class is used in this scenario.
+*ParseException* class is used in this scenario.
 
 Some invalid `NEW_VALUE`: +
 1) Editing delivery date or return date to the past. +
@@ -737,8 +741,9 @@ A correct input will prompts Delino to carry out the rest of the steps according
 
 .Edit Command Class Diagram
 image::EditCommandClassDiagram.png[]
-The class diagram above depicts the structure of `EditCommand`. As per any `Command` class, `EditCommand` needs to extend the abstract class `Command`. +
-Information that are left out in this class diagram are the common messages used in `EditCommand`.
+The class diagram above depicts the structure of *EditCommand*. As per any *Command* class,
+*EditCommand* needs to extend the abstract class *Command*. +
+Information that are left out in this class diagram are the common messages used in *EditCommand*.
 
 [[edit-interactions]]
 ==== Interactions between Edit Command and it's associated objects
@@ -746,16 +751,24 @@ Information that are left out in this class diagram are the common messages used
 .Edit Command Sequence Diagram
 image::EditCommandSequenceDiagram.svg[]
 
-The above figure illustrates the important interactions of `EditCommand` when the user successfully edit the first displayed order name to `Alice`. +
+The above figure illustrates the important interactions of *EditCommand* when the user successfully edit the first displayed order name to `Alice`. +
 
-The handling of breaking down the user input is done in the `EditcommandParser` class which is called upon by the `OrderBookParser` after an initial check for correctness of the command input. +
+The handling of breaking down the user input is done in the *EditCommandParser* class which is called upon by the
+*OrderBookParser* after an initial check for correctness of the command input. +
 
-The `EditParcelDescriptor` class is a static class contained in the `EditCommand` class. It act as a helper class to allow the setting of all the `NEW_VALUE` to the corresponding `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` in the `EditCommandParser` class.
-The `EditParcelDescriptor` object is then passed back as a parameter to instantiate an `EditCommand`. In the diagram above, the `EditParcelDescriptor` object is named as `epd`.
-The `EditCommand` object is then passed back as `e` to the `LogicManager` which will then call the `EditCommand#execute`. This execute method mainly calls the 3 helper method, not shown, `EditCommand#createEditedOrder`/`EditComand#createEditedReturnOrder` and `EditCommand#generalSetParcel`.
-The main function of these methods are to help `EditCommand` in updating the `ObservableList` in the `Model` class which is responsible for the updating of list displayed.
+The *EditParcelDescriptor* class is a static class contained in the *EditCommand* class.
+It act as a helper class to allow the setting of all the `NEW_VALUE` to the corresponding
+`<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>` in the *EditCommandParser* class.
+The *EditParcelDescriptor* object is then passed back as a parameter to instantiate an *EditCommand*.
+In the diagram above, the *EditParcelDescriptor* object is named as epd.
+The *EditCommand* object is then passed back as e to the *LogicManager*
+which will then call EditCommand#execute.
+This execute method mainly calls the 3 helper method, not shown,
+EditCommand#createEditedOrder/EditCommand#createEditedReturnOrder and EditCommand#generalSetParcel.
+The main function of these methods are to help *EditCommand* in updating the *ObservableList* in the
+*Model* class which is responsible for the updating of list displayed.
 
-The `ObeservableList` is a JavaFX function which listens and automatically changes the list once an update is performed.
+The *ObeservableList* is a JavaFX class which listens and automatically changes the list once an update is performed.
 //end::edit[]
 
 //tag::return[]
