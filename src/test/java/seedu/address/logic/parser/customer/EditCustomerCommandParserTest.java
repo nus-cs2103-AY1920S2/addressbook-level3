@@ -90,7 +90,7 @@ public class EditCustomerCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
+        // is tested at {@code parse_invalidValueFollowedByValidValue_showsErrorMessage()}
         assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, MESSAGE_MULTIPLE_SAME_PREFIX);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Customer} being edited,

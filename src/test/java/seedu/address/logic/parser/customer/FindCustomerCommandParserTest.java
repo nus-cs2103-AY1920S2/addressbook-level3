@@ -1,7 +1,9 @@
 package seedu.address.logic.parser.customer;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 
@@ -23,12 +25,17 @@ public class FindCustomerCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        FindCustomerCommand expectedFindCustomerCommand =
-                new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        //        assertParseSuccess(parser, "Alice Bob", expectedFindCustomerCommand);
+        NameContainsKeywordsPredicate predicate = preparePredicate("amy");
+        //        assertParseSuccess(parser, NAME_DESC_AMY, new FindCustomerCommand(predicate));
 
         // multiple whitespaces between keywords
         //        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCustomerCommand);
     }
 
+    /**
+     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     */
+    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
 }
