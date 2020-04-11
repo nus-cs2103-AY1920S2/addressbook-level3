@@ -23,9 +23,9 @@ result, my team was able to morph the given codebase from a trivial application 
 
 I put my considerable experience with designing the application to use by being available at all times to help out with
 various tasks, like design considerations and debugging. As the most experienced UI developer in the team, I was
-highly involved in helping my teammates become more familiar with JavaFX and CSS. I believe that my role in the
-development of the project was especially crucial as I enabled my teammates to be able to display all the hard work
-that they have put into the development of their respective features to the users. My major contributions are as follows:
+highly involved in helping my teammates become more familiar with JavaFX and CSS. My role in the development of the
+project was especially crucial as I enabled my teammates to be able to display all the hard work that they have put into
+the development of their respective features to the users. My major contributions are as follows:
 
 ==== Updated the User Interface
 
@@ -40,10 +40,10 @@ a "Total Earnings" label in Claims tab to improve the user experience, as money 
 
 ==== Enabled highlighting of applied filters
 
-As TA-Tracker was initially based on the AB3 project, the UI looked rather dull and plain at the beginning of the project.
-However, rather than adding colours to TA-Tracker indiscriminately, I enabled relevant ListCells in the Student Tab and Claims Tab to be highlighted
-whenever filter commands were input by the user (#210, #227, #235, #238).This addition made a huge leap in the visual
-differences between TA-Tracker and AB3, and enabled users to better focus on the information displayed.
+As TA-Tracker was initially based on AB3, the UI looked rather dull and plain at the beginning of the project.
+However, rather than adding colours to TA-Tracker indiscriminately, I enabled relevant ListCells in the Student Tab and
+Claims Tab to be highlighted whenever filter commands were entered (#210, #227, #235, #238).This addition made a huge
+leap in the visual differences between TA-Tracker and AB3, and enabled users to better focus on the information displayed.
 
 This contribution also required extensive debugging and contributions to the inner workings of the filter command, which
 was in itself a rather challenging command to implement (#243, #314, #322). In the Session Tab, highlighting of ListCells
@@ -56,18 +56,18 @@ filter header (#322).
 to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (#189).
 
 In a similar spirit, I enabled *switching to relevant tabs for all commands*, to better the user experience. This allows
-for new information to be displayed instantaneously upon entering a command (#189, #210, #212). Doing this involved
-creating an enum for UI handling in CommandResult (#189, #212) and as a result, the painstaking process of updating all
- of the Command classes.
+new information to be displayed instantaneously upon entering a command (#189, #210, #212). This involved
+creating an enum for UI handling in CommandResult (#189, #212) and as a result, the painstaking process of updating the
+entire code-base.
 
-*SetRate Command* : The hourly pay rate for all of the displayed Earnings was initially set to $40, which was the rate at
-which the majority TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
-due to the differences in rates among different faculties. (#321)
+*SetRate Command* : The hourly rate for all the displayed Earnings was initially set to $40, which is the rate at
+which the majority of TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
+due to the possibility of changes being made to it. (#321)
 
 ==== Other UI Improvements
 
-I also contributed to the development of the HelpWindow and StatisticsWindow (#227, #235) by fixing sizing
-issues and adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
+I also contributed to the development of HelpWindow and StatisticsWindow (#227, #235) by fixing sizing issues and
+adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
 the goal of making TA-Tracker a keyboard-only application (#236).
 
 ==== Added extensive automated tests
@@ -83,8 +83,8 @@ I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and St
 
 ==== Other contributions
 
-* Create a skeleton for the student delete command (#113)
-* Contribute to StudentAdd command by removing the requirement for compulsory phone and email fields (#146)
+* Created a skeleton for the student delete command (#113)
+* Removed the requirement for compulsory phone and email fields in student add (#146)
 * Managed the project by commenting on critical pull requests
 
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
