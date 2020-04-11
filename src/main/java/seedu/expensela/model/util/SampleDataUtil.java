@@ -1,5 +1,7 @@
 package seedu.expensela.model.util;
 
+import java.time.LocalDate;
+
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.monthlydata.Budget;
@@ -20,17 +22,19 @@ import seedu.expensela.model.transaction.Transaction;
 public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
-            new Transaction(new Name("Apple AirPods"), new Amount("188", false),
-                new Date("2020-02-14"), new Remark("On discount for valentine's"), new Category("SHOPPING")),
-            new Transaction(new Name("Sushi"), new Amount("6", false),
-                new Date("2020-02-06"), new Remark("Snack after lunch"), new Category("FOOD")),
-            new Transaction(new Name("Dominoes Pizza"), new Amount("34", false),
-                new Date("2020-02-02"), new Remark("Party with friends"), new Category("FOOD"))
+            new Transaction(new Name("Laptop"), new Amount("434", false),
+                    new Date(LocalDate.now().toString()), new Remark("New Laptop"), new Category("SHOPPING")),
+            new Transaction(new Name("Masks"), new Amount("6.00", false),
+                new Date(LocalDate.now().toString()), new Remark("Face mask for family"), new Category("UTILITIES")),
+            new Transaction(new Name("Breakfast"), new Amount("10.00", false),
+                new Date(LocalDate.now().toString()), new Remark("Breakfast at Macs"), new Category("FOOD")),
+            new Transaction(new Name("Pocket Money"), new Amount("450", true),
+                new Date(LocalDate.now().toString()), new Remark("Monthly pocket money"), new Category("INCOME"))
         };
     }
 
     public static MonthlyData getSampleMonthlyData() {
-        return new MonthlyData("1", new Budget("1000"), new Expense("500"), new Income("3000"));
+        return new MonthlyData("1", new Budget("450"), new Expense("450"), new Income("450"));
     }
 
     public static ReadOnlyExpenseLa getSampleExpenseLa() {
