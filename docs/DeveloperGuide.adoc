@@ -191,15 +191,15 @@ Users can use `grade` command, followed by the module code and the grade in orde
 - Users can view the tasks related to each module separately.
 * Implementation:
 
-=== Diary
-- `diaryAdd` and `diaryLog` extends from `Command` class
-- `DiaryEntry` is another model which contains:
-* Diary Entry
-* Date
-* Weather
-* Mood
+=== Calendar Feature
 
-=== ToDo List
+==== Implementation
+
+The calendar feature allows users to add either a `deadline` or a `Module Task` to the calendar.
+
+The implementation of the main calender is facilitated by the CalenderMainPanel class, which serves as the main container for this feature.
+
+
 
 === Notes Feature
 
@@ -258,6 +258,13 @@ Accessing the *Documents* folder will require the user to input `loc/../../Docum
 Using `loc/Documents abs/abs` will allow the user to access any folder from anywhere.
 
 
+=== Diary
+- `diaryAdd` and `diaryLog` extends from `Command` class
+- `DiaryEntry` is another model which contains:
+* Diary Entry
+* Date
+* Weather
+* Mood
 
 === Logging
 
