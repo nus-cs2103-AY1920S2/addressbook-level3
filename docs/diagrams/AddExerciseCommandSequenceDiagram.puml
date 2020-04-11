@@ -19,6 +19,10 @@ AddExerciseCommand -[LOGIC_COLOR]> model : hasClientInView()
 activate model MODEL_COLOR
 model --[MODEL_COLOR]> AddExerciseCommand : True
 deactivate model
+note left 
+Exceptions thrown
+are omitted
+end note
 
 AddExerciseCommand -[LOGIC_COLOR]> model : getClientInView()
 activate model MODEL_COLOR
@@ -36,6 +40,11 @@ ref over model, client
 end ref
 
 AddExerciseCommand -[LOGIC_COLOR]> client2 ** : Client(...)
+note left 
+The parameters used
+in the constructor is
+simplified to "..."
+end note
 activate client2 MODEL_COLOR
 
 client2 --[MODEL_COLOR]> AddExerciseCommand : editedClient
