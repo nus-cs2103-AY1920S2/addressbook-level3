@@ -6,7 +6,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.web.WebView?>
 <?import javafx.stage.Stage?>
-<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -16,7 +16,7 @@
             <URL value="@HelpWindow.css" />
         </stylesheets>
         <AnchorPane>
-            <WebView fx:id="webView" prefHeight="450.0" prefWidth="700.0"
+            <WebView fx:id="webView" prefHeight="650.0" prefWidth="800.0"
                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
