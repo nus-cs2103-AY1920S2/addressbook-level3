@@ -181,7 +181,7 @@ public interface Model {
     void setAssignmentSchedule(ReadOnlySchoolworkTracker assignmentSchedule);
 
     /** Returns the SchoolworkTracker */
-    ReadOnlySchoolworkTracker getAssignmentSchedule();
+    ReadOnlySchoolworkTracker getSchoolworkTracker();
 
     /**
      * Adds the given assignment.

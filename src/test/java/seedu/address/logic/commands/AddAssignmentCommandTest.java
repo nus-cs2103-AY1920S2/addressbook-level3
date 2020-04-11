@@ -107,7 +107,7 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
-        public ReadOnlySchoolworkTracker getAssignmentSchedule() {
+        public ReadOnlySchoolworkTracker getSchoolworkTracker() {
             return new SchoolworkTracker();
         }
     }

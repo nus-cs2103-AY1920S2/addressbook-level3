@@ -26,55 +26,54 @@ public class JsonSchoolworkTrackerStorage implements SchoolworkTrackerStorage {
         this.filePath = filePath;
     }
 
-    public Path getSchedulerFilePath() {
+    @Override
+    public Path getSchoolworkTrackerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlySchoolworkTracker> readScheduler() throws DataConversionException {
-        return readScheduler(filePath);
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException {
+        return readSchoolworkTracker(filePath);
     }
 
     /**
-     * Similar to {@link #readScheduler()}.
+     * Similar to {@link #readSchoolworkTracker()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlySchoolworkTracker> readScheduler(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableSchoolworkTracker> jsonScheduler = JsonUtil.readJsonFile(
-                filePath, JsonSerializableSchoolworkTracker.class);
-        if (!jsonScheduler.isPresent()) {
+        Optional<JsonSerializableSchoolworkTracker> jsonSchoolworkTracker = JsonUtil.readJsonFile(
+            filePath, JsonSerializableSchoolworkTracker.class);
+        if (!jsonSchoolworkTracker.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonScheduler.get().toModelType());
+            return Optional.of(jsonSchoolworkTracker.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-
             throw new DataConversionException(ive);
         }
     }
 
     @Override
-    public void saveScheduler(ReadOnlySchoolworkTracker scheduler) throws IOException {
-        saveScheduler(scheduler, filePath);
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) throws IOException {
+        saveSchoolworkTracker(schoolworkTracker, filePath);
     }
 
     /**
-     * Similar to {@link #saveScheduler(ReadOnlySchoolworkTracker)}.
+     * Similar to {@link #saveSchoolworkTracker(ReadOnlySchoolworkTracker)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveScheduler(ReadOnlySchoolworkTracker scheduler, Path filePath) throws IOException {
-        requireNonNull(scheduler);
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, Path filePath) throws IOException {
+        requireNonNull(schoolworkTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableSchoolworkTracker(scheduler), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableSchoolworkTracker(schoolworkTracker), filePath);
     }
-
 }

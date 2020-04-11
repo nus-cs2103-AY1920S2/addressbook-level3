@@ -32,7 +32,7 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your expected workload can be found in the panel on the right!\n\n"
         + "NOTE: This only takes into account your stored assignments and nothing else...\n\n"
         + "NOTE: Results are rounded to the nearest half an hour.\n\n"
-        + "Uscheduled assignments:";
+        + "Assignments with insufficient time to be scheduled:";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
         + "Parameters: "
         + PREFIX_NUM_DAYS + "NUM_DAYS "
@@ -148,7 +148,7 @@ public class ScheduleCommand extends Command {
         if (allocationResult.size() > (noOfDaysBetween + 1)) {
             float unassignedHours =
                 (float) (Math.round(allocationResult.get(allocationResult.size() - 1).floatValue() * 2) / 2.0);
-            unscheduledAssignments.add(assignmentTitle + ": " + unassignedHours);
+            unscheduledAssignments.add(assignmentTitle + " (" + unassignedHours + " hours)");
         }
     }
 
@@ -399,7 +399,7 @@ public class ScheduleCommand extends Command {
         BigDecimal secondMin = new BigDecimal(Float.MAX_VALUE);
 
         for (int i = 0; i < Math.min(distributedHoursAllAssignments.size(), daysInBetween + 1); i++) {
-            if (i != 0 || hoursLeftEachDay.get(0).compareTo(new BigDecimal(0.01)) > 0) {
+            if ((i != 0 && i != daysInBetween) || (hoursLeftEachDay.get(i).compareTo(new BigDecimal(0.01)) > 0)) {
                 if (distributedHoursAllAssignments.get(i).compareTo(min) < 0) {
                     secondMin = min.add(BigDecimal.ZERO);
                     min = distributedHoursAllAssignments.get(i).add(BigDecimal.ZERO);
@@ -427,5 +427,16 @@ public class ScheduleCommand extends Command {
             }
         }
         return count;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ScheduleCommand);
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }

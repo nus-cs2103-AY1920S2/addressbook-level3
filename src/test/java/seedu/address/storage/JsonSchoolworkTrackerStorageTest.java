@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAssignments.CS2103_QUIZ;
 import static seedu.address.testutil.TypicalAssignments.IS1103_QUIZ;
-import static seedu.address.testutil.TypicalAssignments.getTypicalScheduler;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -32,7 +32,7 @@ public class JsonSchoolworkTrackerStorageTest {
 
     private java.util.Optional<ReadOnlySchoolworkTracker> readScheduler(String filePath) throws Exception {
         return new JsonSchoolworkTrackerStorage(Paths.get(filePath))
-            .readScheduler(addToTestDataPathIfNotNull(filePath));
+            .readSchoolworkTracker(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -64,24 +64,24 @@ public class JsonSchoolworkTrackerStorageTest {
     @Test
     public void readAndSaveScheduler_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempScheduler.json");
-        SchoolworkTracker original = getTypicalScheduler();
+        SchoolworkTracker original = getTypicalSchoolworkTracker();
         JsonSchoolworkTrackerStorage jsonAssignmentScheduleStorage = new JsonSchoolworkTrackerStorage(filePath);
 
         // Save in new file and read back
-        jsonAssignmentScheduleStorage.saveScheduler(original, filePath);
-        ReadOnlySchoolworkTracker readBack = jsonAssignmentScheduleStorage.readScheduler(filePath).get();
+        jsonAssignmentScheduleStorage.saveSchoolworkTracker(original, filePath);
+        ReadOnlySchoolworkTracker readBack = jsonAssignmentScheduleStorage.readSchoolworkTracker(filePath).get();
         assertEquals(original, new SchoolworkTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addAssignment(IS1103_QUIZ);
-        jsonAssignmentScheduleStorage.saveScheduler(original, filePath);
-        readBack = jsonAssignmentScheduleStorage.readScheduler(filePath).get();
+        jsonAssignmentScheduleStorage.saveSchoolworkTracker(original, filePath);
+        readBack = jsonAssignmentScheduleStorage.readSchoolworkTracker(filePath).get();
         assertEquals(original, new SchoolworkTracker(readBack));
 
         // Save and read without specifying file path
         original.addAssignment(CS2103_QUIZ);
-        jsonAssignmentScheduleStorage.saveScheduler(original); // file path not specified
-        readBack = jsonAssignmentScheduleStorage.readScheduler().get(); // file path not specified
+        jsonAssignmentScheduleStorage.saveSchoolworkTracker(original); // file path not specified
+        readBack = jsonAssignmentScheduleStorage.readSchoolworkTracker().get(); // file path not specified
         assertEquals(original, new SchoolworkTracker(readBack));
     }
 
@@ -96,7 +96,7 @@ public class JsonSchoolworkTrackerStorageTest {
     private void saveScheduler(ReadOnlySchoolworkTracker scheduler, String filePath) {
         try {
             new JsonSchoolworkTrackerStorage(Paths.get(filePath))
-                    .saveScheduler(scheduler, addToTestDataPathIfNotNull(filePath));
+                    .saveSchoolworkTracker(scheduler, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

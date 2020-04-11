@@ -3,12 +3,13 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ESTHOURS_CS2103;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_CS2103;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WORKLOAD_CS2103;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAssignments.CS2103_TP;
 import static seedu.address.testutil.TypicalAssignments.CS2106_ASSIGNMENT;
-import static seedu.address.testutil.TypicalAssignments.getTypicalScheduler;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,7 +24,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.AssignmentBuilder;
 
-public class SchedulerTest {
+public class SchoolworkTrackerTest {
 
     private final SchoolworkTracker assignmentSchedule = new SchoolworkTracker();
 
@@ -39,7 +40,7 @@ public class SchedulerTest {
 
     @Test
     public void resetData_withValidReadOnlyScheduler_replacesData() {
-        SchoolworkTracker newData = getTypicalScheduler();
+        SchoolworkTracker newData = getTypicalSchoolworkTracker();
         assignmentSchedule.resetData(newData);
         assertEquals(newData, assignmentSchedule);
     }
@@ -47,7 +48,7 @@ public class SchedulerTest {
     @Test
     public void resetData_withDuplicateAssignments_throwsDuplicateAssignmentException() {
         // Two assignments with the same title and deadline
-        Assignment editedCs2103Tp = new AssignmentBuilder(CS2103_TP).withHours(VALID_ESTHOURS_CS2103)
+        Assignment editedCs2103Tp = new AssignmentBuilder(CS2103_TP).withWorkload(VALID_WORKLOAD_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         List<Assignment> newAssignments = Arrays.asList(CS2103_TP, editedCs2103Tp);
         SchoolworkTrackerStub newData = new SchoolworkTrackerStub(newAssignments);
@@ -74,7 +75,7 @@ public class SchedulerTest {
     @Test
     public void hasAssignment_assignmentWithSameTitleAndDeadlineInScheduler_returnsTrue() {
         assignmentSchedule.addAssignment(CS2106_ASSIGNMENT);
-        Assignment editedCs2106Assignment = new AssignmentBuilder(CS2106_ASSIGNMENT).withHours(VALID_ESTHOURS_CS2103)
+        Assignment editedCs2106Assignment = new AssignmentBuilder(CS2106_ASSIGNMENT).withWorkload(VALID_WORKLOAD_CS2103)
                 .withStatus(VALID_STATUS_CS2103).build();
         assertTrue(assignmentSchedule.hasAssignment(editedCs2106Assignment));
     }

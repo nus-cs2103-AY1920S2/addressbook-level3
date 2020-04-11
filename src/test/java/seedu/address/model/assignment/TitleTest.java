@@ -13,6 +13,12 @@ public class TitleTest {
     }
 
     @Test
+    public void constructor_invalidTitle_throwsIllegalArgumentException() {
+        String invalidTitle = "  ";
+        assertThrows(IllegalArgumentException.class, () -> new Title(invalidTitle));
+    }
+
+    @Test
     public void isValidTitle() {
         // null title
         assertThrows(NullPointerException.class, () -> Title.isValidTitle(null));
@@ -23,6 +29,6 @@ public class TitleTest {
         // valid title
         assertTrue(Title.isValidTitle("CS2103 tP"));
         assertTrue(Title.isValidTitle("-")); // one character
-        assertTrue(Title.isValidTitle("CS2103 team project which has to be done ASAP!!!")); // long address
+        assertTrue(Title.isValidTitle("CS2103 team project which has to be done ASAP!!!")); // long title
     }
 }

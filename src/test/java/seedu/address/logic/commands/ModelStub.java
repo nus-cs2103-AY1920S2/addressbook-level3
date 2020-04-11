@@ -89,7 +89,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ReadOnlySchoolworkTracker getAssignmentSchedule() {
+    public ReadOnlySchoolworkTracker getSchoolworkTracker() {
         throw new AssertionError("This method should not be called.");
     }
 

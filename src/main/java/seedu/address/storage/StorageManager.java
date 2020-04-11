@@ -118,34 +118,34 @@ public class StorageManager implements Storage {
     }
 
     // ============== SchoolworkTracker methods =======================================
-
     @Override
-    public Path getSchedulerFilePath() {
-        return schedulerStorage.getSchedulerFilePath();
+    public Path getSchoolworkTrackerFilePath() {
+        return schedulerStorage.getSchoolworkTrackerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlySchoolworkTracker> readScheduler() throws DataConversionException, IOException {
-        return readScheduler(schedulerStorage.getSchedulerFilePath());
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException, IOException {
+        return readSchoolworkTracker(schedulerStorage.getSchoolworkTrackerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlySchoolworkTracker> readScheduler(Path filePath) throws DataConversionException,
-        IOException {
+    public Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker(Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return schedulerStorage.readScheduler(filePath);
+        return schedulerStorage.readSchoolworkTracker(filePath);
     }
 
     @Override
-    public void saveScheduler(ReadOnlySchoolworkTracker scheduler) throws IOException {
-        saveScheduler(scheduler, schedulerStorage.getSchedulerFilePath());
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker) throws IOException {
+        saveSchoolworkTracker(schoolworkTracker, schedulerStorage.getSchoolworkTrackerFilePath());
     }
 
     @Override
-    public void saveScheduler(ReadOnlySchoolworkTracker scheduler, Path filePath) throws IOException {
+    public void saveSchoolworkTracker(ReadOnlySchoolworkTracker schoolworkTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        schedulerStorage.saveScheduler(scheduler, filePath);
+        schedulerStorage.saveSchoolworkTracker(schoolworkTracker, filePath);
     }
+
 
     // ============== Event SchoolworkTracker methods =================================
 

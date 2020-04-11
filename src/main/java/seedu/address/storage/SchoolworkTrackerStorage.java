@@ -15,7 +15,7 @@ public interface SchoolworkTrackerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getSchedulerFilePath();
+    Path getSchoolworkTrackerFilePath();
 
     /**
      * Returns SchoolworkTracker data as a {@link ReadOnlySchoolworkTracker}.
@@ -23,22 +23,23 @@ public interface SchoolworkTrackerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlySchoolworkTracker> readScheduler() throws DataConversionException, IOException;
+    Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker() throws DataConversionException, IOException;
 
     /**
-     * @see #getSchedulerFilePath()
+     * @see #getSchoolworkTrackerFilePath()
      */
-    Optional<ReadOnlySchoolworkTracker> readScheduler(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlySchoolworkTracker> readSchoolworkTracker(Path filePath)
+        throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlySchoolworkTracker} to the storage.
      * @param scheduler cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveScheduler(ReadOnlySchoolworkTracker scheduler) throws IOException;
+    void saveSchoolworkTracker(ReadOnlySchoolworkTracker scheduler) throws IOException;
 
     /**
-     * @see #saveScheduler(ReadOnlySchoolworkTracker) (ReadOnlySchoolworkTracker)
+     * @see #saveSchoolworkTracker(ReadOnlySchoolworkTracker) (ReadOnlySchoolworkTracker)
      */
-    void saveScheduler(ReadOnlySchoolworkTracker scheduler, Path filePath) throws IOException;
+    void saveSchoolworkTracker(ReadOnlySchoolworkTracker scheduler, Path filePath) throws IOException;
 }

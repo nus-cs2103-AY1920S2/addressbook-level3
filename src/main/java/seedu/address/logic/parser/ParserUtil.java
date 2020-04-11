@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Deadline;
 import seedu.address.model.assignment.Status;
@@ -440,7 +442,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String status} into a {@code Status}.
-     * Leading and training whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code Status} is invalid.
      */
@@ -453,5 +455,23 @@ public class ParserUtil {
         }
 
         return new Status(trimmedStatus);
+    }
+
+    /**
+     * Parses a {@code String} into a integer value.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given input value is invalid.
+     */
+    public static int parseNumDays(String numDays) throws ParseException {
+        requireNonNull(numDays);
+        String validationRegex = "^\\d*[1-9]\\d*$";
+        String trimmedNumDays = numDays.trim();
+
+        if (!trimmedNumDays.matches(validationRegex)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        }
+
+        return Integer.valueOf(trimmedNumDays);
     }
 }

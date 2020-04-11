@@ -186,7 +186,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlySchoolworkTracker getAssignmentSchedule() {
+    public ReadOnlySchoolworkTracker getSchoolworkTracker() {
         return assignmentSchedule;
     }
 

@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalAssignments.getTypicalScheduler;
+import static seedu.address.testutil.TypicalAssignments.getTypicalSchoolworkTracker;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
@@ -79,15 +79,20 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void schedulerReadSave() throws Exception {
+    public void getSchoolworkTrackerFilePath() {
+        assertNotNull(storageManager.getSchoolworkTrackerFilePath());
+    }
+
+    @Test
+    public void assignmentScheduleReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonSchoolworkTrackerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonSchoolworkTrackerStorageTest} class.
          */
-        SchoolworkTracker original = getTypicalScheduler();
-        storageManager.saveScheduler(original);
-        ReadOnlySchoolworkTracker retrieved = storageManager.readScheduler().get();
+        SchoolworkTracker original = getTypicalSchoolworkTracker();
+        storageManager.saveSchoolworkTracker(original);
+        ReadOnlySchoolworkTracker retrieved = storageManager.readSchoolworkTracker().get();
 
         assertEquals(original, new SchoolworkTracker(retrieved));
     }

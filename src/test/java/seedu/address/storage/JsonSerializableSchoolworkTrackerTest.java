@@ -28,7 +28,7 @@ public class JsonSerializableSchoolworkTrackerTest {
         JsonSerializableSchoolworkTracker dataFromFile =
                 JsonUtil.readJsonFile(TYPICAL_ASSIGNMENTS_FILE, JsonSerializableSchoolworkTracker.class).get();
         SchoolworkTracker assignmentScheduleFromFile = dataFromFile.toModelType();
-        SchoolworkTracker typicalAssignmentsList = TypicalAssignments.getTypicalScheduler();
+        SchoolworkTracker typicalAssignmentsList = TypicalAssignments.getTypicalSchoolworkTracker();
         assertEquals(assignmentScheduleFromFile, typicalAssignmentsList);
     }
 

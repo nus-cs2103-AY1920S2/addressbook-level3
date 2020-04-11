@@ -38,7 +38,7 @@ public class EditAssignmentCommand extends Command {
         + PREFIX_ESTHOURS + "5.0 "
         + PREFIX_STATUS + "Completed";
 
-    public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";
+    public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: \n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the scheduler.";
 
@@ -75,7 +75,8 @@ public class EditAssignmentCommand extends Command {
 
         model.setAssignment(assignmentToEdit, editedAssignment);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, assignmentToEdit),
+
+        return new CommandResult(String.format(MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment),
             false, false, false, true, false, false, false, false);
     }
 
