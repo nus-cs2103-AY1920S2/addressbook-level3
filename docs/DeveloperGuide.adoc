@@ -342,18 +342,37 @@ and timing, wrapping each of these properties into their wrapper classes allowed
 Considerations also then had to be made for how to contain multiple `Schedule`. The current implementation uses the `ArrayList` data structure to hold multiple `Schedule`. Other considered alternative for `ScheduleList` was `HashSet`.
 [options='header']
 |====================
-| Data Structure | Pros and Cons
-| ArrayList |
-*Pros*: Elements can be sorted and retrieved in ascending order
+| Data Structure | Pros | Cons
+|ArrayList
+|Elements can be sorted and retrieved in ascending order
+|Does not ensure that its elements are unique
 
-*Cons*: Does not ensure that its elements are unique
-| HashSet |
-*Pros*: Does not allow duplicate values
+|HashSet
+|Ensures no duplicate values
 
-*Cons*: Does not return elements in order
+|Does not return elements in order
 |====================
 
-As the nature of the schedule panel was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure. In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`.
+
+*Displaying the Schedule Panel*
+
+The schedules of all the clients are displayed in a time-sorted manner on the `SchedulePanel` of the main FitBiz GUI as shown in the picture below, demarcated by the red rectangle:
+
+image::SchedulePanelGUIExample.png[]
+
+The `SchedulePanel` extends `UiPart<Region>` and takes in a `ScheduleDay` class. `ScheduleDay` is similar to `ScheduleList`, the difference being:
+
+* `ScheduleDay` wraps an ArrayList of `Schedule` for a specific `Day`
+* `ScheduleList` wraps an ArrayList of `Schedule` for a specific `Client`
+
+As the nature of the `SchedulePanel` was to display a sorted collection of `Schedule`, we chose `ArrayList` as the underlying data structure, due to the ability to sort the ArrayList via a comparator that compares `Schedule` according to their `Day` and `StartTime`. The code snippet below shows how the `Schedule` are being sorted using an anonymous comparator in the constructor for `ScheduleDay`:
+
+ this.scheduleList.sort(Comparator.comparingInt(o -> o.getStartTime().getDirectTimeInt()));
+
+
+In addition, we also harnessed the capability of the `HashSet` to ensure no overlaps between `Schedule` within each `Client`, which is implemented by `ScheduleCommandParser#checkIfOverlaps`. As the ArrayList of `Schedule` is being populated in the constructor of `ScheduleDay`, we used a `HashSet` to check for any overlapping `Schedule`. The `equals` method of `Schedule` was overriden to consider overlapping timeframes between `StartTime` and `EndTime` to be equal.
+
+
 
 === Exercise Feature --- Yong Jie
 
