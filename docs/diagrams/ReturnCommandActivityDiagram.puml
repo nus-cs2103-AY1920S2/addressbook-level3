@@ -3,9 +3,6 @@
 start
 :User enters the return command and keywords;
 If () then ([only transaction ID and return timestamp is provided])
-            :Create a new ReturnCommand
-             based on user input,
-             and transaction ID;
         If () then ([there are no orders with
         the given transaction ID or
         the return timestamp is invalid])
@@ -14,6 +11,9 @@ If () then ([only transaction ID and return timestamp is provided])
             to the user;
         else ([there is an order with the given transaction ID
         and the return timestamp is valid])
+        :Create a new ReturnCommand
+        based on user input,
+        and transaction ID;
         :Convert the order with
         the given transaction ID
         into a return order;

@@ -592,7 +592,7 @@ If both <<command_prefix, `FLAG`>> and <<command_prefix, `INDEX`>> are valid, an
 or `ReturnOrder` object will be created based on the <<command_prefix, `FLAG`>>.
 The <<command_prefix, `INDEX`>> will determine which order or return order to take from
 the order list or return order list respectively using the appropriate getter method.
-The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `isDelivered()` method. +
+The `Order` or `ReturnOrder` object will be checked to see if it was delivered using the `checkIfOrderWasDelivered(model)` method. +
 
 If the `Order` or `ReturnOrder` was already delivered, this will call the `updateOrderList(model)` or
 `updatedReturnOrderList(model)` method respectively in `DeliveredCommand` and a new
