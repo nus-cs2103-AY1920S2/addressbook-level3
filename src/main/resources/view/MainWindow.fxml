@@ -110,7 +110,6 @@
                         </TabPane>
                     </VBox>
                 </HBox>
-                <StackPane fx:id="statusbarPlaceholder" />
             </VBox>
         </Scene>
     </scene>
