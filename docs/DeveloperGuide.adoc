@@ -2651,7 +2651,7 @@ that the code that we wrote as a team is functional and extensively covered by a
 possible, we applied the different testing methods taught in lessons such as Regression testing, Integration testing
 and Unit testing.
 
-*Conclusion*
+*Conclusion* +
 In conclusion, Our team had a great time working with one another and we are proud to have come up with a product like
 Delino by working tirelessly to build it together. Overall, we believe that Delino is a good testament to our hard work
 and time spent on perfecting it.
