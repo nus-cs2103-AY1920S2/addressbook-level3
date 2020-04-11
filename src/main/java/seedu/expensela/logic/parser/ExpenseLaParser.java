@@ -18,6 +18,7 @@ import seedu.expensela.logic.commands.ExportCommand;
 import seedu.expensela.logic.commands.FilterCommand;
 import seedu.expensela.logic.commands.FindCommand;
 import seedu.expensela.logic.commands.HelpCommand;
+import seedu.expensela.logic.commands.ImportCommand;
 import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.commands.ResetBalanceCommand;
 import seedu.expensela.logic.commands.ToggleViewCommand;
@@ -91,6 +92,9 @@ public class ExpenseLaParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommand();
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

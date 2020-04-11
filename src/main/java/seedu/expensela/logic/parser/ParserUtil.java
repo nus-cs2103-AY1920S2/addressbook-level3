@@ -18,6 +18,7 @@ import seedu.expensela.model.transaction.Remark;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_IMPORT = "Please specify the name of the file to be imported.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -119,5 +120,19 @@ public class ParserUtil {
             throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
         }
         return new Budget(trimmedBudget);
+    }
+
+    /**
+     * Parses {@code String importString} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified string is invalid (blank).
+     */
+
+    public static String parseImport(String importString) throws ParseException {
+        String trimmedImportString = importString.trim();
+        if (trimmedImportString.equals("")) {
+            throw new ParseException(MESSAGE_INVALID_IMPORT);
+        }
+        return trimmedImportString;
     }
 }

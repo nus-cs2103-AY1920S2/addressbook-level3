@@ -104,7 +104,10 @@ The `UI` component does the following actions:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+Hubert
+
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -128,6 +131,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+.Interactions Inside the Logic Component for the `clear` Command
+image::ClearSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -251,13 +257,23 @@ There are many different ways to implement how a transaction is added into `Expe
 ** Cons: Incurs significant overhead and duplicated codes since it is likely that both `**Expense**` and `**Income**` will
 have very similar methods.
 
-//tag::setbudget[]
+Hubert Halim
+
+// tag::setbudget[]
 === Setting budgets
-We allow the user to maintain a `**Budget**` for the current month. This section details how `**ExpenseLa**` handles
-requests made by the user who is trying to set a budget for the current month. `**Budget**` is contained inside
-`**MonthlyData**` object along with `**Expense**` and `**Income**` and application only has 1 `**MonthlyData**` object for the current month. object looks like:
+We allow the user to maintain a `**Budget**` for the current month and subsequent months. This section details how `**ExpenseLa**` handles
+requests made by the user who is trying to set a budget both for a one time and recurring budget. `**Budget**` is contained inside
+`**MonthlyData**` object along with `**Expense**` and `**Income**` and application only has 1 `**MonthlyData**` object for the current month.
+object looks like:
 
 image::set-budget/BudgetClassDiagram.png[]
+
+If user decides to create a recurring budget, there'll be additional step of updating the `**recurringBudget**` variable in
+`**GlobalData**`. `**BudgetCommand**` in addition to modifying `**Budget**` in `**MonthlyData**`, it will also modify `**recurringBudget**`
+in `**GlobalData**`.
+
+image::set-budget/GlobalDataClassDiagram.png[]
+
 
 ==== Implementation
 Whenever the user attempts to set a new `**Budget**`, `**ExpenseLa**` will create a new MonthlyData object with the given amount.
@@ -266,10 +282,11 @@ Budget class will internally check if the budget amount is valid.
 
 We will demonstrate what happens at the back-end whenever the user sets a budget:
 
-Case 1. The user wishes to set their budget for as $1500. They execute the command: **budget b/1500**.
+Case 1. The user wishes to set their budget to $1500, non-recurring. They execute the command: **budget b/1500**.
 The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to parse each parameter occurs:
 
 * `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+* `rc/` prefix does not exist, so it is not recurring
 
 NOTE: `**ArgumentMultimap**` is a class that stores all the parsed parameters taken from the user input.
 
@@ -283,10 +300,23 @@ The user's entry is checked by `BudgetCommandParser#parse()` and an attempt to p
 `**Budget**` class then is attempted to be created with the parsed budget amount in the constructor. Internally
 Budget will do a validity check using Regex and throw a `**ParseExection**` since amount is not valid.
 
+Case 3. The user wishes to set their budget to $1500, recurring. They execute the command: **budget b/1500 rc/**.
+The user's entry is checked by `BudgetCommandParser#Parse()` and an attempt to parse each parameter occurs:
+
+* `**Budget**` is parsed by `ParseUtil#parseBudget(ArgumentMultimap)`
+* `rc/` prefix exists, so it is recurring
+
+Since the user input is valid, the `**Budget**` is successfully created and inserted into a newly created `**MonthlyData**`.
+BudgetCommand will then modify `**GlobalData**` in `**Model**` by calling `**Logic#setGlobalData**`. `**RecurringBudget**`
+value in `**GlobalData**` is now set to the new `**Budget**`
+
 The sequence diagram below depicts what was just elaborated:
 
 .Sequence diagram showing how a `**Budget**` is set
 image::set-budget/SetBudgetSequenceDiagram.png[]
+
+.Activity diagram showing how a `**Budget**` is set
+image::set-budget/SetBudgetActivityDiagram.png[]
 
 ==== Design considerations
 We have considered various ways as to how `**Budget**` should be stored in `**ExpenseLa**`. In this section, we will explain the
@@ -304,6 +334,24 @@ handled by a single object.
 Again, we went with alternative 1 because it is easier to view `**Budget**` along with the other `**MonthlyData**` components
 as a collective. And easier to just handle 1 reference in ExpenseLa.
 // end::setbudget[]
+
+
+// tag::commandHistoryNavigation[]
+=== Command History navigation
+Users can navigate to previous commands by pressing the up or down button on the keyboard.
+Only successful commands are stored in the CommandHistory list and only a maximum of 50 commands can
+be stored at a time.
+
+==== Implementation
+Every time the user key in a command and press kbd:[Enter], `CommandBox#handleCommandEntered` method will be called.
+The method will attempt to execute the command by calling `CommandExecutor#execute` method. That method throws an error
+if command is invalid. So if the command is valid, the `CommandBox#handleCommandEntered` method will call
+`Logic#deleteCommandFromHistory` to delete the command if it exists in the current command history.
+It will then call `Logic#addToCommandhistory` to add the command to the command history as its latest entry.
+
+`Command History` is an array list that resides in `ModelManager` object. It can be accessed through `Logic` by calling
+// end::commandHistoryNavigation[]
+
 
 === Filtering Transactions
 
@@ -676,3 +724,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
