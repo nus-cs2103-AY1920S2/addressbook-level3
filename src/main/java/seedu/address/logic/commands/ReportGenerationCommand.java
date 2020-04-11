@@ -6,13 +6,16 @@ import seedu.address.logic.conditions.*;
 import seedu.address.logic.messages.AppMessage;
 import seedu.address.logic.messages.BluetoothPingsMessage;
 import seedu.address.logic.messages.BluetoothSummaryMessage;
+import seedu.address.logic.messages.UserSummaryMessage;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bluetooth.BluetoothPings;
 import seedu.address.model.bluetooth.BluetoothPingsSummary;
+import seedu.address.model.bluetooth.Person;
 import seedu.address.report.DangerReportGenerator;
 import seedu.address.report.ReportGenerator;
 import seedu.address.storage.AppStorage;
 import seedu.address.storage.BluetoothPingStorageAccess;
+import seedu.address.storage.UserStorageAccess;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,9 +84,8 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
                         }
                         else
                         {
-
-                            String error = String.format("Command %s invalid", arguments);
-                            throw new ParseException(error);
+                                String error = String.format("Report Command %s invalid", arguments);
+                                throw new ParseException(error);
                         }
                     }
                 }
@@ -94,49 +96,76 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
 
     @Override
     public AppMessage execute(AppStorage dao) {
-        ArrayList resp = new ArrayList<BluetoothPings>();
+        ArrayList resp = new ArrayList();
+
         int DangerFlag = 0;
         switch (this.ConType)
         {
             case "ID":
                 System.out.println("Search by ID");
-                Conditions cond = new UserIDConditions(this.TargetID);
-                resp = dao.search(cond);
+                Conditions condID = new UserIDConditions(this.TargetID);
+                resp = dao.search(condID);
 
                 break;
 
             case "Time":
                 System.out.println("Search by time");
-                cond = new TimestampConditions(this.StartTime, this.EndTime);
-                resp = dao.search(cond);
+                Conditions condTime = new TimestampConditions(this.StartTime, this.EndTime);
+                resp = dao.search(condTime);
 
                 break;
 
             case "pairs":
-
-                cond = new UserPairsConditions(this.ID1, this.ID2);
-                resp  = dao.search(cond);
-                System.out.println(("Search by pair"));
+                System.out.println("Search by pairs");
+                Conditions condPairs = new UserPairsConditions(this.ID1, this.ID2);
+                resp  = dao.search(condPairs);
                 break;
 
             case "danger":
                 System.out.println("search by danger");
                 DangerFlag = 1;
-                cond = new DangerConditions(this.Threshold);
+                Conditions condDanger = new DangerConditions(this.Threshold);
                 Aggregators<BluetoothPings, BluetoothPingsSummary> agg = new GroupByIDPairsAggregators();
-                agg = new GroupByIDPairsAggregators();
-                resp  = dao.search(cond, agg);
+                resp  = dao.search(condDanger, agg);
                 break;
 
             case "None":
                 System.out.println("Search all cases");
                 resp = dao.search();
                 break;
+
+            default:
+                System.out.println("error command");
+                BluetoothPingsMessage result = new BluetoothPingsMessage("Wrong Command.", false);
+                return result;
+
         }
 
 
-
-        if (DangerFlag == 0)
+        if (DangerFlag == 1)
+        {
+            if (resp.size() > 0) {
+                DangerReportGenerator generator = new DangerReportGenerator();
+                try {
+                    generator.GenerateReport(resp);
+                } catch (Exception e) {
+                    System.out.println("Write failed");
+                    BluetoothSummaryMessage result = new BluetoothSummaryMessage("Write failed.", false);
+                    result.setToDisplayList(resp);
+                    return result;
+                }
+                BluetoothSummaryMessage result = new BluetoothSummaryMessage("Saved report file to result folder.", false);
+                result.setToDisplayList(resp);
+                return result;
+            }
+            else
+            {
+                BluetoothSummaryMessage result = new BluetoothSummaryMessage("No instance in database.", false);
+                result.setToDisplayList(resp);
+                return result;
+            }
+        }
+        else
         {
             if (resp.size() > 0)
             {
@@ -156,30 +185,6 @@ public class ReportGenerationCommand implements AppCommand, BluetoothPingStorage
             else
             {
                 BluetoothPingsMessage result = new BluetoothPingsMessage("No instance in database.", false);
-                result.setToDisplayList(resp);
-                return result;
-            }
-
-        }
-        else
-        {
-            if (resp.size() > 0) {
-                DangerReportGenerator generator = new DangerReportGenerator();
-                try {
-                    generator.GenerateReport(resp);
-                } catch (Exception e) {
-                    System.out.println("Write failed");
-                    BluetoothPingsMessage result = new BluetoothPingsMessage("Write failed.", false);
-                    result.setToDisplayList(resp);
-                    return result;
-                }
-                BluetoothSummaryMessage result = new BluetoothSummaryMessage("Saved report file to result folder.", false);
-                result.setToDisplayList(resp);
-                return result;
-            }
-            else
-            {
-                BluetoothSummaryMessage result = new BluetoothSummaryMessage("No instance in database.", false);
                 result.setToDisplayList(resp);
                 return result;
             }

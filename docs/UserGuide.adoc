@@ -25,14 +25,15 @@ their interactions recorded via message exchange using bluetooth.
 
 Our Contact Tracing App is an extension of the TraceTogether app. We forsee a scenario where
 the government has collected all the user's (anonymized) bluetooth ping data and can not
-perform analytics over them.
+perform analytics and visulization over them.
 
 This is for efficient contract tracing, in order to make better policies when it comes to virus spreading control.
 Our app allows efficient search over the data and generates a detailed report for upper management review.
 
 == Target audiences
 
-We target mostly the analytics teams within government agencies.
+We target mostly the analytics teams within government agencies, senior government managers and decision makers
+are also our potantial users.
 
 === User personas
 
@@ -76,7 +77,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `person_add /name <person: name> /mobile <person: mobile> /nric <person: nric> /age <person: age>`: Adds a new user to the system
 * `person_delete /userid <person: id>`: Deletes an existing user to the system
 
-* *`reports`* : list all recent reports about virus transmission and current situation.
+. With commands introduced above, users can save data points and summary into a PDF report.
+. All reports will be saved to the ./result folder.
+* `report from <ts:start> to <ts:end>` : Generate a report with all interaction in tha time range.
+* `report id is <user: id>`: Generate a report with all interactions with a given user ID.
+* `report pairs <user1: id> and <user2: id>`: Generate a report with all interactions containing user1 and user2.
+* `report danger <threshold: counts>`: Generate a report with all danger cases.
+* `report all`: Generate a report with all interaction cases.
 * *`exit`* : Exits the app.
 
 .  Refer to <<Features>> for details of each command.
@@ -92,7 +99,8 @@ Format: `from <ts: start> to <ts: end>`
 
 Example: `from 1500000000 to 1500001000`
 
-*Note: Currently accepted timestamp is in epoch timing. For example on how to use the timing, refer link:{epochTiming}/releases[here]
+*Note: Currently accepted timestamp is in epoch timing. The time range support now is from 15000000 to 16000000
+For example on how to use the timing, refer link:{epochTiming}/releases[here]
 
 ==== Searching over user ID : `id is`
 Retrieves all trace data based on a given user id
@@ -147,6 +155,41 @@ Format: `person_delete /userid <person: id>`
 
 Example: `person_delete /userid 1` deletes any record with user ID 1
 
+=== Generating reports
+==== Reporting all instances: `report all`
+Report all interaction instances in database.
+
+Example: `report all`
+
+==== Reporting over time range: `report time from`
+Generate a report includes all interaction instances in a time range
+
+Format: `report time from <ts: start> to <ts:end>
+
+Example: `report time from 15000000 to 15003000
+
+==== Report all danger cases: `report danger`
+Generate a report with user pairs that are most at risk, based on occurrence spanning more than a threshold count.
+
+Format: `report danger <threshold: count>
+
+Example: `report danger 10`
+
+==== Report user pair cases: `report pairs`
+Generate a report includes user pairs with given userIDs
+
+Format: `report pairs <user1: id> and <user2: id>`
+
+Example: `report pairs 1 and 2`
+
+==== Report user with a given ID: `report id`
+Generate a report includes interactions with a specific given ID
+
+Format: `report id is <user: id>`
+
+Example: `report id is 1`
+
+
 == FAQ
 
 *Q*: Does the application need internet to run? +
@@ -154,5 +197,7 @@ Example: `person_delete /userid 1` deletes any record with user ID 1
 to simulate actual deployment conditions where our App will receive a steady stream of data.
 
 *Q*: Will my personal data be protected well? +
-*A*: There will be strict authority sytem to prevent privacy leak, all data published to public will be anonymous.
+*A*: There will be strict authority sytem to prevent privacy leak, Only people who have been
+granted permission can use to access user privacy data  all data published to public will be
+anonymous.
 
