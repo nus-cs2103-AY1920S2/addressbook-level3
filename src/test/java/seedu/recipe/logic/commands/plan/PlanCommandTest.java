@@ -25,7 +25,7 @@ import seedu.recipe.model.recipe.Recipe;
 
 class PlanCommandTest {
 
-    private static final Index[] VALID_INDEXES = new Index[]{INDEX_FIRST_RECIPE};
+    private static final Index[] VALID_INDEXES = new Index[] {INDEX_FIRST_RECIPE};
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -76,8 +76,7 @@ class PlanCommandTest {
     @Test
     public void equals() {
         Index[] validOneIndex = VALID_INDEXES;
-        Index[] validTwoIndex = new Index[1];
-        validTwoIndex[0] = INDEX_SECOND_RECIPE;
+        Index[] validTwoIndex = new Index[] {INDEX_SECOND_RECIPE};
 
         PlanCommand todayIndexOne = new PlanCommand(validOneIndex, DATE_TODAY);
 
