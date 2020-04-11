@@ -23,7 +23,6 @@ import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.Schedule;
 import nasa.model.module.ModuleCode;
 
 /* @@author don-tay */
