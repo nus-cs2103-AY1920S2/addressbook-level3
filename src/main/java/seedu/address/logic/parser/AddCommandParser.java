@@ -49,6 +49,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                 .collect(Collectors.toList());
         Set<ModuleCode> moduleCodes = ParserUtil.parseModuleCodes(strModuleCodes);
 
+        if (moduleCodes.size() > 1 && arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+            throw new ParseException("You can only add a task to one module at once!");
+        }
+        
         String grade = null;
         String task = null;
         String deadlineString = null;
