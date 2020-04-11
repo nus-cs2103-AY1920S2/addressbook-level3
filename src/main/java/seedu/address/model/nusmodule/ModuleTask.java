@@ -32,6 +32,10 @@ public class ModuleTask extends Task {
         return priority;
     }
 
+    public int getDoneStatus() {
+        return isDone ? 1 : 0;
+    }
+
     @Override
     public String toString() {
         StringJoiner sj = new StringJoiner("   ");

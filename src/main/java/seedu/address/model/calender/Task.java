@@ -23,7 +23,7 @@ public class Task {
     private static ObservableList<Task> deadlineTaskList;
     private static HashMap<String, ArrayList<Task>> deadlineTaskHashMap = new HashMap<>();
     private String description;
-    private boolean isDone;
+    protected boolean isDone;
 
 
     /**
