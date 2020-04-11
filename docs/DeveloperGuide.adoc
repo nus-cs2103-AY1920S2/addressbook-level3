@@ -178,3 +178,57 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
+[appendix]
+== Address book lvl 3
+This project is a fork of Address-book lvl 3 [ref](https://github.com/nus-cs2103-AY1920S2/addressbook-level3)
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+|=======================================================================
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `Contact tracing app` and the *Actor* is the `user`, unless specified otherwise)
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+Launching the application is as simple as
+```java
+java -jar <application.jar>
+```
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Run the command above
+
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
