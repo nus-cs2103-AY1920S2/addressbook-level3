@@ -63,7 +63,7 @@ This block contains *warning* information.
 This block contains *important* information that you should be mindful of.
 ====
 
-`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`)
+`text markup` : This is used to indicate keywords such as command arguments to Delino. (e.g. `exit`) +
 *bold* : This is used to indicate the various Java files in Delino.
 
 == Setting up
@@ -130,14 +130,17 @@ image::UiClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a *MainWindow* that is made up of parts e.g.*CommandBox*, *ResultDisplay*, *PersonListPanel* etc. All these, including the *MainWindow*, inherit from the abstract *UiPart* class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The *UI* component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/blob/master/src/main/java/seedu/delino/ui/MainWindow.java[`MainWindow`] is specified
+in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The *UI* component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the *Logic* component.
+* Listens for changes to *Model* data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -149,18 +152,19 @@ image::LogicClassDiagram.svg[]
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/delino/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `DelinoParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a new order).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  *Logic* uses the *DelinoParser* class to parse the user command.
+.  This results in a *Command* object which is executed by the *LogicManager*.
+.  The command execution can affect the *Model* (e.g. adding a new order).
+.  The result of the command execution is encapsulated as a *CommandResult* object which is passed back to the *Ui*.
+.  In addition, the *CommandResult* object can also instruct the *Ui* to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete -o 1")` API call.
+Given below is the Sequence Diagram for interactions within the *Logic* component for the `execute("delete -o 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete -o 1` Command
 image::DeleteSequenceDiagram.svg[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for *DeleteCommandParser* should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
 
 //tag::design_model[]
 [[Design-Model]]
@@ -171,16 +175,17 @@ image::ModelClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/model/Model.java[`Model.java`]
 
-The `Model`,
+The *Model*,
 
-* stores a `UserPref` object that represents the user's preferences.
+* stores a *UserPref* object that represents the user's preferences.
 * stores the Order Book data.
-* exposes an unmodifiable `ObservableList<Order>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable *ObservableList<Order>* that can be 'observed'
+e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
-every UniqueOrderList is part of an OrderBook.
+An *Order* class consists of nine different fields as shown in the image. Every order is part of a *UniqueOrderList* and
+every *UniqueOrderList* is part of an *OrderBook*.
 image:BetterModelClassDiagram.svg[]
 //end::design_model[]
 
@@ -193,10 +198,10 @@ image::StorageClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The *Storage* component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save both OrderBook and ReturnOrderBook data in json format and read it back.
+* can save *UserPref* objects in json format and read it back.
+* can save both *OrderBook* and *ReturnOrderBook* data in json format and read it back.
 //end::Design-Storage[]
 
 [[Design-Commons]]
