@@ -187,7 +187,8 @@ recipe to be found (e.g. `find Avo` will be able to find recipes that has "Avoca
 
 === Add a recipe: `add`
 Adds a recipe to the recipe book +
-Format: `add [n/name] [t/time] <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>... <s/step>…`
+Format: `add [n/name] [t/time] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...]
+<s/step>...`
 
 Example: `add n/Chicken Rice t/30 ip/300g, Chicken Thigh ig/300g, Rice s/Boil chicken s/While chicken is cooking,
           add sesame oil and crushed ginger into rice and cook it s/When chicken is done, dip it into iced water
@@ -211,8 +212,8 @@ would create a new recipe with the name Chicken with Rice.
 
 === Edit a recipe : `edit`
 Edits an existing recipe. This is the command used for editing entire fields at a time. +
-Format: `edit [recipe index] <n/name>... <t/time>... <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>...
-<io/other>… <s/step>…`
+Format: `edit [recipe index] <n/name> <t/time> <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>...
+<io/other>... <s/step>...`
 
 Example: `edit 4 n/Chicken Rice t/20` +
 Renames the 4th recipe to Chicken Rice, and sets the preparation time to 20 minutes (from whatever amount it was before).
@@ -276,7 +277,7 @@ There is no need to save manually.
 == Recipe Customisation Commands
 === Add Ingredients to a Recipe: `addIngredient`
 Adds more ingredients to an existing recipe. +
-Format: `addIngredient [recipe index] [ <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>... ]`
+Format: `addIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>... <io/other>...]`
 
 Example: `addIngredient 2 ig/50g, Bread io/5g, Butter` +
 Adds 50g of Bread and 5g of Butter to recipe 2.
@@ -286,7 +287,7 @@ You can add multiple ingredients at a time (at least one ingredient must be adde
 
 === Edit Ingredient Quantity in a Recipe: `editIngredient`
 Edits the quantity of an ingredient in an existing recipe. +
-Format: `editIngredient [recipe index] [ <ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>... ]`
+Format: `editIngredient [recipe index] [<ig/grain>... <iv/vegetable>... <ip/protein>... <if/fruit>… <io/other>...]`
 
 Example: `editIngredient 3 ig/50g, Bread` +
 Searches for Bread in recipe 3 and changes its quantity to 50g. An error message will appear if Bread does not exist in
@@ -296,9 +297,9 @@ recipe 3's ingredients set.
 You can edit multiple ingredients at a time (at least one ingredient must be edited).
 
 === Delete Ingredients in a Recipe: `deleteIngredient`
-Deletes an ingredient in an existing recipe. +
-Format: `deleteIngredient [recipe index] [ <ig/grain name>... <iv/vegetable name>... <ip/protein name>...
-<if/fruit name>... <io/other name>... ]`
+Deletes the specified ingredient(s) from an existing recipe. +
+Format: `deleteIngredient [recipe index] [<ig/grain name>... <iv/vegetable name>... <ip/protein name>...
+<if/fruit name>... <io/other name>...]`
 
 Example: `deleteIngredient 3 ig/Rice iv/Kailan` +
 Searches for Rice and Kailan in recipe 3 and deletes them. An error message will appear if Rice and/or Kailan does not

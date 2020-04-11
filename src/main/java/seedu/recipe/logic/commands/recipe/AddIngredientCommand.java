@@ -37,14 +37,13 @@ public class AddIngredientCommand extends Command {
 
     public static final String COMMAND_WORD = "addingredient";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds ingredient(s) to an existing recipe in the "
-            + "recipe book.\n"
-            + "Parameters: [INDEX of recipe] "
-            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
-            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
-            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]... "
-            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
-            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds more ingredients to an existing recipe.\n"
+            + "Parameters: [recipe index] "
+            + "[<" + PREFIX_INGREDIENT_GRAIN + "grain>... "
+            + "<" + PREFIX_INGREDIENT_VEGE + "vegetable>... "
+            + "<" + PREFIX_INGREDIENT_PROTEIN + "protein>... "
+            + "<" + PREFIX_INGREDIENT_FRUIT + "fruit>... "
+            + "<" + PREFIX_INGREDIENT_OTHER + "other>...]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENT_VEGE + "100g, Tomato "
             + PREFIX_INGREDIENT_VEGE + "100g, Lettuce "
