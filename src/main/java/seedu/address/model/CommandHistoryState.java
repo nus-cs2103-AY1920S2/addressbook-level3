@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This represents the model of the command history and contains the underlying
@@ -19,8 +20,8 @@ public class CommandHistoryState {
      * Default constructor for this class; initialises the state {@code history} and
      * the {@code index}.
      */
-    public CommandHistoryState(ArrayList<String> initialState) {
-        history = initialState;
+    public CommandHistoryState(List<String> initialState) {
+        history = new ArrayList<String>(initialState);
         index = initialState.size();
     }
 

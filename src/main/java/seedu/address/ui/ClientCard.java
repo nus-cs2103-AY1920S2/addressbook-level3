@@ -35,9 +35,9 @@ public class ClientCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label gender;
+    private Label email;
     @FXML
-    private Label birthday;
+    private Label address;
     @FXML
     private Label sports;
     @FXML
@@ -52,14 +52,14 @@ public class ClientCard extends UiPart<Region> {
         String phoneAttributeForDisplay = getAttributeForDisplay(client.getPhone().value);
         String fullPhoneForDisplay = phoneLabel + phoneAttributeForDisplay;
         phone.setText(fullPhoneForDisplay);
-        String genderLabel = "Gender: ";
-        String genderAttributeForDisplay = getAttributeForDisplay(client.getGender().value);
-        String fullGenderForDisplay = genderLabel + genderAttributeForDisplay;
-        gender.setText(fullGenderForDisplay);
-        String birthdayLabel = "Birthday: ";
-        String birthdayAttributeForDisplay = getAttributeForDisplay(client.getBirthdayString());
-        String fullBirthdayForDisplay = birthdayLabel + birthdayAttributeForDisplay;
-        birthday.setText(fullBirthdayForDisplay);
+        String emailLabel = "Email: ";
+        String emailAttributeForDisplay = getAttributeForDisplay(client.getEmail().value);
+        String fullEmailForDisplay = emailLabel + emailAttributeForDisplay;
+        email.setText(fullEmailForDisplay);
+        String addressLabel = "Address: ";
+        String addressAttributeForDisplay = getAttributeForDisplay(client.getAddress().value);
+        String fullAddressForDisplay = addressLabel + addressAttributeForDisplay;
+        address.setText(fullAddressForDisplay);
         String sportsLabel = "Sports: ";
         String sportsAttributeForDisplay = getAttributeForDisplay(client.getSportsString());
         String fullSportsForDisplay = sportsLabel + sportsAttributeForDisplay;

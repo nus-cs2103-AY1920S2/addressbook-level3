@@ -13,8 +13,12 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteExerciseCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditExerciseCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GraphCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ScheduleCommand;
@@ -24,7 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class FitBizParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -69,11 +73,17 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
         case AddExerciseCommand.COMMAND_WORD:
             return new AddExerciseCommandParser().parse(arguments);
+
+        case EditExerciseCommand.COMMAND_WORD:
+            return new EditExerciseCommandParser().parse(arguments);
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
@@ -83,6 +93,12 @@ public class AddressBookParser {
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
+
+        case GraphCommand.COMMAND_WORD:
+            return new GraphCommandParser().parse(arguments);
+
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

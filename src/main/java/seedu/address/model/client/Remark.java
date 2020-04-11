@@ -3,7 +3,7 @@ package seedu.address.model.client;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Client's remark in the address book.
+ * Represents a Client's remark in FitBiz.
  * Guarantees: immutable; is always valid
  */
 public class Remark {

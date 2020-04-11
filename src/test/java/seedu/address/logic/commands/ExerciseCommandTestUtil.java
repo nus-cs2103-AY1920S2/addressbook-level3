@@ -9,24 +9,26 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SETS;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import seedu.address.testutil.EditExerciseDescriptorBuilder;
+
 /**
  * Contains helper methods for testing exerise commands.
  */
 public class ExerciseCommandTestUtil {
 
     public static final String VALID_EXERCISE_NAME_PUSHUP = "pushup";
-    public static final String VALID_EXERCISE_NAME_BENCH = "bench press";
+    public static final String VALID_EXERCISE_NAME_BENCH = "Bench Press";
     public static final String VALID_EXERCISE_REPS_PUSHUP = "30";
-    public static final String VALID_EXERCISE_REPS_BENCH = "2";
+    public static final String VALID_EXERCISE_REPS_BENCH = "12";
     public static final String VALID_EXERCISE_SETS_PUSHUP = "5";
     public static final String VALID_EXERCISE_SETS_BENCH = "4";
     public static final String VALID_EXERCISE_WEIGHT_PUSHUP = "";
     public static final String VALID_EXERCISE_WEIGHT_BENCH = "100";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final String VALID_EXERCISE_DATE_PUSHUP =
-        LocalDate.now().minusDays(1).format(DATE_TIME_FORMATTER);
-    public static final String VALID_EXERCISE_DATE_BENCH =
         LocalDate.now().minusMonths(4).format(DATE_TIME_FORMATTER);
+    public static final String VALID_EXERCISE_DATE_BENCH =
+        LocalDate.now().minusDays(1).format(DATE_TIME_FORMATTER);
 
     public static final String EXERCISE_NAME_DESC_PUSHUP =
         " " + PREFIX_NAME + VALID_EXERCISE_NAME_PUSHUP;
@@ -59,80 +61,22 @@ public class ExerciseCommandTestUtil {
         " " + PREFIX_EXERCISE_WEIGHT + "1o21"; // 'o' not allowed in weight
     public static final String INVALID_EXERCISE_DATE_DESC = " " + PREFIX_DATE + ""; // empty string not allowed for date
 
-    // TODO: if there is edit exercise
-    // public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    // public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+    public static final EditExerciseCommand.EditExerciseDescriptor DESC_PUSHUP;
+    public static final EditExerciseCommand.EditExerciseDescriptor DESC_BENCH;
 
-    // public static final EditCommand.EditClientDescriptor DESC_AMY;
-    // public static final EditCommand.EditClientDescriptor DESC_BOB;
-
-    // static {
-    //     DESC_AMY = new EditClientDescriptorBuilder().withName(VALID_NAME_PUSHUP).withPhone(VALID_PHONE_AMY)
-    //             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    //     DESC_BOB = new EditClientDescriptorBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-    //             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-    //             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-    //             .build();
-    // }
-    //
-    // /**
-    //  * Executes the given {@code command}, confirms that <br>
-    //  * - the returned {@link CommandResult} matches {@code expectedCommandResult}
-    //  * <br>
-    //  * - the {@code actualModel} matches {@code expectedModel}
-    //  */
-    // public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-    //         Model expectedModel) {
-    //     try {
-    //         CommandResult result = command.execute(actualModel);
-    //         assertEquals(expectedCommandResult, result);
-    //         assertEquals(expectedModel, actualModel);
-    //     } catch (CommandException ce) {
-    //         throw new AssertionError("Execution of command should not fail.", ce);
-    //     }
-    // }
-
-    // /**
-    //  * Convenience wrapper to
-    //  * {@link #assertCommandSuccess(Command, Model, CommandResult, Model)} that
-    //  * takes a string {@code expectedMessage}.
-    //  */
-    // public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-    //         Model expectedModel) {
-    //     CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-    //     assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
-    // }
-
-    // /**
-    //  * Executes the given {@code command}, confirms that <br>
-    //  * - a {@code CommandException} is thrown <br>
-    //  * - the CommandException message matches {@code expectedMessage} <br>
-    //  * - the address book, filtered client list and selected client in
-    //  * {@code actualModel} remain unchanged
-    //  */
-    // public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-    //     // we are unable to defensively copy the model for comparison later, so we can
-    //     // only do so by copying its components.
-    //     FitBiz expectedAddressBook = new FitBiz(actualModel.getAddressBook());
-    //     List<Client> expectedFilteredList = new ArrayList<>(actualModel.getFilteredClientList());
-
-    //     assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-    //     assertEquals(expectedAddressBook, actualModel.getAddressBook());
-    //     assertEquals(expectedFilteredList, actualModel.getFilteredClientList());
-    // }
-
-    // /**
-    //  * Updates {@code model}'s filtered list to show only the client at the given
-    //  * {@code targetIndex} in the {@code model}'s address book.
-    //  */
-    // public static void showClientAtIndex(Model model, Index targetIndex) {
-    //     assertTrue(targetIndex.getZeroBased() < model.getFilteredClientList().size());
-
-    //     Client client = model.getFilteredClientList().get(targetIndex.getZeroBased());
-    //     final String[] splitName = client.getName().fullName.split("\\s+");
-    //     model.updateFilteredClientList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-    //     assertEquals(1, model.getFilteredClientList().size());
-    // }
+    static {
+        DESC_PUSHUP = new EditExerciseDescriptorBuilder()
+        .withExerciseName(VALID_EXERCISE_NAME_PUSHUP)
+            .withExerciseReps(VALID_EXERCISE_REPS_PUSHUP)
+            .withExerciseSets(VALID_EXERCISE_SETS_PUSHUP)
+            .withExerciseWeight(VALID_EXERCISE_WEIGHT_PUSHUP)
+            .withExerciseDate(VALID_EXERCISE_DATE_PUSHUP).build();
+        DESC_BENCH = new EditExerciseDescriptorBuilder()
+            .withExerciseName(VALID_EXERCISE_NAME_BENCH)
+            .withExerciseReps(VALID_EXERCISE_REPS_BENCH)
+            .withExerciseSets(VALID_EXERCISE_SETS_BENCH)
+            .withExerciseWeight(VALID_EXERCISE_WEIGHT_BENCH)
+            .withExerciseDate(VALID_EXERCISE_DATE_BENCH).build();
+    }
 
 }

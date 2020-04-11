@@ -38,11 +38,15 @@ class BirthdayTest {
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))); //birthday 2 months after current date
         assertFalse(Birthday.isValidBirthday(LocalDate.now()
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))); // birthday today
+        assertFalse(Birthday.isValidBirthday(LocalDate.now().minusYears(120).minusDays(1)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))); // birthday just the day before the earliest limit
 
         // valid birthday
         assertTrue(Birthday.isValidBirthday("01-01-1980")); // birthday in 01-01-1980
         assertTrue(Birthday.isValidBirthday("01-01-1970")); //birthday in 01-01-1979
         assertTrue(Birthday.isValidBirthday((""))); //default empty birthday
+        assertTrue(Birthday.isValidBirthday(LocalDate.now().minusYears(120)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))); //birthday right on the earliest limit
 
         assertTrue(new Birthday("01-01-1980").hashCode() == new Birthday("01-01-1980").hashCode());
         assertTrue(new Birthday("01-01-1980").toString().equals("01-01-1980") == true);

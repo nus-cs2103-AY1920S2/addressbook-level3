@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Client's gender in the address book. Guarantees: immutable; is
+ * Represents a Client's gender in FitBiz. Guarantees: immutable; is
  * valid as declared in {@link #isValidGender(String)}
  */
 public class Gender {

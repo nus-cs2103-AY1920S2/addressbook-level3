@@ -4,47 +4,47 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.model.CommandHistoryState;
-import seedu.address.storage.CommandHistoryStorage;
+import seedu.address.storage.StorageReaderWriter;
 
 /**
- * This class represents the logic behind the command history feature and acts
- * as an interface by exposing the necessary methods needed.
+ * This class contains the logic behind the command history feature and exposes
+ * the necessary methods needed.
  */
 public class CommandHistory {
 
     private static final Path DEFAULT_STORAGE_FILE_PATH = Paths.get("data", "command.txt");
 
-    private CommandHistoryStorage historyStorage;
+    private StorageReaderWriter storageReaderWriter;
     private CommandHistoryState historyState;
 
     /**
      * Default constructor for this class which uses the default storage file path
-     * for storage {@code CommandHistoryStorage}.
+     * for storage {@code StorageReaderWriter}.
      */
     public CommandHistory() {
-        historyStorage = new CommandHistoryStorage(DEFAULT_STORAGE_FILE_PATH);
-        historyState = new CommandHistoryState(historyStorage.readFromStorage());
+        storageReaderWriter = new StorageReaderWriter(DEFAULT_STORAGE_FILE_PATH);
+        historyState = new CommandHistoryState(storageReaderWriter.readFromStorage());
     }
 
     /**
      * Overloaded constructor for this class which allows the storage file path for
-     * storage {@code CommandHistoryStorage} to be set. Provided for ease of JUnit
+     * storage {@code StorageReaderWriter} to be set. Provided for ease of JUnit
      * testing.
      */
     public CommandHistory(Path storagePath) {
-        historyStorage = new CommandHistoryStorage(storagePath);
-        historyState = new CommandHistoryState(historyStorage.readFromStorage());
+        storageReaderWriter = new StorageReaderWriter(storagePath);
+        historyState = new CommandHistoryState(storageReaderWriter.readFromStorage());
     }
 
     /**
-     * Adds the user input to the history, saving it to both the model
-     * {@code CommandHistoryState} and the storage {@code CommandHistoryStorage}.
+     * Adds the user input to the history, saving it to both the model via
+     * {@code CommandHistoryState} and the storage via {@code StorageReaderWriter}.
      *
      * @param command user input command to store
      */
     public void addToHistory(String command) {
         historyState.add(command);
-        historyStorage.saveToStorage(historyState.getCurrentState());
+        storageReaderWriter.writeToStorage(historyState.getCurrentState());
     }
 
     /**
@@ -62,11 +62,11 @@ public class CommandHistory {
     }
 
     /**
-     * Clears both the model {@code CommandHistoryState} and the storage
-     * {@code CommandHistoryStorage}.
+     * Clears both the model via {@code CommandHistoryState} and the storage file
+     * via {@code StorageReaderWriter}.
      */
     public void clearHistory() {
         historyState.clearState();
-        historyStorage.clearStorage();
+        storageReaderWriter.clearStorage();
     }
 }

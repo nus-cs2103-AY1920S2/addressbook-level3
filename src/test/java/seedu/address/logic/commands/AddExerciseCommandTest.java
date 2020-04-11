@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
@@ -31,7 +31,7 @@ public class AddExerciseCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ClientInView());
+        model = new ModelManager(getTypicalFitBiz(), new UserPrefs(), new ClientInView());
         clientInView = model.getFilteredClientList().get(INDEX_FIRST_CLIENT.getZeroBased());
     }
 
@@ -48,7 +48,7 @@ public class AddExerciseCommandTest {
         CommandResult commandResult = new AddExerciseCommand(newExercise).execute(model);
 
         assertEquals(String.format(AddExerciseCommand.MESSAGE_SUCCESS,
-            clientInView.getExerciseList().toString()),
+            newExercise.getForOutput()),
             commandResult.getFeedbackToUser());
     }
 

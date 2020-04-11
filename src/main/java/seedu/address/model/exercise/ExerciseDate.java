@@ -13,9 +13,11 @@ import java.time.format.DateTimeParseException;
  */
 public class ExerciseDate {
 
+    public static final String EARLIEST_DATE = LocalDate.now().minusYears(1)
+            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     public static final String MESSAGE_CONSTRAINTS =
-        "Date input should be in the format DD-MM-YYYY and should not be blank. "
-        + "It should only be from within one year before to the current date.";
+            "Exercise date should be in the format DD-MM-YYYY (eg. 02-03-1999), and cannot exceed the current date."
+                    + " Exercise date should also not be earlier than " + EARLIEST_DATE + ".";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
     public final String displayValue;
@@ -51,6 +53,14 @@ public class ExerciseDate {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public long forPlot() {
+        return value.toEpochDay();
+    }
+
+    public LocalDate getValue() {
+        return value;
     }
 
     @Override

@@ -6,7 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalClients.ALICE;
 import static seedu.address.testutil.TypicalClients.HOON;
 import static seedu.address.testutil.TypicalClients.IDA;
-import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalClients.getTypicalFitBiz;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.FitBiz;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyFitBiz;
 
 public class JsonFitBizStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonFitBizStorageTest");
@@ -30,7 +30,7 @@ public class JsonFitBizStorageTest {
         assertThrows(NullPointerException.class, () -> readFitBiz(null));
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readFitBiz(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyFitBiz> readFitBiz(String filePath) throws Exception {
         return new JsonFitBizStorage(Paths.get(filePath)).readFitBiz(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -62,13 +62,13 @@ public class JsonFitBizStorageTest {
 
     @Test
     public void readAndSaveFitBiz_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        FitBiz original = getTypicalAddressBook();
+        Path filePath = testFolder.resolve("TempFitBiz.json");
+        FitBiz original = getTypicalFitBiz();
         JsonFitBizStorage jsonFitBizStorage = new JsonFitBizStorage(filePath);
 
         // Save in new file and read back
         jsonFitBizStorage.saveFitBiz(original, filePath);
-        ReadOnlyAddressBook readBack = jsonFitBizStorage.readFitBiz(filePath).get();
+        ReadOnlyFitBiz readBack = jsonFitBizStorage.readFitBiz(filePath).get();
         assertEquals(original, new FitBiz(readBack));
 
         // Modify data, overwrite exiting file, and read back
@@ -92,12 +92,12 @@ public class JsonFitBizStorageTest {
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code fitBiz} at the specified {@code filePath}.
      */
-    private void saveFitBiz(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveFitBiz(ReadOnlyFitBiz fitBiz, String filePath) {
         try {
             new JsonFitBizStorage(Paths.get(filePath))
-                    .saveFitBiz(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveFitBiz(fitBiz, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

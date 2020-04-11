@@ -24,7 +24,7 @@ public class DeleteExerciseCommand extends Command {
         + ": Deletes the exercise identified by the index number used in the displayed exercise list.\n"
         + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Exercise: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Exercise:\n%1$s";
     public static final String MESSAGE_CLIENT_NOT_IN_VIEW = "You currently do not have a client in view, "
         + "use the view-c command to view a client first";
 
@@ -57,7 +57,7 @@ public class DeleteExerciseCommand extends Command {
 
         PersonalBestFinder.generateAndSetPersonalBest(clientToEdit);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove.getForOutput()));
     }
 
     @Override
