@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Checker for a Valid Date in the address book.
+ */
 public class DateValidator {
     public static boolean validateDate(String date) {
         // First check if date is an empty string
