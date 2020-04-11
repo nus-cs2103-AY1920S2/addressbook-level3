@@ -4,69 +4,93 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "efd:EditFoodDescriptor" as EditFoodDescriptor LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "foodToEdit:Food" as FoodToEdit MODEL_COLOR
+participant "editedFood:Food" as EditedFood MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
 participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
 end box
 
-[-> LogicManager : execute("delete 3")
+[-> LogicManager : execute("edit -i 1 -n Pasta -c 1200")
 activate LogicManager
 
-LogicManager -> FoodBookParser : parseCommand("delete 3")
+LogicManager -> FoodBookParser : parseCommand("edit -i 1 -n Pasta -c 1200")
 activate FoodBookParser
 
-create DeleteCommandParser
-FoodBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create EditCommandParser
+FoodBookParser -> EditCommandParser
+activate EditCommandParser
 
-DeleteCommandParser --> FoodBookParser
-deactivate DeleteCommandParser
+EditCommandParser --> FoodBookParser
+deactivate EditCommandParser
 
-FoodBookParser -> DeleteCommandParser : parse("3")
-activate DeleteCommandParser
+FoodBookParser -> EditCommandParser : parse("-i 1 -n Pasta -c 1200")
+activate EditCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create EditFoodDescriptor
+EditCommandParser -> EditFoodDescriptor
+activate EditFoodDescriptor
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+EditFoodDescriptor --> EditCommandParser : efd
+deactivate EditFoodDescriptor
 
-DeleteCommandParser --> FoodBookParser : d
-deactivate DeleteCommandParser
+create EditCommand
+EditCommandParser -> EditCommand
+activate EditCommand
+
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+
+EditCommandParser --> FoodBookParser : e
+deactivate EditCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> FoodBookParser
-destroy DeleteCommandParser
+EditCommandParser -[hidden]-> FoodBookParser
+destroy EditCommandParser
 
-FoodBookParser --> LogicManager : d
+FoodBookParser --> LogicManager : e
 deactivate FoodBookParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> EditCommand : execute()
+activate EditCommand
 
-DeleteCommand -> Model : deleteFood(3)
+create FoodToEdit
+EditCommand -> FoodToEdit
+activate FoodToEdit
+
+FoodToEdit -> EditCommand : foodToEdit
+deactivate FoodToEdit
+
+create EditedFood
+EditCommand -> EditedFood
+activate EditedFood
+
+EditedFood -> EditCommand : editedFood
+deactivate EditedFood
+
+EditCommand -> Model : setFood(foodToEdit, editedFood)
 activate Model
 
-Model --> DeleteCommand
+Model --> EditCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+EditCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> EditCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+EditCommand --> LogicManager : commandResult
+deactivate EditCommand
 
 LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
 activate FoodBookStorage
