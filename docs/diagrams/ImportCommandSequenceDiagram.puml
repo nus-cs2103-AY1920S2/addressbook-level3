@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
 participant ":ParseUtil" as ParseUtil LOGIC_COLOR
 participant ":Paths" as Paths LOGIC_COLOR
@@ -19,14 +19,14 @@ end box
 [-> LogicManager : execute("import orders.csv")
 activate LogicManager
 
-LogicManager -> OrderBookParser ++ : parseCommand("import orders.csv")
+LogicManager -> DelinoParser ++ : parseCommand("import orders.csv")
 
 create ImportCommandParser
-OrderBookParser -> ImportCommandParser ++
+DelinoParser -> ImportCommandParser ++
 
-ImportCommandParser --> OrderBookParser --
+ImportCommandParser --> DelinoParser --
 
-OrderBookParser -> ImportCommandParser ++ : parse("orders.csv")
+DelinoParser -> ImportCommandParser ++ : parse("orders.csv")
 
 ImportCommandParser -> ParseUtil ++ : parseCsvFile("orders.csv")
 
@@ -49,12 +49,12 @@ ImportCommandParser -> ImportCommand ++ : fileData
 
 ImportCommand --> ImportCommandParser -- : importCommand
 
-ImportCommandParser --> OrderBookParser -- : importCommand
+ImportCommandParser --> DelinoParser -- : importCommand
 
-ImportCommandParser -[hidden]-> OrderBookParser
+ImportCommandParser -[hidden]-> DelinoParser
 destroy ImportCommandParser
 
-OrderBookParser --> LogicManager -- : importCommand
+DelinoParser --> LogicManager -- : importCommand
 
 ref over LogicManager,  Model : execute import command
 
