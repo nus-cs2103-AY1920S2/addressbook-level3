@@ -9,12 +9,15 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 
 /**
- * The implementation class of BlockModel.
+ * The implementation class of {@link BlockModel}.
  */
 public class BlockModelImpl implements BlockModel {
     private BlockTree blockTree;
     private Property<AbsolutePath> currentlyOpenPath;
 
+    /**
+     * Creates a new {@link BlockModel} implementation object.
+     */
     public BlockModelImpl() {
         blockTree = new BlockTreeImpl();
         currentlyOpenPath = new SimpleObjectProperty<AbsolutePath>(AbsolutePath.fromString("/"));
@@ -48,9 +51,9 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-    public boolean hasPath(AbsolutePath p) {
+    public boolean hasPath(AbsolutePath path) {
         try {
-            blockTree.get(p);
+            blockTree.get(path);
             return true;
         } catch (NoSuchBlockException e) {
             return false;
@@ -58,22 +61,22 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-    public void setCurrentlyOpenBlock(AbsolutePath p) {
-        if (!hasPath(p)) {
-            throw new NoSuchBlockException(p.getStringRepresentation());
+    public void setCurrentlyOpenBlock(AbsolutePath path) {
+        if (!hasPath(path)) {
+            throw new NoSuchBlockException(path.getStringRepresentation());
         }
-        currentlyOpenPath.setValue(p);
+        currentlyOpenPath.setValue(path);
     }
 
     @Override
-    public void addBlockToCurrentPath(Block b) {
-        blockTree.add(getCurrentlyOpenPath(), b);
+    public void addBlockToCurrentPath(Block block) {
+        blockTree.add(getCurrentlyOpenPath(), block);
     }
 
     @Override
-    public void removeBlock(AbsolutePath p) {
-        BlockTreeItem parent = blockTree.get(p).getBlockParent();
-        blockTree.remove(p);
+    public void removeBlock(AbsolutePath path) {
+        BlockTreeItem parent = blockTree.get(path).getBlockParent();
+        blockTree.remove(path);
 
         // If the path no longer exists, find the nearest predecessor i.e case of deleting some unrelated block
         if (!hasPath(getCurrentlyOpenPath())) {
