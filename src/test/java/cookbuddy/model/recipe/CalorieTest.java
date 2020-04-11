@@ -22,7 +22,7 @@ public class CalorieTest {
     }
 
     @Test
-    public void isValidCalorie() {
+    public void isValidCalorieAmount() {
         // null calorie
         assertThrows(NullPointerException.class, () -> Calorie.isValidCalorieAmount(null));
 
