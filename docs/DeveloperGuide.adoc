@@ -181,17 +181,16 @@ Meanwhile to update the UI on the newest sorting order, the SortCommand will ret
 SortCommandResult extends CommandResult and contains an additional String attribute `sortOrder`.
 
 === AutoComplete
-Auto complete is triggered when users press tab while on the command line. It serves to speed up the users usage of the application.
+Auto complete is triggered when users press tab while focussed on the command line.
 
 ==== Implementation
 //TODO maybe shift this up?
 .AutoComplete Sequence Diagram
 image::ACSequenceDiagram.png[]
 
-To handle the above case where an auto complete can be both a warning and a success, we update the color of the `CommandTextField` to reflect success and errors while only updating the color of the `ResultDisplay` if there are warnings.
-
-* These color changes disappear after one second
-* They are made in addition to changes to the text of both the `CommandTextField` and `ResultDisplay`
+When a user presses tab on the command line, a key event handler in the CommandBox calls the suggestCommand function of MainWindow with the user input. The MainWindow then passes the user input through the LogicManager to CommandCompletor. We pass the input through LogicManager so that it can pass TaskList details to the CommandCompletor (such as taskList length). The CommandCompletor then parses the input and returns one of three thigns:
+. CompletorResult
+. CompletorDeletionException
 
 ==== Auto Complete Overview
 
@@ -272,7 +271,7 @@ image::FindSequenceDiagram.png[]
 * After setting the predicate on the model, the FilteredList will apply the Test method of the predicate and only display tasks with a score < 2. Scoring will be discussed below
 * Model will also generate a searchComparator based on the output of applying the Predicate on a Task
 ** This comparator is then used to display more relevant search results to the user
-* If the model has existing comparators set via the SortCommand, they are applied for search results of equal relevancy
+* If the model has existing comparators set via the SortCommand, they are applied for search results of equal relevance
 
 ==== Predicate
 
@@ -286,6 +285,8 @@ image::PredicateSequenceDiagram.png[]
 ** If edit distance between chunk and search term < 2, score is set to 1
 ** If the search term matches the start of the chunk, score is set to 1
 ** If the chunk is the same as the search term, score is set to 0
+
+In addition the predicate decrements the score for every tag that matches so that find commands with more matches will be showed first.
 
 ==== Other Considerations
 * We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
