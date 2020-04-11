@@ -11,11 +11,8 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class FoodListPanel
-Class SportsListPanel
-Class SportsCard
-Class FoodCard
-Class StatusBarFooter
+Class XYZListPanel
+Class XYZCard
 Class CommandBox
 }
 
@@ -35,32 +32,25 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> FoodListPanel
-MainWindow *-down-> SportsListPanel
+MainWindow *-down-> XYZListPanel
 
-FoodListPanel -down-> FoodCard
-SportsListPanel -down-> SportsCard
+XYZListPanel -down-> XYZCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-FoodListPanel --|> UiPart
-SportsListPanel --|> UiPart
-FoodCard --|> UiPart
-SportsCard --|> UiPart
+XYZListPanel --|> UiPart
+XYZCard --|> UiPart
 HelpWindow -down-|> UiPart
 
-FoodCard ..> Model
-SportsCard ..> Model
+XYZCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-FoodListPanel -[hidden]left- HelpWindow
-SportsListPanel -[hidden]left- HelpWindow
+XYZListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml

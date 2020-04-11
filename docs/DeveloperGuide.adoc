@@ -65,9 +65,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete x/f i/1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete x/f i/1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -105,9 +105,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete x/f i/1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `delete x/f i/1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -124,13 +124,8 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the fitHelper data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Entry>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `FitHelper`, which `Person` can reference. This would allow `FitHelper` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -157,7 +152,7 @@ This section describes some noteworthy details on how certain features are imple
 === Entry Feature
 The Entry consists of the following:
 
-* Each `Entry` consists of a unique combination of `Name`, `Calorie`, `Location`, `Duration`, `Type` and `Time`
+* Each `Entry` consists of a unique combination of `Name`, `Calorie`, `Location`, `Duration`, `Type`, `Remark`, `Status` and `Time`
 * Each `Entry` consists of a `Duration` in hours, default set to 1, smallest accuracy is 0.02 (1 min).
 * Each `Entry` consists of a `Type`, either food or sports
 * Each `Entry` consists of a `Remark`, default set to be empty
