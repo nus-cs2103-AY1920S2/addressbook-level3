@@ -31,7 +31,7 @@ public class CorrectionEngineUtil {
         }
 
         if (input.length() < forwardMatchingThreshold) {
-            if (reference.toLowerCase().startsWith(input)) {
+            if (reference.toLowerCase().startsWith(input.toLowerCase())) {
                 return 0;
             }
             return editDistanceCalculator.calculateDistance(input, reference);
