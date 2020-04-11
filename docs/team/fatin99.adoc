@@ -85,7 +85,7 @@ I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and St
 
 * Created a skeleton for the student delete command (#113)
 * Removed the requirement for compulsory phone and email fields in student add (#146)
-* Managed the project by commenting on critical pull requests
+* Managed the project by commenting on critical pull requests (various)
 
 Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
 
