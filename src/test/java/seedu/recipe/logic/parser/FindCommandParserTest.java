@@ -22,22 +22,22 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsNonStrictFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(false, "Alice Bob"));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+                new FindCommand(new NameContainsKeywordsPredicate(false, "Chicken rice"));
+        assertParseSuccess(parser, "Chicken rice", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n Chicken \n \t rice  \t", expectedFindCommand);
     }
 
     @Test
     public void parse_validArgs_returnsStrictFindCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(true, "Alice Bob"));
-        assertParseSuccess(parser, "/strict Alice Bob", expectedFindCommand);
+                new FindCommand(new NameContainsKeywordsPredicate(true, "Chicken rice"));
+        assertParseSuccess(parser, "/strict Chicken rice", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " /strict \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " /strict \n Chicken \n \t rice  \t", expectedFindCommand);
     }
 
 }
