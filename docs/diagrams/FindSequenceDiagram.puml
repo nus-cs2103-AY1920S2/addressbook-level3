@@ -12,7 +12,7 @@ participant ":FilteredList" as FilteredList MODEL_COLOR
 participant ":TaskList" as TaskList MODEL_COLOR
 end box
 
-[-> LogicManager : 
+[-> LogicManager : execute("find task 1")
 activate LogicManager
 
 LogicManager -> FindCommand : execute()

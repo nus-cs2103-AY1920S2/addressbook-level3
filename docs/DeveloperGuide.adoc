@@ -184,6 +184,16 @@ SortCommandResult extends CommandResult and contains an additional String attrib
 Auto complete is triggered when users press tab while on the command line. It serves to speed up the users usage of the application.
 
 ==== Implementation
+//TODO maybe shift this up?
+.AutoComplete Sequence Diagram
+image::ACSequenceDiagram.png[]
+
+To handle the above case where an auto complete can be both a warning and a success, we update the color of the `CommandTextField` to reflect success and errors while only updating the color of the `ResultDisplay` if there are warnings.
+
+* These color changes disappear after one second
+* They are made in addition to changes to the text of both the `CommandTextField` and `ResultDisplay`
+
+==== Auto Complete Overview
 
 .Activity diagram of auto complete
 image::ACActivityDiagram.png[width=790]
@@ -232,28 +242,23 @@ Is performed simply by iterating through all arguments and performing the checks
 . If any input is deleted (invalid index or sort field), `CommandCompletor` will raise a warning by throwing a `CompletorDeletionException`
 . If no command word is found, auto complete is labelled as an error and `CommandCompletor` will raise a `CompletorException`
 
-==== Auto Complete UI
-//TODO maybe shift this up?
-image::ACSequenceDiagram.png[]
-To handle the above case where an auto complete can be both a warning and a success, we update the color of the `CommandTextField` to reflect success and errors while only updating the color of the `ResultDisplay` if there are warnings.
-
-* These color changes disappear after one second
-* They are made in addition to changes to the text of both the `CommandTextField` and `ResultDisplay`
-
-
 ==== Auto Complete Success UI
+
+.AutoComplete Success UI 
 image::ACSuccess.png[width=600]
 
 * `CommandTextField` is set to green
-* `CommandTextField`'s text is replaced by the suggested command
+* `CommandTextField` text is replaced by the suggested command
 * Feedback is also provided on what changes have been made
 ** If input has been removed, `ResultDisplay` is set to orange
 
 ==== Auto Complete Failure UI
+
+.AutoComplete Failure UI 
 image::ACFailure.png[width=600]
 
 * `CommandTextField` is set to green
-* `CommandTextField`'s text is unchanged
+* `CommandTextField` text is unchanged
 * Feedback is provided that command word is not recognized
 
 === Enhanced Find
@@ -261,31 +266,30 @@ We've built upon the existing find function in AB-3 to filter tasks based on phr
 
 ==== Implementation
 
+.Find Command Sequence diagram
 image::FindSequenceDiagram.png[]
 
-* We chose to not use edit distance for keywords of less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
-* We also chose to display task names who's start matches the search term for ease of usage
-* We've enabled searching by phrase so that users can be more specific when looking for tasks
+* After setting the predicate on the model, the FilteredList will apply the Test method of the predicate and only display tasks with a score < 2. Scoring will be discussed below
+* Model will also generate a searchComparator based on the output of applying the Predicate on a Task
+** This comparator is then used to display more relevant search results to the user
+* If the model has existing comparators set via the SortCommand, they are applied for search results of equal relevancy
 
-==== Scoring
+==== Predicate
 
+.Scoring decision
 image::PredicateSequenceDiagram.png[]
 
-* We perform the match by taking chunks of the task name whereby the number of words in a chunk = number of words used in the search term
-* We iterate through all chunks of the task name and calculate a score for that task
-* The score is used to determine its relevance to the search term
-** smaller score is more relevant
-* The calculation is decided by:
-** If edit distance < 2, score is set to 1
+* We perform the filtering by taking chunks of the task name whereby the number of words in a chunk = number of words used in the search term
+* We iterate through all chunks of the task name and calculate a score for each chunk and taking the minimum of those scores as the task's relevance score
+** a smaller score means a more relevant task
+* The calculation of a chunk is decided by:
+** If edit distance between chunk and search term < 2, score is set to 1
 ** If the search term matches the start of the chunk, score is set to 1
-** If the chunk = search term, score is set to 0
-* The minimum score of all chunks is set as the score of the Task
+** If the chunk is the same as the search term, score is set to 0
 
-
-[NOTE]
-=====
-The filtered list will still adhere to the existing sort order if defined and will be applied after the sort order for relevance.
-=====
+==== Other Considerations
+* We chose to not use edit distance for search terms of string length less than 3 as this would bring about alot of false positives given that that the edit distance between words of length < 3 will easily be 1
+* We also chose to display task names who's start matches the search term for ease of usage
 
 [[Pomodoro]]
 === Pomodoro
