@@ -13,7 +13,7 @@
         <Pane fx:id="separator"></Pane>
         <Label fx:id="blockPathDisplay"></Label>
         <padding>
-            <Insets top="12" right="6" bottom="12" left="6" />
+            <Insets top="12" right="0" bottom="12" left="0" />
         </padding>
     </HBox>
     <WebView fx:id="blockBodyDisplay" />
