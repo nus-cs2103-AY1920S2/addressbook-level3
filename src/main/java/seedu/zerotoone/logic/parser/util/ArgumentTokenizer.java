@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.zerotoone.logic.parser.CliSyntax;
+
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text t/ 11.00 t/12.00 k/ m/ July}  where prefixes are {@code t/ k/ m/}.<br>
@@ -22,6 +24,18 @@ public class ArgumentTokenizer {
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if only the specified prefixes are present.
+     */
+    public static boolean onlyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        boolean allPrefixesPresent = arePrefixesPresent(argumentMultimap, prefixes);
+        boolean otherPrefixesNotPresent = CliSyntax.getAllPrefixes().stream()
+                .filter(prefix -> !Arrays.asList(prefixes).contains(prefix))
+                .noneMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+
+        return allPrefixesPresent && otherPrefixesNotPresent;
     }
 
     /**
