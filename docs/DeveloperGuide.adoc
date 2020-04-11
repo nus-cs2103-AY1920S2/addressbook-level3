@@ -806,7 +806,7 @@ all the *sessions that have been marked as done*. Each of the sessions are assoc
 with a Module in the UniqueModuleList.
 
 ==== Session Done Command
-The following diagram describes how TaTracker is updated when a Done Session command is entered.
+The following activity diagram describes how TaTracker is updated when a Done Session command is entered.
 
 .Session Done- Activity Diagram
 image::TssActivityDiagram.png[]
@@ -1056,6 +1056,9 @@ the command line, rather than clicking on the tab headers. The command can be ut
 
 ==== Implementation
 This section describes the implementation of the `goto` command.
+
+The following sequence diagram shows the sequence of commands that take place between the Logic and UI components of
+the Ta-Tracker when the user enters the command `goto claims`.
 
 .Sequence Diagram for Goto Claims Command
 image::GotoSequenceDiagram.png[]
