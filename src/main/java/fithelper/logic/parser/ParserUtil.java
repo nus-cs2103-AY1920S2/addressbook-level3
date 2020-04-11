@@ -156,6 +156,10 @@ public class ParserUtil {
     public static Status parseStatus(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
+        // capitalise the first letter in trimmedStatus
+        trimmedStatus = trimmedStatus.substring(0, 1).toUpperCase() + trimmedStatus.substring(1);
+        // lowercase the rest of the letters in trimmedStatus
+        trimmedStatus = trimmedStatus.substring(0, 1) + trimmedStatus.substring(1).toLowerCase();
         if (!Status.isValidStatus(trimmedStatus)) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
