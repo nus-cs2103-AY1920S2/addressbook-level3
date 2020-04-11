@@ -1671,7 +1671,7 @@ Use case ends.
 [none]
 . 3a. The module and/or group does not exist.
 [none]
-.. 1a1. TA-Tracker shows an error message.
+.. 3a1. TA-Tracker shows an error message.
 +
 Use case ends.
 
@@ -1685,7 +1685,6 @@ Use case ends.
 . User requests to add a session.
 . TA-Tracker adds the session.
 . TA-Tracker switches to the `Session Tab`.
-
 +
 Use case ends.
 
@@ -1697,6 +1696,7 @@ Use case ends.
 .. 1a1. TA-Tracker creates a new session, and labels it as recurring.
 +
 Use case resumes at step 3.
+
 [none]
 . 1a. The user adds a session with a module code that does not exists.
 [none]
@@ -1721,14 +1721,14 @@ Use case ends.
 *Extensions*
 
 [none]
-. 2a. The index is invalid
+. 3a. The index is invalid
 [none]
-.. 2a1. TA-Tracker shows an error message.
+.. 3a1. TA-Tracker shows an error message.
 +
 Use case ends.
 
 [none]
-* 3a. The Session View is empty.
+* 2a. The Session View is empty.
 +
 Use case ends.
 
