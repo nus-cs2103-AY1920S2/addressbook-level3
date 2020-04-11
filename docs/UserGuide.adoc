@@ -351,6 +351,15 @@ You can exit the program with this command.
 
 Format: `exit`
 
+==== Listing all sessions : `list`
+
+`list` command shows you all the sessions under Session View and Claims View.
+
+[TIP]
+====
+* You can use this command to display all your sessions after using the *filter* command.
+====
+
 === Student View
 
 This section explains all the commands you can use in the *Student View*.
