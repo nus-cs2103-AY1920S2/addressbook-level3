@@ -2,9 +2,11 @@ package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import nasa.commons.core.GuiSettings;
@@ -207,6 +209,7 @@ public class ModelManager implements Model {
         updateHistory();
     }
 
+    /* @@author don-tay */
     @Override
     public void setModule(ModuleCode target, Module editedModule) {
         requireAllNonNull(target, editedModule);
@@ -222,7 +225,7 @@ public class ModelManager implements Model {
         nasaBook.setDeadline(moduleCode, target, editedDeadline);
         updateHistory();
     }
-    
+
     @Override
     public void setEvent(ModuleCode moduleCode, Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
@@ -230,6 +233,7 @@ public class ModelManager implements Model {
         nasaBook.setEvent(moduleCode, target, editedEvent);
         updateHistory();
     }
+    /* @@author */
 
     public boolean setDeadlineSchedule(ModuleCode module, Index index, Index type) {
         requireAllNonNull(module, index, type);
@@ -252,7 +256,7 @@ public class ModelManager implements Model {
     public boolean hasActivity(ModuleCode moduleCode, Activity activity) {
         return nasaBook.hasActivity(moduleCode, activity);
     }
-    
+
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
@@ -264,6 +268,7 @@ public class ModelManager implements Model {
         filteredModules.setPredicate(predicate);
     }
 
+    /* @@author don-tay */
     @Override
     public ObservableList<Event> getFilteredEventList(ModuleCode moduleCode) {
         Module module = nasaBook.getModule(moduleCode);
@@ -283,6 +288,7 @@ public class ModelManager implements Model {
             module.sortDeadlineList(sortMethod);
         }
     }
+    /* @@author */
 
     @Override
     public void updateFilteredActivityList(Predicate<Activity> predicate) {

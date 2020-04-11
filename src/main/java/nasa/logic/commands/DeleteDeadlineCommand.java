@@ -10,6 +10,9 @@ import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Command to delete deadline.
+ */
 public class DeleteDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "del-d";
@@ -50,5 +53,20 @@ public class DeleteDeadlineCommand extends Command {
         }
 
         return new CommandResult(index.toString() + " " + MESSAGE_DELETE_DEADLINE_SUCCESS);
+    }
+
+    /**
+     * Returns true if both DeleteDeadlineCommand has the same index and module code.
+     * @param other
+     * @return
+     */
+    public boolean equals(Object other) {
+        if (!(other instanceof DeleteDeadlineCommand)) {
+            return false;
+        }
+
+        DeleteDeadlineCommand command = (DeleteDeadlineCommand) other;
+        return moduleCode.equals(((DeleteDeadlineCommand) other).moduleCode)
+            && index.equals(((DeleteDeadlineCommand) other).index);
     }
 }

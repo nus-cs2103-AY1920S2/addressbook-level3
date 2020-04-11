@@ -94,6 +94,9 @@ public class Deadline extends Activity {
         this.isDone = true;
     }
 
+    /**
+     * Unmark deadline as done, and set {@code isOverdue} if overdue.
+     */
     public void unmarkAsDone() {
         isDone = false;
         if (isOverdue()) {
@@ -103,7 +106,7 @@ public class Deadline extends Activity {
         }
     }
 
-    private boolean isOverdue() {
+    public boolean isOverdue() {
         return !isDone && Date.now().isAfter(dueDate);
     }
 
@@ -115,10 +118,15 @@ public class Deadline extends Activity {
 
     @Override
     public Activity deepCopy() {
-        Deadline copy = new Deadline(getName(), getDueDate());
-        copy.setDateCreated(getDateCreated());
-        copy.setPriority(priority);
-        copy.setNote(getNote());
+        Name nameCopy = new Name(getName().toString());
+        Date dueDateCopy = new Date(getDueDate().toString());
+        Note noteCopy = new Note(getNote().toString());
+        Date dateCreatedCopy = new Date(getDateCreated().toString());
+        Priority priorityCopy = new Priority(getPriority().toString());
+        Deadline copy = new Deadline(nameCopy, dueDateCopy);
+        copy.setDateCreated(dateCreatedCopy);
+        copy.setPriority(priorityCopy);
+        copy.setNote(noteCopy);
         if (isDone) {
             copy.markAsDone();
         }
@@ -147,10 +155,25 @@ public class Deadline extends Activity {
         return !(dueDate.isBefore(Date.now()));
     }
 
+    /**
+     * Returns true if both are the same deadline with same deadline attributes.
+     * This defines a stronger notion of equality between two deadlines.
+     */
+    public boolean isSameDeadline(Object other) {
+        if (other == this) {
+            return true;
+        }
 
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
 
-    @Override
-    public String toString() {
-        return this.getName().toString();
+        Deadline otherDeadline = (Deadline) other;
+        return otherDeadline.getName().equals(getName())
+                && otherDeadline.getDueDate().equals(getDueDate())
+                && otherDeadline.getPriority().equals(getPriority())
+                && otherDeadline.getDateCreated().equals(getDateCreated())
+                && otherDeadline.getNote().equals(getNote());
     }
+
 }

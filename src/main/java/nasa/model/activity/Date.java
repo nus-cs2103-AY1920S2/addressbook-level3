@@ -2,12 +2,12 @@ package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 /**
  * Represents Date of an Activity.
@@ -50,12 +50,17 @@ public class Date {
      * @return true if the string matches date format.
      */
     public static boolean isValidDate(String test) {
+        requireNonNull(test);
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             formatter.setLenient(false);
             formatter.parse(test);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            dateTimeFormatter.parse(test);
             return true;
         } catch (ParseException e) {
+            return false;
+        } catch (Exception e) {
             return false;
         }
     }

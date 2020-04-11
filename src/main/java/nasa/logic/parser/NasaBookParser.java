@@ -18,6 +18,8 @@ import nasa.logic.commands.EditDeadlineCommand;
 import nasa.logic.commands.EditEventCommand;
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
+import nasa.logic.commands.ExportCalendarCommand;
+import nasa.logic.commands.ExportQrCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
@@ -29,10 +31,8 @@ import nasa.logic.commands.StatisticsCommand;
 import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
-import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.logic.parser.addcommandparser.AddDeadlineCommandParser;
 import nasa.logic.parser.addcommandparser.AddEventCommandParser;
-import nasa.logic.parser.addcommandparser.AddLessonCommandParser;
 import nasa.logic.parser.exceptions.ParseException;
 
 /**
@@ -66,9 +66,6 @@ public class NasaBookParser {
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
 
-        case AddLessonCommand.COMMAND_WORD:
-            return new AddLessonCommandParser().parse(arguments);
-
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
 
@@ -77,7 +74,7 @@ public class NasaBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-        
+
         case ContinueCommand.COMMAND_WORD:
             return new ContinueCommandParser().parse(arguments);
 
@@ -95,15 +92,18 @@ public class NasaBookParser {
 
         case EditDeadlineCommand.COMMAND_WORD:
             return new EditDeadlineCommandParser().parse(arguments);
-        
+
         case EditEventCommand.COMMAND_WORD:
             return new EditEventCommandParser().parse(arguments);
-        
+
         case EditModuleCommand.COMMAND_WORD:
             return new EditModuleCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case ExportQrCommand.COMMAND_WORD:
+            return new ExportQrCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -112,7 +112,7 @@ public class NasaBookParser {
             return new HelpCommand();
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
@@ -131,6 +131,9 @@ public class NasaBookParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case ExportCalendarCommand.COMMAND_WORD:
+            return new ExportCalendarCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

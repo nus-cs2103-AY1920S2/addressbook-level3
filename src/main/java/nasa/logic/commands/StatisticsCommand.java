@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import nasa.model.Model;
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 
 /**
@@ -27,6 +26,6 @@ public class StatisticsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         //model.updateFilteredD(deadlinePredicate);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true, false, CommandResult.EMPTY_BYTE_ARRAY_DATA);
     }
 }

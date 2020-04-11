@@ -33,7 +33,7 @@ public class DeleteModuleCommandTest {
                 moduleToDelete.getModuleCode().toString());
 
         ModelManager expectedModel = new ModelManager(model.getNasaBook(), new HistoryBook<>(), new UserPrefs());
-        expectedModel.deleteModule(moduleToDelete);
+        expectedModel.deleteModule(moduleToDelete.getModuleCode());
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }

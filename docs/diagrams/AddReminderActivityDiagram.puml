@@ -6,20 +6,25 @@ if () then ([invalid format])
     :Shows invalid format;
 else ([valid format])
     if () then ([module does not exist])
-        :Shows module does not exist error;
+        :Shows "Module does not exist error" message;
     else ([else])
         if () then ([index out of bounds])
             :Shows activity does not exist error;
-        else () then ([else])
+        else ([else])
             if () then ([activity's date already past])
                 :Shows activity has already passed;
-            else () then ([else])
-                :Create Reminder class;
-                :Add to ActiveReminderList;
+            else ([else])
+                if () then ([reminder date passed])
+                    :Shows reminder date has already passed;
+                else ([else])
+                    :Create Reminder class;
+                    :Add to ActiveReminderList;
+                    :Shows reminder has been successfully added;
 endif
 endif
 endif
 endif
-:Return command result to UI;
+endif
+:Return command result based on the message shown to UI;
 stop
 @enduml

@@ -15,9 +15,10 @@ import nasa.logic.commands.EditDeadlineCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/* @@author don-tay */
 /**
- * Parses input arguments and creates a new EditDeadlineCommand object
- * Format: edit-d INDEX 
+ * Parses input arguments and creates a new EditDeadlineCommand object.
+ * Format: edit-d INDEX
  */
 public class EditDeadlineCommandParser implements Parser<EditDeadlineCommand> {
 

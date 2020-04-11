@@ -12,8 +12,8 @@ import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
-import nasa.model.activity.Activity;
-import nasa.model.activity.UniqueActivityList;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
@@ -57,8 +57,8 @@ public class DoneCommandTest {
 
     private void setActivityToDone(ModelManager modelManager, ModuleCode moduleCode, Index index) {
         Module module = modelManager.getModule(moduleCode);
-        UniqueActivityList activityList = module.getActivities();
-        Activity activity = activityList.getActivityByIndex(index);
-        activity.setDone();
+        UniqueDeadlineList deadlineList = module.getDeadlineList();
+        Deadline deadline = deadlineList.getActivityByIndex(index);
+        deadline.setDone(true);
     }
 }

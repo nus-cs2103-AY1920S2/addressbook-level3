@@ -2,7 +2,6 @@ package nasa.storage;
 
 import static nasa.testutil.Assert.assertThrows;
 import static nasa.testutil.TypicalModules.CS2103T;
-import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -74,7 +73,6 @@ public class JsonNasaBookStorageTest {
         assertEquals(original, new NasaBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addModule(GEH1001);
         original.removeModule(CS2103T.getModuleCode());
         jsonNasaBookStorage.saveNasaBook(original, filePath);
         readBack = jsonNasaBookStorage.readNasaBook(filePath).get();

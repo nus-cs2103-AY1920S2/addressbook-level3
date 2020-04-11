@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
-public class UniqueEventList extends UniqueActivityList<Event> {
-    
-}
+/**
+ * List containing all events.
+ */
+public class UniqueEventList extends UniqueActivityList<Event> {}

@@ -1,9 +1,7 @@
 package nasa.testutil;
 
-import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.UniqueActivityList;
 import nasa.model.activity.UniqueDeadlineList;
 import nasa.model.activity.UniqueEventList;
 import nasa.model.module.Module;
@@ -50,7 +48,7 @@ public class ModuleBuilder {
             .withNote("Revise on notes")
             .build();
     public static final Event EVENT_3 = new EventBuilder()
-            .withName("Recitation Lesson")
+            .withName("Recitation")
             .withFromDate("08-08-2020 11:00")
             .withToDate("12-08-2020 12:00")
             .withNote("Study tutorial")
@@ -65,20 +63,28 @@ public class ModuleBuilder {
     public ModuleBuilder() {
         name = new ModuleName(DEFAULT_MODULE_NAME);
         code = new ModuleCode(DEFAULT_MODULE_CODE);
-        uniqueDeadlineList.add(DEADLINE_1);
-        uniqueDeadlineList.add(DEADLINE_2);
-        uniqueDeadlineList.add(DEADLINE_3);
-        uniqueDeadlineList.add(DEADLINE_4);
-        uniqueEventList.add(EVENT_1);
-        uniqueEventList.add(EVENT_2);
-        uniqueEventList.add(EVENT_3);
+        UniqueDeadlineList deadlines = new UniqueDeadlineList();
+        deadlines.add(DEADLINE_1);
+        deadlines.add(DEADLINE_2);
+        deadlines.add(DEADLINE_3);
+        deadlines.add(DEADLINE_4);
+        UniqueEventList events = new UniqueEventList();
+        events.add(EVENT_1);
+        events.add(EVENT_2);
+        events.add(EVENT_3);
+        this.uniqueEventList = events;
+        this.uniqueDeadlineList = deadlines;
         module = new Module(code, name);
-        module.setDeadlines(uniqueDeadlineList);
-        module.setEvents(uniqueEventList);
+        module.setDeadlines(deadlines);
+        module.setEvents(events);
     }
 
     public ModuleBuilder(Module moduleToCopy) {
         module = moduleToCopy.getDeepCopyModule();
+        name = module.getModuleName();
+        code = module.getModuleCode();
+        uniqueDeadlineList = module.getDeadlineList();
+        uniqueEventList = module.getEventList();
     }
 
     /**
@@ -97,11 +103,21 @@ public class ModuleBuilder {
         return this;
     }
 
+    /**
+     * Adds deadline to the module.
+     * @param deadline Deadline to be added
+     * @return module update with this deadline in it
+     */
     public ModuleBuilder addDeadline(Deadline deadline) {
         this.uniqueDeadlineList.add(deadline);
         return this;
     }
 
+    /**
+     * Adds event to the module.
+     * @param event Event to be added
+     * @return module updated with this event in it
+     */
     public ModuleBuilder addEvent(Event event) {
         this.uniqueEventList.add(event);
         return this;
@@ -122,7 +138,9 @@ public class ModuleBuilder {
      * @return Module
      */
     public Module build() {
-       return module;
+        Module module = new Module(code, name);
+        module.setDeadlines(uniqueDeadlineList);
+        module.setEvents(uniqueEventList);
+        return module;
     }
-
 }

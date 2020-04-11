@@ -2,15 +2,16 @@ package nasa.model.module;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
-import nasa.model.activity.Name;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;
 
@@ -63,12 +64,15 @@ public class UniqueModuleList implements Iterable<Module> {
      * @param editedModule Module
      */
     public void setModule(ModuleCode target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+        ModuleCode editedModuleCode = editedModule.getModuleCode();
         int index = internalList.indexOf(getModule(target));
         if (index == -1) {
             throw new ModuleNotFoundException();
         }
 
-        if (!target.equals(editedModule) && contains(editedModule.getModuleCode())) { // case when editedModule is a non-target module that already exists in { @code UniqueModuleList }
+        // case when editedModule is a non-target module that already exists in { @code UniqueModuleList }
+        if (!target.equals(editedModuleCode) && contains(editedModuleCode)) {
             throw new DuplicateModuleException();
         }
 

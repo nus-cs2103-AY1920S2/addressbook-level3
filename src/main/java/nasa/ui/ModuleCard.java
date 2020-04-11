@@ -8,8 +8,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import nasa.model.module.Module;
-import nasa.ui.activity.EventListPanel;
 import nasa.ui.activity.DeadlineListPanel;
+import nasa.ui.activity.EventListPanel;
+
 /**
  * An UI component that displays information of a {@code Module}.
  */

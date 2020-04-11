@@ -2,6 +2,7 @@ package nasa.model.activity;
 
 import java.util.List;
 import java.util.function.Predicate;
+
 import nasa.commons.util.StringUtil;
 
 /**

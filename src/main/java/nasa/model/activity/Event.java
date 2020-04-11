@@ -19,7 +19,7 @@ public class Event extends Activity {
     private Date endDate;
     private boolean isOver;
 
-    public Event(Name name, Date startDate, Date endDate){
+    public Event(Name name, Date startDate, Date endDate) {
         super(name);
         requireAllNonNull(startDate, endDate);
         checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
@@ -42,8 +42,6 @@ public class Event extends Activity {
         super(name, date, note);
         this.startDate = startDate;
         this.endDate = endDate;
-        checkArgument(isValidStartEndDates(startDate, endDate), DATE_CONSTRAINTS);
-        checkArgument(isValidFutureEvent(endDate), PAST_CONSTRAINTS);
     }
 
     public Date getStartDate() {
@@ -66,11 +64,21 @@ public class Event extends Activity {
         this.endDate = endDate;
     }
 
+    /**
+     * Returns true if start date is valid (ie. start date is after end date)
+     * @param startDate
+     * @return
+     */
     public boolean isValidStartDate(Date startDate) {
         requireAllNonNull(startDate);
         return startDate.isBefore(endDate);
     }
 
+    /**
+     * Returns true if end date is valid (ie. end date is after start date)
+     * @param endDate
+     * @return
+     */
     public boolean isValidEndDate(Date endDate) {
         requireAllNonNull(endDate);
         return startDate.isBefore(endDate);
@@ -117,26 +125,40 @@ public class Event extends Activity {
 
     @Override
     public Activity deepCopy() {
-        Event event = new Event(getName(), getStartDate(), getStartDate());
-        event.setNote(getNote());
-        event.setDateCreated(getDateCreated());
-        return event;
+        Name nameCopy = new Name(getName().toString());
+        Date startDateCopy = new Date(getStartDate().toString());
+        Date endDateCopy = new Date(getEndDate().toString());
+        Event eventCopy = new Event(nameCopy, startDateCopy, endDateCopy);
+        Note noteCopy = new Note(getNote().toString());
+        Date dateCreatedCopy = new Date(getDateCreated().toString());
+        eventCopy.setNote(noteCopy);
+        eventCopy.setDateCreated(dateCreatedCopy);
+        return eventCopy;
     }
 
     public boolean isOver() {
         return isOver;
     }
 
-    @Override
-    public boolean equals(Object other) {
+    /**
+     * Returns true if both are the same event with same event attributes.
+     * This defines a stronger notion of equality between two events.
+     */
+    public boolean isSameEvent(Object other) {
+        if (other == this) {
+            return true;
+        }
+
         if (!(other instanceof Event)) {
             return false;
         }
 
-        Event event = (Event) other;
-        return event.startDate.equals(((Event) other).startDate)
-            && event.endDate.equals(((Event) other).endDate)
-            && event.getNote().equals(((Event) other).getNote())
-            && event.getName().equals(((Event) other).getName());
+        Event otherEvent = (Event) other;
+        return otherEvent.getName().equals(getName())
+                && otherEvent.getStartDate().equals(getStartDate())
+                && otherEvent.getEndDate().equals(getEndDate())
+                && otherEvent.getDateCreated().equals(getDateCreated())
+                && otherEvent.getNote().equals(getNote());
     }
+
 }

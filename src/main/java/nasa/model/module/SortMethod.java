@@ -2,9 +2,12 @@ package nasa.model.module;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
+
 import java.util.Comparator;
+
 import nasa.model.activity.Deadline;
 
+/* @@author don-tay */
 /**
  * Represents a SortMethod in NASA.
  * Guarantees: immutable; name is valid as declared in {@link #isValidSortMethod(String)}

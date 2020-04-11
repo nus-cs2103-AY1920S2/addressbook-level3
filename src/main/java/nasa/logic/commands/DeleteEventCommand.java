@@ -10,6 +10,9 @@ import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Command to delete event.
+ */
 public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "del-e";
@@ -51,5 +54,20 @@ public class DeleteEventCommand extends Command {
         }
 
         return new CommandResult(index.toString() + " " + MESSAGE_DELETE_DEADLINE_SUCCESS);
+    }
+
+    /**
+     * Returns true if both DeleteDeadlineCommand has the same index and module code.
+     * @param other
+     * @return
+     */
+    public boolean equals(Object other) {
+        if (!(other instanceof DeleteEventCommand)) {
+            return false;
+        }
+
+        DeleteEventCommand command = (DeleteEventCommand) other;
+        return moduleCode.equals(((DeleteEventCommand) other).moduleCode)
+            && index.equals(((DeleteEventCommand) other).index);
     }
 }

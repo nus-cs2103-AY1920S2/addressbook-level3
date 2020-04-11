@@ -1,6 +1,7 @@
 package nasa.model;
 
 import java.nio.file.Path;
+
 import nasa.commons.core.GuiSettings;
 
 /**
@@ -13,5 +14,7 @@ public interface ReadOnlyUserPrefs {
     Path getNasaBookFilePath();
 
     Path getHistoryBookFilePath();
+
+    Path getCalendarExportPath();
 
 }

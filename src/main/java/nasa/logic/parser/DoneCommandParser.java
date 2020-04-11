@@ -7,7 +7,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.DoneCommand;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.model.activity.Deadline;
 import nasa.model.module.ModuleCode;
 
 /**
