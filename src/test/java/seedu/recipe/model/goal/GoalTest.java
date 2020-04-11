@@ -2,18 +2,11 @@ package seedu.recipe.model.goal;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.recipe.logic.commands.SwitchCommand.MESSAGE_SUCCESS;
 import static seedu.recipe.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.CommandResult;
-import seedu.recipe.logic.commands.SwitchCommand;
-import seedu.recipe.model.recipe.Name;
 import seedu.recipe.model.recipe.ingredient.MainIngredientType;
-import seedu.recipe.model.recipe.ingredient.MainIngredientTypeMagnitude;
-import seedu.recipe.ui.tab.Tab;
 
 public class GoalTest {
 

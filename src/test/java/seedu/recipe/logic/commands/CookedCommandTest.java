@@ -2,7 +2,6 @@ package seedu.recipe.logic.commands;
 
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.recipe.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalRecipes.getTypicalRecipeBook;
 import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
