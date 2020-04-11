@@ -36,12 +36,12 @@ Here is the code that I have written for this product: [https://github.com/CS210
 
 === Other contributions
 
-** Project management:
+==== Project management:
 
 I commented on critical pull requests.
 I also extensively tested and reported bugs along with a comprehensive reproduction reports: https://github.com/CS2103-AY1819S1-W14-4/main/issues/170[#170] https://github.com/CS2103-AY1819S1-W14-4/main/issues/175[#175]
 
-** Documentation:
+==== Documentation:
 
 I wrote a tutorial to walk users through the on-boarding process with a sample project that demonstrates most of the key features of our application. This light-hearted tutorial also serves to show that our application is relevant and solves problems that the reader can relate to.
 
