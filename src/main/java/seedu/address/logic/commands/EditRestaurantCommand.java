@@ -1,14 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EditRestaurantDescriptor;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.restaurant.Restaurant;
-
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -17,6 +8,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VISITED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
+
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EditRestaurantDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Edits the details of an existing restaurant in the restaurant book.
