@@ -10,13 +10,10 @@ import static tatracker.logic.parser.Prefixes.RECUR;
 import static tatracker.logic.parser.Prefixes.SESSION_TYPE;
 import static tatracker.logic.parser.Prefixes.START_TIME;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.session.EditSessionCommand;
+import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
 import tatracker.logic.parser.ArgumentMultimap;
 import tatracker.logic.parser.ArgumentTokenizer;
 import tatracker.logic.parser.Parser;
@@ -55,42 +52,30 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
             throw new ParseException(Messages.getInvalidCommandMessage(EditSessionCommand.DETAILS.getUsage()), pe);
         }
 
-        EditSessionCommand.EditSessionDescriptor editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor();
+        EditSessionDescriptor editSessionDescriptor = new EditSessionDescriptor();
 
-        LocalDate date = LocalDate.now(); // Arbitrary default value. Will be overwritten by EditSessionCommand
         if (argMultimap.getValue(DATE).isPresent()) {
-            date = ParserUtil.parseDate(argMultimap.getValue(DATE).get());
-            editSessionDescriptor.setIsDateChanged(true);
+            editSessionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(DATE).get()));
         }
-
         if (argMultimap.getValue(START_TIME).isPresent()) {
-            LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(START_TIME).get());
-            editSessionDescriptor.setStartTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
-                    startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
+            editSessionDescriptor.setStartTime(ParserUtil.parseTime(argMultimap.getValue(START_TIME).get()));
         }
-
         if (argMultimap.getValue(END_TIME).isPresent()) {
-            LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(END_TIME).get());
-            editSessionDescriptor.setEndTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
-                    endTime.getHour(), endTime.getMinute(), endTime.getSecond()));
+            editSessionDescriptor.setStartTime(ParserUtil.parseTime(argMultimap.getValue(END_TIME).get()));
         }
-
         if (argMultimap.getValue(RECUR).isPresent()) {
             editSessionDescriptor.setRecurring(ParserUtil.parseNumWeeks(argMultimap.getValue(RECUR).get()));
         }
-
         if (argMultimap.getValue(MODULE).isPresent()) {
             editSessionDescriptor.setModuleCode(argMultimap.getValue(MODULE)
                     .map(String::trim)
                     .map(String::toUpperCase)
                     .get());
         }
-
         if (argMultimap.getValue(SESSION_TYPE).isPresent()) {
             editSessionDescriptor.setSessionType(
                     ParserUtil.parseSessionType(argMultimap.getValue(SESSION_TYPE).get()));
         }
-
         if (argMultimap.getValue(NOTES).isPresent()) {
             editSessionDescriptor.setDescription(argMultimap.getValue(NOTES).map(String::trim).get());
         }

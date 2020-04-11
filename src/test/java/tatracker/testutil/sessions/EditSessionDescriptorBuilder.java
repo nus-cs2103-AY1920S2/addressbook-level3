@@ -1,10 +1,9 @@
 package tatracker.testutil.sessions;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import tatracker.logic.commands.session.EditSessionCommand.EditSessionDescriptor;
-import tatracker.logic.parser.ParserUtil;
-import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.session.Session;
 import tatracker.model.session.SessionType;
 
@@ -28,22 +27,27 @@ public class EditSessionDescriptorBuilder {
      */
     public EditSessionDescriptorBuilder(Session session) {
         descriptor = new EditSessionDescriptor();
-        descriptor.setStartTime(session.getStartDateTime());
-        descriptor.setEndTime(session.getEndDateTime());
+        descriptor.setDate(session.getDate());
+        descriptor.setStartTime(session.getStartDateTime().toLocalTime());
+        descriptor.setEndTime(session.getEndDateTime().toLocalTime());
         descriptor.setRecurring(session.getRecurring());
         descriptor.setModuleCode(session.getModuleCode());
         descriptor.setSessionType(session.getSessionType());
         descriptor.setDescription(session.getDescription());
-        descriptor.setIsDateChanged(descriptor.getIsDateChanged());
     }
 
     /**
      * Sets the {@code startTime} of the {@code EditSessionDescriptor} that we are building.
      */
-    public EditSessionDescriptorBuilder withStartTime(LocalDateTime startTime) throws ParseException {
-        //LocalDate date = ParserUtil.parseDate(startTime);
-        //LocalTime time = ParserUtil.parseTime(startTime);
-        //descriptor.setStartTime(LocalDateTime.of(date, time));
+    public EditSessionDescriptorBuilder withDate(LocalDate date) {
+        descriptor.setDate(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code startTime} of the {@code EditSessionDescriptor} that we are building.
+     */
+    public EditSessionDescriptorBuilder withStartTime(LocalTime startTime) {
         descriptor.setStartTime(startTime);
         return this;
     }
@@ -51,10 +55,7 @@ public class EditSessionDescriptorBuilder {
     /**
      * Sets the {@code endTime} of the {@code EditSessionDescriptor} that we are building.
      */
-    public EditSessionDescriptorBuilder withEndTime(LocalDateTime endTime) throws ParseException {
-        //LocalDate date = ParserUtil.parseDate(endTime);
-        //LocalTime time = ParserUtil.parseTime(endTime);
-        //descriptor.setEndTime(LocalDateTime.of(date, time));
+    public EditSessionDescriptorBuilder withEndTime(LocalTime endTime) {
         descriptor.setEndTime(endTime);
         return this;
     }
@@ -70,9 +71,8 @@ public class EditSessionDescriptorBuilder {
     /**
      * Sets the {@code SessionType} of the {@code EditSessionDescriptorBuilder} that we are building.
      */
-    public EditSessionDescriptorBuilder withSessionType(String type) throws ParseException {
-        SessionType s = ParserUtil.parseSessionType(type);
-        descriptor.setSessionType(s);
+    public EditSessionDescriptorBuilder withSessionType(String type) {
+        descriptor.setSessionType(SessionType.getSessionType(type));
         return this;
     }
 
