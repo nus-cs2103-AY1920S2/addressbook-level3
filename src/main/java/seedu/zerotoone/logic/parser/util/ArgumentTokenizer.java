@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.zerotoone.logic.parser.CliSyntax;
+import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
@@ -17,6 +18,8 @@ import seedu.zerotoone.logic.parser.CliSyntax;
  *    in the above example.<br>
  */
 public class ArgumentTokenizer {
+    public static final String MESSAGE_REPEATED_PREFIX = "Each prefix is only allowed to appear"
+            + " at most once in the command.";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -46,9 +49,19 @@ public class ArgumentTokenizer {
      * @param prefixes   Prefixes to tokenize the arguments string with
      * @return           ArgumentMultimap object that maps prefixes to their arguments
      */
-    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) throws ParseException {
+        boolean hasRepeatedPrefixes = Stream.of(prefixes)
+                .anyMatch(prefix -> isPrefixRepeated(argsString, prefix));
+        if (hasRepeatedPrefixes) {
+            throw new ParseException(MESSAGE_REPEATED_PREFIX);
+        }
+
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+    private static boolean isPrefixRepeated(String argsString, Prefix prefix) {
+        return argsString.split(prefix.getPrefix()).length > 2;
     }
 
     /**
