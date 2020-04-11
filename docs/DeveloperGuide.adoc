@@ -1278,6 +1278,54 @@ will be filtered.
 
 The command used to filter claims is implemented the same way as `SessionFilterCommand`.
 
+=== Statistic Report Generation
+
+==== Description
+
+The *Statistics Report Window* can be generated and displayed using the `report` command.
+The command is used to generate a report to display information such as:
+
+* A breakdown and summary of completed sessions
+* The number of hours of each type of completed sessions
+* A breakdown of your student’s ratings
+
+A module code can be specified such that the generated report will only include data from a specific module.
+
+==== Implementation
+
+This section describes the implementation of the `report` command.
+
+The following Sequence Diagram shows the interactions between the `UI` and the `Logic` components of TA-Tracker,
+when the user enters the command `report CS3247`.
+
+.Sequence Diagram for Statistic Report Generation
+image::ReportSequenceDiagram.png[]
+
+The following is an example scenario when the user requests for a report of a particular module,
+with the command `report CS3247`.
+
+. The user command is first read by `MainWindow`, through JavaFX.
+`MainWindow` passes the command as a `String` to the `LogicManager` to be processed.
+
+. `LogicManager` sends the command to `TaTrackerParser` for the command to be parsed.
+
+. The `TaTrackerParser` processes the first word in the command, and identifies it as a `ShowStatisticCommand`.
+Hence, `TaTrackerParser` creates a `ShowStatisticCommandParser` object and passes the command argument `CS3247`
+to the `ShowStatisticCommandParser` object.
+
+. The `ShowStatisticCommandParser` stores the target module, `CS3247`, in a `ShowStatisticCommand` object and 
+this command object is returned all the way back to the `LogicManager`.
+
+. `LogicManager` executes the `ShowStatisticCommand`, which creates and return a `StatiscCommandResult`. This command
+result is returned by `LogicManager` to `MainWindow` 
+
+. `MainWindow` detects that the the command result is of type `StatisticCommandResult`, and prepares the `StatisticWindow`
+by creating a `Statistic` object that retreives data necessary for generating the report, from `ReadOnlyTaTracker`. These data is then processed further by `Statistic`. This includes computing the total number of sessions per session type and sorting the students by rating.
+
+. A `StatisticWindow` object is now created by `MainWindow`. The `Statistic` object is passed into the constructor of `StatisticWindow`.
+
+. Finally, `StatisticWindow` updates its FXML elements and is shown to the user. 
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
