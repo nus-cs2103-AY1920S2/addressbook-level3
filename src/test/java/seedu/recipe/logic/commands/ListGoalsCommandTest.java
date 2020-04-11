@@ -14,7 +14,8 @@ public class ListGoalsCommandTest {
 
     @Test
     public void execute_listGoals_success() {
-        CommandResult expectedCommandResult = new CommandResult(LIST, false, null, false);
+        CommandResult expectedCommandResult = new CommandResult(LIST, false, false,
+                null, false);
         assertCommandSuccess(new ListGoalsCommand(), model, expectedCommandResult, expectedModel);
     }
 }

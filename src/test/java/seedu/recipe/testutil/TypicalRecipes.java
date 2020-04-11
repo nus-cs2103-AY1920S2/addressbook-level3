@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
  * A utility class containing a list of {@code Recipe} objects to be used in tests.

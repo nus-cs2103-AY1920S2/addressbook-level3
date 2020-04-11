@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.model.ReadOnlyPlannedBook;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.PlannedDate;
 import seedu.recipe.model.recipe.Recipe;
 
 /**
@@ -23,13 +23,13 @@ class JsonSerializablePlannedBook {
     public static final String MESSAGE_DUPLICATE_PLANNED_RECIPE = "Planned recipes list contains duplicate"
             + "planned recipe(s).";
 
-    private final List<JsonAdaptedPlannedDate> plannedRecipes = new ArrayList<>();
+    private final List<JsonAdaptedPlan> plannedRecipes = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializablePlannedBook} with the given recipes.
      */
     @JsonCreator
-    public JsonSerializablePlannedBook(@JsonProperty("plannedRecipes") List<JsonAdaptedPlannedDate> plannedRecipes) {
+    public JsonSerializablePlannedBook(@JsonProperty("plannedRecipes") List<JsonAdaptedPlan> plannedRecipes) {
         this.plannedRecipes.addAll(plannedRecipes);
     }
 
@@ -39,7 +39,7 @@ class JsonSerializablePlannedBook {
      * @param source future changes to this will not affect the created {@code JsonSerializablePlannedBook}.
      */
     public JsonSerializablePlannedBook(ReadOnlyPlannedBook source) {
-        plannedRecipes.addAll(source.getPlannedList().stream().map(JsonAdaptedPlannedDate::new)
+        plannedRecipes.addAll(source.getPlannedList().stream().map(JsonAdaptedPlan::new)
                 .collect(Collectors.toList()));
     }
 
@@ -50,13 +50,13 @@ class JsonSerializablePlannedBook {
      */
     public PlannedBook toModelType() throws IllegalValueException {
         PlannedBook plannedBook = new PlannedBook();
-        for (JsonAdaptedPlannedDate jsonAdaptedPlannedDate : plannedRecipes) {
-            PlannedDate plannedDate = jsonAdaptedPlannedDate.toModelType();
-            if (plannedBook.contains(plannedDate)) {
+        for (JsonAdaptedPlan jsonAdaptedPlan : plannedRecipes) {
+            Plan plan = jsonAdaptedPlan.toModelType();
+            if (plannedBook.containsPlan(plan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PLANNED_RECIPE);
             }
-            List<Recipe> recipes = plannedDate.getRecipes();
-            plannedBook.addAllRecipesToPlan(recipes, plannedDate);
+            Recipe recipe = plan.getRecipe();
+            plannedBook.addPlan(recipe, plan);
         }
         return plannedBook;
     }

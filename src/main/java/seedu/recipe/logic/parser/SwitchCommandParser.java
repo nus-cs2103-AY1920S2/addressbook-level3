@@ -1,7 +1,7 @@
 package seedu.recipe.logic.parser;
 
 import seedu.recipe.commons.core.Messages;
-import seedu.recipe.logic.commands.SwitchCommand;
+import seedu.recipe.logic.commands.common.SwitchCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.ui.tab.Tab;
 

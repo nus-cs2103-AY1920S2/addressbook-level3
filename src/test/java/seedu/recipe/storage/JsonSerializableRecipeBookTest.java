@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.exceptions.IllegalValueException;
 import seedu.recipe.commons.util.JsonUtil;
-import seedu.recipe.model.RecipeBook;
+import seedu.recipe.model.recipe.RecipeBook;
+import seedu.recipe.storage.recipe.JsonSerializableRecipeBook;
 import seedu.recipe.testutil.TypicalRecipes;
 
 public class JsonSerializableRecipeBookTest {
@@ -41,7 +42,7 @@ public class JsonSerializableRecipeBookTest {
         JsonSerializableRecipeBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_RECIPE_FILE,
                 JsonSerializableRecipeBook.class).get();
         assertThrows(IllegalValueException.class,
-                seedu.recipe.storage.JsonSerializableRecipeBook.MESSAGE_DUPLICATE_RECIPE,
+                JsonSerializableRecipeBook.MESSAGE_DUPLICATE_RECIPE,
                 dataFromFile::toModelType);
     }
 

@@ -9,6 +9,7 @@ import static seedu.recipe.testutil.TypicalRecords.getTypicalRecordBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.recipe.logic.commands.recipe.ListCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
 import seedu.recipe.model.UserPrefs;
@@ -37,7 +38,8 @@ public class ListCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult =
-                new CommandResult(ListCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(ListCommand.MESSAGE_SUCCESS, false,
+                        false, Tab.RECIPES, false);
         assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -45,7 +47,8 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
         CommandResult expectedCommandResult =
-                new CommandResult(ListCommand.MESSAGE_SUCCESS, false, Tab.RECIPES, false);
+                new CommandResult(ListCommand.MESSAGE_SUCCESS, false, false,
+                        Tab.RECIPES, false);
         assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 }

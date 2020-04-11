@@ -1,7 +1,7 @@
 package seedu.recipe.testutil;
 
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
  * A utility class to help with building RecipeBook objects.

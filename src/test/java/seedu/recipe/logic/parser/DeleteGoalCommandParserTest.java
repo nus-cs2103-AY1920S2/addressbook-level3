@@ -7,7 +7,7 @@ import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.DeleteGoalCommand;
+import seedu.recipe.logic.commands.recipe.DeleteGoalCommand;
 
 class DeleteGoalCommandParserTest {
 

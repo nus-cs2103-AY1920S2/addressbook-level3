@@ -5,6 +5,7 @@ import static seedu.recipe.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,9 +19,11 @@ import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedBook;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 
 /**
  * Represents the in-memory model of the recipe book data.
@@ -35,7 +38,7 @@ public class ModelManager implements Model {
     private final MultipleBookStateManager states;
     private final CookedRecordBook cookedRecordBook;
     private final FilteredList<Record> filteredRecords;
-    private final FilteredList<PlannedDate> filteredPlannedDates;
+    private final FilteredList<Plan> filteredPlannedDates;
     private final QuoteBook quoteBook;
     private final FilteredList<Quote> filteredQuotes;
 
@@ -124,7 +127,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteRecipe(Recipe target) {
         recipeBook.removeRecipe(target);
-        plannedBook.deleteAllRecipePlans(target);
+        plannedBook.deleteRecipe(target);
     }
 
     @Override
@@ -213,63 +216,48 @@ public class ModelManager implements Model {
     //=========== Plan Recipe List Accessors =============================================================
 
     @Override
-    public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
-        plannedBook.addOnePlan(recipe, plannedDate);
+    public void addPlan(Recipe recipe, Plan plan) {
+        requireAllNonNull(recipe, plan);
+        plannedBook.addPlan(recipe, plan);
     }
 
     @Override
-    public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
-        plannedBook.addAllRecipesToPlan(recipes, plannedDate);
+    public void deletePlan(Recipe recipe, Plan plan) {
+        requireAllNonNull(recipe, plan);
+        plannedBook.deletePlan(recipe, plan);
     }
 
     @Override
-    public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
-        plannedBook.deleteOnePlan(recipe, plannedDate);
+    public Optional<List<Plan>> getPlans(Recipe recipe) {
+        requireNonNull(recipe);
+        return plannedBook.getPlans(recipe);
     }
 
     @Override
-    public void deleteAllRecipePlans(Recipe recipe) {
-        plannedBook.deleteAllRecipePlans(recipe);
+    public String getGroceryList() {
+        return plannedBook.getGroceryList();
     }
 
     @Override
-    public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
-        plannedBook.setRecipe(target, editedRecipe);
+    public void setGroceryList(String groceryList) {
+        plannedBook.setGroceryList(groceryList);
     }
 
     @Override
-    public ObservableList<PlannedDate> getFilteredPlannedList() {
+    public ObservableList<Plan> getFilteredPlannedList() {
         return filteredPlannedDates;
     }
 
     @Override
-    public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
+    public void updateFilteredPlannedList(Predicate<Plan> predicate) {
         requireNonNull(predicate);
         filteredPlannedDates.setPredicate(predicate);
     }
 
-
     @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return recipeBook.equals(other.recipeBook)
-                && plannedBook.equals(other.plannedBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredRecipes.equals(other.filteredRecipes);
+    public PlannedRecipeMap getPlannedMap() {
+        return plannedBook.getPlannedMap();
     }
-
-
 
     //=========== Cooked Recipe List Accessors =============================================================
 
@@ -322,4 +310,23 @@ public class ModelManager implements Model {
         return quoteBook.hasQuote(quote);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return recipeBook.equals(other.recipeBook)
+                && plannedBook.equals(other.plannedBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredRecipes.equals(other.filteredRecipes);
+    }
 }

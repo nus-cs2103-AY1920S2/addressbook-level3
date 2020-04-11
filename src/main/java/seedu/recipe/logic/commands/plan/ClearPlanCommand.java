@@ -23,6 +23,6 @@ public class ClearPlanCommand extends Command {
         requireNonNull(model);
         model.setPlannedBook(new PlannedBook());
         model.commitBook(commandType);
-        return new CommandResult(MESSAGE_SUCCESS, false, planTab, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, planTab, false);
     }
 }

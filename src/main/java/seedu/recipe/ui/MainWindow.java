@@ -22,8 +22,10 @@ import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.achievement.Streak;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.plan.GroceryListWindow;
+import seedu.recipe.ui.plan.PlanningListPanel;
 import seedu.recipe.ui.tab.Tab;
 
 /**
@@ -48,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private AchievementCard achievementsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private GroceryListWindow groceryListWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -89,6 +92,9 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        String groceries = "hi";
+        groceryListWindow = new GroceryListWindow(groceries);
     }
 
     public Stage getPrimaryStage() {
@@ -137,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
         recipeListPanel = new RecipeListPanel(recipeList);
 
-        ObservableList<PlannedDate> plannedList = logic.getFilteredPlannedList();
+        ObservableList<Plan> plannedList = logic.getFilteredPlannedList();
         planningListPanel = new PlanningListPanel(plannedList);
 
         ObservableList<Record> cookedList = logic.getFilteredRecordList();
@@ -186,6 +192,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the grocery list window
+     */
+    @FXML
+    public void handleGroceryList() {
+        groceryListWindow.setGroceryListMessage(logic.getGroceryList());
+        if (!groceryListWindow.isShowing()) {
+            groceryListWindow.show();
+        } else {
+            groceryListWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -199,6 +218,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        groceryListWindow.hide();
         primaryStage.hide();
     }
 
@@ -225,7 +245,7 @@ public class MainWindow extends UiPart<Stage> {
             showAchievementsTab();
             break;
         default:
-            break;
+            break; //todo throw exception
         }
     }
 
@@ -243,6 +263,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowGroceryList()) {
+                handleGroceryList();
             }
 
             if (commandResult.isSwitchTab()) {

@@ -14,8 +14,7 @@ public class Quantity {
         this.unit = unit;
     }
 
-    public Quantity() {
-    }
+    public Quantity() {}
 
     /**
      * According to Metric measurements and based on ingredient type (averages denser ingredients).
@@ -65,6 +64,16 @@ public class Quantity {
 
     public double getMagnitude() {
         return magnitude;
+    }
+
+    /**
+     * Sums up the quantity in {@code toAdd} with the current quantity.
+     */
+    public Quantity addQuantityInGram(Quantity toAdd, MainIngredientType mainIngredientType) {
+        Quantity currentInGram = convertToGram(mainIngredientType);
+        Quantity toAddInGram = toAdd.convertToGram(mainIngredientType);
+        double sumMagnitude = currentInGram.magnitude + toAddInGram.magnitude;
+        return new Quantity(sumMagnitude, Unit.GRAM);
     }
 
     @Override

@@ -6,7 +6,7 @@ import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess
 
 import org.junit.jupiter.api.Test;
 
-import seedu.recipe.logic.commands.SwitchCommand;
+import seedu.recipe.logic.commands.common.SwitchCommand;
 import seedu.recipe.ui.tab.Tab;
 
 class SwitchCommandParserTest {

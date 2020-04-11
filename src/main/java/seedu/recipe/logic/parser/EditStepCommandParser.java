@@ -7,7 +7,7 @@ import static seedu.recipe.logic.parser.CliSyntax.PREFIX_STEP;
 import java.util.List;
 
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.EditStepCommand;
+import seedu.recipe.logic.commands.recipe.EditStepCommand;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.recipe.Step;
 

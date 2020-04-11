@@ -56,8 +56,6 @@ public class Date implements Comparable<Date> {
             return false;
         }
         try {
-            // DateTimeFormatter format = DateTimeFormatter.ofPattern("dd MM YYYY");
-            // todo: be able to parse other formats as well
             LocalDate.parse(test);
             return true;
         } catch (DateTimeParseException e) {
@@ -78,6 +76,13 @@ public class Date implements Comparable<Date> {
     public boolean isDateInFuture() {
         Date yesterday = new Date(LocalDate.now(ZONE_ID).minusDays(1));
         return isAfter(yesterday);
+    }
+
+    /**
+     * Returns true if the date is the same as {@code otherDate}.
+     */
+    public boolean isOnDate(Date otherDate) {
+        return date.isEqual(otherDate.date);
     }
 
     /**

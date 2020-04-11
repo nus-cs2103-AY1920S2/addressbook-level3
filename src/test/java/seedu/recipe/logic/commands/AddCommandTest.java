@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -17,19 +18,21 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.recipe.commons.core.GuiSettings;
 import seedu.recipe.logic.commands.exceptions.CommandException;
+import seedu.recipe.logic.commands.recipe.AddCommand;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ReadOnlyCookedRecordBook;
 import seedu.recipe.model.ReadOnlyPlannedBook;
 import seedu.recipe.model.ReadOnlyQuoteBook;
 import seedu.recipe.model.ReadOnlyRecipeBook;
 import seedu.recipe.model.ReadOnlyUserPrefs;
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
-import seedu.recipe.model.plan.PlannedDate;
+import seedu.recipe.model.plan.Plan;
+import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.testutil.RecipeBuilder;
 
 public class AddCommandTest {
@@ -159,7 +162,7 @@ public class AddCommandTest {
 
         @Override
         public void commitBook(CommandType commandType) {
-            // throw new AssertionError("This method should not be called.");
+            // throw new AssertionError("This method should not be called."); todo
         }
 
         @Override
@@ -193,22 +196,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addOnePlan(Recipe recipe, PlannedDate plannedDate) {
+        public void addPlan(Recipe recipe, Plan plan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addAllRecipesToPlan(List<Recipe> recipes, PlannedDate plannedDate) {
+        public void deletePlan(Recipe recipe, Plan plan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteOnePlan(Recipe recipe, PlannedDate plannedDate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteAllRecipePlans(Recipe recipe) {
+        public ObservableList<Plan> getFilteredPlannedList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -232,10 +230,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public ObservableList<PlannedDate> getFilteredPlannedList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public ReadOnlyCookedRecordBook getRecordBook() {
             throw new AssertionError("This method should not be called.");
@@ -247,12 +241,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPlannedList(Predicate<PlannedDate> predicate) {
+        public void updateFilteredPlannedList(Predicate<Plan> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setRecipeInPlans(Recipe target, Recipe editedRecipe) {
+        public PlannedRecipeMap getPlannedMap() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<List<Plan>> getPlans(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getGroceryList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroceryList(String groceryList) {
             throw new AssertionError("This method should not be called.");
         }
 

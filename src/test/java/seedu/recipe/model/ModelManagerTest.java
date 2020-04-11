@@ -20,6 +20,7 @@ import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.NameContainsKeywordsPredicate;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.testutil.RecipeBookBuilder;
 import seedu.recipe.testutil.RecordBookBuilder;
 

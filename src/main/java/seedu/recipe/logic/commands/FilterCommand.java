@@ -49,7 +49,7 @@ public class FilterCommand extends Command {
         model.updateFilteredRecipeList(predicate);
         String finalMessage = String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW,
                 model.getFilteredRecipeList().size());
-        return new CommandResult(finalMessage, false, recipesTab, false);
+        return new CommandResult(finalMessage, false, false, recipesTab, false);
     }
 
     @Override

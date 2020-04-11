@@ -18,15 +18,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.recipe.commons.core.Messages;
 import seedu.recipe.commons.core.index.Index;
-import seedu.recipe.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.recipe.logic.commands.recipe.ClearCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand;
+import seedu.recipe.logic.commands.recipe.EditCommand.EditRecipeDescriptor;
 import seedu.recipe.model.Model;
 import seedu.recipe.model.ModelManager;
-import seedu.recipe.model.RecipeBook;
 import seedu.recipe.model.UserPrefs;
 import seedu.recipe.model.achievement.QuoteBook;
 import seedu.recipe.model.cooked.CookedRecordBook;
 import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.testutil.EditRecipeDescriptorBuilder;
 import seedu.recipe.testutil.RecipeBuilder;
 import seedu.recipe.ui.tab.Tab;
@@ -57,7 +59,7 @@ public class EditCommandTest {
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
@@ -83,7 +85,7 @@ public class EditCommandTest {
         expectedModel.setRecipe(lastRecipe, editedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
@@ -99,7 +101,7 @@ public class EditCommandTest {
                 new CookedRecordBook(model.getRecordBook()), new PlannedBook(), new QuoteBook());
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
@@ -121,7 +123,7 @@ public class EditCommandTest {
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.RECIPES, false);
+                new CommandResult(expectedMessage, false, false, Tab.RECIPES, false);
 
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }

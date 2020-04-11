@@ -1,26 +1,15 @@
 {
   "recipes" : [ {
-    "name" : "Quick Carrot Daikon Stir-fry",
+    "name" : "Quick Carrot Daikon Stir-fry 2",
     "time" : "25",
     "isFavourite" : false,
     "grains" : [ "50.0g,  Brown rice", "30.0g,  Grain" ],
-    "vegetables" : [ "30.0g,  Carrot (julienned)", "500.0g,  Daikon radish (peeled and julienned)", "30.0g,  Garlic clove (smashed and chopped)", "20.0g,  Ginger (julienned sliced)", "30.0g,  Scallions" ],
+    "vegetables" : [ "50.0g,  This is a looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong ingredient" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ "50.0g,  Other", "50.0g,  Others", "1.5tbsp,  Oyster sauce", "0.5tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tbsp,  Shaoxing wine", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
     "steps" : [ "Heat oil in wok over medium heat. Add ginger and garlic and cook for 20 seconds.", "Add carrot and stir-fry for 30 seconds - oil should turn orange colour. Add in daikon, turn up heat to high and stir-fry for another 30 seconds.", "Add shaoxing wine, oyster sauce, white pepper, sesame oil, salt, water, and white parts of the scallions. Stir to combine, cover, turn down heat to medium. Simmer for 5-8 minutes until tender.", "Uncover, add in rest of the scallions and mix everything well. When dailon is translucent and tender, the dish is done." ],
-    "goals" : [ "Herbivore" ]
-  }, {
-    "name" : "edit name test",
-    "time" : "100",
-    "isFavourite" : false,
-    "grains" : [ "50.0g,  Rice" ],
-    "vegetables" : [ "15.0g,  Scallion", "550.0g,  Tomatoes" ],
-    "proteins" : [ "200.0g,  Eggs" ],
-    "fruits" : [ ],
-    "others" : [ "0.8tsp,  Salt", "0.5tsp,  Sesame oil", "1.0tsp,  Shaoxing wine", "2.0tsp,  Sugar", "3.0tbsp,  Vegetable oil", "0.3cup,  Water", "0.3tsp,  White pepper" ],
-    "steps" : [ "Cut tomatoes into small wedges and finely chop scallion", "Crack eggs into bowl and season with ¼ tsp salt, white pepper", "sesame oil, and shaoxing wine. Beat the eggs.", "Preheat wok over medium heat until it starts to smoke. Add 2 tbsp of oil and immediately add eggs. Scramble the eggs and remove from wok immediately. Set aside.", "Add the remaining tbsp of oil to the wok, turn up heat to high, add tomatoes and scallions. Stir-fry for 1min, then add sugar, 0.5 tsp salt, and water. If water cooks off too quickly, add a little more water. Add the cooked eggs.", "Mix everything together, cover the wok, cook for 1-2mins until the tomatoes are completely softened.", "Uncover, continue to stir-fry over high heat until sauce thickens to your liking. Serve!" ],
-    "goals" : [ "Herbivore" ]
+    "goals" : [ ]
   }, {
     "name" : "5 Ingredient Spelt Spaghetti",
     "time" : "25",
@@ -132,22 +121,22 @@
     "steps" : [ "step 1", "edited step 2" ],
     "goals" : [ ]
   }, {
-    "name" : "har",
-    "time" : "400000",
+    "name" : "test one with same vege",
+    "time" : "20",
     "isFavourite" : false,
-    "grains" : [ "50.0g,  Nbr" ],
-    "vegetables" : [ ],
+    "grains" : [ ],
+    "vegetables" : [ "30.0g,  Uniquevege" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ ],
     "steps" : [ ],
     "goals" : [ ]
   }, {
-    "name" : "hard",
-    "time" : "19966444929990",
+    "name" : "test two with same vege",
+    "time" : "20",
     "isFavourite" : false,
-    "grains" : [ "45.0g,  Fff" ],
-    "vegetables" : [ ],
+    "grains" : [ ],
+    "vegetables" : [ "30.0g,  Uniquevege" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ ],
