@@ -1,4 +1,4 @@
-package seedu.address.model.Staff;
+package seedu.address.model.ModelObjectTest;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.model.modelStaff.Staff;

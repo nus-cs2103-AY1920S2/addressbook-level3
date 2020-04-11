@@ -1,13 +1,5 @@
 package seedu.address.model.modelStudent;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import seedu.address.commons.core.UuidManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelGeneric.ModelObject;
@@ -15,6 +7,10 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
+
+import java.util.*;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Teacher in the address book. Guarantees: details are present and not null, field
@@ -33,7 +29,7 @@ public class Student extends ModelObject {
    * Every field must be present and not null.
    */
   public Student(Name name, Gender gender,  Set<Tag> tags) throws ParseException {
-    requireAllNonNull(name, tags);
+    requireAllNonNull(name, gender, tags);
     this.name = name;
     this.id = UuidManager.assignNewUUID(this);
     this.gender = gender;
