@@ -334,13 +334,11 @@ public class AddModuleCommandTest {
         @Override
         public void addDeadlineTask(Task deadline) {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
         public void sortTaskList() {
             throw new AssertionError("This method should not be called.");
-
         }
 
         @Override
@@ -356,9 +354,7 @@ public class AddModuleCommandTest {
         @Override
         public void sortTask(String param) {
             throw new AssertionError("This method should not be called.");
-
         }
-
 
         @Override
         public boolean isEmptyDeadline(Task deadline) {

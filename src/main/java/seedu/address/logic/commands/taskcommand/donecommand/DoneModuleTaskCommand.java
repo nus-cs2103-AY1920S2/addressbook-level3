@@ -39,6 +39,7 @@ public class DoneModuleTaskCommand extends DoneCommand {
         }
 
         model.doneModuleTask(targetModule, targetIndex);
+
         model.sortTaskList();
         model.updateDeadlineTaskList(Model.PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + " " + targetModule + " task number "
