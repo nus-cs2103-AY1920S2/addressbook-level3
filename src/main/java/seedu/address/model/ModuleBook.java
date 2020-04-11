@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.calender.Task;
 import seedu.address.model.nusmodule.Capulator;
 import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.Major;
@@ -104,13 +105,15 @@ public class ModuleBook {
     public void gradeModule(ModuleCode moduleCode, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(grade);
+        NusModule targetModule = null;
         for (NusModule module: modules) {
             if (module.getModuleCode().equals(moduleCode)) {
-                modulesTakenList.remove(module);
-                module.setGrade(grade);
-                modulesTakenList.add(module);
+                targetModule = module;
             }
         }
+        modulesTakenList.remove(targetModule);
+        targetModule.setGrade(grade);
+        modulesTakenList.add(targetModule);
     }
 
     /**
@@ -131,7 +134,8 @@ public class ModuleBook {
     public void deleteModuleTask(ModuleCode moduleCode, Index index) {
         requireNonNull(moduleCode);
         requireNonNull(index);
-        getModule(moduleCode).getTasks().remove(index);
+        Task.remove(getModule(moduleCode).getTasks().get(index.getZeroBased()));
+        getModule(moduleCode).getTasks().remove(index.getZeroBased());
     }
 
     /**
@@ -141,6 +145,20 @@ public class ModuleBook {
         requireNonNull(moduleCode);
         requireNonNull(index);
         getModule(moduleCode).getTasks().get(index.getZeroBased()).markAsDone();
+    }
+
+    public void removeModuleTask(ModuleTask moduleTask) {
+        NusModule targetModule = null;
+        ModuleTask targetTask;
+        for (NusModule module: modules) {
+            for (ModuleTask mt : module.getTasks()) {
+                if (mt.equals(moduleTask)) {
+                    targetModule = module;
+                    targetTask = moduleTask;
+                }
+            }
+        }
+        targetModule.getTasks().remove(moduleTask);
     }
 
     public List<ModuleTask> getModuleTaskList(ModuleCode moduleCode) {

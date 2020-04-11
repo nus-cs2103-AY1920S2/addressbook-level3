@@ -7,6 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.calender.Task;
+import seedu.address.model.nusmodule.ModuleTask;
 
 /**
  * Adds a deadline.
@@ -33,6 +34,11 @@ public class DeleteDeadlineCommand extends DeleteTaskCommand {
         }
 
         Task removed = model.deleteTask(deadlineToDelete);
+
+        if (removed instanceof ModuleTask) {
+            model.getModuleBook().removeModuleTask((ModuleTask) removed);
+        }
+
         model.sortTaskList();
         model.updateDeadlineTaskList(PREDICATE_SHOW_ALL_TASK);
         return new CommandResult(MESSAGE_SUCCESS + removed);
