@@ -177,7 +177,7 @@ public class AddCommand extends Command {
             }
 
             Deadline deadline;
-            String moduleCode = toAdd.toString();
+            String moduleCode = moduleCodeToAdd.toString();
             if (addDate != null) {
                 deadline = new Deadline(moduleCode, addTask, addDate, addTime);
             } else {
@@ -210,7 +210,8 @@ public class AddCommand extends Command {
             // Check if prerequisites of the module have been fulfilled
             if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
                     .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
-                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, toAdd, addSemester, moduleToAdd.getPrereqs());
+                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, addSemester,
+                        moduleToAdd.getPrereqs());
             } else {
                 messageShown = MESSAGE_ADD_SUCCESS;
             }
