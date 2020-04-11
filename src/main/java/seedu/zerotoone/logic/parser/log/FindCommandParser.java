@@ -34,26 +34,26 @@ public class FindCommandParser implements Parser<FindCommand> {
         Optional<LocalDateTime> endTimeOptional = Optional.empty();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WORKOUT_NAME, PREFIX_LOG_START,
             PREFIX_LOG_END);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
         if (argMultimap.getValue(PREFIX_WORKOUT_NAME).isPresent()) {
             workoutNameOptional = Optional.of(new WorkoutName(argMultimap.getValue(PREFIX_WORKOUT_NAME).get()));
         }
-
-        if (argMultimap.getValue(PREFIX_LOG_START).isPresent()) {
-            try {
+        try {
+            if (argMultimap.getValue(PREFIX_LOG_START).isPresent()) {
                 startTimeOptional =
-                    Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_START).get()));
-            } catch (DateTimeParseException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                        Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_START).get()));
             }
-        }
 
-        if (argMultimap.getValue(PREFIX_LOG_END).isPresent()) {
-            try {
+            if (argMultimap.getValue(PREFIX_LOG_END).isPresent()) {
                 endTimeOptional =
                     Optional.of(LogParserUtil.parseDateTime(argMultimap.getValue(PREFIX_LOG_END).get()));
-            } catch (DateTimeParseException e) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(startTimeOptional, endTimeOptional, workoutNameOptional);

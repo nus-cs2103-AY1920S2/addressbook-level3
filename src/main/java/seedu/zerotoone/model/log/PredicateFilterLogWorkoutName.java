@@ -20,7 +20,7 @@ public class PredicateFilterLogWorkoutName implements Predicate<CompletedWorkout
     @Override
     public boolean test(CompletedWorkout completedWorkout) {
         return keywords.stream().anyMatch(
-            keyword -> StringUtil.containsWordIgnoreCase(completedWorkout.getWorkoutName().fullName, keyword));
+            keyword -> StringUtil.containsSubstringIgnoreCase(completedWorkout.getWorkoutName().fullName, keyword));
     }
 
     @Override
@@ -29,5 +29,4 @@ public class PredicateFilterLogWorkoutName implements Predicate<CompletedWorkout
                 || (other instanceof PredicateFilterLogWorkoutName // instanceof handles nulls
                 && keywords.equals(((PredicateFilterLogWorkoutName) other).keywords)); // state check
     }
-
 }
