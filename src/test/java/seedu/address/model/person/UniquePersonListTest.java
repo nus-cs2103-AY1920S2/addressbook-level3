@@ -223,31 +223,4 @@ public class UniquePersonListTest {
 
         assertEquals(uniquePersonList.getBdayList(), Arrays.asList(person));
     }
-
-
-    /**
-     * A Model stub that always takes a person to have a birthday in the next five days
-     */
-    private class ModelStubBirthdayPersons extends ModelStub {
-        final ArrayList<Person> bDayList = new ArrayList<>();
-
-
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return bDayList.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            bDayList.add(person);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
 }
