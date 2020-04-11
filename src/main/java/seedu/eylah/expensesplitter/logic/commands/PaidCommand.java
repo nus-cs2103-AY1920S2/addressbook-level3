@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.math.BigDecimal;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
@@ -14,7 +15,7 @@ import seedu.eylah.expensesplitter.model.person.Person;
 /**
  * Reduce the amount a Person owes you.
  */
-public class PaidCommand extends Command {
+public class PaidCommand extends Command<SplitterModel> {
 
     public static final String COMMAND_WORD = "paid";
 

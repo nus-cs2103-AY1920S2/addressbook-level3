@@ -2,6 +2,7 @@ package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -11,7 +12,7 @@ import seedu.eylah.diettracker.model.Mode;
  * Sets the Mode of the Diet Tracker depending on user preferences. The 3 modes available are
  * -l for weight loss, -g for weight gain, and -m for maintaining weight.
  */
-public class ModeCommand extends Command {
+public class ModeCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "mode";
 

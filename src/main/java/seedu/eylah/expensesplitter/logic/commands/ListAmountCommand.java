@@ -2,13 +2,14 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  * Lists all Person(s) and the Amount they owe you.
  */
-public class ListAmountCommand extends Command {
+public class ListAmountCommand extends Command<SplitterModel> {
 
     public static final String COMMAND_WORD = "listamount";
     public static final String MESSAGE_SUCCESS = "Listed all person with their amount.";

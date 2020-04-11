@@ -2,13 +2,14 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  *  Starts a new Receipt.
  */
-public class NewReceiptCommand extends Command {
+public class NewReceiptCommand extends Command<SplitterModel> {
 
     public static final String COMMAND_WORD = "newreceipt";
 

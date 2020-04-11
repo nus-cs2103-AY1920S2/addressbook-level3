@@ -6,11 +6,11 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.ClearReceiptCommand;
-import seedu.eylah.expensesplitter.logic.commands.Command;
 import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.DoneReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.HelpCommand;
@@ -18,6 +18,7 @@ import seedu.eylah.expensesplitter.logic.commands.ListAmountCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.NewReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  * Parses user input for ExpenseSplitter.
@@ -36,7 +37,7 @@ public class ExpenseSplitterParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command<SplitterModel> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {

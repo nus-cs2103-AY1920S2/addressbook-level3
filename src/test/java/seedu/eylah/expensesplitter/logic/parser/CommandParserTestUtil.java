@@ -2,8 +2,10 @@ package seedu.eylah.expensesplitter.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import seedu.eylah.commons.logic.command.Command;
+import seedu.eylah.commons.logic.parser.Parser;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
-import seedu.eylah.expensesplitter.logic.commands.Command;
+import seedu.eylah.expensesplitter.model.SplitterModel;
 
 /**
  * Contains helper methods for testing command parsers.
@@ -14,9 +16,9 @@ public class CommandParserTestUtil {
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.
      */
-    public static void assertParseSuccess(Parser parser, String userInput, Command expectedCommand) {
+    public static void assertParseSuccess(Parser parser, String userInput, Command<SplitterModel> expectedCommand) {
         try {
-            Command command = parser.parse(userInput);
+            Command<SplitterModel> command = parser.parse(userInput);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);

@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
-import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.parser.FoodBookParser;
 import seedu.eylah.diettracker.model.DietModel;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
@@ -41,7 +41,7 @@ public class DietLogicManager implements DietLogic {
 
         CommandResult commandResult;
 
-        Command command = foodBookParser.parseCommand(commandText);
+        Command<DietModel> command = foodBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

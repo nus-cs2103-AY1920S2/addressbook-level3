@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.eylah.commons.model.Model;
+import seedu.eylah.commons.model.ReadOnlyUserPrefs;
 import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.receipt.Entry;
@@ -13,6 +14,12 @@ import seedu.eylah.expensesplitter.model.receipt.Receipt;
  * The API of the Model component.
  */
 public interface SplitterModel extends Model {
+
+    @Override
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+
+    @Override
+    ReadOnlyUserPrefs getUserPrefs();
 
     /**
      * Adds an entry to the receipt.

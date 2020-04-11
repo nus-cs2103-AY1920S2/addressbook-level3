@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
@@ -58,7 +59,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, SplitterModel actualSplitterModel,
-            CommandResult expectedCommandResult, SplitterModel expectedSplitterModel) {
+                                            CommandResult expectedCommandResult, SplitterModel expectedSplitterModel) {
         try {
             CommandResult result = command.execute(actualSplitterModel);
             assertEquals(expectedCommandResult, result);

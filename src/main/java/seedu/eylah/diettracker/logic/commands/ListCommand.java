@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
+import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.command.CommandResult;
 import seedu.eylah.commons.logic.command.exception.CommandException;
 import seedu.eylah.diettracker.model.DietModel;
@@ -17,7 +18,7 @@ import seedu.eylah.diettracker.model.tag.Tag;
 /**
  * Lists all food and their calories.
  */
-public class ListCommand extends Command {
+public class ListCommand extends Command<DietModel> {
 
     public static final String COMMAND_WORD = "list";
 
