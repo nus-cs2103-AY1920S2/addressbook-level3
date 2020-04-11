@@ -22,7 +22,7 @@ activate SplitterLogicManager
 SplitterLogicManager -> PaidCommand :execute(model)
 activate PaidCommand
 
-PaidCommand -> SplitterModelManager : paidPerson(Person person, String amountPaid)
+PaidCommand -> SplitterModelManager : paidPerson(Person person,\n String amountPaid)
 activate SplitterModelManager
 
 SplitterModelManager -> Amount
@@ -31,10 +31,10 @@ activate Amount
 Amount --> SplitterModelManager
 deactivate Amount
 
-SplitterModelManager -> PersonAmountBook : removeAmount(Person person, Amount amount)
+SplitterModelManager -> PersonAmountBook : removeAmount(Person person,\n Amount amount)
 activate PersonAmountBook
 
-PersonAmountBook -> UniquePersonList : removeAmount(Person person, Amount amount)
+PersonAmountBook -> UniquePersonList : removeAmount(Person person,\n Amount amount)
 activate UniquePersonList
 
 UniquePersonList -> Person : removeAmount(Amount amount)
@@ -52,14 +52,21 @@ deactivate PersonAmountBook
 SplitterModelManager --> PaidCommand
 deactivate SplitterModelManager
 
+create CommandResult
 PaidCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> PaidCommand :result()
+CommandResult --> PaidCommand :result
 deactivate CommandResult
 
-PaidCommand --> SplitterLogicManager: result()
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CommandResult -[hidden]-> PaidCommand
+destroy CommandResult
+
+PaidCommand --> SplitterLogicManager: result
 deactivate PaidCommand
+
+
 
 
 @enduml

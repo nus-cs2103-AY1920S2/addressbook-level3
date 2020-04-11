@@ -6,7 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":SplitterLogicManager" as SplitterLogicManager LOGIC_COLOR
 participant ":ExpenseSplitterParser" as ExpenseSplitterParser LOGIC_COLOR
 participant ":PaidCommandParser" as PaidCommandParser LOGIC_COLOR
-participant ":PaidCommand" as PaidCommand LOGIC_COLOR
+participant "command:PaidCommand" as PaidCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -24,7 +24,7 @@ end box
 [-> SplitterLogicManager : execute("paid 1 3.90")
 activate SplitterLogicManager
 
-SplitterLogicManager -> ExpenseSplitterParser : parseCommand("paid 1 3.90")
+SplitterLogicManager -> ExpenseSplitterParser : parseCommand\n("paid 1 3.90")
 activate ExpenseSplitterParser
 
 create PaidCommandParser
@@ -41,36 +41,47 @@ create PaidCommand
 PaidCommandParser -> PaidCommand
 activate PaidCommand
 
-PaidCommand --> PaidCommandParser:d
+PaidCommand --> PaidCommandParser: command
 deactivate PaidCommand
 
-PaidCommandParser --> ExpenseSplitterParser :d
+PaidCommandParser --> ExpenseSplitterParser : command
 deactivate PaidCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-PaidCommandParser -[hidden]-> ExpenseSplitterParser
-destroy PaidCommandParser
 
-ExpenseSplitterParser --> SplitterLogicManager :d
+
+ExpenseSplitterParser --> SplitterLogicManager : command
 deactivate ExpenseSplitterParser
 
 alt receiptIsNotDone
 
+
     SplitterLogicManager -> PaidCommand :execute(model)
     activate PaidCommand
 
+    create CommandResult
     PaidCommand -> CommandResult
     activate CommandResult
 
-    CommandResult --> PaidCommand :result()
+    CommandResult --> PaidCommand :result
     deactivate CommandResult
 
-    PaidCommand --> SplitterLogicManager : result()
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    CommandResult -[hidden]-> PaidCommand
+    destroy CommandResult
+
+    PaidCommand --> SplitterLogicManager : result
     deactivate PaidCommand
 
 else receiptIsDone
 
     ref over SplitterLogicManager, SplitterModelManager: Execution of PaidCommand
 end
+
+PaidCommand -[hidden]-> PaidCommandParser
+destroy PaidCommandParser
+destroy PaidCommand
+
+
+
 SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
 activate SplitterStorageManager
 
@@ -82,7 +93,7 @@ SplitterStorageManager --> SplitterLogicManager
 deactivate SplitterStorageManager
 
 
-[<--SplitterLogicManager : result()
+[<--SplitterLogicManager : result
 deactivate SplitterStorageManager
 
 
