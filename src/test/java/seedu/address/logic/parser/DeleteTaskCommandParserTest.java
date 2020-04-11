@@ -18,7 +18,7 @@ class DeleteTaskCommandParserTest {
     public void parse_allFieldsPresent_success() {
         ModuleCode expectedModuleCode = new ModuleCode("CS2030");
 
-        assertParseSuccess(parser, " m/CS2103 index/1",
+        assertParseSuccess(parser, " m/CS2030 index/1",
                 new DeleteModuleTaskCommand(expectedModuleCode, Index.fromOneBased(1)));
     }
 

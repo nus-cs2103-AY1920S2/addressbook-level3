@@ -147,6 +147,9 @@ public class ModuleBook {
         getModule(moduleCode).getTasks().get(index.getZeroBased()).markAsDone();
     }
 
+    /**
+     * Remove a specific module recorded in our program.
+     */
     public void removeModuleTask(ModuleTask moduleTask) {
         NusModule targetModule = null;
         ModuleTask targetTask;

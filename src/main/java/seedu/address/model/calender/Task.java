@@ -120,7 +120,7 @@ public class Task {
      */
     public static void remove(Task task) {
         deadlineTaskList.remove(task);
-        removeTaskPerDate(task.getDate(),task);
+        removeTaskPerDate(task.getDate(), task);
     }
 
     public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
