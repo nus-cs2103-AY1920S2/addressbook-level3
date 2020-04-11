@@ -1,55 +1,79 @@
 @startuml
 !include style.puml
 
-Actor User as User USER_COLOR
-Participant ":EYLAH" as Ui UI_COLOR
-Participant ":LogicManager" as Logic LOGIC_COLOR
-Participant ":ModelManager" as Model MODEL_COLOR
-Participant ":StorageManager" as Storage STORAGE_COLOR
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FoodBookParser" as FoodBookParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-User -[USER_COLOR]> Ui : "edit 1 -n Pasta"
-activate Ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
 
-Ui -[UI_COLOR]> Logic : execute("edit 1 -n Pasta")
-activate Logic LOGIC_COLOR
+box Storage STORAGE_COLOR_T1
+participant ":FoodBookStorage" as FoodBookStorage STORAGE_COLOR
+end box
 
-Logic -[LOGIC_COLOR]> Model : getFilteredFoodList()
-activate Model MODEL_COLOR
+[-> LogicManager : execute("delete 3")
+activate LogicManager
 
-Model -[MODEL_COLOR]-> Logic : lastShownList
+LogicManager -> FoodBookParser : parseCommand("delete 3")
+activate FoodBookParser
+
+create DeleteCommandParser
+FoodBookParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> FoodBookParser
+deactivate DeleteCommandParser
+
+FoodBookParser -> DeleteCommandParser : parse("3")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> FoodBookParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> FoodBookParser
+destroy DeleteCommandParser
+
+FoodBookParser --> LogicManager : d
+deactivate FoodBookParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : deleteFood(3)
+activate Model
+
+Model --> DeleteCommand
 deactivate Model
 
-Logic -[LOGIC_COLOR]> Logic : get()
-activate Logic LOGIC_COLOR_T1
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
 
-Logic -[MODEL_COLOR]-> Logic : foodToEdit
-deactivate Logic
+CommandResult --> DeleteCommand
+deactivate CommandResult
 
-Logic -[LOGIC_COLOR]> Logic : createEditedFood(foodToEdit, editFoodDescriptor)
-activate Logic LOGIC_COLOR_T1
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
 
-Logic -[MODEL_COLOR]-> Logic : editedFood
-deactivate Logic
+LogicManager -> FoodBookStorage : saveFoodBook(foodBook)
+activate FoodBookStorage
 
-Logic -[LOGIC_COLOR]> Model : setFood(foodToEdit, editedFood)
-activate Model MODEL_COLOR
+FoodBookStorage --> LogicManager
+deactivate FoodBookStorage
 
-Model -[MODEL_COLOR]-> Logic :
-deactivate Model
-
-Logic -[LOGIC_COLOR]> Storage : saveFoodBook(foodBook)
-activate Storage STORAGE_COLOR
-
-Storage -[STORAGE_COLOR]> Storage : Save to file
-activate Storage STORAGE_COLOR_T1
-deactivate Storage
-
-Storage --[STORAGE_COLOR]> Logic
-deactivate Storage
-
-Logic --[LOGIC_COLOR]> Ui : CommandResult
-deactivate Logic
-
-Ui--[UI_COLOR]> User : CommandResult
-deactivate Ui
+[<--LogicManager
+deactivate LogicManager
 @enduml
