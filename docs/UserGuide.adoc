@@ -301,11 +301,11 @@ Sets: 4 +
 |============
 You can use the `add-e` command to add the exercise as shown.
 
-1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the section `...:view-c`. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
+1.View the client that you want to add the exercise to. For information on how to view the client, you can refer to the `view-c` section. For this example, we will add the exercise to the first client in the list, `Alex Yeoh`. After you entered `view-c 1`, you will see `Alex Yeoh` detailed information and a table of his recorded exercises.
 
 image::addeExamplePart1.png[]
 
-2.Now enter the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. To recap,
+2.Now type the information of the exercise, matching each detail of the exercise to the parameter. In this case, you will have to type `add-e n/Bench press d/12-02-2020 reps/4 ew/100 sets/4` into the command box. To recap,
 
 [width="50%"]
 |============
@@ -325,22 +325,24 @@ image::addeExamplePart2.png[]
 image::addeExamplePart3.png[]
 
 ==== Common errors / problems
-You might face some errors or difficulties when you `add-e`. In this section, you will be able to understand these errors and resolve them.
+You might face some errors or difficulties when you use `add-e`. In this section, you will be able to understand these errors and resolve them.
 
 ===== Duplicate exercises
-You might wonder where the application shows you a duplicate exercise error when the details of the exercises you entered are different. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
+You might wonder why the application shows you a duplicate exercise error when the details of the exercises you entered are different. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
 
 You might have the following exercise in your table.
 
 image::addeDuplicatePart1.png[]
 
-If you were to enter `....` into the command box, the only information that is different is the number of sets. The result box will show that you have a duplicate exercise.
+If you were to enter `add-e n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
 
 image::addeDuplicatePart2.png[]
 
+The result box will show that you have a duplicate exercise.
+
 image::addeDuplicatePart3.png[]
 
-To solve this, we suggest incrementing the sets of existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
+To solve this, we suggest incrementing the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact. For information on using `edit-e`, you may want to refer to the next section `Edit a client's exercise: edit-e`.
 
 === Edit a client's exercise: `edit-e` --- YongJie
 `edits-e` allows edit an existing exercise done by the client that you are currently viewing. You will be able to see the updated exercise in the client's exercise table.
@@ -398,8 +400,47 @@ e.g. An exercise named `pushup` will be considered to have a different name as a
 * Range for `WEIGHT` is 1-9999. +
 |====================
 ==== Example
+Let's say that you want to edit an exercise done by the client you are currently viewing. The exercise that you want to edit is the one highlighted in the photo below.
+
+image::addeExamplePart2.png[]
+
+The exercise, "Bench Press", currently is 4 reps and weight of 100. However, they might be entered wrongly and you want to change the values. You can use the `edit-e` command to edit the exercise as shown.
+
+1.Identify the index of the exercise in the exercise table. From the photo above, the index is 2. Type `edit-e 2 reps/4 ew/100` into the command box. To recap,
+
+[width="50%"]
+|============
+The reps of the exercise after `reps/` +
+The weight of the exercise after `ew/` +
+|============
+
+Press enter to execute it.
+
+image::addeExamplePart2.png[]
+
+2.After it has been successfully entered, the result box will display a success message that the exercise has been edited. You will also be able to see the edited exercise in the table.
+
+image::addeExamplePart3.png[]
 
 ==== Common errors / problems
+You might face some errors or difficulties when you use `edit-e`. In this section, you will be able to understand these errors and resolve them.
+
+===== Duplicate exercises
+You might wonder why the application shows you a duplicate exercise error when you do not have a duplicate of the edited exercise. It is likely that only the sets differ between the two exercises. The example below might help you understand better.
+
+You might have the following exercise in your table.
+
+image::addeDuplicatePart1.png[]
+
+If you were to enter `edit-e 2 n/Bench Press d/12-02-2020 reps/4 ew/100 sets/2` into the command box, the only information that is different is the number of sets. 
+
+image::addeDuplicatePart2.png[]
+
+The result box will show that you have a duplicate exercise.
+
+image::addeDuplicatePart3.png[]
+
+To solve this, we suggest you delete the exercise you want to edit and increment the sets of the existing exercise by using the `edit-e` command. This will help to keep your exercises consolidated and the table compact.
 
 === Delete a client's exercise: `delete-e`
 
