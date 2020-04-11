@@ -40,7 +40,7 @@ class CookedCommandTest {
         expectedModel.updateGoalsTally(toAdd);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, Tab.GOALS, false);
+                new CommandResult(expectedMessage, false, false, Tab.GOALS, false);
 
         assertCommandSuccess(cookedCommand, model, expectedCommandResult, expectedModel);
     }

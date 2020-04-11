@@ -5,17 +5,19 @@ import static seedu.recipe.logic.commands.CommandTestUtil.DESC_DATE_FUTURE;
 import static seedu.recipe.logic.commands.CommandTestUtil.DESC_DATE_PAST;
 import static seedu.recipe.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.recipe.logic.commands.CommandTestUtil.VALID_DATE_FUTURE;
+
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.recipe.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.recipe.testutil.TypicalIndexes.INDEX_THIRD_RECIPE;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.recipe.commons.core.index.Index;
 import seedu.recipe.logic.commands.plan.PlanCommand;
 import seedu.recipe.logic.parser.ParserUtil;
@@ -31,7 +33,7 @@ class PlanCommandParserTest {
     private static final String MESSAGE_INVALID_DATE_IN_PAST =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PlanCommand.MESSAGE_INVALID_DATE);
 
-    private static final Index[] VALID_INDEXES = new Index[]{INDEX_FIRST_RECIPE};
+    private static final Index[] VALID_INDEXES = new Index[] {INDEX_FIRST_RECIPE};
     private static final Index[] VALID_MULTIPLE_INDEXES = new Index[]{INDEX_FIRST_RECIPE,
             INDEX_SECOND_RECIPE, INDEX_THIRD_RECIPE};
     @Test
