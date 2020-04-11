@@ -9,8 +9,8 @@ import static seedu.delino.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Please enter a Singapore address with a valid postal code. "
-            + "\n"
+    public static final String MESSAGE_CONSTRAINTS = "Please enter a Singapore address followed by a valid "
+            + "postal code \n"
             + "The Postal Code should start with the letter 'S'/'s'";
 
     /**
