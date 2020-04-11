@@ -19,7 +19,6 @@ import seedu.recipe.logic.commands.CommandResult;
 import seedu.recipe.logic.commands.exceptions.CommandException;
 import seedu.recipe.logic.parser.exceptions.ParseException;
 import seedu.recipe.model.achievement.Quote;
-import seedu.recipe.model.achievement.Streak;
 import seedu.recipe.model.cooked.Record;
 import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.Plan;
@@ -153,7 +152,7 @@ public class MainWindow extends UiPart<Stage> {
         //using recipe list as stub for achievements, to be edited later todo
         //TODO set storage parameter instead of hardcode
         ObservableList<Quote> quoteList = logic.getFilteredQuoteList();
-        achievementsListPanel = new AchievementCard(quoteList, new Streak(6));
+        achievementsListPanel = new AchievementCard(quoteList, cookedList);
 
         mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel, cookedListPanel, achievementsListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());

@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.recipe.model.Date;
 import seedu.recipe.model.achievement.Quote;
 import seedu.recipe.model.achievement.Streak;
+import seedu.recipe.model.cooked.Record;
 
 /**
  * UI class for achievement tab
@@ -42,15 +43,17 @@ public class AchievementCard extends UiPart<Region> {
     @FXML
     private Label content;
 
-    public AchievementCard(ObservableList<Quote> quotes, Streak streak) throws IOException {
+    public AchievementCard(ObservableList<Quote> quotes, ObservableList<Record> records) throws IOException {
         super(FXML);
+        Date today = Date.today();
         //System.out.println(quote.getContent());
         Random rand = new Random();
-        System.out.print(quotes.size());
+        //System.out.print(quotes.size());
         int randomInt = rand.nextInt(quotes.size());
         this.quote = quotes.get(randomInt);
+        Streak streak = new Streak(records, today);
         this.streak = streak;
-        Date today = Date.today();
+        streak.updateStreak();
         dayHeader.setText(today.getDayOfWeek() + ": " + today.toString());
         dayHeader.setStyle(weekStyleHeader);
 
