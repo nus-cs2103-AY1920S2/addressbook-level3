@@ -64,7 +64,7 @@ the application.
 image::Ui.png[width="790"]
 This is how the GUI may look like when the TA-Tracker is opened.
 +
-.  Type a command in the command box (the box with the `green` words), and press kbd:[Enter] to execute it. +
+.  Type a command in the command box, and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Usage>> for details of each command.
@@ -97,8 +97,6 @@ This symbol indicates that there is something you should be careful to avoid.
 === Command Format
 
 This section shows you how all the commands in this guide have been formatted.
-
-Here is a table outlining how the commands have been formatted in this guide:
 
 [width="%",cols="<20%a,<30%a,<50a",options="header"]
 |=======================================================================
@@ -436,7 +434,7 @@ This section gives you a brief overview of the layout of the *TA-Tracker*.
 
 When you switch to a `tab`, that `tab` will be highlighted in orange.
 
-Also, when you enter a new command, you will be automatically switched to the relevant `tab`
+Furthermore, when you enter a new command, you will be automatically switched to the relevant `tab`
 so that you can instantly see the result of the command.
 
 [NOTE]
@@ -625,6 +623,7 @@ Showing the *parameter usage*
 This section explains how to use all the `CLI` commands in *TA-Tracker*.
 
 === Navigation
+
 These commands are used to control the different *windows* in *TA-Tracker*,
 as well as switching between the different *Views*.
 
