@@ -89,6 +89,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -101,8 +102,9 @@ The `UI` component does the following actions:
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-[[Design-Logic]]
 Hubert
+
+[[Design-Logic]]
 
 === Logic component
 
