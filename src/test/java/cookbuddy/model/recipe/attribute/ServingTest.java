@@ -1,4 +1,4 @@
-package cookbuddy.model.recipe;
+package cookbuddy.model.recipe.attribute;
 
 import static cookbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
