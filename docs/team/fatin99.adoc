@@ -32,10 +32,10 @@ that they have put into the development of their respective features to the user
 The UI is at the heart of TA-Tracker, displaying the output of TA-Tracker to the user visually. As the main contributor
 to the MainWindow of the UI I played an integral role in ensuring the content was being displayed to the user correctly,
 while keeping the interface simple and informative. Ive changed the overall layout of TA-Tracker by adding tabs and
-icons (#120, #182, #227), and by creating all the ListPanels (and their respective ListCards) (PR #120, #182, #204).
+icons (#120, #182, #227), and by creating all the ListPanels (and their respective ListCards) (#120, #182, #204).
 
 I also took care to ensure that the information displayed in the Cards were integrated with the backend whenever my teammates
-made new contributions to the application such as adding new fields (PR #322) or commands (PR #330). In addition, I added
+made new contributions to the application such as adding new fields (#322) or commands (#330). In addition, I added
 a "Total Earnings" label in Claims tab to improve the user experience, as money makes the world go round (#243, #322).
 
 === Enabled highlighting of applied filters
@@ -53,43 +53,40 @@ filter header (#322).
 === Implemented relevant commands to improve User Experience
 
 *Goto Command* : To achieve the goal of making TA-Tracker a keyboard-only application, I implemented the GoTo Command
-to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (PR #189).
+to allow users to switch between tabs via the command-line rather than clicking on the tab-headers (#189).
 
-In a similar spirit, I enabled switching to relevant tabs for all commands, to better the user experience. This allows
-for new information to be displayed instantaneously upon entering a command (PR #189, #210, #212).
+In a similar spirit, I enabled *switching to relevant tabs for all commands*, to better the user experience. This allows
+for new information to be displayed instantaneously upon entering a command (#189, #210, #212). Doing this involved
+creating an enum for UI handling in CommandResult (#189, #212) and as a result, the painstaking process of updating all
+ of the Command classes.
 
 *SetRate Command* : The hourly pay rate for all of the displayed Earnings was initially set to $40, which was the rate at
 which the majority TAs are being paid. Based on feedback from the PE Dry-Run, I created a command to change this value
-due to the differences in rates among different faculties.
+due to the differences in rates among different faculties. (#321)
 
 === Other UI Improvements
 
-I also contributed to the development of the HelpWindow and StatisticsWindow (PR #227, #235) by fixing sizing
+I also contributed to the development of the HelpWindow and StatisticsWindow (#227, #235) by fixing sizing
 issues and adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
 the goal of making TA-Tracker a keyboard-only application (#236).
 
 === Improved upon overall code quality
 
-* Packaging all commands, parsers, models and ui components (#143, #212)
-* removing unused commands and field, (#351)
-* improving comparison methods (#351)
-* adding enum for UI handling in CommandResult (#189, #212))
-* creating SessionType and GroupType enum classes (#120, #182)
-* adding Codacy badge to repo (#350)
+* Packaged all commands, parsers, models and ui components (#143, #212)
+* General quality fixes to the entire code-base based on Codacy report (#350, #351)
+* Created enum classes for SessionType and GroupType (#120, #182)
 
 === Adding extensive automated tests
 
 * Add StudentCommand, StudentCommandParser and Student tests (#340, #341, #347)
 
-Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
-
 === Other contributions
 
-* Create a skeleton for the student delete command (PR #113)
-* Contribute to StudentAdd command by removing the requirement for compulsory phone and email fields (PR #146)
-* Refactor person to student, and contribute to refactoring of AddressBook to TaTracker (PR #93, #145)
-* Add matric field as well as the relevant error checking needed to student (PR #96, #118)
-* Remove address field from student (PR #97)
+* Create a skeleton for the student delete command (#113)
+* Contribute to StudentAdd command by removing the requirement for compulsory phone and email fields (#146)
+
+Here is the code that I have written for this product: [https://github.com/AY1920S2-CS2103T-W17-4/main/commits/master?author=fatin99[All commits]]
+
 
 === Project management:
 
