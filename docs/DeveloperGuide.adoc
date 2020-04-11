@@ -200,7 +200,7 @@ image::NewCommandSequenceDiagram.png[]
 
 Eventually, we decided on alternative 2 to prioritize user-friendliness and cleaner code.
 
-=== Add Feature
+=== Add Module / Task Feature
 
 The `add` feature allows the user to add a module and a task with a deadline for an existing module with the command `add`, appended with the tags.
 
