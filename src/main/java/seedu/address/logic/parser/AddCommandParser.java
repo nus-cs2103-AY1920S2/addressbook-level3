@@ -66,7 +66,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
             grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get().toUpperCase());
         }
-        if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK) && arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
             throw new ParseException("Please provide a task name with the tag t/!");
         }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_DEADLINE)) {
