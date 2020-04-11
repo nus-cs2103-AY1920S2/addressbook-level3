@@ -24,6 +24,7 @@ import seedu.recipe.model.plan.PlannedBook;
 import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.RecipeBook;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * Represents the in-memory model of the recipe book data.
@@ -154,19 +155,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void commitBook(CommandType commandType) {
+    public void commitBook(CommandType commandType, Tab tab) {
         switch (commandType) {
         case MAIN_LONE:
-            states.commitRecipeBook(new RecipeBook(recipeBook), commandType);
+            states.commitRecipeBook(new RecipeBook(recipeBook), commandType, tab);
             break;
         case MAIN:
-            states.commitRecipeAndPlannedBook(new RecipeBook(recipeBook), new PlannedBook(plannedBook), commandType);
+            states.commitRecipeAndPlannedBook(
+                    new RecipeBook(recipeBook), new PlannedBook(plannedBook), commandType, tab);
             break;
         case PLAN:
-            states.commitPlannedBook(new PlannedBook(plannedBook), commandType);
+            states.commitPlannedBook(new PlannedBook(plannedBook), commandType, tab);
             break;
         case GOALS:
-            // Need to develop methods for deleting records before this can be implemented
+            states.commitCookedRecordBook(new CookedRecordBook(cookedRecordBook), commandType, tab);
             break;
         default:
             // This block will never be reached
@@ -175,13 +177,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoBook(int numberOfUndo, Model model) {
-        states.undo(numberOfUndo, model);
+    public Tab undoBook(int numberOfUndo, Model model) {
+        return states.undo(numberOfUndo, model);
     }
 
     @Override
-    public void redoBook(int numberOfRedo, Model model) {
-        states.redo(numberOfRedo, model);
+    public Tab redoBook(int numberOfRedo, Model model) {
+        return states.redo(numberOfRedo, model);
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
@@ -284,6 +286,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCookedRecordBook getRecordBook() {
         return cookedRecordBook;
+    }
+
+    @Override
+    public void setCookedRecordBook(ReadOnlyCookedRecordBook cookedRecordBook) {
+        this.cookedRecordBook.resetData(cookedRecordBook);
     }
 
     @Override

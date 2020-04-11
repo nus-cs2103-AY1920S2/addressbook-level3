@@ -49,11 +49,9 @@ public class CookedRecordBook implements ReadOnlyCookedRecordBook {
 
     /**
      * Resets the existing data of this {@code CookedRecordBook} with {@code newData}.
-     * @param newData
      */
     public void resetData(ReadOnlyCookedRecordBook newData) {
         requireNonNull(newData);
-
         setRecords(newData.getRecordsList());
     }
 
