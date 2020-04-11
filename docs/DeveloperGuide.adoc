@@ -702,18 +702,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample inventory system data. The window size may not be optimum.
 
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-==== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
 === Customer
 
 ==== Adding a customer
@@ -876,7 +864,7 @@ Expected: Similar to previous.
 
 . Undoing a transaction while all transactions are listed
 
-.. Prerequisites: List all transactions using the `listt` command. Multiple products in the list.
+.. Prerequisites: List all transactions using the `listt` command. Multiple transactions in the list.
 .. Test case: `undot 1` +
 Expected: First transaction in the list is undone. Details of the undone transaction shown in the status message.
 .. Test case: `undot 0` +
@@ -936,7 +924,7 @@ Expected: No transaction found as there are multiple customer prefixes. Error de
 Expected: The calculated revenue is shown in the status message.
 .. Test case: `revenue sd/2020-09-01 10:00 ed/2020-01-12 10:01` +
 Expected: Revenue cannot be calculated if start date is after end date. Error details shown in the status message.
-.. Other incorrect delete commands to try: `revenue sd/2020-01-01 10:00 ed/2020-01-12`, `revenue` +
+.. Other incorrect revenue commands to try: `revenue sd/2020-01-01 10:00 ed/2020-01-12`, `revenue` +
 Expected: Similar to previous.
 
 ==== Getting the profit made in a certain period
@@ -948,7 +936,39 @@ Expected: Similar to previous.
 Expected: The calculated profit is shown in the status message.
 .. Test case: `profit sd/2020-09-01 10:00 ed/2020-01-12 10:01` +
 Expected: Profit cannot be calculated if start date is after end date. Error details shown in the status message.
-.. Other incorrect delete commands to try: `profit sd/2020-01-01 10:00 ed/2020-01-12`, `profit` +
+.. Other incorrect profit commands to try: `profit sd/2020-01-01 10:00 ed/2020-01-12`, `profit` +
+Expected: Similar to previous.
+
+==== Setting the low-inventory threshold
+
+. Setting the low-inventory threshold
+
+.. Prerequisites: There is at least one product present.
+.. Test case: `lowlimit p/1 t/20` +
+Expected: The calculated profit is shown in the status message.
+.. Test case: `lowlimit p/1 t/0` +
+Expected: Current threshold of product is not modified as threshold can only take positive integer values. Error details shown in the status message.
+.. Other incorrect lowlimit commands to try: `lowlimit p/x t/20` (where x is more than product list size), `lowlimit` +
+Expected: Similar to previous.
+
+==== Predicting the sales for the next month
+
+. Predicting the sales for the next month
+
+.. Prerequisites: There is at least one product present.
+.. Test case: `predict` +
+Expected: The predicted revenue for next month is shown in the status message.
+
+==== Plotting sales of a product
+
+. Plotting sales of a product
+
+.. Prerequisites: List all products using the `listp` command. Multiple products in the list.
+.. Test case: `plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00` +
+Expected: The sales of the product is plotted in a graph in a new window that pops up.
+.. Test case: `plotsales 1 sd/2020-03-20 10:00 ed/2020-01-30 10:00` +
+Expected: Sales of product is not plotted as start date is after end date. Error details shown in the status message.
+.. Other incorrect plotsales commands to try: `plotsales x sd/2020-03-20 10:00 ed/2020-03-30 10:00` (where x is more than product list size), `plotsales` +
 Expected: Similar to previous.
 
 [appendix]
