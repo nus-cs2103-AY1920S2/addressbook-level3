@@ -1,7 +1,7 @@
 package seedu.delino.model.parcel;
 
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.parcelattributes.Address;
 import seedu.delino.model.parcel.parcelattributes.Email;
 import seedu.delino.model.parcel.parcelattributes.Name;
