@@ -35,9 +35,6 @@ public class PlanningListPanel extends UiPart<Region> {
     private ListView<Plan> planningListView;
 
     @FXML
-    private BorderPane borderPane;
-
-    @FXML
     private Label title;
 
     public PlanningListPanel(ObservableList<Plan> plans) {

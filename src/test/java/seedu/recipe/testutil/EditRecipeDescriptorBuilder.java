@@ -116,7 +116,7 @@ public class EditRecipeDescriptorBuilder {
             unit = Unit.CUP;
             break;
         default:
-            System.out.println("Unit not supported");
+            throw new IllegalStateException("Unexpected value: " + unitString);
         }
         return new Quantity(magnitude, unit);
     }
