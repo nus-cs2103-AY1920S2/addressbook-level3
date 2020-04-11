@@ -9,11 +9,11 @@
 
 == Overview
 
-FitBiz is a desktop fitness business management application. The user interacts with it using a Command Line Interface, and it has a Graphical User Interface created with JavaFX. It is written in Java version 11.
+FitBiz is a desktop fitness business management application. It keeps track of the user's schedule. He can record client's information and the exercises they did with the personal bests automatically generated. Graphical visualisations of his client's progress can also be displayed. The user interacts with it using a Command Line Interface, and it has a Graphical User Interface created with JavaFX. It is written in Java version 11.
 
 == Summary of contributions
 
-* *Major enhancement*: added *Exercise classes and commands*
+* *Major enhancement*: added *Exercise classes and its commands*
 ** What it does: allows the user to record their client's exercises. The recorded exercises will then be shown in a table for the user to see. This includes:
 - `add-e` Command +
 Users will be able to add exercises to the exercise table.
@@ -22,7 +22,7 @@ Users will be able to edit existing exercises.
 - `delete-e` Command +
 Users will be able to delete existing exercises.
 ** Justification: This feature improves the product significantly because recording the exercises of clients is one of the main features of the application. Many other features like showing the client's personal bests and drawing their clients' progression graph rely on having the exercises recorded.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Highlights: Many of the future features will require the exercise classes. Therefore, it was essential to have in-depth analysis on how the classes are implemented. I also wrote a substantial amount of code to test the classes to reduce further bugs when expanding the application.
 
 * *Major enhancement*: hooked many features from Logic to Graphical User Interface
 ** What it does: features are shown in GUI instead of being shown in text format.  
