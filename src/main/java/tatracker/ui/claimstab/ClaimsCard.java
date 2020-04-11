@@ -43,7 +43,7 @@ public class ClaimsCard extends UiPart<Region> {
     private Label description;
 
     private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mma");
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d");
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     public ClaimsCard(Session claim, int displayedIndex) {
         super(FXML);

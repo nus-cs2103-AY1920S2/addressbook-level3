@@ -54,7 +54,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
 
 
         if (argMultimap.getValue(MODULE).isPresent()) {
-            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(MODULE).get().toUpperCase()));
+            sessionToAdd.setModuleCode(argMultimap.getValue(MODULE).map(String::trim).map(String::toUpperCase).get());
         }
 
         if (argMultimap.getValue(DATE).isPresent()) {
@@ -89,7 +89,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         }
 
         if (argMultimap.getValue(NOTES).isPresent()) {
-            sessionToAdd.setDescription(ParserUtil.parseValue(argMultimap.getValue(NOTES).get()));
+            sessionToAdd.setDescription(argMultimap.getValue(NOTES).map(String::trim).get());
         }
 
         return new AddSessionCommand(sessionToAdd);

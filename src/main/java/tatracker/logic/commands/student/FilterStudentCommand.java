@@ -32,7 +32,9 @@ public class FilterStudentCommand extends Command {
             GROUP, MODULE
     );
 
-    public static final String MESSAGE_FILTERED_STUDENTS_SUCCESS = "Filtered Student List: %1$s ";
+    public static final String MESSAGE_FILTERED_MODULES_SUCCESS = "Filtered all students in module: %s";
+    public static final String MESSAGE_FILTERED_GROUPS_SUCCESS = "Filtered all students in module group: %s [%s]";
+
     public static final String MESSAGE_NO_STUDENTS_IN_MODULE = "There are no students in the module"
             + " with the given module code";
     public static final String MESSAGE_NO_STUDENTS_IN_GROUP = "There are no students in the module group"
@@ -49,24 +51,19 @@ public class FilterStudentCommand extends Command {
         this.groupCode = groupCode;
     }
 
-    public boolean contains_module_only() {
-        return !this.moduleCode.equals("") && this.groupCode.equals("");
-    }
-
-    public boolean contains_both() {
-        return !this.moduleCode.equals("") && !this.groupCode.equals("");
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         CommandResult returnMsg = new CommandResult(MESSAGE_INVALID_MODULE_CODE, Action.FILTER_STUDENT);
 
-        if (contains_module_only()) {
-            returnMsg = filterModule(model);
-        } else if (contains_both()) {
+        boolean hasModule = !moduleCode.isBlank();
+        boolean hasGroup = hasModule && !groupCode.isBlank();
+
+        if (hasGroup) {
             returnMsg = filterGroup(model);
+        } else if (hasModule) {
+            returnMsg = filterModule(model);
         }
         return returnMsg;
     }
@@ -92,7 +89,7 @@ public class FilterStudentCommand extends Command {
                 model.updateFilteredStudentList(groupCode, moduleCode);
             }
         }
-        return new CommandResult(String.format(MESSAGE_FILTERED_STUDENTS_SUCCESS, moduleCode + " " + groupCode),
+        return new CommandResult(String.format(MESSAGE_FILTERED_GROUPS_SUCCESS, moduleCode, groupCode),
                 Action.FILTER_STUDENT);
     }
 
@@ -117,7 +114,7 @@ public class FilterStudentCommand extends Command {
                 model.setFilteredStudentList(moduleCode, FIRST_GROUP_INDEX);
             }
         }
-        return new CommandResult(String.format(MESSAGE_FILTERED_STUDENTS_SUCCESS, moduleCode), Action.FILTER_STUDENT);
+        return new CommandResult(String.format(MESSAGE_FILTERED_MODULES_SUCCESS, moduleCode), Action.FILTER_STUDENT);
     }
 
     /**

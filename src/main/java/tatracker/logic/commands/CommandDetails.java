@@ -16,6 +16,7 @@ public class CommandDetails {
     private final String info;
 
     private final PrefixDictionary dictionary;
+    private final List<Prefix> prefixesForExample;
 
     private final String usage;
     private final String example;
@@ -31,12 +32,20 @@ public class CommandDetails {
                           String info,
                           List<Prefix> parameters, List<Prefix> optionals,
                           Prefix ... prefixesForExample) {
+        if (commandWord.contains(" ")) {
+            throw new IllegalArgumentException("CommandDetails: commandWord cannot have spaces");
+        }
         this.commandWord = commandWord;
+
+        if (subWord.contains(" ")) {
+            throw new IllegalArgumentException("CommandDetails: subWord cannot have spaces");
+        }
         this.subWord = subWord;
 
         this.info = info;
 
         this.dictionary = new PrefixDictionary(parameters, optionals);
+        this.prefixesForExample = List.of(prefixesForExample);
 
         this.usage = this.dictionary.getPrefixesWithInfo();
         this.example = this.dictionary.getPrefixesWithExamples(prefixesForExample);
@@ -62,7 +71,7 @@ public class CommandDetails {
         return info;
     }
 
-    public PrefixDictionary getDictionary() {
+    public PrefixDictionary getPrefixDictionary() {
         return dictionary;
     }
 
@@ -72,6 +81,10 @@ public class CommandDetails {
 
     public List<Prefix> getOptionals() {
         return dictionary.getOptionals();
+    }
+
+    public List<Prefix> getPrefixesForExample() {
+        return prefixesForExample;
     }
 
     public String getUsage() {

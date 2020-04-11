@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_GROUP_CODE;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_MODULE_CODE;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_STUDENT;
+import static tatracker.commons.core.Messages.MESSAGE_NOT_EDITED;
 import static tatracker.logic.parser.Prefixes.EMAIL;
 import static tatracker.logic.parser.Prefixes.GROUP;
 import static tatracker.logic.parser.Prefixes.MATRIC;
@@ -81,6 +82,10 @@ public class EditStudentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!editStudentDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
 
         if (!model.hasModule(moduleCode)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);

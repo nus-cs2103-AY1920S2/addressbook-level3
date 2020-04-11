@@ -45,7 +45,7 @@ public class SessionCard extends UiPart<Region> {
     private Label recur;
 
     private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mma");
-    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d");
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     public SessionCard(Session session, int displayedIndex) {
         super(FXML);

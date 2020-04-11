@@ -257,7 +257,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         // Create a new statistic window
-        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode), logic.getGuiSettings());
+        statisticWindow = new StatisticWindow(new Statistic(logic.getTaTracker(), moduleCode));
         statisticWindow.show();
         statisticWindow.focus();
     }
@@ -329,6 +329,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
         switch (event.getCode()) {
+
         case LEFT:
             handleLeftKeyReleased();
             break;
@@ -337,6 +338,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
             logger.fine("Not switching lists");
+            break;
         }
     }
 
@@ -345,16 +347,16 @@ public class MainWindow extends UiPart<Stage> {
      * This can only be used in the Student View since it has multiple lists.
      */
     private void handleLeftKeyReleased() {
-        if (currentStudentViewList == studentListPanel) {
+        if (currentStudentViewList.equals(studentListPanel)) {
             logger.info("LEFT: Showing groups");
             currentStudentViewList = groupListPanel;
 
-        } else if (currentStudentViewList == groupListPanel) {
+        } else if (currentStudentViewList.equals(groupListPanel)) {
             logger.info("LEFT: Showing modules");
             currentStudentViewList = moduleListPanel;
 
         } else {
-            assert currentStudentViewList == moduleListPanel;
+            assert currentStudentViewList.equals(moduleListPanel);
             logger.fine("Nothing to the left of module list panel");
         }
         currentStudentViewList.requestFocus();
@@ -365,16 +367,16 @@ public class MainWindow extends UiPart<Stage> {
      * This can only be used in the Student View since it has multiple lists.
      */
     private void handleRightKeyReleased() {
-        if (currentStudentViewList == moduleListPanel) {
+        if (currentStudentViewList.equals(moduleListPanel)) {
             logger.info("RIGHT: Showing groups");
             currentStudentViewList = groupListPanel;
 
-        } else if (currentStudentViewList == groupListPanel) {
+        } else if (currentStudentViewList.equals(groupListPanel)) {
             logger.info("RIGHT: Showing students");
             currentStudentViewList = studentListPanel;
 
         } else {
-            assert currentStudentViewList == studentListPanel;
+            assert currentStudentViewList.equals(studentListPanel);
             logger.fine("Nothing to the right of student list panel");
         }
         currentStudentViewList.requestFocus();
@@ -406,6 +408,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
                 break;
 
+            case GOTO_CLAIMS:
             case FILTER_CLAIMS:
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
                 claimsListPanel.updateLabel();
@@ -413,7 +416,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
 
             case FILTER_SESSION:
-                sessionListPanel.updateLabel(logic.getCurrSessionDateFilter(), logic.getCurrSessionModuleFilter(),
+                sessionListPanel.updateLabel(
+                        logic.getCurrSessionDateFilter(),
+                        logic.getCurrSessionModuleFilter(),
                         logic.getCurrSessionTypeFilter());
                 handleGoto(sessionListTab);
                 break;
@@ -422,12 +427,6 @@ public class MainWindow extends UiPart<Stage> {
                 moduleListPanel.updateCells(logic.getFilteredModuleList());
                 groupListPanel.updateCells(logic.getFilteredGroupList());
                 handleGoto(studentListTab);
-                break;
-
-            case GOTO_CLAIMS:
-                moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
-                claimsListPanel.updateLabel();
-                handleGoto(claimsListTab);
                 break;
 
             case GOTO_SESSION:
@@ -448,6 +447,10 @@ public class MainWindow extends UiPart<Stage> {
             case LIST:
                 claimsListPanel.updateLabel();
                 moduleListPanelCopy.updateCells(logic.getFilteredModuleList());
+                sessionListPanel.updateLabel(
+                        logic.getCurrSessionDateFilter(),
+                        logic.getCurrSessionModuleFilter(),
+                        logic.getCurrSessionTypeFilter());
                 break;
 
             default:

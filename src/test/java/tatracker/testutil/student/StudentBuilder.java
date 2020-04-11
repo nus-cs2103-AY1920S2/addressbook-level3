@@ -20,7 +20,7 @@ public class StudentBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_MATRIC = "A0123456B";
+    public static final String DEFAULT_MATRIC = "A0193235J";
     public static final int DEFAULT_RATING = 1;
 
     private Name name;

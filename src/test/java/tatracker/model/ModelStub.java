@@ -332,6 +332,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setFilteredStudentList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -447,6 +452,8 @@ public class ModelStub implements Model {
      */
     public static class ModelStubAcceptingStudentAdded extends ModelStub {
         public final ArrayList<Student> studentsAdded = new ArrayList<>();
+        private String moduleShown = "";
+        private String groupShown = "";
 
         @Override
         public boolean hasModule(String moduleCode) {
@@ -476,6 +483,18 @@ public class ModelStub implements Model {
         public ReadOnlyTaTracker getTaTracker() {
             return new TaTracker();
         }
+
+        @Override
+        public void updateFilteredGroupList(String moduleCode) {
+            moduleShown = moduleCode;
+        }
+
+        @Override
+        public void updateFilteredStudentList(String groupCode, String moduleCode) {
+            moduleShown = moduleCode;
+            groupShown = groupCode;
+        }
+
     }
 
     /**
@@ -545,10 +564,6 @@ public class ModelStub implements Model {
         }
 
         @Override
-        public void showAllModules() {
-        }
-
-        @Override
         public ObservableList<Group> getFilteredGroupList() {
             return null;
         }
@@ -557,6 +572,16 @@ public class ModelStub implements Model {
         public void updateFilteredStudentList(String groupCode, String moduleCode) {
             moduleShown = moduleCode;
             groupShown = groupCode;
+        }
+
+        @Override
+        public void showAllModules() {
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            requireNonNull(predicate);
         }
 
         @Override

@@ -403,6 +403,12 @@ public interface Model {
     void updateFilteredStudentList(String groupCode, String moduleCode);
 
     /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStudentList(Predicate<Student> predicate);
+
+    /**
      * Sets the filtered student list to be an empty list.
      */
     void setFilteredStudentList();
