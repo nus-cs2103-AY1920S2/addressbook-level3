@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.modulecommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES_TAKEN;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
@@ -41,8 +42,7 @@ public class DeleteModuleCommand extends Command {
         }
 
         model.deleteModule(targetModuleCode);
-
-        model.updateModulesListTaken(Model.PREDICATE_SHOW_ALL_MODULES_TAKEN);
+        model.updateModulesListTaken(PREDICATE_SHOW_ALL_MODULES_TAKEN);
         return new CommandResult(MESSAGE_SUCCESS + targetModuleCode);
     }
 
