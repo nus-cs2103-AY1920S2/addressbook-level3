@@ -32,7 +32,7 @@ that they have put into the development of their respective features to the user
 
 === Adding extensive automated tests
 
-Here is the code that I have written for this product: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=j-lum[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=j-lum[Dashboard]]
+Here is the code that I have written for this product: [https://github.com/CS2103-AY1920s2-W17-4/main/commits?author=fatin99[All commits]] [https://nus-cs2103-ay1920s2.github.io/cs2103-dashboard/#=undefined&search=fatin99[Dashboard]]
 
 === Other contributions
 
