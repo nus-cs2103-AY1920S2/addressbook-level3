@@ -3,7 +3,7 @@
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":DelinoParser" as DelinoParser LOGIC_COLOR
 participant "command:ShowCommand" as ShowCommand LOGIC_COLOR
 participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -12,21 +12,21 @@ create LogicManager
 [-> LogicManager : execute("show all")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand()
-activate OrderBookParser
+LogicManager ->DelinoParser : parseCommand()
+activate DelinoParser
 
 create ShowCommand
 
-OrderBookParser -> ShowCommand ++ : arguments
+DelinoParser -> ShowCommand ++ : arguments
 
 ShowCommand -> ShowCommand ++ : parseData()
 ShowCommand -> ShowCommand -- :
 
-ShowCommand --> OrderBookParser -- : showCommand
+ShowCommand --> DelinoParser -- : showCommand
 
-OrderBookParser --> LogicManager : showCommand
+DelinoParser --> LogicManager : showCommand
 
-deactivate OrderBookParser
+deactivate DelinoParser
 
 LogicManager -> ShowCommand ++ : execute(model)
 
