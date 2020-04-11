@@ -24,8 +24,8 @@ import seedu.zerotoone.model.schedule.DateTime;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.model.workout.WorkoutList;
+import seedu.zerotoone.model.workout.WorkoutName;
 import seedu.zerotoone.testutil.ModelStub;
 import seedu.zerotoone.testutil.schedule.OneTimeScheduleBuilder;
 
@@ -54,10 +54,13 @@ class EditCommandTest {
 
     @Test
     public void execute_scheduleAcceptedByModel_editSuccessful() {
-        Workout workout = model.getFilteredWorkoutList().get(0);
+        WorkoutName workoutName = model.getFilteredWorkoutList().get(0).getWorkoutName();
 
         DateTime juneDateTime = new DateTime(VALID_DATETIME_JUNE);
-        Schedule juneSchedule = new OneTimeScheduleBuilder().withWorkout(workout).withDateTime(juneDateTime).build();
+        Schedule juneSchedule = new OneTimeScheduleBuilder()
+                .withWorkoutName(workoutName)
+                .withDateTime(juneDateTime)
+                .build();
         Model modelWithJuneSchedule = new ModelManager(model.getUserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),
@@ -66,7 +69,10 @@ class EditCommandTest {
         modelWithJuneSchedule.addSchedule(juneSchedule);
 
         DateTime julyDateTime = new DateTime(VALID_DATETIME_JULY); // TODO
-        Schedule julySchedule = new OneTimeScheduleBuilder().withWorkout(workout).withDateTime(julyDateTime).build();
+        Schedule julySchedule = new OneTimeScheduleBuilder()
+                .withWorkoutName(workoutName)
+                .withDateTime(julyDateTime)
+                .build();
         Model modelWithJulySchedule = new ModelManager(model.getUserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),
@@ -107,13 +113,19 @@ class EditCommandTest {
 
     @Test
     public void execute_duplicateSchedule_throwsCommandException() {
-        Workout workout = model.getFilteredWorkoutList().get(0);
+        WorkoutName workoutName = model.getFilteredWorkoutList().get(0).getWorkoutName();
 
         DateTime juneDateTime = new DateTime(VALID_DATETIME_JUNE);
-        Schedule juneSchedule = new OneTimeScheduleBuilder().withWorkout(workout).withDateTime(juneDateTime).build();
+        Schedule juneSchedule = new OneTimeScheduleBuilder()
+                .withWorkoutName(workoutName)
+                .withDateTime(juneDateTime)
+                .build();
 
         DateTime julyDateTime = new DateTime(VALID_DATETIME_JULY);
-        Schedule julySchedule = new OneTimeScheduleBuilder().withWorkout(workout).withDateTime(julyDateTime).build();
+        Schedule julySchedule = new OneTimeScheduleBuilder()
+                .withWorkoutName(workoutName)
+                .withDateTime(julyDateTime)
+                .build();
         Model modelWithJulySchedule = new ModelManager(model.getUserPrefs(),
                 model.getExerciseList(),
                 model.getWorkoutList(),

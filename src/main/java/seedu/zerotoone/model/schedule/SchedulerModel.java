@@ -1,7 +1,7 @@
 package seedu.zerotoone.model.schedule;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  *
@@ -14,6 +14,6 @@ public interface SchedulerModel {
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
     ScheduleList getScheduleList();
     void populateSortedScheduledWorkoutList();
-    void deleteWorkoutFromSchedule(Workout workoutToDelete);
-    void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout);
+    void deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete);
+    void editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName);
 }

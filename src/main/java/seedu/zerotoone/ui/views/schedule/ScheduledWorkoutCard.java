@@ -25,7 +25,7 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
     @FXML
     private Label scheduledWorkoutName;
     @FXML
-    private Label dateTime;
+    private Label scheduledWorkoutDateTime;
     @FXML
     private FlowPane tags;
 
@@ -33,8 +33,8 @@ public class ScheduledWorkoutCard extends UiPart<Region> {
         super(FXML);
         this.scheduledWorkout = scheduledWorkout;
         scheduledWorkoutId.setText(String.format("%d. ", displayedIndex));
-        scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName());
-        dateTime.setText(getPrettyDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
+        scheduledWorkoutName.setText(scheduledWorkout.getScheduledWorkoutName().toString());
+        scheduledWorkoutDateTime.setText(getPrettyDateTimeString(scheduledWorkout.getDateTime().getLocalDateTime()));
         if (scheduledWorkout.isOutDated()) {
             tags.getChildren().add(new Label("outdated"));
         }
