@@ -21,6 +21,7 @@ import seedu.address.logic.PetManager;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.StatisticsManager;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
 import seedu.address.model.task.Task;
@@ -359,15 +360,19 @@ public class ModelManager implements Model {
         this.statisticsManager.setStatistics(this.statistics);
     }
 
-    public Statistics getStatistics() {
+    public ReadOnlyStatistics getStatistics() {
         return statistics;
-    }
-
-    public ObservableList<DayData> getCustomQueue() {
-        return statistics.getCustomQueue();
     }
 
     public void updateDataDatesStatistics() {
         statistics.updateDataDates();
+    }
+
+    public void updatesDayDataStatistics(DayData dayData) {
+        statistics.updatesDayData(dayData);
+    }
+
+    public DayData getDayDataFromDateStatistics(Date date) {
+        return statistics.getDayDataFromDate(date);
     }
 }

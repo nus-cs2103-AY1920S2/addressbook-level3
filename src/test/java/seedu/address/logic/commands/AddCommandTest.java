@@ -22,10 +22,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
+import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
@@ -214,17 +215,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public Statistics getStatistics() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<DayData> getCustomQueue() {
+        public ReadOnlyStatistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateDataDatesStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatesDayDataStatistics(DayData dayData)  {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public DayData getDayDataFromDateStatistics(Date date) {
             throw new AssertionError("This method should not be called.");
         }
 
