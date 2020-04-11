@@ -117,21 +117,24 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.svg[]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/delino/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Order Book data.
-* exposes an unmodifiable `ObservableList<Order>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Order Book and Return Order Book data.
+* exposes two unmodifiable lists, the `ObservableList<ReturnOrder>` and `ObservableList<Order>` that can be
+'observed'. +
+ e.g. The UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
-every UniqueOrderList is part of an OrderBook.
-image:BetterModelClassDiagram.svg[]
+An Order class consists of ten different fields as shown in the image. Every order is part of a UniqueOrderList and
+every UniqueOrderList is part of an OrderBook. +
+Similarly, a ReturnOrder class consists of nine different fields as shown in the image. Every return order is part of a
+UniqueReturnOrderList and every UniqueReturnOrderList is part of a ReturnOrderBook.
 //end::design_model[]
 
 //tag::Design-Storage[]

@@ -1,4 +1,4 @@
-package seedu.delino.model.parcel.comment;
+package seedu.delino.model.parcel.optionalparcelattributes;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.delino.commons.util.AppUtil.checkArgument;

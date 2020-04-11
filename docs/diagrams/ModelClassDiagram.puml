@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
+skinparam arrowThickness 1.0
 skinparam arrowColor 123456
 skinparam classBackgroundColor MODEL_COLOR
 
@@ -11,107 +11,92 @@ Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class OrderBook
 Class ReturnOrderBook
-Class ReadOnlyOrderBook
-Class ReadOnlyReturnOrderBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Parcel {
-Class "{abstract}\nParcel" as Parcel
+    Class Parcel <<abstract>>
+
+    Package ReturnOrder {
+    Class ReturnOrder
+    Class UniqueReturnOrderList
+    }
+
+    Package Order {
+    Class Order
+    Class CashOnDelivery
+    Class UniqueOrderList
+    }
+
+    Package ParcelAttributes {
+    Class TransactionId
+    Class Address
+    Class Name
+    Class Phone
+    Class Email
+    Class TimeStamp
+    Class Warehouse
+    Class CashOnDelivery
+    }
+
+    Package OptionalParcelAttributes {
+    Class TypeOfItem
+    Class Comment
+    }
 }
-
-Package Comment {
-Class Comment
-}
-
-Package TypeOfItem {
-Class TypeOfItem
-}
-
-Package CashOnDelivery {
-Class CashOnDelivery
-}
-
-Class UniqueReturnOrderList
-Class UniqueOrderList
-
-Package ReturnOrderAttributes {
-Class "TransactionId" as tid1
-Class "Address" as addr1
-Class "Name" as name1
-Class "Phone" as phone1
-Class "Warehouse" as warehouse1
-Class "TimeStamp" as timestamp1
-Class "Email" as email1
-}
-
-Class Order
-Package OrderAttributes {
-Class TransactionId
-Class CashOnDelivery
-Class Address
-Class Name
-Class Phone
-Class Warehouse
-Class TimeStamp
-Class Email
-}
-
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-OrderBook .up.|> ReadOnlyOrderBook
+OrderBook .left.|> ReadOnlyOrderBook
 ReturnOrderBook .up.|> ReadOnlyReturnOrderBook
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" OrderBook
-ModelManager o-right-> "1" ReturnOrderBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+Model .up.> ObservableList
+ModelManager o-down-> "1" OrderBook
+ModelManager o-up-> "1" ReturnOrderBook
+ModelManager o-right-> "1" UserPrefs
+UserPrefs .right.|> ReadOnlyUserPrefs
+ModelManager --> "1" Order : filtered
+ModelManager -> "1" ReturnOrder : filtered
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> TimeStamp
-Order -[hidden]right-> Comment
-TimeStamp -[hidden]right-> Warehouse
-Warehouse -[hidden]right-> TransactionId
-TransactionId -[hidden]right-> CashOnDelivery
-TypeOfItem -[hidden]right-> Comment
-CashOnDelivery -[hidden]up-> OrderAttributes
-OrderBook -[hidden]right-> OrderAttributes
+ReturnOrder -up[hidden]-> ReturnOrderBook
+Order -down[hidden]-> OrderBook
+Order -up[hidden]-> ReturnOrder
 
-Order --|> Parcel
-Order --> TypeOfItem
-Order --> Comment
-Order *-> Name
-Order *-> TransactionId
-Order *-> Address
-Order *-> CashOnDelivery
-Order *-> Phone
-Order *-> Warehouse
-Order *-> TimeStamp
-Order *-> Email
+OptionalParcelAttributes -right[hidden]-> ParcelAttributes
+ReturnOrderBook *-> "1" UniqueReturnOrderList
 
-ReturnOrder -[hidden]right-> ReturnOrderAttributes
-ReturnOrder --|> Parcel
-ReturnOrder --> TypeOfItem
-ReturnOrder --> Comment
-ReturnOrder *-> name1
-ReturnOrder *-> tid1
-ReturnOrder *-> addr1
-ReturnOrder *-> phone1
-ReturnOrder *-> timestamp1
-ReturnOrder *-> warehouse1
-ReturnOrder *-> email1
+CashOnDelivery -up[hidden]-> ReturnOrder
+CashOnDelivery -up[hidden]-> ParcelAttributes
+Parcel -right[hidden]-> ParcelAttributes
 
-OrderBook *--> "1" UniqueOrderList
-ReturnOrderBook *--> "1" UniqueReturnOrderList
-UniqueReturnOrderList o--> "*" ReturnOrder
-UniqueOrderList o--> "*" Order
+OrderBook *-left-> "1" UniqueOrderList
+UniqueOrderList *-left-> Order
+UniqueReturnOrderList -down-> ReturnOrder
 
+Order -right-|> Parcel
+ReturnOrder -right-|> Parcel
 
-ModelManager -->"1" Order : filtered
-ModelManager -right->"1" ReturnOrder : filtered
+Order *-up-> "1" TransactionId
+Order *-up-> "1" Name
+Order *-up-> "1" Phone
+Order *-up-> "1" Warehouse
+Order *-up-> "1" Email
+Order *-up-> "1" Address
+Order *-up-> "1" TimeStamp
+Order *-down-> "1" CashOnDelivery
+Order -up-> "0..1" Comment
+Order -up-> "0..1" TypeOfItem
+
+ReturnOrder *-down-> "1" TransactionId
+ReturnOrder *-down-> "1" TimeStamp
+ReturnOrder *-down-> "1" Email
+ReturnOrder *-down-> "1" Address
+ReturnOrder *-down-> "1" Warehouse
+ReturnOrder *-down-> "1" Phone
+ReturnOrder *-down-> "1" Name
+ReturnOrder -down-> "0..1" TypeOfItem
+ReturnOrder -down-> "0..1" Comment
+
 @enduml

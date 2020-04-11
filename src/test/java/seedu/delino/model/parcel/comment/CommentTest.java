@@ -7,6 +7,8 @@ import static seedu.delino.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+
 //@@author Exeexe93
 class CommentTest {
     @Test

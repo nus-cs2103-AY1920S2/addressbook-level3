@@ -5,8 +5,8 @@ import static seedu.delino.model.parcel.parcelattributes.TimeStamp.REQUIRE_CHECK
 import seedu.delino.logic.commands.EditCommand;
 import seedu.delino.logic.commands.EditCommand.EditParcelDescriptor;
 import seedu.delino.model.parcel.Parcel;
-import seedu.delino.model.parcel.comment.Comment;
-import seedu.delino.model.parcel.itemtype.TypeOfItem;
+import seedu.delino.model.parcel.optionalparcelattributes.Comment;
+import seedu.delino.model.parcel.optionalparcelattributes.TypeOfItem;
 import seedu.delino.model.parcel.order.CashOnDelivery;
 import seedu.delino.model.parcel.order.Order;
 import seedu.delino.model.parcel.parcelattributes.Address;
