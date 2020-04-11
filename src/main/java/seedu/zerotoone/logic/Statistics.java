@@ -22,11 +22,9 @@ public class Statistics {
      */
     public static StatisticsData generate(List<CompletedWorkout> workouts, Optional<LocalDateTime> startDateRange,
                                           Optional<LocalDateTime> endDateRange) {
+        LocalDateTime startDateTime = startDateRange.orElseGet(() -> Statistics.getEarliestWorkoutStartTime(workouts));
+        LocalDateTime endDateTime = endDateRange.orElseGet(() -> Statistics.getLatestEndDate(workouts));
 
-        LocalDateTime startDateTime = startDateRange.orElseGet(() ->
-            Statistics.getEarliestWorkoutStartTime(workouts));
-        LocalDateTime endDateTime = endDateRange.orElseGet(() ->
-            Statistics.getLatestEndDate(workouts));
 
         workouts.removeIf(workout -> workout.getStartTime().isBefore(startDateTime));
         workouts.removeIf(workout -> workout.getEndTime().isAfter(endDateTime));
@@ -37,20 +35,40 @@ public class Statistics {
             return new StatisticsData();
         }
 
-        Duration totalWorkoutDuration = workouts.stream().map(
-            workout -> Duration.between(workout.getStartTime(), workout.getEndTime()))
-            .reduce(Duration.ZERO, Duration::plus);
+        Duration totalWorkoutDuration = calculateTotalWorkoutTime(workouts);
 
         long numberOfDays = Duration.between(startDateTime, endDateTime).toDays() + 1;
 
-        Duration averageTimePerDay = totalWorkoutDuration.dividedBy(numberOfDays);
+        Duration averageTimePerDay = calculateAverageTimePerDay(totalWorkoutDuration, numberOfDays);
 
-        return new StatisticsData(workouts,
-            startDateTime,
-            endDateTime,
-            workoutCount,
-            totalWorkoutDuration,
+        return new StatisticsData(workouts, startDateTime, endDateTime, workoutCount, totalWorkoutDuration,
             averageTimePerDay);
+    }
+
+    /**
+     * Calculate average time spent on workout per day.
+     *
+     * @param totalWorkoutDuration
+     * @param numberOfDays
+     * @return timeSpent
+     */
+    private static Duration calculateAverageTimePerDay(Duration totalWorkoutDuration, long numberOfDays) {
+        if (numberOfDays == 0) {
+            return Duration.ZERO;
+        }
+        return totalWorkoutDuration.dividedBy(numberOfDays);
+    }
+
+    /**
+     * Calculates the sum of time spent on all workouts in the list.
+     *
+     * @param workouts
+     * @return totalTimeSpent
+     */
+    private static Duration calculateTotalWorkoutTime(List<CompletedWorkout> workouts) {
+        return workouts.stream().map(
+            workout -> Duration.between(workout.getStartTime(), workout.getEndTime()))
+            .reduce(Duration.ZERO, Duration::plus);
     }
 
     /**
