@@ -26,7 +26,7 @@ import seedu.delino.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class OrderBookParser {
+public class DelinoParser {
 
     /**
      * Used for initial separation of command word and args.
