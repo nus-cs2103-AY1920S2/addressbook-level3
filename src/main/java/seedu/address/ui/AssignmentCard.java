@@ -60,7 +60,7 @@ public class AssignmentCard extends UiPart<Region> {
                 CornerRadii.EMPTY, Insets.EMPTY)));
         }
 
-        workload.setText(assignment.getWorkload().estHours);
+        workload.setText("Estimated workload: " + assignment.getWorkload().estHours + " hours");
     }
 
     @Override
