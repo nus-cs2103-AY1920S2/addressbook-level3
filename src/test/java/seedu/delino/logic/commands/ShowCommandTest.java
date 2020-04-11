@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.delino.model.Model;
 import seedu.delino.model.ModelManager;
 
-//@author Amoscheong97
+//@@author Amoscheong97
 /**
  * Show Command Test Class
  *

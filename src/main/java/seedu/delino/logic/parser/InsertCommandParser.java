@@ -31,7 +31,7 @@ import seedu.delino.model.parcel.parcelattributes.TimeStamp;
 import seedu.delino.model.parcel.parcelattributes.TransactionId;
 import seedu.delino.model.parcel.parcelattributes.Warehouse;
 
-//@author Amoscheong97
+//@@author Amoscheong97
 /**
  * Parses input arguments and creates a new InsertCommand object
  *
