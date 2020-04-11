@@ -656,8 +656,7 @@ e.g. `findc n/Betsy` +
 * *Clearing all customers* : `clearc`
 * *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
 e.g. `addp d/iphone x pr/1000 q/10`
-* *Listing all products* : `listp` +
-e.g. `listp`
+* *Listing all products* : `listp`
 * *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [cp/COSTPRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
 * *Finding products* : `findp KEYWORD` +
@@ -668,21 +667,23 @@ e.g. `listp` +
 * *Clearing all products* : `clearp`
 * *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY q/QUANTITY [d/DESCRIPTION]` +
 e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 q/10 d/under discount`
-* *Listing all transactions* : `listt` +
-e.g. `listt`
+* *Listing all transactions* : `listt`
 * *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [q/QUANTITY] [m/MONEY] [d/DESCRIPTION]` +
 e.g. `editt 1 p/101 c/123`
 * *Finding transactions* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY]` +
-e.g. `findt c/bob dt/2020-02-07`
+e.g. `findt c/bob dt/2020-02-07 10:00`
 * *Undo a transaction* : `undot INDEX` +
-e.g. `findt 2020-01-03` +
+e.g. `findt dt/2020-01-03 10:00` +
 `undot 1`
 * *Clearing all transactions* : `cleart`
-* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE`
-* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE`
+* *Get the revenue made in a certain period* : `revenue sd/START_DATE ed/END_DATE` +
+e.g. `revenue sd/2020-01-01 10:00 ed/2020-12-12 10:01`
+* *Get the profit made in a certain period* : `profit sd/START_DATE ed/END_DATE` +
+e.g. `profit sd/2020-01-01 10:00 ed/2020-12-12 10:01`
 * *Setting the low-inventory threshold* : `lowlimit p/PRODUCT_ID t/THRESHOLD` +
 e.g. `lowlimit p/1 t/20`
 * *Predicting the sales for the next month* : `predict`
-* *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]`
+* *Plotting sales* : `plotsales PRODUCT_INDEX [sd/START_DATE] [ed/END_DATE]` +
+e.g. `plotsales 1 sd/2020-03-20 10:00 ed/2020-03-30 10:00`
 * *Exiting from the program* : `exit`
 * *Get help* : `help`
