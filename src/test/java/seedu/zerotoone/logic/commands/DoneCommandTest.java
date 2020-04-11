@@ -15,6 +15,7 @@ import seedu.zerotoone.model.session.CompletedSet;
 import seedu.zerotoone.testutil.ModelStub;
 
 class DoneCommandTest {
+
     @Test
     public void execute_isInSession_throwsCommandException() throws CommandException {
         DoneCommand doneCommand = new DoneCommand();

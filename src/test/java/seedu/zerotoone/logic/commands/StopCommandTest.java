@@ -21,6 +21,7 @@ import seedu.zerotoone.model.session.OngoingWorkout;
 import seedu.zerotoone.testutil.ModelStub;
 
 class StopCommandTest {
+
     @Test
     public void executeHelper_isInSession_throwsCommandException() {
         StopCommand stopCommand = new StopCommand();
