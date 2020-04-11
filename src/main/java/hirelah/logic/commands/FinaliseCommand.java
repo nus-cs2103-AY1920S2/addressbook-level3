@@ -1,7 +1,9 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.util.CommandUtil.saveModel;
 import static java.util.Objects.requireNonNull;
 
+import hirelah.logic.commands.exceptions.CommandException;
 import hirelah.model.Model;
 import hirelah.storage.Storage;
 
@@ -23,10 +25,11 @@ public class FinaliseCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, Storage storage) {
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireNonNull(model);
         model.finaliseInterviewProperties();
-        return new CommandResult(MESSAGE_SUCCESS);
+        saveModel(model, storage);
+        return new ToggleCommandResult(MESSAGE_SUCCESS, ToggleView.INTERVIEWEE);
     }
 
     @Override

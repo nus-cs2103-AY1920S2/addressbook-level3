@@ -1,6 +1,6 @@
 package hirelah.logic.commands.interview;
 
-import java.io.IOException;
+import static hirelah.logic.util.CommandUtil.saveTranscript;
 
 import hirelah.logic.commands.Command;
 import hirelah.logic.commands.CommandResult;
@@ -32,13 +32,15 @@ public class EndCommand extends Command {
         transcript.complete();
         CommandResult result = new ToggleCommandResult(
                 String.format(MESSAGE_SUCCESS, model.getCurrentInterviewee()),
-                ToggleView.INTERVIEWEE);
-        try {
-            storage.saveTranscript(model.getCurrentInterviewee());
-        } catch (IOException e) {
-            throw new CommandException("Error occurred while saving data!");
-        }
+                ToggleView.CLOSE_TRANSCRIPT);
+        saveTranscript(model, storage);
         model.endInterview();
         return result;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EndCommand);
     }
 }

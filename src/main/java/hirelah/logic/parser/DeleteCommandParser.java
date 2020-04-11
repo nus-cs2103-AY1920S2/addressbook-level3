@@ -55,15 +55,11 @@ public class DeleteCommandParser implements Parser<Command> {
 
         case DeleteQuestionCommand.COMMAND_WORD:
             ParserUtil.checkEmptyArgument(deleteArguments, DeleteQuestionCommand.MESSAGE_USAGE);
-
-            try {
-                int index = Integer.parseInt(deleteArguments.trim());
-                return new DeleteQuestionCommand(index);
-            } catch (NumberFormatException e) {
-                throw new ParseException(INVALID_QUESTION_NUMBER_MESSAGE);
-            }
+            int index = ParserUtil.checkValidQuestionNumber(deleteArguments.trim());
+            return new DeleteQuestionCommand(index);
 
         case DeleteMetricCommand.COMMAND_WORD:
+            ParserUtil.checkEmptyArgument(deleteArguments, DeleteMetricCommand.MESSAGE_USAGE);
             return new DeleteMetricCommand(deleteArguments.trim());
 
         default:

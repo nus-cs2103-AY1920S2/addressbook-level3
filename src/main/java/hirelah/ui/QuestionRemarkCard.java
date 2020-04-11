@@ -3,6 +3,7 @@ package hirelah.ui;
 import hirelah.model.hirelah.Question;
 import hirelah.model.hirelah.QuestionRemark;
 import hirelah.model.hirelah.Remark;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -37,10 +38,10 @@ public class QuestionRemarkCard extends UiPart<Region> {
         this.questionRemark = (QuestionRemark) remark;
         question = questions.get(questionRemark.getQuestionNumber() - 1);
         String questionText;
-        if (question.toString().length() < 40) {
+        if (question.toString().length() < 22) {
             questionText = question.toString();
         } else {
-            questionText = question.toString().substring(0, 38) + "...";
+            questionText = question.toString().substring(0, 20) + "...";
         }
         questionHeader.setText("Question " + questionRemark.getQuestionNumber() + ": " + questionText);
     }

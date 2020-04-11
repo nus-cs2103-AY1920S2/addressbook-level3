@@ -1,6 +1,6 @@
 package hirelah.logic.commands.interview;
 
-import java.io.IOException;
+import static hirelah.logic.util.CommandUtil.saveTranscript;
 
 import hirelah.commons.exceptions.IllegalValueException;
 import hirelah.logic.commands.Command;
@@ -33,11 +33,14 @@ public class StartQuestionCommand extends Command {
         } catch (IllegalValueException | IllegalActionException e) {
             throw new CommandException(e.getMessage());
         }
-        try {
-            storage.saveTranscript(model.getCurrentInterviewee());
-        } catch (IOException e) {
-            throw new CommandException("Error while saving data!");
-        }
+        saveTranscript(model, storage);
         return new CommandResult(String.format(MESSAGE_SUCCESS, questionNumber));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof StartQuestionCommand // instanceof handles nulls
+                && questionNumber == ((StartQuestionCommand) other).questionNumber);
     }
 }

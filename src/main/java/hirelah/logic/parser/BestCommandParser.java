@@ -19,6 +19,8 @@ import hirelah.logic.parser.exceptions.ParseException;
 
 public class BestCommandParser implements Parser<BestCommand> {
     public static final String MESSAGE_MULTIPLE_PARAMETERS_PROVIDED = "Multiple parameters for comparisons provided.";
+    public static final String MESSAGE_NON_POSITIVE_SIZE = "The size of the interviewees provided must be positive.";
+    public static final String MESSAGE_SIZE_NOT_AN_INTEGER = "The size of the interviewees provided is not an integer.";
 
     /**
      * Parses the argument provided by the client.
@@ -37,16 +39,17 @@ public class BestCommandParser implements Parser<BestCommand> {
             List<String> attributePrefixes = argMultimap.getAllValues(PREFIX_ATTRIBUTE);
 
             int numOfParams = getNumberOfTotalParams(metricPrefixes, attributePrefixes);
+            int numOfInterviewees = parseNumberOfInterviewees(argMultimap.getPreamble());
 
             if (numOfParams > 1) {
                 throw new ParseException(MESSAGE_MULTIPLE_PARAMETERS_PROVIDED);
             } else if (numOfParams == 0) {
-                return new BestCommand(argMultimap.getPreamble(), OVERALL);
+                return new BestCommand(numOfInterviewees, OVERALL);
             } else {
                 if (metricPrefixes.size() == 1) {
-                    return new BestCommand(argMultimap.getPreamble(), metricPrefixes.get(0), METRIC);
+                    return new BestCommand(numOfInterviewees, metricPrefixes.get(0), METRIC);
                 } else {
-                    return new BestCommand(argMultimap.getPreamble(), attributePrefixes.get(0), ATTRIBUTE);
+                    return new BestCommand(numOfInterviewees, attributePrefixes.get(0), ATTRIBUTE);
                 }
             }
         }
@@ -60,5 +63,25 @@ public class BestCommandParser implements Parser<BestCommand> {
      */
     private int getNumberOfTotalParams(List<String> metricPrefixes, List<String> attributePrefixes) {
         return metricPrefixes.size() + attributePrefixes.size();
+    }
+
+    /**
+     * Parses the number of interviewees entered by the client to the corresponding integer.
+     *
+     * @param numberOfInterviewees The String representing the size of the interviewees entered by the client.
+     * @return The corresponding integer value.
+     * @throws ParseException If the value entered is not a number or the number is less than or equal to zero.
+     */
+    private int parseNumberOfInterviewees(String numberOfInterviewees) throws ParseException {
+        try {
+            int result = Integer.parseInt(numberOfInterviewees);
+            if (result <= 0) {
+                throw new ParseException(MESSAGE_NON_POSITIVE_SIZE);
+            }
+
+            return result;
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_SIZE_NOT_AN_INTEGER);
+        }
     }
 }

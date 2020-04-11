@@ -14,11 +14,11 @@ import hirelah.storage.Storage;
 public class ListIntervieweeCommand extends Command {
     public static final String COMMAND_WORD = "interviewee";
     public static final String MESSAGE_SUCCESS = "Here is the list of interviewees:";
-    public static final String MESSAGE_FORMAT = "list " + COMMAND_WORD;
+    public static final String MESSAGE_FORMAT = COMMAND_WORD;
     public static final String MESSAGE_FUNCTION = ": List the interviewee from the Interviewee list.\n";
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT
             + MESSAGE_FUNCTION
-            + "Example: list " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD;
 
     /**
      * Creates a ListIntervieweeCommand to list the {@code Interviewee}

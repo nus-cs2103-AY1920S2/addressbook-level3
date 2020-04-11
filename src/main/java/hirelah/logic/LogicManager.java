@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import hirelah.commons.core.GuiSettings;
@@ -64,17 +65,6 @@ public class LogicManager implements Logic {
             throw new IllegalArgumentException("Impossible enum case");
         }
         commandResult = command.execute(model, storage);
-
-        try {
-            storage.saveInterviewee(model.getIntervieweeList());
-            storage.saveAttribute(model.getAttributeList());
-            storage.saveQuestion(model.getQuestionList());
-            storage.saveMetric(model.getMetricList());
-            storage.saveModel(model.isFinalisedInterviewProperties());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
         return commandResult;
     }
 
@@ -124,6 +114,16 @@ public class LogicManager implements Logic {
     @Override
     public List<File> getAvailableSessions() throws IOException {
         return storage.readSessions(model.getUserPrefs());
+    }
+
+    @Override
+    public Optional<Path> getCurrentSession() {
+        return model.getCurrentSession();
+    }
+
+    @Override
+    public boolean isFinalisedInterviewProperties() {
+        return model.isFinalisedInterviewProperties();
     }
 
     @Override

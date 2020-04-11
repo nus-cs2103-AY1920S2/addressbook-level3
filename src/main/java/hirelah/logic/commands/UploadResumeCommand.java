@@ -1,5 +1,7 @@
 package hirelah.logic.commands;
 
+import static hirelah.logic.util.CommandUtil.saveInterviewees;
+
 import java.io.File;
 
 import hirelah.logic.commands.exceptions.CommandException;
@@ -16,6 +18,13 @@ public class UploadResumeCommand extends Command {
     public static final String COMMAND_WORD = "upload";
     public static final String MESSAGE_SUCCESS = "Successfully added the resume!";
     public static final String MESSAGE_FILE_NOT_FOUND = "Could not find the file!";
+    public static final String MESSAGE_FORMAT = COMMAND_WORD + " <interviewee> [-p <path>]";
+    public static final String MESSAGE_FUNCTION = ": Uploads a resume to a particular interviewee from the specified "
+            + "path if provided, open a file picker otherwise.\n";
+    public static final String MESSAGE_USAGE = MESSAGE_FORMAT
+            + MESSAGE_FUNCTION
+            + "Example:" + COMMAND_WORD
+            + " Jane Doe ";
 
     private String path;
     private String identifier;
@@ -46,7 +55,20 @@ public class UploadResumeCommand extends Command {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
         }
         interviewee.setResume(resume);
-
+        saveInterviewees(model, storage);
         return new ToggleCommandResult(MESSAGE_SUCCESS, ToggleView.INTERVIEWEE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this.path == null) {
+            return other == this // short circuit if same object
+                    || (other instanceof UploadResumeCommand // instanceof handles nulls
+                    && this.identifier.equals(((UploadResumeCommand) other).identifier));
+        }
+        return other == this // short circuit if same object
+                || (other instanceof UploadResumeCommand // instanceof handles nulls
+                && this.path.equals(((UploadResumeCommand) other).path)
+                && this.identifier.equals(((UploadResumeCommand) other).identifier));
     }
 }
