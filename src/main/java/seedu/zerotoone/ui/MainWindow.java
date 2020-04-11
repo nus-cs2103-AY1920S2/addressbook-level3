@@ -135,6 +135,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setY((screenBoundary.getHeight() - primaryStage.getHeight()) / 2);
 
         primaryStage.show();
+
+        // Focus user context onto command box at startup
+        commandBoxPlaceholder.setFocusTraversable(true);
     }
 
     /**

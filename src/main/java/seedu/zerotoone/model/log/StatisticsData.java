@@ -14,7 +14,7 @@ public class StatisticsData {
 
     private Integer totalWorkoutCount;
     private Duration totalTime;
-    private Duration averageTimePerDay;
+    private Duration averageTimePerSession;
     private LocalDateTime startRange;
     private LocalDateTime endRange;
     private List<CompletedWorkout> workouts;
@@ -25,7 +25,7 @@ public class StatisticsData {
     public StatisticsData() {
         totalWorkoutCount = 0;
         totalTime = Duration.ZERO;
-        averageTimePerDay = Duration.ZERO;
+        averageTimePerSession = Duration.ZERO;
     }
 
     /**
@@ -36,14 +36,14 @@ public class StatisticsData {
      * @param endRange          the end range
      * @param totalWorkoutCount the total workout count
      * @param totalTime         the total time
-     * @param averageTimePerDay the average time per day
+     * @param averageTimePerSession the average time per session
      */
     public StatisticsData(List<CompletedWorkout> workouts, LocalDateTime startRange, LocalDateTime endRange,
-                          Integer totalWorkoutCount, Duration totalTime, Duration averageTimePerDay) {
+                          Integer totalWorkoutCount, Duration totalTime, Duration averageTimePerSession) {
         this.workouts = workouts;
         this.totalWorkoutCount = totalWorkoutCount;
         this.totalTime = totalTime;
-        this.averageTimePerDay = averageTimePerDay;
+        this.averageTimePerSession = averageTimePerSession;
         this.startRange = startRange;
         this.endRange = endRange;
     }
@@ -103,12 +103,12 @@ public class StatisticsData {
     }
 
     /**
-     * Gets average time per day.
+     * Gets average time per session.
      *
-     * @return the average time per day
+     * @return the average time per session
      */
-    public Duration getAverageTimePerDay() {
-        return averageTimePerDay;
+    public Duration getAverageTimePerSession() {
+        return averageTimePerSession;
     }
 
     @Override
@@ -124,7 +124,7 @@ public class StatisticsData {
         StatisticsData that = (StatisticsData) o;
         return Objects.equals(totalWorkoutCount, that.totalWorkoutCount)
             && Objects.equals(totalTime, that.totalTime)
-            && Objects.equals(averageTimePerDay, that.averageTimePerDay)
+            && Objects.equals(averageTimePerSession, that.averageTimePerSession)
             && Objects.equals(startRange, that.startRange)
             && Objects.equals(endRange, that.endRange)
             && Objects.equals(workouts, that.workouts);

@@ -23,6 +23,7 @@ import seedu.zerotoone.model.session.ReadOnlyTimerList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -240,6 +241,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteWorkoutNameFromSchedule(WorkoutName workoutNameToDelete) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void editWorkoutNameInSchedule(WorkoutName workoutNameToEdit, WorkoutName editedWorkoutName) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyLogList getLogList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -256,16 +267,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredLogList(Predicate<CompletedWorkout> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
         throw new AssertionError("This method should not be called.");
     }
 

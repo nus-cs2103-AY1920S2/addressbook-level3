@@ -62,7 +62,7 @@ class StatisticsDataTest {
     }
 
     @Test
-    void getAverageTimePerDay() {
-        assertEquals(Duration.ZERO, mockData.getAverageTimePerDay());
+    void getAverageTimePerSession() {
+        assertEquals(Duration.ZERO, mockData.getAverageTimePerSession());
     }
 }

@@ -718,11 +718,11 @@ NOTE:
 * <frequency> must be one of the following: DAILY, WEEKLY, MONTHLY
 ```
 
-=== Managing Your Session Logs (In Progress)
-You have successfully gone through the whole process of managing your workouts and scheduling them, good job! To take it one step further, ZeroToOne also allows you to log your past completed workout completedExercises. Read on to learn how!
+=== Managing Your Session Logs
+Well done, you have successfully gone through the whole process of setting up your workouts, scheduling them and even logging the workout. In addition to all these cool features, ZeroToOne also allows you to manage your workout log history and even provides you with meaningful statistics to help you track your current progress to help you hit all those fitness goals.
 
 ==== Viewing your logs
-To view a list of all your logged past workout completedExercises, simply type the following command:
+To view a list of all your logged completed workout sessions, simply type the following command:
 
 ```
 log list
@@ -738,26 +738,27 @@ ZeroToOne will display a list of all the logged workout completedExercises you h
 We understand that viewing too many logs at once can be confusing at times, so finding a particular log can be difficult. In order to filter your logs by a search query, simply type the following command:
 
 ```
-log find {st/<datetime> | et/<datetime> | e/<exercise_name>}
+log find [st/<datetime>] [et/<datetime>] [e/<exercise_name>]
 ```
 
-[.example-use]
---
+```
 Example uses:
-log find et/2020-04-27 10:10
 log find st/2020-04-27 10:10
-log find e/Deadlift
---
-
-ZeroToOne will return a list of all the logged completedExercises whose name matches either the datetime, the exercise_name, or the workout_name you have typed into the command. From this command, you can find out the log ID number of the logged completedExercise you are looking for, as well as see the details of the logged completedExercise. If this is successful, the following message will be displayed in the feedback display:
-
-```
-Listed 1 logged workout completedExercise(s)!
+log find et/2020-04-27 10:10
+log find st/2020-04-04 10:10 et/2020-04-05 10:10
+log find w/Arms Day
+log find w/arms
 ```
 
-==== Deleting a logged completedExercise
+ZeroToOne will return a list of all the logged workout sessions that matches either the start_time, end_time or whose workout_name contains the workout name you have typed into the command. From this command, you will be able to see the details of the logged session(s) being searched for. If this is successful, the following message will be displayed in the feedback display:
 
-Want to delete a logged workout completedExercise? Simply type in the following command:
+```
+Listed 1 logged workout sessions(s) found!
+```
+
+==== Deleting a log
+
+Want to delete a log? Simply type in the following command:
 
 ```
 log delete LOG_ID
@@ -768,28 +769,39 @@ Example use:
 log delete 1
 ```
 
-The view will automatically update with the updated list of logged completedExercises. If this is successful, the following message will be displayed in the feedback display:
+The view will automatically update with the updated list of logged sessions. If this is successful, the following message will be displayed in the feedback display:
 
 ```
-Successfully deleted: Arms Workout at 2020-02-04 10:00!
+Successfully deleted log: Legs Day on 1 April 2020, 21:50, Wed
 ```
 
 ```
 NOTE:
-* LOG_ID refers to the index of the logged past workout completedExercise in `log list`
+* LOG_ID refers to the index of the log as viewed on the screen
+* This include results returned through the find command
 ```
 
-==== Displaying progress in a graphical view (Proposed)
+==== Displaying progress in workout logs
 
-To view your progress in a graphical view, simply type the following command:
+To view your progress in a graphical view over a particular time period, simply type the following command:
 
 ```
-log display
+log display [st/<start_time>] [et/<end_time>]
 ```
 
 ```
 Example use:
-exercise set add 1 r/2 m/30
+log display
+log display st/2020-04-01 10:10
+log display st/2020-01-01 00:00 et/2020-02-01 00:00
+```
+
+```
+NOTE:
+* Statistics will considered ALL entries in range between <start_time> and <end_time> inclusive
+* If <start_time> is omitted then logs will be considered regardless of their start timings
+* If <end_time> is omitted then logs will be considered regardless of their end timings
+* If both <start_time> and <end_time> are omitted then ALL logs will be considered
 ```
 
 .Graphical view of logs
@@ -797,6 +809,23 @@ image::UgGraphicalLogs.png[]
 
 ZeroToOne will display a graphical line chart that depicts your overall progress. This means you can quickly see at a glance how successful you have been in completing your completedExercises. This can help motivate you to work harder to improve, or continue maintaining your progress.
 
+Here is a list and explanation of the metrics provided:
+
+.ZeroToOne Report Card Metrics
+[options="header"]
+|======
+|Notation |Description
+
+| Total Number of Workouts
+| The number of successfully completed workouts
+
+| Total Time Spend
+| The total sum of time spend in all the workouts
+
+| Average Time Per Session
+| The amount of time spent on average per workout session
+
+|======
 == Troubleshooting
 
 . How do I transfer my data to another computer?
@@ -826,6 +855,8 @@ m/ - weights
 d/ - datetime
 f/ - frequency
 p/ - file path
+st/ - start time
+et/ end time
 ```
 
 *General: <command> <arguments>*
@@ -877,8 +908,8 @@ schedule recurring create WORKOUT_ID d/<datetime> f/<frequency>
 ```
 log list
 log delete LOG_ID
-log find [st/<datetime>] [et/<datetime>] [e/<exercise_name>] [w/<workout_name>]
-log display
+log find [st/<datetime>] [et/<datetime>] [w/<workout_name>]
+log display [st/<datetime>] [et/<datetime>]
 ```
 
 == Glossary
@@ -926,3 +957,6 @@ An exercise set that consists of the number of repetitions and its weight.
 *Workout*
 
 A list of exercises to be done together, in a certain order.
+
+*Log*
+A workout that has been completed and stored away safely.

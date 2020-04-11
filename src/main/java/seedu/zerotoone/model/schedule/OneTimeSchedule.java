@@ -4,24 +4,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
  * STEPH_TODO_JAVADOC
  */
 public class OneTimeSchedule implements Schedule {
 
-    private final Workout workoutToSchedule;
+    private final WorkoutName workoutNameToSchedule;
     private final DateTime dateTime;
 
-    public OneTimeSchedule(Workout workoutToSchedule, DateTime dateTime) {
-        this.workoutToSchedule = workoutToSchedule;
+    public OneTimeSchedule(WorkoutName workoutNameToSchedule, DateTime dateTime) {
+        this.workoutNameToSchedule = workoutNameToSchedule;
         this.dateTime = dateTime;
     }
 
     @Override
-    public Workout getWorkoutToSchedule() {
-        return workoutToSchedule;
+    public WorkoutName getWorkoutNameToSchedule() {
+        return workoutNameToSchedule;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class OneTimeSchedule implements Schedule {
     @Override
     public Optional<List<ScheduledWorkout>> getScheduledWorkout(DateTime now) {
         return Optional.of(
-                Collections.singletonList(new ScheduledWorkout(this, workoutToSchedule, dateTime, now)));
+                Collections.singletonList(new ScheduledWorkout(this, workoutNameToSchedule, dateTime, now)));
     }
 
     @Override
@@ -51,12 +51,12 @@ public class OneTimeSchedule implements Schedule {
         }
 
         OneTimeSchedule otherSchedule = (OneTimeSchedule) other;
-        return otherSchedule.getWorkoutToSchedule().equals(getWorkoutToSchedule())
+        return otherSchedule.getWorkoutNameToSchedule().equals(getWorkoutNameToSchedule())
                 && otherSchedule.getDateTime().equals(getDateTime());
     }
 
     @Override
     public String toString() {
-        return workoutToSchedule.getWorkoutName() + " at " + dateTime.toString();
+        return workoutNameToSchedule.fullName + " at " + dateTime.toString();
     }
 }

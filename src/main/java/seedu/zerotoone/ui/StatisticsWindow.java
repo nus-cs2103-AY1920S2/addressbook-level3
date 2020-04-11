@@ -28,7 +28,7 @@ public class StatisticsWindow extends UiPart<Stage> {
     @FXML
     private Label totalTime;
     @FXML
-    private Label averageTimePerDay;
+    private Label averageTimePerSession;
     @FXML
     private Text statisticsSubTitle;
 
@@ -77,7 +77,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         totalWorkoutCount.setText(statisticsData.getTotalWorkoutCount() + " workouts");
 
         totalTime.setText(DateViewUtil.getPrettyDuration(statisticsData.getTotalTime()));
-        averageTimePerDay.setText(DateViewUtil.getPrettyDuration(statisticsData.getAverageTimePerDay()));
+        averageTimePerSession.setText(DateViewUtil.getPrettyDuration(statisticsData.getAverageTimePerSession()));
 
 
         statisticsSubTitle.setText(
@@ -88,7 +88,7 @@ public class StatisticsWindow extends UiPart<Stage> {
 
         // Populate Line Chart
 
-        NumberAxis xAxis = new NumberAxis();
+        NumberAxis xAxis = new NumberAxis(1.0, statisticsData.getTotalWorkoutCount(), 1);
         xAxis.setLabel("Session Number");
 
         NumberAxis yAxis = new NumberAxis();

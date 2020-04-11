@@ -64,7 +64,9 @@ public class EditCommand extends WorkoutCommand {
         }
 
         model.setWorkout(workoutToEdit, editedWorkout);
-        model.editWorkoutInSchedule(workoutToEdit, editedWorkout);
+        if (!workoutToEdit.getWorkoutName().equals(editedWorkout.getWorkoutName())) {
+            model.editWorkoutNameInSchedule(workoutToEdit.getWorkoutName(), editedWorkout.getWorkoutName());
+        }
         model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
         String outputMessage = String.format(MESSAGE_EDIT_WORKOUT_SUCCESS,
