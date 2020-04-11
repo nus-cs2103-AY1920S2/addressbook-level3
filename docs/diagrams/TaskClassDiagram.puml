@@ -15,9 +15,9 @@ class Task {
     - priority : Priority
     - description : Description
     - done : Done
-    - tags : Set<Tag> 
-    - optionalReminder : Optional<Reminder> 
-    - optionalRecurring : Optional<Recurring> 
+    - tags : Set<Tag>
+    - optionalReminder : Optional<Reminder>
+    - optionalRecurring : Optional<Recurring>
   __
   + triggerReminderIfPresent()
   + getRecurredTask()
@@ -67,7 +67,7 @@ class Reminder {
 
 class ModelManager {
     - taskList : TaskList
-    - pomodoro : Pomodoro 
+    - pomodoro : Pomodoro
     - statistics : Statistics
     - pet : Pet
     - userPrefs : UserPrefs
@@ -84,7 +84,7 @@ class ModelManager {
 }
 
 class LogicManager {
-    - model : Model 
+    - model : Model
     - storage : Storage
     - taskListParser : TaskListParser
     __

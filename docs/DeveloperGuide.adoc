@@ -308,12 +308,12 @@ Reminder is stored as a string in the JsonAdaptedTask. This string contains the 
 image::ReminderSequenceDiagram.png[width=790]
 
 
-=== Recurring 
-The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval. 
+=== Recurring
+The user's recurring tasks functionality is twofold. Resetting the task to be unfinished after the stipulated time interval and resetting the task's reminder date according to the stipulated time interval.
 
-After the recurring type is parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted. The first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the interval afterwards. 
+After the recurring type is parsed to be either daily or weekly. Afterward, based on the time the recurring attribute is added, a reference LocalDateTime is noted. The first recurring behaviour will trigger in the given interval with respect to that referenceDateTime and following the interval afterwards.
 
-The recurring behaviour triggered will set the task as undone. If a reminder exists and has been triggered, it will increment the reminder to be the next day or week depending on the interval set. 
+The recurring behaviour triggered will set the task as undone. If a reminder exists and has been triggered, it will increment the reminder to be the next day or week depending on the interval set.
 
 .Recurring Activity Diagram
 image::RecurringActivityDiagram.png[width=790]
@@ -806,8 +806,8 @@ _{ more test cases ... }_
 ... Expected: The right panel shows a GUI with the task list.
 
 === Adding a task
-. Adding from a screen with 0 tasks 
-.. First run `clear` to clear all tasks if there are still tasks on the screen. 
+. Adding from a screen with 0 tasks
+.. First run `clear` to clear all tasks if there are still tasks on the screen.
 .. Add a task by running the command `add n/test1` +
 Expected: A task card appears in the tasklist with the name test1.
 
@@ -830,12 +830,12 @@ Expected: The command will result in the testDescription being the description o
 .. Run the command `edit 1 p/2`. +
 Expected: The command will result in the priority to change from low to medium on the task card.
 
-. Editing a task's tags 
+. Editing a task's tags
 .. Run the command `edit 1 t/test`. +
 Expected: The command will result in the test tag to appear below the task name on the task card.
 
 === Adding and triggering a reminder for the task
-. Adding a task with a reminder. + 
+. Adding a task with a reminder. +
 Prerequisite: Take note of the current time plus 1 minute and date in the format `DD/MM/YY@HH:mm`, for example if the current time is `15/03/20@15:47` then you should get the command ready `15/03/20@15:48` (but use the current date and time instead)
 .. Run the command `add n/reminderTest des/test r/DD/MM/YY@HH:mm` +
 Expected: When the time has arrived a a pop up with a title `reminderTest` and description `test` appears.
@@ -849,9 +849,9 @@ Expected: The task displays the reminder date in the task card. When the time co
 
 
 === Adding a recurring attribute to a task
-. Adding a task with a recurring attribute. + 
-.. Run the command `add n/recurTest rec/d` 
-.. Take note of the index of that task. 
+. Adding a task with a recurring attribute. +
+.. Run the command `add n/recurTest rec/d`
+.. Take note of the index of that task.
 .. Run the done command `done <index>` +
 Expected: Although it is meant to be a daily recurring task and thus the time delay should be 24 hours, for testing purposes the time delay is set to 60 seconds. After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card.
 
@@ -862,10 +862,10 @@ Expected: Although it is meant to be a daily recurring task and thus the time de
 .. Run the done command `done <index>` +
 Expected: The task is marked as done at first. After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card.
 
-. Adding a task with a reminder and recurring attribute. + 
+. Adding a task with a reminder and recurring attribute. +
 Prerequisite: Take note of the current time plus 1 minute and date in the format `DD/MM/YY@HH:mm`, for example if the current time is `15/03/20@15:47` then you should get the command ready `15/03/20@15:48` (but use the current date and time instead)
-.. Run the command `add n/recurReminderTest r/DD/MM/YY@HH:mm rec/d` 
-.. Take note of the index of that task. 
+.. Run the command `add n/recurReminderTest r/DD/MM/YY@HH:mm rec/d`
+.. Take note of the index of that task.
 .. Run the done command `done <index>` +
 Expected: After 60 seconds, the done is set back to unfinished, with the tick being removed from the task card. After the reminder appears, the date displayed changes to the next day, for example `15 March at 15:48` changes to `16 March at 15:48`.
 

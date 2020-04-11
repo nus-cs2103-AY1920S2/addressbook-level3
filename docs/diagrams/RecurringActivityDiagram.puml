@@ -5,7 +5,7 @@ start
 
 partition CommandExecution {
     if (task is added) then
-        if (task added has recurring) then 
+        if (task added has recurring) then
             : Task with recurring is added;
         else
             : Task without recurring is added to model;
@@ -21,7 +21,7 @@ partition CommandExecution {
 }
 
 partition RecurringExecution {
-    if (task is Done) then 
+    if (task is Done) then
         : task is marked as unfinished;
     else (task is not done)
     endif
