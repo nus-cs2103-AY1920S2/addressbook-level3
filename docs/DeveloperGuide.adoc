@@ -1898,6 +1898,34 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+=== Statistic Report Window
+
+[discrete]
+==== Use case: UC23 - Displaying a statistic report
+
+*MSS*
+
+1. User requests to generate and display a statistic report.
+2. TA-Tracker retreives the list of completed sessions, and students.
+3. TA-Tracker processes the data retreived.
+4. TA-Tracker opens a Statistic window and displays the processed data to the user.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user did not specify a specific module code.
+[none]
+** Use case resumes at step 2.
+[none]
+* 1b. The specified module code does not exist.
+[none]
+** 1b1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+
 :sectnums: // Enables section numbering again outside of the use cases
 
 [appendix]
