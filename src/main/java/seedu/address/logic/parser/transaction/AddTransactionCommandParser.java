@@ -83,6 +83,13 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).allMatch(prefix -> {
+            try {
+                return argumentMultimap.getValue(prefix).isPresent();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return true;
+        });
     }
 }
