@@ -21,31 +21,7 @@ public class Pet implements ReadOnlyPet {
     public String mood;
     public String lastDoneTaskTime;
 
-    public Pet(String name, String exp, String level, String mood, String lastDoneTaskTime) throws InvalidPetException, DateTimeParseException {
-        if (! (level.equals("1") || level.equals("2") || level.equals("3"))) {
-            throw new InvalidPetException("Invalid level input");
-        }
-        int expInt = Integer.parseInt(exp);
-
-        if (level.equals("1")) {
-            if (!(expInt >= 0 && expInt < 100)) {
-                throw new InvalidPetException("Invalid experience input");
-            }
-        } else if (level.equals("2")) {
-            if (!(expInt >= 100 && expInt < 200)) {
-                throw new InvalidPetException("Invalid experience input");
-            }
-        } else {
-            if (!(expInt >= 200)) {
-                throw new InvalidPetException("Invalid experience input");
-            }
-        }
-
-        if (!(mood.equals("HAPPY") || mood.equals("HANGRY"))) {
-            throw new InvalidPetException("Invalid mood input");
-        }
-
-        LocalDateTime.parse(lastDoneTaskTime);
+    public Pet(String name, String exp, String level, String mood, String lastDoneTaskTime) {
 
         this.name = name;
         this.exp = exp;

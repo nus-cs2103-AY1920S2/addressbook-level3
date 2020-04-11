@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -7,6 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.InvalidPetException;
 import seedu.address.model.Pet;
 import seedu.address.model.ReadOnlyPet;
+import seedu.address.model.settings.PetName;
 
 @JsonRootName(value = "pet")
 class JsonAdaptedPet {
@@ -49,33 +52,64 @@ class JsonAdaptedPet {
      *     task.
      */
     public ReadOnlyPet toModelType() throws IllegalValueException, InvalidPetException {
-        // TODO set up proper model for all attributes of the Pet
-        // if (name == null) {
-        // throw new IllegalValueException(
-        // String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
-        // }
-        // if (!Name.isValidName(name)) {
-        // throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        // }
-        // final Name modelName = new Name(name);
+        if (name == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
+        }
+        if (!PetName.isValidPetName(name)) {
+            throw new IllegalValueException(PetName.MESSAGE_CONSTRAINTS);
+        }
+        final String modelName = name;
 
-        // if (exp == null) {
-        // throw new IllegalValueException(
-        // String.format(MISSING_FIELD_MESSAGE_FORMAT, "exp"));
-        // }
-        // if (!exp.isValidexp(exp)) {
-        // throw new IllegalValueException(exp.MESSAGE_CONSTRAINTS);
-        // }
-        // final exp modelexp = new exp(priority);
+        if (level == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "level"));
+        }
 
-        // if (level == null) {
-        // throw new IllegalValueException(
-        // String.format(MISSING_FIELD_MESSAGE_FORMAT, level.class.getSimpleName()));
-        // }
-        // if (!level.isValidlevel(level)) {
-        // throw new IllegalValueException(level.MESSAGE_CONSTRAINTS);
-        // }
-        // final level modellevel = new level(level);
-        return new Pet(name, exp, level, mood, lastDoneTaskTime);
+        if (! (level.equals("1") || level.equals("2") || level.equals("3"))) {
+            throw new InvalidPetException("Invalid level input");
+        }
+
+        final String modelLevel = level;
+
+        if (exp == null) {
+            throw new IllegalValueException(
+            String.format(MISSING_FIELD_MESSAGE_FORMAT, "exp"));
+        }
+
+        int expInt = Integer.parseInt(exp);
+        
+        if (level.equals("1")) {
+            if (!(expInt >= 0 && expInt < 100)) {
+                throw new InvalidPetException("Invalid experience input");
+            }
+        } else if (level.equals("2")) {
+            if (!(expInt >= 100 && expInt < 200)) {
+                throw new InvalidPetException("Invalid experience input");
+            }
+        } else {
+            if (!(expInt >= 200)) {
+                throw new InvalidPetException("Invalid experience input");
+            }
+        }
+
+        final String modelExp = exp;
+
+        if (mood == null) {
+            throw new IllegalValueException(
+            String.format(MISSING_FIELD_MESSAGE_FORMAT, "mood"));
+        }
+
+        if (!(mood.equals("HAPPY") || mood.equals("HANGRY"))) {
+            throw new InvalidPetException("Invalid mood input");
+        }
+
+        final String modelMood = mood;
+
+        LocalDateTime.parse(lastDoneTaskTime);
+
+        final String modelLastDoneTaskTime = lastDoneTaskTime;
+
+        return new Pet(modelName, modelExp, modelLevel, modelMood, modelLastDoneTaskTime);
     }
 }
