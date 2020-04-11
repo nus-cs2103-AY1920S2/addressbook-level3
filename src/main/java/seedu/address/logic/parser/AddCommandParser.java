@@ -10,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,6 +21,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 //@@author joycelynteo
 
@@ -54,10 +57,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         String grade = null;
-        String task = null;
-        String deadlineString = null;
-        LocalDate date = null;
-        LocalTime time = null;
+        ArrayList<Deadline> deadlineList = new ArrayList<>();
+
         int intSemester = 0;
 
         if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
@@ -69,20 +70,49 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_TASK) && arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
             throw new ParseException("Please provide a task name with the tag t/!");
         }
-        if (arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_DEADLINE)) {
-            task = argMultimap.getValue(PREFIX_TASK).get();
-            String[] datetime = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
-            String dateString = datetime[0];
-            String timeString = datetime[1];
-
-            date = LocalDate.parse(dateString);
-            time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
-        }
         if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-            task = argMultimap.getValue(PREFIX_TASK).get();
+            Object[] oneModuleCodeList = moduleCodes.toArray();
+            String moduleCode = oneModuleCodeList[0].toString();
+
+            List<String> strTaskDescriptions = argMultimap.getAllValues(PREFIX_TASK)
+                    .stream()
+                    .map(x->x.trim())
+                    .collect(Collectors.toList());
+
+            List<String> strDeadlines = null;
+            if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
+                strDeadlines = argMultimap.getAllValues(PREFIX_DEADLINE)
+                        .stream()
+                        .map(x->x.trim())
+                        .collect(Collectors.toList());
+
+                if (strDeadlines.size() != strTaskDescriptions.size()) {
+                    throw new ParseException("Please provide a deadline for each task!");
+                }
+            }
+
+            if (strDeadlines != null) {
+                for (int i = 0; i < strDeadlines.size(); i++) {
+                    String taskDescription = strTaskDescriptions.get(i);
+                    String dateTimeString = strDeadlines.get(i);
+
+                    if (!dateTimeString.equals("")) {
+                        // Task provided without date AND time
+                        String[] dateTime = ParserUtil.parseDeadline(dateTimeString);
+                        String dateString = dateTime[0];
+                        String timeString = dateTime[1];
+
+                        LocalDate date = LocalDate.parse(dateString);
+                        LocalTime time = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"));
+                        deadlineList.add(new Deadline(moduleCode, taskDescription, date, time));
+                    } else {
+                        deadlineList.add(new Deadline(moduleCode, taskDescription));
+                    }
+                }
+            }
         }
 
-        return new AddCommand(moduleCodes, intSemester, grade, task, date, time);
+        return new AddCommand(moduleCodes, intSemester, grade, deadlineList);
     }
 
     /**
