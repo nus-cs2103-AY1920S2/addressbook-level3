@@ -31,7 +31,7 @@ public class UndoCommandTest {
         String expectedMessage = String.format(UndoCommand.MESSAGE_UNDONE_RECIPE_SUCCESS, recipeToUndo.getName());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
-        expectedModel.favRecipe(recipeToUndo);
+        expectedModel.unAttemptRecipe(recipeToUndo);
 
         assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
     }
@@ -39,9 +39,9 @@ public class UndoCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        DoneCommand doneCommand = new DoneCommand(outOfBoundIndex);
+        UndoCommand undoneCommand = new UndoCommand(outOfBoundIndex);
 
-        assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        assertCommandFailure(undoneCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     @Test
