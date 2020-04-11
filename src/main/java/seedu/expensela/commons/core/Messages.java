@@ -20,4 +20,6 @@ public class Messages {
             + " There is no transactions to export!";
     public static final String MESSAGE_FAILED_EXPORT = "Problem encountered while exporting transactions."
             + " Please try exporting again later.";
+    public static final String MESSAGE_FAILED_IMPORT = "Problem encountered while importing transactions."
+            + "\nEnter command in format: import [FILENAME].csv";
 }
