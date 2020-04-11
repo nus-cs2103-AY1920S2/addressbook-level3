@@ -1,11 +1,9 @@
 package seedu.address.logic.autocomplete;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIMITTER;
 
 import java.util.List;
 
-import javafx.scene.control.TextField;
 import seedu.address.commons.trie.SimilarWordsResult;
 import seedu.address.commons.trie.Trie;
 import seedu.address.logic.commands.AddCommand;
@@ -17,13 +15,14 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditExerciseCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GraphCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.ui.ResultDisplay;
 
 /**
  * This class contains the logic behind the autocomplete feature. It makes use
@@ -41,18 +40,13 @@ public class AutoComplete {
     private static final String PREAMBLE_WHITE_SPACE = " ";
 
     private final Trie trie;
-    private final TextField commandTextField;
-    private final ResultDisplay resultDisplay;
 
     /**
      * Default constructor for this class. Note that both {@code commandTextField}
      * and {@code resultDisplay} must not be {@code null}.
      */
-    public AutoComplete(TextField commandTextField, ResultDisplay resultDisplay) {
-        requireAllNonNull(commandTextField, resultDisplay);
+    public AutoComplete() {
         trie = new Trie();
-        this.commandTextField = commandTextField;
-        this.resultDisplay = resultDisplay;
         addAllCommands();
     }
 
@@ -69,7 +63,9 @@ public class AutoComplete {
         trie.insert(EditExerciseCommand.COMMAND_WORD);
         trie.insert(ExitCommand.COMMAND_WORD);
         trie.insert(ExportCommand.COMMAND_WORD);
+        trie.insert(FilterCommand.COMMAND_WORD);
         trie.insert(FindCommand.COMMAND_WORD);
+        trie.insert(GraphCommand.COMMAND_WORD);
         trie.insert(HelpCommand.COMMAND_WORD);
         trie.insert(ListCommand.COMMAND_WORD);
         trie.insert(ScheduleCommand.COMMAND_WORD);
@@ -87,8 +83,8 @@ public class AutoComplete {
         return toReturn;
     }
 
-    private void noCommandHandler() {
-        resultDisplay.setFeedbackToUser(FEEDBACK_NO_COMMANDS);
+    private AutoCompleteResult noCommandHandler() {
+        return new AutoCompleteResult(null, FEEDBACK_NO_COMMANDS, null);
     }
 
     /**
@@ -102,7 +98,7 @@ public class AutoComplete {
      * the usage of the current completed command.
      * </p>
      */
-    private void singleCommandHandler(String command) {
+    private AutoCompleteResult singleCommandHandler(String command) {
         String textToSet = command;
         String textToFeedback = FEEDBACK_EMPTY_STRING;
         int caretPositionToSet = CARET_POSITION_INDEX;
@@ -143,9 +139,19 @@ public class AutoComplete {
             textToSet += PREAMBLE_WHITE_SPACE;
             textToFeedback = EditExerciseCommand.MESSAGE_USAGE;
             break;
+        case FilterCommand.COMMAND_WORD:
+            textToSet += generatePrefixesString(FilterCommand.PREFIXES);
+            textToFeedback = FilterCommand.MESSAGE_USAGE;
+            caretPositionToSet = textToSet.indexOf(PREFIX_DELIMITTER) + 1;
+            break;
         case FindCommand.COMMAND_WORD:
             textToSet += PREAMBLE_WHITE_SPACE;
             textToFeedback = FindCommand.MESSAGE_USAGE;
+            break;
+        case GraphCommand.COMMAND_WORD:
+            textToSet += generatePrefixesString(GraphCommand.PREFIXES);
+            textToFeedback = GraphCommand.MESSAGE_USAGE;
+            caretPositionToSet = textToSet.indexOf(PREFIX_DELIMITTER) + 1;
             break;
         case HelpCommand.COMMAND_WORD:
             textToFeedback = HelpCommand.MESSAGE_USAGE;
@@ -166,19 +172,18 @@ public class AutoComplete {
             break;
         }
 
-        commandTextField.setText(textToSet);
-        commandTextField.positionCaret(caretPositionToSet);
-        resultDisplay.setFeedbackToUser(textToFeedback);
+        return new AutoCompleteResult(textToSet, textToFeedback, caretPositionToSet);
     }
 
     /**
      * Handles the instance when the autocomplete cannot uniquely identify a single
      * command.
      */
-    private void multipleCommandsHandler(SimilarWordsResult result) {
-        commandTextField.setText(result.getLongestPrefix());
-        commandTextField.positionCaret(CARET_POSITION_INDEX);
-        resultDisplay.setFeedbackToUser(FEEDBACK_MULTIPLE_COMMANDS + result.getSimilarWords().toString());
+    private AutoCompleteResult multipleCommandsHandler(SimilarWordsResult result) {
+        String textToSet = result.getLongestPrefix();
+        String textToFeedback = FEEDBACK_MULTIPLE_COMMANDS + result.getSimilarWords().toString();
+        int caretPositionToSet = CARET_POSITION_INDEX;
+        return new AutoCompleteResult(textToSet, textToFeedback, caretPositionToSet);
     }
 
     /**
@@ -192,12 +197,11 @@ public class AutoComplete {
      * stop.
      * </p>
      */
-    private void completedCommandHandler(String currentCommand) {
+    private AutoCompleteResult completedCommandHandler(String currentCommand, int currentCaretPosition) {
         if (!currentCommand.contains(PREFIX_DELIMITTER)) {
-            return;
+            return new AutoCompleteResult(null, null, null);
         }
 
-        int currentCaretPosition = commandTextField.getCaretPosition();
         int nextPrefixPosition = currentCommand.indexOf(PREFIX_DELIMITTER, currentCaretPosition);
         if (nextPrefixPosition == -1) {
             // next prefix not found, wrap around to start
@@ -205,30 +209,30 @@ public class AutoComplete {
         } else {
             nextPrefixPosition++;
         }
-        commandTextField.positionCaret(nextPrefixPosition);
+
+        return new AutoCompleteResult(null, null, nextPrefixPosition);
     }
 
     /**
      * Executes the main logic behind the autocomplete, and should be called when
      * the user presses "tab".
      */
-    public void execute() {
-        String trimmedCommand = commandTextField.getText().trim();
+    public AutoCompleteResult execute(String currentCommand, int currentCaretPosition) {
+        String trimmedCommand = currentCommand.trim();
 
         // command word has already been completed
         if (trimmedCommand.contains(WHITE_SPACE_STRING)) {
-            completedCommandHandler(trimmedCommand);
-            return;
+            return completedCommandHandler(trimmedCommand, currentCaretPosition);
         }
 
         SimilarWordsResult similarWords = trie.listAllSimilarWords(trimmedCommand);
 
         if (similarWords.hasNoResult()) {
-            noCommandHandler();
+            return noCommandHandler();
         } else if (similarWords.hasOnlyOneWord()) {
-            singleCommandHandler(similarWords.getSingleWord());
+            return singleCommandHandler(similarWords.getSingleWord());
         } else {
-            multipleCommandsHandler(similarWords);
+            return multipleCommandsHandler(similarWords);
         }
     }
 }

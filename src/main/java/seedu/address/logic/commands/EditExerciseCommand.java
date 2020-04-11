@@ -13,6 +13,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.statistics.PersonalBestFinder;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.exercise.Exercise;
@@ -93,20 +94,22 @@ public class EditExerciseCommand extends Command {
         }
 
         Client clientInView = model.getClientInView();
-        UniqueExerciseList editExerciseList = clientInView.getExerciseList();
+        UniqueExerciseList clientToEditExerciseList = clientInView.getExerciseList();
 
-        if (targetIndex.getZeroBased() >= editExerciseList.size()) {
+        if (targetIndex.getZeroBased() >= clientToEditExerciseList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Exercise exerciseToEdit = editExerciseList.getExercise(targetIndex);
+        Exercise exerciseToEdit = clientToEditExerciseList.getExercise(targetIndex);
         Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
-        if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
+        if (!exerciseToEdit.isSameExercise(editedExercise)
+            && clientToEditExerciseList.contains(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
         model.editExercise(exerciseToEdit, editedExercise);
+        PersonalBestFinder.generateAndSetPersonalBest(clientInView);
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise.getForOutput()));
     }
 
