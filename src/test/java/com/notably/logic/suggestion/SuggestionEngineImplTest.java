@@ -2,7 +2,6 @@ package com.notably.logic.suggestion;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +47,6 @@ public class SuggestionEngineImplTest {
     public void clearResponseTextAndSuggestions() {
         model.clearResponseText();
         model.clearSuggestions();
-    }
-
-    @Test
-    public void suggest_inputLengthTooShort_noResponseTextDisplayed() {
-        suggestionEngine.suggest("");
-        assertTrue(model.getSuggestions().isEmpty());
-        assertTrue(model.responseTextProperty().getValue().isEmpty());
-
-        suggestionEngine.suggest("o");
-        assertTrue(model.getSuggestions().isEmpty());
-        assertTrue(model.responseTextProperty().getValue().isEmpty());
     }
 
     @Test
@@ -120,7 +108,7 @@ public class SuggestionEngineImplTest {
         List<SuggestionItem> expectedSuggestions = SuggestionTestUtil.getExpectedSearchSugForKeywordFalse();
 
         // Test suggestions
-        SuggestionTestUtil.testSearchSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
 
         // Test response text
         assertEquals(Optional.of(String.format(SEARCH_RESPONSE_MESSAGE_WITH_KEYWORD, keyword)),

@@ -69,7 +69,7 @@ public class SearchSuggestionCommandParserTest {
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         // Test suggestions
-        SuggestionTestUtil.testSearchSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
     }
 
     @Test
@@ -92,6 +92,6 @@ public class SearchSuggestionCommandParserTest {
         List<SuggestionItem> suggestions = model.getSuggestions();
 
         // Test suggestions
-        SuggestionTestUtil.testSearchSuggestions(expectedSuggestions, suggestions);
+        SuggestionTestUtil.assertSearchSuggestions(expectedSuggestions, suggestions);
     }
 }
