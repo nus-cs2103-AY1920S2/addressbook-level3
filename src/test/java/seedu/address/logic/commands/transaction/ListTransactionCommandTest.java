@@ -8,11 +8,17 @@ import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_O
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_TWO_BAG_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.BENSON_BUY_ONE_BAG_MARCH_FIRST;
 
+import java.nio.file.Path;
+import java.util.UUID;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventorySystem;
@@ -20,10 +26,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
-
-import java.nio.file.Path;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 public class ListTransactionCommandTest {
 

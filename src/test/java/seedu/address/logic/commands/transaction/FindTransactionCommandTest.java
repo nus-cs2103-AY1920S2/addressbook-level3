@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.transaction;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,10 +8,18 @@ import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_O
 import static seedu.address.testutil.transaction.TypicalTransactions.ALICE_BUY_TWO_BAG_MARCH_FIRST;
 import static seedu.address.testutil.transaction.TypicalTransactions.BENSON_BUY_ONE_BAG_MARCH_FIRST;
 
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.UUID;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
@@ -26,12 +33,6 @@ import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.DateTimeEqualsPredicate;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.testutil.transaction.DateTimeBuilder;
-
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 public class FindTransactionCommandTest {
 
