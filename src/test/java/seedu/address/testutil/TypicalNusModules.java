@@ -36,6 +36,12 @@ public class TypicalNusModules {
     public static final ModuleTask TYPICAL_MODULE_TASK_3 = new ModuleTask("assignment", CS2030.getModuleCode(),
             "01-02-2020", Priority.LOW);
 
+    public static final ModuleTask TYPICAL_MODULE_TASK_4 = new ModuleTask("assignment", ST3131.getModuleCode(),
+            "02-02-2020", Priority.HIGH);
+
+    public static final ModuleTask TYPICAL_MODULE_TASK_5 = new ModuleTask("assignment", ST3131.getModuleCode(),
+            "02-02-2020", Priority.VERYHIGH);
+
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
@@ -50,6 +56,8 @@ public class TypicalNusModules {
     public static List<NusModule> getTypicalNusModules() {
         CS2030.addTask(TYPICAL_MODULE_TASK_1);
         CS2030.addTask(TYPICAL_MODULE_TASK_3);
+        ST3131.addTask(TYPICAL_MODULE_TASK_4);
+        ST3131.addTask(TYPICAL_MODULE_TASK_5);
         return new ArrayList<>(Arrays.asList(CS2103, CS2030, ST3131));
     }
 }
