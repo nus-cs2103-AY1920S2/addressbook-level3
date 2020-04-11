@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.eylah.commons.logic.command.Command;
 import seedu.eylah.commons.logic.parser.exception.ParseException;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
+import seedu.eylah.diettracker.logic.commands.BackCommand;
 import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.logic.commands.DeleteCommand;
 import seedu.eylah.diettracker.logic.commands.EditCommand;
+import seedu.eylah.diettracker.logic.commands.ExitCommand;
 import seedu.eylah.diettracker.logic.commands.HeightCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
 import seedu.eylah.diettracker.logic.commands.ListCommand;
@@ -46,7 +48,7 @@ public class FoodBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand(); // No Args so no need to Parse.
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
@@ -63,6 +65,10 @@ public class FoodBookParser {
             return new ListCommandParser().parse(arguments);
         case ModeCommand.COMMAND_WORD:
             return new ModeCommandParser().parse(arguments);
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand(); // No Args so no need to Parse.
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand(); // No Args so no need to Parse.
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

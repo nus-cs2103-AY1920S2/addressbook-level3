@@ -138,17 +138,6 @@ public class Eylah {
             ui.showMode(mode);
             commandWord = ui.readCommand();
 
-            // temporary exit solution until the ExitCommand implement.
-            if (commandWord.equalsIgnoreCase("exit")) {
-                isExit = true;
-                break;
-            }
-            // temporary back solution until diet#BackCommand implement.
-            if (commandWord.equalsIgnoreCase("back")) {
-                isBack = true;
-                break;
-            }
-
             try {
                 CommandResult commandResult = logic.execute(commandWord);
                 isBack = commandResult.isBack();

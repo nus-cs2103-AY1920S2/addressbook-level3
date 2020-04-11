@@ -13,6 +13,7 @@ import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.ClearReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.DoneReceiptCommand;
+import seedu.eylah.expensesplitter.logic.commands.ExitCommand;
 import seedu.eylah.expensesplitter.logic.commands.HelpCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListAmountCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
@@ -79,6 +80,9 @@ public class ExpenseSplitterParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
