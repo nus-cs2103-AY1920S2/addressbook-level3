@@ -257,13 +257,13 @@ public class AddCommandTest {
 
         @Override
         public void notifyObservers() throws CommandException {
-            // TODO Auto-generated method stub
+            throw new AssertionError("This method should not be called.");
 
         }
 
         @Override
         public void addObserver(Observer observer) {
-            // TODO Auto-generated method stub
+            throw new AssertionError("This method should not be called.");
 
         }
     }

@@ -48,6 +48,8 @@ public class TaskBuilder {
         description = taskToCopy.getDescription();
         done = taskToCopy.getDone();
         tags = new HashSet<>(taskToCopy.getTags());
+        reminder = taskToCopy.getOptionalReminder();
+        recurring = taskToCopy.getOptionalRecurring();
     }
 
     /** Sets the {@code Name} of the {@code Task} that we are building. */
@@ -97,6 +99,15 @@ public class TaskBuilder {
         } catch (InvalidReminderException e) {
             this.reminder = Optional.empty();
         }
+        return this;
+    }
+
+    /**
+     * Sets reminder as optional.empty for task builder.
+     * @return
+     */
+    public TaskBuilder withReminder() {
+        this.reminder = Optional.empty();
         return this;
     }
 
