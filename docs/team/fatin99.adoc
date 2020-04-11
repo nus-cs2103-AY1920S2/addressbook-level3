@@ -61,8 +61,9 @@ due to the differences in rates among different faculties.
 
 === Other UI Improvements
 
-* Contribute to development of HelpWindow and StatisticsWindow (PR #227, #235, #236) fix sizing, add scrollpane, exit
-on esc key press
+I also contributed to the development of the HelpWindow and StatisticsWindow (PR #227, #235) by fixing sizing
+issues and adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
+the goal of making TA-Tracker a keyboard-only application (#236).
 
 === Improved upon overall code quality
 
