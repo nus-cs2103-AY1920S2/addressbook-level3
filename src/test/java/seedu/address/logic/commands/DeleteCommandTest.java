@@ -163,8 +163,8 @@ public class DeleteCommandTest {
         Deadline task = new Deadline(moduleCode, VALID_TASK_AMY, date, time);
         DeleteCommand deleteCommandTask = new DeleteCommand(new ModuleCode(moduleCode), task);
 
-        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, task.toString()),
-                () -> deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
+        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_DEADLINE_FAILURE, task.toString()), () ->
+                deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
                         new ModuleManagerStubCs()));
     }
 
