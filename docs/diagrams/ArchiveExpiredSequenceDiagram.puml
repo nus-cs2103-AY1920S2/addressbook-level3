@@ -54,7 +54,7 @@ activate FilteredList
 FilteredList --> ModelManager: filteredCoupons
 deactivate FilteredList
 
-[<-- ModelManager : modelManager
+MainApp <-- ModelManager : modelManager
 deactivate ModelManager
 
 @enduml

@@ -30,6 +30,7 @@ public class MainWindow extends UiPart<Stage> {
     private CalendarResultDisplayPane calendarResultPane;
     private TabsPanel tabPanel;
     private CouponWindow expandedCouponWindow;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -66,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         tabPanePlaceholder.getChildren().add(tabPanel.getRoot());
         tabPanel.fillInnerParts();
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         calendarResultPane = new CalendarResultDisplayPane(logic);
@@ -112,6 +113,7 @@ public class MainWindow extends UiPart<Stage> {
             CsTab currentSelectedTab = tabPanel.selectedTab();
             CommandResult commandResult = logic.execute(commandText, currentSelectedTab);
 
+            // commands that can be executed will automatically switch tab to Coupons if it is not the current tab
             if (!currentSelectedTab.equals(CsTab.COUPONS)) {
                 tabPanel.selectTab(CsTab.COUPONS);
             }

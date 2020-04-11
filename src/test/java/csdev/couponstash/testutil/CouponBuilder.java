@@ -218,7 +218,7 @@ public class CouponBuilder {
      * @return A new Coupon.
      */
     public Coupon build() {
-        boolean isUsageAtLimit = Usage.isUsageAtLimit(usage, limit);
+        boolean isUsageAtLimit = usage.isAtLimit(limit);
         if (isUsageChanged && isUsageAtLimit) {
             archived = new Archived(true);
         }
