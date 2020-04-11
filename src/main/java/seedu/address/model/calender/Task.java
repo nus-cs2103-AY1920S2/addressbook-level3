@@ -105,6 +105,15 @@ public class Task {
 
     }
 
+    /**
+     * Adds task to the calendar.
+     * @param task
+     */
+    public static void add(Task task) {
+        deadlineTaskList.add(task);
+        addTaskPerDate(task.getDate(), task);
+    }
+
     public static HashMap<String, ArrayList<Task>> getDeadlineTaskHashMap() {
 
         return deadlineTaskHashMap;
@@ -133,7 +142,11 @@ public class Task {
     }
 
     public static void setDeadlineTaskList(ObservableList<Task> initialiedList) {
+
         deadlineTaskList = initialiedList;
+        for (Task task : initialiedList) {
+            addTaskPerDate(task.getDate(), task);
+        }
     }
 
 

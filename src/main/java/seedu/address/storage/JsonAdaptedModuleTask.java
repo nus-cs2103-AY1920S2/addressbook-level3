@@ -20,7 +20,7 @@ public class JsonAdaptedModuleTask {
     private final String timing;
     private final String priority;
     private final String description;
-    private String isDone;
+    private boolean isDone;
 
     /**
      * Constructs a {@code ModuleTask} with the given task details.
@@ -30,7 +30,7 @@ public class JsonAdaptedModuleTask {
                                  @JsonProperty("timing") String timing,
                                  @JsonProperty("priority") String priority,
                                  @JsonProperty("description") String description,
-                                 @JsonProperty("isDone") String isDone) {
+                                 @JsonProperty("isDone") boolean isDone) {
         this.moduleRelated = moduleRelated;
         this.timing = timing;
         this.priority = priority;
@@ -46,7 +46,7 @@ public class JsonAdaptedModuleTask {
         timing = source.getDate();
         priority = Integer.toString(source.getPriority().getLevelOfSignificance());
         description = source.getDescription();
-        isDone = Integer.toString(source.getDoneStatus());
+        isDone = source.getStatus();
     }
 
     /**
@@ -82,7 +82,7 @@ public class JsonAdaptedModuleTask {
         final Priority modelPriority = Priority.getPriority(priority);
         ModuleTask result = new ModuleTask(description, moduleCode, timing, modelPriority);
 
-        if (isDone.equals("1")) {
+        if (isDone) {
             result.markAsDone();
         }
 

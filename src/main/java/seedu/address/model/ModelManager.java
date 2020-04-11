@@ -394,8 +394,7 @@ public class ModelManager implements Model {
     @Override
     public void addDeadlineTask(Task deadline) {
 
-        Task.getDeadlineTaskList().add(deadline);
-        Task.addTaskPerDate(deadline.getDate(), deadline);
+        Task.add(deadline);
     }
 
     @Override
