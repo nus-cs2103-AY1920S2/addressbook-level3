@@ -318,7 +318,9 @@ You will also see some helpful information when you are typing out a command:
 
 ==== Viewing help : `help`
 
-You can open the help window with this command.
+You can open the `help window` with this command. You can close the `help window` by pressing the `ESC` key
+on your keyboard.
+
 
 Format: `help`
 

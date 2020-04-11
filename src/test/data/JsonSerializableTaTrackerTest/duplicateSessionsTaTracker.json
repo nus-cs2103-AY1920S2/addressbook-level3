@@ -1,0 +1,21 @@
+{
+  "sessions" : [ {
+    "type" : "CONSULTATION",
+    "description" : "with Alice and Bob",
+    "moduleId" : "CS2103T",
+    "isDone" : false,
+    "recurring" : 1,
+    "startDateTime" : "2020-04-30T13:00",
+    "endDateTime" : "2020-04-30T14:30"
+  }, {
+    "type" : "CONSULTATION",
+    "description" : "with Alice and Bob",
+    "moduleId" : "CS2103T",
+    "isDone" : false,
+    "recurring" : 1,
+    "startDateTime" : "2020-04-30T13:00",
+    "endDateTime" : "2020-04-30T14:30"
+  } ],
+  "doneSessions" : [ ],
+  "modules" : [ ]
+}
