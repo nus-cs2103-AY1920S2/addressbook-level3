@@ -61,11 +61,16 @@ the application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
 +
-image::Ui.png[width="790"]
+image::GUI.png[width="790"]
 This is how the GUI may look like when the TA-Tracker is opened.
 +
 .  Type a command in the command box, and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+
++
+image::CommandBox.png[width="790"]
+This diagram explains what a `Result Display` and `Command Box` are.
++
 
 .  Refer to <<Usage>> for details of each command.
 
@@ -490,6 +495,9 @@ show you information such as:
 The `RATING` value must be a positive integer.
 ====
 
+image::StudentView.png[width="790"]
+This is an example of what the Student View might look like.
+
 === Session View
 Under the `session tab`, the *Session View* contains a list of the upcoming sessions
 that you haven't done yet.
@@ -506,6 +514,9 @@ duties. It will show you information such as:
 * `NOTES`: any additional information
 * `WEEK`: the recurring period of the session
 
+image::SessionView.png[width="790"]
+This is an example of what the Session View might look like.
+
 === Claims View
 Under the `claims tab`, the *Claims View* contains a list of all the claimable teaching
 duties you have completed so far.
@@ -520,6 +531,9 @@ divided into two columns.
 assistant for.
 
 . The second column shows you a list of all the sessions that you have marked as done.
+
+image::ClaimsView.png[width="790"]
+This is an example of what the Claims View might look like.
 
 [[Usage]]
 == Usage
