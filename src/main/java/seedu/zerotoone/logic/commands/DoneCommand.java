@@ -8,8 +8,7 @@ import java.time.format.FormatStyle;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.session.OngoingSession;
-import seedu.zerotoone.model.session.SessionSet;
+import seedu.zerotoone.model.session.CompletedSet;
 
 /**
  * Completes the next up exerciseQueue in the session.
@@ -18,7 +17,8 @@ public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = "Usage: done";
     public static final String MESSAGE_DONE_SET = "Completed set: %1$s";
-    public static final String MESSAGE_NONE_LEFT = "You have isFinished the last set!";
+    public static final String MESSAGE_NONE_LEFT = "You have finished the last set, "
+            + "your workout session is done and saved!";
     public static final String MESSAGE_NOT_STARTED = "There is no session in progress!";
     private final FormatStyle formatStyle = FormatStyle.MEDIUM;
 
@@ -29,17 +29,16 @@ public class DoneCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!model.isInSession()) {
-            throw new CommandException((MESSAGE_NOT_STARTED));
+            throw new CommandException(MESSAGE_NOT_STARTED);
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-        OngoingSession current = model.getCurrentSession().get();
 
-        SessionSet set = current.done();
+        CompletedSet set = model.done();
 
         String outputMessage = String.format(MESSAGE_DONE_SET, set.toString());
 
-        if (!current.hasSetLeft()) {
+        if (!model.hasExerciseLeft()) {
             model.stopSession(currentDateTime);
             outputMessage = outputMessage + "\n" + MESSAGE_NONE_LEFT;
         }

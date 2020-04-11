@@ -12,7 +12,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
@@ -72,8 +71,10 @@ public class UserPrefsStorageManagerTest {
 
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setExerciseListFilePath(Paths.get("exerciselist.json"));
+        userPrefs.setWorkoutListFilePath(Paths.get("workoutlist.json"));
+        userPrefs.setScheduleListFilePath(Paths.get("schedulelist.json"));
+        userPrefs.setLogListFilePath(Paths.get("loglist.json"));
         return userPrefs;
     }
 
@@ -101,9 +102,7 @@ public class UserPrefsStorageManagerTest {
 
     @Test
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
-
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
         UserPrefsStorageManager jsonUserPrefsStorage = new UserPrefsStorageManager(pefsFilePath);
@@ -114,7 +113,6 @@ public class UserPrefsStorageManagerTest {
         assertEquals(original, readBack);
 
         //Try saving when the file exists
-        original.setGuiSettings(new GuiSettings(5, 5, 5, 5));
         jsonUserPrefsStorage.saveUserPrefs(original);
         readBack = jsonUserPrefsStorage.readUserPrefs().get();
         assertEquals(original, readBack);

@@ -5,27 +5,38 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang3.time.StopWatch;
-
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.log.LogList;
+import seedu.zerotoone.model.log.ReadOnlyLogList;
 import seedu.zerotoone.model.schedule.Schedule;
 import seedu.zerotoone.model.schedule.ScheduleList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
 import seedu.zerotoone.model.schedule.Scheduler;
-import seedu.zerotoone.model.session.OngoingSession;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
-import seedu.zerotoone.model.session.SessionList;
+import seedu.zerotoone.model.session.CompletedSet;
+import seedu.zerotoone.model.session.CompletedSetList;
+import seedu.zerotoone.model.session.CompletedWorkout;
+import seedu.zerotoone.model.session.OngoingSetList;
+import seedu.zerotoone.model.session.OngoingWorkout;
+import seedu.zerotoone.model.session.ReadOnlyCompletedSetList;
+import seedu.zerotoone.model.session.ReadOnlyOngoingSetList;
+import seedu.zerotoone.model.session.ReadOnlyTimerList;
+import seedu.zerotoone.model.session.TimerList;
+import seedu.zerotoone.model.session.exceptions.NoCurrentSessionException;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
@@ -38,6 +49,7 @@ import seedu.zerotoone.model.workout.WorkoutList;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final long UPDATE_INTERVAL = 100; // in ms
 
     private final UserPrefs userPrefs;
 
@@ -50,15 +62,21 @@ public class ModelManager implements Model {
     private final FilteredList<Workout> filteredWorkouts;
 
     // Session
-    private Optional<OngoingSession> currentSession;
-    private final StopWatch stopwatch;
+    private Optional<OngoingWorkout> currentWorkout;
+    private final OngoingSetList ongoingSetList;
+    private final CompletedSetList lastSet;
+    private final TimerList timerList;
+    private Timer timer;
+    private long start;
 
     // Schedule
     private final Scheduler scheduler;
 
     // Log
-    private final SessionList sessionList;
-    private final FilteredList<Session> filteredSessions;
+    private final LogList logList;
+    private final FilteredList<CompletedWorkout> filteredLogList;
+    private Optional<LocalDateTime> statisticsStartRange;
+    private Optional<LocalDateTime> statisticsEndStartRange;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -67,13 +85,13 @@ public class ModelManager implements Model {
                         ReadOnlyExerciseList exerciseList,
                         ReadOnlyWorkoutList workoutList,
                         ScheduleList scheduleList,
-                        ReadOnlySessionList sessionList) {
+                        ReadOnlyLogList logList) {
         super();
         requireAllNonNull(userPrefs,
                 exerciseList,
                 workoutList,
                 scheduleList,
-                sessionList);
+                logList);
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
@@ -87,15 +105,25 @@ public class ModelManager implements Model {
 
         this.scheduler = new Scheduler(scheduleList);
 
-        this.currentSession = Optional.empty();
-        this.stopwatch = new StopWatch();
+        // Init session variables
+        this.currentWorkout = Optional.empty();
+        this.ongoingSetList = new OngoingSetList();
+        this.lastSet = new CompletedSetList();
 
-        this.sessionList = new SessionList(sessionList);
-        filteredSessions = new FilteredList<>(this.sessionList.getSessionList());
+        // Init timer stuff
+        this.timerList = new TimerList();
+        this.start = 0;
+        this.timer = new Timer();
+
+        this.logList = new LogList(logList);
+        filteredLogList = new FilteredList<>(this.logList.getLogList());
+
+        statisticsStartRange = Optional.empty();
+        statisticsEndStartRange = Optional.empty();
     }
 
     public ModelManager() {
-        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList(), new SessionList());
+        this(new UserPrefs(), new ExerciseList(), new WorkoutList(), new ScheduleList(), new LogList());
     }
 
     // -----------------------------------------------------------------------------------------
@@ -109,17 +137,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
     }
 
     // -----------------------------------------------------------------------------------------
@@ -169,66 +186,183 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return filteredExercises;
+    }
+
+    @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
         filteredExercises.setPredicate(predicate);
     }
 
     // -----------------------------------------------------------------------------------------
-    // Session List
+    // Log List
 
     @Override
-    public Path getSessionListFilePath() {
+    public Path getLogListFilePath() {
         return userPrefs.getLogListFilePath();
     }
 
     @Override
-    public void deleteSession(int targetId) {
-        sessionList.removeSession(targetId);
+    public void deleteLog(int targetId) {
+        logList.removeCompletedWorkout(targetId);
     }
 
     @Override
-    public void setSessionListFilePath(Path sessionListFilePath) {
-        requireNonNull(sessionListFilePath);
-        userPrefs.setLogListFilePath(sessionListFilePath);
+    public void setLogListFilePath(Path logListFilePath) {
+        requireNonNull(logListFilePath);
+        userPrefs.setLogListFilePath(logListFilePath);
     }
 
     @Override
-    public ObservableList<Exercise> getFilteredExerciseList() {
-        return filteredExercises;
+    public ObservableList<CompletedWorkout> getFilteredLogList() {
+        return filteredLogList;
     }
 
+
     @Override
-    public void updateFilteredSessionList(Predicate<Session> predicate) {
+    public void updateFilteredLogList(Predicate<CompletedWorkout> predicate) {
         requireNonNull(predicate);
-        filteredSessions.setPredicate(predicate);
+        filteredLogList.setPredicate(predicate);
     }
+
+    @Override
+    public void setStatisticsDateRange(Optional<LocalDateTime> startRange, Optional<LocalDateTime> endRange) {
+
+        this.statisticsStartRange = startRange;
+        this.statisticsEndStartRange = endRange;
+
+    }
+
+    @Override
+    public ReadOnlyLogList getLogList() {
+        return logList;
+    }
+
+    @Override
+    public ArrayList<CompletedWorkout> getLogListCopyAsArrayList() {
+        return new ArrayList<>(this.getLogList().getLogList());
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsStartDateRange() {
+        return statisticsStartRange;
+    }
+
+    @Override
+    public Optional<LocalDateTime> getStatisticsEndDateRange() {
+        return statisticsEndStartRange;
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Session List
 
     @Override
     public boolean isInSession() {
-        return this.currentSession.isPresent();
+        return this.currentWorkout.isPresent();
     }
 
     @Override
-    public OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
-        OngoingSession ongoingSession = new OngoingSession(exerciseToStart, currentDateTime);
-        this.currentSession = Optional.of(ongoingSession);
-        return ongoingSession;
+    public OngoingWorkout startSession(Workout workoutToStart, LocalDateTime currentDateTime) {
+        OngoingWorkout ongoingWorkout = new OngoingWorkout(workoutToStart, currentDateTime);
+        this.currentWorkout = Optional.of(ongoingWorkout);
+        this.ongoingSetList.setSessionList(ongoingWorkout.getRemainingSets());
+        this.start = System.currentTimeMillis();
+
+        TimerTask runner = new TimerTask() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        long diff = System.currentTimeMillis() - start;
+                        List<Integer> data = new LinkedList<>();
+                        data.add(Math.toIntExact(diff));
+                        timerList.setSessionList(data);
+                    }
+                });
+            }
+        };
+
+        this.timer.schedule(runner, 0, UPDATE_INTERVAL);
+        return ongoingWorkout;
     }
 
     @Override
     public void stopSession(LocalDateTime currentDateTime) {
-        OngoingSession ongoingSession = this.currentSession.get();
-        Session session = ongoingSession.finish(currentDateTime);
-        this.sessionList.addSession(session);
-        this.currentSession = Optional.empty();
+        OngoingWorkout ongoingWorkout = this.currentWorkout.orElseThrow(NoCurrentSessionException::new);
+        CompletedWorkout workout = ongoingWorkout.finish(currentDateTime);
+        this.logList.addCompletedWorkout(workout);
+        this.currentWorkout = Optional.empty();
+
+        // Gui stuff
+        this.ongoingSetList.resetData(new OngoingSetList());
+        this.lastSet.resetData(new CompletedSetList());
+
+        // Timer stuff
+        this.start = 0;
+        this.timerList.resetData(new TimerList());
+        this.timer.cancel();
+        this.timer.purge();
+        this.timer = new Timer();
     }
 
     @Override
-    public Optional<OngoingSession> getCurrentSession() {
-        return Optional.ofNullable(this.currentSession.orElse(null));
+    public CompletedSet skip() {
+        CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).skip();
+        this.ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
+        List<CompletedSet> sets = new LinkedList<>();
+        sets.add(set);
+        this.lastSet.setSessionList(sets);
+
+        // Timer stuff
+        this.start = System.currentTimeMillis();
+        return set;
     }
 
+    @Override
+    public CompletedSet done() {
+        CompletedSet set = this.currentWorkout.orElseThrow(NoCurrentSessionException::new).done();
+        this.ongoingSetList.setSessionList(this.currentWorkout.get().getRemainingSets());
+        List<CompletedSet> sets = new LinkedList<>();
+        sets.add(set);
+        this.lastSet.setSessionList(sets);
+
+        // Timer stuff
+        this.start = System.currentTimeMillis();
+        return set;
+    }
+
+    @Override
+    public Boolean hasExerciseLeft() {
+        return this.currentWorkout.orElseThrow(NoCurrentSessionException::new).hasExerciseLeft();
+    }
+
+    @Override
+    public Optional<OngoingWorkout> getCurrentWorkout() {
+        return Optional.ofNullable(this.currentWorkout.orElse(null));
+    }
+
+    @Override
+    public ReadOnlyOngoingSetList getOngoingSetList() {
+        return this.ongoingSetList;
+    }
+
+    @Override
+    public ReadOnlyCompletedSetList getLastSet() {
+        return this.lastSet;
+    }
+
+    @Override
+    public ReadOnlyTimerList getTimerList() {
+        return this.timerList;
+    }
+
+    @Override
+    public void shutdownTimer() {
+        this.timer.cancel();
+        this.timer.purge();
+    }
     // -----------------------------------------------------------------------------------------
     // Schedule
     @Override
@@ -237,16 +371,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlySessionList getSessionList() {
-        return sessionList;
+    public void populateSortedScheduledWorkoutList() {
+        scheduler.populateSortedScheduledWorkoutList();
     }
 
     @Override
-    public ObservableList<Session> getFilteredSessionList() {
-        return filteredSessions;
+    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
+        scheduler.deleteWorkoutFromSchedule(workoutToDelete);
     }
 
-
+    @Override
+    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
+        scheduler.editWorkoutInSchedule(workoutToEdit, editedWorkout);
+    }
 
     @Override
     public boolean hasSchedule(Schedule schedule) {
@@ -308,6 +445,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteExerciseFromWorkouts(Exercise exercise) {
+        workoutList.removeExerciseFromWorkouts(exercise);
+    }
+
+    @Override
     public void addWorkout(Workout workout) {
         workoutList.addWorkout(workout);
         updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
@@ -348,7 +490,7 @@ public class ModelManager implements Model {
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises)
-                && sessionList.equals(other.sessionList);
-        // && scheduler.equals(other.scheduler);   // STEPH_TODO: implement later
+                && logList.equals(other.logList)
+                && scheduler.equals(other.scheduler);
     }
 }

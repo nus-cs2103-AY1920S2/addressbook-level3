@@ -4,7 +4,9 @@ package seedu.zerotoone.model.session;
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
@@ -20,8 +22,8 @@ public class OngoingSession {
     // Identity fields
     private final LocalDateTime startTime;
     private final ExerciseName exerciseName;
-    private final Queue<ExerciseSet> exerciseQueue = new LinkedList<>();
-    private final Queue<SessionSet> exerciseDone = new LinkedList<>();
+    private final Queue<OngoingSet> exerciseQueue = new LinkedList<>();
+    private final Queue<CompletedSet> exerciseDone = new LinkedList<>();
 
     /**
      * Every field must be present and not null.
@@ -29,7 +31,11 @@ public class OngoingSession {
     public OngoingSession(Exercise exercise, LocalDateTime startTime) {
         requireAllNonNull(exercise);
         this.exerciseName = exercise.getExerciseName();
-        this.exerciseQueue.addAll(exercise.getExerciseSets());
+        int i = 0;
+        for (ExerciseSet s: exercise.getExerciseSets()) {
+            this.exerciseQueue.add(new OngoingSet(s, exerciseName, i));
+            i++;
+        }
         this.startTime = startTime;
     }
 
@@ -41,8 +47,9 @@ public class OngoingSession {
      * Completes the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the done SessionSet
      */
-    public SessionSet done() {
-        SessionSet set = new SessionSet(exerciseQueue.poll(), true);
+    public CompletedSet done() {
+        OngoingSet ongoingSet = exerciseQueue.poll();
+        CompletedSet set = new CompletedSet(ongoingSet, true);
         exerciseDone.offer(set);
         return set;
     }
@@ -51,8 +58,9 @@ public class OngoingSession {
      * Skips the top exercise that is left in the exerciseQueue and puts it into the done list.
      * @return set: the skipped SessionSet
      */
-    public SessionSet skip() {
-        SessionSet set = new SessionSet(exerciseQueue.poll(), false);
+    public CompletedSet skip() {
+        OngoingSet ongoingSet = exerciseQueue.poll();
+        CompletedSet set = new CompletedSet(ongoingSet, false);
         exerciseDone.offer(set);
         return set;
     }
@@ -64,12 +72,16 @@ public class OngoingSession {
         return !exerciseQueue.isEmpty();
     }
 
-    public Optional<ExerciseSet> peek() {
+    public Optional<OngoingSet> peek() {
         return Optional.ofNullable(exerciseQueue.peek());
     }
 
-    public Optional<SessionSet> last() {
+    public Optional<CompletedSet> last() {
         return Optional.ofNullable(exerciseDone.peek());
+    }
+
+    public List<OngoingSet> getRemaining() {
+        return Collections.unmodifiableList(new LinkedList<>(this.exerciseQueue));
     }
 
     /**
@@ -78,11 +90,11 @@ public class OngoingSession {
      * @param endTime the time of completion
      * @return returns a new immutable CompletedSession.
      */
-    public Session finish(LocalDateTime endTime) {
+    public CompletedExercise finish(LocalDateTime endTime) {
         while (this.hasSetLeft()) {
-            exerciseDone.offer(new SessionSet(exerciseQueue.poll(), false));
+            exerciseDone.offer(new CompletedSet(exerciseQueue.poll(), false));
         }
-        return new Session(this.exerciseName, new LinkedList<>(exerciseDone),
+        return new CompletedExercise(this.exerciseName, new LinkedList<>(exerciseDone),
                 startTime, endTime);
     }
 }

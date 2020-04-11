@@ -1,0 +1,113 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ParserManager" as ParserManager LOGIC_COLOR
+participant ":ExerciseCommandParser" as ExerciseCommandParser LOGIC_COLOR
+participant ":CreateCommandParser" as CreateCommandParser LOGIC_COLOR
+participant "c:CreateCommand" as CreateCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "e:Exercise" as Exercise MODEL_COLOR
+participant "en:ExerciseName" as ExerciseName MODEL_COLOR
+end box
+
+participant "es:ArrayList" as ArrayList MODEL_COLOR
+
+[-> LogicManager : execute("exercise create e/Bench Press")
+activate LogicManager
+
+LogicManager -> ParserManager : parse("exercise create e/Bench Press")
+activate ParserManager
+
+create ExerciseCommandParser
+ParserManager -> ExerciseCommandParser
+activate ExerciseCommandParser
+
+ExerciseCommandParser --> ParserManager
+deactivate ExerciseCommandParser
+
+ParserManager -> ExerciseCommandParser : parse("create e/Bench Press")
+activate ExerciseCommandParser
+
+create CreateCommandParser
+ExerciseCommandParser -> CreateCommandParser
+activate CreateCommandParser
+
+CreateCommandParser --> ExerciseCommandParser
+deactivate CreateCommandParser
+
+ExerciseCommandParser -> CreateCommandParser : parse("e/Bench Press")
+activate CreateCommandParser
+
+create ExerciseName
+CreateCommandParser -> ExerciseName : ExerciseName("Bench Press")
+activate ExerciseName
+
+ExerciseName --> CreateCommandParser : en
+deactivate ExerciseName
+
+create CreateCommand
+CreateCommandParser -> CreateCommand : CreateCommand(en)
+activate CreateCommand
+
+create ArrayList
+CreateCommand -> ArrayList
+activate ArrayList
+
+ArrayList --> CreateCommand : es
+deactivate ArrayList
+
+CreateCommand --> CreateCommandParser : c
+deactivate CreateCommand
+
+CreateCommandParser --> ExerciseCommandParser : c
+deactivate CreateCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CreateCommandParser -[hidden]-> ExerciseCommandParser
+destroy CreateCommandParser
+
+ExerciseCommandParser --> ParserManager : c
+deactivate ExerciseCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ExerciseCommandParser -[hidden]-> ParserManager
+destroy ExerciseCommandParser
+
+ParserManager --> LogicManager : c
+deactivate ParserManager
+
+LogicManager -> CreateCommand : execute()
+activate CreateCommand
+
+create Exercise
+CreateCommand -> Exercise : Exercise(en, es)
+activate Exercise
+
+Exercise --> CreateCommand : e
+deactivate Exercise
+
+CreateCommand -> Model : addExercise(e)
+activate Model
+
+Model --> CreateCommand
+deactivate Model
+
+create CommandResult
+CreateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CreateCommand
+deactivate CommandResult
+
+CreateCommand --> LogicManager : result
+deactivate CreateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

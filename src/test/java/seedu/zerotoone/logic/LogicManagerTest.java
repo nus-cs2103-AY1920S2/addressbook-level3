@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.zerotoone.logic.commands.HelpCommand;
+import seedu.zerotoone.logic.commands.AboutCommand;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.commands.exercise.CreateCommand;
 import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
@@ -22,8 +22,8 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.log.LogListStorageManager;
 import seedu.zerotoone.storage.schedule.ScheduleListStorageManager;
-import seedu.zerotoone.storage.session.SessionListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 import seedu.zerotoone.testutil.LogicManagerTestUtil;
@@ -48,8 +48,8 @@ public class LogicManagerTest {
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
         ScheduleListStorageManager scheduleListStorage =
                 new ScheduleListStorageManager(temporaryFolder.resolve("scheduleList.json"));
-        SessionListStorageManager sessionListStorage =
-            new SessionListStorageManager(temporaryFolder.resolve("sessionList.json"));
+        LogListStorageManager sessionListStorage =
+            new LogListStorageManager(temporaryFolder.resolve("sessionList.json"));
         StorageManager storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
                 workoutListStorage,
@@ -66,8 +66,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String helpCommand = HelpCommand.COMMAND_WORD;
-        LogicManagerTestUtil.assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE,
+        String helpCommand = AboutCommand.COMMAND_WORD;
+        LogicManagerTestUtil.assertCommandSuccess(helpCommand, AboutCommand.SHOWING_ABOUT_MESSAGE,
                 model, logic, new ModelManager());
     }
 
@@ -82,8 +82,8 @@ public class LogicManagerTest {
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         ScheduleListStorageManager scheduleListStorage =
                 new ScheduleListStorageManager(temporaryFolder.resolve("ioExceptionScheduleList.json"));
-        SessionListStorageManager sessionListStorage =
-            new SessionListStorageManager(temporaryFolder.resolve("ioExceptionSessionList.json"));
+        LogListStorageManager sessionListStorage =
+            new LogListStorageManager(temporaryFolder.resolve("ioExceptionSessionList.json"));
         StorageManager storage = new StorageManager(userPrefsStorage,
                 exerciseListStorage,
                 workoutListStorage,
@@ -107,6 +107,16 @@ public class LogicManagerTest {
     @Test
     public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+    }
+
+    @Test
+    public void getFilteredWorkoutList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWorkoutList().remove(0));
+    }
+
+    @Test
+    void getSortedScheduledWorkoutList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getSortedScheduledWorkoutList().remove(0));
     }
 
     /**

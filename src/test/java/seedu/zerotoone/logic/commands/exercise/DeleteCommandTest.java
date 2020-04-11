@@ -2,8 +2,8 @@ package seedu.zerotoone.logic.commands.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.showExerciseAtIndex;
@@ -17,8 +17,8 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.log.LogList;
 import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
@@ -31,12 +31,12 @@ public class DeleteCommandTest {
             getTypicalExerciseList(),
             getTypicalWorkoutList(),
             new ScheduleList(),
-            new SessionList());
+            new LogList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXERCISE);
+        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_OBJECT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_OBJECT);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete.getExerciseName());
@@ -45,7 +45,7 @@ public class DeleteCommandTest {
                 model.getExerciseList(),
                 model.getWorkoutList(),
                 model.getScheduleList(),
-                model.getSessionList());
+                model.getLogList());
 
         expectedModel.deleteExercise(exerciseToDelete);
 
@@ -62,10 +62,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+        showExerciseAtIndex(model, INDEX_FIRST_OBJECT);
 
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXERCISE);
+        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_OBJECT.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_OBJECT);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete.getExerciseName());
@@ -74,7 +74,7 @@ public class DeleteCommandTest {
                 model.getExerciseList(),
                 model.getWorkoutList(),
                 model.getScheduleList(),
-                model.getSessionList());
+                model.getLogList());
 
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
@@ -84,9 +84,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+        showExerciseAtIndex(model, INDEX_FIRST_OBJECT);
 
-        Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
+        Index outOfBoundIndex = INDEX_SECOND_OBJECT;
         // ensures that outOfBoundIndex is still in bounds of exercise list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getExerciseList().size());
 
@@ -97,14 +97,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_EXERCISE);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_EXERCISE);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_OBJECT);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_OBJECT);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_EXERCISE);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_OBJECT);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

@@ -1,6 +1,7 @@
 package seedu.zerotoone.model.schedule;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import seedu.zerotoone.model.workout.Workout;
 
 /**
  * STEPH_TODO_JAVADOC
@@ -43,6 +45,7 @@ public class Scheduler {
      */
     public boolean hasSchedule(Schedule schedule) {
         requireNonNull(schedule);
+
         return scheduleList.hasSchedule(schedule);
     }
 
@@ -52,12 +55,15 @@ public class Scheduler {
      */
     public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
+
         scheduleList.addSchedule(schedule);
 
         populateSortedScheduledWorkoutList();
     }
 
     public void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule) {
+        requireAllNonNull(scheduleToEdit, editedSchedule);
+
         scheduleList.setSchedule(scheduleToEdit, editedSchedule);
 
         populateSortedScheduledWorkoutList();
@@ -69,6 +75,7 @@ public class Scheduler {
      */
     public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
         requireNonNull(scheduledWorkoutToDelete);
+
         Schedule scheduleToDelete = scheduledWorkoutToDelete.getSchedule();
         scheduleList.removeSchedule(scheduleToDelete);
 
@@ -77,10 +84,46 @@ public class Scheduler {
 
     /**
      *
+     * @param workoutToDelete
      */
-    private void populateSortedScheduledWorkoutList() {
+    public void deleteWorkoutFromSchedule(Workout workoutToDelete) {
+        requireNonNull(workoutToDelete);
+
+        ScheduleList scheduleListCopy = new ScheduleList(scheduleList); // to avoid concurrentModificationException
+        for (Schedule schedule : scheduleListCopy.getScheduleList()) {
+            if (schedule.getWorkoutToSchedule().isSameWorkout(workoutToDelete)) {
+                scheduleList.removeSchedule(schedule);
+            }
+        }
+
+        populateSortedScheduledWorkoutList();
+    }
+
+    /**
+     *
+     * @param workoutToEdit
+     * @param editedWorkout
+     */
+    public void editWorkoutInSchedule(Workout workoutToEdit, Workout editedWorkout) {
+        requireAllNonNull(workoutToEdit, editedWorkout);
+
+        ScheduleList scheduleListCopy = new ScheduleList(scheduleList); // to avoid concurrentModificationException
+        for (Schedule scheduleToEdit : scheduleListCopy.getScheduleList()) {
+            if (scheduleToEdit.getWorkoutToSchedule().isSameWorkout(workoutToEdit)) {
+                Schedule editedSchedule = new OneTimeSchedule(editedWorkout, scheduleToEdit.getDateTime());
+                scheduleList.setSchedule(scheduleToEdit, editedSchedule);
+            }
+        }
+
+        populateSortedScheduledWorkoutList();
+    }
+
+    /**
+     *
+     */
+    public void populateSortedScheduledWorkoutList() {
         List<ScheduledWorkout> newScheduledWorkouts = scheduleList.getScheduleList().stream()
-                .map(Schedule::getScheduledWorkout)
+                .map(schedule -> schedule.getScheduledWorkout(DateTime.now()))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .flatMap(Collection::stream)
@@ -90,5 +133,18 @@ public class Scheduler {
 
     public void setScheduledWorkouts(List<ScheduledWorkout> scheduledWorkouts) {
         this.scheduledWorkoutList.setScheduledWorkouts(scheduledWorkouts);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Scheduler other = (Scheduler) obj;
+        return scheduleList.equals(other.scheduleList);
     }
 }

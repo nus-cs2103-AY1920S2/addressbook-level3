@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
+import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
@@ -21,6 +22,7 @@ public class CreateCommand extends ScheduleCommand {
     public static final String MESSAGE_USAGE = "Usage: schedule create WORKOUT_ID d/<dateTime>";
     public static final String MESSAGE_SUCCESS = "New schedule added: %1$s";
     public static final String MESSAGE_DUPLICATE_SCHEDULE = "This schedule already exists";
+    public static final String MESSAGE_DATETIME_IN_THE_PAST = "Datetime provided is in the past";
 
     private final Index workoutId;
     private final DateTime dateTime;
@@ -37,6 +39,14 @@ public class CreateCommand extends ScheduleCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.isInSession()) {
+            throw new CommandException(Command.MESSAGE_SESSION_STARTED);
+        }
+
+        if (!DateTime.isDateEqualOrLaterThanToday(dateTime)) {
+            throw new CommandException(MESSAGE_DATETIME_IN_THE_PAST);
+        }
+
         requireNonNull(model);
         List<Workout> lastShownList = model.getFilteredWorkoutList();
 
@@ -57,6 +67,15 @@ public class CreateCommand extends ScheduleCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
+        if (other == this) {
+            return true;
+        } else if (!(other instanceof CreateCommand)) {
+            return false;
+        }
+
+        // state check
+        CreateCommand otherCommand = (CreateCommand) other;
+        return workoutId.equals(otherCommand.workoutId)
+                && dateTime.equals(otherCommand.dateTime);
     }
 }

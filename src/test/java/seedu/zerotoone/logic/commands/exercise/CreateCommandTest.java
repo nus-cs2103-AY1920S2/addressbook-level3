@@ -9,33 +9,18 @@ import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EX
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
 
-import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
-import seedu.zerotoone.model.schedule.Schedule;
-import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.OngoingSession;
-import seedu.zerotoone.model.session.ReadOnlySessionList;
-import seedu.zerotoone.model.session.Session;
-import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
-import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
-import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.testutil.ModelStub;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 
@@ -92,215 +77,6 @@ public class CreateCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getExerciseListFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setExerciseListFilePath(Path exerciseListFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addExercise(Exercise exercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setExerciseList(ReadOnlyExerciseList newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyExerciseList getExerciseList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasExercise(Exercise exercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteExercise(Exercise target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setExercise(Exercise target, Exercise editedExercise) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Exercise> getFilteredExerciseList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-
-        // -----------------------------------------------------------------------------------------
-        // Workout
-        @Override
-        public Path getWorkoutListFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setWorkoutListFilePath(Path workoutListFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addWorkout(Workout workout) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setWorkoutList(ReadOnlyWorkoutList newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyWorkoutList getWorkoutList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        public boolean hasWorkout(Workout workout) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        public void deleteWorkout(Workout target) {
-
-        }
-
-        @Override
-        public void setWorkout(Workout target, Workout editedWorkout) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Workout> getFilteredWorkoutList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredWorkoutList(Predicate<Workout> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        // -----------------------------------------------------------------------------------------
-        // Session
-        @Override
-        public boolean isInSession() {
-            return false;
-        }
-
-        @Override
-        public OngoingSession startSession(Exercise exerciseToStart, LocalDateTime currentDateTime) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void stopSession(LocalDateTime currentDateTime) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<OngoingSession> getCurrentSession() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        // -----------------------------------------------------------------------------------------
-        // Schedule
-        @Override
-        public boolean hasSchedule(Schedule schedule) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        public void addSchedule(Schedule schedule) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSchedule(Schedule scheduleToEdit, Schedule editedSchedule) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteScheduledWorkout(ScheduledWorkout scheduledWorkoutToDelete) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ScheduleList getScheduleList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlySessionList getSessionList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Session> getFilteredSessionList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredSessionList(Predicate<Session> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getSessionListFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteSession(int target) {
-
-        }
-
-        @Override
-        public void setSessionListFilePath(Path sessionListFilePath) {
-
-        }
-    }
-
-    /**
      * A Model stub that contains a single exercise.
      */
     private class ModelStubWithExercise extends ModelStub {
@@ -309,6 +85,11 @@ public class CreateCommandTest {
         ModelStubWithExercise(Exercise exercise) {
             requireNonNull(exercise);
             this.exercise = exercise;
+        }
+
+        @Override
+        public boolean isInSession() {
+            return false;
         }
 
         @Override
@@ -323,6 +104,11 @@ public class CreateCommandTest {
      */
     private class ModelStubAcceptingExerciseAdded extends ModelStub {
         final ArrayList<Exercise> exercisesAdded = new ArrayList<>();
+
+        @Override
+        public boolean isInSession() {
+            return false;
+        }
 
         @Override
         public boolean hasExercise(Exercise exercise) {

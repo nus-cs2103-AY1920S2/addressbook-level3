@@ -3,19 +3,21 @@ package seedu.zerotoone.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedSet;
+import seedu.zerotoone.model.session.CompletedWorkout;
+import seedu.zerotoone.model.session.OngoingSet;
+import seedu.zerotoone.ui.util.ViewType;
 
 /**
  * API of the Logic component
  */
-public interface Logic extends WorkoutLogic {
+public interface Logic extends WorkoutLogic, StatisticsLogic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
@@ -25,17 +27,13 @@ public interface Logic extends WorkoutLogic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    // -----------------------------------------------------------------------------------------
-    // Common
     /**
-     * Returns the user prefs' GUI settings.
+     * Retrieves the view type of the command.
+     * @param commandText The command as entered by the user.
+     * @return the view type.
+     * @throws ParseException If an error occurs during parsing.
      */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Set the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
+    ViewType getViewType(String commandText) throws ParseException;
 
     // -----------------------------------------------------------------------------------------
     // Exercise List
@@ -59,19 +57,33 @@ public interface Logic extends WorkoutLogic {
     /**
      * Returns the SessionList.
      *
-     * @see seedu.zerotoone.model.Model#getSessionList()
+     * @see seedu.zerotoone.model.Model#getLogList()
      */
-    ObservableList<Session> getSessionList();
+    ObservableList<CompletedWorkout> getLogList();
 
-    /** Returns an unmodifiable view of the filtered list of sessions */
-    ObservableList<Session> getFilteredSessionList();
+    /**
+     * Returns the OngoingSessionList.
+     *
+     * @see seedu.zerotoone.model.Model#getOngoingSetList()
+     */
+    ObservableList<OngoingSet> getOngoingSetList();
+
+    ObservableList<CompletedSet> getLastSet();
+
+    ObservableList<Integer> getTimerList();
+
+    /** Returns an unmodifiable view of the filtered list of workouts.
+     */
+    ObservableList<CompletedWorkout> getFilteredLogList();
 
     /**
      * Returns the user prefs' session list file path.
      */
-    Path getSessionListFilePath();
+    Path getLogListFilePath();
 
     // -----------------------------------------------------------------------------------------
     // Schedule List
     ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList();
+
+    void showdownTimer();
 }

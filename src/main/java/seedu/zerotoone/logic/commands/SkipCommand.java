@@ -8,8 +8,7 @@ import java.time.format.FormatStyle;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.session.OngoingSession;
-import seedu.zerotoone.model.session.SessionSet;
+import seedu.zerotoone.model.session.CompletedSet;
 
 /**
  * Completes the next up exerciseQueue in the session.
@@ -18,7 +17,8 @@ public class SkipCommand extends Command {
     public static final String COMMAND_WORD = "skip";
     public static final String MESSAGE_USAGE = "Usage: skip";
     public static final String MESSAGE_SKIP_SET = "Skipped set: %1$s";
-    public static final String MESSAGE_SKIPPED_LAST = "You have no sets left!";
+    public static final String MESSAGE_SKIPPED_LAST = "You have skipped the last set, "
+            + "your workout session is done and saved!";
     public static final String MESSAGE_NOT_STARTED = "There is no session in progress!";
     private final FormatStyle formatStyle = FormatStyle.MEDIUM;
 
@@ -33,13 +33,12 @@ public class SkipCommand extends Command {
         }
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-        OngoingSession current = model.getCurrentSession().get();
 
-        SessionSet set = current.skip();
+        CompletedSet set = model.skip();
 
         String outputMessage = String.format(MESSAGE_SKIP_SET, set.toString());
 
-        if (!current.hasSetLeft()) {
+        if (!model.hasExerciseLeft()) {
             model.stopSession(currentDateTime);
             outputMessage = outputMessage + "\n" + MESSAGE_SKIPPED_LAST;
         }

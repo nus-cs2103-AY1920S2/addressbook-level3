@@ -15,11 +15,10 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
+import seedu.zerotoone.model.log.LogList;
 import seedu.zerotoone.model.schedule.ScheduleList;
-import seedu.zerotoone.model.session.SessionList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.workout.WorkoutList;
 import seedu.zerotoone.testutil.exercise.ExerciseListBuilder;
@@ -32,7 +31,6 @@ public class ModelManagerTest {
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new ExerciseList(), new ExerciseList(modelManager.getExerciseList()));
     }
 
@@ -45,26 +43,19 @@ public class ModelManagerTest {
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setExerciseListFilePath(Paths.get("exercise/list/file/path"));
-        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
+        userPrefs.setWorkoutListFilePath(Paths.get("workout/list/file/path"));
+        userPrefs.setScheduleListFilePath(Paths.get("schedule/list/file/path"));
+        userPrefs.setLogListFilePath(Paths.get("log/list/file/path"));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setExerciseListFilePath(Paths.get("new/exercise/list/file/path"));
+        userPrefs.setWorkoutListFilePath(Paths.get("new/workout/list/file/path"));
+        userPrefs.setScheduleListFilePath(Paths.get("new/exercise/list/file/path"));
+        userPrefs.setLogListFilePath(Paths.get("new/log/list/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
-    }
-
-    @Test
-    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
-    }
-
-    @Test
-    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
-        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test
@@ -101,10 +92,43 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setWorkoutListFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setWorkoutListFilePath(null));
+    }
+
+    @Test
+    public void setWorkoutListFilePath_validPath_setsWorkoutListFilePath() {
+        Path path = Paths.get("workout/list/file/path");
+        modelManager.setWorkoutListFilePath(path);
+        assertEquals(path, modelManager.getWorkoutListFilePath());
+    }
+
+    @Test
+    public void hasWorkout_nullWorkout_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasWorkout(null));
+    }
+
+    @Test
+    public void hasWorkout_workoutNotInWorkoutList_returnsFalse() {
+        assertFalse(modelManager.hasWorkout(ARMS_WORKOUT));
+    }
+
+    @Test
+    public void hasWorkout_workoutInWorkoutList_returnsTrue() {
+        modelManager.addWorkout(ARMS_WORKOUT);
+        assertTrue(modelManager.hasWorkout(ARMS_WORKOUT));
+    }
+
+    @Test
+    public void getFilteredWorkoutList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredWorkoutList().remove(0));
+    }
+
+    @Test
     public void equals() {
         ExerciseList exerciseList = new ExerciseListBuilder().withExercise(BENCH_PRESS).withExercise(DEADLIFT).build();
         ScheduleList scheduleList = new ScheduleList();
-        SessionList sessionList = new SessionList();
+        LogList sessionList = new LogList();
         ExerciseList differentExerciseList = new ExerciseList();
         WorkoutList workoutList = new WorkoutListBuilder().withWorkout(ARMS_WORKOUT).withWorkout(LEGS_WORKOUT).build();
         UserPrefs userPrefs = new UserPrefs();

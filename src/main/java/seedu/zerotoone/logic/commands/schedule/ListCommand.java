@@ -1,5 +1,8 @@
 package seedu.zerotoone.logic.commands.schedule;
 
+import static java.util.Objects.requireNonNull;
+
+import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
@@ -13,6 +16,13 @@ public class ListCommand extends ScheduleCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        if (model.isInSession()) {
+            throw new CommandException(Command.MESSAGE_SESSION_STARTED);
+        }
+
+        model.populateSortedScheduledWorkoutList();
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

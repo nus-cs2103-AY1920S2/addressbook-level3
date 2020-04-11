@@ -6,18 +6,18 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-
-
 <?import javafx.scene.control.Tab?>
-        <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TabPane?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="ZeroToOne App" minWidth="540" minHeight="720" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/icon.png" />
   </icons>
   <scene>
     <Scene>
@@ -27,36 +27,31 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
 
-      <HBox VBox.vgrow="ALWAYS" >
+      <HBox fx:id="tabsContainer" VBox.vgrow="ALWAYS" >
       <VBox id="tabsVBox" HBox.hgrow="ALWAYS">
         <TabPane fx:id="tabPanePlaceHolder"
                  VBox.vgrow="ALWAYS"
                  tabClosingPolicy="UNAVAILABLE"
                  stylesheets="@css/Tab.css">
 
-          <Tab text="Home">
+          <Tab text="HOME">
             <StackPane fx:id="homeContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Exercise">
+          <Tab text="EXERCISE">
             <StackPane fx:id="exerciseContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Workout">
+          <Tab text="WORKOUT">
             <StackPane fx:id="workoutContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Schedule">
+          <Tab text="SCHEDULE">
             <StackPane fx:id="scheduleContentPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
-          <Tab text="Log">
+          <Tab text="LOG">
             <StackPane fx:id="logContentPlaceholder" VBox.vgrow="ALWAYS"/>
+          </Tab>
+          <Tab text="ABOUT" fx:id="aboutTab">
+            <StackPane fx:id="aboutDisplayPlaceholder" VBox.vgrow="ALWAYS"/>
           </Tab>
         </TabPane>
     </VBox>

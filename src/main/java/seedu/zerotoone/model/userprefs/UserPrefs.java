@@ -6,18 +6,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import seedu.zerotoone.commons.core.GuiSettings;
-
 /**
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
-
-    private GuiSettings guiSettings = new GuiSettings();
     private Path exerciseListFilePath = Paths.get("data" , "exerciselist.json");
     private Path workoutListFilePath = Paths.get("data" , "workoutlist.json");
     private Path scheduleListFilePath = Paths.get("data" , "schedulelist.json");
-    private Path logListFilePath = Paths.get("data" , "session.json");
+    private Path logListFilePath = Paths.get("data" , "loglist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -37,18 +33,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
-        setGuiSettings(newUserPrefs.getGuiSettings());
         setExerciseListFilePath(newUserPrefs.getExerciseListFilePath());
         setWorkoutListFilePath(newUserPrefs.getWorkoutListFilePath());
-    }
-
-    public GuiSettings getGuiSettings() {
-        return guiSettings;
-    }
-
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        this.guiSettings = guiSettings;
+        setScheduleListFilePath(newUserPrefs.getScheduleListFilePath());
+        setLogListFilePath(newUserPrefs.getLogListFilePath());
     }
 
     public Path getExerciseListFilePath() {
@@ -98,19 +86,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return guiSettings.equals(o.guiSettings)
-                && exerciseListFilePath.equals(o.exerciseListFilePath);
+        return exerciseListFilePath.equals(o.exerciseListFilePath)
+                && workoutListFilePath.equals(o.workoutListFilePath)
+                && scheduleListFilePath.equals(o.scheduleListFilePath)
+                && logListFilePath.equals(o.logListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, exerciseListFilePath);
+        return Objects.hash(exerciseListFilePath,
+                workoutListFilePath, scheduleListFilePath, logListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Gui Settings : " + guiSettings);
         sb.append("\nExercise List file location : " + exerciseListFilePath);
         sb.append("\nSession List file location : " + workoutListFilePath);
         sb.append("\nSchedule List file location : " + scheduleListFilePath);

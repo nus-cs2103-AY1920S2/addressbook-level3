@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -15,11 +14,15 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.log.StatisticsData;
 import seedu.zerotoone.model.schedule.ScheduledWorkout;
-import seedu.zerotoone.model.session.Session;
+import seedu.zerotoone.model.session.CompletedSet;
+import seedu.zerotoone.model.session.CompletedWorkout;
+import seedu.zerotoone.model.session.OngoingSet;
 import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.model.workout.Workout;
 import seedu.zerotoone.storage.Storage;
+import seedu.zerotoone.ui.util.ViewType;
 
 /**
  * The main LogicManager of the app.
@@ -50,6 +53,7 @@ public class LogicManager implements Logic {
             storage.saveExerciseList(model.getExerciseList());
             storage.saveWorkoutList(model.getWorkoutList());
             storage.saveScheduleList(model.getScheduleList());
+            storage.saveLogList(model.getLogList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -57,16 +61,9 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    // -----------------------------------------------------------------------------------------
-    // Common
     @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
+    public ViewType getViewType(String commandText) throws ParseException {
+        return parser.parseViewType(commandText);
     }
 
     // -----------------------------------------------------------------------------------------
@@ -86,19 +83,27 @@ public class LogicManager implements Logic {
         return model.getExerciseListFilePath();
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Log List
     @Override
-    public ObservableList<Session> getSessionList() {
-        return model.getSessionList().getSessionList();
+    public ObservableList<CompletedWorkout> getLogList() {
+        return model.getLogList().getLogList();
     }
 
     @Override
-    public ObservableList<Session> getFilteredSessionList() {
-        return model.getFilteredSessionList();
+    public StatisticsData generateStatistics() {
+        return Statistics.generate(model.getLogListCopyAsArrayList(),
+            model.getStatisticsStartDateRange(), model.getStatisticsEndDateRange());
     }
 
     @Override
-    public Path getSessionListFilePath() {
-        return model.getSessionListFilePath();
+    public ObservableList<CompletedWorkout> getFilteredLogList() {
+        return model.getFilteredLogList();
+    }
+
+    @Override
+    public Path getLogListFilePath() {
+        return model.getLogListFilePath();
     }
 
     // -----------------------------------------------------------------------------------------
@@ -124,4 +129,29 @@ public class LogicManager implements Logic {
     public ObservableList<ScheduledWorkout> getSortedScheduledWorkoutList() {
         return model.getSortedScheduledWorkoutList();
     }
+
+    // -----------------------------------------------------------------------------------------
+    // Session
+
+    @Override
+    public ObservableList<OngoingSet> getOngoingSetList() {
+        return model.getOngoingSetList().getOngoingSetList();
+    }
+
+    @Override
+    public ObservableList<CompletedSet> getLastSet() {
+        return model.getLastSet().getCompletedSetList();
+    }
+
+    @Override
+    public ObservableList<Integer> getTimerList() {
+        return model.getTimerList().getTimerList();
+    }
+
+    @Override
+    public void showdownTimer() {
+        model.shutdownTimer();
+    }
+
+
 }
