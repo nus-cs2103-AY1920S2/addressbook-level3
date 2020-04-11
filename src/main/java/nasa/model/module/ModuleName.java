@@ -21,11 +21,7 @@ public class ModuleName {
     public ModuleName(String moduleName) {
         requireNonNull(moduleName);
         checkArgument(isValidModuleName(moduleName), MESSAGE_CONSTRAINTS);
-        this.moduleName =
-                Arrays.stream(moduleName.split(" "))
-                        .map(word -> Character.toTitleCase(
-                                word.charAt(0)) + word.substring(1)
-                        .toLowerCase()).collect(Collectors.joining(" "));
+        this.moduleName = moduleName;
     }
 
     public static boolean isValidModuleName(String test) {
