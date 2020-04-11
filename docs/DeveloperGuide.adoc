@@ -1677,12 +1677,14 @@ the list of existing students in the *Student View*.
 +
 Use case ends.
 
+*Extensions*
+
 [none]
 * 3a. The module and/or group does not exist.
 [none]
 ** 3a1. TA-Tracker shows an error message.
 +
-Use case ends.
+Use case resumes at step 3.
 
 === Session View
 
