@@ -1201,6 +1201,7 @@ Examples:
 
 * `student filter m/cs2100 g/g03`
 +
+image::FilterStudent.png[width="790"]
 This will show you all students in module `CS2100`, under group `G03`.
 ====
 
@@ -1220,6 +1221,7 @@ Examples:
 
 * `student filter m/cs3243`
 +
+image::FilterModule.png[width="790"]
 This shows you the students in the first group of the module `CS3243`
 ====
 
@@ -1268,6 +1270,7 @@ Examples:
 
 * `session add m/CS3243 s/14:00 e/16:00 d/2020-06-20 w/2 t/consultation n/with Alice and Bob`
 +
+image::SessionAdd.png[width="790"]
 Adds a new session with:
 
 ** `START_TIME` at 14:00 in `24hr` format
@@ -1297,9 +1300,10 @@ Do not confuse the `session delete` and `session done` commands.
 ====
 Examples:
 
-* `session delete 2`
+image::SessionDelete.png[width="790"]
+* `session delete 1`
 +
-This command deletes the second session in the *Session View*.
+This command deletes the first session in the *Session View*.
 ====
 
 ==== Editing a Session : `session edit`
@@ -1321,6 +1325,7 @@ Examples:
 
 * `session edit 1 s/14:00 e/16:00 d/2020-02-19 t/grading n/Location: PLAB 04`
 +
+image::SessionEdit.png[width="790"]
 Edits the session at index 1 to have:
 
 ** The new `START_TIME` at 14:00
@@ -1348,6 +1353,7 @@ Marks the session with the given unique index as done.
 ====
 Examples:
 
+image::SessionDone.png[width="790"]
 * `session done 2` +
 This will mark the 2nd session in the *Session View* as done.
 ====
@@ -1380,6 +1386,7 @@ Example:
 
 * `session filter m/CS3243`
 +
+image::SessionFilter.png[width="790"]
 All sessions in the *Session View* with module code `CS3243` are displayed.
 
 * `session filter m/CS3243 t/tutorial`
@@ -1389,6 +1396,7 @@ All sessions in the *Session View* with module code `CS2103T`,
 
 * `session filter m/CS3243`
 +
+image::SessionFilterMultiple.png[width="790"]
 All sessions in the *Session View* with module code  `CS2103T`
 will be shown.
 ====
@@ -1415,6 +1423,7 @@ Example:
 
 * `claims filter m/CS3243`
 +
+image::ClaimsFilter.png[width="790"]
 All sessions in the *Claims View* with module code `CS3243` are displayed.
 ====
 
@@ -1435,8 +1444,10 @@ Format: `setrate RATE`
 
 Examples:
 
-* `setrate 25` +
-Sets the current hourly rate to $25.00.
+* `setrate 25`
++
+image::SetRate.png[width="790"]
+Sets the current hourly rate to $25.
 
 === Statistics Window
 
@@ -1464,10 +1475,12 @@ Example:
 
 * `report`
 +
+image::Statistics.png[width="790"]
 Generate and display a report of sessions and students from all modules.
 
 * `report CS2103T`
 +
+image::CS2103Statistics.png[width="790"]
 Generate and display a report of sessions and students from the module CS3243.
 
 == Glossary
