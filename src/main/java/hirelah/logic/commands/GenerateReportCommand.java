@@ -211,6 +211,7 @@ public class GenerateReportCommand extends Command {
     }
 
 
+
     private static void printRemarksPart(PDDocument document, ObservableList<Remark> remarks, Pair<Integer, PDPage> startingPosition) throws IOException {
         ArrayList<Remark> remarkList = new ArrayList<>();
         remarkList.addAll(remarks);
@@ -225,12 +226,14 @@ public class GenerateReportCommand extends Command {
                         currentLine.equals(splitRemarks.get(0))? currentRemark.getTimeString() : "",
                         currentLine.equals(splitRemarks.get(0))? -20 : -13);
                 rowsInAPage.add(currentRow);
-                currentYOffset -= 13;
-                if (currentYOffset < 30) {
+                currentYOffset -= (currentLine.equals(splitRemarks.get(0))? 20 : 13);
+                if (currentYOffset < 50) {
                     if (firstPage) {
                         System.out.println(currentYOffset);
                         System.out.println("els1e");
                         generatePartialRemarkPage(document, startingPosition, rowsInAPage);
+                        rowsInAPage = new ArrayList<>();
+                        currentYOffset = 800;
                         firstPage = false;
                     } else {
                         System.out.println(currentYOffset);
@@ -242,7 +245,7 @@ public class GenerateReportCommand extends Command {
                 }
             }
             currentYOffset -= 20;
-            if (currentYOffset < 30) {
+            if (currentYOffset < 50) {
 
                 if (firstPage) {
                     generatePartialRemarkPage(document, startingPosition, rowsInAPage);
