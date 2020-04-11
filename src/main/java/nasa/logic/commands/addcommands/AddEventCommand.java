@@ -28,8 +28,8 @@ public class AddEventCommand extends AddCommand {
             + PREFIX_NOTE + "NOTE" + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS3233 "
-            + PREFIX_START_DATE + "12-04-2020 02:00 "
-            + PREFIX_END_DATE + "12-04-2020 04:00 "
+            + PREFIX_START_DATE + "12-05-2020 02:00 "
+            + PREFIX_END_DATE + "12-05-2020 04:00 "
             + PREFIX_ACTIVITY_NAME + "CP contest  "
             + PREFIX_NOTE + "Remember to study content before coming.";
 
@@ -51,6 +51,6 @@ public class AddEventCommand extends AddCommand {
         }
 
         model.addEvent(moduleCode, (Event) toAdd);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, "event"));
     }
 }

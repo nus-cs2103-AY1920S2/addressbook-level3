@@ -52,6 +52,6 @@ public class AddDeadlineCommand extends AddCommand {
         }
 
         model.addDeadline(moduleCode, (Deadline) toAdd);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, "deadline"));
     }
 }
