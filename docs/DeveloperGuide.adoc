@@ -80,7 +80,8 @@ and generate PDF report with `ReportGenerator`. For example, we can have a `Filt
 the `GroupByIDPairsAggregators` to merge and count all collect `BluetoothPings` based on their User ID pairs,
 then pass it through the `DangerConditions` class to infer which User ID Pairs have had too much contact time.
 Later, the search result will be passed to  `DangerReportGenerator` to generate report with a table showing
-all danger ID pairs with summary message.
+all danger ID pairs with summary message. To generate a report, `RecordReader` will be used to illustrate the
+given search result and pass data points to `PDFWriter` to generate a PDF file with summary on records.
 
 The return of a successfully executed command is an `AppMessage` class which signals to `AppUiManager`
 how the results should be rendered to the user. The return result of the execution command displayed to

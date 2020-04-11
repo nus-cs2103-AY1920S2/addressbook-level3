@@ -28,7 +28,8 @@ the government has collected all the user's (anonymized) bluetooth ping data and
 perform analytics and visulization over them.
 
 This is for efficient contract tracing, in order to make better policies when it comes to virus spreading control.
-Our app allows efficient search over the data and generates a detailed report for upper management review.
+Our app allows efficient search over the data and generates a detailed report with record summary for upper
+management review.
 
 == Target audiences
 
@@ -61,6 +62,8 @@ Not saying that security is not important for an application, just that we are d
 .  Download the latest `ContactTracing.jar` link:{releaseUrl}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  All PDF file report will be generated in './result' folder.
+
 +
 image::Ui.png[width="790"]
 +
@@ -90,6 +93,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+
+=== Get help list
+==== Get help list with all commands: `help`
+Display the command list and  all data points in the database.
+
+Format: `help`
 
 === Querying over collected trace data
 ==== Searching over timestamp : `From`
@@ -161,7 +170,7 @@ Report all interaction instances in database.
 
 Example: `report all`
 
-==== Reporting over time range: `report time from`
+==== Reporting over time range: `report time`
 Generate a report includes all interaction instances in a time range
 
 Format: `report time from <ts: start> to <ts:end>
@@ -188,6 +197,20 @@ Generate a report includes interactions with a specific given ID
 Format: `report id is <user: id>`
 
 Example: `report id is 1`
+
+==== Report information of each person in database: `report_person`
+Generate a report with the information of all person data points in dababase
+
+Format: `report_person`
+
+==== Report information of a person with the given ID: `report_person id`
+Generate a report with the information of a specific person with a a given ID
+
+Format: `report_person <personID: count>`
+
+Example: `report_person 1`
+
+
 
 
 == FAQ
