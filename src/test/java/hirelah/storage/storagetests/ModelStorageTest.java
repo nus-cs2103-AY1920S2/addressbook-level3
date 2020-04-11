@@ -72,7 +72,7 @@ public class ModelStorageTest {
         assertThrows(NullPointerException.class, () -> saveModel(null, "SomeFile.json"));
     }
 
-    /** Method deployed to test for ModelStorage*/
+    /** Method deployed to test for ModelStorage.*/
     private void saveModel(Boolean model, String filePath) {
         try {
             new ModelStorage(Paths.get(filePath))
