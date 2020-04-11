@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
 import seedu.zerotoone.model.log.LogList;
@@ -32,7 +31,6 @@ public class ModelManagerTest {
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new ExerciseList(), new ExerciseList(modelManager.getExerciseList()));
     }
 
@@ -45,26 +43,19 @@ public class ModelManagerTest {
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setExerciseListFilePath(Paths.get("exercise/list/file/path"));
-        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
+        userPrefs.setWorkoutListFilePath(Paths.get("workout/list/file/path"));
+        userPrefs.setScheduleListFilePath(Paths.get("schedule/list/file/path"));
+        userPrefs.setLogListFilePath(Paths.get("log/list/file/path"));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setExerciseListFilePath(Paths.get("new/exercise/list/file/path"));
+        userPrefs.setWorkoutListFilePath(Paths.get("new/workout/list/file/path"));
+        userPrefs.setScheduleListFilePath(Paths.get("new/exercise/list/file/path"));
+        userPrefs.setLogListFilePath(Paths.get("new/log/list/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
-    }
-
-    @Test
-    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
-    }
-
-    @Test
-    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
-        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test

@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui.views.help;
+package seedu.zerotoone.ui.views.about;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +10,10 @@ import seedu.zerotoone.logic.commands.util.CommandSection;
 import seedu.zerotoone.ui.util.UiPart;
 
 /**
- * Represents a help window to show all ZeroToOne commands.
+ * Represents a about window to show all ZeroToOne commands.
  */
-public class HelpDisplay extends UiPart<Region> {
-    private static final String FXML = "help/HelpDisplay.fxml";
+public class AboutDisplay extends UiPart<Region> {
+    private static final String FXML = "about/AboutDisplay.fxml";
 
     @FXML
     private Label appName;
@@ -27,7 +27,7 @@ public class HelpDisplay extends UiPart<Region> {
     /**
      * Constructs a Help Display to display all commands.
      */
-    public HelpDisplay(ObservableList<CommandSection> commandSectionList) {
+    public AboutDisplay(ObservableList<CommandSection> commandSectionList) {
         super(FXML);
         initialize();
         allCommands.setItems(commandSectionList);

@@ -24,6 +24,7 @@ public class OneTimeSchedule implements Schedule {
         return workoutToSchedule;
     }
 
+    @Override
     public DateTime getDateTime() {
         return dateTime;
     }
