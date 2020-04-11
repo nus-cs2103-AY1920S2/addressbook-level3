@@ -859,7 +859,7 @@ that haven't been completed yet.
 
 ==== Model Framework
 
-The following _Class diagram_ shows how different classes are related in the functioning
+The following _Class Diagram_ shows how different classes are related in the functioning
 of the *Session View*.
 
 ._Class Diagram_ of Session View
@@ -1195,7 +1195,7 @@ Different view has its own designated filter command.
 ==== Implementation
 This section describes the implementation of the `filter` command.
 
-The _Activity diagram_ below summarises what happens when the user executes a `filter` command:
+The _Activity Diagram_ below summarises what happens when the user executes a `filter` command:
 
 ._Activity Diagram_ of the Filter Command
 image::FilterCommandActivityDiagram.png[]
