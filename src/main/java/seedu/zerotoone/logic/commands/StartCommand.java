@@ -35,10 +35,6 @@ public class StartCommand extends Command {
         return workoutId;
     }
 
-    public LocalDateTime getDateTimeNow() {
-        return LocalDateTime.now();
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -46,7 +42,7 @@ public class StartCommand extends Command {
             throw new CommandException(Command.MESSAGE_SESSION_STARTED);
         }
 
-        return executeHelper(model, getDateTimeNow());
+        return executeHelper(model, LocalDateTime.now());
     }
 
     /**
@@ -75,6 +71,8 @@ public class StartCommand extends Command {
                 throw new CommandException(MESSAGE_EMPTY_EXERCISE);
             }
         }
+
+        model.startSession(workoutToStart, currentDateTime);
 
         String formatted = currentDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FORMAT_STYLE));
 

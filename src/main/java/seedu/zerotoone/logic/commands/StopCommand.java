@@ -21,17 +21,13 @@ public class StopCommand extends Command {
     public StopCommand() {
     }
 
-    public LocalDateTime getDateTimeNow() {
-        return LocalDateTime.now();
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!model.isInSession()) {
             throw new CommandException((MESSAGE_SESSION_NOT_STARTED));
         }
-        return executeHelper(model, getDateTimeNow());
+        return executeHelper(model, LocalDateTime.now());
     }
 
     /**

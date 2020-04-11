@@ -71,4 +71,12 @@ class OngoingSetTest {
         Assertions.assertNotEquals(setOneOne, setOneTwo);
         Assertions.assertNotEquals(setOneOne, setTwoOne);
     }
+
+    @Test
+    void testToString() {
+        ExerciseSet base = new ExerciseSet(new Weight("5"), new NumReps("1"));
+        OngoingSet setOneOne = new OngoingSet(base, new ExerciseName("Test"), 1);
+        String expected = " Weight: 5 Number of repetitions: 1";
+        Assertions.assertEquals(expected, setOneOne.toString());
+    }
 }

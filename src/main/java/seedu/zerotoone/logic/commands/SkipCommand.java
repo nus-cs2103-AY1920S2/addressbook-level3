@@ -14,7 +14,7 @@ import seedu.zerotoone.model.session.CompletedSet;
 public class SkipCommand extends Command {
     public static final String COMMAND_WORD = "skip";
     public static final String MESSAGE_USAGE = "Usage: skip";
-    public static final String MESSAGE_SUCCESS = "Skipped set: %1$s";
+    public static final String MESSAGE_SUCCESS = "Skipped set:%1$s";
     public static final String MESSAGE_SKIPPED_LAST = "You have skipped the last set, "
             + "your workout session is done and saved!";
 
