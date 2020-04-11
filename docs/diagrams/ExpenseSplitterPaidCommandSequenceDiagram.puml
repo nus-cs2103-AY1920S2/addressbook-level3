@@ -53,8 +53,24 @@ destroy PaidCommandParser
 ExpenseSplitterParser --> SplitterLogicManager :d
 deactivate ExpenseSplitterParser
 
-ref over SplitterLogicManager, SplitterModelManager: Execution of PaidCommand
+alt receiptIsNotDone
 
+    SplitterLogicManager -> PaidCommand :execute(model)
+    activate PaidCommand
+
+    PaidCommand -> CommandResult
+    activate CommandResult
+
+    CommandResult --> PaidCommand :result()
+    deactivate CommandResult
+
+    PaidCommand --> SplitterLogicManager : result()
+    deactivate PaidCommand
+
+else receiptIsDone
+
+    ref over SplitterLogicManager, SplitterModelManager: Execution of PaidCommand
+end
 SplitterLogicManager -> SplitterStorageManager : savePersonAmountBook(personAmountBook)
 activate SplitterStorageManager
 
@@ -62,8 +78,12 @@ SplitterStorageManager --> SplitterLogicManager
 
 SplitterLogicManager -> SplitterStorageManager : saveReceiptBook(receiptBook)
 SplitterStorageManager --> SplitterLogicManager
+
 deactivate SplitterStorageManager
+
 
 [<--SplitterLogicManager : result()
 deactivate SplitterStorageManager
+
+
 @enduml
