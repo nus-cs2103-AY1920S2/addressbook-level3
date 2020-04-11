@@ -89,8 +89,7 @@ public class SplitterModelManager extends ModelManager implements SplitterModel 
     }
 
     /**
-     * Intentionally left empty.
-     * To be implemented later.
+     * Command for listing the Receipt.
      */
     @Override
     public void listReceipt() {
