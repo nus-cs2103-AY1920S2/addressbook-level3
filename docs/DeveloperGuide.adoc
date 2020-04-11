@@ -1220,21 +1220,22 @@ Then, a new *CommandResult* will be created based on the user input. This will t
 success message to the user.
 //end::help[]
 
+//@@author Exeexe93
 //tag::import[]
 [[import]]
 === Import feature
 In this section, the <<what-is-import, functionality>> of the `import` feature, the expected <<import-execution-path, execution path>>, the <<import-structure, structure>> of the
-`ImportCommand` class and the <<import-interaction, interactions>> between objects with the `ImportCommand` object will be discussed.
+*ImportCommand* class and the <<import-interaction, interactions>> between objects with the *ImportCommand* object will be discussed.
 
 [[what-is-import]]
 ==== What is the Import feature
-The `import` feature was implemented as the `ImportCommand` in the `logic` package. +
+The `import` feature was implemented as the *ImportCommand* in the logic package. +
 The `import` feature allows users to save the trouble of adding the delivery orders and the return orders one by one
 when they have large amount of delivery orders or return orders to add into Delino.
 
 [[import-execution-path]]
 ==== Execution paths of Import Command
-The execution path of the `ImportCommand` is shown below: +
+The execution path of the *ImportCommand* is shown below: +
 
 .Import Command Activity Diagram
 image::ImportActivityDiagram.svg[]
@@ -1255,18 +1256,18 @@ After the user enter the `import` command, there are three validation check for 
 ** If `Yes`, retrieve the data from the CSV file and process the data.
 ** If `No`, display the error message to the user.
 
-Afterward, a new `ImportCommand` will be created and executed. For every data inside the list, either order or return order
+Afterward, a new *ImportCommand* will be created and executed. For every data inside the list, either order or return order
 will be added into the order book and return order book respectively based on the `orderType` value.
 If the `orderType` is invalid, add the data into the result, which will be displayed to the user after processing.
 
 [[import-structure]]
 ==== Structure of Import Command
-The following diagram shows the overview structure of the `ImportCommand` Class Diagram: +
+The following diagram shows the overview structure of the *ImportCommand* Class Diagram: +
 
 .Import Command Class Diagram
 image::ImportClassDiagram.svg[]
 
-In the `ImportCommand` Class, there are also a few static message to display to the user for the various scenarios occurred
+In the *ImportCommand* Class, there are also a few static message to display to the user for the various scenarios occurred
 during the importing of data from the CSV file: +
 
 1.  `MESSAGE_USAGE` +
@@ -1293,39 +1294,40 @@ order and return order.
 
 [[import-interaction]]
 ==== Interactions between objects when Import Command is executed
-In this section, the interactions between the objects when `ImportCommand` is executed will be shown in the Import Command
+In this section, the interactions between the objects when *ImportCommand* is executed will be shown in the Import Command
 Sequence Diagram below: +
 
 .Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram.svg[]
 
-The arguments passed to the `import` Command will be parsed by the `ImportCommandParser` class. +
-Then, the `ImportCommandParser` will called the `ParseUtil#parseCsvFile()` to get the filePath based
-on the input the user provides. Afterward, `CsvProcessor` will be called to retrieve the data from the csv file
-and return the processed `fileData` back to ParseUtil. The `fileData` will be further pass to `ImportCommandParser`
-and to the constructor of `ImportCommand`.
+The arguments passed to the `import` command will be parsed by the *ImportCommandParser* class. +
+Then, the *ImportCommandParser* will called the ParseUtil#parseCsvFile() to get the filePath based
+on the input the user provides. Afterward, *CsvProcessor* will be called to retrieve the data from the csv file
+and return the processed `fileData` back to ParseUtil. The `fileData` will be further pass to *ImportCommandParser*
+and to the constructor of *ImportCommand*.
 
 [NOTE]
 ====
-`CsvProcessor` is  a helper class that helps to retrieve the data from the csv file and process the data before
-giving to `ImportCommand`.
+*CsvProcessor* is  a helper class that helps to retrieve the data from the csv file and process the data before
+giving to *ImportCommand*.
 ====
 
-Afterward, the `ImportCommand` object is being returned to the `LogicManager` and the `LogicManager` will start
-to run the execute the `ImportCommand`, which will be shown at the diagram below.
+Afterward, the *ImportCommand* object is being returned to the *LogicManager* and the *LogicManager* will start
+to run the execute the *ImportCommand*, which will be shown at the diagram below.
 
 .Execution of Import Command Sequence Diagram
 image::ExecuteImportCommand.svg[]
 
-The `ImportCommand#execute()` will first check if the data given starts with
-*order* or *return* and pass to the `InsertCommandParser` or `ReturnCommandParser` respectively. +
+The ImportCommand#execute() will first check if the data given starts with
+*order* or *return* and pass to the *InsertCommandParser* or *ReturnCommandParser* respectively. +
 
-Afterwards, `InsertCommandParser` or `ReturnCommandParser` will return a new `InsertCommand` or `ReturnCommand` respectively
-if it successfully parse the data. The `ImportCommand` will then call the `InsertCommand#execute()`
-or `ReturnCommand#execute()` depend whether it is delivery order or return order. This will cause a delivery order or return order being added into the `Model`.
+Afterwards, *InsertCommandParser* or *ReturnCommandParser* will return a new *InsertCommand* or *ReturnCommand* respectively
+if it successfully parse the data. The *ImportCommand* will then call the InsertCommand#execute()
+or ReturnCommand#execute() depend whether it is delivery order or return order.
+This will cause a delivery order or return order being added into the Model.
 
-The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
-which is then pass back to the `LogicManager`.
+The *ImportCommand* will call its own printResult() function and return a String message to the *CommandResult* object
+which is then pass back to the *LogicManager*.
 //end::import[]
 
 //tag::search[]
