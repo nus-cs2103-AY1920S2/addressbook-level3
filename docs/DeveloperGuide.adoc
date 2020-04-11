@@ -197,12 +197,7 @@ Users can use `grade` command, followed by the module code and the grade in orde
 
 The calendar feature allows users to add either a `deadline` or a `Module Task` to the calendar.
 
-* Implementation: both deadline and module Task are inherits from the super class Task. A task is created when the `moduleTask` or `deadlineAdd` command is invoked.
-* The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user want to add a task in our program.
-
-.Sequence diagram for Adding tasks
-image::AddDeadlineSequenceDiagram.png[width="790"]
-
+The implementation of the main calender is facilitated by the CalenderMainPanel class, which serves as the main container for this feature.
 
 
 
