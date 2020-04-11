@@ -89,20 +89,31 @@ public class ImportCommand extends Command {
                 }
             } catch (ParseException pe) {
                 logger.info(PROCESS_FAILED_MESSAGE + rawData);
-                errorMessages.put(orderNumber, PROCESS_FAILED_MESSAGE + PREFIX_ORDERTYPE + rawData);
+                errorMessages.put(orderNumber, PROCESS_FAILED_MESSAGE + PREFIX_ORDERTYPE + removeNewLine(rawData));
                 invalidCounter++;
             } catch (CommandException ce) {
                 if (data.startsWith(OT_RETURN)) {
                     logger.info(DUPLICATE_RETURN_MESSAGE + rawData);
-                    errorMessages.put(orderNumber, DUPLICATE_RETURN_MESSAGE + PREFIX_ORDERTYPE + rawData);
+                    errorMessages.put(orderNumber, DUPLICATE_RETURN_MESSAGE + PREFIX_ORDERTYPE
+                            + removeNewLine(rawData));
                 } else {
                     logger.info(DUPLICATE_ORDER_MESSAGE + rawData);
-                    errorMessages.put(orderNumber, DUPLICATE_ORDER_MESSAGE + PREFIX_ORDERTYPE + rawData);
+                    errorMessages.put(orderNumber, DUPLICATE_ORDER_MESSAGE + PREFIX_ORDERTYPE
+                            + removeNewLine(rawData));
                 }
                 duplicateCounter++;
             }
             orderNumber++;
         }
+    }
+
+    /**
+     * Remove the trailing new line of the data.
+     * @param rawData has the new line to be removed.
+     * @return rawData without the new line.
+     */
+    private String removeNewLine(String rawData) {
+        return rawData.replaceAll("\n", "");
     }
 
     /**
