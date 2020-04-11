@@ -162,52 +162,58 @@ This section describes some noteworthy details on how certain features are imple
 
 .Sequence of executing a sort command
 image::SortSequenceDiagram.png[]
-The sort command takes in a list of fields and creates an aggregate comparator. The Model will then set the same `Comparator` on the `TaskList` which internally sets it on a `SortedList` form the javaFx library. This SortedList will then help us maintain a sorted order with new or edited tasks.
+The sort command takes in a list of fields and generates FieldComparators as seen in the diagram and then uses Comparator.thenComparing to aggregate the comparators. The first field provided will then be of the highest sort order. The Model will then set the same `Comparator` on the `TaskList` which internally sets it on a `SortedList` from JavaFx. This SortedList will then help us maintain a sorted order even when new or edited tasks are added.
 
-image::SortInitliazeDiagram.png[]
+.Class diagram of SortedList
 image::SortedListClassDiagram.png[]
-Given that the FilteredList cannot perform sorting, we could:
+We had to use a new SortedList within TaskList because the FilteredList does not allow for sorting. As such we have to let the FilteredList reference the SortedList and the SortedList refernce the UniqueTaskList so that any changes to UniqueTaskList will go through both sorting and filtering.
 
-. Create a SortedList from the FilteredList and set the comparator and then create a new FilteredList from the SortedList. But this means we need to reassign the new FilteredList to the UI to reflect the change.
-. (chosen implementation) A better method of sorting the list that FilteredList has as a reference. 
+.Sequence of initializing the Sorted List
+image::SortInitliazeDiagram.png[]
 
-To do this, our TaskList is sorted internally. We chose to do this by having the TaskList maintain  a SortedList form JavaFx which references the UniqueTaskList in TaskList as seen in the diagram. This allows us to maintain a unique list of Tasks while having new tasks added remain in the defined sort order. The FilteredList thus uses the refernce from the SortedList. 
+Due to the requirements mentioned, this is how we had to create our FilteredList. We set FilteredList to reference the SortedList and then the SortedList to reference the UniqueTaskList.
 
 ==== Updating UI
-image::SortUiDiagram.png[]
+image::SortUiSequenceDiagram.png[]
 
-Meanwhile to update the UI on the newest sorting order, the SortCommand will return a SortCommandResult. This SortCommandResult contains an additional field which would be the final sorting order of the TaskList. The SortCommandResult is then passed to the MainWindow and provides the payload for updating the sort order UI.
+Meanwhile to update the UI on the newest sorting order, the SortCommand will return a `SortCommandResult`. This `SortCommandResult` contains an additional field which would be the highest sorting order of the TaskList. The `SortCommandResult` is then passed back to the `MainWindow` and to the `TaskListPanel`. The `TaskListPanel` then gets the sort order from `SortCommandResult` and updates the UI.
 
-SortCommandResult extends CommandResult and an additional field `sortOrder`.
+SortCommandResult extends CommandResult and contains an additional String attribute `sortOrder`.
 
 === AutoComplete
-Auto complete is triggered when users press tab while on the command line and serves to speed up the users usage of BB Productive.
+Auto complete is triggered when users press tab while on the command line. It serves to speed up the users usage of the application.
 
 ==== Implementation
 
 .Activity diagram of auto complete
 image::ACActivityDiagram.png[width=790]
-
 [IMPORTANT]
 =====
-Completing a word happens when the input matches the start of a target or the edit distance between the input and the target < 2.
+Auto completion of a word happens when:
+
+. the input matches the start of a target word
+. the edit distance between the input and the target < 2.
 =====
+[#completion criteria]
 
-Above diagram shows the decisions `CommandCompletor` goes through when deciding how to edit users input. It first attempts to complete the command word. If the command word is unrecognized, it throws a `CompletorException`, else it will perform specific checks on the input based on the command word.
+The above diagram shows the decisions `CommandCompletor` goes through when deciding how to edit users input.
 
-==== Check overview
+. attempts to complete the command word
+.. if command word is unrecognized, throws a `CompletorException`
+.. else it performs specific checks on the input based on the command word and auto completes as necessary
+
+===== Check overview
 
 . If the input is an add/edit/pom command then CommandCompletor will attempt to add prefixes.
-.. add/edit command -> add priority and reminder prefixes.
-.. a pom command -> add timer prefix.
-. If input is a delete/done command then CommandCompletor will remove any invalid indices by checking against the length of the displayed task list and if the index is a positive integer.
-. If input is a sort command then CommandCompletor will
-.. Complete fields:
-... if edit distance between the input and accepted sort fields < 2
-... if input matches the start of any field
-.. Remove all other fields
+.. add/edit command -> add priority and reminder prefixes
+.. pom command -> add timer prefix
+. If input is a delete/done command
+.. remove any invalid indices that are greater than the length of the displayed task list or that are not a positive integer
+. If input is a sort command
+.. Auto complete fields based on the callout <<completion criteria, here>>
+.. If cannot complete, then it is removed
 
-==== Field Completion
+==== Auto Completion
 image::PredicateActivityDiagram.png[]
 We iterate through all allowed sort fields and all fields in the input then perform all three checks:
 
