@@ -70,15 +70,15 @@ I also contributed to the development of the HelpWindow and StatisticsWindow (#2
 issues and adding ScrollPanes. Moreover, I included the option to close both windows by pressing the ESC key to achieve
 the goal of making TA-Tracker a keyboard-only application (#236).
 
+=== Added extensive automated tests
+
+I made thorough JUnit tests for the StudentCommand, StudentCommandParser, and Student as well as its relevant fields. (#340, #341, #347)
+
 === Improved upon overall code quality
 
 * Packaged all commands, parsers, models and ui components (#143, #212)
 * General quality fixes to the entire code-base based on Codacy report (#350, #351)
 * Created enum classes for SessionType and GroupType (#120, #182)
-
-=== Adding extensive automated tests
-
-* Add StudentCommand, StudentCommandParser and Student tests (#340, #341, #347)
 
 === Other contributions
 
