@@ -38,12 +38,11 @@ public class TimeStamp {
      */
     public TimeStamp(String timeStamp, boolean isBeforeCheckRequired) {
         requireNonNull(timeStamp);
-        checkArgument(checkTimestamp(timeStamp, isBeforeCheckRequired), MESSAGE_CONSTRAINTS
-                , ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
+        checkArgument(checkTimestamp(timeStamp, isBeforeCheckRequired), MESSAGE_CONSTRAINTS,
+                ERROR_MESSAGE_TIMESTAMP_BEFORE_NOW);
         this.timeStamp = LocalDateTime.parse(timeStamp, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
         this.value = this.timeStamp.format(FORMAT_CHECKER);
     }
-
 
     /**
      * Returns true if a given string is a valid date and time.
@@ -52,7 +51,9 @@ public class TimeStamp {
         logger.fine("Check whether it is a valid timestamp");
         try {
             LocalDateTime userInput = LocalDateTime.parse(test, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
-            if (checkTimestampBeforeNow(test, isBeforeCheckRequired, userInput)) return TIMESTAMP_BEFORE_NOW_ERROR;
+            if (checkTimestampBeforeNow(test, isBeforeCheckRequired, userInput)) {
+                return TIMESTAMP_BEFORE_NOW_ERROR;
+            }
         } catch (DateTimeParseException e) {
             logger.info("Invalid timestamp format encountered: " + test);
             return PARSE_ERROR;
@@ -67,8 +68,8 @@ public class TimeStamp {
      * @param userInput in LocalDateTime which used to be check.
      * @return true if the timestamp is before now, otherwise, return false.
      */
-    private static boolean checkTimestampBeforeNow(String data, boolean isBeforeCheckRequired
-            , LocalDateTime userInput) {
+    private static boolean checkTimestampBeforeNow(String data, boolean isBeforeCheckRequired,
+                                                   LocalDateTime userInput) {
         if (isBeforeCheckRequired) {
             if (userInput.compareTo(LocalDateTime.now()) < 0) {
                 logger.info("Input timestamp cannot before current date and time: " + data);
