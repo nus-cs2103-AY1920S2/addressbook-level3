@@ -233,7 +233,7 @@ public interface Model {
 
     void updateMajor(Major major);
 
-//    ObservableValue<String> getMajor();
+    ObservableValue<String> getMajor();
 
     Profile getProfile();
 }

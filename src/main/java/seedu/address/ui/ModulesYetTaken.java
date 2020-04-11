@@ -3,7 +3,6 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.ModuleBook;
 import seedu.address.model.studentprofile.Profile;
 
 /**
@@ -31,7 +30,7 @@ public class ModulesYetTaken extends UiPart<Region> {
 
     public ModulesYetTaken(String asd) {
         super(FXML);
-        this.student = new Profile(new ModuleBook());
+        this.student = new Profile();
     }
 
     @Override

@@ -72,7 +72,7 @@ public class ModelManager implements Model {
         deadlineTaskList = new FilteredList<>(taskList);
         Task.setDeadlineTaskList(taskList);
         moduleListTaken = new FilteredList<>(moduleBook.getModulesTakenList());
-        studentProfile = new Profile(moduleBook);
+        studentProfile = new Profile();
     }
 
     public ModelManager() {
@@ -445,10 +445,10 @@ public class ModelManager implements Model {
     public void updateMajor(Major major) {
         studentProfile.setMajor(major);
     }
-//
-//    public ObservableValue<String> getMajor() {
-//        return studentProfile.getMajor();
-//    }
+
+    public ObservableValue<String> getMajor() {
+        return studentProfile.getMajor();
+    }
 
     public Profile getProfile() {
         return studentProfile;
