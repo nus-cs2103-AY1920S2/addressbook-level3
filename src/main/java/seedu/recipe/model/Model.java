@@ -14,6 +14,7 @@ import seedu.recipe.model.goal.GoalCount;
 import seedu.recipe.model.plan.Plan;
 import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
+import seedu.recipe.ui.tab.Tab;
 
 /**
  * The API of the Model component.
@@ -102,17 +103,17 @@ public interface Model {
     /**
      * Stores the new state of the RecipeBook when the RecipeBook undergoes a state change.
      */
-    void commitBook(CommandType commandType);
+    void commitBook(CommandType commandType, Tab tab);
 
     /**
      * Reverts the RecipeBook back by {@code numberOfUndo} states.
      */
-    void undoBook(int numberOfUndo, Model model);
+    Tab undoBook(int numberOfUndo, Model model);
 
     /**
      * Fast forwards the RecipeBook by {@code numberOfRedo} states.
      */
-    void redoBook(int numberOfRedo, Model model);
+    Tab redoBook(int numberOfRedo, Model model);
 
     /** Returns the PlannedBook */
     ReadOnlyPlannedBook getPlannedBook();

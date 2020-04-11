@@ -79,7 +79,7 @@ public class EditStepCommand extends Command {
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         model.updateFilteredPlannedList(PREDICATE_SHOW_ALL_PLANNED_RECIPES);
-        model.commitBook(commandType);
+        model.commitBook(commandType, recipesTab);
 
         String finalMessage = String.format(MESSAGE_EDIT_STEPS_SUCCESS, stepNumber + 1,
                 recipeToEdit.getName().toString());

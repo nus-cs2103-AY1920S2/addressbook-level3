@@ -64,7 +64,7 @@ public class CookedCommand extends Command {
             cookedMealsMessage.add(record.getName().toString());
             removePlanIfPresent(recipeCooked, model, removedPlansMessage);
         }
-        model.commitBook(commandType);
+        model.commitBook(commandType, goalsTab);
         return new CommandResult(formatSuccessMessage(cookedMealsMessage, removedPlansMessage),
                 false, false, goalsTab, false);
     }

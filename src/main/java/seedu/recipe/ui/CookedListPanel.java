@@ -48,6 +48,7 @@ public class CookedListPanel extends UiPart<Region> {
             int count = goalCount.getCount();
             pieChartData.add(new PieChart.Data(goalName, count));
         }
+
         pieChart.setTitle("My Healthy Plate");
         pieChart.setData(pieChartData);
     }

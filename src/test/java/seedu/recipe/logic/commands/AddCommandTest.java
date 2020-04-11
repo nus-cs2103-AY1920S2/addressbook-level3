@@ -34,6 +34,7 @@ import seedu.recipe.model.plan.PlannedRecipeMap;
 import seedu.recipe.model.recipe.Recipe;
 import seedu.recipe.model.recipe.RecipeBook;
 import seedu.recipe.testutil.RecipeBuilder;
+import seedu.recipe.ui.tab.Tab;
 
 public class AddCommandTest {
 
@@ -161,17 +162,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitBook(CommandType commandType) {
+        public void commitBook(CommandType commandType, Tab tab) {
             // throw new AssertionError("This method should not be called."); todo
         }
 
         @Override
-        public void undoBook(int numberOfUndo, Model model) {
+        public Tab undoBook(int numberOfUndo, Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoBook(int numberOfRedo, Model model) {
+        public Tab redoBook(int numberOfRedo, Model model) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -369,6 +370,4 @@ public class AddCommandTest {
             return new CookedRecordBook();
         }
     }
-
-
 }

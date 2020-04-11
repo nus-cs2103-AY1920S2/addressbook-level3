@@ -153,5 +153,16 @@
     "others" : [ ],
     "steps" : [ "fry the chicken" ],
     "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "fruit salad",
+    "time" : "10",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ "30.0g,  Apple", "40.0g,  Grapes,", "5.0cup,  Orange slices", "30.0g,  Pear", "30.0g,  Pineapple" ],
+    "others" : [ ],
+    "steps" : [ ],
+    "goals" : [ "Fruity Fiesta" ]
   } ]
 }
