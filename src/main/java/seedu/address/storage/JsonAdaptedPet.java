@@ -1,11 +1,10 @@
 package seedu.address.storage;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.InvalidPetException;
 import seedu.address.model.Pet;
@@ -21,7 +20,6 @@ class JsonAdaptedPet {
     public static final String INVALID_LEVEL_MESSAGE = "Invalid level input";
     public static final String INVALID_MOOD_MESSAGE = "Invalid mood input";
     public static final String INVALID_LASTDONETASKTIME_MESSAGE = "Invalid lastdonetasktime input";
-    
 
     private final String name;
     private final String exp;
@@ -61,8 +59,7 @@ class JsonAdaptedPet {
      */
     public ReadOnlyPet toModelType() throws IllegalValueException, InvalidPetException {
         if (name == null) {
-            throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
         if (!PetName.isValidPetName(name)) {
             throw new InvalidPetException(INVALID_PETNAME_MESSAGE);
@@ -70,23 +67,21 @@ class JsonAdaptedPet {
         final String modelName = name;
 
         if (level == null) {
-            throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "level"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "level"));
         }
 
-        if (! (level.equals("1") || level.equals("2") || level.equals("3"))) {
-            throw new InvalidPetException( INVALID_LEVEL_MESSAGE);
+        if (!(level.equals("1") || level.equals("2") || level.equals("3"))) {
+            throw new InvalidPetException(INVALID_LEVEL_MESSAGE);
         }
 
         final String modelLevel = level;
 
         if (exp == null) {
-            throw new IllegalValueException(
-            String.format(MISSING_FIELD_MESSAGE_FORMAT, "exp"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "exp"));
         }
 
         int expInt = Integer.parseInt(exp);
-        
+
         if (level.equals("1")) {
             if (!(expInt >= 0 && expInt < 100)) {
                 throw new InvalidPetException(INVALID_EXP_MESSAGE);
@@ -104,8 +99,7 @@ class JsonAdaptedPet {
         final String modelExp = exp;
 
         if (mood == null) {
-            throw new IllegalValueException(
-            String.format(MISSING_FIELD_MESSAGE_FORMAT, "mood"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "mood"));
         }
 
         if (!(mood.equals("HAPPY") || mood.equals("HANGRY"))) {

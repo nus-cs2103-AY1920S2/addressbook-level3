@@ -164,8 +164,7 @@ public class MainApp extends Application {
                     "Problem while reading from the file. Will be starting with an empty Pet");
             initialPet = new Pet();
         } catch (InvalidPetException e) {
-            logger.warning(
-                    String.format("%s. Will be starting with an empty Pet", e.toString()));
+            logger.warning(String.format("%s. Will be starting with an empty Pet", e.toString()));
             initialPet = new Pet();
         }
 

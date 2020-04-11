@@ -1,11 +1,9 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
 import seedu.address.model.InvalidPetException;
-import seedu.address.model.Pet;
 
 public class JsonAdaptedPetTest {
     public static final String INVALID_PET_NAME = "@.@";
@@ -27,65 +25,92 @@ public class JsonAdaptedPetTest {
 
     @Test
     public void toModelType_invalidPetName_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    INVALID_PET_NAME, VALID_EXP_EXP, VALID_EXP_LEVEL, VALID_MOOD, VALID_LASTDONETASKTIME);
+                        INVALID_PET_NAME,
+                        VALID_EXP_EXP,
+                        VALID_EXP_LEVEL,
+                        VALID_MOOD,
+                        VALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_PETNAME_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
 
     @Test
     public void toModelType_invalidLastDoneTaskTime_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    VALID_PET_NAME, VALID_EXP_EXP, VALID_EXP_LEVEL, VALID_MOOD, INVALID_LASTDONETASKTIME);
+                        VALID_PET_NAME,
+                        VALID_EXP_EXP,
+                        VALID_EXP_LEVEL,
+                        VALID_MOOD,
+                        INVALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_LASTDONETASKTIME_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
 
     @Test
     public void toModelType_invalidLevelLower_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    VALID_PET_NAME, VALID_EXP_EXP, INVALID_LEVEL_LOWER, VALID_MOOD, VALID_LASTDONETASKTIME);
+                        VALID_PET_NAME,
+                        VALID_EXP_EXP,
+                        INVALID_LEVEL_LOWER,
+                        VALID_MOOD,
+                        VALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_LEVEL_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
 
     @Test
     public void toModelType_invalidLevelUpper_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    VALID_PET_NAME, VALID_EXP_EXP, INVALID_LEVEL_UPPER, VALID_MOOD, VALID_LASTDONETASKTIME);
+                        VALID_PET_NAME,
+                        VALID_EXP_EXP,
+                        INVALID_LEVEL_UPPER,
+                        VALID_MOOD,
+                        VALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_LEVEL_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
 
     @Test
     public void toModelType_invalidExpFirst_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    VALID_PET_NAME, INVALID_EXP_EXP_FIRST, INVALID_EXP_LEVEL_FIRST, VALID_MOOD, VALID_LASTDONETASKTIME);
+                        VALID_PET_NAME,
+                        INVALID_EXP_EXP_FIRST,
+                        INVALID_EXP_LEVEL_FIRST,
+                        VALID_MOOD,
+                        VALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_EXP_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
 
     @Test
     public void toModelType_invalidExpSecond_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    VALID_PET_NAME, INVALID_EXP_EXP_SECOND, INVALID_EXP_LEVEL_SECOND, VALID_MOOD, VALID_LASTDONETASKTIME);
+                        VALID_PET_NAME,
+                        INVALID_EXP_EXP_SECOND,
+                        INVALID_EXP_LEVEL_SECOND,
+                        VALID_MOOD,
+                        VALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_EXP_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
 
     @Test
     public void toModelType_invalidMood_returnsInvalidPetException() {
-        JsonAdaptedPet adaptedPet = 
+        JsonAdaptedPet adaptedPet =
                 new JsonAdaptedPet(
-                    VALID_PET_NAME, VALID_EXP_EXP, VALID_EXP_LEVEL, INVALID_MOOD, VALID_LASTDONETASKTIME);
+                        VALID_PET_NAME,
+                        VALID_EXP_EXP,
+                        VALID_EXP_LEVEL,
+                        INVALID_MOOD,
+                        VALID_LASTDONETASKTIME);
         String expectedMessage = JsonAdaptedPet.INVALID_MOOD_MESSAGE;
         assertThrows(InvalidPetException.class, expectedMessage, adaptedPet::toModelType);
     }
-    
 }

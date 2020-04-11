@@ -21,10 +21,12 @@ public interface PetStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyPet> readPet() throws DataConversionException, IOException, InvalidPetException;
+    Optional<ReadOnlyPet> readPet()
+            throws DataConversionException, IOException, InvalidPetException;
 
     /** @see #getPetFilePath() */
-    Optional<ReadOnlyPet> readPet(Path filePath) throws DataConversionException, IOException, InvalidPetException;
+    Optional<ReadOnlyPet> readPet(Path filePath)
+            throws DataConversionException, IOException, InvalidPetException;
 
     /**
      * Saves the given {@link ReadOnlyPet} to the storage.

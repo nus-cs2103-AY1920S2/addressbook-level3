@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.InvalidPetException;
-import seedu.address.model.Pet;
 import seedu.address.model.ReadOnlyPet;
 
 /** A class to access TaskList data stored as a json file on the hard disk. */
@@ -41,7 +40,8 @@ public class JsonPetStorage implements PetStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyPet> readPet(Path filePath) throws DataConversionException, InvalidPetException {
+    public Optional<ReadOnlyPet> readPet(Path filePath)
+            throws DataConversionException, InvalidPetException {
         requireNonNull(filePath);
 
         Optional<JsonAdaptedPet> jsonPet = JsonUtil.readJsonFile(filePath, JsonAdaptedPet.class);

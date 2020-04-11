@@ -1,9 +1,6 @@
 package seedu.address.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
-import seedu.address.model.InvalidPetException;
 
 public class Pet implements ReadOnlyPet {
     private static final String DEFAULT_NAME = "BB";
@@ -31,7 +28,12 @@ public class Pet implements ReadOnlyPet {
     }
 
     public Pet(ReadOnlyPet source) throws InvalidPetException {
-        this(source.getName(), source.getExp(), source.getLevel(), source.getMood(), source.getLastDoneTaskTime());
+        this(
+                source.getName(),
+                source.getExp(),
+                source.getLevel(),
+                source.getMood(),
+                source.getLastDoneTaskTime());
     }
 
     public Pet() {

@@ -59,11 +59,11 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.setRecurringTimers();
-        
+
         Pet tempPet;
 
         try {
-            tempPet = new Pet(pet);  
+            tempPet = new Pet(pet);
         } catch (InvalidPetException e) {
             tempPet = new Pet();
             logger.info(e.toString());

@@ -92,7 +92,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyPet> readPet() throws DataConversionException, IOException, InvalidPetException {
+    public Optional<ReadOnlyPet> readPet()
+            throws DataConversionException, IOException, InvalidPetException {
         return readPet(petStorage.getPetFilePath());
     }
 

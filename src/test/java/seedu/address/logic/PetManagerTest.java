@@ -4,15 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.Test;
-
 import seedu.address.model.Pet;
 
 public class PetManagerTest {
     private final PetManager petManager = new PetManager();
 
-    @Test 
+    @Test
     public void incrementEXP_bydone() {
         Pet pet = new Pet();
         petManager.setPet(pet);
@@ -30,7 +28,13 @@ public class PetManagerTest {
 
     @Test
     public void updateLastDoneTime_success() {
-        Pet pet = new Pet("BB", "50", "1", "HAPPY", LocalDateTime.now().minus(Duration.ofMinutes(5)).toString());
+        Pet pet =
+                new Pet(
+                        "BB",
+                        "50",
+                        "1",
+                        "HAPPY",
+                        LocalDateTime.now().minus(Duration.ofMinutes(5)).toString());
         petManager.setPet(pet);
         petManager.updateLastDoneTaskWhenDone();
         assertTrue(LocalDateTime.now().toString().equals(pet.getLastDoneTaskTime()));
@@ -63,7 +67,7 @@ public class PetManagerTest {
         assertTrue(petManager.getPetImage().equals("/images/pet/level1.png"));
         assertTrue(petManager.getExpBarImage().equals("/images/progress/ProgressBar50%.png"));
     }
-    
+
     @Test
     public void updateDisplayElementsHangry_success() {
         Pet pet = new Pet("BB", "150", "2", "HANGRY", LocalDateTime.now().toString());
@@ -74,5 +78,4 @@ public class PetManagerTest {
         assertTrue(petManager.getPetImage().equals("/images/pet/level2hangry.png"));
         assertTrue(petManager.getExpBarImage().equals("/images/progress/ProgressBar50%.png"));
     }
-
 }
