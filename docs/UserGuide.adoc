@@ -330,8 +330,8 @@ BBProductive provides an avenue to remember to do time sensitive tasks in the fo
 Add a reminder to your task by adding `r/DD/MM/YY@HH:MM` when editing or adding a task. A pop up containing the task name and description will then appear reminding you to complete the task at the specified date and time.
 
 ==== Command `r/DD/MM/YY@HH:MM`
-===== Add Task with reminder 
-Add task with reminder with the following command `add n/<name> r/DD/MM/YY@HH:MM`. You can also include the other flags such as `t/`, `des/` and more. 
+===== Add Task with reminder
+Add task with reminder with the following command `add n/<name> r/DD/MM/YY@HH:MM`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `add n/Buy Milk r/11/11/20@23:59` as shown below.
 
@@ -343,8 +343,8 @@ Results in a task with the reminder's date in the task card.
 .Success for adding a task with reminder.
 image::reminder_add_success.png[width=790]
 
-===== Edit Task with reminder 
-Edit a task to include a reminder with the following command `edit <index> r/DD/MM/YY@HH:MM`. You can also include the other flags such as `t/`, `des/` and more. 
+===== Edit Task with reminder
+Edit a task to include a reminder with the following command `edit <index> r/DD/MM/YY@HH:MM`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `edit 1 r/01/11/20@11:59` as shown below.
 
@@ -365,8 +365,8 @@ Recurring tasks allows you to have repeated tasks either every day or every week
 Add a recurring attribute to your task by adding `rec/d` for daily recurring tasks or `rec/w` for weekly. This will trigger the recurring behaviour for the task including the task's done and reminder attribute.
 
 ===== Command `rec/d` or `rec/w`
-===== Add Task with recurring 
-Add task with recurring with the following command `add n/<name> rec/d` or `add n/<name> rec/w`. You can also include the other flags such as `t/`, `des/` and more. 
+===== Add Task with recurring
+Add task with recurring with the following command `add n/<name> rec/d` or `add n/<name> rec/w`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `add n/Buy Milk rec/d` as shown below.
 
@@ -378,8 +378,8 @@ Results in a task with the recurring attribute in the task card.
 .Success for adding recurring attribute to task.
 image::recurring_add_success.png[width=790]
 
-===== Edit Task with recurring 
-Edit a task to include a recurring with the following command `edit <index> rec/d` or `edit <index> rec/w`. You can also include the other flags such as `t/`, `des/` and more. 
+===== Edit Task with recurring
+Edit a task to include a recurring with the following command `edit <index> rec/d` or `edit <index> rec/w`. You can also include the other flags such as `t/`, `des/` and more.
 
 For example: `edit 1 rec/d` as shown below.
 
