@@ -11,14 +11,15 @@ public class Title {
     public static final String MESSAGE_CONSTRAINTS =
             "Titles should only contain alphanumeric characters, spaces and any of the following symbols: "
             + "!\"#$%&'()*+,.:;<=>?@[\\]^_`{|}~ "
-            + "Titles should also not be blank. No trailing or leading whitespaces.";
+            + "Titles should also not be blank. Title cannot start with a period character."
+            + "No trailing or leading whitespaces.";
 
     /*
      * The first character of the title must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX =
-        "([\\p{Alnum}\\p{Punct}&&[^\\/\\-]]+\\s+)*[\\p{Alnum}\\p{Punct}&&[^\\/\\-]]+";
+        "([\\p{Alnum}\\p{Punct}&&[^\\/\\-\\.]]+[\\.\\s]+)*[\\p{Alnum}\\p{Punct}&&[^\\/\\-\\.]]+";
 
     public final String blockTitle;
 
