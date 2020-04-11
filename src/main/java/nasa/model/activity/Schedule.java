@@ -139,6 +139,23 @@ public class Schedule {
     }
 
     /**
+     * Get type
+     */
+    public String typeInString() {
+        if (type == 0) {
+            return "-";
+        } else if (type == 1) {
+            return "WEEKLY";
+        } else if (type == 2) {
+            return "TWICE WEEKLY";
+        } else if (type == 3) {
+            return "MONTHLY";
+        } else {
+            return "-";
+        }
+    }
+
+    /**
      * Get next running date.
      * @return Date
      */

@@ -39,6 +39,7 @@ public class DeadlineListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Deadline deadline, boolean empty) {
             super.updateItem(deadline, empty);
+
             prefWidthProperty().bind(deadlineListView.widthProperty().subtract(10));
 
             if (empty || deadline == null) {

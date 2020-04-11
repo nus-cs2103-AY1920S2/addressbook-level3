@@ -338,6 +338,8 @@ Examples:
 ** `statistics at/deadline` +
 Displays statistics for all deadline activities.
 
+`Contributed by: EdmondOng`
+
 === Automating a activity: `repeat-d` or `repeat-e` [coming in v2.0]
 Allows user to repeat-d an activity from a module.
 Format: `repeat-d ITEM_INDEX m/MODULE_CODE r/INDEX`
@@ -360,6 +362,8 @@ Examples:
 ** `repeat-e 1 m/CS3233 r/2` to regenerate twice weekly.
 ** `repeat-e 1 m/CS3233 r/3` to regenerate monthly.
 
+`Contributed by: EdmondOng`
+
 === Quote: `quote`
 Allows user to generate a quote message. Aims to lighten the user day!
 The message will disappear within 5s.
@@ -373,6 +377,8 @@ Example :
 
 ** `quote` : “Limitations live only in our minds. But if we use our imaginations, our possibilities become limitless.” – Jamie Paolinetti
 
+`Contributed by: EdmondOng`
+
 === Undo: `undo`
 Allows user to undo previous action.
 
@@ -383,6 +389,8 @@ Format: `undo`
 Example :
 
 ** `undo` : "undo last action"
+
+`Contributed by: EdmondOng`
 
 === Redo: `redo`
 Allows user to redo previous action.
