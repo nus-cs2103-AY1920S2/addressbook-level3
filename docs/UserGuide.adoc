@@ -718,11 +718,11 @@ NOTE:
 * <frequency> must be one of the following: DAILY, WEEKLY, MONTHLY
 ```
 
-=== Managing Your Session Logs (In Progress)
-You have successfully gone through the whole process of managing your workouts and scheduling them, good job! To take it one step further, ZeroToOne also allows you to log your past completed workout completedExercises. Read on to learn how!
+=== Managing Your Session Logs
+Well done, you have successfully gone through the whole process of setting up your workouts, scheduling them and even logging the workout. In addition to all these cool features, ZeroToOne also allows you to manage your workout log history and even provides you with meaningful statistics to help you track your current progress to help you hit all those fitness goals.
 
 ==== Viewing your logs
-To view a list of all your logged past workout completedExercises, simply type the following command:
+To view a list of all your logged completed workout sessions, simply type the following command:
 
 ```
 log list
@@ -738,7 +738,7 @@ ZeroToOne will display a list of all the logged workout completedExercises you h
 We understand that viewing too many logs at once can be confusing at times, so finding a particular log can be difficult. In order to filter your logs by a search query, simply type the following command:
 
 ```
-log find {st/<datetime> | et/<datetime> | e/<exercise_name>}
+log find [st/<datetime>] [et/<datetime>] [e/<exercise_name>]
 ```
 
 [.example-use]
